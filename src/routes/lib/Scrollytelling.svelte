@@ -1,12 +1,15 @@
 <script>
-	import Scroller from './Scroller.svelte';
+	import Scroller from '@sveltejs/svelte-scroller';
 	import Map from './Map.svelte';
 	import data from './testdata';
 	import Gallery from './Gallery.svelte';
-	import Legend from './Legend.svelte';
+	import Legend from './legends/Legend.svelte';
+	import BuiltFormLegend from './legends/BuiltFormLegend.svelte';
+	import BusinessLegend from './legends/BusinessLegend.svelte';
+	import CivicLegend from './legends/CivicLegend.svelte';
 	import IsochroneCheckbox from './IsochroneCheckbox.svelte';
 
-	import { LineChart, BarChart, ColumnChart } from '@onsvisual/svelte-charts';
+	import { LineChart} from '@onsvisual/svelte-charts';
 	import RangeSlider from "svelte-range-slider-pips";
 
 	const galleryID = 'OverviewGallery';
@@ -28,6 +31,12 @@
 
 		// Add more image objects as needed
 	];
+
+	const gradients = {
+    business: 'linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a)',
+    popdensity: 'linear-gradient(to right, #00acf6, #00acf6, #0283bc, #016f9e, #004566, #012944)',
+    avgincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)'
+	  };
 
 	let count;
 	let index;
@@ -155,8 +164,8 @@
 				break;
 			case 6:
 				map.easeTo({
-					center: [-79.418, 43.64408],
-					zoom: 15,
+					center: [-79.422, 43.6441],
+					zoom: 14.7,
 					pitch: 0,
 					bearing: -14
 				});
@@ -173,7 +182,7 @@
 </script>
 
 <div class="demo">
-	<Scroller bind:count bind:index bind:progress splitscreen={false}>
+	<Scroller bind:count bind:index bind:progress>
 		<div slot="background">
 			<Map
 				bind:map
@@ -184,7 +193,6 @@
 					zoom: 1.8
 				}}
 			/>
-			<Legend/>
 		</div>
 
 		<div slot="foreground">
@@ -193,9 +201,12 @@
 					<h2>Overview</h2>
 					<p>West Queen West is located just outside the western edge of Toronto's downtown core. The main street begins at Bathurst Street in the east and extends to Dufferin Street in the west. Residents and visitors can easily access the popular Trinity Bellwoods Park for rest, recreation, and socialization.
 					</p>
-					<br><p>
+					<p>
 					Compared to the rest of the Toronto CMA, West Queen West is home to a higher rate of renters. Almost half of local residents are between the ages of 25 and 39, and are highly educated compared to the rest of the CMA. When comparing household incomes to the regional average, data analysis reveals a polarizing wealth disparity.
 				</p>
+				<Legend minlabel={'Low'} maxlabel={'High'} label={'Business Density'} gradient={gradients.business}/>
+				<Gallery {galleryID} {images} />
+
 				</div>
 			</section>
 			<section data-id="map2">
@@ -204,15 +215,13 @@
 					<p>
 						This  segment of Queen Street features four vehicular lanes, on-street parking, a streetcar line, bicycle posts, and cohesive BIA branding and street beautification. 
 					</p>
-					<Gallery {galleryID} {images} />
+					<BuiltFormLegend/>
 				</div>
 			</section>
 			<section data-id="map3">
 				<div class="col-medium">
 					<h2>Business Profile</h2>
 					<p>
-						Mix of main street businesses (3 types: Retail, Service, Food and Drink)
-						<br />
 						Option to add layer showing all other businesses including employment range
 						<br />
 						Pictures of typical local businesses and anchors
@@ -224,14 +233,14 @@
 					</p>
 					<hr>
 					<IsochroneCheckbox {map}/>
+					<hr>
+					<BusinessLegend/>
 				</div>
 			</section>
 			<section data-id="map4">
 				<div class="col-medium">
 					<h2>Civic Infrastructure</h2>
 					<p>
-						Civic infrastructure that highlights the local mix (5 types)
-						<br />
 						Pictures of key civic infrastructure
 						<br />
 						Text box highlighting key pieces of civic infrastructure and a sense of related programming
@@ -244,6 +253,8 @@
 					</p>
 					<hr>
 					<IsochroneCheckbox {map}/>
+					<hr>
+					<CivicLegend/>
 				</div>
 			</section>
 			<section data-id="map5">
@@ -264,10 +275,13 @@
 							xKey="year"
 							yKey="value"
 							areaOpacity={0.3}
-							title="Line chart with area"
-							footer="Source: Fictitious data, 2023."
+							title="Example Line chart with area"
+							footer="Source: Data Source, 2023."
 						/>
+					<hr>	
+					<Legend minlabel={'0'} maxlabel={'4070000'} label={'Population Density (people/sq.km)'} gradient={gradients.popdensity}/>
 				</div>
+
 			</section>
 			<section data-id="map6">
 				<div class="col-medium">
@@ -280,6 +294,8 @@
 						<br />
 						Text box with additional detail – especially on major ethnic groups
 					</p>
+					<hr>	
+					<Legend minlabel={'$0'} maxlabel={'$736000'} label={'Average Income (Census 2021)'} gradient={gradients.avgincome}/>
 				</div>
 			</section>
 			<section data-id="map7">

@@ -1,5 +1,6 @@
 <script>
     	import TableOfContents from './TableOfContents.svelte';
+        import Arrow from './Arrow.svelte';
 </script>
 
 <div class="blueprint">
@@ -14,7 +15,6 @@
     </div>
 
 <TableOfContents/>
-
 
 </div>
 
@@ -67,7 +67,7 @@
 .blueprint {
     width: 100%;
     max-width: 1920px;
-    height: calc(100vh - 20px);
+    height: calc(100vh - 100px);
     max-height: 1080px;
     background-color:var(--brandDarkBlue);
     background:linear-gradient(

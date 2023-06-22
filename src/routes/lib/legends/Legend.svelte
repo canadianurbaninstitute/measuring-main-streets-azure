@@ -1,20 +1,24 @@
+<script>
+	export let minlabel;
+  export let maxlabel;
+  export let label;
+  export let gradient;
+  //    background: linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a);
 
+</script>
 
 <div id="legend" class='legend'>
-    <!-- <h3>Legend</h3> -->
-    <div class=gradient-container>
-    <div class="regular-item">Business Density</div>
-    <div class="gradient-box"></div>
-    <span class="minlabel">Low</span>
-    <span class="maxlabel">High</span>
-    <hr>
-    <div class="regular-item"><span style="background-color: #ffdd33;  box-shadow:inset 0px 0px 0px 2px #c4ad37"></span>West Queen West</div>
-    </div>
+  <div class=gradient-container>
+  <div class="regular-item">{label}</div>
+  <div class="gradient-box" style="background:{gradient}"></div>
+  <span class="minlabel">{minlabel}</span>
+  <span class="maxlabel">{maxlabel}</span>
+  </div>
 </div>
 
 <style>
     .legend {
-    position: fixed;
+    position: relative;
     bottom:4%;
     right:10px;
     display: block;
@@ -47,7 +51,6 @@
 .gradient-box {
     width:100%;
     height: 10px;
-    background: linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a);
     margin-top: 5px;
     margin-bottom: 5px;
     /* border: 1px solid #000033; */

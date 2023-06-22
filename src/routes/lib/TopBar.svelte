@@ -6,6 +6,7 @@
 	<div id="logo">
 		<a href="https://www.canurb.org"><img src={logo} alt="Canadian Urban Institute"></a>
 	</div>
+	<h2>Measuring Main Streets / RKI</h2>
 
 </div>
 
@@ -17,6 +18,7 @@
 		width: 100%;
 		min-width: 200px;
 		display: flex;
+		align-items:center;
 	}
 
 	#logo {
@@ -41,4 +43,14 @@
 		opacity: 0.5;
 		cursor: pointer;
 	}
+
+	h2 {
+    margin: 0 auto;
+    font-family: 'Gelasio', serif;
+    font-weight: 400;
+    max-width: 450px;
+    font-size: 28px;
+    line-height: 30px;
+    color: var(--brandLightBlue);
+}
 </style>
