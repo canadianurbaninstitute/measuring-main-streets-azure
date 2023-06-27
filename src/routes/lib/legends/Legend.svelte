@@ -3,8 +3,6 @@
   export let maxlabel;
   export let label;
   export let gradient;
-  //    background: linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a);
-
 </script>
 
 <div id="legend" class='legend'>
@@ -19,29 +17,18 @@
 <style>
     .legend {
     position: relative;
-    bottom:4%;
-    right:10px;
     display: block;
-    background-color: #fff;
+    background-color: #eee;
     border-radius: 8px;
     font: 12px/20px 'Inter', sans-serif;
     padding: 10px;
     z-index: 1;
-    width:20vw;
 }
 
 .legend .regular-item {
     display:flex;
     flex-direction: row;
     align-items: center;
-}
-
-.legend div span {
-    border-radius: 2px;
-    display: inline-block;
-    height: 15px;
-    margin-right: 5px;
-    width: 15px;
 }
 
 .gradient-container {

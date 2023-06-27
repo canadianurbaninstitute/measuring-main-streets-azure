@@ -4,9 +4,7 @@
 	import data from './testdata';
 	import Gallery from './Gallery.svelte';
 	import Legend from './legends/Legend.svelte';
-	import BuiltFormLegend from './legends/BuiltFormLegend.svelte';
-	import BusinessLegend from './legends/BusinessLegend.svelte';
-	import CivicLegend from './legends/CivicLegend.svelte';
+	import LegendItem from './legends/LegendItem.svelte';
 	import IsochroneCheckbox from './IsochroneCheckbox.svelte';
 
 	import { LineChart} from '@onsvisual/svelte-charts';
@@ -171,6 +169,9 @@
 				});
 
 				if (map.isStyleLoaded()) {
+					map.setPaintProperty('employment-size', 'circle-opacity', 0.8);
+
+
 					map.setPaintProperty('averageincome', 'fill-opacity', 0);
 				}
 
@@ -205,6 +206,7 @@
 					Compared to the rest of the Toronto CMA, West Queen West is home to a higher rate of renters. Almost half of local residents are between the ages of 25 and 39, and are highly educated compared to the rest of the CMA. When comparing household incomes to the regional average, data analysis reveals a polarizing wealth disparity.
 				</p>
 				<Legend minlabel={'Low'} maxlabel={'High'} label={'Business Density'} gradient={gradients.business}/>
+				<LegendItem variant={"polygon"} label={'West Queen West'} bgcolor={'#ffdd33'} bordercolor={'#c4ad37'}/>
 				<Gallery {galleryID} {images} />
 
 				</div>
@@ -215,7 +217,10 @@
 					<p>
 						This  segment of Queen Street features four vehicular lanes, on-street parking, a streetcar line, bicycle posts, and cohesive BIA branding and street beautification. 
 					</p>
-					<BuiltFormLegend/>
+					<LegendItem variant={"polygon"} label={'West Queen West'} bgcolor={'#ffdd33'} bordercolor={'#c4ad37'}/>
+					<LegendItem variant={"polygon"} label={'Green Spaces'} bgcolor={'#007025'}/>
+					<LegendItem variant={"polygon"} label={'Buildings'} bgcolor={'#d4d4d4'} bordercolor={'#999797'}/>
+					<LegendItem variant={"line"} label={'Transit'} bordercolor={'#ff4242'}/>
 				</div>
 			</section>
 			<section data-id="map3">
@@ -234,7 +239,9 @@
 					<hr>
 					<IsochroneCheckbox {map}/>
 					<hr>
-					<BusinessLegend/>
+					<LegendItem variant={"circle"} label={'Retail'} bgcolor={'#f25a5a'} bordercolor={'#fff'}/>
+					<LegendItem variant={"circle"} label={'Services and Other'} bgcolor={'#2a5cac'} bordercolor={'#fff'}/>
+					<LegendItem variant={"circle"} label={'Food and Drink'} bgcolor={'#43b171'} bordercolor={'#fff'}/>
 				</div>
 			</section>
 			<section data-id="map4">
@@ -254,8 +261,12 @@
 					<hr>
 					<IsochroneCheckbox {map}/>
 					<hr>
-					<CivicLegend/>
-				</div>
+					<LegendItem variant={"circle"} label={'Arts and Culture'} bgcolor={'#8a6189'} bordercolor={'#fff'}/>
+					<LegendItem variant={"circle"} label={'Government and Community Services'} bgcolor={'#f97362'} bordercolor={'#fff'}/>
+					<LegendItem variant={"circle"} label={'Recreation and Facilities'} bgcolor={'#055e58'} bordercolor={'#fff'}/>
+					<LegendItem variant={"circle"} label={'Health and Care Facilities'} bgcolor={'#1b9ac2'} bordercolor={'#fff'}/>
+					<LegendItem variant={"circle"} label={'Education'} bgcolor={'#9c320d'} bordercolor={'#fff'}/>	
+					</div>
 			</section>
 			<section data-id="map5">
 				<div class="col-medium">
