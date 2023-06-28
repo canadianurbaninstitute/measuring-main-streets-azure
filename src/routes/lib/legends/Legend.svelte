@@ -18,10 +18,8 @@
     .legend {
     position: relative;
     display: block;
-    background-color: #eee;
-    border-radius: 8px;
+    background-color: #fff;
     font: 12px/20px 'Inter', sans-serif;
-    padding: 10px;
     z-index: 1;
 }
 
@@ -32,7 +30,7 @@
 }
 
 .gradient-container {
-    padding: 0px 5px 0px 5px;
+    padding: 0 0.2em 0.2em 0.2em;
 }
 
 .gradient-box {
@@ -52,7 +50,7 @@
   .maxlabel {
     font: 12px/20px 'Inter', sans-serif;
     position: absolute;
-    right: 15px;
+    right: 0.2em;
 
   }
 </style>
