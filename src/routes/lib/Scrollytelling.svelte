@@ -7,10 +7,9 @@
 	import LegendItem from './legends/LegendItem.svelte';
 	import IsochroneCheckbox from './IsochroneCheckbox.svelte';
 
-	import { LineChart } from '@onsvisual/svelte-charts';
+	import { LineChart, ColumnChart } from '@onsvisual/svelte-charts';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import EmploymentSizeCheckbox from './EmploymentSizeCheckbox.svelte';
-	import { createEventDispatcher } from 'svelte';
 
 	const galleryID = 'OverviewGallery';
 	const images = [
@@ -93,8 +92,8 @@
 					map.setPaintProperty('transit-toronto', 'line-opacity', 1);
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.8);
 
-					map.setPaintProperty('business-toronto', 'circle-opacity', 0);
-					map.setPaintProperty('business-toronto', 'circle-stroke-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto', 'circle-stroke-opacity', 0);
 				}
 
 				break;
@@ -192,23 +191,6 @@
 
 
 				break;
-			case 7:
-			map.easeTo({
-					center: [-79.422, 43.6441],
-					zoom: 14.7,
-					pitch: 0,
-					bearing: -14
-				});
-
-				if (map.isStyleLoaded()) {
-					map.setPaintProperty('employment-size', 'circle-opacity', 0.9);
-					map.setPaintProperty('visitors-2022', 'heatmap-opacity', 0);
-				}
-
-				
-
-			default:
-				console.log('default');
 		}
 	}
 </script>
@@ -302,8 +284,6 @@
 					</p>
 					<hr />
 					<IsochroneCheckbox {map} />
-					<br>
-					<EmploymentSizeCheckbox {map}/>
 					<hr />
 					<LegendItem
 						variant={'circle'}
@@ -355,6 +335,8 @@
 					</p>
 					<hr />
 					<IsochroneCheckbox {map} />
+					<br>
+					<EmploymentSizeCheckbox {map}/>
 					<hr />
 					<LegendItem
 						variant={'circle'}
@@ -441,38 +423,27 @@
 						Breakdown of weekday and time of day
 						<br />
 						Visitor demographics (compare to residents)
-						<br />
-						Add ability to view previous years as an option
 					</p>
 					<RangeSlider on:change={(e) => {
 						const year = e.detail.value
-if (year === 2021) {
-	if (map.isStyleLoaded()) {
-map.setPaintProperty('visitors-2021', 'heatmap-opacity', 1);
-map.setPaintProperty('visitors-2022', 'heatmap-opacity', 0);
-	}
-} else if (year === 2022) {
-	if (map.isStyleLoaded()) {
-map.setPaintProperty('visitors-2021', 'heatmap-opacity', 0);
-map.setPaintProperty('visitors-2022', 'heatmap-opacity', 1);
-}
-} else {
-// Handle invalid year values or other cases
-console.log('Invalid year:', year);
-}
+						if (map.isStyleLoaded()) {
+						const years = [2019, 2020, 2021, 2022];
+
+						years.forEach(y => {
+							const opacity = y === year ? 1 : 0;
+							map.setPaintProperty(`visitors-${y}`, 'heatmap-opacity', opacity);
+						});
+						} else {
+						console.log('Map style is not loaded.');
+						}
 					  }} bind:values min={2019} max={2022} pips all="label" />
 					<hr />
 					<Legend
-						minlabel={'Low'}
+						minlabel={'0'}
 						maxlabel={'High'}
 						label={'Home Location of Visitors (Number of Visits)'}
 						gradient={gradients.heatmap}
 					/>
-				</div>
-			</section>
-			<section data-id="map8">
-				<div class="col-medium">
-					<h2>Employment Profile</h2>
 				</div>
 			</section>
 		</div>

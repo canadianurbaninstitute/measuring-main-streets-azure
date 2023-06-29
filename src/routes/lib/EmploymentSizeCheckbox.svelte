@@ -7,17 +7,17 @@
   
     function toggleEmploymentSize() {
       if (map) {
-        const layerId = 'civicinfra-toronto';
+        const layerId = 'business-toronto';
         const zoom = isChecked ? 14.1 : 14.7;
         const opacity = isChecked ? 0.8 : 1;
         const radius = isChecked ? [
           'step',
           ['get', 'empsize_EmpSzNm'],
-          5, 2,
-          10, 8,
-          50, 15,
-          100, 20,
-          1000, 25,
+          5, 5,
+          8, 10,
+          15, 50,
+          20, 100,
+          25, 1000,
           5
         ] : 5;
         map.setPaintProperty(layerId, 'circle-radius', radius);
