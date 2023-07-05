@@ -6,9 +6,6 @@
 </script>
 
 <div class="legend-item"><span class={variant} style="background-color: {bgcolor};  box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"></span>{label}</div>
-<!-- <div class="regular-item"><span style="background-color: #007025"></span>Green Spaces</div>
-<div class="regular-item"><span style="background-color: #ff4242"></span>Transit</div>
-<div class="regular-item"><span style="background-color: #d4d4d4;  box-shadow:inset 0px 0px 0px 2px #999797"></span>Buildings</div> -->
 
 <style>
 
