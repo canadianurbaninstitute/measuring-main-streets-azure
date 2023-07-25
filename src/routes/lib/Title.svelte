@@ -1,6 +1,5 @@
 <script>
     	import TableOfContents from './TableOfContents.svelte';
-        import Arrow from './Arrow.svelte';
 </script>
 
 <div class="blueprint">
@@ -70,10 +69,10 @@
     height: calc(100vh - 100px);
     max-height: 1080px;
     background-color:var(--brandDarkBlue);
-    background:linear-gradient(
+    /* background:linear-gradient(
       rgba(0, 42, 65, 0.85), 
       rgba(0, 42, 65, 0.85)
-    ), url('https://i.imgur.com/2U00OqL.png');
+    ), url('https://i.imgur.com/2U00OqL.png'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

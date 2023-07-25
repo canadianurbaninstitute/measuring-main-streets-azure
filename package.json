@@ -38,6 +38,6 @@
     "@onsvisual/svelte-charts": "^0.2.13",
     "@sveltejs/svelte-scroller": "^2.0.7",
     "mapbox-gl": "^2.15.0",
-    "photoswipe": "^5.3.7"
+    "photoswipe": "^5.3.8"
   }
 }

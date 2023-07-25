@@ -2,13 +2,13 @@
     import { onMount } from 'svelte';
   
     export let map;
-    export let layer;
+    export let layers = [];
   
     let isChecked = false;
   
     function toggleEmploymentSize() {
       if (map) {
-        const layerId = layer;
+        const layerList = layers;
         const zoom = isChecked ? 14.1 : 14.7;
         const opacity = isChecked ? 0.8 : 1;
         const radius = isChecked ? [
@@ -21,8 +21,14 @@
           25, 1000,
           5
         ] : 5;
-        map.setPaintProperty(layerId, 'circle-radius', radius);
-        map.setPaintProperty(layerId, 'circle-opacity', opacity);
+
+        for (let i = 0; i < layerList.length; i++) {
+          const layerId = layerList[i];
+          map.setPaintProperty(layerId, 'circle-radius', radius);
+          map.setPaintProperty(layerId, 'circle-opacity', opacity);
+        }
+                
+       
         map.easeTo({zoom})
       }
     }

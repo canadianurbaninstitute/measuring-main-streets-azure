@@ -1,12 +1,13 @@
 <script>
 	import Scroller from '@sveltejs/svelte-scroller';
 	import Map from './Map.svelte';
-	import data from './testdata';
+	import housingtype from './data/housingtype';
+	import housingconstruction from './data/housingconstruction';
 	import Gallery from './Gallery.svelte';
 	import Legend from './legends/Legend.svelte';
 	import LegendItem from './legends/LegendItem.svelte';
 	import IsochroneCheckbox from './IsochroneCheckbox.svelte';
-	import { LineChart, ColumnChart } from '@onsvisual/svelte-charts';
+	import {ColumnChart } from '@onsvisual/svelte-charts';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import EmploymentSizeCheckbox from './EmploymentSizeCheckbox.svelte';
 	import mapboxgl from 'mapbox-gl';
@@ -31,12 +32,12 @@
 
 	const gradients = {
 		civic: 'linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a)',
-		popdensity: 'linear-gradient(to right, #00acf6, #00acf6, #0283bc, #016f9e, #004566, #012944)',
+		popdensity: 'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)',
 		avgincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)',
 		heatmap: 'linear-gradient(to right, #0000ff, royalblue, cyan, lime, yellow, red)'
 	};
 
-	const zoomlabels = ['Street', 'Neighbourhood', 'Region'];
+	const zoomlabels = ['Region', 'City', 'Area', 'Neighbourhood', 'Street'];
 
 	let count;
 	let index;
@@ -77,7 +78,8 @@
 				source: 'point', // reference the data source
 				layout: {
 					'icon-image': 'cat', // reference the image
-					'icon-size': 0.25
+					'icon-size': 0.25,
+					'visibility': 'none'
 				}
 			});
 		});
@@ -133,9 +135,9 @@
 					map.setPaintProperty('transit-toronto', 'line-opacity', 0);
 					map.setPaintProperty('transit-toronto-stops', 'circle-opacity', 0);
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0);
-				}
+					map.setLayoutProperty('points', 'visibility', 'none');
 
-				// legendContainer.innerHTML = "<Legend minlabel={'Low'} maxlabel={'High'} label={'Business Density'} gradient={gradients.business}/>"
+				}
 
 				break;
 			case 1:
@@ -153,9 +155,23 @@
 					map.setPaintProperty('transit-toronto', 'line-opacity', 1);
 					map.setPaintProperty('transit-toronto-stops', 'circle-opacity', 1);
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.8);
+					map.setLayoutProperty('points', 'visibility', 'visible');
 
-					map.setPaintProperty('civicinfra-toronto', 'circle-opacity', 0);
-					map.setPaintProperty('civicinfra-toronto', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-education', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-education', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-govt-community', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-govt-community', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-health', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-health', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-arts-culture', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-arts-culture', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-stroke-opacity', 0);
 				}
 
 				break;
@@ -168,8 +184,24 @@
 				});
 
 				if (map.isStyleLoaded()) {
-					map.setPaintProperty('civicinfra-toronto', 'circle-opacity', 1);
-					map.setPaintProperty('civicinfra-toronto', 'circle-stroke-opacity', 1);
+
+
+					// Civic Infra
+
+					map.setPaintProperty('civicinfra-toronto-education', 'circle-opacity', 1);
+					map.setPaintProperty('civicinfra-toronto-education', 'circle-stroke-opacity', 1);
+
+					map.setPaintProperty('civicinfra-toronto-govt-community', 'circle-opacity', 1);
+					map.setPaintProperty('civicinfra-toronto-govt-community', 'circle-stroke-opacity', 1);
+
+					map.setPaintProperty('civicinfra-toronto-health', 'circle-opacity', 1);
+					map.setPaintProperty('civicinfra-toronto-health', 'circle-stroke-opacity', 1);
+
+					map.setPaintProperty('civicinfra-toronto-arts-culture', 'circle-opacity', 1);
+					map.setPaintProperty('civicinfra-toronto-arts-culture', 'circle-stroke-opacity', 1);
+
+					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-opacity', 1);
+					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-stroke-opacity', 1);
 
 					map.setPaintProperty('greenspaces', 'fill-opacity', 0);
 					map.setPaintProperty('transit-toronto', 'line-opacity', 0);
@@ -177,6 +209,8 @@
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0);
 					map.setPaintProperty('business-toronto', 'circle-opacity', 0);
 					map.setPaintProperty('business-toronto', 'circle-stroke-opacity', 0);
+					map.setLayoutProperty('points', 'visibility', 'none');
+
 				}
 
 				break;
@@ -192,8 +226,22 @@
 					map.setPaintProperty('business-toronto', 'circle-opacity', 1);
 					map.setPaintProperty('business-toronto', 'circle-stroke-opacity', 1);
 
-					map.setPaintProperty('civicinfra-toronto', 'circle-opacity', 0);
-					map.setPaintProperty('civicinfra-toronto', 'circle-stroke-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-education', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-education', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-govt-community', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-govt-community', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-health', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-health', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-arts-culture', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-arts-culture', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-opacity', 0);
+					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-stroke-opacity', 0);
+
+
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
 					map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 				}
@@ -215,25 +263,31 @@
 					map.setPaintProperty('business-toronto', 'circle-stroke-opacity', 0);
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0);
 					map.setPaintProperty('westqueenwest-outline', 'line-opacity', 0);
+					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0);
+
 				}
 
 				break;
 			case 5:
 				map.easeTo({
-					center: [-79.422, 43.6441],
-					zoom: 14.7,
-					pitch: 0,
-					bearing: -14
+					center: [-79.410, 43.646],
+					zoom: 15,
+					pitch: 20,
+					bearing: -14,
+					duration: 2000
 				});
 
 				if (map.isStyleLoaded()) {
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0.95);
 					map.setPaintProperty('westqueenwest-outline', 'line-opacity', 1);
+					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.4);
+
 
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
 					map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 					map.setPaintProperty('averageincome', 'fill-opacity', 0);
-				}
+					}
+					
 
 				break;
 			case 6:
@@ -249,7 +303,8 @@
 
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0);
 					map.setPaintProperty('visitors-2022', 'heatmap-opacity', 0);
-					//map.setPaintProperty('employment-size', 'circle-opacity', 0);
+					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0);
+
 				}
 
 				break;
@@ -293,8 +348,7 @@
 			<section data-id="map1">
 				<div class="col-medium">
 					<h2>Overview</h2>
-					<Gallery {galleryID} {images} />
-					<hr />
+					<!-- <Gallery {galleryID} {images} /> -->
 					<Legend
 						minlabel={'Low'}
 						maxlabel={'High'}
@@ -331,40 +385,51 @@
 			<section data-id="map3">
 				<div class="col-medium">
 					<h2>Civic Infrastructure</h2>
-					<hr />
 					<IsochroneCheckbox {map} />
 					<br />
-					<EmploymentSizeCheckbox {map} layer={'civicinfra-toronto'} />
+					<EmploymentSizeCheckbox {map} layers={['civicinfra-toronto-education', 'civicinfra-toronto-govt-community', 'civicinfra-toronto-arts-culture', 'civicinfra-toronto-education', 'civicinfra-toronto-recreation']} />
 					<hr />
 					<LegendItem
 						variant={'circle'}
 						label={'Arts and Culture'}
 						bgcolor={'#8a6189'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'civicinfra-toronto-arts-culture'}
 					/>
 					<LegendItem
 						variant={'circle'}
 						label={'Government and Community Services'}
 						bgcolor={'#f97362'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'civicinfra-toronto-govt-community'}
 					/>
 					<LegendItem
 						variant={'circle'}
 						label={'Recreation and Facilities'}
 						bgcolor={'#055e58'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'civicinfra-toronto-recreation'}
+
 					/>
 					<LegendItem
 						variant={'circle'}
 						label={'Health and Care Facilities'}
 						bgcolor={'#1b9ac2'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'civicinfra-toronto-health'}
+
 					/>
 					<LegendItem
 						variant={'circle'}
 						label={'Education'}
 						bgcolor={'#9c320d'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'civicinfra-toronto-education'}
 					/>
 				</div>
 			</section>
@@ -398,7 +463,6 @@
 			<section data-id="map5">
 				<div class="col-medium">
 					<h2>Employment Profile</h2>
-					<hr />
 					<LegendItem
 						variant={'circle'}
 						label={'Civic Infrastructure'}
@@ -423,6 +487,10 @@
 						label={'Population Density (people/sq.km)'}
 						gradient={gradients.popdensity}
 					/>
+					<ColumnChart data={housingtype} xKey="housingtype" yKey="percentage" zKey="area" mode="grouped" title="Housing Type" legend/>
+					<hr>
+					<ColumnChart data={housingconstruction} xKey="constructionyear" yKey="percentage" zKey="area" mode="grouped" title="Housing Year" legend/>
+
 				</div>
 			</section>
 			<section data-id="map7">
@@ -439,6 +507,8 @@
 			<section data-id="map8">
 				<div class="col-medium">
 					<h2>Visitors</h2>
+					<h4>Year</h4>
+
 					<RangeSlider
 						on:change={(e) => {
 							const year = e.detail.value;
@@ -448,6 +518,8 @@
 								years.forEach((y) => {
 									const opacity = y === year ? 1 : 0;
 									map.setPaintProperty(`visitors-${y}`, 'heatmap-opacity', opacity);
+									const expression = map.getPaintProperty(`visitors-${y}`, 'heatmap-weight');
+									console.log(expression);
 								});
 							} else {
 								console.log('Map style is not loaded.');
@@ -460,21 +532,24 @@
 						all="label"
 					/>
 					<hr />
+					<h4>Zoom</h4>
 					<RangeSlider
 						on:change={(e) => {
-							const zoom = e.detail.value;
+							const zoomvalues = {0: 10, 1: 11, 2: 12, 3: 13, 4:14.5}
+							const zoom = zoomvalues[e.detail.value];
+							console.log(zoom)
 							map.easeTo({
 								center: [-79.417, 43.6441],
 								zoom: zoom
 							});
 						}}
-						values={[10]}
+						values={[zoomlabels[0]]}
 						pips
 						first="label"
 						last="label"
-						min={10}
-						max={15}
+						formatter={ v => zoomlabels[v] } max={zoomlabels.length-1}
 					/>
+					<hr/>
 					<Legend
 						minlabel={'0'}
 						maxlabel={'High'}
@@ -488,11 +563,11 @@
 </div>
 
 <style>
-	/* .container {
+	.container {
 		padding: 0;
 		position: relative;
 		pointer-events: all;
-	} */
+	}
 
 	[slot='background'] {
 		font-size: 1.4em;
@@ -522,7 +597,8 @@
 	}
 
 	h2 {
-		padding-top: 20px;
+		padding-top: 0.4em;
+		padding-bottom: 0.4em;
 		margin: 0 auto;
 		font-family: 'Gelasio', serif;
 		font-weight: 400;
@@ -530,6 +606,12 @@
 		font-size: 28px;
 		line-height: 30px;
 		color: var(--brandLightBlue);
+	}
+
+	h4 {
+		margin: 0 auto;
+		font-family: 'Gelasio', serif;
+		color: var(--brandDarkBlue);
 	}
 
 	#legend-container {
@@ -543,4 +625,9 @@
 		padding: 10px;
 		z-index: 1;
 	}
+
+
+
 </style>
+
+

@@ -2,6 +2,8 @@
 	import { setContext, createEventDispatcher, onMount, onDestroy } from "svelte";
     import mapboxgl from "mapbox-gl";
 	const dispatch = createEventDispatcher();
+	import { mapStore } from './mapStore'; // Import the mapStore
+
 	
     export let map;
 	export let id = "map";
@@ -63,6 +65,8 @@
 			interactive,
 			..._options,
 		});
+
+		mapStore.set(map);
 		
 		// Get initial zoom level
 		map.on("load", (e) => {

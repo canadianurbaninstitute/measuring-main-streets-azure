@@ -1,5 +1,5 @@
 :root {
-    font-family: Roboto, sans-serif;
+    font-family: Inter, sans-serif;
     --brandDarkBlue: #002a41;
     --brandLightBlue: #0098D6;
     --brandRed: #ab1269; 
@@ -34,4 +34,9 @@ main {
 
 svelte-scroller-foreground.svelte-xdbafy {
     max-width: fit-content;
+}
+
+.mapboxgl-popup-content {
+    width: fit-content;
+    padding: 2em;
 }
