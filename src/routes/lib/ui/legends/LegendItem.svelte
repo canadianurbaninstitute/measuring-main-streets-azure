@@ -6,7 +6,7 @@
   export let id;
   export let button = false;
 
-  import { mapStore } from '../mapStore'; // Import the mapStore
+  import { mapStore } from '../../mapStore'; // Import the mapStore
 
 let map;
 
@@ -15,6 +15,7 @@ mapStore.subscribe(value => {
   map = value;
 });
 
+let layerActive = true;
 
 function toggleLayerVisibility() {
   let visibilitystatus = map.getLayoutProperty(id, 'visibility');
@@ -22,15 +23,17 @@ function toggleLayerVisibility() {
 
   if (visibilitystatus === 'visible' | visibilitystatus === undefined) {
         map.setLayoutProperty(id, 'visibility', 'none');
+        layerActive = false;
       } else {
         map.setLayoutProperty(id, 'visibility', 'visible');
+        layerActive = true;
       }
     	}
 
 </script>
 
 {#if button}
-<button on:click={toggleLayerVisibility}><div class="legend-item" id={id}><span class={variant} style="background-color: {bgcolor};  box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"></span>{label}</div></button>
+<button class="{layerActive ? 'layerOn' : 'layerOff'}" on:click={toggleLayerVisibility}><div class="legend-item" id={id}><span class={variant} style="background-color: {bgcolor};  box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"></span>{label}</div></button>
 {:else}
 <div class="legend-item"><span class={variant} style="background-color: {bgcolor};  box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"></span>{label}</div>
 {/if}
@@ -38,10 +41,10 @@ function toggleLayerVisibility() {
 <style>
 
 .legend-item {
-    padding: 0.4em;
+    padding: 0.3em;
     display: flex;
     align-items: center;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 .polygon {
@@ -72,13 +75,34 @@ function toggleLayerVisibility() {
 }
 
 button {
-  background-color: #fff;
-  border-radius: 0.2em;
-  display:flex;
-  margin:0.4em;
+    border: 1px solid rgba(28, 32, 36, 0.302);
+    background-color: rgb(250, 251, 252);
+    border-radius: 0.5em;
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+    opacity: 1;
+    margin-top: 0.5em;
+    width: 100%;
+    display: flex;
+    padding: 0.2em;
+}
+
+.layerOn {
+  opacity: 1;
+}
+
+.layerOff {
+  opacity: 0.6;
+  border: 1px dashed rgba(27, 31, 35, 0.3);
 }
 
 button:hover {
   cursor: pointer;
+  box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04), inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
+  background-color: #f3f4f6;
+}
+
+button:active {
+  box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04), inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25), 0px 1px 0px 0px rgba(225, 228, 232, 0.2);
+  background-color: #edeff2;
 }
 </style>

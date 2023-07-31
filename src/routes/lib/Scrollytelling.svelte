@@ -4,13 +4,14 @@
 	import housingtype from './data/housingtype';
 	import housingconstruction from './data/housingconstruction';
 	import Gallery from './Gallery.svelte';
-	import Legend from './legends/Legend.svelte';
-	import LegendItem from './legends/LegendItem.svelte';
-	import IsochroneCheckbox from './IsochroneCheckbox.svelte';
+	import Legend from './ui/legends/Legend.svelte';
+	import LegendItem from './ui/legends/LegendItem.svelte';
+	import IsochroneCheckbox from './ui/checkbox/IsochroneCheckbox.svelte';
 	import {ColumnChart } from '@onsvisual/svelte-charts';
 	import RangeSlider from 'svelte-range-slider-pips';
-	import EmploymentSizeCheckbox from './EmploymentSizeCheckbox.svelte';
+	import EmploymentSizeCheckbox from './ui/checkbox/EmploymentSizeCheckbox.svelte';
 	import mapboxgl from 'mapbox-gl';
+	import Dropdown from './ui/Dropdown.svelte';
 
 	const galleryID = 'OverviewGallery';
 	const images = [
@@ -203,12 +204,21 @@
 					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-opacity', 1);
 					map.setPaintProperty('civicinfra-toronto-recreation', 'circle-stroke-opacity', 1);
 
+					// Business
+
+					map.setPaintProperty('business-toronto-retail', 'circle-opacity', 0);
+					map.setPaintProperty('business-toronto-retail', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('business-toronto-food-drink', 'circle-opacity', 0);
+					map.setPaintProperty('business-toronto-food-drink', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('business-toronto-services', 'circle-opacity', 0);
+					map.setPaintProperty('business-toronto-services', 'circle-stroke-opacity', 0);
+
 					map.setPaintProperty('greenspaces', 'fill-opacity', 0);
 					map.setPaintProperty('transit-toronto', 'line-opacity', 0);
 					map.setPaintProperty('transit-toronto-stops', 'circle-opacity', 0);
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0);
-					map.setPaintProperty('business-toronto', 'circle-opacity', 0);
-					map.setPaintProperty('business-toronto', 'circle-stroke-opacity', 0);
 					map.setLayoutProperty('points', 'visibility', 'none');
 
 				}
@@ -223,8 +233,19 @@
 				});
 
 				if (map.isStyleLoaded()) {
-					map.setPaintProperty('business-toronto', 'circle-opacity', 1);
-					map.setPaintProperty('business-toronto', 'circle-stroke-opacity', 1);
+
+					// Business
+
+					map.setPaintProperty('business-toronto-retail', 'circle-opacity', 1);
+					map.setPaintProperty('business-toronto-retail', 'circle-stroke-opacity', 1);
+
+					map.setPaintProperty('business-toronto-food-drink', 'circle-opacity', 1);
+					map.setPaintProperty('business-toronto-food-drink', 'circle-stroke-opacity', 1);
+					
+					map.setPaintProperty('business-toronto-services', 'circle-opacity', 1);
+					map.setPaintProperty('business-toronto-services', 'circle-stroke-opacity', 1);
+
+					// Civic Infra
 
 					map.setPaintProperty('civicinfra-toronto-education', 'circle-opacity', 0);
 					map.setPaintProperty('civicinfra-toronto-education', 'circle-stroke-opacity', 0);
@@ -256,11 +277,21 @@
 				});
 
 				if (map.isStyleLoaded()) {
+
 					map.setPaintProperty('employment-size', 'circle-opacity', 1);
 					map.setPaintProperty('employment-size', 'circle-stroke-opacity', 1);
 
-					map.setPaintProperty('business-toronto', 'circle-opacity', 0);
-					map.setPaintProperty('business-toronto', 'circle-stroke-opacity', 0);
+					// Business
+
+					map.setPaintProperty('business-toronto-retail', 'circle-opacity', 0);
+					map.setPaintProperty('business-toronto-retail', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('business-toronto-food-drink', 'circle-opacity', 0);
+					map.setPaintProperty('business-toronto-food-drink', 'circle-stroke-opacity', 0);
+
+					map.setPaintProperty('business-toronto-services', 'circle-opacity', 0);
+					map.setPaintProperty('business-toronto-services', 'circle-stroke-opacity', 0);
+
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0);
 					map.setPaintProperty('westqueenwest-outline', 'line-opacity', 0);
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0);
@@ -341,7 +372,6 @@
 					zoom: 1.8
 				}}
 			/>
-			<div id="legend-container" />
 		</div>
 
 		<div slot="foreground">
@@ -372,7 +402,7 @@
 						bgcolor={'#ffdd33'}
 						bordercolor={'#c4ad37'}
 					/>
-					<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+					<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#297A4F'} />
 					<LegendItem
 						variant={'polygon'}
 						label={'Buildings'}
@@ -385,14 +415,11 @@
 			<section data-id="map3">
 				<div class="col-medium">
 					<h2>Civic Infrastructure</h2>
-					<IsochroneCheckbox {map} />
-					<br />
-					<EmploymentSizeCheckbox {map} layers={['civicinfra-toronto-education', 'civicinfra-toronto-govt-community', 'civicinfra-toronto-arts-culture', 'civicinfra-toronto-education', 'civicinfra-toronto-recreation']} />
-					<hr />
+					<i><small>Click on a layer to turn it on or off</small></i>
 					<LegendItem
 						variant={'circle'}
 						label={'Arts and Culture'}
-						bgcolor={'#8a6189'}
+						bgcolor={'#DB3069'}
 						bordercolor={'#fff'}
 						button={true}
 						id={'civicinfra-toronto-arts-culture'}
@@ -400,7 +427,7 @@
 					<LegendItem
 						variant={'circle'}
 						label={'Government and Community Services'}
-						bgcolor={'#f97362'}
+						bgcolor={'#8A4285'}
 						bordercolor={'#fff'}
 						button={true}
 						id={'civicinfra-toronto-govt-community'}
@@ -408,7 +435,7 @@
 					<LegendItem
 						variant={'circle'}
 						label={'Recreation and Facilities'}
-						bgcolor={'#055e58'}
+						bgcolor={'#43B171'}
 						bordercolor={'#fff'}
 						button={true}
 						id={'civicinfra-toronto-recreation'}
@@ -417,7 +444,7 @@
 					<LegendItem
 						variant={'circle'}
 						label={'Health and Care Facilities'}
-						bgcolor={'#1b9ac2'}
+						bgcolor={'#33AED7'}
 						bordercolor={'#fff'}
 						button={true}
 						id={'civicinfra-toronto-health'}
@@ -426,38 +453,50 @@
 					<LegendItem
 						variant={'circle'}
 						label={'Education'}
-						bgcolor={'#9c320d'}
+						bgcolor={'#F45D01'}
 						bordercolor={'#fff'}
 						button={true}
 						id={'civicinfra-toronto-education'}
 					/>
+					<div class="controls">
+					<IsochroneCheckbox {map} />
+					<EmploymentSizeCheckbox {map} layers={['civicinfra-toronto-education', 'civicinfra-toronto-govt-community', 'civicinfra-toronto-arts-culture', 'civicinfra-toronto-education', 'civicinfra-toronto-recreation']} />
+					</div>
 				</div>
 			</section>
 			<section data-id="map4">
 				<div class="col-medium">
 					<h2>Business Profile</h2>
-					<IsochroneCheckbox {map} />
-					<br />
-					<EmploymentSizeCheckbox {map} layer={'business-toronto'} />
-					<hr />
+					<i><small>Click on a layer to turn it on or off</small></i>
+
 					<LegendItem
 						variant={'circle'}
 						label={'Retail'}
-						bgcolor={'#f25a5a'}
+						bgcolor={'#F13737'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'business-toronto-retail'}
 					/>
 					<LegendItem
 						variant={'circle'}
 						label={'Services and Other'}
 						bgcolor={'#2a5cac'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'business-toronto-services'}
 					/>
 					<LegendItem
 						variant={'circle'}
 						label={'Food and Drink'}
-						bgcolor={'#43b171'}
+						bgcolor={'#297A4F'}
 						bordercolor={'#fff'}
+						button={true}
+						id={'business-toronto-food-drink'}
 					/>
+					<div class="controls">
+					<IsochroneCheckbox {map} />
+					<EmploymentSizeCheckbox {map} layers={['business-toronto-retail', 'business-toronto-services', 'business-toronto-food-drink']} />
+					</div>
 				</div>
 			</section>
 			<section data-id="map5">
@@ -466,16 +505,16 @@
 					<LegendItem
 						variant={'circle'}
 						label={'Civic Infrastructure'}
-						bgcolor={'#055e58'}
+						bgcolor={'#db3069'}
 						bordercolor={'#fff'}
 					/>
 					<LegendItem
 						variant={'circle'}
 						label={'Businesses'}
-						bgcolor={'#8a6189'}
+						bgcolor={'#2a5cac'}
 						bordercolor={'#fff'}
 					/>
-					<LegendItem variant={'circle'} label={'Other'} bgcolor={'#f97362'} bordercolor={'#fff'} />
+					<LegendItem variant={'circle'} label={'Other'} bgcolor={'#b0b0b0'} bordercolor={'#fff'} />
 				</div>
 			</section>
 			<section data-id="map6">
@@ -496,6 +535,7 @@
 			<section data-id="map7">
 				<div class="col-medium">
 					<h2>Demographics</h2>
+					<Dropdown/>
 					<Legend
 						minlabel={'$0'}
 						maxlabel={'$736000'}
@@ -614,16 +654,13 @@
 		color: var(--brandDarkBlue);
 	}
 
-	#legend-container {
-		position: fixed;
-		display: block;
-		right: 20px;
-		bottom: 20px;
-		background-color: #fff;
-		border-radius: 8px;
-		font: 12px/20px 'Inter', sans-serif;
-		padding: 10px;
-		z-index: 1;
+
+
+	.controls {
+		display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.6em;
 	}
 
 

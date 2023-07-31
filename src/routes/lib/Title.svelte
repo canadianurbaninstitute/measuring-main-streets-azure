@@ -1,5 +1,6 @@
 <script>
     	import TableOfContents from './TableOfContents.svelte';
+        import Arrow from './ui/Arrow.svelte';
 </script>
 
 <div class="blueprint">
@@ -13,7 +14,12 @@
         </h2>
     </div>
 
+    <Arrow/>
+
 <TableOfContents/>
+
+
+
 
 </div>
 
