@@ -15,7 +15,7 @@
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
 	
-	export let style = 'mapbox://styles/ananmay/clilulw4v002t01pgahq9d88q?&fresh=true';
+	export let style = 'mapbox://styles/ananmay/clilulw4v002t01pgahq9d88q?&fresh=true?optimize=true';
 	export let options = {};
 	export let minzoom = 0;
 	export let maxzoom = 15;

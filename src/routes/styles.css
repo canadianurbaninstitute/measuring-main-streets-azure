@@ -2,8 +2,20 @@
     font-family: Inter, sans-serif;
     --brandDarkBlue: #002a41;
     --brandLightBlue: #0098D6;
+
     --brandRed: #ab1269; 
     --brandYellow: #F1C500;
+
+    --range-slider:          #dadcdc; /* slider main background color */
+    --range-handle-inactive: #dadcdc; /* inactive handle color */
+    --range-handle:          var(--brandLightBlue); /* non-focussed handle color */
+    --range-handle-focus:    var(--brandLightBlue); /* focussed handle color */
+    --range-handle-border:   var(--range-handle);
+    --range-range-inactive:  var(--range-handle-inactive); /* inactive range bar background color */
+    --range-range:           var(--range-handle-focus); /* active range bar background color */
+    --range-float-inactive:  var(--range-handle-inactive); /* inactive floating label background color */
+    --range-float:           var(--range-handle-focus); /* floating label background color */
+    --range-float-text:      white; /* text color on floating label */
 
 }
 
@@ -40,3 +52,48 @@ svelte-scroller-foreground.svelte-xdbafy {
     width: fit-content;
     padding: 2em;
 }
+
+.rangeSlider {
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+    border: 1px solid rgba(27, 31, 35, 0.3);
+	background-color: rgb(250, 251, 252);
+	box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+}
+
+
+.rangeSlider > .rangeHandle:hover {
+    cursor: pointer;
+}
+
+.rangeSlider .rangeHandle.active .rangeNub {
+    background-color: var(--brandLightBlue);
+    border: 1px solid rgba(27, 31, 35, 0.3);
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+    rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+
+}
+
+.rangeSlider .rangeHandle .rangeNub {
+    /* background-color: var(--brandLightBlue); */
+    border: 1px solid rgba(27, 31, 35, 0.3);
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+    rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+
+}
+
+.rangeSlider > .rangePips > .pip {
+    background-color: var(--brandLightBlue);
+    font-size: 0.8em;
+}
+
+.rangeSlider > .rangePips > .pip > .pipVal {
+    color: var(--brandLightBlue);
+}  
+
+.rangeSlider > .rangePips > .pip.selected > .pipVal {
+    color:var(--brandLightBlue);
+    font-weight: bold;
+}  
+

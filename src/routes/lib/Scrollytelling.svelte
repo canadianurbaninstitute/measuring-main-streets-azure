@@ -7,7 +7,7 @@
 	import Legend from './ui/legends/Legend.svelte';
 	import LegendItem from './ui/legends/LegendItem.svelte';
 	import IsochroneCheckbox from './ui/checkbox/IsochroneCheckbox.svelte';
-	import {ColumnChart } from '@onsvisual/svelte-charts';
+	import {ColumnChart} from '@onsvisual/svelte-charts';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import EmploymentSizeCheckbox from './ui/checkbox/EmploymentSizeCheckbox.svelte';
 	import mapboxgl from 'mapbox-gl';
@@ -301,17 +301,18 @@
 				break;
 			case 5:
 				map.easeTo({
-					center: [-79.410, 43.646],
-					zoom: 15,
+					center: [-79.421, 43.6441],
+					zoom: 14.5,
 					pitch: 20,
 					bearing: -14,
-					duration: 2000
+					duration: 1000,
 				});
 
 				if (map.isStyleLoaded()) {
+
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0.95);
 					map.setPaintProperty('westqueenwest-outline', 'line-opacity', 1);
-					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.4);
+					//map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.4);
 
 
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
@@ -526,35 +527,28 @@
 						label={'Population Density (people/sq.km)'}
 						gradient={gradients.popdensity}
 					/>
-					<ColumnChart data={housingtype} xKey="housingtype" yKey="percentage" zKey="area" mode="grouped" title="Housing Type" legend/>
+					<ColumnChart colors={["#2A5CAB", "#DB3069"]} data={housingtype} xKey="housingtype" yKey="percentage" zKey="area" mode="grouped" title="Housing Type" legend/>
 					<hr>
-					<ColumnChart data={housingconstruction} xKey="constructionyear" yKey="percentage" zKey="area" mode="grouped" title="Housing Year" legend/>
+					<ColumnChart colors={["#2A5CAB", "#DB3069"]} data={housingconstruction} xKey="constructionyear" yKey="percentage" zKey="area" mode="grouped" title="Housing Year" legend/>
 
 				</div>
 			</section>
 			<section data-id="map7">
 				<div class="col-medium">
 					<h2>Demographics</h2>
-					<Dropdown/>
-					<Legend
-						minlabel={'$0'}
-						maxlabel={'$736000'}
-						label={'Average Income (Census 2021)'}
-						gradient={gradients.avgincome}
-					/>
+					<Dropdown {map} options={[{id: 'averageincome', text: 'Average Income'},
+					{ id: 'populationdensity', text: 'Population Density'}]}/>
 				</div>
 			</section>
 			<section data-id="map8">
 				<div class="col-medium">
 					<h2>Visitors</h2>
-					<h4>Year</h4>
-
+					<h5>Year</h5>
 					<RangeSlider
 						on:change={(e) => {
 							const year = e.detail.value;
 							if (map.isStyleLoaded()) {
 								const years = [2019, 2020, 2021, 2022];
-
 								years.forEach((y) => {
 									const opacity = y === year ? 1 : 0;
 									map.setPaintProperty(`visitors-${y}`, 'heatmap-opacity', opacity);
@@ -570,9 +564,9 @@
 						max={2022}
 						pips
 						all="label"
+						hoverable={false}
 					/>
-					<hr />
-					<h4>Zoom</h4>
+					<h5>Zoom</h5>
 					<RangeSlider
 						on:change={(e) => {
 							const zoomvalues = {0: 10, 1: 11, 2: 12, 3: 13, 4:14.5}
@@ -588,6 +582,7 @@
 						first="label"
 						last="label"
 						formatter={ v => zoomlabels[v] } max={zoomlabels.length-1}
+						hoverable={false}
 					/>
 					<hr/>
 					<Legend
@@ -648,9 +643,9 @@
 		color: var(--brandLightBlue);
 	}
 
-	h4 {
+	h5 {
 		margin: 0 auto;
-		font-family: 'Gelasio', serif;
+		font-family: 'Inter', sans-serif;
 		color: var(--brandDarkBlue);
 	}
 
@@ -662,7 +657,6 @@
     justify-content: space-between;
     margin-top: 0.6em;
 	}
-
 
 
 </style>

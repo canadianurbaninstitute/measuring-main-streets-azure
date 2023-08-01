@@ -6,7 +6,7 @@
 	<div id="logo">
 		<a href="https://www.canurb.org"><img src={logo} alt="Canadian Urban Institute"></a>
 	</div>
-	<h2>Measuring Main Streets / RKI Demo</h2>
+	<h2>Measuring Main Streets / RKI</h2>
 
 </div>
 

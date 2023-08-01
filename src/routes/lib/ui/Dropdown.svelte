@@ -1,21 +1,58 @@
 <script>
-    let options = [
-		{ id: 1, text: `Average Income`},
-		{ id: 2, text: `Population Density` },
-		{ id: 3, text: `Census Layer 3` }
-	];
+    import Legend from "./legends/Legend.svelte";
+    export let options = [];
+    export let map;
+
+
+    const gradients = {
+		populationdensity: 'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)',
+		averageincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)',
+	};
 
 	let selected;
+
+
+    function toggleCensusLayer() {
+        options.forEach(option => {
+            let id = option.id;
+            if (id === selected.id) {
+                map.setPaintProperty(id, 'fill-opacity', 0.95);
+            }
+            else {
+                map.setPaintProperty(id, 'fill-opacity', 0);
+            }
+        });
+    }
+
 </script>
 
 <small><i>Select Census Layer</i></small>
-<select bind:value={selected}>
+<select bind:value={selected} on:change={toggleCensusLayer}>
     {#each options as option}
         <option value={option}>
             {option.text}
         </option>
     {/each}
 </select>
+
+{#if selected && selected.id === 'populationdensity'}
+    <Legend
+        minlabel={'0'}
+        maxlabel={'4070000'}
+        label={'Population Density (people/sq.km)'}
+        gradient={gradients.populationdensity}
+    />
+{/if}
+
+{#if selected && selected.id === 'averageincome'}
+    <Legend
+        minlabel={'$0'}
+        maxlabel={'$736000'}
+        label={'Average Income (Census 2021)'}
+        gradient={gradients.averageincome}
+    />
+{/if}
+
 
 <style>
 
