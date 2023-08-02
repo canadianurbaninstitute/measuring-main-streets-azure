@@ -88,6 +88,10 @@ svelte-scroller-foreground.svelte-xdbafy {
     font-size: 0.8em;
 }
 
+.rangeSlider > .rangePips .pip.selected {
+    background-color: var(--brandLightBlue);
+}
+
 .rangeSlider > .rangePips > .pip > .pipVal {
     color: var(--brandLightBlue);
 }  
