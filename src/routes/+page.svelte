@@ -12,6 +12,7 @@
 	import LegendItem from './lib/ui/legends/LegendItem.svelte';
 	import IsochroneCheckbox from './lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import EmploymentSizeCheckbox from './lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import PhotosCheckbox from './lib/ui/checkbox/PhotosCheckbox.svelte';
 	import Dropdown from './lib/ui/Dropdown.svelte';
 
 	import { ColumnChart } from '@onsvisual/svelte-charts';
@@ -51,7 +52,9 @@
 
 			if (latitude && longitude) {
 				if (!filterString || resource.public_id.includes(filterString)) {
-					let url = buildImageUrl(resource.public_id, {});
+					let url = buildImageUrl(resource.public_id, {transformations: {
+							rawTransformation: 'c_scale,h_300'
+						}});
 					let thumburl = buildImageUrl(resource.public_id, {
 						transformations: {
 							rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
@@ -85,26 +88,6 @@
 		url: feature.properties.thumbnail,
 		id: feature.properties.public_id
 	}));
-
-	console.log(images);
-
-	//     map.addSource(`${filterString}-photos`, {
-	//         type: 'geojson',
-	//         data: geojson
-	//     });
-
-	//     map.addLayer({
-	//         id: `${filterString}-photos`,
-	//         type: 'symbol',
-	//         source: `${filterString}-photos`,
-	//         layout: {
-	//             'icon-image': ['get', 'public_id'], // reference the image
-	//             'icon-ignore-placement': true,
-	//             'icon-size': 0.25,
-	//             'icon-allow-overlap': true,
-	//             'visibility': 'visible'
-	//         }
-	//     });
 
 	const gradients = {
 		civic: 'linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a)',
@@ -146,33 +129,69 @@
 				console.log('Images loaded');
 				imagesLoaded = true; // Mark images as loaded to prevent multiple executions
 			});
+
+			map.once('style.load', () => {
+
+			map.addSource('photos', {
+				type: 'geojson',
+				data: {
+					type: 'FeatureCollection',
+					features: []
+					}
+			});
+
+			map.addLayer({
+				id: 'photos',
+				type: 'symbol',
+				source: 'photos',
+				layout: {
+					'icon-image': ['get', 'public_id'], // reference the image
+					'icon-ignore-placement': true,
+					'icon-size': 0.25,
+					'icon-allow-overlap': true,
+					'visibility': 'visible'
+				}
+			});
+		});
+
 		}
 
-		// map.on('click', 'photos', (e) => {
-		// 	// Copy coordinates array.
-		// 	const coordinates = e.features[0].geometry.coordinates.slice();
+		const emptygeojson = {
+			type: 'FeatureCollection',
+			features: []
+		};
 
-		// 	// Ensure that if the map is zoomed out such that multiple
-		// 	// copies of the feature are visible, the popup appears
-		// 	// over the copy being pointed to.
-		// 	while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-		// 		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-		// 	}
+		const photoslayer = map.getSource('photos');
 
-		// 	new mapboxgl.Popup()
-		// 		.setLngLat(coordinates)
-		// 		.addTo(map);
-		// });
 
-		// // Change the cursor to a pointer when the mouse is over the photos layer.
-		// map.on('mouseenter', 'photos', () => {
-		// 	map.getCanvas().style.cursor = 'pointer';
-		// });
+		map.on('click', 'photos', (e) => {
+			// Copy coordinates array.
+			const coordinates = e.features[0].geometry.coordinates.slice();
+			const image = e.features[0].properties.url;
 
-		// // Change it back to a pointer when it leaves.
-		// map.on('mouseleave', 'photos', () => {
-		// 	map.getCanvas().style.cursor = '';
-		// });
+
+			// Ensure that if the map is zoomed out such that multiple
+			// copies of the feature are visible, the popup appears
+			// over the copy being pointed to.
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			}
+
+			new mapboxgl.Popup()
+				.setLngLat(coordinates)
+				.setHTML("<img src='" + image + "'" + " class=popupImage " + "/>")
+				.addTo(map);
+		});
+
+		// Change the cursor to a pointer when the mouse is over the photos layer.
+		map.on('mouseenter', 'photos', () => {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+
+		// Change it back to a pointer when it leaves.
+		map.on('mouseleave', 'photos', () => {
+			map.getCanvas().style.cursor = '';
+		});
 
 		// Update the map based on the index
 		switch (index) {
@@ -185,13 +204,19 @@
 					duration: 1000
 				});
 
+				let overviewgeojson = createGeoJSON('1_Overview');
+
+
 				map.once('style.load', () => {
+
+
 					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 1);
 					map.setPaintProperty('westqueenwest', 'line-opacity', 1);
 					map.setPaintProperty('westqueenwest-fill', 'fill-opacity', 0.8);
 				});
 
 				if (map.isStyleLoaded()) {
+
 					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 1);
 
 					map.setPaintProperty('greenspaces', 'fill-opacity', 0);
@@ -210,30 +235,14 @@
 					duration: 2000
 				});
 
-                let sectionId = '2_Built_Form'
+				// Built Form
 
-				let geojson = createGeoJSON(sectionId);
+				let builtformgeojson = createGeoJSON('2_Built_Form');
 
-                // map.addSource(`${sectionId}-photos`, {
-				// 	type: 'geojson',
-				// 	data: geojson
-				// });
-
-				// map.addLayer({
-				// 	id: `${sectionId}-photos`,
-				// 	type: 'symbol',
-				// 	source: `${sectionId}-photos`,
-				// 	layout: {
-				// 		'icon-image': ['get', 'public_id'], // reference the image
-				// 		'icon-ignore-placement': true,
-				// 		'icon-size': 0.25,
-				// 		'icon-allow-overlap': true,
-				// 		'visibility': 'visible'
-				// 	}
-				// });
 
 				if (map.isStyleLoaded()) {
-
+					
+					photoslayer.setData(builtformgeojson)
 
 					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 0);
 
@@ -267,10 +276,15 @@
 					bearing: -14
 				});
 
-				if (map.isStyleLoaded()) {
-					// Civic Infra
+				// Civic Infra
 
-					// createGeoJSON(map, '3_Civic');
+
+				let civicinfrageojson = createGeoJSON('3_Civic');
+
+				if (map.isStyleLoaded()) {
+
+					photoslayer.setData(civicinfrageojson)
+
 
 					map.setPaintProperty('civicinfra-toronto-education', 'circle-opacity', 1);
 					map.setPaintProperty('civicinfra-toronto-education', 'circle-stroke-opacity', 1);
@@ -313,10 +327,14 @@
 					bearing: -14
 				});
 
-				if (map.isStyleLoaded()) {
-					// Business
+				// Businesses
 
-					// createGeoJSON(map, '4_Business');
+				let businessgeojson = createGeoJSON('4_Business');
+
+
+				if (map.isStyleLoaded()) {
+
+					photoslayer.setData(businessgeojson)
 
 					map.setPaintProperty('business-toronto-retail', 'circle-opacity', 1);
 					map.setPaintProperty('business-toronto-retail', 'circle-stroke-opacity', 1);
@@ -358,6 +376,10 @@
 				});
 
 				if (map.isStyleLoaded()) {
+
+					photoslayer.setData(emptygeojson)
+
+
 					map.setPaintProperty('employment-size', 'circle-opacity', 1);
 					map.setPaintProperty('employment-size', 'circle-stroke-opacity', 1);
 
@@ -387,8 +409,12 @@
 					duration: 1000
 				});
 
+				let housinggeojson = createGeoJSON('5_Housing');
+
+
 				if (map.isStyleLoaded()) {
-					// createGeoJSON(map, '5_Housing');
+
+					photoslayer.setData(housinggeojson)
 
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0.95);
 					map.setPaintProperty('westqueenwest-outline', 'line-opacity', 1);
@@ -408,7 +434,12 @@
 					bearing: -14
 				});
 
+
+
 				if (map.isStyleLoaded()) {
+
+					photoslayer.setData(emptygeojson)
+
 					map.setPaintProperty('averageincome', 'fill-opacity', 0.95);
 
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0);
@@ -548,6 +579,7 @@
 							button={true}
 							id={'civicinfra-toronto-education'}
 						/>
+						<PhotosCheckbox {map} />
 						<div class="controls">
 							<IsochroneCheckbox {map} />
 							<EmploymentSizeCheckbox
@@ -592,6 +624,7 @@
 							button={true}
 							id={'business-toronto-food-drink'}
 						/>
+						<PhotosCheckbox {map} />
 						<div class="controls">
 							<IsochroneCheckbox {map} />
 							<EmploymentSizeCheckbox

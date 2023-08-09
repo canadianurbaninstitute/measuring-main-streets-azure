@@ -102,3 +102,6 @@ svelte-scroller-foreground.svelte-xdbafy {
     font-weight: bold;
 }  
 
+.mapboxgl-popup-content {
+    padding: 15px 15px 10px;
+}
