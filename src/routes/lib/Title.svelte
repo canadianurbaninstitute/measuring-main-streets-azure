@@ -31,9 +31,9 @@
     color: white;
     text-align: center;
     position: relative;
-    border: solid 1px var(--brandLightBlue);
+    border: solid 0px var(--brandLightBlue);
     border-radius: 8px;
-    background-color: rgba(255, 255, 255, 1);
+    /* background-color: rgba(255, 255, 255, 1); */
 }
 
 .title h1 {
@@ -74,11 +74,13 @@
     max-width: 1920px;
     height: calc(100vh - 100px);
     max-height: 1080px;
-    background-color:var(--brandDarkBlue);
-    /* background:linear-gradient(
-      rgba(0, 42, 65, 0.85), 
-      rgba(0, 42, 65, 0.85)
-    ), url('https://i.imgur.com/2U00OqL.png'); */
+    background-color:white;
+    background:linear-gradient(
+      rgba(255, 255, 255, 0.95), 
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.95)
+
+    ), url('https://i.imgur.com/DXGEpQB.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
