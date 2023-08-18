@@ -36,7 +36,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@onsvisual/svelte-charts": "^0.2.13",
+    "@onsvisual/svelte-charts": "github:ananmaysharan/svelte-charts",
     "@sveltejs/svelte-scroller": "^2.0.7",
     "cloudinary": "^1.40.0",
     "cloudinary-build-url": "^0.2.4",

@@ -1,16 +1,19 @@
 <script>
     	import TableOfContents from './TableOfContents.svelte';
         import Arrow from './ui/Arrow.svelte';
+
+        export let name;
+        export let location;
 </script>
 
 <div class="blueprint">
 
     <div class="title">
         <h1>
-            West Queen West
+            {name}
         </h1>
         <h2>
-            Toronto, Ontario
+            {location}
         </h2>
     </div>
 

@@ -105,3 +105,7 @@ svelte-scroller-foreground.svelte-xdbafy {
 .mapboxgl-popup-content {
     padding: 15px 15px 10px;
 }
+
+.tick {
+    font-size:0.5em;
+}

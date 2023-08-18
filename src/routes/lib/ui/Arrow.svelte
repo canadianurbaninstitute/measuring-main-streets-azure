@@ -4,7 +4,7 @@
 
 <h4>Scroll to begin</h4>
 <div class="bounce">
-<Icon icon="iconoir:nav-arrow-down" color="#002a41" width="64" />
+<Icon icon="iconoir:nav-arrow-down" color="#002a41" width="48" />
 </div>
 
 <style>

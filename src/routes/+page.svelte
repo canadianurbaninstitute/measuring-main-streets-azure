@@ -5,9 +5,13 @@
 
 	import './styles.css';
 
-	import Map from './lib/Map.svelte';
 	import housingtype from './lib/data/housingtype';
 	import housingconstruction from './lib/data/housingconstruction';
+	import educationalattainment from './lib/data/educationalattainment';
+	import immigrationstatus from './lib/data/immigrationstatus'
+
+	import Map from './lib/Map.svelte';
+
 	import Legend from './lib/ui/legends/Legend.svelte';
 	import LegendItem from './lib/ui/legends/LegendItem.svelte';
 	import IsochroneCheckbox from './lib/ui/checkbox/IsochroneCheckbox.svelte';
@@ -15,13 +19,17 @@
 	import PhotosCheckbox from './lib/ui/checkbox/PhotosCheckbox.svelte';
 	import Dropdown from './lib/ui/Dropdown.svelte';
 
-	import { ColumnChart } from '@onsvisual/svelte-charts';
+	import { ColumnChart, BarChart } from '@onsvisual/svelte-charts';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import mapboxgl from 'mapbox-gl';
 	import Scroller from '@sveltejs/svelte-scroller';
 	import { sexagesimalToDecimal } from 'geolib';
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
+
+	import { weightMaxStore } from './lib/mapStore';
+
+	$: weightMax = $weightMaxStore; // Subscribe to the store's value
 
 	setConfig({
 		cloudName: 'dq4p0s7xo'
@@ -437,8 +445,14 @@
 					duration: 5000
 				});
 
+				const weight = map.getPaintProperty('visitors-2022', 'heatmap-weight')
+				const weightMax = weight[5]
+				weightMaxStore.set(weightMax);
+				console.log(weightMax)
+
 				if (map.isStyleLoaded()) {
 					map.setPaintProperty('visitors-2022', 'heatmap-opacity', 1);
+					
 
 					map.setPaintProperty('averageincome', 'fill-opacity', 0);
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
@@ -462,10 +476,14 @@
 <Top />
 
 <main>
-	<Title />
+	<Title name={"West Queen West"} location={"Toronto, Ontario"} />
 	<div class="container">
 		<Scroller bind:count bind:index bind:progress>
 			<div slot="background">
+				<div>
+					<PhotosCheckbox {map} />
+
+				</div>
 				<Map
 					bind:map
 					interactive={false}
@@ -475,7 +493,9 @@
 						zoom: 1.8
 					}}
 				/>
+				
 			</div>
+
 
 			<div slot="foreground">
 				<section data-id="map1">
@@ -505,7 +525,7 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#297A4F'} />
+						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
 							label={'Buildings'}
@@ -559,7 +579,6 @@
 							button={true}
 							id={'civicinfra-toronto-education'}
 						/>
-						<PhotosCheckbox {map} />
 						<div class="controls">
 							<IsochroneCheckbox {map} />
 							<EmploymentSizeCheckbox
@@ -599,12 +618,12 @@
 						<LegendItem
 							variant={'circle'}
 							label={'Food and Drink'}
-							bgcolor={'#297A4F'}
+							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'business-toronto-food-drink'}
 						/>
-						<PhotosCheckbox {map} />
+						<!-- <PhotosCheckbox {map} /> -->
 						<div class="controls">
 							<IsochroneCheckbox {map} />
 							<EmploymentSizeCheckbox
@@ -650,6 +669,7 @@
 							label={'Population Density (people/sq.km)'}
 							gradient={gradients.popdensity}
 						/>
+						<hr>
 						<ColumnChart
 							colors={['#2A5CAB', '#DB3069']}
 							data={housingtype}
@@ -658,9 +678,7 @@
 							zKey="area"
 							mode="grouped"
 							title="Housing Type"
-							legend
 						/>
-						<hr />
 						<ColumnChart
 							colors={['#2A5CAB', '#DB3069']}
 							data={housingconstruction}
@@ -683,6 +701,27 @@
 								{ id: 'populationdensity', text: 'Population Density' }
 							]}
 						/>
+						<hr>
+						<ColumnChart
+							colors={['#2A5CAB', '#DB3069']}
+							data={educationalattainment}
+							xKey="Degree Attained"
+							yKey="Percentage"
+							zKey="Area"
+							mode="grouped"
+							title="Educational Attainment"
+						/>
+						<ColumnChart
+							colors={['#2A5CAB', '#DB3069']}
+							data={immigrationstatus}
+							xKey="Generation Status"
+							yKey="Percentage"
+							zKey="Area"
+							mode="grouped"
+							title="Immigration Status"
+							legend
+						/>
+						
 					</div>
 				</section>
 				<section data-id="map8">
@@ -697,9 +736,11 @@
 									years.forEach((y) => {
 										const opacity = y === year ? 1 : 0;
 										map.setPaintProperty(`visitors-${y}`, 'heatmap-opacity', opacity);
-										const expression = map.getPaintProperty(`visitors-${y}`, 'heatmap-weight');
-										console.log(expression);
 									});
+									const weight = map.getPaintProperty(`visitors-${year}`, 'heatmap-weight');
+									const weightMax = weight[5]
+									console.log(weightMax)
+									weightMaxStore.set(weightMax);
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -730,11 +771,11 @@
 							max={zoomlabels.length - 1}
 							hoverable={false}
 						/>
-						<hr />
+						<hr/>
 						<Legend
 							minlabel={'0'}
-							maxlabel={'High'}
-							label={'Home Location of Visitors (Number of Visits)'}
+							maxlabel={Math.round(weightMax)}
+							label={'Home Location of Visitors (Number of Visits Daily)'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -803,4 +844,10 @@
 		justify-content: space-between;
 		margin-top: 0.6em;
 	}
+
+	hr {
+		border: 0.5px solid #bdbdbd;
+	}
+
+	
 </style>
