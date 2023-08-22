@@ -8,8 +8,8 @@
     export let map;
 
 
-    let isChecked = true;
-	let toggleText = 'On';
+    let isChecked = false;
+	let toggleText = 'Off';
   
     function toggleLayerOpacity() {
       if (map) {

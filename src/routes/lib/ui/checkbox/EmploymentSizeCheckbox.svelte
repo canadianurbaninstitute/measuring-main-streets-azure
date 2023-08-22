@@ -31,6 +31,7 @@
 	});
 </script>
 
+<div id="container">
 <button class={isChecked ? 'layerOn' : 'layerOff'}>
 	<Icon icon="iconoir:drag" />
 	<label>
@@ -38,13 +39,25 @@
 		Employment Size
 	</label>
 </button>
+<div id='legend' class={isChecked ? 'legendOn' : 'legendOff'}>
+	<img src="src/routes/assets/employmentsizelegend.svg" alt="legend">
+  </div>
+</div>
+
 
 <style>
+
+	#container {
+		display:flex;
+		flex-direction: column;
+	}
+
 	label {
 		padding: 0.4em;
 		display: flex;
 		align-items: center;
 		font-size: 0.88em;
+		width:100%;
 	}
 
 	label:hover {
@@ -64,10 +77,19 @@
 		opacity: 1;
 		display: flex;
 		align-items: center;
+		margin:0.5em 0 0.5em 0;
+
 	}
 
-	.layerOn {
+
+
+	.layerOn, .legendOn {
 		opacity: 1;
+	}
+
+	.legendOff {
+		opacity: 0;
+		height: 0px;
 	}
 
 	.layerOff {

@@ -658,6 +658,7 @@
 							bgcolor={'#b0b0b0'}
 							bordercolor={'#fff'}
 						/>
+						<img src="src/routes/assets/employmentsizelegend.svg" alt="legend">
 					</div>
 				</section>
 				<section data-id="map6">
@@ -841,8 +842,8 @@
 	.controls {
 		display: flex;
 		width: 100%;
-		justify-content: space-between;
-		margin-top: 0.6em;
+		/* justify-content: space-between; */
+		flex-direction: column;
 	}
 
 	hr {

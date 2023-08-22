@@ -56,6 +56,7 @@
 		opacity: 1;
 		display: flex;
 		align-items: center;
+		margin-top: 0.5em;
 	}
 
 	.layerOn {
