@@ -25,7 +25,7 @@
 	export let pitch = null;
 	export let bearing = null;
 	export let interactive = true;
-	export let attribution = true;
+	export let attribution = false;
 	let container;
 	let _options = {};
 	let loaded = false;

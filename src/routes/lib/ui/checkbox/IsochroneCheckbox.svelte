@@ -37,6 +37,7 @@
 		display: flex;
 		align-items: center;
 		font-size: 0.88em;
+		width: 100%;
 	}
 
 	label:hover {

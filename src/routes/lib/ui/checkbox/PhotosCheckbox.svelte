@@ -8,8 +8,8 @@
     export let map;
 
 
-    let isChecked = false;
-	let toggleText = 'Off';
+    let isChecked = true;
+	let toggleText = 'On';
   
     function toggleLayerOpacity() {
       if (map) {
@@ -24,6 +24,7 @@
     onMount(() => {
       toggleLayerOpacity(); // Initialize layer opacity based on the initial checkbox state
     });
+
   </script>
   
   <button class={isChecked ? 'layerOn' : 'layerOff'}>

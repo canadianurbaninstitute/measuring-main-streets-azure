@@ -140,6 +140,10 @@
 				imagesLoaded = true; // Mark images as loaded to prevent multiple executions
 			});
 
+			map.addControl(new mapboxgl.AttributionControl({
+				customAttribution: 'Canadian Urban Institute'
+				}));
+
 			map.once('style.load', () => {
 				map.addSource('photos', {
 					type: 'geojson',
@@ -156,11 +160,15 @@
 					layout: {
 						'icon-image': ['get', 'public_id'], // reference the image
 						'icon-ignore-placement': true,
-						'icon-size': 0.25,
+						'icon-size': 0.2,
 						'icon-allow-overlap': true,
 						visibility: 'visible'
 					}
 				});
+
+				const weight = map.getPaintProperty('visitors-2022', 'heatmap-weight')
+				const weightMax = weight[5]
+				weightMaxStore.set(weightMax);
 			});
 		}
 
@@ -445,15 +453,9 @@
 					duration: 5000
 				});
 
-				const weight = map.getPaintProperty('visitors-2022', 'heatmap-weight')
-				const weightMax = weight[5]
-				weightMaxStore.set(weightMax);
-				console.log(weightMax)
-
 				if (map.isStyleLoaded()) {
 					map.setPaintProperty('visitors-2022', 'heatmap-opacity', 1);
 					
-
 					map.setPaintProperty('averageincome', 'fill-opacity', 0);
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
 				}
@@ -501,7 +503,6 @@
 				<section data-id="map1">
 					<div class="col-medium">
 						<h2>Overview</h2>
-						<!-- <Gallery {galleryID} {images} /> -->
 						<Legend
 							minlabel={'Low'}
 							maxlabel={'High'}
@@ -699,7 +700,8 @@
 							{map}
 							options={[
 								{ id: 'averageincome', text: 'Average Income' },
-								{ id: 'populationdensity', text: 'Population Density' }
+								{ id: 'populationdensity', text: 'Population Density' },
+								{ id: 'visibleminority', text: 'Visible Minorities' }
 							]}
 						/>
 						<hr>
@@ -776,7 +778,7 @@
 						<Legend
 							minlabel={'0'}
 							maxlabel={Math.round(weightMax)}
-							label={'Home Location of Visitors (Number of Visits Daily)'}
+							label={'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
