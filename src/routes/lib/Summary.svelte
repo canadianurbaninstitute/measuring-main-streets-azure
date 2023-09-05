@@ -1,27 +1,19 @@
+<script>
+    export let name;
+    export let location;
+</script>
+
 <div class="blueprint">
 
     <div class="title">
         <h1>
-            West Queen West
+            {name}
         </h1>
         <h2>
-            Summary
+            {location}
         </h2>
-        <p>Summary 
-
-            Bring elements together using indices 
-            
-            Essential  
-            
-            Business mix 
-            
-            Civic infrastructure mix 
-            
-            Give a sense of overall momentum 
-            
-            Relate to other streets (how does it compare) 
-            </p>
     </div>
+        <p>West Queen West is a vibrant area with close access to jobs, entertainment and civic infrastructure. It faces challenges on income polarization, older physical structures, and changes to the retail economy. </p>
 
 
 
@@ -29,18 +21,6 @@
 </div>
 
 <style>
-    .title {
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 600px;
-    color: white;
-    text-align: center;
-    position: relative;
-    top: 28%;
-    border: solid 1px var(--brandLightBlue);
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 1);
-}
 
 .title h1 {
     margin: 0 auto;
@@ -48,8 +28,10 @@
     font-weight: 600;
     max-width: 430px;
     font-size: 3em;
-    color: var(--brandDarkBlue);
+    color: var(--brandLightBlue);
     padding: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .title h2 {
@@ -60,25 +42,35 @@
     max-width: 450px;
     font-size: 28px;
     line-height: 30px;
-    color: var(--brandLightBlue);
+    color: white;
 }
 
+
 @media only screen and (max-width: 920px) {
-    .title h1 {
-        font-size: 42px;
-    }
-    .title h2 {
+    h2 {
         font-size: 18px;
         line-height: 30px;
     }
 }
 
-.blueprint {
-    width: 100%;
-    max-width: 1920px;
-    height: calc(100vh - 100px);
-    max-height: 1080px;
-    background-color:var(--brandDarkBlue);
+p {
+    color: white;
+    max-width: 40%;
 }
+
+.blueprint {
+    height: 100vh;
+    background-color:var(--brandDarkBlue);
+    margin: 0 auto;
+    padding: 2em;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
 
 </style>

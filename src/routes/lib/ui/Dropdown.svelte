@@ -7,6 +7,7 @@
     const gradients = {
 		populationdensity: 'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)',
 		averageincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)',
+        visibleminority: 'linear-gradient(to right, #ffeddb, #fd9243, #df5005, #7f2704, #4a1703)',
 	};
 
 	let selected;
@@ -26,7 +27,7 @@
 
 </script>
 
-<small><i>Select Census Layer</i></small>
+<small><i>Change Map Census Layer</i></small>
 <select bind:value={selected} on:change={toggleCensusLayer}>
     {#each options as option}
         <option value={option}>
@@ -50,6 +51,15 @@
         maxlabel={'$736000'}
         label={'Average Income (Census 2021)'}
         gradient={gradients.averageincome}
+    />
+{/if}
+
+{#if selected && selected.id === 'visibleminority'}
+    <Legend
+        minlabel={'0'}
+        maxlabel={'29730'}
+        label={'Visible Minority Population'}
+        gradient={gradients.visibleminority}
     />
 {/if}
 

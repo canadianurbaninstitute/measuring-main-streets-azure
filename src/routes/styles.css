@@ -109,3 +109,9 @@ svelte-scroller-foreground.svelte-xdbafy {
 .tick {
     font-size:0.5em;
 }
+
+h5 {
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    color: var(--brandDarkBlue);
+}

@@ -81,7 +81,9 @@
 
 	}
 
-
+	img {
+		width: 100%;
+	}
 
 	.layerOn, .legendOn {
 		opacity: 1;
