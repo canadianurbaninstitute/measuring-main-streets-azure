@@ -1,3 +1,15 @@
-<a href="/westqueenwest">West Queen West</a>
+<script>
+    import './styles.css'
+</script>
 
-<a href="/mississaugadundas">Mississauga Dundas</a>
+
+
+
+<div class="hero">
+    <h1> Measuring Main Streets </h1>
+</div>
+
+
+
+
+

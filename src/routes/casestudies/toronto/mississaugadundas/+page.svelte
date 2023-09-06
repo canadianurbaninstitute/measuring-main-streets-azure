@@ -1,22 +1,22 @@
 <script>
-	import Title from '../lib/Title.svelte';
-	import Summary from '../lib/Summary.svelte';
+	import Title from '../../../lib/Title.svelte';
+	import Summary from '../../../lib/Summary.svelte';
 
-	import '../styles.css';
+	import '../../../styles.css';
 
-	import housingtype from '../lib/data/housingtype';
-	import housingconstruction from '../lib/data/housingconstruction';
-	import educationalattainment from '../lib/data/educationalattainment';
-	import immigrationstatus from '../lib/data/immigrationstatus';
+	import housingtype from '../../../lib/data/housingtype';
+	import housingconstruction from '../../../lib/data/housingconstruction';
+	import educationalattainment from '../../../lib/data/educationalattainment';
+	import immigrationstatus from '../../../lib/data/immigrationstatus';
 
-	import Map from '../lib/Map.svelte';
+	import Map from '../../../lib/Map.svelte';
 
-	import Legend from '../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../lib/ui/checkbox/IsochroneCheckbox.svelte';
-	import EmploymentSizeCheckbox from '../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
-	import PhotosCheckbox from '../lib/ui/checkbox/PhotosCheckbox.svelte';
-	import Dropdown from '../lib/ui/Dropdown.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
+	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 
 	import { ColumnChart, BarChart } from '@onsvisual/svelte-charts';
 	import RangeSlider from 'svelte-range-slider-pips';
@@ -26,7 +26,7 @@
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
-	import { weightMaxStore } from '../lib/mapStore';
+	import { weightMaxStore } from '../../../lib/mapStore';
 
 
 	// WeightMax for Visitor Gradient Max Value
@@ -236,10 +236,10 @@
 		switch (index) {
 			case 0:
 				map.easeTo({
-					center: [-79.41145, 43.647],
+					center: [-79.584, 43.605],
 					zoom: 12,
 					pitch: 50.0,
-					bearing: 0,
+					bearing: -37,
 					duration: 1000
 				});
 
@@ -247,8 +247,8 @@
 
 				map.once('style.load', () => {
 					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 1);
-					map.setPaintProperty('westqueenwest', 'line-opacity', 1);
-					map.setPaintProperty('westqueenwest-fill', 'fill-opacity', 0.8);
+					map.setPaintProperty('missdundas', 'line-opacity', 1);
+					map.setPaintProperty('missdundas-fill', 'fill-opacity', 0.8);
 				});
 
 				if (map.isStyleLoaded()) {
@@ -263,10 +263,10 @@
 				break;
 			case 1:
 				map.easeTo({
-					center: [-79.417, 43.64408],
-					zoom: 15.1,
+					center: [-79.596, 43.5965],
+					zoom: 15.01,
 					pitch: 40,
-					bearing: -14,
+					bearing: -50,
 					duration: 2000
 				});
 
@@ -303,10 +303,10 @@
 				break;
 			case 2:
 				map.easeTo({
-					center: [-79.422, 43.6441],
-					zoom: 14.7,
+					center: [-79.584, 43.605],
+					zoom: 13.5,
 					pitch: 0,
-					bearing: -14
+					bearing: -50
 				});
 
 				// Civic Infra
@@ -351,10 +351,10 @@
 				break;
 			case 3:
 				map.easeTo({
-					center: [-79.422, 43.6441],
-					zoom: 14.7,
+					center: [-79.584, 43.605],
+					zoom: 13.5,
 					pitch: 0,
-					bearing: -14
+					bearing: -50
 				});
 
 				// Businesses
@@ -397,10 +397,10 @@
 				break;
 			case 4:
 				map.easeTo({
-					center: [-79.422, 43.6441],
-					zoom: 14.7,
+					center: [-79.584, 43.605],
+					zoom: 13.5,
 					pitch: 0,
-					bearing: -14
+					bearing: -50
 				});
 
 				if (map.isStyleLoaded()) {
@@ -421,17 +421,17 @@
 					map.setPaintProperty('business-toronto-services', 'circle-stroke-opacity', 0);
 
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0);
-					map.setPaintProperty('westqueenwest-outline', 'line-opacity', 0);
+					map.setPaintProperty('missdundas-outline', 'line-opacity', 0);
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0);
 				}
 
 				break;
 			case 5:
 				map.easeTo({
-					center: [-79.421, 43.6441],
-					zoom: 14.5,
+					center: [-79.584, 43.605],
+					zoom: 13.3,
 					pitch: 20,
-					bearing: -14,
+					bearing: -52,
 					duration: 1000
 				});
 
@@ -441,7 +441,7 @@
 					photoslayer.setData(housinggeojson);
 
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0.95);
-					map.setPaintProperty('westqueenwest-outline', 'line-opacity', 1);
+					map.setPaintProperty('missdundas-outline', 'line-opacity', 1);
 					//map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.4);
 
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
@@ -452,10 +452,10 @@
 				break;
 			case 6:
 				map.easeTo({
-					center: [-79.422, 43.6441],
-					zoom: 14.7,
+					center: [-79.584, 43.605],
+					zoom: 13.5,
 					pitch: 0,
-					bearing: -14
+					bearing: -52
 				});
 
 				if (map.isStyleLoaded()) {
@@ -471,10 +471,10 @@
 				break;
 			case 7:
 				map.easeTo({
-					center: [-79.422, 43.71],
-					zoom: 10,
+					center: [-79.584, 43.605],
+					zoom: 11 ,
 					pitch: 0,
-					bearing: -14,
+					bearing: -52,
 					duration: 5000
 				});
 
@@ -501,7 +501,7 @@
 </svelte:head>
 
 <main>
-	<Title name={'West Queen West'} location={'Toronto, Ontario'} />
+	<Title name={'Mississauga Dundas'} location={'Toronto, Ontario'} />
 	<div class="container">
 		<Scroller bind:count bind:index bind:progress>
 			<div slot="background">
@@ -510,13 +510,13 @@
 				</div>
 				<Map
 					bind:map
-					interactive={false}
+					interactive={true}
 					location={{
 						lng: 79,
 						lat: 43,
 						zoom: 1.8
 					}}
-					style={'mapbox://styles/ananmay/clilulw4v002t01pgahq9d88q?&fresh=true?optimize=true'} 
+					style={'mapbox://styles/ananmay/clm6f8mdm02j701qi0i1b9hxh?&fresh=true?optimize=true'} 
 				/>
 			</div>
 
@@ -524,20 +524,6 @@
 				<section data-id="map1">
 					<div class="col-medium">
 						<h2>Overview</h2>
-						<p>
-							West Queen West is the segment of a prominent arterial road through the southern parts
-							of the city of Toronto, specifically the part of the street between Dufferin in the
-							west and Bathurst in the east. To its immediate west is the neighbourhood of Parkdale,
-							to its south a mix of high-density neighbourhoods such as Liberty Village and Niagara,
-							to the east the street leads into the entertainment district and downtown, and to the
-							north a patchwork of lower-rise residential neighbourhoods.
-						</p>
-						<p>
-							The street has served as a historic westbound route in and out of Toronto’s core and
-							has been urbanized since at least the 1850s. Historically a working-class district
-							close to factory jobs, as the economic profile of Toronto has shifted to services and
-							knowledge work so has West Queen West’s residential population.
-						</p>
 						<hr />
 						<Legend
 							minlabel={'Low'}
@@ -547,7 +533,7 @@
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'West Queen West'}
+							label={'Mississauga Dundas'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -556,32 +542,10 @@
 				<section data-id="map2">
 					<div class="col-medium">
 						<h2>Built Form</h2>
-						<p>
-							Most of the buildings along the street consists of mixed-use commercial and
-							residential structures, with small-scale retail directly fronting a sidewalk. Few
-							properties have a significant setback from their roadway and heights are limited
-							largely to a maximum of three storeys directly on the road — though taller structures
-							do exist immediately to the south of the street, especially in its western segment.
-							Many properties along Queen Street have alley access to the north and south. There is
-							also a small strip mall in the extreme western segment of the street.
-						</p>
-						<p>
-							The street is served by multiple transit routes, most prominently a TTC streetcar
-							route on Queen Street itself. While there is not bike infrastructure on the street
-							beyond parking, there are protected bike lanes on some parallel streets.
-						</p>
-						<p>
-							The most significant change in built-form along the route is the Centre for Addiction
-							and Mental Health (CAMH), which occupies a significant property between Shaw and White
-							Squirrel on the south of the street. On this stretch, the north side largely maintains
-							the prevalent form, but in recent years CAMH has built a number of eight to ten storey
-							institutional and mixed-use buildings as well as extended the street grid from the
-							north to the south.
-						</p>
 						<hr />
 						<LegendItem
 							variant={'polygon'}
-							label={'West Queen West'}
+							label={'Mississauga Dundas'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -598,17 +562,6 @@
 				<section data-id="map3">
 					<div class="col-medium">
 						<h2>Civic Infrastructure</h2>
-						<p>
-							The most prominent example of civic infrastructure on the street is CAMH, occupying
-							multiple blocks, employing and serving thousands of workers and patients. There are
-							also a number of related medical services in the neighbourhood.
-						</p>
-						<p>
-							East of CAMH, Queen Street’s heart might be best found at Trinity Bellwoods Park, a
-							15.4 hectares green space. Within the park is a large, and popular, community centre,
-							dog off-leash space and sports fields. The park has served as a community hub and
-							gathering space in Toronto’s west end for years.
-						</p>
 						<hr />
 						<i><small>Click on a layer to turn it on or off</small></i>
 						<LegendItem
@@ -652,7 +605,7 @@
 							id={'civicinfra-toronto-education'}
 						/>
 						<div class="controls">
-							<IsochroneCheckbox {map} />
+							<IsochroneCheckbox {map} layer={'missdundas-isochrone'} minZoom={13} maxZoom={13.5}/>
 							<EmploymentSizeCheckbox
 								{map}
 								layers={[
@@ -661,7 +614,7 @@
 									'civicinfra-toronto-arts-culture',
 									'civicinfra-toronto-education',
 									'civicinfra-toronto-recreation'
-								]}
+								]} minZoom={13} maxZoom={13.5}
 							/>
 						</div>
 					</div>
@@ -669,22 +622,6 @@
 				<section data-id="map4">
 					<div class="col-medium">
 						<h2>Business Profile</h2>
-						<p>
-							West Queen West is an established retail district, with many small to medium fashion
-							stores along the street — with specific concentrations of casual wear, eye glasses,
-							and shoes in different blocks. Other retail exists along the street, covering a vast
-							range of items from bakeries to convenience stores to toy stores.
-						</p>
-						<p>
-							The services are relatively diverse, with a focus on restaurants — both formal, casual
-							and fast food. No supermarket grocery store directly fronts the street on this
-							stretch, but there are many located just off the street or on segments to the east and
-							west.
-						</p>
-						<p>
-							There are a number of event venues, especially in the western segment of the street
-							which often draw large crowds for concerns and other events.
-						</p>
 						<hr />
 						<i><small>Click on a layer to turn it on or off</small></i>
 
@@ -714,14 +651,15 @@
 						/>
 						<!-- <PhotosCheckbox {map} /> -->
 						<div class="controls">
-							<IsochroneCheckbox {map} />
+							<IsochroneCheckbox {map} layer={'missdundas-isochrone'} minZoom={13} maxZoom={13.5} />
 							<EmploymentSizeCheckbox
 								{map}
 								layers={[
 									'business-toronto-retail',
 									'business-toronto-services',
 									'business-toronto-food-drink'
-								]}
+								]
+								} minZoom={13} maxZoom={13.5}
 							/>
 						</div>
 					</div>
@@ -729,12 +667,6 @@
 				<section data-id="map5">
 					<div class="col-medium">
 						<h2>Employment Profile</h2>
-						<p>
-							Employment along the street is largely distributed across hundreds of small
-							businesses, with some businesses employing more. CAMH is a sizeable employer along the
-							street — but most large employers are concentrated just east, in downtown, or south,
-							in Liberty Village, of the street itself.
-						</p>
 						<hr />
 						<LegendItem
 							variant={'circle'}
@@ -754,26 +686,12 @@
 							bgcolor={'#b0b0b0'}
 							bordercolor={'#fff'}
 						/>
-						<img id="empsizelegend" src="src/routes/assets/employmentsizelegend.svg" alt="legend" />
+						<img id="empsizelegend" src="https://raw.githubusercontent.com/ananmaysharan/rki-app/master/src/routes/assets/employmentsizelegend.svg" alt="legend" />
 					</div>
 				</section>
 				<section data-id="map6">
 					<div class="col-medium">
 						<h2>Housing</h2>
-						<p>
-							The predominant housing form in the area are ground-oriented single family homes north
-							of the street, and high-rise condominium and apartment buildings south of the street.
-							There are exceptions to this and numerous examples of mid-rise apartment buildings
-							throughout the street. Few newer developments directly front onto the street, other
-							than some examples directly south of Trinity Bellwoods Park.
-						</p>
-						<p>
-							Generally, the population density is high for Canada and the GTA throughout the area,
-							though south of the street is much denser with construction in the last 20 years. In
-							contrast, the neighbourhoods north of the street have seen stable or declining
-							populations in the same period as two-to-three unit buildings are converted into
-							single-family houses.
-						</p>
 						<hr />
 						<Legend
 							minlabel={'0'}
@@ -806,13 +724,6 @@
 				<section data-id="map7">
 					<div class="col-medium">
 						<h2>Demographics</h2>
-						<p>
-							The neighbourhoods surrounding West Queen West are more highly educated and less
-							likely to be a first generation immigrant than the regional average. Additionally,
-							they are more likely to be both in the upper quintile of income, more likely to be in
-							the bottom decile of income — indicating a polarized income distribution with limited
-							representation of middle income households.
-						</p>
 						<hr />
 						<Dropdown
 							{map}
@@ -847,12 +758,6 @@
 				<section data-id="map8">
 					<div class="col-medium">
 						<h2>Visitors</h2>
-						<p>
-							West Queen West does draw visitors throughout the Greater Toronto Area, but with a
-							significant concentration among local residents to the west end and downtown of
-							Toronto. Generally, visitor traffic is heaviest on Fridays and Saturdays and in the
-							late afternoon or evening.
-						</p>
 						<hr />
 						<h5>Year</h5>
 						<RangeSlider
@@ -886,7 +791,7 @@
 								const zoom = zoomvalues[e.detail.value];
 								console.log(zoom);
 								map.easeTo({
-									center: [-79.417, 43.6441],
+									center: [-79.584, 43.605],
 									zoom: zoom
 								});
 							}}
@@ -910,7 +815,7 @@
 			</div>
 		</Scroller>
 	</div>
-	<Summary name={'West Queen West'} location={'Toronto, Ontario'}   />
+	<Summary name={'Mississauga Dundas'} location={'Toronto, Ontario'}   />
 </main>
 
 <style>

@@ -4,14 +4,17 @@
 
   
     export let map;
+	export let layer;
+	export let minZoom = 14.1;
+	export let maxZoom = 14.7;
   
     let isChecked = false;
   
     function toggleLayerOpacity() {
       if (map) {
-        const layerId = 'wqw-isochrone';
+        const layerId = layer;
         const opacity = isChecked ? 1 : 0;
-        const zoom = isChecked ? 14.1 : 14.7;
+        const zoom = isChecked ? minZoom : maxZoom;
         map.setPaintProperty(layerId, 'fill-opacity', opacity);
         map.easeTo({zoom})
       }

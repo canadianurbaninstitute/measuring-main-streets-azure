@@ -110,8 +110,19 @@ svelte-scroller-foreground.svelte-xdbafy {
     font-size:0.5em;
 }
 
-h5 {
+h5, h3 {
     margin: 0 auto;
     font-family: 'Inter', sans-serif;
     color: var(--brandDarkBlue);
+}
+
+h1 {
+    font-family: 'Gelasio', serif;
+    color: var(--brandLightBlue);
+    font-weight: 400;
+    margin:0.2em auto;
+}
+
+.hero {
+    display:flex;
 }

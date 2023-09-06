@@ -4,13 +4,15 @@
 
 	export let map;
 	export let layers = [];
+	export let minZoom = 14.1;
+	export let maxZoom = 14.7;
 
 	let isChecked = false;
 
 	function toggleEmploymentSize() {
 		if (map) {
 			const layerList = layers;
-			const zoom = isChecked ? 14.1 : 14.7;
+			const zoom = isChecked ? minZoom : maxZoom;
 			const opacity = isChecked ? 0.8 : 1;
 			const radius = isChecked
 				? ['step', ['get', 'empsize_EmpSzNm'], 5, 5, 10, 10, 15, 50, 20, 100, 25, 1000, 5]
@@ -40,7 +42,7 @@
 	</label>
 </button>
 <div id='legend' class={isChecked ? 'legendOn' : 'legendOff'}>
-	<img src="src/routes/assets/employmentsizelegend.svg" alt="legend">
+	<img src="https://raw.githubusercontent.com/ananmaysharan/rki-app/master/src/routes/assets/employmentsizelegend.svg" alt="legend">
   </div>
 </div>
 
