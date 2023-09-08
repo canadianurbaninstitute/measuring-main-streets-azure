@@ -4,10 +4,10 @@
 
 	import '../../../styles.css';
 
-	import housingtype from '../../../lib/data/housingtype';
-	import housingconstruction from '../../../lib/data/housingconstruction';
-	import educationalattainment from '../../../lib/data/educationalattainment';
-	import immigrationstatus from '../../../lib/data/immigrationstatus';
+	import housingtype from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingconstruction';
+	import educationalattainment from '../../../lib/data/casestudydata/toronto/mississaugadundas/educationalattainment';
+	import immigrationstatus from '../../../lib/data/casestudydata/toronto/mississaugadundas/immigrationstatus';
 
 	import Map from '../../../lib/Map.svelte';
 
@@ -510,7 +510,7 @@
 				</div>
 				<Map
 					bind:map
-					interactive={true}
+					interactive={false}
 					location={{
 						lng: 79,
 						lat: 43,
@@ -703,18 +703,18 @@
 						<ColumnChart
 							colors={['#2A5CAB', '#DB3069']}
 							data={housingtype}
-							xKey="housingtype"
-							yKey="percentage"
-							zKey="area"
+							xKey="Housing Type"
+							yKey="Percentage"
+							zKey="Area"
 							mode="grouped"
 							title="Housing Type"
 						/>
 						<ColumnChart
 							colors={['#2A5CAB', '#DB3069']}
 							data={housingconstruction}
-							xKey="constructionyear"
-							yKey="percentage"
-							zKey="area"
+							xKey="Construction Year"
+							yKey="Percentage"
+							zKey="Area"
 							mode="grouped"
 							title="Housing Year"
 							legend
@@ -787,7 +787,7 @@
 						<h5>Zoom</h5>
 						<RangeSlider
 							on:change={(e) => {
-								const zoomvalues = { 0: 10, 1: 11, 2: 12, 3: 13, 4: 14.5 };
+								const zoomvalues = { 0: 10, 1: 11, 2: 12, 3: 13, 4: 14 };
 								const zoom = zoomvalues[e.detail.value];
 								console.log(zoom);
 								map.easeTo({

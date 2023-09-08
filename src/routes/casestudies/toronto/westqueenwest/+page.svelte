@@ -4,10 +4,10 @@
 
 	import '../../../styles.css';
 
-	import housingtype from '../../../lib/data/housingtype';
-	import housingconstruction from '../../../lib/data/housingconstruction';
-	import educationalattainment from '../../../lib/data/educationalattainment';
-	import immigrationstatus from '../../../lib/data/immigrationstatus';
+	import housingtype from '../../../lib/data/casestudydata/toronto/westqueenwest/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/toronto/westqueenwest/housingconstruction';
+	import educationalattainment from '../../../lib/data/casestudydata/toronto/westqueenwest/educationalattainment';
+	import immigrationstatus from '../../../lib/data/casestudydata/toronto/westqueenwest/immigrationstatus';
 
 	import Map from '../../../lib/Map.svelte';
 
