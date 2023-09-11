@@ -443,6 +443,8 @@
 					map.setPaintProperty('populationdensity', 'fill-opacity', 0.95);
 					map.setPaintProperty('missdundas-outline', 'line-opacity', 1);
 					//map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.4);
+					map.setPaintProperty('missdundas-outline', 'line-color', '#ffdd33');
+
 
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
 					map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
@@ -480,6 +482,8 @@
 
 				if (map.isStyleLoaded()) {
 					map.setPaintProperty('visitors-2022', 'heatmap-opacity', 1);
+					map.setPaintProperty('missdundas-outline', 'line-color', '#fff');
+
 
 					map.setPaintProperty('averageincome', 'fill-opacity', 0);
 					map.setPaintProperty('employment-size', 'circle-opacity', 0);
