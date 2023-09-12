@@ -264,7 +264,7 @@
 			case 1:
 				map.easeTo({
 					center: [-79.4188, 43.64408],
-					zoom: 15.1,
+					zoom: 15.01,
 					pitch: 40,
 					bearing: -14,
 					duration: 2000
@@ -945,6 +945,7 @@
 		padding: 1em 2em;
 		border-radius: 0.5em;
 		width: 20vw;
+		opacity: 0.95;
 	}
 
 	h2 {

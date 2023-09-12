@@ -25,12 +25,31 @@
 	import { sexagesimalToDecimal } from 'geolib';
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
+	import Icon from '@iconify/svelte';
+
 
 	import { weightMaxStore } from '../../../lib/mapStore';
 
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
+
+	// Scroll Map for Built Form
+
+	let defaultValue = [0];
+
+	function generateIncrementalValues(start, end, count) {
+  const step = (end - start) / (count - 1);
+  const values = {};
+
+  for (let i = 0; i < count; i++) {
+    const value = start + i * step;
+    values[i] = value.toFixed(6); // To round to 6 decimal places
+  }
+
+  return values;
+}
+
 
 
 	// Cloudinary Config
@@ -303,7 +322,7 @@
 				break;
 			case 2:
 				map.easeTo({
-					center: [-79.584, 43.605],
+					center: [-79.5875, 43.605],
 					zoom: 13.5,
 					pitch: 0,
 					bearing: -50
@@ -351,7 +370,7 @@
 				break;
 			case 3:
 				map.easeTo({
-					center: [-79.584, 43.605],
+					center: [-79.5875, 43.605],
 					zoom: 13.5,
 					pitch: 0,
 					bearing: -50
@@ -397,7 +416,7 @@
 				break;
 			case 4:
 				map.easeTo({
-					center: [-79.584, 43.605],
+					center: [-79.5875, 43.605],
 					zoom: 13.5,
 					pitch: 0,
 					bearing: -50
@@ -454,7 +473,7 @@
 				break;
 			case 6:
 				map.easeTo({
-					center: [-79.584, 43.605],
+					center: [-79.5875, 43.605],
 					zoom: 13.5,
 					pitch: 0,
 					bearing: -52
@@ -561,6 +580,38 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<hr>
+							<small>Drag the slider to pan the map between left and right</small>
+							<div id="mapSlider">
+							<Icon icon="mdi:chevron-left"  color="#0098D6" width="36" />
+							<RangeSlider
+							on:change={(e) => {
+								const startlongValue = -79.596;
+								const endlongValue = -79.569;
+	
+								const startlatValue = 43.5965;
+								const endlatValue = 43.617;
+								
+								const valueCount = 10;
+	
+								const longIncrementalvalues = generateIncrementalValues(startlongValue, endlongValue, valueCount);
+								const latIncrementalvalues = generateIncrementalValues(startlatValue, endlatValue, valueCount)
+	
+								const longitude = longIncrementalvalues[e.detail.value];
+								const latitude = latIncrementalvalues[e.detail.value];
+	
+								map.easeTo({
+									center: [longitude, latitude],
+								});
+							}}
+							bind:values={defaultValue}
+							min={0}
+							max={9}
+							all="false"
+							hoverable={false}
+						/>
+						<Icon icon="mdi:chevron-right"  color="#0098D6" width="36" />
+						</div>
 					</div>
 				</section>
 				<section data-id="map3">
@@ -793,7 +844,6 @@
 							on:change={(e) => {
 								const zoomvalues = { 0: 10, 1: 11, 2: 12, 3: 13, 4: 14 };
 								const zoom = zoomvalues[e.detail.value];
-								console.log(zoom);
 								map.easeTo({
 									center: [-79.584, 43.605],
 									zoom: zoom
@@ -854,6 +904,7 @@
 		padding: 1em 2em;
 		border-radius: 0.5em;
 		width: 20vw;
+		opacity: 0.95;
 	}
 
 	h2 {
@@ -886,5 +937,11 @@
 
 	#empsizelegend {
 		width: 100%;
+	}
+
+	#mapSlider {
+		 background-color: #fff;
+		 display: flex;
+		 align-items: center;
 	}
 </style>
