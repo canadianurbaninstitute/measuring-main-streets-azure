@@ -1,5 +1,7 @@
 <script>
 	import Title from '../../../lib/Title.svelte';
+	import WestQueenWest from "../../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg"
+
 	import Summary from '../../../lib/Summary.svelte';
 
 	import '../../../styles.css';
@@ -501,7 +503,7 @@
 </svelte:head>
 
 <main>
-	<Title name={'West Queen West'} location={'Toronto, Ontario'} />
+	<Title image={WestQueenWest} name={'West Queen West'} location={'Toronto, Ontario'} />
 	<div class="container">
 		<Scroller bind:count bind:index bind:progress>
 			<div slot="background">

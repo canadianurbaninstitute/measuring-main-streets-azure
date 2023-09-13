@@ -4,11 +4,15 @@
 
         export let name;
         export let location;
+        export let image;
 </script>
 
 <div class="blueprint">
 
     <div class="title">
+        <div class="card-img">
+            <img src={image} alt="street">
+        </div>
         <h1>
             {name}
         </h1>
@@ -29,11 +33,12 @@
 <style>
     .title {
     margin: 0 auto;
-    padding: 20px;
+    padding: 1em;
     width:40vw;
     color: white;
     text-align: center;
     position: relative;
+    bottom: 5em;
     border: solid 0px var(--brandLightBlue);
     border-radius: 8px;
     /* background-color: rgba(255, 255, 255, 1); */
@@ -43,10 +48,9 @@
     margin: 0 auto;
     font-family: 'Gelasio', serif;
     font-weight: 600;
-    max-width: 430px;
     font-size: 3em;
     color: var(--brandDarkBlue);
-    padding: 0px;
+    padding: 0.5em 0 0;
     display: flex;
     flex-direction: column;
 }
@@ -56,10 +60,13 @@
     margin: 0 auto;
     font-family: 'Gelasio', serif;
     font-weight: 400;
-    max-width: 450px;
     font-size: 28px;
     line-height: 30px;
     color: var(--brandLightBlue);
+}
+
+.card-img {
+    height: 15em;
 }
 
 @media only screen and (max-width: 920px) {
@@ -80,7 +87,7 @@
     background-color:white;
     background:linear-gradient(
       rgba(255, 255, 255, 0.95), 
-      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.7),
       rgba(255, 255, 255, 0.95)
 
     ), url('https://i.imgur.com/DXGEpQB.png');
@@ -91,7 +98,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 
 </style>

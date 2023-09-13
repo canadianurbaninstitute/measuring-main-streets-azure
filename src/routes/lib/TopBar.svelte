@@ -1,5 +1,5 @@
 <script>
-	import logo from '../assets/cui_logo.svg';
+	import logo from '../lib/assets/cui_logo.svg';
 	import Icon from '@iconify/svelte';
 </script>
 
