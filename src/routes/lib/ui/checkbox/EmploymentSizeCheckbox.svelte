@@ -1,6 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
+	import EmpSizeLegend from "../../assets/employmentsizelegend.svg"
+
 
 	export let map;
 	export let layers = [];
@@ -42,7 +44,7 @@
 	</label>
 </button>
 <div id='legend' class={isChecked ? 'legendOn' : 'legendOff'}>
-	<img src="https://raw.githubusercontent.com/ananmaysharan/rki-app/master/src/routes/assets/employmentsizelegend.svg" alt="legend">
+	<img src={EmpSizeLegend} alt="legend">
   </div>
 </div>
 

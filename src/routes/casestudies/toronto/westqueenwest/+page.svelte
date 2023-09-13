@@ -1,6 +1,8 @@
 <script>
 	import Title from '../../../lib/Title.svelte';
 	import WestQueenWest from "../../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg"
+	import EmpSizeLegend from "../../../lib/assets/employmentsizelegend.svg"
+
 
 	import Summary from '../../../lib/Summary.svelte';
 
@@ -756,7 +758,7 @@
 							bgcolor={'#b0b0b0'}
 							bordercolor={'#fff'}
 						/>
-						<img id="empsizelegend" src="https://raw.githubusercontent.com/ananmaysharan/rki-app/master/src/routes/assets/employmentsizelegend.svg" alt="legend" />
+						<img id="empsizelegend" src={EmpSizeLegend} alt="legend" />
 					</div>
 				</section>
 				<section data-id="map6">
