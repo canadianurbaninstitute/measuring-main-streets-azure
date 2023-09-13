@@ -1,5 +1,6 @@
 <script>
     import '../styles.css'
+    import { base } from "$app/paths";
 </script>
 
 
@@ -7,6 +8,6 @@
     <h1> Case Studies </h1>
 </div>
 
-<a href="/casestudies/toronto/">Toronto</a>
-<a href="/casestudies/montreal/">Montreal</a>
-<a href="/casestudies/edmonton/">Edmonton</a>
+<a href="{base}/casestudies/toronto/">Toronto</a>
+<a href="{base}/casestudies/montreal/">Montreal</a>
+<a href="{base}/casestudies/edmonton/">Edmonton</a>

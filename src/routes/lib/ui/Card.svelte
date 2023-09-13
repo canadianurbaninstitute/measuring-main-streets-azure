@@ -2,10 +2,12 @@
     export let link;
     export let cardImage;
     export let streetName;
+
+    import { base } from "$app/paths";
 </script>
 
 
-<a href={link}>
+<a href={base + link}>
 <div class="card">
     <div class="card-img">
         <img src={cardImage} alt="card">

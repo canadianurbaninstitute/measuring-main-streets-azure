@@ -1,6 +1,7 @@
 <script>
 	import logo from '../lib/assets/cui_logo.svg';
 	import Icon from '@iconify/svelte';
+	import { base } from "$app/paths";
 </script>
 
 <div id="bar">
@@ -8,21 +9,21 @@
 	<div id="logo">
 		<a href="https://www.canurb.org"><img src={logo} alt="Canadian Urban Institute" /></a>
 	</div>
-	<a href="/"><h2>Measuring Main Streets</h2></a>
+	<a href="{base}/"><h2>Measuring Main Streets</h2></a>
 </div>
 <div id="menu">
 	<nav>
 		<ul>
-			<li><a href="/map">Map</a></li>
+			<li><a href="{base}/map">Map</a></li>
 			<li class="dropdown">
-				<a class="dropdown-title" href="/casestudies">Case Studies <Icon icon="icon-park-solid:down-one" /></a>
+				<a class="dropdown-title" href="{base}/casestudies">Case Studies <Icon icon="icon-park-solid:down-one" /></a>
 				<ul class="dropdown-menu">
-				  <li><a href="/casestudies/toronto">Toronto</a></li>
-				  <li><a href="/casestudies/montreal">Montreal</a></li>
-				  <li><a href="/casestudies/edmonton">Edmonton</a></li>
+				  <li><a href="{base}/casestudies/toronto">Toronto</a></li>
+				  <li><a href="{base}/casestudies/montreal">Montreal</a></li>
+				  <li><a href="{base}/casestudies/edmonton">Edmonton</a></li>
 				</ul>
 			</li>
-			<li><a href="/reports">Reports</a></li>
+			<li><a href="{base}/reports">Reports</a></li>
 
 		</ul>
 	</nav>

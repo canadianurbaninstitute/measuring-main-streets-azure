@@ -1,5 +1,4 @@
 <script>
-    	import TableOfContents from './TableOfContents.svelte';
         import Arrow from './ui/Arrow.svelte';
 
         export let name;
@@ -22,9 +21,6 @@
     </div>
 
     <Arrow/>
-
-<TableOfContents/>
-
 
 
 

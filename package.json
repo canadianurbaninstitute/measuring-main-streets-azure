@@ -10,7 +10,7 @@
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
     "check": "svelte-check",
-    "gh-pages": "npm run build && npx gh-pages -d build"
+    "deploy": "gh-pages -d build -t true"
   },
   "devDependencies": {
     "@iconify/svelte": "^3.1.4",
@@ -23,7 +23,6 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte": "^2.26.0",
-    "gh-pages": "^5.0.0",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.8.1",
     "svelte": "^3.54.0",
@@ -41,6 +40,7 @@
     "cloudinary": "^1.40.0",
     "cloudinary-build-url": "^0.2.4",
     "geolib": "^3.3.4",
+    "gh-pages": "^6.0.0",
     "mapbox-gl": "^2.15.0"
   }
 }

@@ -22,8 +22,6 @@
     import Uxbridge from "../../lib/assets/boundaries/torontoboundaries/Uxbridge.svg"
     import Weston from "../../lib/assets/boundaries/torontoboundaries/Weston.svg"
     import WestQueenWest from "../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg"
-
-
 </script>
 
 
@@ -36,16 +34,16 @@
 </div>
 
 <div class="card-grid">
-<Card link={"/casestudies/toronto/downtownyonge"} cardImage={DowntownYonge} streetName={'Downtown Yonge'}/>
-<Card link={"/casestudies/toronto/kingstonrd"} cardImage={KingstonRd} streetName={'Kingston Road'}/>
-<Card link={"/casestudies/toronto/mississaugadundas"} cardImage={MississaugaDundas} streetName={'Mississauga Dundas'}/>
-<Card link={"/casestudies/toronto/newmarket"} cardImage={Newmarket} streetName={'Newmarket'}/>
-<Card link={"/casestudies/toronto/northyorkcentre"} cardImage={NorthYorkCentre} streetName={'North York Centre'}/>
-<Card link={"/casestudies/toronto/sutton"} cardImage={Sutton} streetName={'Sutton'}/>
-<Card link={"/casestudies/toronto/thorncliffepark"} cardImage={ThorncliffePark} streetName={'Thorncliffe Park'}/>
-<Card link={"/casestudies/toronto/uxbridge"} cardImage={Uxbridge} streetName={'Uxbridge'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={DowntownYonge} streetName={'Downtown Yonge'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={KingstonRd} streetName={'Kingston Road'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={MississaugaDundas} streetName={'Mississauga Dundas'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Newmarket} streetName={'Newmarket'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={NorthYorkCentre} streetName={'North York Centre'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Sutton} streetName={'Sutton'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={ThorncliffePark} streetName={'Thorncliffe Park'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Uxbridge} streetName={'Uxbridge'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={WestQueenWest} streetName={'West Queen West'}/>
-<Card link={"/casestudies/toronto/weston"} cardImage={Weston} streetName={'Weston'}/>
+<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Weston} streetName={'Weston'}/>
 </div>
 
 <div class="subtitle">
@@ -53,16 +51,16 @@
     </div>
     
     <div class="card-grid">
-    <Card link={"/casestudies/toronto/caledoneast"} cardImage={CaledonEast} streetName={'Caledon East'}/>
-    <Card link={"/casestudies/toronto/brampton"} cardImage={Brampton} streetName={'Downtown Brampton'}/>
-    <Card link={"/casestudies/toronto/etobicokelakeshore"} cardImage={EtobicokeLakeshore} streetName={'Etobicoke Lakeshore'}/>
-    <Card link={"/casestudies/toronto/goldenmile"} cardImage={GoldenMile} streetName={'Golden Mile'}/>
-    <Card link={"/casestudies/toronto/libertyvillage"} cardImage={LibertyVillage} streetName={'Liberty Villege'}/>
-    <Card link={"/casestudies/toronto/markhamhwy7"} cardImage={MarkhamHwy7} streetName={'Markham Highway 7'}/>
-    <Card link={"/casestudies/toronto/oakville"} cardImage={Oakville} streetName={'Oakville'}/>
-    <Card link={"/casestudies/toronto/pickering"} cardImage={Pickering} streetName={'Pickering'}/>
-    <Card link={"/casestudies/toronto/schomberg"} cardImage={Schomberg} streetName={'Schomberg'}/>
-    <Card link={"/casestudies/toronto/spadinachinatown"} cardImage={SpadinaChinatown} streetName={'Spadina Chinatown'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={CaledonEast} streetName={'Caledon East'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Brampton} streetName={'Downtown Brampton'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={EtobicokeLakeshore} streetName={'Etobicoke Lakeshore'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={GoldenMile} streetName={'Golden Mile'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={LibertyVillage} streetName={'Liberty Villege'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={MarkhamHwy7} streetName={'Markham Highway 7'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Oakville} streetName={'Oakville'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Pickering} streetName={'Pickering'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Schomberg} streetName={'Schomberg'}/>
+    <Card link={"/casestudies/toronto/westqueenwest"} cardImage={SpadinaChinatown} streetName={'Spadina Chinatown'}/>
     </div>
 
 
