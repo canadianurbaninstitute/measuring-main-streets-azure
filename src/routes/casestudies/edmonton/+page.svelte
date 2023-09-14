@@ -4,5 +4,5 @@
 
 
 <div class="hero">
-    <h1> Edmonton </h1>
+    <h1> Edmonton, Alberta </h1>
 </div>

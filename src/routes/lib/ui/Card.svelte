@@ -21,7 +21,6 @@
      .card {
         padding: 1em;
         background-color: #fff;
-        border: 1px solid #ddd;
         display:flex;
         flex-direction: column;
         align-items: center;

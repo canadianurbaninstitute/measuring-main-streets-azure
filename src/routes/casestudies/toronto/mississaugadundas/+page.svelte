@@ -14,7 +14,7 @@
 	import educationalattainment from '../../../lib/data/casestudydata/toronto/mississaugadundas/educationalattainment';
 	import immigrationstatus from '../../../lib/data/casestudydata/toronto/mississaugadundas/immigrationstatus';
 
-	import Map from '../../../lib/Map.svelte';
+	import Map from '../../../lib/CaseStudyMap.svelte';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';

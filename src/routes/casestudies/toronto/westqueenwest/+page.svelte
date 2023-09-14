@@ -13,7 +13,7 @@
 	import educationalattainment from '../../../lib/data/casestudydata/toronto/westqueenwest/educationalattainment';
 	import immigrationstatus from '../../../lib/data/casestudydata/toronto/westqueenwest/immigrationstatus';
 
-	import Map from '../../../lib/Map.svelte';
+	import Map from '../../../lib/CaseStudyMap.svelte';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';

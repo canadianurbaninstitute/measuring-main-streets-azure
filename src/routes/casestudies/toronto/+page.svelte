@@ -47,7 +47,7 @@
 </div>
 
 <div class="subtitle">
-    <h3>Data Only Case Studies</h3>
+    <h3>Data Case Studies</h3>
     </div>
     
     <div class="card-grid">
@@ -71,13 +71,17 @@
         margin: 2em;
     }
 
-.card-grid {
+    .card-grid {
         border-radius: 1em;
         display: grid;
+        background-color: #ddd;
+        border: 1px solid #ddd;
+        grid-gap: 1px;
         margin: 3em;
         align-items: center;
         justify-content: center;
         grid-template-columns: repeat(5, 1fr);
+        overflow: hidden;
     }
 
 </style>

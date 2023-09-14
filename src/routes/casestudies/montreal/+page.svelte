@@ -3,5 +3,5 @@
 </script>
 
 <div class="hero">
-    <h1> Montreal </h1>
+    <h1> Montreal, Quebec </h1>
 </div>
