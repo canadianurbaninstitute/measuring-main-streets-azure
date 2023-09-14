@@ -36,7 +36,7 @@
 <div class="card-grid">
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={DowntownYonge} streetName={'Downtown Yonge'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={KingstonRd} streetName={'Kingston Road'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={MississaugaDundas} streetName={'Mississauga Dundas'}/>
+<Card link={"/casestudies/toronto/mississaugadundas"} cardImage={MississaugaDundas} streetName={'Mississauga Dundas'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Newmarket} streetName={'Newmarket'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={NorthYorkCentre} streetName={'North York Centre'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Sutton} streetName={'Sutton'}/>
