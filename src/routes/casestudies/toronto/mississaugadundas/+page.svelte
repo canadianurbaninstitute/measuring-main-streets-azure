@@ -133,7 +133,7 @@
 	// Miscallenous Constants
 
 	const gradients = {
-		civic: 'linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a)',
+		civic: 'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)',
 		popdensity:
 			'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)',
 		avgincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)',
@@ -270,13 +270,13 @@
 				let overviewgeojson = createGeoJSON('1_Overview');
 
 				map.once('style.load', () => {
-					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 1);
+					map.setPaintProperty('mainstreets-toronto', 'line-opacity', 1);
 					map.setPaintProperty('missdundas', 'line-opacity', 1);
 					map.setPaintProperty('missdundas-fill', 'fill-opacity', 0.8);
 				});
 
 				if (map.isStyleLoaded()) {
-					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 1);
+					map.setPaintProperty('mainstreets-toronto', 'line-opacity', 1);
 
 					map.setPaintProperty('greenspaces', 'fill-opacity', 0);
 					map.setPaintProperty('transit-toronto', 'line-opacity', 0);
@@ -301,7 +301,7 @@
 				if (map.isStyleLoaded()) {
 					photoslayer.setData(builtformgeojson);
 
-					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 0);
+					map.setPaintProperty('mainstreets-toronto', 'line-opacity', 0);
 
 					map.setPaintProperty('greenspaces', 'fill-opacity', 0.8);
 					map.setPaintProperty('transit-toronto', 'line-opacity', 1);
@@ -556,7 +556,7 @@
 						<Legend
 							minlabel={'Low'}
 							maxlabel={'High'}
-							label={'Civic Infrastructure Density'}
+							label={'Business Density'}
 							gradient={gradients.civic}
 						/>
 						<LegendItem

@@ -1,0 +1,1 @@
+export default [{"Area":"West Queen West","Park_Area":19813.9482,"Park_Percentage":6.3074},{"Area":"Ten Minute Walk","Park_Area":329389.274,"Park_Percentage":8.0429},{"Area":"Toronto CMA","Park_Area":493806872.6705,"Park_Percentage":7.4353}]

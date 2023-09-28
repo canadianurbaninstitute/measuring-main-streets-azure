@@ -8,10 +8,15 @@
 
 	import '../../../styles.css';
 
+	import greenspace from '../../../lib/data/casestudydata/toronto/westqueenwest/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/toronto/westqueenwest/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/toronto/westqueenwest/businessmix';
 	import housingtype from '../../../lib/data/casestudydata/toronto/westqueenwest/housingtype';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/westqueenwest/housingconstruction';
 	import educationalattainment from '../../../lib/data/casestudydata/toronto/westqueenwest/educationalattainment';
 	import immigrationstatus from '../../../lib/data/casestudydata/toronto/westqueenwest/immigrationstatus';
+	import visitortraffic from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortraffic';
+
 
 	import Map from '../../../lib/CaseStudyMap.svelte';
 
@@ -22,7 +27,7 @@
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 
-	import { ColumnChart, BarChart } from '@onsvisual/svelte-charts';
+	import { ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import mapboxgl from 'mapbox-gl';
 	import Scroller from '@sveltejs/svelte-scroller';
@@ -113,7 +118,7 @@
 	// Miscallenous Constants
 
 	const gradients = {
-		civic: 'linear-gradient(to right, #000033, #50127b, #b6377a, #fb8761, #ffd91a)',
+		civic: 'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)',
 		popdensity:
 			'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)',
 		avgincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)',
@@ -250,13 +255,13 @@
 				let overviewgeojson = createGeoJSON('1_Overview');
 
 				map.once('style.load', () => {
-					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 1);
+					map.setPaintProperty('mainstreets-toronto', 'line-opacity', 1);
 					map.setPaintProperty('westqueenwest', 'line-opacity', 1);
 					map.setPaintProperty('westqueenwest-fill', 'fill-opacity', 0.8);
 				});
 
 				if (map.isStyleLoaded()) {
-					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 1);
+					map.setPaintProperty('mainstreets-toronto', 'line-opacity', 1);
 
 					map.setPaintProperty('greenspaces', 'fill-opacity', 0);
 					map.setPaintProperty('transit-toronto', 'line-opacity', 0);
@@ -281,7 +286,7 @@
 				if (map.isStyleLoaded()) {
 					photoslayer.setData(builtformgeojson);
 
-					map.setPaintProperty('mainstreets-toronto-cvc', 'line-opacity', 0);
+					map.setPaintProperty('mainstreets-toronto', 'line-opacity', 0);
 
 					map.setPaintProperty('greenspaces', 'fill-opacity', 0.8);
 					map.setPaintProperty('transit-toronto', 'line-opacity', 1);
@@ -546,7 +551,7 @@
 						<Legend
 							minlabel={'Low'}
 							maxlabel={'High'}
-							label={'Civic Infrastructure Density'}
+							label={'Business Density'}
 							gradient={gradients.civic}
 						/>
 						<LegendItem
@@ -597,6 +602,14 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<hr/>
+						<ColumnChart
+						colors={["#43b171"]}
+						data={greenspace}
+						xKey="Area"
+						yKey="Park_Percentage"
+						title="Green Space %"
+						/>
 					</div>
 				</section>
 				<section data-id="map3">
@@ -668,6 +681,16 @@
 								]}
 							/>
 						</div>
+						<hr/>
+						<ColumnChart
+							colors={["#DB3069","#F45D01", "#8A4285", "#33AED7", "#43B171"]}
+							data={civicmix}
+							xKey="Area"
+							yKey="Percentage"
+							zKey="Group"
+							mode="stacked"
+							title="Civic Infrastructure Mix"
+						/>
 					</div>
 				</section>
 				<section data-id="map4">
@@ -728,6 +751,16 @@
 								]}
 							/>
 						</div>
+						<hr/>
+						<ColumnChart
+							colors={["#43b171","#F13737", "#2a5cac"]}
+							data={businessmix}
+							xKey="Area"
+							yKey="Percentage"
+							zKey="Group"
+							mode="stacked"
+							title="Business Mix"
+						/>
 					</div>
 				</section>
 				<section data-id="map5">
@@ -908,6 +941,14 @@
 							maxlabel={Math.round(weightMax)}
 							label={'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
+						/>
+						<hr/>
+						<!-- Have to figure out dates -->
+						<LineChart
+							data={visitortraffic}
+							xKey="date"
+							yKey="Percentage"
+							title="Visitor Levels (Relative to 2019)"
 						/>
 					</div>
 				</section>
