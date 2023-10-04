@@ -6,8 +6,6 @@
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import '../../../styles.css';
-
 	import greenspace from '../../../lib/data/casestudydata/toronto/westqueenwest/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/toronto/westqueenwest/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/westqueenwest/businessmix';
@@ -16,6 +14,7 @@
 	import educationalattainment from '../../../lib/data/casestudydata/toronto/westqueenwest/educationalattainment';
 	import immigrationstatus from '../../../lib/data/casestudydata/toronto/westqueenwest/immigrationstatus';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortraffic';
+
 
 
 	import Map from '../../../lib/CaseStudyMap.svelte';
@@ -27,7 +26,11 @@
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 
+	import {timeFormat} from 'd3-time-format';
+
+
 	import { ColumnChart, LineChart } from '@onsvisual/svelte-charts';
+
 	import RangeSlider from 'svelte-range-slider-pips';
 	import mapboxgl from 'mapbox-gl';
 	import Scroller from '@sveltejs/svelte-scroller';
@@ -35,7 +38,12 @@
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
+
+
 	import { weightMaxStore } from '../../../lib/mapStore';
+
+	import '../../../styles.css';
+
 
 
 	// WeightMax for Visitor Gradient Max Value
@@ -49,7 +57,9 @@
 
 
 	// Photos Setup
+
 	export let data;
+
 	const photosJSON = data.photos;
 
 	function createGeoJSON(filterString = null) {
@@ -609,6 +619,7 @@
 						xKey="Area"
 						yKey="Park_Percentage"
 						title="Green Space %"
+						padding={{top: 20, bottom: 20}}
 						/>
 					</div>
 				</section>
@@ -682,7 +693,7 @@
 							/>
 						</div>
 						<hr/>
-						<ColumnChart
+						<ColumnChart 
 							colors={["#DB3069","#F45D01", "#8A4285", "#33AED7", "#43B171"]}
 							data={civicmix}
 							xKey="Area"
@@ -690,6 +701,7 @@
 							zKey="Group"
 							mode="stacked"
 							title="Civic Infrastructure Mix"
+							padding={{top: 20, bottom: 20}}
 						/>
 					</div>
 				</section>
@@ -760,6 +772,7 @@
 							zKey="Group"
 							mode="stacked"
 							title="Business Mix"
+							padding={{top: 20, bottom: 20}}
 						/>
 					</div>
 				</section>
@@ -820,7 +833,7 @@
 						/>
 						<hr />
 						<ColumnChart
-							colors={['#2A5CAB', '#DB3069']}
+							colors={['#002a41', '#0098D6']}
 							data={housingtype}
 							xKey="housingtype"
 							yKey="percentage"
@@ -829,7 +842,7 @@
 							title="Housing Type"
 						/>
 						<ColumnChart
-							colors={['#2A5CAB', '#DB3069']}
+							colors={['#002a41', '#0098D6']}
 							data={housingconstruction}
 							xKey="constructionyear"
 							yKey="percentage"
@@ -860,7 +873,7 @@
 							]}
 						/>
 						<hr />
-						<ColumnChart
+						<!-- <ColumnChart
 							colors={['#2A5CAB', '#DB3069']}
 							data={educationalattainment}
 							xKey="Degree Attained"
@@ -868,8 +881,8 @@
 							zKey="Area"
 							mode="grouped"
 							title="Educational Attainment"
-						/>
-						<ColumnChart
+						/> -->
+						<!-- <ColumnChart
 							colors={['#2A5CAB', '#DB3069']}
 							data={immigrationstatus}
 							xKey="Generation Status"
@@ -878,7 +891,7 @@
 							mode="grouped"
 							title="Immigration Status"
 							legend
-						/>
+						/> -->
 					</div>
 				</section>
 				<section data-id="map8">
@@ -943,12 +956,20 @@
 							gradient={gradients.heatmap}
 						/>
 						<hr/>
-						<!-- Have to figure out dates -->
 						<LineChart
-							data={visitortraffic}
+							data={visitortraffic.map(d => ({
+								date: new Date(`${d.date}`),
+								Percentage: d.Percentage,
+								Count: d.Count
+							  }))}
 							xKey="date"
 							yKey="Percentage"
+							xScale="time"
+							xFormatTick={d=>timeFormat('%Y')(d)}
+							area={false}
 							title="Visitor Levels (Relative to 2019)"
+							snapTicks={false}
+							colors={['#0098D6']}
 						/>
 					</div>
 				</section>
@@ -1024,4 +1045,5 @@
 	#empsizelegend {
 		width: 100%;
 	}
+
 </style>

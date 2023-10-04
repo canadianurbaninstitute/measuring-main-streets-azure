@@ -35,10 +35,11 @@
   },
   "type": "module",
   "dependencies": {
-    "@onsvisual/svelte-charts": "github:ananmaysharan/svelte-charts",
+    "@onsvisual/svelte-charts": "^0.2.25",
     "@sveltejs/svelte-scroller": "^2.0.7",
     "cloudinary": "^1.40.0",
     "cloudinary-build-url": "^0.2.4",
+    "d3-time-format": "^4.1.0",
     "geolib": "^3.3.4",
     "gh-pages": "^6.0.0",
     "mapbox-gl": "^3.0.0-beta.1"
