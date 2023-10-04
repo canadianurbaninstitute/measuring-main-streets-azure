@@ -5,25 +5,25 @@
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
 
-    // onMount(() => {
-    //     map = new mapboxgl.Map({
-    //         container: 'map', 
-    //         style: 'mapbox://styles/mapbox/light-v11',
-    //         center: [-97, 55], 
-    //         zoom: 3.9,
-    //         minZoom: 2,
-    //         scrollZoom: true,
-    //     });
+    onMount(() => {
+        map = new mapboxgl.Map({
+            container: 'map', 
+            style: 'mapbox://styles/ananmay/clnc7tpm907rd01p93bgs013m',
+            center: [-97, 55], 
+            zoom: 3.9,
+            minZoom: 2,
+            scrollZoom: true,
+        });
 
-    //     const nav = new mapboxgl.NavigationControl();
-    //     map.addControl(nav, 'top-right');
+        const nav = new mapboxgl.NavigationControl();
+        map.addControl(nav, 'top-right');
 
-    // });   
+    });   
 
 </script>
 
 <svelte:head>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.0-beta.1/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
 </svelte:head>
 
 
