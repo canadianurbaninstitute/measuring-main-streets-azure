@@ -87,11 +87,13 @@
 
 		document.body.scrollIntoView();
 	});
+
 	onDestroy(async () => {
 		await sleep(250);
 		if (map) map.remove();
 		map = null;
 	});
+
 	// Function to switch map style if style prop changes
 	function setStyle(style) {
 		if (map) map.setStyle(style);
@@ -103,10 +105,8 @@
 </script>
 
 <svelte:head>
-	<link
-		rel="stylesheet"
-		href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css"
-	/>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+
 </svelte:head>
 
 <div bind:this={container} {id} class="map">

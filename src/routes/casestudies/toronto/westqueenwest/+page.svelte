@@ -14,6 +14,12 @@
 	import educationalattainment from '../../../lib/data/casestudydata/toronto/westqueenwest/educationalattainment';
 	import immigrationstatus from '../../../lib/data/casestudydata/toronto/westqueenwest/immigrationstatus';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/westqueenwest/visitordayofweek';
+
+
+
 
 
 
@@ -872,7 +878,6 @@
 								{ id: 'visibleminority', text: 'Visible Minorities' }
 							]}
 						/>
-						<hr />
 						<!-- <ColumnChart
 							colors={['#2A5CAB', '#DB3069']}
 							data={educationalattainment}
@@ -970,6 +975,36 @@
 							title="Visitor Levels (Relative to 2019)"
 							snapTicks={false}
 							colors={['#0098D6']}
+						/>
+						<hr>
+						<ColumnChart 
+							colors={["#002a41","#0098D6", "#db3069"]}
+							data={visitortypes}
+							xKey="Year"
+							yKey="Count"
+							zKey="Type"
+							mode="stacked"
+							title="Visitor Types"
+							padding={{top: 20, bottom: 20, left: 70}}
+							legend
+						/>
+						<hr>
+						<ColumnChart
+						colors={["#002a41"]}
+						data={visitortimeofday}
+						xKey="Time"
+						yKey="Percentage"
+						title="Time of Day"
+						padding={{top: 20, bottom: 20, left: 20}}
+						/>
+						<hr>
+						<ColumnChart
+						colors={["#002a41"]}
+						data={visitordayofweek}
+						xKey="Day"
+						yKey="Percentage"
+						title="Day of Week"
+						padding={{top: 20, bottom: 20, left: 20}}
 						/>
 					</div>
 				</section>

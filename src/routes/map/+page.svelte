@@ -5,6 +5,8 @@
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
 
+    export let map;
+
     onMount(() => {
         map = new mapboxgl.Map({
             container: 'map', 
@@ -14,9 +16,6 @@
             minZoom: 2,
             scrollZoom: true,
         });
-
-        const nav = new mapboxgl.NavigationControl();
-        map.addControl(nav, 'top-right');
 
     });   
 
