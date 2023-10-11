@@ -35,7 +35,7 @@
 	import {timeFormat} from 'd3-time-format';
 
 
-	import { ColumnChart, LineChart } from '@onsvisual/svelte-charts';
+	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
 	import mapboxgl from 'mapbox-gl';
@@ -49,8 +49,6 @@
 	import { weightMaxStore } from '../../../lib/mapStore';
 
 	import '../../../styles.css';
-
-
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
@@ -619,13 +617,13 @@
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<hr/>
-						<ColumnChart
+						<BarChart
 						colors={["#43b171"]}
 						data={greenspace}
-						xKey="Area"
-						yKey="Park_Percentage"
+						yKey="Area"
+						xKey="Park_Percentage"
 						title="Green Space %"
-						padding={{top: 20, bottom: 20}}
+						padding={{top: 0, bottom: 20, left: 75}}
 						/>
 					</div>
 				</section>
@@ -699,15 +697,15 @@
 							/>
 						</div>
 						<hr/>
-						<ColumnChart 
+						<BarChart 
 							colors={["#DB3069","#F45D01", "#8A4285", "#33AED7", "#43B171"]}
 							data={civicmix}
-							xKey="Area"
-							yKey="Percentage"
+							yKey="Area"
+							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix"
-							padding={{top: 20, bottom: 20}}
+							title="Civic Infrastructure Mix (%)"
+							padding={{top: 0, bottom: 20, left:75}}
 						/>
 					</div>
 				</section>
@@ -770,15 +768,15 @@
 							/>
 						</div>
 						<hr/>
-						<ColumnChart
+						<BarChart
 							colors={["#43b171","#F13737", "#2a5cac"]}
 							data={businessmix}
-							xKey="Area"
-							yKey="Percentage"
+							yKey="Area"
+							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix"
-							padding={{top: 20, bottom: 20}}
+							title="Business Mix (%)"
+							padding={{top: 0, bottom: 20, left: 75}}
 						/>
 					</div>
 				</section>
@@ -838,23 +836,25 @@
 							gradient={gradients.popdensity}
 						/>
 						<hr />
-						<ColumnChart
+						<BarChart
 							colors={['#002a41', '#0098D6']}
 							data={housingtype}
-							xKey="housingtype"
-							yKey="percentage"
+							yKey="housingtype"
+							xKey="percentage"
 							zKey="area"
 							mode="grouped"
-							title="Housing Type"
+							title="Housing Type (%)"
+							padding={{top: 0, bottom: 20, left: 65}}
 						/>
-						<ColumnChart
+						<BarChart
 							colors={['#002a41', '#0098D6']}
 							data={housingconstruction}
-							xKey="constructionyear"
-							yKey="percentage"
+							yKey="constructionyear"
+							xKey="percentage"
 							zKey="area"
 							mode="grouped"
-							title="Housing Year"
+							title="Housing Construction Year (%)"
+							padding={{top: 0, bottom: 20, left: 35}}
 							legend
 						/>
 					</div>
@@ -972,7 +972,7 @@
 							xScale="time"
 							xFormatTick={d=>timeFormat('%Y')(d)}
 							area={false}
-							title="Visitor Levels (Relative to 2019)"
+							title="Visitor Levels % (Relative to 2019)"
 							snapTicks={false}
 							colors={['#0098D6']}
 						/>
@@ -984,27 +984,27 @@
 							yKey="Count"
 							zKey="Type"
 							mode="stacked"
-							title="Visitor Types"
+							title="Visitor Count by Type"
 							padding={{top: 20, bottom: 20, left: 70}}
 							legend
 						/>
 						<hr>
-						<ColumnChart
+						<BarChart
 						colors={["#002a41"]}
 						data={visitortimeofday}
-						xKey="Time"
-						yKey="Percentage"
-						title="Time of Day"
-						padding={{top: 20, bottom: 20, left: 20}}
+						yKey="Time"
+						xKey="Percentage"
+						title="Visitors (%) by Time of Day"
+						padding={{top: 0, bottom: 20, left: 50}}
 						/>
 						<hr>
-						<ColumnChart
-						colors={["#002a41"]}
+						<BarChart
+						colors={["#0098D6"]}
 						data={visitordayofweek}
-						xKey="Day"
-						yKey="Percentage"
-						title="Day of Week"
-						padding={{top: 20, bottom: 20, left: 20}}
+						yKey="Day"
+						xKey="Percentage"
+						title="Visitors (%) by Day of Week"
+						padding={{top: 0, bottom: 20, left: 50}}
 						/>
 					</div>
 				</section>
