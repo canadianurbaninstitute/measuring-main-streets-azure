@@ -1,8 +1,7 @@
 <script>
 	import Title from '../../../lib/Title.svelte';
-	import WestQueenWest from "../../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg"
-	import EmpSizeLegend from "../../../lib/assets/employmentsizelegend.svg"
-
+	import WestQueenWest from '../../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg';
+	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
 	import Summary from '../../../lib/Summary.svelte';
 
@@ -11,17 +10,12 @@
 	import businessmix from '../../../lib/data/casestudydata/toronto/westqueenwest/businessmix';
 	import housingtype from '../../../lib/data/casestudydata/toronto/westqueenwest/housingtype';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/westqueenwest/housingconstruction';
-	import educationalattainment from '../../../lib/data/casestudydata/toronto/westqueenwest/educationalattainment';
-	import immigrationstatus from '../../../lib/data/casestudydata/toronto/westqueenwest/immigrationstatus';
+	// import educationalattainment from '../../../lib/data/casestudydata/toronto/westqueenwest/educationalattainment';
+	// import immigrationstatus from '../../../lib/data/casestudydata/toronto/westqueenwest/immigrationstatus';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortypes';
 	import visitortimeofday from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortimeofday';
 	import visitordayofweek from '../../../lib/data/casestudydata/toronto/westqueenwest/visitordayofweek';
-
-
-
-
-
 
 	import Map from '../../../lib/CaseStudyMap.svelte';
 
@@ -32,8 +26,7 @@
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 
-	import {timeFormat} from 'd3-time-format';
-
+	import { timeFormat } from 'd3-time-format';
 
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
@@ -44,8 +37,6 @@
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
-
-
 	import { weightMaxStore } from '../../../lib/mapStore';
 
 	import '../../../styles.css';
@@ -53,12 +44,10 @@
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
 
-
 	// Cloudinary Config
 	setConfig({
 		cloudName: 'dq4p0s7xo'
 	});
-
 
 	// Photos Setup
 
@@ -176,9 +165,9 @@
 				imagesLoaded = true; // Mark images as loaded to prevent multiple executions
 			});
 
-						// Setting Control
+			// Setting Control
 
-						map.addControl(
+			map.addControl(
 				new mapboxgl.AttributionControl({
 					customAttribution: 'Canadian Urban Institute'
 				})
@@ -302,7 +291,8 @@
 
 					map.setPaintProperty('mainstreets-toronto', 'line-opacity', 0);
 
-					map.setPaintProperty('greenspaces', 'fill-opacity', 0.8);
+					map.setPaintProperty('greenspaces', 'fill-opacity', 1);
+
 					map.setPaintProperty('transit-toronto', 'line-opacity', 1);
 					map.setPaintProperty('transit-toronto-stops', 'circle-opacity', 1);
 					map.setPaintProperty('buildings-toronto', 'fill-extrusion-opacity', 0.8);
@@ -539,7 +529,7 @@
 						lat: 43,
 						zoom: 1.8
 					}}
-					style={'mapbox://styles/ananmay/clilulw4v002t01pgahq9d88q?&fresh=true?optimize=true'} 
+					style={'mapbox://styles/ananmay/clilulw4v002t01pgahq9d88q?&fresh=true?optimize=true'}
 				/>
 			</div>
 
@@ -616,14 +606,14 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
-						<hr/>
+						<hr />
 						<BarChart
-						colors={["#43b171"]}
-						data={greenspace}
-						yKey="Area"
-						xKey="Park_Percentage"
-						title="Green Space %"
-						padding={{top: 0, bottom: 20, left: 75}}
+							colors={['#43b171']}
+							data={greenspace}
+							yKey="Area"
+							xKey="Park_Percentage"
+							title="Green Space %"
+							padding={{ top: 0, bottom: 20, left: 75 }}
 						/>
 					</div>
 				</section>
@@ -696,16 +686,16 @@
 								]}
 							/>
 						</div>
-						<hr/>
-						<BarChart 
-							colors={["#DB3069","#F45D01", "#8A4285", "#33AED7", "#43B171"]}
+						<hr />
+						<BarChart
+							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
 							data={civicmix}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
 							title="Civic Infrastructure Mix (%)"
-							padding={{top: 0, bottom: 20, left:75}}
+							padding={{ top: 0, bottom: 20, left: 75 }}
 						/>
 					</div>
 				</section>
@@ -767,16 +757,16 @@
 								]}
 							/>
 						</div>
-						<hr/>
+						<hr />
 						<BarChart
-							colors={["#43b171","#F13737", "#2a5cac"]}
+							colors={['#43b171', '#F13737', '#2a5cac']}
 							data={businessmix}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
 							title="Business Mix (%)"
-							padding={{top: 0, bottom: 20, left: 75}}
+							padding={{ top: 0, bottom: 20, left: 75 }}
 						/>
 					</div>
 				</section>
@@ -844,7 +834,7 @@
 							zKey="area"
 							mode="grouped"
 							title="Housing Type (%)"
-							padding={{top: 0, bottom: 20, left: 65}}
+							padding={{ top: 0, bottom: 20, left: 65 }}
 						/>
 						<BarChart
 							colors={['#002a41', '#0098D6']}
@@ -854,7 +844,7 @@
 							zKey="area"
 							mode="grouped"
 							title="Housing Construction Year (%)"
-							padding={{top: 0, bottom: 20, left: 35}}
+							padding={{ top: 0, bottom: 20, left: 35 }}
 							legend
 						/>
 					</div>
@@ -960,58 +950,58 @@
 							label={'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
-						<hr/>
+						<hr />
 						<LineChart
-							data={visitortraffic.map(d => ({
+							data={visitortraffic.map((d) => ({
 								date: new Date(`${d.date}`),
 								Percentage: d.Percentage,
 								Count: d.Count
-							  }))}
+							}))}
 							xKey="date"
 							yKey="Percentage"
 							xScale="time"
-							xFormatTick={d=>timeFormat('%Y')(d)}
+							xFormatTick={(d) => timeFormat('%Y')(d)}
 							area={false}
 							title="Visitor Levels % (Relative to 2019)"
 							snapTicks={false}
 							colors={['#0098D6']}
 						/>
-						<hr>
-						<ColumnChart 
-							colors={["#002a41","#0098D6", "#db3069"]}
+						<hr />
+						<ColumnChart
+							colors={['#002a41', '#0098D6', '#db3069']}
 							data={visitortypes}
 							xKey="Year"
 							yKey="Count"
 							zKey="Type"
 							mode="stacked"
 							title="Visitor Count by Type"
-							padding={{top: 20, bottom: 20, left: 70}}
+							padding={{ top: 20, bottom: 20, left: 70 }}
 							legend
 						/>
-						<hr>
+						<hr />
 						<BarChart
-						colors={["#002a41"]}
-						data={visitortimeofday}
-						yKey="Time"
-						xKey="Percentage"
-						title="Visitors (%) by Time of Day"
-						padding={{top: 0, bottom: 20, left: 50}}
+							colors={['#002a41']}
+							data={visitortimeofday}
+							yKey="Time"
+							xKey="Percentage"
+							title="Visitors (%) by Time of Day"
+							padding={{ top: 0, bottom: 20, left: 50 }}
 						/>
-						<hr>
+						<hr />
 						<BarChart
-						colors={["#0098D6"]}
-						data={visitordayofweek}
-						yKey="Day"
-						xKey="Percentage"
-						title="Visitors (%) by Day of Week"
-						padding={{top: 0, bottom: 20, left: 50}}
+							colors={['#0098D6']}
+							data={visitordayofweek}
+							yKey="Day"
+							xKey="Percentage"
+							title="Visitors (%) by Day of Week"
+							padding={{ top: 0, bottom: 20, left: 50 }}
 						/>
 					</div>
 				</section>
 			</div>
 		</Scroller>
 	</div>
-	<Summary name={'West Queen West'} location={'Toronto, Ontario'}   />
+	<Summary name={'West Queen West'} location={'Toronto, Ontario'} />
 </main>
 
 <style>
@@ -1080,5 +1070,4 @@
 	#empsizelegend {
 		width: 100%;
 	}
-
 </style>

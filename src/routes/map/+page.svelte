@@ -1,7 +1,6 @@
 <script>
 	import '../styles.css';
-	import { onMount } from 'svelte';
-	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';	import mapboxgl from 'mapbox-gl';
 
 	import Legend from '../lib/ui/legends/Legend.svelte';
 
