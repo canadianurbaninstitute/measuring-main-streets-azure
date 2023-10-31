@@ -66,7 +66,7 @@
 }
 
 .blueprint {
-    width: 100%;
+    /* width: 100%; */
     /* max-width: 1920px; */
     /* height: calc(100vh - 100px);
     max-height: 1080px; */
@@ -85,6 +85,7 @@
     align-items: flex-start;
     justify-content: center;
     padding: 0 0 0 5em;
+    border-bottom: 1px solid #ddd;
 }
 
 </style>
