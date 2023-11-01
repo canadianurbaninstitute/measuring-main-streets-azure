@@ -35,7 +35,6 @@
 
 	import { mapStore, weightMaxStore } from '../../lib/mapStore';
 
-
 	import '../../styles.css';
 
 	const gradients = {
@@ -54,7 +53,6 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	
 </script>
 
 <svelte:head>
@@ -262,7 +260,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap2
-						center={[-79.418, 43.6441]}
+						center={[-79.4154, 43.6441]}
 						zoom={14.7}
 						minZoom={14}
 						pitch={0}
@@ -354,7 +352,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap2
-						center={[-79.418, 43.6441]}
+						center={[-79.4154, 43.6441]}
 						zoom={14.7}
 						minZoom={14}
 						pitch={0}
@@ -396,7 +394,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap2
-						center={[-79.418, 43.6441]}
+						center={[-79.4154, 43.6441]}
 						zoom={14.5}
 						minZoom={14}
 						pitch={20}
@@ -459,7 +457,7 @@
 						/>
 					</div>
 					<CaseStudyMap2
-						center={[-79.418, 43.6441]}
+						center={[-79.4154, 43.6441]}
 						zoom={14.7}
 						minZoom={14}
 						pitch={0}
@@ -522,7 +520,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap2
-						center={[-79.418, 43.6441]}
+						center={[-79.4154, 43.6441]}
 						zoom={14.5}
 						minZoom={14}
 						pitch={0}
@@ -607,7 +605,7 @@
 							gradient={gradients.heatmap}
 						/>
 					</div>
-					<div class="graphics-container">
+					<div class="graphics-container" id="visitor-charts">
 						<div class="chart">
 							<LineChart
 								data={visitortraffic.map((d) => ({
@@ -689,16 +687,15 @@
 	}
 
 	.content-container {
-			line-height: 160%;
-			text-align: left;
-			margin: 0 2em 0 0;
+		line-height: 160%;
+		text-align: left;
+		margin: 0 2em 0 0;
 	}
 
 	.graphics-container {
 		display: flex;
 		flex-direction: column;
 	}
-
 	.chart {
 		border: 2px solid #ddd;
 		border-radius: 0.5em;
@@ -711,7 +708,7 @@
 		position: relative;
 		width: 100%;
 		display: flex;
-    	flex-direction: column;
+		flex-direction: column;
 	}
 
 	h2 {
@@ -762,12 +759,15 @@
 
 		.sticky-content {
 			position: -webkit-sticky; /* for Safari */
-  			position: sticky;
+			position: sticky;
 			top: 1em;
 			align-self: flex-start; /* <-- this is the fix */
-  
-}
+		}
 
+		#visitor-charts {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			column-gap: 1em;
+		}
 	}
-
 </style>
