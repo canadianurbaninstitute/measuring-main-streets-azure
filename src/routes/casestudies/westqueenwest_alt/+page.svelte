@@ -29,7 +29,6 @@
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
-	import mapboxgl from 'mapbox-gl';
 	import { sexagesimalToDecimal } from 'geolib';
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
@@ -47,7 +46,7 @@
 		heatmap: 'linear-gradient(to right, #0000ff, royalblue, cyan, lime, yellow, red)'
 	};
 
-	const zoomlabels = ['Region', 'City', 'Area', 'Neighbourhood', 'Street'];
+	//const zoomlabels = ['Region', 'City', 'Area', 'Neighbourhood', 'Street'];
 
 	let values = [2022];
 	export let map = null;
@@ -448,7 +447,6 @@
 						single-family houses.
 					</p>
 				</div>
-
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
@@ -467,34 +465,34 @@
 						layers={['westqueenwest-outline', 'populationdensity']}
 						section={'housing'}
 					/>
-				</div>
-			</div>
-			<div class="graphics-container">
-				<div class="chart">
-					<ColumnChart
-						colors={['#002a41', '#0098D6']}
-						data={housingconstruction}
-						xKey="constructionyear"
-						yKey="percentage"
-						zKey="area"
-						mode="grouped"
-						title="Housing Construction Year (%)"
-						padding={{ top: 0, bottom: 20, left: 10 }}
-						legend
-					/>
-				</div>
-				<div class="chart">
-					<ColumnChart
-						colors={['#002a41', '#0098D6']}
-						data={housingtype}
-						xKey="housingtype"
-						yKey="percentage"
-						zKey="area"
-						mode="grouped"
-						title="Housing Type (%)"
-						padding={{ top: 10, bottom: 20, left: 10 }}
-						legend
-					/>
+					<div class="graphics-container">
+						<div class="chart">
+							<ColumnChart
+								colors={['#002a41', '#0098D6']}
+								data={housingconstruction}
+								xKey="constructionyear"
+								yKey="percentage"
+								zKey="area"
+								mode="grouped"
+								title="Housing Construction Year (%)"
+								padding={{ top: 0, bottom: 20, left: 10 }}
+								legend
+							/>
+						</div>
+						<div class="chart">
+							<ColumnChart
+								colors={['#002a41', '#0098D6']}
+								data={housingtype}
+								xKey="housingtype"
+								yKey="percentage"
+								zKey="area"
+								mode="grouped"
+								title="Housing Type (%)"
+								padding={{ top: 10, bottom: 20, left: 10 }}
+								legend
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -607,60 +605,58 @@
 							gradient={gradients.heatmap}
 						/>
 					</div>
-				</div>
-			</div>
-			<div class="graphics-container">
-				<div class="chart">
-					<LineChart
-						data={visitortraffic.map((d) => ({
-							date: new Date(`${d.date}`),
-							Percentage: d.Percentage,
-							Count: d.Count
-						}))}
-						xKey="date"
-						yKey="Percentage"
-						xScale="time"
-						xFormatTick={(d) => timeFormat('%Y')(d)}
-						area={false}
-						title="Visitor Levels % (Relative to 2019)"
-						snapTicks={false}
-						colors={['#0098D6']}
-					/>
-				</div>
-				<div class="chart">
-					<ColumnChart
-						colors={['#002a41', '#0098D6', '#db3069']}
-						data={visitortypes}
-						xKey="Year"
-						yKey="Count"
-						zKey="Type"
-						mode="stacked"
-						title="Visitor Count by Type"
-						padding={{ top: 20, bottom: 20, left: 70 }}
-						legend
-					/>
-				</div>
-			</div>
-			<div class="graphics-container">
-				<div class="chart">
-					<BarChart
-						colors={['#002a41']}
-						data={visitortimeofday}
-						yKey="Time"
-						xKey="Percentage"
-						title="Visitors (%) by Time of Day"
-						padding={{ top: 0, bottom: 20, left: 80 }}
-					/>
-				</div>
-				<div class="chart">
-					<BarChart
-						colors={['#0098D6']}
-						data={visitordayofweek}
-						yKey="Day"
-						xKey="Percentage"
-						title="Visitors (%) by Day of Week"
-						padding={{ top: 0, bottom: 20, left: 80 }}
-					/>
+					<div class="graphics-container">
+						<div class="chart">
+							<LineChart
+								data={visitortraffic.map((d) => ({
+									date: new Date(`${d.date}`),
+									Percentage: d.Percentage,
+									Count: d.Count
+								}))}
+								xKey="date"
+								yKey="Percentage"
+								xScale="time"
+								xFormatTick={(d) => timeFormat('%Y')(d)}
+								area={false}
+								title="Visitor Levels % (Relative to 2019)"
+								snapTicks={false}
+								colors={['#0098D6']}
+							/>
+						</div>
+						<div class="chart">
+							<ColumnChart
+								colors={['#002a41', '#0098D6', '#db3069']}
+								data={visitortypes}
+								xKey="Year"
+								yKey="Count"
+								zKey="Type"
+								mode="stacked"
+								title="Visitor Count by Type"
+								padding={{ top: 20, bottom: 20, left: 70 }}
+								legend
+							/>
+						</div>
+						<div class="chart">
+							<BarChart
+								colors={['#002a41']}
+								data={visitortimeofday}
+								yKey="Time"
+								xKey="Percentage"
+								title="Visitors (%) by Time of Day"
+								padding={{ top: 0, bottom: 20, left: 80 }}
+							/>
+						</div>
+						<div class="chart">
+							<BarChart
+								colors={['#0098D6']}
+								data={visitordayofweek}
+								yKey="Day"
+								xKey="Percentage"
+								title="Visitors (%) by Day of Week"
+								padding={{ top: 0, bottom: 20, left: 80 }}
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -698,19 +694,22 @@
 
 	.graphics-container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 	}
 
 	.chart {
 		border: 2px solid #ddd;
 		border-radius: 0.5em;
 		padding: 1em;
-		width: 100%;
+		margin: 1em 0 0 0;
+		/* width: 100%; */
 	}
 
 	.map-container {
 		position: relative;
 		width: 100%;
+		display: flex;
+    	flex-direction: column;
 	}
 
 	h2 {
@@ -732,6 +731,7 @@
 		border: 2px solid #ddd;
 		border-radius: 0.5em;
 		padding: 1em;
+		margin: 0 0 1em 0;
 	}
 
 	.checkbox {

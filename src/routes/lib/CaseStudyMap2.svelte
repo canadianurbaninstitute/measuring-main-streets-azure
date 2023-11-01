@@ -44,11 +44,17 @@
 			projection: 'globe',
 			scrollZoom: false,
 			maxBounds: maxBounds,
-			attributionControl: true
+			attributionControl: false
 		});
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
+
+		map.addControl(
+				new mapboxgl.AttributionControl({
+					customAttribution: 'Canadian Urban Institute'
+				})
+			);
 
 		//map.scrollZoom.disable();
 
@@ -80,7 +86,7 @@
 
 <style>
 	.map {
-		width: 100%;
+		/* width: 100%; */
 		border: 2px solid #dddddd;
 		border-radius: 0.8em;
 	}

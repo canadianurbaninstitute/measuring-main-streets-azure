@@ -33,9 +33,6 @@
 <h3>Full Case Studies</h3>
 </div>
 
-<a href="/casestudies/westqueenwest_alt/">West Queen West Alternative Version</a>
-
-
 <div class="card-grid">
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={DowntownYonge} streetName={'Downtown Yonge'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={KingstonRd} streetName={'Kingston Road'}/>
