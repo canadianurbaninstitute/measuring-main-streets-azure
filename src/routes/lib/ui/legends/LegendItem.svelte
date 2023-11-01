@@ -18,10 +18,11 @@ mapStore.subscribe(value => {
 let layerActive = true;
 
 function toggleLayerVisibility() {
-  let visibilitystatus = map.getLayoutProperty(id, 'visibility');
-  console.log(visibilitystatus)
 
-  if (visibilitystatus === 'visible' | visibilitystatus === undefined) {
+
+  let visibilitystatus = map.getLayoutProperty(id, 'visibility');
+
+  if (visibilitystatus === 'visible' || visibilitystatus === undefined) {
         map.setLayoutProperty(id, 'visibility', 'none');
         layerActive = false;
       } else {

@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
+	import { mapStore2 } from './mapStore';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
@@ -24,7 +25,7 @@
 		mapHeight = 600;
 	}
 
-	let map;
+	export let map;
 
 	const maxBounds = [
 		[-79.6772, 43.44], // SW coords
@@ -46,6 +47,8 @@
 			maxBounds: maxBounds,
 			attributionControl: false
 		});
+
+		mapStore2.set(map);
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
@@ -73,7 +76,6 @@
             });
 
 			layers.forEach(function (layerName) {
-				console.log(layerName);
 				map.setLayoutProperty(layerName, 'visibility', 'visible');
 			});
 		});

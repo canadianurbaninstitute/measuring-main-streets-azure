@@ -119,6 +119,15 @@ h5, h3 {
     color: var(--brandDarkBlue);
 }
 
+h2 {
+    padding-bottom: 0.2em;
+    margin: 0 auto;
+    font-family: 'Gelasio', serif;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--brandLightBlue);
+}
+
 h1 {
     font-family: 'Gelasio', serif;
     color: var(--brandLightBlue);

@@ -29,9 +29,9 @@
 	let container;
 	let _options = {};
 	let loaded = false;
-	setContext("map", {
-		getMap: () => map,
-	});
+	// setContext("map", {
+	// 	getMap: () => map,
+	// });
 	function sleep (ms = 1000) {
   		return new Promise((resolve) => setTimeout(resolve, ms));
 	}

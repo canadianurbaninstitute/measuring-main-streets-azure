@@ -33,7 +33,8 @@
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
-	import { weightMaxStore } from '../../lib/mapStore';
+	import { mapStore, weightMaxStore } from '../../lib/mapStore';
+
 
 	import '../../styles.css';
 
@@ -53,6 +54,7 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
+	
 </script>
 
 <svelte:head>
@@ -70,7 +72,7 @@
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Overview</h2>
 					<p>
 						West Queen West is the segment of a prominent arterial road through the southern parts
@@ -115,7 +117,7 @@
 		</section>
 		<section data-id="map2">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
 					<p>
 						Most of the buildings along the street consists of mixed-use commercial and residential
@@ -188,7 +190,7 @@
 		</section>
 		<section data-id="map3">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Civic Infrastructure</h2>
 					<p>
 						The most prominent example of civic infrastructure on the street is CAMH, occupying
@@ -293,7 +295,7 @@
 		</section>
 		<section data-id="map4">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Business Profile</h2>
 					<p>
 						West Queen West is an established retail district, with many small to medium fashion
@@ -383,7 +385,7 @@
 		</section>
 		<section data-id="map5">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
 					<p>
 						Employment along the street is largely distributed across hundreds of small businesses,
@@ -430,7 +432,7 @@
 		</section>
 		<section data-id="map6">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Housing</h2>
 					<p>
 						The predominant housing form in the area are ground-oriented single family homes north
@@ -498,7 +500,7 @@
 		</section>
 		<section data-id="map7">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Demographics</h2>
 					<p>
 						The neighbourhoods surrounding West Queen West are more highly educated and less likely
@@ -533,7 +535,7 @@
 		</section>
 		<section data-id="map8">
 			<div class="section-container">
-				<div class="content-container">
+				<div class="content-container sticky-content">
 					<h2>Visitors</h2>
 					<p>
 						West Queen West does draw visitors throughout the Greater Toronto Area, but with a
@@ -757,6 +759,15 @@
 		.content-container {
 			max-width: 25%;
 		}
+
+		.sticky-content {
+			position: -webkit-sticky; /* for Safari */
+  			position: sticky;
+			top: 1em;
+			align-self: flex-start; /* <-- this is the fix */
+  
+}
+
 	}
 
 </style>

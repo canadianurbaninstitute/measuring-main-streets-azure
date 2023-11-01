@@ -1,6 +1,8 @@
 <script>
 	import '../styles.css';
-	import { onMount } from 'svelte';	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';
+	import mapboxgl from 'mapbox-gl';
+	import Icon from '@iconify/svelte';
 
 	import Legend from '../lib/ui/legends/Legend.svelte';
 
@@ -8,6 +10,24 @@
 		'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
 
 	export let map;
+
+	// info
+	let streetname = 'Canada';
+	let place = 'Main Streets';
+	let province = ''; //codes not names - add column for codes
+
+	// business
+	let independence = ''; //BII_avg
+	let employees = ''; //emp_sum
+
+	// demographic
+	let population = ''; //Pop
+	let visibleminority = ''; // Eth_VM
+	let immigrants = ''; // Eth_Imm
+
+	// housing
+	let singledetached = 0;
+	let apartments = 0;
 
 	onMount(() => {
 		map = new mapboxgl.Map({
@@ -39,24 +59,32 @@
 			);
 		});
 
-        map.on('click', 'mainstreets-canada', (e) => {
-            new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(e.features[0].properties.R_STNAM)
-            .addTo(map);
-            });
-            
-            // Change the cursor to a pointer when
-            // the mouse is over the states layer.
-            map.on('mouseenter', 'mainstreets-canada', () => {
-            map.getCanvas().style.cursor = 'pointer';
-            });
-            
-            // Change the cursor back to a pointer
-            // when it leaves the states layer.
-            map.on('mouseleave', 'mainstreets-canada', () => {
-            map.getCanvas().style.cursor = '';
-            });
+		map.on('click', 'mainstreets-canada', (e) => {
+			streetname = e.features[0].properties.R_STNAM;
+			place = e.features[0].properties.R_PLACE;
+
+			independence = e.features[0].properties.BII_avg.toFixed(2);
+			employees = e.features[0].properties.emp_sum.toFixed(0);
+
+			population = e.features[0].properties.Pop;
+			visibleminority = e.features[0].properties.Eth_VM;
+			immigrants = e.features[0].properties.Eth_Imm;
+
+			apartments = e.features[0].properties.HH_APT.toFixed(1);
+			singledetached = e.features[0].properties.HH_SDH.toFixed(1);
+		});
+
+		// Change the cursor to a pointer when
+		// the mouse is over the states layer.
+		map.on('mouseenter', 'mainstreets-canada', () => {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+
+		// Change the cursor back to a pointer
+		// when it leaves the states layer.
+		map.on('mouseleave', 'mainstreets-canada', () => {
+			map.getCanvas().style.cursor = '';
+		});
 	});
 </script>
 
@@ -73,8 +101,34 @@
 </svelte:head>
 
 <div id="map-container">
+	<div id="sidebar">
+		<h5>Click on a street segment on the map to view information.</h5>
+		<hr />
+		<h2>{streetname}</h2>
+		<h5>{place}</h5>
+		<hr />
+		<div class="metric">Amenity Score: <Icon icon="mdi:score" color="#002a41" /></div>
+		<hr />
+		<div class="metric">
+			Population: {population}
+			<Icon icon="fluent:people-20-filled" color="#002a41" />
+		</div>
+		<div class="metric">
+			# of Employees: {employees}
+			<Icon icon="mdi:briefcase" color="#002a41" />
+		</div>
+		<hr />
+		<div class="metric">
+			Business Independence Index: {independence}
+			<Icon icon="mdi:shop" color="#002a41" />
+		</div>
+		<hr />
+		<div class="metric">Apartments: {apartments}% <Icon icon="mdi:building" color="#002a41" /></div>
+		<div class="metric">
+			Single Detached: {singledetached}% <Icon icon="mdi:home" color="#002a41" />
+		</div>
+	</div>
 	<div id="map" />
-
 	<div id="legend">
 		<Legend
 			minlabel={'Low'}
@@ -93,19 +147,39 @@
 	}
 
 	#map {
-		height: 90vh;
+		height: 88vh;
 		width: 100%;
-		position: absolute;
+		position: relative;
 	}
 
 	#map-container {
 		display: flex;
+		flex-direction: row;
+	}
+
+	#sidebar {
+		width: 20vw;
+		display: flex;
+		flex-direction: column;
+		padding: 1em;
+	}
+
+	.metric {
+		padding: 0.8em;
+		border: 1px solid #ddd;
+		border-radius: 0.5em;
+		margin: 0.2em 0 0.2em 0;
+		font-size: 0.9em;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	@media screen and (min-width: 640px) {
 		#legend {
-			position: relative;
-			top: 3.5em;
+			position: absolute;
+			bottom: 0.5em;
 			left: 0.5em;
 			width: 15vw;
 			background-color: #fff;
@@ -114,5 +188,10 @@
 			border: 1px solid #eee;
 			max-width: 360px;
 		}
+	}
+
+	hr {
+		border: 0.5px solid #eee;
+		width: 100%;
 	}
 </style>

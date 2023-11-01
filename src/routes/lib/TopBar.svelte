@@ -71,6 +71,7 @@
 		margin: 0;
 		padding: 0;
 		display: flex;
+
 	}
 
 	nav ul a {
@@ -151,6 +152,8 @@
 
 	#bar {
 		display: flex;
+		border-bottom: 1px solid #eee;
+
 	}
 
 	#logo {
