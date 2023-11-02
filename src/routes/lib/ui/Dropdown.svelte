@@ -1,7 +1,22 @@
 <script>
+    import { onDestroy } from 'svelte';
     import Legend from "./legends/Legend.svelte";
+    import { mapStore2 } from '../mapStore'; // Import the mapStore
+
     export let options = [];
-    export let map;
+    export let section;
+
+    let map = null; // Initialize map as null
+
+	// Subscribe to the map store and update the local `map` variable
+	const unsubscribe = mapStore2.subscribe((maps) => {
+		if (section && maps[section]) {
+			map = maps[section];
+		}
+	});
+
+	// Unsubscribe when the component is destroyed to prevent memory leaks
+	onDestroy(unsubscribe);
 
 
     const gradients = {
@@ -17,10 +32,10 @@
         options.forEach(option => {
             let id = option.id;
             if (id === selected.id) {
-                map.setPaintProperty(id, 'fill-opacity', 0.95);
+                map.setLayoutProperty(id, 'visibility', 'visible');
             }
             else {
-                map.setPaintProperty(id, 'fill-opacity', 0);
+                map.setLayoutProperty(id, 'visibility', 'none');
             }
         });
     }

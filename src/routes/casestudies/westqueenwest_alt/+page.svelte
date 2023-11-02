@@ -17,9 +17,9 @@
 	import visitordayofweek from '../../lib/data/casestudydata/toronto/westqueenwest/visitordayofweek';
 
 	import Legend from '../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../lib/ui/checkbox/IsochroneCheckbox.svelte';
-	import EmploymentSizeCheckbox from '../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import LegendItem2 from '../../lib/ui/legends/LegendItem2.svelte';
+	import IsochroneCheckbox2 from '../../lib/ui/checkbox/IsochroneCheckbox2.svelte';
+	import EmploymentSizeCheckbox2 from '../../lib/ui/checkbox/EmploymentSizeCheckbox2.svelte';
 	import PhotosCheckbox from '../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import Dropdown from '../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap2 from '../../lib/CaseStudyMap2.svelte';
@@ -49,10 +49,16 @@
 	//const zoomlabels = ['Region', 'City', 'Area', 'Neighbourhood', 'Street'];
 
 	let values = [2022];
-	export let map = null;
+	let map = null;
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
+
+	// TODO: update name of mapStore to visitorMapStore
+
+	mapStore.subscribe(value => {
+		map = value;
+	});
 </script>
 
 <svelte:head>
@@ -95,7 +101,7 @@
 							label={'Business Density'}
 							gradient={gradients.business}
 						/>
-						<LegendItem
+						<LegendItem2
 							variant={'polygon'}
 							label={'West Queen West'}
 							bgcolor={'#ffdd33'}
@@ -142,20 +148,20 @@
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
-						<LegendItem
+						<LegendItem2
 							variant={'polygon'}
 							label={'West Queen West'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
-						<LegendItem
+						<LegendItem2 variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem2
 							variant={'polygon'}
 							label={'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem2 variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 					</div>
 					<CaseStudyMap2
 						center={[-79.4145, 43.64408]}
@@ -203,50 +209,56 @@
 					</p>
 					<div class="controls">
 						<i><small>Click on a layer to turn it on or off</small></i>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'civicinfra-toronto-arts-culture'}
+							section={'civicinfra'}
 						/>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'civicinfra-toronto-govt-community'}
+							section={'civicinfra'}
 						/>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Recreation and Facilities'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'civicinfra-toronto-recreation'}
+							section={'civicinfra'}
 						/>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Health and Care Facilities'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'civicinfra-toronto-health'}
+							section={'civicinfra'}
 						/>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'civicinfra-toronto-education'}
+							section={'civicinfra'}
 						/>
 						<div class="checkbox">
-							<IsochroneCheckbox {map} layer={'wqw-isochrone'} />
-							<EmploymentSizeCheckbox
-								{map}
+							<IsochroneCheckbox2 section={'civicinfra'}
+							layer={'wqw-isochrone'} />
+							<EmploymentSizeCheckbox2
+								section={'civicinfra'}
 								layers={[
 									'civicinfra-toronto-education',
 									'civicinfra-toronto-govt-community',
@@ -262,7 +274,7 @@
 					<CaseStudyMap2
 						center={[-79.4154, 43.6441]}
 						zoom={14.7}
-						minZoom={14}
+						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
@@ -312,35 +324,38 @@
 					</p>
 					<div class="controls">
 						<i><small>Click on a layer to turn it on or off</small></i>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'business-toronto-retail'}
+							section={'business'}
 						/>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Services and Other'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'business-toronto-services'}
+							section={'business'}
 						/>
-						<LegendItem
+						<LegendItem2
 							variant={'circle'}
 							label={'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
 							id={'business-toronto-food-drink'}
+							section={'business'}
 						/>
 						<!-- <PhotosCheckbox {map} /> -->
 						<div class="checkbox">
-							<IsochroneCheckbox {map} layer={'wqw-isochrone'} />
-							<EmploymentSizeCheckbox
-								{map}
+							<IsochroneCheckbox2 section={'business'} layer={'wqw-isochrone'} />
+							<EmploymentSizeCheckbox2
+								section={'business'}
 								layers={[
 									'business-toronto-retail',
 									'business-toronto-services',
@@ -354,7 +369,7 @@
 					<CaseStudyMap2
 						center={[-79.4154, 43.6441]}
 						zoom={14.7}
-						minZoom={14}
+						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
@@ -404,19 +419,19 @@
 					/>
 					<div class="legend-container">
 						<div>
-							<LegendItem
+							<LegendItem2
 								variant={'circle'}
 								label={'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
-							<LegendItem
+							<LegendItem2
 								variant={'circle'}
 								label={'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
-							<LegendItem
+							<LegendItem2
 								variant={'circle'}
 								label={'Other'}
 								bgcolor={'#b0b0b0'}
@@ -509,7 +524,7 @@
 					</p>
 					<div class="controls">
 						<Dropdown
-							{map}
+							section={'demographics'}
 							options={[
 								{ id: 'averageincome', text: 'Average Income' },
 								{ id: 'populationdensity', text: 'Population Density' },
@@ -549,8 +564,8 @@
 								if (map.isStyleLoaded()) {
 									const years = [2019, 2020, 2021, 2022];
 									years.forEach((y) => {
-										const opacity = y === year ? 1 : 0;
-										map.setPaintProperty(`visitors-${y}`, 'heatmap-opacity', opacity);
+										const visibility = y === year ? 'visible' : 'none';
+										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
 									const weight = map.getPaintProperty(`visitors-${year}`, 'heatmap-weight');
 									const weightMax = weight[5];
@@ -730,7 +745,7 @@
 		border: 2px solid #ddd;
 		border-radius: 0.5em;
 		padding: 1em;
-		margin: 0 0 1em 0;
+		/* margin: 0 0 1em 0; */
 	}
 
 	.checkbox {
@@ -747,6 +762,12 @@
 
 		.content-container {
 			max-width: 100%;
+		}
+
+		.controls {
+			margin: 0 0 1em 0;
+			width: 100%;
+
 		}
 	}
 

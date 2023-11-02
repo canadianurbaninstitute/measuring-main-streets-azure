@@ -36,10 +36,17 @@
 			center: [-97, 54],
 			zoom: 3.9,
 			minZoom: 2,
-			scrollZoom: true
+			scrollZoom: true,
+			attributionControl: false
 		});
 
 		map.addControl(new mapboxgl.NavigationControl());
+
+		map.addControl(
+				new mapboxgl.AttributionControl({
+					customAttribution: 'Canadian Urban Institute'
+				})
+			);
 
 		// Geocoder Search
 
@@ -60,6 +67,7 @@
 		});
 
 		map.on('click', 'mainstreets-canada', (e) => {
+
 			streetname = e.features[0].properties.R_STNAM;
 			place = e.features[0].properties.R_PLACE;
 

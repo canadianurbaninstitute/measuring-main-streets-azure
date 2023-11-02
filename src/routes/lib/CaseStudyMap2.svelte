@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { mapStore2 } from './mapStore';
+	import { mapStore,mapStore2 } from './mapStore';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
@@ -33,9 +33,10 @@
 	];
 
 	onMount(() => {
+
 		map = new mapboxgl.Map({
 			container: section,
-			style: 'mapbox://styles/ananmay/clo7jlaht00mt01qp7mnxcr21',
+			style: 'mapbox://styles/ananmay/clo7jlaht00mt01qp7mnxcr21?fresh=true',
 			center: center,
 			zoom: zoom,
 			maxZoom: maxZoom,
@@ -48,7 +49,9 @@
 			attributionControl: false
 		});
 
-		mapStore2.set(map);
+		mapStore.set(map);
+
+		mapStore2.update(maps => ({ ...maps, [section]: map }));
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
