@@ -54,8 +54,10 @@
 }
 
 
+/*MOBILE DEVICE*/
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 968px) {
+
     .title h1 {
         font-size: 42px;
     }
@@ -63,13 +65,29 @@
         font-size: 18px;
         line-height: 30px;
     }
+
+    .blueprint {
+        background-color:white;
+    background:linear-gradient(
+      rgba(255, 255, 255, 0.95), 
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.95)
+
+    ), url('https://i.imgur.com/DXGEpQB.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+
+    }
+
 }
 
+@media only screen and (min-width: 768px) {
 .blueprint {
-    /* width: 100%; */
-    /* max-width: 1920px; */
-    /* height: calc(100vh - 100px);
-    max-height: 1080px; */
     background-color:white;
     background:linear-gradient(
       rgba(255, 255, 255, 0.95), 
@@ -86,6 +104,7 @@
     justify-content: center;
     padding: 0 0 0 5em;
     border-bottom: 1px solid #ddd;
+}
 }
 
 </style>

@@ -1,4 +1,8 @@
 <script>
+	/* -------------------------------------------------------------------------- */
+	/*                                   Imports                                  */
+	/* -------------------------------------------------------------------------- */
+
 	import Title2 from '../../lib/Title2.svelte';
 	import WestQueenWest from '../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg';
 
@@ -20,7 +24,7 @@
 	import LegendItem2 from '../../lib/ui/legends/LegendItem2.svelte';
 	import IsochroneCheckbox2 from '../../lib/ui/checkbox/IsochroneCheckbox2.svelte';
 	import EmploymentSizeCheckbox2 from '../../lib/ui/checkbox/EmploymentSizeCheckbox2.svelte';
-	import PhotosCheckbox from '../../lib/ui/checkbox/PhotosCheckbox.svelte';
+	import PhotosCheckbox2 from '../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import Dropdown from '../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap2 from '../../lib/CaseStudyMap2.svelte';
 
@@ -33,9 +37,15 @@
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
-	import { mapStore, weightMaxStore } from '../../lib/mapStore';
+	import { onMount, onDestroy } from 'svelte';
+
+	import { mapStore, mapStore2, weightMaxStore } from '../../lib/mapStore';
 
 	import '../../styles.css';
+
+	/* -------------------------------------------------------------------------- */
+	/*                               Variable Setup                               */
+	/* -------------------------------------------------------------------------- */
 
 	const gradients = {
 		business: 'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)',
@@ -46,19 +56,184 @@
 		heatmap: 'linear-gradient(to right, #0000ff, royalblue, cyan, lime, yellow, red)'
 	};
 
-	//const zoomlabels = ['Region', 'City', 'Area', 'Neighbourhood', 'Street'];
-
 	let values = [2022];
+	
+	let sections = [
+		'builtform',
+		'civicinfra',
+		'business',
+		'housing',
+	];
+
+	let photosections = {
+		builtform: '2_Built_Form',
+		civicinfra: '3_Civic',
+		business: '4_Business',
+		housing: '5_Housing'
+
+	}
+	
 	let map = null;
+
+	/* -------------------------------------------------------------------------- */
+	/*                                   Stores                                   */
+	/* -------------------------------------------------------------------------- */
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
 
 	// TODO: update name of mapStore to visitorMapStore
-
-	mapStore.subscribe(value => {
+	mapStore.subscribe((value) => {
 		map = value;
 	});
+
+	let mapInstances = {};
+
+	/* -------------------------------------------------------------------------- */
+	/*                                Photos Setup                                */
+	/* -------------------------------------------------------------------------- */
+
+	// Cloudinary Config
+
+	setConfig({
+		cloudName: 'dq4p0s7xo'
+	});
+
+	export let data;
+
+	const photosJSON = data.photos;
+
+	function createGeoJSON(filterString = null) {
+		// Create GeoJSON structure
+		const geojson = {
+			type: 'FeatureCollection',
+			features: []
+		};
+
+		// Iterate through resources (long/lat cleaning)
+
+		photosJSON.resources.forEach((resource) => {
+			let latitude, longitude;
+			resource.metadata.forEach((meta) => {
+				if (meta.external_id === 'latitude') {
+					const cleanLatitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+					latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
+				} else if (meta.external_id === 'longitude') {
+					const cleanLongitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+					longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
+				}
+			});
+
+			// building images
+
+			if (latitude && longitude) {
+				if (!filterString || resource.public_id.includes(filterString)) {
+					let url = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'c_scale,h_300'
+						}
+					});
+					let thumburl = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
+						},
+						format: 'png'
+					});
+
+					const feature = {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [longitude, latitude]
+						},
+						properties: {
+							public_id: resource.public_id,
+							url: url,
+							thumbnail: thumburl
+						}
+					};
+					geojson.features.push(feature);
+				}
+			}
+		});
+
+		return geojson;
+	}
+
+	// all photos - NOT SURE if needed anymore
+
+	const photosGeoJSON = createGeoJSON();
+
+	// create images list for AddImage and LoadImage to work properly
+
+	const images = photosGeoJSON.features.map((feature) => ({
+		url: feature.properties.thumbnail,
+		id: feature.properties.public_id
+	}));
+
+	onMount(() => {
+		// subscribe to store
+		mapStore2.subscribe((value) => {
+			mapInstances = value;
+			// for each map insance, find section and add layer
+			Object.entries(mapInstances).forEach(([id, map]) => {
+				if (map && id) {
+					const section = sections.find((sec) => sec === id);
+					if (section) {
+
+						Promise.all(
+							images.map(
+								(img) =>
+									new Promise((resolve, reject) => {
+										map.loadImage(img.url, (error, res) => {
+											if (error) {
+												console.log(error);
+												reject(error);
+											} else {
+												map.addImage(img.id, res);
+												resolve();
+											}
+										});
+									})
+							)
+						).then(() => {
+							console.log('Images loaded');
+						});
+
+						map.on('style.load', () => {
+
+							// based on photosection list, has to match cloudinary photo names
+							const sectionValue = photosections[section];
+							// Use sectionValue to create the sourceData dynamically
+							let sourceData = createGeoJSON(sectionValue);
+							// dynamic source name
+							let sourceName = `${section}_photos`
+
+							map.addSource(sourceName, {
+								type: 'geojson',
+								data: sourceData
+							});
+
+							map.addLayer({
+								id: sourceName,
+								type: 'symbol',
+								source: sourceName,
+								layout: {
+									'icon-image': ['get', 'public_id'], // reference the image
+									'icon-ignore-placement': true,
+									'icon-size': 0.2,
+									'icon-allow-overlap': true,
+									'visibility': 'visible'
+								}
+							});
+						});
+					}
+				}
+			});
+		});
+	});
+
+
 </script>
 
 <svelte:head>
@@ -255,8 +430,7 @@
 							section={'civicinfra'}
 						/>
 						<div class="checkbox">
-							<IsochroneCheckbox2 section={'civicinfra'}
-							layer={'wqw-isochrone'} />
+							<IsochroneCheckbox2 section={'civicinfra'} layer={'wqw-isochrone'} />
 							<EmploymentSizeCheckbox2
 								section={'civicinfra'}
 								layers={[
@@ -767,7 +941,13 @@
 		.controls {
 			margin: 0 0 1em 0;
 			width: 100%;
+		}
 
+		.legend-container {
+			position: relative;
+			right: 0;
+			top: 0;
+			margin: 1em 0 1em 0;
 		}
 	}
 

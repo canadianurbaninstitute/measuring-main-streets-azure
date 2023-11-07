@@ -62,8 +62,6 @@
 				})
 			);
 
-		//map.scrollZoom.disable();
-
 		map.on('load', function () {
 
             let allLayers = map.getStyle().layers;

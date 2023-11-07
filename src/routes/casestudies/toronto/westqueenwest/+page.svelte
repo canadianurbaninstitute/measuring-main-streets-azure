@@ -111,12 +111,7 @@
 
 	const photosGeoJSON = createGeoJSON();
 
-	// create images list for AddImage and LoadImage to work properly
 
-	const images = photosGeoJSON.features.map((feature) => ({
-		url: feature.properties.thumbnail,
-		id: feature.properties.public_id
-	}));
 
 	// Miscallenous Constants
 
@@ -135,6 +130,13 @@
 	let index;
 	let progress;
 	let values = [2022];
+
+	// create images list for AddImage and LoadImage to work properly
+
+		const images = photosGeoJSON.features.map((feature) => ({
+		url: feature.properties.thumbnail,
+		id: feature.properties.public_id
+	}));
 
 	// Element bindings
 	export let map = null; // Bound to mapbox 'map' instance once initialised
