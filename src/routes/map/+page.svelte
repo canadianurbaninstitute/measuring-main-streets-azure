@@ -22,8 +22,8 @@
 
 	// demographic
 	let population = ''; //Pop
-	let visibleminority = ''; // Eth_VM
-	let immigrants = ''; // Eth_Imm
+	let visibleminority = 0; // Eth_VM
+	let immigrants = 0; // Eth_Imm
 
 	// housing
 	let singledetached = 0;
@@ -32,9 +32,9 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/ananmay/clnc7tpm907rd01p93bgs013m?&fresh=true?optimize=true',
-			center: [-97, 54],
-			zoom: 3.9,
+			style: 'mapbox://styles/ananmay/clnc7tpm907rd01p93bgs013m?&fresh=true',
+			center: [-89, 53],
+			zoom: 3.6,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -66,7 +66,7 @@
 			);
 		});
 
-		map.on('click', 'mainstreets-canada', (e) => {
+		map.on('click', ['mainstreets-canada', 'mainstreets-canada-invisible'], (e) => {
 
 			streetname = e.features[0].properties.R_STNAM;
 			place = e.features[0].properties.R_PLACE;
@@ -75,8 +75,8 @@
 			employees = e.features[0].properties.emp_sum.toFixed(0);
 
 			population = e.features[0].properties.Pop;
-			visibleminority = e.features[0].properties.Eth_VM;
-			immigrants = e.features[0].properties.Eth_Imm;
+			visibleminority = e.features[0].properties.Eth_VM.toFixed(0);
+			immigrants = e.features[0].properties.Eth_Imm.toFixed(0);
 
 			apartments = e.features[0].properties.HH_APT.toFixed(1);
 			singledetached = e.features[0].properties.HH_SDH.toFixed(1);
@@ -84,13 +84,13 @@
 
 		// Change the cursor to a pointer when
 		// the mouse is over the states layer.
-		map.on('mouseenter', 'mainstreets-canada', () => {
+		map.on('mouseenter', ['mainstreets-canada', 'mainstreets-canada-invisible'], () => {
 			map.getCanvas().style.cursor = 'pointer';
 		});
 
 		// Change the cursor back to a pointer
 		// when it leaves the states layer.
-		map.on('mouseleave', 'mainstreets-canada', () => {
+		map.on('mouseleave', ['mainstreets-canada', 'mainstreets-canada-invisible'], () => {
 			map.getCanvas().style.cursor = '';
 		});
 	});
@@ -115,7 +115,7 @@
 		<h2>{streetname}</h2>
 		<h5>{place}</h5>
 		<hr />
-		<div class="metric">Amenity Score: <Icon icon="mdi:score" color="#002a41" /></div>
+		<div class="metric">Amenity Score: <Icon icon="bxs:tachometer" color="#002a41" /></div>
 		<hr />
 		<div class="metric">
 			Population: {population}
@@ -124,6 +124,11 @@
 		<div class="metric">
 			# of Employees: {employees}
 			<Icon icon="mdi:briefcase" color="#002a41" />
+		</div>
+		<hr />
+		<div class="metric"> Recent Immigrants: {immigrants}% <Icon icon="mdi:passport" color="#002a41" /></div>
+		<div class="metric">
+			Visible Minorities: {visibleminority}% <Icon icon="mdi:person" color="#002a41" />
 		</div>
 		<hr />
 		<div class="metric">
@@ -166,10 +171,13 @@
 	}
 
 	#sidebar {
-		width: 20vw;
+		width: 30vw;
 		display: flex;
 		flex-direction: column;
 		padding: 1em;
+		border-right: 1px solid #eee;
+
+
 	}
 
 	.metric {
@@ -184,11 +192,15 @@
 		justify-content: space-between;
 	}
 
+	h2 {
+		text-align: center;
+	}
+
 	@media screen and (min-width: 640px) {
 		#legend {
 			position: absolute;
-			bottom: 0.5em;
-			left: 0.5em;
+			bottom: 1.5em;
+			right: 0.5em;
 			width: 15vw;
 			background-color: #fff;
 			padding: 1em;

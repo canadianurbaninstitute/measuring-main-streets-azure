@@ -24,7 +24,7 @@
 	import LegendItem2 from '../../lib/ui/legends/LegendItem2.svelte';
 	import IsochroneCheckbox2 from '../../lib/ui/checkbox/IsochroneCheckbox2.svelte';
 	import EmploymentSizeCheckbox2 from '../../lib/ui/checkbox/EmploymentSizeCheckbox2.svelte';
-	import PhotosCheckbox2 from '../../lib/ui/checkbox/PhotosCheckbox.svelte';
+	import PhotosCheckbox2 from '../../lib/ui/checkbox/PhotosCheckbox2.svelte';
 	import Dropdown from '../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap2 from '../../lib/CaseStudyMap2.svelte';
 
@@ -207,7 +207,7 @@
 							// Use sectionValue to create the sourceData dynamically
 							let sourceData = createGeoJSON(sectionValue);
 							// dynamic source name
-							let sourceName = `${section}_photos`
+							let sourceName = `${section}-photos`
 
 							map.addSource(sourceName, {
 								type: 'geojson',
@@ -337,6 +337,7 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem2 variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<PhotosCheckbox2 section={'builtform'} layer={'builtform-photos'}/>
 					</div>
 					<CaseStudyMap2
 						center={[-79.4145, 43.64408]}
@@ -430,6 +431,7 @@
 							section={'civicinfra'}
 						/>
 						<div class="checkbox">
+							<PhotosCheckbox2 section={'civicinfra'} layer={'civicinfra-photos'}/>
 							<IsochroneCheckbox2 section={'civicinfra'} layer={'wqw-isochrone'} />
 							<EmploymentSizeCheckbox2
 								section={'civicinfra'}
@@ -525,8 +527,8 @@
 							id={'business-toronto-food-drink'}
 							section={'business'}
 						/>
-						<!-- <PhotosCheckbox {map} /> -->
 						<div class="checkbox">
+							<PhotosCheckbox2 section={'business'} layer={'business-photos'}/>
 							<IsochroneCheckbox2 section={'business'} layer={'wqw-isochrone'} />
 							<EmploymentSizeCheckbox2
 								section={'business'}
@@ -644,6 +646,7 @@
 							label={'Population Density (people/sq.km)'}
 							gradient={gradients.popdensity}
 						/>
+						<PhotosCheckbox2 section={'housing'} layer={'housing-photos'}/>
 					</div>
 					<CaseStudyMap2
 						center={[-79.4154, 43.6441]}
@@ -929,7 +932,15 @@
 
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
 
+
+
 	@media only screen and (max-width: 768px) {
+
+		section {
+		padding: 2em;
+		border-bottom: 1px solid #ddd;
+	}
+
 		.section-container {
 			flex-direction: column;
 		}
