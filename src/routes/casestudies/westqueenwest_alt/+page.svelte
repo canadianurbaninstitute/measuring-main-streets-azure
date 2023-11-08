@@ -57,22 +57,16 @@
 	};
 
 	let values = [2022];
-	
-	let sections = [
-		'builtform',
-		'civicinfra',
-		'business',
-		'housing',
-	];
+
+	let sections = ['builtform', 'civicinfra', 'business', 'housing'];
 
 	let photosections = {
 		builtform: '2_Built_Form',
 		civicinfra: '3_Civic',
 		business: '4_Business',
 		housing: '5_Housing'
+	};
 
-	}
-	
 	let map = null;
 
 	/* -------------------------------------------------------------------------- */
@@ -180,7 +174,6 @@
 				if (map && id) {
 					const section = sections.find((sec) => sec === id);
 					if (section) {
-
 						Promise.all(
 							images.map(
 								(img) =>
@@ -201,13 +194,12 @@
 						});
 
 						map.on('style.load', () => {
-
 							// based on photosection list, has to match cloudinary photo names
 							const sectionValue = photosections[section];
 							// Use sectionValue to create the sourceData dynamically
 							let sourceData = createGeoJSON(sectionValue);
 							// dynamic source name
-							let sourceName = `${section}-photos`
+							let sourceName = `${section}-photos`;
 
 							map.addSource(sourceName, {
 								type: 'geojson',
@@ -223,7 +215,7 @@
 									'icon-ignore-placement': true,
 									'icon-size': 0.2,
 									'icon-allow-overlap': true,
-									'visibility': 'visible'
+									visibility: 'visible'
 								}
 							});
 						});
@@ -232,8 +224,6 @@
 			});
 		});
 	});
-
-
 </script>
 
 <svelte:head>
@@ -337,7 +327,7 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem2 variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
-						<PhotosCheckbox2 section={'builtform'} layer={'builtform-photos'}/>
+						<PhotosCheckbox2 section={'builtform'} layer={'builtform-photos'} />
 					</div>
 					<CaseStudyMap2
 						center={[-79.4145, 43.64408]}
@@ -431,7 +421,7 @@
 							section={'civicinfra'}
 						/>
 						<div class="checkbox">
-							<PhotosCheckbox2 section={'civicinfra'} layer={'civicinfra-photos'}/>
+							<PhotosCheckbox2 section={'civicinfra'} layer={'civicinfra-photos'} />
 							<IsochroneCheckbox2 section={'civicinfra'} layer={'wqw-isochrone'} />
 							<EmploymentSizeCheckbox2
 								section={'civicinfra'}
@@ -528,7 +518,7 @@
 							section={'business'}
 						/>
 						<div class="checkbox">
-							<PhotosCheckbox2 section={'business'} layer={'business-photos'}/>
+							<PhotosCheckbox2 section={'business'} layer={'business-photos'} />
 							<IsochroneCheckbox2 section={'business'} layer={'wqw-isochrone'} />
 							<EmploymentSizeCheckbox2
 								section={'business'}
@@ -646,7 +636,7 @@
 							label={'Population Density (people/sq.km)'}
 							gradient={gradients.popdensity}
 						/>
-						<PhotosCheckbox2 section={'housing'} layer={'housing-photos'}/>
+						<PhotosCheckbox2 section={'housing'} layer={'housing-photos'} />
 					</div>
 					<CaseStudyMap2
 						center={[-79.4154, 43.6441]}
@@ -761,23 +751,23 @@
 						/>
 						<!-- <h5>Zoom</h5> -->
 						<!-- <RangeSlider
-					on:change={(e) => {
-						const zoomvalues = { 0: 10, 1: 11, 2: 12, 3: 13, 4: 14.5 };
-						const zoom = zoomvalues[e.detail.value];
-						console.log(zoom);
-						map.easeTo({
-							center: [-79.417, 43.6441],
-							zoom: zoom
-						});
-					}}
-					values={[zoomlabels[0]]}
-					pips
-					first="label"
-					last="label"
-					formatter={(v) => zoomlabels[v]}
-					max={zoomlabels.length - 1}
-					hoverable={false}
-				/> -->
+							on:change={(e) => {
+								const zoomvalues = { 0: 10, 1: 11, 2: 12, 3: 13, 4: 14.5 };
+								const zoom = zoomvalues[e.detail.value];
+								console.log(zoom);
+								map.easeTo({
+									center: [-79.417, 43.6441],
+									zoom: zoom
+								});
+							}}
+							values={[zoomlabels[0]]}
+							pips
+							first="label"
+							last="label"
+							formatter={(v) => zoomlabels[v]}
+							max={zoomlabels.length - 1}
+							hoverable={false}
+						/> -->
 					</div>
 				</div>
 				<div class="map-container">
@@ -932,14 +922,11 @@
 
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
 
-
-
 	@media only screen and (max-width: 768px) {
-
 		section {
-		padding: 2em;
-		border-bottom: 1px solid #ddd;
-	}
+			padding: 2em;
+			border-bottom: 1px solid #ddd;
+		}
 
 		.section-container {
 			flex-direction: column;

@@ -26,7 +26,6 @@
   
     function toggleLayerOpacity() {
       if (map) {
-		console.log(map.getStyle().layers)
         const layerId = layer;
         const visibility = isChecked ? 'visible' : 'none';
 		const opacity = isChecked ? 0.9 : 0;
