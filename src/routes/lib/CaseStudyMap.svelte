@@ -1,125 +1,97 @@
 <script>
-	import { setContext, createEventDispatcher, onMount, onDestroy } from "svelte";
-    import mapboxgl from "mapbox-gl";
-	const dispatch = createEventDispatcher();
-	import { mapStore } from './mapStore'; // Import the mapStore
+	import { onMount } from 'svelte';
+	import mapboxgl from 'mapbox-gl';
+	import { mapStore,mapStore2 } from './mapStore';
 
-	
-    export let map;
-	export let id = "map";
-	export let location = {
-		lng: 15,
-		lat: 45,
-		zoom: 1
-	};
+	mapboxgl.accessToken =
+		'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
-	
-	export let style = 'mapbox://styles/mapbox/light-v11';
-	export let options = {};
-	export let minzoom = 0;
-	export let maxzoom = 15;
-	export let tabbable = false;
-	export let zoom = null;
-	export let center = null;
-	export let pitch = null;
-	export let bearing = null;
-	export let interactive = true;
-	export let attribution = false;
-	let container;
-	let _options = {};
-	let loaded = false;
-	// setContext("map", {
-	// 	getMap: () => map,
-	// });
-	function sleep (ms = 1000) {
-  		return new Promise((resolve) => setTimeout(resolve, ms));
+	export let section;
+	export let center = [-79.37, 43.715];
+	export let zoom = 9.5;
+    export let maxZoom = 16.5;
+    export let minZoom = 8.5;
+	export let bearing = -17.1;
+	export let pitch = 0;
+	export let layers = [];
+	export let attribution = 'Canadian Urban Institute';
+
+	let pageHeight;
+	let pageWidth;
+
+	let mapHeight = 600;
+	$: if (pageHeight < 800) {
+		mapHeight = pageHeight - 200;
+	} else {
+		mapHeight = 600;
 	}
-	
-	// Interpret location
-	if (location.bounds) {
-		_options.bounds = location.bounds;
-	} else if (location.lng && location.lat) {
-		_options.center = [+location.lng, +location.lat];
-		if (location.zoom) {
-			_options.zoom = +location.zoom;
-		}
-		if (location.pitch) {
-			_options.pitch = +location.pitch;
-		}
-		if (location.bearing) {
-			_options.bearing = +location.bearing;
-		}
-	}
-	// Disable attribution if attribution = false
-	if (!attribution) {
-		_options.attributionControl = false;
-	}
-	_options = {..._options, ...options}; // Combine core options + custom user options
+
+	export let map;
+
+	const maxBounds = [
+		[-79.6772, 43.44], // SW coords
+		[-79.04763, 44.03074] // NE coords
+	];
+
 	onMount(() => {
+
 		map = new mapboxgl.Map({
-			container,
-			style,
-			minZoom: minzoom,
-			maxZoom: maxzoom,
-			interactive,
-			..._options,
+			container: section,
+			style: 'mapbox://styles/ananmay/clo7jlaht00mt01qp7mnxcr21?fresh=true',
+			center: center,
+			zoom: zoom,
+			maxZoom: maxZoom,
+			minZoom: minZoom,
+			bearing: bearing,
+			pitch: pitch,
+			projection: 'globe',
+			scrollZoom: false,
+			maxBounds: maxBounds,
+			attributionControl: false
 		});
 
 		mapStore.set(map);
-		
-		// Get initial zoom level
-		map.on("load", (e) => {
-			zoom = map.getZoom();
-			center = map.getCenter();
-			pitch = map.getPitch();
-			bearing = map.getBearing();
-			loaded = true;
-			
-			// Prevent map from being tabbable
-			if (!tabbable && document.querySelector(`#${id} canvas`)) {
-				document.querySelector(`#${id} canvas`).tabIndex = "-1";
-			}
-			dispatch("load", {
-				event: e
+
+		mapStore2.update(maps => ({ ...maps, [section]: map }));
+
+		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
+
+		map.addControl(
+				new mapboxgl.AttributionControl({
+					customAttribution: attribution
+				})
+			);
+
+		map.on('load', function () {
+
+            let allLayers = map.getStyle().layers;
+
+            var baseLayerSourceLayers = ['road', 'admin', 'landuse', 'landuse_overlay', 'water', 'waterway', 'structure', 'building', 'natural_label'];
+
+            allLayers.forEach(function(layer) {
+                // Check if the layer is 'land', or if the source-layer is not in the list of base layers
+                if (layer.id === 'land' || (layer['source-layer'] && !baseLayerSourceLayers.includes(layer['source-layer']))) {
+                // If it's the 'land' layer or not in the list of base layers, hide it
+                map.setLayoutProperty(layer.id, 'visibility', 'none');
+                }
+            });
+
+			layers.forEach(function (layerName) {
+				map.setLayoutProperty(layerName, 'visibility', 'visible');
 			});
 		});
-
-		document.body.scrollIntoView();
 	});
-
-	onDestroy(async () => {
-		await sleep(250);
-		if (map) map.remove();
-		map = null;
-	});
-
-	// Function to switch map style if style prop changes
-	function setStyle(style) {
-		if (map) map.setStyle(style);
-		dispatch("style", {
-			style
-		});
-	}
-	$: setStyle(style);
 </script>
 
-<svelte:head>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+<svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth} />
 
-</svelte:head>
-
-<div bind:this={container} {id} class="map">
-	{#if loaded}
-		<slot />
-	{/if}
-</div>
+<div id={section} class="map" style="height: {mapHeight}px" />
 
 <style>
 	.map {
-		width: 100vw;
-		height: 100vh;
-		position:absolute;
-    	left: calc(-50vw + 50%);
+		/* width: 100%; */
+		border: 2px solid #dddddd;
+		border-radius: 0.8em;
 	}
 </style>

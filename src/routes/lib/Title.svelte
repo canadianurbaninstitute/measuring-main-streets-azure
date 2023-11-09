@@ -3,15 +3,13 @@
 
         export let name;
         export let location;
-        export let image;
+        export let outline;
 </script>
 
 <div class="blueprint">
 
     <div class="title">
-        <div class="card-img">
-            <img src={image} alt="street">
-        </div>
+            <img src={outline} alt="street">
         <h1>
             {name}
         </h1>
@@ -20,24 +18,18 @@
         </h2>
     </div>
 
-    <Arrow/>
-
-
-
 </div>
 
 <style>
     .title {
-    margin: 0 auto;
-    padding: 1em;
-    width:40vw;
+    /* margin: 0 auto; */
+    /* padding: 1em; */
+    /* width:40vw; */
     color: white;
-    text-align: center;
     position: relative;
-    bottom: 5em;
-    border: solid 0px var(--brandLightBlue);
-    border-radius: 8px;
-    /* background-color: rgba(255, 255, 255, 1); */
+    height: 20%;    /* background-color: rgba(255, 255, 255, 1); */
+    padding: 5em 0 5em 0;
+
 }
 
 .title h1 {
@@ -61,11 +53,11 @@
     color: var(--brandLightBlue);
 }
 
-.card-img {
-    height: 15em;
-}
 
-@media only screen and (max-width: 920px) {
+/*MOBILE DEVICE*/
+
+@media only screen and (max-width: 968px) {
+
     .title h1 {
         font-size: 42px;
     }
@@ -73,17 +65,12 @@
         font-size: 18px;
         line-height: 30px;
     }
-}
 
-.blueprint {
-    width: 100%;
-    max-width: 1920px;
-    height: calc(100vh - 100px);
-    max-height: 1080px;
-    background-color:white;
+    .blueprint {
+        background-color:white;
     background:linear-gradient(
       rgba(255, 255, 255, 0.95), 
-      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.6),
       rgba(255, 255, 255, 0.95)
 
     ), url('https://i.imgur.com/DXGEpQB.png');
@@ -93,7 +80,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-bottom: 1px solid #ddd;
+
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+.blueprint {
+    background-color:white;
+    background:linear-gradient(
+      rgba(255, 255, 255, 0.95), 
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.95)
+
+    ), url('https://i.imgur.com/DXGEpQB.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
+    padding: 0 0 0 5em;
+    border-bottom: 1px solid #ddd;
+}
 }
 
 </style>

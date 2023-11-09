@@ -1,13 +1,25 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import Icon from '@iconify/svelte';
-	import EmpSizeLegend from "../../assets/employmentsizelegend.svg"
+	import EmpSizeLegend from '../../assets/employmentsizelegend.svg';
+	import { mapStore2 } from '../../mapStore'; // Import the mapStore
 
-
-	export let map;
 	export let layers = [];
 	export let minZoom = 14.1;
 	export let maxZoom = 14.7;
+	export let section;
+
+	let map = null; // Initialize map as null
+
+	// Subscribe to the map store and update the local `map` variable
+	const unsubscribe = mapStore2.subscribe((maps) => {
+		if (section && maps[section]) {
+			map = maps[section];
+		}
+	});
+
+	// Unsubscribe when the component is destroyed to prevent memory leaks
+	onDestroy(unsubscribe);
 
 	let isChecked = false;
 
@@ -36,23 +48,21 @@
 </script>
 
 <div id="container">
-<button class={isChecked ? 'layerOn' : 'layerOff'}>
-	<Icon icon="iconoir:drag" />
-	<label>
-		<input type="checkbox" bind:checked={isChecked} on:change={toggleEmploymentSize} />
-		Employment Size
-	</label>
-</button>
-<div id='legend' class={isChecked ? 'legendOn' : 'legendOff'}>
-	<img src={EmpSizeLegend} alt="legend">
-  </div>
+	<button class={isChecked ? 'layerOn' : 'layerOff'}>
+		<Icon icon="iconoir:drag" />
+		<label>
+			<input type="checkbox" bind:checked={isChecked} on:change={toggleEmploymentSize} />
+			Employment Size
+		</label>
+	</button>
+	<div id="legend" class={isChecked ? 'legendOn' : 'legendOff'}>
+		<img src={EmpSizeLegend} alt="legend" />
+	</div>
 </div>
 
-
 <style>
-
 	#container {
-		display:flex;
+		display: flex;
 		flex-direction: column;
 	}
 
@@ -61,7 +71,7 @@
 		display: flex;
 		align-items: center;
 		font-size: 0.88em;
-		width:100%;
+		width: 100%;
 	}
 
 	label:hover {
@@ -81,15 +91,15 @@
 		opacity: 1;
 		display: flex;
 		align-items: center;
-		margin:0.5em 0 0.5em 0;
-
+		margin: 0.5em 0 0.5em 0;
 	}
 
 	img {
 		width: 100%;
 	}
 
-	.layerOn, .legendOn {
+	.layerOn,
+	.legendOn {
 		opacity: 1;
 	}
 
@@ -108,11 +118,13 @@
 		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
+		transition: 0.3s;
 	}
 
 	button:active {
 		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25), 0px 1px 0px 0px rgba(225, 228, 232, 0.2);
 		background-color: #edeff2;
+		transition: 0.3s;
 	}
 </style>

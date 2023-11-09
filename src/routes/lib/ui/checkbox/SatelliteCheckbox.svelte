@@ -1,14 +1,13 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
-	import Icon from '@iconify/svelte';
-	import EmpSizeLegend from '../../assets/employmentsizelegend.svg';
 	import { mapStore2 } from '../../mapStore'; // Import the mapStore
 
-	export let layers = [];
-	export let minZoom = 14.1;
-	export let maxZoom = 14.7;
-	export let section;
+	import Icon from '@iconify/svelte';
 
+	let isChecked = false;
+
+	export let section;
+	export let casestudy;
 	let map = null; // Initialize map as null
 
 	// Subscribe to the map store and update the local `map` variable
@@ -21,51 +20,47 @@
 	// Unsubscribe when the component is destroyed to prevent memory leaks
 	onDestroy(unsubscribe);
 
-	let isChecked = false;
-
-	function toggleEmploymentSize() {
+	function toggleLayerOpacity() {
 		if (map) {
-			const layerList = layers;
-			const zoom = isChecked ? minZoom : maxZoom;
-			const opacity = isChecked ? 0.8 : 1;
-			const radius = isChecked
-				? ['step', ['get', 'empsize_EmpSzNm'], 5, 5, 10, 10, 15, 50, 20, 100, 25, 1000, 5]
-				: 5;
 
-			for (let i = 0; i < layerList.length; i++) {
-				const layerId = layerList[i];
-				map.setPaintProperty(layerId, 'circle-radius', radius);
-				map.setPaintProperty(layerId, 'circle-opacity', opacity);
-			}
+			const layer = 'satellite-imagery';
+			const visibility = isChecked ? 'visible' : 'none';
+			const opacity = isChecked ? 1 : 0;
+			const linecolor = isChecked ? '#fff' : '#c4ad37'; // set line color
+			const pitch = isChecked ? 0 : 40;
+			const zoom = isChecked ? 14.5 : 15;
 
-			map.easeTo({ zoom });
+			map.setLayoutProperty(layer, 'visibility', visibility);
+			map.setPaintProperty(layer, 'raster-opacity', opacity);
+			map.setPaintProperty(casestudy, 'line-color', linecolor);
+
+
+			map.easeTo({
+				pitch: pitch,
+				zoom: zoom,
+				duration: 800,
+				easing(t) {
+					return t;
+				}
+			});
+			map.setMinZoom(zoom);
 		}
 	}
 
 	onMount(() => {
-		toggleEmploymentSize(); // Initialize layer radius based on the initial checkbox state
+		toggleLayerOpacity(); // Initialize layer opacity based on the initial checkbox state
 	});
 </script>
 
-<div id="container">
-	<button class={isChecked ? 'layerOn' : 'layerOff'}>
-		<Icon icon="iconoir:drag" />
-		<label>
-			<input type="checkbox" bind:checked={isChecked} on:change={toggleEmploymentSize} />
-			Employment Size
-		</label>
-	</button>
-	<div id="legend" class={isChecked ? 'legendOn' : 'legendOff'}>
-		<img src={EmpSizeLegend} alt="legend" />
-	</div>
-</div>
+<button class={isChecked ? 'layerOn' : 'layerOff'}>
+	<Icon icon="mdi:map" />
+	<label>
+		<input type="checkbox" bind:checked={isChecked} on:change={toggleLayerOpacity} />
+		Satellite View
+	</label>
+</button>
 
 <style>
-	#container {
-		display: flex;
-		flex-direction: column;
-	}
-
 	label {
 		padding: 0.4em;
 		display: flex;
@@ -91,21 +86,12 @@
 		opacity: 1;
 		display: flex;
 		align-items: center;
-		margin: 0.5em 0 0.5em 0;
-	}
-
-	img {
+		margin-top: 0.5em;
 		width: 100%;
 	}
 
-	.layerOn,
-	.legendOn {
+	.layerOn {
 		opacity: 1;
-	}
-
-	.legendOff {
-		opacity: 0;
-		height: 0px;
 	}
 
 	.layerOff {

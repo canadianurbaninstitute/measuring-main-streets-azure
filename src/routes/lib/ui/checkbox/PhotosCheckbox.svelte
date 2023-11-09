@@ -1,47 +1,52 @@
-
-
 <script>
-    import { onMount } from 'svelte';
-    import Icon from '@iconify/svelte';
+	import { onMount, onDestroy } from 'svelte';
+	import { mapStore2 } from '../../mapStore'; // Import the mapStore
 
-  
-    export let map;
+	import Icon from '@iconify/svelte';
 
+	let isChecked = true;
 
-    let isChecked = true;
-	let toggleText = 'On';
-  
-    function toggleLayerOpacity() {
-      if (map) {
-        const layerId = 'photos';
-        const opacity = isChecked ? 1 : 0;
-        map.setPaintProperty(layerId, 'icon-opacity', opacity);
-		toggleText = isChecked ? 'On' : 'Off';
-      }
-    }
+	export let section;
+	export let layer;
+	let map = null; // Initialize map as null
 
-  
-    onMount(() => {
-      toggleLayerOpacity(); // Initialize layer opacity based on the initial checkbox state
-    });
+	// Subscribe to the map store and update the local `map` variable
+	const unsubscribe = mapStore2.subscribe((maps) => {
+		if (section && maps[section]) {
+			map = maps[section];
+		}
+	});
 
-  </script>
-  
-  <button class={isChecked ? 'layerOn' : 'layerOff'}>
-    <Icon icon="material-symbols:photo"  width="24" color="#222" />
-  <label>
-    <input type="checkbox" bind:checked={isChecked} on:change={toggleLayerOpacity} />
-    Photos: {toggleText}
-  </label>
+	// Unsubscribe when the component is destroyed to prevent memory leaks
+	onDestroy(unsubscribe);
+
+	function toggleLayerOpacity() {
+		if (map) {
+			// const layerId = 'photos';
+			const opacity = isChecked ? 1 : 0;
+			map.setPaintProperty(layer, 'icon-opacity', opacity);
+		}
+	}
+
+	onMount(() => {
+		toggleLayerOpacity(); // Initialize layer opacity based on the initial checkbox state
+	});
+</script>
+
+<button class={isChecked ? 'layerOn' : 'layerOff'}>
+	<Icon icon="material-symbols:photo" />
+	<label>
+		<input type="checkbox" bind:checked={isChecked} on:change={toggleLayerOpacity} />
+		Photos
+	</label>
 </button>
-  
 
 <style>
 	label {
 		padding: 0.4em;
 		display: flex;
 		align-items: center;
-		font-size: 0.9em;
+		font-size: 0.88em;
 		width: 100%;
 	}
 
@@ -56,19 +61,14 @@
 	button {
 		border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
-		border-radius: 10em;
+		border-radius: 0.5em;
 		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		display: flex;
 		align-items: center;
-		z-index: 1;
-		/* width: 5%; */
-		padding: 0.2em 0.4em 0.2em 0.55em;
 		margin-top: 0.5em;
-		position: fixed;
-    	bottom: 2em;
-    	right: 1em;
+		width: 100%;
 	}
 
 	.layerOn {
@@ -76,7 +76,7 @@
 	}
 
 	.layerOff {
-		opacity: 0.9;
+		opacity: 0.6;
 		border: 1px dashed rgba(27, 31, 35, 0.3);
 	}
 
@@ -85,11 +85,13 @@
 		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
+		transition: 0.3s;
 	}
 
 	button:active {
 		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25), 0px 1px 0px 0px rgba(225, 228, 232, 0.2);
 		background-color: #edeff2;
+		transition: 0.3s;
 	}
 </style>

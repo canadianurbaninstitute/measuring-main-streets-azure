@@ -1,6 +1,7 @@
 <script>
 	import '../styles.css';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import mapboxgl from 'mapbox-gl';
 	import Icon from '@iconify/svelte';
 
@@ -64,6 +65,10 @@
 				}),
 				'top-left'
 			);
+
+			// highlight
+			// map.setPaintProperty('mainstreets-canada-invisible', 'line-opacity', ['case', ['boolean', ['feature-state', 'clicked'], false], 1, 0.5])
+
 		});
 
 		map.on('click', ['mainstreets-canada', 'mainstreets-canada-invisible'], (e) => {
@@ -80,17 +85,36 @@
 
 			apartments = e.features[0].properties.HH_APT.toFixed(1);
 			singledetached = e.features[0].properties.HH_SDH.toFixed(1);
+
+			//  // Get the layer ID of the clicked feature in 'mainstreets-canada-invisible'
+			//  const layerId = 'mainstreets-canada-invisible';
+
+			// // Get the clicked feature's ID
+			// const featureId = e.features[0].id;
+
+			// // Set the feature state to change its opacity to 1
+			// map.setFeatureState(
+			// 	{ source: layerId, id: featureId },
+			// 	{ clicked: true }
+			// );
+
 		});
+
+		map.on('click', 'toronto-bias', (e) => {
+			goto("/casestudies/westqueenwest_alt")
+
+		});
+
 
 		// Change the cursor to a pointer when
 		// the mouse is over the states layer.
-		map.on('mouseenter', ['mainstreets-canada', 'mainstreets-canada-invisible'], () => {
+		map.on('mouseenter', ['mainstreets-canada', 'mainstreets-canada-invisible', 'toronto-bias'], () => {
 			map.getCanvas().style.cursor = 'pointer';
 		});
 
 		// Change the cursor back to a pointer
 		// when it leaves the states layer.
-		map.on('mouseleave', ['mainstreets-canada', 'mainstreets-canada-invisible'], () => {
+		map.on('mouseleave', ['mainstreets-canada', 'mainstreets-canada-invisible', 'toronto-bias'], () => {
 			map.getCanvas().style.cursor = '';
 		});
 	});
@@ -122,7 +146,7 @@
 			<Icon icon="fluent:people-20-filled" color="#002a41" />
 		</div>
 		<div class="metric">
-			# of Employees: {employees}
+			<div><Icon icon="mdi:help-circle" color="#979797" /> # of Employees: {employees}</div>
 			<Icon icon="mdi:briefcase" color="#002a41" />
 		</div>
 		<hr />
