@@ -4,7 +4,7 @@
 	import { mapStore,mapStore2 } from './mapStore';
 
 	mapboxgl.accessToken =
-		'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
+		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
 	export let section;
 	export let center = [-79.37, 43.715];
@@ -37,7 +37,7 @@
 
 		map = new mapboxgl.Map({
 			container: section,
-			style: 'mapbox://styles/ananmay/clo7jlaht00mt01qp7mnxcr21?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy?fresh=true',
 			center: center,
 			zoom: zoom,
 			maxZoom: maxZoom,

@@ -52,8 +52,6 @@
 		business: 'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)',
 		popdensity:
 			'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)',
-		avgincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)',
-		vismin: 'linear-gradient(to right, #ffeddb, #fd9243, #df5005, #7f2704, #4a1703)',
 		heatmap: 'linear-gradient(to right, #0000ff, royalblue, cyan, lime, yellow, red)'
 	};
 
@@ -702,7 +700,11 @@
 							options={[
 								{ id: 'averageincome', text: 'Average Income' },
 								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'visibleminority', text: 'Visible Minorities' }
+								{ id: 'visibleminority', text: 'Visible Minorities' },
+								{ id: 'homeowners', text: 'Homeowners' },
+								{ id: 'english-speakers', text: 'English Speakers' },
+								{ id: 'french-speakers', text: 'French Speakers' },
+								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
 							]}
 						/>
 					</div>

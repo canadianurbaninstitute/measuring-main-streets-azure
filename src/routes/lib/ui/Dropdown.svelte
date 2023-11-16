@@ -19,11 +19,8 @@
 	onDestroy(unsubscribe);
 
 
-    const gradients = {
-		populationdensity: 'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)',
-		averageincome: 'linear-gradient(to right, #f7fcf5, #c9eac2, #7bc77c, #2a924b, #00441b, #002e12)',
-        visibleminority: 'linear-gradient(to right, #ffeddb, #fd9243, #df5005, #7f2704, #4a1703)',
-	};
+    const gradient = 'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)';
+
 
 	let selected;
 
@@ -53,30 +50,57 @@
 
 {#if selected && selected.id === 'populationdensity'}
     <Legend
-        minlabel={'0'}
         maxlabel={'4070000'}
         label={'Population Density (people/sq.km)'}
-        gradient={gradients.populationdensity}
     />
 {/if}
 
 {#if selected && selected.id === 'averageincome'}
     <Legend
-        minlabel={'$0'}
         maxlabel={'$736000'}
         label={'Average Income (Census 2021)'}
-        gradient={gradients.averageincome}
     />
 {/if}
 
 {#if selected && selected.id === 'visibleminority'}
     <Legend
-        minlabel={'0'}
         maxlabel={'29730'}
         label={'Visible Minority Population'}
-        gradient={gradients.visibleminority}
     />
 {/if}
+
+{#if selected && selected.id === 'homeowners'}
+    <Legend
+        maxlabel={'60.5'}
+        label={'Home-owners'}
+    />
+{/if}
+
+{#if selected && selected.id === 'french-speakers'}
+    <Legend
+        maxlabel={'14.7'}
+        label={'% of French Speakers'}
+    />
+{/if}
+
+{#if selected && selected.id === 'english-speakers'}
+    <Legend
+        maxlabel={'99.7'}
+        label={'% of English Speakers'}
+    />
+{/if}
+
+
+{#if selected && selected.id === 'education-bachelors'}
+    <Legend
+        maxlabel={'82.2'}
+        label={'% of Bachelors Degree Holders'}
+    />
+{/if}
+
+
+
+
 
 
 <style>

@@ -1,8 +1,8 @@
 <script>
-	export let minlabel;
+	export let minlabel = 0;
   export let maxlabel;
   export let label;
-  export let gradient;
+  export let gradient = 'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)';
 </script>
 
 <div id="legend" class='legend'>
