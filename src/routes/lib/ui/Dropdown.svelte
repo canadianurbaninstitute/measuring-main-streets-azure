@@ -4,6 +4,7 @@
     import { mapStoreList } from '../mapStore'; // Import the mapStore
 
     export let options = [];
+    export let casestudy;
     export let section;
 
     let map = null; // Initialize map as null
@@ -26,6 +27,7 @@
 
 
     function toggleCensusLayer() {
+        map.setPaintProperty(`${casestudy}-outline`, 'line-color', '#ffdd33');
         options.forEach(option => {
             let id = option.id;
             if (id === selected.id) {

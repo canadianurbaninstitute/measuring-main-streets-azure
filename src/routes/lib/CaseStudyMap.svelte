@@ -15,6 +15,8 @@
 	export let pitch = 0;
 	export let layers = [];
 	export let attribution = 'Canadian Urban Institute';
+	export let style = 'mapbox://styles/mapbox/light-v11';
+
 
 	let pageHeight;
 	let pageWidth;
@@ -37,7 +39,7 @@
 
 		map = new mapboxgl.Map({
 			container: section,
-			style: 'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy?fresh=true',
+			style: style,
 			center: center,
 			zoom: zoom,
 			maxZoom: maxZoom,

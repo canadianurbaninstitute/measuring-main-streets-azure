@@ -274,6 +274,7 @@
 						/>
 					</div>
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.41145, 43.647]}
 						zoom={13}
 						pitch={50}
@@ -332,6 +333,7 @@
 
 					</div>
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.4145, 43.64408]}
 						zoom={15}
 						minZoom={15}
@@ -440,6 +442,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.4154, 43.6441]}
 						zoom={14.7}
 						minZoom={13.3}
@@ -536,6 +539,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.4154, 43.6441]}
 						zoom={14.7}
 						minZoom={13.3}
@@ -576,9 +580,11 @@
 						most large employers are concentrated just east, in downtown, or south, in Liberty
 						Village, of the street itself.
 					</p>
+					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.4154, 43.6441]}
 						zoom={14.5}
 						minZoom={14}
@@ -609,7 +615,6 @@
 								bordercolor={'#fff'}
 							/>
 						</div>
-						<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 					</div>
 				</div>
 			</div>
@@ -634,6 +639,7 @@
 					</p>
 					<div class="controls">
 						<Dropdown
+							casestudy={'westqueenwest'}
 							section={'housing'}
 							options={[
 								{ id: 'populationdensity', text: 'Population Density' },
@@ -650,6 +656,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.4154, 43.6441]}
 						zoom={14.7}
 						minZoom={14}
@@ -693,7 +700,7 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Demographics</h2>
+					<h2>Local Characteristics</h2>
 					<p>
 						The neighbourhoods surrounding West Queen West are more highly educated and less likely
 						to be a first generation immigrant than the regional average. Additionally, they are
@@ -703,6 +710,7 @@
 					</p>
 					<div class="controls">
 						<Dropdown
+							casestudy={'westqueenwest'}
 							section={'demographics'}
 							options={[
 								{ id: 'average-age', text: 'Average Age' },
@@ -720,6 +728,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.4154, 43.6441]}
 						zoom={14.5}
 						minZoom={14}
@@ -770,6 +779,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
+						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
 						center={[-79.417, 43.6441]}
 						zoom={9}
 						pitch={0}
