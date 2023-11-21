@@ -1,7 +1,7 @@
 <script>
     import { onDestroy } from 'svelte';
     import Legend from "./legends/Legend.svelte";
-    import { mapStore2 } from '../mapStore'; // Import the mapStore
+    import { mapStoreList } from '../mapStore'; // Import the mapStore
 
     export let options = [];
     export let section;
@@ -9,7 +9,7 @@
     let map = null; // Initialize map as null
 
 	// Subscribe to the map store and update the local `map` variable
-	const unsubscribe = mapStore2.subscribe((maps) => {
+	const unsubscribe = mapStoreList.subscribe((maps) => {
 		if (section && maps[section]) {
 			map = maps[section];
 		}
@@ -39,7 +39,7 @@
 
 </script>
 
-<small><i>Change Map Census Layer</i></small>
+<small><i>Change Map Layer</i></small>
 <select bind:value={selected} on:change={toggleCensusLayer}>
     {#each options as option}
         <option value={option}>
@@ -48,44 +48,62 @@
     {/each}
 </select>
 
-{#if selected && selected.id === 'populationdensity'}
+
+{#if selected && selected.id === 'average-age'}
     <Legend
-        maxlabel={'4070000'}
-        label={'Population Density (people/sq.km)'}
+        minlabel={'29'}
+        maxlabel={'89'}
+        label={'Average Age'}
     />
 {/if}
 
-{#if selected && selected.id === 'averageincome'}
+{#if selected && selected.id === 'household-size'}
     <Legend
-        maxlabel={'$736000'}
-        label={'Average Income (Census 2021)'}
+        minlabel={'1'}
+        maxlabel={'8'}
+        label={'Household Size'}
+    />
+{/if}
+
+{#if selected && selected.id === 'average-income'}
+    <Legend
+        maxlabel={'$880,000'}
+        minlabel={'$20,000'}
+        label={'Average Employment Income (Census 2021)'}
     />
 {/if}
 
 {#if selected && selected.id === 'visibleminority'}
     <Legend
-        maxlabel={'29730'}
-        label={'Visible Minority Population'}
+        maxlabel={'100%'}
+        label={'% Visible Minority Population'}
     />
 {/if}
 
-{#if selected && selected.id === 'homeowners'}
+{#if selected && selected.id === 'immigrants'}
     <Legend
-        maxlabel={'60.5'}
-        label={'Home-owners'}
+        maxlabel={'100%'}
+        label={'% Recent Immigrants and New Permanent Residents'}
+    />
+{/if}
+
+{#if selected && selected.id === 'indigenous'}
+    <Legend
+        maxlabel={'79%'}
+        label={'% Indigenous Population'}
     />
 {/if}
 
 {#if selected && selected.id === 'french-speakers'}
     <Legend
-        maxlabel={'14.7'}
+        maxlabel={'14.7%'}
         label={'% of French Speakers'}
     />
 {/if}
 
 {#if selected && selected.id === 'english-speakers'}
     <Legend
-        maxlabel={'99.7'}
+        maxlabel={'99.7%'}
         label={'% of English Speakers'}
     />
 {/if}
@@ -93,12 +111,63 @@
 
 {#if selected && selected.id === 'education-bachelors'}
     <Legend
-        maxlabel={'82.2'}
+        maxlabel={'100%'}
         label={'% of Bachelors Degree Holders'}
     />
 {/if}
 
+<!-- Housing -->
 
+{#if selected && selected.id === 'populationdensity'}
+    <Legend
+        maxlabel={'4,070,000'}
+        label={'Population Density (people/sq.km)'}
+    />
+{/if}
+
+{#if selected && selected.id === 'dwellings'}
+    <Legend
+        minlabel={'18'}
+        maxlabel={'8149'}
+        label={'# of Dwellings'}
+    />
+{/if}
+
+{#if selected && selected.id === 'duplex'}
+    <Legend
+        maxlabel={'70%'}
+        label={'% Duplex'}
+    />
+{/if}
+
+{#if selected && selected.id === 'semi-detached'}
+    <Legend
+        maxlabel={'100%'}
+        label={'% Semi-Detached'}
+    />
+{/if}
+
+{#if selected && selected.id === 'single-detached'}
+    <Legend
+        maxlabel={'100%'}
+        label={'% Single-Detached'}
+    />
+{/if}
+
+
+{#if selected && selected.id === 'apartment-more-5-stories'}
+    <Legend
+        maxlabel={'100%'}
+        label={'% Aparments (more than 5 stories)'}
+    />
+{/if}
+
+{#if selected && selected.id === 'apartment-less-5-stories'}
+    <Legend
+        maxlabel={'100%'}
+        label={'% Aparments (less than 5 stories)'}
+    />
+{/if}
 
 
 

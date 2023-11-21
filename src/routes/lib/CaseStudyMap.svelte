@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { mapStore,mapStore2 } from './mapStore';
+	import { visitorMapStore, mapStoreList } from './mapStore';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -50,9 +50,9 @@
 			attributionControl: false
 		});
 
-		mapStore.set(map);
+		visitorMapStore.set(map);
 
-		mapStore2.update(maps => ({ ...maps, [section]: map }));
+		mapStoreList.update(maps => ({ ...maps, [section]: map }));
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');

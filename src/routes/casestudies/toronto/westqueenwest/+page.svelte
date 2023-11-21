@@ -40,7 +40,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { mapStore, mapStore2, weightMaxStore } from '../../../lib/mapStore';
+	import { visitorMapStore, mapStoreList, weightMaxStore } from '../../../lib/mapStore';
 
 	import '../../../styles.css';
 
@@ -74,9 +74,10 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
+	weightMaxStore.set(1532);
 
-	// TODO: update name of mapStore to visitorMapStore
-	mapStore.subscribe((value) => {
+
+	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
 
@@ -153,7 +154,7 @@
 		return geojson;
 	}
 
-	// all photos - NOT SURE if needed anymore
+	// all photos
 
 	const photosGeoJSON = createGeoJSON();
 
@@ -166,7 +167,7 @@
 
 	onMount(() => {
 		// subscribe to store
-		mapStore2.subscribe((value) => {
+		mapStoreList.subscribe((value) => {
 			mapInstances = value;
 			// for each map insance, find section and add layer
 			Object.entries(mapInstances).forEach(([id, map]) => {
@@ -631,17 +632,23 @@
 						populations in the same period as two-to-three unit buildings are converted into
 						single-family houses.
 					</p>
-				</div>
-				<div class="map-container">
-					<div class="legend-container">
-						<Legend
-							minlabel={'0'}
-							maxlabel={'4070000'}
-							label={'Population Density (people/sq.km)'}
-							gradient={gradients.popdensity}
+					<div class="controls">
+						<Dropdown
+							section={'housing'}
+							options={[
+								{ id: 'populationdensity', text: 'Population Density' },
+								{ id: 'dwellings', text: 'Dwellings' },
+								{ id: 'single-detached', text: 'Single Detached' },
+								{ id: 'semi-detached', text: 'Semi Detached' },
+								{ id: 'duplex', text: 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
+				</div>
+				<div class="map-container">
 					<CaseStudyMap
 						center={[-79.4154, 43.6441]}
 						zoom={14.7}
@@ -698,10 +705,12 @@
 						<Dropdown
 							section={'demographics'}
 							options={[
-								{ id: 'averageincome', text: 'Average Income' },
-								{ id: 'populationdensity', text: 'Population Density' },
+								{ id: 'average-age', text: 'Average Age' },
+								{ id: 'household-size', text: 'Household Size' },
+								{ id: 'average-income', text: 'Average Income' },
 								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'homeowners', text: 'Homeowners' },
+								{ id: 'immigrants', text: 'Recent Immigrants' },
+								{ id: 'indigenous', text: 'Indigenous Population' },
 								{ id: 'english-speakers', text: 'English Speakers' },
 								{ id: 'french-speakers', text: 'French Speakers' },
 								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
@@ -716,7 +725,7 @@
 						minZoom={14}
 						pitch={0}
 						bearing={-15}
-						layers={['westqueenwest-outline', 'averageincome']}
+						layers={['westqueenwest-outline', 'average-age']}
 						section={'demographics'}
 					/>
 				</div>
@@ -745,7 +754,6 @@
 									});
 									const weight = map.getPaintProperty(`visitors-${year}`, 'heatmap-weight');
 									const weightMax = weight[5];
-									console.log(weightMax);
 									weightMaxStore.set(weightMax);
 								} else {
 									console.log('Map style is not loaded.');
@@ -758,25 +766,6 @@
 							all="label"
 							hoverable={false}
 						/>
-						<!-- <h5>Zoom</h5> -->
-						<!-- <RangeSlider
-							on:change={(e) => {
-								const zoomvalues = { 0: 10, 1: 11, 2: 12, 3: 13, 4: 14.5 };
-								const zoom = zoomvalues[e.detail.value];
-								console.log(zoom);
-								map.easeTo({
-									center: [-79.417, 43.6441],
-									zoom: zoom
-								});
-							}}
-							values={[zoomlabels[0]]}
-							pips
-							first="label"
-							last="label"
-							formatter={(v) => zoomlabels[v]}
-							max={zoomlabels.length - 1}
-							hoverable={false}
-						/> -->
 					</div>
 				</div>
 				<div class="map-container">

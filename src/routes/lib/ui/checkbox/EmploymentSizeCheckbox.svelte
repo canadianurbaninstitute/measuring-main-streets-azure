@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import Icon from '@iconify/svelte';
 	import EmpSizeLegend from '../../assets/employmentsizelegend.svg';
-	import { mapStore2 } from '../../mapStore'; // Import the mapStore
+	import { mapStoreList } from '../../mapStore'; // Import the mapStore
 
 	export let layers = [];
 	export let minZoom = 14.1;
@@ -12,7 +12,7 @@
 	let map = null; // Initialize map as null
 
 	// Subscribe to the map store and update the local `map` variable
-	const unsubscribe = mapStore2.subscribe((maps) => {
+	const unsubscribe = mapStoreList.subscribe((maps) => {
 		if (section && maps[section]) {
 			map = maps[section];
 		}

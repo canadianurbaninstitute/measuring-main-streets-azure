@@ -7,13 +7,13 @@
 	export let button = false;
 	export let section;
 
-	import { mapStore2 } from '../../mapStore'; // Import the mapStore
+	import { mapStoreList } from '../../mapStore'; // Import the mapStore
 	import { onDestroy } from 'svelte';
 
 	let map = null; // Initialize map as null
 
 	// Subscribe to the map store and update the local `map` variable
-	const unsubscribe = mapStore2.subscribe((maps) => {
+	const unsubscribe = mapStoreList.subscribe((maps) => {
 		if (section && maps[section]) {
 			map = maps[section];
 		}
