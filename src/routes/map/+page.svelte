@@ -6,34 +6,84 @@
 	import Icon from '@iconify/svelte';
 
 	import Legend from '../lib/ui/legends/Legend.svelte';
+	import Metric from '../lib/ui/Metric.svelte';
 
 	mapboxgl.accessToken =
-		'pk.eyJ1IjoiYW5hbm1heSIsImEiOiJjbDk0azNmY3oxa203M3huMzhyZndlZDRoIn0.1L-fBYplQMuwz0LGctNeiA';
+		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
 	export let map;
 
 	// info
 	let streetname = 'Canada';
 	let place = 'Main Streets';
-	let province = ''; //codes not names - add column for codes
 
-	// business
-	let independence = ''; //BII_avg
-	let employees = ''; //emp_sum
+	// basic
+
+	let population = ''; //Pop
+	let employees = ''; //
+
+
+	// business 
+	let business = '';
+	let business_retail = '';
+	let business_services = '';
+	let business_food_drink = '';
+
+	let business_independence = ''; //BII_avg
+
+	// civic
+
+	let civic = '';
+	let civic_govt_community;
+	let civic_healthcare;
+	let civic_education;
+	let civic_arts_culture;
+	let civic_recreation;
 
 	// demographic
-	let population = ''; //Pop
-	let visibleminority = 0; // Eth_VM
-	let immigrants = 0; // Eth_Imm
+
+	// income + education
+
+	let income = '';
+	let education = '';
+	
+	// age
+
+	let average_age = '';
+	let age_0_19;
+	let age_20_64;
+	let age_over_65;
+
+	// equity
+
+	let immigrants = ''; 
+	let visibleminority  = '';
+	let indigenous = '';
+
+	// commute
+
+	let car = '';
+	let public_transit = '';
+	let active_transit = '';
 
 	// housing
-	let singledetached = 0;
-	let apartments = 0;
+
+	let dwellings = '';
+	let singledetached;
+	let semidetached;
+	let duplex;
+	let apartments_more_than_5;
+	let apartments_less_than_5;
+
+	// language
+
+	let french = '';
+	let english = '';
 
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/ananmay/clnc7tpm907rd01p93bgs013m?&fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj',
 			center: [-89, 53],
 			zoom: 3.6,
 			minZoom: 2,
@@ -66,42 +116,77 @@
 				'top-left'
 			);
 
-			// highlight
-			// map.setPaintProperty('mainstreets-canada-invisible', 'line-opacity', ['case', ['boolean', ['feature-state', 'clicked'], false], 1, 0.5])
-
+			
 		});
 
 		map.on('click', ['mainstreets-canada', 'mainstreets-canada-invisible'], (e) => {
 
+			// general
+
 			streetname = e.features[0].properties.R_STNAM;
 			place = e.features[0].properties.R_PLACE;
 
-			independence = e.features[0].properties.BII_avg.toFixed(2);
-			employees = e.features[0].properties.emp_sum.toFixed(0);
-
 			population = e.features[0].properties.Pop;
-			visibleminority = e.features[0].properties.Eth_VM.toFixed(0);
-			immigrants = e.features[0].properties.Eth_Imm.toFixed(0);
+			employees = e.features[0].properties.total_emp.toFixed(0);
 
-			apartments = e.features[0].properties.HH_APT.toFixed(1);
-			singledetached = e.features[0].properties.HH_SDH.toFixed(1);
+			// business
 
-			//  // Get the layer ID of the clicked feature in 'mainstreets-canada-invisible'
-			//  const layerId = 'mainstreets-canada-invisible';
+			business = e.features[0].properties.Bsnss_t.toFixed(0);
+			business_food_drink = e.features[0].properties.FdandDr.toFixed(0);
+			business_retail = e.features[0].properties.Retail.toFixed(0);
+			business_services = e.features[0].properties.SrvcsaO.toFixed(0);
+			business_independence = e.features[0].properties.BII_avg.toFixed(2);
 
-			// // Get the clicked feature's ID
-			// const featureId = e.features[0].id;
+			// civic
 
-			// // Set the feature state to change its opacity to 1
-			// map.setFeatureState(
-			// 	{ source: layerId, id: featureId },
-			// 	{ clicked: true }
-			// );
+			civic = e.features[0].properties.Cvc_ttl.toFixed(0);
+			civic_arts_culture = e.features[0].properties.ArtsanC.toFixed(0);
+			civic_education = e.features[0].properties.Educatn.toFixed(0);
+			civic_govt_community = e.features[0].properties.GvrnaCS.toFixed(0);
+			civic_healthcare = e.features[0].properties.HlthaCF.toFixed(0);
+			civic_recreation = e.features[0].properties.RcrtnFc.toFixed(0);
+
+			// demographic
+
+			// income + education
+
+			income = e.features[0].properties.AvgEmpInc.toFixed(0);
+			education = e.features[0].properties.UniDeg.toFixed(0);
+			
+			// age
+
+			average_age = e.features[0].properties.AvgAge.toFixed(0);
+
+			// equity
+
+			immigrants = e.features[0].properties.ImmNPR.toFixed(0);
+			visibleminority = e.features[0].properties.VM.toFixed(0);
+			indigenous = e.features[0].properties.Indig.toFixed(0);
+
+			// commute
+
+			car = e.features[0].properties.MobCar.toFixed(0);
+			public_transit = e.features[0].properties.MobPT.toFixed(0);
+			active_transit = e.features[0].properties.MobAct.toFixed(0);
+
+			// housing
+
+			dwellings = e.features[0].properties.TotalDwellings.toFixed(0);
+			singledetached = e.features[0].properties.SinDetach.toFixed(0);
+			semidetached = e.features[0].properties.SemiDetach.toFixed(0);
+			duplex = e.features[0].properties.Duplex.toFixed(0);
+			apartments_more_than_5 = e.features[0].properties.AptMore5.toFixed(0);
+			apartments_less_than_5 = e.features[0].properties.AptLess5.toFixed(0);
+
+			// language
+
+			english = e.features[0].properties.LanEng.toFixed(0);
+			french = e.features[0].properties.LanFr.toFixed(0);
 
 		});
 
 		map.on('click', 'toronto-bias', (e) => {
-			goto("/casestudies/westqueenwest_alt")
+			goto("/casestudies/westqueenwest")
 
 		});
 
@@ -141,29 +226,29 @@
 		<hr />
 		<div class="metric">Amenity Score: <Icon icon="bxs:tachometer" color="#002a41" /></div>
 		<hr />
-		<div class="metric">
-			Population: {population}
-			<Icon icon="fluent:people-20-filled" color="#002a41" />
-		</div>
-		<div class="metric">
-			<div><Icon icon="mdi:help-circle" color="#979797" /> # of Employees: {employees}</div>
-			<Icon icon="mdi:briefcase" color="#002a41" />
-		</div>
+		<Metric label={'Population'} value={population} icon={"fluent:people-20-filled"}/>
+		<Metric label={'Employees'} value={employees} icon={"mdi:briefcase"}/>
 		<hr />
-		<div class="metric"> Recent Immigrants: {immigrants}% <Icon icon="mdi:passport" color="#002a41" /></div>
-		<div class="metric">
-			Visible Minorities: {visibleminority}% <Icon icon="mdi:person" color="#002a41" />
-		</div>
+		<Metric label={'Civic Infrastructure'} value={civic} icon={"heroicons:building-library-20-solid"}/>
+		<Metric label={'Businesses'} value={business} icon={"mdi:shop"}/>
+		<Metric label={'Business Independence Index'} value={business_independence} icon={"mdi:shop"}/>
 		<hr />
-		<div class="metric">
-			Business Independence Index: {independence}
-			<Icon icon="mdi:shop" color="#002a41" />
-		</div>
+		<Metric label={'Average Income'} prefix={'$'} value={income} icon={"mdi:dollar"}/>
+		<Metric label={'% of Population with Bachelors'} value={education} suffix={'%'} icon={"mdi:school"}/>
+		<Metric label={'Average Age'} value={average_age} icon={"mdi:calendar"}/>
 		<hr />
-		<div class="metric">Apartments: {apartments}% <Icon icon="mdi:building" color="#002a41" /></div>
-		<div class="metric">
-			Single Detached: {singledetached}% <Icon icon="mdi:home" color="#002a41" />
-		</div>
+		<Metric label={'Recent Immigrants'} value={immigrants} suffix={'%'} icon={"mdi:passport"}/>
+		<Metric label={'Visible Minorities'} value={visibleminority} suffix={'%'} icon={"mdi:person"}/>
+		<Metric label={'Indigenous'} value={indigenous} suffix={'%'} icon={"mdi:person"}/>
+		<hr />
+		<Metric label={'Car'} value={car} suffix={'%'} icon={"mdi:car"}/>
+		<Metric label={'Public Transit'} value={public_transit} suffix={'%'} icon={"mdi:bus"}/>
+		<Metric label={'Active Transit'} value={active_transit} suffix={'%'} icon={"mdi:bike"}/>
+		<hr/>
+		<Metric label={'Dwellings'} value={dwellings} icon={"mdi:building"}/>
+		<hr/>
+		<Metric label={'English Speakers'} value={english} suffix={'%'} icon={"mdi:web-box"}/>
+		<Metric label={'French Speakers'} value={french} suffix={'%'} icon={"material-symbols:language-french"}/>
 	</div>
 	<div id="map" />
 	<div id="legend">

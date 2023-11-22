@@ -809,7 +809,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Visitor Levels % (Relative to 2019)"
+								title="Level of Visits % (Relative to 2019)"
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -822,7 +822,7 @@
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visitor Count by Type"
+								title="Visit Count by Type of Visitor"
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -833,7 +833,7 @@
 								data={visitortimeofday}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visitors (%) by Time of Day"
+								title="Visits (%) by Time of Day"
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
@@ -843,7 +843,7 @@
 								data={visitordayofweek}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visitors (%) by Day of Week"
+								title="Visits (%) by Day of Week"
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
