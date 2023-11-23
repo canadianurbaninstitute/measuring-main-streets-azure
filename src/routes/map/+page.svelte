@@ -3,82 +3,84 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import mapboxgl from 'mapbox-gl';
-	import Icon from '@iconify/svelte';
 
 	import Legend from '../lib/ui/legends/Legend.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
+	import Accordion from '../lib/ui/Accordion.svelte';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
 	export let map;
 
+	// currently weighted averages, would make more sense to do it as % of 'main street population base'
+
 	// info
 	let streetname = 'Canada';
-	let place = 'Main Streets';
+	let place = '23,223 Main Streets';
 
 	// basic
 
-	let population = ''; //Pop
-	let employees = ''; //
+	let population = 0; //Pop
+	let employees = 0; //
 
 
 	// business 
-	let business = '';
-	let business_retail = '';
-	let business_services = '';
-	let business_food_drink = '';
+	let business = '397,476';
+	let business_retail = '185,241';
+	let business_services = '143,274';
+	let business_food_drink = '68,960';
 
-	let business_independence = ''; //BII_avg
+	let business_independence = 0.52; //BII_avg
 
 	// civic
 
-	let civic = '';
-	let civic_govt_community;
-	let civic_healthcare;
-	let civic_education;
-	let civic_arts_culture;
-	let civic_recreation;
+	let civic = '197,035';
+	let civic_govt_community = '59,272';
+	let civic_healthcare = '80,252';
+	let civic_education = '34,858';
+	let civic_arts_culture = '8,551';
+	let civic_recreation = '14,101';
 
 	// demographic
 
 	// income + education
 
-	let income = '';
-	let education = '';
+	let income = 76650;
+	let education = 24;
 	
 	// age
 
-	let average_age = '';
+	let average_age = 33;
 	let age_0_19;
 	let age_20_64;
 	let age_over_65;
 
 	// equity
 
-	let immigrants = ''; 
-	let visibleminority  = '';
-	let indigenous = '';
+	let immigrants = 30.0; 
+	let visibleminority  = 29.6;
+	let indigenous = 4.7;
 
 	// commute
 
-	let car = '';
-	let public_transit = '';
-	let active_transit = '';
+	let car = 34;
+	let public_transit = 10;
+	let active_transit = 9;
 
 	// housing
 
-	let dwellings = '';
-	let singledetached;
-	let semidetached;
-	let duplex;
-	let apartments_more_than_5;
-	let apartments_less_than_5;
+	let dwellings = 0;
+	let singledetached = 0;
+	let semidetached = 0;
+	let duplex = 0;
+	let apartments_more_than_5 = 0;
+	let apartments_less_than_5 = 0;
 
 	// language
 
-	let french = '';
-	let english = '';
+	let french = 0;
+	let english = 0;
 
 	onMount(() => {
 		map = new mapboxgl.Map({
@@ -150,7 +152,7 @@
 
 			// income + education
 
-			income = e.features[0].properties.AvgEmpInc.toFixed(0);
+			income = parseFloat(e.features[0].properties.AvgEmpInc.toFixed(0)).toLocaleString();
 			education = e.features[0].properties.UniDeg.toFixed(0);
 			
 			// age
@@ -182,6 +184,40 @@
 
 			english = e.features[0].properties.LanEng.toFixed(0);
 			french = e.features[0].properties.LanFr.toFixed(0);
+
+			let features = map.queryRenderedFeatures(e.point, { layers: ['mainstreets-canada', 'mainstreets-canada-invisible'] });
+			
+			if (!features.length) {
+				return;
+			}
+
+			if (typeof map.getLayer('selectedRoad') !== "undefined" ){         
+				map.removeLayer('selectedRoad')
+				map.removeSource('selectedRoad');   
+			}
+
+			let feature = features[0];
+
+			//console.log(feature.toJSON());
+			
+			map.addSource('selectedRoad', {
+				type: "geojson",
+				data: feature.toJSON()
+			});
+
+			map.addLayer({
+				id: "selectedRoad",
+				type: "line",
+				source: "selectedRoad",
+				layout: {
+					'line-join': "round",
+					'line-cap': "round"
+				},
+				paint: {
+					'line-color': "#cb1515",
+					'line-width': 5
+				}
+			});
 
 		});
 
@@ -219,36 +255,69 @@
 
 <div id="map-container">
 	<div id="sidebar">
-		<h5>Click on a street segment on the map to view information.</h5>
-		<hr />
 		<h2>{streetname}</h2>
 		<h5>{place}</h5>
 		<hr />
-		<div class="metric">Amenity Score: <Icon icon="bxs:tachometer" color="#002a41" /></div>
-		<hr />
+		<!-- <Metric label={'Amenity Score'} value={business_independence} icon={"bxs:tachometer"}/> -->
+		<div class='metric-container'>
 		<Metric label={'Population'} value={population} icon={"fluent:people-20-filled"}/>
 		<Metric label={'Employees'} value={employees} icon={"mdi:briefcase"}/>
-		<hr />
-		<Metric label={'Civic Infrastructure'} value={civic} icon={"heroicons:building-library-20-solid"}/>
-		<Metric label={'Businesses'} value={business} icon={"mdi:shop"}/>
+		</div>
+		<Accordion>
+			<Metric accordion slot='header' label={'Civic Infrastructure'} value={civic} icon={"heroicons:building-library-20-solid"}/>
+			<div slot='body'>
+				<div class='metric-container'>
+					<Metric label={'Education'} value={civic_education} icon={"mdi:school"}/>
+					<Metric label={'Arts & Culture'} value={civic_arts_culture} icon={"fa6-solid:masks-theater"}/>
+					<Metric label={'Recreation'} value={civic_recreation}  icon={"material-symbols:park-rounded"}/>
+				</div>
+				<div class='metric-container'>
+					<Metric label={'Government & Community Services'} value={civic_govt_community} icon={"mingcute:government-fill"}/>
+					<Metric label={'Health & Care Facilities'} value={civic_healthcare} icon={"mdi:hospital-box"}/>
+				</div>
+			</div>
+		</Accordion>	
+		<Accordion>
+			<Metric accordion slot='header' label={'Businesses'} value={business} icon={"mdi:building"}/>
+			<div slot='body' class='metric-container'>
+				<Metric label={'Retail'} value={business_retail} icon={"mdi:shopping"}/>
+				<Metric label={'Food & Drink'} value={business_food_drink} icon={"dashicons:food"}/>
+				<Metric label={'Services'} value={business_services}  icon={"mdi:ticket"}/>
+			</div>
+		</Accordion>	
 		<Metric label={'Business Independence Index'} value={business_independence} icon={"mdi:shop"}/>
-		<hr />
-		<Metric label={'Average Income'} prefix={'$'} value={income} icon={"mdi:dollar"}/>
-		<Metric label={'% of Population with Bachelors'} value={education} suffix={'%'} icon={"mdi:school"}/>
-		<Metric label={'Average Age'} value={average_age} icon={"mdi:calendar"}/>
-		<hr />
-		<Metric label={'Recent Immigrants'} value={immigrants} suffix={'%'} icon={"mdi:passport"}/>
-		<Metric label={'Visible Minorities'} value={visibleminority} suffix={'%'} icon={"mdi:person"}/>
-		<Metric label={'Indigenous'} value={indigenous} suffix={'%'} icon={"mdi:person"}/>
-		<hr />
+		<hr/>
+		<div class='metric-container'>
+		<Metric label={'Average Income'} prefix={'$'} value={income.toLocaleString()} icon={"mdi:wallet"}/>
+		<Metric label={"Bachelor's Degree"} value={education} suffix={'%'} icon={"mdi:school"}/>
+		</div>
+		<Metric accordion label={'Average Age'} value={average_age} icon={"mingcute:birthday-2-fill"}/>
+		<div class='metric-container'>
+		<Metric label={'Recent Immigrants'} value={immigrants} suffix={'%'} icon={"mdi:globe"}/>
+		<Metric label={'Visible Minorities'} value={visibleminority} suffix={'%'} icon={"material-symbols:handshake"}/>
+		<Metric label={'Indigenous Population'} value={indigenous} suffix={'%'} icon={"mdi:person"}/>
+		</div>
+		<div class='metric-container'>
 		<Metric label={'Car'} value={car} suffix={'%'} icon={"mdi:car"}/>
 		<Metric label={'Public Transit'} value={public_transit} suffix={'%'} icon={"mdi:bus"}/>
 		<Metric label={'Active Transit'} value={active_transit} suffix={'%'} icon={"mdi:bike"}/>
-		<hr/>
-		<Metric label={'Dwellings'} value={dwellings} icon={"mdi:building"}/>
-		<hr/>
-		<Metric label={'English Speakers'} value={english} suffix={'%'} icon={"mdi:web-box"}/>
-		<Metric label={'French Speakers'} value={french} suffix={'%'} icon={"material-symbols:language-french"}/>
+		</div>
+		<Accordion>
+		<Metric accordion slot='header' label={'Dwellings'} value={dwellings} icon={"material-symbols:apartment"}/>
+		<div slot='body'>
+			<div class='metric-container'>
+				<Metric label={'Single Detached'} value={singledetached} suffix={'%'}/>
+				<Metric label={'Semi-Detached'} value={semidetached} suffix={'%'}/>
+				<Metric label={'Duplex'} value={duplex} suffix={'%'}/>
+			</div>
+			<div class='metric-container'>
+				<Metric label={'Apartment (>5 stories)'} value={apartments_more_than_5} suffix={'%'} />
+				<Metric label={'Apartment (<5 stories)'} value={apartments_less_than_5} suffix={'%'}/>
+			</div>
+		</div>
+		</Accordion>
+		<!-- <Metric label={'English Speakers'} value={english} suffix={'%'}/>
+		<Metric label={'French Speakers'} value={french} suffix={'%'} /> -->
 	</div>
 	<div id="map" />
 	<div id="legend">
@@ -283,22 +352,14 @@
 		width: 30vw;
 		display: flex;
 		flex-direction: column;
-		padding: 1em;
+		padding: 0.5em 1em 0.5em 1em;
 		border-right: 1px solid #eee;
-
-
 	}
 
-	.metric {
-		padding: 0.8em;
-		border: 1px solid #ddd;
-		border-radius: 0.5em;
-		margin: 0.2em 0 0.2em 0;
-		font-size: 0.9em;
+	.metric-container {
 		display: flex;
 		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
+		gap: 0.5em;
 	}
 
 	h2 {

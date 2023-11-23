@@ -182,7 +182,6 @@
         padding-right: 30px; 
         margin-top: 0.4em;
         margin-bottom: 0.4em;
-
         border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
