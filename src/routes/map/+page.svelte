@@ -133,20 +133,20 @@
 
 			// business
 
-			business = e.features[0].properties.Bsnss_t.toFixed(0);
-			business_food_drink = e.features[0].properties.FdandDr.toFixed(0);
-			business_retail = e.features[0].properties.Retail.toFixed(0);
-			business_services = e.features[0].properties.SrvcsaO.toFixed(0);
+			business = e.features[0].properties.FdandDr + e.features[0].properties.Retail + e.features[0].properties.SrvcsaO;
+			business_food_drink = e.features[0].properties.FdandDr;
+			business_retail = e.features[0].properties.Retail;
+			business_services = e.features[0].properties.SrvcsaO;
 			business_independence = e.features[0].properties.BII_avg.toFixed(2);
 
 			// civic
 
-			civic = e.features[0].properties.Cvc_ttl.toFixed(0);
-			civic_arts_culture = e.features[0].properties.ArtsanC.toFixed(0);
-			civic_education = e.features[0].properties.Educatn.toFixed(0);
-			civic_govt_community = e.features[0].properties.GvrnaCS.toFixed(0);
-			civic_healthcare = e.features[0].properties.HlthaCF.toFixed(0);
-			civic_recreation = e.features[0].properties.RcrtnFc.toFixed(0);
+			civic = (e.features[0].properties.ArtsanC + e.features[0].properties.Educatn + e.features[0].properties.GvrnaCS + e.features[0].properties.HlthaCF + e.features[0].properties.RcrtnFc)
+			civic_arts_culture = e.features[0].properties.ArtsanC;
+			civic_education = e.features[0].properties.Educatn;
+			civic_govt_community = e.features[0].properties.GvrnaCS;
+			civic_healthcare = e.features[0].properties.HlthaCF;
+			civic_recreation = e.features[0].properties.RcrtnFc;
 
 			// demographic
 
