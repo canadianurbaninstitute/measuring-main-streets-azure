@@ -59,7 +59,7 @@
 <style>
 	#menu {
 		background-color: #fff;
-		height: 10vh;
+		/* height: 10vh; */
 		display: flex;
 		justify-content: end;
 		align-items: center;
@@ -141,7 +141,6 @@
 
 	#logo-group {
 		position: relative;
-		height: 100px;
 		background-color: #fff;
 		display: flex;
 		align-items: center;

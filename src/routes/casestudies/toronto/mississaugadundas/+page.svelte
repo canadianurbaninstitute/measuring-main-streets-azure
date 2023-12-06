@@ -10,15 +10,15 @@
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/toronto/westqueenwest/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/westqueenwest/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/toronto/westqueenwest/businessmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/mississaugadundas/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/businessmix';
 	import housingtype from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingtype';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/westqueenwest/visitordayofweek';
+	import visitortraffic from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
@@ -89,141 +89,141 @@
 
 	// Cloudinary Config
 
-	setConfig({
-		cloudName: 'dq4p0s7xo'
-	});
+	// setConfig({
+	// 	cloudName: 'dq4p0s7xo'
+	// });
 
-	export let data;
+	// export let data;
 
-	const photosJSON = data.photos;
+	// const photosJSON = data.photos;
 
-	function createGeoJSON(filterString = null) {
-		// Create GeoJSON structure
-		const geojson = {
-			type: 'FeatureCollection',
-			features: []
-		};
+	// function createGeoJSON(filterString = null) {
+	// 	// Create GeoJSON structure
+	// 	const geojson = {
+	// 		type: 'FeatureCollection',
+	// 		features: []
+	// 	};
 
-		// Iterate through resources (long/lat cleaning)
+	// 	// Iterate through resources (long/lat cleaning)
 
-		photosJSON.resources.forEach((resource) => {
-			let latitude, longitude;
-			resource.metadata.forEach((meta) => {
-				if (meta.external_id === 'latitude') {
-					const cleanLatitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
-					latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
-				} else if (meta.external_id === 'longitude') {
-					const cleanLongitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
-					longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
-				}
-			});
+	// 	photosJSON.resources.forEach((resource) => {
+	// 		let latitude, longitude;
+	// 		resource.metadata.forEach((meta) => {
+	// 			if (meta.external_id === 'latitude') {
+	// 				const cleanLatitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+	// 				latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
+	// 			} else if (meta.external_id === 'longitude') {
+	// 				const cleanLongitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+	// 				longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
+	// 			}
+	// 		});
 
-			// building images
+	// 		// building images
 
-			if (latitude && longitude) {
-				if (!filterString || resource.public_id.includes(filterString)) {
-					let url = buildImageUrl(resource.public_id, {
-						transformations: {
-							rawTransformation: 'c_scale,h_300'
-						}
-					});
-					let thumburl = buildImageUrl(resource.public_id, {
-						transformations: {
-							rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
-						},
-						format: 'png'
-					});
+	// 		if (latitude && longitude) {
+	// 			if (!filterString || resource.public_id.includes(filterString)) {
+	// 				let url = buildImageUrl(resource.public_id, {
+	// 					transformations: {
+	// 						rawTransformation: 'c_scale,h_300'
+	// 					}
+	// 				});
+	// 				let thumburl = buildImageUrl(resource.public_id, {
+	// 					transformations: {
+	// 						rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
+	// 					},
+	// 					format: 'png'
+	// 				});
 
-					const feature = {
-						type: 'Feature',
-						geometry: {
-							type: 'Point',
-							coordinates: [longitude, latitude]
-						},
-						properties: {
-							public_id: resource.public_id,
-							url: url,
-							thumbnail: thumburl
-						}
-					};
-					geojson.features.push(feature);
-				}
-			}
-		});
+	// 				const feature = {
+	// 					type: 'Feature',
+	// 					geometry: {
+	// 						type: 'Point',
+	// 						coordinates: [longitude, latitude]
+	// 					},
+	// 					properties: {
+	// 						public_id: resource.public_id,
+	// 						url: url,
+	// 						thumbnail: thumburl
+	// 					}
+	// 				};
+	// 				geojson.features.push(feature);
+	// 			}
+	// 		}
+	// 	});
 
-		return geojson;
-	}
+	// 	return geojson;
+	// }
 
-	// all photos
+	// // all photos
 
-	const photosGeoJSON = createGeoJSON();
+	// const photosGeoJSON = createGeoJSON();
 
-	// create images list for AddImage and LoadImage to work properly
+	// // create images list for AddImage and LoadImage to work properly
 
-	const images = photosGeoJSON.features.map((feature) => ({
-		url: feature.properties.thumbnail,
-		id: feature.properties.public_id
-	}));
+	// const images = photosGeoJSON.features.map((feature) => ({
+	// 	url: feature.properties.thumbnail,
+	// 	id: feature.properties.public_id
+	// }));
 
-	onMount(() => {
-		// subscribe to store
-		mapStoreList.subscribe((value) => {
-			mapInstances = value;
-			// for each map insance, find section and add layer
-			Object.entries(mapInstances).forEach(([id, map]) => {
-				if (map && id) {
-					const section = sections.find((sec) => sec === id);
-					if (section) {
-						Promise.all(
-							images.map(
-								(img) =>
-									new Promise((resolve, reject) => {
-										map.loadImage(img.url, (error, res) => {
-											if (error) {
-												console.log(error);
-												reject(error);
-											} else {
-												map.addImage(img.id, res);
-												resolve();
-											}
-										});
-									})
-							)
-						).then(() => {
-							console.log('Images loaded');
-						});
+	// onMount(() => {
+	// 	// subscribe to store
+	// 	mapStoreList.subscribe((value) => {
+	// 		mapInstances = value;
+	// 		// for each map insance, find section and add layer
+	// 		Object.entries(mapInstances).forEach(([id, map]) => {
+	// 			if (map && id) {
+	// 				const section = sections.find((sec) => sec === id);
+	// 				if (section) {
+	// 					Promise.all(
+	// 						images.map(
+	// 							(img) =>
+	// 								new Promise((resolve, reject) => {
+	// 									map.loadImage(img.url, (error, res) => {
+	// 										if (error) {
+	// 											console.log(error);
+	// 											reject(error);
+	// 										} else {
+	// 											map.addImage(img.id, res);
+	// 											resolve();
+	// 										}
+	// 									});
+	// 								})
+	// 						)
+	// 					).then(() => {
+	// 						console.log('Images loaded');
+	// 					});
 
-						map.on('style.load', () => {
-							// based on photosection list, has to match cloudinary photo names
-							const sectionValue = photosections[section];
-							// Use sectionValue to create the sourceData dynamically
-							let sourceData = createGeoJSON(sectionValue);
-							// dynamic source name
-							let sourceName = `${section}-photos`;
+	// 					map.on('style.load', () => {
+	// 						// based on photosection list, has to match cloudinary photo names
+	// 						const sectionValue = photosections[section];
+	// 						// Use sectionValue to create the sourceData dynamically
+	// 						let sourceData = createGeoJSON(sectionValue);
+	// 						// dynamic source name
+	// 						let sourceName = `${section}-photos`;
 
-							map.addSource(sourceName, {
-								type: 'geojson',
-								data: sourceData
-							});
+	// 						map.addSource(sourceName, {
+	// 							type: 'geojson',
+	// 							data: sourceData
+	// 						});
 
-							map.addLayer({
-								id: sourceName,
-								type: 'symbol',
-								source: sourceName,
-								layout: {
-									'icon-image': ['get', 'public_id'], // reference the image
-									'icon-ignore-placement': true,
-									'icon-size': 0.2,
-									'icon-allow-overlap': true,
-									visibility: 'visible'
-								}
-							});
-						});
-					}
-				}
-			});
-		});
-	});
+	// 						map.addLayer({
+	// 							id: sourceName,
+	// 							type: 'symbol',
+	// 							source: sourceName,
+	// 							layout: {
+	// 								'icon-image': ['get', 'public_id'], // reference the image
+	// 								'icon-ignore-placement': true,
+	// 								'icon-size': 0.2,
+	// 								'icon-allow-overlap': true,
+	// 								visibility: 'visible'
+	// 							}
+	// 						});
+	// 					});
+	// 				}
+	// 			}
+	// 		});
+	// 	});
+	// });
 </script>
 
 <svelte:head>
@@ -244,18 +244,10 @@
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
 					<p>
-						West Queen West is the segment of a prominent arterial road through the southern parts
-						of the city of Toronto, specifically the part of the street between Dufferin in the west
-						and Bathurst in the east. To its immediate west is the neighbourhood of Parkdale, to its
-						south a mix of high-density neighbourhoods such as Liberty Village and Niagara, to the
-						east the street leads into the entertainment district and downtown, and to the north a
-						patchwork of lower-rise residential neighbourhoods.
-					</p>
-					<p>
-						The street has served as a historic westbound route in and out of Toronto’s core and has
-						been urbanized since at least the 1850s. Historically a working-class district close to
-						factory jobs, as the economic profile of Toronto has shifted to services and knowledge
-						work so has West Queen West’s residential population.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
@@ -268,18 +260,18 @@
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'West Queen West BIA'}
+							label={'Mississauga Dundas'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
-						center={[-79.41145, 43.647]}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						center={[-79.585, 43.610]}
 						zoom={13}
 						pitch={50}
-						bearing={0}
-						layers={['mainstreets-toronto', 'westqueenwest', 'westqueenwest-fill']}
+						bearing={-10}
+						layers={['mainstreets-toronto', 'mississaugadundas', 'mississaugadundas-fill']}
 						section={'overview'}
 					/>
 				</div>
@@ -290,33 +282,17 @@
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
 					<p>
-						Most of the buildings along the street consists of mixed-use commercial and residential
-						structures, with small-scale retail directly fronting a sidewalk. Few properties have a
-						significant setback from their roadway and heights are limited largely to a maximum of
-						three storeys directly on the road — though taller structures do exist immediately to
-						the south of the street, especially in its western segment. Many properties along Queen
-						Street have alley access to the north and south. There is also a small strip mall in the
-						extreme western segment of the street.
-					</p>
-					<p>
-						The street is served by multiple transit routes, most prominently a TTC streetcar route.
-						While there is not bike infrastructure on the street beyond parking, there are protected
-						bike lanes on some parallel streets.
-					</p>
-					<p>
-						The most significant change in built-form along the route is the Centre for Addiction
-						and Mental Health (CAMH), which occupies a significant property between Shaw and White
-						Squirrel on the south of the street. On this stretch, the north side largely maintains
-						the prevalent form, but in recent years CAMH has built a number of eight to ten storey
-						institutional and mixed-use buildings as well as extended the street grid from the north
-						to the south.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'West Queen West BIA'}
+							label={'Mississauga Dundas'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -329,19 +305,19 @@
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
-						<SatelliteCheckbox casestudy={'westqueenwest'} section={'builtform'} />
+						<SatelliteCheckbox casestudy={'mississaugadundas'} section={'builtform'} />
 
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
-						center={[-79.4145, 43.64408]}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						center={[-79.5925, 43.5988]}
 						zoom={15}
 						minZoom={15}
-						pitch={40}
-						bearing={-15}
+						pitch={70}
+						bearing={40}
 						layers={[
-							'westqueenwest',
-							'westqueenwest-fill',
+							'mississaugadundas',
+							'mississaugadundas-fill',
 							'greenspaces',
 							'transit-toronto',
 							'transit-toronto-stops',
@@ -366,17 +342,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Civic Infrastructure</h2>
-					<p>
-						The most prominent example of civic infrastructure on the street is CAMH, occupying
-						multiple blocks, employing and serving thousands of workers and patients. There are also
-						a number of related medical services in the neighbourhood.
-					</p>
-					<p>
-						East of CAMH, Queen Street’s heart might be best found at Trinity Bellwoods Park, a 15.4
-						hectares green space. Within the park is a large, and popular, community centre, dog
-						off-leash space and sports fields. The park has served as a community hub and gathering
-						space in Toronto’s west end for years.
-					</p>
 					<div class="controls">
 						<i><small>Click on a layer to turn it on or off</small></i>
 						<LegendItem
@@ -426,7 +391,7 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'wqw-isochrone'} />
+							<IsochroneCheckbox section={'civicinfra'} layer={'mississaugadundas-isochrone'} minZoom={13} maxZoom={13.3}/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -436,21 +401,28 @@
 									'civicinfra-toronto-education',
 									'civicinfra-toronto-recreation'
 								]}
+								minZoom={13} maxZoom={13.3}
 							/>
 						</div>
 					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
-						center={[-79.4154, 43.6441]}
-						zoom={14.7}
-						minZoom={13.3}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						center={[-79.582077, 43.610345]}
+						zoom={13.3}
+						minZoom={13}
 						pitch={0}
-						bearing={-15}
+						bearing={-48}
 						layers={[
-							'westqueenwest',
-							'westqueenwest-fill',
+							'mississaugadundas',
+							'mississaugadundas-fill',
 							'civicinfra-toronto-education',
 							'civicinfra-toronto-govt-community',
 							'civicinfra-toronto-health',
@@ -479,21 +451,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Business Profile</h2>
-					<p>
-						West Queen West is an established retail district, with many small to medium fashion
-						stores along the street — with specific concentrations of casual wear, eye glasses, and
-						shoes in different blocks. Other retail exists along the street, covering a vast range
-						of items from bakeries to convenience stores to toy stores.
-					</p>
-					<p>
-						The services are relatively diverse, with a focus on restaurants — both formal, casual
-						and fast food. No supermarket grocery store directly fronts the street on this stretch,
-						but there are many located just off the street or on segments to the east and west.
-					</p>
-					<p>
-						There are a number of event venues, especially in the western segment of the street
-						which often draw large crowds for concerns and other events.
-					</p>
 					<div class="controls">
 						<i><small>Click on a layer to turn it on or off</small></i>
 						<LegendItem
@@ -525,7 +482,7 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'wqw-isochrone'} />
+							<IsochroneCheckbox section={'business'} layer={'mississaugadundas-isochrone'} minZoom={13} maxZoom={13.3} />
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -533,21 +490,28 @@
 									'business-toronto-services',
 									'business-toronto-food-drink'
 								]}
+								minZoom={13} maxZoom={13.3}
 							/>
 						</div>
 					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
-						center={[-79.4154, 43.6441]}
-						zoom={14.7}
-						minZoom={13.3}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						center={[-79.582077, 43.610345]}
+						zoom={13.3}
+						minZoom={13}
 						pitch={0}
-						bearing={-15}
+						bearing={-48}
 						layers={[
-							'westqueenwest',
-							'westqueenwest-fill',
+							'mississaugadundas',
+							'mississaugadundas-fill',
 							'business-toronto-retail',
 							'business-toronto-food-drink',
 							'business-toronto-services'
@@ -575,22 +539,22 @@
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
 					<p>
-						Employment along the street is largely distributed across hundreds of small businesses,
-						with some businesses employing more. CAMH is a sizeable employer along the street — but
-						most large employers are concentrated just east, in downtown, or south, in Liberty
-						Village, of the street itself.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
-						center={[-79.4154, 43.6441]}
-						zoom={14.5}
-						minZoom={14}
-						pitch={20}
-						bearing={-15}
-						layers={['westqueenwest', 'westqueenwest-fill', 'employment-size']}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						center={[-79.582077, 43.610345]}
+						zoom={13.3}
+						minZoom={13}
+						pitch={0}
+						bearing={-48}
+						layers={['mississaugadundas', 'mississaugadundas-fill', 'employment-size']}
 						section={'employmentsize'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -623,23 +587,9 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Housing</h2>
-					<p>
-						The predominant housing form in the area are ground-oriented single family homes north
-						of the street, and high-rise condominium and apartment buildings south of the street.
-						There are exceptions to this and numerous examples of mid-rise apartment buildings
-						throughout the street. Few newer developments directly front onto the street, other than
-						some examples directly south of Trinity Bellwoods Park.
-					</p>
-					<p>
-						Generally, the population density is high for Canada and the GTA throughout the area,
-						though south of the street is much denser with construction in the last 20 years. In
-						contrast, the neighbourhoods north of the street have seen stable or declining
-						populations in the same period as two-to-three unit buildings are converted into
-						single-family houses.
-					</p>
 					<div class="controls">
 						<Dropdown
-							casestudy={'westqueenwest'}
+							casestudy={'mississaugadundas'}
 							section={'housing'}
 							options={[
 								{ id: 'populationdensity', text: 'Population Density' },
@@ -653,16 +603,22 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
-						center={[-79.4154, 43.6441]}
-						zoom={14.7}
-						minZoom={14}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						center={[-79.582077, 43.610345]}
+						zoom={13.3}
+						minZoom={13}
 						pitch={0}
-						bearing={-15}
-						layers={['westqueenwest-outline', 'populationdensity']}
+						bearing={-48}
+						layers={['mississaugadundas-outline', 'populationdensity']}
 						section={'housing'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -701,16 +657,9 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Local Characteristics</h2>
-					<p>
-						The neighbourhoods surrounding West Queen West are more highly educated and less likely
-						to be a first generation immigrant than the regional average. Additionally, they are
-						more likely to be both in the upper quintile of income, more likely to be in the bottom
-						decile of income — indicating a polarized income distribution with limited
-						representation of middle income households.
-					</p>
 					<div class="controls">
 						<Dropdown
-							casestudy={'westqueenwest'}
+							casestudy={'mississaugadundas'}
 							section={'demographics'}
 							options={[
 								{ id: 'average-age', text: 'Average Age' },
@@ -725,16 +674,22 @@
 							]}
 						/>
 					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
-						center={[-79.4154, 43.6441]}
-						zoom={14.5}
-						minZoom={14}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						center={[-79.582077, 43.610345]}
+						zoom={13.3}
+						minZoom={13}
 						pitch={0}
-						bearing={-15}
-						layers={['westqueenwest-outline', 'average-age']}
+						bearing={-48}
+						layers={['mississaugadundas-outline', 'average-age']}
 						section={'demographics'}
 					/>
 				</div>
@@ -744,12 +699,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Visitors</h2>
-					<p>
-						West Queen West does draw visitors throughout the Greater Toronto Area, but with a
-						significant concentration among local residents to the west end and downtown of Toronto.
-						Generally, visitor traffic is heaviest on Fridays and Saturdays and in the late
-						afternoon or evening.
-					</p>
 					<div class="controls">
 						<h5>Year</h5>
 						<RangeSlider
@@ -776,15 +725,21 @@
 							hoverable={false}
 						/>
 					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+						esse cillum dolore eu fugiat nulla pariatur.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
+						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
 						center={[-79.417, 43.6441]}
 						zoom={9}
 						pitch={0}
 						bearing={-15}
-						layers={['westqueenwest-outline', 'visitors-2022']}
+						layers={['mississaugadundas-outline', 'visitors-2022']}
 						section={'visitors'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -921,7 +876,7 @@
 		border: 2px solid #ddd;
 		border-radius: 0.5em;
 		padding: 1em;
-		/* margin: 0 0 1em 0; */
+		margin: 1em 0 0 0;
 	}
 
 	.checkbox {

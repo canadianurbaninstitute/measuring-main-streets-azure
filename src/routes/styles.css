@@ -21,19 +21,16 @@
 }
 
 body {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     background-color: #ffffff;
     opacity: 1;
 }
 
-main {
-    margin: 0 auto;
-    width: 100%;
-    min-width: 320px;
-    max-width: 1920px;
-    position: relative;
-}
+/* include border and padding in element width and height */
+* {
+    box-sizing: border-box;
+  }
 
 .text-column {
 	display: flex;
@@ -42,11 +39,6 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	margin: 0 auto;
-}
-
-
-svelte-scroller-foreground.svelte-xdbafy {
-    max-width: fit-content;
 }
 
 .mapboxgl-popup-content {
@@ -136,6 +128,6 @@ h1 {
 }
 
 .hero {
-    display:flex;
+    display: flex;
     flex-direction: column;
 }

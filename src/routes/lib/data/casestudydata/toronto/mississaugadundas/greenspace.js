@@ -1,0 +1,1 @@
+export default [{"Area":"Mississauga Dundas","Park_Area":4177.0953,"Park_Percentage":0.3637},{"Area":"Ten Minute Walk","Park_Area":200670.2239,"Park_Percentage":3.4825},{"Area":"Toronto CMA","Park_Area":379716248.6424,"Park_Percentage":5.7174}]

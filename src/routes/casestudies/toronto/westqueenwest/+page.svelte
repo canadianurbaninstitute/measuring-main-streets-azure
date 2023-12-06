@@ -87,143 +87,143 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-	// // Cloudinary Config
+	// Cloudinary Config
 
-	// setConfig({
-	// 	cloudName: 'dq4p0s7xo'
-	// });
+	setConfig({
+		cloudName: 'dq4p0s7xo'
+	});
 
-	// export let data;
+	export let data;
 
-	// const photosJSON = data.photos;
+	const photosJSON = data.photos;
 
-	// function createGeoJSON(filterString = null) {
-	// 	// Create GeoJSON structure
-	// 	const geojson = {
-	// 		type: 'FeatureCollection',
-	// 		features: []
-	// 	};
+	function createGeoJSON(filterString = null) {
+		// Create GeoJSON structure
+		const geojson = {
+			type: 'FeatureCollection',
+			features: []
+		};
 
-	// 	// Iterate through resources (long/lat cleaning)
+		// Iterate through resources (long/lat cleaning)
 
-	// 	photosJSON.resources.forEach((resource) => {
-	// 		let latitude, longitude;
-	// 		resource.metadata.forEach((meta) => {
-	// 			if (meta.external_id === 'latitude') {
-	// 				const cleanLatitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
-	// 				latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
-	// 			} else if (meta.external_id === 'longitude') {
-	// 				const cleanLongitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
-	// 				longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
-	// 			}
-	// 		});
+		photosJSON.resources.forEach((resource) => {
+			let latitude, longitude;
+			resource.metadata.forEach((meta) => {
+				if (meta.external_id === 'latitude') {
+					const cleanLatitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+					latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
+				} else if (meta.external_id === 'longitude') {
+					const cleanLongitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+					longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
+				}
+			});
 
-	// 		// building images
+			// building images
 
-	// 		if (latitude && longitude) {
-	// 			if (!filterString || resource.public_id.includes(filterString)) {
-	// 				let url = buildImageUrl(resource.public_id, {
-	// 					transformations: {
-	// 						rawTransformation: 'c_scale,h_300'
-	// 					}
-	// 				});
-	// 				let thumburl = buildImageUrl(resource.public_id, {
-	// 					transformations: {
-	// 						rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
-	// 					},
-	// 					format: 'png'
-	// 				});
+			if (latitude && longitude) {
+				if (!filterString || resource.public_id.includes(filterString)) {
+					let url = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'c_scale,h_300'
+						}
+					});
+					let thumburl = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
+						},
+						format: 'png'
+					});
 
-	// 				const feature = {
-	// 					type: 'Feature',
-	// 					geometry: {
-	// 						type: 'Point',
-	// 						coordinates: [longitude, latitude]
-	// 					},
-	// 					properties: {
-	// 						public_id: resource.public_id,
-	// 						url: url,
-	// 						thumbnail: thumburl
-	// 					}
-	// 				};
-	// 				geojson.features.push(feature);
-	// 			}
-	// 		}
-	// 	});
+					const feature = {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [longitude, latitude]
+						},
+						properties: {
+							public_id: resource.public_id,
+							url: url,
+							thumbnail: thumburl
+						}
+					};
+					geojson.features.push(feature);
+				}
+			}
+		});
 
-	// 	return geojson;
-	// }
+		return geojson;
+	}
 
-	// // all photos
+	// all photos
 
-	// const photosGeoJSON = createGeoJSON();
+	const photosGeoJSON = createGeoJSON();
 
-	// // create images list for AddImage and LoadImage to work properly
+	// create images list for AddImage and LoadImage to work properly
 
-	// const images = photosGeoJSON.features.map((feature) => ({
-	// 	url: feature.properties.thumbnail,
-	// 	id: feature.properties.public_id
-	// }));
+	const images = photosGeoJSON.features.map((feature) => ({
+		url: feature.properties.thumbnail,
+		id: feature.properties.public_id
+	}));
 
-	// onMount(() => {
-	// 	// subscribe to store
-	// 	mapStoreList.subscribe((value) => {
-	// 		mapInstances = value;
-	// 		// for each map insance, find section and add layer
-	// 		Object.entries(mapInstances).forEach(([id, map]) => {
-	// 			if (map && id) {
-	// 				const section = sections.find((sec) => sec === id);
-	// 				if (section) {
-	// 					Promise.all(
-	// 						images.map(
-	// 							(img) =>
-	// 								new Promise((resolve, reject) => {
-	// 									map.loadImage(img.url, (error, res) => {
-	// 										if (error) {
-	// 											console.log(error);
-	// 											reject(error);
-	// 										} else {
-	// 											map.addImage(img.id, res);
-	// 											resolve();
-	// 										}
-	// 									});
-	// 								})
-	// 						)
-	// 					).then(() => {
-	// 						console.log('Images loaded');
-	// 					});
+	onMount(() => {
+		// subscribe to store
+		mapStoreList.subscribe((value) => {
+			mapInstances = value;
+			// for each map insance, find section and add layer
+			Object.entries(mapInstances).forEach(([id, map]) => {
+				if (map && id) {
+					const section = sections.find((sec) => sec === id);
+					if (section) {
+						Promise.all(
+							images.map(
+								(img) =>
+									new Promise((resolve, reject) => {
+										map.loadImage(img.url, (error, res) => {
+											if (error) {
+												console.log(error);
+												reject(error);
+											} else {
+												map.addImage(img.id, res);
+												resolve();
+											}
+										});
+									})
+							)
+						).then(() => {
+							console.log('Images loaded');
+						});
 
-	// 					map.on('style.load', () => {
-	// 						// based on photosection list, has to match cloudinary photo names
-	// 						const sectionValue = photosections[section];
-	// 						// Use sectionValue to create the sourceData dynamically
-	// 						let sourceData = createGeoJSON(sectionValue);
-	// 						// dynamic source name
-	// 						let sourceName = `${section}-photos`;
+						map.on('style.load', () => {
+							// based on photosection list, has to match cloudinary photo names
+							const sectionValue = photosections[section];
+							// Use sectionValue to create the sourceData dynamically
+							let sourceData = createGeoJSON(sectionValue);
+							// dynamic source name
+							let sourceName = `${section}-photos`;
 
-	// 						map.addSource(sourceName, {
-	// 							type: 'geojson',
-	// 							data: sourceData
-	// 						});
+							map.addSource(sourceName, {
+								type: 'geojson',
+								data: sourceData
+							});
 
-	// 						map.addLayer({
-	// 							id: sourceName,
-	// 							type: 'symbol',
-	// 							source: sourceName,
-	// 							layout: {
-	// 								'icon-image': ['get', 'public_id'], // reference the image
-	// 								'icon-ignore-placement': true,
-	// 								'icon-size': 0.2,
-	// 								'icon-allow-overlap': true,
-	// 								visibility: 'visible'
-	// 							}
-	// 						});
-	// 					});
-	// 				}
-	// 			}
-	// 		});
-	// 	});
-	// });
+							map.addLayer({
+								id: sourceName,
+								type: 'symbol',
+								source: sourceName,
+								layout: {
+									'icon-image': ['get', 'public_id'], // reference the image
+									'icon-ignore-placement': true,
+									'icon-size': 0.2,
+									'icon-allow-overlap': true,
+									visibility: 'visible'
+								}
+							});
+						});
+					}
+				}
+			});
+		});
+	});
 </script>
 
 <svelte:head>
@@ -366,17 +366,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Civic Infrastructure</h2>
-					<p>
-						The most prominent example of civic infrastructure on the street is CAMH, occupying
-						multiple blocks, employing and serving thousands of workers and patients. There are also
-						a number of related medical services in the neighbourhood.
-					</p>
-					<p>
-						East of CAMH, Queen Street’s heart might be best found at Trinity Bellwoods Park, a 15.4
-						hectares green space. Within the park is a large, and popular, community centre, dog
-						off-leash space and sports fields. The park has served as a community hub and gathering
-						space in Toronto’s west end for years.
-					</p>
 					<div class="controls">
 						<i><small>Click on a layer to turn it on or off</small></i>
 						<LegendItem
@@ -439,6 +428,17 @@
 							/>
 						</div>
 					</div>
+					<p>
+						The most prominent example of civic infrastructure on the street is CAMH, occupying
+						multiple blocks, employing and serving thousands of workers and patients. There are also
+						a number of related medical services in the neighbourhood.
+					</p>
+					<p>
+						East of CAMH, Queen Street’s heart might be best found at Trinity Bellwoods Park, a 15.4
+						hectares green space. Within the park is a large, and popular, community centre, dog
+						off-leash space and sports fields. The park has served as a community hub and gathering
+						space in Toronto’s west end for years.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -479,21 +479,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Business Profile</h2>
-					<p>
-						West Queen West is an established retail district, with many small to medium fashion
-						stores along the street — with specific concentrations of casual wear, eye glasses, and
-						shoes in different blocks. Other retail exists along the street, covering a vast range
-						of items from bakeries to convenience stores to toy stores.
-					</p>
-					<p>
-						The services are relatively diverse, with a focus on restaurants — both formal, casual
-						and fast food. No supermarket grocery store directly fronts the street on this stretch,
-						but there are many located just off the street or on segments to the east and west.
-					</p>
-					<p>
-						There are a number of event venues, especially in the western segment of the street
-						which often draw large crowds for concerns and other events.
-					</p>
 					<div class="controls">
 						<i><small>Click on a layer to turn it on or off</small></i>
 						<LegendItem
@@ -536,6 +521,21 @@
 							/>
 						</div>
 					</div>
+					<p>
+						West Queen West is an established retail district, with many small to medium fashion
+						stores along the street — with specific concentrations of casual wear, eye glasses, and
+						shoes in different blocks. Other retail exists along the street, covering a vast range
+						of items from bakeries to convenience stores to toy stores.
+					</p>
+					<p>
+						The services are relatively diverse, with a focus on restaurants — both formal, casual
+						and fast food. No supermarket grocery store directly fronts the street on this stretch,
+						but there are many located just off the street or on segments to the east and west.
+					</p>
+					<p>
+						There are a number of event venues, especially in the western segment of the street
+						which often draw large crowds for concerns and other events.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -623,20 +623,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Housing</h2>
-					<p>
-						The predominant housing form in the area are ground-oriented single family homes north
-						of the street, and high-rise condominium and apartment buildings south of the street.
-						There are exceptions to this and numerous examples of mid-rise apartment buildings
-						throughout the street. Few newer developments directly front onto the street, other than
-						some examples directly south of Trinity Bellwoods Park.
-					</p>
-					<p>
-						Generally, the population density is high for Canada and the GTA throughout the area,
-						though south of the street is much denser with construction in the last 20 years. In
-						contrast, the neighbourhoods north of the street have seen stable or declining
-						populations in the same period as two-to-three unit buildings are converted into
-						single-family houses.
-					</p>
 					<div class="controls">
 						<Dropdown
 							casestudy={'westqueenwest'}
@@ -653,6 +639,20 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
+					<p>
+						The predominant housing form in the area are ground-oriented single family homes north
+						of the street, and high-rise condominium and apartment buildings south of the street.
+						There are exceptions to this and numerous examples of mid-rise apartment buildings
+						throughout the street. Few newer developments directly front onto the street, other than
+						some examples directly south of Trinity Bellwoods Park.
+					</p>
+					<p>
+						Generally, the population density is high for Canada and the GTA throughout the area,
+						though south of the street is much denser with construction in the last 20 years. In
+						contrast, the neighbourhoods north of the street have seen stable or declining
+						populations in the same period as two-to-three unit buildings are converted into
+						single-family houses.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -701,13 +701,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Local Characteristics</h2>
-					<p>
-						The neighbourhoods surrounding West Queen West are more highly educated and less likely
-						to be a first generation immigrant than the regional average. Additionally, they are
-						more likely to be both in the upper quintile of income, more likely to be in the bottom
-						decile of income — indicating a polarized income distribution with limited
-						representation of middle income households.
-					</p>
 					<div class="controls">
 						<Dropdown
 							casestudy={'westqueenwest'}
@@ -725,6 +718,13 @@
 							]}
 						/>
 					</div>
+					<p>
+						The neighbourhoods surrounding West Queen West are more highly educated and less likely
+						to be a first generation immigrant than the regional average. Additionally, they are
+						more likely to be both in the upper quintile of income, more likely to be in the bottom
+						decile of income — indicating a polarized income distribution with limited
+						representation of middle income households.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -744,12 +744,6 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Visitors</h2>
-					<p>
-						West Queen West does draw visitors throughout the Greater Toronto Area, but with a
-						significant concentration among local residents to the west end and downtown of Toronto.
-						Generally, visitor traffic is heaviest on Fridays and Saturdays and in the late
-						afternoon or evening.
-					</p>
 					<div class="controls">
 						<h5>Year</h5>
 						<RangeSlider
@@ -776,6 +770,12 @@
 							hoverable={false}
 						/>
 					</div>
+					<p>
+						West Queen West does draw visitors throughout the Greater Toronto Area, but with a
+						significant concentration among local residents to the west end and downtown of Toronto.
+						Generally, visitor traffic is heaviest on Fridays and Saturdays and in the late
+						afternoon or evening.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -921,7 +921,7 @@
 		border: 2px solid #ddd;
 		border-radius: 0.5em;
 		padding: 1em;
-		/* margin: 0 0 1em 0; */
+		margin: 1em 0 0 0;
 	}
 
 	.checkbox {

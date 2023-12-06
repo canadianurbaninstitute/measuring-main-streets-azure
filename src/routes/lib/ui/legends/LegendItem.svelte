@@ -6,35 +6,36 @@
 	export let id;
 	export let button = false;
 	export let section;
+	export let map; // Allow map to be directly passed as a prop
 
-	import { mapStoreList } from '../../mapStore'; // Import the mapStore
+	import { mapStoreList } from '../../mapStore';
 	import { onDestroy } from 'svelte';
-
-	let map = null; // Initialize map as null
-
-	// Subscribe to the map store and update the local `map` variable
-	const unsubscribe = mapStoreList.subscribe((maps) => {
-		if (section && maps[section]) {
-			map = maps[section];
-		}
-	});
 
 	let layerActive = true;
 
+	// Subscribe to the map store only if section is provided
+	let unsubscribe;
+	if (section) {
+		unsubscribe = mapStoreList.subscribe((maps) => {
+			if (maps[section]) {
+				map = maps[section];
+			}
+		});
+	}
+
 	// Unsubscribe when the component is destroyed to prevent memory leaks
-	onDestroy(unsubscribe);
+	onDestroy(() => {
+		if (unsubscribe) {
+			unsubscribe();
+		}
+	});
 
 	function toggleLayerVisibility() {
-		//console.log(map)
-
 		if (map) {
-			let visibilitystatus = map.getLayoutProperty(id, 'visibility');
-			let opacity = map.getPaintProperty(id, 'circle-opacity');
-
-			if (opacity === 0.9 || opacity === undefined) {
+			let circleopacity = map.getPaintProperty(id, 'circle-opacity');
+			if (circleopacity === 0.9 || circleopacity === undefined) {
 				map.setPaintProperty(id, 'circle-opacity', 0);
 				map.setPaintProperty(id, 'circle-stroke-opacity', 0);
-
 				layerActive = false;
 			} else {
 				map.setPaintProperty(id, 'circle-opacity', 0.9);
@@ -46,19 +47,19 @@
 </script>
 
 {#if button}
-	<button class={layerActive ? 'layerOn' : 'layerOff'} on:click={toggleLayerVisibility}
-		><div class="legend-item" {id}>
+	<button class={layerActive ? 'layerOn' : 'layerOff'} on:click={toggleLayerVisibility}>
+		<div class="legend-item" {id}>
 			<span
 				class={variant}
-				style="background-color: {bgcolor};  box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
+				style="background-color: {bgcolor}; box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
 			/>{label}
-		</div></button
-	>
+		</div>
+	</button>
 {:else}
 	<div class="legend-item">
 		<span
 			class={variant}
-			style="background-color: {bgcolor};  box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
+			style="background-color: {bgcolor}; box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
 		/>{label}
 	</div>
 {/if}
@@ -85,7 +86,7 @@
 		display: inline-block;
 		height: 15px;
 		margin-right: 5px;
-		width: 15px;
+		min-width: 15px;
 	}
 
 	.line {
