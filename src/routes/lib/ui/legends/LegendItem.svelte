@@ -39,10 +39,13 @@
 			// if it is visible, undefined or has an expression as the value, set opacity to 0
 			if (opacity > 0.4 || opacity === undefined || opacity.constructor === Array) {
 				map.setPaintProperty(id, `${featuretype}-opacity`, 0);
+				map.setPaintProperty(id, `${featuretype}-stroke-opacity`, 0);
+
 				layerActive = false;
 			// set opacity to provided targetopacity, default is 0.9
 			} else {
 				map.setPaintProperty(id, `${featuretype}-opacity`, targetopacity);
+				map.setPaintProperty(id, `${featuretype}-stroke-opacity`, targetopacity);
 				layerActive = true;
 			}
 		}

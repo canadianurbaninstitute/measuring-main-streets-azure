@@ -120,6 +120,46 @@
 				}),
 				'top-left'
 			);
+
+
+			map.addSource('canada-DAs', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.dayeanmd'
+			});
+
+			map.addLayer(
+				{
+				id: 'canada-DAs',
+				type: 'fill',
+				source: 'canada-DAs',
+				'source-layer': 'canadaDAs',
+				paint: {
+					'fill-outline-color': 'rgba(0,0,0,0.1)',
+					'fill-color': 'rgba(0,0,0,0)'
+				}
+				},
+				// Place polygons under labels, roads and buildings.
+				'mainstreets-canada'
+			);
+
+			map.addLayer(
+				{
+				id: 'canada-DAs-highlighted',
+				type: 'fill',
+				source: 'canada-DAs',
+				'source-layer': 'canadaDAs',
+				paint: {
+					'fill-outline-color': '#eee',
+					'fill-color': '#ffb8b8',
+					'fill-opacity': 0.4
+				},
+					filter: ['in', 'DAUID', '']
+					},
+					// Place polygons under labels, roads and buildings.
+					'mainstreets-canada'
+				);
+
+
 		});
 
 		map.on('click', ['mainstreets-canada', 'mainstreets-canada-invisible'], (e) => {
@@ -205,36 +245,36 @@
 
 			if (typeof map.getLayer('selectedRoad') !== 'undefined') {
 				map.removeLayer('selectedRoad');
-				map.removeLayer('selectedRoadBuffer');
-				map.removeSource('selectedRoadBuffer');
+				// map.removeLayer('selectedRoadBuffer');
+				// map.removeSource('selectedRoadBuffer');
 				map.removeSource('selectedRoad');
 			}
 
 			let feature = features[0];
-
 			let buffered = turf.buffer(feature, 1);
-
-			//console.log(feature.toJSON());
 
 			map.addSource('selectedRoad', {
 				type: 'geojson',
 				data: feature.toJSON()
 			});
 
-			map.addSource('selectedRoadBuffer', {
-				type: 'geojson',
-				data: buffered
-			});
 
-			map.addLayer({
-				id: 'selectedRoadBuffer',
-				type: 'fill',
-				source: 'selectedRoadBuffer',
-				paint: {
-					'fill-color': '#ffb8b8',
-					'fill-opacity': 0.4
-				}
-			});
+			// TRY AND add DA highglighting: https://docs.mapbox.com/mapbox-gl-js/example/queryrenderedfeatures-around-point/
+			
+			// map.addSource('selectedRoadBuffer', {
+			// 	type: 'geojson',
+			// 	data: buffered
+			// });
+
+			// map.addLayer({
+			// 	id: 'selectedRoadBuffer',
+			// 	type: 'fill',
+			// 	source: 'selectedRoadBuffer',
+			// 	paint: {
+			// 		'fill-color': '#ffb8b8',
+			// 		'fill-opacity': 0.4
+			// 	}
+			// }, 'mainstreets-canada');
 
 			map.addLayer({
 				id: 'selectedRoad',
@@ -251,9 +291,9 @@
 			});
 		});
 
-		map.on('click', 'toronto-bias', (e) => {
-			goto('/casestudies/westqueenwest');
-		});
+		// map.on('click', 'toronto-BIAs', (e) => {
+		// 	goto('/casestudies/westqueenwest');
+		// });
 
 		// Change the cursor to a pointer when
 		// the mouse is over the states layer.
@@ -456,8 +496,6 @@
 							bordercolor={'#fff'}
 							button={true}
 						/>
-				</div>
-				<div class="legend">
 					<h4>Business</h4>
 					<LegendItem
 							variant={'circle'}
@@ -505,7 +543,7 @@
 	}
 
 	#sidebar {
-		width: 30vw;
+    	width: 30vw;
 		display: flex;
 		flex-direction: column;
 		padding: 0.5em 1em 0.5em 1em;
@@ -517,7 +555,7 @@
 		flex-direction: column;
 		border-left: 1px solid #eee;
 		padding: 0.5em;
-		width: 25vw;
+		max-width: 25vw;
 
 	}
 
@@ -525,6 +563,7 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5em;
+		width: 20vw;
 	}
 
 	h2 {
