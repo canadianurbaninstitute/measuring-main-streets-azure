@@ -4,11 +4,13 @@
 	import { goto } from '$app/navigation';
 	import mapboxgl from 'mapbox-gl';
 	import * as turf from '@turf/turf';
+	import Icon from '@iconify/svelte';
 
 	import Legend from '../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
+	
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -94,7 +96,7 @@
 			attributionControl: false
 		});
 
-		map.addControl(new mapboxgl.NavigationControl());
+		map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
 		map.addControl(
 			new mapboxgl.AttributionControl({
@@ -230,7 +232,7 @@
 				source: 'selectedRoadBuffer',
 				paint: {
 					'fill-color': '#ffb8b8',
-					'fill-opacity': 0
+					'fill-opacity': 0.4
 				}
 			});
 
@@ -408,10 +410,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 							button={true}
+							id={'toronto-BIAs'}
+							featuretype={'fill'}
+							targetopacity={0.5}
+							map={map}
 						/>
 				</div>
 				<div class="legend">
-					Civic Infrastructure
+					<h4>Civic Infrastructure</h4>
 					<LegendItem
 							variant={'circle'}
 							label={'Arts and Culture'}
@@ -452,15 +458,13 @@
 						/>
 				</div>
 				<div class="legend">
-					Business
+					<h4>Business</h4>
 					<LegendItem
 							variant={'circle'}
 							label={'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-toronto-retail'}
-							section={'business'}
 						/>
 						<LegendItem
 							variant={'circle'}
@@ -468,17 +472,13 @@
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-toronto-services'}
-							section={'business'}
 						/>
 						<LegendItem
 							variant={'circle'}
 							label={'Food and Drink'}
-							bgcolor={'#43b171'}
+							bgcolor={'#58420e'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-toronto-food-drink'}
-							section={'business'}
 						/>
 				</div>
 		</div>

@@ -7,6 +7,8 @@
 	export let button = false;
 	export let section;
 	export let map; // Allow map to be directly passed as a prop
+	export let featuretype = 'circle';
+	export let targetopacity = 0.9;
 
 	import { mapStoreList } from '../../mapStore';
 	import { onDestroy } from 'svelte';
@@ -32,14 +34,15 @@
 
 	function toggleLayerVisibility() {
 		if (map) {
-			let circleopacity = map.getPaintProperty(id, 'circle-opacity');
-			if (circleopacity === 0.9 || circleopacity === undefined) {
-				map.setPaintProperty(id, 'circle-opacity', 0);
-				map.setPaintProperty(id, 'circle-stroke-opacity', 0);
+			// get opacity of the type of feature the legend item is
+			let opacity = map.getPaintProperty(id, `${featuretype}-opacity`);
+			// if it is visible, undefined or has an expression as the value, set opacity to 0
+			if (opacity > 0.4 || opacity === undefined || opacity.constructor === Array) {
+				map.setPaintProperty(id, `${featuretype}-opacity`, 0);
 				layerActive = false;
+			// set opacity to provided targetopacity, default is 0.9
 			} else {
-				map.setPaintProperty(id, 'circle-opacity', 0.9);
-				map.setPaintProperty(id, 'circle-stroke-opacity', 0.9);
+				map.setPaintProperty(id, `${featuretype}-opacity`, targetopacity);
 				layerActive = true;
 			}
 		}

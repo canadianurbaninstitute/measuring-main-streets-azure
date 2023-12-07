@@ -70,7 +70,6 @@
 		margin: 0;
 		padding: 0;
 		display: flex;
-
 	}
 
 	nav ul a {
@@ -98,9 +97,10 @@
 		border-left: solid 1px #ddd;
 		border-right: solid 1px #ddd;
 		position: absolute;
-		z-index: 1;
 		border-radius: 0.5em;
 		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+		z-index: 3;
+
 	}
 
 
