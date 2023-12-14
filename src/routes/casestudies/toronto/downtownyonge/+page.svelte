@@ -267,7 +267,7 @@
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.371, 43.657]}
+						center={[-79.3814, 43.6573]}
 						zoom={13}
 						pitch={50}
 						bearing={0}
@@ -807,7 +807,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'West Queen West'} location={'Toronto, Ontario'} />
+	<Summary name={'Downtown Yonge'} location={'Toronto, Ontario'} />
 </main>
 
 <style>

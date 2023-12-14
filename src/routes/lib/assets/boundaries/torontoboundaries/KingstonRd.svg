@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="185.97353px" height="202.816034px" viewBox="0 0 185.97353 202.816034" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>KingstonRd</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="KingstonRd" stroke="#0098D6" stroke-width="2" fill-rule="nonzero" transform="translate(93.5086, 101.1095) rotate(40) translate(-93.5086, -101.1095)" points="104.468815 1.10952133 126.841967 47.5105824 121.654122 50.7749598 118.318349 68.7104715 111.049481 67.9254103 108.157705 88.3420593 93.134254 148.574968 84.6562108 146.78349 77.9600818 178.983037 60.1753003 201.109521 65.1054843 174.460943 72.5901162 132.877487 83.5166541 81.0515118 91.4888856 37.4866866"></polygon>
+<svg width="167.741654px" height="128.561053px" viewBox="0 0 167.741654 128.561053" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="KingstonRd" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="KingstonRd" stroke="#0098D6" stroke-width="2" points="166.183381 2.07183562 153.496182 51.9982955 147.423761 51.1642712 133.339686 62.7594767 128.276038 57.4857466 112.93724 71.2670094 62.7116412 107.751206 57.3686232 100.929273 31.541621 121.291369 3.69505794 126.809402 24.601174 109.564468 57.0640649 82.5207209 98.7473733 49.8431638 132.857387 21.5950231"></polygon>
     </g>
 </svg>

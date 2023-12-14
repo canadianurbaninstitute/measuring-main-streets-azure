@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="360.840437px" height="314.666168px" viewBox="0 0 360.840437 314.666168" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Sutton</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Sutton" stroke="#0098D6" stroke-width="2" fill-rule="nonzero" transform="translate(180.0983, 157.1925) rotate(26) translate(-180.0983, -157.1925)" points="63.6200907 57.1924886 113.316378 85.6405824 330.098317 152.782026 244.335498 257.192489 146.926897 216.738733 134.509631 187.223132 49.6789094 144.603977 30.0983173 118.450969 31.1327718 95.691679 42.500339 77.2550347"></polygon>
+<svg width="175.680633px" height="200.482797px" viewBox="0 0 175.680633 200.482797" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Sutton" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Sutton" stroke="#0098D6" stroke-width="2" points="39.761116 1.21547149 61.6391348 37.4198049 174.039488 156.21196 90.5569931 199.215471 43.1147168 138.770387 44.3230693 114.326651 5.2078462 56.6090864 1.03948844 32.0751983 8.4509495 16.7825318 20.8857651 7.92339873"></polygon>
     </g>
 </svg>

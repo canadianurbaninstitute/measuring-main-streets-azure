@@ -1,0 +1,1 @@
+export default [{"Area":"Sutton","Park_Area":0,"Park_Percentage":0},{"Area":"Ten Minute Walk","Park_Area":20315.3108,"Park_Percentage":1.1772},{"Area":"Toronto CMA","Park_Area":379716248.6424,"Park_Percentage":5.7174}]

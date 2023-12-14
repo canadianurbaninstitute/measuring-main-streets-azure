@@ -24,7 +24,6 @@
     import WestQueenWest from "../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg"
 </script>
 
-
 <div class="hero">
     <h1> Toronto, Ontario </h1>
 </div>
@@ -35,15 +34,15 @@
 
 <div class="card-grid">
 <Card link={"/casestudies/toronto/downtownyonge"} cardImage={DowntownYonge} streetName={'Downtown Yonge'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={KingstonRd} streetName={'Kingston Road'}/>
+<Card link={"/casestudies/toronto/kingstonroad"} cardImage={KingstonRd} streetName={'Kingston Road'}/>
 <Card link={"/casestudies/toronto/mississaugadundas"} cardImage={MississaugaDundas} streetName={'Mississauga Dundas'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Newmarket} streetName={'Newmarket'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={NorthYorkCentre} streetName={'North York Centre'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Sutton} streetName={'Sutton'}/>
+<Card link={"/casestudies/toronto/newmarket"} cardImage={Newmarket} streetName={'Newmarket'}/>
+<Card link={"/casestudies/toronto/northyorkcentre"} cardImage={NorthYorkCentre} streetName={'North York Centre'}/>
+<Card link={"/casestudies/toronto/sutton"} cardImage={Sutton} streetName={'Sutton'}/>
 <Card link={"/casestudies/toronto/thorncliffepark"} cardImage={ThorncliffePark} streetName={'Thorncliffe Park'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Uxbridge} streetName={'Uxbridge'}/>
+<Card link={"/casestudies/toronto/uxbridge"} cardImage={Uxbridge} streetName={'Uxbridge'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={WestQueenWest} streetName={'West Queen West'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={Weston} streetName={'Weston'}/>
+<Card link={"/casestudies/toronto/weston"} cardImage={Weston} streetName={'Weston'}/>
 </div>
 
 <div class="subtitle">

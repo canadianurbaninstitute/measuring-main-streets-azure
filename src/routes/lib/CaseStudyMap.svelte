@@ -48,7 +48,7 @@
 			pitch: pitch,
 			projection: 'globe',
 			scrollZoom: false,
-			maxBounds: maxBounds,
+			// maxBounds: maxBounds,
 			attributionControl: false
 		});
 
@@ -58,12 +58,21 @@
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
-
 		map.addControl(
 				new mapboxgl.AttributionControl({
 					customAttribution: attribution
 				})
 			);
+		
+			map.on('click', (e) => {
+				const coords = JSON.stringify(e.lngLat.wrap());
+				const coordsObject = JSON.parse(coords);
+				const coordsArray = [
+						parseFloat(coordsObject.lng.toFixed(4)),
+						parseFloat(coordsObject.lat.toFixed(4))
+						];
+				console.log(coordsArray)
+				});
 
 		map.on('load', function () {
 

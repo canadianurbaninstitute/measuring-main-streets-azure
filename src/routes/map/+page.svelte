@@ -88,7 +88,7 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj',
+			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
 			center: [-89, 58],
 			zoom: 3.2,
 			minZoom: 2,
@@ -482,7 +482,7 @@
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'canada-civicinfra'}
+							id={'canada-civicinfra-arts-culture'}
 							map={map}
 						/>
 						<!-- Repeat this for all other legenditems and fix LegendItem code for polygons and lines as well -->
@@ -492,6 +492,8 @@
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
+							id={'canada-civicinfra-govt-community'}
+							map={map}
 						/>
 						<LegendItem
 							variant={'circle'}
@@ -499,6 +501,8 @@
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
+							id={'canada-civicinfra-recreation'}
+							map={map}
 						/>
 						<LegendItem
 							variant={'circle'}
@@ -506,6 +510,8 @@
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
+							id={'canada-civicinfra-health-care'}
+							map={map}
 						/>
 						<LegendItem
 							variant={'circle'}
@@ -513,7 +519,10 @@
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
+							id={'canada-civicinfra-education'}
+							map={map}
 						/>
+					<hr>	
 					<h4>Business</h4>
 					<LegendItem
 							variant={'circle'}
@@ -521,6 +530,8 @@
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
+							id={'canada-business-retail'}
+							map={map}
 						/>
 						<LegendItem
 							variant={'circle'}
@@ -528,6 +539,8 @@
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
+							id={'canada-business-services-other'}
+							map={map}
 						/>
 						<LegendItem
 							variant={'circle'}
@@ -535,6 +548,8 @@
 							bgcolor={'#58420e'}
 							bordercolor={'#fff'}
 							button={true}
+							id={'canada-business-food-drink'}
+							map={map}
 						/>
 				</div>
 		</div>

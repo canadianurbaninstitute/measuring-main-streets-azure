@@ -1,0 +1,1 @@
+export default [{"Area":"Weston","Park_Area":8294.6855,"Park_Percentage":2.7409},{"Area":"Ten Minute Walk","Park_Area":349484.6767,"Park_Percentage":14.6045},{"Area":"Toronto CMA","Park_Area":379716248.6424,"Park_Percentage":5.7174}]

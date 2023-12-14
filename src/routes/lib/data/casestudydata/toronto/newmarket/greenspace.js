@@ -1,0 +1,1 @@
+export default [{"Area":"Downtown Newmarket","Park_Area":188.3918,"Park_Percentage":0.1331},{"Area":"Ten Minute Walk","Park_Area":251622.1126,"Park_Percentage":7.997},{"Area":"Toronto CMA","Park_Area":379716248.6424,"Park_Percentage":5.7174}]

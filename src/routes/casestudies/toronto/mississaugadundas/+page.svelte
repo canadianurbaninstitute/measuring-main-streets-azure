@@ -807,7 +807,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'West Queen West'} location={'Toronto, Ontario'} />
+	<Summary name={'Mississauga Dundas'} location={'Toronto, Ontario'} />
 </main>
 
 <style>

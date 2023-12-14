@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="450.98266px" height="363.385075px" viewBox="0 0 450.98266 363.385075" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Uxbridge</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Uxbridge" stroke="#0098D6" stroke-width="2" fill-rule="nonzero" transform="translate(225.4953, 181.6802) rotate(27) translate(-225.4953, -181.6802)" points="32.4238844 219.185019 201.827109 141.697302 205.207253 162.078128 390.233935 81.6801942 425.495309 133.053935 384.236936 153.005328 402.783139 183.611093 364.662307 198.149762 337.465333 172.287162 258.489828 218.968945 127.785176 281.680194 102.516083 245.018913 54.6225601 268.294051 25.4953085 222.041702"></polygon>
+<svg width="399.048439px" height="139.257244px" viewBox="0 0 399.048439 139.257244" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Uxbridge" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Uxbridge" stroke="#0098D6" stroke-width="2" points="8.57382581 1.6920658 194.691892 9.557459 188.45092 29.2514612 389.810799 41.6167335 397.905723 103.3994 352.086501 102.445312 354.716562 138.135049 314.150235 133.782602 301.658928 98.3916889 210.098152 104.131333 65.169143 100.668795 59.2980896 56.5314262 6.05795671 55.5265216 1.10351254 1.09188135"></polygon>
     </g>
 </svg>

@@ -74,7 +74,7 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	weightMaxStore.set(1805616);
+	weightMaxStore.set(303527);
 
 
 	visitorMapStore.subscribe((value) => {
@@ -807,7 +807,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'West Queen West'} location={'Toronto, Ontario'} />
+	<Summary name={'Thorncliffe Park'} location={'Toronto, Ontario'} />
 </main>
 
 <style>
@@ -836,6 +836,7 @@
 		line-height: 160%;
 		text-align: left;
 		margin: 0 2em 0 0;
+		min-width: 20vw;
 	}
 
 	.graphics-container {
