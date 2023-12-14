@@ -1,0 +1,1 @@
+export default [{"Area":"Thorncliffe Park","Park_Area":1269.9371,"Park_Percentage":0.2791},{"Area":"Ten Minute Walk","Park_Area":565727.2589,"Park_Percentage":29.0231},{"Area":"Toronto CMA","Park_Area":379716248.6424,"Park_Percentage":5.7174}]

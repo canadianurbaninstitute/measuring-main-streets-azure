@@ -34,13 +34,13 @@
 </div>
 
 <div class="card-grid">
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={DowntownYonge} streetName={'Downtown Yonge'}/>
+<Card link={"/casestudies/toronto/downtownyonge"} cardImage={DowntownYonge} streetName={'Downtown Yonge'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={KingstonRd} streetName={'Kingston Road'}/>
 <Card link={"/casestudies/toronto/mississaugadundas"} cardImage={MississaugaDundas} streetName={'Mississauga Dundas'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Newmarket} streetName={'Newmarket'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={NorthYorkCentre} streetName={'North York Centre'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Sutton} streetName={'Sutton'}/>
-<Card link={"/casestudies/toronto/westqueenwest"} cardImage={ThorncliffePark} streetName={'Thorncliffe Park'}/>
+<Card link={"/casestudies/toronto/thorncliffepark"} cardImage={ThorncliffePark} streetName={'Thorncliffe Park'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Uxbridge} streetName={'Uxbridge'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={WestQueenWest} streetName={'West Queen West'}/>
 <Card link={"/casestudies/toronto/westqueenwest"} cardImage={Weston} streetName={'Weston'}/>

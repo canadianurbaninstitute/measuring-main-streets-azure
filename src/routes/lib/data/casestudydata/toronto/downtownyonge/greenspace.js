@@ -1,0 +1,1 @@
+export default [{"Area":"Downtown Yonge","Park_Area":18497.4169,"Park_Percentage":3.5231},{"Area":"Ten Minute Walk","Park_Area":245438.7438,"Park_Percentage":6.6387},{"Area":"Toronto CMA","Park_Area":379716248.6424,"Park_Percentage":5.7174}]

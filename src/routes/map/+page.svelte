@@ -149,7 +149,7 @@
 				source: 'canada-DAs',
 				'source-layer': 'canadaDAs',
 				paint: {
-					'fill-outline-color': '#eee',
+					'fill-outline-color': '#cb1515',
 					'fill-color': '#ffb8b8',
 					'fill-opacity': 0.4
 				},
@@ -245,9 +245,9 @@
 
 			if (typeof map.getLayer('selectedRoad') !== 'undefined') {
 				map.removeLayer('selectedRoad');
+				map.removeSource('selectedRoad');
 				// map.removeLayer('selectedRoadBuffer');
 				// map.removeSource('selectedRoadBuffer');
-				map.removeSource('selectedRoad');
 			}
 
 			let feature = features[0];
@@ -258,12 +258,30 @@
 				data: feature.toJSON()
 			});
 
-
-			// TRY AND add DA highglighting: https://docs.mapbox.com/mapbox-gl-js/example/queryrenderedfeatures-around-point/
+			const geobbox = turf.bbox(buffered)
+			const bboxpoint1 = map.project([geobbox[0], geobbox[1]])
+			const bboxpoint2 = map.project([geobbox[2], geobbox[3]])
 			
+			//const bboxpolygon = turf.bboxPolygon(geobbox)
+
+			const bbox = [bboxpoint1, bboxpoint2]
+
+			// Find features intersecting the bounding box.
+				const selectedFeatures = map.queryRenderedFeatures(bbox, {
+				layers: ['canada-DAs']
+				});
+				
+			const dauid = selectedFeatures.map(
+				(feature) => feature.properties.DAUID
+				);
+				// Set a filter matching selected features by FIPS codes
+				// to activate the 'counties-highlighted' layer.
+				map.setFilter('canada-DAs-highlighted', ['in', 'DAUID', ...dauid]);
+
+				
 			// map.addSource('selectedRoadBuffer', {
 			// 	type: 'geojson',
-			// 	data: buffered
+			// 	data: bboxpolygon
 			// });
 
 			// map.addLayer({
@@ -555,7 +573,7 @@
 		flex-direction: column;
 		border-left: 1px solid #eee;
 		padding: 0.5em;
-		max-width: 25vw;
+		width: 25vw;
 
 	}
 

@@ -4,21 +4,21 @@
 	/* -------------------------------------------------------------------------- */
 
 	import Title from '../../../lib/Title.svelte';
-	import MississaugaDundas from '../../../lib/assets/boundaries/torontoboundaries/MississaugaDundas.svg';
+	import downtownyonge from '../../../lib/assets/boundaries/torontoboundaries/DowntownYonge.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/toronto/mississaugadundas/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingtype';
-	import housingconstruction from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitordayofweek';
+	import greenspace from '../../../lib/data/casestudydata/toronto/downtownyonge/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/toronto/downtownyonge/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/toronto/downtownyonge/businessmix';
+	import housingtype from '../../../lib/data/casestudydata/toronto/downtownyonge/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/toronto/downtownyonge/housingconstruction';
+	import visitortraffic from '../../../lib/data/casestudydata/toronto/downtownyonge/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/toronto/downtownyonge/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/downtownyonge/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/downtownyonge/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
@@ -74,7 +74,7 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	weightMaxStore.set(439665);
+	weightMaxStore.set(1805616);
 
 
 	visitorMapStore.subscribe((value) => {
@@ -237,7 +237,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={MississaugaDundas} name={'Mississauga Dundas'} location={'Toronto, Ontario'} />
+	<Title outline={downtownyonge} name={'Downtown Yonge'} location={'Toronto, Ontario'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -260,18 +260,18 @@
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'Mississauga Dundas'}
+							label={'Downtown Yonge BIA'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.585, 43.610]}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
+						center={[-79.371, 43.657]}
 						zoom={13}
 						pitch={50}
-						bearing={-10}
-						layers={['mainstreets-toronto', 'mississaugadundas', 'mississaugadundas-fill']}
+						bearing={0}
+						layers={['mainstreets-toronto', 'downtownyonge', 'downtownyonge-fill']}
 						section={'overview'}
 					/>
 				</div>
@@ -292,7 +292,7 @@
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'Mississauga Dundas'}
+							label={'Downtown Yonge'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -305,19 +305,19 @@
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
-						<SatelliteCheckbox casestudy={'mississaugadundas'} section={'builtform'} />
+						<SatelliteCheckbox casestudy={'downtownyonge'} section={'builtform'} />
 
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.5925, 43.5988]}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
+						center={[-79.380, 43.6561]}
 						zoom={15}
 						minZoom={15}
-						pitch={70}
-						bearing={40}
+						pitch={40}
+						bearing={-15}
 						layers={[
-							'mississaugadundas',
-							'mississaugadundas-fill',
+							'downtownyonge',
+							'downtownyonge-fill',
 							'greenspaces',
 							'transit-toronto',
 							'transit-toronto-stops',
@@ -391,7 +391,7 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'mississaugadundas-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox section={'civicinfra'} layer={'downtownyonge-isochrone'} minZoom={13} maxZoom={13.3}/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -414,15 +414,15 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.582077, 43.610345]}
-						zoom={13.3}
-						minZoom={13}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
+						center={[-79.380, 43.6575]}
+						zoom={14.5}
+						minZoom={13.3}
 						pitch={0}
-						bearing={-48}
+						bearing={-15}
 						layers={[
-							'mississaugadundas',
-							'mississaugadundas-fill',
+							'downtownyonge',
+							'downtownyonge-fill',
 							'civicinfra-toronto-education',
 							'civicinfra-toronto-govt-community',
 							'civicinfra-toronto-health',
@@ -482,7 +482,7 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'mississaugadundas-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox section={'business'} layer={'downtownyonge-isochrone'} minZoom={13} maxZoom={13.3} />
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -503,15 +503,15 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.582077, 43.610345]}
-						zoom={13.3}
-						minZoom={13}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
+						center={[-79.380, 43.6575]}
+						zoom={14.5}
+						minZoom={13.3}
 						pitch={0}
-						bearing={-48}
+						bearing={-15}
 						layers={[
-							'mississaugadundas',
-							'mississaugadundas-fill',
+							'downtownyonge',
+							'downtownyonge-fill',
 							'business-toronto-retail',
 							'business-toronto-food-drink',
 							'business-toronto-services'
@@ -548,13 +548,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.582077, 43.610345]}
-						zoom={13.3}
-						minZoom={13}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
+						center={[-79.380, 43.6575]}
+						zoom={14.5}
+						minZoom={13.3}
 						pitch={0}
-						bearing={-48}
-						layers={['mississaugadundas', 'mississaugadundas-fill', 'employment-size']}
+						bearing={-15}
+						layers={['downtownyonge', 'downtownyonge-fill', 'employment-size']}
 						section={'employmentsize'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -589,7 +589,7 @@
 					<h2>Housing</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'mississaugadundas'}
+							casestudy={'downtownyonge'}
 							section={'housing'}
 							options={[
 								{ id: 'populationdensity', text: 'Population Density' },
@@ -612,13 +612,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.582077, 43.610345]}
-						zoom={13.3}
-						minZoom={13}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
+						center={[-79.380, 43.6575]}
+						zoom={14.5}
+						minZoom={13.3}
 						pitch={0}
-						bearing={-48}
-						layers={['mississaugadundas-outline', 'populationdensity']}
+						bearing={-15}
+						layers={['downtownyonge-outline', 'populationdensity']}
 						section={'housing'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -659,7 +659,7 @@
 					<h2>Local Characteristics</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'mississaugadundas'}
+							casestudy={'downtownyonge'}
 							section={'demographics'}
 							options={[
 								{ id: 'average-age', text: 'Average Age' },
@@ -683,13 +683,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.582077, 43.610345]}
-						zoom={13.3}
-						minZoom={13}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
+						center={[-79.380, 43.6575]}
+						zoom={14.5}
+						minZoom={13.3}
 						pitch={0}
-						bearing={-48}
-						layers={['mississaugadundas-outline', 'average-age']}
+						bearing={-15}
+						layers={['downtownyonge-outline', 'average-age']}
 						section={'demographics'}
 					/>
 				</div>
@@ -734,12 +734,12 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
+						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
 						center={[-79.417, 43.6441]}
 						zoom={9}
 						pitch={0}
 						bearing={-15}
-						layers={['mississaugadundas-outline', 'visitors-2022']}
+						layers={['downtownyonge-outline', 'visitors-2022']}
 						section={'visitors'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
