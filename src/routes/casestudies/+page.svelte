@@ -17,17 +17,17 @@
 
 <div class="card-grid">
     <Card
-		link={'/casestudies/toronto/'}
+		link={"/casestudies/toronto/"}
 		cardImage={Toronto}
 		streetName={'Toronto'}
 	/>
     <Card
-        link={'/casestudies/montreal/'}
+        link={"/casestudies/montreal/"}
         cardImage={Montreal}
 		streetName={'Montreal'}
 	/>
 	<Card
-        link={'casestudies/edmonton/'}
+        link={"/casestudies/edmonton/"}
         cardImage={Edmonton}
 		streetName={'Edmonton'}
 	/>
