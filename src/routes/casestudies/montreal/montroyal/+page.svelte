@@ -10,15 +10,15 @@
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/toronto/downtownyonge/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/downtownyonge/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/toronto/downtownyonge/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/downtownyonge/housingtype';
-	import housingconstruction from '../../../lib/data/casestudydata/toronto/downtownyonge/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/toronto/downtownyonge/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/toronto/downtownyonge/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/downtownyonge/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/downtownyonge/visitordayofweek';
+	import greenspace from '../../../lib/data/casestudydata/montreal/montroyal/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/montreal/montroyal/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/montreal/montroyal/businessmix';
+	import housingtype from '../../../lib/data/casestudydata/montreal/montroyal/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/montreal/montroyal/housingconstruction';
+	import visitortraffic from '../../../lib/data/casestudydata/montreal/montroyal/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/montreal/montroyal/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/montroyal/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/montroyal/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
@@ -260,18 +260,18 @@
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'Downtown Yonge BIA'}
+							label={'Mont Royal'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.3814, 43.6573]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr'}
+						center={[-73.5788, 45.5284]}
 						zoom={13}
 						pitch={50}
 						bearing={0}
-						layers={['mainstreets-toronto', 'downtownyonge', 'downtownyonge-fill']}
+						layers={['mainstreets-montreal', 'montroyal', 'montroyal-fill']}
 						section={'overview'}
 					/>
 				</div>
@@ -305,23 +305,23 @@
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
-						<SatelliteCheckbox casestudy={'downtownyonge'} section={'builtform'} />
+						<SatelliteCheckbox casestudy={'montroyal'} section={'builtform'} />
 
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6561]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr'}
+						center={[-73.5788, 45.5284]}
 						zoom={15}
 						minZoom={15}
 						pitch={40}
 						bearing={-15}
 						layers={[
-							'downtownyonge',
-							'downtownyonge-fill',
+							'montroyal',
+							'montroyal-fill',
 							'greenspaces',
-							'transit-toronto',
-							'transit-toronto-stops',
-							'buildings-toronto'
+							'transit-montreal',
+							'transit-montreal-stops',
+							'buildings-montreal'
 						]}
 						section={'builtform'}
 					/>
@@ -350,7 +350,7 @@
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-toronto-arts-culture'}
+							id={'civicinfra-montreal-arts-culture'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -359,7 +359,7 @@
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-toronto-govt-community'}
+							id={'civicinfra-montreal-govt-community'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -368,7 +368,7 @@
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-toronto-recreation'}
+							id={'civicinfra-montreal-recreation'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -377,7 +377,7 @@
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-toronto-health'}
+							id={'civicinfra-montreal-health'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -386,20 +386,20 @@
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-toronto-education'}
+							id={'civicinfra-montreal-education'}
 							section={'civicinfra'}
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'downtownyonge-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox section={'civicinfra'} layer={'montroyal-isochrone'} minZoom={13} maxZoom={13.3}/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
-									'civicinfra-toronto-education',
-									'civicinfra-toronto-govt-community',
-									'civicinfra-toronto-arts-culture',
-									'civicinfra-toronto-education',
-									'civicinfra-toronto-recreation'
+									'civicinfra-montreal-education',
+									'civicinfra-montreal-govt-community',
+									'civicinfra-montreal-arts-culture',
+									'civicinfra-montreal-education',
+									'civicinfra-montreal-recreation'
 								]}
 								minZoom={13} maxZoom={13.3}
 							/>
@@ -414,20 +414,20 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr'}
+						center={[-73.5788, 45.5284]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
-							'downtownyonge',
-							'downtownyonge-fill',
-							'civicinfra-toronto-education',
-							'civicinfra-toronto-govt-community',
-							'civicinfra-toronto-health',
-							'civicinfra-toronto-arts-culture',
-							'civicinfra-toronto-recreation'
+							'montroyal',
+							'montroyal-fill',
+							'civicinfra-montreal-education',
+							'civicinfra-montreal-govt-community',
+							'civicinfra-montreal-health',
+							'civicinfra-montreal-arts-culture',
+							'civicinfra-montreal-recreation'
 						]}
 						section={'civicinfra'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
@@ -459,7 +459,7 @@
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-toronto-retail'}
+							id={'business-montreal-retail'}
 							section={'business'}
 						/>
 						<LegendItem
@@ -468,7 +468,7 @@
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-toronto-services'}
+							id={'business-montreal-services'}
 							section={'business'}
 						/>
 						<LegendItem
@@ -477,18 +477,18 @@
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-toronto-food-drink'}
+							id={'business-montreal-food-drink'}
 							section={'business'}
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'downtownyonge-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox section={'business'} layer={'montroyal-isochrone'} minZoom={13} maxZoom={13.3} />
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
-									'business-toronto-retail',
-									'business-toronto-services',
-									'business-toronto-food-drink'
+									'business-montreal-retail',
+									'business-montreal-services',
+									'business-montreal-food-drink'
 								]}
 								minZoom={13} maxZoom={13.3}
 							/>
@@ -503,18 +503,18 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr'}
+						center={[-73.5788, 45.5284]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
-							'downtownyonge',
-							'downtownyonge-fill',
-							'business-toronto-retail',
-							'business-toronto-food-drink',
-							'business-toronto-services'
+							'montroyal',
+							'montroyal-fill',
+							'business-montreal-retail',
+							'business-montreal-food-drink',
+							'business-montreal-services'
 						]}
 						section={'business'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
@@ -548,13 +548,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr'}
+						center={[-73.5788, 45.5284]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['downtownyonge', 'downtownyonge-fill', 'employment-size']}
+						layers={['montroyal', 'montroyal-fill', 'employment-size']}
 						section={'employmentsize'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -589,7 +589,7 @@
 					<h2>Housing</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'downtownyonge'}
+							casestudy={'montroyal'}
 							section={'housing'}
 							options={[
 								{ id: 'populationdensity', text: 'Population Density' },
@@ -612,13 +612,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr?fresh=true'}
+						center={[-73.5788, 45.5284]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['downtownyonge-outline', 'populationdensity']}
+						layers={['montroyal-outline', 'populationdensity']}
 						section={'housing'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -659,7 +659,7 @@
 					<h2>Local Characteristics</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'downtownyonge'}
+							casestudy={'montroyal'}
 							section={'demographics'}
 							options={[
 								{ id: 'average-age', text: 'Average Age' },
@@ -683,13 +683,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr'}
+						center={[-73.5788, 45.5284]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['downtownyonge-outline', 'average-age']}
+						layers={['montroyal-outline', 'average-age']}
 						section={'demographics'}
 					/>
 				</div>
@@ -734,12 +734,12 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.417, 43.6441]}
+						style={'mapbox://styles/canadianurbaninstitute/clqzixl5o00sc01pid7d3hnjr'}
+						center={[-73.5788, 45.5284]}
 						zoom={9}
 						pitch={0}
 						bearing={-15}
-						layers={['downtownyonge-outline', 'visitors-2022']}
+						layers={['montroyal-outline', 'visitors-2022']}
 						section={'visitors'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -807,7 +807,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'Downtown Yonge'} location={'Toronto, Ontario'} />
+	<Summary name={'Downtown Yonge'} location={'montreal, Ontario'} />
 </main>
 
 <style>

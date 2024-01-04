@@ -1,0 +1,1 @@
+export default [{"Area":"Mont Royal","Park_Area":0,"Park_Percentage":0},{"Area":"Ten Minute Walk","Park_Area":296212.8129,"Park_Percentage":9.0524},{"Area":"Montreal CMA","Park_Area":203290273.9087,"Park_Percentage":3.7479}]

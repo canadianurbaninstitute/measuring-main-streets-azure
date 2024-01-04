@@ -115,7 +115,6 @@
 
 	.dropdown-menu li {
 		background-color: white;
-		padding: 0.5em;
 		z-index: 0;
 		color: var(--brandLightBlue);
 		border-bottom: 1px solid #ddd;
@@ -131,6 +130,9 @@
 	.dropdown-menu li a {
 		color: var(--brandWhite);
 		text-decoration: none;
+		display: flex;
+		margin: 0;
+		padding: 0.5em;
 	}
 
 	.dropdown-title {
