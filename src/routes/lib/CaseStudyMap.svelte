@@ -65,13 +65,15 @@
 			);
 		
 			map.on('click', (e) => {
-				const coords = JSON.stringify(e.lngLat.wrap());
+				const coords = JSON.stringify(map.getCenter());
+				const pitch = map.getPitch().toFixed(0);
+				const bearing = map.getBearing().toFixed(0);
 				const coordsObject = JSON.parse(coords);
 				const coordsArray = [
 						parseFloat(coordsObject.lng.toFixed(4)),
 						parseFloat(coordsObject.lat.toFixed(4))
 						];
-				console.log(coordsArray)
+				console.log(coordsArray, 'pitch:', pitch, 'bearing:', bearing)
 				});
 
 		map.on('load', function () {

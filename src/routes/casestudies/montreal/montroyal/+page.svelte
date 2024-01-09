@@ -74,7 +74,7 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	weightMaxStore.set(1805616);
+	weightMaxStore.set(104525);
 
 
 	visitorMapStore.subscribe((value) => {
@@ -292,7 +292,7 @@
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'Downtown Yonge'}
+							label={'Rue Fleury'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -591,6 +591,7 @@
 						<Dropdown
 							casestudy={'montroyal'}
 							section={'housing'}
+							region={'montreal'}
 							options={[
 								{ id: 'populationdensity', text: 'Population Density' },
 								{ id: 'dwellings', text: 'Dwellings' },
@@ -627,9 +628,9 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-								xKey="constructionyear"
-								yKey="percentage"
-								zKey="area"
+								xKey="Construction Year"
+								yKey="Percentage"
+								zKey="Area"
 								mode="grouped"
 								title="Housing Construction Year (%)"
 								padding={{ top: 0, bottom: 20, left: 10 }}
@@ -640,9 +641,9 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingtype}
-								xKey="housingtype"
-								yKey="percentage"
-								zKey="area"
+								xKey="Housing Type"
+								yKey="Percentage"
+								zKey="Area"
 								mode="grouped"
 								title="Housing Type (%)"
 								padding={{ top: 10, bottom: 20, left: 10 }}
@@ -661,6 +662,7 @@
 						<Dropdown
 							casestudy={'montroyal'}
 							section={'demographics'}
+							region={'montreal'}
 							options={[
 								{ id: 'average-age', text: 'Average Age' },
 								{ id: 'household-size', text: 'Household Size' },
@@ -807,7 +809,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'Downtown Yonge'} location={'montreal, Ontario'} />
+	<Summary name={'Mont Royal'} location={'Montreal, Québec'} />
 </main>
 
 <style>

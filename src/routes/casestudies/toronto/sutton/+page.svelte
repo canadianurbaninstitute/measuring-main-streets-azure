@@ -627,9 +627,9 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-								xKey="constructionyear"
-								yKey="percentage"
-								zKey="area"
+												xKey="Construction Year"
+								yKey="Percentage"
+								zKey="Area"
 								mode="grouped"
 								title="Housing Construction Year (%)"
 								padding={{ top: 0, bottom: 20, left: 10 }}
@@ -640,9 +640,9 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingtype}
-								xKey="housingtype"
-								yKey="percentage"
-								zKey="area"
+								xKey="Housing Type"
+								yKey="Percentage"
+								zKey="Area"
 								mode="grouped"
 								title="Housing Type (%)"
 								padding={{ top: 10, bottom: 20, left: 10 }}

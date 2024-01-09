@@ -13,7 +13,7 @@
     import RueFleury from '../../lib/assets/boundaries/montrealboundaries/RueFleury.svg';
     import RueOntario from '../../lib/assets/boundaries/montrealboundaries/RueOntario.svg';
     import RueRichelieu from '../../lib/assets/boundaries/montrealboundaries/RueRichelieu.svg';
-    import RueSaintCatherine from '../../lib/assets/boundaries/montrealboundaries/RueSaintCatherine.svg';
+    import RueSainteCatherine from '../../lib/assets/boundaries/montrealboundaries/RueSainteCatherine.svg';
     import RueStAnne from '../../lib/assets/boundaries/montrealboundaries/RueStAnne.svg';
     import RueStCharles from '../../lib/assets/boundaries/montrealboundaries/RueStCharles.svg';
     import RueStGeorge from '../../lib/assets/boundaries/montrealboundaries/RueStGeorge.svg';
@@ -37,7 +37,7 @@
 
 <div class="card-grid">
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/montreal/boulevardstmartin'}
 		cardImage={BoulStMartin}
 		streetName={'Boulevard St. Martin'}
 	/>
@@ -47,12 +47,12 @@
 		streetName={'Mont Royal'}
 	/>
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/montreal/ruefleury'}
 		cardImage={RueFleury}
 		streetName={'Rue Fleury'}
 	/>
-    <Card link={'/casestudies/toronto/downtownyonge'} cardImage={RueOntario} streetName={'Rue Ontario'} />
-    <Card link={'/casestudies/toronto/downtownyonge'} cardImage={RueSaintCatherine} streetName={'Rue Saint-Catherine'} />
+    <Card link={'/casestudies/montreal/rueontario'} cardImage={RueOntario} streetName={'Rue Ontario'} />
+    <Card link={'/casestudies/montreal/ruesaintecatherine'} cardImage={RueSainteCatherine} streetName={'Rue Sainte-Catherine'} />
 	<Card link={'/casestudies/toronto/downtownyonge'} cardImage={RueStAnne} streetName={'Rue St. Anne'} />
 	<Card
 		link={'/casestudies/toronto/downtownyonge'}
