@@ -39,7 +39,7 @@
 
 <div class="card-grid">
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/edmonton/50streetbeaumont'}
 		cardImage={FiftyStreetBeaumont}
 		streetName={'50 Street Beaumont'}
 	/>

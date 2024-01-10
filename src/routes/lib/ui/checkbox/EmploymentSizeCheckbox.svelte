@@ -28,9 +28,12 @@
 			const layerList = layers;
 			const zoom = isChecked ? minZoom : maxZoom;
 			const opacity = isChecked ? 0.8 : 1;
+			// const radius = isChecked
+			// 	? ['step', ['get', 'empsize_EmpSzNm'], 5, 5, 10, 10, 15, 50, 20, 100, 25, 1000, 5]
+			// 	: 5;
 			const radius = isChecked
-				? ['step', ['get', 'empsize_EmpSzNm'], 5, 5, 10, 10, 15, 50, 20, 100, 25, 1000, 5]
-				: 5;
+			? ['step', ['coalesce', ['get', 'empsize_EmpSzNm'], ['get', 'EmpSizeNum']], 5, 5, 10, 10, 15, 50, 20, 100, 25, 1000, 5]
+			: 5;
 
 			for (let i = 0; i < layerList.length; i++) {
 				const layerId = layerList[i];

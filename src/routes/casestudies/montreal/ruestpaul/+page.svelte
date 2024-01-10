@@ -4,21 +4,21 @@
 	/* -------------------------------------------------------------------------- */
 
 	import Title from '../../../lib/Title.svelte';
-	import RueSainteCatherine from '../../../lib/assets/boundaries/montrealboundaries/RueSainteCatherine.svg';
+	import RueStPaul from '../../../lib/assets/boundaries/montrealboundaries/RueStPaul.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/housingtype';
-	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitordayofweek';
+	import greenspace from '../../../lib/data/casestudydata/montreal/ruestpaul/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/montreal/ruestpaul/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/montreal/ruestpaul/businessmix';
+	import housingtype from '../../../lib/data/casestudydata/montreal/ruestpaul/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruestpaul/housingconstruction';
+	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruestpaul/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/montreal/ruestpaul/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestpaul/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestpaul/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
@@ -74,7 +74,7 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	weightMaxStore.set(256586);
+	weightMaxStore.set(84880);
 
 
 	visitorMapStore.subscribe((value) => {
@@ -237,7 +237,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={RueSainteCatherine} name={'Rue Sainte-Catherine'} location={'Montreal, Québec'} />
+	<Title outline={RueStPaul} name={'Rue St. Paul'} location={'Montreal, Québec'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -260,18 +260,18 @@
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'Rue Sainte-Catherine'}
+							label={'Rue St. Paul'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.569, 45.501]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.555, 45.502]}
 						zoom={13}
 						pitch={50}
 						bearing={0}
-						layers={['mainstreets-montreal', 'ruesaintecatherine', 'ruesaintecatherine-fill']}
+						layers={['mainstreets-montreal', 'ruestpaul', 'ruestpaul-fill']}
 						section={'overview'}
 					/>
 				</div>
@@ -292,7 +292,7 @@
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'Rue Sainte-Catherine'}
+							label={'Rue St. Paul'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -305,19 +305,19 @@
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
-						<SatelliteCheckbox casestudy={'ruesaintecatherine'} section={'builtform'} />
+						<SatelliteCheckbox casestudy={'ruestpaul'} section={'builtform'} />
 
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5737, 45.4987]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.5557, 45.5021]}
 						zoom={15}
 						minZoom={15}
 						pitch={48}
 						bearing={25}
 						layers={[
-							'ruesaintecatherine',
-							'ruesaintecatherine-fill',
+							'ruestpaul',
+							'ruestpaul-fill',
 							'greenspaces',
 							'transit-montreal',
 							'transit-montreal-stops',
@@ -391,7 +391,7 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'ruesaintecatherine-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox section={'civicinfra'} layer={'ruestpaul-isochrone'} minZoom={13} maxZoom={13.3}/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -414,15 +414,15 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.5557, 45.5021]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
-							'ruesaintecatherine',
-							'ruesaintecatherine-fill',
+							'ruestpaul',
+							'ruestpaul-fill',
 							'civicinfra-montreal-education',
 							'civicinfra-montreal-govt-community',
 							'civicinfra-montreal-health',
@@ -482,7 +482,7 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'ruesaintecatherine-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox section={'business'} layer={'ruestpaul-isochrone'} minZoom={13} maxZoom={13.3} />
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -503,15 +503,15 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.5557, 45.5021]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
-							'ruesaintecatherine',
-							'ruesaintecatherine-fill',
+							'ruestpaul',
+							'ruestpaul-fill',
 							'business-montreal-retail',
 							'business-montreal-food-drink',
 							'business-montreal-services'
@@ -548,13 +548,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.5557, 45.5021]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine', 'ruesaintecatherine-fill', 'employment-size']}
+						layers={['ruestpaul', 'ruestpaul-fill', 'employment-size']}
 						section={'employmentsize'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -589,7 +589,7 @@
 					<h2>Housing</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'ruesaintecatherine'}
+							casestudy={'ruestpaul'}
 							section={'housing'}
 							region={'montreal'}
 							options={[
@@ -613,13 +613,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.5557, 45.5021]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine-outline', 'populationdensity']}
+						layers={['ruestpaul-outline', 'populationdensity']}
 						section={'housing'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -660,7 +660,7 @@
 					<h2>Local Characteristics</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'ruesaintecatherine'}
+							casestudy={'ruestpaul'}
 							section={'demographics'}
 							region={'montreal'}
 							options={[
@@ -685,13 +685,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.5557, 45.5021]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine-outline', 'average-age']}
+						layers={['ruestpaul-outline', 'average-age']}
 						section={'demographics'}
 					/>
 				</div>
@@ -736,12 +736,12 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr83fi2a001101p4ae4x8rt6'}
+						center={[-73.5557, 45.5021]}
 						zoom={9}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine-outline', 'visitors-2022']}
+						layers={['ruestpaul-outline', 'visitors-2022']}
 						section={'visitors'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -809,7 +809,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'Rue Sainte-Catherine'} location={'Montreal, Québec'} />
+	<Summary name={'Rue St. Paul'} location={'Montreal, Québec'} />
 </main>
 
 <style>

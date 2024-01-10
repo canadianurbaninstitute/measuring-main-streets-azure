@@ -4,21 +4,21 @@
 	/* -------------------------------------------------------------------------- */
 
 	import Title from '../../../lib/Title.svelte';
-	import RueSainteCatherine from '../../../lib/assets/boundaries/montrealboundaries/RueSainteCatherine.svg';
+	import FiftyStreetBeaumont from '../../../lib/assets/boundaries/edmontonboundaries/50StreetBeaumont.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/housingtype';
-	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitordayofweek';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/businessmix';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/housingconstruction';
+	import visitortraffic from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
@@ -74,7 +74,7 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	weightMaxStore.set(256586);
+	weightMaxStore.set(67935);
 
 
 	visitorMapStore.subscribe((value) => {
@@ -237,7 +237,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={RueSainteCatherine} name={'Rue Sainte-Catherine'} location={'Montreal, Québec'} />
+	<Title outline={FiftyStreetBeaumont} name={'50 Street Beaumont'} location={'Edmonton, Alberta'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -260,18 +260,18 @@
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'Rue Sainte-Catherine'}
+							label={'50 Street Beaumont'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.569, 45.501]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={13}
 						pitch={50}
 						bearing={0}
-						layers={['mainstreets-montreal', 'ruesaintecatherine', 'ruesaintecatherine-fill']}
+						layers={['mainstreets-edmonton', '50streetbeaumont', '50streetbeaumont-fill']}
 						section={'overview'}
 					/>
 				</div>
@@ -292,7 +292,7 @@
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'Rue Sainte-Catherine'}
+							label={'50 Street Beaumont'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -305,23 +305,23 @@
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
-						<SatelliteCheckbox casestudy={'ruesaintecatherine'} section={'builtform'} />
+						<SatelliteCheckbox casestudy={'50streetbeaumont'} section={'builtform'} />
 
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5737, 45.4987]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={15}
 						minZoom={15}
 						pitch={48}
 						bearing={25}
 						layers={[
-							'ruesaintecatherine',
-							'ruesaintecatherine-fill',
+							'50streetbeaumont',
+							'50streetbeaumont-fill',
 							'greenspaces',
-							'transit-montreal',
-							'transit-montreal-stops',
-							'buildings-montreal'
+							'transit-edmonton',
+							'transit-edmonton-stops',
+							'buildings-edmonton'
 						]}
 						section={'builtform'}
 					/>
@@ -350,7 +350,7 @@
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-montreal-arts-culture'}
+							id={'civicinfra-edmonton-arts-culture'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -359,7 +359,7 @@
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-montreal-govt-community'}
+							id={'civicinfra-edmonton-govt-community'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -368,7 +368,7 @@
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-montreal-recreation'}
+							id={'civicinfra-edmonton-recreation'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -377,7 +377,7 @@
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-montreal-health'}
+							id={'civicinfra-edmonton-health'}
 							section={'civicinfra'}
 						/>
 						<LegendItem
@@ -386,20 +386,20 @@
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'civicinfra-montreal-education'}
+							id={'civicinfra-edmonton-education'}
 							section={'civicinfra'}
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'ruesaintecatherine-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox section={'civicinfra'} layer={'50streetbeaumont-isochrone'} minZoom={13} maxZoom={13.3}/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
-									'civicinfra-montreal-education',
-									'civicinfra-montreal-govt-community',
-									'civicinfra-montreal-arts-culture',
-									'civicinfra-montreal-education',
-									'civicinfra-montreal-recreation'
+									'civicinfra-edmonton-education',
+									'civicinfra-edmonton-govt-community',
+									'civicinfra-edmonton-arts-culture',
+									'civicinfra-edmonton-education',
+									'civicinfra-edmonton-recreation'
 								]}
 								minZoom={13} maxZoom={13.3}
 							/>
@@ -414,20 +414,20 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
-							'ruesaintecatherine',
-							'ruesaintecatherine-fill',
-							'civicinfra-montreal-education',
-							'civicinfra-montreal-govt-community',
-							'civicinfra-montreal-health',
-							'civicinfra-montreal-arts-culture',
-							'civicinfra-montreal-recreation'
+							'50streetbeaumont',
+							'50streetbeaumont-fill',
+							'civicinfra-edmonton-education',
+							'civicinfra-edmonton-govt-community',
+							'civicinfra-edmonton-health',
+							'civicinfra-edmonton-arts-culture',
+							'civicinfra-edmonton-recreation'
 						]}
 						section={'civicinfra'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
@@ -459,7 +459,7 @@
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-montreal-retail'}
+							id={'business-edmonton-retail'}
 							section={'business'}
 						/>
 						<LegendItem
@@ -468,7 +468,7 @@
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-montreal-services'}
+							id={'business-edmonton-services'}
 							section={'business'}
 						/>
 						<LegendItem
@@ -477,18 +477,18 @@
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
-							id={'business-montreal-food-drink'}
+							id={'business-edmonton-food-drink'}
 							section={'business'}
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'ruesaintecatherine-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox section={'business'} layer={'50streetbeaumont-isochrone'} minZoom={13} maxZoom={13.3} />
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
-									'business-montreal-retail',
-									'business-montreal-services',
-									'business-montreal-food-drink'
+									'business-edmonton-retail',
+									'business-edmonton-services',
+									'business-edmonton-food-drink'
 								]}
 								minZoom={13} maxZoom={13.3}
 							/>
@@ -503,18 +503,18 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
 						layers={[
-							'ruesaintecatherine',
-							'ruesaintecatherine-fill',
-							'business-montreal-retail',
-							'business-montreal-food-drink',
-							'business-montreal-services'
+							'50streetbeaumont',
+							'50streetbeaumont-fill',
+							'business-edmonton-retail',
+							'business-edmonton-food-drink',
+							'business-edmonton-services'
 						]}
 						section={'business'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
@@ -548,13 +548,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine', 'ruesaintecatherine-fill', 'employment-size']}
+						layers={['50streetbeaumont', '50streetbeaumont-fill', 'employment-size']}
 						section={'employmentsize'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -589,9 +589,9 @@
 					<h2>Housing</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'ruesaintecatherine'}
+							casestudy={'50streetbeaumont'}
 							section={'housing'}
-							region={'montreal'}
+							region={'edmonton'}
 							options={[
 								{ id: 'populationdensity', text: 'Population Density' },
 								{ id: 'dwellings', text: 'Dwellings' },
@@ -613,13 +613,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine-outline', 'populationdensity']}
+						layers={['50streetbeaumont-outline', 'populationdensity']}
 						section={'housing'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -660,9 +660,9 @@
 					<h2>Local Characteristics</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'ruesaintecatherine'}
+							casestudy={'50streetbeaumont'}
 							section={'demographics'}
-							region={'montreal'}
+							region={'edmonton'}
 							options={[
 								{ id: 'average-age', text: 'Average Age' },
 								{ id: 'household-size', text: 'Household Size' },
@@ -685,13 +685,13 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine-outline', 'average-age']}
+						layers={['50streetbeaumont-outline', 'average-age']}
 						section={'demographics'}
 					/>
 				</div>
@@ -736,12 +736,12 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
-						center={[-73.5729, 45.5009]}
+						style={'mapbox://styles/canadianurbaninstitute/clr84v8xd000v01pd4zbs4nkd'}
+						center={[-113.416, 53.3548]}
 						zoom={9}
 						pitch={0}
 						bearing={-15}
-						layers={['ruesaintecatherine-outline', 'visitors-2022']}
+						layers={['50streetbeaumont-outline', 'visitors-2022']}
 						section={'visitors'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -809,7 +809,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'Rue Sainte-Catherine'} location={'Montreal, Québec'} />
+	<Summary name={'50 Street Beaumont'} location={'Edmonton, Alberta'} />
 </main>
 
 <style>

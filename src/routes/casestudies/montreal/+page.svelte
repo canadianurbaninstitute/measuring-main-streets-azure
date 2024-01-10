@@ -53,20 +53,20 @@
 	/>
     <Card link={'/casestudies/montreal/rueontario'} cardImage={RueOntario} streetName={'Rue Ontario'} />
     <Card link={'/casestudies/montreal/ruesaintecatherine'} cardImage={RueSainteCatherine} streetName={'Rue Sainte-Catherine'} />
-	<Card link={'/casestudies/toronto/downtownyonge'} cardImage={RueStAnne} streetName={'Rue St. Anne'} />
+	<Card link={'/casestudies/montreal/ruestanne'} cardImage={RueStAnne} streetName={'Rue St. Anne'} />
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/montreal/ruestcharles'}
 		cardImage={RueStCharles}
 		streetName={'Rue St. Charles'}
 	/>
-	<Card link={'/casestudies/toronto/downtownyonge'} cardImage={RueStGeorge} streetName={'Rue St. George'} />
+	<Card link={'/casestudies/montreal/ruestgeorge'} cardImage={RueStGeorge} streetName={'Rue St. George'} />
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/montreal/ruestpaul'}
 		cardImage={RueStPaul}
 		streetName={'Rue St. Paul'}
 	/>
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/montreal/ruewellington'}
 		cardImage={RueWellington}
 		streetName={'Rue Wellington'}
 	/>
