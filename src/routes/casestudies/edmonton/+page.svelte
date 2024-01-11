@@ -23,10 +23,6 @@
 	import StAlbertRoad from '../../lib/assets/boundaries/edmontonboundaries/StAlbertRoad.svg';
 	import StonyPlainRoadNW from '../../lib/assets/boundaries/edmontonboundaries/StonyPlainRoadNW.svg';
 
-
-
-
-
 </script>
 
 <div class="hero">
@@ -44,31 +40,31 @@
 		streetName={'50 Street Beaumont'}
 	/>
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/edmonton/50streetstonyplain'}
 		cardImage={FiftyStreetStonyPlain}
 		streetName={'50 Street Stony Plain'}
 	/>
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/edmonton/82avenuenw'}
 		cardImage={EightyTwoAvenueNW}
-		streetName={'82 Avenue NW'}
+		streetName={'Whyte (82) Avenue NW'}
 	/>
-    <Card link={'/casestudies/toronto/downtownyonge'} cardImage={HundredFourStreetNW} streetName={'104 Street NW'} />
-    <Card link={'/casestudies/toronto/downtownyonge'} cardImage={HundredEighteenAlbertaAve} streetName={'118 Alberta Avenue'} />
-	<Card link={'/casestudies/toronto/downtownyonge'} cardImage={HundredEighteenBeverly} streetName={'118 Beverly'} />
+    <Card link={'/casestudies/edmonton/104streetnw'} cardImage={HundredFourStreetNW} streetName={'104 Street NW'} />
+    <Card link={'/casestudies/edmonton/118albertaave'} cardImage={HundredEighteenAlbertaAve} streetName={'118 Ave (Alberta)'} />
+	<Card link={'/casestudies/edmonton/118beverly'} cardImage={HundredEighteenBeverly} streetName={'118 Ave (Beverly)'} />
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/edmonton/124streetnw'}
 		cardImage={HundredTwentyFourStreetNW}
 		streetName={'124 Street NW'}
 	/>
-	<Card link={'/casestudies/toronto/downtownyonge'} cardImage={HundredFortyNineStreetNW} streetName={'149 Street NW'} />
+	<Card link={'/casestudies/edmonton/149streetnw'} cardImage={HundredFortyNineStreetNW} streetName={'149 Street NW'} />
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/edmonton/jasperavenue'}
 		cardImage={JasperAve}
 		streetName={'Jasper Avenue'}
 	/>
 	<Card
-		link={'/casestudies/toronto/downtownyonge'}
+		link={'/casestudies/edmonton/stonyplainroadnw'}
 		cardImage={StonyPlainRoadNW}
 		streetName={'Stony Plain Road NW'}
 	/>

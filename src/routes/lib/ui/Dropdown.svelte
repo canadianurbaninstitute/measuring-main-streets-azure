@@ -191,6 +191,79 @@
 	{/if}
 {/if}
 
+
+{#if region && region === 'edmonton'}
+	{#if selected && selected.id === 'average-age'}
+		<Legend minlabel={'36'} maxlabel={'76.1'} label={'Average Age'} />
+	{/if}
+
+	{#if selected && selected.id === 'household-size'}
+		<Legend minlabel={'1'} maxlabel={'8'} label={'Household Size'} />
+	{/if}
+
+	{#if selected && selected.id === 'average-income'}
+		<Legend
+			maxlabel={'$750,000'}
+			minlabel={'$36,000'}
+			label={'Average Employment Income (Census 2021)'}
+		/>
+	{/if}
+
+	{#if selected && selected.id === 'visibleminority'}
+		<Legend maxlabel={'100%'} label={'% Visible Minority Population'} />
+	{/if}
+
+	{#if selected && selected.id === 'immigrants'}
+		<Legend maxlabel={'100%'} label={'% Recent Immigrants and New Permanent Residents'} />
+	{/if}
+
+	{#if selected && selected.id === 'indigenous'}
+		<Legend maxlabel={'97.6%'} label={'% Indigenous Population'} />
+	{/if}
+
+	{#if selected && selected.id === 'french-speakers'}
+		<Legend maxlabel={'46.9%'} label={'% of French Speakers'} />
+	{/if}
+
+	{#if selected && selected.id === 'english-speakers'}
+		<Legend maxlabel={'100%'} label={'% of English Speakers'} />
+	{/if}
+
+	{#if selected && selected.id === 'education-bachelors'}
+		<Legend maxlabel={'100%'} label={'% of Bachelors Degree Holders'} />
+	{/if}
+
+	<!-- Housing -->
+
+	{#if selected && selected.id === 'populationdensity'}
+		<Legend maxlabel={'50,529'} label={'Population Density (people/sq.km)'} />
+	{/if}
+
+	{#if selected && selected.id === 'dwellings'}
+		<Legend minlabel={'0'} maxlabel={'3778'} label={'# of Dwellings'} />
+	{/if}
+
+	{#if selected && selected.id === 'duplex'}
+		<Legend maxlabel={'100%'} label={'% Duplex'} />
+	{/if}
+
+	{#if selected && selected.id === 'semi-detached'}
+		<Legend maxlabel={'100%'} label={'% Semi-Detached'} />
+	{/if}
+
+	{#if selected && selected.id === 'single-detached'}
+		<Legend maxlabel={'100%'} label={'% Single-Detached'} />
+	{/if}
+
+	{#if selected && selected.id === 'apartment-more-5-stories'}
+		<Legend maxlabel={'100%'} label={'% Aparments (more than 5 stories)'} />
+	{/if}
+
+	{#if selected && selected.id === 'apartment-less-5-stories'}
+		<Legend maxlabel={'100%'} label={'% Aparments (less than 5 stories)'} />
+	{/if}
+{/if}
+
 <style>
 	select {
 		width: 100%;

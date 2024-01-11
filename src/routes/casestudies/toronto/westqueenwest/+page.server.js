@@ -17,7 +17,7 @@ cloudinary.config({
     }
 
     return {
-        photos: fetchPhotos(),
+        photos: await fetchPhotos(),
     }
 }
 

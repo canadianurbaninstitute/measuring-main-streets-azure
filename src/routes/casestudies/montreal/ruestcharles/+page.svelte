@@ -309,7 +309,7 @@
 
 					</div>
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr80v24n000q01p47bhx29ow?fresh=true'}
+						style={'mapbox://styles/canadianurbaninstitute/clr80v24n000q01p47bhx29ow'}
 						center={[-73.5108, 45.5379]}
 						zoom={15}
 						minZoom={15}

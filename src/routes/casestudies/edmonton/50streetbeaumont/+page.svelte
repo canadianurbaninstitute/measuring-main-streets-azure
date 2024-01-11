@@ -74,7 +74,7 @@
 
 	// WeightMax for Visitor Gradient Max Value
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	weightMaxStore.set(67935);
+	weightMaxStore.set(23372);
 
 
 	visitorMapStore.subscribe((value) => {
@@ -419,7 +419,7 @@
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
-						bearing={-15}
+						bearing={0}
 						layers={[
 							'50streetbeaumont',
 							'50streetbeaumont-fill',
@@ -508,7 +508,7 @@
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
-						bearing={-15}
+						bearing={0}
 						layers={[
 							'50streetbeaumont',
 							'50streetbeaumont-fill',
@@ -553,7 +553,7 @@
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
-						bearing={-15}
+						bearing={0}
 						layers={['50streetbeaumont', '50streetbeaumont-fill', 'employment-size']}
 						section={'employmentsize'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
@@ -618,7 +618,7 @@
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
-						bearing={-15}
+						bearing={0}
 						layers={['50streetbeaumont-outline', 'populationdensity']}
 						section={'housing'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
@@ -690,7 +690,7 @@
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
-						bearing={-15}
+						bearing={0}
 						layers={['50streetbeaumont-outline', 'average-age']}
 						section={'demographics'}
 					/>
@@ -740,7 +740,7 @@
 						center={[-113.416, 53.3548]}
 						zoom={9}
 						pitch={0}
-						bearing={-15}
+						bearing={0}
 						layers={['50streetbeaumont-outline', 'visitors-2022']}
 						section={'visitors'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}

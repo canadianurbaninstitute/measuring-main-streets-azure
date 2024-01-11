@@ -25,8 +25,8 @@
 
 	// basic
 
-	let population = 0; //Pop
-	let employees = 0; //
+	let population = '29,482,761'; //Pop
+	let employees = '1,692,453'; //
 
 	// business
 	let business = '397,476';
@@ -49,46 +49,46 @@
 
 	// income + education
 
-	let income = 76650;
-	let education = 24;
+	let income = 76427;
+	let education = 28;
 
 	// age
 
-	let average_age = 33;
-	let age_0_19;
-	let age_20_64;
-	let age_over_65;
+	let average_age = 41;
+	let age_0_19 = 20;
+	let age_20_64 = 61;
+	let age_over_65 = 19;
 
 	// equity
 
-	let immigrants = 30.0;
-	let visibleminority = 29.6;
-	let indigenous = 4.7;
+	let immigrants = 28.4;
+	let visibleminority = 29.4;
+	let indigenous = 3.9;
 
 	// commute
 
-	let car = 34;
-	let public_transit = 10;
-	let active_transit = 9;
+	let car = 76;
+	let public_transit = 15;
+	let active_transit = 8;
 
 	// housing
 
-	let dwellings = 0;
-	let singledetached = 0;
-	let semidetached = 0;
-	let duplex = 0;
-	let apartments_more_than_5 = 0;
-	let apartments_less_than_5 = 0;
+	let dwellings = '11,936,445';
+	let singledetached = 49;
+	let semidetached = 5;
+	let duplex = 6;
+	let apartments_more_than_5 = 11;
+	let apartments_less_than_5 = 19;
 
 	// language
 
-	let french = 0;
-	let english = 0;
+	let french = 18;
+	let english = 62;
 
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj',
 			center: [-89, 58],
 			zoom: 3.2,
 			minZoom: 2,

@@ -613,7 +613,7 @@
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
-						style={'mapbox://styles/canadianurbaninstitute/clr6on41x011801quckekh80f?fresh=true'}
+						style={'mapbox://styles/canadianurbaninstitute/clr6on41x011801quckekh80f'}
 						center={[-73.7348, 45.5641]}
 						zoom={14.1}
 						minZoom={13.3}
