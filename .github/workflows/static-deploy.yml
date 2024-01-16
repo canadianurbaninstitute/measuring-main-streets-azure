@@ -33,7 +33,7 @@ jobs:
         with:
           cache: 'npm'
       - run: npm ci
-      - run: npm run build
+      - run: npm run build -- --base /measuring-main-streets
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
