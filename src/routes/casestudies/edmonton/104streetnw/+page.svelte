@@ -90,7 +90,7 @@
 	// Cloudinary Config
 
 	// setConfig({
-	// 	cloudName: 'dq4p0s7xo'
+	// 	cloudName: 'dfseerxb3'
 	// });
 
 	// export let data;

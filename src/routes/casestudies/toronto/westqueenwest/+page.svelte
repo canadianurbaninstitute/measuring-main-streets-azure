@@ -33,8 +33,9 @@
 
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import mapboxgl from "mapbox-gl";
 	import { sexagesimalToDecimal } from 'geolib';
+	import RangeSlider from 'svelte-range-slider-pips';
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
@@ -76,7 +77,6 @@
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
 	weightMaxStore.set(1532);
 
-
 	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
@@ -90,7 +90,7 @@
 	// Cloudinary Config
 
 	setConfig({
-		cloudName: 'dq4p0s7xo'
+		cloudName: 'dfseerxb3'
 	});
 
 	export let data;
@@ -109,11 +109,11 @@
 		photosJSON.resources.forEach((resource) => {
 			let latitude, longitude;
 			resource.metadata.forEach((meta) => {
-				if (meta.external_id === 'latitude') {
-					const cleanLatitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+				if (meta.external_id === 'latitude' && meta.value != 0) {
+					const cleanLatitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
 					latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
-				} else if (meta.external_id === 'longitude') {
-					const cleanLongitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
+				} else if (meta.external_id === 'longitude' && meta.value != 0) {
+					const cleanLongitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
 					longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
 				}
 			});
@@ -218,6 +218,28 @@
 									visibility: 'visible'
 								}
 							});
+
+							map.on('click', sourceName, (e) => {
+							// Copy coordinates array.
+							const coordinates = e.features[0].geometry.coordinates.slice();
+							const url = e.features[0].properties.url;
+							
+							new mapboxgl.Popup()
+							.setLngLat(coordinates)
+							.setHTML(`<img src="${url}" style="height:30%;width:100%">`)
+							.addTo(map);
+							});
+							
+							// Change the cursor to a pointer when the mouse is over the places layer.
+							map.on('mouseenter', sourceName, () => {
+							map.getCanvas().style.cursor = 'pointer';
+							});
+							
+							// Change it back to a pointer when it leaves.
+							map.on('mouseleave', sourceName, () => {
+							map.getCanvas().style.cursor = '';
+							});
+							
 						});
 					}
 				}
@@ -330,7 +352,6 @@
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'westqueenwest'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clp1i0fls00wg01ntg6hdbldy'}
@@ -635,7 +656,7 @@
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
@@ -672,7 +693,7 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-												xKey="Construction Year"
+								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"

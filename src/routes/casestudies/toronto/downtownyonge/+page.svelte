@@ -76,7 +76,6 @@
 	$: weightMax = $weightMaxStore; // Subscribe to the store's value
 	weightMaxStore.set(1805616);
 
-
 	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
@@ -89,141 +88,162 @@
 
 	// Cloudinary Config
 
-	// setConfig({
-	// 	cloudName: 'dq4p0s7xo'
-	// });
+	setConfig({
+		cloudName: 'dfseerxb3'
+	});
 
-	// export let data;
+	export let data;
 
-	// const photosJSON = data.photos;
+	const photosJSON = data.photos;
 
-	// function createGeoJSON(filterString = null) {
-	// 	// Create GeoJSON structure
-	// 	const geojson = {
-	// 		type: 'FeatureCollection',
-	// 		features: []
-	// 	};
+	function createGeoJSON(filterString = null) {
+		// Create GeoJSON structure
+		const geojson = {
+			type: 'FeatureCollection',
+			features: []
+		};
 
-	// 	// Iterate through resources (long/lat cleaning)
+		// Iterate through resources (long/lat cleaning)
 
-	// 	photosJSON.resources.forEach((resource) => {
-	// 		let latitude, longitude;
-	// 		resource.metadata.forEach((meta) => {
-	// 			if (meta.external_id === 'latitude') {
-	// 				const cleanLatitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
-	// 				latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
-	// 			} else if (meta.external_id === 'longitude') {
-	// 				const cleanLongitude = meta.value.replace(/\\/g, '').replace(/\s*deg/g, '°'); // clean latitude
-	// 				longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
-	// 			}
-	// 		});
+		photosJSON.resources.forEach((resource) => {
+			let latitude, longitude;
+			resource.metadata.forEach((meta) => {
+				if (meta.external_id === 'latitude' && meta.value != 0) {
+					const cleanLatitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
+					latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
+				} else if (meta.external_id === 'longitude' && meta.value != 0) {
+					const cleanLongitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
+					longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
+				}
+			});
 
-	// 		// building images
+			// building images
 
-	// 		if (latitude && longitude) {
-	// 			if (!filterString || resource.public_id.includes(filterString)) {
-	// 				let url = buildImageUrl(resource.public_id, {
-	// 					transformations: {
-	// 						rawTransformation: 'c_scale,h_300'
-	// 					}
-	// 				});
-	// 				let thumburl = buildImageUrl(resource.public_id, {
-	// 					transformations: {
-	// 						rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
-	// 					},
-	// 					format: 'png'
-	// 				});
+			if (latitude && longitude) {
+				if (!filterString || resource.public_id.includes(filterString)) {
+					let url = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'c_scale,h_300'
+						}
+					});
+					let thumburl = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
+						},
+						format: 'png'
+					});
 
-	// 				const feature = {
-	// 					type: 'Feature',
-	// 					geometry: {
-	// 						type: 'Point',
-	// 						coordinates: [longitude, latitude]
-	// 					},
-	// 					properties: {
-	// 						public_id: resource.public_id,
-	// 						url: url,
-	// 						thumbnail: thumburl
-	// 					}
-	// 				};
-	// 				geojson.features.push(feature);
-	// 			}
-	// 		}
-	// 	});
+					const feature = {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [longitude, latitude]
+						},
+						properties: {
+							public_id: resource.public_id,
+							url: url,
+							thumbnail: thumburl
+						}
+					};
+					geojson.features.push(feature);
+				}
+			}
+		});
 
-	// 	return geojson;
-	// }
+		return geojson;
+	}
 
-	// // all photos
+	// all photos
 
-	// const photosGeoJSON = createGeoJSON();
+	const photosGeoJSON = createGeoJSON();
 
-	// // create images list for AddImage and LoadImage to work properly
+	// create images list for AddImage and LoadImage to work properly
 
-	// const images = photosGeoJSON.features.map((feature) => ({
-	// 	url: feature.properties.thumbnail,
-	// 	id: feature.properties.public_id
-	// }));
+	const images = photosGeoJSON.features.map((feature) => ({
+		url: feature.properties.thumbnail,
+		id: feature.properties.public_id
+	}));
 
-	// onMount(() => {
-	// 	// subscribe to store
-	// 	mapStoreList.subscribe((value) => {
-	// 		mapInstances = value;
-	// 		// for each map insance, find section and add layer
-	// 		Object.entries(mapInstances).forEach(([id, map]) => {
-	// 			if (map && id) {
-	// 				const section = sections.find((sec) => sec === id);
-	// 				if (section) {
-	// 					Promise.all(
-	// 						images.map(
-	// 							(img) =>
-	// 								new Promise((resolve, reject) => {
-	// 									map.loadImage(img.url, (error, res) => {
-	// 										if (error) {
-	// 											console.log(error);
-	// 											reject(error);
-	// 										} else {
-	// 											map.addImage(img.id, res);
-	// 											resolve();
-	// 										}
-	// 									});
-	// 								})
-	// 						)
-	// 					).then(() => {
-	// 						console.log('Images loaded');
-	// 					});
+	onMount(() => {
+		// subscribe to store
+		mapStoreList.subscribe((value) => {
+			mapInstances = value;
+			// for each map insance, find section and add layer
+			Object.entries(mapInstances).forEach(([id, map]) => {
+				if (map && id) {
+					const section = sections.find((sec) => sec === id);
+					if (section) {
+						Promise.all(
+							images.map(
+								(img) =>
+									new Promise((resolve, reject) => {
+										map.loadImage(img.url, (error, res) => {
+											if (error) {
+												console.log(error);
+												reject(error);
+											} else {
+												map.addImage(img.id, res);
+												resolve();
+											}
+										});
+									})
+							)
+						).then(() => {
+							console.log('Images loaded');
+						});
 
-	// 					map.on('style.load', () => {
-	// 						// based on photosection list, has to match cloudinary photo names
-	// 						const sectionValue = photosections[section];
-	// 						// Use sectionValue to create the sourceData dynamically
-	// 						let sourceData = createGeoJSON(sectionValue);
-	// 						// dynamic source name
-	// 						let sourceName = `${section}-photos`;
+						map.on('style.load', () => {
+							// based on photosection list, has to match cloudinary photo names
+							const sectionValue = photosections[section];
+							// Use sectionValue to create the sourceData dynamically
+							let sourceData = createGeoJSON(sectionValue);
+							// dynamic source name
+							let sourceName = `${section}-photos`;
 
-	// 						map.addSource(sourceName, {
-	// 							type: 'geojson',
-	// 							data: sourceData
-	// 						});
+							map.addSource(sourceName, {
+								type: 'geojson',
+								data: sourceData
+							});
 
-	// 						map.addLayer({
-	// 							id: sourceName,
-	// 							type: 'symbol',
-	// 							source: sourceName,
-	// 							layout: {
-	// 								'icon-image': ['get', 'public_id'], // reference the image
-	// 								'icon-ignore-placement': true,
-	// 								'icon-size': 0.2,
-	// 								'icon-allow-overlap': true,
-	// 								visibility: 'visible'
-	// 							}
-	// 						});
-	// 					});
-	// 				}
-	// 			}
-	// 		});
-	// 	});
-	// });
+							map.addLayer({
+								id: sourceName,
+								type: 'symbol',
+								source: sourceName,
+								layout: {
+									'icon-image': ['get', 'public_id'], // reference the image
+									'icon-ignore-placement': true,
+									'icon-size': 0.2,
+									'icon-allow-overlap': true,
+									visibility: 'visible'
+								}
+							});
+
+							map.on('click', sourceName, (e) => {
+								// Copy coordinates array.
+								const coordinates = e.features[0].geometry.coordinates.slice();
+								const url = e.features[0].properties.url;
+
+								new mapboxgl.Popup()
+									.setLngLat(coordinates)
+									.setHTML(`<img src="${url}" style="height:30%;width:100%">`)
+									.addTo(map);
+							});
+
+							// Change the cursor to a pointer when the mouse is over the places layer.
+							map.on('mouseenter', sourceName, () => {
+								map.getCanvas().style.cursor = 'pointer';
+							});
+
+							// Change it back to a pointer when it leaves.
+							map.on('mouseleave', sourceName, () => {
+								map.getCanvas().style.cursor = '';
+							});
+						});
+					}
+				}
+			});
+		});
+	});
 </script>
 
 <svelte:head>
@@ -244,10 +264,10 @@
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
@@ -282,10 +302,10 @@
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
@@ -306,11 +326,10 @@
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'downtownyonge'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6561]}
+						center={[-79.38, 43.6561]}
 						zoom={15}
 						minZoom={15}
 						pitch={40}
@@ -391,7 +410,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'downtownyonge-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'downtownyonge-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -401,21 +425,22 @@
 									'civicinfra-toronto-education',
 									'civicinfra-toronto-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						center={[-79.38, 43.6575]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
@@ -482,7 +507,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'downtownyonge-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'downtownyonge-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -490,21 +520,22 @@
 									'business-toronto-services',
 									'business-toronto-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						center={[-79.38, 43.6575]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
@@ -539,17 +570,17 @@
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						center={[-79.38, 43.6575]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
@@ -599,22 +630,22 @@
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						center={[-79.38, 43.6575]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
@@ -628,7 +659,7 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-												xKey="Construction Year"
+								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
@@ -677,16 +708,16 @@
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2jlg0p015z01p6dj1caevl'}
-						center={[-79.380, 43.6575]}
+						center={[-79.38, 43.6575]}
 						zoom={14.5}
 						minZoom={13.3}
 						pitch={0}
@@ -728,10 +759,10 @@
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
 				<div class="map-container">

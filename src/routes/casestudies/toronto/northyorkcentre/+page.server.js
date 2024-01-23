@@ -3,7 +3,7 @@ import {v2 as cloudinary} from 'cloudinary'
 import { CLOUDINARY_API_SECRET, CLOUDINARY_API_KEY } from '$env/static/private';
 
 cloudinary.config({ 
-    cloud_name: 'dq4p0s7xo', 
+    cloud_name: 'dfseerxb3', 
     api_key: CLOUDINARY_API_KEY,
     api_secret: CLOUDINARY_API_SECRET,
     secure: true
