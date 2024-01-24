@@ -33,12 +33,13 @@
 
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
+	import mapboxgl from "mapbox-gl";
 	import RangeSlider from 'svelte-range-slider-pips';
 	import { sexagesimalToDecimal } from 'geolib';
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 
 	import { visitorMapStore, mapStoreList, weightMaxStore } from '../../../lib/mapStore';
 
@@ -225,7 +226,7 @@
 
 								new mapboxgl.Popup()
 									.setLngLat(coordinates)
-									.setHTML(`<img src="${url}" style="height:30%;width:100%">`)
+									.setHTML(`<img src="${url}" style="height:30%;width:100%;padding: 0.5em 0.5em 0 0.5em;">`)
 									.addTo(map);
 							});
 
@@ -244,6 +245,7 @@
 			});
 		});
 	});
+
 </script>
 
 <svelte:head>
