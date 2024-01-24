@@ -39,7 +39,7 @@
 	import { buildImageUrl } from 'cloudinary-build-url';
 	import { setConfig } from 'cloudinary-build-url';
 
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 
 	import { visitorMapStore, mapStoreList, weightMaxStore } from '../../../lib/mapStore';
 
