@@ -87,164 +87,164 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-	// Cloudinary Config
+	// // Cloudinary Config
 
-	setConfig({
-		cloudName: 'dfseerxb3'
-	});
+	// setConfig({
+	// 	cloudName: 'dfseerxb3'
+	// });
 
-	export let data;
+	// export let data;
 
-	const photosJSON = data.photos;
+	// const photosJSON = data.photos;
 
-	function createGeoJSON(filterString = null) {
-		// Create GeoJSON structure
-		const geojson = {
-			type: 'FeatureCollection',
-			features: []
-		};
+	// function createGeoJSON(filterString = null) {
+	// 	// Create GeoJSON structure
+	// 	const geojson = {
+	// 		type: 'FeatureCollection',
+	// 		features: []
+	// 	};
 
-		// Iterate through resources (long/lat cleaning)
+	// 	// Iterate through resources (long/lat cleaning)
 
-		photosJSON.resources.forEach((resource) => {
-			let latitude, longitude;
-			resource.metadata.forEach((meta) => {
-				if (meta.external_id === 'latitude' && meta.value != 0) {
-					const cleanLatitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
-					latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
-				} else if (meta.external_id === 'longitude' && meta.value != 0) {
-					const cleanLongitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
-					longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
-				}
-			});
+	// 	photosJSON.resources.forEach((resource) => {
+	// 		let latitude, longitude;
+	// 		resource.metadata.forEach((meta) => {
+	// 			if (meta.external_id === 'latitude' && meta.value != 0) {
+	// 				const cleanLatitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
+	// 				latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
+	// 			} else if (meta.external_id === 'longitude' && meta.value != 0) {
+	// 				const cleanLongitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
+	// 				longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
+	// 			}
+	// 		});
 
-			// building images
+	// 		// building images
 
-			if (latitude && longitude) {
-				if (!filterString || resource.public_id.includes(filterString)) {
-					let url = buildImageUrl(resource.public_id, {
-						transformations: {
-							rawTransformation: 'c_scale,h_300'
-						}
-					});
-					let thumburl = buildImageUrl(resource.public_id, {
-						transformations: {
-							rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
-						},
-						format: 'png'
-					});
+	// 		if (latitude && longitude) {
+	// 			if (!filterString || resource.public_id.includes(filterString)) {
+	// 				let url = buildImageUrl(resource.public_id, {
+	// 					transformations: {
+	// 						rawTransformation: 'c_scale,h_300'
+	// 					}
+	// 				});
+	// 				let thumburl = buildImageUrl(resource.public_id, {
+	// 					transformations: {
+	// 						rawTransformation: 'r_15,bo_15px_solid_white,c_scale,h_200'
+	// 					},
+	// 					format: 'png'
+	// 				});
 
-					const feature = {
-						type: 'Feature',
-						geometry: {
-							type: 'Point',
-							coordinates: [longitude, latitude]
-						},
-						properties: {
-							public_id: resource.public_id,
-							url: url,
-							thumbnail: thumburl
-						}
-					};
-					geojson.features.push(feature);
-				}
-			}
-		});
+	// 				const feature = {
+	// 					type: 'Feature',
+	// 					geometry: {
+	// 						type: 'Point',
+	// 						coordinates: [longitude, latitude]
+	// 					},
+	// 					properties: {
+	// 						public_id: resource.public_id,
+	// 						url: url,
+	// 						thumbnail: thumburl
+	// 					}
+	// 				};
+	// 				geojson.features.push(feature);
+	// 			}
+	// 		}
+	// 	});
 
-		return geojson;
-	}
+	// 	return geojson;
+	// }
 
-	// all photos
+	// // all photos
 
-	const photosGeoJSON = createGeoJSON();
+	// const photosGeoJSON = createGeoJSON();
 
-	// create images list for AddImage and LoadImage to work properly
+	// // create images list for AddImage and LoadImage to work properly
 
-	const images = photosGeoJSON.features.map((feature) => ({
-		url: feature.properties.thumbnail,
-		id: feature.properties.public_id
-	}));
+	// const images = photosGeoJSON.features.map((feature) => ({
+	// 	url: feature.properties.thumbnail,
+	// 	id: feature.properties.public_id
+	// }));
 
-	onMount(() => {
-		// subscribe to store
-		mapStoreList.subscribe((value) => {
-			mapInstances = value;
-			// for each map insance, find section and add layer
-			Object.entries(mapInstances).forEach(([id, map]) => {
-				if (map && id) {
-					const section = sections.find((sec) => sec === id);
-					if (section) {
-						Promise.all(
-							images.map(
-								(img) =>
-									new Promise((resolve, reject) => {
-										map.loadImage(img.url, (error, res) => {
-											if (error) {
-												console.log(error);
-												reject(error);
-											} else {
-												map.addImage(img.id, res);
-												resolve();
-											}
-										});
-									})
-							)
-						).then(() => {
-							console.log('Images loaded');
-						});
+	// onMount(() => {
+	// 	// subscribe to store
+	// 	mapStoreList.subscribe((value) => {
+	// 		mapInstances = value;
+	// 		// for each map insance, find section and add layer
+	// 		Object.entries(mapInstances).forEach(([id, map]) => {
+	// 			if (map && id) {
+	// 				const section = sections.find((sec) => sec === id);
+	// 				if (section) {
+	// 					Promise.all(
+	// 						images.map(
+	// 							(img) =>
+	// 								new Promise((resolve, reject) => {
+	// 									map.loadImage(img.url, (error, res) => {
+	// 										if (error) {
+	// 											console.log(error);
+	// 											reject(error);
+	// 										} else {
+	// 											map.addImage(img.id, res);
+	// 											resolve();
+	// 										}
+	// 									});
+	// 								})
+	// 						)
+	// 					).then(() => {
+	// 						console.log('Images loaded');
+	// 					});
 
-						map.on('style.load', () => {
-							// based on photosection list, has to match cloudinary photo names
-							const sectionValue = photosections[section];
-							// Use sectionValue to create the sourceData dynamically
-							let sourceData = createGeoJSON(sectionValue);
-							// dynamic source name
-							let sourceName = `${section}-photos`;
+	// 					map.on('style.load', () => {
+	// 						// based on photosection list, has to match cloudinary photo names
+	// 						const sectionValue = photosections[section];
+	// 						// Use sectionValue to create the sourceData dynamically
+	// 						let sourceData = createGeoJSON(sectionValue);
+	// 						// dynamic source name
+	// 						let sourceName = `${section}-photos`;
 
-							map.addSource(sourceName, {
-								type: 'geojson',
-								data: sourceData
-							});
+	// 						map.addSource(sourceName, {
+	// 							type: 'geojson',
+	// 							data: sourceData
+	// 						});
 
-							map.addLayer({
-								id: sourceName,
-								type: 'symbol',
-								source: sourceName,
-								layout: {
-									'icon-image': ['get', 'public_id'], // reference the image
-									'icon-ignore-placement': true,
-									'icon-size': 0.2,
-									'icon-allow-overlap': true,
-									visibility: 'visible'
-								}
-							});
+	// 						map.addLayer({
+	// 							id: sourceName,
+	// 							type: 'symbol',
+	// 							source: sourceName,
+	// 							layout: {
+	// 								'icon-image': ['get', 'public_id'], // reference the image
+	// 								'icon-ignore-placement': true,
+	// 								'icon-size': 0.2,
+	// 								'icon-allow-overlap': true,
+	// 								visibility: 'visible'
+	// 							}
+	// 						});
 
-							map.on('click', sourceName, (e) => {
-								// Copy coordinates array.
-								const coordinates = e.features[0].geometry.coordinates.slice();
-								const url = e.features[0].properties.url;
+	// 						map.on('click', sourceName, (e) => {
+	// 							// Copy coordinates array.
+	// 							const coordinates = e.features[0].geometry.coordinates.slice();
+	// 							const url = e.features[0].properties.url;
 
-								new mapboxgl.Popup()
-									.setLngLat(coordinates)
-									.setHTML(`<img src="${url}" style="height:30%;width:100%;padding: 0.5em 0.5em 0 0.5em;">`)
-									.addTo(map);
-							});
+	// 							new mapboxgl.Popup()
+	// 								.setLngLat(coordinates)
+	// 								.setHTML(`<img src="${url}" style="height:30%;width:100%;padding: 0.5em 0.5em 0 0.5em;">`)
+	// 								.addTo(map);
+	// 						});
 
-							// Change the cursor to a pointer when the mouse is over the places layer.
-							map.on('mouseenter', sourceName, () => {
-								map.getCanvas().style.cursor = 'pointer';
-							});
+	// 						// Change the cursor to a pointer when the mouse is over the places layer.
+	// 						map.on('mouseenter', sourceName, () => {
+	// 							map.getCanvas().style.cursor = 'pointer';
+	// 						});
 
-							// Change it back to a pointer when it leaves.
-							map.on('mouseleave', sourceName, () => {
-								map.getCanvas().style.cursor = '';
-							});
-						});
-					}
-				}
-			});
-		});
-	});
+	// 						// Change it back to a pointer when it leaves.
+	// 						map.on('mouseleave', sourceName, () => {
+	// 							map.getCanvas().style.cursor = '';
+	// 						});
+	// 					});
+	// 				}
+	// 			}
+	// 		});
+	// 	});
+	// });
 
 </script>
 
