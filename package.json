@@ -9,8 +9,7 @@
     "test": "playwright test",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
-    "check": "svelte-check",
-    "deploy": "gh-pages -d build -t true"
+    "check": "svelte-check"
   },
   "devDependencies": {
     "@iconify/svelte": "^3.1.4",
@@ -43,7 +42,6 @@
     "cloudinary-build-url": "^0.2.4",
     "d3-time-format": "^4.1.0",
     "geolib": "^3.3.4",
-    "gh-pages": "^6.1.1",
     "mapbox-gl": "^2.15.0",
     "svelte-collapse": "^0.1.2",
     "svelte-range-slider-pips": "^2.3.0",
