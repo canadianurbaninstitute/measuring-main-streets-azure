@@ -703,7 +703,7 @@
 					<h2>Visitors</h2>
 					<div class="controls">
 						<h5>Year</h5>
-						<RangeSlider
+						<!-- <RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
 								if (map.isStyleLoaded()) {
@@ -725,7 +725,7 @@
 							pips
 							all="label"
 							hoverable={false}
-						/>
+						/> -->
 					</div>
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
