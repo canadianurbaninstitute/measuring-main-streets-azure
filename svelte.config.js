@@ -9,10 +9,10 @@ const config = {
 			handleHttpError: 'warn'
 		},
 		adapter: adapter(),
-		// paths: {
+		paths: {
 			// base: process.env.NODE_ENV === "production" ? "/measuring-main-streets" : "",
-			//base: "/measuring-main-streets",
-		//},
+			base: "/measuring-main-streets"
+		},
 	}
 };
 
