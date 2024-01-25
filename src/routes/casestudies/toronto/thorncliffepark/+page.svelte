@@ -737,7 +737,7 @@
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2v0eo2017201p6hvc26ctb'}
-						center={[-79.417, 43.6441]}
+						center={[-79.346, 43.706]}
 						zoom={9}
 						pitch={0}
 						bearing={-15}

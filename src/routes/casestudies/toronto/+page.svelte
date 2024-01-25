@@ -97,7 +97,7 @@
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={LibertyVillage}
-		streetName={'Liberty Villege'}
+		streetName={'Liberty Village'}
 	/>
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
