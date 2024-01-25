@@ -41,7 +41,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList, weightMaxStore } from '../../../lib/mapStore';
+	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
 
 	import '../../../styles.css';
 
@@ -72,10 +72,6 @@
 	/* -------------------------------------------------------------------------- */
 	/*                                   Stores                                   */
 	/* -------------------------------------------------------------------------- */
-
-	// WeightMax for Visitor Gradient Max Value
-	$: weightMax = $weightMaxStore; // Subscribe to the store's value
-	weightMaxStore.set(1532);
 
 	visitorMapStore.subscribe((value) => {
 		map = value;
@@ -778,9 +774,6 @@
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									const weight = map.getPaintProperty(`visitors-${year}`, 'heatmap-weight');
-									const weightMax = weight[5];
-									weightMaxStore.set(weightMax);
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -814,7 +807,7 @@
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={Math.round(weightMax)}
+							maxlabel={'58400'}
 							label={'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
