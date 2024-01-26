@@ -30,6 +30,8 @@
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
 
 	import { timeFormat } from 'd3-time-format';
+	import { browser } from '$app/environment';
+
 
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
@@ -242,6 +244,123 @@
 	// 		});
 	// 	});
 	// });
+
+	// PHOTOS V2
+
+	// Cloudinary Config
+
+	setConfig({
+		cloudName: 'dfseerxb3'
+	});
+
+	export let data;
+
+	const photosJSON = data.photos;
+
+	function createGeoJSON(filterString = null) {
+		// Create GeoJSON structure
+		const geojson = {
+			type: 'FeatureCollection',
+			features: []
+		};
+
+		// Iterate through resources (long/lat cleaning)
+
+		photosJSON.resources.forEach((resource) => {
+			let latitude, longitude;
+			resource.metadata.forEach((meta) => {
+				if (meta.external_id === 'latitude' && meta.value != 0) {
+					const cleanLatitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
+					latitude = sexagesimalToDecimal(cleanLatitude); // convert to decimal value
+				} else if (meta.external_id === 'longitude' && meta.value != 0) {
+					const cleanLongitude = meta.value.replace(' deg ', '° ').trim(); // clean latitude
+					longitude = sexagesimalToDecimal(cleanLongitude); // convert to deicmal value
+				}
+			});
+
+			// building images
+
+			if (latitude && longitude) {
+				if (!filterString || resource.public_id.includes(filterString)) {
+					let url = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'c_scale,h_300'
+						}
+					});
+					let thumburl = buildImageUrl(resource.public_id, {
+						transformations: {
+							rawTransformation: 'r_5,bo_5px_solid_white,c_scale,h_30'
+						},
+						format: 'png'
+					});
+
+					const feature = {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [longitude, latitude]
+						},
+						properties: {
+							public_id: resource.public_id,
+							url: url,
+							thumbnail: thumburl,
+							width: resource.width,
+							height: resource.height
+						}
+					};
+					geojson.features.push(feature);
+				}
+			}
+		});
+
+		return geojson;
+	}
+
+	onMount(() => {
+		const photosGeoJSON = createGeoJSON();
+		console.log(photosGeoJSON);		
+
+		// Add markers to the map.
+		for (const marker of photosGeoJSON.features) {
+
+		if (browser) {
+		// Create a DOM element for each marker.
+		const el = document.createElement('div');
+		const thumburl = marker.properties.thumbnail;
+		const width = marker.properties.width;
+		const height = marker.properties.height;
+		const url = marker.properties.url;
+		// calc new width based on new height (100) and add 15px border on each side (30)
+		const scaledWidth = ((width / height) * 30) + 10;
+		el.className = 'marker';
+		el.style.backgroundImage = `url(${thumburl})`;
+		el.style.width = `${scaledWidth}px`;
+		el.style.height = '40px';
+		el.style.backgroundSize = '100%';
+
+		//popup
+		const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`<img src="${url}" style="height:30%;width:100%;padding: 0.5em 0.5em 0 0.5em;">`);
+
+		
+		// Add markers to the map.
+		new mapboxgl.Marker(el)
+		.setLngLat(marker.geometry.coordinates)
+		.setPopup(popup)
+		.addTo(map);
+		}
+		
+			
+			// // Change the cursor to a pointer when the mouse is over the places layer.
+			// map.on('mouseenter', sourceName, () => {
+			// map.getCanvas().style.cursor = 'pointer';
+			// });
+			
+			// // Change it back to a pointer when it leaves.
+			// map.on('mouseleave', sourceName, () => {
+			// map.getCanvas().style.cursor = '';
+			// });
+	}
+	});
 </script>
 
 <svelte:head>
@@ -869,6 +988,7 @@
 		</section>
 	</div>
 	<Summary name={'West Queen West'} location={'Toronto, Ontario'} />
+	<div class='container'></div>
 </main>
 
 <style>
@@ -944,6 +1064,12 @@
 		display: flex;
 		flex-direction: column;
 	}
+
+
+	.container {
+		cursor: pointer;
+	}
+
 
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
 
