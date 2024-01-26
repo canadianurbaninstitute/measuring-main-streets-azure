@@ -253,8 +253,8 @@
 		cloudName: 'dfseerxb3'
 	});
 
+	// getting access to json data from page.server.js
 	export let data;
-
 	const photosJSON = data.photos;
 
 	function createGeoJSON(filterString = null) {
@@ -289,7 +289,7 @@
 					});
 					let thumburl = buildImageUrl(resource.public_id, {
 						transformations: {
-							rawTransformation: 'r_5,bo_5px_solid_white,c_scale,h_30'
+							rawTransformation: 'r_5,bo_5px_solid_white,c_scale,h_30' // 5 rounding, 5 border, 30 height
 						},
 						format: 'png'
 					});
@@ -317,49 +317,47 @@
 	}
 
 	onMount(() => {
-		const photosGeoJSON = createGeoJSON();
-		console.log(photosGeoJSON);		
+		mapStoreList.subscribe((value) => {
+			mapInstances = value;
+			// for each map insance, find section
+				Object.entries(mapInstances).forEach(([id, map]) => {
+					if (map && id) {
+						const section = sections.find((sec) => sec === id);
+						if (section) {
+							const sectionValue = photosections[section];
+							const sectionGeoJSON = createGeoJSON(sectionValue)
+							console.log(sectionGeoJSON);
+							// Add markers to the map.
+							for (const marker of sectionGeoJSON.features) {
+								if (browser) {
+									// Create a DOM element for each marker.
+									const el = document.createElement('div');
+									const thumburl = marker.properties.thumbnail;
+									const width = marker.properties.width;
+									const height = marker.properties.height;
+									const url = marker.properties.url;
+									// calc new width based on new height (100) and add 15px border on each side (30)
+									const scaledWidth = ((width / height) * 30) + 10;
+									el.className = 'marker';
+									el.style.backgroundImage = `url(${thumburl})`;
+									el.style.width = `${scaledWidth}px`;
+									el.style.height = '40px';
+									el.style.backgroundSize = '100%';
 
-		// Add markers to the map.
-		for (const marker of photosGeoJSON.features) {
-
-		if (browser) {
-		// Create a DOM element for each marker.
-		const el = document.createElement('div');
-		const thumburl = marker.properties.thumbnail;
-		const width = marker.properties.width;
-		const height = marker.properties.height;
-		const url = marker.properties.url;
-		// calc new width based on new height (100) and add 15px border on each side (30)
-		const scaledWidth = ((width / height) * 30) + 10;
-		el.className = 'marker';
-		el.style.backgroundImage = `url(${thumburl})`;
-		el.style.width = `${scaledWidth}px`;
-		el.style.height = '40px';
-		el.style.backgroundSize = '100%';
-
-		//popup
-		const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`<img src="${url}" style="height:30%;width:100%;padding: 0.5em 0.5em 0 0.5em;">`);
-
-		
-		// Add markers to the map.
-		new mapboxgl.Marker(el)
-		.setLngLat(marker.geometry.coordinates)
-		.setPopup(popup)
-		.addTo(map);
-		}
-		
-			
-			// // Change the cursor to a pointer when the mouse is over the places layer.
-			// map.on('mouseenter', sourceName, () => {
-			// map.getCanvas().style.cursor = 'pointer';
-			// });
-			
-			// // Change it back to a pointer when it leaves.
-			// map.on('mouseleave', sourceName, () => {
-			// map.getCanvas().style.cursor = '';
-			// });
-	}
+									//popup
+									const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`<img src="${url}" style="height:30%;width:100%;padding: 0.5em 0.5em 0 0.5em;">`);
+									
+									// Add markers to the map.
+									new mapboxgl.Marker(el)
+									.setLngLat(marker.geometry.coordinates)
+									.setPopup(popup)
+									.addTo(map);
+									}
+							}
+						}
+					}
+				});
+		});
 	});
 </script>
 
@@ -988,7 +986,6 @@
 		</section>
 	</div>
 	<Summary name={'West Queen West'} location={'Toronto, Ontario'} />
-	<div class='container'></div>
 </main>
 
 <style>
@@ -1064,12 +1061,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
-	.container {
-		cursor: pointer;
-	}
-
 
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
 

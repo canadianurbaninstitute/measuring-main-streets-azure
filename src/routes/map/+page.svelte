@@ -115,6 +115,9 @@
 					types: 'address, region, country, postcode, district, place, locality, neighborhood',
 					language: 'en, fr',
 					marker: true,
+					marker: {
+						color: '#0098D6'
+					},
 					placeholder: 'Search for a place',
 					mapboxgl: mapboxgl
 				}),
