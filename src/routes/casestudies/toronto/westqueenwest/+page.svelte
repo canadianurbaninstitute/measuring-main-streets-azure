@@ -33,6 +33,7 @@
 	import { browser } from '$app/environment';
 
 
+
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import mapboxgl from "mapbox-gl";
@@ -326,10 +327,10 @@
 						if (section) {
 							const sectionValue = photosections[section];
 							const sectionGeoJSON = createGeoJSON(sectionValue)
-							console.log(sectionGeoJSON);
 							// Add markers to the map.
 							for (const marker of sectionGeoJSON.features) {
 								if (browser) {
+
 									// Create a DOM element for each marker.
 									const el = document.createElement('div');
 									const thumburl = marker.properties.thumbnail;
@@ -346,7 +347,7 @@
 
 									//popup
 									const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`<img src="${url}" style="height:30%;width:100%;padding: 0.5em 0.5em 0 0.5em;">`);
-									
+
 									// Add markers to the map.
 									new mapboxgl.Marker(el)
 									.setLngLat(marker.geometry.coordinates)
