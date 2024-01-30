@@ -82,6 +82,8 @@
 	let french = 18;
 	let english = 62;
 
+	let geocoder;
+
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
@@ -104,8 +106,7 @@
 		// Geocoder Search
 
 		map.on('load', () => {
-			map.addControl(
-				new MapboxGeocoder({
+			geocoder = new MapboxGeocoder({
 					accessToken: mapboxgl.accessToken,
 					countries: 'ca',
 					proximity: 'ip',
@@ -117,9 +118,13 @@
 					},
 					placeholder: 'Search for a place',
 					mapboxgl: mapboxgl
-				}),
-				'top-left'
-			);
+				});
+			
+				geocoder.on('results', function(results) {
+					document.getElementById('resetButton').style.display = 'flex'; // Show the button
+				});
+
+			map.addControl(geocoder,'top-left');
 
 			map.addSource('canada-DAs', {
 				type: 'vector',
@@ -351,6 +356,11 @@
 
 		document.getElementById('resetButton').style.display = 'none';
 
+		// reset geocoder
+		geocoder.clear();
+		document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].blur();
+
+
 
 		map.flyTo({
 			zoom: 3.2,
@@ -562,6 +572,7 @@
 	</div>
 	<div id="map" />
 	<div id="controls">
+		<div>
 		<div class="legend">
 			<Legend
 				minlabel={'Low'}
@@ -660,6 +671,7 @@
 				{map}
 			/>
 		</div>
+		</div>
 		<button id="resetButton" on:click={resetMap}>
 			<Icon icon="mi:undo" /> Reset Map
 		</button>
@@ -703,6 +715,7 @@
 		border-left: 1px solid #eee;
 		padding: 0.5em;
 		width: 25vw;
+		justify-content: space-between;
 	}
 
 	#resetButton {
@@ -715,6 +728,7 @@
 		width: 100%;
 		display: none;
 		padding: 0.5em;
+		margin: 0 0 0.5em 0;
 		align-items: center;
 		justify-content: center;
 	}
