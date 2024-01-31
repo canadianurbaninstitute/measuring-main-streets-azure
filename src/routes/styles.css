@@ -42,9 +42,8 @@ body {
 }
 
 .mapboxgl-popup-content {
-    width: fit-content;
-    padding: 2em;
-}
+    width: 150%;
+  }
 
 .rangeSlider {
     font-family: 'Inter', sans-serif;
@@ -97,9 +96,7 @@ body {
     font-weight: bold;
 }  
 
-.mapboxgl-popup-content {
-    padding: 15px 15px 10px;
-}
+
 
 .tick {
     font-size:0.5em;
@@ -113,7 +110,6 @@ h5, h3 {
 
 h4 {
     font-family: 'Inter', sans-serif;
-    padding-bottom: 0.2em;
     color: var(--brandDarkBlue);
     margin: 0 auto;
     font-weight: 500;

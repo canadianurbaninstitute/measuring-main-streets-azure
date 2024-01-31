@@ -113,10 +113,10 @@
 		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
-		margin-top: 0.5em;
 		width: 100%;
 		display: flex;
 		padding: 0.2em;
+		margin: 0.5em 0 0.5em 0;
 	}
 
 	.layerOn {

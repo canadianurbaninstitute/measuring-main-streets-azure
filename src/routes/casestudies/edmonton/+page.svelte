@@ -50,7 +50,7 @@
 		streetName={'Whyte (82) Avenue NW'}
 	/>
     <Card link={'/casestudies/edmonton/104streetnw'} cardImage={HundredFourStreetNW} streetName={'104 Street NW'} />
-    <Card link={'/casestudies/edmonton/118albertaave'} cardImage={HundredEighteenAlbertaAve} streetName={'118 Ave (Alberta)'} />
+    <Card link={'/casestudies/edmonton/118albertaave'} cardImage={HundredEighteenAlbertaAve} streetName={'118 Ave (Alberta Avenue)'} />
 	<Card link={'/casestudies/edmonton/118beverly'} cardImage={HundredEighteenBeverly} streetName={'118 Ave (Beverly)'} />
 	<Card
 		link={'/casestudies/edmonton/124streetnw'}

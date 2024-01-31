@@ -87,7 +87,7 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj',
+			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
 			center: [-89, 58],
 			zoom: 3.2,
 			minZoom: 2,
@@ -172,7 +172,7 @@
 
 			map.flyTo({
 				center: midpoint.geometry.coordinates,
-				zoom: 12
+				zoom: 13
 			});
 
 			// button
@@ -348,6 +348,18 @@
 				map.getCanvas().style.cursor = '';
 			}
 		);
+
+		map.on('zoom', () => {
+			if (map.getZoom() > 11) {
+				// Show the HTML element
+				document.getElementById('business-civic-legend').style.opacity = '1';
+				document.getElementById('business-civic-legend').style.visibility = 'visible';
+			} else {
+				// Hide the HTML element
+				document.getElementById('business-civic-legend').style.opacity = '0';
+				document.getElementById('business-civic-legend').style.visibility = 'hidden';
+			}
+		});
 	});
 
 	// Reset Map
@@ -437,6 +449,8 @@
 		map.removeSource('selectedRoad');
 		map.setFilter('canada-DAs-highlighted', ['in', 'DAUID', '']);
 	}
+
+
 </script>
 
 <svelte:head>
@@ -594,7 +608,7 @@
 				{map}
 			/>
 		</div>
-		<div class="legend">
+		<div class="legend" id="business-civic-legend">
 			<h4>Civic Infrastructure</h4>
 			<LegendItem
 				variant={'circle'}
@@ -641,7 +655,6 @@
 				id={'canada-civicinfra-education'}
 				{map}
 			/>
-			<hr />
 			<h4>Business</h4>
 			<LegendItem
 				variant={'circle'}
@@ -739,6 +752,12 @@
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
+	}
+
+	#business-civic-legend {
+		transition: opacity 0.3s, visibility 0.3s;
+		opacity: 0;
+		visibility: hidden;
 	}
 
 	.metric-container {
