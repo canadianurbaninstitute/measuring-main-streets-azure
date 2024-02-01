@@ -76,51 +76,61 @@
 
 <div class="card-grid">
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/westqueenwest'} 
 		cardImage={FiftyAvenue}
 		streetName={'50 Avenue'}
 	/>
+	<!-- 50avenue -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={NinteySevenStreetDowntown}
 		streetName={'97 Street Downtown'}
 	/>
+	<!-- 97streetdowntown -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={NinteySevenStreetNW}
 		streetName={'97 Street NW'}
 	/>
+	<!-- 97streetnw -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={HundredAve}
 		streetName={'100 Avenue'}
 	/>
+	<!-- 100avenue -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={HundredFiveStreetNW}
 		streetName={'105 Street NW'}
 	/>
+	<!-- 105streetnw -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={HundredSevenAvenueNW}
 		streetName={'107 Avenue NW'}
 	/>
-	<Card link={'/casestudies/toronto/westqueenwest'} cardImage={HundredThirtySevenAvenueNW} streetName={'137 Avenue NW'} />
+	<!-- 107avenuenw -->
+	<Card link={'/casestudies/toronto/westqueenwest'} cardImage={HundredThirtySevenAvenueNW} streetName={'137 Avenue NW'} /> 
+	<!-- 137avenuenw -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={ParsonsRoadSW}
 		streetName={'Parsons Road SW'}
 	/>
+	<!-- parsonsroadsw -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={SherwoodDrive}
 		streetName={'Sherwood Drive'}
 	/>
+	<!-- sherwooddrive -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={StAlbertRoad}
 		streetName={'St. Albert Road'}
 	/>
+	<!-- stalbertroad -->
 </div>
 
 <style>

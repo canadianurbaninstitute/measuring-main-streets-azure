@@ -79,47 +79,57 @@
 		cardImage={CaledonEast}
 		streetName={'Caledon East'}
 	/>
+	<!-- caledoneast -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={Brampton}
 		streetName={'Downtown Brampton'}
 	/>
+	<!-- downtownbrampton -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={EtobicokeLakeshore}
 		streetName={'Etobicoke Lakeshore'}
 	/>
+	<!-- etobicokelakeshore -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={GoldenMile}
 		streetName={'Golden Mile'}
 	/>
+	<!-- goldenmile -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={LibertyVillage}
 		streetName={'Liberty Village'}
 	/>
+	<!-- libertyvillage -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={MarkhamHwy7}
 		streetName={'Markham Highway 7'}
 	/>
-	<Card link={'/casestudies/toronto/westqueenwest'} cardImage={Oakville} streetName={'Oakville'} />
+	<!-- markhamhighway7 -->
+	<Card link={'/casestudies/toronto/westqueenwest'} cardImage={Oakville} streetName={'Oakville'} /> 
+	<!-- oakvilla -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={Pickering}
 		streetName={'Pickering'}
 	/>
+	<!-- pickering -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={Schomberg}
 		streetName={'Schomberg'}
 	/>
+	<!-- schomberg -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={SpadinaChinatown}
 		streetName={'Spadina Chinatown'}
 	/>
+	<!-- spadinachinatown -->
 </div>
 
 <style>

@@ -325,15 +325,16 @@
 			});
 		});
 
-		// map.on('click', 'toronto-BIAs', (e) => {
-		// 	goto('/casestudies/westqueenwest');
-		// });
+		map.on('click', 'case-study-BIAs', (e) => {
+			const path = e.features[0].properties.path
+			goto('/casestudies/' + path);
+		});
 
 		// Change the cursor to a pointer when
 		// the mouse is over the states layer.
 		map.on(
 			'mouseenter',
-			['mainstreets-canada', 'mainstreets-canada-invisible', 'toronto-bias'],
+			['mainstreets-canada', 'mainstreets-canada-invisible', 'case-study-BIAs'],
 			() => {
 				map.getCanvas().style.cursor = 'pointer';
 			}
@@ -343,7 +344,7 @@
 		// when it leaves the states layer.
 		map.on(
 			'mouseleave',
-			['mainstreets-canada', 'mainstreets-canada-invisible', 'toronto-bias'],
+			['mainstreets-canada', 'mainstreets-canada-invisible', 'case-study-BIAs'],
 			() => {
 				map.getCanvas().style.cursor = '';
 			}
@@ -602,7 +603,7 @@
 				bgcolor={'#ffdd33'}
 				bordercolor={'#c4ad37'}
 				button={true}
-				id={'toronto-BIAs'}
+				id={'case-study-BIAs'}
 				featuretype={'fill'}
 				targetopacity={0.5}
 				{map}

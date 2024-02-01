@@ -82,47 +82,57 @@
 		cardImage={AveDorval}
 		streetName={'Ave Dorval'}
 	/>
+	<!-- avedorval -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={AveVictoria}
 		streetName={'Avenue Victoria'}
 	/>
+	<!-- avenuevictoria -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={BlvdMonk}
 		streetName={'Boulevard Monk'}
 	/>
+	<!-- boulevardmonk -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={JeanTalon}
 		streetName={'Jean Talon'}
 	/>
+	<!-- jeantalon -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={NotreDame}
 		streetName={'Notre Dame'}
 	/>
+	<!-- notredame -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={RueBeaubien}
 		streetName={'Rue Beaubien'}
 	/>
+	<!-- ruebeaubien -->
 	<Card link={'/casestudies/toronto/westqueenwest'} cardImage={RueRichelieu} streetName={'Rue Richelieu'} />
+	<!-- ruerichelieu -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={StDenis}
 		streetName={'St. Denis'}
 	/>
+	<!-- stdenis -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={StEustache}
 		streetName={'St. Eustache'}
 	/>
+	<!-- steustache -->
 	<Card
 		link={'/casestudies/toronto/westqueenwest'}
 		cardImage={StHubert}
 		streetName={'St. Hubert'}
 	/>
+	<!-- sthubert -->
 </div>
 
 <style>

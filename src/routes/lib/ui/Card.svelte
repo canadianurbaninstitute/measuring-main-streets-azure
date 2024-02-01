@@ -1,13 +1,10 @@
 <script>
     export let link;
     export let cardImage;
-    export let streetName;
-
-    import { base } from "$app/paths";
-</script>
+    export let streetName;</script>
 
 
-<a href={base + link}>
+<a href={link}>
 <div class="card">
     <div class="card-img">
         <img src={cardImage} alt="card">
@@ -30,7 +27,7 @@
         cursor: pointer;
         background-color: #eee;
     }
-
+    
     h4 {
         color: var(--brandDarkBlue);
         font-weight: 400;
