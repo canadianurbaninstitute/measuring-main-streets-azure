@@ -2,12 +2,14 @@
 	export let minlabel = 0;
   export let maxlabel = 100;
   export let label;
+  export let sublabel = '';
   export let gradient = 'linear-gradient(to right, #ebf9ff, #cceffe, #99dffc, #67cefb, #34bef9, #01aef8, #018bc6, #016895, #004663, #002332, #001d29)';
 </script>
 
 <div id="legend" class='legend'>
   <div class=gradient-container>
   <div class="regular-item">{label}</div>
+  <div class="sublabel">{sublabel}</div>
   <div class="gradient-box" style="background:{gradient}"></div>
   <span class="minlabel">{minlabel}</span>
   <span class="maxlabel">{maxlabel}</span>
@@ -47,6 +49,12 @@
 
   }
   
+  .sublabel {
+    font: 0.8em 'Inter', sans-serif;
+    font-style: italic;
+
+  }
+
   .maxlabel {
     font: 12px/20px 'Inter', sans-serif;
     position: absolute;

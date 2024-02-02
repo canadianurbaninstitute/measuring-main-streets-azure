@@ -89,7 +89,7 @@
 			container: 'map',
 			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
 			center: [-89, 58],
-			zoom: 3.2,
+			zoom: 3.3,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -292,7 +292,7 @@
 
 			const dauid = selectedFeatures.map((feature) => feature.properties.DAUID);
 			// Set a filter matching selected features by FIPS codes
-			// to activate the 'counties-highlighted' layer.
+			// to activate the 'canada-DAs-highlighted' layer.
 			map.setFilter('canada-DAs-highlighted', ['in', 'DAUID', ...dauid]);
 
 			// map.addSource('selectedRoadBuffer', {
@@ -593,7 +593,16 @@
 				minlabel={'Low'}
 				maxlabel={'High'}
 				label={'Main Street Business Density'}
+				sublabel={'(# of Main Street businesses / km)'}
 				gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
+			/>
+			<LegendItem
+				variant={'polygon'}
+				label={'Main Street Catchment'}
+				bgcolor={'#ffb8b8'}
+				bordercolor={'#cb1515'}
+				featuretype={'fill'}
+				{map}
 			/>
 		</div>
 		<div class="legend">
