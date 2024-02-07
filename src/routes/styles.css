@@ -142,3 +142,10 @@ h1 {
 .marker {
     cursor:pointer;
 }
+
+
+.mapboxgl-ctrl-geocoder, .mapboxgl-ctrl-geocoder .suggestions {
+    border-radius: 0.5em;
+    box-shadow: none!important;
+    border: 1px solid #ddd;
+}

@@ -113,6 +113,7 @@
 					types: 'address, region, country, postcode, district, place, locality, neighborhood',
 					language: 'en, fr',
 					marker: true,
+					zoom: 12,
 					marker: {
 						color: '#0098D6'
 					},
