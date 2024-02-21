@@ -589,6 +589,10 @@
 	<div id="map" />
 	<div id="controls">
 		<div>
+			<div class="legend">
+
+		<p>This is a map of all main street segments in Canada. Search for a place using the search box or navigate the map using the controls and click on a main street segment to see information associated with it.</p>
+				</div>
 		<div class="legend">
 			<Legend
 				minlabel={'Low'}
@@ -708,6 +712,12 @@
 		margin: 0px;
 		background-color: white;
 		height: 100%;
+	}
+
+	p {
+		color: #222;
+		margin: 0 auto;
+		font-size: 0.8em;
 	}
 
 	#map {

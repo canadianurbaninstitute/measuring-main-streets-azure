@@ -49,6 +49,7 @@
 				</ul>
 			</li>
 			<li><a href="/reports">Reports</a></li>
+			<li><a href="/tools">Tools</a></li>
 			<li><a href="/about">About</a></li>
 
 		</ul>

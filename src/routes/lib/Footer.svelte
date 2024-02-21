@@ -1,22 +1,41 @@
 <script>
-	import logo from '../lib/assets/cui_logo.svg';
+	import cui from '../lib/assets/cui_logo_white.svg';
+	import canada from '../lib/assets/canada_logo.svg';
+	import environics from '../lib/assets/environics_logo.svg';
+	import schoolofcities from '../lib/assets/soc_logo.svg';
+	import opennorth from '../lib/assets/opennorth_logo.svg';
+
+
+
+
 </script>
 
 <div id="bar">
-<div id="logo-group">
-	<div id="logo">
-		<a href="https://www.canurb.org"><img src={logo} alt="Canadian Urban Institute" /></a>
+	<div id="logo-content">
+	<p>
+		This project (part of the Research Knowledge Initiative program from the Department of Housing,
+		Infrastructure and Communities) was developed by the Canadian Urban Institute in partnership
+		with Environics Analytics, the University of Toronto's School of Cities, and Open North.
+	</p>
+	<div class="logo-group">
+	<img src={canada} alt="Canadian Urban Institute" />
+	<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
 	</div>
-</div>
-<div id="menu">
-	<nav>
-		<ul>
-			<li><a href="/map">Map</a></li>
-			<li><a href="/reports">Reports</a></li>
+	<div class="logo-group">
+	<a href="https://schoolofcities.utoronto.ca/"><img src={schoolofcities} alt="School of Cities" /></a>
+	<a href="https://environicsanalytics.com/en-ca/home"><img src={environics} alt="Environics Analytics" /></a>
 
-		</ul>
-	</nav>
-</div>
+	<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
+	</div>
+	</div>
+	<div id="menu">
+		<nav>
+			<ul>
+				<li><a href="/map">Map</a></li>
+				<li><a href="/reports">Reports</a></li>
+			</ul>
+		</nav>
+	</div>
 </div>
 
 <style>
@@ -49,7 +68,12 @@
 		text-decoration: none;
 	}
 
-	#logo-group {
+	#logo-content {
+		width: 60%;
+		margin: 1em;
+	}
+
+	.logo-group {
 		position: relative;
 		background-color: var(--brandDarkBlue);
 		display: flex;
@@ -69,30 +93,23 @@
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
 
 	@media only screen and (max-width: 768px) {
-
-		#bar, #logo-group {
-		flex-direction: column;
-
+		#bar,
+		#logo-group {
+			flex-direction: column;
 		}
-		
-}
-
-	#logo {
-		margin: 1em;
-		max-width: 230px;
-		height: 50px;
-		filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(281deg) brightness(104%) contrast(103%);
 	}
 
 	img {
-		height: 50px;
-		color: blue;
+		height: 60px;
+		padding: 0.5em;
 	}
-	
-	img:hover {
-		height: 50px;
+
+	a:hover {
 		opacity: 0.5;
 		cursor: pointer;
 	}
 
+	p {
+		color: white;
+	}
 </style>

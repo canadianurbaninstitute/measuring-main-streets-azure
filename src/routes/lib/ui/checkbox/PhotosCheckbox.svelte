@@ -1,36 +1,16 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
-	import { mapStoreList } from '../../mapStore'; // Import the mapStore
-
 	import Icon from '@iconify/svelte';
 
+	export let section;
 	let isChecked = true;
 
-	export let section;
-	export let layer;
-	let map = null; // Initialize map as null
-
-	// Subscribe to the map store and update the local `map` variable
-	const unsubscribe = mapStoreList.subscribe((maps) => {
-		if (section && maps[section]) {
-			map = maps[section];
-		}
-	});
-
-	// Unsubscribe when the component is destroyed to prevent memory leaks
-	onDestroy(unsubscribe);
-
 	function toggleLayerOpacity() {
-		if (map) {
-			// const layerId = 'photos';
-			const opacity = isChecked ? 1 : 0;
-			map.setPaintProperty(layer, 'icon-opacity', opacity);
-		}
+		const markers = document.querySelectorAll(`.marker-${section}`);
+		const visibility = isChecked ? 'block' : 'none';
+		markers.forEach(marker => {
+			marker.style.display = visibility;
+		});
 	}
-
-	onMount(() => {
-		toggleLayerOpacity(); // Initialize layer opacity based on the initial checkbox state
-	});
 </script>
 
 <button class={isChecked ? 'layerOn' : 'layerOff'}>

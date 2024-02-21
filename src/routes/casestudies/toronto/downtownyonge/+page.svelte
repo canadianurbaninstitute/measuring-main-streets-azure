@@ -163,6 +163,7 @@
 					const section = sections.find((sec) => sec === id);
 					if (section) {
 						const sectionValue = photosections[section];
+						console.log(section)
 						const sectionGeoJSON = createGeoJSON(sectionValue);
 						// Add markers to the map.
 						for (const marker of sectionGeoJSON.features) {
@@ -175,7 +176,7 @@
 								const url = marker.properties.url;
 								// calc new width based on new height (100) and add 15px border on each side (30)
 								const scaledWidth = (width / height) * 30 + 10;
-								el.className = 'marker';
+								el.className = `marker-${section}`;
 								el.style.backgroundImage = `url(${thumburl})`;
 								el.style.width = `${scaledWidth}px`;
 								el.style.height = '40px';
@@ -279,7 +280,7 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
-						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
+						<PhotosCheckbox section={'builtform'} />
 						<SatelliteCheckbox casestudy={'downtownyonge'} section={'builtform'} />
 					</div>
 					<CaseStudyMap
@@ -364,7 +365,7 @@
 							section={'civicinfra'}
 						/>
 						<div class="checkbox">
-							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
+							<PhotosCheckbox section={'civicinfra'} />
 							<IsochroneCheckbox
 								section={'civicinfra'}
 								layer={'downtownyonge-isochrone'}

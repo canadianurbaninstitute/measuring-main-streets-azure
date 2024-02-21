@@ -1,34 +1,74 @@
 <script>
     import './styles.css'
     import HeroCard from './lib/ui/HeroCard.svelte';
+    import Footer from './lib/Footer.svelte'
 </script>
 
 <div class="hero">
-    <h1> Measuring Main Streets Demo </h1>
+    <h1> Measuring Main Streets </h1>
 </div>
 
 <div class="card-grid">
 
 <HeroCard
 link={"/map"}
-cardImage={'https://i.imgur.com/DXGEpQB.png'}
+cardImage={'https://i.imgur.com/pWPx6gP.png'}
 title={'National Map'}
-subtitle={'Explore the national map'}
+subtitle={'Explore the national main street map'}
 />
+
 
 <HeroCard
 link={"/casestudies"}
-cardImage={'https://i.imgur.com/DXGEpQB.png'}
+cardImage={'https://i.imgur.com/UgEdiBk.png'}
 title={'Case Studies'}
-subtitle={'Explore the case studies'}
+subtitle={'Browse the case studies'}
+/>
+
+<HeroCard
+link={"/reports"}
+cardImage={'https://i.imgur.com/DXGEpQB.png'}
+title={'Reports'}
+subtitle={'Read the reports'}
+/>
+
+<HeroCard
+link={"/tools"}
+cardImage={'https://i.imgur.com/DXGEpQB.png'}
+title={'Tools'}
+subtitle={'Use our tools'}
 />
 
 </div>
 
+<div class="hero">
+    <h1> Why Main Streets? </h1>
+    <div id="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/-MLAgIoDURI?si=SWoIAT7bGVCaCViZ&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+</div>
+
+<Footer/>
+
 <style>
 
     h1 {
-        padding-top: 1em;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        color: var(--brandDarkBlue);
+        font-size: 3em;
+        margin: 0;
+        letter-spacing: -0.1rem;
+    }
+
+    .hero {
+        margin: 2em;
+    }
+
+    #video-container {
+        display: flex;
+        flex-direction: row;
+        margin: 2em 0 0 0;
     }
 
     .card-grid {
@@ -37,7 +77,7 @@ subtitle={'Explore the case studies'}
 		margin: 1em;
 		align-items: center;
 		justify-content: center;
-		grid-template-columns: repeat(1, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 	}
 
 </style>
