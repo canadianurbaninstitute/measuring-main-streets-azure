@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="363.858891px" height="326.999876px" viewBox="0 0 363.858891 326.999876" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>CaledonEast</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="CaledonEast" stroke="#0098D6" stroke-width="2" fill-rule="nonzero" transform="translate(181.7704, 163.484) rotate(30) translate(-181.7704, -163.484)" points="31.7704167 90.0653425 50.3269282 63.4839619 154.077975 123.676152 161.629238 120.053842 239.759339 166.567555 246.362865 159.135153 331.770417 205.128483 263.756737 263.483962 196.669587 229.304991 186.392461 233.420646 163.543563 224.017827 136.039867 203.911417 102.297885 197.673859 82.1522292 185.393563 126.018644 140.298404"></polygon>
+<svg width="209.403002px" height="282.321888px" viewBox="0 0 209.403002 282.321888" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="CaledonEast" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="CaledonEast" transform="translate(-81.1987, -7.9827)" stroke="#0098D6" stroke-width="2">
+            <polygon points="86.7093097 23.0201509 116.07041 9.27825575 175.825358 113.281745 184.176098 113.920364 228.581894 193.267471 238.016916 190.132586 288.985361 272.667754 200.906047 289.198241 159.896356 226.054809 148.938276 224.480508 133.85196 204.912978 120.086265 173.748469 93.9836307 151.475594 82.677129 130.767718 143.214138 113.647372"></polygon>
+        </g>
     </g>
 </svg>

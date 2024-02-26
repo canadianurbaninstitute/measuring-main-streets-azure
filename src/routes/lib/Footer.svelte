@@ -31,8 +31,8 @@
 	<div id="menu">
 		<nav>
 			<ul>
-				<li><a href="/map">Map</a></li>
-				<li><a href="/reports">Reports</a></li>
+				<li><a href="/map">X (Twitter)</a></li>
+				<li><a href="/reports">Linkedin</a></li>
 			</ul>
 		</nav>
 	</div>

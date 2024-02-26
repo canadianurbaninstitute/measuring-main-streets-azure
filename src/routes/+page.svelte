@@ -48,6 +48,16 @@ subtitle={'Use our tools'}
     </div>
 </div>
 
+<div class="hero">
+    <h1> The Canadian Urban Institute </h1>
+   <p>We are the national platform that houses the best in Canadian city building — where policymakers, urban professionals, civic and business leaders, community activists and academics can learn, share and collaborate with one another from coast to coast to coast. </p>
+</div>
+
+<div class="hero">
+    <h1> Learn More </h1>
+</div>
+
+
 <Footer/>
 
 <style>
@@ -56,7 +66,7 @@ subtitle={'Use our tools'}
         font-family: 'Inter', sans-serif;
         font-weight: 500;
         color: var(--brandDarkBlue);
-        font-size: 3em;
+        font-size: 2em;
         margin: 0;
         letter-spacing: -0.1rem;
     }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="209.549647px" height="229.70876px" viewBox="0 0 209.549647 229.70876" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Oakville</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Oakville" stroke="#0098D6" stroke-width="2" fill-rule="nonzero" transform="translate(104.7531, 114.9397) rotate(36) translate(-104.7531, -114.9397)" points="146.232948 14.9396682 159.298542 23.778515 115.060226 121.033376 111.978166 125.938299 115.751552 127.649599 110.569158 139.542617 108.763525 142.57785 102.634997 142.164659 79.5462949 190.451207 81.9198305 191.768254 68.4342017 214.939668 50.2076329 205.736697 95.0097108 112.253065 98.6842001 115.185861"></polygon>
+<svg width="197.773978px" height="118.80538px" viewBox="0 0 197.773978 118.80538" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Oakville" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Oakville" transform="translate(-4.0721, -55.0065)" stroke="#0098D6" stroke-width="2">
+            <polygon points="195.243162 56.4422641 200.618106 71.2728048 107.663583 123.95101 102.287103 126.107587 104.33396 129.709998 93.1507743 136.285517 89.9059213 137.679748 85.1907056 133.743211 38.1294324 159.23665 39.2755222 161.697293 14.7456038 172.516707 5.40937063 154.358039 96.6033133 105.062192 97.8521833 109.594685"></polygon>
+        </g>
     </g>
 </svg>

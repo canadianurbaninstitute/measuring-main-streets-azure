@@ -105,27 +105,27 @@
 	/>
 	<!-- libertyvillage -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/markhamhwy7'}
 		cardImage={MarkhamHwy7}
 		streetName={'Markham Highway 7'}
 	/>
 	<!-- markhamhighway7 -->
-	<Card link={'/casestudies/toronto/westqueenwest'} cardImage={Oakville} streetName={'Oakville'} /> 
+	<Card link={'/casestudies/toronto/oakville'} cardImage={Oakville} streetName={'Oakville'} /> 
 	<!-- oakvilla -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/pickering'}
 		cardImage={Pickering}
 		streetName={'Pickering'}
 	/>
 	<!-- pickering -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/schomberg'}
 		cardImage={Schomberg}
 		streetName={'Schomberg'}
 	/>
 	<!-- schomberg -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/spadinachinatown'}
 		cardImage={SpadinaChinatown}
 		streetName={'Spadina Chinatown'}
 	/>
