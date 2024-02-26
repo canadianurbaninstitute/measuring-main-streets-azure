@@ -75,31 +75,31 @@
 
 <div class="card-grid">
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/caledoneast'}
 		cardImage={CaledonEast}
 		streetName={'Caledon East'}
 	/>
 	<!-- caledoneast -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/downtownbrampton'}
 		cardImage={Brampton}
 		streetName={'Downtown Brampton'}
 	/>
 	<!-- downtownbrampton -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/etobicokelakeshore'}
 		cardImage={EtobicokeLakeshore}
 		streetName={'Etobicoke Lakeshore'}
 	/>
 	<!-- etobicokelakeshore -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/goldenmile'}
 		cardImage={GoldenMile}
 		streetName={'Golden Mile'}
 	/>
 	<!-- goldenmile -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/toronto/libertyvillage'}
 		cardImage={LibertyVillage}
 		streetName={'Liberty Village'}
 	/>

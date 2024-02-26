@@ -462,7 +462,7 @@
 							section={'business'}
 						/>
 						<div class="checkbox">
-							<PhotosCheckbox section={'business'} layer={'business-photos'} />
+							<PhotosCheckbox section={'business'} />
 							<IsochroneCheckbox
 								section={'business'}
 								layer={'downtownyonge-isochrone'}
@@ -589,7 +589,7 @@
 								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
-						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
+						<PhotosCheckbox section={'housing'}/>
 					</div>
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor

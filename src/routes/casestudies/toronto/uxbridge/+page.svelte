@@ -175,7 +175,7 @@ setConfig({
 								const url = marker.properties.url;
 								// calc new width based on new height (100) and add 15px border on each side (30)
 								const scaledWidth = (width / height) * 30 + 10;
-								el.className = 'marker';
+								el.className = `marker-${section}`;
 								el.style.backgroundImage = `url(${thumburl})`;
 								el.style.width = `${scaledWidth}px`;
 								el.style.height = '40px';
