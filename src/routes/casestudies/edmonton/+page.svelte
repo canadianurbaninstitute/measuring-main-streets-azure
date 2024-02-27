@@ -8,9 +8,9 @@
 	import EightyTwoAvenueNW from '../../lib/assets/boundaries/edmontonboundaries/82AvenueNW.svg';
 	import NinteySevenStreetDowntown from '../../lib/assets/boundaries/edmontonboundaries/97StreetDowntown.svg';
     import NinteySevenStreetNW from '../../lib/assets/boundaries/edmontonboundaries/97StreetNW.svg';
-	import HundredAve from '../../lib/assets/boundaries/edmontonboundaries/100Ave.svg';
+	import HundredAve from '../../lib/assets/boundaries/edmontonboundaries/100Avenue.svg';
 	import HundredFourStreetNW from '../../lib/assets/boundaries/edmontonboundaries/104StreetNW.svg';
-	import HundredFiveStreetNW from '../../lib/assets/boundaries/edmontonboundaries/105StreetNW.svg';
+	import HundredFourStreetDowntown from '../../lib/assets/boundaries/edmontonboundaries/104StreetDowntown.svg';
 	import HundredSevenAvenueNW from '../../lib/assets/boundaries/edmontonboundaries/107AvenueNW.svg';
 	import HundredEighteenAlbertaAve from '../../lib/assets/boundaries/edmontonboundaries/118AlbertaAve.svg';
 	import HundredEighteenBeverly from '../../lib/assets/boundaries/edmontonboundaries/118Beverly.svg';
@@ -76,57 +76,57 @@
 
 <div class="card-grid">
 	<Card
-		link={'/casestudies/toronto/westqueenwest'} 
+		link={'/casestudies/edmonton/50avenue'} 
 		cardImage={FiftyAvenue}
 		streetName={'50 Avenue'}
 	/>
 	<!-- 50avenue -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/edmonton/97streetdowntown'}
 		cardImage={NinteySevenStreetDowntown}
 		streetName={'97 Street Downtown'}
 	/>
 	<!-- 97streetdowntown -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/edmonton/97streetnw'}
 		cardImage={NinteySevenStreetNW}
 		streetName={'97 Street NW'}
 	/>
 	<!-- 97streetnw -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/edmonton/100avenue'}
 		cardImage={HundredAve}
 		streetName={'100 Avenue'}
 	/>
 	<!-- 100avenue -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
-		cardImage={HundredFiveStreetNW}
-		streetName={'105 Street NW'}
+		link={'/casestudies/edmonton/104streetdowntown'}
+		cardImage={HundredFourStreetDowntown}
+		streetName={'104 Street Downtown'}
 	/>
-	<!-- 105streetnw -->
+	<!-- 104streetdowntown -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/edmonton/107avenuenw'}
 		cardImage={HundredSevenAvenueNW}
 		streetName={'107 Avenue NW'}
 	/>
 	<!-- 107avenuenw -->
-	<Card link={'/casestudies/toronto/westqueenwest'} cardImage={HundredThirtySevenAvenueNW} streetName={'137 Avenue NW'} /> 
+	<Card link={'/casestudies/edmonton/137avenuenw'} cardImage={HundredThirtySevenAvenueNW} streetName={'137 Avenue NW'} /> 
 	<!-- 137avenuenw -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/edmonton/parsonsroadsw'}
 		cardImage={ParsonsRoadSW}
 		streetName={'Parsons Road SW'}
 	/>
 	<!-- parsonsroadsw -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/edmonton/sherwooddrive'}
 		cardImage={SherwoodDrive}
 		streetName={'Sherwood Drive'}
 	/>
 	<!-- sherwooddrive -->
 	<Card
-		link={'/casestudies/toronto/westqueenwest'}
+		link={'/casestudies/edmonton/stalbertroad'}
 		cardImage={StAlbertRoad}
 		streetName={'St. Albert Road'}
 	/>

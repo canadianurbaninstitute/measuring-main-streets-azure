@@ -14,14 +14,14 @@
 	<div id="logo-content">
 	<p>
 		This project (part of the Research Knowledge Initiative program from Infrastructure Canada) was developed by the Canadian Urban Institute in partnership
-		with Environics Analytics, the University of Toronto's School of Cities, and Open North.
+		with Environics Analytics and Open North.
 	</p>
 	<div class="logo-group">
 	<img src={canada} alt="Canadian Urban Institute" />
 	<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
 	</div>
 	<div class="logo-group">
-	<a href="https://schoolofcities.utoronto.ca/"><img src={schoolofcities} alt="School of Cities" /></a>
+	<!-- <a href="https://schoolofcities.utoronto.ca/"><img src={schoolofcities} alt="School of Cities" /></a> -->
 	<a href="https://environicsanalytics.com/en-ca/home"><img src={environics} alt="Environics Analytics" /></a>
 
 	<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
