@@ -472,11 +472,8 @@
 		<h2>{streetname}</h2>
 		<h5>{place}</h5>
 		<hr />
+		<h5>Street Characteristics</h5>
 		<!-- <Metric label={'Amenity Score'} value={business_independence} icon={"bxs:tachometer"}/> -->
-		<div class="metric-container">
-			<Metric label={'Population'} value={population} icon={'fluent:people-20-filled'} />
-			<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
-		</div>
 		<Accordion>
 			<Metric
 				accordion
@@ -522,7 +519,13 @@
 			</div>
 		</Accordion>
 		<Metric label={'Independent Business Index'} value={independent_business} icon={'mdi:shop'} />
+	<hr/>
+		<h5>Neighbourhood Characteristics</h5>
 		<h6>Demographic</h6>
+		<div class="metric-container">
+			<Metric label={'Population'} value={population} icon={'fluent:people-20-filled'} />
+			<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
+		</div>
 		<div class="metric-container">
 			<Metric
 				label={'Average Income'}
@@ -788,12 +791,13 @@
 		/*width: 20vw;*/
 	}
 
-	h2 {
-		text-align: center;
-	}
-
 	h6 {
 		margin:0.5em 0 0.5em 0;
+	}
+
+	h5, h2 {
+    	margin: 0;
+		padding: 0.1em 0 0.1em 0;
 	}
 
 	@media screen and (min-width: 640px) {
