@@ -13,8 +13,7 @@
 <div id="bar">
 	<div id="logo-content">
 	<p>
-		This project (part of the Research Knowledge Initiative program from the Department of Housing,
-		Infrastructure and Communities) was developed by the Canadian Urban Institute in partnership
+		This project (part of the Research Knowledge Initiative program from Infrastructure Canada) was developed by the Canadian Urban Institute in partnership
 		with Environics Analytics, the University of Toronto's School of Cities, and Open North.
 	</p>
 	<div class="logo-group">
