@@ -4,52 +4,43 @@
 	import environics from '../lib/assets/environics_logo.svg';
 	import schoolofcities from '../lib/assets/soc_logo.svg';
 	import opennorth from '../lib/assets/opennorth_logo.svg';
-
-
-
-
 </script>
 
 <div id="bar">
 	<div id="logo-content">
-	<p>
-		This project (part of the Research Knowledge Initiative program from Infrastructure Canada) was developed by the Canadian Urban Institute in partnership
-		with Environics Analytics and Open North.
-	</p>
-	<div class="logo-group">
-	<img src={canada} alt="Canadian Urban Institute" />
-	<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
+		<p>
+			This project (part of the Research Knowledge Initiative program from Infrastructure Canada)
+			was developed by the Canadian Urban Institute in partnership with Environics Analytics and
+			Open North.
+		</p>
+		<div class="logo-group">
+			<img src={canada} alt="Canadian Urban Institute" />
+			<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
+		</div>
+		<div class="logo-group">
+			<!-- <a href="https://schoolofcities.utoronto.ca/"><img src={schoolofcities} alt="School of Cities" /></a> -->
+			<a href="https://environicsanalytics.com/en-ca/home"><img src={environics} alt="Environics Analytics" /></a>
+			<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
+		</div>
 	</div>
-	<div class="logo-group">
-	<!-- <a href="https://schoolofcities.utoronto.ca/"><img src={schoolofcities} alt="School of Cities" /></a> -->
-	<a href="https://environicsanalytics.com/en-ca/home"><img src={environics} alt="Environics Analytics" /></a>
-
-	<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
-	</div>
-	</div>
-	<div id="menu">
 		<nav>
 			<ul>
-				<li><a href="/map">X (Twitter)</a></li>
-				<li><a href="/reports">Linkedin</a></li>
+				<li><a href="https://x.com/canurb">Twitter</a></li>
+				<li><a href="https://ca.linkedin.com/company/canadian-urban-institute">LinkedIn</a></li>
+				<li><a href="https://www.instagram.com/canadianurbaninstitute/">Instagram</a></li>
+				<li><a href="https://www.facebook.com/canurb/">Facebook</a></li>
 			</ul>
 		</nav>
-	</div>
 </div>
 
 <style>
-	#menu {
-		background-color: var(--brandDarkBlue);
-		display: flex;
-		justify-content: end;
-		align-items: center;
-	}
 
 	nav ul {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 		display: flex;
+		flex-direction: row;
 	}
 
 	nav ul a {
@@ -93,8 +84,10 @@
 
 	@media only screen and (max-width: 768px) {
 		#bar,
-		#logo-group {
+		.logo-group,
+		nav ul {
 			flex-direction: column;
+			text-align: center;
 		}
 	}
 

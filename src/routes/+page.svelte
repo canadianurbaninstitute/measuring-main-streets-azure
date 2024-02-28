@@ -20,7 +20,7 @@ subtitle={'Explore the national main street map'}
 
 <HeroCard
 link={"/casestudies"}
-cardImage={'https://i.imgur.com/UgEdiBk.png'}
+cardImage={'https://i.imgur.com/8WDGwYT.jpeg'}
 title={'Case Studies'}
 subtitle={'Browse the case studies'}
 />
