@@ -4,21 +4,21 @@
 	/* -------------------------------------------------------------------------- */
 
 	import Title from '../../../lib/Title.svelte';
-	import HundredFourStreetDowntown from '../../../lib/assets/boundaries/edmontonboundaries/104StreetDowntown.svg';
+	import HundredFiveStreetNW from '../../../lib/assets/boundaries/edmontonboundaries/105StreetNW.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/edmonton/104streetdowntown/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/104streetdowntown/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/edmonton/104streetdowntown/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/104streetdowntown/housingtype';
-	import housingconstruction from '../../../lib/data/casestudydata/edmonton/104streetdowntown/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/edmonton/104streetdowntown/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/edmonton/104streetdowntown/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/104streetdowntown/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/104streetdowntown/visitordayofweek';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/105streetnw/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/105streetnw/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/edmonton/105streetnw/businessmix';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/105streetnw/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/edmonton/105streetnw/housingconstruction';
+	import visitortraffic from '../../../lib/data/casestudydata/edmonton/105streetnw/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/edmonton/105streetnw/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/105streetnw/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/105streetnw/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
@@ -77,7 +77,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={HundredFourStreetDowntown} name={'104 Street Downtown'} location={'Edmonton, Alberta'} />
+	<Title outline={HundredFiveStreetNW} name={'105 Street NW'} location={'Edmonton, Alberta'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -100,7 +100,7 @@
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'104 Street Downtown'}
+							label={'105 Street NW'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -111,7 +111,7 @@
 						zoom={15}
 						pitch={50}
 						bearing={0}
-						layers={['mainstreets-edmonton', '104streetdowntown', '104streetdowntown-fill']}
+						layers={['mainstreets-edmonton', '105streetnw', '105streetnw-fill']}
 						section={'overview'}
 					/>
 				</div>
@@ -132,7 +132,7 @@
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'104 Street Downtown'}
+							label={'105 Street NW'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -144,7 +144,7 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
-						<SatelliteCheckbox casestudy={'104streetdowntown'} section={'builtform'} />
+						<SatelliteCheckbox casestudy={'105streetnw'} section={'builtform'} />
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4rh7ju02hf01p6cykrb1cx'}
@@ -154,8 +154,8 @@
 						pitch={60}
 						bearing={0}
 						layers={[
-							'104streetdowntown',
-							'104streetdowntown-fill',
+							'105streetnw',
+							'105streetnw-fill',
 							'greenspaces',
 							'transit-edmonton',
 							'transit-edmonton-stops',
@@ -230,7 +230,7 @@
 						<div class="checkbox">
 							<IsochroneCheckbox
 								section={'civicinfra'}
-								layer={'104streetdowntown-isochrone'}
+								layer={'105streetnw-isochrone'}
 								minZoom={13}
 								maxZoom={13.3}
 							/>
@@ -264,8 +264,8 @@
 						pitch={0}
 						bearing={0}
 						layers={[
-							'104streetdowntown',
-							'104streetdowntown-fill',
+							'105streetnw',
+							'105streetnw-fill',
 							'civicinfra-edmonton-education',
 							'civicinfra-edmonton-govt-community',
 							'civicinfra-edmonton-health',
@@ -326,7 +326,7 @@
 						<div class="checkbox">
 							<IsochroneCheckbox
 								section={'business'}
-								layer={'104streetdowntown-isochrone'}
+								layer={'105streetnw-isochrone'}
 								minZoom={13}
 								maxZoom={13.3}
 							/>
@@ -358,8 +358,8 @@
 						pitch={0}
 						bearing={0}
 						layers={[
-							'104streetdowntown',
-							'104streetdowntown-fill',
+							'105streetnw',
+							'105streetnw-fill',
 							'business-edmonton-retail',
 							'business-edmonton-food-drink',
 							'business-edmonton-services'
@@ -402,7 +402,7 @@
 						minZoom={13}
 						pitch={0}
 						bearing={0}
-						layers={['104streetdowntown', '104streetdowntown-fill', 'employment-size']}
+						layers={['105streetnw', '105streetnw-fill', 'employment-size']}
 						section={'employmentsize'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -437,7 +437,7 @@
 					<h2>Housing</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'104streetdowntown'}
+							casestudy={'105streetnw'}
 							section={'housing'}
 							region={'edmonton'}
 							options={[
@@ -466,7 +466,7 @@
 						minZoom={13}
 						pitch={0}
 						bearing={0}
-						layers={['104streetdowntown-outline', 'populationdensity']}
+						layers={['105streetnw-outline', 'populationdensity']}
 						section={'housing'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -507,7 +507,7 @@
 					<h2>Local Characteristics</h2>
 					<div class="controls">
 						<Dropdown
-							casestudy={'104streetdowntown'}
+							casestudy={'105streetnw'}
 							section={'demographics'}
 							region={'edmonton'}
 							options={[
@@ -538,7 +538,7 @@
 						minZoom={13}
 						pitch={0}
 						bearing={0}
-						layers={['104streetdowntown-outline', 'average-age']}
+						layers={['105streetnw-outline', 'average-age']}
 						section={'demographics'}
 					/>
 				</div>
@@ -586,7 +586,7 @@
 						zoom={9}
 						pitch={0}
 						bearing={0}
-						layers={['104streetdowntown-outline', 'visitors-2022']}
+						layers={['105streetnw-outline', 'visitors-2022']}
 						section={'visitors'}
 						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
@@ -654,7 +654,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'104 Street Downtown'} location={'Edmonton, Alberta'} />
+	<Summary name={'105 Street NW'} location={'Edmonton, Alberta'} />
 </main>
 
 <style>

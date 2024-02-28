@@ -10,7 +10,7 @@
     import NinteySevenStreetNW from '../../lib/assets/boundaries/edmontonboundaries/97StreetNW.svg';
 	import HundredAve from '../../lib/assets/boundaries/edmontonboundaries/100Avenue.svg';
 	import HundredFourStreetNW from '../../lib/assets/boundaries/edmontonboundaries/104StreetNW.svg';
-	import HundredFourStreetDowntown from '../../lib/assets/boundaries/edmontonboundaries/104StreetDowntown.svg';
+	import HundredFiveStreetNW from '../../lib/assets/boundaries/edmontonboundaries/105StreetNW.svg';
 	import HundredSevenAvenueNW from '../../lib/assets/boundaries/edmontonboundaries/107AvenueNW.svg';
 	import HundredEighteenAlbertaAve from '../../lib/assets/boundaries/edmontonboundaries/118AlbertaAve.svg';
 	import HundredEighteenBeverly from '../../lib/assets/boundaries/edmontonboundaries/118Beverly.svg';
@@ -100,9 +100,9 @@
 	/>
 	<!-- 100avenue -->
 	<Card
-		link={'/casestudies/edmonton/104streetdowntown'}
-		cardImage={HundredFourStreetDowntown}
-		streetName={'104 Street Downtown'}
+		link={'/casestudies/edmonton/105streetnw'}
+		cardImage={HundredFiveStreetNW}
+		streetName={'105 Street NW'}
 	/>
 	<!-- 104streetdowntown -->
 	<Card
