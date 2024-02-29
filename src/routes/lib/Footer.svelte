@@ -48,6 +48,7 @@
 		text-decoration: none;
 		padding-right: 2em;
 		margin-bottom: 0.4em;
+		color: #58e965;
 	}
 
 	nav ul a:hover {

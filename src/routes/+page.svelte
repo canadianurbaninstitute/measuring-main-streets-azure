@@ -12,11 +12,17 @@
 
 <HeroCard
 link={"/map"}
-cardImage={'https://i.imgur.com/pWPx6gP.png'}
+cardImage={'https://i.imgur.com/ywOuOgy.png'}
 title={'National Map'}
 subtitle={'Explore the national main street map'}
 />
 
+<HeroCard
+link={"/reports"}
+cardImage={'https://i.imgur.com/kNqQwYA.png'}
+title={'Reports'}
+subtitle={'Read the reports'}
+/>
 
 <HeroCard
 link={"/casestudies"}
@@ -25,16 +31,10 @@ title={'Case Studies'}
 subtitle={'Browse the case studies'}
 />
 
-<HeroCard
-link={"/reports"}
-cardImage={'https://i.imgur.com/DXGEpQB.png'}
-title={'Reports'}
-subtitle={'Read the reports'}
-/>
 
 <HeroCard
 link={"/tools"}
-cardImage={'https://i.imgur.com/DXGEpQB.png'}
+cardImage={'https://i.imgur.com/5VxRkJq.png'}
 title={'Tools'}
 subtitle={'Use our tools'}
 />

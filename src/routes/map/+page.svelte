@@ -87,7 +87,7 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj',
+			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
 			center: [-89, 58],
 			zoom: 3.3,
 			minZoom: 2,
@@ -154,8 +154,8 @@
 					source: 'canada-DAs',
 					'source-layer': 'canadaDAs',
 					paint: {
-						'fill-outline-color': '#cb1515',
-						'fill-color': '#ffb8b8',
+						'fill-outline-color': '#DB3069',
+						'fill-color': '#db799a',
 						'fill-opacity': 0.4
 					},
 					filter: ['in', 'DAUID', '']
@@ -320,7 +320,7 @@
 					'line-cap': 'round'
 				},
 				paint: {
-					'line-color': '#cb1515',
+					'line-color': '#DB3069',
 					'line-width': 5
 				}
 			});
@@ -607,8 +607,8 @@
 			<LegendItem
 				variant={'polygon'}
 				label={'Main Street Catchment'}
-				bgcolor={'#ffb8b8'}
-				bordercolor={'#cb1515'}
+				bgcolor={'#db799a'}
+				bordercolor={'#DB3069'}
 				featuretype={'fill'}
 				{map}
 			/>
@@ -617,8 +617,8 @@
 			<LegendItem
 				variant={'polygon'}
 				label={'Case Studies'}
-				bgcolor={'#ffdd33'}
-				bordercolor={'#c4ad37'}
+				bgcolor={'#58e965'}
+				bordercolor={'#189122'}
 				button={true}
 				id={'case-study-BIAs'}
 				featuretype={'fill'}
