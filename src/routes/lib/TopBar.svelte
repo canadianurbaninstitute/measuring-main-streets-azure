@@ -1,15 +1,28 @@
 <script>
 	import logo from '../lib/assets/cui_logo.svg';
 	import mms_logo from '../lib/assets/mms_logo.svg';
+	import mms_logo_alt from '../lib/assets/mms_logo_alt.svg'
 	import Icon from '@iconify/svelte';
+
+	// Initial image source
+	let imageSrc = mms_logo;
+
+	// Function to change the image source on hover
+	function onMouseOver() {
+	imageSrc = mms_logo_alt;
+	}
+
+	// Function to revert the image source when the mouse leaves
+	function onMouseOut() {
+	imageSrc = mms_logo;
+	}
 </script>
 
 <div id="bar">
 <div id="logo-group">
-	<!-- <div id="logo">
-		<a href="https://www.canurb.org"><img src={logo} alt="Canadian Urban Institute" /></a>
-	</div> -->
-	<a href="/"><img src={mms_logo} alt="Measuring Main Streets"/></a>
+	<a href="/"><img src={imageSrc} alt="Measuring Main Streets" on:mouseover={onMouseOver} on:mouseout={onMouseOut} on:focus={onMouseOver} on:blur={onMouseOut}>
+
+	</a>
 </div>
 <div id="menu">
 	<nav>
@@ -49,14 +62,14 @@
 	}
 
 	nav ul a {
-		color: var(--brandLightBlue);
+		color: var(--brandDarkBlue);
 		text-decoration: none;
 		padding-right: 2em;
 		margin-bottom: 0.4em;
 	}
 
 	nav ul a:hover {
-		color: var(--brandDarkBlue);
+		color: var(--brandLightBlue);
 	}
 
 	a {
@@ -92,14 +105,14 @@
 	.dropdown-menu li {
 		background-color: white;
 		z-index: 0;
-		color: var(--brandLightBlue);
+		color: var(--brandDarkBlue);
 		border-bottom: 1px solid #ddd;
 	}
 
 
 	.dropdown-menu li:hover {
 		background-color: #eee;
-		color: var(--brandDarkBlue);
+		color: var(--brandLightBlue);
 		cursor: pointer;
 	}
 
@@ -146,18 +159,11 @@
 		
 	}
 
-	#logo {
-		margin: 1em;
-		max-width: 230px;
-		height: 50px;
-	}
-
 	img {
-		height: 70px;
+		height: 50px;
 	}
 	
 	img:hover {
-		opacity: 0.5;
 		cursor: pointer;
 	}
 

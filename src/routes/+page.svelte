@@ -12,7 +12,7 @@
 
 <HeroCard
 link={"/map"}
-cardImage={'https://i.imgur.com/ywOuOgy.png'}
+cardImage={'https://i.imgur.com/cBPtcCz.jpeg'}
 title={'National Map'}
 subtitle={'Explore the national main street map'}
 />

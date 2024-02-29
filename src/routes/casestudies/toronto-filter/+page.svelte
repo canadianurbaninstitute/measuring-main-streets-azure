@@ -1,6 +1,7 @@
 <script>
 	import '../../styles.css';
 	import Card from '../../lib/ui/Card.svelte';
+	import { writable } from 'svelte/store';
 
 	import Brampton from '../../lib/assets/boundaries/torontoboundaries/Brampton.svg';
 	import CaledonEast from '../../lib/assets/boundaries/torontoboundaries/CaledonEast.svg';
@@ -22,7 +23,42 @@
 	import Uxbridge from '../../lib/assets/boundaries/torontoboundaries/Uxbridge.svg';
 	import Weston from '../../lib/assets/boundaries/torontoboundaries/Weston.svg';
 	import WestQueenWest from '../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg';
+
+	const allCards = [
+        { link: '/casestudies/toronto/downtownyonge', image: DowntownYonge, name: 'Downtown Yonge', type: 'downtown' },
+		{ link: '/casestudies/toronto/uxbridge', image: Uxbridge, name: 'Uxbridge', type: 'rural' },
+		{ link: '/casestudies/toronto/thorncliffepark', image: ThorncliffePark, name: 'Thorncliffe Park', type: 'suburban' }
+    ];
+
+	// Reactive variable for tracking active filters
+    const activeFilters = writable([]);
+
+
+    // Function to update active filters
+    function toggleFilter(filter) {
+        activeFilters.update(currentFilters => {
+            const index = currentFilters.indexOf(filter);
+            if (index === -1) {
+                return [...currentFilters, filter];
+            } else {
+                return currentFilters.filter(f => f !== filter);
+            }
+        });
+    }
+
+    // Function to reset filters
+    function resetFilters() {
+        activeFilters.set([]);
+    }
+
+    // Derived store to compute filtered cards
+    $: filteredCards = $activeFilters.length > 0 
+        ? allCards.filter(card => $activeFilters.includes(card.type))
+        : allCards;
+
+	
 </script>
+
 
 <div class="hero">
 	<h1>Toronto, Ontario</h1>
@@ -32,41 +68,17 @@
 	<h2>Full Case Studies</h2>
 </div>
 
+<div class='button-group'>
+<button on:click={() => toggleFilter('downtown')}> Workplace (Downtown) Oriented</button>
+<button on:click={() => toggleFilter('suburban')}>Suburban</button>
+<button on:click={() => toggleFilter('rural')}>Rural</button>
+<button on:click={resetFilters}>Reset</button>
+</div>
+
 <div class="card-grid">
-	<Card
-		link={'/casestudies/toronto/downtownyonge'}
-		cardImage={DowntownYonge}
-		streetName={'Downtown Yonge'}
-	/>
-	<Card
-		link={'/casestudies/toronto/kingstonroad'}
-		cardImage={KingstonRd}
-		streetName={'Kingston Road'}
-	/>
-	<Card
-		link={'/casestudies/toronto/mississaugadundas'}
-		cardImage={MississaugaDundas}
-		streetName={'Mississauga Dundas'}
-	/>
-	<Card link={'/casestudies/toronto/newmarket'} cardImage={Newmarket} streetName={'Newmarket'} />
-	<Card
-		link={'/casestudies/toronto/northyorkcentre'}
-		cardImage={NorthYorkCentre}
-		streetName={'North York Centre'}
-	/>
-	<Card link={'/casestudies/toronto/sutton'} cardImage={Sutton} streetName={'Sutton'} />
-	<Card
-		link={'/casestudies/toronto/thorncliffepark'}
-		cardImage={ThorncliffePark}
-		streetName={'Thorncliffe Park'}
-	/>
-	<Card link={'/casestudies/toronto/uxbridge'} cardImage={Uxbridge} streetName={'Uxbridge'} />
-	<Card
-		link={'/casestudies/toronto/westqueenwest'}
-		cardImage={WestQueenWest}
-		streetName={'West Queen West'}
-	/>
-	<Card link={'/casestudies/toronto/weston'} cardImage={Weston} streetName={'Weston'} />
+	{#each filteredCards as card}
+	<Card link={card.link} cardImage={card.image} streetName={card.name} />
+{/each}
 </div>
 
 <div class="subtitle">
@@ -141,6 +153,20 @@
 	.subtitle {
 		display: flex;
 		margin: 2em;
+	}
+
+	.button-group {
+		display: flex;
+		justify-content: center;
+	}
+
+	.layerOn {
+		opacity: 1;
+	}
+
+	.layerOff {
+		opacity: 0.6;
+		border: 1px dashed rgba(27, 31, 35, 0.3);
 	}
 
 	.card-grid {

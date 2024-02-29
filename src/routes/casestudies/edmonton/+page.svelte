@@ -30,7 +30,7 @@
 </div>
 
 <div class="subtitle">
-	<h3>Full Case Studies</h3>
+	<h2>Full Case Studies</h2>
 </div>
 
 <div class="card-grid">
@@ -71,7 +71,7 @@
 </div>
 
 <div class="subtitle">
-	<h3>Data Case Studies</h3>
+	<h2>Data Case Studies</h2>
 </div>
 
 <div class="card-grid">
