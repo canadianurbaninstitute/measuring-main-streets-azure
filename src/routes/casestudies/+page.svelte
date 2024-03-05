@@ -12,7 +12,20 @@
 
 
 <div class="hero">
-    <h1> Case Study Regions </h1>
+    <h1> Case Studies </h1>
+</div>
+
+<div class="subtitle">
+	<h2>Case Study Regions</h2>
+</div>
+
+<div class="hero">
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	</p>
 </div>
 
 <div class="card-grid">
@@ -34,24 +47,17 @@
 </div>
 
 <style>
-
-    h1 {
-        padding-top: 1em;
-    }
     
+
 	.card-grid {
-		border-radius: 1em;
 		display: grid;
-		background-color: #ddd;
-		border: 1px solid #ddd;
-		grid-gap: 1px;
-		margin: 3em;
+		grid-gap: 1em;
+		margin: 2em;
 		align-items: center;
 		justify-content: center;
 		grid-template-columns: repeat(1, 1fr);
 		overflow: hidden;
 	}
-
 
 	/*DESKTOP*/
 

@@ -1,6 +1,9 @@
 <script>
 	import '../../styles.css';
 	import Card from '../../lib/ui/Card.svelte';
+	import { writable } from 'svelte/store';
+	import Icon from '@iconify/svelte';
+	import Footer from '../../lib/Footer.svelte';
 
 	import Brampton from '../../lib/assets/boundaries/torontoboundaries/Brampton.svg';
 	import CaledonEast from '../../lib/assets/boundaries/torontoboundaries/CaledonEast.svg';
@@ -22,6 +25,140 @@
 	import Uxbridge from '../../lib/assets/boundaries/torontoboundaries/Uxbridge.svg';
 	import Weston from '../../lib/assets/boundaries/torontoboundaries/Weston.svg';
 	import WestQueenWest from '../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg';
+
+	const allCards = [
+		{
+			link: '/casestudies/toronto/downtownyonge',
+			image: DowntownYonge,
+			name: 'Downtown Yonge',
+			type: 'downtown'
+		},
+		{
+			link: '/casestudies/toronto/northyorkcentre',
+			image: NorthYorkCentre,
+			name: 'North York Centre',
+			type: 'downtown'
+		},
+		{
+			link: '/casestudies/toronto/westqueenwest',
+			image: WestQueenWest,
+			name: 'West Queen West',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/thorncliffepark',
+			image: ThorncliffePark,
+			name: 'Thorncliffe Park',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/mississaugadundas',
+			image: MississaugaDundas,
+			name: 'Mississauga Dundas',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/kingstonroad',
+			image: KingstonRd,
+			name: 'Kingston Road',
+			type: 'suburban'
+		},
+		{ link: '/casestudies/toronto/weston', image: Weston, name: 'Weston', type: 'suburban' },
+		{ link: '/casestudies/toronto/sutton', image: Sutton, name: 'Sutton', type: 'suburban' },
+		{ link: '/casestudies/toronto/uxbridge', image: Uxbridge, name: 'Uxbridge', type: 'rural' },
+		{ link: '/casestudies/toronto/newmarket', image: Newmarket, name: 'Newmarket', type: 'rural' },
+		{
+			link: '/casestudies/toronto/spadinachinatown',
+			image: SpadinaChinatown,
+			name: 'Spadina Chinatown',
+			type: 'downtown'
+		},
+		{
+			link: '/casestudies/toronto/libertyvillage',
+			image: LibertyVillage,
+			name: 'Liberty Village',
+			type: 'downtown'
+		},
+		{
+			link: '/casestudies/toronto/caledoneast',
+			image: CaledonEast,
+			name: 'Caledon East',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/etobicokelakeshore',
+			image: EtobicokeLakeshore,
+			name: 'Etobicoke Lakeshore',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/downtownbrampton',
+			image: Brampton,
+			name: 'Downtown Brampton',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/goldenmile',
+			image: GoldenMile,
+			name: 'Golden Mile',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/markhamhwy7',
+			image: MarkhamHwy7,
+			name: 'Markham Highway 7',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/pickering',
+			image: Pickering,
+			name: 'Pickering',
+			type: 'suburban'
+		},
+		{ link: '/casestudies/toronto/oakville', image: Oakville, name: 'Oakville', type: 'rural' },
+		{ link: '/casestudies/toronto/schomberg', image: Schomberg, name: 'Schomberg', type: 'rural' }
+	];
+
+	const activeFilters = writable([]);
+
+	let isDowntownChecked = false;
+	let isSuburbanChecked = false;
+	let isRuralChecked = false;
+
+	function updateFilter(filter, isChecked) {
+		activeFilters.update((currentFilters) => {
+			if (isChecked) {
+				if (!currentFilters.includes(filter)) {
+					return [...currentFilters, filter];
+				}
+			} else {
+				return currentFilters.filter((f) => f !== filter);
+			}
+			return currentFilters;
+		});
+	}
+
+	function resetFilters() {
+		activeFilters.set([]);
+		isDowntownChecked = false;
+		isSuburbanChecked = false;
+		isRuralChecked = false;
+	}
+
+	// Split the allCards array into two arrays
+	const fullCaseStudies = allCards.slice(0, 10);
+	const dataCaseStudies = allCards.slice(10);
+
+	// Reactive statements to filter both arrays
+	$: filteredFullCaseStudies =
+		$activeFilters.length > 0
+			? fullCaseStudies.filter((card) => $activeFilters.includes(card.type))
+			: fullCaseStudies;
+
+	$: filteredDataCaseStudies =
+		$activeFilters.length > 0
+			? dataCaseStudies.filter((card) => $activeFilters.includes(card.type))
+			: dataCaseStudies;
 </script>
 
 <div class="hero">
@@ -32,124 +169,116 @@
 	<h2>Full Case Studies</h2>
 </div>
 
+<div class="hero">
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+esse cillum dolore eu fugiat nulla pariatur.
+</p>
+<div class="filter-container">
+	<h4>Filter:</h4>
+	<div class="checkbox-group">
+		<label>
+			<input
+				type="checkbox"
+				bind:checked={isDowntownChecked}
+				on:change={() => updateFilter('downtown', isDowntownChecked)}
+			/>
+			Downtown
+		</label>
+		<label>
+			<input
+				type="checkbox"
+				bind:checked={isSuburbanChecked}
+				on:change={() => updateFilter('suburban', isSuburbanChecked)}
+			/>
+			Residential
+		</label>
+		<label>
+			<input
+				type="checkbox"
+				bind:checked={isRuralChecked}
+				on:change={() => updateFilter('rural', isRuralChecked)}
+			/>
+			Small Town
+		</label>
+	</div>
+	<button on:click={resetFilters}><Icon icon="mi:undo" />Reset Filters</button>
+</div>
+</div>
+
+
 <div class="card-grid">
-	<Card
-		link={'/casestudies/toronto/downtownyonge'}
-		cardImage={DowntownYonge}
-		streetName={'Downtown Yonge'}
-	/>
-	<Card
-		link={'/casestudies/toronto/kingstonroad'}
-		cardImage={KingstonRd}
-		streetName={'Kingston Road'}
-	/>
-	<Card
-		link={'/casestudies/toronto/mississaugadundas'}
-		cardImage={MississaugaDundas}
-		streetName={'Mississauga Dundas'}
-	/>
-	<Card link={'/casestudies/toronto/newmarket'} cardImage={Newmarket} streetName={'Newmarket'} />
-	<Card
-		link={'/casestudies/toronto/northyorkcentre'}
-		cardImage={NorthYorkCentre}
-		streetName={'North York Centre'}
-	/>
-	<Card link={'/casestudies/toronto/sutton'} cardImage={Sutton} streetName={'Sutton'} />
-	<Card
-		link={'/casestudies/toronto/thorncliffepark'}
-		cardImage={ThorncliffePark}
-		streetName={'Thorncliffe Park'}
-	/>
-	<Card link={'/casestudies/toronto/uxbridge'} cardImage={Uxbridge} streetName={'Uxbridge'} />
-	<Card
-		link={'/casestudies/toronto/westqueenwest'}
-		cardImage={WestQueenWest}
-		streetName={'West Queen West'}
-	/>
-	<Card link={'/casestudies/toronto/weston'} cardImage={Weston} streetName={'Weston'} />
+	{#each filteredFullCaseStudies as card}
+		<Card link={card.link} cardImage={card.image} streetName={card.name} />
+	{/each}
 </div>
 
 <div class="subtitle">
 	<h2>Data Case Studies</h2>
 </div>
 
+<div class='hero'>
+<p>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+	labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+	nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+	esse cillum dolore eu fugiat nulla pariatur.
+</p>
+</div>
 <div class="card-grid">
-	<Card
-		link={'/casestudies/toronto/caledoneast'}
-		cardImage={CaledonEast}
-		streetName={'Caledon East'}
-	/>
-	<!-- caledoneast -->
-	<Card
-		link={'/casestudies/toronto/downtownbrampton'}
-		cardImage={Brampton}
-		streetName={'Downtown Brampton'}
-	/>
-	<!-- downtownbrampton -->
-	<Card
-		link={'/casestudies/toronto/etobicokelakeshore'}
-		cardImage={EtobicokeLakeshore}
-		streetName={'Etobicoke Lakeshore'}
-	/>
-	<!-- etobicokelakeshore -->
-	<Card
-		link={'/casestudies/toronto/goldenmile'}
-		cardImage={GoldenMile}
-		streetName={'Golden Mile'}
-	/>
-	<!-- goldenmile -->
-	<Card
-		link={'/casestudies/toronto/libertyvillage'}
-		cardImage={LibertyVillage}
-		streetName={'Liberty Village'}
-	/>
-	<!-- libertyvillage -->
-	<Card
-		link={'/casestudies/toronto/markhamhwy7'}
-		cardImage={MarkhamHwy7}
-		streetName={'Markham Highway 7'}
-	/>
-	<!-- markhamhighway7 -->
-	<Card link={'/casestudies/toronto/oakville'} cardImage={Oakville} streetName={'Oakville'} /> 
-	<!-- oakvilla -->
-	<Card
-		link={'/casestudies/toronto/pickering'}
-		cardImage={Pickering}
-		streetName={'Pickering'}
-	/>
-	<!-- pickering -->
-	<Card
-		link={'/casestudies/toronto/schomberg'}
-		cardImage={Schomberg}
-		streetName={'Schomberg'}
-	/>
-	<!-- schomberg -->
-	<Card
-		link={'/casestudies/toronto/spadinachinatown'}
-		cardImage={SpadinaChinatown}
-		streetName={'Spadina Chinatown'}
-	/>
-	<!-- spadinachinatown -->
+	{#each filteredDataCaseStudies as card}
+		<Card link={card.link} cardImage={card.image} streetName={card.name} />
+	{/each}
 </div>
 
+<Footer/>
+
 <style>
-
-    h1 {
-        padding-top: 1em;
-    }
-
-	.subtitle {
+	button {
+		border: 1px solid rgba(27, 31, 35, 0.3);
+		background-color: rgb(250, 251, 252);
+		border-radius: 0.5em;
+		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+		opacity: 1;
 		display: flex;
-		margin: 2em;
+		align-items: center;
+		margin: auto;
+		padding: 0.5em;
+	}
+
+	.filter-container {
+		display: flex;
+		flex-direction: column;
+		background-color: #fff;
+		padding: 1em;
+		border-radius: 0.6em;
+		border: 1px solid #eee;
+		width: fit-content;
+		grid-row-gap: 1em;
+	}
+
+	.checkbox-group {
+		display: flex;
+		justify-content: center;
+	}
+
+	.checkbox-group label {
+		margin-right: 1em;
+		display: flex;
+		align-items: center;
+	}
+
+	input[type='checkbox'] {
+		accent-color: var(--brandDarkBlue);
 	}
 
 	.card-grid {
-		border-radius: 1em;
 		display: grid;
-		background-color: #ddd;
-		border: 1px solid #ddd;
-		grid-gap: 1px;
-		margin: 3em;
+		grid-gap: 1em;
+		margin: 2em;
 		align-items: center;
 		justify-content: center;
 		grid-template-columns: repeat(1, 1fr);

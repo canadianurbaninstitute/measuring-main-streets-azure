@@ -9,7 +9,7 @@
 <div id="bar">
 	<div id="logo-content">
 		<p>
-			This project (part of the Research Knowledge Initiative program from Infrastructure Canada)
+			The Measuring Main Streets project (part of the Research Knowledge Initiative program from Infrastructure Canada)
 			was developed by the Canadian Urban Institute in partnership with Environics Analytics and
 			Open North.
 		</p>

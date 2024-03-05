@@ -1,6 +1,9 @@
 <script>
 	import '../../styles.css';
 	import Card from '../../lib/ui/Card.svelte';
+	import { writable } from 'svelte/store';
+	import Icon from '@iconify/svelte';
+	import Footer from '../../lib/Footer.svelte';
 
 	import FiftyAvenue from '../../lib/assets/boundaries/edmontonboundaries/50Avenue.svg';
     import FiftyStreetBeaumont from '../../lib/assets/boundaries/edmontonboundaries/50StreetBeaumont.svg';
@@ -23,6 +26,164 @@
 	import StAlbertRoad from '../../lib/assets/boundaries/edmontonboundaries/StAlbertRoad.svg';
 	import StonyPlainRoadNW from '../../lib/assets/boundaries/edmontonboundaries/StonyPlainRoadNW.svg';
 
+	const allCards = [
+		{
+			link: '/casestudies/edmonton/82avenuenw',
+			image: EightyTwoAvenueNW,
+			name: 'Whyte (82) Avenue NW',
+			type: 'downtown'
+		},
+		{
+			link: '/casestudies/edmonton/jasperavenue',
+			image: JasperAve,
+			name: 'Jasper Avenue',
+			type: 'downtown'
+		},
+		{
+			link: '/casestudies/edmonton/104streetnw',
+			image: HundredFourStreetNW,
+			name: '104 Street NW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/118albertaave',
+			image: HundredEighteenAlbertaAve,
+			name: '118 Ave (Alberta Avenue)',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/118beverly',
+			image: HundredEighteenBeverly,
+			name: '118 Ave (Beverly)',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/124streetnw',
+			image: HundredTwentyFourStreetNW,
+			name: '124 Street NW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/149streetnw',
+			image: HundredFortyNineStreetNW,
+			name: '149 Street NW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/stonyplainroadnw',
+			image: StonyPlainRoadNW,
+			name: 'Stony Plain Road NW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/50streetbeaumont',
+			image: FiftyStreetBeaumont,
+			name: '50 Street Beaumont',
+			type: 'rural'
+		},
+		{
+			link: '/casestudies/edmonton/50streetstonyplain',
+			image: FiftyStreetStonyPlain,
+			name: '50 Street Stony Plain',
+			type: 'rural'
+		},
+		{
+			link: '/casestudies/edmonton/107avenuenw',
+			image: HundredSevenAvenueNW,
+			name: '107 Avenue NW',
+			type: 'downtown'
+		},
+		{
+			link: '/casestudies/edmonton/97streetnw',
+			image: NinteySevenStreetNW,
+			name: '97 Street NW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/105streetnw',
+			image: HundredFiveStreetNW,
+			name: '105 Street NW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/137avenuenw',
+			image: HundredThirtySevenAvenueNW,
+			name: '137 Avenue NW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/parsonsroadsw',
+			image: ParsonsRoadSW,
+			name: 'Parsons Road SW',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/sherwooddrive',
+			image: SherwoodDrive,
+			name: 'Sherwood Drive',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/stalbertroad',
+			image: StAlbertRoad,
+			name: 'St. Albert Road',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/edmonton/100avenue',
+			image: HundredAve,
+			name: '100 Avenue',
+			type: 'rural'
+		},
+		{
+			link: '/casestudies/edmonton/50avenue',
+			image: FiftyAvenue,
+			name: '50 Avenue',
+			type: 'rural'
+		}
+	];
+
+	const activeFilters = writable([]);
+
+	let isDowntownChecked = false;
+	let isSuburbanChecked = false;
+	let isRuralChecked = false;
+
+	function updateFilter(filter, isChecked) {
+		activeFilters.update((currentFilters) => {
+			if (isChecked) {
+				if (!currentFilters.includes(filter)) {
+					return [...currentFilters, filter];
+				}
+			} else {
+				return currentFilters.filter((f) => f !== filter);
+			}
+			return currentFilters;
+		});
+	}
+
+	function resetFilters() {
+		activeFilters.set([]);
+		isDowntownChecked = false;
+		isSuburbanChecked = false;
+		isRuralChecked = false;
+	}
+
+	// Split the allCards array into two arrays
+	const fullCaseStudies = allCards.slice(0, 10);
+	const dataCaseStudies = allCards.slice(10);
+
+	// Reactive statements to filter both arrays
+	$: filteredFullCaseStudies =
+		$activeFilters.length > 0
+			? fullCaseStudies.filter((card) => $activeFilters.includes(card.type))
+			: fullCaseStudies;
+
+	$: filteredDataCaseStudies =
+		$activeFilters.length > 0
+			? dataCaseStudies.filter((card) => $activeFilters.includes(card.type))
+			: dataCaseStudies;
+
 </script>
 
 <div class="hero">
@@ -33,124 +194,115 @@
 	<h2>Full Case Studies</h2>
 </div>
 
+<div class="hero">
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	</p>
+	<div class="filter-container">
+		<h4>Filter:</h4>
+		<div class="checkbox-group">
+			<label>
+				<input
+					type="checkbox"
+					bind:checked={isDowntownChecked}
+					on:change={() => updateFilter('downtown', isDowntownChecked)}
+				/>
+				Downtown
+			</label>
+			<label>
+				<input
+					type="checkbox"
+					bind:checked={isSuburbanChecked}
+					on:change={() => updateFilter('suburban', isSuburbanChecked)}
+				/>
+				Residential
+			</label>
+			<label>
+				<input
+					type="checkbox"
+					bind:checked={isRuralChecked}
+					on:change={() => updateFilter('rural', isRuralChecked)}
+				/>
+				Small Town
+			</label>
+		</div>
+		<button on:click={resetFilters}><Icon icon="mi:undo" />Reset Filters</button>
+	</div>
+</div>
+
 <div class="card-grid">
-	<Card
-		link={'/casestudies/edmonton/50streetbeaumont'}
-		cardImage={FiftyStreetBeaumont}
-		streetName={'50 Street Beaumont'}
-	/>
-	<Card
-		link={'/casestudies/edmonton/50streetstonyplain'}
-		cardImage={FiftyStreetStonyPlain}
-		streetName={'50 Street Stony Plain'}
-	/>
-	<Card
-		link={'/casestudies/edmonton/82avenuenw'}
-		cardImage={EightyTwoAvenueNW}
-		streetName={'Whyte (82) Avenue NW'}
-	/>
-    <Card link={'/casestudies/edmonton/104streetnw'} cardImage={HundredFourStreetNW} streetName={'104 Street NW'} />
-    <Card link={'/casestudies/edmonton/118albertaave'} cardImage={HundredEighteenAlbertaAve} streetName={'118 Ave (Alberta Avenue)'} />
-	<Card link={'/casestudies/edmonton/118beverly'} cardImage={HundredEighteenBeverly} streetName={'118 Ave (Beverly)'} />
-	<Card
-		link={'/casestudies/edmonton/124streetnw'}
-		cardImage={HundredTwentyFourStreetNW}
-		streetName={'124 Street NW'}
-	/>
-	<Card link={'/casestudies/edmonton/149streetnw'} cardImage={HundredFortyNineStreetNW} streetName={'149 Street NW'} />
-	<Card
-		link={'/casestudies/edmonton/jasperavenue'}
-		cardImage={JasperAve}
-		streetName={'Jasper Avenue'}
-	/>
-	<Card
-		link={'/casestudies/edmonton/stonyplainroadnw'}
-		cardImage={StonyPlainRoadNW}
-		streetName={'Stony Plain Road NW'}
-	/>
+	{#each filteredFullCaseStudies as card}
+		<Card link={card.link} cardImage={card.image} streetName={card.name} />
+	{/each}
 </div>
 
 <div class="subtitle">
 	<h2>Data Case Studies</h2>
 </div>
 
+<div class="hero">
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	</p>
+</div>
 <div class="card-grid">
-	<Card
-		link={'/casestudies/edmonton/50avenue'} 
-		cardImage={FiftyAvenue}
-		streetName={'50 Avenue'}
-	/>
-	<!-- 50avenue -->
-	<Card
-		link={'/casestudies/edmonton/97streetdowntown'}
-		cardImage={NinteySevenStreetDowntown}
-		streetName={'97 Street Downtown'}
-	/>
-	<!-- 97streetdowntown -->
-	<Card
-		link={'/casestudies/edmonton/97streetnw'}
-		cardImage={NinteySevenStreetNW}
-		streetName={'97 Street NW'}
-	/>
-	<!-- 97streetnw -->
-	<Card
-		link={'/casestudies/edmonton/100avenue'}
-		cardImage={HundredAve}
-		streetName={'100 Avenue'}
-	/>
-	<!-- 100avenue -->
-	<Card
-		link={'/casestudies/edmonton/105streetnw'}
-		cardImage={HundredFiveStreetNW}
-		streetName={'105 Street NW'}
-	/>
-	<!-- 104streetdowntown -->
-	<Card
-		link={'/casestudies/edmonton/107avenuenw'}
-		cardImage={HundredSevenAvenueNW}
-		streetName={'107 Avenue NW'}
-	/>
-	<!-- 107avenuenw -->
-	<Card link={'/casestudies/edmonton/137avenuenw'} cardImage={HundredThirtySevenAvenueNW} streetName={'137 Avenue NW'} /> 
-	<!-- 137avenuenw -->
-	<Card
-		link={'/casestudies/edmonton/parsonsroadsw'}
-		cardImage={ParsonsRoadSW}
-		streetName={'Parsons Road SW'}
-	/>
-	<!-- parsonsroadsw -->
-	<Card
-		link={'/casestudies/edmonton/sherwooddrive'}
-		cardImage={SherwoodDrive}
-		streetName={'Sherwood Drive'}
-	/>
-	<!-- sherwooddrive -->
-	<Card
-		link={'/casestudies/edmonton/stalbertroad'}
-		cardImage={StAlbertRoad}
-		streetName={'St. Albert Road'}
-	/>
-	<!-- stalbertroad -->
+	{#each filteredDataCaseStudies as card}
+		<Card link={card.link} cardImage={card.image} streetName={card.name} />
+	{/each}
 </div>
 
+<Footer />
+
 <style>
-
-    h1 {
-        padding-top: 1em;
-    }
-
-	.subtitle {
+	button {
+		border: 1px solid rgba(27, 31, 35, 0.3);
+		background-color: rgb(250, 251, 252);
+		border-radius: 0.5em;
+		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+		opacity: 1;
 		display: flex;
-		margin: 2em;
+		align-items: center;
+		margin: auto;
+		padding: 0.5em;
+	}
+
+	.filter-container {
+		display: flex;
+		flex-direction: column;
+		background-color: #fff;
+		padding: 1em;
+		border-radius: 0.6em;
+		border: 1px solid #eee;
+		width: fit-content;
+		grid-row-gap: 1em;
+	}
+
+	.checkbox-group {
+		display: flex;
+		justify-content: center;
+	}
+
+	.checkbox-group label {
+		margin-right: 1em;
+		display: flex;
+		align-items: center;
+	}
+
+	input[type='checkbox'] {
+		accent-color: var(--brandDarkBlue);
 	}
 
 	.card-grid {
-		border-radius: 1em;
 		display: grid;
-		background-color: #ddd;
-		border: 1px solid #ddd;
-		grid-gap: 1px;
-		margin: 3em;
+		grid-gap: 1em;
+		margin: 2em;
 		align-items: center;
 		justify-content: center;
 		grid-template-columns: repeat(1, 1fr);
@@ -180,3 +332,4 @@
 		}
 	}
 </style>
+

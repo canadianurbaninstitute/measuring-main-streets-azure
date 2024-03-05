@@ -21,6 +21,8 @@
         display:flex;
         flex-direction: column;
         align-items: center;
+        border: 1px solid #eee;
+        border-radius: 1em;
     }
 
     .card:hover {
