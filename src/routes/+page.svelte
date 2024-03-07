@@ -14,7 +14,7 @@
 link={"/map"}
 cardImage={'https://i.imgur.com/8WDGwYT.jpeg'}
 title={'National Map'}
-subtitle={'Explore the national main street map'}
+subtitle={'Explore your main street on the map'}
 />
 
 <HeroCard

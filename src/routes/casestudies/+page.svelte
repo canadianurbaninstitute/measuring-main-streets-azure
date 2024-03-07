@@ -16,7 +16,7 @@
 </div>
 
 <div class="subtitle">
-	<h2>Case Study Regions</h2>
+	<h2>Regions</h2>
 </div>
 
 <div class="hero">

@@ -10,6 +10,7 @@
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
+	import Footer from '../lib/Footer.svelte'
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -478,7 +479,7 @@
 			<Metric
 				accordion
 				slot="header"
-				label={'Civic Infrastructure'}
+				label={'Civic Infrastructure (on street)'}
 				value={civic}
 				icon={'heroicons:building-library-20-solid'}
 			/>
@@ -511,7 +512,7 @@
 			</div>
 		</Accordion>
 		<Accordion>
-			<Metric accordion slot="header" label={'Businesses'} value={business} icon={'mdi:building'} />
+			<Metric accordion slot="header" label={'Businesses (on street)'} value={business} icon={'mdi:building'} />
 			<div slot="body" class="metric-container">
 				<Metric label={'Retail'} value={business_retail} icon={'mdi:shopping'} />
 				<Metric label={'Food & Drink'} value={business_food_drink} icon={'dashicons:food'} />
@@ -586,6 +587,10 @@
 				</div>
 			</div>
 		</Accordion>
+		<hr>
+		<button id="resetButton" on:click={resetMap}>
+			<Icon icon="mi:undo" /> Reset Map
+		</button>
 		<!-- <Metric label={'English Speakers'} value={english} suffix={'%'}/>
 		<Metric label={'French Speakers'} value={french} suffix={'%'} /> -->
 	</div>
@@ -606,16 +611,6 @@
 			/>
 			<LegendItem
 				variant={'polygon'}
-				label={'Main Street Catchment'}
-				bgcolor={'#db799a'}
-				bordercolor={'#DB3069'}
-				featuretype={'fill'}
-				{map}
-			/>
-		</div>
-		<div class="legend">
-			<LegendItem
-				variant={'polygon'}
 				label={'Case Studies'}
 				bgcolor={'#58e965'}
 				bordercolor={'#189122'}
@@ -625,9 +620,16 @@
 				targetopacity={0.5}
 				{map}
 			/>
+			<LegendItem
+				variant={'polygon'}
+				label={'Main Street Catchment'}
+				bgcolor={'#db799a'}
+				bordercolor={'#DB3069'}
+				{map}
+			/>
 		</div>
 		<div class="legend" id="business-civic-legend">
-			<h4>Civic Infrastructure</h4>
+			<h5>Civic Infrastructure</h5>
 			<LegendItem
 				variant={'circle'}
 				label={'Arts and Culture'}
@@ -639,7 +641,7 @@
 			/>
 			<LegendItem
 				variant={'circle'}
-				label={'Government and Community Services'}
+				label={'Govt & Community Services'}
 				bgcolor={'#8A4285'}
 				bordercolor={'#fff'}
 				button={true}
@@ -673,7 +675,7 @@
 				id={'canada-civicinfra-education'}
 				{map}
 			/>
-			<h4>Business</h4>
+			<h5>Business</h5>
 			<LegendItem
 				variant={'circle'}
 				label={'Retail'}
@@ -703,11 +705,9 @@
 			/>
 		</div>
 		</div>
-		<button id="resetButton" on:click={resetMap}>
-			<Icon icon="mi:undo" /> Reset Map
-		</button>
 	</div>
 </div>
+<Footer/>
 
 <style>
 	:global(body) {

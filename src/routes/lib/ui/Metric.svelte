@@ -45,11 +45,11 @@
 	}
 
 	.label {
-		font-size: 0.4em;
+		font-size: 0.6em;
 	}
 
 	.value {
-		font-size: 0.75em;
+		font-size: 0.7em;
 		display: flex;
 		flex-direction: row;
 		align-items: center;

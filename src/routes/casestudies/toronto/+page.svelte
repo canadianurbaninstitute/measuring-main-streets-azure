@@ -177,7 +177,7 @@ nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
 esse cillum dolore eu fugiat nulla pariatur.
 </p>
 <div class="filter-container">
-	<h4>Filter:</h4>
+	<!-- <h4>Filter:</h4> -->
 	<div class="checkbox-group">
 		<label>
 			<input
@@ -247,6 +247,7 @@ esse cillum dolore eu fugiat nulla pariatur.
 		align-items: center;
 		margin: auto;
 		padding: 0.5em;
+		column-gap: 0.2em;
 	}
 
 	.filter-container {

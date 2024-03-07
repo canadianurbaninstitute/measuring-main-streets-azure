@@ -1,7 +1,7 @@
 <script>
-	import logo from '../lib/assets/cui_logo.svg';
-	import mms_logo from '../lib/assets/mms_logo.svg';
-	import mms_logo_alt from '../lib/assets/mms_logo_alt.svg'
+	import logo from '../lib/assets/logos/cui_logo.svg';
+	import mms_logo from '../lib/assets/logos/mms_logo.svg';
+	import mms_logo_alt from '../lib/assets/logos/mms_logo_alt.svg'
 	import Icon from '@iconify/svelte';
 
 	// Initial image source

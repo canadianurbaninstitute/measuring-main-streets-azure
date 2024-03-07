@@ -94,6 +94,12 @@
 			type: 'downtown'
 		},
 		{
+			link: '/casestudies/edmonton/97streetdowntown',
+			image: NinteySevenStreetDowntown,
+			name: '97 Street Downtown',
+			type: 'downtown'
+		},
+		{
 			link: '/casestudies/edmonton/97streetnw',
 			image: NinteySevenStreetNW,
 			name: '97 Street NW',
@@ -202,7 +208,7 @@
 		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 	</p>
 	<div class="filter-container">
-		<h4>Filter:</h4>
+		<!-- <h4>Filter:</h4> -->
 		<div class="checkbox-group">
 			<label>
 				<input
@@ -271,6 +277,7 @@
 		align-items: center;
 		margin: auto;
 		padding: 0.5em;
+		column-gap: 0.2em;
 	}
 
 	.filter-container {

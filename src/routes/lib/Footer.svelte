@@ -1,9 +1,9 @@
 <script>
-	import cui from '../lib/assets/cui_logo_white.svg';
-	import canada from '../lib/assets/canada_logo.svg';
-	import environics from '../lib/assets/environics_logo.svg';
-	import schoolofcities from '../lib/assets/soc_logo.svg';
-	import opennorth from '../lib/assets/opennorth_logo.svg';
+	import cui from '../lib/assets/logos/cui_logo_white.svg';
+	import canada from '../lib/assets/logos/canada_logo.svg';
+	import environics from '../lib/assets/logos/environics_logo.svg';
+	import schoolofcities from '../lib/assets/logos/soc_logo.svg';
+	import opennorth from '../lib/assets/logos/opennorth_logo.svg';
 </script>
 
 <div id="bar">

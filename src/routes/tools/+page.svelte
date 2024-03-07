@@ -8,7 +8,4 @@
 </div>
 
 <style>
-       h1 {
-        padding-top: 1em;
-    }
 </style>

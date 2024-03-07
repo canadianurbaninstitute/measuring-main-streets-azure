@@ -10,8 +10,11 @@
 
 
 <a href={link}>
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="card" on:mouseover={() => (isMouseOver = true)}
-    on:mouseout={() => (isMouseOver = false)}>
+    on:mouseout={() => (isMouseOver = false)}
+    on:focus={() => (isMouseOver = true)}
+    on:blur={() => (isMouseOver = false)}>
     <div class="card-img-container">
         <img src={cardImage} alt="card">
     </div>
@@ -21,7 +24,7 @@
     <h5>{subtitle}</h5>
     </div>
     {#if isMouseOver}
-    <Icon icon="ph:arrow-right-bold" width="2em" height="2em" style="color: var(--brandDarkBlue)"/>
+    <Icon icon="ph:arrow-right-bold" width="2em" height="2em" style="color: var(--brandDarkBlue); pointer-events: none;"/>
     {/if}  
     </div>
 </div>
@@ -55,8 +58,6 @@
         justify-content: space-between;
         align-items: center;
     }
-
-
     
     h2 {
         color: var(--brandDarkBlue);
