@@ -19,7 +19,7 @@
 
 	// info
 	let streetname = 'Canada';
-	let place = '23,223 Main Streets';
+	let place = 'This is a map of main streets in Canada. Search for a place or navigate the map using the controls and click on a main street to see information associated with it.';
 
 	// basic
 
@@ -384,7 +384,7 @@
 
 		// info
 		streetname = 'Canada';
-		place = '23,223 Main Streets';
+		place = 'This is a map of main streets in Canada. Search for a place or navigate the map using the controls and click on a main street to see information associated with it.';
 
 		// basic
 
@@ -471,7 +471,7 @@
 <div id="content-container">
 	<div id="sidebar">
 		<h2>{streetname}</h2>
-		<h5>{place}</h5>
+		<h4>{place}</h4>
 		<hr />
 		<h5>Street Characteristics</h5>
 		<!-- <Metric label={'Amenity Score'} value={business_independence} icon={"bxs:tachometer"}/> -->
@@ -597,17 +597,28 @@
 	<div id="map" />
 	<div id="controls">
 		<div>
-			<div class="legend">
-
-		<p>This is a map of all main street segments in Canada. Search for a place using the search box or navigate the map using the controls and click on a main street segment to see information associated with it.</p>
-				</div>
 		<div class="legend">
-			<Legend
+			<!-- <Legend
 				minlabel={'Low'}
 				maxlabel={'High'}
 				label={'Main Street Business Density'}
 				sublabel={'(# of Main Street businesses / km)'}
 				gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
+			/> -->
+			<LegendItem
+				variant={'line'}
+				label={'High Density Main Streets'}
+				bordercolor={'#002940'}
+			/>
+			<LegendItem
+				variant={'line'}
+				label={'Low Density Main Streets'}
+				bordercolor={'#00adf2'}
+				/>
+			<LegendItem
+				variant={'line'}
+				label={'Arterial Streets'}
+				bordercolor={'#ddd'}
 			/>
 			<LegendItem
 				variant={'polygon'}
@@ -625,7 +636,6 @@
 				label={'Main Street Catchment'}
 				bgcolor={'#db799a'}
 				bordercolor={'#DB3069'}
-				{map}
 			/>
 		</div>
 		<div class="legend" id="business-civic-legend">
@@ -716,12 +726,12 @@
 		background-color: white;
 		height: 100%;
 	}
-
+/* 
 	p {
 		color: #222;
 		margin: 0 auto;
 		font-size: 0.8em;
-	}
+	} */
 
 	#map {
 		height: 90vh;
@@ -793,9 +803,18 @@
 
 	h6 {
 		margin:0.5em 0 0.5em 0;
+		font-weight: 500;
 	}
 
-	h5, h2 {
+	h5 {
+		font-weight: 600;
+	}
+
+	h4 {
+		font-size: 0.8em;
+	}
+
+	h5, h2, h4 {
     	margin: 0;
 		padding: 0.1em 0 0.1em 0;
 	}
