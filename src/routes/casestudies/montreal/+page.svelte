@@ -193,11 +193,12 @@
 
 <div class="hero">
 	<h1>Montreal, Québec</h1>
+	<div class="subtitle">
+		<h2>Full Case Studies</h2>
+	</div>
 </div>
 
-<div class="subtitle">
-	<h2>Full Case Studies</h2>
-</div>
+
 
 <div class="hero">
 	<p>
@@ -244,11 +245,10 @@
 	{/each}
 </div>
 
+<div class="hero">
 <div class="subtitle">
 	<h2>Data Case Studies</h2>
 </div>
-
-<div class="hero">
 	<p>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
 		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco

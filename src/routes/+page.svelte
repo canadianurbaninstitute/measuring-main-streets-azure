@@ -14,7 +14,7 @@
 link={"/map"}
 cardImage={'https://i.imgur.com/6Q7qGU1.jpeg'}
 title={'National Map'}
-subtitle={'Explore main streets on the national map'}
+subtitle={'Explore main streets on the map'}
 />
 
 
