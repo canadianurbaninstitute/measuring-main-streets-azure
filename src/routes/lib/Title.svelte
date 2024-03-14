@@ -80,12 +80,12 @@
 	@media only screen and (min-width: 768px) {
 		.blueprint {
 			background-color: white;
-			background: linear-gradient(
+			/* background: linear-gradient(
 					rgba(255, 255, 255, 0.95),
 					rgba(255, 255, 255, 0.6),
 					rgba(255, 255, 255, 0.95)
 				),
-				url('https://i.imgur.com/DXGEpQB.png');
+				url('https://i.imgur.com/DXGEpQB.png'); */
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;

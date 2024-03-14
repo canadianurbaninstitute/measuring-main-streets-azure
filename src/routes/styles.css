@@ -144,7 +144,7 @@ h3, h5 {
 
 .subtitle {
     display: flex;
-    margin: 0 0 0 2em;
+    /* margin: 0 0 0 2em; */
 }
 
 .marker {

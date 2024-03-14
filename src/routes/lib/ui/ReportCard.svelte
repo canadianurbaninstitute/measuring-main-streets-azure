@@ -81,7 +81,9 @@
 		width: 100%;
 		object-fit: cover;
         overflow: hidden;
+		max-height: 100px;
 	}
+
 
 	h5 {
 		font-weight: 400;

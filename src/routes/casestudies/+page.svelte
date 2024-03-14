@@ -13,11 +13,12 @@
 
 <div class="hero">
     <h1> Case Studies </h1>
+	<div class="subtitle">
+		<h2>Regions</h2>
+	</div>
 </div>
 
-<div class="subtitle">
-	<h2>Regions</h2>
-</div>
+
 
 <div class="hero">
 	<p>
