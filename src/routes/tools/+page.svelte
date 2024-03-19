@@ -23,15 +23,30 @@
 	<ReportCard
 	link={"/"}
 	cardImage={mainstreets}
-	title={'Correlations'}
+	title={'Main Street Visitor Recovery'}
 	subtitle={''}
 	/>
 
     <ReportCard
 	link={"/"}
 	cardImage={mainstreets}
-	title={'Demographic Map'}
+	title={'Main Street Demographic Map'}
 	subtitle={''}
+	/>
+
+	<ReportCard
+	link={"/"}
+	cardImage={mainstreets}
+	title={'Main Street Correlation'}
+	subtitle={''}
+	/>
+
+
+	<ReportCard
+	link={"/"}
+	cardImage={mainstreets}
+	title={'Main Street Data and Technology Project Readiness'}
+	subtitle={'Open North'}
 	/>
 
 </div>

@@ -1,5 +1,6 @@
 <script>
     import '../styles.css'
+	import Footer from '../lib/Footer.svelte'
 	import ReportCard from '../lib/ui/ReportCard.svelte';
 	import malls from '../lib/assets/graphics/malls.svg'
 	import resiliency from '../lib/assets/graphics/resiliency.svg';
@@ -26,15 +27,17 @@
     </p>
 </div>
 
+<div style="margin: 2em">
+<ReportCard
+link={"/"}
+cardImage={mainstreets}
+title={'The Case for Main Streets'}
+subtitle={'Why main streets matter and their relationship with civic infrastructure'}
+/>
+</div>
+
+
 <div class="card-grid">
-
-	<ReportCard
-	link={"/"}
-	cardImage={mainstreets}
-	title={'The Case for Main Streets'}
-	subtitle={'Why main streets matter and their relationship with civic infrastructure'}
-	/>
-
 
 	<ReportCard
 	link={"/reports/mainstreets-malls-mice"}
@@ -55,6 +58,13 @@
 	cardImage={civic}
 	title={'Main Street Solutions'}
 	subtitle={'Idenitfying gaps in main street civic infrastructure '}
+	/>
+
+	<ReportCard
+	link={"/"}
+	cardImage={mainstreets}
+	title={'Open North: Data Driven Approaches to Main Street Challenges'}
+	subtitle={'Planning data and technology projects to support smart civic infrastructure investments'}
 	/>
 	
 </div>
@@ -99,6 +109,7 @@
 	
 </div>
 
+<Footer/>
 
 <style>
 

@@ -133,6 +133,21 @@ h3, h5 {
     color: var(--brandDarkBlue);
 }
 
+p {
+    line-height: 160%;
+}
+
+/* TEMPORARY TESTING FOR REPORTS*/
+
+.report-text {
+    margin: 0 20em 0 5em;
+}
+
+.text-container {
+    margin: 5em 0 5em 0;
+}
+
+/* TEMPORARY TESTING FOR REPORTS*/
 
 
 .hero {

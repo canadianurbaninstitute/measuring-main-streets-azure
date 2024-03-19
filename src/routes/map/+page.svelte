@@ -6,7 +6,6 @@
 	import * as turf from '@turf/turf';
 	import Icon from '@iconify/svelte';
 
-	import Legend from '../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
