@@ -1,10 +1,9 @@
 <script>
 	import { LayerCake, Svg, Html, groupLonger, flatten } from 'layercake';
 
-	import { scaleOrdinal } from 'd3-scale';
+	import { scaleOrdinal, scaleTime } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format } from 'd3-format';
-	import Svelecte from 'svelecte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	import MultiLine from '../../lib/chartcomponents/MultiLine.svelte';
@@ -14,20 +13,33 @@
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 
-	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery.csv';
-	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
+	import ecommerce from '../../lib/data/reportdata/mainstreets-malls-mice/ecommerce.csv';
+	import restaurant from '../../lib/data/reportdata/mainstreets-malls-mice/restaurant.csv';
+
+	export let title;
+	export let chartDataset;
+	export let yDomain = [0, null];
+
+	let data;
+
+	if (chartDataset == 'ecommerce') {
+		data = ecommerce
+	} else if (chartDataset == 'restaurant') {
+		data = restaurant
+	}
+
 
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series
 	 */
 	const xKey = 'date';
 	const yKey = 'value';
-	const zKey = 'ms_type';
+	const zKey = 'color';
 
 	const xKeyCast = timeParse('%Y-%m-%d');
 
 	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
-	const seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+	const seriesColors = ['#002940', '#DB3069', '#00ADF2', '#58E965'];
 
 
 	/* --------------------------------------------
@@ -53,7 +65,7 @@
 
 <div class='chart-container'>
 
-    <h4>Visitor Levels (%) relative to the same month in 2019</h4>
+    <h4>{title}</h4>
 
 <div class="chart">
 	<LayerCake
@@ -61,8 +73,9 @@
 		x={xKey}
 		y={yKey}
 		z={zKey}
-		yDomain={[0, 100]}
+		yDomain={yDomain}
 		zScale={scaleOrdinal()}
+		xScale={scaleTime()}
 		zRange={seriesColors}
 		flatData={flatten(groupedData, 'values')}
 		data={groupedData}
@@ -73,9 +86,8 @@
 				ticks={data.filter((_, i) => i % 5 === 0).map((d) => d[xKey])}
 				format={formatLabelX}
 				tickMarks
-				snapLabels
 			/>
-			<AxisY ticks={4} format={formatLabelY} />
+			<AxisY ticks={4} format={formatLabelY}/>
 			<MultiLine />
 		</Svg>
 
@@ -85,15 +97,26 @@
 	</LayerCake>
 </div>
 
+{#if chartDataset == 'ecommerce'}
 <div class='controls'>
-    <Svelecte multiple options={dataset.countryGroups()} placeholder="Add a street" clearable />
     <div class="legend-container">
-        <LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={'#002940'} />
-        <LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={'#00adf2'} />
-        <LegendItem variant={'line'} label={'Malls'} bordercolor={'#DB3069'} />
-        <LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={'#58e965'} />
+        <LegendItem variant={'line'} label={'E-Commerce Share of All Retail Sales'} bordercolor={'#002940'} />
+        <LegendItem variant={'line'} label={'Pre-Pandemic Trendline'} bordercolor={'#DB3069'} />
     </div>
+</div>
+{/if}
+
+{#if chartDataset == 'restaurant'}
+<div class='controls'>
+    <div class="legend-container">
+        <LegendItem variant={'line'} label={'Drinking Places'} bordercolor={'#002940'} />
+        <LegendItem variant={'line'} label={'Full Service Restaurants'} bordercolor={'#DB3069'} />
+		<LegendItem variant={'line'} label={'Limited Service Eating Places'} bordercolor={'#00adf2'} />
+
     </div>
+</div>
+{/if}
+
 </div>
 
 

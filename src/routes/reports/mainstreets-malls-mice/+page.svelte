@@ -2,9 +2,13 @@
 	import Title from '../../lib/Title.svelte';
 	import malls from '../../lib/assets/graphics/malls.svg';
 	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
-	import BarChart from './BarChart.svelte';
+	import BarChart from './BarChartTemp.svelte';
+	import MultiLineChart from './MultiLineChart.svelte';
+	import Footer from '../../lib/Footer.svelte'
 
 	import '../../styles.css';
+
+	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
 
 <Title
@@ -81,22 +85,147 @@
 	</div>
 </div>
 
-
-<div class="chart-container">
-	<BarChart />
+<div class="chart-container bar">
+	<BarChart
+		xKey="civic"
+		title="Civic Infrastructure as a Share of Establishments (%)"
+		xDomain={[0, 60]}
+	/>
 </div>
-
 
 <div class="text-container">
 	<div class="report-text">
 		<p>
-			A key difference between main streets and regional shopping centers is the extent to which they support independent business. Measuring Main Streets developed an Independent Index to assess the relative balance between one-off independent businesses and establishments that are parts of chains. The index considers the size of the chain so that smaller local ones are not equated with large international chains. A score closer to one means that an area has a greater share of independent business relative to chains (and closer to zero should be read as a higher share of chain businesses). The average Independent Business Index score for the 60 main street case studies was 0.74 in comparison to 0.30 for the 15 regional shopping malls. Main streets clearly provide significantly more opportunities for locally owned independent business. Such businesses are also more likely to provides goods and services that are more closely aligned with the nuances of local communities. 
+			A key difference between main streets and regional shopping centers is the extent to which
+			they support independent business. Measuring Main Streets developed an Independent Index to
+			assess the relative balance between one-off independent businesses and establishments that are
+			parts of chains. The index considers the size of the chain so that smaller local ones are not
+			equated with large international chains. A score closer to one means that an area has a
+			greater share of independent business relative to chains (and closer to zero should be read as
+			a higher share of chain businesses). The average Independent Business Index score for the 60
+			main street case studies was 0.74 in comparison to 0.30 for the 15 regional shopping malls.
+			Main streets clearly provide significantly more opportunities for locally owned independent
+			business. Such businesses are also more likely to provides goods and services that are more
+			closely aligned with the nuances of local communities.
 		</p>
 	</div>
 </div>
 
+<div class="chart-container bar">
+	<BarChart xKey="independence" title="Independent Business Index" />
+</div>
+
+<div class="text-container">
+	<div class="report-text">
+		<p>
+			Regional shopping malls tend to serve a wider catchment area than neighbourhood oriented main
+			streets. The average trip distance to the 15 regional shopping malls in 2022 was 10km versus
+			7.8km for neigbourhood main streets. Small town and downtown mains streets trip distance
+			profiles are more aligned with that of regional shopping malls than neighbourhood main streets
+			but for different reasons. Small town main streets typically serve low-density and rural
+			communities while downtowns main streets draw people from all parts of the city. Average trip
+			distances to all types of main streets as well as shopping malls fell significantly through
+			the pandemic (2020-2021) before beginning to revert to historical levels in 2022. As people
+			travelled less during the pandemic there were significant reductions in average household
+			greenhouse gas emissions. In 2020 there was a reduction of 17.3% in 2020 followed by a further
+			drop of 0.5% in 2021. This highlights the possible environmental benefits of providing
+			essential goods and services on main streets in more densely populated neighbourhoods.
+		</p>
+	</div>
+</div>
+
+<div class="chart-container bar">
+	<BarChart xKey="distance" title="Average Distance (km) Travelled by Visitors" xDomain={[0, 18]} />
+</div>
+
+<div class="text-container">
+	<div class="report-text">
+		<p>
+			As all types of physical locations showed declines in activity in the early stages of the
+			pandemic, e-commerce boomed. April 2020 saw that share of e-commerce of all retail trade rise
+			above 10% for the first time. Prior to the pandemic, e-commerce accounted for a rising share
+			of the value of retail transactions but had yet to breach the 4% mark. This sudden spike led
+			to many predictions that this was an inevitable acceleration of an existing trend that would
+			continue beyond the end of the pandemic. These predictions did not come to fruition as
+			e-commerce stayed well above expected levels for the core two years of the pandemic before
+			retreating to the historic trend. While the pandemic does not seem to have accelerated a
+			consumer shift to online retail, the long-term pattern rate continues to steadily rise.
+		</p>
+	</div>
+</div>
+
+<div class="chart-container">
+	<MultiLineChart title="E-Commerce Share (%) of All Retail Sales" yDomain={[0, 12]} chartDataset={'ecommerce'}/>
+</div>
+
+<div class="text-container">
+	<div class="report-text">
+		<p>
+			There was also a notable increase in online orders for restaurant meals during the pandemic.
+			By 2021 online restaurant revenue had risen by an estimated 90% from pre-pandemic (2019)
+			amounts (DoorDash/Restaurants Canada, 2022) This was a lifesaver for many main street
+			businesses that saw their in-person dining levels evaporate in the early stages of the
+			pandemic. The trajectory of restaurant revenues was very similar to that of regional shopping
+			malls in that there were very sharp drop-offs during hard lockdowns and quick recoveries (see
+			figure). Full-service restaurants and drinking places (bars) experienced deeper loses of
+			revenue than limited-service restaurants (fast food) as they are almost entirely dependent on
+			in-person consumption. Fast food restaurants were better positioned to adjust through online
+			orders, deliveries, and service windows. As a result, they managed to exceed pre-pandemic
+			sales levels by the summer of 2021. The dowxtnside to (independent) businesses is that many
+			online ordering and deliveries are mediated by third parties that capture most, if not all, of
+			the extra revenue (McKinsey). The potential downside to main streets is that more people
+			choosing to staying home rather than visiting in person reduces the overall vibrancy and
+			experience which can in turn undermine general recovery efforts.
+		</p>
+	</div>
+</div>
+
+<div class="chart-container">
+	<MultiLineChart title="Sales Relative to Same Month in 2019 (%)" yDomain={[0, 150]} chartDataset={'restaurant'}/>
+</div>
+
+<div class="text-container">
+	<div class="report-text">
+		<h3>Summary of Key Findings</h3>
+		<p>
+			The pandemic significantly altered the everyday choices for most people in most places. We are only beginning to understand which pandemic-induced behaviors were temporary and which ones will become longer-lasting habits. The data in this report suggest xxx main findings: 
+		</p>
+		<ul>
+			<li>downtown main streets were hit hard by the pandemic and have not fully recovered;</li>
+			<li>regional shopping malls experienced similar visitor drop-offs to main streets, have had uneven recoveries, and in many cases remain behind residential and small-town main streets relative to pre-pandemic levels;</li>
+			<li>main streets contain a higher level of civic infrastructure than regional shopping malls;</li>
+			<li>main streets provide more opportunities for independent business than regional shopping malls;</li>
+			<li>residential neighbourhood main streets typically serve more local-based visitors involving shorter average trip distances</li>
+			<li>e-commerce was on the ascendancy prior to the pandemic, experienced sharp increases during the pandemic, but has returned to historical trends, and;</li>
+			<li>fast-food restaurants more than sit-down restaurants have managed to increase sales with the help of online ordering and delivery options but often lose that revenue to third party intermediaries.</li> 
+			
+		</ul>
+	</div>
+</div>
+
+<div class="text-container">
+	<div class="report-text">
+		<h3>Recommendations</h3>
+		<ul>
+			<li>Use data to identify gaps between local consumption demand and local consumption opportunities.</li>
+			<li>Strengthen civic infrastructure opportunities that fulfill a wider range of residents' needs while reinforcing a sense of community.</li>
+			<li>Help businesses adopt digital technologies while finding local solutions to implementation that retain capital in the community.</li>
+			<li>Most trips are local – make getting to/from the easiest and most convenient choice by investing in active transportation options.</li>
+			<li>Downtowns need to adjust to post-pandemic realities of working from home – they should look at altering the mix of businesses (more experiential?) as well as adding more housing/residents.</li>
+			<li>Focus on the overall experience – make it the most pleasant and enjoyable option – lean into the local character and sense of community (authenticity).</li>
+		</ul>
+		
+	</div>
+</div>
+
+<Footer/>
+
 <style>
 	.chart-container {
 		padding: 0 20em 0 5em;
+	}
+
+	.chart-container.bar {
+		padding: 0 20em 0 10em;
 	}
 </style>

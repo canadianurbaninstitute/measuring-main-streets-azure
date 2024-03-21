@@ -54,7 +54,7 @@
 		{
 			link: '/casestudies/montreal/rueontario',
 			image: RueOntario,
-			name: 'RueOntario',
+			name: 'Rue Ontario',
 			type: 'suburban'
 		},
 		{
@@ -88,7 +88,7 @@
 			type: 'rural'
 		},
 		{
-			link: '/casestudies/montreal/ruenotredame',
+			link: '/casestudies/montreal/notredame',
 			image: NotreDame,
 			name: 'Rue Notre-Dame',
 			type: 'downtown'

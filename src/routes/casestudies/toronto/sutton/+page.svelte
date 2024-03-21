@@ -779,7 +779,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Summary name={'West Queen West'} location={'Toronto, Ontario'} />
+	<Summary name={'Sutton'} location={'Toronto, Ontario'} />
 </main>
 
 <style>
