@@ -565,6 +565,7 @@ setConfig({
 						<Dropdown
 							casestudy={'sutton'}
 							section={'housing'}
+							region={'toronto'}
 							options={[
 								{ id: 'populationdensity', text: 'Population Density' },
 								{ id: 'dwellings', text: 'Dwellings' },
@@ -635,6 +636,7 @@ setConfig({
 						<Dropdown
 							casestudy={'sutton'}
 							section={'demographics'}
+							region={'toronto'}
 							options={[
 								{ id: 'average-age', text: 'Average Age' },
 								{ id: 'household-size', text: 'Household Size' },
