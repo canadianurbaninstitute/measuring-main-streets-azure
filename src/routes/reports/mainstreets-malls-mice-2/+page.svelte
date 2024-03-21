@@ -17,21 +17,24 @@
 	location={'Trajectories of main streets, shopping malls and online behaviour'}
 />
 
+<div class="report-text">
+	<p>
+		Main streets were experiencing serious headwinds before the onset of the pandemic in the form
+		of competition from shopping malls and shifting consumer behavior to online retailing. At the
+		outset of the pandemic there were many doomsday predictions for main streets as online
+		retailing spiked. It was seen as an acceleration of on inevitable trend that would lead to the
+		shuttering of many bricks and mortar (independent) businesses. While there are a stack of
+		related challenges facing local small business communities, the trends of consumer choices
+		between main streets, malls, and online have not been linear or as catastrophic as some had
+		predicted. This report sorts out how the pandemic impacted consumer behaviors and what lessons
+		can be learned for main street resiliency.
+	</p>
+</div>
+
 <div class="slide">
 
 <div class="text-container">
 	<div class="report-text">
-		<p>
-			Main streets were experiencing serious headwinds before the onset of the pandemic in the form
-			of competition from shopping malls and shifting consumer behavior to online retailing. At the
-			outset of the pandemic there were many doomsday predictions for main streets as online
-			retailing spiked. It was seen as an acceleration of on inevitable trend that would lead to the
-			shuttering of many bricks and mortar (independent) businesses. While there are a stack of
-			related challenges facing local small business communities, the trends of consumer choices
-			between main streets, malls, and online have not been linear or as catastrophic as some had
-			predicted. This report sorts out how the pandemic impacted consumer behaviors and what lessons
-			can be learned for main street resiliency.
-		</p>
 		<p>
 			For the Measuring Main Streets project we tracked the visitor levels of 60 main streets and 15
 			regional shopping malls in the Toronto, Montreal, and Edmonton regions. The streets were

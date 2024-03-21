@@ -5,6 +5,9 @@
 	import environics from '../lib/assets/logos/environics_logo.svg';
 	import schoolofcities from '../lib/assets/logos/soc_logo.svg';
 	import opennorth from '../lib/assets/logos/opennorth_logo.svg';
+	import collage from '../lib/assets/graphics/MMS-collage.jpg'
+	import Footer from '../lib/Footer.svelte';
+
 </script>
 
 
@@ -42,6 +45,10 @@
     </p>
 </div>
 
+<img src={collage} alt="collage" id="collage"/>
+
+<Footer/>
+
 
 <style>
     a {
@@ -50,12 +57,17 @@
 
 	.logo-group {
 		position: relative;
-		background-color: var(--brandDarkBlue);
 		display: flex;
 		align-items: center;
 		flex-direction: row;
 		padding: 2em;
 		margin: 1em 0 1em 0;
+	}
+
+
+	#collage {
+		width: 100%;
+		margin-top: 1em;
 	}
 
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
@@ -67,9 +79,10 @@
 		}
 	}
 
-	img {
+	.logo-group img {
 		height: 60px;
 		padding: 0.5em;
+		filter: brightness(0) saturate(100%);
 	}
 
 	a:hover {
