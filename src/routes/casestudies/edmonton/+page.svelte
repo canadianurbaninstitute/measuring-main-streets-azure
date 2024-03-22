@@ -204,10 +204,14 @@
 
 <div class="hero">
 	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		We conducted 10 full case studies in the Edmonton region, which which combine data about the main
+		streets with qualitative observation from site visits. The selection of main streets was
+		intended to provide a representative sample of types of streets within each regional context.
+		This included downtown (workplace-oriented), small town, and neighourhood (residential-oriented)
+		main streets being chosen, with additional emphasis placed on equity-deserving communities. More
+		streets were included in the neighbourhood category as there are a greater variety of streets
+		within the group. Use the filters to filter the case studies by type, or click on a case study
+		to read it.
 	</p>
 	<div class="filter-container">
 		<!-- <h4>Filter:</h4> -->
@@ -226,7 +230,7 @@
 					bind:checked={isSuburbanChecked}
 					on:change={() => updateFilter('suburban', isSuburbanChecked)}
 				/>
-				Residential
+				Neighbourhood
 			</label>
 			<label>
 				<input
@@ -253,10 +257,8 @@
 </div>
 
 	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		These are the 10 data only case studies in the Edmonton region. Use the filters above to filter
+		the case studies by type, or click on a case study to read it.
 	</p>
 </div>
 <div class="card-grid">

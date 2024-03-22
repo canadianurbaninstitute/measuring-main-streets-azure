@@ -6,9 +6,9 @@
 	import resiliency from '../lib/assets/graphics/resiliency.svg';
 	import civic from '../lib/assets/graphics/civic.svg';
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
-	import Toronto from '../lib/assets/boundaries/Toronto.svg';
-    import Montreal from '../lib/assets/boundaries/Montreal.svg';
-    import Edmonton from '../lib/assets/boundaries/Edmonton.svg';
+	import Toronto from '../lib/assets/graphics/toronto.jpg';
+    import Montreal from '../lib/assets/graphics/montreal.jpg';
+    import Edmonton from '../lib/assets/graphics/edmonton.jpg';
 
 	
 </script>
@@ -20,10 +20,7 @@
 		<h2>Research Briefs</h2>
 	</div>
     <p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		This set of research briefs and reports aim to provide sensemaking and point towards potential policy interventions relating to Main Streets, tackling issues around equity, resiliency and governance among others.
     </p>
 </div>
 
@@ -74,10 +71,7 @@ subtitle={'Why main streets matter and their relationship with civic infrastruct
 		<h2>Regional Reports</h2>
 	</div>
     <p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		These 3 regional reports dive into detail about the specificities of the Toronto, Montreal and Edmonton regions and their relationship to Main Streets, offering deeper insights and crucial context.
     </p>
 </div>
 

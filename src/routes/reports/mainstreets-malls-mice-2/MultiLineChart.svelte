@@ -83,7 +83,7 @@
 		<Svg>
 			<AxisX
 				gridlines={false}
-				ticks={data.filter((_, i) => i % 5 === 0).map((d) => d[xKey])}
+				ticks={data.filter((_, i) => i % 10 === 0).map((d) => d[xKey])}
 				format={formatLabelX}
 				tickMarks
 			/>

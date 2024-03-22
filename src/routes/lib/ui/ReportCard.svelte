@@ -82,6 +82,7 @@
 		object-fit: cover;
         overflow: hidden;
 		max-height: 100px;
+		border-radius: 1em;
 	}
 
 
