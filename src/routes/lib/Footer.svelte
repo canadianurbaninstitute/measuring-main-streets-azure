@@ -1,40 +1,51 @@
 <script>
 	import cui from '../lib/assets/logos/cui_logo_white.svg';
+	import mms from '../lib/assets/logos/mms_logo_white.svg';
 	import canada from '../lib/assets/logos/canada_logo.svg';
 	import environics from '../lib/assets/logos/environics_logo.svg';
 	import schoolofcities from '../lib/assets/logos/soc_logo.svg';
 	import opennorth from '../lib/assets/logos/opennorth_logo.svg';
+	import HubspotForm from './ui/HubspotForm.svelte'
 </script>
 
 <div id="bar">
+	<div class="footer-content">
+		<a href="/"><img src={mms} alt="Measuring Main Street" /></a>
+		<div>
+		<p>Subscribe to the Canadian Urban Institute newsletter</p>
+		<HubspotForm      
+		portalId="8260137"      
+		formId="6697fce8-23ec-49ad-bb8c-b6174d3bebaa"      
+	 	/>
+		</div>
+	</div>
 	<div id="logo-content">
 		<p>
-			The Measuring Main Streets project (part of the Research Knowledge Initiative program from Infrastructure Canada)
-			was developed by the Canadian Urban Institute in partnership with Environics Analytics and
-			Open North.
+			The Measuring Main Streets project (part of the Research Knowledge Initiative program from
+			Infrastructure Canada) was developed by the Canadian Urban Institute in partnership with
+			Environics Analytics and Open North.
 		</p>
 		<div class="logo-group">
 			<img src={canada} alt="Canadian Urban Institute" />
 			<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
-		</div>
-		<div class="logo-group">
 			<!-- <a href="https://schoolofcities.utoronto.ca/"><img src={schoolofcities} alt="School of Cities" /></a> -->
-			<a href="https://environicsanalytics.com/en-ca/home"><img src={environics} alt="Environics Analytics" /></a>
+			<a href="https://environicsanalytics.com/en-ca/home"
+				><img src={environics} alt="Environics Analytics" /></a
+			>
 			<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
 		</div>
 	</div>
-		<nav>
-			<ul>
-				<li><a href="https://x.com/canurb">Twitter</a></li>
-				<li><a href="https://ca.linkedin.com/company/canadian-urban-institute">LinkedIn</a></li>
-				<li><a href="https://www.instagram.com/canadianurbaninstitute/">Instagram</a></li>
-				<li><a href="https://www.facebook.com/canurb/">Facebook</a></li>
-			</ul>
-		</nav>
+	<nav class="social">
+		<ul>
+			<li><a href="https://x.com/canurb">Twitter</a></li>
+			<li><a href="https://ca.linkedin.com/company/canadian-urban-institute">LinkedIn</a></li>
+			<li><a href="https://www.instagram.com/canadianurbaninstitute/">Instagram</a></li>
+			<li><a href="https://www.facebook.com/canurb/">Facebook</a></li>
+		</ul>
+	</nav>
 </div>
 
 <style>
-
 	nav ul {
 		list-style: none;
 		margin: 0;
@@ -59,8 +70,12 @@
 	}
 
 	#logo-content {
-		width: 60%;
 		margin: 1em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		max-width: 80%;
 	}
 
 	.logo-group {
@@ -73,7 +88,7 @@
 
 	#bar {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		align-items: center;
 		width: 100%;
 		justify-content: space-between;
@@ -103,5 +118,26 @@
 
 	p {
 		color: white;
+	}
+
+	.social {
+		padding-bottom: 2em;
+	}
+
+	.footer-content {
+		display: flex;
+		flex-direction: row;
+		padding: 1em;
+		width: 80%;
+		justify-content: space-between;
+	}
+
+	.footer-content img {
+		height: 100px;
+	}
+
+	#divider {
+		width: 80%;
+		border: 0.1px solid white;
 	}
 </style>

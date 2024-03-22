@@ -2,6 +2,6 @@
 <svg width="487px" height="204px" viewBox="0 0 487 204" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>100Ave</title>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="100Ave" stroke="#0098D6" stroke-width="2" points="2 83.9268573 354.980654 28.5763142 352.976618 11.1346759 457.962939 2 485.206644 126.110418 368.700378 147.766124 252.420615 161.148425 20.3038398 202"></polygon>
+        <polygon id="100Ave" fill="#00ADF2" stroke="#00ADF2" stroke-width="2" points="2 83.9268573 354.980654 28.5763142 352.976618 11.1346759 457.962939 2 485.206644 126.110418 368.700378 147.766124 252.420615 161.148425 20.3038398 202"></polygon>
     </g>
 </svg>

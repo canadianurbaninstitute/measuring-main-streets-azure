@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="175.680633px" height="200.482797px" viewBox="0 0 175.680633 200.482797" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Sutton" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Sutton" stroke="#0098D6" stroke-width="2" points="39.761116 1.21547149 61.6391348 37.4198049 174.039488 156.21196 90.5569931 199.215471 43.1147168 138.770387 44.3230693 114.326651 5.2078462 56.6090864 1.03948844 32.0751983 8.4509495 16.7825318 20.8857651 7.92339873"></polygon>
+        <polygon id="Sutton" fill="#00ADF2" stroke="#00ADF2" stroke-width="2" points="39.761116 1.21547149 61.6391348 37.4198049 174.039488 156.21196 90.5569931 199.215471 43.1147168 138.770387 44.3230693 114.326651 5.2078462 56.6090864 1.03948844 32.0751983 8.4509495 16.7825318 20.8857651 7.92339873"></polygon>
     </g>
 </svg>

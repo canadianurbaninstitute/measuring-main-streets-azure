@@ -18,19 +18,19 @@
 <div class="splash">
 	<img src={collage} alt="collage" id="collage" />
 	<div class="splash-text">
-		<SvelteTypedJs
+		<!-- <SvelteTypedJs
 			typeSpeed={100}
 			backSpeed={100}
 			showCursor={false}
-			strings={['Measuring', 'Understanding', 'Empowering', 'Unlocking']}
+			strings={['Measuring', 'Understanding', 'Empowering', 'Unlocking', 'Measuring']}
 			loop="true"
 		>
 			<h1 class="typing" />
-		</SvelteTypedJs>
+		</SvelteTypedJs> -->
 		<h1>Main Streets</h1>
 		<p>
 			Using a data-oriented approach, Measuring Main Streets explores what’s working, what’s not and
-			what’s next for Canada’s main streets.
+			what’s next for Canada’s main streets, helping empower decision makers from the neighbourhood to the national scale.
 		</p>
 		<button on:click|preventDefault={scrollIntoView} href="#get-started"
 			>Get Started <Icon icon="ph:arrow-down-bold" /></button
@@ -74,8 +74,9 @@
 
 <div class="hero">
 	<h1>Why Main Streets?</h1>
+    <h2>Main streets are the backbone of Canadian society.</h2>
 	<p>
-		Main streets are the backbone of Canadian society. They provide local access to daily
+		 They provide local access to daily
 		necessities that are foundational to the well-being of residents. Nearly 30 million of Canadians
 		live within one kilometre of a main street. Over 160,000 main street businesses provide 1.7
 		million jobs and generate $250 billion in revenue. Beyond the sheer economic power of main
@@ -103,7 +104,7 @@
 <div class="hero">
 	<h1>Learn More</h1>
 	<p>
-        Have questions or enquiries about the project? Read the <a href="/">FAQ and Guide</a>, learn more about our <a href="/about">project and data sources</a>, or our <a href="/">Methodology</a>. You can also reach out to us directly via the <a href='/'>Contact</a> page.
+        Have questions or enquiries about the project? Read the <a href="/">FAQ</a>, learn more about the <a href="/about">Project</a>, or our <a href="/">Methodology & Data Sources</a>. You can also reach out to us directly via the <a href='/'>Contact</a> page.
 	</p>
 </div>
 
@@ -121,6 +122,7 @@
 
 	.hero {
 		margin: 2em;
+        gap: 1em;
 	}
 
 	#video-container {

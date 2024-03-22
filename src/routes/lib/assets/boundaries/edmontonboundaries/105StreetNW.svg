@@ -2,6 +2,6 @@
 <svg width="48px" height="200px" viewBox="0 0 48 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>105StreetNW</title>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="105StreetNW" stroke="#0098D6" stroke-width="2" points="5.26387217 1.62492934 45.3421968 2.99283799 44.5608005 47.7600202 43.8132498 100.160623 42.9360022 121.700218 42.4778596 176.665719 46.3168619 176.89984 46.9371528 198.799804 2 198.182591 3.33005916 160.275731 3.24905638 117.05084"></polygon>
+        <polygon id="105StreetNW" fill="#00ADF2" stroke="#00ADF2" stroke-width="2" points="5.26387217 1.62492934 45.3421968 2.99283799 44.5608005 47.7600202 43.8132498 100.160623 42.9360022 121.700218 42.4778596 176.665719 46.3168619 176.89984 46.9371528 198.799804 2 198.182591 3.33005916 160.275731 3.24905638 117.05084"></polygon>
     </g>
 </svg>

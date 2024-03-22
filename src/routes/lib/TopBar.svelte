@@ -50,10 +50,11 @@
 					<a class="dropdown-title" href="/about">
 						About <Icon icon="icon-park-solid:down-one" /></a>
 					<ul class="dropdown-menu" id="about-menu">
-						<li><a href="/about">Project & Data Sources</a></li>
-						<li><a href="/about">FAQ & Guide</a></li>
-						<li><a href="/about">Methodology</a></li>
+						<li><a href="/about">Project</a></li>
+						<li><a href="/about">FAQ</a></li>
+						<li><a href="/about">Methodology & Data</a></li>
 						<li><a href="/about">Team</a></li>
+						<li><a href="/about">Contact</a></li>
 					</ul>
 				</li>
 			</ul>

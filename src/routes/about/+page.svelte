@@ -21,28 +21,19 @@
         was developed by the Canadian Urban Institute in partnership with Environics Analytics and
         Open North.
     </p>
+	<p>The project is constructed around three interrelated components: an interactive national map of that provides basic descriptive data for every main street in the country; a set of 30 full case studies across 10 regions (Toronto; Montreal; Edmonton) as well as 30 partial case studies (data only); and a set of analytical reports that provide sensemaking and point towards potential policy interventions.</p>
 </div>
 
 <div id="logo-content">
 	<div class="logo-group">
 		<img src={canada} alt="Canadian Urban Institute" />
 		<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
+		</div>
+		<div class="logo-group">
 		<!-- <a href="https://schoolofcities.utoronto.ca/"><img src={schoolofcities} alt="School of Cities" /></a> -->
 		<a href="https://environicsanalytics.com/en-ca/home"><img src={environics} alt="Environics Analytics" /></a>
 		<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
 	</div>
-</div>
-
-<div class="hero">
-	<div class="subtitle">
-		<h2>About the Data</h2>
-	</div>
-    <p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    </p>
 </div>
 
 <img src={collage} alt="collage" id="collage"/>

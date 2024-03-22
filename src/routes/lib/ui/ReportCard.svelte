@@ -54,7 +54,7 @@
 	}
 
 	.card-text-container {
-		width: 100%;
+		width: 90%;
 		padding: 1em;
 		display: flex;
 		flex-direction: row;

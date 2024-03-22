@@ -187,3 +187,45 @@ button:active {
     background-color: #edeff2;
     transition: 0.3s;
 }
+
+.base-hubspot-form {
+    color: white;
+}
+
+ .base-hubspot-form .hs_firstname, .base-hubspot-form .hs_lastname, .base-hubspot-form #label-email-6697fce8-23ec-49ad-bb8c-b6174d3bebaa, .base-hubspot-form .no-list, .base-hubspot-form .hs-error-msgs, .base-hubspot-form .inputs-list {
+    display: none!important;
+}
+
+.base-hubspot-form .hs-button {
+    padding: 0.5em;
+    font-size: 1em;
+    border-radius: 0.5em;
+    border: none;
+    background-color: var(--brandLightBlue);
+    color: white;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.base-hubspot-form .hs-button:hover {
+    background-color: var(--brandGreen);
+    cursor: pointer;
+}
+
+.base-hubspot-form #email-6697fce8-23ec-49ad-bb8c-b6174d3bebaa {  
+    padding: 0.7em;
+    border: none;
+    border-radius: 0.5em;
+    width: 300px;
+    
+
+
+}
+
+
+.base-hubspot-form #hsForm_6697fce8-23ec-49ad-bb8c-b6174d3bebaa {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
