@@ -2,6 +2,8 @@
     import '../styles.css'
 	import ReportCard from '../lib/ui/ReportCard.svelte';
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
+	import opennorth from '../lib/assets/graphics/opennorth.svg';
+
 
 
 	
@@ -44,7 +46,7 @@
 
 	<ReportCard
 	link={"/"}
-	cardImage={mainstreets}
+	cardImage={opennorth}
 	title={'Main Street Data and Technology Project Readiness'}
 	subtitle={'Open North'}
 	/>

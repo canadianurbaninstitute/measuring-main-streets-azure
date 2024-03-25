@@ -83,7 +83,7 @@
 		<Svg>
 			<AxisX
 				gridlines={false}
-				ticks={data.filter((_, i) => i % 5 === 0).map((d) => d[xKey])}
+				ticks={data.filter((_, i) => i % 10 === 0).map((d) => d[xKey])}
 				format={formatLabelX}
 				tickMarks
 			/>
@@ -136,6 +136,9 @@
         display: flex;
         flex-direction: column;
         gap: 2em;
+		border: 1px solid #eee;
+		padding: 1em;
+		border-radius: 1em;
 
     }
 

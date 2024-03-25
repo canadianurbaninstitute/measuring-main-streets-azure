@@ -8,14 +8,14 @@
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies.csv';
+	import data from '../../lib/data/reportdata/mainstreet-resiliency/resiliency.csv';
 
 	export let xKey;
 	export let title ='';
 	export let xDomain = [0, null];
 
-	const yKey = 'name';
-	const zKey = 'ms_type';
+	const yKey = 'Name';
+	const zKey = 'Type';
 
 	// data.forEach((d) => {
 	// 	d[xKey] = +d[xKey];
@@ -47,7 +47,7 @@
 		yDomainSort={false}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Downtown and CBD')}
+		data={data.filter((d) => d.Type == 'Downtown and CBD')}
 		flatData={data}
 	>
 		<Svg>
@@ -65,7 +65,7 @@
 		yDomainSort={false}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Small Town')}
+		data={data.filter((d) => d.Type == 'Small Town')}
 		flatData={data}
 	>
 		<Svg>
@@ -81,7 +81,7 @@
 		yDomainSort={false}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Regional Mall')}
+		data={data.filter((d) => d.Type == 'Regional Mall')}
 		flatData={data}
 	>
 		<Svg>
@@ -97,7 +97,7 @@
 		yDomainSort={false}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Urban and Suburban Main Street')}
+		data={data.filter((d) => d.Type == 'Urban and Suburban Main Street')}
 		flatData={data}
 	>
 		<Svg>

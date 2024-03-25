@@ -51,10 +51,10 @@
 						About <Icon icon="icon-park-solid:down-one" /></a>
 					<ul class="dropdown-menu" id="about-menu">
 						<li><a href="/about">Project</a></li>
-						<li><a href="/about">FAQ</a></li>
-						<li><a href="/about">Methodology & Data</a></li>
-						<li><a href="/about">Team</a></li>
-						<li><a href="/about">Contact</a></li>
+						<li><a href="/about/faq">FAQ</a></li>
+						<li><a href="/about/methodology-data">Methodology & Data</a></li>
+						<li><a href="/about/team">Team</a></li>
+						<li><a href="/about/contact">Contact</a></li>
 					</ul>
 				</li>
 			</ul>

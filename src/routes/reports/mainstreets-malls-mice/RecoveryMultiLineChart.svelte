@@ -55,6 +55,16 @@
 
     <h4>Visitor Levels (%) relative to the same month in 2019</h4>
 
+	<div class='controls'>
+		<Svelecte multiple options={dataset.countryGroups()} placeholder="Add a street" clearable />
+		<div class="legend-container">
+			<LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={'#002940'} />
+			<LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={'#00adf2'} />
+			<LegendItem variant={'line'} label={'Malls'} bordercolor={'#DB3069'} />
+			<LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={'#58e965'} />
+		</div>
+	</div>
+
 <div class="chart">
 	<LayerCake
 		padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
@@ -85,15 +95,7 @@
 	</LayerCake>
 </div>
 
-<div class='controls'>
-    <Svelecte multiple options={dataset.countryGroups()} placeholder="Add a street" clearable />
-    <div class="legend-container">
-        <LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={'#002940'} />
-        <LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={'#00adf2'} />
-        <LegendItem variant={'line'} label={'Malls'} bordercolor={'#DB3069'} />
-        <LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={'#58e965'} />
-    </div>
-    </div>
+
 </div>
 
 
@@ -113,6 +115,9 @@
         display: flex;
         flex-direction: column;
         gap: 2em;
+		border: 1px solid #eee;
+		padding: 1em;
+		border-radius: 1em;
 
     }
 

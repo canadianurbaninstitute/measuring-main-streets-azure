@@ -1,0 +1,76 @@
+Name,Region,Type,TypeCode,Resiliency_Score
+NorthyorkCentre,TorontoCMA,Downtown and CBD,1,2177.155065
+NotreDame,MontrealCMA,Downtown and CBD,1,1679.696673
+SpadinaChtn,TorontoCMA,Downtown and CBD,1,1661.836626
+StDenis,MontrealCMA,Downtown and CBD,1,1637.51375
+DTY,TorontoCMA,Downtown and CBD,1,1512.264656
+RueStPaul,MontrealCMA,Downtown and CBD,1,1495.495385
+JasperAve,EdmontonCMA,Downtown and CBD,1,1415.356336
+LibVill,TorontoCMA,Downtown and CBD,1,1349.976139
+RueSaintCatherine,MontrealCMA,Downtown and CBD,1,1339.097866
+104StreetDowntown,EdmontonCMA,Downtown and CBD,1,1278.959778
+97StreetDowntown,EdmontonCMA,Downtown and CBD,1,1113.040215
+RueBeaubien,MontrealCMA,Urban and Suburban Main Street,2,3109.814089
+149StreetNW,EdmontonCMA,Urban and Suburban Main Street,2,2782.675536
+RueFleury,MontrealCMA,Urban and Suburban Main Street,2,2707.299732
+ThorncliffePark,TorontoCMA,Urban and Suburban Main Street,2,2692.978204
+KingstonRd,TorontoCMA,Urban and Suburban Main Street,2,2622.316737
+137AvenueNW,EdmontonCMA,Urban and Suburban Main Street,2,2541.338036
+EtobicokeLakeshore,TorontoCMA,Urban and Suburban Main Street,2,2387.946098
+118Beverly,EdmontonCMA,Urban and Suburban Main Street,2,2383.530118
+97StreetNorth,EdmontonCMA,Urban and Suburban Main Street,2,2351.431282
+AveVictoria,MontrealCMA,Urban and Suburban Main Street,2,2295.104054
+124StreetNW,EdmontonCMA,Urban and Suburban Main Street,2,2139.370493
+ParsonsRoadSW,EdmontonCMA,Urban and Suburban Main Street,2,2108.768286
+MissDundas,TorontoCMA,Urban and Suburban Main Street,2,2101.558663
+BlvdMonk,MontrealCMA,Urban and Suburban Main Street,2,2097.552322
+StAlbertRoad,EdmontonCMA,Urban and Suburban Main Street,2,2080.098526
+StHubert,MontrealCMA,Urban and Suburban Main Street,2,2072.29686
+GoldenMile,TorontoCMA,Urban and Suburban Main Street,2,2051.024191
+Oakville,TorontoCMA,Urban and Suburban Main Street,2,2037.913611
+SherwoodDrive,EdmontonCMA,Urban and Suburban Main Street,2,2033.186006
+StonyPlainRoadNW,EdmontonCMA,Urban and Suburban Main Street,2,1971.810061
+RueWellington,MontrealCMA,Urban and Suburban Main Street,2,1961.663755
+Weston,TorontoCMA,Urban and Suburban Main Street,2,1960.179866
+107AvenueNW,EdmontonCMA,Urban and Suburban Main Street,2,1910.258787
+JeanTalon,MontrealCMA,Urban and Suburban Main Street,2,1904.476939
+118AlbertaAve,EdmontonCMA,Urban and Suburban Main Street,2,1902.90199
+RueOntario,MontrealCMA,Urban and Suburban Main Street,2,1895.710904
+MontRoyal,MontrealCMA,Urban and Suburban Main Street,2,1890.479826
+82AvenueNW,EdmontonCMA,Urban and Suburban Main Street,2,1867.286563
+AveDoral,MontrealCMA,Urban and Suburban Main Street,2,1756.426584
+BoulStMartin,MontrealCMA,Urban and Suburban Main Street,2,1752.034585
+104StreetNW,EdmontonCMA,Urban and Suburban Main Street,2,1750.631137
+Newmarket,TorontoCMA,Urban and Suburban Main Street,2,1749.456385
+Markham,TorontoCMA,Urban and Suburban Main Street,2,1669.549461
+RueStCharles,MontrealCMA,Urban and Suburban Main Street,2,1665.915261
+Pickering,TorontoCMA,Urban and Suburban Main Street,2,1663.965764
+WestQueenWest,TorontoCMA,Urban and Suburban Main Street,2,1580.281995
+DT_Brampton,TorontoCMA,Urban and Suburban Main Street,2,1373.668174
+50StreetBeaumont,EdmontonCMA,Small Town,3,3330.692955
+Sutton,TorontoCMA,Small Town,3,2785.541761
+CaledonEast,TorontoCMA,Small Town,3,2756.166866
+Uxbridge,TorontoCMA,Small Town,3,2402.344217
+RueRichelieu,MontrealCMA,Small Town,3,2273.506097
+100Ave,EdmontonCMA,Small Town,3,2233.436286
+50StreetStonyPlain,EdmontonCMA,Small Town,3,2168.992623
+Schomberg,TorontoCMA,Small Town,3,2150.447863
+50Ave,EdmontonCMA,Small Town,3,2076.638929
+RueStAnne,MontrealCMA,Small Town,3,1873.616734
+RueStGeorge,MontrealCMA,Small Town,3,1589.373504
+StEustache,MontrealCMA,Small Town,3,1429.479518
+CentreRockland,MontrealCMA,Regional Mall,4,2700.67
+WestEdmontonMall,EdmontonCMA,Regional Mall,4,2532.91
+CarrefourLaval,MontrealCMA,Regional Mall,4,2352.022
+SouthgateCentre,EdmontonCMA,Regional Mall,4,2215.927
+MillWoodsTownCentre,EdmontonCMA,Regional Mall,4,2206.837
+MallChamplain,MontrealCMA,Regional Mall,4,2192.046
+KingswayMall,EdmontonCMA,Regional Mall,4,2173.329
+FairviewPointeClaire,MontrealCMA,Regional Mall,4,2149.453
+PickeringTC,TorontoCMA,Regional Mall,4,2141.126
+VaughanMills,TorontoCMA,Regional Mall,4,2013.731
+BonnieDoonSC,EdmontonCMA,Regional Mall,4,2006.84
+Yorkdale,TorontoCMA,Regional Mall,4,1851.51
+SquareOne,TorontoCMA,Regional Mall,4,1845.587
+CarrefourRichelieu,MontrealCMA,Regional Mall,4,1823.907
+STC,TorontoCMA,Regional Mall,4,1670.587

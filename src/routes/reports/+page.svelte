@@ -6,6 +6,7 @@
 	import resiliency from '../lib/assets/graphics/resiliency.svg';
 	import civic from '../lib/assets/graphics/civic.svg';
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
+	import opennorth from '../lib/assets/graphics/opennorth.svg';
 	import Toronto from '../lib/assets/graphics/toronto.jpg';
     import Montreal from '../lib/assets/graphics/montreal.jpg';
     import Edmonton from '../lib/assets/graphics/edmonton.jpg';
@@ -44,22 +45,22 @@ subtitle={'Why main streets matter and their relationship with civic infrastruct
 	/>
 
 	<ReportCard
-	link={"/"}
+	link={"/reports/mainstreet-resiliency"}
 	cardImage={resiliency}
-	title={'Resilient Main Streets'}
+	title={'Main Street Resiliency'}
 	subtitle={'Analysing main street resiliency through visitor levels over the pandemic'}
 	/>
 
 	<ReportCard
 	link={"/"}
 	cardImage={civic}
-	title={'Main Street Solutions'}
-	subtitle={'Idenitfying gaps in main street civic infrastructure '}
+	title={'Infrastructure Equity & Main Streets'}
+	subtitle={'Idenitfying equity gaps in main street civic infrastructure'}
 	/>
 
 	<ReportCard
 	link={"/"}
-	cardImage={mainstreets}
+	cardImage={opennorth}
 	title={'Open North: Data Driven Approaches to Main Street Challenges'}
 	subtitle={'Planning data and technology projects to support smart civic infrastructure investments'}
 	/>

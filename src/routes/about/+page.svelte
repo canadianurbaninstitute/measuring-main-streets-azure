@@ -14,15 +14,28 @@
 <div class="hero">
     <h1> About Measuring Main Streets</h1>
 	<div class="subtitle">
-		<h2>About the Project</h2>
+		<h2>The Measuring Main Streets project is a part of the Research Knowledge Initiative program from Infrastructure Canada.</h2>
 	</div>
     <p>
-        The Measuring Main Streets project (part of the Research Knowledge Initiative program from Infrastructure Canada)
-        was developed by the Canadian Urban Institute in partnership with Environics Analytics and
+        It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and
         Open North.
     </p>
-	<p>The project is constructed around three interrelated components: an interactive national map of that provides basic descriptive data for every main street in the country; a set of 30 full case studies across 10 regions (Toronto; Montreal; Edmonton) as well as 30 partial case studies (data only); and a set of analytical research briefs and reports that provide sensemaking and point towards potential policy interventions.</p>
-</div>
+	<p>The project is constructed around four interrelated components:</p>
+	<ul>
+		<li>
+		an interactive national map of that provides descriptive data for every main street in the country.
+		</li>
+		<li>
+		a set of 30 full case studies across 10 regions (Toronto; Montreal; Edmonton) as well as 30 partial case studies (data only).
+		</li>
+		<li>
+		a set of analytical research briefs and reports that provide sensemaking and point towards potential policy interventions.
+		</li>
+		<li>
+		a set of smart tools and recommendations to inform main street resiliency and future civic infrastructure investment.
+		</li>
+	</ul>
+	</div>
 
 <div id="logo-content">
 	<div class="logo-group">

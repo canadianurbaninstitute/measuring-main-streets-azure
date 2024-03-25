@@ -6,12 +6,13 @@
 	import schoolofcities from '../lib/assets/logos/soc_logo.svg';
 	import opennorth from '../lib/assets/logos/opennorth_logo.svg';
 	import HubspotForm from './ui/HubspotForm.svelte'
+	import SocialLinks from './ui/SocialLinks.svelte';
 </script>
 
 <div id="bar">
 	<div class="footer-content">
 		<a href="/"><img src={mms} alt="Measuring Main Street" /></a>
-		<div>
+		<div id="social">
 		<p>Subscribe to the Canadian Urban Institute newsletter</p>
 		<HubspotForm      
 		portalId="8260137"      
@@ -35,39 +36,16 @@
 			<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
 		</div>
 	</div>
-	<nav class="social">
-		<ul>
-			<li><a href="https://x.com/canurb">Twitter</a></li>
-			<li><a href="https://ca.linkedin.com/company/canadian-urban-institute">LinkedIn</a></li>
-			<li><a href="https://www.instagram.com/canadianurbaninstitute/">Instagram</a></li>
-			<li><a href="https://www.facebook.com/canurb/">Facebook</a></li>
-		</ul>
-	</nav>
+	<SocialLinks/>
 </div>
 
 <style>
-	nav ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: row;
-	}
-
-	nav ul a {
-		color: var(--brandLightBlue);
-		text-decoration: none;
-		padding-right: 2em;
-		margin-bottom: 0.4em;
-	}
-
-	nav ul a:hover {
-		color: #fff;
-	}
-
+	
 	a {
 		text-decoration: none;
 	}
+
+
 
 	#logo-content {
 		margin: 1em;
@@ -99,8 +77,7 @@
 
 	@media only screen and (max-width: 768px) {
 		#bar,
-		.logo-group,
-		nav ul {
+		.logo-group {
 			flex-direction: column;
 			text-align: center;
 		}
@@ -120,10 +97,6 @@
 		color: white;
 	}
 
-	.social {
-		padding-bottom: 2em;
-	}
-
 	.footer-content {
 		display: flex;
 		flex-direction: row;
@@ -136,8 +109,4 @@
 		height: 100px;
 	}
 
-	#divider {
-		width: 80%;
-		border: 0.1px solid white;
-	}
 </style>

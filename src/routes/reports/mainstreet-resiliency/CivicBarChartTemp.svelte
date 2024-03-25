@@ -8,14 +8,14 @@
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies.csv';
+	import data from '../../lib/data/reportdata/mainstreet-resiliency/civic.csv';
 
-	export let xKey;
 	export let title ='';
-	export let xDomain = [0, null];
+	let xDomain = [0, 0.6];
 
-	const yKey = 'name';
-	const zKey = 'ms_type';
+	const xKey = 'Civic_Provision'
+	const yKey = 'Name';
+	const zKey = 'Type';
 
 	// data.forEach((d) => {
 	// 	d[xKey] = +d[xKey];
@@ -29,6 +29,8 @@
 			[columnName]: item[columnName]
 		}));
 	}
+
+	console.log(data);
 
 
 </script>
@@ -47,7 +49,7 @@
 		yDomainSort={false}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Downtown and CBD')}
+		data={data.filter((d) => d.Type == 'Downtown')}
 		flatData={data}
 	>
 		<Svg>
@@ -65,14 +67,13 @@
 		yDomainSort={false}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Small Town')}
+		data={data.filter((d) => d.Type == 'Small Town')}
 		flatData={data}
 	>
 		<Svg>
 			<Bar fill={'#00adf2'} />
 		</Svg>
 	</LayerCake>
-
 	<LayerCake
 		position="absolute"
 		padding={{ bottom: 20, left: 35 }}
@@ -81,23 +82,7 @@
 		yDomainSort={false}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Regional Mall')}
-		flatData={data}
-	>
-		<Svg>
-			<Bar fill={'#DB3069'} />
-		</Svg>
-	</LayerCake>
-
-	<LayerCake
-		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
-		x={xKey}
-		y={yKey}
-		yDomainSort={false}
-		yScale={scaleBand().paddingInner(0.1)}
-		xDomain={xDomain}
-		data={data.filter((d) => d.ms_type == 'Urban and Suburban Main Street')}
+		data={data.filter((d) => d.Type == 'Residential')}
 		flatData={data}
 	>
 		<Svg>
@@ -111,7 +96,7 @@
 		<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
         <LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
         <LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-        <LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} />
+        <!-- <LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} /> -->
     </div>
 </div>
 

@@ -1,0 +1,61 @@
+Name,Region,Type,Civic_Provision
+97StreetDowntown,EdmontonCMA,Downtown,0.54
+104StreetDowntown,EdmontonCMA,Downtown,0.52
+JasperAve,EdmontonCMA,Downtown,0.48
+107AvenueNW,EdmontonCMA,Downtown,0.47
+RueStPaul,MontrealCMA,Downtown,0.38
+RueSaintCatherine,MontrealCMA,Downtown,0.35
+DTY,TorontoCMA,Downtown,0.25
+SpadinaChtn,TorontoCMA,Downtown,0.22
+StDenis,MontrealCMA,Downtown,0.18
+LibVill,TorontoCMA,Downtown,0.14
+NotreDame,MontrealCMA,Downtown,0.13
+NorthyorkCentre,TorontoCMA,Downtown,0.10
+82AvenueNW,EdmontonCMA,Residential,0.37
+SherwoodDrive,EdmontonCMA,Residential,0.31
+118AlbertaAve,EdmontonCMA,Residential,0.27
+124StreetNW,EdmontonCMA,Residential,0.23
+EtobicokeLakeshore,TorontoCMA,Residential,0.20
+97StreetNorth,EdmontonCMA,Residential,0.18
+Oakville,TorontoCMA,Residential,0.17
+Newmarket,TorontoCMA,Residential,0.16
+WestQueenWest,TorontoCMA,Residential,0.15
+StAlbertRoad,EdmontonCMA,Residential,0.15
+104StreetNW,EdmontonCMA,Residential,0.14
+Markham,TorontoCMA,Residential,0.14
+AveVictoria,MontrealCMA,Residential,0.13
+BoulStMartin,MontrealCMA,Residential,0.12
+DT_Brampton,TorontoCMA,Residential,0.12
+RueStCharles,MontrealCMA,Residential,0.10
+StonyPlainRoadNW,EdmontonCMA,Residential, 0.10
+KingstonRd,TorontoCMA,Residential,0.09
+149StreetNW,EdmontonCMA,Residential,0.09
+GoldenMile,TorontoCMA,Residential,0.09
+AveDoral,MontrealCMA,Residential,0.09
+118Beverly,EdmontonCMA,Residential,0.08
+MontRoyal,MontrealCMA,Residential,0.08
+StHubert,MontrealCMA,Residential,0.07
+ThorncliffePark,TorontoCMA,Residential,0.07
+RueBeaubien,MontrealCMA,Residential,0.07
+MissDundas,TorontoCMA,Residential,0.06
+RueFleury,MontrealCMA,Residential,0.06
+137AvenueNW,EdmontonCMA,Residential,0.06
+JeanTalon,MontrealCMA,Residential,0.06
+Weston,TorontoCMA,Residential,0.06
+Pickering,TorontoCMA,Residential,0.05
+ParsonsRoadSW,EdmontonCMA,Residential,0.05
+RueOntario,MontrealCMA,Residential,0.05
+RueWellington,MontrealCMA,Residential,0.03
+BlvdMonk,MontrealCMA,Residential,0.03
+RueStGeorge,MontrealCMA,Small Town,0.23
+50Ave,EdmontonCMA,Small Town,0.15
+StEustache,MontrealCMA,Small Town,0.14
+100Ave,EdmontonCMA,Small Town,0.12
+Sutton,TorontoCMA,Small Town,0.12
+50StreetStonyPlain,EdmontonCMA,Small Town,0.12
+RueRichelieu,MontrealCMA,Small Town,0.10
+Uxbridge,TorontoCMA,Small Town,0.08
+CaledonEast,TorontoCMA,Small Town,0.06
+50StreetBeaumont,EdmontonCMA,Small Town,0.05
+RueStAnne,MontrealCMA,Small Town,0.04
+Schomberg,TorontoCMA,Small Town,0.04

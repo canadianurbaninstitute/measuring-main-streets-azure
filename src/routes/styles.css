@@ -220,12 +220,9 @@ button:active {
 
 .base-hubspot-form #email-6697fce8-23ec-49ad-bb8c-b6174d3bebaa {  
     padding: 0.7em;
-    border: none;
+    border: 1px solid var(--brandDarkBlue);
     border-radius: 0.5em;
     width: 300px;
-    
-
-
 }
 
 
