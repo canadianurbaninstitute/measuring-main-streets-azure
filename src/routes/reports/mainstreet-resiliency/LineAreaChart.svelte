@@ -14,6 +14,7 @@
 
     export let chartDataset;
     export let yDomain = [0, null];
+    export let title;
 
     let data;
 
@@ -64,6 +65,10 @@
 
     }
   </style>
+
+<div class='chart-container'>
+
+  <h4>{title}</h4>
   
   <div class="chart">
     <LayerCake
@@ -86,4 +91,6 @@
         <Area fill={'#00adf210'}/>
       </Svg>
     </LayerCake>
+  </div>
+
   </div>

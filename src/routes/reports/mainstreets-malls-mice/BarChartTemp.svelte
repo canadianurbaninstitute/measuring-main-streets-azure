@@ -17,6 +17,12 @@
 	const yKey = 'name';
 	const zKey = 'ms_type';
 
+	const filteredData = data.filter((d) => d.ms_type == 'Small Town')
+    .sort((a, b) => b.civic - a.civic);
+
+	console.log(filteredData);
+
+
 	
 </script>
 

@@ -212,6 +212,10 @@
 		margin: 0;
 	}
 
+	h3 {
+		margin: 0;
+	}
+
 	.splash-text {
 		margin: 2em;
 		font-family: Helvetica, sans-serif;

@@ -1,6 +1,7 @@
 <script>
 	import Title from '../../lib/Title.svelte';
 	import resiliency from '../../lib/assets/graphics/resiliency.svg';
+	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import LineAreaChart from './LineAreaChart.svelte';
 	import BarChart from './BarChartTemp.svelte';
 	import BarChartStacked from './BarChartStacked.svelte';
@@ -35,9 +36,13 @@
 				We selected 20 main streets within the three metropolitan regions of Toronto, Montreal, and Edmonton for undertaking detailed analysis. The 20 main streets were intended to provide a representative sample of types of streets within each regional context. This included four downtown (workplace-oriented), four small town, and 12 neighourhood (residential-oriented) main streets were chosen with additional emphasis placed on equity-deserving communities. More streets were included in the neighbourhood category as there are a greater variety of streets within the group. 
 			</p>
 		</div>
+
+
 	</div>
 
+
 	<div class="chart-container sticky-content">
+		<CaseStudyLocationsMap/>
 	</div>
 </div>
 
@@ -55,8 +60,8 @@
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<LineAreaChart chartDataset='libertyvillage' yDomain={[0, 150]}/>
-		<LineAreaChart chartDataset='uxbridge' yDomain={[0, 150]}/>
+		<LineAreaChart title={'Main Street with Low Resiliency Score'} chartDataset='libertyvillage' yDomain={[0, 150]}/>
+		<LineAreaChart title={'Main Street with High Resiliency Score'} chartDataset='uxbridge' yDomain={[0, 150]}/>
 
 	</div>
 </div>
@@ -129,7 +134,7 @@
 
 <div class="full-text">
 	<div class="report-text">
-		<h3>Key Findings and Recommendations</h3> 
+		<h3>Key Findings and Messages</h3> 
 		<ol>
 			<li>
 			Downtown main streets were hit hardest by the pandemic and have been the slowest to recover.
@@ -168,6 +173,9 @@
 		padding: 0em;
 		border-radius: 1em;
 		width: 100%;
+		/* display: flex;
+		flex-direction: column;
+		gap: 1em; */
 	}
 	/* 
 	.chart-container.bar {

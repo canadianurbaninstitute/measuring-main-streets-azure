@@ -105,7 +105,7 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Business Independence</h3> 
+			<h3>Independent Businesses</h3> 
 			<p>
 				A key difference between main streets and regional shopping centers is the extent to which
 				they support independent business. Measuring Main Streets developed an Independent Index to
@@ -222,7 +222,7 @@
 
 <div class="full-text">
 	<div class="report-text">
-		<h3>Key Findings and Recommendations</h3> 
+		<h3>Key Findings and Messages</h3> 
 		<ol>
 			<li>
 			  Regional shopping malls experienced sharper declines in visitor levels at key stages (hard lockdowns) of the pandemic, but people felt safer returning to them faster.
