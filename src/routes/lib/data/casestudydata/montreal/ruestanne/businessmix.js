@@ -12,7 +12,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 15246,
     "Percentage": 37.4512,
     "Area": "Montreal CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 9,
     "Percentage": 21.9512,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "Rue St Anne"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 6,
     "Percentage": 18.75,
     "Area": "Rue St Anne"

@@ -18,7 +18,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 6357,
     "Percentage": 45.0149,
     "Area": "Montreal CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 19,
     "Percentage": 17.757,
     "Area": "Ten Minute Walk"
@@ -78,7 +78,7 @@ export default [
     "Area": "Notre Dame"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 8,
     "Percentage": 34.7826,
     "Area": "Notre Dame"

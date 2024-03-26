@@ -18,7 +18,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2933,
     "Percentage": 44.3386,
     "Area": "Edmonton CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 110,
     "Percentage": 52.6316,
     "Area": "Ten Minute Walk"
@@ -78,7 +78,7 @@ export default [
     "Area": "82 Avenue NW"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 13,
     "Percentage": 50,
     "Area": "82 Avenue NW"

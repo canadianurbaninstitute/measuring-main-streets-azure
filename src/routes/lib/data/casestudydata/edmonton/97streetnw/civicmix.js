@@ -18,7 +18,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2933,
     "Percentage": 44.3386,
     "Area": "Edmonton CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 42,
     "Percentage": 57.5342,
     "Area": "Ten Minute Walk"
@@ -72,7 +72,7 @@ export default [
     "Area": "97 Street North"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 11,
     "Percentage": 73.3333,
     "Area": "97 Street North"

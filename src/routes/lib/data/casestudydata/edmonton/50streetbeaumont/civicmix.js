@@ -18,7 +18,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2933,
     "Percentage": 44.3386,
     "Area": "Edmonton CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 22,
     "Percentage": 51.1628,
     "Area": "Ten Minute Walk"

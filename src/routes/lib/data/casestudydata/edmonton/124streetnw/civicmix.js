@@ -18,7 +18,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2933,
     "Percentage": 44.3386,
     "Area": "Edmonton CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 90,
     "Percentage": 65.6934,
     "Area": "Ten Minute Walk"
@@ -78,7 +78,7 @@ export default [
     "Area": "124 Street NW"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 33,
     "Percentage": 89.1892,
     "Area": "124 Street NW"

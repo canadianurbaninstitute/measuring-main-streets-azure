@@ -12,7 +12,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 15246,
     "Percentage": 37.4512,
     "Area": "Montreal CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 68,
     "Percentage": 48.9209,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "St Eustache"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 18,
     "Percentage": 66.6667,
     "Area": "St Eustache"

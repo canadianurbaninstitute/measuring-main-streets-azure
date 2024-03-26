@@ -18,7 +18,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 13403,
     "Percentage": 48.7985,
     "Area": "Toronto CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 117,
     "Percentage": 52.4664,
     "Area": "Ten Minute Walk"
@@ -78,7 +78,7 @@ export default [
     "Area": "Brampton"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 39,
     "Percentage": 40.625,
     "Area": "Brampton"

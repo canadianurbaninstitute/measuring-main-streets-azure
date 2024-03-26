@@ -43,9 +43,8 @@
 	subtitle={''}
 	/>
 
-
 	<ReportCard
-	link={"/"}
+	link={"https://canurb.org/wp-content/uploads/Main-Street-Data-Readiness-Tool.pdf"}
 	cardImage={opennorth}
 	title={'Main Street Data and Technology Project Readiness'}
 	subtitle={'Open North'}

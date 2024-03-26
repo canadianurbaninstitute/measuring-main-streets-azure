@@ -18,7 +18,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 6357,
     "Percentage": 45.0149,
     "Area": "Montreal CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 12,
     "Percentage": 34.2857,
     "Area": "Ten Minute Walk"
@@ -60,7 +60,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2,
     "Percentage": 100,
     "Area": "Ave Victoria"

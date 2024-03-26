@@ -12,7 +12,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 15246,
     "Percentage": 37.4512,
     "Area": "Montreal CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 124,
     "Percentage": 38.3901,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "Jean Talon"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 43,
     "Percentage": 44.3299,
     "Area": "Jean Talon"

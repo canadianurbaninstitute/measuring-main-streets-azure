@@ -18,7 +18,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2933,
     "Percentage": 44.3386,
     "Area": "Edmonton CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 21,
     "Percentage": 20.7921,
     "Area": "Ten Minute Walk"
@@ -78,7 +78,7 @@ export default [
     "Area": "118 Alberta Ave"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 8,
     "Percentage": 26.6667,
     "Area": "118 Alberta Ave"

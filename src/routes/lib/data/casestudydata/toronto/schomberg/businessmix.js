@@ -12,7 +12,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 25074,
     "Percentage": 38.0676,
     "Area": "Toronto CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 12,
     "Percentage": 33.3333,
     "Area": "Ten Minute Walk"
@@ -42,7 +42,7 @@ export default [
     "Area": "Schomberg"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 1,
     "Percentage": 33.3333,
     "Area": "Schomberg"

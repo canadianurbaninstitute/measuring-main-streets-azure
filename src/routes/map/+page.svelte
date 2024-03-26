@@ -87,7 +87,7 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cltogc52e020c01ph6xvyfbgz?fresh=true', //'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
 			center: [-89, 58],
 			zoom: 3.3,
 			minZoom: 2,
@@ -144,7 +144,7 @@
 					}
 				},
 				// Place polygons under labels, roads and buildings.
-				'mainstreets-canada'
+				'mainstreets-base'
 			);
 
 			map.addLayer(
@@ -161,11 +161,11 @@
 					filter: ['in', 'DAUID', '']
 				},
 				// Place polygons under labels, roads and buildings.
-				'mainstreets-canada'
+				'mainstreets-base'
 			);
 		});
 
-		map.on('click', ['mainstreets-canada', 'mainstreets-canada-invisible'], (e) => {
+		map.on('click', ['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density'], (e) => {
 		
 			// map zooming
 			const endpoints = e.features[0].geometry.coordinates;
@@ -182,8 +182,8 @@
 
 			// general
 
-			streetname = e.features[0].properties.R_STNAM;
-			place = e.features[0].properties.R_PLACE;
+			streetname = e.features[0].properties.Street_Name;
+			place = e.features[0].properties.City_Name;
 
 			population = e.features[0].properties.Pop;
 			employees = e.features[0].properties.total_emp.toFixed(0);
@@ -191,27 +191,27 @@
 			// business
 
 			business =
-				e.features[0].properties.FdandDr +
+				e.features[0].properties.Food_Drink +
 				e.features[0].properties.Retail +
-				e.features[0].properties.SrvcsaO;
-			business_food_drink = e.features[0].properties.FdandDr;
+				e.features[0].properties.Local_Service;
+			business_food_drink = e.features[0].properties.Food_Drink;
 			business_retail = e.features[0].properties.Retail;
-			business_services = e.features[0].properties.SrvcsaO;
+			business_services = e.features[0].properties.Local_Service;
 			independent_business = e.features[0].properties.BII_avg.toFixed(2);
 
 			// civic
 
 			civic =
-				e.features[0].properties.ArtsanC +
-				e.features[0].properties.Educatn +
-				e.features[0].properties.GvrnaCS +
-				e.features[0].properties.HlthaCF +
-				e.features[0].properties.RcrtnFc;
-			civic_arts_culture = e.features[0].properties.ArtsanC;
-			civic_education = e.features[0].properties.Educatn;
-			civic_govt_community = e.features[0].properties.GvrnaCS;
-			civic_healthcare = e.features[0].properties.HlthaCF;
-			civic_recreation = e.features[0].properties.RcrtnFc;
+				e.features[0].properties.Arts +
+				e.features[0].properties.Education +
+				e.features[0].properties.GovandCom +
+				e.features[0].properties.Healthcare +
+				e.features[0].properties.Recreation;
+			civic_arts_culture = e.features[0].properties.Arts;
+			civic_education = e.features[0].properties.Education;
+			civic_govt_community = e.features[0].properties.GovandCom;
+			civic_healthcare = e.features[0].properties.Healthcare;
+			civic_recreation = e.features[0].properties.Recreation;
 
 			// demographic
 
@@ -241,7 +241,7 @@
 
 			// housing
 
-			dwellings = e.features[0].properties.TotalDwellings.toFixed(0);
+			dwellings = e.features[0].properties.total_dwellings.toFixed(0);
 			singledetached = e.features[0].properties.SinDetach.toFixed(0);
 			semidetached = e.features[0].properties.SemiDetach.toFixed(0);
 			duplex = e.features[0].properties.Duplex.toFixed(0);
@@ -256,7 +256,7 @@
 			// highlighting road
 
 			let features = map.queryRenderedFeatures(e.point, {
-				layers: ['mainstreets-canada', 'mainstreets-canada-invisible']
+				layers: ['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density']
 			});
 
 			if (!features.length) {
@@ -309,7 +309,7 @@
 			// 		'fill-color': '#ffb8b8',
 			// 		'fill-opacity': 0.4
 			// 	}
-			// }, 'mainstreets-canada');
+			// }, 'mainstreets-base');
 
 			map.addLayer({
 				id: 'selectedRoad',
@@ -335,7 +335,7 @@
 		// the mouse is over the states layer.
 		map.on(
 			'mouseenter',
-			['mainstreets-canada', 'mainstreets-canada-invisible', 'case-study-BIAs'],
+			['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
 			() => {
 				map.getCanvas().style.cursor = 'pointer';
 			}
@@ -345,7 +345,7 @@
 		// when it leaves the states layer.
 		map.on(
 			'mouseleave',
-			['mainstreets-canada', 'mainstreets-canada-invisible', 'case-study-BIAs'],
+			['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
 			() => {
 				map.getCanvas().style.cursor = '';
 			}
@@ -659,7 +659,7 @@
 			/>
 			<LegendItem
 				variant={'circle'}
-				label={'Recreation and Facilities'}
+				label={'Recreation'}
 				bgcolor={'#43B171'}
 				bordercolor={'#fff'}
 				button={true}
@@ -668,7 +668,7 @@
 			/>
 			<LegendItem
 				variant={'circle'}
-				label={'Health and Care Facilities'}
+				label={'Healthcare'}
 				bgcolor={'#33AED7'}
 				bordercolor={'#fff'}
 				button={true}
@@ -696,7 +696,7 @@
 			/>
 			<LegendItem
 				variant={'circle'}
-				label={'Services and Other'}
+				label={'Local Services'}
 				bgcolor={'#2a5cac'}
 				bordercolor={'#fff'}
 				button={true}

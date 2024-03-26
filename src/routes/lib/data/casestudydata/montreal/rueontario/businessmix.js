@@ -12,7 +12,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 15246,
     "Percentage": 37.4512,
     "Area": "Montreal CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 88,
     "Percentage": 30.5556,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "Rue Ontario"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 23,
     "Percentage": 27.381,
     "Area": "Rue Ontario"

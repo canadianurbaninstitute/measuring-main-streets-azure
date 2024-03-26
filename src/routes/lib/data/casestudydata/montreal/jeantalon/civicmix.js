@@ -18,7 +18,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 6357,
     "Percentage": 45.0149,
     "Area": "Montreal CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 62,
     "Percentage": 48.8189,
     "Area": "Ten Minute Walk"
@@ -72,7 +72,7 @@ export default [
     "Area": "Jean Talon"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 9,
     "Percentage": 42.8571,
     "Area": "Jean Talon"

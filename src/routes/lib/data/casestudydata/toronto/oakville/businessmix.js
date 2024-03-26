@@ -12,7 +12,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 25074,
     "Percentage": 38.0676,
     "Area": "Toronto CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 113,
     "Percentage": 37.4172,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "DT Oakvile"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 58,
     "Percentage": 33.3333,
     "Area": "DT Oakvile"

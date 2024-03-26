@@ -18,7 +18,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 6357,
     "Percentage": 45.0149,
     "Area": "Montreal CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 49,
     "Percentage": 66.2162,
     "Area": "Ten Minute Walk"
@@ -72,7 +72,7 @@ export default [
     "Area": "Boul St Martin"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 15,
     "Percentage": 53.5714,
     "Area": "Boul St Martin"

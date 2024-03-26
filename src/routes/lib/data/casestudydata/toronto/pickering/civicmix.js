@@ -18,7 +18,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 13403,
     "Percentage": 48.7985,
     "Area": "Toronto CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 29,
     "Percentage": 60.4167,
     "Area": "Ten Minute Walk"
@@ -72,7 +72,7 @@ export default [
     "Area": "DT Pickering"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 8,
     "Percentage": 57.1429,
     "Area": "DT Pickering"

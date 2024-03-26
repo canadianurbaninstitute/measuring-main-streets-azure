@@ -18,7 +18,7 @@ export default [
     "Area": "Montreal CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 6357,
     "Percentage": 45.0149,
     "Area": "Montreal CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 279,
     "Percentage": 43.662,
     "Area": "Ten Minute Walk"
@@ -78,7 +78,7 @@ export default [
     "Area": "St Denis"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 34,
     "Percentage": 53.9683,
     "Area": "St Denis"

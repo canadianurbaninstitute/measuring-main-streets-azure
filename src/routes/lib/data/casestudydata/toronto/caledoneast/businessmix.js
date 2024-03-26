@@ -12,7 +12,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 25074,
     "Percentage": 38.0676,
     "Area": "Toronto CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 15,
     "Percentage": 44.1176,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "Caledon East"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 9,
     "Percentage": 42.8571,
     "Area": "Caledon East"

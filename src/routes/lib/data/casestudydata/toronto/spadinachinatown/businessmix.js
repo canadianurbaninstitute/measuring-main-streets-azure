@@ -12,7 +12,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 25074,
     "Percentage": 38.0676,
     "Area": "Toronto CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 413,
     "Percentage": 35.0594,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "Spadina Chinatown"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 49,
     "Percentage": 28.3237,
     "Area": "Spadina Chinatown"

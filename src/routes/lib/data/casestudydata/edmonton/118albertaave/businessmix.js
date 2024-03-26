@@ -12,7 +12,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 5617,
     "Percentage": 36.6119,
     "Area": "Edmonton CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 50,
     "Percentage": 28.2486,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "118 Alberta Ave"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 35,
     "Percentage": 28.2258,
     "Area": "118 Alberta Ave"

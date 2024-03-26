@@ -12,7 +12,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 5617,
     "Percentage": 36.6119,
     "Area": "Edmonton CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 39,
     "Percentage": 41.9355,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "50 Street Beaumont"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 16,
     "Percentage": 44.4444,
     "Area": "50 Street Beaumont"

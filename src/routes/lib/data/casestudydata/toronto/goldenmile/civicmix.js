@@ -18,7 +18,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 13403,
     "Percentage": 48.7985,
     "Area": "Toronto CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 24,
     "Percentage": 40,
     "Area": "Ten Minute Walk"
@@ -72,7 +72,7 @@ export default [
     "Area": "Golden Mile"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 16,
     "Percentage": 57.1429,
     "Area": "Golden Mile"

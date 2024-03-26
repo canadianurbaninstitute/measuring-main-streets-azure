@@ -12,7 +12,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 5617,
     "Percentage": 36.6119,
     "Area": "Edmonton CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 35,
     "Percentage": 37.6344,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "50 Street Stony Plain"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 17,
     "Percentage": 44.7368,
     "Area": "50 Street Stony Plain"

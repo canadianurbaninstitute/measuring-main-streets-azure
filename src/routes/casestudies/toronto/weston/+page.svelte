@@ -340,7 +340,7 @@ setConfig({
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation and Facilities'}
+							label={'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -349,7 +349,7 @@ setConfig({
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Health and Care Facilities'}
+							label={'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -440,7 +440,7 @@ setConfig({
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Services and Other'}
+							label={'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}

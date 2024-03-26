@@ -18,7 +18,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2933,
     "Percentage": 44.3386,
     "Area": "Edmonton CMA"
@@ -42,7 +42,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 29,
     "Percentage": 45.3125,
     "Area": "Ten Minute Walk"
@@ -66,7 +66,7 @@ export default [
     "Area": "Stony Plain Road NW"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 1,
     "Percentage": 14.2857,
     "Area": "Stony Plain Road NW"

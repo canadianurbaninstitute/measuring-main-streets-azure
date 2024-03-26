@@ -18,7 +18,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 13403,
     "Percentage": 48.7985,
     "Area": "Toronto CMA"
@@ -48,7 +48,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 55,
     "Percentage": 50.4587,
     "Area": "Ten Minute Walk"
@@ -78,7 +78,7 @@ export default [
     "Area": "Markham Hwy 7"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 34,
     "Percentage": 72.3404,
     "Area": "Markham Hwy 7"

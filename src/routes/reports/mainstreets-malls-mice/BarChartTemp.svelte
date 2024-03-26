@@ -17,20 +17,7 @@
 	const yKey = 'name';
 	const zKey = 'ms_type';
 
-	// data.forEach((d) => {
-	// 	d[xKey] = +d[xKey];
-	// });
-
-	const seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
-
-	function filterColumn(data, columnName) {
-		return data.map(item => ({
-			name: item.name,
-			[columnName]: item[columnName]
-		}));
-	}
-
-
+	
 </script>
 
 

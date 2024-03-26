@@ -12,7 +12,7 @@ export default [
     "Area": "Toronto CMA"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 25074,
     "Percentage": 38.0676,
     "Area": "Toronto CMA"
@@ -30,7 +30,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 211,
     "Percentage": 59.4366,
     "Area": "Ten Minute Walk"
@@ -48,7 +48,7 @@ export default [
     "Area": "Brampton"
   },
   {
-    "Group": "Services and Other",
+    "Group": "Local Services",
     "n": 105,
     "Percentage": 65.625,
     "Area": "Brampton"

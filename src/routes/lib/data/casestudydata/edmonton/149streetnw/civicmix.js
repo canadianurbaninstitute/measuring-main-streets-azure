@@ -18,7 +18,7 @@ export default [
     "Area": "Edmonton CMA"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 2933,
     "Percentage": 44.3386,
     "Area": "Edmonton CMA"
@@ -42,7 +42,7 @@ export default [
     "Area": "Ten Minute Walk"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 26,
     "Percentage": 48.1481,
     "Area": "Ten Minute Walk"
@@ -66,7 +66,7 @@ export default [
     "Area": "149 Street NW"
   },
   {
-    "Group": "Health and Care Facilities",
+    "Group": "Healthcare",
     "n": 3,
     "Percentage": 42.8571,
     "Area": "149 Street NW"

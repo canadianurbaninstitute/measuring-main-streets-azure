@@ -1,6 +1,7 @@
 <script>
 	import Title from '../../lib/Title.svelte';
 	import resiliency from '../../lib/assets/graphics/resiliency.svg';
+	import LineAreaChart from './LineAreaChart.svelte';
 	import BarChart from './BarChartTemp.svelte';
 	import BarChartStacked from './BarChartStacked.svelte';
 	import CivicBarChart from './CivicBarChartTemp.svelte';
@@ -54,6 +55,9 @@
 	</div>
 
 	<div class="chart-container bar sticky-content">
+		<LineAreaChart chartDataset='libertyvillage' yDomain={[0, 150]}/>
+		<LineAreaChart chartDataset='uxbridge' yDomain={[0, 150]}/>
+
 	</div>
 </div>
 
