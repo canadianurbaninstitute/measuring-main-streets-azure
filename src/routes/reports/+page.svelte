@@ -29,7 +29,7 @@
 <ReportCard
 link={"/reports/case-for-mainstreets"}
 cardImage={mainstreets}
-title={'The Case for Main Streets'}
+title={'Executive Summary: The Case for Main Streets'}
 subtitle={'An introduction to Measuring Main Streets'}
 />
 </div>
