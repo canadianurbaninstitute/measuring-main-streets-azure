@@ -34,7 +34,7 @@
 	<div id="menu">
 		<nav>
 			<ul>
-				<li><a href="/map">National Map</a></li>
+				<li><a href="/map">Main Street Map</a></li>
 				<li class="dropdown">
 					<a class="dropdown-title" href="/casestudies">
 						Case Studies <Icon icon="icon-park-solid:down-one" /></a>

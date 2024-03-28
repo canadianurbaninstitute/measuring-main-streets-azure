@@ -3,7 +3,7 @@
   Generates an SVG bar chart.
  -->
  <script>
-    import { getContext } from 'svelte';
+    import { getContext, createEventDispatcher } from 'svelte';
   
     const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
   

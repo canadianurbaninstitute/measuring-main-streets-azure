@@ -30,9 +30,6 @@
 		}));
 	}
 
-	console.log(data);
-
-
 </script>
 
 

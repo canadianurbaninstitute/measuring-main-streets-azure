@@ -18,7 +18,7 @@
 
 	// info
 	let streetname = 'Canada';
-	let place = 'This is a map of main streets in Canada. Search for a place or navigate the map using the controls and click on a main street to see information associated with it.';
+	let place = 'Main Streets';
 
 	// basic
 
@@ -393,7 +393,7 @@
 
 		// info
 		streetname = 'Canada';
-		place = 'This is a map of main streets in Canada. Search for a place or navigate the map using the controls and click on a main street to see information associated with it.';
+		place = 'Main Streets';
 
 		// basic
 
@@ -476,6 +476,13 @@
 		type="text/css"
 	/>
 </svelte:head>
+
+<div class="hero">
+    <h1> Main Street Map </h1>
+    <p>
+		This is a map of main streets in Canada. Search for a place or navigate the map using the controls and click on a main street to see information associated with it.
+    </p>
+</div>
 
 <div id="content-container">
 	<div id="sidebar">
@@ -739,12 +746,10 @@
 		background-color: white;
 		height: 100%;
 	}
-/* 
+
 	p {
-		color: #222;
-		margin: 0 auto;
-		font-size: 0.8em;
-	} */
+		margin-top: 0;
+	}
 
 	#map {
 		height: 90vh;
@@ -756,6 +761,7 @@
 		display: flex;
 		flex-direction: row;
 		overflow: hidden;
+		border-top: 1px solid #eee;
 	}
 
 	#sidebar {

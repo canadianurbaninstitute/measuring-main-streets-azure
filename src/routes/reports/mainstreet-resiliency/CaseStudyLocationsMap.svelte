@@ -13,16 +13,6 @@
 	let pitch = 0;
 	let attribution = 'Canadian Urban Institute';
 
-	let pageHeight;
-	let pageWidth;
-
-	let mapHeight = 600;
-	$: if (pageHeight < 800) {
-		mapHeight = pageHeight - 200;
-	} else {
-		mapHeight = 600;
-	}
-
 	let map;
 
 	onMount(() => {
@@ -46,30 +36,30 @@
 				})
 			);
 
-		// // Create a popup, but don't add it to the map yet.
-		// const popup = new mapboxgl.Popup({
-        //     closeButton: false,
-        //     closeOnClick: false
-        // });
+		// Create a popup, but don't add it to the map yet.
+		const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
 
 
-		// map.on('mouseenter', 'case-studies-malls-points', (e) => {
-        //     // Change the cursor style as a UI indicator.
-        //     map.getCanvas().style.cursor = 'pointer';
+		map.on('mouseenter', 'case-studies-malls-points', (e) => {
+            // Change the cursor style as a UI indicator.
+            map.getCanvas().style.cursor = 'pointer';
 
-        //     // Copy coordinates array.
-        //     const coordinates = e.features[0].geometry.coordinates.slice();
-        //     const name = e.features[0].properties.Name;
-        //     // Populate the popup and set its coordinates
-        //     // based on the feature found.
-        //     popup.setLngLat(coordinates).setHTML('<h4>' + name + '</h4').addTo(map);
+            // Copy coordinates array.
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const name = e.features[0].properties.Name;
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            popup.setLngLat(coordinates).setHTML(name).addTo(map);
 
-        // });
+        });
 
-        // map.on('mouseleave', 'case-studies-malls-points', () => {
-        //     map.getCanvas().style.cursor = '';
-        //     popup.remove();
-        // });
+        map.on('mouseleave', 'case-studies-malls-points', () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
 	});
 
 	function navigateMap(event) {

@@ -17,7 +17,6 @@
 	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
 	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
 
-
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series
 	 */
@@ -30,8 +29,8 @@
 	//const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
 	const intialSeriesNames = ['downtown main streets', 'malls', 'neighbourhood main streets', 'small town main streets'];
 
-	const seriesNames = ['downtown main streets', 'malls', 'neighbourhood main streets', 'small town main streets'];
-	const seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+	let seriesNames = ['downtown main streets', 'malls', 'neighbourhood main streets', 'small town main streets'];
+	let seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2', '#eee'];
 
 
 	/* --------------------------------------------
@@ -54,6 +53,14 @@
 
 	let groupedData;
 
+	let filteredData = data.map(function(dataEntry) {
+			let newObj = {date: dataEntry.date};
+			intialSeriesNames.forEach(function(key) {
+				newObj[key] = dataEntry[key];
+			});
+			return newObj;
+		});
+
 	groupedData = groupLonger(data, seriesNames, {
 			groupTo: zKey,
 			valueTo: yKey
@@ -61,12 +68,11 @@
 
 	function handleChange(e) {
 		
-		// adding lines
+		// adding lines + filtering data
 
 		selectedLabels = [];
 		
 		selectedValues.forEach(value => seriesNames.push(value));
-
 
 		// selectedValues.forEach(value => {
 		// 	if (value.length > 1) {
@@ -79,6 +85,16 @@
 			valueTo: yKey
 		});
 
+		// Filtered data for GroupLabels
+
+		filteredData = data.map(function(dataEntry) {
+			let newObj = {date: dataEntry.date};
+			selectedValues.forEach(function(key) {
+				newObj[key] = dataEntry[key];
+			});
+			return newObj;
+		});
+
 		// removing lines - need to make it work for individual as well
 
 		if (selectedValues.length === 0) {
@@ -86,6 +102,19 @@
 			groupTo: zKey,
 			valueTo: yKey
 		});
+
+		// Filtered data for group labels
+
+	 	filteredData = data.map(function(dataEntry) {
+			let newObj = {date: dataEntry.date};
+			intialSeriesNames.forEach(function(key) {
+				newObj[key] = dataEntry[key];
+			});
+			return newObj;
+		});
+
+		seriesNames = ['downtown main streets', 'malls', 'neighbourhood main streets', 'small town main streets'];
+
 
 		}
 
@@ -135,7 +164,7 @@
 		</Svg>
 
 		<Html>
-			<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue}/>
+			<SharedTooltip formatTitle={formatLabelX} dataset={filteredData} {formatValue}/>
 		</Html>
 	</LayerCake>
 	
@@ -172,6 +201,11 @@
         flex-direction: column;
         }
     
+
+	.controls:hover {
+		cursor: pointer;
+	}
+
     .legend-container {
         display:flex;
         flex-direction: row;

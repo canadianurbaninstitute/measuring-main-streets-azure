@@ -1,0 +1,76 @@
+name,region,ms_type,distance
+LibVill,Toronto,Downtown and CBD,13.0
+RueStPaul,Montreal,Downtown and CBD,12.2
+DTY,Toronto,Downtown and CBD,11.5
+97StreetDowntown,Edmonton,Downtown and CBD,10.9
+StDenis,Montreal,Downtown and CBD,10.7
+SpadinaChtn,Toronto,Downtown and CBD,10.0
+RueSaintCatherine,Montreal,Downtown and CBD,9.6
+104StreetDowntown,Edmonton,Downtown and CBD,8.4
+JasperAve,Edmonton,Downtown and CBD,8.3
+NotreDame,Montreal,Downtown and CBD,7.0
+NorthyorkCentre,Toronto,Downtown and CBD,6.9
+Oakville,Toronto,Urban and Suburban Main Street,14.7
+104StreetNW,Edmonton,Urban and Suburban Main Street,12.8
+WestQueenWest,Toronto,Urban and Suburban Main Street,10.8
+Pickering,Toronto,Urban and Suburban Main Street,10.5
+MissDundas,Toronto,Urban and Suburban Main Street,10.4
+Markham,Toronto,Urban and Suburban Main Street,10.3
+StAlbertRoad,Edmonton,Urban and Suburban Main Street,9.8
+SherwoodDrive,Edmonton,Urban and Suburban Main Street,9.7
+RueStCharles,Montreal,Urban and Suburban Main Street,9.7
+ParsonsRoadSW,Edmonton,Urban and Suburban Main Street,9.5
+BoulStMartin,Montreal,Urban and Suburban Main Street,9.3
+GoldenMile,Toronto,Urban and Suburban Main Street,8.9
+StHubert,Montreal,Urban and Suburban Main Street,8.8
+DT_Brampton,Toronto,Urban and Suburban Main Street,8.4
+82AvenueNW,Edmonton,Urban and Suburban Main Street,8.1
+Newmarket,Toronto,Urban and Suburban Main Street,8.1
+124StreetNW,Edmonton,Urban and Suburban Main Street,8.0
+AveDoral,Montreal,Urban and Suburban Main Street,8.0
+107AvenueNW,Edmonton,Urban and Suburban Main Street,7.4
+149StreetNW,Edmonton,Urban and Suburban Main Street,7.1
+JeanTalon,Montreal,Urban and Suburban Main Street,7.1
+Weston,Toronto,Urban and Suburban Main Street,7.0
+118AlbertaAve,Edmonton,Urban and Suburban Main Street,6.7
+137AvenueNW,Edmonton,Urban and Suburban Main Street,6.4
+EtobicokeLakeshore,Toronto,Urban and Suburban Main Street,6.4
+118Beverly,Edmonton,Urban and Suburban Main Street,6.3
+97StreetNorth,Edmonton,Urban and Suburban Main Street,6.2
+StonyPlainRoadNW,Edmonton,Urban and Suburban Main Street,6.0
+KingstonRd,Toronto,Urban and Suburban Main Street,5.6
+MontRoyal,Montreal,Urban and Suburban Main Street,5.1
+ThorncliffePark,Toronto,Urban and Suburban Main Street,5.1
+BlvdMonk,Montreal,Urban and Suburban Main Street,5.0
+RueOntario,Montreal,Urban and Suburban Main Street,5.0
+RueFleury,Montreal,Urban and Suburban Main Street,4.9
+RueWellington,Montreal,Urban and Suburban Main Street,4.9
+RueBeaubien,Montreal,Urban and Suburban Main Street,4.6
+AveVictoria,Montreal,Urban and Suburban Main Street,4.5
+CaledonEast,Toronto,Small Town,15.0
+RueStAnne,Montreal,Small Town,12.7
+100Ave,Edmonton,Small Town,12.0
+Uxbridge,Toronto,Small Town,12.0
+RueStGeorge,Montreal,Small Town,11.2
+50Ave,Edmonton,Small Town,11.1
+50StreetStonyPlain,Edmonton,Small Town,10.7
+StEustache,Montreal,Small Town,10.5
+Schomberg,Toronto,Small Town,10.0
+Sutton,Toronto,Small Town,9.8
+RueRichelieu,Montreal,Small Town,9.6
+50StreetBeaumont,Edmonton,Small Town,6.1
+VaughanMills,Toronto,Regional Mall,16.4
+Yorkdale,Toronto,Regional Mall,14.0
+WestEdmontonMall,Edmonton,Regional Mall,13.7
+CarrefourLaval,Montreal,Regional Mall,12.1
+SquareOne,Toronto,Regional Mall,10.6
+KingswayMall,Edmonton,Regional Mall,10.5
+FairviewPointeClaire,Montreal,Regional Mall,10.3
+SouthgateCentre,Edmonton,Regional Mall,10.1
+CarrefourRichelieu,Montreal,Regional Mall,9.5
+STC,Toronto,Regional Mall,9.0
+MallChamplain,Montreal,Regional Mall,8.5
+PickeringTC,Toronto,Regional Mall,8.4
+CentreRockland,Montreal,Regional Mall,5.8
+BonnieDoonSC,Edmonton,Regional Mall,5.7
+MillWoodsTownCentre,Edmonton,Regional Mall,4.8

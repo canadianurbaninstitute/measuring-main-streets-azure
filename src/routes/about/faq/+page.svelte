@@ -75,7 +75,7 @@
 	</Accordion>
     <Accordion>
 		<div class="accordion-header" accordion slot="header">
-			<h4>What can I use the National Map tool for?</h4>
+			<h4>What can I use the Main Street Map tool for?</h4>
             <Icon icon="iconoir:nav-arrow-down" />
 		</div>
 		<div class="accordion-body" slot="body">
@@ -86,7 +86,7 @@
 	</Accordion>
     <Accordion>
 		<div class="accordion-header" accordion slot="header">
-			<h4>I can find my main street on the National Map?</h4>
+			<h4>I can't find my main street on the Main Street Map?</h4>
             <Icon icon="iconoir:nav-arrow-down" />
 		</div>
 		<div class="accordion-body" slot="body">

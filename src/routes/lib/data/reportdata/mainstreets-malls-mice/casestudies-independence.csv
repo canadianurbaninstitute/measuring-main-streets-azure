@@ -1,0 +1,76 @@
+name,region,ms_type,independence
+RueStPaul,Montreal,Downtown and CBD,0.962893082
+97StreetDowntown,Edmonton,Downtown and CBD,0.931318681
+SpadinaChtn,Toronto,Downtown and CBD,0.860039595
+NotreDame,Montreal,Downtown and CBD,0.846965536
+StDenis,Montreal,Downtown and CBD,0.837127099
+104StreetDowntown,Edmonton,Downtown and CBD,0.832530664
+NorthyorkCentre,Toronto,Downtown and CBD,0.766399904
+JasperAve,Edmonton,Downtown and CBD,0.698461066
+LibVill,Toronto,Downtown and CBD,0.697108927
+RueSaintCatherine,Montreal,Downtown and CBD,0.63681375
+DTY,Toronto,Downtown and CBD,0.537123638
+124StreetNW,Edmonton,Urban and Suburban Main Street,1
+StHubert,Montreal,Urban and Suburban Main Street,0.887041473
+Newmarket,Toronto,Urban and Suburban Main Street,0.876849485
+BlvdMonk,Montreal,Urban and Suburban Main Street,0.864626805
+Markham,Toronto,Urban and Suburban Main Street,0.856191394
+JeanTalon,Montreal,Urban and Suburban Main Street,0.840786232
+RueStCharles,Montreal,Urban and Suburban Main Street,0.838064774
+104StreetNW,Edmonton,Urban and Suburban Main Street,0.837311959
+KingstonRd,Toronto,Urban and Suburban Main Street,0.830535313
+WestQueenWest,Toronto,Urban and Suburban Main Street,0.823083022
+RueBeaubien,Montreal,Urban and Suburban Main Street,0.819267798
+Weston,Toronto,Urban and Suburban Main Street,0.811698341
+RueFleury,Montreal,Urban and Suburban Main Street,0.808910672
+EtobicokeLakeshore,Toronto,Urban and Suburban Main Street,0.808899569
+118AlbertaAve,Edmonton,Urban and Suburban Main Street,0.802642336
+Oakville,Toronto,Urban and Suburban Main Street,0.793461555
+DT_Brampton,Toronto,Urban and Suburban Main Street,0.789745148
+RueWellington,Montreal,Urban and Suburban Main Street,0.764163744
+82AvenueNW,Edmonton,Urban and Suburban Main Street,0.756694041
+AveVictoria,Montreal,Urban and Suburban Main Street,0.754442837
+MissDundas,Toronto,Urban and Suburban Main Street,0.752516111
+StonyPlainRoadNW,Edmonton,Urban and Suburban Main Street,0.74453428
+MontRoyal,Montreal,Urban and Suburban Main Street,0.744153179
+RueOntario,Montreal,Urban and Suburban Main Street,0.730772069
+SherwoodDrive,Edmonton,Urban and Suburban Main Street,0.673059669
+118Beverly,Edmonton,Urban and Suburban Main Street,0.627779697
+107AvenueNW,Edmonton,Urban and Suburban Main Street,0.62277409
+ThorncliffePark,Toronto,Urban and Suburban Main Street,0.612825337
+AveDoral,Montreal,Urban and Suburban Main Street,0.605661414
+97StreetNorth,Edmonton,Urban and Suburban Main Street,0.585200871
+BoulStMartin,Montreal,Urban and Suburban Main Street,0.561896864
+GoldenMile,Toronto,Urban and Suburban Main Street,0.491906981
+149StreetNW,Edmonton,Urban and Suburban Main Street,0.486932665
+Pickering,Toronto,Urban and Suburban Main Street,0.457196062
+StAlbertRoad,Edmonton,Urban and Suburban Main Street,0.440342245
+ParsonsRoadSW,Edmonton,Urban and Suburban Main Street,0.344863965
+137AvenueNW,Edmonton,Urban and Suburban Main Street,0.310104681
+StEustache,Montreal,Small Town,0.944761905
+50StreetStonyPlain,Edmonton,Small Town,0.874137575
+RueRichelieu,Montreal,Small Town,0.869623625
+RueStGeorge,Montreal,Small Town,0.858831216
+RueStAnne,Montreal,Small Town,0.833774892
+Sutton,Toronto,Small Town,0.833624033
+100Ave,Edmonton,Small Town,0.833333333
+Uxbridge,Toronto,Small Town,0.740850364
+Schomberg,Toronto,Small Town,0.728036698
+CaledonEast,Toronto,Small Town,0.718562419
+50StreetBeaumont,Edmonton,Small Town,0.484364908
+50Ave,Edmonton,Small Town,0.43518412
+MillWoodsTownCentre,Edmonton,Regional Mall,0.513556714
+WestEdmontonMall,Edmonton,Regional Mall,0.451291821
+CentreRockland,Montreal,Regional Mall,0.370515961
+BonnieDoonSC,Edmonton,Regional Mall,0.36357607
+CarrefourRichelieu,Montreal,Regional Mall,0.323871759
+Yorkdale,Toronto,Regional Mall,0.315880439
+CarrefourLaval,Montreal,Regional Mall,0.290910043
+VaughanMills,Toronto,Regional Mall,0.289924785
+PickeringTC,Toronto,Regional Mall,0.271755949
+KingswayMall,Edmonton,Regional Mall,0.260520767
+MallChamplain,Montreal,Regional Mall,0.251182126
+SquareOne,Toronto,Regional Mall,0.23332947
+SouthgateCentre,Edmonton,Regional Mall,0.23256729
+STC,Toronto,Regional Mall,0.200441044
+FairviewPointeClaire,Montreal,Regional Mall,0.090873101

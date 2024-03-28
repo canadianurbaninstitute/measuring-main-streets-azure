@@ -36,7 +36,7 @@
 </div>
 
 <div class="full-text">
-	<h3>A National Map of Main Streets</h3> 
+	<h3>A Map of Main Streets</h3> 
 	<p>
 		Measuring Main Streets provide users with the ability to locate every main street across the country and retrieve associated data that describes the local context. One of the key contributions of this project is the creation of a standardized method for defining and identifying main streets across the country. This enables the direct comparison of main streets in a consistent manner essential for developing research findings that provide lessons for those involved in policy making and investment decisions. The methodology itself involves mapping the densities of main street businesses (i.e. retail; restaurants; local services) and civic infrastructure locations (i.e. arts & culture; education; health & care; recreation; government & community services) in relation to major roadways. This process segmented streets into high density main streets (i.e. traditional/walkable), low density main streets (i.e. car-oriented), and other major streets that do not have enough density to be consider a ‘true’ main street. On the national map section of the platform, users can click on any of these street segments and obtain general information about the street’s content (i.e. number of businesses; number of civic infrastructure) and the characteristics of the surrounding neighbourhood (i.e. demographics; housing stock; employment density). The national set of main streets can be classified and compared based on any of these indicators. 
 			</p>

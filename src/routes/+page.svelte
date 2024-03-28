@@ -20,7 +20,7 @@
 <div class="splash">
 	<img src={collage} alt="collage" id="collage" />
 	<div class="splash-text">
-		<Typewriter mode={'loop'} cursor={false}>
+		<Typewriter mode={'loop'} cursor={false} interval={90} unwriteInterval={90}>
 			<h1>Measuring</h1>
 			<h1>Understanding</h1>
 			<h1>Empowering</h1>
@@ -32,21 +32,25 @@
 			what’s next for Canada’s main streets, helping empower decision makers from the neighbourhood
 			to the national scale.
 		</p>
-		<button on:click|preventDefault={scrollIntoView} href="#get-started"
-			>Get Started <Icon icon="ph:arrow-down-bold" /></button
-		>
+		<div class="splash-buttons">
+		<button on:click|preventDefault={scrollIntoView} href="#get-started">Explore the Platform <Icon icon="ph:arrow-down-bold" /></button>
+		<a href="/reports"><button id="executive-summary">Read the Executive Summary <Icon icon="ph:arrow-right-bold" /></button></a>
+		</div>
+		  
 	</div>
 </div>
 
+<span id='get-started'></span>
+
 <div class="hero">
-	<h1 id="get-started">Quick Links</h1>
+	<h1>Quick Links</h1>
 </div>
 
 <div class="card-grid">
 	<HeroCard
 		link={'/map'}
 		cardImage={'https://i.imgur.com/6Q7qGU1.jpeg'}
-		title={'National Map'}
+		title={'Main Street Map'}
 		subtitle={'Explore main streets on the map'}
 	/>
 
@@ -245,6 +249,10 @@
 		margin-top: 0;
 	}
 
+	a {
+		text-decoration: none;
+	}
+
 	.hero {
 		margin: 3em;
 		gap: 1em;
@@ -321,6 +329,11 @@
 		font-family: Helvetica, sans-serif;
 	}
 
+	.splash-buttons {
+		display: flex;
+		gap: 1em;
+	}
+
 	button {
 		padding: 1em;
 		border-radius: 10em;
@@ -333,7 +346,9 @@
 		gap: 5px;
 	}
 
+
 	button:hover {
 		background-color: var(--brandPink);
+		cursor: pointer;
 	}
 </style>

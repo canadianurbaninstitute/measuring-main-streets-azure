@@ -1,25 +1,39 @@
 <script>
-	import { LayerCake, Svg, groupLonger } from 'layercake';
+	import { LayerCake, Svg, groupLonger, Html } from 'layercake';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 
 	import Bar from '../../lib/chartcomponents/Bar.svelte';
 	import AxisX from '../../lib/chartcomponents/AxisX.svelte';
 	import AxisY from '../../lib/chartcomponents/AxisY.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
+	import Tooltip from '../../lib/chartcomponents/Tooltip.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies.csv';
+	import civic from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies-civic.csv';
+	import independence from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies-independence.csv';
+	import distance from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies-distance.csv';
+
+
+
+	import filter from 'svelte-select/filter';
 
 	export let xKey;
 	export let title ='';
 	export let xDomain = [0, null];
+	
+	let data;
 
 	const yKey = 'name';
 	const zKey = 'ms_type';
 
-	const filteredData = data.filter((d) => d.ms_type == 'Small Town')
-	
-	console.log(filteredData);
+	if (xKey == 'civic') {
+		data = civic
+	} else if (xKey == 'independence') {
+		data = independence
+	} else if (xKey == 'distance') {
+		data = distance
+	}
+
 
 
 	
@@ -45,7 +59,8 @@
 		<Svg>
 			<AxisX tickMarks baseline snapLabels />
 			<AxisY tickMarks gridlines={false} />
-			<Bar fill={'#58e965'} />
+			<Bar fill={'#58e965'}
+			/>
 		</Svg>
 	</LayerCake>
 
