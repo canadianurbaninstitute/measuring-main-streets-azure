@@ -1,9 +1,9 @@
 export const dataset = {
-    countryGroups: () => [
+    casestudies: () => [
       {
         label: 'Toronto',
         options: [{
-          value: 'al',
+          value: ['Liberty Village', 'libertyvillage'],
           text: 'Liberty Village'
         },
         {
@@ -22,7 +22,7 @@ export const dataset = {
       {
         label: 'Montreal',
         options: [{
-          value: 'by',
+          value: ['Rue Sainte-Catherine', 'ruesaintecatherine'],
           text: 'Rue Sainte-Catherine'
         },
         {

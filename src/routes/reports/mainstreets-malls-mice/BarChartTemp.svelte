@@ -18,8 +18,7 @@
 	const zKey = 'ms_type';
 
 	const filteredData = data.filter((d) => d.ms_type == 'Small Town')
-    .sort((a, b) => b.civic - a.civic);
-
+	
 	console.log(filteredData);
 
 
@@ -144,6 +143,5 @@
         border-radius: 0.5em;
         border: 1px solid var(--brandGrey);
         padding: 0.5em;
-
     }
 </style>

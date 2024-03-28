@@ -27,10 +27,10 @@
 
 <div style="margin: 2em">
 <ReportCard
-link={"/"}
+link={"/reports/case-for-mainstreets"}
 cardImage={mainstreets}
 title={'The Case for Main Streets'}
-subtitle={'Why main streets matter and their relationship with civic infrastructure'}
+subtitle={'An introduction to Measuring Main Streets'}
 />
 </div>
 
@@ -52,7 +52,7 @@ subtitle={'Why main streets matter and their relationship with civic infrastruct
 	/>
 
 	<ReportCard
-	link={"/"}
+	link={"/reports/mainstreets-infrastructure-equity"}
 	cardImage={civic}
 	title={'Infrastructure Equity & Main Streets'}
 	subtitle={'Idenitfying equity gaps in main street civic infrastructure'}

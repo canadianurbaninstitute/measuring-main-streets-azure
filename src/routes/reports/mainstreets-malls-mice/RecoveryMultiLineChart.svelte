@@ -14,8 +14,9 @@
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 
-	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery.csv';
+	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery2.csv';
 	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
+
 
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series
@@ -26,7 +27,10 @@
 
 	const xKeyCast = timeParse('%Y-%m-%d');
 
-	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
+	//const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
+	const intialSeriesNames = ['downtown main streets', 'malls', 'neighbourhood main streets', 'small town main streets'];
+
+	const seriesNames = ['downtown main streets', 'malls', 'neighbourhood main streets', 'small town main streets'];
 	const seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
 
 
@@ -43,12 +47,56 @@
 
 	const formatLabelX = timeFormat('%b %Y');
 	const formatLabelY = (d) => format(`~s`)(d) + '%';
-	const formatValue = (d) => d.toFixed(0) + '%';
+	// const formatValue = (d) => d.toFixed(0) + '%';
 
-	const groupedData = groupLonger(data, seriesNames, {
-		groupTo: zKey,
-		valueTo: yKey
-	});
+	let selectedValues = [];
+	let selectedLabels;
+
+	let groupedData;
+
+	groupedData = groupLonger(data, seriesNames, {
+			groupTo: zKey,
+			valueTo: yKey
+		});
+
+	function handleChange(e) {
+		
+		// adding lines
+
+		selectedLabels = [];
+		
+		selectedValues.forEach(value => {
+			if (value.length > 1) {
+				seriesNames.push(value[1]);
+			}
+		});
+
+		selectedValues.forEach(value => {
+			if (value.length > 1) {
+				selectedLabels.push(value[0]);
+			}
+		});
+
+		groupedData = groupLonger(data, seriesNames, {
+			groupTo: zKey,
+			valueTo: yKey
+		});
+
+		// removing lines - need to make it work for individual as well
+
+		if (selectedValues.length === 0) {
+			groupedData = groupLonger(data, intialSeriesNames, {
+			groupTo: zKey,
+			valueTo: yKey
+		});
+
+		}
+
+	}
+
+
+
+
 </script>
 
 <div class='chart-container'>
@@ -56,13 +104,13 @@
     <h4>Visitor Levels (%) relative to the same month in 2019</h4>
 
 	<div class='controls'>
-		<Svelecte multiple options={dataset.countryGroups()} placeholder="Add a street" clearable />
+		<Svelecte on:change={handleChange} bind:value={selectedValues} multiple options={dataset.casestudies()} placeholder="Add a street" clearable />
 		<div class="legend-container">
 			<LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={'#002940'} />
 			<LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={'#00adf2'} />
 			<LegendItem variant={'line'} label={'Malls'} bordercolor={'#DB3069'} />
 			<LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={'#58e965'} />
-		</div>
+		</div>	
 	</div>
 
 <div class="chart">
@@ -90,9 +138,10 @@
 		</Svg>
 
 		<Html>
-			<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue} />
+			<SharedTooltip formatTitle={formatLabelX} dataset={data} />
 		</Html>
 	</LayerCake>
+	
 </div>
 
 

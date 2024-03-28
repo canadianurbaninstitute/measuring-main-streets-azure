@@ -3,9 +3,10 @@
 	import HeroCard from './lib/ui/HeroCard.svelte';
 	import Footer from './lib/Footer.svelte';
 	import collage from './lib/assets/graphics/MMS-collage.jpg';
+	import canada_logo from './lib/assets/logos/canada_logo.svg';
+	import cui_logo from './lib/assets/logos/cui_logo_white.svg';
 	import Icon from '@iconify/svelte';
-	import Typewriter from 'svelte-typewriter'
-
+	import Typewriter from 'svelte-typewriter';
 
 	function scrollIntoView({ target }) {
 		const el = document.querySelector(target.getAttribute('href'));
@@ -28,7 +29,8 @@
 		<h1>Main Streets</h1>
 		<p>
 			Using a data-oriented approach, Measuring Main Streets explores what’s working, what’s not and
-			what’s next for Canada’s main streets, helping empower decision makers from the neighbourhood to the national scale.
+			what’s next for Canada’s main streets, helping empower decision makers from the neighbourhood
+			to the national scale.
 		</p>
 		<button on:click|preventDefault={scrollIntoView} href="#get-started"
 			>Get Started <Icon icon="ph:arrow-down-bold" /></button
@@ -70,78 +72,155 @@
 	/>
 </div>
 
-<div class="section">
-	<svg width="162.8px" height="287.9px" viewBox="0 0 162.8 287.9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-			<g id="lamp" fill-rule="nonzero">
-				<path d="M113.9,60.9 L101.9,60.9 L101.9,47.9 L61.9,47.9 L61.9,60.9 L49.9,60.9 L49.9,73.9 L50.3,73.9 L50.2,73.9 L62,116.9 L61.9,116.9 L61.9,129.9 L73.9,129.9 L73.9,213.9 L67.9,213.9 L67.9,226.9 L73.9,226.9 L73.9,253.9 L62.4,253.9 L57.4,287.9 L106.4,287.9 L101.4,253.9 L89.9,253.9 L89.9,226.9 L95.9,226.9 L95.9,213.9 L89.9,213.9 L89.9,129.9 L101.9,129.9 L101.9,116.9 L101.8,116.9 L113.6,73.9 L113.5,73.9 L113.9,73.9 L113.9,60.9 L113.9,60.9 Z M70,116.9 L58.2,73.9 L78.1,73.9 L78.1,116.9 L70,116.9 Z M93.8,116.9 L85.7,116.9 L85.7,73.9 L105.6,73.9 L93.8,116.9 Z" id="post" fill="#002940"></path>
-				<path d="M33.9,80 C36,80 37.8,81.7 37.8,83.9 C37.8,86.03125 36.1107422,87.6932617 34.0959503,87.7950562 L33.9,87.8 L3.9,87.8 C1.8,87.8 0,86.1 0,83.9 C0,81.7 1.7,80 3.9,80 L33.9,80 Z M23.8,20.8 L38.4,35.4 C39.9,36.9 39.9,39.3 38.4,40.9 C37.6615385,41.5461538 36.7526627,41.9366864 35.9093309,41.9929449 L35.7,42 C34.7,42 33.7,41.6 33,40.9 L18.4,26.3 C16.9,24.8 16.9,22.4 18.4,20.8 C19.1241379,20.0758621 20.0580262,19.701308 20.9991472,19.6763377 L21.2008528,19.6763377 C22.1419738,19.701308 23.0758621,20.0758621 23.8,20.8 Z M38.4,128.9 C39.9,130.4 39.9,132.8 38.4,134.4 L23.8,148.9 C23.1538462,149.546154 22.252071,149.936686 21.3306327,149.992945 L21.1,150 C20.1,150 19.1,149.6 18.4,148.9 C16.9,147.4 16.9,145 18.4,143.5 L33,128.9 C33.7241379,128.175862 34.6580262,127.801308 35.5991472,127.776338 L35.8008528,127.776338 C36.7419738,127.801308 37.6758621,128.175862 38.4,128.9 Z M158.9,87.8 L128.9,87.8 C126.8,87.8 125,86.1 125,83.9 C125,81.7 126.7,80 128.9,80 L158.9,80 C161,80 162.8,81.7 162.8,83.9 C162.8,86.1 161,87.8 158.9,87.8 Z M141.7,148.1 C140.7,148.1 139.7,147.7 139,147 L124.4,132.4 C122.9,130.9 122.9,128.5 124.4,126.9 C125.9,125.4 128.3,125.4 129.8,126.9 L144.4,141.5 C145.9,143 145.9,145.4 144.4,147 C143.7,147.7 142.7,148.1 141.7,148.1 Z M127.2,40.1 C126.2,40.1 125.2,39.7 124.5,39 C123,37.5 123,35.1 124.5,33.5 L139,18.9 C140.5,17.4 142.9,17.4 144.4,18.9 C145.9,20.4 145.9,22.8 144.4,24.4 L129.9,38.9 C129.1,39.7 128.1,40.1 127.2,40.1 Z M81.9,26.8 C79.8,26.8 78,25.1 78,22.9 L78,3.9 C78,1.8 79.7,0 81.9,0 C84.1,0 85.8,1.7 85.8,3.9 L85.8,22.9 C85.8,25 84,26.8 81.9,26.8 Z" id="light" fill="#58E965"></path>
-			</g>
-	</svg>
+<div class="section" id="why-main-streets">
+	<img src="https://i.imgur.com/tAGVMYI.jpeg" alt="lamp" style="height:500px;border-radius:1em;" />
 	<div class="hero">
-	<h1>Why Main Streets?</h1>
-    <h2>Main streets are the backbone of Canadian society.</h2>
-	<h3>Vibrant main streets create thriving neighbourhoods, thriving neighbourhoods produce
-		healthy cities, and healthy cities underpin a prosperous country.</h3>
+		<h1>Why Main Streets?</h1>
+		<h2>Main streets are the backbone of Canadian society.</h2>
+		<h3>
+			Vibrant main streets create thriving neighbourhoods, thriving neighbourhoods produce healthy
+			cities, and healthy cities underpin a prosperous country.
+		</h3>
 
-	<p>
-		Nearly 75% of Canadians live within one kilometre of a main street. Over 160,000 main street businesses provide 1.7
-		million jobs and generate $250 billion in revenue. 
-		
-		Main streets are gathering places home to over 50,000 pieces of community and civic infrastrucutre where personal relationships are created and strengthened, and dense, walkable
-		main streets have positive impacts on environmental sustainability as well as personal health.
-	</p>
+		<p>
+			Nearly 75% of Canadians live within one kilometre of a main street. Over 160,000 main street
+			businesses provide 1.7 million jobs and generate $250 billion in revenue. Main streets are
+			gathering places home to over 50,000 pieces of community and civic infrastrucutre where
+			personal relationships are created and strengthened, and dense, walkable main streets have
+			positive impacts on environmental sustainability as well as personal health.
+		</p>
 	</div>
 </div>
 
-<div class='section'>
-<div class="hero">
+<div class="section">
+	<div class="hero">
+		<h1>Why Now?</h1>
+		<h2>Main streets require urgent attention and investment.</h2>
+		<h3>
+			Main Streets were challenged during the pandemic, and require a more inclusive and innovative
+			approach to ensure their resiliency, now more than ever.
+		</h3>
 
-	<h1>Why Now?</h1>
-    <h2>Main streets require urgent attention and investment.</h2>
-	<h3>Main Streets were challenged during the pandemic, and require a more inclusive and innovative approach to ensure their resiliency, now more than ever. </h3>
+		<p>
+			It is vital to undersand how to create and maintain vibrant, resilient main streets to ensure
+			the prosperity of our communities, especially those that are equity deserving or currently
+			underserved. A variety of factors play a key role, including but not limited to civic
+			infrastructure, housing, green spaces, business mix, and local businesses and resident
+			associations.
+		</p>
+	</div>
 
-	<p>
-		It is vital to undersand how to create and maintain vibrant, resilient main streets to ensure the prosperity of our communities, especially those that are equity deserving or currently underserved.
-		
-		A variety of factors play a key role, including but not limited to civic infrastructure, housing, green spaces, business mix, and local businesses and resident associations.
-	</p>
+	<img
+		src="https://i.imgur.com/EcU0Gd0.jpeg"
+		alt="crossroads"
+		style="height:500px;border-radius:1em;"
+	/>
 </div>
 
-<svg width="154.998421px" height="150px" viewBox="0 0 154.998421 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="crossroad" fill-rule="nonzero">
-            <path d="M32.3629794,94.7367507 L6.94732687,94.7367507 C4.76727848,94.7367507 3,92.969462 3,90.7894006 C3,88.6093391 4.76727848,86.8417022 6.94732687,86.8417022 L36.7159661,86.8417022 C36.8787216,86.8398897 37.0434106,86.8477631 37.2093611,86.8662075 C39.3760681,87.1070227 40.9373131,89.0587157 40.696499,91.2254351 L34.5544584,146.488336 C34.3136444,148.655057 32.3619628,150.216311 30.1952557,149.975495 C28.0285486,149.73468 26.4673037,147.782987 26.7081178,145.616267 L32.3629794,94.7367507 L32.3629794,94.7367507 Z M119.284034,86.8417022 L149.052673,86.8417022 C151.232722,86.8417022 153,88.6093391 153,90.7894006 C153,92.969462 151.232722,94.7367507 149.052673,94.7367507 L123.63702,94.7367507 L129.291882,145.616267 C129.532696,147.782987 127.971451,149.73468 125.804744,149.975495 C123.638037,150.216311 121.686356,148.655057 121.445542,146.488336 L115.303501,91.2254351 C115.062687,89.0587157 116.623932,87.1070227 118.790639,86.8662075 C118.95659,86.8477631 119.121278,86.8398897 119.284034,86.8417022 L119.284034,86.8417022 Z M41.9858778,47.3688982 L6.94732687,47.3688982 C4.76727848,47.3688982 3,45.6012608 3,43.4211995 C3,41.2411383 4.76727848,39.4738494 6.94732687,39.4738494 L38.5008221,39.4738494 L42.4998183,3.51144227 C42.7407546,1.34473604 44.6925242,-0.216407841 46.8592178,0.0245298824 C49.0259113,0.265467605 50.587046,2.21724875 50.3461097,4.38395506 L45.9566822,43.8574559 C45.7302484,45.8937423 43.9927422,47.395173 41.9858778,47.3688982 L41.9858778,47.3688982 Z M117.497571,39.4738494 L149.051094,39.4738494 C151.231143,39.4738494 152.998421,41.2411383 152.998421,43.4211995 C152.998421,45.6012608 151.231143,47.3685496 149.051094,47.3685496 L113.525152,47.3685496 C113.340683,47.3685496 113.171822,47.3120229 113.018571,47.2085357 C111.455919,46.8250011 110.224248,45.5020729 110.036184,43.8098294 L105.654651,4.38369674 C105.413857,2.21697465 106.975121,0.26529629 109.14183,0.0245012247 C111.30854,-0.21629392 113.260206,1.34497841 113.501,3.51170058 L117.497571,39.4738494 Z" id="Shape" fill="#002940"></path>
-            <path d="M81.9465374,142.157602 C81.9465374,144.337663 80.1792592,146.104952 77.9992105,146.104952 C75.8191619,146.104952 74.0518837,144.337663 74.0518837,142.157602 L74.0518837,134.262901 C74.0518837,132.08284 75.8191619,130.315551 77.9992105,130.315551 C80.1792592,130.315551 81.9465374,132.08284 81.9465374,134.262901 L81.9465374,142.157602 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M81.9465374,118.473501 C81.9465374,120.653563 80.1792592,122.420851 77.9992105,122.420851 C75.8191619,122.420851 74.0518837,120.653563 74.0518837,118.473501 L74.0518837,110.578801 C74.0518837,108.398739 75.8191619,106.631451 77.9992105,106.631451 C80.1792592,106.631451 81.9465374,108.398739 81.9465374,110.578801 L81.9465374,118.473501 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M81.9465374,94.7894006 C81.9465374,96.969462 80.1792592,98.7367507 77.9992105,98.7367507 C75.8191619,98.7367507 74.0518837,96.969462 74.0518837,94.7894006 L74.0518837,86.8947004 C74.0518837,84.714639 75.8191619,82.9473503 77.9992105,82.9473503 C80.1792592,82.9473503 81.9465374,84.714639 81.9465374,86.8947004 L81.9465374,94.7894006 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M81.9465374,71.1053001 C81.9465374,73.2853615 80.1792592,75.0526501 77.9992105,75.0526501 C75.8191619,75.0526501 74.0518837,73.2853615 74.0518837,71.1053001 L74.0518837,63.2105999 C74.0518837,61.0305387 75.8191619,59.2632498 77.9992105,59.2632498 C80.1792592,59.2632498 81.9465374,61.0305387 81.9465374,63.2105999 L81.9465374,71.1053001 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M81.9465374,47.4211995 C81.9465374,49.6012608 80.1792592,51.3685496 77.9992105,51.3685496 C75.8191619,51.3685496 74.0518837,49.6012608 74.0518837,47.4211995 L74.0518837,39.5264994 C74.0518837,37.3464381 75.8191619,35.5791493 77.9992105,35.5791493 C80.1792592,35.5791493 81.9465374,37.3464381 81.9465374,39.5264994 L81.9465374,47.4211995 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M81.9465374,23.737099 C81.9465374,25.9171602 80.1792592,27.6844491 77.9992105,27.6844491 C75.8191619,27.6844491 74.0518837,25.9171602 74.0518837,23.737099 L74.0518837,15.8423988 C74.0518837,13.6623376 75.8191619,11.8950487 77.9992105,11.8950487 C80.1792592,11.8950487 81.9465374,13.6623376 81.9465374,15.8423988 L81.9465374,23.737099 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M3.94732687,71.0526501 C1.76727848,71.0526501 0,69.2853615 0,67.1053001 C0,64.9252386 1.76727848,63.15795 3.94732687,63.15795 L11.8419806,63.15795 C14.022029,63.15795 15.7893075,64.9252386 15.7893075,67.1053001 C15.7893075,69.2853615 14.022029,71.0526501 11.8419806,71.0526501 L3.94732687,71.0526501 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M27.6312881,71.0526501 C25.4512397,71.0526501 23.6839612,69.2853615 23.6839612,67.1053001 C23.6839612,64.9252386 25.4512397,63.15795 27.6312881,63.15795 L35.5259418,63.15795 C37.7059902,63.15795 39.4732687,64.9252386 39.4732687,67.1053001 C39.4732687,69.2853615 37.7059902,71.0526501 35.5259418,71.0526501 L27.6312881,71.0526501 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M51.6312881,71.0526501 C49.4512397,71.0526501 47.6839612,69.2853615 47.6839612,67.1053001 C47.6839612,64.9252386 49.4512397,63.15795 51.6312881,63.15795 L59.5259418,63.15795 C61.7059902,63.15795 63.4732687,64.9252386 63.4732687,67.1053001 C63.4732687,69.2853615 61.7059902,71.0526501 59.5259418,71.0526501 L51.6312881,71.0526501 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M119.472479,71.0526501 C117.292431,71.0526501 115.525152,69.2853615 115.525152,67.1053001 C115.525152,64.9252386 117.292431,63.15795 119.472479,63.15795 L127.367133,63.15795 C129.547182,63.15795 131.31446,64.9252386 131.31446,67.1053001 C131.31446,69.2853615 129.547182,71.0526501 127.367133,71.0526501 L119.472479,71.0526501 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M96.4724792,71.0526501 C94.2924306,71.0526501 92.5251524,69.2853615 92.5251524,67.1053001 C92.5251524,64.9252386 94.2924306,63.15795 96.4724792,63.15795 L104.367133,63.15795 C106.547182,63.15795 108.31446,64.9252386 108.31446,67.1053001 C108.31446,69.2853615 106.547182,71.0526501 104.367133,71.0526501 L96.4724792,71.0526501 Z" id="Path" fill="#00ADF2"></path>
-            <path d="M143.15644,71.0526501 C140.976392,71.0526501 139.209114,69.2853615 139.209114,67.1053001 C139.209114,64.9252386 140.976392,63.15795 143.15644,63.15795 L151.051094,63.15795 C153.231143,63.15795 154.998421,64.9252386 154.998421,67.1053001 C154.998421,69.2853615 153.231143,71.0526501 151.051094,71.0526501 L143.15644,71.0526501 Z" id="Path" fill="#00ADF2"></path>
-        </g>
-    </g>
-</svg>
-</div>
+<div class="section">
+	<svg
+		width="110px"
+		height="126px"
+		viewBox="0 0 110 126"
+		version="1.1"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+	>
+		<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+			<g id="cui" stroke="#002940" stroke-width="1.61691499">
+				<path
+					d="M59.1068814,0 L59.1068814,20.1664533 C59.1068814,22.2637644 60.7174231,23.8770807 62.8111274,23.8770807 C64.9048316,23.8770807 66.5153734,22.2637644 66.5153734,20.1664533 L66.5153734,0"
+					id="Path"
+				/>
+				<path
+					d="M66.6764275,126 L66.6764275,105.833547 C66.6764275,103.736236 65.0658858,102.122919 62.9721816,102.122919 C60.8784773,102.122919 59.2679356,103.736236 59.2679356,105.833547 L59.2679356,126"
+					id="Path"
+				/>
+				<path
+					d="M35.2708638,6.29193342 L43.0014641,24.8450704 C43.806735,26.7810499 46.0614934,27.7490397 47.9941435,26.9423816 C49.9267936,26.1357234 50.8931186,23.8770807 50.0878477,21.9411012 L42.3572474,3.38796415"
+					id="Path"
+				/>
+				<path
+					d="M90.3513909,119.708067 L82.6207906,101.15493 C81.8155198,99.2189501 79.5607613,98.2509603 77.6281113,99.0576184 C75.6954612,99.8642766 74.7291362,102.122919 75.534407,104.058899 L83.4260615,122.612036"
+					id="Path"
+				/>
+				<path
+					d="M15.7833089,21.134443 L29.9560761,35.3316261 C31.4055637,36.7836108 33.8213763,36.7836108 35.2708638,35.3316261 C36.7203514,33.8796415 36.7203514,31.4596671 35.2708638,30.0076825 L21.0980966,15.8104994"
+					id="Path"
+				/>
+				<path
+					d="M110,104.865557 L95.8272328,90.6683739 C94.3777452,89.2163892 91.9619327,89.2163892 90.5124451,90.6683739 C89.0629575,92.1203585 89.0629575,94.5403329 90.5124451,95.9923175 L104.685212,110.189501"
+					id="Path"
+				/>
+				<path
+					d="M3.38213763,42.4302177 L21.9033675,50.0128041 C23.8360176,50.8194622 26.090776,49.8514725 26.8960469,47.915493 C27.7013177,45.9795134 26.7349927,43.7208707 24.8023426,42.9142125 L6.28111274,35.3316261"
+					id="Path"
+				/>
+				<path
+					d="M0,66.7912932 L20.1317716,66.7912932 C22.2254758,66.7912932 23.8360176,65.177977 23.8360176,63.0806658 C23.8360176,60.9833547 22.2254758,59.3700384 20.1317716,59.3700384 L0,59.3700384"
+					id="Path"
+				/>
+				<path
+					d="M6.28111274,90.5070423 L24.8023426,82.7631242 C26.7349927,81.9564661 27.7013177,79.6978233 26.8960469,77.7618438 C26.090776,75.8258643 23.8360176,74.8578745 21.9033675,75.6645327 L3.38213763,83.5697823"
+					id="Path"
+				/>
+				<path
+					d="M21.0980966,110.189501 L35.2708638,95.9923175 C36.7203514,94.5403329 36.7203514,92.1203585 35.2708638,90.6683739 C33.8213763,89.2163892 31.4055637,89.2163892 29.9560761,90.6683739 L15.7833089,104.865557"
+					id="Path"
+				/>
+				<path
+					d="M104.685212,15.8104994 L90.5124451,30.0076825 C89.0629575,31.4596671 89.0629575,33.8796415 90.5124451,35.3316261 C91.9619327,36.7836108 94.3777452,36.7836108 95.8272328,35.3316261 L110,21.134443"
+					id="Path"
+				/>
+				<path
+					d="M42.3572474,122.612036 L49.9267936,104.058899 C50.7320644,102.122919 49.7657394,99.8642766 47.8330893,99.0576184 C45.9004392,98.2509603 43.6456808,99.2189501 42.84041,101.15493 L35.1098097,119.708067"
+					id="Path"
+				/>
+				<path
+					d="M83.4260615,3.38796415 L75.6954612,21.9411012 C74.8901903,23.8770807 75.8565154,26.1357234 77.7891654,26.9423816 C79.7218155,27.7490397 81.9765739,26.7810499 82.7818448,24.8450704 L90.5124451,6.29193342"
+					id="Path"
+				/>
+			</g>
+		</g>
+	</svg>
 
-<div class="hero">
-	<h1>The Canadian Urban Institute</h1>
-	<p>
-		We are the national platform that houses the best in Canadian city building — where
-		policymakers, urban professionals, civic and business leaders, community activists and academics
-		can learn, share and collaborate with one another from coast to coast to coast.
-	</p>
+	<div class="hero">
+		<h1>The Canadian Urban Institute</h1>
+		<p>
+			We are the national platform that houses the best in Canadian city building — where
+			policymakers, urban professionals, civic and business leaders, community activists and
+			academics can learn, share and collaborate with one another from coast to coast to coast.
+		</p>
+	</div>
 </div>
+<div class="section">
 
 <div class="hero">
 	<h1>Learn More</h1>
 	<p>
-        Have questions or enquiries about the project? Read the <a href="/">FAQ</a>, learn more about the <a href="/about">Project</a>, or read our <a href="/">Methodology & Data Sources</a>. You can also reach out to us directly via the <a href='/'>Contact</a> page.
+		Have questions or enquiries about the platform? Read the <a href="/">FAQ</a>, learn more about
+		the <a href="/about">Platform</a>, or read our <a href="/">Methodology & Data Sources</a>. You
+		can also reach out to us directly via the <a href="/">Contact</a> page.
 	</p>
+</div>
+</div>
+
+
+
+<div class="section" id="stronger-together">
+<div class="hero" >
+	<h1>Canada is Stronger Together</h1>
+	<p>
+		The Measuring Main Streets platform was realized through the Research Knowledge Initiative program from Infrastructure Canada. 
+
+		We leveraged partners at Environics Analytics and Open North to produce the first ever national-scale main street assessment platform in the face of urgent needs across the country.
+	</p>
+
+</div>
+<div class="logo-group">
+	<img src={canada_logo} alt="Canadian Urban Institute" />
+	<a href="https://www.canurb.org"><img src={cui_logo} alt="Canadian Urban Institute" /></a>
+</div>
 </div>
 
 <Footer />
@@ -157,10 +236,10 @@
 	}
 
 	svg {
-      width: auto; /* Make sure SVG scales with the container */
-      height: 100%; /* Fill the entire height of its container */
-      max-height: 100%; /* Ensure SVG does not exceed the height of its container */
-    }
+		width: auto; /* Make sure SVG scales with the container */
+		height: 100%; /* Fill the entire height of its container */
+		max-height: 100%; /* Ensure SVG does not exceed the height of its container */
+	}
 
 	p {
 		margin-top: 0;
@@ -168,7 +247,7 @@
 
 	.hero {
 		margin: 3em;
-        gap: 1em;
+		gap: 1em;
 		flex: 1;
 	}
 
@@ -176,8 +255,21 @@
 		display: flex;
 		padding: 2em;
 		align-items: center;
+		border-bottom: 1px solid var(--brandGrey);
+	}
+
+	#why-main-streets {
 		border-top: 1px solid var(--brandGrey);
-		border-bottom: 1px solid var(--brandGrey)
+	}
+
+	#stronger-together {
+		background-color: var(--brandLightBlue);
+		border: none;
+		text-align: center;
+	}
+
+	#stronger-together h1 {
+		margin: 0 auto;
 
 	}
 
@@ -186,6 +278,14 @@
 		flex-direction: row;
 		margin: 2em 0 0 0;
 	} */
+
+	.logo-group {
+		position: relative;
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		gap: 1em;
+	}
 
 	.card-grid {
 		display: grid;

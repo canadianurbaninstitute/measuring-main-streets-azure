@@ -90,6 +90,7 @@
 			style: 'mapbox://styles/canadianurbaninstitute/cltogc52e020c01ph6xvyfbgz?fresh=true', //'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
 			center: [-89, 58],
 			zoom: 3.3,
+			maxZoom: 14,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -165,7 +166,7 @@
 			);
 		});
 
-		map.on('click', ['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density'], (e) => {
+		map.on('click', ['mainstreets-low-density', 'mainstreets-high-density'], (e) => {
 		
 			// map zooming
 			const endpoints = e.features[0].geometry.coordinates;
@@ -179,6 +180,8 @@
 			// button
 		
 			document.getElementById('resetButton').style.display = 'flex'
+			document.getElementById('catchment').style.display = 'block'
+
 
 			// general
 
@@ -198,6 +201,8 @@
 			business_retail = e.features[0].properties.Retail;
 			business_services = e.features[0].properties.Local_Service;
 			independent_business = e.features[0].properties.BII_avg.toFixed(2);
+			
+
 
 			// civic
 
@@ -250,13 +255,13 @@
 
 			// language
 
-			english = e.features[0].properties.LanEng.toFixed(0);
-			french = e.features[0].properties.LanFr.toFixed(0);
+			// english = e.features[0].properties.LanEng.toFixed(0);
+			// french = e.features[0].properties.LanFr.toFixed(0);
 
 			// highlighting road
 
 			let features = map.queryRenderedFeatures(e.point, {
-				layers: ['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density']
+				layers: ['mainstreets-low-density', 'mainstreets-high-density']
 			});
 
 			if (!features.length) {
@@ -335,7 +340,7 @@
 		// the mouse is over the states layer.
 		map.on(
 			'mouseenter',
-			['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
+			['mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
 			() => {
 				map.getCanvas().style.cursor = 'pointer';
 			}
@@ -345,7 +350,7 @@
 		// when it leaves the states layer.
 		map.on(
 			'mouseleave',
-			['mainstreets-base', 'mainstreets-base-invisible', 'mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
+			['mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
 			() => {
 				map.getCanvas().style.cursor = '';
 			}
@@ -356,10 +361,13 @@
 				// Show the HTML element
 				document.getElementById('business-civic-legend').style.opacity = '1';
 				document.getElementById('business-civic-legend').style.visibility = 'visible';
+				document.getElementById('case-studies').style.display = 'block';
+
 			} else {
 				// Hide the HTML element
 				document.getElementById('business-civic-legend').style.opacity = '0';
 				document.getElementById('business-civic-legend').style.visibility = 'hidden';
+				document.getElementById('case-studies').style.display = 'none';
 			}
 		});
 	});
@@ -369,6 +377,8 @@
 	function resetMap() {
 
 		document.getElementById('resetButton').style.display = 'none';
+		document.getElementById('catchment').style.display = 'none';
+
 
 		// reset geocoder
 		geocoder.clear();
@@ -619,6 +629,7 @@
 				label={'Arterial Streets'}
 				bordercolor={'#ddd'}
 			/>
+			<div id='case-studies'>
 			<LegendItem
 				variant={'polygon'}
 				label={'Case Studies'}
@@ -630,12 +641,15 @@
 				targetopacity={0.5}
 				{map}
 			/>
-			<LegendItem
-				variant={'polygon'}
-				label={'Main Street Catchment'}
-				bgcolor={'#db799a'}
-				bordercolor={'#DB3069'}
-			/>
+			</div>
+			<div id='catchment'>
+				<LegendItem
+					variant={'polygon'}
+					label={'Main Street Catchment'}
+					bgcolor={'#db799a'}
+					bordercolor={'#DB3069'}
+				/>
+			</div>
 		</div>
 		<div class="legend" id="business-civic-legend">
 			<h5>Civic Infrastructure</h5>
@@ -779,6 +793,10 @@
 		justify-content: center;
 	}
 
+	#catchment {
+		display: none;
+	}
+
 	#resetButton:hover {
 		cursor: pointer;
 		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
@@ -791,6 +809,10 @@
 		transition: opacity 0.3s, visibility 0.3s;
 		opacity: 0;
 		visibility: hidden;
+	}
+
+	#case-studies {
+		display: none;
 	}
 
 	.metric-container {

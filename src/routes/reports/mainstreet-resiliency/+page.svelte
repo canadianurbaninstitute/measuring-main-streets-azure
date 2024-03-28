@@ -6,6 +6,7 @@
 	import BarChart from './BarChartTemp.svelte';
 	import BarChartStacked from './BarChartStacked.svelte';
 	import CivicBarChart from './CivicBarChartTemp.svelte';
+	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
 	import Footer from '../../lib/Footer.svelte';
 
 	import '../../styles.css';
@@ -131,38 +132,34 @@
 	</div>
 </div>
 
-
 <div class="full-text">
-	<div class="report-text">
-		<h3>Key Findings and Messages</h3> 
-		<ol>
-			<li>
-			Downtown main streets were hit hardest by the pandemic and have been the slowest to recover.
-			  <ol type="a">
-				<li>Develop and implement downtown recovery strategies in every city.</li>
-				<li>Adjust the mix of uses on downtown main streets – civic infrastructure can be a major part of this solution.</li>
-				<li>Create positive impressions of downtown in order to encourage people to return while backstopping declines in public transportation and public safety.</li>
-			  </ol>
-			</li>
-			<li>
-			Main streets that predominantly serve their immediate local residents were the most resilient through the pandemic.
-			  <ol type="a">
-				<li>Curate main street businesses to match local demand – use data analysis to identify gaps in what the main street currently provides.</li>
-				<li>Build more housing on and near to main streets – look for infill opportunities that can supplement and expand existing options.</li>
-				<li>Invest in active transportation options at the neighbourhood scale.</li>
-			  </ol>
-			</li>
-			<li>
-				The presence of greenspace contributed to main street resiliency through the pandemic.
-				  <ol type="a">
-					<li>Provide high quality outdoor places on main streets for people to congregate.</li>
-					<li>Integrate greenery and natural amenities into main street environments.</li>
-					<li>Cluster civic infrastructure on main streets and create focal points for local communities.</li>
-				  </ol>
-				</li>
-		</ol>
-		  
-	</div>
+
+	<h3>Key Findings and Messages</h3> 
+
+
+	<KeyFindings 
+		number={'1'}
+		finding={'Downtown main streets were hit hardest by the pandemic and have been the slowest to recover.'}
+		message1={'Develop and implement downtown recovery strategies in every city.'}
+		message2={'Adjust the mix of uses on downtown main streets – civic infrastructure can be a major part of this solution.'}
+		message3={'Create positive impressions of downtown in order to encourage people to return while backstopping declines in public transportation and public safety.'}
+		/>
+	
+		<KeyFindings 
+		number={'2'}
+		finding={'Main streets that predominantly serve their immediate local residents were the most resilient through the pandemic.'}
+		message1={'Curate main street businesses to match local demand – use data analysis to identify gaps in what the main street currently provides.'}
+		message2={'Build more housing on and near to main streets – look for infill opportunities that can supplement and expand existing options.'}
+		message3={'Invest in active transportation options at the neighbourhood scale.'}
+		/>
+
+		<KeyFindings 
+		number={'3'}
+		finding={'The presence of greenspace contributed to main street resiliency through the pandemic.'}
+		message1={'Provide high quality outdoor places on main streets for people to congregate.'}
+		message2={'Integrate greenery and natural amenities into main street environments.'}
+		message3={'Cluster civic infrastructure on main streets and create focal points for local communities.'}
+		/>
 </div>
 
 
@@ -173,10 +170,11 @@
 		padding: 0em;
 		border-radius: 1em;
 		width: 100%;
-		/* display: flex;
+		display: flex;
 		flex-direction: column;
-		gap: 1em; */
+		gap: 1em;
 	}
+	
 	/* 
 	.chart-container.bar {
 		padding: 0 20em 0 10em;
@@ -204,6 +202,9 @@
 		padding: 5em;
 		background-color: white;
 		color: var(--brandDarkBlue);
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
 	}
 
 	h3 {

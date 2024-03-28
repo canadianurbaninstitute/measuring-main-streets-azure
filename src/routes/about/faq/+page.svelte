@@ -20,10 +20,10 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                The Measuring Main Streets project is a part of the Research Knowledge Initiative program from Infrastructure Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and
+                The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Infrastructure Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and
                 Open North.
             </p>
-            <p>The project is constructed around four interrelated components:</p>
+            <p>The platform is constructed around four interrelated components:</p>
             <ul>
                 <li>
                 an interactive national map of that provides descriptive data for every main street in the country.
@@ -69,7 +69,7 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                The Measuring Main Streets project is a part of the Research Knowledge Initiative program from Infrastructure Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and Open North.
+                The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Infrastructure Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and Open North.
             </p>
 		</div>
 	</Accordion>
