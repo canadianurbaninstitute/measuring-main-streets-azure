@@ -115,6 +115,41 @@
 
 <div id={section} class="map"/>
 
+
+
+<svg width="179.251724px" height="152.32069px" viewBox="0 0 179.251724 152.32069" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bivariate-housing" transform="translate(-19.569, -26.1897)">
+            <g id="Group" transform="translate(19.569, 26.1897)">
+                <rect id="Rectangle" fill="#ED97B4" x="69.6655172" y="0.424137931" width="54.7931034" height="54.7931034"></rect>
+                <rect id="Rectangle" fill="#62639B" x="124.458621" y="0.424137931" width="54.7931034" height="54.7931034"></rect>
+                <rect id="Rectangle" fill="#E9E9E9" x="69.6655172" y="55.2172414" width="54.7931034" height="54.7931034"></rect>
+                <rect id="Rectangle" fill="#7FD4F7" x="124.458621" y="55.2172414" width="54.7931034" height="54.7931034"></rect>
+                <text id="Top-25%" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
+                    <tspan x="75.9275862" y="126.837931">Top 25%</tspan>
+                </text>
+                <text id="Bottom-50%" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
+                    <tspan x="23.7896356" y="25.0793103">Bottom</tspan>
+                    <tspan x="30.3141066" y="36.0793103">50%</tspan>
+                </text>
+                <text id="Bottom-25%" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
+                    <tspan x="23.7896356" y="81.437931">Bottom</tspan>
+                    <tspan x="30.4075039" y="92.437931">25%</tspan>
+                </text>
+                <text id="Top-50%" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
+                    <tspan x="130.72069" y="126.837931">Top 50%</tspan>
+                </text>
+                <text id="Percent-New-Housing" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
+                    <tspan x="76.3723354" y="150.32069">Percent New Housing</tspan>
+                </text>
+                <text id="Civic-Infrastructure" transform="translate(5.5, 56) rotate(270) translate(-5.5, -56)" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
+                    <tspan x="-50.3115792" y="59.5">Civic Infrastructure Index</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
+
 </div>
 
 <style>

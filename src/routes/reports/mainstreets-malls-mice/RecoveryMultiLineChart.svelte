@@ -14,7 +14,7 @@
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 
-	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery2.csv';
+	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
 	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
 
 
@@ -47,7 +47,7 @@
 
 	const formatLabelX = timeFormat('%b %Y');
 	const formatLabelY = (d) => format(`~s`)(d) + '%';
-	// const formatValue = (d) => d.toFixed(0) + '%';
+	const formatValue = (d) => format(".0f")(d) + '%';
 
 	let selectedValues = [];
 	let selectedLabels;
@@ -65,17 +65,14 @@
 
 		selectedLabels = [];
 		
-		selectedValues.forEach(value => {
-			if (value.length > 1) {
-				seriesNames.push(value[1]);
-			}
-		});
+		selectedValues.forEach(value => seriesNames.push(value));
 
-		selectedValues.forEach(value => {
-			if (value.length > 1) {
-				selectedLabels.push(value[0]);
-			}
-		});
+
+		// selectedValues.forEach(value => {
+		// 	if (value.length > 1) {
+		// 		selectedLabels.push(value[0]);
+		// 	}
+		// });
 
 		groupedData = groupLonger(data, seriesNames, {
 			groupTo: zKey,
@@ -119,7 +116,7 @@
 		x={xKey}
 		y={yKey}
 		z={zKey}
-		yDomain={[0, 100]}
+		yDomain={[0, 160]}
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
 		flatData={flatten(groupedData, 'values')}
@@ -138,7 +135,7 @@
 		</Svg>
 
 		<Html>
-			<SharedTooltip formatTitle={formatLabelX} dataset={data} />
+			<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue}/>
 		</Html>
 	</LayerCake>
 	
