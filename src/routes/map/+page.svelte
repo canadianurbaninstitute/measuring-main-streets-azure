@@ -5,11 +5,13 @@
 	import mapboxgl from 'mapbox-gl';
 	import * as turf from '@turf/turf';
 	import Icon from '@iconify/svelte';
+	import { Tabs } from 'bits-ui';
+	import '../styles.css'
 
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
-	import Footer from '../lib/Footer.svelte'
+	import Footer from '../lib/Footer.svelte';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -33,6 +35,9 @@
 	let business_food_drink = '68,960';
 
 	let independent_business = 0.52; //BII_avg
+
+	let retail_min = '0';
+	let retail_max = '0';
 
 	// civic
 
@@ -84,6 +89,52 @@
 	let english = 62;
 	let otherlang = 20;
 
+	/*---------- PERCENTILES --------------*/
+
+	let per_Age0_19 = '';
+	let per_Age20_64 = '';
+	let per_Age65_Over = '';
+	let per_AptLess5 = '';
+	let per_AptMore5 = '';
+	let per_Arts = '';
+	let per_AvgAge = '';
+	let per_AvgEmpInc = '';
+	let per_BIIavg = '';
+	let per_BusDensity = '';
+	let per_CivDensity = '';
+	let per_CommOver60 = '';
+	let per_CommT15 = '';
+	let per_CommT30 = '';
+	let per_CommT45 = '';
+	let per_CommT60 = '';
+	let per_Density = '';
+	let per_Duplex = '';
+	let per_Education = '';
+	let per_EmpDensity = '';
+	let per_FoodDrink = '';
+	let per_GovandCom = '';
+	let per_HHSize = '';
+	let per_HHs = '';
+	let per_Healthcare = '';
+	let per_ImmNPR = '';
+	let per_Indig = '';
+	let per_LanEng = '';
+	let per_LanFr = '';
+	let per_LanOth = '';
+	let per_LocalService = '';
+	let per_MobAct = '';
+	let per_MobCar = '';
+	let per_MobPT = '';
+	let per_Pop = '';
+	let per_PopChng = '';
+	let per_Recreation = '';
+	let per_Retail = '';
+	let per_Retailmax = '';
+	let per_Retailmin = '';
+	let per_SemiDetach = '';
+	let per_SinDetach = '';
+	let per_VM = '';
+
 	let geocoder;
 
 	onMount(() => {
@@ -110,25 +161,25 @@
 
 		map.on('load', () => {
 			geocoder = new MapboxGeocoder({
-					accessToken: mapboxgl.accessToken,
-					countries: 'ca',
-					proximity: 'ip',
-					types: 'address, region, country, postcode, district, place, locality, neighborhood',
-					language: 'en, fr',
-					marker: true,
-					zoom: 12,
-					marker: {
-						color: '#0098D6'
-					},
-					placeholder: 'Search for a place',
-					mapboxgl: mapboxgl
-				});
-			
-				geocoder.on('results', function(results) {
-					document.getElementById('resetButton').style.display = 'flex'; // Show the button
-				});
+				accessToken: mapboxgl.accessToken,
+				countries: 'ca',
+				proximity: 'ip',
+				types: 'address, region, country, postcode, district, place, locality, neighborhood',
+				language: 'en, fr',
+				marker: true,
+				zoom: 12,
+				marker: {
+					color: '#0098D6'
+				},
+				placeholder: 'Search for a place',
+				mapboxgl: mapboxgl
+			});
 
-			map.addControl(geocoder,'top-left');
+			geocoder.on('results', function (results) {
+				document.getElementById('resetButton').style.display = 'flex'; // Show the button
+			});
+
+			map.addControl(geocoder, 'top-left');
 
 			map.addSource('canada-DAs', {
 				type: 'vector',
@@ -168,8 +219,13 @@
 			);
 		});
 
+		// function for adding percentile suffixes
+
+		function nth(n) {
+			return ['st', 'nd', 'rd'][((((n + 90) % 100) - 10) % 10) - 1] || 'th';
+		}
+
 		map.on('click', ['mainstreets-low-density', 'mainstreets-high-density'], (e) => {
-		
 			// map zooming
 			const endpoints = e.features[0].geometry.coordinates;
 			const midpoint = turf.midpoint(endpoints[0], endpoints[1]);
@@ -180,10 +236,9 @@
 			});
 
 			// button
-		
-			document.getElementById('resetButton').style.display = 'flex'
-			document.getElementById('catchment').style.display = 'block'
 
+			document.getElementById('resetButton').style.display = 'flex';
+			document.getElementById('catchment').style.display = 'block';
 
 			// general
 
@@ -191,7 +246,11 @@
 			place = e.features[0].properties.City_Name;
 
 			population = e.features[0].properties.Pop;
-			populationchange = ' (' + (e.features[0].properties.PopChng >= 0 ? '+' : '') + e.features[0].properties.PopChng.toFixed(1) + '%)';
+			populationchange =
+				' (' +
+				(e.features[0].properties.PopChng >= 0 ? '+' : '') +
+				e.features[0].properties.PopChng.toFixed(1) +
+				'%)';
 			employees = e.features[0].properties.total_emp.toFixed(0);
 
 			// business
@@ -204,8 +263,8 @@
 			business_retail = e.features[0].properties.Retail;
 			business_services = e.features[0].properties.Local_Service;
 			independent_business = e.features[0].properties.BII_avg.toFixed(2);
-			
-
+			retail_min = e.features[0].properties.Retail_min;
+			retail_max = e.features[0].properties.Retail_max;
 
 			// civic
 
@@ -261,6 +320,52 @@
 			english = e.features[0].properties.LanEng.toFixed(0);
 			french = e.features[0].properties.LanFr.toFixed(0);
 			otherlang = e.features[0].properties.LanOth.toFixed(0);
+
+			/* --------- PERCENTILES ------------- */
+
+			per_Age0_19 = e.features[0].properties.per_Age0_19.toFixed(0);
+			per_Age20_64 = e.features[0].properties.per_Age20_64.toFixed(0);
+			per_Age65_Over = e.features[0].properties.per_Age65_Over.toFixed(0);
+			per_AptLess5 = e.features[0].properties.per_AptLess5.toFixed(0);
+			per_AptMore5 = e.features[0].properties.per_AptMore5.toFixed(0);
+			per_Arts = e.features[0].properties.per_Arts.toFixed(0);
+			per_AvgAge = e.features[0].properties.per_AvgAge.toFixed(0);
+			per_AvgEmpInc = e.features[0].properties.per_AvgEmpInc.toFixed(0);
+			per_BIIavg = e.features[0].properties.per_BIIavg.toFixed(0);
+			per_BusDensity = e.features[0].properties.per_BusDensity.toFixed(0);
+			per_CivDensity = e.features[0].properties.per_CivDensity.toFixed(0);
+			per_CommOver60 = e.features[0].properties.per_CommOver60.toFixed(0);
+			per_CommT15 = e.features[0].properties.per_CommT15.toFixed(0);
+			per_CommT30 = e.features[0].properties.per_CommT30.toFixed(0);
+			per_CommT45 = e.features[0].properties.per_CommT45.toFixed(0);
+			per_CommT60 = e.features[0].properties.per_CommT60.toFixed(0);
+			per_Density = e.features[0].properties.per_Density.toFixed(0);
+			per_Duplex = e.features[0].properties.per_Duplex.toFixed(0);
+			per_Education = e.features[0].properties.per_Education.toFixed(0);
+			per_EmpDensity = e.features[0].properties.per_EmpDensity.toFixed(0);
+			per_FoodDrink = e.features[0].properties.per_FoodDrink.toFixed(0);
+			per_GovandCom = e.features[0].properties.per_GovandCom.toFixed(0);
+			per_HHSize = e.features[0].properties.per_HHSize.toFixed(0);
+			per_HHs = e.features[0].properties.per_HHs.toFixed(0);
+			per_Healthcare = e.features[0].properties.per_Healthcare.toFixed(0);
+			per_ImmNPR = e.features[0].properties.per_ImmNPR.toFixed(0);
+			per_Indig = e.features[0].properties.per_Indig.toFixed(0);
+			per_LanEng = e.features[0].properties.per_LanEng.toFixed(0);
+			per_LanFr = e.features[0].properties.per_LanFr.toFixed(0);
+			per_LanOth = e.features[0].properties.per_LanOth.toFixed(0);
+			per_LocalService = e.features[0].properties.per_LocalService.toFixed(0);
+			per_MobAct = e.features[0].properties.per_MobAct.toFixed(0);
+			per_MobCar = e.features[0].properties.per_MobCar.toFixed(0);
+			per_MobPT = e.features[0].properties.per_MobPT.toFixed(0);
+			per_Pop = e.features[0].properties.per_Pop.toFixed(0);
+			per_PopChng = e.features[0].properties.per_PopChng.toFixed(0);
+			per_Recreation = e.features[0].properties.per_Recreation.toFixed(0);
+			per_Retail = e.features[0].properties.per_Retail.toFixed(0);
+			per_Retailmax = e.features[0].properties.per_Retailmax.toFixed(0);
+			per_Retailmin = e.features[0].properties.per_Retailmin.toFixed(0);
+			per_SemiDetach = e.features[0].properties.per_SemiDetach.toFixed(0);
+			per_SinDetach = e.features[0].properties.per_SinDetach.toFixed(0);
+			per_VM = e.features[0].properties.per_VM.toFixed(0);
 
 			// highlighting road
 
@@ -336,7 +441,7 @@
 		});
 
 		map.on('click', 'case-study-BIAs', (e) => {
-			const path = e.features[0].properties.path
+			const path = e.features[0].properties.path;
 			goto('/casestudies/' + path);
 		});
 
@@ -366,7 +471,6 @@
 				document.getElementById('business-civic-legend').style.opacity = '1';
 				document.getElementById('business-civic-legend').style.visibility = 'visible';
 				document.getElementById('case-studies').style.display = 'block';
-
 			} else {
 				// Hide the HTML element
 				document.getElementById('business-civic-legend').style.opacity = '0';
@@ -379,16 +483,12 @@
 	// Reset Map
 
 	function resetMap() {
-
 		document.getElementById('resetButton').style.display = 'none';
 		document.getElementById('catchment').style.display = 'none';
-
 
 		// reset geocoder
 		geocoder.clear();
 		document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].blur();
-
-
 
 		map.flyTo({
 			zoom: 3.2,
@@ -412,6 +512,8 @@
 		business_food_drink = '68,960';
 
 		independent_business = 0.52; //BII_avg
+		retail_min = '0';
+		retail_max = '0';
 
 		// civic
 
@@ -467,8 +569,6 @@
 		map.removeSource('selectedRoad');
 		map.setFilter('canada-DAs-highlighted', ['in', 'DAUID', '']);
 	}
-
-
 </script>
 
 <svelte:head>
@@ -484,10 +584,11 @@
 </svelte:head>
 
 <div class="hero">
-    <h1> Main Street Map </h1>
-    <p>
-		This is a map of main streets in Canada. Search for a place or navigate the map using the controls and click on a main street to see information associated with it.
-    </p>
+	<h1>Main Street Map</h1>
+	<p>
+		This is a map of main streets in Canada. Search for a place or navigate the map using the
+		controls and click on a main street to see information associated with it.
+	</p>
 </div>
 
 <div id="content-container">
@@ -495,258 +596,471 @@
 		<h2>{streetname}</h2>
 		<h4>{place}</h4>
 		<hr />
-		<h5>Street Characteristics</h5>
-		<!-- <Metric label={'Amenity Score'} value={business_independence} icon={"bxs:tachometer"}/> -->
-		<Accordion>
-			<Metric
-				accordion
-				slot="header"
-				label={'Civic Infrastructure (on street)'}
-				value={civic}
-				icon={'heroicons:building-library-20-solid'}
-			/>
-			<div slot="body">
-				<div class="metric-container">
-					<Metric label={'Education'} value={civic_education} icon={'mdi:school'} />
+		<Tabs.Root value="measures">
+			<Tabs.List class="tab-container">
+				<Tabs.Trigger value="measures">Measures</Tabs.Trigger>
+				<Tabs.Trigger value="percentiles">Percentiles</Tabs.Trigger>
+			</Tabs.List>
+			<Tabs.Content value="measures" class="tab-button">
+				<div id="raw-number-measures">
+					<h5>Street Characteristics</h5>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Civic Infrastructure (on street)'}
+							value={civic}
+							icon={'heroicons:building-library-20-solid'}
+						/>
+						<div slot="body">
+							<div class="metric-container">
+								<Metric label={'Education'} value={civic_education} icon={'mdi:school'} />
+								<Metric
+									label={'Arts & Culture'}
+									value={civic_arts_culture}
+									icon={'fa6-solid:masks-theater'}
+								/>
+								<Metric
+									label={'Recreation'}
+									value={civic_recreation}
+									icon={'material-symbols:park-rounded'}
+								/>
+							</div>
+							<div class="metric-container">
+								<Metric
+									label={'Government & Community Services'}
+									value={civic_govt_community}
+									icon={'mingcute:government-fill'}
+								/>
+								<Metric
+									label={'Health & Care Facilities'}
+									value={civic_healthcare}
+									icon={'mdi:hospital-box'}
+								/>
+							</div>
+						</div>
+					</Accordion>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Businesses (on street)'}
+							value={business}
+							icon={'mdi:building'}
+						/>
+						<div slot="body" class="metric-container">
+							<Metric label={'Retail'} value={business_retail} icon={'mdi:shopping'} />
+							<Metric label={'Food & Drink'} value={business_food_drink} icon={'dashicons:food'} />
+							<Metric label={'Services'} value={business_services} icon={'mdi:ticket'} />
+						</div>
+					</Accordion>
 					<Metric
-						label={'Arts & Culture'}
-						value={civic_arts_culture}
-						icon={'fa6-solid:masks-theater'}
+						label={'Independent Business Index'}
+						value={independent_business}
+						icon={'mdi:shop'}
 					/>
 					<Metric
-						label={'Recreation'}
-						value={civic_recreation}
-						icon={'material-symbols:park-rounded'}
+						label={'Estimated Retail Sales (2023)'}
+						value={'$' + retail_min.toLocaleString() + ' - ' + '$' + retail_max.toLocaleString()}
+						icon={'mdi:graph-line'}
 					/>
-				</div>
-				<div class="metric-container">
+					<hr />
+					<h5>Neighbourhood Characteristics</h5>
+					<h6>Demographic</h6>
 					<Metric
-						label={'Government & Community Services'}
-						value={civic_govt_community}
-						icon={'mingcute:government-fill'}
+						label={'Population (% change since 2016)'}
+						value={population + populationchange}
+						icon={'fluent:people-20-filled'}
 					/>
+					<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
+					<div class="metric-container">
+						<Metric
+							label={'Average Income'}
+							prefix={'$'}
+							value={income.toLocaleString()}
+							icon={'mdi:wallet'}
+						/>
+						<Metric
+							label={"Bachelor's Degree"}
+							value={education}
+							suffix={'%'}
+							icon={'mdi:school'}
+						/>
+					</div>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Average Age'}
+							value={average_age}
+							icon={'mingcute:birthday-2-fill'}
+						/>
+						<div slot="body" class="metric-container">
+							<Metric label={'0 to 19'} value={age_0_19} suffix={'%'} />
+							<Metric label={'20 to 64'} value={age_20_64} suffix={'%'} />
+							<Metric label={'65 and over'} value={age_over_65} suffix={'%'} />
+						</div>
+					</Accordion>
+					<div class="metric-container">
+						<Metric
+							label={'Recent Immigrants'}
+							value={immigrants}
+							suffix={'%'}
+							icon={'mdi:globe'}
+						/>
+						<Metric
+							label={'Visible Minorities'}
+							value={visibleminority}
+							suffix={'%'}
+							icon={'material-symbols:handshake'}
+						/>
+						<Metric
+							label={'Indigenous Population'}
+							value={indigenous}
+							suffix={'%'}
+							icon={'mdi:person'}
+						/>
+					</div>
+					<div class="metric-container">
+						<Metric label={'English Speakers'} value={english} suffix={'%'} />
+						<Metric label={'French Speakers'} value={french} suffix={'%'} />
+						<Metric label={'Other Language'} value={otherlang} suffix={'%'} />
+					</div>
+					<h6>Commuting</h6>
+					<div class="metric-container">
+						<Metric label={'Car'} value={car} suffix={'%'} icon={'mdi:car'} />
+						<Metric label={'Public Transit'} value={public_transit} suffix={'%'} icon={'mdi:bus'} />
+						<Metric
+							label={'Active Transit'}
+							value={active_transit}
+							suffix={'%'}
+							icon={'mdi:bike'}
+						/>
+					</div>
+					<h6>Housing</h6>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Dwellings'}
+							value={dwellings}
+							icon={'material-symbols:apartment'}
+						/>
+						<div slot="body">
+							<div class="metric-container">
+								<Metric label={'Single Detached'} value={singledetached} suffix={'%'} />
+								<Metric label={'Semi-Detached'} value={semidetached} suffix={'%'} />
+								<Metric label={'Duplex'} value={duplex} suffix={'%'} />
+							</div>
+							<div class="metric-container">
+								<Metric
+									label={'Apartment (>5 stories)'}
+									value={apartments_more_than_5}
+									suffix={'%'}
+								/>
+								<Metric
+									label={'Apartment (<5 stories)'}
+									value={apartments_less_than_5}
+									suffix={'%'}
+								/>
+							</div>
+						</div>
+					</Accordion>
+				</div>
+			</Tabs.Content>
+			<Tabs.Content value="percentiles" class="tab-button">
+				<div id="percentile-measures">
+					<h5>Street Characteristics</h5>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Civic Infrastructure (on street)'}
+							value={per_CivDensity}
+							suffix={'%'}
+							icon={'heroicons:building-library-20-solid'}
+						/>
+						<div slot="body">
+							<div class="metric-container">
+								<Metric
+									label={'Education'}
+									value={per_Education}
+									suffix={'%'}
+									icon={'mdi:school'}
+								/>
+								<Metric
+									label={'Arts & Culture'}
+									value={per_Arts}
+									suffix={'%'}
+									icon={'fa6-solid:masks-theater'}
+								/>
+								<Metric
+									label={'Recreation'}
+									value={per_Recreation}
+									suffix={'%'}
+									icon={'material-symbols:park-rounded'}
+								/>
+							</div>
+							<div class="metric-container">
+								<Metric
+									label={'Government & Community Services'}
+									value={per_GovandCom}
+									suffix={'%'}
+									icon={'mingcute:government-fill'}
+								/>
+								<Metric
+									label={'Health & Care Facilities'}
+									value={per_Healthcare}
+									suffix={'%'}
+									icon={'mdi:hospital-box'}
+								/>
+							</div>
+						</div>
+					</Accordion>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Businesses (on street)'}
+							value={per_BusDensity}
+							suffix={'%'}
+							icon={'mdi:building'}
+						/>
+						<div slot="body" class="metric-container">
+							<Metric label={'Retail'} value={per_Retail} suffix={'%'} icon={'mdi:shopping'} />
+							<Metric
+								label={'Food & Drink'}
+								value={per_FoodDrink}
+								suffix={'%'}
+								icon={'dashicons:food'}
+							/>
+							<Metric
+								label={'Services'}
+								value={per_LocalService}
+								suffix={'%'}
+								icon={'mdi:ticket'}
+							/>
+						</div>
+					</Accordion>
 					<Metric
-						label={'Health & Care Facilities'}
-						value={civic_healthcare}
-						icon={'mdi:hospital-box'}
+						label={'Independent Business Index'}
+						value={per_BIIavg}
+						suffix={'%'}
+						icon={'mdi:shop'}
 					/>
+					<!-- <Metric
+						label={'Estimated Retail Sales (2023)'}
+						value={per_Retailmin + ' - ' + per_Retailmax}
+						icon={'mdi:graph-line'}
+					/> -->
+
+					<hr />
+					<h5>Neighbourhood Characteristics</h5>
+					<h6>Demographic</h6>
+					<Metric
+						label={'Population (% change since 2016)'}
+						value={per_Pop + per_PopChng}
+						icon={'fluent:people-20-filled'}
+					/>
+					<Metric label={'Employees'} value={per_EmpDensity} suffix={'%'} icon={'mdi:briefcase'} />
+					<div class="metric-container">
+						<Metric
+							label={'Average Income'}
+							value={per_AvgEmpInc}
+							suffix={'%'}
+							icon={'mdi:wallet'}
+						/>
+						<Metric
+							label={"Bachelor's Degree"}
+							value={per_Education}
+							suffix={'%'}
+							icon={'mdi:school'}
+						/>
+					</div>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Average Age'}
+							value={per_AvgAge}
+							suffix={'%'}
+							icon={'mingcute:birthday-2-fill'}
+						/>
+						<div slot="body" class="metric-container">
+							<Metric label={'0 to 19'} value={per_Age0_19} suffix={'%'} />
+							<Metric label={'20 to 64'} value={per_Age20_64} suffix={'%'} />
+							<Metric label={'65 and over'} value={per_Age65_Over} suffix={'%'} />
+						</div>
+					</Accordion>
+					<div class="metric-container">
+						<Metric
+							label={'Recent Immigrants'}
+							value={per_ImmNPR}
+							suffix={'%'}
+							icon={'mdi:globe'}
+						/>
+						<Metric
+							label={'Visible Minorities'}
+							value={per_VM}
+							suffix={'%'}
+							icon={'material-symbols:handshake'}
+						/>
+						<Metric
+							label={'Indigenous Population'}
+							value={per_Indig}
+							suffix={'%'}
+							icon={'mdi:person'}
+						/>
+					</div>
+					<div class="metric-container">
+						<Metric label={'English Speakers'} value={per_LanEng} suffix={'%'} />
+						<Metric label={'French Speakers'} value={per_LanFr} suffix={'%'} />
+						<Metric label={'Other Language'} value={per_LanOth} suffix={'%'} />
+					</div>
+					<h6>Commuting</h6>
+					<div class="metric-container">
+						<Metric label={'Car'} value={per_MobCar} suffix={'%'} icon={'mdi:car'} />
+						<Metric label={'Public Transit'} value={per_MobPT} suffix={'%'} icon={'mdi:bus'} />
+						<Metric label={'Active Transit'} value={per_MobAct} suffix={'%'} icon={'mdi:bike'} />
+					</div>
+					<h6>Housing</h6>
+					<Accordion>
+						<Metric
+							accordion
+							slot="header"
+							label={'Dwellings'}
+							value={dwellings}
+							suffix={'%'}
+							icon={'material-symbols:apartment'}
+						/>
+						<div slot="body">
+							<div class="metric-container">
+								<Metric label={'Single Detached'} value={per_SinDetach} suffix={'%'} />
+								<Metric label={'Semi-Detached'} value={per_SinDetach} suffix={'%'} />
+								<Metric label={'Duplex'} value={per_Duplex} suffix={'%'} />
+							</div>
+							<div class="metric-container">
+								<Metric label={'Apartment (>5 stories)'} value={per_AptMore5} suffix={'%'} />
+								<Metric label={'Apartment (<5 stories)'} value={per_AptLess5} suffix={'%'} />
+							</div>
+						</div>
+					</Accordion>
 				</div>
-			</div>
-		</Accordion>
-		<Accordion>
-			<Metric accordion slot="header" label={'Businesses (on street)'} value={business} icon={'mdi:building'} />
-			<div slot="body" class="metric-container">
-				<Metric label={'Retail'} value={business_retail} icon={'mdi:shopping'} />
-				<Metric label={'Food & Drink'} value={business_food_drink} icon={'dashicons:food'} />
-				<Metric label={'Services'} value={business_services} icon={'mdi:ticket'} />
-			</div>
-		</Accordion>
-		<Metric label={'Independent Business Index'} value={independent_business} icon={'mdi:shop'} />
-	<hr/>
-		<h5>Neighbourhood Characteristics</h5>
-		<h6>Demographic</h6>
-		<Metric label={'Population (% change since 2016)'} value={population + populationchange} icon={'fluent:people-20-filled'} />
-		<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
-		<div class="metric-container">
-			<Metric
-				label={'Average Income'}
-				prefix={'$'}
-				value={income.toLocaleString()}
-				icon={'mdi:wallet'}
-			/>
-			<Metric label={"Bachelor's Degree"} value={education} suffix={'%'} icon={'mdi:school'} />
-		</div>
-		<Accordion>
-			<Metric
-				accordion
-				slot="header"
-				label={'Average Age'}
-				value={average_age}
-				icon={'mingcute:birthday-2-fill'}
-			/>
-			<div slot="body" class="metric-container">
-				<Metric label={'0 to 19'} value={age_0_19} suffix={'%'} />
-				<Metric label={'20 to 64'} value={age_20_64} suffix={'%'} />
-				<Metric label={'65 and over'} value={age_over_65} suffix={'%'} />
-			</div>
-		</Accordion>
-		<div class="metric-container">
-			<Metric label={'Recent Immigrants'} value={immigrants} suffix={'%'} icon={'mdi:globe'} />
-			<Metric
-				label={'Visible Minorities'}
-				value={visibleminority}
-				suffix={'%'}
-				icon={'material-symbols:handshake'}
-			/>
-			<Metric label={'Indigenous Population'} value={indigenous} suffix={'%'} icon={'mdi:person'} />
-		</div>
-		<div class="metric-container">
-			<Metric label={'English Speakers'} value={english} suffix={'%'}  />
-			<Metric label={'French Speakers'} value={french} suffix={'%'} />
-			<Metric label={'Other Language'} value={otherlang} suffix={'%'} />
-		</div>
-		<h6>Commuting</h6>
-		<div class="metric-container">
-			<Metric label={'Car'} value={car} suffix={'%'} icon={'mdi:car'} />
-			<Metric label={'Public Transit'} value={public_transit} suffix={'%'} icon={'mdi:bus'} />
-			<Metric label={'Active Transit'} value={active_transit} suffix={'%'} icon={'mdi:bike'} />
-		</div>
-		<h6>Housing</h6>
-		<Accordion>
-			<Metric
-				accordion
-				slot="header"
-				label={'Dwellings'}
-				value={dwellings}
-				icon={'material-symbols:apartment'}
-			/>
-			<div slot="body">
-				<div class="metric-container">
-					<Metric label={'Single Detached'} value={singledetached} suffix={'%'} />
-					<Metric label={'Semi-Detached'} value={semidetached} suffix={'%'} />
-					<Metric label={'Duplex'} value={duplex} suffix={'%'} />
-				</div>
-				<div class="metric-container">
-					<Metric label={'Apartment (>5 stories)'} value={apartments_more_than_5} suffix={'%'} />
-					<Metric label={'Apartment (<5 stories)'} value={apartments_less_than_5} suffix={'%'} />
-				</div>
-			</div>
-		</Accordion>
-		<hr>
-		<button id="resetButton" on:click={resetMap}>
-			<Icon icon="mi:undo" /> Reset Map
-		</button>
-		<!-- <Metric label={'English Speakers'} value={english} suffix={'%'}/>
-		<Metric label={'French Speakers'} value={french} suffix={'%'} /> -->
+			</Tabs.Content>
+		</Tabs.Root>
 	</div>
 	<div id="map" />
 	<div id="controls">
 		<div>
-		<div class="legend">
-			<!-- <Legend
-				minlabel={'Low'}
-				maxlabel={'High'}
-				label={'Main Street Business Density'}
-				sublabel={'(# of Main Street businesses / km)'}
-				gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
-			/> -->
-			<LegendItem
-				variant={'line'}
-				label={'High Density Main Streets'}
-				bordercolor={'#002940'}
-			/>
-			<LegendItem
-				variant={'line'}
-				label={'Low Density Main Streets'}
-				bordercolor={'#00adf2'}
-				/>
-			<LegendItem
-				variant={'line'}
-				label={'Arterial Streets'}
-				bordercolor={'#ddd'}
-			/>
-			<div id='case-studies'>
-			<LegendItem
-				variant={'polygon'}
-				label={'Case Studies'}
-				bgcolor={'#58e965'}
-				bordercolor={'#189122'}
-				button={true}
-				id={'case-study-BIAs'}
-				featuretype={'fill'}
-				targetopacity={0.5}
-				{map}
-			/>
+			<button id="resetButton" on:click={resetMap}>
+				<Icon icon="mi:undo" /> Reset Map
+			</button>
+			<div class="legend">
+				<LegendItem variant={'line'} label={'High Density Main Streets'} bordercolor={'#002940'} />
+				<LegendItem variant={'line'} label={'Low Density Main Streets'} bordercolor={'#00adf2'} />
+				<LegendItem variant={'line'} label={'Arterial Streets'} bordercolor={'#ddd'} />
+				<div id="case-studies">
+					<LegendItem
+						variant={'polygon'}
+						label={'Case Studies'}
+						bgcolor={'#58e965'}
+						bordercolor={'#189122'}
+						button={true}
+						id={'case-study-BIAs'}
+						featuretype={'fill'}
+						targetopacity={0.5}
+						{map}
+					/>
+				</div>
+				<div id="catchment">
+					<LegendItem
+						variant={'polygon'}
+						label={'Main Street Catchment'}
+						bgcolor={'#db799a'}
+						bordercolor={'#DB3069'}
+					/>
+				</div>
 			</div>
-			<div id='catchment'>
+			<div class="legend" id="business-civic-legend">
+				<h5>Civic Infrastructure</h5>
 				<LegendItem
-					variant={'polygon'}
-					label={'Main Street Catchment'}
-					bgcolor={'#db799a'}
-					bordercolor={'#DB3069'}
+					variant={'circle'}
+					label={'Arts and Culture'}
+					bgcolor={'#DB3069'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-civicinfra-arts-culture'}
+					{map}
+				/>
+				<LegendItem
+					variant={'circle'}
+					label={'Govt & Community Services'}
+					bgcolor={'#8A4285'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-civicinfra-govt-community'}
+					{map}
+				/>
+				<LegendItem
+					variant={'circle'}
+					label={'Recreation'}
+					bgcolor={'#43B171'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-civicinfra-recreation'}
+					{map}
+				/>
+				<LegendItem
+					variant={'circle'}
+					label={'Healthcare'}
+					bgcolor={'#33AED7'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-civicinfra-health-care'}
+					{map}
+				/>
+				<LegendItem
+					variant={'circle'}
+					label={'Education'}
+					bgcolor={'#F45D01'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-civicinfra-education'}
+					{map}
+				/>
+				<h5>Business</h5>
+				<LegendItem
+					variant={'circle'}
+					label={'Retail'}
+					bgcolor={'#F13737'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-business-retail'}
+					{map}
+				/>
+				<LegendItem
+					variant={'circle'}
+					label={'Local Services'}
+					bgcolor={'#2a5cac'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-business-services-other'}
+					{map}
+				/>
+				<LegendItem
+					variant={'circle'}
+					label={'Food and Drink'}
+					bgcolor={'#58420e'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'canada-business-food-drink'}
+					{map}
 				/>
 			</div>
-		</div>
-		<div class="legend" id="business-civic-legend">
-			<h5>Civic Infrastructure</h5>
-			<LegendItem
-				variant={'circle'}
-				label={'Arts and Culture'}
-				bgcolor={'#DB3069'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-civicinfra-arts-culture'}
-				{map}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'Govt & Community Services'}
-				bgcolor={'#8A4285'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-civicinfra-govt-community'}
-				{map}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'Recreation'}
-				bgcolor={'#43B171'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-civicinfra-recreation'}
-				{map}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'Healthcare'}
-				bgcolor={'#33AED7'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-civicinfra-health-care'}
-				{map}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'Education'}
-				bgcolor={'#F45D01'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-civicinfra-education'}
-				{map}
-			/>
-			<h5>Business</h5>
-			<LegendItem
-				variant={'circle'}
-				label={'Retail'}
-				bgcolor={'#F13737'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-business-retail'}
-				{map}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'Local Services'}
-				bgcolor={'#2a5cac'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-business-services-other'}
-				{map}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'Food and Drink'}
-				bgcolor={'#58420e'}
-				bordercolor={'#fff'}
-				button={true}
-				id={'canada-business-food-drink'}
-				{map}
-			/>
-		</div>
 		</div>
 	</div>
 </div>
-<Footer/>
+<Footer />
 
 <style>
 	:global(body) {
@@ -838,20 +1152,22 @@
 	}
 
 	h6 {
-		margin:0.5em 0 0.5em 0;
+		margin: 0.5em 0 0.5em 0;
 		font-weight: 500;
 	}
 
 	h5 {
 		font-weight: 600;
+		margin: 0.5em 0 0.5em 0;
 	}
 
 	h4 {
 		font-size: 0.8em;
 	}
 
-	h5, h2, h4 {
-    	margin: 0;
+	h2,
+	h4 {
+		margin: 0;
 		padding: 0.1em 0 0.1em 0;
 	}
 
@@ -869,4 +1185,5 @@
 		border: 0.5px solid #eee;
 		width: 100%;
 	}
+
 </style>

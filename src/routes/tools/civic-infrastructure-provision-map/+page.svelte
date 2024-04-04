@@ -5,7 +5,9 @@
 	import cmaSummary from './cma-summary.json';
 	import Select from 'svelte-select';
 	import Footer from '../../lib/Footer.svelte';
+	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
+
 	import Icon from '@iconify/svelte';
 
 	mapboxgl.accessToken =
@@ -49,10 +51,10 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cluk7htch03qc01nw78lqf46n?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/clulcg3q700c601pbab1jabtt?fresh=true',
 			center: [-90, 55],
 			zoom: 3.5,
-			maxZoom: 11,
+			maxZoom: 15,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -189,16 +191,10 @@
 </script>
 
 <div class="hero">
-	<h1>Housing Dot Density Map</h1>
+	<h1>Civic Infrastructure Provision Map</h1>
 	<h2>Mapping Tool</h2>
 	<p>
-		This choropleth dot mapping tool highlights housing built in Canada over the course of the past
-		60 years, divided into 4 periods: pre 1960, 1961 to 1980, 1981 to 2000, and 2001 to 2023. 
-		Each
-		dot represents 50 houses. It is important to note that in a dot density map, while the dots are used to
-		represent data points, they don't directly indicate the <i>exact</i> locations of the data points themselves, rather,
-		they are spread out randomly within an area, in order to give a visual impression of the density or distribution
-		of the data across a geographic region.
+		This tool maps the relative provision of civic infrastructure by neighbourhood. The Civic Infrastructure Index calculates a weighted (by employees) count of civic infrastructure establishments relative to the size of the local (within 1km) population. These patterns are visualized by transposing the index onto major roadways in built-up residential areas of each region. 
 	</p>
 </div>
 
@@ -223,40 +219,58 @@
 
 		<div class="legend">
 			<h4>Legend</h4>
-			<h5><i>Click to turn layers on and off</i></h5>
-			<h5>1 dot = 50 houses</h5>
-			<LegendItem
-				variant={'circle'}
-				label={'2001 - 2023'}
-				bgcolor={'#DB3069'}
-				button={true}
-				{map}
-				id={'const-0123'}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'1981 - 2000'}
-				bgcolor={'#58e965'}
-				button={true}
-				{map}
-				id={'const-8100'}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'1961 - 1980'}
-				bgcolor={'#00adf2'}
-				button={true}
-				{map}
-				id={'const-6180'}
-			/>
-			<LegendItem
-				variant={'circle'}
-				label={'Pre 1960'}
-				bgcolor={'#002940'}
-				button={true}
-				{map}
-				id={'const-pre1960'}
-			/>
+			<Legend
+					minlabel={'Low'}
+					maxlabel={'High'}
+					label={'Civic Infrastructure Provision'}
+					gradient={'linear-gradient(to left, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
+				/>
+				<h5><i>Click to turn layers on and off</i></h5>
+				<LegendItem
+						variant={'circle'}
+						label={'Arts and Culture'}
+						bgcolor={'#DB3069'}
+						bordercolor={'#222'}
+						button={true}
+						id={'canada-civicinfra-arts-culture'}
+						{map}
+					/>
+					<LegendItem
+						variant={'circle'}
+						label={'Govt & Community Services'}
+						bgcolor={'#8A4285'}
+						bordercolor={'#222'}
+						button={true}
+						id={'canada-civicinfra-govt-community'}
+						{map}
+					/>
+					<LegendItem
+						variant={'circle'}
+						label={'Recreation'}
+						bgcolor={'#43B171'}
+						bordercolor={'#222'}
+						button={true}
+						id={'canada-civicinfra-recreation'}
+						{map}
+					/>
+					<LegendItem
+						variant={'circle'}
+						label={'Healthcare'}
+						bgcolor={'#33AED7'}
+						bordercolor={'#222'}
+						button={true}
+						id={'canada-civicinfra-health-care'}
+						{map}
+					/>
+					<LegendItem
+						variant={'circle'}
+						label={'Education'}
+						bgcolor={'#F45D01'}
+						bordercolor={'#222'}
+						button={true}
+						id={'canada-civicinfra-education'}
+						{map}
+					/>
 		</div>
 		<button id="resetButton" on:click={resetMap}>
 			<Icon icon="mi:undo" /> Reset Map

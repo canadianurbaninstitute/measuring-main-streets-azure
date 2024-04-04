@@ -54,7 +54,7 @@
 	let map;
 
 	// initial cma and variable selected
-	let cmaSelected = 'All CMAs';
+	let cmaSelected = 'All Regions';
 	let variableSelected = 'Population';
 	let variableSelectedLabel = 'Population';
 
@@ -161,7 +161,7 @@
 		let cmauid = filteredData.cmauid.toString();
 
 		// pan and zoom to the new cma - reset pitch and bearing if they changed
-		if (cmaSelected !== 'All CMAs') {
+		if (cmaSelected !== 'All Regions') {
 			map.setZoom(8);
 			map.setBearing(0);
 			map.setPitch(0);
@@ -225,7 +225,7 @@
 
 	function resetMap() {
 
-		cmaSelected = 'All CMAs';
+		cmaSelected = 'All Regions';
 
 		map.flyTo({
 				center: [-90, 55],

@@ -3,22 +3,23 @@
 	import ReportCard from '../lib/ui/ReportCard.svelte';
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
 	import opennorth from '../lib/assets/graphics/opennorth.svg';
+	import Footer from '../lib/Footer.svelte';
 </script>
 
 <div class="hero">
 	<h1>Tools</h1>
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-	</p>
 </div>
 
 <div class="hero">
 	<div class="subtitle">
 		<h2>Mapping Tools</h2>
 	</div>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	</p>
 </div>
 
 <div class="card-grid">
@@ -30,19 +31,25 @@
 	/>
 
 	<ReportCard
-		link={'/'}
+		link={'/tools/civic-infrastructure-provision-map'}
 		cardImage={mainstreets}
 		title={'Civic Infrastructure Provision Map'}
 		subtitle={''}
 	/>
 
-	<ReportCard link={'/tools/housing-density-map'} cardImage={mainstreets} title={'Housing Density Map'} subtitle={''} />
+	<ReportCard link={'/tools/housing-density-map'} cardImage={mainstreets} title={'Housing Dot Density Map'} subtitle={''} />
 </div>
 
 <div class="hero">
 	<div class="subtitle">
 		<h2>Graphing Tools</h2>
 	</div>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+		laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+		voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	</p>
 </div>
 
 <div class="card-grid">
@@ -70,6 +77,8 @@
 		subtitle={'Open North'}
 	/>
 </div>
+
+<Footer/>
 
 <style>
 	p {

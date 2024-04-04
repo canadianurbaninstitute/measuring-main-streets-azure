@@ -41,6 +41,7 @@
     "@onsvisual/svelte-charts": "^0.2.25",
     "@rollup/plugin-dsv": "^3.0.4",
     "@turf/turf": "^6.5.0",
+    "bits-ui": "^0.21.2",
     "cloudinary": "^1.40.0",
     "cloudinary-build-url": "^0.2.4",
     "d3": "^7.9.0",

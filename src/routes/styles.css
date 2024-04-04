@@ -236,3 +236,25 @@ button:active {
 .sv-item--btn {
     display: none!important;
 	}
+ 
+[data-tabs-list] {
+    border-radius: 0.5em;
+    display: flex;
+}
+
+[data-tabs-trigger] {
+    padding: 0.5em;
+    width: 100%;
+    overflow: clip;
+    border: 1px solid #ddd;
+
+}
+
+[data-state=active] {
+    background-color: #eee;
+    
+}
+
+[data-state=inactive] {
+    background-color: #fff;
+}
