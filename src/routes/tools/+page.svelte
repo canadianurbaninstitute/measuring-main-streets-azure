@@ -29,14 +29,14 @@
 		subtitle={''}
 	/>
 
-	<!-- <ReportCard
+	<ReportCard
 		link={'/'}
 		cardImage={mainstreets}
 		title={'Civic Infrastructure Provision Map'}
 		subtitle={''}
-	/> -->
+	/>
 
-	<ReportCard link={'/'} cardImage={mainstreets} title={'Housing Density Map'} subtitle={''} />
+	<ReportCard link={'/tools/housing-density-map'} cardImage={mainstreets} title={'Housing Density Map'} subtitle={''} />
 </div>
 
 <div class="hero">

@@ -231,3 +231,8 @@ button:active {
     align-items: center;
     gap: 0.5em;
 }
+
+
+.sv-item--btn {
+    display: none!important;
+	}

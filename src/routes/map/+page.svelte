@@ -23,6 +23,7 @@
 	// basic
 
 	let population = '29,482,761';
+	let populationchange = '';
 	let employees = '1,692,453';
 
 	// business
@@ -81,6 +82,7 @@
 
 	let french = 18;
 	let english = 62;
+	let otherlang = 20;
 
 	let geocoder;
 
@@ -189,6 +191,7 @@
 			place = e.features[0].properties.City_Name;
 
 			population = e.features[0].properties.Pop;
+			populationchange = ' (' + (e.features[0].properties.PopChng >= 0 ? '+' : '') + e.features[0].properties.PopChng.toFixed(1) + '%)';
 			employees = e.features[0].properties.total_emp.toFixed(0);
 
 			// business
@@ -253,10 +256,11 @@
 			apartments_more_than_5 = e.features[0].properties.AptMore5.toFixed(0);
 			apartments_less_than_5 = e.features[0].properties.AptLess5.toFixed(0);
 
-			// language
+			//language
 
-			// english = e.features[0].properties.LanEng.toFixed(0);
-			// french = e.features[0].properties.LanFr.toFixed(0);
+			english = e.features[0].properties.LanEng.toFixed(0);
+			french = e.features[0].properties.LanFr.toFixed(0);
+			otherlang = e.features[0].properties.LanOth.toFixed(0);
 
 			// highlighting road
 
@@ -398,6 +402,7 @@
 		// basic
 
 		population = '29,482,761';
+		populationchange = '';
 		employees = '1,692,453';
 
 		// business
@@ -456,6 +461,7 @@
 
 		french = 18;
 		english = 62;
+		otherlang = 20;
 
 		map.removeLayer('selectedRoad');
 		map.removeSource('selectedRoad');
@@ -539,10 +545,8 @@
 	<hr/>
 		<h5>Neighbourhood Characteristics</h5>
 		<h6>Demographic</h6>
-		<div class="metric-container">
-			<Metric label={'Population'} value={population} icon={'fluent:people-20-filled'} />
-			<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
-		</div>
+		<Metric label={'Population (% change since 2016)'} value={population + populationchange} icon={'fluent:people-20-filled'} />
+		<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
 		<div class="metric-container">
 			<Metric
 				label={'Average Income'}
@@ -575,6 +579,11 @@
 				icon={'material-symbols:handshake'}
 			/>
 			<Metric label={'Indigenous Population'} value={indigenous} suffix={'%'} icon={'mdi:person'} />
+		</div>
+		<div class="metric-container">
+			<Metric label={'English Speakers'} value={english} suffix={'%'}  />
+			<Metric label={'French Speakers'} value={french} suffix={'%'} />
+			<Metric label={'Other Language'} value={otherlang} suffix={'%'} />
 		</div>
 		<h6>Commuting</h6>
 		<div class="metric-container">

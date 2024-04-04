@@ -1,0 +1,162 @@
+[
+  {
+    "variable": "Pop",
+    "name": "Population",
+    "group": "population"
+  },
+  {
+    "variable": "totl_mp",
+    "name": "Total Employment",
+    "group": "employment"
+  },
+  {
+    "variable": "HHs",
+    "name": "Households",
+    "group": "population"
+  },
+  {
+    "variable": "AvgAge",
+    "name": "Average Age",
+    "group": "age"
+  },
+  {
+    "variable": "Age0_19",
+    "name": "Age 0 to 19",
+    "group": "age"
+  },
+  {
+    "variable": "Age20_64",
+    "name": "Age 20 to 64",
+    "group": "age"
+  },
+  {
+    "variable": "Age65_Ov",
+    "name": "Age 65 and Over",
+    "group": "age"
+  },
+  {
+    "variable": "HHSize",
+    "name": "Average Household Size",
+    "group": "population"
+  },
+  {
+    "variable": "ttl_dwl",
+    "name": "Total Dwellings",
+    "group": "housing"
+  },
+  {
+    "variable": "SinDtch",
+    "name": "Single Detached Housing",
+    "group": "housing"
+  },
+  {
+    "variable": "SemDtch",
+    "name": "Semi Detached Housing",
+    "group": "housing"
+  },
+  {
+    "variable": "AptMor5",
+    "name": "Apartment (>5 stories)",
+    "group": "housing"
+  },
+  {
+    "variable": "AptLss5",
+    "name": "Apartment (<5 stories)",
+    "group": "housing"
+  },
+  {
+    "variable": "Duplex",
+    "name": "Duplex / Row Housing",
+    "group": "housing"
+  },
+  {
+    "variable": "UniDeg",
+    "name": "Bachelors Degree or Higher",
+    "group": "population"
+  },
+  {
+    "variable": "MobCar",
+    "name": "Car",
+    "group": "commuting"
+  },
+  {
+    "variable": "MobPT",
+    "name": "Public Transit",
+    "group": "commuting"
+  },
+  {
+    "variable": "MobAct",
+    "name": "Active Transit",
+    "group": "commuting"
+  },
+  {
+    "variable": "VM",
+    "name": "Visible Minorities",
+    "group": "population"
+  },
+  {
+    "variable": "Indig",
+    "name": "Indigenous",
+    "group": "population"
+  },
+  {
+    "variable": "ImmNPR",
+    "name": "Recent Immigrants / Non-permanent Residents",
+    "group": "population"
+  },
+  {
+    "variable": "LanEng",
+    "name": "English",
+    "group": "language"
+  },
+  {
+    "variable": "LanFr",
+    "name": "French",
+    "group": "language"
+  },
+  {
+    "variable": "LanOth",
+    "name": "Other Language",
+    "group": "language"
+  },
+  {
+    "variable": "Density",
+    "name": "Population Density (residents / sq. km)",
+    "group": "population"
+  },
+  {
+    "variable": "PopChng",
+    "name": "Population Change since 2016",
+    "group": "population"
+  },
+  {
+    "variable": "AvgEmpI",
+    "name": "Average Employment Income",
+    "group": "employment"
+  },
+  {
+    "variable": "CommT15",
+    "name": "Commutes under 15 minutes",
+    "group": "commuting"
+  },
+  {
+    "variable": "CommT30",
+    "name": "Commutes under 30 minutes",
+    "group": "commuting"
+  },
+  {
+    "variable": "CommT45",
+    "name": "Commutes under 45 minutes",
+    "group": "commuting"
+  },
+  {
+    "variable": "CommT60",
+    "name": "Commutes under 60 minutes",
+    "group": "commuting"
+  },
+  {
+    "variable": "CmmTOv60",
+    "name": "Commutes over 60 minutes",
+    "group": "commuting"
+  }
+]

@@ -11,8 +11,8 @@
 
 <Title
 	outline={mainstreets}
-	name={'The Case for Main Streets'}
-	location={'An introduction to Measuring Main Streets'}
+	name={'Measuring Main Streets Guide'}
+	location={'An overview of the platform and the wider project'}
 />
 
 <div class="full-text">

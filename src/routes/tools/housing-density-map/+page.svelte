@@ -3,11 +3,9 @@
 	import mapboxgl from 'mapbox-gl';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import cmaSummary from './cma-summary.json';
-	import variableNames from './variable-names.json';
 	import Select from 'svelte-select';
 	import Footer from '../../lib/Footer.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import Icon from '@iconify/svelte';
 
 	mapboxgl.accessToken =
@@ -15,24 +13,24 @@
 
 	// creating a geojson for points of CMAs (when zoomed out)
 
-	let cmaPoints;
+	// let cmaPoints;
 
-	cmaPoints = {
-		type: 'FeatureCollection',
-		features: cmaSummary
-			.filter((feature) => feature.cmauid !== '000')
-			.map((feature) => ({
-				type: 'Feature',
-				geometry: {
-					type: 'Point',
-					coordinates: [feature.x, feature.y]
-				},
-				properties: {
-					cmauid: feature.cmauid,
-					cmaname: feature.cmaname
-				}
-			}))
-	};
+	// cmaPoints = {
+	// 	type: 'FeatureCollection',
+	// 	features: cmaSummary
+	// 		.filter((feature) => feature.cmauid !== '000')
+	// 		.map((feature) => ({
+	// 			type: 'Feature',
+	// 			geometry: {
+	// 				type: 'Point',
+	// 				coordinates: [feature.x, feature.y]
+	// 			},
+	// 			properties: {
+	// 				cmauid: feature.cmauid,
+	// 				cmaname: feature.cmaname
+	// 			}
+	// 		}))
+	// };
 
 	// array of all cma names
 	let cmaAll = cmaSummary.map((item) => {
@@ -43,25 +41,15 @@
 		};
 	});
 
-	let variablesAll = variableNames.map((item) => {
-		return {
-			label: item.name,
-			value: item.variable,
-			group: item.group
-		};
-	});
-
 	let map;
 
 	// initial cma and variable selected
 	let cmaSelected = 'All CMAs';
-	let variableSelected = 'Population';
-	let variableSelectedLabel = 'Population';
 
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clu8uyibd004v01qt1tctazkv?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cluk7htch03qc01nw78lqf46n?fresh=true',
 			center: [-90, 55],
 			zoom: 3.5,
 			maxZoom: 14,
@@ -70,30 +58,30 @@
 			attributionControl: false
 		});
 
-		map.on('load', function () {
-			map.addLayer({
-				id: 'cmaPoints',
-				type: 'circle',
-				source: {
-					type: 'geojson',
-					data: cmaPoints
-				},
-				paint: {
-					'circle-radius': 4,
-					'circle-color': '#00adf2',
-					'circle-stroke-width': 2,
-					'circle-stroke-color': '#fff'
-				}
-			});
-		});
+		// map.on('load', function () {
+		// 	map.addLayer({
+		// 		id: 'cmaPoints',
+		// 		type: 'circle',
+		// 		source: {
+		// 			type: 'geojson',
+		// 			data: cmaPoints
+		// 		},
+		// 		paint: {
+		// 			'circle-radius': 4,
+		// 			'circle-color': '#00adf2',
+		// 			'circle-stroke-width': 2,
+		// 			'circle-stroke-color': '#fff'
+		// 		}
+		// 	});
+		// });
 
-		map.on('zoom', function () {
-			if (map.getZoom() < 6) {
-				map.setLayoutProperty('cmaPoints', 'visibility', 'visible');
-			} else {
-				map.setLayoutProperty('cmaPoints', 'visibility', 'none');
-			}
-		});
+		// map.on('zoom', function () {
+		// 	if (map.getZoom() < 6) {
+		// 		map.setLayoutProperty('cmaPoints', 'visibility', 'visible');
+		// 	} else {
+		// 		map.setLayoutProperty('cmaPoints', 'visibility', 'none');
+		// 	}
+		// });
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
@@ -104,11 +92,11 @@
 
 		map.addControl(scale, 'bottom-right');
 
-		map.on('mouseenter', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
+		map.on('mouseenter', ['cma-fill', 'cma-highlight'], () => {
 			map.getCanvas().style.cursor = 'pointer';
 		});
 
-		map.on('mouseleave', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
+		map.on('mouseleave', ['cma-fill', 'cma-highlight'], () => {
 			map.getCanvas().style.cursor = '';
 		});
 
@@ -118,34 +106,11 @@
 			)[0].cmaname;
 		});
 
-		map.on('click', 'cmaPoints', (e) => {
-			console.log(e.features[0]);
-			cmaSelected = e.features[0].properties.cmaname;
-		});
+		// map.on('click', 'cmaPoints', (e) => {
+		// 	console.log(e.features[0]);
+		// 	cmaSelected = e.features[0].properties.cmaname;
+		// });
 
-		map.on('zoom', () => {
-			if (map.getZoom() > 6) {
-				// Show the HTML element
-				document.getElementById('legend').style.opacity = '1';
-				document.getElementById('legend').style.visibility = 'visible';
-			} else {
-				// Hide the HTML element
-				document.getElementById('legend').style.opacity = '0';
-				document.getElementById('legend').style.visibility = 'hidden';
-			}
-		});
-
-		map.on('zoom', () => {
-			if (map.getZoom() > 10) {
-				// Show the HTML element
-				document.getElementById('mainstreet-legend').style.opacity = '1';
-				document.getElementById('mainstreet-legend').style.visibility = 'visible';
-			} else {
-				// Hide the HTML element
-				document.getElementById('mainstreet-legend').style.opacity = '0';
-				document.getElementById('mainstreet-legend').style.visibility = 'hidden';
-			}
-		});
 	});
 
 	// function for what to do when new cma is selected
@@ -194,35 +159,6 @@
 		}
 	}
 
-	function handleSelectVariable(e) {
-
-		variableSelected = e.detail.value;
-		variableSelectedLabel = e.detail.label;
-
-		// filter variable data to just the variable we selected
-		let filteredData = variableNames.filter((item) => item.variable === variableSelected)[0];
-
-		let expression = [
-			'match',
-			['get', ['literal', filteredData.variable]],
-			[1],
-			'#cceffe',
-			[2],
-			'#99dffc',
-			[3],
-			'#34bef9',
-			[4],
-			'#018bc6',
-			[5],
-			'#004663',
-			'#eeeeee'
-		];
-
-		map.setPaintProperty('cma-demographic', 'line-color', expression);
-
-		// waiting on setting expressions to just be percentile values
-	}
-
 	function resetMap() {
 
 		cmaSelected = 'All CMAs';
@@ -255,34 +191,15 @@
 </script>
 
 <div class="hero">
-	<h1>Main Street Demographic Map</h1>
+	<h1>Housing Dot Density Map</h1>
 	<h2>Mapping Tool</h2>
 	<p>
-		This mapping tool highlights demographic variables mapped to all arterial streets across
-		Census Metropolitan Areas and Census Agglomerations within Canada. First, select a demographic variable from the dropdown
-		below, and then, navigate the map by clicking on a point or by using the dropdown to select a region.
+		This mapping tool highlights housing.
 	</p>
 </div>
 
 <div class="map-container">
 	<div class="controls">
-		<div class="select-wrapper">
-			<h4>Select a variable:</h4>
-			<Select
-				id="select"
-				items={variablesAll}
-				value={variableSelected}
-				groupBy={(item) => item.group}
-				clearable={false}
-				showChevron={true}
-				on:input={handleSelectVariable}
-				--background="white"
-				--item-color="black"
-				--item-is-active-color="black"
-				--item-is-active-bg="#eee"
-			/>
-		</div>
-
 		<div class="select-wrapper">
 			<h4>Select a region:</h4>
 			<Select
@@ -302,25 +219,12 @@
 
 		<div class="legend">
 			<h4>Legend</h4>
+			<LegendItem variant={'circle'} label={'Pre 1960'} bgcolor={'#002940'} />
+			<LegendItem variant={'circle'} label={'1961 - 1980'} bgcolor={'#00adf2'} />
+			<LegendItem variant={'circle'} label={'1981 - 2000'} bgcolor={'#58e965'} />
+			<LegendItem variant={'circle'} label={'2001 - 2023'} bgcolor={'#DB3069'} />
 
-			<LegendItem variant={'circle'} label={'Census Metropolitan Areas'} bgcolor={'#00adf2'} />
 
-			<div id="legend">
-				<Legend
-					minlabel={'Low'}
-					maxlabel={'High'}
-					label={variableSelectedLabel}
-					gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
-				/>
-			</div>
-
-			<div id="mainstreet-legend">
-				
-			<LegendItem variant={'polygon'} label={'High Density Main Streets'} bgcolor={'#eee'} />
-
-			<LegendItem variant={'polygon'} label={'Low Density Main Streets'} bgcolor={'#dddd'} />
-			
-			</div>
 			
 		</div>
 		<button id="resetButton" on:click={resetMap}>
@@ -367,15 +271,6 @@
 		border: 1px solid #eee;
 		margin: 0 0 0.5em 0;
 		height: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-	}
-
-	#legend, #mainstreet-legend {
-		transition: opacity 0.3s, visibility 0.3s;
-		opacity: 0;
-		visibility: hidden;
 		display: flex;
 		flex-direction: column;
 		gap: 1em;

@@ -44,6 +44,9 @@
 
 <div class="hero">
 	<h1>Quick Links</h1>
+	<p>
+		Read the <a href="reports/case-for-mainstreets">Measuring Main Streets Guide</a> to understand each component of the platform in greater detail, or, jump to a section using the links below.
+	</p>
 </div>
 
 <div class="card-grid">
@@ -72,7 +75,7 @@
 		link={'/tools'}
 		cardImage={'https://i.imgur.com/gj9y9QY.png'}
 		title={'Tools'}
-		subtitle={'Use our tools'}
+		subtitle={'Use our main street tools'}
 	/>
 </div>
 
@@ -246,15 +249,16 @@
 	}
 
 	p {
-		margin-top: 0;
+		margin: 0;
 	}
 
 	a {
 		text-decoration: none;
+		color: var(--brandLightBlue)
 	}
 
 	.hero {
-		margin: 3em;
+		margin: 2em;
 		gap: 1em;
 		flex: 1;
 	}
@@ -332,6 +336,8 @@
 	.splash-buttons {
 		display: flex;
 		gap: 1em;
+		margin-top: 1em;
+
 	}
 
 	button {
