@@ -6,7 +6,7 @@
 	import * as turf from '@turf/turf';
 	import Icon from '@iconify/svelte';
 	import { Tabs } from 'bits-ui';
-	import '../styles.css'
+	import '../styles.css';
 
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
@@ -17,6 +17,7 @@
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
 	export let map;
+	let id;
 
 	// info
 	let streetname = 'Canada';
@@ -89,58 +90,58 @@
 	let english = 62;
 	let otherlang = 20;
 
-	/*---------- PERCENTILES --------------*/
 
-	let per_Age0_19 = '';
-	let per_Age20_64 = '';
-	let per_Age65_Over = '';
-	let per_AptLess5 = '';
-	let per_AptMore5 = '';
-	let per_Arts = '';
-	let per_AvgAge = '';
-	let per_AvgEmpInc = '';
-	let per_BIIavg = '';
-	let per_BusDensity = '';
-	let per_CivDensity = '';
-	let per_CommOver60 = '';
-	let per_CommT15 = '';
-	let per_CommT30 = '';
-	let per_CommT45 = '';
-	let per_CommT60 = '';
-	let per_Density = '';
-	let per_Duplex = '';
-	let per_Education = '';
-	let per_EmpDensity = '';
-	let per_FoodDrink = '';
-	let per_GovandCom = '';
-	let per_HHSize = '';
-	let per_HHs = '';
-	let per_Healthcare = '';
-	let per_ImmNPR = '';
-	let per_Indig = '';
-	let per_LanEng = '';
-	let per_LanFr = '';
-	let per_LanOth = '';
-	let per_LocalService = '';
-	let per_MobAct = '';
-	let per_MobCar = '';
-	let per_MobPT = '';
-	let per_Pop = '';
-	let per_PopChng = '';
-	let per_Recreation = '';
-	let per_Retail = '';
-	let per_Retailmax = '';
-	let per_Retailmin = '';
-	let per_SemiDetach = '';
-	let per_SinDetach = '';
-	let per_VM = '';
+	/**** PERCENTILES ****/
+
+	let per_retail;
+	let per_local_services;
+	let per_food_drink;
+	let per_business_count;
+	let per_government_community_services;
+	let per_healthcare;
+	let per_education;
+	let per_recreation;
+	let per_arts_culture;
+	let per_civic_count;
+	let per_business_independence_index;
+	let per_retail_min;
+	let per_retail_max;
+	let per_greenspace;
+	let per_total_employment;
+	let per_population;
+	let per_households;
+	let per_household_size;
+	let per_population_density;
+	let per_population_change;
+	let per_total_dwellings;
+	let per_single_detached;
+	let per_semi_detached;
+	let per_duplex;
+	let per_apartment_more_5;
+	let per_apartment_less_5;
+	let per_average_age;
+	let per_age_0_19;
+	let per_age_20_64;
+	let per_age_65_Over;
+	let per_university_degree;
+	let per_visible_minorities;
+	let per_immigrants_non_permanent_residents;
+	let per_indigenous;
+	let per_language_english;
+	let per_language_french;
+	let per_language_other;
+	let per_average_employment_income;
+	let per_mobility_car;
+	let per_mobility_public_transit;
+	let per_mobility_active_transit;
+
 
 	let geocoder;
 
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cltogc52e020c01ph6xvyfbgz?fresh=true', //'mapbox://styles/canadianurbaninstitute/clpa3pw06003901qr8j8v7rjj?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/clurst5kt00a501p27qk6bhvr?fresh=true',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 14,
@@ -148,6 +149,26 @@
 			scrollZoom: true,
 			attributionControl: false
 		});
+
+		async function fetchMeasureData(id) {
+			const response = await fetch(`/api/mainstreets-measures?id=${id}`);
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				console.error('Failed to fetch data');
+			}
+		}
+
+		async function fetchPercentileData(id) {
+			const response = await fetch(`/api/mainstreets-percentile?id=${id}`);
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				console.error('Failed to fetch data');
+			}
+		}
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
@@ -222,17 +243,23 @@
 		// function for adding percentile suffixes
 
 		function nth(n) {
+			n = parseFloat(n);
 			return ['st', 'nd', 'rd'][((((n + 90) % 100) - 10) % 10) - 1] || 'th';
 		}
 
-		map.on('click', ['mainstreets-low-density', 'mainstreets-high-density'], (e) => {
+		map.on('click', ['mainstreets-base', 'mainstreets-base-invisible'], (e) => {
+
+			document.getElementById('percentile-measures').style.display = 'block';
+			document.getElementById('percentile-placeholder').style.display = 'none'; 
+
+
+
 			// map zooming
 			const endpoints = e.features[0].geometry.coordinates;
 			const midpoint = turf.midpoint(endpoints[0], endpoints[1]);
 
 			map.flyTo({
-				center: midpoint.geometry.coordinates,
-				zoom: 13
+				center: midpoint.geometry.coordinates
 			});
 
 			// button
@@ -242,135 +269,157 @@
 
 			// general
 
-			streetname = e.features[0].properties.Street_Name;
-			place = e.features[0].properties.City_Name;
+			id = e.features[0].properties.id;
 
-			population = e.features[0].properties.Pop;
-			populationchange =
-				' (' +
-				(e.features[0].properties.PopChng >= 0 ? '+' : '') +
-				e.features[0].properties.PopChng.toFixed(1) +
-				'%)';
-			employees = e.features[0].properties.total_emp.toFixed(0);
 
-			// business
+			async function returnStreetData() {
 
-			business =
-				e.features[0].properties.Food_Drink +
-				e.features[0].properties.Retail +
-				e.features[0].properties.Local_Service;
-			business_food_drink = e.features[0].properties.Food_Drink;
-			business_retail = e.features[0].properties.Retail;
-			business_services = e.features[0].properties.Local_Service;
-			independent_business = e.features[0].properties.BII_avg.toFixed(2);
-			retail_min = e.features[0].properties.Retail_min;
-			retail_max = e.features[0].properties.Retail_max;
+				let mainstreet_data = await fetchMeasureData(id);
 
-			// civic
+				/***** street *****/
 
-			civic =
-				e.features[0].properties.Arts +
-				e.features[0].properties.Education +
-				e.features[0].properties.GovandCom +
-				e.features[0].properties.Healthcare +
-				e.features[0].properties.Recreation;
-			civic_arts_culture = e.features[0].properties.Arts;
-			civic_education = e.features[0].properties.Education;
-			civic_govt_community = e.features[0].properties.GovandCom;
-			civic_healthcare = e.features[0].properties.Healthcare;
-			civic_recreation = e.features[0].properties.Recreation;
+				streetname = mainstreet_data[0].street_name;
+				place = mainstreet_data[0].city_name;
 
-			// demographic
+				// business
 
-			// income + education
+				business =
+					mainstreet_data[0].food_drink +
+					mainstreet_data[0].retail +
+					mainstreet_data[0].local_services;
+				business_food_drink = mainstreet_data[0].food_drink;
+				business_retail = mainstreet_data[0].retail;
+				business_services = mainstreet_data[0].local_services;
+				independent_business = mainstreet_data[0].business_independence_index.toFixed(2);
+				retail_min = mainstreet_data[0].retail_min;
+				retail_max = mainstreet_data[0].retail_max;
 
-			income = parseFloat(e.features[0].properties.AvgEmpInc.toFixed(0)).toLocaleString();
-			education = e.features[0].properties.UniDeg.toFixed(0);
+				// civic
 
-			// age
+				civic =
+					mainstreet_data[0].arts_culture +
+					mainstreet_data[0].education +
+					mainstreet_data[0].government_community_services +
+					mainstreet_data[0].healthcare +
+					mainstreet_data[0].recreation;
+				civic_arts_culture = mainstreet_data[0].arts_culture;
+				civic_education = mainstreet_data[0].education;
+				civic_govt_community = mainstreet_data[0].government_community_services;
+				civic_healthcare = mainstreet_data[0].healthcare;
+				civic_recreation = mainstreet_data[0].recreation;
 
-			average_age = e.features[0].properties.AvgAge.toFixed(0);
-			age_0_19 = e.features[0].properties.Age0_19.toFixed(0);
-			age_20_64 = e.features[0].properties.Age20_64.toFixed(0);
-			age_over_65 = e.features[0].properties.Age65_Over.toFixed(0);
+				/***** street *****/
 
-			// equity
+				// population + employees
 
-			immigrants = e.features[0].properties.ImmNPR.toFixed(0);
-			visibleminority = e.features[0].properties.VM.toFixed(0);
-			indigenous = e.features[0].properties.Indig.toFixed(0);
+				population = mainstreet_data[0].population;
+				employees = mainstreet_data[0].total_employment.toFixed(0);
 
-			// commute
+				populationchange =
+					' (' +
+					(mainstreet_data[0].population_change >= 0 ? '+' : '') +
+					mainstreet_data[0].population_change.toFixed(1) +
+					'%)';
 
-			car = e.features[0].properties.MobCar.toFixed(0);
-			public_transit = e.features[0].properties.MobPT.toFixed(0);
-			active_transit = e.features[0].properties.MobAct.toFixed(0);
+				// demographic
 
-			// housing
+				// income + education
 
-			dwellings = e.features[0].properties.total_dwellings.toFixed(0);
-			singledetached = e.features[0].properties.SinDetach.toFixed(0);
-			semidetached = e.features[0].properties.SemiDetach.toFixed(0);
-			duplex = e.features[0].properties.Duplex.toFixed(0);
-			apartments_more_than_5 = e.features[0].properties.AptMore5.toFixed(0);
-			apartments_less_than_5 = e.features[0].properties.AptLess5.toFixed(0);
+				income = parseFloat(
+					mainstreet_data[0].average_employment_income.toFixed(0)
+				).toLocaleString();
+				education = mainstreet_data[0].university_degree.toFixed(0);
 
-			//language
+				// age
 
-			english = e.features[0].properties.LanEng.toFixed(0);
-			french = e.features[0].properties.LanFr.toFixed(0);
-			otherlang = e.features[0].properties.LanOth.toFixed(0);
+				average_age = mainstreet_data[0].average_age.toFixed(0);
+				age_0_19 = mainstreet_data[0].age_0_19.toFixed(0);
+				age_20_64 = mainstreet_data[0].age_20_64.toFixed(0);
+				age_over_65 = mainstreet_data[0].age_65_Over.toFixed(0);
 
-			/* --------- PERCENTILES ------------- */
+				// equity
 
-			per_Age0_19 = e.features[0].properties.per_Age0_19.toFixed(0);
-			per_Age20_64 = e.features[0].properties.per_Age20_64.toFixed(0);
-			per_Age65_Over = e.features[0].properties.per_Age65_Over.toFixed(0);
-			per_AptLess5 = e.features[0].properties.per_AptLess5.toFixed(0);
-			per_AptMore5 = e.features[0].properties.per_AptMore5.toFixed(0);
-			per_Arts = e.features[0].properties.per_Arts.toFixed(0);
-			per_AvgAge = e.features[0].properties.per_AvgAge.toFixed(0);
-			per_AvgEmpInc = e.features[0].properties.per_AvgEmpInc.toFixed(0);
-			per_BIIavg = e.features[0].properties.per_BIIavg.toFixed(0);
-			per_BusDensity = e.features[0].properties.per_BusDensity.toFixed(0);
-			per_CivDensity = e.features[0].properties.per_CivDensity.toFixed(0);
-			per_CommOver60 = e.features[0].properties.per_CommOver60.toFixed(0);
-			per_CommT15 = e.features[0].properties.per_CommT15.toFixed(0);
-			per_CommT30 = e.features[0].properties.per_CommT30.toFixed(0);
-			per_CommT45 = e.features[0].properties.per_CommT45.toFixed(0);
-			per_CommT60 = e.features[0].properties.per_CommT60.toFixed(0);
-			per_Density = e.features[0].properties.per_Density.toFixed(0);
-			per_Duplex = e.features[0].properties.per_Duplex.toFixed(0);
-			per_Education = e.features[0].properties.per_Education.toFixed(0);
-			per_EmpDensity = e.features[0].properties.per_EmpDensity.toFixed(0);
-			per_FoodDrink = e.features[0].properties.per_FoodDrink.toFixed(0);
-			per_GovandCom = e.features[0].properties.per_GovandCom.toFixed(0);
-			per_HHSize = e.features[0].properties.per_HHSize.toFixed(0);
-			per_HHs = e.features[0].properties.per_HHs.toFixed(0);
-			per_Healthcare = e.features[0].properties.per_Healthcare.toFixed(0);
-			per_ImmNPR = e.features[0].properties.per_ImmNPR.toFixed(0);
-			per_Indig = e.features[0].properties.per_Indig.toFixed(0);
-			per_LanEng = e.features[0].properties.per_LanEng.toFixed(0);
-			per_LanFr = e.features[0].properties.per_LanFr.toFixed(0);
-			per_LanOth = e.features[0].properties.per_LanOth.toFixed(0);
-			per_LocalService = e.features[0].properties.per_LocalService.toFixed(0);
-			per_MobAct = e.features[0].properties.per_MobAct.toFixed(0);
-			per_MobCar = e.features[0].properties.per_MobCar.toFixed(0);
-			per_MobPT = e.features[0].properties.per_MobPT.toFixed(0);
-			per_Pop = e.features[0].properties.per_Pop.toFixed(0);
-			per_PopChng = e.features[0].properties.per_PopChng.toFixed(0);
-			per_Recreation = e.features[0].properties.per_Recreation.toFixed(0);
-			per_Retail = e.features[0].properties.per_Retail.toFixed(0);
-			per_Retailmax = e.features[0].properties.per_Retailmax.toFixed(0);
-			per_Retailmin = e.features[0].properties.per_Retailmin.toFixed(0);
-			per_SemiDetach = e.features[0].properties.per_SemiDetach.toFixed(0);
-			per_SinDetach = e.features[0].properties.per_SinDetach.toFixed(0);
-			per_VM = e.features[0].properties.per_VM.toFixed(0);
+				immigrants = mainstreet_data[0].immigrants_non_permanent_residents.toFixed(0);
+				visibleminority = mainstreet_data[0].visible_minorities.toFixed(0);
+				indigenous = mainstreet_data[0].indigenous.toFixed(0);
+
+				// commute
+
+				car = mainstreet_data[0].mobility_car.toFixed(0);
+				public_transit = mainstreet_data[0].mobility_public_transit.toFixed(0);
+				active_transit = mainstreet_data[0].mobility_active_transit.toFixed(0);
+
+				// housing
+
+				dwellings = mainstreet_data[0].total_dwellings.toFixed(0);
+				singledetached = mainstreet_data[0].single_detached.toFixed(0);
+				semidetached = mainstreet_data[0].semi_detached.toFixed(0);
+				duplex = mainstreet_data[0].duplex.toFixed(0);
+				apartments_more_than_5 = mainstreet_data[0].apartment_more_5.toFixed(0);
+				apartments_less_than_5 = mainstreet_data[0].apartment_less_5.toFixed(0);
+
+				//language
+
+				english = mainstreet_data[0].language_english.toFixed(0);
+				french = mainstreet_data[0].language_french.toFixed(0);
+				otherlang = mainstreet_data[0].language_other.toFixed(0);
+			}
+
+			async function returnPercentileData() {
+
+				let percentile_data = await fetchPercentileData(id);
+				per_retail = percentile_data[0].per_retail;
+				per_local_services = percentile_data[0].per_local_services;
+				per_food_drink = percentile_data[0].per_food_drink;
+				per_business_count = percentile_data[0].per_business_count;
+				per_government_community_services = percentile_data[0].per_government_community_services;
+				per_healthcare = percentile_data[0].per_healthcare;
+				per_education = percentile_data[0].per_education;
+				per_recreation = percentile_data[0].per_recreation;
+				per_arts_culture = percentile_data[0].per_arts_culture;
+				per_civic_count = percentile_data[0].per_civic_count;
+				per_business_independence_index = percentile_data[0].per_business_independence_index;
+				per_retail_min = percentile_data[0].per_retail_min;
+				per_retail_max = percentile_data[0].per_retail_max;
+				per_greenspace = percentile_data[0].per_greenspace;
+				per_total_employment = percentile_data[0].per_total_employment;
+				per_population = percentile_data[0].per_population;
+				per_households = percentile_data[0].per_households;
+				per_household_size = percentile_data[0].per_household_size;
+				per_population_density = percentile_data[0].per_population_density;
+				per_population_change = percentile_data[0].per_population_change;
+				per_total_dwellings = percentile_data[0].per_total_dwellings;
+				per_single_detached = percentile_data[0].per_single_detached;
+				per_semi_detached = percentile_data[0].per_semi_detached;
+				per_duplex = percentile_data[0].per_duplex;
+				per_apartment_more_5 = percentile_data[0].per_apartment_more_5;
+				per_apartment_less_5 = percentile_data[0].per_apartment_less_5;
+				per_average_age = percentile_data[0].per_average_age;
+				per_age_0_19 = percentile_data[0].per_age_0_19;
+				per_age_20_64 = percentile_data[0].per_age_20_64;
+				per_age_65_Over = percentile_data[0].per_age_65_Over;
+				per_university_degree = percentile_data[0].per_university_degree;
+				per_visible_minorities = percentile_data[0].per_visible_minorities;
+				per_immigrants_non_permanent_residents = percentile_data[0].per_immigrants_non_permanent_residents;
+				per_indigenous = percentile_data[0].per_indigenous;
+				per_language_english = percentile_data[0].per_language_english;
+				per_language_french = percentile_data[0].per_language_french;
+				per_language_other = percentile_data[0].per_language_other;
+				per_average_employment_income = percentile_data[0].per_average_employment_income;
+				per_mobility_car = percentile_data[0].per_mobility_car;
+				per_mobility_public_transit = percentile_data[0].per_mobility_public_transit;
+				per_mobility_active_transit = percentile_data[0].per_mobility_active_transit;
+
+			}
+
+			returnStreetData();
+			returnPercentileData();
+
 
 			// highlighting road
 
 			let features = map.queryRenderedFeatures(e.point, {
-				layers: ['mainstreets-low-density', 'mainstreets-high-density']
+				layers: ['mainstreets-base', 'mainstreets-base-invisible']
 			});
 
 			if (!features.length) {
@@ -380,8 +429,6 @@
 			if (typeof map.getLayer('selectedRoad') !== 'undefined') {
 				map.removeLayer('selectedRoad');
 				map.removeSource('selectedRoad');
-				// map.removeLayer('selectedRoadBuffer');
-				// map.removeSource('selectedRoadBuffer');
 			}
 
 			let feature = features[0];
@@ -392,13 +439,19 @@
 				data: feature.toJSON()
 			});
 
-			const geobbox = turf.bbox(buffered);
-			const bboxpoint1 = map.project([geobbox[0], geobbox[1]]);
-			const bboxpoint2 = map.project([geobbox[2], geobbox[3]]);
+			const turfgeobbox = turf.bbox(buffered);
+			const geobboxpoint1 = [turfgeobbox[0], turfgeobbox[1]];
+			const geobboxpoint2 = [turfgeobbox[2], turfgeobbox[3]];
+
+			const bboxpoint1 = map.project([turfgeobbox[0], turfgeobbox[1]]);
+			const bboxpoint2 = map.project([turfgeobbox[2], turfgeobbox[3]]);
 
 			//const bboxpolygon = turf.bboxPolygon(geobbox)
 
 			const bbox = [bboxpoint1, bboxpoint2];
+			const geobbox = [geobboxpoint1, geobboxpoint2];
+
+			map.fitBounds(geobbox);
 
 			// Find features intersecting the bounding box.
 			const selectedFeatures = map.queryRenderedFeatures(bbox, {
@@ -410,34 +463,23 @@
 			// to activate the 'canada-DAs-highlighted' layer.
 			map.setFilter('canada-DAs-highlighted', ['in', 'DAUID', ...dauid]);
 
-			// map.addSource('selectedRoadBuffer', {
-			// 	type: 'geojson',
-			// 	data: bboxpolygon
-			// });
-
-			// map.addLayer({
-			// 	id: 'selectedRoadBuffer',
-			// 	type: 'fill',
-			// 	source: 'selectedRoadBuffer',
-			// 	paint: {
-			// 		'fill-color': '#ffb8b8',
-			// 		'fill-opacity': 0.4
-			// 	}
-			// }, 'mainstreets-base');
-
-			map.addLayer({
-				id: 'selectedRoad',
-				type: 'line',
-				source: 'selectedRoad',
-				layout: {
-					'line-join': 'round',
-					'line-cap': 'round'
+			map.addLayer(
+				{
+					id: 'selectedRoad',
+					type: 'line',
+					source: 'selectedRoad',
+					layout: {
+						'line-join': 'round',
+						'line-cap': 'square'
+					},
+					paint: {
+						'line-color': '#DB3069',
+						'line-width': 15,
+						'line-opacity': 0.8
+					}
 				},
-				paint: {
-					'line-color': '#DB3069',
-					'line-width': 5
-				}
-			});
+				'mainstreets-base-invisible'
+			);
 		});
 
 		map.on('click', 'case-study-BIAs', (e) => {
@@ -449,7 +491,13 @@
 		// the mouse is over the states layer.
 		map.on(
 			'mouseenter',
-			['mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
+			[
+				'mainstreets-base',
+				'mainstreets-base-invisible',
+				'mainstreets-low-density',
+				'mainstreets-high-density',
+				'case-study-BIAs'
+			],
 			() => {
 				map.getCanvas().style.cursor = 'pointer';
 			}
@@ -459,7 +507,13 @@
 		// when it leaves the states layer.
 		map.on(
 			'mouseleave',
-			['mainstreets-low-density', 'mainstreets-high-density', 'case-study-BIAs'],
+			[
+				'mainstreets-base',
+				'mainstreets-base-invisible',
+				'mainstreets-low-density',
+				'mainstreets-high-density',
+				'case-study-BIAs'
+			],
 			() => {
 				map.getCanvas().style.cursor = '';
 			}
@@ -485,6 +539,10 @@
 	function resetMap() {
 		document.getElementById('resetButton').style.display = 'none';
 		document.getElementById('catchment').style.display = 'none';
+		document.getElementById('percentile-measures').style.display = 'none';
+		document.getElementById('percentile-placeholder').style.display = 'block'; 
+ 
+
 
 		// reset geocoder
 		geocoder.clear();
@@ -769,6 +827,9 @@
 				</div>
 			</Tabs.Content>
 			<Tabs.Content value="percentiles" class="tab-button">
+				<div id="percentile-placeholder">
+					<p>Click on a street to view percentile measures.</p>
+				</div>
 				<div id="percentile-measures">
 					<h5>Street Characteristics</h5>
 					<Accordion>
@@ -776,42 +837,42 @@
 							accordion
 							slot="header"
 							label={'Civic Infrastructure (on street)'}
-							value={per_CivDensity}
-							suffix={'%'}
+							value={per_civic_count}
+							suffix={' Percentile'}
 							icon={'heroicons:building-library-20-solid'}
 						/>
 						<div slot="body">
 							<div class="metric-container">
 								<Metric
 									label={'Education'}
-									value={per_Education}
-									suffix={'%'}
+									value={per_education}
+									suffix={' Percentile'}
 									icon={'mdi:school'}
 								/>
 								<Metric
 									label={'Arts & Culture'}
-									value={per_Arts}
-									suffix={'%'}
+									value={per_arts_culture}
+									suffix={' Percentile'}
 									icon={'fa6-solid:masks-theater'}
 								/>
 								<Metric
 									label={'Recreation'}
-									value={per_Recreation}
-									suffix={'%'}
+									value={per_recreation}
+									suffix={' Percentile'}
 									icon={'material-symbols:park-rounded'}
 								/>
 							</div>
 							<div class="metric-container">
 								<Metric
 									label={'Government & Community Services'}
-									value={per_GovandCom}
-									suffix={'%'}
+									value={per_government_community_services}
+									suffix={' Percentile'}
 									icon={'mingcute:government-fill'}
 								/>
 								<Metric
 									label={'Health & Care Facilities'}
-									value={per_Healthcare}
-									suffix={'%'}
+									value={per_healthcare}
+									suffix={' Percentile'}
 									icon={'mdi:hospital-box'}
 								/>
 							</div>
@@ -822,30 +883,33 @@
 							accordion
 							slot="header"
 							label={'Businesses (on street)'}
-							value={per_BusDensity}
-							suffix={'%'}
+							value={per_business_count}
+							suffix={' Percentile'}
 							icon={'mdi:building'}
 						/>
 						<div slot="body" class="metric-container">
-							<Metric label={'Retail'} value={per_Retail} suffix={'%'} icon={'mdi:shopping'} />
+							<Metric label={'Retail'} 
+							value={per_retail} 
+							suffix={' Percentile'}
+							icon={'mdi:shopping'} />
 							<Metric
 								label={'Food & Drink'}
-								value={per_FoodDrink}
-								suffix={'%'}
+								value={per_food_drink}
+								suffix={' Percentile'}
 								icon={'dashicons:food'}
 							/>
 							<Metric
 								label={'Services'}
-								value={per_LocalService}
-								suffix={'%'}
+								value={per_local_services}
+								suffix={' Percentile'}
 								icon={'mdi:ticket'}
 							/>
 						</div>
 					</Accordion>
 					<Metric
 						label={'Independent Business Index'}
-						value={per_BIIavg}
-						suffix={'%'}
+						value={per_business_independence_index}
+						suffix={' Percentile'}
 						icon={'mdi:shop'}
 					/>
 					<!-- <Metric
@@ -858,22 +922,23 @@
 					<h5>Neighbourhood Characteristics</h5>
 					<h6>Demographic</h6>
 					<Metric
-						label={'Population (% change since 2016)'}
-						value={per_Pop + per_PopChng}
+						label={'Population'}
+						value={per_population}
+						suffix={' Percentile'}
 						icon={'fluent:people-20-filled'}
 					/>
-					<Metric label={'Employees'} value={per_EmpDensity} suffix={'%'} icon={'mdi:briefcase'} />
+					<Metric label={'Employees'} value={per_total_employment} suffix={'  Percentile'} icon={'mdi:briefcase'} />
 					<div class="metric-container">
 						<Metric
 							label={'Average Income'}
-							value={per_AvgEmpInc}
-							suffix={'%'}
+							value={per_average_employment_income}
+							suffix={' Percentile'}
 							icon={'mdi:wallet'}
 						/>
 						<Metric
 							label={"Bachelor's Degree"}
-							value={per_Education}
-							suffix={'%'}
+							value={per_university_degree}
+							suffix={' Percentile'}
 							icon={'mdi:school'}
 						/>
 					</div>
@@ -882,46 +947,46 @@
 							accordion
 							slot="header"
 							label={'Average Age'}
-							value={per_AvgAge}
-							suffix={'%'}
+							value={per_average_age}
+							suffix={' Percentile'}
 							icon={'mingcute:birthday-2-fill'}
 						/>
 						<div slot="body" class="metric-container">
-							<Metric label={'0 to 19'} value={per_Age0_19} suffix={'%'} />
-							<Metric label={'20 to 64'} value={per_Age20_64} suffix={'%'} />
-							<Metric label={'65 and over'} value={per_Age65_Over} suffix={'%'} />
+							<Metric label={'0 to 19'} value={per_age_0_19} suffix={' Percentile'} />
+							<Metric label={'20 to 64'} value={per_age_20_64} suffix={' Percentile'} />
+							<Metric label={'65 and over'} value={per_age_65_Over} suffix={' Percentile'} />
 						</div>
 					</Accordion>
 					<div class="metric-container">
 						<Metric
 							label={'Recent Immigrants'}
-							value={per_ImmNPR}
-							suffix={'%'}
+							value={per_immigrants_non_permanent_residents}
+							suffix={' Percentile'}
 							icon={'mdi:globe'}
 						/>
 						<Metric
 							label={'Visible Minorities'}
-							value={per_VM}
-							suffix={'%'}
+							value={per_visible_minorities}
+							suffix={' Percentile'}
 							icon={'material-symbols:handshake'}
 						/>
 						<Metric
 							label={'Indigenous Population'}
-							value={per_Indig}
-							suffix={'%'}
+							value={per_indigenous}
+							suffix={' Percentile'}
 							icon={'mdi:person'}
 						/>
 					</div>
 					<div class="metric-container">
-						<Metric label={'English Speakers'} value={per_LanEng} suffix={'%'} />
-						<Metric label={'French Speakers'} value={per_LanFr} suffix={'%'} />
-						<Metric label={'Other Language'} value={per_LanOth} suffix={'%'} />
+						<Metric label={'English Speakers'} value={per_language_english} suffix={' Percentile'} />
+						<Metric label={'French Speakers'} value={per_language_french} suffix={' Percentile'} />
+						<Metric label={'Other Language'} value={per_language_other} suffix={' Percentile'} />
 					</div>
 					<h6>Commuting</h6>
 					<div class="metric-container">
-						<Metric label={'Car'} value={per_MobCar} suffix={'%'} icon={'mdi:car'} />
-						<Metric label={'Public Transit'} value={per_MobPT} suffix={'%'} icon={'mdi:bus'} />
-						<Metric label={'Active Transit'} value={per_MobAct} suffix={'%'} icon={'mdi:bike'} />
+						<Metric label={'Car'} value={per_mobility_car} suffix={' Percentile'} icon={'mdi:car'} />
+						<Metric label={'Public Transit'} value={per_mobility_public_transit} suffix={' Percentile'} icon={'mdi:bus'} />
+						<Metric label={'Active Transit'} value={per_mobility_active_transit} suffix={' Percentile'} icon={'mdi:bike'} />
 					</div>
 					<h6>Housing</h6>
 					<Accordion>
@@ -929,19 +994,19 @@
 							accordion
 							slot="header"
 							label={'Dwellings'}
-							value={dwellings}
-							suffix={'%'}
+							value={per_total_dwellings}
+							suffix={' Percentile'}
 							icon={'material-symbols:apartment'}
 						/>
 						<div slot="body">
 							<div class="metric-container">
-								<Metric label={'Single Detached'} value={per_SinDetach} suffix={'%'} />
-								<Metric label={'Semi-Detached'} value={per_SinDetach} suffix={'%'} />
-								<Metric label={'Duplex'} value={per_Duplex} suffix={'%'} />
+								<Metric label={'Single Detached'} value={per_single_detached} suffix={' Percentile'} />
+								<Metric label={'Semi-Detached'} value={per_semi_detached} suffix={' Percentile'} />
+								<Metric label={'Duplex'} value={per_duplex} suffix={' Percentile'} />
 							</div>
 							<div class="metric-container">
-								<Metric label={'Apartment (>5 stories)'} value={per_AptMore5} suffix={'%'} />
-								<Metric label={'Apartment (<5 stories)'} value={per_AptLess5} suffix={'%'} />
+								<Metric label={'Apartment (>5 stories)'} value={per_apartment_more_5} suffix={' Percentile'} />
+								<Metric label={'Apartment (<5 stories)'} value={per_apartment_less_5} suffix={' Percentile'} />
 							</div>
 						</div>
 					</Accordion>
@@ -959,6 +1024,12 @@
 				<LegendItem variant={'line'} label={'High Density Main Streets'} bordercolor={'#002940'} />
 				<LegendItem variant={'line'} label={'Low Density Main Streets'} bordercolor={'#00adf2'} />
 				<LegendItem variant={'line'} label={'Arterial Streets'} bordercolor={'#ddd'} />
+				<div id="catchment">
+					<LegendItem variant={'polygon'} label={'Selected Street'} bgcolor={'#DB3069'} />
+					<LegendItem variant={'polygon'} label={'Neighborhood Catchment'} bgcolor={'#db799a'} />
+				</div>
+			</div>
+			<div class="legend" id="business-civic-legend">
 				<div id="case-studies">
 					<LegendItem
 						variant={'polygon'}
@@ -972,16 +1043,6 @@
 						{map}
 					/>
 				</div>
-				<div id="catchment">
-					<LegendItem
-						variant={'polygon'}
-						label={'Main Street Catchment'}
-						bgcolor={'#db799a'}
-						bordercolor={'#DB3069'}
-					/>
-				</div>
-			</div>
-			<div class="legend" id="business-civic-legend">
 				<h5>Civic Infrastructure</h5>
 				<LegendItem
 					variant={'circle'}
@@ -1088,7 +1149,7 @@
 	}
 
 	#sidebar {
-		width: 30vw;
+		width: 35vw;
 		display: flex;
 		flex-direction: column;
 		padding: 0.5em 1em 0.5em 1em;
@@ -1096,6 +1157,16 @@
 		overflow-y: scroll;
 		overflow-x: hidden;
 		height: 90vh;
+	}
+
+	#percentile-measures {
+		display:none;
+	}
+
+	#percentile-placeholder {
+		display:flex;
+	text-align: center;
+	margin-top: 1em;
 	}
 
 	#controls {
@@ -1121,6 +1192,8 @@
 		align-items: center;
 		justify-content: center;
 	}
+
+
 
 	#catchment {
 		display: none;
@@ -1185,5 +1258,4 @@
 		border: 0.5px solid #eee;
 		width: 100%;
 	}
-
 </style>

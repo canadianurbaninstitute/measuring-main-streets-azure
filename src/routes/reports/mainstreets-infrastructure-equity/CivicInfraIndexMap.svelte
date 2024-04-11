@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../lib/ui/legends/Legend.svelte'
 	import "../../../../node_modules/mapbox-gl/dist/mapbox-gl.css";
 
 
@@ -9,13 +10,13 @@
 
 	export let title;
 	export let section;
-	let center = [-79.4939, 43.818];
+	let center = [-79.5365, 43.9245];
 	export let zoom = 8;
     export let maxZoom = 16;
     export let minZoom = 6;
 	export let bearing = -17.1;
 	export let pitch = 0;
-	export let style = 'mapbox://styles/canadianurbaninstitute/clu9xl1cu04kb01pb6kbw9xsf?fresh=true';
+	export let style = 'mapbox://styles/canadianurbaninstitute/clutw7a5f003t01qret745gsb?fresh=true';
 	export let attribution = 'Canadian Urban Institute';
 
 
@@ -70,16 +71,17 @@
 			const selectedRegion = event.target.value;
 			if (selectedRegion === 'toronto') {
 				map.jumpTo({
-					center: [-79.3659, 43.9085]
+					center: [-79.5365, 43.9245]
 				});
 			} else if (selectedRegion === 'montreal') {
 				map.jumpTo({
 					center: [-73.617, 45.578],
-					zoom: 8.5
+					zoom: 8
 				});
 			} else if (selectedRegion === 'edmonton') {
 				map.jumpTo({
-					center: [-113.376, 53.549]
+					center: [-113.7768, 53.4757],
+					zoom: 7.5
 				});
 			}
 		}
@@ -114,6 +116,13 @@
 	</div>
 
 <div id={section} class="map"/>
+
+<Legend
+minlabel={'Low'}
+maxlabel={'High'}
+label={'Civic Infrastructure Index'}
+gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
+/>
 
 </div>
 

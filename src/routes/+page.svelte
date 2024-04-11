@@ -33,26 +33,32 @@
 			to the national scale.
 		</p>
 		<div class="splash-buttons">
-		<button on:click|preventDefault={scrollIntoView} href="#get-started">Explore the Platform <Icon icon="ph:arrow-down-bold" /></button>
-		<a href="/reports"><button id="executive-summary">Read the Executive Summary <Icon icon="ph:arrow-right-bold" /></button></a>
+			<button on:click|preventDefault={scrollIntoView} href="#get-started"
+				>Explore the Platform <Icon icon="ph:arrow-down-bold" /></button
+			>
+			<a href="/reports"
+				><button id="executive-summary"
+					>Read the Executive Summary <Icon icon="ph:arrow-right-bold" /></button
+				></a
+			>
 		</div>
-		  
 	</div>
 </div>
 
-<span id='get-started'></span>
+<span id="get-started" />
 
 <div class="hero">
 	<h1>Quick Links</h1>
 	<p>
-		Read the <a href="reports/case-for-mainstreets">Measuring Main Streets Guide</a> to understand each component of the platform in greater detail, or, jump to a section using the links below.
+		Read the <a href="/about/guide">Measuring Main Streets Guide</a> to understand each component of
+		the platform in greater detail, or, jump to a section using the links below.
 	</p>
 </div>
 
 <div class="card-grid">
 	<HeroCard
 		link={'/map'}
-		cardImage={'https://i.imgur.com/6Q7qGU1.jpeg'}
+		cardImage={'https://i.imgur.com/eW8AZ8W.jpeg'}
 		title={'Main Street Map'}
 		subtitle={'Explore main streets on the map'}
 	/>
@@ -100,7 +106,7 @@
 </div>
 
 <div class="section">
-	<div class="hero">
+	<div class="hero" id='left-hero'>
 		<h1>Why Now?</h1>
 		<h2>Main streets require urgent attention and investment.</h2>
 		<h3>
@@ -109,11 +115,13 @@
 		</h3>
 
 		<p>
-			It is vital to undersand how to create and maintain vibrant, resilient main streets to ensure
-			the prosperity of our communities, especially those that are equity deserving or currently
-			underserved. A variety of factors play a key role, including but not limited to civic
-			infrastructure, housing, green spaces, business mix, and local businesses and resident
-			associations.
+			Main streets that experienced prolonged stress during the pandemic
+			were highly vulnerable to negative cycles of reduced footfall, store vacancies, and
+			diminishing perceptions. Many main streets, especially ones closer
+			to city-centres, remain below 2019 visitor levels. Even before the pandemic, main streets were
+			experiencing significant challenges from long-running shifts to online and big-box consumer
+			behaviour. Our main streets must be cherished and
+			invested in if our country is going to flourish.
 		</p>
 	</div>
 
@@ -201,33 +209,30 @@
 	</div>
 </div>
 <div class="section">
-
-<div class="hero">
-	<h1>Learn More</h1>
-	<p>
-		Have questions or enquiries about the platform? Read the <a href="/">FAQ</a>, learn more about
-		the <a href="/about">Platform</a>, or read our <a href="/">Methodology & Data Sources</a>. You
-		can also reach out to us directly via the <a href="/">Contact</a> page.
-	</p>
+	<div class="hero">
+		<h1>Learn More</h1>
+		<p>
+			Have questions or enquiries about the platform? Read the <a href="/">FAQ</a>, learn more about
+			the <a href="/about">Platform</a>, or read our <a href="/">Methodology & Data Sources</a>. You
+			can also reach out to us directly via the <a href="/">Contact</a> page.
+		</p>
+	</div>
 </div>
-</div>
-
-
 
 <div class="section" id="stronger-together">
-<div class="hero" >
-	<h1>Canada is Stronger Together</h1>
-	<p>
-		The Measuring Main Streets platform was realized through the Research Knowledge Initiative program from Infrastructure Canada. 
-
-		We leveraged partners at Environics Analytics and Open North to produce the first ever national-scale main street assessment platform in the face of urgent needs across the country.
-	</p>
-
-</div>
-<div class="logo-group">
-	<img src={canada_logo} alt="Canadian Urban Institute" />
-	<a href="https://www.canurb.org"><img src={cui_logo} alt="Canadian Urban Institute" /></a>
-</div>
+	<div class="hero">
+		<h1>Canada is Stronger Together</h1>
+		<p>
+			The Measuring Main Streets platform was realized through the Research Knowledge Initiative
+			program from Infrastructure Canada. We leveraged partners at Environics Analytics and Open
+			North to produce the first ever national-scale main street assessment platform in the face of
+			urgent needs across the country.
+		</p>
+	</div>
+	<div class="logo-group">
+		<img src={canada_logo} alt="Canadian Urban Institute" />
+		<a href="https://www.canurb.org"><img src={cui_logo} alt="Canadian Urban Institute" /></a>
+	</div>
 </div>
 
 <Footer />
@@ -254,13 +259,17 @@
 
 	a {
 		text-decoration: none;
-		color: var(--brandLightBlue)
+		color: var(--brandLightBlue);
 	}
 
 	.hero {
 		margin: 2em;
 		gap: 1em;
 		flex: 1;
+	}
+
+	#left-hero {
+		margin: 0 2em 0 0;
 	}
 
 	.section {
@@ -282,7 +291,6 @@
 
 	#stronger-together h1 {
 		margin: 0 auto;
-
 	}
 
 	/* #video-container {
@@ -337,7 +345,6 @@
 		display: flex;
 		gap: 1em;
 		margin-top: 1em;
-
 	}
 
 	button {
@@ -351,7 +358,6 @@
 		align-items: center;
 		gap: 5px;
 	}
-
 
 	button:hover {
 		background-color: var(--brandPink);

@@ -224,7 +224,7 @@
 		<div class="legend">
 			<h4>Legend</h4>
 			<h5><i>Click to turn layers on and off</i></h5>
-			<h5>1 dot = 50 houses</h5>
+			<h5>1 dot = 50 housing units</h5>
 			<LegendItem
 				variant={'circle'}
 				label={'2001 - 2023'}

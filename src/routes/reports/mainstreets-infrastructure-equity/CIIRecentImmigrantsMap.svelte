@@ -9,7 +9,7 @@
 
 	export let title;
 	export let section;
-	let center = [-79.4939, 43.818];
+	let center = [-79.5365, 43.9245];
 	export let zoom = 8;
     export let maxZoom = 16;
     export let minZoom = 6;
@@ -70,16 +70,17 @@
 			const selectedRegion = event.target.value;
 			if (selectedRegion === 'Toronto') {
 				map.jumpTo({
-					center: [-79.3659, 43.9085]
+					center: [-79.5365, 43.9245],
 				});
 			} else if (selectedRegion === 'Montreal') {
 				map.jumpTo({
 					center: [-73.617, 45.578],
-					zoom: 8.5
+					zoom: 8
 				});
 			} else if (selectedRegion === 'Edmonton') {
 				map.jumpTo({
-					center: [-113.376, 53.549]
+					center: [-113.7768, 53.4757],
+					zoom: 7.5
 				});
 			}
 		}

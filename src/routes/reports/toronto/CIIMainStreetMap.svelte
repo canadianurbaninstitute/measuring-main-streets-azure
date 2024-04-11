@@ -66,53 +66,30 @@
 	});
 
 
-	function navigateMap(event) {
-			const selectedRegion = event.target.value;
-			if (selectedRegion === 'Toronto') {
-				map.jumpTo({
-					center: [-79.5365, 43.9245],
-				});
-			} else if (selectedRegion === 'Montreal') {
-				map.jumpTo({
-					center: [-73.617, 45.578],
-					zoom: 8
-				});
-			} else if (selectedRegion === 'Edmonton') {
-				map.jumpTo({
-					center: [-113.7768, 53.4757],
-					zoom: 7.5
-				});
-			}
-		}
+	// function navigateMap(event) {
+	// 		const selectedRegion = event.target.value;
+	// 		if (selectedRegion === 'Toronto') {
+	// 			map.jumpTo({
+	// 				center: [-79.5365, 43.9245],
+	// 			});
+	// 		} else if (selectedRegion === 'Montreal') {
+	// 			map.jumpTo({
+	// 				center: [-73.617, 45.578],
+	// 				zoom: 8
+	// 			});
+	// 		} else if (selectedRegion === 'Edmonton') {
+	// 			map.jumpTo({
+	// 				center: [-113.7768, 53.4757],
+	// 				zoom: 7.5
+	// 			});
+	// 		}
+	// 	}
 </script>
 
 <!-- Need to fix labels not working at some point -->
 
 <div class="chart-container">
 	<h4>{title}</h4>
-	<div class="radio-container">
-		<div class="radio">
-			<input
-				type="radio"
-				id="toronto"
-				name="place"
-				value="Toronto"
-				checked
-				on:change={navigateMap}
-			/>
-			<label>Toronto</label>
-		</div>
-
-		<div class="radio">
-			<input type="radio" id="montreal" name="place" value="Montreal" on:change={navigateMap} />
-			<label>Montreal</label>
-		</div>
-
-		<div class="radio">
-			<input type="radio" id="edmonton" name="place" value="Edmonton" on:change={navigateMap} />
-			<label>Edmonton</label>
-		</div>
-	</div>
 
 <div id={section} class="map"/>
 
@@ -132,14 +109,5 @@
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
-	}
-
-	.radio-container {
-		display: flex;
-	}
-
-	.radio {
-		display: flex;
-		align-items: start;
 	}
 </style>

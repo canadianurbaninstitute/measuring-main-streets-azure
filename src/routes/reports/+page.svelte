@@ -27,10 +27,10 @@
 
 <div style="margin: 2em">
 <ReportCard
-link={"/reports/case-for-mainstreets"}
+link={"/reports"}
 cardImage={mainstreets}
-title={'Measuring Main Streets Guide'}
-subtitle={'An overview of the platform and the wider project'}
+title={'Executive Summary: The Case for Main Streets'}
+subtitle={''}
 />
 </div>
 
@@ -79,7 +79,7 @@ subtitle={'An overview of the platform and the wider project'}
 <div class="card-grid" id="regional">
 	
 	<ReportCard
-	link={"/"}
+	link={"/reports/toronto"}
 	cardImage={Toronto}
 	title={'Toronto'}
 	subtitle={'Ontario'}

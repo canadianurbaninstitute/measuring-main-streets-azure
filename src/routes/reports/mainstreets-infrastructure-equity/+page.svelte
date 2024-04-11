@@ -87,7 +87,7 @@
 	<div class="chart-container bar sticky-content">
 		<CIIMainStreetMap
 		section={'civic-infra-index-main-streets'}
-		title={'Civic Infrastructure Index in relation to High Density Main Streets'}/>
+		title={'Civic Infrastructure Index (Lowest Quintile) in relation to High Density Main Streets'}/>
 	</div>
 </div>
 

@@ -15,24 +15,24 @@
 
 	// creating a geojson for points of CMAs (when zoomed out)
 
-	// let cmaPoints;
+	let cmaPoints;
 
-	// cmaPoints = {
-	// 	type: 'FeatureCollection',
-	// 	features: cmaSummary
-	// 		.filter((feature) => feature.cmauid !== '000')
-	// 		.map((feature) => ({
-	// 			type: 'Feature',
-	// 			geometry: {
-	// 				type: 'Point',
-	// 				coordinates: [feature.x, feature.y]
-	// 			},
-	// 			properties: {
-	// 				cmauid: feature.cmauid,
-	// 				cmaname: feature.cmaname
-	// 			}
-	// 		}))
-	// };
+	cmaPoints = {
+		type: 'FeatureCollection',
+		features: cmaSummary
+			.filter((feature) => feature.cmauid !== '000')
+			.map((feature) => ({
+				type: 'Feature',
+				geometry: {
+					type: 'Point',
+					coordinates: [feature.x, feature.y]
+				},
+				properties: {
+					cmauid: feature.cmauid,
+					cmaname: feature.cmaname
+				}
+			}))
+	};
 
 	// array of all cma names
 	let cmaAll = cmaSummary.map((item) => {
@@ -51,7 +51,7 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clulcg3q700c601pbab1jabtt?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/clutuyz05003b01qrf7gh74ou?fresh=true',
 			center: [-90, 55],
 			zoom: 3.5,
 			maxZoom: 15,
@@ -60,30 +60,30 @@
 			attributionControl: false
 		});
 
-		// map.on('load', function () {
-		// 	map.addLayer({
-		// 		id: 'cmaPoints',
-		// 		type: 'circle',
-		// 		source: {
-		// 			type: 'geojson',
-		// 			data: cmaPoints
-		// 		},
-		// 		paint: {
-		// 			'circle-radius': 4,
-		// 			'circle-color': '#00adf2',
-		// 			'circle-stroke-width': 2,
-		// 			'circle-stroke-color': '#fff'
-		// 		}
-		// 	});
-		// });
+		map.on('load', function () {
+			map.addLayer({
+				id: 'cmaPoints',
+				type: 'circle',
+				source: {
+					type: 'geojson',
+					data: cmaPoints
+				},
+				paint: {
+					'circle-radius': 4,
+					'circle-color': '#00adf2',
+					'circle-stroke-width': 2,
+					'circle-stroke-color': '#fff'
+				}
+			});
+		});
 
-		// map.on('zoom', function () {
-		// 	if (map.getZoom() < 6) {
-		// 		map.setLayoutProperty('cmaPoints', 'visibility', 'visible');
-		// 	} else {
-		// 		map.setLayoutProperty('cmaPoints', 'visibility', 'none');
-		// 	}
-		// });
+		map.on('zoom', function () {
+			if (map.getZoom() < 6) {
+				map.setLayoutProperty('cmaPoints', 'visibility', 'visible');
+			} else {
+				map.setLayoutProperty('cmaPoints', 'visibility', 'none');
+			}
+		});
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
@@ -94,11 +94,11 @@
 
 		map.addControl(scale, 'bottom-right');
 
-		map.on('mouseenter', ['cma-fill', 'cma-highlight'], () => {
+		map.on('mouseenter', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
 			map.getCanvas().style.cursor = 'pointer';
 		});
 
-		map.on('mouseleave', ['cma-fill', 'cma-highlight'], () => {
+		map.on('mouseleave', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
 			map.getCanvas().style.cursor = '';
 		});
 
@@ -108,10 +108,34 @@
 			)[0].cmaname;
 		});
 
-		// map.on('click', 'cmaPoints', (e) => {
-		// 	console.log(e.features[0]);
-		// 	cmaSelected = e.features[0].properties.cmaname;
-		// });
+		map.on('click', 'cmaPoints', (e) => {
+			console.log(e.features[0]);
+			cmaSelected = e.features[0].properties.cmaname;
+		});
+
+		map.on('zoom', () => {
+			if (map.getZoom() > 6) {
+				// Show the HTML element
+				document.getElementById('legend').style.opacity = '1';
+				document.getElementById('legend').style.visibility = 'visible';
+			} else {
+				// Hide the HTML element
+				document.getElementById('legend').style.opacity = '0';
+				document.getElementById('legend').style.visibility = 'hidden';
+			}
+		});
+
+		map.on('zoom', () => {
+			if (map.getZoom() > 10) {
+				// Show the HTML element
+				document.getElementById('mainstreet-legend').style.opacity = '1';
+				document.getElementById('mainstreet-legend').style.visibility = 'visible';
+			} else {
+				// Hide the HTML element
+				document.getElementById('mainstreet-legend').style.opacity = '0';
+				document.getElementById('mainstreet-legend').style.visibility = 'hidden';
+			}
+		});
 	});
 
 	// function for what to do when new cma is selected
@@ -219,13 +243,18 @@
 
 		<div class="legend">
 			<h4>Legend</h4>
+			<LegendItem variant={'circle'} label={'Census Metropolitan Areas'} bgcolor={'#00adf2'} />
+
+			<div id="legend">
 			<Legend
 					minlabel={'Low'}
 					maxlabel={'High'}
 					label={'Civic Infrastructure Provision'}
-					gradient={'linear-gradient(to left, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
+					gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
 				/>
-				<h5><i>Click to turn layers on and off</i></h5>
+				</div>
+				<div id="mainstreet-legend">
+					<h5><i>Click to turn layers on and off</i></h5>
 				<LegendItem
 						variant={'circle'}
 						label={'Arts and Culture'}
@@ -271,6 +300,13 @@
 						id={'canada-civicinfra-education'}
 						{map}
 					/>
+
+					<LegendItem variant={'polygon'} label={'High Density Main Streets'} bgcolor={'#eee'} />
+
+					<LegendItem variant={'polygon'} label={'Low Density Main Streets'} bgcolor={'#dddd'} />
+
+				</div>
+
 		</div>
 		<button id="resetButton" on:click={resetMap}>
 			<Icon icon="mi:undo" /> Reset Map
@@ -284,7 +320,7 @@
 
 <style>
 	#map {
-		height: 80vh;
+		height: 90vh;
 		width: 100%;
 		position: relative;
 	}
@@ -320,6 +356,15 @@
 		border: 1px solid #eee;
 		margin: 0 0 0.5em 0;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	#legend, #mainstreet-legend {
+		transition: opacity 0.3s, visibility 0.3s;
+		opacity: 0;
+		visibility: hidden;
 		display: flex;
 		flex-direction: column;
 	}

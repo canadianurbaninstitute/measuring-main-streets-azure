@@ -44,6 +44,8 @@
 
 	let seriesNamesCaseStudies = [];
 	let seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+	let newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+
 	let seriesColorsFaded = ['#ddd'];
 
 	/* Cast values */
@@ -86,11 +88,12 @@
 
 		// adding lines + filtering data
 
-		selectedLabels = [];
+		seriesColors = ['#ddd', '#ddd', '#ddd', '#ddd'];
+		newLineSeriesColors = ['#00ADF2'];
+
 
 		// look at the current values in the list and add them to the casestudies series names
 		selectedValues.forEach((value) => seriesNamesCaseStudies.push(value));
-
 
 		// update the data for the interactive newly added lines using the data
 		groupedData = groupLonger(data, seriesNamesCaseStudies, {
@@ -109,10 +112,14 @@
 		});
 
 		// REMOVING THE LINES
-		// removing lines - need to make it work for individual as well
 
 		// if selected values is empty
 		if (selectedValues.length === 0) {
+
+			seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+			newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+
+
 
 			// reset previously selected casestudies
 			seriesNamesCaseStudies = [];
@@ -149,11 +156,17 @@
 			clearable
 		/>
 		<div class="legend-container">
-			<LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={'#002940'} />
-			<LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={'#00adf2'} />
-			<LegendItem variant={'line'} label={'Malls'} bordercolor={'#DB3069'} />
-			<LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={'#58e965'} />
+			<LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={seriesColors[0]} />
+			<LegendItem variant={'line'} label={'Malls'} bordercolor={seriesColors[1]} />
+			<LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={seriesColors[2]} />
+			<LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={seriesColors[3]} />
+
+			{#each selectedValues as value}
+			<LegendItem variant={'line'} label={value} bordercolor={'#00ADF2'} />
+			{/each}
 		</div>
+
+
 	</div>
 
 	<div class="chart">
@@ -181,7 +194,7 @@
 			z={zKey}
 			yDomain={[0, 160]}
 			zScale={scaleOrdinal()}
-			zRange={seriesColors}
+			zRange={newLineSeriesColors}
 			flatData={flatten(groupedData, 'values')}
 			data={groupedData}
 		>
