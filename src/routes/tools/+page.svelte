@@ -2,6 +2,10 @@
 	import '../styles.css';
 	import ReportCard from '../lib/ui/ReportCard.svelte';
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
+	import civic from '../lib/assets/graphics/civic.svg';
+	import housing from '../lib/assets/graphics/housing.svg';
+	import demographic from '../lib/assets/graphics/demographic.svg';
+	import regional from '../lib/assets/graphics/regional.svg';
 	import opennorth from '../lib/assets/graphics/opennorth.svg';
 	import Footer from '../lib/Footer.svelte';
 </script>
@@ -24,21 +28,21 @@
 
 	<ReportCard
 		link={'/tools/mainstreet-demographic-map'}
-		cardImage={mainstreets}
+		cardImage={demographic}
 		title={'Main Street Demographic Map'}
 		subtitle={''}
 	/>
 
 	<ReportCard
 		link={'/tools/civic-infrastructure-provision-map'}
-		cardImage={mainstreets}
+		cardImage={civic}
 		title={'Civic Infrastructure Provision Map'}
 		subtitle={''}
 	/>
 
-	<ReportCard link={'/tools/housing-density-map'} cardImage={mainstreets} title={'Housing Dot Density Map'} subtitle={''} />
+	<ReportCard link={'/tools/housing-density-map'} cardImage={housing} title={'Housing Dot Density Map'} subtitle={''} />
 
-	<ReportCard link={'/tools'} cardImage={mainstreets} title={'Regional Main Street Metrics Map'} subtitle={''} />
+	<ReportCard link={'/tools'} cardImage={regional} title={'Regional Main Street Metrics Map'} subtitle={''} />
 
 </div>
 
