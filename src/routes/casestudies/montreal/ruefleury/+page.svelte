@@ -217,12 +217,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Fleury is a mixed-use commercial main street located in the Ahuntsic borough on the northern part of the Island of Montreal. Originally an independent village, Ahuntsic was first annexed by the City of Montreal in 1910 and then merged into the borough of Ahuntsic-Cartierville in 2002. </p>
+					<p>This section of rue Fleury, also known as Promenade Fleury, stretches between rue Saint-Hubert and avenue Papineau. In the summer months, the Promenade Fleury SDC (Société de développement commercial) introduces temporary street furniture, patios, street art, and programming to support its over 250 businesses. </p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -255,12 +252,10 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Fleury is a two-way street with one circulation lane and one parking lane in each direction. The street does not have dedicated bike lanes; however, the sidewalks are wide and offer ample space for pedestrians to walk and linger due to the benches, street furniture, and bus stops. </p>
+					<p>The buildings along rue Fleury primarily consist of low-rise structures some of which are mixed-use with retail on the ground floor and housing above. The built form also changes as one moves along rue Fleury with certain parts of this street segment having primarily commercial uses while others have primarily residential. Together, this creates a thriving commercial and residential landscape on rue Fleury. </p>
+					<p>Although there is no greenspace on this section of rue Fleury, the proximity to parc Ahuntsic, parc Saint-Paul-de-la-Croix, and the Prairies River makes the street highly accessible to green spaces within a ten-minute walk. </p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -379,12 +374,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This section of rue Fleury is very well served by health and care facilities. These primarily include small-scale and independent health and wellness centres. In comparison, the street does not boast high percentages of recreational facilities and includes no arts and culture infrastructure. However, within a ten-minute walk, all categories of civic infrastructure are accessible to residents of rue Fleury. </p>
+					<p>The Promenade Fleury Société de Développement Commercial (SDC) supports over 250 businesses, residents, and visitors along the street. In the summer months, the SDC facilitates street programming, including temporary installations like street furniture, signage, terraces, outdoor wifi zones, and various activities for all ages, enhancing civic, social, and commercial life.</p>
+					<p>According to the Civic Infrastructure Index, rue Fleury lags behind most other main street case studies in terms of its civic opportunity. The street ranks 15th out of 20 Montreal main streets and 28th out of 36 residential main streets. </p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -468,12 +461,11 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This section of rue Fleury boasts a relatively balanced blend of retail, services, and food and drink businesses with few observable commercial vacancies. The majority of the 250 businesses here are independent, although several larger chain stores and pharmacies are also present. Among these businesses are a mix of older and newer establishments, including longstanding and popular restaurants such as restaurante la citronelle and l'estaminet, and boutiques such as the popular Casa Luca.</p>
+					<p>While the street does not undergo pedestrianization in the summer, many restaurants extend onto the pavement, replacing some on-street parking spaces with patios and outdoor seating areas.</p>
+					<p>According to the Independent Business Index, rue Fleury ranks 13th out of 20 Montreal main streets and 13th out of 36 residential main streets in terms of its business independence. </p>
+					<p>In terms of business density, the street ranks 8th out of 20 Montreal main streets and 9th out of 36 residential main streets. </p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,12 +504,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Fleury serves as a bustling main street with vibrant commercial activity within the predominantly residential Ahuntsic neighborhood. As a result, this area of Rue Fleury is a hub for employment, with a notable concentration of small-scale businesses. Reflective of the surrounding residential community, many of these businesses employ between zero to ten individuals. While Rue Fleury hosts the majority of business-related employment, the surrounding area exhibits a greater presence of larger-scale employment, particularly in civic services. As a result, residents in the area are well-served by a number of employment opportunities in civic infrastructures, businesses, or other services and businesses. </p>
+					<p>Overall, rue Fleury lags behind other main street case studies in terms of its employment density, ranking 14th out of 20 in employment density in the region and 25th out of 36 residential main streets. </p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -578,12 +567,8 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Fleury and its vicinity are marked by older housing, with the majority constructed before 1960. While a significant portion was built between 1961 and 1980, there has been minimal new housing development since 2000. The area exhibits a relatively low population density, evident in the presence of single-detached houses, albeit in small numbers. This low-density housing sets the area apart from neighboring communities on the Island of Montreal, particularly those south of Ahuntsic. Despite this, in line with Montreal's well-known "missing middle" housing inventory, low-rise apartments dominate as the primary housing type. Along Rue Fleury itself, much of the housing comprises low-rise apartment buildings, while the surrounding residential streets feature predominantly three-story plexes, notable for Montreal's iconic outdoor staircases.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,12 +635,8 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Several key demographics and local traits help define this segment of Rue Fleury and the encompassing Ahuntsic neighborhood. Both Rue Fleury and Ahuntsic are predominantly French-speaking areas. Economically, the region exhibits a diverse range of household incomes, from affluent households nearing $170,000 to more modest incomes around $50,000. Additionally, there's a notable presence of visible minorities, with this percentage rising as one moves further east. However, there is no Indigenous population in the area. While Rue Fleury itself has a lower proportion of recent immigrants, neighboring regions show higher percentages.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -699,12 +680,8 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Fleury’s recovery post-COVID has been remarkable compared to other main streets in the Montreal region. Despite significant dips in the number of visitors during the pandemic, most recent data shows a near 100% recovery in terms of the level of visits relative to 2019. While the number of infrequent visitors to rue Fleury has decreased substantially between 2019 to 2022, the number of resident visits has stabilized, and the number of recurring visitors has increased significantly. This data is encouraging and represents the potential of residential main streets to bounce back from the challenges associated with the pandemic and continue to serve their neighborhoods. </p>
+					<p>Indeed, in terms of overall street resilience and visitor recovery, rue Fleury ranks 2nd out of 20 Montreal main streets in terms of visitor resiliency and 3rd overall out of 36 residential main streets. </p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

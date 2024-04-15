@@ -84,9 +84,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -210,17 +210,26 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={HundredEighteenBeverly} name={'118 Ave (Beverly)'} location={'Edmonton, Alberta'} />
+	<Title
+		outline={HundredEighteenBeverly}
+		name={'118 Ave (Beverly)'}
+		location={'Edmonton, Alberta'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						118 Avenue in Olde Town Beverly is a commercial street in the Beverly neighbourhood of
+						Edmonton. The street runs east-west and is situated northeast of the Edmonton's main
+						downtown. This street served as the historical main street of the Town of Beverly until
+						amalgamation in 1961.
+					</p>
+					<p>
+						The street contains a mixed of residential and commercial buildings, some greenspace,
+						and vacant lots. It has a quaint feel and is catered to automobiles, with the east end
+						leading to the Yellowhead, a major expressway.
 					</p>
 				</div>
 				<div class="map-container">
@@ -240,7 +249,7 @@ setConfig({
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9o5au7003y01nsa4njftgr'}
-						center={[-113.404, 53.570]}
+						center={[-113.404, 53.57]}
 						zoom={13}
 						pitch={50}
 						bearing={0}
@@ -255,10 +264,20 @@ setConfig({
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Beverly's 118 Avenue has a varying cross-section throughout the study area from 50 St to
+						34 St. The streetscape features tree-lined sidewalks. The trees are smaller than in
+						other neighbourhoods of the same age in Edmonton.
+					</p>
+					<p>
+						There are four lanes for vehicles with parking in the outside lanes. The buildings along
+						this section of 118 Avenue have varying setbacks, either up against the sidewalk or
+						allowing space for parking.
+					</p>
+					<p>
+						There is a mix of businesses, healthcare and other services, and residential along the
+						avenue. Most of the residential areas are also set back from the road to allow for some
+						privacy, often with fence enclosures. Some new commercial infill has been built mixed in
+						with businesses varying in age and aesthetic.
 					</p>
 				</div>
 				<div class="map-container">
@@ -279,7 +298,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'118beverly'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9o5au7003y01nsa4njftgr'}
@@ -364,7 +382,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'118beverly-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'118beverly-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -374,15 +397,21 @@ setConfig({
 									'civicinfra-edmonton-education',
 									'civicinfra-edmonton-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						118 Avenue is part of the Beverly Business Improvement Area. The civic infrastructure
+						visible on 118 included, at the time of the field visit, stone decorative benches and
+						hanging and standing flower planters in bloom. There are some murals on buildings
+						throughout the case study area. Overhead entrance signs welcome people to Olde Towne
+						Beverly Street.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, this segment of 118 ranks low at 17th of 20
+						Edmonton Main Streets and 22nd of 36 Neighbourhood Main Streets.
 					</p>
 				</div>
 				<div class="map-container">
@@ -455,7 +484,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'118beverly-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'118beverly-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -463,15 +497,31 @@ setConfig({
 									'business-edmonton-services',
 									'business-edmonton-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						The businesses on 118 Avenue are quite varied, featuring appliance stores, dental
+						clinics, and sausage houses. There are quite a few car lots and strip malls with
+						convenience stores.
+					</p>
+					<p>
+						According to the Independent Business Index, 118 Avenue in Beverly ranks in the bottom
+						half at 12th of 20 Edmonton Main Streets and 26th of 36 Neighbourhood Main Streets. For
+						business density, 118 Avenue ranks 14th of 20 and 26th of 36.
+					</p>
+					<p>
+						Many businesses were closed early on the Sunday field visit, leaving the street quiet
+						from a pedestrian perspective. The Old Beverly Cafe, the only business with a parklet
+						patio in the study area, was one of them. The Italian bakery on the corner of 43 St was
+						moderately trafficked.
+					</p>
+					<p>
+						There were more chain stores along this study area than many others in Edmonton. The
+						Riverview Crossing regional mall lies at the east end, opening up the streetscape to
+						suburban-style mall development and parking lots.
 					</p>
 				</div>
 				<div class="map-container">
@@ -512,10 +562,15 @@ setConfig({
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Considering the exclusive residential nature of the surrounding neighbourhood,
+						employment is primarily concentrated on 118 Avenue itself. There are many small
+						establishments with zero to five employees, mixed in with larger establishments with
+						five to ten employees. The largest employer can be found in the mall to the east end
+						with ten to 50 employees.
+					</p>
+					<p>
+						For employment density, the Beverly segment of 118 Avenue ranks last out of 20 Edmonton
+						Main Streets and 36 Neighbourhood Main Streets.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -572,16 +627,21 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						The housing on this segment of 118 Avenue is mixed in with commercial lots. The study
+						area features nearly double the rate of low-rise apartments (over 35%) compared to the
+						Edmonton CMA. Mixed-use buildings can also be found with ground floor commercial and one
+						or two storeys of residential above, with balconies revealing their presence.
+					</p>
+					<p>
+						The surrounding neighbourhood of Beverly is low density residential, with
+						single-detached homes of varying aesthetics, making up nearly 40% of the local housing
+						mix.
 					</p>
 				</div>
 				<div class="map-container">
@@ -650,10 +710,8 @@ setConfig({
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Of residents in the study area, 22% are recent immigrants and 27% are visible
+						minorities.
 					</p>
 				</div>
 				<div class="map-container">
@@ -685,7 +743,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -699,10 +756,15 @@ setConfig({
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						118 Avenue in Beverly's Resiliency Score ranks well at 4th of 20 Edmonton Main Streets
+						and 8th of 36 Neighbourhood Main Streets.
+					</p>
+					<p>
+						While 2020 saw foot traffic at 79% relative to 2019 levels, this has decreased to 60.3%
+						in 2022. While visits by residents, recurring, and infrequent visitors have decreased,
+						the relative proportion hasn't changed significantly, signalling a main street that
+						still retains its appeal for a range of patrons without heavily relying on one or the
+						other.
 					</p>
 				</div>
 				<div class="map-container">

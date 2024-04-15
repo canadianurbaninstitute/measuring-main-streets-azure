@@ -216,12 +216,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St. Georges is a main commercial street located in the city of Saint Jerome. Saint Jerome is a suburban city of 80,000 located approximately 45km northwest of Montreal. The city serves as a gateway to the Laurentian mountains and thus serves as a starting point for many cycling and other trips into the mountains from Montreal. Saint Jerome is reachable from Montreal via an EXXO2 Commuter train that connects downtown Montreal to Saint Jerome is just over an hour.</p>
+					<p>This particular section of rue St. Georges features numerous retail and commercial establishments, situating it as the major commercial artery in the heart of the historic downtown Saint Jerome.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -254,12 +251,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The built form of rue St. Georges changes as one traverses along this street segment. On the southern end of the segment, near Rue de Saint-Janvier, the street has one to two circulation lanes in each direction. Further north, however, the street becomes one-way with two circulation lanes and parking on both sides of the street. There are no bike lanes or bike markings on the street, but there are bus stations. The sidewalk and conditions of the street also change as one moves further north – the sidewalk gets wider and includes more trees, benches, and trashcans. The sidewalk material also changes from concrete to red brick. The buildings along rue St. Georges are primarily two to three story commercial buildings with ground floor retail, however there are also large institutional buildings scattered throughout the street segment.</p>
+					<p>Rue St. Georges benefits from substantial green space that is accessible within a 10 minute walk.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -378,12 +372,9 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St. Georges benefits from a robust array of civic infrastructure including government and community services, health and care facilities, and educational institutions. Noteworthy among these are the Quebec Transportation and Mobility office building and a campus of the University of Quebec in Outaouais situated directly on the street. Furthermore, residents have access to small health clinics and a pharmacy along the thoroughfare. The immediate vicinity of rue St. Georges is well-equipped with health, care, and government amenities to serve the residents of Saint Jerome. However, there is a notable lack of arts and culture as well as recreational facilities in both the street and its surrounding area.</p>
+					<p>According to the Civic Infrastructure Index, rue St. Georges surpasses most other main street case studies in terms of its civic opportunity. The street ranks 3rd out of 20 main streets in the region and 1st among 12 small town main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -467,12 +458,11 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St. Georges boasts a relatively balanced mix of retail, services, and food and beverage establishments, with a slight predominance of service businesses. Similar to the changes in the built form, the business profile varies along the street. Towards the northern end of the segment, there's a greater concentration of restaurants and bars, including both local independent restaurants like Restaurant Arousse and regional chains such as La P’tite Grenouille bar. During the summer months, some of these establishments extend their offerings with terraces and outdoor seating on the street.</p>
+					<p>Despite its central location in downtown Saint Jerome, rue St. Georges experiences noticeable commercial vacancies. For sale and for rent signs are prevalent throughout the street, particularly in the office and commercial spaces situated above ground-floor retail units.</p>
+					<p>According to the Independent Business Index, rue St. Georges ranks 6th out of 20 Montreal main streets and 4th out of 12 smalltown main streets in terms of its business independence.</p>
+					<p>In terms of business density, the street ranks 10th out of 20 main streets in the region and 3rd out of 12 smalltown main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -511,12 +501,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Employment opportunities are prevalent along rue St. Georges, both on this street segment and on the rest of the street. Representative of the business profile, small-scale businesses and services, such as the restaurants and bars, serve as primary employers, typically with staff sizes ranging from zero to five employees. Moreover, the street features notable civic infrastructure, including the University of Quebec in Outaouais and the Quebec Transportation and Mobility office, which contributes significantly to local employment.</p>
+					<p>Overall, rue St. Georges ranks 10th out of 20 Montreal main streets in terms of its employment density. Among other smalltown main streets, however, rue St. Georges ranks 1st out of 12 smalltown main streets in terms of its employment density.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -577,12 +564,8 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Saint Jerome, a small and suburban city, maintains a relatively low population density even within its downtown area. Despite this, the predominant housing type on and around rue St. Georges consists of low-rise apartments and duplexes, with only a small percentage of single-detached houses. The housing stock is predominantly older, with the majority constructed before 1960 and minimal development since the 2000s. Along rue St. Georges itself, housing is limited, with only a few of the commercial buildings featuring housing on the top floors.</p>
+					
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -649,12 +632,8 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St. Georges in Saint Jerome is characterized by several distinct local attributes. The population tends to be older on average, with small household sizes, primarily consisting of one-person households. Income levels are notably low in this area, and there is a relatively low percentage of visible minorities. While there is a slightly higher proportion of recent immigrants in this segment and its surroundings, the overall percentage remains quite low. Additionally, there's a near-zero percentage of English speakers, with almost everyone being French speakers. Moreover, there's a very low percentage of individuals holding bachelor's degrees. These factors collectively shape the demographic profile of rue St. Georges, reflecting its unique local characteristics.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -698,12 +677,8 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The number of visits from residents' home locations has notably decreased in radius, indicating that individuals from further away are not visiting the street to the same extent as they did before the pandemic in 2019. Additionally, although overall visit levels are approaching 80% of their 2019 levels, indicating a relatively healthy recovery from the COVID-19 pandemic, the number of visits categorized by type of visitor has significantly declined compared to 2019. Particularly noteworthy is the decrease in the number of infrequent visitors, dropping from approximately 800,000 visitors per year to under 400,000 visitors. Interestingly, the highest number of visitors is observed on Thursdays and Fridays.</p>
+					<p>In terms of overall street resilience and visitor recovery, rue St. Georges trails behind other main street case studies. It ranks 17th out of 20 in visitor resiliency in the region and 11th out of 12 smalltown main streets.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

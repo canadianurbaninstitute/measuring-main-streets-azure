@@ -1,6 +1,6 @@
 <script>
 	import Title from '../../lib/Title.svelte';
-	import resiliency from '../../lib/assets/graphics/resiliency.svg';
+	import toronto from '../../lib/assets/graphics/toronto-large.jpeg';
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
@@ -12,7 +12,7 @@
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
 
-<Title outline={resiliency} name={'Toronto'} location={'Regional Report'} />
+<Title outline={toronto} name={'Toronto'} location={'Regional Report'} />
 
 <div class="full-text">
 	<p>

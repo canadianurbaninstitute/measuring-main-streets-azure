@@ -217,12 +217,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Situated approximately 80 kilometers northeast of Toronto, Uxbridge is a township in south-central Ontario, characterized by its primarily suburban setting and a population of just over 20,000 residents. The segment of Brock St. between Main St. N and Railway St. serves as the primary commercial main street for the Uxbridge township. This section of Brock St. features a notably higher business density, particularly when compared to surrounding Uxbridge neighborhoods, solidifying its status as a key commercial thoroughfare in the township. While a historic train station anchors one end of this downtown area, it no longer operates as a railway station but instead houses a train museum. Currently, a GO bus service station stop is located outside the old station.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -255,12 +251,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Brock St. is centrally located in Uxbridge, which results in the street experiencing relatively high levels of vehicular through-traffic. The street’s built form generally supports this vehicular traffic and movement as it is a wide street, featuring one circulation and one lane of on-street parking in each direction. While the street is generally car-centric in its design and does not feature any cycling infrastructure, it does boast wide sidewalks to support active mobility and pedestrian street life.</p>
+					<p>The building stock on Brock St. primarily consists of mid-density, two-storey brick structures with ground floor retail. While Brock St. is underserved in terms of availability of greenspace on the street itself, the street is accessible to greenspace within a 10-minute walk, albeit at a slightly lower percentage of greenspace than the Toronto CMA average.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -379,13 +372,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
-				</div>
+					<p>Brock St. and its immediate vicinity host a relative concentration of civic infrastructure, reinforcing its importance as a key main street for the surrounding neighborhoods. Notably, the nearby Uxbridge Railway Station functions as both a railway museum and a stop for the historic York-Durham Heritage Railway. Additionally, this segment of Brock St. itself features three health facilities directly on the street and six more in close proximity. The street also offers a variety of recreational facilities which surpasses the Toronto CMA average. However, there is a limited presence of government services, community services, and educational facilities along the street. Nonetheless, residents have convenient access to these services and civic amenities within a 10-minute walk</p>
+					<p>According to the Civic Infrastructure Index, Brock St. lags behind most other main street case studies. In terms of its civic opportunity, Brock St. ranks 14th out of 20 Toronto main streets and 8th out of 12 small town main streets.</p>
+
+				</div>	
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5mgbzm000a01ql2n0ggdqd'}
@@ -468,12 +458,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Brock St.’s central location in Uxbridge and its role as a commercial main street results in a general clustering of businesses on and around this segment of the street. While retail is the most prevalent type of business on Brock St., the street does offer a relatively equal mix of retail, services, and food and drink establishments. Most of these businesses are local and independent, although a few national chain stores like Pizza Pizza are also present. Although there is no grocery store directly on Brock St., residents can easily access one located southwest of Main St. During the warmer months, businesses extend onto the wide sidewalks, offering customers an indoor-outdoor experience.</p>
+					<p>Brock St. lags behind other main street case studies in terms of level of independence of the businesses, ranking 13th out of 20 Toronto main streets and 8th out of 12 small town main streets. In terms of business density, the street ranks 5th in the region and 4th out of the 12 small town main streets.</p>
+					<p>This section of Brock St. provides a number of small-scale employment options for Uxbridge and the surrounding communities. The concentration of retail and other businesses in this area creates a relative clustering of employment opportunities. Many of these businesses are small in size, typically employing between zero to five individuals. Additionally, the presence of essential civic infrastructure along the street creates additional employment opportunities, although also at a small scale with similar employment figures. However, among these smaller employers, there are also some larger businesses both directly on Brock St. and in the surrounding vicinity. Notably, just north of Brock St. are several larger-scale employers with staff numbers exceeding 50, while southeast of the street, significant civic infrastructures employ between 50 to 100 employees.  This small-scale of employment opportunities translates to the streets overall employment density. Overall, Brock St. ranks 17th out of 20 Toronto main streets in terms of employment density and 7th out of 12 small town main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,12 +500,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This section of Brock St. provides a number of small-scale employment options for Uxbridge and the surrounding communities. The concentration of retail and other businesses in this area creates a relative clustering of employment opportunities. Many of these businesses are small in size, typically employing between zero to five individuals. Additionally, the presence of essential civic infrastructure along the street creates additional employment opportunities, although also at a small scale with similar employment figures. However, among these smaller employers, there are also some larger businesses both directly on Brock St. and in the surrounding vicinity. Notably, just north of Brock St. are several larger-scale employers with staff numbers exceeding 50, while southeast of the street, significant civic infrastructures employ between 50 to 100 employees.</p>  
+					<p>This small-scale of employment opportunities translates to the streets overall employment density. Overall, Brock St. ranks 17th out of 20 Toronto main streets in terms of employment density and 7th out of 12 small town main streets.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -578,12 +563,9 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Uxbridge is a small suburban town and the population density is generally low. However, Brock St., and the areas directly adjacent to it, do offer a higher population density. While Uxbridge is primarily dominated by single-detached houses, the area on and around Brock St. does have a notable presence of low-rise apartment buildings of under five-storeys. This presence of higher-density housing near the main street contributes to the increased population density on and around the street compared to the surrounding neighbourhoods of Uxbridge.</p> 
+					<p> The housing stock on and around Brock St. is generally older, with over 40% of the entire housing stock built before 1960. While the following years did see housing being built, new housing construction stagnated by 2000. In recent years, however, Uxbridge has seen a slight increase in new housing construction since 2016.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,12 +632,8 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The residents of Brock St. offer distinct socio-economic characteristics, especially when comparing the main street to the surrounding areas. In general, the average age and income of Brock St. residents is lower on average. This is especially true in terms of average income, as the areas surrounding Brock St., primarily north and south of the street, boast significantly high average incomes. Additionally, the presence of higher density housing, primarily in the low-rise apartment buildings, does result in a notably smaller average household size among Brock St. residents compared to the rest of Uxbridge.  In terms of demographics, there is minimal diversity in terms of the percentages of visible minorities, Indigenous peoples, and recent immigrants.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -699,12 +677,9 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Brock St. has seen a resurgence of visitors since the COVID-19 pandemic. While many main streets across the country struggle to return to 2019 visitor numbers, Brock St. has seen significant growth in the number of visitors to the street. Indeed, most recent data shows that Brock St. is at almost 150 percent the level of visits relative to the same time in 2019. While the numbers of infrequent visitors have not fully recovered to 2019 figures, the street has seen a growth in the number of recurring visitors which signifies a potential new normal and reality for the street.</p>
+					<p>Additionally, visits to Brock St. are evenly spread across all days of the week. This indicates that the street plays a significant role both during working hours and for leisure activities on weekends. The only exception is a slightly lower percentage of visits on Sundays.</p>
+					<p>As a result, Brock St. ranks well in terms of its overall street resilience and visitor recovery, ranking 5th out of 20 Toronto main streets and 4th out of 12 small town main streets.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

@@ -219,13 +219,10 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
-				</div>
+					<p>Weston is a neighbourhood located along Highway 401, northwest of downtown Toronto. Weston has a long history as an independent town, and this history contributes to the small-town charm of the neighbourhood felt today. Weston was first incorporated as a village in the 19th century before it was absorbed into the Borough of York in the late 1960s. York, including the historic village of Weston, was amalgamated into Toronto in 1998. Weston’s proximity to Highway 401 and the GO train makes Weston easily accessible to downtown Toronto.</p>
+					<p>Weston Road serves as the main commercial artery through the historic core of Weston. Hosting a diverse array of 250 stores, services, and professional offices, Weston Road is a vital commercial and cultural hub for the neighborhood. The Weston Village Business Improvement Area (BIA), established in 1979 and among Toronto's oldest, supports these main street businesses and organizes various events, including the popular Weston Farmers' Market.</p>
+
+				</div>	
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
@@ -257,12 +254,10 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Most buildings along the street are brick structures with ground-floor retail, primarily one to two stories tall and with limited setback from the street. While taller buildings exist on Weston Rd and surrounding streets, they are less common. The general small-scale of the commercial buildings helps maintain Weston Rd’s small-town feel. </p>
+					<p>Weston Rd benefits from public transportation, with various TTC bus routes serving this area. The southern end of Weston Rd features the Weston train station, servicing GO and Union Pearson Express trains which provides convenient access to Downtown Toronto and Pearson International Airport. However, the station's large surface-level parking lot hinders street life and detracts from the pedestrian experience of walking along the street. </p>
+					<p>The street itself consists of two circulation lanes in each direction, accompanied by modest sidewalks. While Weston Rd itself does not feature significant greenspace, just southwest of the street is Raymore Park and the Humber River, which provides ample access to greenspace within a 10-minute walk.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -381,12 +376,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Weston Rd is very well served by healthcare civic infrastructure. Indeed, there is a relative clustering of healthcare facilities along this stretch of Weston Rd, especially on the section north of Lawrence Ave. W. Additionally, Weston Rd features government and community services at a similar rate as the Toronto CMA average. Despite this presence and accessibility of healthcare facilities and government and community services, other types of civic infrastructure, such as arts and culture, recreation, and educational facilities are not as prevalent. </p>
+					<p>The Weston Village BIA contributes to civic life and creates a strong feeling of local identity with the use of banners, street signs, historic plaques, and murals. Additionally, on a warm summer day, people can be seen outside of the Artscape Weston Common cultural center.</p>
+					<p>However, according to the Civic Infrastructure Index, Weston Rd in Weston lags behind almost all Toronto Main Streets case studies In terms of its civic opportunity. Weston Rd sits at just 18th out of 20 Toronto Main Streets and 31st out of 36 residential main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -470,12 +463,9 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Weston Rd.’s business mix is similar to the business mix seen within a 10-minute walk and the average business mix across the Toronto CMA. There is a relatively equal mix of retail businesses and local services, with a smaller percentage of food and drink establishments. While busineses are present all along Weston Rd., there is a relative clustering of businesses just north of Lawrence Ave.. Despite the prominence of retail businesses and local services on Weston Rd, there is not major grocery store on the street itself.</p>
+					<p>Weston Rd in Weston lags behind other Main Street case studies in terms of level of independence of businesses, ranking 7th out of 20 Toronto Main Streets and 12th out of 36 residential Main Streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -514,12 +504,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Similar to the business profile, Weston Rd maintains a relative clustering of employment, particularly among smaller-scale businesses with fewer than 10 employees. The northern end of this segment of Weston Rd also hosts some larger-scale employment, primarily in civic infrastructure. Overall, Weston Rd lags behind other Main Street case studies in terms of its employment density, ranking 12th out of 20 in employment density in the region and 26th out of 36  residential main streets. While it plays a significant role in providing employment in the region, it offers fewer opportunities compared to other neighborhood main streets. However, it is worth noting that surrounding areas of this segment of Weston Rd also host high levels of employment, particularly with larger-scale employers, increases Weston Rd's accessibility for and to businesses.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -580,12 +566,8 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Weston is renowned for its large collection of Victorian-style homes dating back to the village's development in the 19th century. However, the housing on and around Weston Rd differs significantly. Weston Rd and its catchment area maintain a notably higher population density compared to surrounding areas, resulting in a greater number of dwellings along Weston Rd. The difference in housing typology is particularly pronounced between Weston Rd and its immediate surroundings, as opposed to the broader neighborhood. Unlike the surrounding area, which comprises over 50 percent single-detached houses, Weston Rd features none. Additionally, Weston Rd predominantly consists of apartments exceeding five stories, contrasting sharply with the nearly zero percent of such apartments in the surrounding neighborhood.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -652,12 +634,7 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Weston Rd maintains distinct characteristics that distinguishes it from surrounding streets and neighborhoods, and makes it deserving of equity considerations. The street’s average income is very low and significantly lower than surrounding areas. Demographically, there is a high percentage of visible minorities and recent immigrants that reside on and around the street, especially when compared to neighbourhoods to the south of the street. This diversity, however, is similar to the percentages of visible minorities and recent immigrants present in areas to the east of the street. Lastly, nearly zero-percent of residents on
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -702,10 +679,9 @@ setConfig({
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						The COVID-19 pandemic significantly impacted the number of visits to Weston Rd. In 2020, the onset of the pandemic led to a stark decline in the level of visits relative to pre-pandemic levels in 2019. This decline persisted into 2021, when the street experienced its lowest level of visits. The impact of the pandemic was especially noticeable among infrequent visitors, as their numbers declined by approximately half compared to 2019. In terms of overall street resilience and visitor recovery, Weston Rd trails behind other Main Street case studies, ranking 12th out of 20 in visitor resiliency in the region and 22nd out of 36 residential main streets.
+					</p>
+					<p>However, there are signs of optimism as the street has witnessed growth in the level of visits in the latter months of 2022, approaching a near recovery of recurring visitors and residents. While there is a slightly higher percentage of visits during the week compared to the weekend, the distribution of visits throughout the week remains relatively stable. Interestingly, the majority of visits occur in the middle of the night, between 12 am and 6 am.
 					</p>
 				</div>
 				<div class="map-container">

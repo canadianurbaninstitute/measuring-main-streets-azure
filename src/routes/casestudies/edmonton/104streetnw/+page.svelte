@@ -217,12 +217,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>104 Street NW is located in downtown Edmonton and was the historic centre of the warehouse district with its roots in the pre-WWII boom period. Since then, the warehouse functions of the district has been moved to industrial locations outside of the core, leaving these heritage buildings open for adaptive reuse. Today, the street is used for dining, retail, and residential.</p>
+					<p>104 Street NW sits just north of Jasper Avenue and runs north-south.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -255,12 +251,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>104 Street NW has a consistent street design throughout the study area. Although there are several heavily trafficked streets intersecting, 104 Street itself experiences calm traffic and is a pleasant place for pedestrians to linger. The street features bollards at every intersection, large sidewalks, and several businesses with parklet patios.</p>
+					<p>Mixed-use buildings with high-rise residential units above storefronts characterize much of the street, with many of the ground level structures repurposed from their old warehousing days. New structures match the old using brick cladding, creating a relatively cohesive heritage aesthetic. Buildings vary in height from one-storey to high-rise. In sections with lower height buildings, one can view Edmonton's high-rises in the distance, making the street feel like a historic fragment in the middle of a modern downtown.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -379,12 +371,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>As one enters 104 Street NW from Jasper Avenue, Michael Phair Park can be found to the left. The park is a colourful urban greenspace. A polka dot mural extends from buildings to the north through pathways across the park onto the building to the south. The park host events and people can be seen enjoying the space, especially during lunchtime on weekdays.</p>
+					<p>104 Street NW is located in the Edmonton Downtown BIA, but features 104 Street-specific branding and character, such as street lanterns, street poster posts, and bike racks. Bollards separate sidewalks from car lanes.</p>
+					<p>During the field visit, a sign indicated utilities are being relocated and upgraded to accommodate the new Valley Line West Light Rail Transit project nearby on 103 St and 102 Ave.</p>
+					<p>According to the Civic Infrastructure Index, 104 Street NW ranks 12th out of 20 Edmonton Main Streets and 11th of 36 Neighbourhood Main Streets.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -468,12 +458,11 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>In terms of business mix, 104 Street NW has a higher percentage of food and drink establishments, though the mix begins to reflect the greater Edmonton CMA once expanded to a ten minute walkshed with greater access to retail.</p>
+					<p>Notable establishments include Home and Away (formerly Mercer Tavern), DOSC, Credo Coffee, Misoya Ramen, and Tzin Wine Bar. The historic Mercer Warehouses can be found at the north end of the study area housing small businesses and entrepreneurs.</p>
+					<p>According to the Independent Business Index, 104 Street NW ranks well at 4th out of 20 Edmonton Main Streets and 8th of 36 Neighbourhood Main Streets. For business density, 104 ranks 12th of 20 and 23rd of 36.</p>
+					<p>During the field visit, there seemed to be a high occupancy rate as For Lease signs were few and far between.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,12 +501,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>104 Street NW hosts a significant concentration of small businesses, zero to ten employees large, within the study area. East of the study area, one can find a significant spread of enterprises with ten to 15 employees. The study area is part of a larger suburban pattern commercial and industrial corridor that stretches from the North Saskatchewan River south to the Whitemud freeway.</p>
+					<p>For employment density, 104 Street NW ranks 6th out of 20 Edmonton Main Streets and 8th of 36 Neighbourhood Main Streets.</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -578,12 +563,7 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Low-rise apartments (over 30%) followed by single-detached dwellings (around 30%) are the predominant housing forms in the 104 Street NW study area. The biggest housing construction boom happened in the 1961-80 period.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,12 +630,7 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Of residents in the study area, 36% are recent immigrants and 37% are visible minorities.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -699,12 +674,9 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>104 Street NW's Resiliency Score ranks low at 17th of 20 Edmonton Main Streets and 30th of 36 Neighbourhood Main Streets.</p>
+					<p>Pre-pandemic in 2019, most visits to the 104 Street NW study area were by infrequent visitors from across the region. As of 2022, visits across the board have decreased and 104 Street NW has not seen anything resembling a return to pre-pandemic numbers.</p>
+					<p>104 Street is busiest during the 12pm to 9pm period, with the busiest day of the week being Saturday followed by Friday.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

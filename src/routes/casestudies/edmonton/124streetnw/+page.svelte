@@ -86,7 +86,7 @@
 
 	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -210,17 +210,21 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={HundredTwentyFourStreetNW} name={'124 Street NW'} location={'Edmonton, Alberta'} />
+	<Title
+		outline={HundredTwentyFourStreetNW}
+		name={'124 Street NW'}
+		location={'Edmonton, Alberta'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						124 Street NW is an arterial commercial street known for its private art galleries, historical homes, shopping, and, to some, the Duchess Bake Shop. It is situated in the historical Westmount neighbourhood of Edmonton. This segment is currently undergoing a larger renewal initaitive.
+					</p>
+					<p>
+						124 Street has made a name for itself in the Edmonton arts community and this reputation has attracted artists, resulting in a mix of public and private visual art integrated into the streetscape.
 					</p>
 				</div>
 				<div class="map-container">
@@ -255,10 +259,15 @@ setConfig({
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						124 Street is a four lane arterial road with a decent flow of traffic, of both personal automobiles and bus transit. The two outer lanes are used for parking with signs restricting weekday hours. There are two blocks at the north end with a tree-lined median. An inlaid brick pattern makes a chevron pattern around the bases of the street lanterns.
+					</p>
+					<p>
+						Some street interecting east-west feature widened cross sections for accommodating angle parking. Most intersections have pedestrian crossings with button activivated lights. Others have signage and ramps.
+					</p>
+					<p>
+						As 107 Ave and 111 Ave are larger arterial roads, their intersections with 124 Street
+						are relatively louder and more heavily trafficked by vehicles. There are some shared-use
+						road signs and pavement markings present to facilitate cyclists.
 					</p>
 				</div>
 				<div class="map-container">
@@ -279,7 +288,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'124streetnw'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9p1m94004401nsb11thakk'}
@@ -364,7 +372,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'124streetnw-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'124streetnw-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -374,15 +387,30 @@ setConfig({
 									'civicinfra-edmonton-education',
 									'civicinfra-edmonton-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						124 Street is a part of the 124 Street Business Association. There are many murals, both
+						on the street itself and tucked away behind buildings. Art styles range from older
+						historic to modern abstract. Between 107 Ave and 108 Ave, a mural by Kris Freisen
+						depicts a scene in Athens, Greece, sharing a wall with the Greek restaurant Koutouki.
+						Utility boxes feature new murals by Cheyenne Rain LeGrant, a Nehiyaw Isko artist from
+						Bigstone Cree Nation. BIA branded lanterns and signs line the street.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, 124 Street ranks 8th of 20 Edmonton Main
+						Streets and 4th of Neighbourhood Main Streets.
+					</p>
+					<p>
+						Helen Nolan Park, on the southeast corner of 124 Street and 108 Ave, features a small
+						outdoor amphitheatre, seating, and lighting strung on tree branches.
+					</p>
+					<p>
+						Some other civic infrastructure observed includes a Greek Orthodox church, a pharmacy,
+						and a daycare. There was a wedding party leaving the church during the field visit.
 					</p>
 				</div>
 				<div class="map-container">
@@ -455,7 +483,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'124streetnw-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'124streetnw-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -463,15 +496,31 @@ setConfig({
 									'business-edmonton-services',
 									'business-edmonton-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						According to the Independent Business Index, 124 Street NW ranks at the top of the list
+						for both Edmonton Main Streets and Neighbourhood Main Streets.
+					</p>
+					<p>
+						The south end hosts local legends such as the Duchess Bake Shop and the Roxy Theatre.
+						The Roxy burned down in 2015 but was rebuilt and reopened in 2022. Unfortunately,
+						Zwick's Pretzel, a local favourite, closed permanently.
+					</p>
+					<p>
+						The southwest corner on 108 Ave across from Helen Nolan Park features a cluster of
+						businesses including Tiramisu Bistro, Hideout Distro, the Grand Cafe, and Maker's Keep
+						which sells baked goods, coffee, and local vendors' art. Maker's Keep and The Grant Cafe
+						are housed in a reproduction of an early 1900s-style brick building completed in 2019.
+						Further north hosts several more restaurants and other services including the CUPE union
+						office and Nurse Next Door care services.
+					</p>
+					<p>
+						Westmount Substation, the home of Irrational Brewing Company, was nominated for heritage
+						design at the 2023 Edmonton Urban Design Awards.
 					</p>
 				</div>
 				<div class="map-container">
@@ -512,10 +561,13 @@ setConfig({
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						124 Street NW is home to many small, independent businesses ranging from zero to ten
+						employees. The segment itself is the northern extension of a commercial corridor that
+						extends down toward the North Saskatchewan River then east towards the downtown core.
+					</p>
+					<p>
+						For employment density, 124 Street NW ranks 7th of 20 Edmonton Main Streets and 9th of
+						Neighbourhood Main Streets.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -572,16 +624,30 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						The housing within the 124 Street NW study area is found predominantly north of 109 Ave
+						and on the perpendicular streets. The segment features a rate of low-rise apartments
+						triple that of the entire Edmonton CMA, built in the 1960s and 70s and clustered in the
+						northern portion.
+					</p>
+					<p>
+						124 Street sits in the middle of the historic Westmount neighbourhood. The area saw a
+						massive influx of housing construction in 1912, in the craftsman architectural style.
+						Plaques adorn many homes displaying the date of construction and name of the original
+						owner.
+					</p>
+					<p>
+						The adjacent neighbourhood, Glenora, is affected by what's known as the Carruthers
+						Caveat, a restrictive covenant. The Caveat set rules on any new construction limiting
+						new builds to single-detached homes with significant front setbacks. This resulted in
+						creating homes attractive to wealthy home buyers. This legacy persists to this day with
+						Glenora and Westmount being two of the most sought-after places to live in Edmonton with
+						price tags to match.
 					</p>
 				</div>
 				<div class="map-container">
@@ -650,10 +716,8 @@ setConfig({
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						Of residents in the study area, 32% are recent immigrants and 34% are visible
+						minorities.
 					</p>
 				</div>
 				<div class="map-container">
@@ -685,7 +749,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -699,10 +762,17 @@ setConfig({
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
+						124 Street NW's Resiliency score ranks 8th of 20 Edmonton Main Streets and 11th of
+						Neighbourhood Main Streets.
+					</p>
+					<p>
+						Prior to pandemic shutdowns, of over 1 million visits, more than 60% were by infrequent
+						visitors from across the region. While infrequent visitors made up more than half of
+						visits in 2022, they've decreased by over 300,000 compared to 2019.
+					</p>
+					<p>
+						On a daily basis, the 12pm to 3pm range is the busiest for visits, with Sunday to
+						Saturday being the busiest days of the week from least to most.
 					</p>
 				</div>
 				<div class="map-container">

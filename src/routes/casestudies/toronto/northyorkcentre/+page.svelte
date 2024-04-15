@@ -217,12 +217,10 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This segment of Yonge Street formed the civic heart of North York before amalgamation into the City of Toronto in 1998. Today, it is the city's largest urban centre outside of the downtown core.</p>
+					<p>As North York experienced a post-war population boom, its municipal institutions were built along Yonge Street. Since the opening of Line 1's Finch, North York Centre, and Sheppard subway stations in the 70s and 80s, the area has seen a boom in development planned around transit accessibility and pedestrian life.</p>
+					<p>The North York Centre study area extends from Highway 401 in the south to Hendon and Bishop Avenues in the north, and is bound by Beecroft Rd to the west and Doris Ave to Bonnington Pl to the east. This segment of Yonge Street is located in the North York borough of Toronto.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -255,12 +253,10 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>North York Centre is considered Toronto's third downtown. The entire corridor is highly dense and walkable, going two or three buildings deep on either side of Yonge Street. Modern high-rise towers of offices and residential fill the skyline above Yonge Street's original pre-80s pattern of small, interconnected storefronts.</p>
+					<p>Yonge Street's streetscape is deliberately designed for a comfortable pedestrian experience, despite the wide vehicular right-of-way, with wide sidewalks, parks, landscaping, and even measures to mitigate wind chill.</p>
+					<p>Peculiarly, going one block east or west away from Yonge Street, the high density pattern of transit-oriented development reverts immediately to a grid street pattern of low-density suburban housing. Even the residential towers inbetween are built on superblock-style lots. This limits interaction between Yonge Street and the surrounding post-war suburbs.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -379,12 +375,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Parks, tree-shaded areas, and benches line this segment of Yonge Street. The Yonge North York BIA has added picnic tables throughout the Yonge Street segment encouraging residents, visitors, and workers alike to linger in the area.</p>
+					<p>Mel Lastman Square, the central civic feature of North York Centre, is a 20,000 square foot open space featuring a garden court, an outdoor ampitheatre, fountains, and a reflecting pool that turns into a wintertime ice rink. The Square is used for many activities, including cultural festivals, concerts, and political demonstrations.</p>
+					<p>According to the Civic Infrastructure Index, Yonge Street in North York Centre lags behind half of Toronto Main Streets case studies in terms of civic opportunity, at 11th out of 20, and last out of 12 Downtown Main Streets. This may be due to North York's amalgamation into the City of Toronto and the subsequent shift of major civic institutions to Toronto's downtown core.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -468,12 +462,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The North York Centre segment of Yonge Street boasts an impressive range of restaurants, bars, and cultural offerings. Old and new storefront on Yonge feature international chains and local offerings. reflective of the increasingly diverse neighbourhood. With very few vacant storefronts, this segment of Yonge Street is fully activated.</p>
+					<p>According to the Independent Business Index, Yonge Street in North York Centre lags behind other Main Street case studies in terms of the level of business independence, ranking 11th out of 20 Toronto Main Streets and 7th out of 12 Downtown Main Streets.</p>
+					<p>North York Centre is in the middle of the pack for business density, at 10th out of 20 Toronto Main Streets and lags behind most Downtown Main Streets at 9th out of 12.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,12 +504,11 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>North York Centre's three-stop access to Line 1 and direct access to the busy 401 Highway provides the area's employers access to the regional labour force.</p>
+					<p>North York Centre is a dense employment hub for northern Toronto. The small storefronts along Yonge Street and on perpendicular streets accommodate small businesses with zero to five employees. Larger employers, many with up to 50 employees, and several up to 100, are located in larger buildings.</p>
+					<p>For employment density, North York Centre ranks well in comparison to Toronto Main Streets at 6th out of 20, but sits in last place for the 12 Downtown Main Streets.</p>
+					<p>This Yonge Street segment intersects with two east-west employment corridors: the major one south along Sheppard Ave; a minor one north along Finch Ave.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -578,12 +569,8 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The North York Centre study area saw a late 80s housing construction boom, peaking in the 2001-2005 period (when over 20% of the housing stock was built), and steadily tapering off until present time. Over 80% of the total housing stock in North York Centre and the surrounding area are high-rise apartments. This results in a significant contrast in the population density within the North York Centre study area and the surrounding areas. As a result of the concentration of high rise apartments, the North York Centre study area has a significantly higher population density than areas surrounding it.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,12 +637,8 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>North York Centre is a highly diverse neighbourhood and this diversity is represented in the case study area. Indeed, of all local residents, 69.7% are recent immigrants, and 70.1% are visible minorities. Additionally, the majority of these residents hold a bachelors degree and the average individual full time annual employment income of residents in this study area is approximately $93,000.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -699,12 +682,9 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>North York Centre's Resiliency Score ranks well for Toronto Main Streets at 7th out of 20, and beats all other Downtown Main Streets at 1st place.</p>
+					<p>While total annual visits have decreased since the pre-pandemic 2019 level, the number of visits by residents to North York Centre increased to over 10 million in 2022 surpassing the 2019 resident visitor rate.</p>
+					<p>Interestingly, the busiest time of day is the 12am to 6am period, indicating that this segment of Yonge Street caters to an after hours crowd, often seeking late night food or entertainment.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

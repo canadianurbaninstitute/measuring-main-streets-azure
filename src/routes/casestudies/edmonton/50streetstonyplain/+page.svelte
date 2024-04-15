@@ -216,12 +216,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Stony Plain is a municipality located about 25 kilometres west of Edmonton in Parkland County. The Town of Stony Plain was incorporated in 1908.</p>
+					<p>50 Street serves as the town's historic main street. 48 Street, just to the east, is an arterial road that connects directly to the Yellowhead Highway, hosting significant traffic flows coming in and out of the town. This allows 50 Street to exprience less traffic resulting in a calmer and quieter feel.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -254,12 +250,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Observation of 50 Street provides the sense of a significant of investment to create a cohesive and quaint main street character. There are preserved heritage buildings mixed in with newer buildings. Newer buildings were built to match the low height of historic buildings. There are some taller apartment buildings on the south end of the street.</p>
+					<p>The street features new curb extensions and planters at all intersections within the study area. There are also new roundabouts at 50 Ave and 51 Ave, with central circular medians with grass plantings. There is angled parking throughout the area. The combination of these streetscaping elements and traffic controls allow for a calm and pleasant environment for pedestrians walking through the town centre.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -378,12 +370,9 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>50 Street boasts over 40 murals across Stony Plain's downtown, with QR codes directing passerbys to initiate self-guided tours. The First People, one of the murals, depicts a winter scene with a tipi facing the rising sun and features a Cree phrase, "Tawaw Ota Asiniw Paskwahk" which means "Welcome to Stony Plain". The injection of history and art through murals adds to the liveliness and intrigue of the neighbourhood.</p>
+					<p>The streetscape is in very good condition featuring wood accents and new concrete. The Stony Plain Road Business Association has put up banners and signage fostering a cohesive brand for the area.</p>
+					<p>According to the Civic Infrastructure Index, 50 Street in Stony Plain ranks 14th out of 20 Edmonton Main Streets and 6th out of 12 Small Town Main Streets. There is a public library, a post office, and several pharmacies. The corner of 52 Ave features a public space with benches and planters encouraging people to linger.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -467,12 +456,9 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The businesses on 50 Street range from banks to drug stores to restaurants. Although there were no outdoor patios during the field visit, storefronts and awnings lined the sides of the street. The businesses were housed in a mix of heritage and new buildings. For examples, there was an optometrist clinic in a heritage building and a couple of banks in newer brick-clad buildings. In true small-town fashion, the businesses were closed on Sundays and Mondays, leaving the street in a quiet air.</p>
+					<p>50 Street in Stony Plain ranks 3rd out of 20 Edmonton Main Streets for business density, and 2nd out of 12 Small Town Main Streets.</p>
+					<p>According to the Independent Business Index, Stony Plain ranks 3rd out of 20 Edmonton Main Streets and 2nd out of 12 Small Town Main Streets.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -511,12 +497,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The historic built form of the four northern blocks of the 50 Street study area, characterized by frontages right up to the sidewalks and buildings sharing structural walls, is filled with a significant concentration of small businesses and services catering to surrounding local residents.</p>
+					<p>50 Street in Stony Plain ranks 16th out of 20 Edmonton Main Street in employment density and 5th out of 12 Small Town Main Streets.</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -577,12 +559,7 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The housing stock surrounding 50 Street are predominantly single-detached dwellings (over 60%) extending out into the surrounding neighbourhood. The end of the town centre at 54 Ave directly leads into a wide street with single-detached housing on either side. One can see the same pattern occuring on most streets perpendicular to 50 Street. These homes are mixed in with a couple of businesses off the main street, as well as churches and community centres. There were two multi-use buildings on the south end of the study area between 53 Ave and 52 Ave. The building on the west side of 50 Street looked to be of newer construction, with a public library at ground level.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -649,12 +626,7 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Of residents in the study area, only 11% are recent immigrants and only 6% are visible minorities revealing that the Stony Plain community is less diverse than the rest of the region.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -698,12 +670,9 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>50 Street in Stony Plain's Resiliency Score ranks at 7th out of 20 Edmonton Main Streets and 7th out of 12 Small Town Main Streets.</p>
+					<p>The level of visitors, relative to pre-pandemic 2019 levels, have hovered generally between 40 and 75% since mid-2020 indicating a muted recovery. While infrequent visitors make up the majority of visitor counts in 2019, despite seeing a drop off in 2020 and slight upticks in 2021 and 2022, they remain the majority patronage in the 50 Street study area. It's worth noting that resident visits to the study area haven't recovered to 2019 levels.</p>
+					<p>The majority of visits by time of day happen between 9am and 6pm, with Friday being the busiest day in general.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

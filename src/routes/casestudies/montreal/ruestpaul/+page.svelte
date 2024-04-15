@@ -216,12 +216,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St. Paul, centrally located in the heart of Old Montreal, is a key part of the city's historic downtown area and a popular spot for tourists. First paved in 1672, rue St. Paul is Montreal's oldest street. A significant portion of the street is still paved with cobblestones and features historic buildings, some of which date back to the 17th century. Rue St. Paul is lined with a mix of boutiques, art galleries, hotels, and historic landmarks such as the Bonsecours Market and the Notre-Dame-de-Bon-Secours Chapel.</p>
+					<p>This stretch of Rue St. Paul, positioned between St. Laurent Boulevard and rue McGill, offers a lively atmosphere with a variety of businesses, cultural spaces, and art venues appealing to both locals and tourists. Moving westward from the heart of Old Montreal, this street segment becomes less commercial, traffic lanes widen, and the number of tourists decreases while vehicular traffic increases. As a result, this part of St. Paul Street serves as a main street for businesses, residents, and visitors.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -254,12 +251,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This section of rue St. Paul is relatively narrow, featuring a single circulation lane, slim sidewalks, no bicycle infrastructure, and on-street parking. Ornate historical and heritage mid-to-high-rise buildings line the street, incorporating ground floor retail spaces that contribute to the area's historic charm and appeal to tourists. The upper floors of these buildings host a mix of commercial, residential, or hospitality uses. Small parking lots, situated on empty lots between some of the ornate buildings, interrupt the streetscape. The absence of setbacks between buildings and sidewalks, combined with narrow sidewalks, on-street parking, and mid to high-rise structures, creates a confined pedestrian experience.</p>
+					<p>Rue St. Paul, being a dense and narrow historic downtown thoroughfare, lacks dedicated greenspace. However, residents and visitors benefit from the street's proximity to the St. Lawrence River and the adjacent promenade, offering access to beautiful greenspace within a ten-minute walk.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -378,12 +372,9 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St. Paul's strategic central location within Old Montreal ensures convenient access to various civic infrastructures within a ten-minute walk. Key attractions, such as the Bonsecours Market and the Notre-Dame-de-Bon-Secours Chapel in the surrounding area, serve as focal points that draw both tourists and residents, offering inviting spaces for lingering. The streetscape is lined with historic and heritage buildings which contributes to the character and charm of Old Montreal. Rue St. Paul also hosts an array of educational, arts, and cultural spaces, catering to the diverse interests of the many tourists frequenting the street.</p>
+					<p>According to the Civic Infrastructure index, rue St. Paul ranks very well in terms of its civic opportunity. Rue St. Paul ranks first among all 20 Montreal main streets and 5th out of 12 downtown main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -467,12 +458,11 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St Paul is a commercial street that offers a relatively equal mix of retail, services, and food and drink businesses. The street primarily caters to tourists and visitors and the businesses reflect this customer base. There are a number of boutique and upscale hotels located on Rue St Paul. On the ground floor of the historic buildings are a mix of boutiques, art galleries, cafes, and restaurants. The notable absence of chain stores and presence of specialized boutiques offers visitors of St Paul street a localized shopping experience and the clustering of art galleries enhances the street’s cultural appeal.</p>
+					<p>Despite the prominence of Rue St Paul as a main street in Old Montreal, vacancies are observed in the office and commercial spaces above the storefronts.</p>
+					<p>According to the Independent Business Index, rue St. Paul surpasses all other Main Street case studies in terms of level of business independence, ranking 1st out of 20 Montreal main streets and 1st out of 12 downtown main streets.</p>
+					<p>Rue St. Paul's central location in Old Montreal also results in a high business density, as the street ranks 3rd out of all Montreal main streets and 2nd out of 12 downtown main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -511,12 +501,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Old Montreal is a major economic and employment hub in Montreal and a number of businesses – both retail and other – are located in and around rue St Paul. As a result, the majority of employment is in these businesses rather than related to civic infrastructure. Additionally, most businesses on rue St Paul are small in scale and specialized – such as the boutiques and art galleries. The employment profile is reflective of this as the majority of employers on rue St Paul have between zero to ten employees. In the areas north of rue St Paul, nearer to Montreal’s downtown and central business district, one can observe larger businesses that employ greater amounts of employees.</p>
+					<p>Overall, rue St. Paul's central location results in the street surpassing other main street case studies in terms of its employment density, ranking 2nd out of 20 Montreal main streets and 3rd out of 12 downtown main streets.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -577,12 +564,10 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The housing on and around rue St Paul is a mix of the old and the new with the majority of housing constructed before 1960 or after 2016.</p>
+					<p>Representative of the higher density in old Montreal and the surrounding downtown area, the majority of the housing type on and around rue St Paul is in high-rise apartments. This differs substantially from the Montreal CMA which is characterized by low and middle density housing and plexes.</p>
+					<p>Despite the high levels of dwellings on and around rue St Paul, there is a relatively lower population density than in surrounding neighbourhoods. Rue St Paul, and old Montreal more broadly, is a tourist destination and some of the dwellings in the area serve temporary residents, visitors, or tourists through short-term rentals.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -649,12 +634,8 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>There are certain key demographics that highlight the local characteristics of residents of rue St Paul and the surrounding Old Montreal area. The area is primarily English speaking, with 100 percent English speakers compared to approximately 30 percent French speakers. Additionally, the residents, who comprise of mostly one-person households, are largely high-income individuals who hold a bachelor’s degree. Rue St Paul, and Old Montreal more broadly, is also characterized by a lower percentage of visible minorities compared to surrounding neighbourhoods.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -698,12 +679,8 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue St. Paul, primarily a tourist destination with few permanent residents, relies heavily on infrequent visitors to sustain its surrounding businesses and services. The majority of individuals frequenting the street are infrequent visitors or tourists, rather than residents or regular visitors from nearby areas. Following the onset of the COVID-19 pandemic in early 2020, the number of visits to rue St. Paul plummeted to less than 20 percent of the 2019 figures. Although resident visits, albeit a small proportion, have mostly recovered, both infrequent and recurring visitor counts continue to lag significantly behind their 2019 levels. Despite ongoing recovery efforts and a gradual increase in the number of visitors, the street is currently operating at approximately 70 percent of the total visitation compared to the pre-pandemic period in 2019.</p>
+					<p>As a result, in terms of street resilience and visitor recovery, rue St. Paul trails behind other Montreal main streets and downtown main streets. It ranks 18th out of 20 in visitor resiliency in the region and 7th out of 12 downtown main streets.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

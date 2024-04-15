@@ -217,12 +217,9 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The surveyed route that would become Dundas Street was completed in 1796 and would help to promote the colonial settlement of lands taken from Indigenous Peoples. Today, Dundas runs east-west through Misssissauga and is used as a major thoroughfare.</p>
+					<p>The Mississauga Dundas study area includes a segment of Dundas Street E which begins at the Mississauga-Toronto border at Etobicoke Creek and extends westward toward Cawthra Rd. This segment is located in Misssauga's most southeastern neighbourhood, Lakeview.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -255,12 +252,9 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This segment of Dundas Street E is six lanes wide with a central median used for left turns. The sidewalks are narrow, typical of suburban development. The streetscape and surrounding buildings are designed to prioritize vehicular access. The western half of the segment is flanked to the south by employment lands which extends north in the eastern half. To the north are predominantly low-density residential neighbourhoods. Compared to the Toronto CMA, Mississauga Dundas lacks green space, but this improves within a ten-minute walk.</p>
+					<p>The Mississauga Dundas study area may soon see significant change. In 2018, City Council endorsed the Dundas Connects Master Plan, which introduce Bus Rapid Transit infrastructure investment toward a mixed-use vision of urban renewal.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -379,12 +373,10 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Considering that this segment of Dundas is designed to accommodate vehicular traffic, the area lacks much of the pedestrian infrastructure and placemaking seen in other case studies. Visiting the street often requires people to spend money, either on food or entertainment. Beyond visiting for a particular establishment, the area lacks the public realm that encourages people to linger. The Mississauga Chinese Centre is one notable exception as it is a showcase of Chinese-style architecture.</p>
+					<p>Civic infrastructure provision may improve as the segment transforms into a mixed-use transit corridor.</p>
+					<p>According to the Civic Infrastructure Index, this segment of Dundas Street E ranks poorly in terms of civic opportunity, at 17th out of 20 Toronto Main Streets, and 27th out of 36 for Neighbourhood Main Streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -468,12 +460,10 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The Mississauga Dundas corridor is home to a series of establishments providing automobile services. There's also a mix of independent and chain restaurants, along with big box retail. The area hosts the Mississauga Chinese Centre, acting as the suburban city's unofficial Chinatown.</p>
+					<p>According to the Independent Business Index, Mississauga Dundas ranks 12th out of 20 Toronto Main Streets and 21st out of 36 Neighbourhood Main Streets.</p>
+					<p>For business density, Mississauga Dundas ranks at 16th out of 20 Toronto Main Streets and 24th out of 36 Neighbourhood Main Streets. These rankings may be due to the low-density, suburban built form pattern of the corridor.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,12 +502,10 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>For employment density, Mississauga Dundas ranks 7th out of 20 Toronto Main Streets and 12th out of 36 Neighbourhood Main Streets.</p>
+					<p>While ranking lower in terms of business density compared to other Main Streets, the presence of less but larger employers makes Mississauga Dundas a significant employment hub.</p>
+					<p>There's a significant mix of Main Street Businesses with some Civic Infrastructure employment. Expanding out of the segment, the surrounding area sees large concentrations of non-Main Street Businesses, such as industrial establishments.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -578,12 +566,8 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>More than half of the housing in the Mississauga Dundas study area was built in the 1961-80 period. Despite the predominant low-density character of the neighbourhood's residential areas, the presence of high-rise garden towers and low-rise apartments does diversify the local housing mix. However, these high rise towers and low-rise apartments are primarily located on the northwest side of the street. As a result, the northwestern area of the study area maintains a significantly higher average population density than the areas to the southeast.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,12 +634,8 @@
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The Mississauga Dundas study area maintains distinct socio-demographic characteristics. For example, of the residents around the Mississauga Dundas study area, more than half of current residents are recent immigrants. In addition, 40% of the residents in this study area are visible minorities. In terms of average income, there's a notable contrast between the northwest and southeast areas. The average income in the northwest neighborhoods is considerably lower than that in the southeast.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -699,12 +679,8 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Mississauga Dundas' Resiliency Score ranks middle for Toronto Main Streets at 9th out of 20 and just outside of the top third for Neighbourhood Main Streets at 13th out of 36.</p>
+					<p>This segment of Dundas has generally relied upon infrequent visits by non-residents. The 12pm to 3pm period is the busiest time of the day, and Saturday sees the largest portion of visits on a weekly basis.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

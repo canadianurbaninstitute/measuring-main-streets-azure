@@ -216,12 +216,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Wellington serves as a significant east-west thoroughfare on the western edge of Montreal, traversing the neighborhoods of Verdun, Pointe-Sainte-Charles, and Griffintown. Named the “world's coolest street” by TimeOut magazine in 2022, this section known as Promenade Wellington thrives as a bustling commercial hub at the heart of Verdun. In collaboration with the SDC Wellington, Promenade Wellington undergoes pedestrianization during the summer months. The introduction of temporary street furniture, murals, cooling stations, and outdoor patios and terraces further supports the vibrancy of the street.</p>
+					<p>Yet, the landscape of Verdun is evolving. The surging popularity of Rue Wellington and Verdun, marked by new restaurants, cafes, bars, and streetscape enhancements, accompanies a noticeable uptick in property values and rents. These transformations have sparked concerns regarding gentrification and displacement, prompting local residents and housing advocates to mobilize in support of existing Rue Wellington residents and the broader Verdun community.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -254,12 +251,10 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Wellington features a circulation lane and on-street parking in both directions. The street is also well-served by public transit with the de l’Église metro station of the Green Line and bus stops present on both sides of the street serving multiple bus routes.</p>
+					<p>Reflecting the prevalent "missing middle" and mid-density characteristic of Montreal, the buildings along Rue Wellington primarily consist of three to four-story buildings with ground-floor retail spaces and upper floor residential. The street also includes some fully residential buildings. During summer pedestrianization, all circulation lanes are closed to vehicular traffic and the street opens entirely for pedestrians and active mobility users.</p>
+					<p>Although there is minimal greenspace directly on this segment of rue Wellington, the street is very well served by greenspace within a ten-minute walk. The St. Lawrence river, located just east of rue Wellington, features a number of parks, walking and cycling paths, and the popular Verdun beach along its shore.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -378,12 +373,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This section of rue Wellington includes a large share of health and care facilities and government and community services such as a Service Canada National Defence building. In comparison, the street does not boast high percentages of recreational, educational, or arts facilities. However, within a ten-minute walk, a number of educational facilities are accessible.</p>
+					<p>The rue Wellington Société de Développement Commercial (SDC) and the summer pedestrianization results in the installation of temporary infrastructure to support the civic, social, and commercial life and vitality on the street. This includes temporary street furniture, increased signage, murals and street art, terraces, cooling stations, outdoor wifi zones, and programming for all ages.</p>
+					<p>However, according to the Civic Infrastructure index, rue Wellington lags behind most other Montreal and residential main street case studies. In terms of its civic opportunity, rue Wellington ranks 19th out of 20 Montreal main streets and 35th out of 36 residential main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -467,12 +460,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This stretch of Rue Wellington offers a lively mix of businesses, covering retail, services, and food and drink establishments. The diversity extends to the businesses themselves, ranging from longstanding to more recently established, and a blend of both independent and chain ownership.</p>
+					<p>According to the Independent Business Index, rue Wellington lags behind other Montreal main street case studies in terms of business independence, ranking 14th out of 20 Montreal main streets and 18th out of 36 residential main streets.</p>
+					<p>However, rue Wellington does have a relatively high business density, ranking 6th out of 20 Montreal main streets and 4th out of 36 residential main streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -511,12 +502,9 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>This segment of Rue Wellington includes vibrant commercial activity and as a result the street serves as a key employment hub to help support its considerable number of businesses.</p>
+					<p>Overall, rue Wellington sits in the middle of the pack in terms of its employment density. In terms of its employment density, the street ranks 13th out of 20 Montreal main streets and 21st out of 36 residential main streets.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -577,12 +565,8 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Rue Wellington is a main commercial street surrounded by largely low-rise apartment dominant residential streets. As a result, the street and surrounding area maintains a relatively high population density. The housing stock both along rue Wellington and in the surrounding area is old – over 50 percent of all housing in the area was built before 1960 and there have been very few new builds in the last three decades.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -649,12 +633,8 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>On average, the residents on and around rue Wellington are young in age, as many blocks around Wellington have an average age of just 38 years old. Unlike similar main commercial streets in other Montreal neighborhoods, like Ave. Mont Royal in the Plateau, there is a significant mix of incomes both on rue Wellington and in the surrounding Verdun neighborhood; but, on average incomes are on the lower end of the spectrum.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -698,12 +678,8 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>The influx of new restaurants, bars, and cafes combined with the street pedestrianization and other placemaking initiatives garnered rue Wellington the title of TimeOut magazines 2022 “world’s coolest street”.</p>
+					<p>In terms of overall street resilience and visitor recovery, rue Wellington ranks 7th out of 20 in visitor resiliency in the region and 21st out of 36 residential main streets.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

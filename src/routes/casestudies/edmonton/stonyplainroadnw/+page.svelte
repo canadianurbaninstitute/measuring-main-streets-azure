@@ -217,12 +217,8 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Stony Plain Road NW is situated at the intersection of the Canora and West Jasper Place neighbourhoods in Edmonton. It sits west of the main downtown area. The street is north of the North Saskatchewan River and runs east-west connecting into the core of the city. The study area was part of its own village, Jasper Place, and managed to resist amalgamation with the City of Edmonton until 1964.</p>
+
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -255,12 +251,7 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Stony Plain Road's built form is spread out and primarily low-rise, but this will be changing dramatically as it is currently undergoing construction of the new Valley Line Light Rail Transit. At the time of the field visit, the entirety of the two east-bound lanes were closed off by fences, with all traffic being redirected through the westbound lanes. There are pedestrian crossings at all intersections with flashing indicators. The buildings don't exceed two-storeys in height, and most apartment buildings are located off the avenue. Of all the Edmontonian Main Street case studies, Stony Plan had the highest number of vacant, abandoned, or to be demolished buildings, and parking lots observed. This contributed greatly to an overall lack of business interaction with the street.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -379,12 +370,11 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Stony Plain Road is part of the Stony Plain Road Business Improvement Area. There are tall, decorative street lights that border both sides of the street throughout the study area. The height and spacing of the street lanterns create a cohesive, repetitive pattern along the street.</p>
+					<p>The BIA does not have an overly noticeable presence in the area outside of a couple of street banners hanging from the lanterns. There were no branded street signs or other branded infrastructure. There is noticeable wear and tear on the north sidewalk.</p>
+					<p>At the intersection of Stony Plain Road and 152 St, there is a square with silver metallic tables and benches. There are wayfinding signs around the area.</p>
+					<p>According to the Civic Infrastructure Index, Stony Plain Road ranks low for civic opportunity at 15th of 20 Edmonton Main Streets and 17th of 36 Neighbourhood Main Streets.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -468,12 +458,10 @@ setConfig({
 							/>
 						</div>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>According to the Independent Business Index, Stony Plain Road ranks 9th of 20 Edmonton Main Streets and 22nd of 36 Neighbourhood Main Streets. For business density, Stony Plain ranks 8th of 20 and 16th of 36.</p>
+					<p>Due to the LRT construction at the time of observation, businesses along the southern portion of the street were difficult to access. To account for this, wayfinding signs were present indicating that businesses were still open during construction.</p>
+					<p>Some businesses of note include Revolution Cycle, Celebrate Gluten Free Bakery, and a noticeable clustering of pawn shops. Overall, possibly due to construction, there was little interaction between businesses and the street.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,12 +500,10 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Available employment data for the Stony Plain Road NW study area reveals a significant concentration of employment on the main street, especially when compared to the relative lack of employment in the surrounding residential neighbourhood.</p>
+					<p>Businesses generally range from zero to 10 employees, with a concentration of businesses in the strip mall at the southeast corner of the study area.</p>
+					<p>For employment density, Stony Plain ranks low at 15th of 20 Edmonton Main Streets and 29th of 36 Neighbourhood Main Streets.</p>
+
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -578,12 +564,8 @@ setConfig({
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Housing for the study area can be found predominantly off of Stony Plan Road itself. There a significant number of low-rise apartment buildings close to the avenue, being the predominant housing form in the area at about 80%. They are spread out to accommodate ample parking for residents in laneways. The single-detached housing that could be found appeared to be older in construction and were not particularly well maintained.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,12 +632,8 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Of residents in the study area, 31% are recent immigrants and 34% are visible minorities.</p>
+
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -699,12 +677,9 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-						esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+					<p>Prior to the pandemic, Stony Plain Road NW saw nearly 2 million visits in 2019. Total visits decreased year by year and by 2022, total visits for that year dipped below 1 million.</p>
+					<p>On a daily basis, the 12pm to 6pm range is the busiest time of day. Saturday is the busiest day of the week followed by Thursday.</p>
+					<p>Stony Plain Road's low Resiliency Score ranks it at 13th of 20 Edmonton Main Streets and 20th of Neighbourhood Main Streets.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
