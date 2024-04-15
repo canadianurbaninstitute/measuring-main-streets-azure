@@ -26,7 +26,7 @@
 	// basic
 
 	let population = '29,482,761';
-	let populationchange = '';
+	let populationchange = ' (+5.8%)';
 	let employees = '1,692,453';
 
 	// business
@@ -37,8 +37,8 @@
 
 	let independent_business = 0.52; //BII_avg
 
-	let retail_min = '0';
-	let retail_max = '0';
+	let retail_min = '170,832,364,000';
+	let retail_max = '437,305,794,454';
 
 	// civic
 
@@ -560,7 +560,7 @@
 		// basic
 
 		population = '29,482,761';
-		populationchange = '';
+		populationchange = ' (+5.8%)';
 		employees = '1,692,453';
 
 		// business
@@ -570,8 +570,8 @@
 		business_food_drink = '68,960';
 
 		independent_business = 0.52; //BII_avg
-		retail_min = '0';
-		retail_max = '0';
+		retail_min = '170,832,364,000';
+		retail_max = '437,305,794,454';
 
 		// civic
 
