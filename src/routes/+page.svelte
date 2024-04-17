@@ -20,12 +20,13 @@
 <div class="splash">
 	<img src={collage} alt="collage" id="collage" />
 	<div class="splash-text">
-		<Typewriter mode={'loop'} cursor={false} interval={90} unwriteInterval={90}>
+		<!-- <Typewriter mode={'loop'} cursor={false} interval={90} unwriteInterval={90}>
 			<h1>Measuring</h1>
 			<h1>Understanding</h1>
 			<h1>Empowering</h1>
 			<h1>Unlocking</h1>
-		</Typewriter>
+		</Typewriter> -->
+		<h1>Measuring</h1>
 		<h1>Main Streets</h1>
 		<p>
 			Using a data-oriented approach, Measuring Main Streets explores what’s working, what’s not and

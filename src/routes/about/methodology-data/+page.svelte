@@ -9,13 +9,20 @@
     <div class="subtitle">
 		<h2>Methodology</h2>
 	</div>
+	<p>Coming Soon.</p>
+
 </div>
+
 
 <div class="hero">
     <div class="subtitle">
 		<h2>Data</h2>
 	</div>
+	<p>Coming Soon.</p>
+
 </div>
+
+
 
 <Footer/>
 

@@ -30,12 +30,12 @@
     "group": "resident age"
   },
   {
-    "variable": "Age20_64",
+    "variable": "Ag20_64",
     "name": "Age 20 to 64",
     "group": "resident age"
   },
   {
-    "variable": "Age65_Ov",
+    "variable": "Ag65_Ov",
     "name": "Age 65 and Over",
     "group": "resident age"
   },

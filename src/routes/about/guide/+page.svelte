@@ -18,25 +18,24 @@
 <div class="full-text">
 	<p>
 		Main streets are the backbone of Canadian society. They provide local access to daily necessities that are foundational to the well-being of residents. Nearly 30 million Canadians (75%) live within one kilometre of a main street. Over 160,000 main street businesses provide 1.7 million jobs and generate $250 billion in revenue. Beyond the sheer economic power of main streets, they also play an essential role in civil society. They are gathering places where personal relationships are created and strengthened. To this point, there are over 52,000 locations of community and civic infrastructure on main streets. Furthermore, dense, walkable main streets have positive impacts on environmental sustainability as well as personal health. In short, vibrant main streets create thriving neighbourhoods, thriving neighbourhoods produce healthy cities, and healthy cities underpin a prosperous country. 	</p>
-	<p>
-		Unfortunately, not all is well on main street. The COVID pandemic led to drastically reduced visitor levels and caused many businesses to suffer. Places that experienced prolonged stress were highly vulnerable to negative cycles of reduced footfall, store vacancies, and diminishing perceptions. In some cases, main streets saw drop-offs to 25% of pre-pandemic visitor levels which persisted for two full years. Many main streets, especially ones closer to city-centres, remain below 2019 visitor levels. Even before the pandemic, main streets were experiencing significant challenges from long-running shifts to online and big-box consumer behaviour. We cannot afford to let our main streets decline. They must be cherished and invested in if our country is going to flourish. 	</p>
+		<p>This guide aims to provide an overview of the project as well each aspect of the platform.</p>
 </div>
 
 <div class="full-text">
 	<h3>Project Overview</h3> 
 	<p>
-		Measuring Main Streets provides research, data, and tools that inform infrastructure investment decisions that are intended to strengthen main streets and their surrounding environments. The project received $600,000 in funding from Infrastructure Canada’s (INFC) through its Research and Knowledge Initiative (RKI). The goals of the project are to:		</p>
+		Measuring Main Streets provides research, data, and tools that inform infrastructure investment decisions that are intended to strengthen main streets and their surrounding environments. The project received funding from Infrastructure Canada’s (INFC) through its Research and Knowledge Initiative (RKI). The goals of the project are to:		</p>
 		<ul>
 			<li>understand the current state of Canada’s main streets;</li>
 			<li>devise a methodology for evaluating public infrastructure assets and impact on main street vibrancy and resiliency;</li>
 			<li>identify, collect and analyze baseline data, observational research and best practices, and;</li>
 			<li>develop smart tools and recommendations to inform future infrastructure investment. </li>
 		</ul>
-	<p>Measuring Main Streets is constructed around three interrelated components: an interactive national map of that provides basic descriptive data for every main street in the country; a set of 30 full case studies across 10 regions (Toronto; Montreal; Edmonton) that included direct observational research as well as 30 data-only case studies; and a set of research briefs that outline key findings and messages. </p>
+	<p>Measuring Main Streets is constructed around four interrelated components: an interactive national map of that provides basic descriptive data for every main street in the country; a set of 30 full case studies across 10 regions (Toronto; Montreal; Edmonton) that included direct observational research as well as 30 data-only case studies; a set of smart tools and recommendations to inform main street resiliency and future civic infrastructure investment;		and a set of research briefs that outline key findings and messages. </p>
 </div>
 
 <div class="full-text">
-	<h3>A Map of Main Streets</h3> 
+	<h3> Main Street Map</h3> 
 	<p>
 		Measuring Main Streets provide users with the ability to locate every main street across the country and retrieve associated data that describes the local context. One of the key contributions of this project is the creation of a standardized method for defining and identifying main streets across the country. This enables the direct comparison of main streets in a consistent manner essential for developing research findings that provide lessons for those involved in policy making and investment decisions. The methodology itself involves mapping the densities of main street businesses (i.e. retail; restaurants; local services) and civic infrastructure locations (i.e. arts & culture; education; health & care; recreation; government & community services) in relation to major roadways. This process segmented streets into high density main streets (i.e. traditional/walkable), low density main streets (i.e. car-oriented), and other major streets that do not have enough density to be consider a ‘true’ main street. On the national map section of the platform, users can click on any of these street segments and obtain general information about the street’s content (i.e. number of businesses; number of civic infrastructure) and the characteristics of the surrounding neighbourhood (i.e. demographics; housing stock; employment density). The national set of main streets can be classified and compared based on any of these indicators. 
 			</p>
