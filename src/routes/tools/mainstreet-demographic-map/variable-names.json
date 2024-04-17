@@ -141,21 +141,21 @@
   },
   {
     "variable": "CommT30",
-    "name": "Commutes under 30 minutes",
+    "name": "Commutes between 15 - 30 minutes",
     "group": "commute time"
   },
   {
     "variable": "CommT45",
-    "name": "Commutes under 45 minutes",
+    "name": "Commutes between 30 - 45 minutes",
     "group": "commute time"
   },
   {
     "variable": "CommT60",
-    "name": "Commutes under 60 minutes",
+    "name": "Commutes between 45 - 60 minutes",
     "group": "commute time"
   },
   {
-    "variable": "CmmTOv60",
+    "variable": "CmmOv60",
     "name": "Commutes over 60 minutes",
     "group": "commute time"
   }
