@@ -1,6 +1,7 @@
 <script>
 	import Title from '../../lib/Title.svelte';
 	import resiliency from '../../lib/assets/graphics/resiliency.svg';
+	import correlation from '../../lib/assets/graphics/correlation-plot.png';
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import LineAreaChart from './LineAreaChart.svelte';
 	import BarChart from './BarChartTemp.svelte';
@@ -134,6 +135,7 @@
 	</div>
 
 	<div class="chart-container sticky-content">
+		<img src={correlation} alt="Correlation Plot">
 	</div>
 </div>
 
@@ -178,6 +180,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
+		max-width: 50vw;
 	}
 	
 	/* 

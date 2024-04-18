@@ -42,13 +42,26 @@
 				if (featuretype === 'circle') {
 					map.setPaintProperty(id, `${featuretype}-stroke-opacity`, 0);
 				}
-
+				else if ( id === 'case-study-BIAs' ) {
+					map.setLayoutProperty(
+                        id,
+                        'visibility',
+                        'none'
+                    );
+				}
 				layerActive = false;
 			// set opacity to provided targetopacity, default is 0.9
 			} else {
 				map.setPaintProperty(id, `${featuretype}-opacity`, targetopacity);
 				if (featuretype === 'circle') {
 					map.setPaintProperty(id, `${featuretype}-stroke-opacity`, targetopacity);
+				}
+				else if ( id === 'case-study-BIAs' ) {
+					map.setLayoutProperty(
+                        id,
+                        'visibility',
+                        'visible'
+                    );
 				}
 				layerActive = true;
 			}
