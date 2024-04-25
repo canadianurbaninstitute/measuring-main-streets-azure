@@ -49,6 +49,14 @@
 
     <h4>{title}</h4>
 
+    <div class='controls'>
+        <div class="legend-container">
+            <LegendItem variant={'polygon'} label={'Residents'} bgcolor={'#002940'} />
+            <LegendItem variant={'polygon'} label={'Frequent Visitors'} bgcolor={'#00adf2'} />
+            <LegendItem variant={'polygon'} label={'Infrequent Visitors'} bgcolor={'#DB3069'} />
+        </div>
+    </div>
+
 <div class="chart">
 	<LayerCake
 		padding={{ bottom: 20, left: 35 }}
@@ -73,13 +81,7 @@
 	</LayerCake>
 </div>
 
-<div class='controls'>
-    <div class="legend-container">
-        <LegendItem variant={'polygon'} label={'Residents'} bgcolor={'#002940'} />
-        <LegendItem variant={'polygon'} label={'Frequent Visitors'} bgcolor={'#00adf2'} />
-        <LegendItem variant={'polygon'} label={'Infrequent Visitors'} bgcolor={'#DB3069'} />
-    </div>
-</div>
+
 
 </div>
 

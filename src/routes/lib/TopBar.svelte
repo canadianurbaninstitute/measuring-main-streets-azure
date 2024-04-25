@@ -53,7 +53,7 @@
 						<li><a href="/about">Platform</a></li>
 						<li><a href="/about/guide">Guide</a></li>
 						<li><a href="/about/faq">FAQ</a></li>
-						<li><a href="/about/methodology-data">Methodology & Data</a></li>
+						<li><a href="/about/data-methodology">Data & Methodology</a></li>
 						<li><a href="/about/team">Team</a></li>
 						<li><a href="/about/contact">Contact</a></li>
 					</ul>

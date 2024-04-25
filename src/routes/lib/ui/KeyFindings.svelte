@@ -42,7 +42,7 @@
 
     .message-container {
         display: flex;
-        align-items: center;
+        align-items: stretch;
         gap: 1em;
         border-radius: 1em;
 

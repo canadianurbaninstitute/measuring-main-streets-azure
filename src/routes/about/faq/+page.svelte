@@ -47,7 +47,7 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                The term “main street” represents the commercial and community focal point of a neighbourhood. They offer nearby residents access to shops, retailers, food and drink, and local services.
+                The term “main street” represents the commercial and community focal point of a neighbourhood. They offer nearby residents access to shops, retailers, food and drink, and local services. Our definition of main streets split them into two types, 'high density' and 'low density' main streets, which were defined based on density thresholds around main street businesses and civic infrastructure. Learn more about the methodology we use on the <a href="/about">Data and Methodolgy</a> page.
             </p>
 		</div>
 	</Accordion>
@@ -58,7 +58,7 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                Learn more about the process on the <a href="/about">Methodology and Data</a> page.
+                We sourced data from a variety of sources, both open and proprietary. Learn more about the specific datasets used on the <a href="/about/data-methodology">Data and Methodolgy</a> page.
             </p>
 		</div>
 	</Accordion>
@@ -91,18 +91,12 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                Lorem ipsum dolor sit amet.
-            </p>
-		</div>
-	</Accordion>
-    <Accordion>
-		<div class="accordion-header" accordion slot="header">
-			<h4>What is a case study?</h4>
-            <Icon icon="iconoir:nav-arrow-down" />
-		</div>
-		<div class="accordion-body" slot="body">
-            <p>
-                Lorem ipsum dolor sit amet.
+
+                We tried to use a rigourous, data backed methodology for our identification of main streets, which included continuous iteration and incorporation of feedback from a variety of stakeholders. 
+
+                In addition, every street visible on the Main Street Map is clickable and has data associated with it that you can browse, even if it is not visually categorized as a main street.
+                
+                However, this process is still prone to errors due to incomplete data, or other analytical errors. If you have any further questions, please <a href="/about/contact">contact us.</a>
             </p>
 		</div>
 	</Accordion>
@@ -113,7 +107,7 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                Lorem ipsum dolor sit amet.
+                Please <a href="/about/contact">contact us with your specific enquiry.</a>
             </p>
 		</div>
 	</Accordion>
@@ -124,29 +118,20 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                Lorem ipsum dolor sit amet.
+                We conducted 60 case studies in total across the Toronto, Montreal and Edmonton regions, 20 in each region. 10 of the 20 are full case studies which combine data about the main streets with qualitative observation from site visits, whilst the further 10 are data-only. The 20 main streets were intended to provide a representative sample of types of streets within each regional context. This included four downtown (workplace-oriented), four small town, and 12 neighourhood (residential-oriented) main streets being chosen, with additional emphasis placed on equity-deserving communities.
             </p>
 		</div>
 	</Accordion>
     <Accordion>
 		<div class="accordion-header" accordion slot="header">
-			<h4>What is a report?</h4>
+			<h4>What is a report/research brief?</h4>
             <Icon icon="iconoir:nav-arrow-down" />
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                Lorem ipsum dolor sit amet.
+                The research briefs and reports aim to provide sensemaking and point towards potential policy interventions relating to Main Streets, tackling issues around equity, resiliency and governance among others.
             </p>
-		</div>
-	</Accordion>
-    <Accordion>
-		<div class="accordion-header" accordion slot="header">
-			<h4>When will the Tools be available?</h4>
-            <Icon icon="iconoir:nav-arrow-down" />
-		</div>
-		<div class="accordion-body" slot="body">
-            <p>
-                Lorem ipsum dolor sit amet.
+            <p>There are also 3 regional reports that dive into detail about the specificities of the Toronto, Montreal and Edmonton regions and their relationship to Main Streets, offering deeper insights and crucial context.
             </p>
 		</div>
 	</Accordion>
@@ -157,8 +142,9 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                Lorem ipsum dolor sit amet.
+                My Main Street is a $15-million investment from the Government of Canada through the Federal Economic Development Agency for Southern Ontario (FedDev Ontario) to spur local economic recovery. My Main Street is delivered by the Canadian Urban Institute (CUI) to help support the revitalization of neighbourhoods across southern Ontario.
             </p>
+            <p>The program is not directly connected, however a lot of the technical infrastructure generated by the Measuring Main Streets project has helped to power the My Main Street program.</p>
 		</div>
 	</Accordion>
 </div>

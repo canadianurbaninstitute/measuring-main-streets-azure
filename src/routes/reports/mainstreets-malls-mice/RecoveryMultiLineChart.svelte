@@ -255,6 +255,7 @@
 		border: 1px solid var(--brandGrey);
 		margin: 1em 0 0 0;
 		padding: 0.5em;
+		flex-wrap: wrap;
 	}
 
 

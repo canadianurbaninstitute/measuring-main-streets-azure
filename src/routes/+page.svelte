@@ -6,7 +6,6 @@
 	import canada_logo from './lib/assets/logos/canada_logo.svg';
 	import cui_logo from './lib/assets/logos/cui_logo_white.svg';
 	import Icon from '@iconify/svelte';
-	import Typewriter from 'svelte-typewriter';
 
 	function scrollIntoView({ target }) {
 		const el = document.querySelector(target.getAttribute('href'));
@@ -20,12 +19,6 @@
 <div class="splash">
 	<img src={collage} alt="collage" id="collage" />
 	<div class="splash-text">
-		<!-- <Typewriter mode={'loop'} cursor={false} interval={90} unwriteInterval={90}>
-			<h1>Measuring</h1>
-			<h1>Understanding</h1>
-			<h1>Empowering</h1>
-			<h1>Unlocking</h1>
-		</Typewriter> -->
 		<h1>Measuring</h1>
 		<h1>Main Streets</h1>
 		<p>
@@ -61,28 +54,28 @@
 		link={'/map'}
 		cardImage={'https://i.imgur.com/eW8AZ8W.jpeg'}
 		title={'Main Street Map'}
-		subtitle={'Explore main streets on the map'}
+		subtitle={''}
 	/>
 
 	<HeroCard
 		link={'/reports'}
 		cardImage={'https://i.imgur.com/PQqqkhl.png'}
 		title={'Reports'}
-		subtitle={'Read the research briefs'}
+		subtitle={''}
 	/>
 
 	<HeroCard
 		link={'/casestudies'}
 		cardImage={'https://i.imgur.com/8WDGwYT.jpeg'}
 		title={'Case Studies'}
-		subtitle={'Browse case studies across Canada'}
+		subtitle={''}
 	/>
 
 	<HeroCard
 		link={'/tools'}
 		cardImage={'https://i.imgur.com/gj9y9QY.png'}
 		title={'Tools'}
-		subtitle={'Use our main street tools'}
+		subtitle={''}
 	/>
 </div>
 
@@ -107,7 +100,7 @@
 </div>
 
 <div class="section">
-	<div class="hero" id='left-hero'>
+	<div class="hero" id="left-hero">
 		<h1>Why Now?</h1>
 		<h2>Main streets require urgent attention and investment.</h2>
 		<h3>
@@ -116,13 +109,12 @@
 		</h3>
 
 		<p>
-			Main streets that experienced prolonged stress during the pandemic
-			were highly vulnerable to negative cycles of reduced footfall, store vacancies, and
-			diminishing perceptions. Many main streets, especially ones closer
-			to city-centres, remain below 2019 visitor levels. Even before the pandemic, main streets were
-			experiencing significant challenges from long-running shifts to online and big-box consumer
-			behaviour. Our main streets must be cherished and
-			invested in if our country is going to flourish.
+			Main streets that experienced prolonged stress during the pandemic were highly vulnerable to
+			negative cycles of reduced footfall, store vacancies, and diminishing perceptions. Many main
+			streets, especially ones closer to city-centres, remain below 2019 visitor levels. Even before
+			the pandemic, main streets were experiencing significant challenges from long-running shifts
+			to online and big-box consumer behaviour. Our main streets must be cherished and invested in
+			if our country is going to flourish.
 		</p>
 	</div>
 
@@ -254,10 +246,6 @@
 		max-height: 100%; /* Ensure SVG does not exceed the height of its container */
 	}
 
-	p {
-		margin: 0;
-	}
-
 	a {
 		text-decoration: none;
 		color: var(--brandLightBlue);
@@ -269,12 +257,11 @@
 		flex: 1;
 	}
 
-	#left-hero {
-		margin: 0 2em 0 0;
-	}
+
 
 	.section {
 		display: flex;
+		flex-direction: column;
 		padding: 2em;
 		align-items: center;
 		border-bottom: 1px solid var(--brandGrey);
@@ -287,6 +274,7 @@
 	#stronger-together {
 		background-color: var(--brandLightBlue);
 		border: none;
+		flex-direction: column;
 		text-align: center;
 	}
 
@@ -294,17 +282,11 @@
 		margin: 0 auto;
 	}
 
-	/* #video-container {
-		display: flex;
-		flex-direction: row;
-		margin: 2em 0 0 0;
-	} */
-
 	.logo-group {
 		position: relative;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		flex-direction: row;
 		gap: 1em;
 	}
 
@@ -314,23 +296,15 @@
 		margin: 1em;
 		align-items: center;
 		justify-content: center;
-		grid-template-columns: repeat(4, 1fr);
-	}
-
-	#collage {
-		width: 55%;
+		grid-template-columns: repeat(1, 1fr);
 	}
 
 	.splash {
 		display: flex;
+		flex-direction: column;
 		width: 100vw;
 		border-bottom: 1px solid #eee;
-		align-items: flex-end;
-	}
-
-	.splash h1 {
-		font-size: 5em;
-		margin: 0;
+		align-items: stretch;
 	}
 
 	h3 {
@@ -363,5 +337,48 @@
 	button:hover {
 		background-color: var(--brandPink);
 		cursor: pointer;
+	}
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		.card-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	
+		.logo-group {
+			flex-direction: row;
+		}
+	}
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		.card-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.section {
+		flex-direction: row;
+		}
+	}
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		.splash {
+			flex-direction: row;
+			align-items: flex-end;
+		}
+
+		.splash h1 {
+			font-size: 5vw;
+			margin: 0;
+		}
+
+		#collage {
+			width: 50%;
+		}
+
+		#left-hero {
+			margin: 0 2em 0 0;
+		}
 	}
 </style>

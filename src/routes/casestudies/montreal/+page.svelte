@@ -288,13 +288,15 @@
 		padding: 1em;
 		border-radius: 0.6em;
 		border: 1px solid #eee;
-		width: fit-content;
+		width: 100%;
 		grid-row-gap: 1em;
 	}
 
 	.checkbox-group {
 		display: flex;
 		justify-content: center;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	.checkbox-group label {
@@ -323,6 +325,16 @@
 		.card-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
+
+		.filter-container {
+			width: fit-content;
+		}
+
+		.checkbox-group {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
 	}
 
 	/*TABLET*/

@@ -4,9 +4,9 @@
 	import correlation from '../../lib/assets/graphics/correlation-plot.png';
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import LineAreaChart from './LineAreaChart.svelte';
-	import BarChart from './BarChartTemp.svelte';
+	import BarChart from './BarChart.svelte';
 	import BarChartStacked from './BarChartStacked.svelte';
-	import CivicBarChart from './CivicBarChartTemp.svelte';
+	import CivicBarChart from './CivicBarChart.svelte';
 	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
 	import Footer from '../../lib/Footer.svelte';
 

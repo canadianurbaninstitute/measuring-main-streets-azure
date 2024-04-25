@@ -2,7 +2,7 @@
 	import Title from '../../lib/Title.svelte';
 	import malls from '../../lib/assets/graphics/malls.svg';
 	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
-	import BarChart from './BarChartTemp.svelte';
+	import BarChart from './BarChart.svelte';
 	import MultiLineChart from './MultiLineChart.svelte';
 	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
 	import Footer from '../../lib/Footer.svelte';

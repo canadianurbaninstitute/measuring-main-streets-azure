@@ -73,15 +73,6 @@
 		background-color: var(--brandDarkBlue);
 	}
 
-	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
-
-	@media only screen and (max-width: 768px) {
-		#bar,
-		.logo-group {
-			flex-direction: column;
-			text-align: center;
-		}
-	}
 
 	img {
 		height: 60px;
@@ -107,6 +98,17 @@
 
 	.footer-content img {
 		height: 100px;
+	}
+
+
+	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
+
+	@media only screen and (max-width: 768px) {
+		#bar,
+		.logo-group, .footer-content {
+			flex-direction: column;
+			text-align: center;
+		}
 	}
 
 </style>

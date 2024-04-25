@@ -65,6 +65,7 @@
 	h2 {
 		color: var(--brandDarkBlue);
 		font-weight: 400;
+		font-size: calc(1rem + 1vw);
 	}
 
 	a {

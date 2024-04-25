@@ -91,9 +91,16 @@
 		margin: 2em;
 		align-items: center;
 		justify-content: center;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(1, 1fr);
 		overflow: hidden;
 	}
+
+	@media only screen and (min-width: 992px) {
+		.card-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	
 
 	h1 {
 		margin-bottom: 0;

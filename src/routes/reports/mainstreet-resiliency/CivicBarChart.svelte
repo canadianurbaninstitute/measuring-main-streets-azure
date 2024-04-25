@@ -37,6 +37,15 @@
 
     <h4>{title}</h4>
 
+	<div class='controls'>
+		<div class="legend-container">
+			<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
+			<LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
+			<LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
+			<!-- <LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} /> -->
+		</div>
+	</div>
+
 <div class="chart">
 	<LayerCake
 		position="absolute"
@@ -86,15 +95,6 @@
 			<Bar fill={'#002940'} />
 		</Svg>
 	</LayerCake>
-</div>
-
-<div class='controls'>
-    <div class="legend-container">
-		<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-        <LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-        <LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-        <!-- <LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} /> -->
-    </div>
 </div>
 
 </div>
