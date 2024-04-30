@@ -1125,39 +1125,32 @@
 <Footer />
 
 <style>
-	:global(body) {
-		padding: 0px;
-		margin: 0px;
-		background-color: white;
-		height: 100%;
-	}
 
 	p {
 		margin-top: 0;
 	}
 
 	#map {
-		height: 90vh;
+		height: 100vh;
 		width: 100%;
 		position: relative;
 	}
 
 	#content-container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		overflow: hidden;
 		border-top: 1px solid #eee;
 	}
 
 	#sidebar {
-		width: 35vw;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		padding: 0.5em 1em 0.5em 1em;
 		border-right: 1px solid #eee;
 		overflow-y: scroll;
 		overflow-x: hidden;
-		height: 90vh;
 	}
 
 	#percentile-measures {
@@ -1252,6 +1245,16 @@
 			border-radius: 0.6em;
 			border: 1px solid #eee;
 			margin: 0 0 0.5em 0;
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		#content-container {
+			flex-direction: row;
+		}
+
+		#sidebar {
+			width: 35vw;
 		}
 	}
 

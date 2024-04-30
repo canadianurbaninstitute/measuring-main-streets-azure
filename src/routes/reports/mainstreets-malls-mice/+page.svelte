@@ -175,31 +175,22 @@
 		border-radius: 1em;
 		width: 100%;
 	}
-	/* 
-	.chart-container.bar {
-		padding: 0 20em 0 10em;
-	} */
 
 	.report-text {
 		margin: 0;
 	}
 
-	.text-container {
-		width: 60%;
-		margin: 0;
-	}
-
 	.slide {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		gap: 5em;
 		border-bottom: 1px solid var(--brandGrey);
-		padding: 5em;
+		padding: 2.5em;
 	}
 
 	.full-text {
 		border-bottom: 1px solid var(--brandGrey);
-		padding: 5em;
+		padding: 2.5em;
 		background-color: white;
 		color: var(--brandDarkBlue);
 		display: flex;
@@ -214,11 +205,33 @@
 	}
 
 	.sticky-content {
-			position: -webkit-sticky; /* for Safari */
-			position: sticky;
+			position: relative;
 			top: 1em;
 			align-self: flex-start; /* <-- this is the fix */
 		}
 
+	@media only screen and (min-width: 768px) {
+
+		.sticky-content {
+			position: -webkit-sticky; /* for Safari */
+			position: sticky;
+		}
+
+		.slide {
+		display: flex;
+		flex-direction: row;
+		padding: 5em;
+		}
+
+		.full-text {
+			padding: 5em;
+		}
+		
+		.text-container {
+		width: 60%;
+		margin: 0;
+	}
+
+	}
 
 </style>

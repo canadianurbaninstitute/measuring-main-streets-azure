@@ -45,7 +45,7 @@
         align-items: stretch;
         gap: 1em;
         border-radius: 1em;
-
+        flex-direction: column;
     }
 
     .finding {
@@ -75,6 +75,13 @@
         font-weight: 400;
         font-size: 1.2em;
         margin: 0;
+    }
+
+    @media only screen and (min-width: 768px) {
+		.message-container {
+			flex-direction: row;
+
+		}
     }
 
 </style>
