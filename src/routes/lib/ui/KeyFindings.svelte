@@ -80,7 +80,6 @@
     @media only screen and (min-width: 768px) {
 		.message-container {
 			flex-direction: row;
-
 		}
     }
 

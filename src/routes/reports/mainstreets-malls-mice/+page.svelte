@@ -134,7 +134,7 @@
 	</div>
 </div>
 
-<div class="full-text">
+<div class="key-findings">
 
 	<h3>Key Findings and Messages</h3> 
 
@@ -183,7 +183,7 @@
 	.slide {
 		display: flex;
 		flex-direction: column;
-		gap: 5em;
+		gap: 2.5em;
 		border-bottom: 1px solid var(--brandGrey);
 		padding: 2.5em;
 	}
@@ -195,7 +195,13 @@
 		color: var(--brandDarkBlue);
 		display: flex;
 		flex-direction: column;
+	}
+
+	.key-findings {
+		display: flex;
+		flex-direction: column;
 		gap: 1em;
+		padding: 2.5em;
 	}
 
 	h3 {
@@ -221,6 +227,7 @@
 		display: flex;
 		flex-direction: row;
 		padding: 5em;
+		gap: 5em;
 		}
 
 		.full-text {

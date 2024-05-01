@@ -59,7 +59,7 @@
 
 	<HeroCard
 		link={'/reports'}
-		cardImage={'https://i.imgur.com/PQqqkhl.png'}
+		cardImage={'https://i.imgur.com/JOQ6NAp.png'}
 		title={'Reports'}
 		subtitle={''}
 	/>
@@ -73,7 +73,7 @@
 
 	<HeroCard
 		link={'/tools'}
-		cardImage={'https://i.imgur.com/gj9y9QY.png'}
+		cardImage={'https://i.imgur.com/xoJuf8K.png'}
 		title={'Tools'}
 		subtitle={''}
 	/>

@@ -1,6 +1,6 @@
 <script>
 	import Title from '../../lib/Title.svelte';
-	import toronto from '../../lib/assets/graphics/toronto-large.jpeg';
+	import blank from '../../lib/assets/graphics/blank.svg';
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
@@ -12,7 +12,7 @@
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
 
-<Title outline={toronto} name={'Toronto'} location={'Regional Report'} />
+<Title outline={blank} name={'Toronto'} location={'Regional Report'} bg={'https://i.imgur.com/SPNVRmc.jpeg'} />
 
 <div class="full-text">
 	<p>
@@ -165,7 +165,7 @@
 	.slide {
 		display: flex;
 		flex-direction: column;
-		gap: 5em;
+		gap: 2.5em;
 		border-bottom: 1px solid var(--brandGrey);
 		padding: 2.5em;
 	}
@@ -177,7 +177,6 @@
 		color: var(--brandDarkBlue);
 		display: flex;
 		flex-direction: column;
-		gap: 1em;
 	}
 
 	h3 {
@@ -202,6 +201,7 @@
 			display: flex;
 			flex-direction: row;
 			padding: 5em;
+			gap: 5em;
 		}
 
 		.full-text {

@@ -5,6 +5,7 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format } from 'd3-format';
+	import Svelecte from 'svelecte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	import MultiLine from '../../lib/chartcomponents/MultiLine.svelte';
@@ -14,7 +15,8 @@
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 
-	import data from '../../lib/data/reportdata/toronto/recovery-toronto.csv';
+	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
+	import { dataset } from '../../lib/data/reportdata/toronto/selectLabels.js';
 
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series
@@ -25,9 +27,26 @@
 
 	const xKeyCast = timeParse('%Y-%m-%d');
 
-	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
+	//const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
+	const intialSeriesNames = [
+		'downtown main streets',
+		'malls',
+		'neighbourhood main streets',
+		'small town main streets'
+	];
 
+	let seriesNames = [
+		'downtown main streets',
+		'malls',
+		'neighbourhood main streets',
+		'small town main streets'
+	];
+
+	let seriesNamesCaseStudies = [];
 	let seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+	let newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+
+	let seriesColorsFaded = ['#ddd'];
 
 	/* Cast values */
 	data.forEach((d) => {
@@ -41,25 +60,110 @@
 	const formatLabelY = (d) => format(`~s`)(d) + '%';
 	const formatValue = (d) => format('.0f')(d) + '%';
 
+	let selectedValues = [];
+	let selectedLabels;
 
 	let groupedData;
+	let groupedDataCategories;
 
+	let filteredData = data.map(function (dataEntry) {
+		let newObj = { date: dataEntry.date };
+		intialSeriesNames.forEach(function (key) {
+			newObj[key] = dataEntry[key];
+		});
+		return newObj;
+	});
+
+	groupedDataCategories = groupLonger(data, seriesNames, {
+		groupTo: zKey,
+		valueTo: yKey
+	});
 
 	groupedData = groupLonger(data, seriesNames, {
 		groupTo: zKey,
 		valueTo: yKey
 	});
 
+	function handleChange(e) {
+
+		// adding lines + filtering data
+
+		seriesColors = ['#ddd', '#ddd', '#ddd', '#ddd'];
+		newLineSeriesColors = ['#00ADF2'];
+
+
+		// look at the current values in the list and add them to the casestudies series names
+		selectedValues.forEach((value) => seriesNamesCaseStudies.push(value));
+
+		// update the data for the interactive newly added lines using the data
+		groupedData = groupLonger(data, seriesNamesCaseStudies, {
+			groupTo: zKey,
+			valueTo: yKey
+		});
+
+		// filtered data for GroupLabels for the newly added lines
+
+		filteredData = data.map(function (dataEntry) {
+			let newObj = { date: dataEntry.date };
+			selectedValues.forEach(function (key) {
+				newObj[key] = dataEntry[key];
+			});
+			return newObj;
+		});
+
+		// REMOVING THE LINES
+
+		// if selected values is empty
+		if (selectedValues.length === 0) {
+
+			seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+			newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
+
+
+
+			// reset previously selected casestudies
+			seriesNamesCaseStudies = [];
+
+			// reset all data to be the initial 4 categories
+			groupedData = groupLonger(data, intialSeriesNames, {
+				groupTo: zKey,
+				valueTo: yKey
+			});
+
+			// reset filtered data for group labels to be initial 4 categories
+
+			filteredData = data.map(function (dataEntry) {
+				let newObj = { date: dataEntry.date };
+				intialSeriesNames.forEach(function (key) {
+					newObj[key] = dataEntry[key];
+				});
+				return newObj;
+			});
+		}
+	}
 </script>
 
 <div class="chart-container">
 	<h4>Visitor Levels (%) relative to the same month in 2019</h4>
+
 	<div class="controls">
+		<Svelecte
+			on:change={handleChange}
+			bind:value={selectedValues}
+			multiple
+			options={dataset.casestudies()}
+			placeholder="Add a street"
+			clearable
+		/>
 		<div class="legend-container">
 			<LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={seriesColors[0]} />
 			<LegendItem variant={'line'} label={'Malls'} bordercolor={seriesColors[1]} />
 			<LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={seriesColors[2]} />
 			<LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={seriesColors[3]} />
+
+			{#each selectedValues as value}
+			<LegendItem variant={'line'} label={value} bordercolor={'#00ADF2'} />
+			{/each}
 		</div>
 
 
@@ -74,7 +178,23 @@
 			z={zKey}
 			yDomain={[0, 160]}
 			zScale={scaleOrdinal()}
-			zRange={seriesColors}
+			zRange={seriesColorsFaded}
+			flatData={flatten(groupedDataCategories, 'values')}
+			data={groupedDataCategories}
+		>
+			<Svg>
+				<MultiLine />
+			</Svg>
+		</LayerCake>
+		<LayerCake
+			position="absolute"
+			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+			x={xKey}
+			y={yKey}
+			z={zKey}
+			yDomain={[0, 160]}
+			zScale={scaleOrdinal()}
+			zRange={newLineSeriesColors}
 			flatData={flatten(groupedData, 'values')}
 			data={groupedData}
 		>
@@ -91,7 +211,7 @@
 			</Svg>
 
 			<Html>
-				<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue} />
+				<SharedTooltip formatTitle={formatLabelX} dataset={filteredData} {formatValue} />
 			</Html>
 		</LayerCake>
 	</div>
@@ -113,7 +233,7 @@
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 1em;
+		gap: 2em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
@@ -135,6 +255,7 @@
 		border: 1px solid var(--brandGrey);
 		margin: 1em 0 0 0;
 		padding: 0.5em;
+		flex-wrap: wrap;
 	}
 
 

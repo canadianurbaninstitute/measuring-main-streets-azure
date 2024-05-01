@@ -1131,9 +1131,10 @@
 	}
 
 	#map {
-		height: 100vh;
+		height: 50vh;
 		width: 100%;
 		position: relative;
+		order: -1;
 	}
 
 	#content-container {
@@ -1148,9 +1149,9 @@
 		display: flex;
 		flex-direction: column;
 		padding: 0.5em 1em 0.5em 1em;
-		border-right: 1px solid #eee;
 		overflow-y: scroll;
 		overflow-x: hidden;
+		border-top: 1px solid #eee;
 	}
 
 	#percentile-measures {
@@ -1166,10 +1167,10 @@
 	#controls {
 		display: flex;
 		flex-direction: column;
-		border-left: 1px solid #eee;
 		padding: 0.5em;
-		width: 25vw;
+		width: 100%;
 		justify-content: space-between;
+		border-top: 1px solid #eee;
 	}
 
 	#resetButton {
@@ -1238,14 +1239,13 @@
 		padding: 0.1em 0 0.1em 0;
 	}
 
-	@media screen and (min-width: 640px) {
-		.legend {
-			background-color: #fff;
-			padding: 1em;
-			border-radius: 0.6em;
-			border: 1px solid #eee;
-			margin: 0 0 0.5em 0;
-		}
+	.legend {
+		background-color: #fff;
+		padding: 1em;
+		border-radius: 0.6em;
+		border: 1px solid #eee;
+		margin: 0 0 0.5em 0;
+		order: 0;
 	}
 
 	@media only screen and (min-width: 768px) {
@@ -1255,6 +1255,18 @@
 
 		#sidebar {
 			width: 35vw;
+			border-right: 1px solid #eee;
+
+		}
+
+		#controls {
+			width: 25vw;
+			border-left: 1px solid #eee;
+		}
+
+		#map {
+			height: 100vh;
+			order: 0;
 		}
 	}
 
