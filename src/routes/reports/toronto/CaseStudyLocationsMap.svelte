@@ -114,9 +114,15 @@
 
 	.legend-container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		border-radius: 0.5em;
 		border: 1px solid var(--brandGrey);
 		padding: 0.5em;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.legend-container {
+		flex-direction: row;
+		}
 	}
 </style>

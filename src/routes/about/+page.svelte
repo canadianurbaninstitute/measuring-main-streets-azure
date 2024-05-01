@@ -47,7 +47,7 @@
 	</div>
 </div>
 
-<div class="image-container">
+<div class="collage-image-container">
 <img src={collage} alt="collage" id="collage"/>
 </div>
 

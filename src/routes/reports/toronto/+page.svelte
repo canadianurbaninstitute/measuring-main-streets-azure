@@ -22,8 +22,8 @@
 	<p>
 		Main street businesses and civic infrastructure play a crucial role in the day-to-day lives of residents. But when main streets suffer, people suffer. The COVID-19 pandemic created significant pain on main streets, leading to the closure of businesses, and subsequently, to empty storefronts. While some main streets in the Toronto region have rebounded, many have not fully recovered. 
 	</p>
-	<p><a href="/reports/mainstreet-resiliency">Our research shows that the most resilient main streets are those most closely aligned with their immediate local community</a>. Opportunities for independent business and neighbourhood scale civic infrastructure are key building blocks for pushing back against longer-term threats to main streets, such as <a href='reports/mainstreets-malls-mice'>ecommerce and regional shopping centres.</a></p>
-	<p>Unfortunately, <a href='/reports/mainstreets-infrastructure-equity'> community resources are not equitably distributed within urban regions </a>, including in the Toronto region. And, in more recently built suburban neighbourhoods that have not been developed around a main street, there is a scarcity of civic infrastructure. This research brief looks at main streets in relation to resiliency, community, and equity, drawing on 20 Toronto-region main street case studies.</p>
+	<p>Our researchshows that the <a href="/reports/mainstreet-resiliency">most resilient main streets are those most closely aligned with their immediate local community</a>. Opportunities for independent business and neighbourhood scale civic infrastructure are key building blocks for pushing back against longer-term threats to main streets, such as <a href='reports/mainstreets-malls-mice'>ecommerce and regional shopping centres.</a></p>
+	<p>Unfortunately, <a href='/reports/mainstreets-infrastructure-equity'> community resources are not equitably distributed within urban regions</a>, including in the Toronto region. And, in more recently built suburban neighbourhoods that have not been developed around a main street, there is a scarcity of civic infrastructure. This research brief looks at main streets in relation to resiliency, community, and equity, drawing on 20 Toronto-region main street case studies.</p>
 </div>
 
 <div class="slide">
@@ -128,8 +128,12 @@
 		</div>
 	</div>
 
-	<div class="chart-container bar sticky-content" />
+	<div class="image-container">
+		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/DowntownYonge/3_Civic/IMG_8921" alt="downtownyonge">
+		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/Weston/2_Built_Form/IMG_9546" alt="weston">
+	</div>
 </div>
+
 
 <div class="slide">
 	<div class="text-container sticky-content">
@@ -146,16 +150,29 @@
 		</div>
 	</div>
 
-	<div class="chart-container bar sticky-content" />
+	<div class="image-container">
+		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/KingstonRoad/2_Built_Form/IMG_0954" alt="kingstonroad">
+		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/MississaugaDundas/2_Built_Form/IMG_1247" alt="missdundas">
+	</div>
 </div>
 
 <Footer />
 
 <style>
 	.chart-container {
-		padding: 0em;
+		padding: 0;
 		border-radius: 1em;
 		width: 100%;
+	}
+
+	.image-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	.report-image {
+		width: 50vw;
 	}
 
 	.report-text {

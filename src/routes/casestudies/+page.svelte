@@ -34,7 +34,7 @@
 	<Card link={'/casestudies/edmonton/'} cardImage={Edmonton} streetName={'Edmonton'} />
 </div>
 
-<div class="image-container">
+<div class="collage-image-container">
 	<img src="https://i.imgur.com/0xWjVS8.png" alt="region-collage" />
 </div>
 <Footer />
