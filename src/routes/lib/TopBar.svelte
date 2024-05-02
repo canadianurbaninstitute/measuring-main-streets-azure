@@ -3,6 +3,7 @@
 	import mms_logo from '../lib/assets/logos/mms_logo.svg';
 	import mms_logo_alt from '../lib/assets/logos/mms_logo_alt.svg';
 	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
 
 	// Initial image source
 	let imageSrc = mms_logo;
@@ -16,9 +17,35 @@
 	function onMouseOut() {
 		imageSrc = mms_logo;
 	}
+
+	let menuOpen = false; // State to control the mobile menu visibility
+
+	// Function to toggle the menu's visibility
+	function toggleMenu() {
+	menuOpen = !menuOpen;
+	}
+
+	// Close the menu when resizing to a large screen
+	function handleResize() {
+	if (window.innerWidth > 768) {
+		menuOpen = false;
+	}
+	}
+
+	// Add event listener on mount and clean up on destroy
+	onMount(() => {
+		window.addEventListener('resize', handleResize);
+	return () => {
+		window.removeEventListener('resize', handleResize);
+	};
+	});
+
 </script>
 
 <div id="bar">
+	<!-- <div id="hamburger">
+		<Icon icon="material-symbols:menu" width="2em" height="2em" style="color: #002940"/>
+	</div> -->
 	<div id="logo-group">
 		<a href="/"
 			><img
@@ -168,8 +195,7 @@
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
 
 	@media only screen and (max-width: 768px) {
-		#bar,
-		#logo-group {
+		#bar {
 			flex-direction: column;
 		}
 	}
@@ -181,16 +207,4 @@
 	img:hover {
 		cursor: pointer;
 	}
-
-	/* h2 {
-		margin: 0;
-		font-family: 'Gelasio', serif;
-		font-weight: 400;
-		max-width: 450px;
-		color: var(--brandLightBlue);
-	}
-
-	h2:hover {
-		color: var(--brandDarkBlue);
-	} */
 </style>

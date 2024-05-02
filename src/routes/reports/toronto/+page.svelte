@@ -129,8 +129,14 @@
 	</div>
 
 	<div class="image-container">
+		<div>
 		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/DowntownYonge/3_Civic/IMG_8921" alt="downtownyonge">
+		<h5>Downtown Yonge</h5>
+		</div>
+		<div>
 		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/Weston/2_Built_Form/IMG_9546" alt="weston">
+		<h5>Weston</h5>
+		</div>
 	</div>
 </div>
 
@@ -151,8 +157,14 @@
 	</div>
 
 	<div class="image-container">
+		<div>
 		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/KingstonRoad/2_Built_Form/IMG_0954" alt="kingstonroad">
+		<h5>Kingston Road</h5>
+		</div>
+		<div>
 		<img class='report-image' src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/MississaugaDundas/2_Built_Form/IMG_1247" alt="missdundas">
+		<h5>Dundas Street, Mississauga</h5>
+		</div>
 	</div>
 </div>
 
@@ -172,7 +184,7 @@
 	}
 
 	.report-image {
-		width: 50vw;
+		width: 100%;
 	}
 
 	.report-text {
@@ -228,6 +240,10 @@
 		.text-container {
 			width: 60%;
 			margin: 0;
+		}
+
+		.report-image {
+			width: 50vw;
 		}
 	}
 </style>

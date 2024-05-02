@@ -335,9 +335,11 @@
 
 <style>
 	#map {
-		height: 80vh;
+		height: 50vh;
 		width: 100%;
 		position: relative;
+		order: -1;
+		border-bottom: 1px solid #eee;
 	}
 
 	h4 {
@@ -346,7 +348,7 @@
 
 	.map-container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		border: 1px solid var(--brandGrey);
 	}
 
@@ -356,8 +358,6 @@
 		border-right: 1px solid var(--brandGrey);
 		padding: 1em;
 		gap: 1em;
-		width: 30vw;
-		max-width: 30vw;
 	}
 
 	.legend {
@@ -407,5 +407,24 @@
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
+	}
+
+	@media only screen and (min-width: 768px) {
+
+		#map {
+			height: 80vh;
+			order: 1;
+
+		}
+
+		.map-container {
+			flex-direction: row;
+		}
+
+		.controls {
+			width: 30vw;
+			max-width: 30vw;
+		}
+
 	}
 </style>
