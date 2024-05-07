@@ -264,7 +264,7 @@
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'Downtown Yonge'}
+							label={'Downtown Yonge BIA'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>

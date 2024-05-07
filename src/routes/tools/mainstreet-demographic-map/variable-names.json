@@ -1,161 +1,146 @@
 [
   {
-    "variable": "Pop",
+    "variable": "population",
     "name": "Population",
     "group": "population"
   },
   {
-    "variable": "Density",
+    "variable": "population_density",
     "name": "Population Density",
     "group": "population"
   },
   {
-    "variable": "totl_mp",
-    "name": "Total Employment",
-    "group": "employment"
-  },
-  {
-    "variable": "HHs",
-    "name": "# of Households",
-    "group": "housing"
-  },
-  {
-    "variable": "AvgAge",
+    "variable": "average_age",
     "name": "Average Age",
     "group": "resident age"
   },
   {
-    "variable": "Age0_19",
+    "variable": "age_0_19",
     "name": "Age 0 to 19",
     "group": "resident age"
   },
   {
-    "variable": "Ag20_64",
+    "variable": "age_20_64",
     "name": "Age 20 to 64",
     "group": "resident age"
   },
   {
-    "variable": "Ag65_Ov",
+    "variable": "age_65_Over",
     "name": "Age 65 and Over",
     "group": "resident age"
   },
   {
-    "variable": "HHSize",
+    "variable": "household_size",
     "name": "Average Household Size",
     "group": "housing"
   },
   {
-    "variable": "ttl_dwl",
-    "name": "# of Total Dwellings",
-    "group": "housing"
-  },
-  {
-    "variable": "SinDtch",
+    "variable": "single_detached",
     "name": "Single Detached Housing",
     "group": "housing"
   },
   {
-    "variable": "SemDtch",
+    "variable": "semi_detached",
     "name": "Semi-Detached Housing",
     "group": "housing"
   },
   {
-    "variable": "AptMor5",
+    "variable": "apartment_more_5",
     "name": "Apartment (>5 stories)",
     "group": "housing"
   },
   {
-    "variable": "AptLss5",
+    "variable": "apartment_less_5",
     "name": "Apartment (<5 stories)",
     "group": "housing"
   },
   {
-    "variable": "Duplex",
+    "variable": "duplex",
     "name": "Duplex / Row Housing",
     "group": "housing"
   },
   {
-    "variable": "UniDeg",
+    "variable": "university_degree",
     "name": "Bachelors Degree",
     "group": "demographic"
   },
   {
-    "variable": "MobCar",
+    "variable": "mobility_car",
     "name": "Car",
     "group": "primary commuting method"
   },
   {
-    "variable": "MobPT",
+    "variable": "mobility_public_transit",
     "name": "Public Transit",
     "group": "primary commuting method"
   },
   {
-    "variable": "MobAct",
+    "variable": "mobility_active_transit",
     "name": "Active Transit",
     "group": "primary commuting method"
   },
   {
-    "variable": "VM",
+    "variable": "visible_minorities",
     "name": "Visible Minorities",
     "group": "demographic"
   },
   {
-    "variable": "Indig",
+    "variable": "indigenous",
     "name": "Indigenous",
     "group": "demographic"
   },
   {
-    "variable": "ImmNPR",
+    "variable": "immigrants_non_permanent_residents",
     "name": "Recent Immigrants",
     "group": "demographic"
   },
   {
-    "variable": "LanEng",
+    "variable": "language_english",
     "name": "English",
     "group": "primary language"
   },
   {
-    "variable": "LanFr",
+    "variable": "language_french",
     "name": "French",
     "group": "primary language"
   },
   {
-    "variable": "LanOth",
+    "variable": "language_other",
     "name": "Other Language",
     "group": "primary language"
   },
   {
-    "variable": "PopChng",
+    "variable": "population_change",
     "name": "Population Change (since 2016)",
     "group": "population"
   },
   {
-    "variable": "AvgEmpI",
+    "variable": "average_employment_income",
     "name": "Average Employment Income",
     "group": "employment"
   },
   {
-    "variable": "CommT15",
+    "variable": "commute_15",
     "name": "Commutes under 15 minutes",
     "group": "commute time"
   },
   {
-    "variable": "CommT30",
+    "variable": "commute_30",
     "name": "Commutes between 15 - 30 minutes",
     "group": "commute time"
   },
   {
-    "variable": "CommT45",
+    "variable": "commute_45",
     "name": "Commutes between 30 - 45 minutes",
     "group": "commute time"
   },
   {
-    "variable": "CommT60",
+    "variable": "commute_60",
     "name": "Commutes between 45 - 60 minutes",
     "group": "commute time"
   },
   {
-    "variable": "CmmOv60",
+    "variable": "commute_over_60",
     "name": "Commutes over 60 minutes",
     "group": "commute time"
   }
