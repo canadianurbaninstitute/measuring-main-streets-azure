@@ -290,7 +290,7 @@
 				business_food_drink = mainstreet_data[0].food_drink;
 				business_retail = mainstreet_data[0].retail;
 				business_services = mainstreet_data[0].local_services;
-				independent_business = mainstreet_data[0].business_independence_index.toFixed(2);
+				independent_business = mainstreet_data[0].business_independence_index;
 				retail_min = mainstreet_data[0].retail_min;
 				retail_max = mainstreet_data[0].retail_max;
 
@@ -318,7 +318,7 @@
 				populationchange =
 					' (' +
 					(mainstreet_data[0].population_change >= 0 ? '+' : '') +
-					mainstreet_data[0].population_change.toFixed(1) +
+					mainstreet_data[0].population_change +
 					'%)';
 
 				// demographic
@@ -326,43 +326,43 @@
 				// income + education
 
 				income = parseFloat(
-					mainstreet_data[0].average_employment_income.toFixed(0)
+					mainstreet_data[0].average_employment_income
 				).toLocaleString();
-				education = mainstreet_data[0].university_degree.toFixed(0);
+				education = mainstreet_data[0].university_degree;
 
 				// age
 
-				average_age = mainstreet_data[0].average_age.toFixed(0);
-				age_0_19 = mainstreet_data[0].age_0_19.toFixed(0);
-				age_20_64 = mainstreet_data[0].age_20_64.toFixed(0);
-				age_over_65 = mainstreet_data[0].age_65_Over.toFixed(0);
+				average_age = mainstreet_data[0].average_age;
+				age_0_19 = mainstreet_data[0].age_0_19;
+				age_20_64 = mainstreet_data[0].age_20_64;
+				age_over_65 = mainstreet_data[0].age_65_Over;
 
 				// equity
 
-				immigrants = mainstreet_data[0].immigrants_non_permanent_residents.toFixed(0);
-				visibleminority = mainstreet_data[0].visible_minorities.toFixed(0);
-				indigenous = mainstreet_data[0].indigenous.toFixed(0);
+				immigrants = mainstreet_data[0].immigrants_non_permanent_residents;
+				visibleminority = mainstreet_data[0].visible_minorities;
+				indigenous = mainstreet_data[0].indigenous;
 
 				// commute
 
-				car = mainstreet_data[0].mobility_car.toFixed(0);
-				public_transit = mainstreet_data[0].mobility_public_transit.toFixed(0);
-				active_transit = mainstreet_data[0].mobility_active_transit.toFixed(0);
+				car = mainstreet_data[0].mobility_car;
+				public_transit = mainstreet_data[0].mobility_public_transit;
+				active_transit = mainstreet_data[0].mobility_active_transit;
 
 				// housing
 
-				dwellings = mainstreet_data[0].total_dwellings.toFixed(0);
-				singledetached = mainstreet_data[0].single_detached.toFixed(0);
-				semidetached = mainstreet_data[0].semi_detached.toFixed(0);
-				duplex = mainstreet_data[0].duplex.toFixed(0);
-				apartments_more_than_5 = mainstreet_data[0].apartment_more_5.toFixed(0);
-				apartments_less_than_5 = mainstreet_data[0].apartment_less_5.toFixed(0);
+				dwellings = mainstreet_data[0].total_dwellings;
+				singledetached = mainstreet_data[0].single_detached;
+				semidetached = mainstreet_data[0].semi_detached;
+				duplex = mainstreet_data[0].duplex;
+				apartments_more_than_5 = mainstreet_data[0].apartment_more_5;
+				apartments_less_than_5 = mainstreet_data[0].apartment_less_5;
 
 				//language
 
-				english = mainstreet_data[0].language_english.toFixed(0);
-				french = mainstreet_data[0].language_french.toFixed(0);
-				otherlang = mainstreet_data[0].language_other.toFixed(0);
+				english = mainstreet_data[0].language_english;
+				french = mainstreet_data[0].language_french;
+				otherlang = mainstreet_data[0].language_other;
 			}
 
 			async function returnPercentileData() {

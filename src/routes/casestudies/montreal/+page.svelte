@@ -100,7 +100,7 @@
 			type: 'downtown'
 		},
 		{
-			link: '/casestudies/montreal/avevictoria',
+			link: '/casestudies/montreal/avenuevictoria',
 			image: AveVictoria,
 			name: 'Avenue Victoria',
 			type: 'suburban'
