@@ -102,15 +102,16 @@
 	nav ul {
 		list-style: none;
 		margin: 0;
-		padding: 0;
+		padding: 2em;
 		display: flex;
+		gap: 2em;
+		flex-wrap: wrap;
 	}
 
 	nav ul a {
 		color: var(--brandDarkBlue);
 		text-decoration: none;
-		padding-right: 2em;
-		margin-bottom: 0.4em;
+		text-align: center;
 	}
 
 	nav ul a:hover {
@@ -135,6 +136,7 @@
 		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		z-index: 3;
+		padding: 0;
 	}
 
 	.dropdown-menu li:last-child {
@@ -181,7 +183,7 @@
 
 	#bar {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		border-bottom: 1px solid #eee;
 		align-items: center;
 		width: 100%;
@@ -194,9 +196,13 @@
 
 	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
 
-	@media only screen and (max-width: 768px) {
+	@media only screen and (min-width: 768px) {
 		#bar {
-			flex-direction: column;
+			flex-direction: row;
+		}
+
+		nav ul {
+			padding: 0 2em 0 0;
 		}
 	}
 

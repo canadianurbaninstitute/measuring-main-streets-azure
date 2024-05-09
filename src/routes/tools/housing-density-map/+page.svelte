@@ -353,7 +353,7 @@
 
 .controls {
 	width: 30vw;
-	max-width: 30vw;
+	min-width: 25vw;
 }
 
 }

@@ -126,17 +126,17 @@
   },
   {
     "variable": "commute_30",
-    "name": "Commutes between 15 - 30 minutes",
+    "name": "Commutes: 15 to 30 minutes",
     "group": "commute time"
   },
   {
     "variable": "commute_45",
-    "name": "Commutes between 30 - 45 minutes",
+    "name": "Commutes: 30 to 45 minutes",
     "group": "commute time"
   },
   {
     "variable": "commute_60",
-    "name": "Commutes between 45 - 60 minutes",
+    "name": "Commutes: 45 - 60 minutes",
     "group": "commute time"
   },
   {
