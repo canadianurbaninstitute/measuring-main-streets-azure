@@ -40,9 +40,9 @@
 			type: 'downtown'
 		},
 		{
-			link: '/casestudies/edmonton/104streetnw',
-			image: HundredFourStreetNW,
-			name: '104 Street NW',
+			link: '/casestudies/edmonton/104streetdowntown',
+			image: HundredFiveStreetNW,
+			name: '104 Street Downtown',
 			type: 'suburban'
 		},
 		{
@@ -106,9 +106,9 @@
 			type: 'suburban'
 		},
 		{
-			link: '/casestudies/edmonton/105streetnw',
-			image: HundredFiveStreetNW,
-			name: '105 Street NW',
+			link: '/casestudies/edmonton/104streetnw',
+			image: HundredFourStreetNW,
+			name: '104 Street NW',
 			type: 'suburban'
 		},
 		{
