@@ -212,7 +212,7 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={HundredFiveStreetNW} name={'105 Street NW'} location={'Edmonton, Alberta'} />
+	<Title outline={HundredFiveStreetNW} name={'104 Street Downtown'} location={'Edmonton, Alberta'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -231,7 +231,7 @@ setConfig({
 						/>
 						<LegendItem
 							variant={'polygon'}
-							label={'105 Street NW'}
+							label={'104 Street Downtown'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -259,7 +259,7 @@ setConfig({
 					<div class="legend-container">
 						<LegendItem
 							variant={'polygon'}
-							label={'105 Street NW'}
+							label={'104 Street Downtown'}
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
@@ -764,7 +764,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Summary name={'105 Street NW'} location={'Edmonton, Alberta'} />
+	<Summary name={'104 Street Downtown'} location={'Edmonton, Alberta'} />
 </main>
 
 <style>

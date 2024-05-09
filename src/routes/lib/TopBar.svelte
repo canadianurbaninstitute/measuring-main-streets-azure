@@ -106,6 +106,7 @@
 		display: flex;
 		gap: 2em;
 		flex-wrap: wrap;
+		justify-content: center;
 	}
 
 	nav ul a {
