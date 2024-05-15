@@ -365,7 +365,7 @@ setConfig({
 									'civicinfra-edmonton-education',
 									'civicinfra-edmonton-govt-community',
 									'civicinfra-edmonton-arts-culture',
-									'civicinfra-edmonton-education',
+									'civicinfra-edmonton-health',
 									'civicinfra-edmonton-recreation'
 								]}
 								minZoom={13} maxZoom={13.3}

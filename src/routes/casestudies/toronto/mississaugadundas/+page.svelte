@@ -366,7 +366,7 @@
 									'civicinfra-toronto-education',
 									'civicinfra-toronto-govt-community',
 									'civicinfra-toronto-arts-culture',
-									'civicinfra-toronto-education',
+									'civicinfra-toronto-health',
 									'civicinfra-toronto-recreation'
 								]}
 								minZoom={13} maxZoom={13.3}

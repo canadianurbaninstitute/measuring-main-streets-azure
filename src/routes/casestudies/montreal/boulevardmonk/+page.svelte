@@ -240,7 +240,7 @@
 									'civicinfra-montreal-education',
 									'civicinfra-montreal-govt-community',
 									'civicinfra-montreal-arts-culture',
-									'civicinfra-montreal-education',
+									'civicinfra-montreal-health',
 									'civicinfra-montreal-recreation'
 								]}
 								minZoom={13}
