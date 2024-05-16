@@ -87,7 +87,7 @@ subtitle={''}
 
 
 	<ReportCard
-	link={"/"}
+	link={"/reports/montreal"}
 	cardImage={Montreal}
 	title={'Montreal'}
 	subtitle={'Québec'}
