@@ -59,7 +59,7 @@ subtitle={''}
 	/>
 
 	<ReportCard
-	link={"/"}
+	link={"https://canurb.org/wp-content/uploads/Data-Driven-Approaches-to-Main-Street-Challenges.pdf"}
 	cardImage={opennorth}
 	title={'Open North: Data Driven Approaches to Main Street Challenges'}
 	subtitle={'Planning data and technology projects to support smart civic infrastructure investments'}
@@ -94,7 +94,7 @@ subtitle={''}
 	/>
 
 	<ReportCard
-	link={"/"}
+	link={"/reports/edmonton"}
 	cardImage={Edmonton}
 	title={'Edmonton'}
 	subtitle={'Alberta'}

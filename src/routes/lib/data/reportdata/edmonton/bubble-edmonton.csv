@@ -1,0 +1,26 @@
+id,name,ms_type,independent_business_rank,civic_infra_share_rank,resiliency_score
+1,104StreetDowntown,Downtown and CBD,6,10,1279
+2,97StreetDowntown,Downtown and CBD,2,24,1113
+3,JasperAve,Downtown and CBD,10,3,1415
+4,107AvenueNW,Downtown and CBD,13,12,1910
+5,BonnieDoonSC,Regional Mall,21,15,2007
+6,KingswayMall,Regional Mall,24,14,2173
+7,MillWoodsTownCentre,Regional Mall,15,23,2207
+8,SouthgateCentre,Regional Mall,25,22,2216
+9,WestEdmontonMall,Regional Mall,18,25,2533
+10,100Ave,Small Town,5,4,2233
+11,50Ave,Small Town,20,8,2077
+12,50StreetBeaumont,Small Town,17,9,3331
+13,50StreetStonyPlain,Small Town,3,17,2169
+14,104StreetNW,Urban and Suburban Main Street,4,7,1751
+15,118AlbertaAve,Urban and Suburban Main Street,7,11,1903
+16,118Beverly,Urban and Suburban Main Street,12,6,2384
+17,124StreetNW,Urban and Suburban Main Street,1,2,2139
+18,137AvenueNW,Urban and Suburban Main Street,23,20,2541
+19,149StreetNW,Urban and Suburban Main Street,16,5,2783
+20,82AvenueNW,Urban and Suburban Main Street,8,18,1867
+21,97StreetNorth,Urban and Suburban Main Street,14,16,2351
+22,ParsonsRoadSW,Urban and Suburban Main Street,22,20,2109
+23,SherwoodDrive,Urban and Suburban Main Street,11,1,2033
+24,StAlbertRoad,Urban and Suburban Main Street,19,13,2080
+25,StonyPlainRoadNW,Urban and Suburban Main Street,9,19,1972

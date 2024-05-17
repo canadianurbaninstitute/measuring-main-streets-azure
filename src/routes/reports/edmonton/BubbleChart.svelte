@@ -9,7 +9,7 @@
     import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
   
     // This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../lib/data/reportdata/montreal/bubble-montreal.csv';
+	import data from '../../lib/data/reportdata/edmonton/bubble-edmonton.csv';
 
     console.log(data);
 
