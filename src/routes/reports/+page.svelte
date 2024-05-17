@@ -27,7 +27,7 @@
 
 <div style="margin: 2em">
 <ReportCard
-link={"/reports"}
+link={"/reports/executive-summary"}
 cardImage={mainstreets}
 title={'Executive Summary: Measuring Main Streets'}
 subtitle={''}

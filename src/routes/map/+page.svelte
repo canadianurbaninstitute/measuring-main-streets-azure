@@ -645,8 +645,10 @@
 <div class="hero">
 	<h1>Main Street Map</h1>
 	<p>
-		This is a map of main streets in Canada. Search for a place or navigate the map using the
-		controls and click on a main street to see information associated with it.
+		This is a map of all the main streets in Canada. Search for place or navigate the map using the
+		controls; and then click on a street segment to see information associated with it in the panel on the left. You can toggle between absolute values and percentiles to view the main street in relation to others.
+	</p>
+	<p>	For more information on how we classified main streets and data sources, read our <a href='/about/data-methodology'>Data Sources & Methodology</a>.
 	</p>
 </div>
 
@@ -1031,6 +1033,7 @@
 				</div>
 			</div>
 			<div class="legend" id="business-civic-legend">
+				<h5><i>Click on a layer to toggle it on or off</i></h5>
 				<div id="case-studies">
 					<LegendItem
 						variant={'polygon'}

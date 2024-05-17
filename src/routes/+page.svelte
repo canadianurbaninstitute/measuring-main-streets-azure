@@ -205,9 +205,9 @@
 	<div class="hero">
 		<h1>Learn More</h1>
 		<p>
-			Have questions or enquiries about the platform? Read the <a href="/">FAQ</a>, learn more about
-			the <a href="/about">Platform</a>, or read our <a href="/">Methodology & Data Sources</a>. You
-			can also reach out to us directly via the <a href="/">Contact</a> page.
+			Have questions or enquiries about the platform? Read the <a href="/about/faq">FAQ</a>, learn more about
+			the <a href="/about">Platform</a>, or read our <a href="/about/data-methodology">Methodology & Data Sources</a>. You
+			can also reach out to us directly via the <a href="/about/contact">Contact</a> page.
 		</p>
 	</div>
 </div>
@@ -252,7 +252,7 @@
 	}
 
 	.hero {
-		margin: 2em;
+		margin: 2em 2em 0 2em;
 		gap: 1em;
 		flex: 1;
 	}
