@@ -102,8 +102,8 @@
 				Among all 20 Toronto-region main streets, those in small towns were generally the most
 				resilient, with <a href="/casestudies/toronto/sutton">Sutton</a> and <a href="/casestudies/toronto/caledoneast">Caledon East</a> leading the way. The most resilient neighbourhood
 				main street was  <a href="/casestudies/toronto/thorncliffepark">Thorncliffe Park</a>, which had a high level of visitors (30%) coming from less
-				than 1 km away. More car-oriented main streets such as those in <a href="/casestudies/toronto/pickering">Pickering</a>,  <a href="/casestudies/toronto/markhamhwy7">Markham</a>  ,
-				<a href="/casestudies/toronto/goldenmile">Scarborough </a>, and <a href="/casestudies/toronto/mississaugadundas">Mississauga</a> were less resilient and only drew between 9%–12% of their
+				than 1 km away. More car-oriented main streets such as those in <a href="/casestudies/toronto/pickering">Pickering</a>,  <a href="/casestudies/toronto/markhamhwy7">Markham</a>,
+				<a href="/casestudies/toronto/goldenmile">Scarborough</a>, and <a href="/casestudies/toronto/mississaugadundas">Mississauga</a> were less resilient and only drew between 9%–12% of their
 				visitors from nearby.
 			</p>
 			<p>
@@ -149,14 +149,14 @@
 			<p>
 				The five Toronto-region shopping malls clearly have a scarcity of both independent
 				businesses and civic infrastructure, ranking below all main streets on both scores. Of the
-				Toronto case studies, Newmarket, Oakville, and Weston stand out as having higher shares of
+				Toronto case studies, <a href="/casestudies/toronto/newmarket">Newmarket</a>, <a href="/casestudies/toronto/oakville">Oakville</a>, and <a href="/casestudies/toronto/weston">Weston</a> stand out as having higher shares of
 				both independent business and civic infrastructure. Each of these are examples of main
 				streets that originated in smaller towns that eventually became subsumed by urban sprawl.
 				Despite being in suburban locations, these main streets are dense and walkable. There are
 				multiple conditions present that are conducive to building strong local communities.
 			</p>
 			<p>
-				The Golden Mile (Scarborough) and Kingston Road (Pickering) are main streets at the other
+				The <a href="/casestudies/toronto/goldenmile">Golden Mile (Scarborough)</a> and <a href="/casestudies/toronto/pickering">Kingston Road (Pickering)</a> are main streets at the other
 				end of the spectrum. These are places with less independent business and civic
 				infrastructure that are heavily car-oriented and characterized by big box retail and chain
 				restaurants. Such main streets do not possess a clear identity and are less likely to be
@@ -196,11 +196,11 @@
 			</p>
 			<p>
 				Downtown Toronto is at the other end of the spectrum, with much higher levels of civic
-				infrastructure, as it is home to many regionally significant assets. Fittingly, Downtown
-				Yonge and Spadina-Chinatown are the case studies that score the highest on our Civic
+				infrastructure, as it is home to many regionally significant assets. Fittingly, <a href="/casestudies/toronto/downtownyonge">Downtown
+				Yonge</a> and <a href="/casestudies/toronto/spadinachinatown">Spadina-Chinatown</a> are the case studies that score the highest on our Civic
 				Infrastructure Index. The centres of many suburban communities and satellite towns also
 				score well above the median. The main street case studies that are most exemplary in this
-				respect are Oakville, Newmarket, and Markham.
+				respect are <a href="/casestudies/toronto/oakville">Oakville</a>, <a href="/casestudies/toronto/newmarket">Newmarket</a>, and <a href="/casestudies/toronto/markhamhwy7">Markham</a>.
 			</p>
 			<p>
 				The core issue not only about the overall amount of civic infrastructure, but how it is
@@ -254,7 +254,7 @@
 				environments compared to its global peers. The region has traditionally been credited with
 				having strong neighbourhoods with distinct identities. At the centre of these neighbourhoods
 				are vibrant main streets that provide a range of goods, services, and activities that
-				support people in their day-today lives. No two main streets are the same, however; their
+				support people in their day-to-day lives. No two main streets are the same, however; their
 				specific locations and characteristics have significant impacts on the range of local
 				choices and opportunities for residents.
 			</p>
@@ -289,7 +289,7 @@
 				The Toronto-region main streets that most consistently score the highest across the key
 				indicators tend to be long-established neighbourhood streets that primarily serve their
 				immediate local community with a range of independent businesses and civic infrastructure.
-				Etobicoke Lakeshore and Kingston Road (Scarborough) are “inner” suburban locations that are
+				<a href="/casestudies/toronto/etobicokelakeshore">Etobicoke Lakeshore</a> and <a href="/casestudies/toronto/kingstonrd">Kingston Road (Scarborough)</a> are “inner” suburban locations that are
 				relatively walkable but also accommodate car use. They also offer a mix of housing types
 				that cater to a range of income levels. These main streets were originally built (pre-1960)
 				in conjunction with the surrounding housing stock and have co-evolved with physical and
@@ -303,8 +303,8 @@
 			<p>
 				At the lower end of the spectrum are main streets that are heavily car-dependent places with
 				large format (big box) retail and offer limited civic infrastructure. Such main streets tend
-				to serve a larger catchment area and possess fewer independent businesses. Dundas Street
-				(Mississauga), Golden Mile (Scarborough), and Kingston Road (Pickering) are main streets
+				to serve a larger catchment area and possess fewer independent businesses. <a href="/casestudies/toronto/mississaugadundas">Dundas Street
+				(Mississauga)</a>, <a href="/casestudies/toronto/goldenmile">Golden Mile (Scarborough)</a>, and <a href="/casestudies/toronto/pickering">Kingston Road (Pickering)</a> are main streets
 				that are designed to accommodate cars and are dominated by large parking lots. These places
 				are among the least resilient main streets and draw a lower share of visitors from their
 				surrounding neighbourhoods.
