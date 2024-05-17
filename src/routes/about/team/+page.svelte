@@ -12,6 +12,7 @@
 <div class="hero">
     <ul>
     </ul>
+	<p>Coming Soon!</p>
 </div>
 
 

@@ -16,12 +16,6 @@
 />
 
 <div class="full-text">
-	<p>
-		Main streets are the backbone of Canadian society. They provide local access to daily necessities that are foundational to the well-being of residents. Nearly 30 million Canadians (75%) live within one kilometre of a main street. Over 160,000 main street businesses provide 1.7 million jobs and generate $250 billion in revenue. Beyond the sheer economic power of main streets, they also play an essential role in civil society. They are gathering places where personal relationships are created and strengthened. To this point, there are over 52,000 locations of community and civic infrastructure on main streets. Furthermore, dense, walkable main streets have positive impacts on environmental sustainability as well as personal health. In short, vibrant main streets create thriving neighbourhoods, thriving neighbourhoods produce healthy cities, and healthy cities underpin a prosperous country. 	</p>
-		<p>This guide aims to provide an overview of the project as well each aspect of the platform.</p>
-</div>
-
-<div class="full-text">
 	<h3>Project Overview</h3> 
 	<p>
 		Measuring Main Streets provides research, data, and tools that inform infrastructure investment decisions that are intended to strengthen main streets and their surrounding environments. The project received funding from Infrastructure Canada’s (INFC) through its Research and Knowledge Initiative (RKI). The goals of the project are to:		</p>
