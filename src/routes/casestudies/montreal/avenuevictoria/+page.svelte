@@ -82,13 +82,10 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-					</p>
+										<h2>Overview</h2>
+<p>The case study aims to provide an overview of the case study area; through a combination of interactive maps, charts and data analysis. </p>
+<p>
+The map displays the boundaries of the case study, overlaid on the main street network. </p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -120,12 +117,13 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
+<h2>Built Form</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						The built form of the case study area is represented through the 3D building layer,
+						transit stops and lines, as well as green space, including a comparative graph of the %
+						of green space present within the case study area, a 10 minute walk radius and in the
+						Census Metropolitan Area the case study is located in. Use the Satellite View toggle to
+						see the case study area overlaid with satellite imagery.
 					</p>
 				</div>
 				<div class="map-container">
@@ -249,10 +247,18 @@
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						Civic Infrastructure present in the case study area is represented through 5 categories:
+						Education, Government & Community Services, Arts & Culture, Recreation, and Healthcare.
+						For more information about how we classified these categories, read our <a
+							href="about/data-methodology">Data and Methodology</a
+						>. The graph displays the proportional mix of Civic Infrastucture in the case study
+						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
+						located in.
+					</p>
+					<p>
+						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
+						of the case study area, as well as the estimated employment sizes of each location of
+						Civic Infrastructure.
 					</p>
 				</div>
 				<div class="map-container">
@@ -343,10 +349,18 @@
 						</div>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						Main Street Businesses present in the case study area are represented through 3
+						categories: Retail, Food & Drink and Local Services. For more information about how we
+						classified these categories, read our <a href="about/data-methodology"
+							>Data and Methodology</a
+						>. The graph displays the proportional mix of Main Street Businesses in the case study
+						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
+						located in.
+					</p>
+					<p>
+						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
+						of the case study area, as well as the estimated employment sizes of each Main Street
+						Business.
 					</p>
 				</div>
 				<div class="map-container">
@@ -387,10 +401,9 @@
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						The estimated employment size of all entities, including main street businesses, civic
+						infrastructure and others, are displayed on this map. For more information about how we
+						calculated these, read our <a href="about/data-methodology">Data and Methodology</a>.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -452,10 +465,14 @@
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						The map displays a choropleth vizualisation of key housing related Census variables at
+						the Dissemination Area level of the case study and surrounding area. Use the dropdown to
+						toggle between different variables. The data is sourced from Environics Analytics and
+						Statistics Canada.
+					</p>
+					<p>
+						The charts contrast the housing construction year and the types of housing between the
+						case study area and the Census Metropolitan Area the case study is located in.
 					</p>
 				</div>
 				<div class="map-container">
@@ -524,10 +541,10 @@
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						The map displays a choropleth vizualisation of key demograhoic and other local
+						characterestic related Census variables at the Dissemination Area level of the case
+						study and surrounding area. Use the dropdown to toggle between different variables. The
+						data is sourced from Environics Analytics and Statistics Canada.
 					</p>
 				</div>
 				<div class="map-container">
@@ -573,10 +590,13 @@
 						/>
 					</div>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+						The heatmap displayed represents the pattern of daily visits from the visitor's home
+						location from 2019 to 2022, which is sourced from Environics Analytics MobileScapes
+						data. To learn more, read our <a href="about/data-methodology">Data and Methodology</a>.
+					</p>
+					<p>
+						The charts display the pattern of visits (relative to 2019) as a line chart, the visit
+						count by type of visitor, as well as the breakdown of visits by time of day and week.
 					</p>
 				</div>
 				<div class="map-container">

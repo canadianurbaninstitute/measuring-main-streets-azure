@@ -73,7 +73,7 @@
             </p>
 		</div>
 	</Accordion>
-    <Accordion>
+    <!-- <Accordion>
 		<div class="accordion-header" accordion slot="header">
 			<h4>What can I use the Main Street Map tool for?</h4>
             <Icon icon="iconoir:nav-arrow-down" />
@@ -83,7 +83,7 @@
                 Lorem ipsum dolor sit amet.
             </p>
 		</div>
-	</Accordion>
+	</Accordion> -->
     <Accordion>
 		<div class="accordion-header" accordion slot="header">
 			<h4>I can't find my main street on the Main Street Map?</h4>
