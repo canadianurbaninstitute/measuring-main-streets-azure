@@ -309,7 +309,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 				</div>
 			</div>
 		</section>
-		<section data-id="map4">
+		<!-- <section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Business Profile</h2>
@@ -404,7 +404,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
