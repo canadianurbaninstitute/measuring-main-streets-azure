@@ -48,75 +48,75 @@
 		{
 			link: '/casestudies/toronto/thorncliffepark',
 			image: ThorncliffePark,
-			name: 'Thorncliffe Park',
+			name: 'Overlea Boulevard (Thorncliffe Park)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/toronto/mississaugadundas',
 			image: MississaugaDundas,
-			name: 'Mississauga Dundas',
+			name: 'Dundas Street (Mississauga)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/toronto/kingstonroad',
 			image: KingstonRd,
-			name: 'Kingston Road',
+			name: 'Kingston Road (Scarborough Cliffside)',
 			type: 'suburban'
 		},
-		{ link: '/casestudies/toronto/weston', image: Weston, name: 'Weston', type: 'suburban' },
-		{ link: '/casestudies/toronto/sutton', image: Sutton, name: 'Sutton', type: 'suburban' },
-		{ link: '/casestudies/toronto/uxbridge', image: Uxbridge, name: 'Uxbridge', type: 'rural' },
-		{ link: '/casestudies/toronto/newmarket', image: Newmarket, name: 'Newmarket', type: 'rural' },
+		{ link: '/casestudies/toronto/weston', image: Weston, name: 'Weston Road', type: 'suburban' },
+		{ link: '/casestudies/toronto/sutton', image: Sutton, name: 'High Street (Sutton)', type: 'suburban' },
+		{ link: '/casestudies/toronto/uxbridge', image: Uxbridge, name: 'Brock Street (Uxbridge)', type: 'rural' },
+		{ link: '/casestudies/toronto/newmarket', image: Newmarket, name: 'Main Street South (Newmarket)', type: 'rural' },
 		{
 			link: '/casestudies/toronto/spadinachinatown',
 			image: SpadinaChinatown,
-			name: 'Spadina Chinatown',
+			name: 'Spadina Avenue (Chinatown)',
 			type: 'downtown'
 		},
 		{
 			link: '/casestudies/toronto/libertyvillage',
 			image: LibertyVillage,
-			name: 'Liberty Village',
+			name: 'Liberty Street (Liberty Village)',
 			type: 'downtown'
 		},
 		{
 			link: '/casestudies/toronto/caledoneast',
 			image: CaledonEast,
-			name: 'Caledon East',
+			name: 'Airport Road (Caledon East)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/toronto/etobicokelakeshore',
 			image: EtobicokeLakeshore,
-			name: 'Etobicoke Lakeshore',
+			name: 'Lake Shore Boulevard West (Etobicoke Lakeshore)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/toronto/downtownbrampton',
 			image: Brampton,
-			name: 'Downtown Brampton',
+			name: 'Main Street North (Downtown Brampton)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/toronto/goldenmile',
 			image: GoldenMile,
-			name: 'Golden Mile',
+			name: 'Eglington Avenue East (Golden Mile)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/toronto/markhamhwy7',
 			image: MarkhamHwy7,
-			name: 'Markham Highway 7',
+			name: 'Highway 7 (Markham)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/toronto/pickering',
 			image: Pickering,
-			name: 'Pickering',
+			name: 'Kingston Road (Pickering)',
 			type: 'suburban'
 		},
-		{ link: '/casestudies/toronto/oakville', image: Oakville, name: 'Oakville', type: 'rural' },
-		{ link: '/casestudies/toronto/schomberg', image: Schomberg, name: 'Schomberg', type: 'rural' }
+		{ link: '/casestudies/toronto/oakville', image: Oakville, name: 'Lakeshore Road West (Oakville)', type: 'rural' },
+		{ link: '/casestudies/toronto/schomberg', image: Schomberg, name: 'Main Street (Schomberg)', type: 'rural' }
 	];
 
 	const activeFilters = writable([]);

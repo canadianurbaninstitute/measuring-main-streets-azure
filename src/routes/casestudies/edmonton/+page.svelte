@@ -42,19 +42,19 @@
 		{
 			link: '/casestudies/edmonton/104streetdowntown',
 			image: HundredFiveStreetNW,
-			name: '104 Street Downtown',
+			name: '104 Street NW Downtown (4th Street Promenade Downtown)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/edmonton/118albertaave',
 			image: HundredEighteenAlbertaAve,
-			name: '118 Ave (Alberta Avenue)',
+			name: '118 Alberta Avenue',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/edmonton/118beverly',
 			image: HundredEighteenBeverly,
-			name: '118 Ave (Beverly)',
+			name: '118 Beverly',
 			type: 'suburban'
 		},
 		{
@@ -66,13 +66,13 @@
 		{
 			link: '/casestudies/edmonton/149streetnw',
 			image: HundredFortyNineStreetNW,
-			name: '149 Street NW',
+			name: '149 Street NW (West Edmonton)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/edmonton/stonyplainroadnw',
 			image: StonyPlainRoadNW,
-			name: 'Stony Plain Road NW',
+			name: 'Stony Plain Road NW (Jasper Place)',
 			type: 'suburban'
 		},
 		{
@@ -90,43 +90,43 @@
 		{
 			link: '/casestudies/edmonton/107avenuenw',
 			image: HundredSevenAvenueNW,
-			name: '107 Avenue NW',
+			name: '107 Avenue NW (Central McDougall)',
 			type: 'downtown'
 		},
 		{
 			link: '/casestudies/edmonton/97streetdowntown',
 			image: NinteySevenStreetDowntown,
-			name: '97 Street Downtown',
+			name: '97 Street Downtown (Edmonton Chinatown)',
 			type: 'downtown'
 		},
 		{
 			link: '/casestudies/edmonton/97streetnw',
 			image: NinteySevenStreetNW,
-			name: '97 Street NW',
+			name: '97 Street NW (Northgate)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/edmonton/104streetnw',
 			image: HundredFourStreetNW,
-			name: '104 Street NW',
+			name: '104 Street NW (Calgary Trail)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/edmonton/137avenuenw',
 			image: HundredThirtySevenAvenueNW,
-			name: '137 Avenue NW',
+			name: '137 Avenue NW (North Edmonton)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/edmonton/parsonsroadsw',
 			image: ParsonsRoadSW,
-			name: 'Parsons Road SW',
+			name: 'Parsons Road SW (South Edmonton Common)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/edmonton/sherwooddrive',
 			image: SherwoodDrive,
-			name: 'Sherwood Drive',
+			name: 'Sherwood Drive (Sherwood Park)',
 			type: 'suburban'
 		},
 		{
@@ -138,13 +138,13 @@
 		{
 			link: '/casestudies/edmonton/100avenue',
 			image: HundredAve,
-			name: '100 Avenue',
+			name: '100 Avenue (Fort Saskatchewan)',
 			type: 'rural'
 		},
 		{
 			link: '/casestudies/edmonton/50avenue',
 			image: FiftyAvenue,
-			name: '50 Avenue',
+			name: '50 Avenue (Leduc)',
 			type: 'rural'
 		}
 	];

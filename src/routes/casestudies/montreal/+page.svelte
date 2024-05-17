@@ -36,73 +36,73 @@
 		{
 			link: '/casestudies/montreal/ruestpaul',
 			image: RueStPaul,
-			name: 'Rue St. Paul',
+			name: 'Rue St. Paul (Old Montreal)',
 			type: 'downtown'
 		},
 		{
 			link: '/casestudies/montreal/ruewellington',
 			image: RueWellington,
-			name: 'Rue Wellington',
+			name: 'Rue Wellington (Verdun)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/ruefleury',
 			image: RueFleury,
-			name: 'Rue Fleury',
+			name: 'Rue Fleury (Ahuntsic)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/rueontario',
 			image: RueOntario,
-			name: 'Rue Ontario',
+			name: 'Rue Ontario (Hochelaga)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/montroyal',
 			image: MontRoyal,
-			name: 'Mont Royal',
+			name: 'Mont Royal (Plateau)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/boulevardstmartin',
 			image: BoulStMartin,
-			name: 'Boulevard St. Martin',
+			name: 'Boulevard St. Martin (Laval)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/ruestcharles',
 			image: RueStCharles,
-			name: 'Rue St. Charles',
+			name: 'Rue St. Charles (Old Longueuil)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/ruestgeorge',
 			image: RueStGeorge,
-			name: 'Rue St. George',
+			name: 'Rue St. George (Saint Jerome)',
 			type: 'rural'
 		},
 		{
 			link: '/casestudies/montreal/ruestanne',
 			image: RueStAnne,
-			name: 'Rue St. Anne',
+			name: 'Rue St. Anne (Sainte Anne de Bellevue)',
 			type: 'rural'
 		},
 		{
 			link: '/casestudies/montreal/notredame',
 			image: NotreDame,
-			name: 'Rue Notre-Dame',
+			name: 'Notre-Dame (Saint Henri)',
 			type: 'downtown'
 		},
 		{
 			link: '/casestudies/montreal/stdenis',
 			image: StDenis,
-			name: 'Rue St. Denis',
+			name: 'St. Denis',
 			type: 'downtown'
 		},
 		{
 			link: '/casestudies/montreal/avenuevictoria',
 			image: AveVictoria,
-			name: 'Avenue Victoria',
+			name: 'Avenue Victoria (Saint Lambert)',
 			type: 'suburban'
 		},
 		{
@@ -114,37 +114,37 @@
 		{
 			link: '/casestudies/montreal/boulevardmonk',
 			image: BlvdMonk,
-			name: 'Boulevard Monk',
+			name: 'Boulevard Monk (Ville Emard)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/ruebeaubien',
 			image: RueBeaubien,
-			name: 'Rue Beaubien',
+			name: 'Rue Beaubien (Rosement-La-Petit-Patrie)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/jeantalon',
 			image: JeanTalon,
-			name: 'Rue Jean Talon',
+			name: 'Jean Talon (Parc-Extension)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/sthubert',
 			image: StHubert,
-			name: 'Rue St. Hubert',
+			name: 'Rue St. Hubert (Plaza Saint Hubert)',
 			type: 'suburban'
 		},
 		{
 			link: '/casestudies/montreal/ruerichelieu',
 			image: RueRichelieu,
-			name: 'Rue Richelieu',
+			name: 'Rue Richelieu (Saint Jean sur Richelieu)',
 			type: 'rural'
 		},
 		{
 			link: '/casestudies/montreal/steustache',
 			image: StEustache,
-			name: 'Rue St. Eustache',
+			name: 'St. Eustache',
 			type: 'rural'
 		}
 	];

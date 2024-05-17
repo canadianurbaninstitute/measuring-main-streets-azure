@@ -33,6 +33,7 @@
     h4 {
         color: var(--brandDarkBlue);
         font-weight: 400;
+        text-align: center;
     }
 
     a {
