@@ -77,7 +77,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={sthubert} name={'St. Hubert'} location={'Montreal, Québec'} />
+	<Title outline={sthubert} name={'Rue St. Hubert (Plaza Saint Hubert)'} location={'Montreal, Québec'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -674,7 +674,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 			</div>
 		</section>
 	</div>
-	<Summary name={'St. Hubert'} location={'Montreal, Québec'} />
+	<Summary name={'Rue St. Hubert (Plaza Saint Hubert)'} location={'Montreal, Québec'} />
 </main>
 
 <style>

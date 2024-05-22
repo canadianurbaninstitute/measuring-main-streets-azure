@@ -212,7 +212,7 @@
 <main>
 	<Title
 		outline={HundredEighteenBeverly}
-		name={'118 Ave (Beverly)'}
+		name={'118 Avenue (Beverly)'}
 		location={'Edmonton, Alberta'}
 	/>
 	<div class="container">
@@ -842,7 +842,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'118 Ave (Beverly)'} location={'Edmonton, Alberta'} />
+	<Summary name={'118 Avenue (Beverly)'} location={'Edmonton, Alberta'} />
 </main>
 
 <style>

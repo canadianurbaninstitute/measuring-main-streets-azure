@@ -232,7 +232,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={thorncliffepark} name={'Thorncliffe Park'} location={'Toronto, Ontario'} />
+	<Title outline={thorncliffepark} name={'Overlea Boulevard (Thorncliffe Park)'} location={'Toronto, Ontario'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -780,7 +780,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'Thorncliffe Park'} location={'Toronto, Ontario'} />
+	<Summary name={'Overlea Boulevard (Thorncliffe Park)'} location={'Toronto, Ontario'} />
 </main>
 
 <style>

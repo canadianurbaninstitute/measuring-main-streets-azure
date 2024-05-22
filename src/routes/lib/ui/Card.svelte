@@ -23,6 +23,7 @@
         align-items: center;
         border: 1px solid #eee;
         border-radius: 1em;
+        height: 100%;
     }
 
     .card:hover {

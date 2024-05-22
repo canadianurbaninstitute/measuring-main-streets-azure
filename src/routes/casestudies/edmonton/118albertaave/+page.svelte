@@ -210,7 +210,7 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={HundredEighteenAlbertaAve} name={'118 Ave (Alberta Avenue)'} location={'Edmonton, Alberta'} />
+	<Title outline={HundredEighteenAlbertaAve} name={'118 Avenue (Alberta Avenue)'} location={'Edmonton, Alberta'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -751,7 +751,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Summary name={'118 Ave (Alberta Avenue)'} location={'Edmonton, Alberta'} />
+	<Summary name={'118 Avenue (Alberta Avenue)'} location={'Edmonton, Alberta'} />
 </main>
 
 <style>

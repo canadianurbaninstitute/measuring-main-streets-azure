@@ -77,7 +77,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={FiftyAvenue} name={'50 Avenue'} location={'Edmonton, Alberta'} />
+	<Title outline={FiftyAvenue} name={'50 Avenue (Leduc)'} location={'Edmonton, Alberta'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -674,7 +674,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 			</div>
 		</section>
 	</div>
-	<Summary name={'50 Avenue'} location={'Edmonton, Alberta'} />
+	<Summary name={'50 Avenue (Leduc)'} location={'Edmonton, Alberta'} />
 </main>
 
 <style>

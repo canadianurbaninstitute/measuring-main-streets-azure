@@ -77,7 +77,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={etobicokelakeshore} name={'Etobicoke Lakeshore'} location={'Toronto, Ontario'} />
+	<Title outline={etobicokelakeshore} name={'Lake Shore Boulevard West (Etobicoke Lakeshore)'} location={'Toronto, Ontario'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -674,7 +674,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 			</div>
 		</section>
 	</div>
-	<Summary name={'Etobicoke Lakeshore'} location={'Toronto, Ontario'} />
+	<Summary name={'Lake Shore Boulevard West (Etobicoke Lakeshore)'} location={'Toronto, Ontario'} />
 </main>
 
 <style>

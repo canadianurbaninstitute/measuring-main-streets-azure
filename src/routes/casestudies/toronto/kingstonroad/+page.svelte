@@ -211,7 +211,7 @@
 </svelte:head>
 
 <main>
-	<Title outline={kingstonroad} name={'Kingston Road'} location={'Toronto, Ontario'} />
+	<Title outline={kingstonroad} name={'Kingston Road (Scarborough Cliffside)'} location={'Toronto, Ontario'} />
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -759,7 +759,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'Kingston Road'} location={'Toronto, Ontario'} />
+	<Summary name={'Kingston Road (Scarborough Cliffside)'} location={'Toronto, Ontario'} />
 </main>
 
 <style>

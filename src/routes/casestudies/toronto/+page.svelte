@@ -100,7 +100,7 @@
 		{
 			link: '/casestudies/toronto/goldenmile',
 			image: GoldenMile,
-			name: 'Eglington Avenue East (Golden Mile)',
+			name: 'Eglinton Avenue East (Golden Mile)',
 			type: 'suburban'
 		},
 		{
@@ -213,7 +213,7 @@
 
 <div class="card-grid">
 	{#each filteredFullCaseStudies as card}
-		<Card link={card.link} cardImage={card.image} streetName={card.name} />
+		<div class='card'><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
 
@@ -228,7 +228,7 @@
 </div>
 <div class="card-grid">
 	{#each filteredDataCaseStudies as card}
-		<Card link={card.link} cardImage={card.image} streetName={card.name} />
+		<div class='card'><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
 
@@ -285,6 +285,12 @@
 		justify-content: center;
 		grid-template-columns: repeat(1, 1fr);
 		overflow: hidden;
+		grid-auto-rows: 1fr;
+
+	}
+
+	.card {
+		height: 100%;
 	}
 
 	/* WIDE MOBILE */
