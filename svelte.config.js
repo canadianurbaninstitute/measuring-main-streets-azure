@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-vercel';
+import azure from 'svelte-adapter-azure-swa';
 //import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,7 +8,7 @@ const config = {
 		prerender: {
 			handleHttpError: 'warn'
 		},
-		adapter: adapter(),
+		adapter: azure(),
 		paths: {
 			// base: process.env.NODE_ENV === "production" ? "/measuring-main-streets" : "",
 			// base: "/measuring-main-streets"
