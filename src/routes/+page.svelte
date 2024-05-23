@@ -45,7 +45,7 @@
 	<h1>Quick Links</h1>
 	<p>
 		Read the <a href="/about/guide">Measuring Main Streets Guide</a> to understand each component of
-		the platform in greater detail, or, jump to a section using the cards below.
+		the platform in greater detail, or, jump to a section using the links below.
 	</p>
 </div>
 
