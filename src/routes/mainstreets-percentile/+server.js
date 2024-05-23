@@ -1,5 +1,5 @@
 // src/routes/api/mainstreets-measures/+server.js
-import { supabase } from '../../lib/supabaseClient'; // Adjust the path as necessary
+import { supabase } from '../lib/supabaseClient'; // Adjust the path as necessary
 
 export async function GET({ url }) {
   // Extract the 'id' query parameter from the URL
@@ -7,7 +7,7 @@ export async function GET({ url }) {
 
   // Query the Supabase database for a row with the matching 'id'
   const { data, error } = await supabase
-    .from('mainstreets-measures')
+    .from('mainstreets-percentile')
     .select()
     .eq('id', id);
 

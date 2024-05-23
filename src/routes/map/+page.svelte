@@ -151,7 +151,7 @@
 		});
 
 		async function fetchMeasureData(id) {
-			const response = await fetch(`/api/mainstreets-measures?id=${id}`);
+			const response = await fetch(`/mainstreets-measures?id=${id}`);
 			if (response.ok) {
 				const data = await response.json();
 				return data;
@@ -161,7 +161,7 @@
 		}
 
 		async function fetchPercentileData(id) {
-			const response = await fetch(`/api/mainstreets-percentile?id=${id}`);
+			const response = await fetch(`/mainstreets-percentile?id=${id}`);
 			if (response.ok) {
 				const data = await response.json();
 				return data;
