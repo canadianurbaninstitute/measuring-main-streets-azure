@@ -42,7 +42,7 @@
 
 	<ReportCard link={'/tools/housing-density-map'} cardImage={housing} title={'Housing Dot Density Map'} subtitle={''} />
 
-	<ReportCard link={'/tools'} cardImage={regional} title={'Regional Main Street Metrics Map'} subtitle={''} />
+	<!-- <ReportCard link={'/tools'} cardImage={regional} title={'Regional Main Street Metrics Map'} subtitle={''} /> -->
 
 </div>
 
