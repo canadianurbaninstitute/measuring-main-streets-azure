@@ -16,7 +16,7 @@
 <Title
 	outline={civic}
 	name={'Infrastructure Equity & Main Streets'}
-	location={'Idenitfying equity gaps in main street civic infrastructure'}
+	location={'Identifying equity gaps in main street civic infrastructure'}
 />
 
 <div class="full-text">
