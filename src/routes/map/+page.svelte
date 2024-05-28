@@ -645,8 +645,8 @@
 <div class="hero">
 	<h1>Main Street Map</h1>
 	<p>
-		This is a map of all the main streets in Canada. Search for place or navigate the map using the
-		controls; and then click on a street segment to see information associated with it in the panel on the left. You can toggle between absolute values and percentiles to view the main street in relation to others.
+		This is a map of all the main streets in Canada. Search for a place or navigate the map using the
+		controls; and then click on a street segment to see information associated with it in the panel on the left. You can toggle between absolute values and percentiles to view the main street in relation to other main streets.
 	</p>
 	<p>	For more information on how we classified main streets and data sources, read our <a href='/about/data-methodology'>Data Sources & Methodology</a>.
 	</p>
