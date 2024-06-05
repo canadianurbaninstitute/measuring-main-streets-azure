@@ -1,61 +1,61 @@
 Name,Region,Type,Civic_Provision
-97StreetDowntown,EdmontonCMA,Downtown,0.54
-104StreetDowntown,EdmontonCMA,Downtown,0.52
-JasperAve,EdmontonCMA,Downtown,0.48
-107AvenueNW,EdmontonCMA,Downtown,0.47
-RueStPaul,MontrealCMA,Downtown,0.38
-RueSaintCatherine,MontrealCMA,Downtown,0.35
-DTY,TorontoCMA,Downtown,0.25
-SpadinaChtn,TorontoCMA,Downtown,0.22
-StDenis,MontrealCMA,Downtown,0.18
-LibVill,TorontoCMA,Downtown,0.14
-NotreDame,MontrealCMA,Downtown,0.13
-NorthyorkCentre,TorontoCMA,Downtown,0.10
-82AvenueNW,EdmontonCMA,Residential,0.37
-SherwoodDrive,EdmontonCMA,Residential,0.31
-118AlbertaAve,EdmontonCMA,Residential,0.27
-124StreetNW,EdmontonCMA,Residential,0.23
-EtobicokeLakeshore,TorontoCMA,Residential,0.20
-97StreetNorth,EdmontonCMA,Residential,0.18
+97 Street Downtown,EdmontonCMA,Downtown,0.54
+104 Street Downtown,EdmontonCMA,Downtown,0.52
+Jasper Avenue,EdmontonCMA,Downtown,0.48
+107 Avenue NW,EdmontonCMA,Downtown,0.47
+Rue St. Paul,MontrealCMA,Downtown,0.38
+Rue Sainte Catherine,MontrealCMA,Downtown,0.35
+Downtown Yonge,TorontoCMA,Downtown,0.25
+Spadina Chinatown,TorontoCMA,Downtown,0.22
+St. Denis,MontrealCMA,Downtown,0.18
+Liberty Village,TorontoCMA,Downtown,0.14
+Notre-Dame,MontrealCMA,Downtown,0.13
+North York Centre,TorontoCMA,Downtown,0.10
+Whyte (82) Avenue,EdmontonCMA,Residential,0.37
+Sherwood Drive,EdmontonCMA,Residential,0.31
+118 Alberta,EdmontonCMA,Residential,0.27
+124 Street NW,EdmontonCMA,Residential,0.23
+Etobicoke Lakeshore,TorontoCMA,Residential,0.20
+97 Street North,EdmontonCMA,Residential,0.18
 Oakville,TorontoCMA,Residential,0.17
 Newmarket,TorontoCMA,Residential,0.16
-WestQueenWest,TorontoCMA,Residential,0.15
-StAlbertRoad,EdmontonCMA,Residential,0.15
-104StreetNW,EdmontonCMA,Residential,0.14
-Markham,TorontoCMA,Residential,0.14
-AveVictoria,MontrealCMA,Residential,0.13
-BoulStMartin,MontrealCMA,Residential,0.12
-DT_Brampton,TorontoCMA,Residential,0.12
-RueStCharles,MontrealCMA,Residential,0.10
-StonyPlainRoadNW,EdmontonCMA,Residential, 0.10
-KingstonRd,TorontoCMA,Residential,0.09
-149StreetNW,EdmontonCMA,Residential,0.09
-GoldenMile,TorontoCMA,Residential,0.09
-AveDorval,MontrealCMA,Residential,0.09
-118Beverly,EdmontonCMA,Residential,0.08
-MontRoyal,MontrealCMA,Residential,0.08
-StHubert,MontrealCMA,Residential,0.07
-ThorncliffePark,TorontoCMA,Residential,0.07
-RueBeaubien,MontrealCMA,Residential,0.07
-MissDundas,TorontoCMA,Residential,0.06
-RueFleury,MontrealCMA,Residential,0.06
-137AvenueNW,EdmontonCMA,Residential,0.06
-JeanTalon,MontrealCMA,Residential,0.06
-Weston,TorontoCMA,Residential,0.06
-Pickering,TorontoCMA,Residential,0.05
-ParsonsRoadSW,EdmontonCMA,Residential,0.05
-RueOntario,MontrealCMA,Residential,0.05
-RueWellington,MontrealCMA,Residential,0.03
-BlvdMonk,MontrealCMA,Residential,0.03
-RueStGeorge,MontrealCMA,Small Town,0.23
-50Ave,EdmontonCMA,Small Town,0.15
-StEustache,MontrealCMA,Small Town,0.14
-100Ave,EdmontonCMA,Small Town,0.12
-Sutton,TorontoCMA,Small Town,0.12
-50StreetStonyPlain,EdmontonCMA,Small Town,0.12
-RueRichelieu,MontrealCMA,Small Town,0.10
+West Queen West,TorontoCMA,Residential,0.15
+St. Albert Road,EdmontonCMA,Residential,0.15
+104 Street NW,EdmontonCMA,Residential,0.14
+Highway 7 (Markham),TorontoCMA,Residential,0.14
+Avenue Victoria,MontrealCMA,Residential,0.13
+Boulevard St. Martin,MontrealCMA,Residential,0.12
+Downtown Brampton,TorontoCMA,Residential,0.12
+Rue St. Charles,MontrealCMA,Residential,0.10
+Stony Plain Road NW,EdmontonCMA,Residential, 0.10
+Kingston Road (Scarborough),TorontoCMA,Residential,0.09
+149 Street NW,EdmontonCMA,Residential,0.09
+Golden Mile,TorontoCMA,Residential,0.09
+Avenue Dorval,MontrealCMA,Residential,0.09
+118 Beverly,EdmontonCMA,Residential,0.08
+Mont Royal,MontrealCMA,Residential,0.08
+Rue St. Hubert,MontrealCMA,Residential,0.07
+Thorncliffe Park,TorontoCMA,Residential,0.07
+Rue Beaubien,MontrealCMA,Residential,0.07
+Dundas Street (Mississauga),TorontoCMA,Residential,0.06
+Rue Fleury,MontrealCMA,Residential,0.06
+137 Avenue NW,EdmontonCMA,Residential,0.06
+Jean Talon,MontrealCMA,Residential,0.06
+Weston Road,TorontoCMA,Residential,0.06
+Kingston Road (Pickering),TorontoCMA,Residential,0.05
+Parsons Road SW,EdmontonCMA,Residential,0.05
+Rue Ontario,MontrealCMA,Residential,0.05
+Rue Wellington,MontrealCMA,Residential,0.03
+Boulevard Monk,MontrealCMA,Residential,0.03
+Rue St. George,MontrealCMA,Small Town,0.23
+50 Avenue,EdmontonCMA,Small Town,0.15
+St. Eustache,MontrealCMA,Small Town,0.14
+100 Ave,EdmontonCMA,Small Town,0.12
+High Street (Sutton),TorontoCMA,Small Town,0.12
+50 Street Stony Plain,EdmontonCMA,Small Town,0.12
+Rue Richelieu,MontrealCMA,Small Town,0.10
 Uxbridge,TorontoCMA,Small Town,0.08
-CaledonEast,TorontoCMA,Small Town,0.06
-50StreetBeaumont,EdmontonCMA,Small Town,0.05
-RueStAnne,MontrealCMA,Small Town,0.04
+Caledon East,TorontoCMA,Small Town,0.06
+50 Street Beaumont,EdmontonCMA,Small Town,0.05
+Rue St. Anne,MontrealCMA,Small Town,0.04
 Schomberg,TorontoCMA,Small Town,0.04

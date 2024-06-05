@@ -8,6 +8,7 @@
 	import Footer from '../../lib/Footer.svelte';
 	import LanguageSelector from '../../lib/ui/LanguageSelector.svelte';
 
+
 	import '../../styles.css';
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
@@ -20,11 +21,10 @@
 	bg={'https://i.imgur.com/2sGLoIh.jpeg'}
 />
 
-<LanguageSelector eng={'/reports/montreal'} fr={'/reports/montreal-fr'} selected='eng'/>
+<LanguageSelector eng={'/reports/montreal'} fr={'/reports/montreal-fr'} selected='fr'/>
 
 
 <div class="full-text">
-
 	<p>
 		Vibrant main streets are essential to building strong neighbourhoods. Strong neighbourhoods are
 		essential to healthy cities. And healthy cities are the foundation of a strong country.

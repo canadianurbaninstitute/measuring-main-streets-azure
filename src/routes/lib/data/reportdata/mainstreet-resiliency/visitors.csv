@@ -1,76 +1,76 @@
 Name,Type,Residents,Recurring Visitors,Infrequent Visitors
-NotreDame,Downtown and CBD,31.37869865,17.7458631,50.87543825
-NorthyorkCentre,Downtown and CBD,27.26019446,12.72794383,60.01186171
-DTY,Downtown and CBD,20.01528109,27.89875559,52.08596332
-SpadinaChtn,Downtown and CBD,18.9183932,18.08916049,62.9924463
-StDenis,Downtown and CBD,18.51502247,19.46999664,62.01498089
-LibVill,Downtown and CBD,17.7897885,14.5179657,67.6922458
-104StreetDowntown,Downtown and CBD,13.17599633,33.31727101,53.50673266
-JasperAve,Downtown and CBD,13.03840577,34.40748357,52.55411066
-RueSaintCatherine,Downtown and CBD,11.36937199,32.2087784,56.42184962
-97StreetDowntown,Downtown and CBD,8.130527896,28.29143696,63.57803514
-RueStPaul,Downtown and CBD,8.106002634,17.60046238,74.29353498
-BonnieDoonSC,Regional Mall,22.7235047,17.88990032,59.38659497
-SquareOne,Regional Mall,12.95779389,13.56767222,73.47453389
-CarrefourRichelieu,Regional Mall,12.66057499,13.62885973,73.71056528
-MillWoodsTownCentre,Regional Mall,10.41620317,9.315092687,80.26870414
-MallChamplain,Regional Mall,9.988237614,11.24462459,78.7671378
-CentreRockland,Regional Mall,8.962527219,10.14841581,80.88905697
-PickeringTC,Regional Mall,7.903265719,9.446677319,82.65005696
-SouthgateCentre,Regional Mall,7.27289402,6.908878415,85.81822756
-STC,Regional Mall,7.265830736,9.364568833,83.36960043
-WestEdmontonMall,Regional Mall,5.4009866,5.511318606,89.08769479
-KingswayMall,Regional Mall,4.876727601,9.791309678,85.33196272
-FairviewPointeClaire,Regional Mall,2.360474761,5.184577388,92.45494785
-CarrefourLaval,Regional Mall,2.101814905,4.875973296,93.0222118
-Yorkdale,Regional Mall,1.803976187,3.368474333,94.82754948
-VaughanMills,Regional Mall,1.738806255,4.424699751,93.83649399
-50StreetBeaumont,Small Town,40.47528565,32.42204589,27.10266846
+Notre-Dame,Downtown and CBD,31.37869865,17.7458631,50.87543825
+North York Centre,Downtown and CBD,27.26019446,12.72794383,60.01186171
+Downtown Yonge,Downtown and CBD,20.01528109,27.89875559,52.08596332
+Spadina Chinatown,Downtown and CBD,18.9183932,18.08916049,62.9924463
+St. Denis,Downtown and CBD,18.51502247,19.46999664,62.01498089
+Liberty Village,Downtown and CBD,17.7897885,14.5179657,67.6922458
+104 Street Downtown,Downtown and CBD,13.17599633,33.31727101,53.50673266
+Jasper Avenue,Downtown and CBD,13.03840577,34.40748357,52.55411066
+Rue Sainte Catherine,Downtown and CBD,11.36937199,32.2087784,56.42184962
+97 Street Downtown,Downtown and CBD,8.130527896,28.29143696,63.57803514
+Rue St. Paul,Downtown and CBD,8.106002634,17.60046238,74.29353498
+Bonnie Doon Shopping Centre,Regional Mall,22.7235047,17.88990032,59.38659497
+Square One,Regional Mall,12.95779389,13.56767222,73.47453389
+Carrefour Richelieu,Regional Mall,12.66057499,13.62885973,73.71056528
+Mill Woods Town Centre,Regional Mall,10.41620317,9.315092687,80.26870414
+Mall Champlain,Regional Mall,9.988237614,11.24462459,78.7671378
+Centre Rockland,Regional Mall,8.962527219,10.14841581,80.88905697
+Pickering Town Centre,Regional Mall,7.903265719,9.446677319,82.65005696
+Southgate Centre,Regional Mall,7.27289402,6.908878415,85.81822756
+Scarborough Town Centre,Regional Mall,7.265830736,9.364568833,83.36960043
+West Edmonton Mall,Regional Mall,5.4009866,5.511318606,89.08769479
+Kingsway Mall,Regional Mall,4.876727601,9.791309678,85.33196272
+Fairview Pointe Claire,Regional Mall,2.360474761,5.184577388,92.45494785
+Carrefour Laval,Regional Mall,2.101814905,4.875973296,93.0222118
+Yorkdale Mall,Regional Mall,1.803976187,3.368474333,94.82754948
+Vaughan Mills,Regional Mall,1.738806255,4.424699751,93.83649399
+50 Street Beaumont,Small Town,40.47528565,32.42204589,27.10266846
 Schomberg,Small Town,32.56101787,9.796235982,57.64274615
 Uxbridge,Small Town,29.30638037,14.76360096,55.93001867
-CaledonEast,Small Town,25.1741883,12.09275063,62.73306107
-Sutton,Small Town,23.63821917,9.968745242,66.39303559
-StEustache,Small Town,20.04275419,16.81692239,63.14032341
-50StreetStonyPlain,Small Town,18.90796979,23.43549895,57.65653127
-100Ave,Small Town,15.848497,24.23679599,59.914707
-RueRichelieu,Small Town,15.03359308,14.78658288,70.17982404
-RueStGeorge,Small Town,14.55595591,18.27554384,67.16850024
-50Ave,Small Town,12.8638189,17.98624551,69.14993559
-RueStAnne,Small Town,10.67832725,9.979699677,79.34197308
-BlvdMonk,Urban and Suburban Main Street,51.01145391,19.91271915,29.07582693
-RueOntario,Urban and Suburban Main Street,46.37103966,25.16505158,28.46390876
-RueWellington,Urban and Suburban Main Street,43.05185023,18.78152686,38.16662291
-RueFleury,Urban and Suburban Main Street,37.04530061,19.21556444,43.73913495
-KingstonRd,Urban and Suburban Main Street,35.83589335,20.7059194,43.45818725
-Weston,Urban and Suburban Main Street,34.81729175,9.419931374,55.76277687
-EtobicokeLakeshore,Urban and Suburban Main Street,34.0218502,9.950018143,56.02813166
-118Beverly,Urban and Suburban Main Street,33.74367511,26.83226271,39.42406218
-MontRoyal,Urban and Suburban Main Street,33.47677307,18.26668801,48.25653892
-WestQueenWest,Urban and Suburban Main Street,30.48670063,22.08068088,47.43261849
-AveVictoria,Urban and Suburban Main Street,30.40885846,17.29149375,52.29964778
-ThorncliffePark,Urban and Suburban Main Street,29.87568521,24.84130442,45.28301037
-149StreetNW,Urban and Suburban Main Street,28.32425327,18.58734732,53.0883994
-RueBeaubien,Urban and Suburban Main Street,27.04095289,14.28722418,58.67182293
-JeanTalon,Urban and Suburban Main Street,24.88793045,14.70611853,60.40595102
-StHubert,Urban and Suburban Main Street,24.82429167,18.86578019,56.30992814
-StonyPlainRoadNW,Urban and Suburban Main Street,24.72157032,20.92262679,54.35580288
-118AlbertaAve,Urban and Suburban Main Street,20.63109615,20.76092081,58.60798304
-107AvenueNW,Urban and Suburban Main Street,19.49416595,22.88979109,57.61604296
-124StreetNW,Urban and Suburban Main Street,18.10586489,15.44443166,66.44970345
+Caledon East,Small Town,25.1741883,12.09275063,62.73306107
+High Street (Sutton),Small Town,23.63821917,9.968745242,66.39303559
+St. Eustache,Small Town,20.04275419,16.81692239,63.14032341
+50 Street Stony Plain,Small Town,18.90796979,23.43549895,57.65653127
+100 Ave,Small Town,15.848497,24.23679599,59.914707
+Rue Richelieu,Small Town,15.03359308,14.78658288,70.17982404
+Rue St. George,Small Town,14.55595591,18.27554384,67.16850024
+50 Avenue,Small Town,12.8638189,17.98624551,69.14993559
+Rue St. Anne,Small Town,10.67832725,9.979699677,79.34197308
+Boulevard Monk,Urban and Suburban Main Street,51.01145391,19.91271915,29.07582693
+Rue Ontario,Urban and Suburban Main Street,46.37103966,25.16505158,28.46390876
+Rue Wellington,Urban and Suburban Main Street,43.05185023,18.78152686,38.16662291
+Rue Fleury,Urban and Suburban Main Street,37.04530061,19.21556444,43.73913495
+Kingston Road (Scarborough),Urban and Suburban Main Street,35.83589335,20.7059194,43.45818725
+Weston Road,Urban and Suburban Main Street,34.81729175,9.419931374,55.76277687
+Etobicoke Lakeshore,Urban and Suburban Main Street,34.0218502,9.950018143,56.02813166
+118 Beverly,Urban and Suburban Main Street,33.74367511,26.83226271,39.42406218
+Mont Royal,Urban and Suburban Main Street,33.47677307,18.26668801,48.25653892
+West Queen West,Urban and Suburban Main Street,30.48670063,22.08068088,47.43261849
+Avenue Victoria,Urban and Suburban Main Street,30.40885846,17.29149375,52.29964778
+Thorncliffe Park,Urban and Suburban Main Street,29.87568521,24.84130442,45.28301037
+149 Street NW,Urban and Suburban Main Street,28.32425327,18.58734732,53.0883994
+Rue Beaubien,Urban and Suburban Main Street,27.04095289,14.28722418,58.67182293
+Jean Talon,Urban and Suburban Main Street,24.88793045,14.70611853,60.40595102
+Rue St. Hubert,Urban and Suburban Main Street,24.82429167,18.86578019,56.30992814
+Stony Plain Road NW,Urban and Suburban Main Street,24.72157032,20.92262679,54.35580288
+118 Alberta,Urban and Suburban Main Street,20.63109615,20.76092081,58.60798304
+107 Avenue NW,Urban and Suburban Main Street,19.49416595,22.88979109,57.61604296
+124 Street NW,Urban and Suburban Main Street,18.10586489,15.44443166,66.44970345
 Newmarket,Urban and Suburban Main Street,18.10252082,13.18640819,68.71107099
-StAlbertRoad,Urban and Suburban Main Street,17.65195004,18.06341449,64.28463548
-DT_Brampton,Urban and Suburban Main Street,17.1261119,9.941060374,72.93282773
-137AvenueNW,Urban and Suburban Main Street,16.8698255,15.49068884,67.63948566
-82AvenueNW,Urban and Suburban Main Street,15.9505772,15.58827753,68.46114528
-AveDorval,Urban and Suburban Main Street,14.07101156,8.772420779,77.15656766
-SherwoodDrive,Urban and Suburban Main Street,13.32981897,15.98081152,70.6893695
-GoldenMile,Urban and Suburban Main Street,12.95145295,13.11478552,73.93376153
-RueStCharles,Urban and Suburban Main Street,12.89875773,11.88824215,75.21300012
+St. Albert Road,Urban and Suburban Main Street,17.65195004,18.06341449,64.28463548
+Downtown Brampton,Urban and Suburban Main Street,17.1261119,9.941060374,72.93282773
+137 Avenue NW,Urban and Suburban Main Street,16.8698255,15.49068884,67.63948566
+Whyte (82) Avenue,Urban and Suburban Main Street,15.9505772,15.58827753,68.46114528
+Avenue Dorval,Urban and Suburban Main Street,14.07101156,8.772420779,77.15656766
+Sherwood Drive,Urban and Suburban Main Street,13.32981897,15.98081152,70.6893695
+Golden Mile,Urban and Suburban Main Street,12.95145295,13.11478552,73.93376153
+Rue St. Charles,Urban and Suburban Main Street,12.89875773,11.88824215,75.21300012
 Oakville,Urban and Suburban Main Street,12.73575197,12.97133492,74.29291311
-97StreetNorth,Urban and Suburban Main Street,12.60756148,12.21885523,75.17358329
-MissDundas,Urban and Suburban Main Street,12.02405224,11.89179381,76.08415396
-Pickering,Urban and Suburban Main Street,10.26008405,8.02472118,81.71519477
-Markham,Urban and Suburban Main Street,9.598732559,10.81454571,79.58672173
-BoulStMartin,Urban and Suburban Main Street,8.450054733,8.939804076,82.61014119
-104StreetNW,Urban and Suburban Main Street,5.640266141,13.56833381,80.79140004
-ParsonsRoadSW,Urban and Suburban Main Street,3.661523759,5.972300357,90.36617588
+97 Street North,Urban and Suburban Main Street,12.60756148,12.21885523,75.17358329
+Dundas Street (Mississauga),Urban and Suburban Main Street,12.02405224,11.89179381,76.08415396
+Kingston Road (Pickering),Urban and Suburban Main Street,10.26008405,8.02472118,81.71519477
+Highway 7 (Markham),Urban and Suburban Main Street,9.598732559,10.81454571,79.58672173
+Boulevard St. Martin,Urban and Suburban Main Street,8.450054733,8.939804076,82.61014119
+104 Street NW,Urban and Suburban Main Street,5.640266141,13.56833381,80.79140004
+Parsons Road SW,Urban and Suburban Main Street,3.661523759,5.972300357,90.36617588

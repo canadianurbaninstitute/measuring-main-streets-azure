@@ -1,26 +1,26 @@
 id,name,ms_type,independent_business_rank,civic_infra_share_rank,resiliency_score
-1,NotreDame,Downtown and CBD,7,10,1680
-2,RueSaintCatherine,Downtown and CBD,18,17,1339
-3,RueStPaul,Downtown and CBD,1,16,1495
-4,StDenis,Downtown and CBD,10,12,1638
-5,CarrefourLaval,Regional Mall,23,25,2352
-6,CarrefourRichelieu,Regional Mall,22,24,1824
-7,CentreRockland,Regional Mall,21,23,2701
-8,FairviewPointeClaire,Regional Mall,25,5,2149
-9,MallChamplain,Regional Mall,24,22,2192
-10,RueRichelieu,Small Town,4,19,2274
-11,RueStAnne,Small Town,11,5,1874
-12,RueStGeorge,Small Town,6,1,1589
-13,StEustache,Small Town,2,7,1429
+1,Notre-Dame,Downtown and CBD,7,10,1680
+2,Rue Sainte Catherine,Downtown and CBD,18,17,1339
+3,Rue St. Paul,Downtown and CBD,1,16,1495
+4,St. Denis,Downtown and CBD,10,12,1638
+5,Carrefour Laval,Regional Mall,23,25,2352
+6,Carrefour Richelieu,Regional Mall,22,24,1824
+7,Centre Rockland,Regional Mall,21,23,2701
+8,Fairview Pointe Claire,Regional Mall,25,5,2149
+9,Mall Champlain,Regional Mall,24,22,2192
+10,Rue Richelieu,Small Town,4,19,2274
+11,Rue St. Anne,Small Town,11,5,1874
+12,Rue St. George,Small Town,6,1,1589
+13,St. Eustache,Small Town,2,7,1429
 14,AveDoral,Urban and Suburban Main Street,19,2,1756
-15,AveVictoria,Urban and Suburban Main Street,15,15,2295
-16,BlvdMonk,Urban and Suburban Main Street,5,3,2098
-17,BoulStMartin,Urban and Suburban Main Street,20,13,1752
-18,JeanTalon,Urban and Suburban Main Street,8,14,1904
-19,MontRoyal,Urban and Suburban Main Street,16,18,1890
-20,RueBeaubien,Urban and Suburban Main Street,12,21,3110
-21,RueFleury,Urban and Suburban Main Street,13,4,2707
-22,RueOntario,Urban and Suburban Main Street,17,11,1896
-23,RueStCharles,Urban and Suburban Main Street,9,8,1666
-24,RueWellington,Urban and Suburban Main Street,14,9,1962
-25,StHubert,Urban and Suburban Main Street,3,20,2072
+15,Avenue Victoria,Urban and Suburban Main Street,15,15,2295
+16,Boulevard Monk,Urban and Suburban Main Street,5,3,2098
+17,Boulevard St. Martin,Urban and Suburban Main Street,20,13,1752
+18,Jean Talon,Urban and Suburban Main Street,8,14,1904
+19,Mont Royal,Urban and Suburban Main Street,16,18,1890
+20,Rue Beaubien,Urban and Suburban Main Street,12,21,3110
+21,Rue Fleury,Urban and Suburban Main Street,13,4,2707
+22,Rue Ontario,Urban and Suburban Main Street,17,11,1896
+23,Rue St. Charles,Urban and Suburban Main Street,9,8,1666
+24,Rue Wellington,Urban and Suburban Main Street,14,9,1962
+25,Rue St. Hubert,Urban and Suburban Main Street,3,20,2072

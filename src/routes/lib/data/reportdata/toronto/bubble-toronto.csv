@@ -1,26 +1,26 @@
 ﻿id,name,ms_type,independent_business_rank,civic_infra_share_rank,resiliency_score
-1,DTY,Downtown and CBD,18,8,1512
-2,LibVill,Downtown and CBD,16,10,1350
-3,NorthyorkCentre,Downtown and CBD,11,6,2177
-4,SpadinaChtn,Downtown and CBD,2,18,1662
-5,PickeringTC,Regional Mall,23,21,2141
-6,SquareOne,Regional Mall,24,22,1846
-7,STC,Regional Mall,25,23,1671
-8,VaughanMills,Regional Mall,22,25,2014
-9,Yorkdale,Regional Mall,21,24,1852
-10,CaledonEast,Small Town,15,3,2756
+1,Downtown Yonge,Downtown and CBD,18,8,1512
+2,Liberty Village,Downtown and CBD,16,10,1350
+3,North York Centre,Downtown and CBD,11,6,2177
+4,Spadina Chinatown,Downtown and CBD,2,18,1662
+5,Pickering Town Centre,Regional Mall,23,21,2141
+6,Square One,Regional Mall,24,22,1846
+7,Scarborough Town Centre,Regional Mall,25,23,1671
+8,Vaughan Mills,Regional Mall,22,25,2014
+9,Yorkdale Mall,Regional Mall,21,24,1852
+10,Caledon East,Small Town,15,3,2756
 11,Schomberg,Small Town,14,20,2150
-12,Sutton,Small Town,4,14,2786
+12,High Street (Sutton),Small Town,4,14,2786
 13,Uxbridge,Small Town,13,4,2402
-14,DT_Brampton,Urban and Suburban Main Street,10,1,1374
-15,EtobicokeLakeshore,Urban and Suburban Main Street,8,13,2388
-16,GoldenMile,Urban and Suburban Main Street,19,15,2051
-17,KingstonRd,Urban and Suburban Main Street,5,19,2622
-18,Markham,Urban and Suburban Main Street,3,11,1670
-19,MissDundas,Urban and Suburban Main Street,12,12,2102
+14,Downtown Brampton,Urban and Suburban Main Street,10,1,1374
+15,Etobicoke Lakeshore,Urban and Suburban Main Street,8,13,2388
+16,Golden Mile,Urban and Suburban Main Street,19,15,2051
+17,Kingston Road (Scarborough),Urban and Suburban Main Street,5,19,2622
+18,Highway 7 (Markham),Urban and Suburban Main Street,3,11,1670
+19,Dundas Street (Mississauga),Urban and Suburban Main Street,12,12,2102
 20,Newmarket,Urban and Suburban Main Street,1,9,1749
 21,Oakville,Urban and Suburban Main Street,9,5,2038
-22,Pickering,Urban and Suburban Main Street,20,16,1664
-23,ThorncliffePark,Urban and Suburban Main Street,17,7,2693
-24,Weston,Urban and Suburban Main Street,7,2,1960
-25,WestQueenWest,Urban and Suburban Main Street,6,17,1580
+22,Kingston Road (Pickering),Urban and Suburban Main Street,20,16,1664
+23,Thorncliffe Park,Urban and Suburban Main Street,17,7,2693
+24,Weston Road,Urban and Suburban Main Street,7,2,1960
+25,West Queen West,Urban and Suburban Main Street,6,17,1580

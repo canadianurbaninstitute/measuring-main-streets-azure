@@ -6,6 +6,9 @@
 	import * as turf from '@turf/turf';
 	import Icon from '@iconify/svelte';
 	import { Tabs } from 'bits-ui';
+	import { driver } from "driver.js";
+
+	import "driver.js/dist/driver.css";
 	import '../styles.css';
 
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
@@ -90,7 +93,6 @@
 	let english = 62;
 	let otherlang = 20;
 
-
 	/**** PERCENTILES ****/
 
 	let per_retail;
@@ -135,8 +137,13 @@
 	let per_mobility_public_transit;
 	let per_mobility_active_transit;
 
-
 	let geocoder;
+
+	let driverObj;
+
+	function initiateTutorial () {
+		driverObj.drive();
+	}
 
 	onMount(() => {
 		map = new mapboxgl.Map({
@@ -149,6 +156,32 @@
 			scrollZoom: true,
 			attributionControl: false
 		});
+
+		driverObj = driver({
+			showProgress: true,
+			steps: [
+				{ element: '.hero', popover: { title: 'Main Street Map', description: 'Welcome to the main street map tutorial.', side: "left", align: 'start' }},
+				{ element: '#map', popover: { title: 'Main Street Map', description: 'This is an interactive map of all the main streets in Canada. Search for a place or navigate the map by scrolling or zooming; and then click on a street segment.', side: "bottom", align: 'start' }},
+				{ element: '#sidebar', popover: { title: 'Information', description: 'After you click on a street segment, you can see information associated with the street in this panel.', side: "left", align: 'start' }},
+				{ element: '.tab-container', popover: { title: 'Information', description: 'You can toggle between absolute values and percentiles to view the main street in relation to other main streets.', side: "left", align: 'start' }},
+				{ element: '#controls', popover: { title: 'Legend', description: 'This is a dynamic legend that updates as layers come in and out of view.', side: "left", align: 'start' }},
+				{ element: '#tutorial', popover: { title: 'Tutorial', description: 'Congratulations, you\'ve completed the tutorial! You can revisit it at anytime by clicking this button.', side: "left", align: 'start' }},
+			]
+			});
+
+		
+		// Check if the user has visited before
+		if (typeof sessionStorage !== 'undefined') {
+			const hasVisitedBefore = sessionStorage.getItem('hasVisitedBefore');
+
+			if (!hasVisitedBefore) {
+			// Run the tutorial for the first-time visitor
+			initiateTutorial();
+
+			// Set the flag in localStorage
+			sessionStorage.setItem('hasVisitedBefore', 'true');
+			}
+		}
 
 		async function fetchMeasureData(id) {
 			const response = await fetch(`/mainstreets-measures?id=${id}`);
@@ -247,12 +280,37 @@
 			return ['st', 'nd', 'rd'][((((n + 90) % 100) - 10) % 10) - 1] || 'th';
 		}
 
+		// Function to modify nested data objects
+		function modifyPercentileData(data) {
+			let modifiedData = {};
+			for (let key in data) {
+				if (data.hasOwnProperty(key)) {
+					modifiedData[key] = {};
+					let subData = data[key];
+					for (let subKey in subData) {
+						if (subData.hasOwnProperty(subKey)) {
+							if (subData[subKey] === 'NA') {
+								modifiedData[key][subKey] = 0;
+							} else {
+								let value = parseFloat(subData[subKey]);
+								// Check if the value is a number and not NaN
+								if (!isNaN(value)) {
+									modifiedData[key][subKey] = Math.round(value);
+								} else {
+									// If not a number, keep the original value
+									modifiedData[key][subKey] = subData[subKey];
+								}
+							}
+						}
+					}
+				}
+			}
+			return modifiedData;
+		}
+
 		map.on('click', ['mainstreets-base', 'mainstreets-base-invisible'], (e) => {
-
 			document.getElementById('percentile-measures').style.display = 'block';
-			document.getElementById('percentile-placeholder').style.display = 'none'; 
-
-
+			document.getElementById('percentile-placeholder').style.display = 'none';
 
 			// map zooming
 			const endpoints = e.features[0].geometry.coordinates;
@@ -271,9 +329,7 @@
 
 			id = e.features[0].properties.id;
 
-
 			async function returnStreetData() {
-
 				let mainstreet_data = await fetchMeasureData(id);
 
 				/***** street *****/
@@ -325,9 +381,7 @@
 
 				// income + education
 
-				income = parseFloat(
-					mainstreet_data[0].average_employment_income
-				).toLocaleString();
+				income = parseFloat(mainstreet_data[0].average_employment_income).toLocaleString();
 				education = mainstreet_data[0].university_degree;
 
 				// age
@@ -366,56 +420,90 @@
 			}
 
 			async function returnPercentileData() {
-
 				let percentile_data = await fetchPercentileData(id);
+
+				percentile_data = modifyPercentileData(percentile_data);
+
 				per_retail = percentile_data[0].per_retail + nth(percentile_data[0].per_retail);
-				per_local_services = percentile_data[0].per_local_services + nth(percentile_data[0].per_local_services);
+				per_local_services =
+					percentile_data[0].per_local_services + nth(percentile_data[0].per_local_services);
 				per_food_drink = percentile_data[0].per_food_drink + nth(percentile_data[0].per_food_drink);
-				per_business_count = percentile_data[0].per_business_count + nth(percentile_data[0].per_business_count);
-				per_government_community_services = percentile_data[0].per_government_community_services + nth(percentile_data[0].per_government_community_services);
+				per_business_count =
+					percentile_data[0].per_business_count + nth(percentile_data[0].per_business_count);
+				per_government_community_services =
+					percentile_data[0].per_government_community_services +
+					nth(percentile_data[0].per_government_community_services);
 				per_healthcare = percentile_data[0].per_healthcare + nth(percentile_data[0].per_healthcare);
 				per_education = percentile_data[0].per_education + nth(percentile_data[0].per_education);
 				per_recreation = percentile_data[0].per_recreation + nth(percentile_data[0].per_recreation);
-				per_arts_culture = percentile_data[0].per_arts_culture + nth(percentile_data[0].per_arts_culture);
-				per_civic_count = percentile_data[0].per_civic_count + nth(percentile_data[0].per_civic_count);
-				per_business_independence_index = percentile_data[0].per_business_independence_index + nth(percentile_data[0].per_business_independence_index);
+				per_arts_culture =
+					percentile_data[0].per_arts_culture + nth(percentile_data[0].per_arts_culture);
+				per_civic_count =
+					percentile_data[0].per_civic_count + nth(percentile_data[0].per_civic_count);
+				per_business_independence_index =
+					percentile_data[0].per_business_independence_index +
+					nth(percentile_data[0].per_business_independence_index);
 				per_retail_min = percentile_data[0].per_retail_min + nth(percentile_data[0].per_retail_min);
 				per_retail_max = percentile_data[0].per_retail_max + nth(percentile_data[0].per_retail_max);
 				per_greenspace = percentile_data[0].per_greenspace + nth(percentile_data[0].per_greenspace);
-				per_total_employment = percentile_data[0].per_total_employment + nth(percentile_data[0].per_total_employment);
+				per_total_employment =
+					percentile_data[0].per_total_employment + nth(percentile_data[0].per_total_employment);
 				per_population = percentile_data[0].per_population + nth(percentile_data[0].per_population);
 				per_households = percentile_data[0].per_households + nth(percentile_data[0].per_households);
-				per_household_size = percentile_data[0].per_household_size + nth(percentile_data[0].per_household_size);
-				per_population_density = percentile_data[0].per_population_density + nth(percentile_data[0].per_population_density);
-				per_population_change = percentile_data[0].per_population_change + nth(percentile_data[0].per_population_change);
-				per_total_dwellings = percentile_data[0].per_total_dwellings + nth(percentile_data[0].per_total_dwellings);
-				per_single_detached = percentile_data[0].per_single_detached + nth(percentile_data[0].per_single_detached);
-				per_semi_detached = percentile_data[0].per_semi_detached + nth(percentile_data[0].per_semi_detached);
+				per_household_size =
+					percentile_data[0].per_household_size + nth(percentile_data[0].per_household_size);
+				per_population_density =
+					percentile_data[0].per_population_density +
+					nth(percentile_data[0].per_population_density);
+				per_population_change =
+					percentile_data[0].per_population_change + nth(percentile_data[0].per_population_change);
+				per_total_dwellings =
+					percentile_data[0].per_total_dwellings + nth(percentile_data[0].per_total_dwellings);
+				per_single_detached =
+					percentile_data[0].per_single_detached + nth(percentile_data[0].per_single_detached);
+				per_semi_detached =
+					percentile_data[0].per_semi_detached + nth(percentile_data[0].per_semi_detached);
 				per_duplex = percentile_data[0].per_duplex + nth(percentile_data[0].per_duplex);
-				per_apartment_more_5 = percentile_data[0].per_apartment_more_5 + nth(percentile_data[0].per_apartment_more_5);
-				per_apartment_less_5 = percentile_data[0].per_apartment_less_5 + nth(percentile_data[0].per_apartment_less_5);
-				per_average_age = percentile_data[0].per_average_age + nth(percentile_data[0].per_average_age);
+				per_apartment_more_5 =
+					percentile_data[0].per_apartment_more_5 + nth(percentile_data[0].per_apartment_more_5);
+				per_apartment_less_5 =
+					percentile_data[0].per_apartment_less_5 + nth(percentile_data[0].per_apartment_less_5);
+				per_average_age =
+					percentile_data[0].per_average_age + nth(percentile_data[0].per_average_age);
 				per_age_0_19 = percentile_data[0].per_age_0_19 + nth(percentile_data[0].per_age_0_19);
 				per_age_20_64 = percentile_data[0].per_age_20_64 + nth(percentile_data[0].per_age_20_64);
-				per_age_65_Over = percentile_data[0].per_age_65_Over + nth(percentile_data[0].per_age_65_Over);
-				per_university_degree = percentile_data[0].per_university_degree + nth(percentile_data[0].per_university_degree);
-				per_visible_minorities = percentile_data[0].per_visible_minorities + nth(percentile_data[0].per_visible_minorities);
-				per_immigrants_non_permanent_residents = percentile_data[0].per_immigrants_non_permanent_residents + nth(percentile_data[0].per_immigrants_non_permanent_residents);
+				per_age_65_Over =
+					percentile_data[0].per_age_65_Over + nth(percentile_data[0].per_age_65_Over);
+				per_university_degree =
+					percentile_data[0].per_university_degree + nth(percentile_data[0].per_university_degree);
+				per_visible_minorities =
+					percentile_data[0].per_visible_minorities +
+					nth(percentile_data[0].per_visible_minorities);
+				per_immigrants_non_permanent_residents =
+					percentile_data[0].per_immigrants_non_permanent_residents +
+					nth(percentile_data[0].per_immigrants_non_permanent_residents);
 				per_indigenous = percentile_data[0].per_indigenous + nth(percentile_data[0].per_indigenous);
-				per_language_english = percentile_data[0].per_language_english + nth(percentile_data[0].per_language_english);
-				per_language_french = percentile_data[0].per_language_french + nth(percentile_data[0].per_language_french);
-				per_language_other = percentile_data[0].per_language_other + nth(percentile_data[0].per_language_other);
-				per_average_employment_income = percentile_data[0].per_average_employment_income + nth(percentile_data[0].per_average_employment_income);
-				per_mobility_car = percentile_data[0].per_mobility_car + nth(percentile_data[0].per_mobility_car);
-				per_mobility_public_transit = percentile_data[0].per_mobility_public_transit + nth(percentile_data[0].per_mobility_public_transit);
-				per_mobility_active_transit = percentile_data[0].per_mobility_active_transit + nth(percentile_data[0].per_mobility_active_transit);
-
-
+				per_language_english =
+					percentile_data[0].per_language_english + nth(percentile_data[0].per_language_english);
+				per_language_french =
+					percentile_data[0].per_language_french + nth(percentile_data[0].per_language_french);
+				per_language_other =
+					percentile_data[0].per_language_other + nth(percentile_data[0].per_language_other);
+				per_average_employment_income =
+					percentile_data[0].per_average_employment_income +
+					nth(percentile_data[0].per_average_employment_income);
+				per_mobility_car =
+					percentile_data[0].per_mobility_car + nth(percentile_data[0].per_mobility_car);
+				per_mobility_public_transit =
+					percentile_data[0].per_mobility_public_transit +
+					nth(percentile_data[0].per_mobility_public_transit);
+				per_mobility_active_transit =
+					percentile_data[0].per_mobility_active_transit +
+					nth(percentile_data[0].per_mobility_active_transit);
 			}
 
 			returnStreetData();
 			returnPercentileData();
-
 
 			// highlighting road
 
@@ -541,9 +629,7 @@
 		document.getElementById('resetButton').style.display = 'none';
 		document.getElementById('catchment').style.display = 'none';
 		document.getElementById('percentile-measures').style.display = 'none';
-		document.getElementById('percentile-placeholder').style.display = 'block'; 
- 
-
+		document.getElementById('percentile-placeholder').style.display = 'block';
 
 		// reset geocoder
 		geocoder.clear();
@@ -643,12 +729,22 @@
 </svelte:head>
 
 <div class="hero">
-	<h1>Main Street Map</h1>
+	<div id="title">
+		<h1>Main Street Map </h1> 
+		<div on:click={initiateTutorial} id="tutorial">
+			<Icon  icon="fluent:question-circle-12-filled" width="2em" height="2em" color="#002940" />
+		</div>
+	</div>
 	<p>
-		This is a map of all the main streets in Canada. Search for a place or navigate the map using the
-		controls; and then click on a street segment to see information associated with it in the panel on the left. You can toggle between absolute values and percentiles to view the main street in relation to other main streets.
+		This is a map of all the main streets in Canada. Search for a place or navigate the map using
+		the controls; and then click on a street segment to see information associated with it in the
+		panel on the left. You can toggle between absolute values and percentiles to view the main
+		street in relation to other main streets.
 	</p>
-	<p>	For more information on how we classified main streets and data sources, read our <a href='/about/data-methodology'>Data Sources & Methodology</a>.
+	<p>
+		For more information on how we classified main streets and data sources, read our <a
+			href="/about/data-methodology">Data Sources & Methodology</a
+		>.
 	</p>
 </div>
 
@@ -657,7 +753,7 @@
 		<h2>{streetname}</h2>
 		<h4>{place}</h4>
 		<hr />
-		<Tabs.Root value="measures">
+		<Tabs.Root value="measures" id="tab-container">
 			<Tabs.List class="tab-container">
 				<Tabs.Trigger value="measures">Measures</Tabs.Trigger>
 				<Tabs.Trigger value="percentiles">Percentiles</Tabs.Trigger>
@@ -891,10 +987,12 @@
 							icon={'mdi:building'}
 						/>
 						<div slot="body" class="metric-container">
-							<Metric label={'Retail'} 
-							value={per_retail} 
-							suffix={' Percentile'}
-							icon={'mdi:shopping'} />
+							<Metric
+								label={'Retail'}
+								value={per_retail}
+								suffix={' Percentile'}
+								icon={'mdi:shopping'}
+							/>
 							<Metric
 								label={'Food & Drink'}
 								value={per_food_drink}
@@ -930,7 +1028,12 @@
 						suffix={' Percentile'}
 						icon={'fluent:people-20-filled'}
 					/>
-					<Metric label={'Employees'} value={per_total_employment} suffix={'  Percentile'} icon={'mdi:briefcase'} />
+					<Metric
+						label={'Employees'}
+						value={per_total_employment}
+						suffix={'  Percentile'}
+						icon={'mdi:briefcase'}
+					/>
 					<div class="metric-container">
 						<Metric
 							label={'Average Income'}
@@ -981,15 +1084,34 @@
 						/>
 					</div>
 					<div class="metric-container">
-						<Metric label={'English Speakers'} value={per_language_english} suffix={' Percentile'} />
+						<Metric
+							label={'English Speakers'}
+							value={per_language_english}
+							suffix={' Percentile'}
+						/>
 						<Metric label={'French Speakers'} value={per_language_french} suffix={' Percentile'} />
 						<Metric label={'Other Language'} value={per_language_other} suffix={' Percentile'} />
 					</div>
 					<h6>Commuting</h6>
 					<div class="metric-container">
-						<Metric label={'Car'} value={per_mobility_car} suffix={' Percentile'} icon={'mdi:car'} />
-						<Metric label={'Public Transit'} value={per_mobility_public_transit} suffix={' Percentile'} icon={'mdi:bus'} />
-						<Metric label={'Active Transit'} value={per_mobility_active_transit} suffix={' Percentile'} icon={'mdi:bike'} />
+						<Metric
+							label={'Car'}
+							value={per_mobility_car}
+							suffix={' Percentile'}
+							icon={'mdi:car'}
+						/>
+						<Metric
+							label={'Public Transit'}
+							value={per_mobility_public_transit}
+							suffix={' Percentile'}
+							icon={'mdi:bus'}
+						/>
+						<Metric
+							label={'Active Transit'}
+							value={per_mobility_active_transit}
+							suffix={' Percentile'}
+							icon={'mdi:bike'}
+						/>
 					</div>
 					<h6>Housing</h6>
 					<Accordion>
@@ -1003,13 +1125,25 @@
 						/>
 						<div slot="body">
 							<div class="metric-container">
-								<Metric label={'Single Detached'} value={per_single_detached} suffix={' Percentile'} />
+								<Metric
+									label={'Single Detached'}
+									value={per_single_detached}
+									suffix={' Percentile'}
+								/>
 								<Metric label={'Semi-Detached'} value={per_semi_detached} suffix={' Percentile'} />
 								<Metric label={'Duplex'} value={per_duplex} suffix={' Percentile'} />
 							</div>
 							<div class="metric-container">
-								<Metric label={'Apartment (>5 stories)'} value={per_apartment_more_5} suffix={' Percentile'} />
-								<Metric label={'Apartment (<5 stories)'} value={per_apartment_less_5} suffix={' Percentile'} />
+								<Metric
+									label={'Apartment (>5 stories)'}
+									value={per_apartment_more_5}
+									suffix={' Percentile'}
+								/>
+								<Metric
+									label={'Apartment (<5 stories)'}
+									value={per_apartment_less_5}
+									suffix={' Percentile'}
+								/>
 							</div>
 						</div>
 					</Accordion>
@@ -1128,9 +1262,19 @@
 <Footer />
 
 <style>
-
 	p {
 		margin-top: 0;
+	}
+
+	#title {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1em;
+	}
+
+	#tutorial:hover {
+		cursor: pointer;
 	}
 
 	#map {
@@ -1158,13 +1302,13 @@
 	}
 
 	#percentile-measures {
-		display:none;
+		display: none;
 	}
 
 	#percentile-placeholder {
-		display:flex;
-	text-align: center;
-	margin-top: 1em;
+		display: flex;
+		text-align: center;
+		margin-top: 1em;
 	}
 
 	#controls {
@@ -1190,8 +1334,6 @@
 		align-items: center;
 		justify-content: center;
 	}
-
-
 
 	#catchment {
 		display: none;
@@ -1259,7 +1401,6 @@
 		#sidebar {
 			width: 35vw;
 			border-right: 1px solid #eee;
-
 		}
 
 		#controls {
