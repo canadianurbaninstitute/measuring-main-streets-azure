@@ -56,7 +56,7 @@
 <div class="chart">
 	<LayerCake
 		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 160 }}
 		x={xKey}
 		y={yKey}
 		yDomainSort={false}
@@ -75,7 +75,7 @@
 
 	<LayerCake
 		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 160 }}
 		x={xKey}
 		y={yKey}
 		yDomainSort={false}
@@ -91,7 +91,7 @@
 
 	<LayerCake
 		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 160 }}
 		x={xKey}
 		y={yKey}
 		yDomainSort={false}
@@ -107,7 +107,7 @@
 
 	<LayerCake
 		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 160 }}
 		x={xKey}
 		y={yKey}
 		yDomainSort={false}

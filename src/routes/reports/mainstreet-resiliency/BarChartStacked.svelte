@@ -93,9 +93,10 @@
       expand to fill it.
     */
 	.chart {
-		width: 100%;
+		/* width: 100%; */
 		height: 800px;
 		position: relative;
+        padding-left: 8em;
 	}
 
 	.chart-container {

@@ -49,7 +49,7 @@
 <div class="chart">
 	<LayerCake
 		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 160 }}
 		x={xKey}
 		y={yKey}
 		yDomainSort={false}
@@ -67,7 +67,7 @@
 
 	<LayerCake
 		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 160 }}
 		x={xKey}
 		y={yKey}
 		yDomainSort={false}
@@ -82,7 +82,7 @@
 	</LayerCake>
 	<LayerCake
 		position="absolute"
-		padding={{ bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 160 }}
 		x={xKey}
 		y={yKey}
 		yDomainSort={false}
@@ -107,9 +107,10 @@
       expand to fill it.
     */
 	.chart {
-		width: 100%;
+		/* width: 100%; */
 		height: 800px;
 		position: relative;
+		padding-left: 8em;
 	}
 
 	.chart-container {
