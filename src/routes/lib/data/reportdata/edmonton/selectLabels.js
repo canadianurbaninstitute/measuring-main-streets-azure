@@ -1,85 +1,106 @@
 export const dataset = {
     casestudies: () => [
       {
-        label: 'Montreal',
+        label: 'Edmonton',
         options: [
           {
-            value: "Rue Saint Catherine",
-            text: "Rue Saint Catherine"
+            value: "JasperAve",
+            text: "Jasper Ave"
           },
           {
-            value: "Rue St Paul",
-            text: "Rue St Paul"
+            value: "104StreetDowntown",
+            text: "104 Street Downtown"
           },
           {
-            value: "Notre Dame",
-            text: "Notre Dame"
+            value: "97StreetDowntown",
+            text: "97 Street Downtown"
           },
           {
-            value: "St Denis",
-            text: "St Denis"
+            value: "107AvenueNW",
+            text: "107 Avenue NW"
           },
           {
-            value: "Carrefour Laval",
-            text: "Carrefour Laval"
+            value: "BonnieDoonSC",
+            text: "Bonnie Doon Shopping Centre"
           },
           {
-            value: "Carrefour Richelieu",
-            text: "Carrefour Richelieu"
+            value: "KingswayMall",
+            text: "Kingsway Mall"
           },
           {
-            value: "Centre Rockland",
-            text: "Centre Rockland"
+            value: "SouthgateCentre",
+            text: "Southgate Centre"
           },
           {
-            value: "Fairview Pointe Claire",
-            text: "Fairview Pointe Claire"
+            value: "WestEdmontonMall",
+            text: "West Edmonton Mall"
           },
           {
-            value: "Mall Champlain",
-            text: "Mall Champlain"
+            value: "StAlbertRoad",
+            text: "St. Albert Road"
           },
           {
-            value: "Rue Wellington",
-            text: "Rue Wellington"
+            value: "124StreetNW",
+            text: "124 Street NW"
           },
           {
-            value: "Rue Fleury",
-            text: "Rue Fleury"
+            value: "82AvenueNW",
+            text: "82 Avenue NW"
           },
           {
-            value: "Rue Ontario",
-            text: "Rue Ontario"
+            value: "118AlbertaAve",
+            text: "118 Alberta"
           },
           {
-            value: "Mont Royal",
-            text: "Mont Royal"
+            value: "118Beverly",
+            text: "118 Beverly"
           },
           {
-            value: "Boul St. Martin",
-            text: "Boul St. Martin"
+            value: "ParsonsRoadSW",
+            text: "Parsons Road SW"
           },
           {
-            value: "Rue St Charles",
-            text: "Rue St Charles"
+            value: "StonyPlainRoadNW",
+            text: "Stony Plain Road NW"
           },
           {
-            value: "Rue St George",
-            text: "Rue St George"
+            value: "97StreetNorth",
+            text: "97 Street North"
           },
           {
-            value: "Rue St Anne",
-            text: "Rue St Anne"
+            value: "104Street",
+            text: "104 Street"
           },
           {
-            value: "Rue Richelieu",
-            text: "Rue Richelieu"
+            value: "137AvenueNW",
+            text: "137 Avenue NW"
           },
           {
-            value: "St Eustache",
-            text: "St Eustache"
+            value: "SherwoodDrive",
+            text: "Sherwood Drive"
+          },
+          {
+            value: "149StreetNW",
+            text: "149 Street NW"
+          },
+          {
+            value: "50Ave",
+            text: "50 Ave"
+          },
+          {
+            value: "50StreetStonyPlain",
+            text: "50 Street Stony Plain"
+          },
+          {
+            value: "50StreetBeaumont",
+            text: "50 Street Beaumont"
+          },
+          {
+            value: "100Ave",
+            text: "100 Ave"
           }
-        ]        
+        ]
+        
       }
     ]
   };

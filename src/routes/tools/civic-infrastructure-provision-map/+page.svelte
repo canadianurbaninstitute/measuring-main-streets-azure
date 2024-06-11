@@ -259,7 +259,7 @@
 						variant={'circle'}
 						label={'Arts and Culture'}
 						bgcolor={'#DB3069'}
-						bordercolor={'#222'}
+						bordercolor={'#fff'}
 						button={true}
 						id={'canada-civicinfra-arts-culture'}
 						{map}
@@ -268,7 +268,7 @@
 						variant={'circle'}
 						label={'Govt & Community Services'}
 						bgcolor={'#8A4285'}
-						bordercolor={'#222'}
+						bordercolor={'#fff'}
 						button={true}
 						id={'canada-civicinfra-govt-community'}
 						{map}
@@ -277,7 +277,7 @@
 						variant={'circle'}
 						label={'Recreation'}
 						bgcolor={'#43B171'}
-						bordercolor={'#222'}
+						bordercolor={'#fff'}
 						button={true}
 						id={'canada-civicinfra-recreation'}
 						{map}
@@ -286,7 +286,7 @@
 						variant={'circle'}
 						label={'Healthcare'}
 						bgcolor={'#33AED7'}
-						bordercolor={'#222'}
+						bordercolor={'#fff'}
 						button={true}
 						id={'canada-civicinfra-health-care'}
 						{map}
@@ -295,7 +295,7 @@
 						variant={'circle'}
 						label={'Education'}
 						bgcolor={'#F45D01'}
-						bordercolor={'#222'}
+						bordercolor={'#fff'}
 						button={true}
 						id={'canada-civicinfra-education'}
 						{map}

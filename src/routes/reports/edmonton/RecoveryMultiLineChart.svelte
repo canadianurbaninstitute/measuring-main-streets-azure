@@ -16,7 +16,7 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 
 	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
-	import { dataset } from '../../lib/data/reportdata/montreal/selectLabels.js';
+	import { dataset } from '../../lib/data/reportdata/edmonton/selectLabels.js';
 
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series

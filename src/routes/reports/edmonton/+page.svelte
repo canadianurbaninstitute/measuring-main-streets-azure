@@ -23,8 +23,6 @@
 	<p>
 		Vibrant main streets are essential to building strong neighbourhoods. Strong neighbourhoods are
 		essential to healthy cities. And healthy cities are the foundation of a strong country.
-	</p>
-	<p>
 		The Edmonton region is home to 1.5 million people, and 88% of them live within 1 km of a main
 		street. Main streets are home to over 6,000 businesses that employ nearly 60,000 people while
 		generating over $8.5 billion in revenue per year. There are also over 2,000 sites of civic
@@ -38,7 +36,7 @@
 		fully recovered.
 	</p>
 	<p>
-		Our researchshows that the <a href="/reports/mainstreet-resiliency"
+		Our research shows that the <a href="/reports/mainstreet-resiliency"
 			>most resilient main streets are those most closely aligned with their immediate local
 			community</a
 		>. Opportunities for independent business and neighbourhood scale civic infrastructure are key

@@ -28,8 +28,7 @@
 	<p>
 		Vibrant main streets are essential to building strong neighbourhoods. Strong neighbourhoods are
 		essential to healthy cities. And healthy cities are the foundation of a strong country.
-	</p>
-	<p>
+
 		Over 4 million people live in the Montréal region, with 96% residing within 1 km of a main
 		street. Montréal’s main streets are home to over 23,000 businesses that employ 215,000 people
 		and generate over $30 billion in revenue per year. There are also nearly 8,000 sites of civic
@@ -43,7 +42,7 @@
 		fully recovered.
 	</p>
 	<p>
-		Our researchshows that the <a href="/reports/mainstreet-resiliency"
+		Our research shows that the <a href="/reports/mainstreet-resiliency"
 			>most resilient main streets are those most closely aligned with their immediate local
 			community</a
 		>. Opportunities for independent business and neighbourhood scale civic infrastructure are key
@@ -410,7 +409,7 @@
 		}
 
 		.full-text {
-			padding: 5em;
+			padding: 2em 5em 5em 5em;
 		}
 
 		.text-container {

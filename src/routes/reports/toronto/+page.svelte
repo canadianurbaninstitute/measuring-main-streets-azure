@@ -23,10 +23,10 @@
 	<p>
 		Vibrant main streets are essential to building strong neighbourhoods. Strong neighbourhoods are
 		essential to healthy cities. And healthy cities are the foundation of a strong country.
-	</p>
 	Over six million people live in the Toronto region, and 98% of them reside within 1 km of a main street.
 	Toronto’s main streets host over 33,000 businesses that employ 290,000 people and generate over $41
 	billion in revenue per year. There are also over 13,000 sites of civic infrastructure on main streets.
+</p>
 	<p>
 		Main street businesses and civic infrastructure play a crucial role in the day-to-day lives of
 		residents. But when main streets suffer, people suffer. The COVID-19 pandemic created

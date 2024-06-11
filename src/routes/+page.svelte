@@ -1,6 +1,7 @@
 <script>
 	import './styles.css';
 	import HeroCard from './lib/ui/HeroCard.svelte';
+	import HeroStat from './lib/ui/HeroStat.svelte';
 	import Footer from './lib/Footer.svelte';
 	import collage from './lib/assets/graphics/MMS-collage.jpg';
 	import canada_logo from './lib/assets/logos/canada_logo.svg';
@@ -42,11 +43,11 @@
 <span id="get-started" />
 
 <div class="hero">
-	<h1>Quick Links</h1>
-	<p>
+	<!-- <h1>Quick Links</h1> -->
+	<!-- <p>
 		Read the <a href="/about/guide">Measuring Main Streets Guide</a> to understand each component of
 		the platform in greater detail, or, jump to a section using the links below.
-	</p>
+	</p> -->
 </div>
 
 <div class="card-grid">
@@ -80,7 +81,7 @@
 </div>
 
 <div class="section" id="why-main-streets">
-	<img src="https://i.imgur.com/tAGVMYI.jpeg" alt="lamp" style="height:500px;border-radius:1em;" />
+	<!-- <img src="https://i.imgur.com/tAGVMYI.jpeg" alt="lamp" style="height:500px;border-radius:1em;" /> -->
 	<div class="hero">
 		<h1>Why Main Streets?</h1>
 		<h2>Main streets are the backbone of Canadian society.</h2>
@@ -88,43 +89,98 @@
 			Vibrant main streets create thriving neighbourhoods, thriving neighbourhoods produce healthy
 			cities, and healthy cities underpin a prosperous country.
 		</h3>
+		<div class="stat-container">
+		<HeroStat
+		number={'75%'}
+		subtitle={'of Canadians live within 1km of a main street'}
+		/>
+		<HeroStat
+		number={'160,000'}
+		subtitle={'Main Street Businesses'}
+		/>
+		<HeroStat
+		number={'1.7 million'}
+		subtitle={'jobs provided'}
+		/>
+		<HeroStat
+		number={'$250 billion'}
+		subtitle={'in annual revenue'}
+		/>
+		<HeroStat
+		number={'50,000+'}
+		subtitle={'sites of community & civic infrastructure'}
+		/>
+		</div>
 
-		<p>
+
+		<!-- <p>
 			Nearly 75% of Canadians live within one kilometre of a main street. Over 160,000 main street
 			businesses provide 1.7 million jobs and generate $250 billion in revenue. Main streets are
 			gathering places home to over 50,000 pieces of community and civic infrastrucutre where
 			personal relationships are created and strengthened, and dense, walkable main streets have
 			positive impacts on environmental sustainability as well as personal health.
-		</p>
+		</p> -->
 	</div>
 </div>
 
 <div class="section">
-	<div class="hero" id="left-hero">
+	<div class="hero" id="why-now">
 		<h1>Why Now?</h1>
 		<h2>Main streets require urgent attention and investment.</h2>
 		<h3>
-			Main Streets were challenged during the pandemic, and require a more inclusive and innovative
-			approach to ensure their resiliency, now more than ever.
+			We worked across 3 main themes, finding that Main Streets were challenged during the pandemic, and require a more inclusive and innovative
+			approach to allow them to thrive, now more than ever. 
 		</h3>
-
-		<p>
+		<div class="stat-container">
+			<HeroStat
+			number={'Equity'}
+			subtitle={''}
+			color={'var(--brandDarkBlue)'}
+			/>
+			<HeroStat
+			number={'Resiliency'}
+			subtitle={''}
+			color={'var(--brandDarkBlue)'}
+			/>
+			<HeroStat
+			number={'Community'}
+			subtitle={''}
+			color={'var(--brandDarkBlue)'}
+			/>
+			</div>
+		<!-- <p>
 			Main streets that experienced prolonged stress during the pandemic were highly vulnerable to
 			negative cycles of reduced footfall, store vacancies, and diminishing perceptions. Many main
 			streets, especially ones closer to city-centres, remain below 2019 visitor levels. Even before
 			the pandemic, main streets were experiencing significant challenges from long-running shifts
 			to online and big-box consumer behaviour. Our main streets must be cherished and invested in
 			if our country is going to flourish.
-		</p>
+		</p> -->
 	</div>
 
-	<img
+	<!-- <img
 		src="https://i.imgur.com/EcU0Gd0.jpeg"
 		alt="crossroads"
 		style="height:500px;border-radius:1em;"
-	/>
+	/> -->
 </div>
 
+<div class="section" id="stronger-together">
+	<div class="hero">
+		<h1>Canada is Stronger Together</h1>
+		<p>
+			The Measuring Main Streets platform was realized through the Research Knowledge Initiative
+			program from Infrastructure Canada. The Canadian Urban Institute leveraged partners at Environics Analytics and Open
+			North to produce the first ever national-scale main street assessment platform in the face of
+			urgent needs across the country.
+		</p>
+	</div>
+	<div class="logo-group">
+		<img src={canada_logo} alt="Canadian Urban Institute" />
+		<a href="https://www.canurb.org"><img src={cui_logo} alt="Canadian Urban Institute" /></a>
+	</div>
+</div>
+<!-- 
 <div class="section">
 	<svg
 		width="110px"
@@ -200,33 +256,27 @@
 			academics can learn, share and collaborate with one another from coast to coast to coast.
 		</p>
 	</div>
-</div>
+</div> -->
 <div class="section">
-	<div class="hero">
-		<h1>Learn More</h1>
+	<div class="hero" id='learn-more'>
+		<div>
+		<h1>Discover Canada's Main Streets</h1>
+		</div>
+		<div style="display: flex; flex-direction: column;">
+		<h2>Frequently Asked Questions</h2>
 		<p>
-			Have questions or enquiries about the platform? Read the <a href="/about/faq">FAQ</a>, learn more about
-			the <a href="/about">Platform</a>, or read our <a href="/about/data-methodology">Methodology & Data Sources</a>. You
-			can also reach out to us directly via the <a href="/about/contact">Contact</a> page.
+			Have questions or enquiries about the platform? Read the <a href="/about/faq">FAQ</a> or learn more about
+			the <a href="/about">Platform</a>.
 		</p>
+		<h2>Methodology and Data</h2>
+		<p> Read our <a href="/about/data-methodology">Methodology & Data Sources</a>.</p>
+		<h2>Contact Us</h2>
+		<p> You can also reach out to us directly via the <a href="/about/contact">Contact</a> page.</p>
+		</div>
 	</div>
 </div>
 
-<div class="section" id="stronger-together">
-	<div class="hero">
-		<h1>Canada is Stronger Together</h1>
-		<p>
-			The Measuring Main Streets platform was realized through the Research Knowledge Initiative
-			program from Infrastructure Canada. We leveraged partners at Environics Analytics and Open
-			North to produce the first ever national-scale main street assessment platform in the face of
-			urgent needs across the country.
-		</p>
-	</div>
-	<div class="logo-group">
-		<img src={canada_logo} alt="Canadian Urban Institute" />
-		<a href="https://www.canurb.org"><img src={cui_logo} alt="Canadian Urban Institute" /></a>
-	</div>
-</div>
+
 
 <Footer />
 
@@ -255,6 +305,8 @@
 		margin: 2em 2em 0 2em;
 		gap: 1em;
 		flex: 1;
+		align-items: center;
+
 	}
 
 
@@ -269,6 +321,30 @@
 
 	#why-main-streets {
 		border-top: 1px solid var(--brandGrey);
+		background: linear-gradient(
+	rgba(0, 41, 64, 0.8),
+	rgba(0, 41, 64, 0.8)), url('https://i.imgur.com/XtcX0Gn.jpeg');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		padding: 5em 0 5em 0;
+	}
+
+	#why-main-streets h1, #why-main-streets h2, #why-main-streets h3 {
+		color:white;
+		text-align: center;
+	}
+
+	.stat-container {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		justify-content: center
+	}
+
+	#why-now {
+		text-align: center;
+
 	}
 
 	#stronger-together {
@@ -358,8 +434,23 @@
 
 		.section {
 		flex-direction: row;
+		padding: 2em 10em 2em 10em;
 		}
+
+
+	.stat-container {
+		flex-direction: row;
 	}
+
+	#learn-more {
+		flex-direction: row;
+	}
+
+	#learn-more h1 {
+		font-size: 3rem;
+	}
+
+}
 
 	/* Large devices (laptops/desktops, 992px and up) */
 	@media only screen and (min-width: 992px) {
@@ -377,8 +468,5 @@
 			width: 50%;
 		}
 
-		#left-hero {
-			margin: 0 2em 0 0;
-		}
 	}
 </style>
