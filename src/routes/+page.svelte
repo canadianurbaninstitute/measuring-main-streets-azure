@@ -53,7 +53,7 @@
 <div class="card-grid">
 	<HeroCard
 		link={'/map'}
-		cardImage={'https://i.imgur.com/eW8AZ8W.jpeg'}
+		cardImage={'https://i.imgur.com/c9WT7dM.png'}
 		title={'Main Street Map'}
 		subtitle={''}
 	/>
@@ -67,7 +67,7 @@
 
 	<HeroCard
 		link={'/casestudies'}
-		cardImage={'https://i.imgur.com/8WDGwYT.jpeg'}
+		cardImage={'https://i.imgur.com/89GpAIS.png'}
 		title={'Case Studies'}
 		subtitle={''}
 	/>

@@ -14,9 +14,24 @@
 	
 </script>
 
-
 <div class="hero">
     <h1> Reports </h1>
+	<div class="subtitle">
+		<h2>Executive Summary</h2>
+	</div>
+</div>
+
+
+<div style="margin: 2em">
+	<ReportCard
+	link={"/reports/executive-summary"}
+	cardImage={mainstreets}
+	title={'Executive Summary: Measuring Main Streets'}
+	subtitle={''}
+	/>
+	</div>
+
+<div class="hero">
 	<div class="subtitle">
 		<h2>Research Briefs</h2>
 	</div>
@@ -25,14 +40,7 @@
     </p>
 </div>
 
-<div style="margin: 2em">
-<ReportCard
-link={"/reports/executive-summary"}
-cardImage={mainstreets}
-title={'Executive Summary: Measuring Main Streets'}
-subtitle={''}
-/>
-</div>
+
 
 
 <div class="card-grid">
