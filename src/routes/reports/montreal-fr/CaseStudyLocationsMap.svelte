@@ -88,10 +88,10 @@
 	<div id="case-studies-map" class="map" />
 
 	<div class="legend-container">
-		<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-		<LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-		<LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-		<LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} />
+		<LegendItem variant={'polygon'} label={'Rues principales de centres-villes'} bgcolor={'#58e965'} />
+		<LegendItem variant={'polygon'} label={'Rues principales de quartiers'} bgcolor={'#002940'} />
+		<LegendItem variant={'polygon'} label={'Rues principales de petites villes'} bgcolor={'#00adf2'} />
+		<LegendItem variant={'polygon'} label={'Centres commerciaux'} bgcolor={'#DB3069'} />
 	</div>
 </div>
 

@@ -144,7 +144,7 @@
 </script>
 
 <div class="chart-container">
-	<h4>Visitor Levels (%) relative to the same month in 2019</h4>
+	<h4>Pourcentage du nombre de visites (par rapport à 2019)</h4>
 
 	<div class="controls">
 		<Svelecte
@@ -156,10 +156,10 @@
 			clearable
 		/>
 		<div class="legend-container">
-			<LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={seriesColors[0]} />
-			<LegendItem variant={'line'} label={'Malls'} bordercolor={seriesColors[1]} />
-			<LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={seriesColors[2]} />
-			<LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={seriesColors[3]} />
+			<LegendItem variant={'line'} label={'Rues principales de centres-villes'} bordercolor={seriesColors[0]} />
+			<LegendItem variant={'line'} label={'Centres commerciaux'} bordercolor={seriesColors[1]} />
+			<LegendItem variant={'line'} label={'Rues principales de quartiers'} bordercolor={seriesColors[2]} />
+			<LegendItem variant={'line'} label={'Rues principales de petites villes'} bordercolor={seriesColors[3]} />
 
 			{#each selectedValues as value}
 			<LegendItem variant={'line'} label={value} bordercolor={'#00ADF2'} />

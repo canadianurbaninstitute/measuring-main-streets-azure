@@ -24,7 +24,7 @@
   
   <div class='chart-container'>
 
-    <h4>Independent Business Rank (x-axis) vs. Civic Infrastructure % Rank (y-axis)</h4>
+    <h4>Classement des entreprises indépendantes (axe des x) par rapport au pourcentage de classement des infrastructures municipales (axe des y)</h4>
 
     <ScatterChart
 				data={data}
@@ -37,12 +37,12 @@
 
 
   <div class='controls'>
-    <div class="legend-container">
-		<LegendItem variant={'circle'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-        <LegendItem variant={'circle'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-        <LegendItem variant={'circle'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-        <LegendItem variant={'circle'} label={'Malls'} bgcolor={'#DB3069'} />
-    </div>
+	<div class="legend-container">
+		<LegendItem variant={'circle'} label={'Rues principales de centres-villes'} bgcolor={'#58e965'} />
+		<LegendItem variant={'circle'} label={'Rues principales de quartiers'} bgcolor={'#002940'} />
+		<LegendItem variant={'circle'} label={'Rues principales de petites villes'} bgcolor={'#00adf2'} />
+		<LegendItem variant={'circle'} label={'Centres commerciaux'} bgcolor={'#DB3069'} />
+	</div>
 </div>
   </div>
 

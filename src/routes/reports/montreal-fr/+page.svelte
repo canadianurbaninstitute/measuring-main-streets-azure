@@ -17,7 +17,7 @@
 <Title
 	outline={blank}
 	name={'Montréal'}
-	location={'Regional Report'}
+	location={'Les rues principales de la région de Montréal'}
 	bg={'https://i.imgur.com/2sGLoIh.jpeg'}
 />
 
@@ -26,57 +26,35 @@
 
 <div class="full-text">
 	<p>
-		Vibrant main streets are essential to building strong neighbourhoods. Strong neighbourhoods are
-		essential to healthy cities. And healthy cities are the foundation of a strong country.
+		Des rues principales dynamiques sont essentielles à la construction de quartiers prospères. Des quartiers prospères sont essentiels à la vitalité des villes. Et des villes saines sont le fondement d’un pays fort.
 
-		Over 4 million people live in the Montréal region, with 96% residing within 1 km of a main
-		street. Montréal’s main streets are home to over 23,000 businesses that employ 215,000 people
-		and generate over $30 billion in revenue per year. There are also nearly 8,000 sites of civic
-		infrastructure on main streets.
+		Plus de 4 millions de personnes vivent dans la région de Montréal et 96 % d’entre elles habitent à moins d’un kilomètre d’une rue principale. Les rues principales de Montréal abritent plus de 23 000 entreprises qui emploient 215 000 personnes et génèrent plus de 30 milliards de dollars de revenus par année. On compte également près de 8 000 infrastructures municipales le long des rues principales.
 	</p>
 	<p>
-		Main street businesses and civic infrastructure play a crucial role in the day-to-day lives of
-		residents. But when main streets suffer, people suffer. The COVID-19 pandemic created
-		significant pain on main streets, leading to the closure of businesses, and subsequently, to
-		empty storefronts. While some main streets in the Montréal region have rebounded, many have not
-		fully recovered.
+		Les entreprises et les infrastructures municipales des rues principales jouent un rôle crucial dans la vie quotidienne des personnes qui habitent les villes. Mais lorsque les rues principales souffrent, les gens souffrent. La pandémie de COVID-19 a causé de grandes souffrances au sein des rues principales, entraînant la fermeture d’entreprises et, par la suite, des vitrines vides. Bien que certaines rues principales de la région de Montréal aient rebondi, bon nombre d’entre elles ne se sont pas complètement rétablies.  
 	</p>
 	<p>
-		Our research shows that the <a href="/reports/mainstreet-resiliency"
-			>most resilient main streets are those most closely aligned with their immediate local
-			community</a
-		>. Opportunities for independent business and neighbourhood scale civic infrastructure are key
-		building blocks for pushing back against longer-term threats to main streets, such as
-		<a href="reports/mainstreets-malls-mice">ecommerce and regional shopping centres.</a>
+
+		Nos recherches montrent que les <a href="/reports/mainstreet-resiliency">rues principales les plus résistantes sont celles qui sont les plus étroitement liées à leur communauté locale immédiate</a>. Les perspectives pour les entreprises indépendantes et les infrastructures municipales à l’échelle du quartier sont des éléments clés pour lutter contre les menaces à plus long terme qui pèsent sur les rues principales, telles que <a href="reports/mainstreets-malls-mice">le commerce électronique et les centres commerciaux régionaux</a>.
 	</p>
 	<p>
-		Unfortunately, <a href="/reports/mainstreets-infrastructure-equity">
-			community resources are not equitably distributed within urban regions</a
-		>, including in the Montréal region. And, in more recently built suburban neighbourhoods that
-		have not been developed around a main street, there is a scarcity of civic infrastructure. This
-		research brief looks at main streets in relation to resiliency, community, and equity, drawing
-		on 20 Montréal-region main street case studies.
+		Malheureusement, <a href="/reports/mainstreets-infrastructure-equity">les ressources communautaires ne sont pas réparties équitablement dans les régions urbaines</a>, y compris dans la région de Montréal. De plus, il existe une pénurie d’infrastructures municipales dans les quartiers de banlieue plus récents qui n’ont pas été développés autour d’une rue principale. Ce document de recherche examine les rues principales sous l’angle de la résilience, de la communauté et de l’équité, en s’appuyant sur 20 études de cas de rues principales de la région de Montréal.
 	</p>
 </div>
 
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Montréal Case Study Main Streets</h3>
+			<h3>Les rues principales de l’étude de cas de Montréal</h3>
 			<p>
-				Twenty main streets were chosen in the Montréal region as representative case studies. Ten
-				involved direct observational research and detailed data analysis, and ten provide the data
-				component alone.
+				Vingt rues principales ont été choisies dans la région de Montréal comme études de cas représentatives. Dix d’entre elles ont fait l’objet d’une recherche par observation directe et d’une analyse détaillée des données, tandis que les dix autres n’ont fourni que des données.
 			</p>
-			<p>The case studies were also contrasted with five regional shopping centres.</p>
+			<p>Les études de cas ont également été comparées à cinq centres commerciaux régionaux. </p>
 			<p>
-				In addition, we selected main streets that reflect a cross section of geographies, including
-				four downtown (workplace oriented) streets, four small town main streets, and 12
-				neighbourhood (residentially oriented) main streets.
+				En outre, nous avons sélectionné des rues principales qui reflètent un échantillon représentatif de géographies, y compris quatre rues de centres-villes (orientées vers le lieu de travail), quatre rues principales de petites villes et 12 rues principales de quartier (orientées vers les résidents). 
 			</p>
 			<p>
-				The presence of equity deserving communities was also a key factor in the selection process.
-			</p>
+				La présence de communautés méritant l’équité a également représenté un facteur clé dans le processus de sélection.  
 		</div>
 	</div>
 
@@ -88,38 +66,21 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Main Street Resiliency</h3>
+			<h3>Résilience des rues principales</h3>
 			<p>
-				While all Montréal-region main streets experienced serious downturns during the pandemic,
-				some were hit harder and took longer to recover.
+				Bien que l’ensemble des rues principales de la région de Montréal aient connu de sérieux ralentissements au cours de la pandémie, certaines ont été plus durement touchées et ont mis plus de temps à s’en remettre. 
 			</p>
 			<p>
-				Our <a href="/reports/mainstreet-resiliency">statistical analysis</a> shows that the most resilient
-				main streets were those that draw a high proportion of their visitors from the immediate neighbourhood
-				(within 1 km). Conversely, the least resilient main streets tended to draw a greater share of
-				their visitors from further away.
+				Notre <a href="/reports/mainstreet-resiliency">analyse statistique</a> montre que les rues principales les plus résilientes sont celles qui attirent une forte proportion de visiteurs provenant du voisinage immédiat (dans un rayon d’un kilomètre). À l’inverse, les rues principales les moins résilientes ont tendance à attirer une plus grande part de leurs visiteurs provenant de régions plus éloignées.
 			</p>
 			<p>
-				Main streets located in and near downtowns tended to be hit harder by the pandemic and took
-				longer to recover. The second most important factor associated with resiliency during the
-				pandemic was the presence of greenspace, as people sought out safe places where a degree of
-				social interaction remained possible.
+				Les rues principales situées dans les centres-villes et à proximité de ceux-ci ont été plus durement touchées par la pandémie et ont mis plus de temps à s’en remettre. Le deuxième facteur le plus important associé à la résilience pendant la pandémie était la présence d’espaces verts, car les gens recherchaient des endroits sécuritaires où un certain degré d’interaction sociale restait possible.
 			</p>
 			<p>
-				Among all 20 Montréal-region main streets there were examples of small town, downtown, and
-				residential streets demonstrating higher levels of resiliency. The most resilient main
-				street case study was in <a href="/casestudies/montreal/ruestanne">Sainte Anne de Bellevue</a>, which had a high level of visitors (27%)
-				coming from less than 1 km away. <a href="/casestudies/montreal/ruestpaul">Rue St. Paul</a> in Old Montréal is a rare example of a
-				downtown main street that showed a higher degree of resilience. <a href="/casestudies/montreal/avedorval">Dorval</a> and <a href="/casestudies/montreal/boulevardmonk">Ville Emard
-				(Boulevard Monk)</a> were the most resilient neighbourhood main street case studies in the
-				Montréal region.
+				Parmi les 20 rues principales de la région de Montréal, il y avait des exemples de petites villes, de centres-villes et de rues résidentielles démontrant des niveaux plus élevés de résilience. L’étude de cas de la rue principale la plus résiliente est celle de <a href="/casestudies/montreal/ruestanne">Sainte-Anne-de-Bellevue</a>, qui démontre un taux élevé de visiteurs (27 %) provenant de moins d’un kilomètre. <a href="/casestudies/montreal/ruestpaul">La rue Saint-Paul</a>, dans le Vieux-Montréal, est un rare exemple d’une rue principale de centres-villes qui a montré un degré de résilience plus élevé. <a href="/casestudies/montreal/avedorval">Dorval</a> et <a href="/casestudies/montreal/boulevardmonk">Ville-Émard (boulevard Monk)</a> représentent les études de cas de rues principales de quartier les plus résilientes de la région de Montréal.
 			</p>
 			<p>
-				<a href="/casestudies/montreal/stdenis">Saint Denis</a> and <a href="/casestudies/montreal/notredame">Notre Dame (Saint Henri)</a> were among the least resilient main street case
-				studies in the Montréal region. Both tough the edges of the downtown core and rely on a
-				greater share of visitor from more than 1km away. The least resilient neighbourhood case
-				study main street was <a href="/casestudies/montreal/rueontario">Rue Ontario</a> in Hochelaga. It captured 20% of its visitors from with
-				1km in 2019, which is at the low end of the spectrum for neighbourhood type main streets.
+				Les rues <a href="/casestudies/montreal/stdenis">Saint-Denis</a> et <a href="/casestudies/montreal/notredame">Notre-Dame (Saint-Henri)</a> figurent parmi les études de cas de rues principales les moins résilientes de la région de Montréal. Toutes deux sont situées à la périphérie du centre-ville et comptent sur une plus grande proportion de visiteurs provenant de plus d’un kilomètre. La rue principale la moins résiliente de l’étude de cas de quartier est <a href="/casestudies/montreal/rueontario">la rue Ontario</a> à Hochelaga. Elle a capté 20 % de ses visiteurs à moins de 1 km en 2019, ce qui se situe au bas de l’échelle des rues principales de type quartier.
 			</p>
 		</div>
 	</div>
@@ -132,47 +93,22 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Main Street Community</h3>
+			<h3>Communauté des rues principales</h3>
 			<p>
-				While the pandemic posed a major challenge to Montréal-region main streets, there are
-				longer-term sources of strain that continue.
+				Bien que la pandémie ait posé un défi majeur aux rues principales de la région de Montréal, des sources de tension à plus long terme persistent également.
 			</p>
 			<p>
-				<a href="/reports/mainstreets-malls-mice"
-					>Regional shopping malls and ecommerce offer alternatives to many of the goods and
-					services offered on main streets.</a
-				> Shopping malls were initially hit harder by the pandemic due to the effects of hard lockdowns,
-				but typically rebounded faster. The use of ecommerce spiked from 2020 to 2022 before returning
-				to its (more modest) historic upward trend in 2023.
+				<a href="/reports/mainstreets-malls-mice">Les centres commerciaux régionaux et le commerce électronique offrent des choix alternatifs</a> à de nombreux biens et services offerts sur les rues principales. Les centres commerciaux ont d’abord été plus durement touchés par la pandémie en raison des effets brutaux des confinements, mais ils ont généralement rebondi plus rapidement. Le recours au commerce électronique a connu un pic entre 2020 et 2022 avant de revenir à sa tendance historique à la hausse (plus modeste) en 2023.
 			</p>
 			<p>
-				Despite a degree of overlap between main streets and shopping malls and ecommerce, there are
-				also significant differences. Main streets offer more opportunities for independent business
-				and provide more civic infrastructure. Both can be more responsive to the specific needs of
-				the local community, and the relationships forged through the interactions of residents,
-				business operators, and managers of civic infrastructure are essential for the long-term
-				vitality of main streets.
+				Malgré un certain degré de chevauchement de l’activité commerciale entre les rues principales et les centres commerciaux et le commerce électronique, il existe également des différences significatives. Les rues principales offrent plus de possibilités pour les entreprises indépendantes et fournissent davantage d’infrastructures municipales. Elles peuvent toutes deux mieux répondre aux besoins spécifiques de la communauté locale, et les relations tissées grâce aux interactions entre les locaux, les opérateurs commerciaux et les gestionnaires de l’infrastructure municipale sont essentielles à la vitalité à long terme des rues principales.
 			</p>
 			<p>
-				The five Montréal-region shopping malls clearly have a scarcity of both independent
-				businesses and civic infrastructure, ranking below all main streets on both scores. Of the
-				Montréal case study main streets, <a href="/casestudies/montreal/boulevardmonk">Boulevard Monk (Ville Emard)
-				</a>, <a href="/casestudies/montreal/ruestcharles">Rue Saint Charles (Old
-				Longueil)</a>, and <a href="/casestudies/montreal/notredame">Rue Notre Dame (Saint Henri)</a> stand out as having higher shares of both
-				independent business and civic infrastructure. Each of these are examples of main streets
-				that are older well-established main streets that are dense and walkable. They possess a
-				variety of building types that are generally flexible and adaptable. Two of the small-town
-				main street case studies also scored in the top ten on both independent business and share
-				civic infrastructure. <a href="/casestudies/montreal/ruestgeorge">Rue St. George (Saint Jerome)</a> and <a href="/casestudies/montreal/steustache"> Rue St. Eustache (St. Eustache)</a> both
-				demonstrate assets that are conducive to centering strong local communities.
+				Les cinq centres commerciaux de la région de Montréal présentent manifestement une pénurie de commerces indépendants et d’infrastructures municipales, se classant en dessous de toutes les rues principales pour ces deux critères. Parmi les rues principales de l’étude de cas de Montréal, <a href="/casestudies/montreal/boulevardmonk">le boulevard Monk (Ville-Émard)</a>, <a href="/casestudies/montreal/ruestcharles">la rue Saint-Charles (Vieux Longueil)</a> et <a href="/casestudies/montreal/notredame">la rue Notre-Dame (Saint-Henri)</a> se distinguent par des parts plus élevées de commerces indépendants et d’infrastructures municipales. Chacune de ces rues principales est un exemple de rue principale plus ancienne, bien établie, dense et praticable. Elles possèdent une variété de types de bâtiments qui sont généralement flexibles et adaptables. Deux des études de cas portant sur des rues principales de petites villes se sont également classées parmi les dix premières pour ce qui est du commerce indépendant et de l’infrastructure municipale commune. <a href="/casestudies/montreal/ruestgeorge">La rue George (Saint-Jérôme)</a> et <a href="/casestudies/montreal/steustache">la rue Saint-Eustache (Saint-Eustache)</a> présentent toutes deux des atouts propices à l’établissement de communautés locales fortes.
 			</p>
 			<p>
-				<a href="/casestudies/montreal/avenuevictoria">Av. Victoria (St. Lambert)</a> and <a href="/casestudies/montreal/boulevardstmartin">Boul. St. Martin (Laval)</a> are main streets at the other end of
-				the spectrum. These are places with less independent business and civic infrastructure that
-				are heavily car-oriented and characterized by big box retail and chain restaurants. Such
-				main streets do not possess a clear identity and are less likely to be shaped by the local
-				community.
-			</p>
+				<a href="/casestudies/montreal/avenuevictoria">L’avenue Victoria (Saint-Lambert)</a> et <a href="/casestudies/montreal/boulevardstmartin">le boulevard Saint-Martin (Laval)</a> sont des rues principales situées à l’autre extrémité du spectre. Il s’agit d’endroits où l’infrastructure commerciale et municipale est moins indépendante, qui sont fortement axés sur l’automobile et qui se caractérisent par la présence de grandes surfaces commerciales et de chaînes de restaurants. Ces rues principales ne possèdent pas d’identité bien définie et sont moins susceptibles d’être façonnées par la communauté locale.
+			</p>			
 		</div>
 	</div>
 
@@ -184,49 +120,24 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Main Street Equity</h3>
+			<h3>L’équité des rues principales</h3>
 			<p>
-				Main streets contain the businesses and civic infrastructure that are essential for the
-				day-to-day lives of residents. They make people’s lives better, easier, and more enjoyable –
-				the foundation of local communities where people come together, interact, and form
-				relationships.
+				Les rues principales abritent les entreprises et les infrastructures municipales qui sont essentielles à la vie quotidienne des personnes qui y habitent. Elles rendent la vie des gens meilleure, plus facile et plus agréable. Elles sont le fondement des communautés locales où les gens se rassemblent, interagissent et nouent des relations.
 			</p>
 			<p>
-				Unfortunately, not everyone enjoys equal access to main streets and what they have to offer.
-				In some cases, main streets lack critical civic infrastructure, but more pointedly, some
-				neighbourhoods lack main streets altogether. Our analysis shows that more recently built
-				suburban neighbourhoods are where civic infrastructure deficits are most prevalent.
+				Malheureusement, tout le monde ne bénéficie pas d’un accès égal aux rues principales et à ce qu’elles ont à offrir. Dans certains cas, les rues principales sont dépourvues d’infrastructures municipales essentielles, mais plus particulièrement, certains quartiers sont totalement dépourvus de rues principales. Notre analyse montre que c’est dans les quartiers de banlieue de construction récente que les déficits en matière d’infrastructures municipales sont les plus importants.
 			</p>
 			<p>
-				Our Civic Infrastructure Index, which considers the amount of local (within 1 km) civic
-				infrastructure relative to the local population, shows that Montréal-region more recently
-				built neighbourhoods in places like Blainville, Laval, and Brossard tend to have lower
-				levels of local access to civic infrastructure relative to the regional average.
+				Notre indice d’infrastructures municipales, qui prend en compte la quantité d’infrastructures municipales locales (dans un rayon de 1 km) par rapport à la population locale, montre que les quartiers de la région de Montréal construits plus récemment dans des endroits comme Blainville, Laval et Brossard ont tendance à avoir des niveaux d’accès locaux aux infrastructures municipales inférieures à la moyenne régionale.
 			</p>
 			<p>
-				Downtown Montréal is at the other end of the spectrum, with much higher levels of civic
-				infrastructure, as it is home to many regionally significant assets. Fittingly, <a href="/casestudies/montreal/notredame">Notre Dame (Saint Henri)</a> and <a href="/casestudies/montreal/stdenis">St. Denis</a> are the case studies that score the highest on our Civic
-				Infrastructure Index. In the Montréal region, access to civic infrastructure tends to taper
-				from the centre and so the neighbourhood main streets that score the highest on the index
-				are relatively close to downtown. <a href="/casestudies/montreal/ruebeaubien">Rue Beaubien (Rosement-La-Petit-Patrie)</a> and <a href="/casestudies/montreal/rueontario">Rue Ontario
-				(Hochelaga)</a> are prime examples of neighbourhood main streets with high levels of civic
-				opportunity.
+				Le centre-ville de Montréal se situe à l’autre extrémité du spectre, avec des niveaux d’infrastructure municipale beaucoup plus élevés, car il abrite de nombreux actifs d’importance régionale. <a href="/casestudies/montreal/notredame">Les rues Notre-Dame (Saint-Henri)</a> et <a href="/casestudies/montreal/stdenis">Saint-Denis</a> sont les études de cas qui obtiennent les meilleurs résultats à l’indice d’infrastructures municipales. Dans la région de Montréal, l’accès aux infrastructures municipales tend à décroître à partir du centre, de sorte que les rues principales des quartiers qui obtiennent les meilleurs résultats à l’indice sont relativement proches du centre-ville. <a href="/casestudies/montreal/ruebeaubien">La rue Beaubien (Rosemont-La-Petite-Patrie)</a> et <a href="/casestudies/montreal/rueontario">la rue Ontario (Hochelaga)</a> sont des exemples parfaits de rues principales de quartier avec des niveaux élevés d’opportunités civiques.
 			</p>
 			<p>
-				The core issue not only about the overall amount of civic infrastructure, but how it is
-				geographically distributed within urban regions. There is a danger of creating “have and
-				have-not” neighbourhoods with divergent levels of local access to civic infrastructure,
-				which in turn decreases the amount of control residents with less access to civic
-				infrastructure have over programming. In such a scenario, civic infrastructure is less
-				responsive to specific neighbourhood needs.
+				La question fondamentale n’est pas seulement la quantité globale d’infrastructures municipales, mais la façon dont elles sont réparties géographiquement parmi les régions urbaines. Il existe un risque de créer des quartiers « nantis » et des quartiers « démunis » avec des niveaux divergents d’accès local aux infrastructures municipales, ce qui diminue le contrôle exercé sur la programmation par les personnes ayant un accès plus limité aux infrastructures municipales. Dans un tel scénario, l’infrastructure municipale répond moins aux besoins spécifiques des quartiers.
 			</p>
 			<p>
-				The civic infrastructure deficit in recently constructed suburban neighbourhoods is not
-				about the amount of investment, but rather models that favour large, centralized sites over
-				smaller diffused locations. Like the trend toward big box retail in suburban environments,
-				civic infrastructure provision has charted a similar path. These models may be more fiscally
-				efficient in the short term, but they come with reduced community development and
-				neighbourhood equity in the long term.
+				Le déficit d’infrastructures municipales dans les quartiers de banlieue récemment construits n’est pas lié au montant des investissements, mais plutôt à des modèles qui favorisent les grands sites centralisés au détriment de lieux plus petits et diffus. À l’instar de la tendance à l’implantation de grandes surfaces dans les banlieues, la fourniture d’infrastructures municipales a suivi la même voie. Ces modèles peuvent être plus efficaces d’un point de vue fiscal à court terme, mais ils s’accompagnent d’une réduction du développement communautaire et de l’équité entre les quartiers à long terme.
 			</p>
 		</div>
 	</div>
@@ -234,7 +145,7 @@
 	<div class="chart-container bar sticky-content">
 		<CIIMainStreetMap
 			section={'civic-infra-index-main-streets'}
-			title={'Civic Infrastructure Index (Lowest Quintile) in relation to High Density Main Streets'}
+			title={'Indice d’infrastructure municipale (quintile le plus bas) par rapport aux rues principales à haute densité'}
 		/>
 	</div>
 </div>
@@ -242,31 +153,15 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Summary</h3>
+			<h3>Résumé</h3>
 			<p>
-				Our research assesses main streets by their resiliency, community, and equity. We suggest
-				that if the traits of specific main streets can foster these elements, they will nurture
-				healthy neighbourhoods. If this is done consistently across Canada’s urban regions, they
-				will provide the foundation for healthy cities.
+				Notre recherche évalue les rues principales en fonction de leur résilience, de leur communauté et de leur niveau d’équité. Nous suggérons que si les caractéristiques de certaines rues principales peuvent favoriser ces éléments, elles nourriront des quartiers sains. Si cela est fait de manière cohérente dans l’ensemble des régions urbaines du Canada, elles constitueront la base de villes saines.
 			</p>
 			<p>
-				There is no such thing as a “perfect” main street. There are a multitude of ways in which
-				they can produce resiliency, community, and equity. Our research does, however, point toward
-				general principles about main street characteristics that are more likely to generate
-				positive outcomes. We have created indicators that most closely capture the essence of these
-				themes: a Resiliency Index based on the relative change in visitor levels to a main street
-				through the pandemic and the share of visitors that live within 1 km of the main street; an
-				Independent Business Index; and a Civic Infrastructure Index that weighs the amount of
-				infrastructure relative to the size of the neighbourhood population.
+				Il n’existe pas de rue principale « parfaite ». Il existe une multitude de façons dont elles peuvent produire de la résilience, de la communauté et de l’équité. Nos recherches indiquent toutefois des principes généraux concernant les caractéristiques des rues principales qui sont plus susceptibles de générer des résultats positifs. Nous avons créé des indicateurs qui capturent le mieux l’essence de ces thèmes : un indice de résilience basé sur le changement relatif du nombre de visiteurs dans une rue principale pendant la pandémie ; la part des visiteurs qui vivent dans un rayon d’un kilomètre de la rue principale ; un indice des entreprises indépendantes ; et un indice d’infrastructures municipales qui pondère la quantité d’infrastructures par rapport à la taille de la population du quartier.
 			</p>
 			<p>
-				The Montréal region is a thriving metropolis that offers one of the highest quality of life
-				environments compared to its global peers. The region has traditionally been credited with
-				having strong neighbourhoods with distinct identities. At the centre of these neighbourhoods
-				are vibrant main streets that provide a range of goods, services, and activities that
-				support people in their day-to-day lives. No two main streets are the same, however; their
-				specific locations and characteristics have significant impacts on the range of local
-				choices and opportunities for residents.
+				La région de Montréal est une métropole prospère qui offre une qualité de vie parmi les plus élevées au monde. La région est traditionnellement reconnue pour ses quartiers vigoureux aux identités distinctes. Au centre de ces quartiers se trouvent des rues principales dynamiques qui offrent une gamme de biens, de services et d’activités qui soutiennent les gens dans leur vie quotidienne. Cependant, il n’y a pas deux rues principales identiques ; leur emplacement et leurs caractéristiques spécifiques ont un impact significatif sur l’éventail des choix locaux et des opportunités pour les personnes qui y résident.
 			</p>
 		</div>
 	</div>
@@ -294,31 +189,12 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Summary (II)</h3>
+			<h3>Résumé (II)</h3>
 			<p>
-				The Montréal-region main street case studies that most consistently score the highest across
-				the key indicators tend to be neighbourhood streets that are further from the city centre
-				with a range of independent businesses and civic infrastructure. <a href="/casestudies/montreal/avedorval">Avenue Dorval</a>, <a href="/casestudies/montreal/boulevardmonk">Ville Emard
-				(Boulevard Monk)</a>, <a href="/casestudies/montreal/boulevardstmartin">Boul. St. Martin (Laval)</a>, and <a href="/casestudies/montreal/jeantalon">Jean Talon (Parc-Extension)</a> are older
-				suburban main streets that primarily serve their local communities. They also tend to offer
-				a mix of housing types that cater to a range of income levels. These main streets were
-				originally built (pre-1960) in conjunction with the surrounding housing stock and have
-				co-evolved with physical and demographic changes. Key to this is the original built form and
-				how adaptable it is over time. In the current context, such main streets offer prime
-				opportunities for infill housing as they already provide ample supportive infrastructure.
+				Les études de cas de rues principales de la région de Montréal qui obtiennent le plus régulièrement les meilleurs résultats pour les indicateurs clés ont tendance à être des rues de quartier plus éloignées du centre-ville avec une gamme de commerces indépendants et d’infrastructures municipales. <a href="/casestudies/montreal/avedorval">L’avenue Dorval</a>, <a href="/casestudies/montreal/boulevardmonk">le boulevard Monk (Ville-Émard)</a>, <a href="/casestudies/montreal/boulevardstmartin">les boulevards Saint-Martin (Laval)</a> et <a href="/casestudies/montreal/jeantalon">Jean Talon (Parc-Extension)</a> sont des rues principales de banlieue plus anciennes qui desservent principalement leurs communautés locales. Elles ont également tendance à offrir un mélange de types d’habitations qui répondent à un large éventail de niveaux de revenus. Ces rues principales ont été construites à l’origine (avant 1960) en même temps que le parc immobilier environnant et ont évolué avec les changements physiques et démographiques. L’élément clé est la forme bâtie d’origine et son adaptabilité au fil du temps. Dans le contexte actuel, ces rues principales offrent des perspectives de choix pour la construction de logements intercalaires, car elles disposent déjà d’une infrastructure de soutien suffisante.
 			</p>
 			<p>
-				Montréal differs from the other case study regions of Toronto and Edmonton in overall urban
-				form largely due to its relative age. Many of the main streets are older, and thus can be
-				considered ‘traditional’ in the sense that they are highly walkable and provide fine grained
-				retail. Cultural factors also likely contribute to Montréal having significantly higher
-				levels of independent business. Long-term these factors are conducive to highly vibrant main
-				streets, but in the short-term they may have contributed to Montréal being more negatively
-				impacted by the pandemic, especially in areas closer to the centre. In addition to
-				possessing an advantageous form, Montréal has also been at the fore of main street
-				innovation. Imaginative use of the public realm and bolder pursuits of pedestrianization
-				have received attention across the country. Many of these initiatives are now supported by
-				data similar to what can be found on the Measuring Main Street platform.
+				La forme urbaine générale de Montréal diffère de celle des autres régions étudiées, Toronto et Edmonton, principalement en raison de son âge. De nombreuses rues principales sont plus anciennes et peuvent donc être considérées comme « traditionnelles » dans le sens où elles sont très praticables et offrent un commerce de détail bien structuré. Les facteurs culturels contribuent aussi probablement à ce que Montréal ait des niveaux considérablement plus élevés de commerces indépendants. À long terme, ces facteurs favorisent le dynamisme des rues principales, mais à court terme, ils peuvent avoir contribué à ce que Montréal soit plus durement touchée par la pandémie, en particulier dans les zones les plus proches du centre. En plus de posséder une forme avantageuse, Montréal a également été à l’avant-garde de l’innovation en matière de rues principales. L’utilisation imaginative du domaine public et la poursuite plus audacieuse de la piétonnisation ont attiré l’attention partout au pays. Bon nombre de ces initiatives sont maintenant appuyées par des données semblables à celles que l’on peut trouver sur la plateforme Ma rue principale.
 			</p>
 		</div>
 	</div>

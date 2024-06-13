@@ -542,7 +542,7 @@
 					</div>
 					<p>
 						The map displays a choropleth vizualisation of key demograhoic and other local
-						characterestic related Census variables at the Dissemination Area level of the case
+						characteristic related Census variables at the Dissemination Area level of the case
 						study and surrounding area. Use the dropdown to toggle between different variables. The
 						data is sourced from Environics Analytics and Statistics Canada.
 					</p>
