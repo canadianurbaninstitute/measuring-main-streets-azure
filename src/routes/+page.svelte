@@ -104,7 +104,7 @@
 		/>
 		<HeroStat
 		number={'$300 billion'}
-		subtitle={'in annual revenue'}
+		subtitle={'in annual retail sales'}
 		/>
 		<HeroStat
 		number={'98,000'}
