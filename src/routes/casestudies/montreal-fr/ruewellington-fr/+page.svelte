@@ -218,24 +218,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>
-						Rue Wellington serves as a significant east-west thoroughfare on the western edge of
-						Montreal, traversing the neighborhoods of Verdun, Pointe-Saint-Charles, and
-						Griffintown. Named the “world's coolest street” by TimeOut magazine in 2022, this
-						section known as Promenade Wellington thrives as a bustling commercial hub at the heart
-						of Verdun. In collaboration with the SDC Wellington, Promenade Wellington undergoes
-						pedestrianization during the summer months. The introduction of temporary street
-						furniture, murals, cooling stations, and outdoor patios and terraces further supports
-						the vibrancy of the street.
-					</p>
-					<p>
-						Yet, the landscape of Verdun is evolving. The surging popularity of Rue Wellington and
-						Verdun, marked by new restaurants, cafes, bars, and streetscape enhancements,
-						accompanies a noticeable uptick in property values and rents. These transformations have
-						sparked concerns regarding gentrification and displacement, prompting local residents
-						and housing advocates to mobilize in support of existing Rue Wellington residents and
-						the broader Verdun community.
-					</p>
+					<p>La rue Wellington est une importante artère orientée est-ouest à l’extrémité ouest de Montréal, qui traverse les quartiers de Verdun, de Pointe-Saint-Charles et de Griffintown. Nommée «rue la plus cool du monde» par le magazine TimeOut en 2022, cette section, connue sous le nom de Promenade Wellington, est un carrefour commercial animé au cœur de Verdun. En collaboration avec la SDC Wellington, la Promenade Wellington fait l’objet d’une piétonnisation pendant les mois d’été. L’introduction de mobilier urbain temporaire, de peintures murales, de stations de rafraîchissement et de patios et de terrasses extérieures contribue à l’animation de la rue.</p><p>Cependant, le paysage de Verdun évolue. La popularité croissante des rues Wellington et Verdun, marquée par l’apparition de nouveaux restaurants, cafés et bars et par la valorisation du paysage urbain, s’accompagne d’une hausse marquée de la valeur des propriétés et des loyers. Ces transformations ont soulevé des inquiétudes concernant l’embourgeoisement et le déplacement forcé, ce qui a incité les personnes qui habitent le quartier et les défenseurs du logement à se mobiliser pour soutenir les personnes qui habitent sur la rue Wellington et l’ensemble de la communauté de Verdun.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -268,26 +251,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>
-						Rue Wellington features a circulation lane and on-street parking in both directions. The
-						street is also well-served by public transit with the de l’Église metro station of the
-						Green Line and bus stops present on both sides of the street serving multiple bus
-						routes.
-					</p>
-					<p>
-						Reflecting the prevalent "missing middle" and mid-density characteristic of Montreal,
-						the buildings along Rue Wellington primarily consist of three to four-story buildings
-						with ground-floor retail spaces and upper floor residential. The street also includes
-						some fully residential buildings. During summer pedestrianization, all circulation lanes
-						are closed to vehicular traffic and the street opens entirely for pedestrians and active
-						mobility users.
-					</p>
-					<p>
-						Although there is minimal greenspace directly on this segment of rue Wellington, the
-						street is very well served by greenspace within a ten-minute walk. The St. Lawrence
-						river, located just east of rue Wellington, features a number of parks, walking and
-						cycling paths, and the popular Verdun beach along its shore.
-					</p>
+					<p>La rue Wellington dispose d’une voie de circulation et d’un stationnement sur rue dans les deux sens. La rue est également bien desservie par les transports en commun, avec la station de métro de l’Église de la ligne verte et des arrêts d’autobus des deux côtés de la rue desservant plusieurs lignes d’autobus.</p><p>Reflétant le «chaînon manquant» (ou logement de type intermédiaire) et la densité moyenne qui caractérisent Montréal, les bâtiments situés le long de la rue Wellington se composent principalement d’immeubles de trois à quatre étages dotés de commerces au rez-de-chaussée et d’habitations à l’étage supérieur. La rue comprend également quelques immeubles entièrement résidentiels. Pendant la période de piétonnisation estivale, toutes les voies de circulation sont fermées à la circulation automobile et la rue est entièrement ouverte aux piétons et aux utilisateurs de mobilité active.</p><p>Bien qu’il y ait peu d’espaces verts directement sur ce segment de la rue Wellington, la rue est très bien desservie par des espaces verts à moins de dix minutes de marche. Le fleuve Saint-Laurent, situé juste à l’est de la rue Wellington, comprend un certain nombre de parcs, de sentiers pédestres et de pistes cyclables, ainsi que la populaire plage de Verdun.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -411,26 +375,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						This section of rue Wellington includes a large share of health and care facilities and
-						government and community services such as a Service Canada National Defence building. In
-						comparison, the street does not boast high percentages of recreational, educational, or
-						arts facilities. However, within a ten-minute walk, a number of educational facilities
-						are accessible.
-					</p>
-					<p>
-						The rue Wellington Société de Développement Commercial (SDC) and the summer
-						pedestrianization results in the installation of temporary infrastructure to support the
-						civic, social, and commercial life and vitality on the street. This includes temporary
-						street furniture, increased signage, murals and street art, terraces, cooling stations,
-						outdoor wifi zones, and programming for all ages.
-					</p>
-					<p>
-						However, according to the Civic Infrastructure index, rue Wellington lags behind most
-						other Montreal and residential main street case studies. In terms of its civic
-						opportunity, rue Wellington ranks 19th out of 20 Montreal main streets and 35th out of
-						36 residential main streets.
-					</p>
+					<p>Cette section de la rue Wellington comprend une grande part d’établissements de santé et de services gouvernementaux et communautaires tels qu’un édifice abritant le ministère de la Défense nationale du Canada. En comparaison, la rue ne se targue pas d’un pourcentage élevé d’installations récréatives, éducatives ou artistiques. Cependant, un certain nombre d’établissements d’enseignement sont accessibles à moins de dix minutes de marche.</p><p>La Société de développement commercial (SDC) de la rue Wellington et la piétonnisation estivale entraînent l’installation d’infrastructures temporaires pour soutenir la vie civique, sociale et commerciale et la vitalité de la rue. Il s’agit notamment de mobilier urbain temporaire, d’une signalisation accrue, de peintures murales et d’œuvres d’art urbain, de terrasses, de stations de rafraîchissement, de zones wifi en plein air et de programmes pour tous les âges.</p><p>Cependant, selon l’indice d’infrastructure municipale, la rue Wellington est à la traîne par rapport à la plupart des autres études de cas de rues principales montréalaises et résidentielles. En matière de possibilités civiques, la rue Wellington se classe au 19e rang des 20 rues principales de Montréal et au 35e rang des 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -470,7 +415,7 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Infrastructure municipale</h2>
+					<h2>Profil des enterprises</h2>
 					<div class="controls">
 						<i><small>Cliquez sur une couche pour l’activer ou la désactiver</small></i>
 						<LegendItem
@@ -520,21 +465,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						This stretch of Rue Wellington offers a lively mix of businesses, covering retail,
-						services, and food and drink establishments. The diversity extends to the businesses
-						themselves, ranging from longstanding to more recently established, and a blend of both
-						independent and chain ownership.
-					</p>
-					<p>
-						According to the Independent Business Index, rue Wellington lags behind other Montreal
-						main street case studies in terms of business independence, ranking 14th out of 20
-						Montreal main streets and 18th out of 36 residential main streets.
-					</p>
-					<p>
-						However, rue Wellington does have a relatively high business density, ranking 6th out of
-						20 Montreal main streets and 4th out of 36 residential main streets.
-					</p>
+					<p>Ce tronçon de la rue Wellington offre un mélange vivant d’entreprises, comprenant des commerces de détail et de services, ainsi que des services de restauration et débits de boissons. La diversité s’étend aux entreprises elles-mêmes, qu’elles soient établies depuis longtemps ou plus récemment, et qu’elles soient indépendantes ou qu’elles appartiennent à des chaînes. Des chaînes bien connues comme Dollarama, Pizza Pizza et Subway aux favoris montréalais comme Falafel Yoni et Boulangerie Toledo, en passant par de plus petites quincailleries, cette variété commerciale contribue à l’attrait de la rue. Cependant, la présence d’établissements plus anciens et plus récents représente aussi visuellement l’évolution du paysage du quartier, les vitrines traditionnelles étant progressivement remplacées par des restaurants, cafés et bars branchés et haut de gamme.</p><p>Selon l’indice des entreprises indépendantes, la rue Wellington tire de l’arrière par rapport à d’autres études de cas de rues principales de Montréal en matière de niveau d’indépendance des entreprises, se classant 14e sur 20 rues principales de Montréal et 18e sur 36 rues principales résidentielles.</p><p>Cependant, la rue Wellington a une densité commerciale relativement élevée, se classant 6e sur 20 rues principales de Montréal et 4e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -573,16 +504,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>
-						This segment of Rue Wellington includes vibrant commercial activity and as a result the
-						street serves as a key employment hub to help support its considerable number of
-						businesses.
-					</p>
-					<p>
-						Overall, rue Wellington sits in the middle of the pack in terms of its employment
-						density. In terms of its employment density, the street ranks 13th out of 20 Montreal
-						main streets and 21st out of 36 residential main streets.
-					</p>
+					<p>Ce segment de la rue Wellington comprend une activité commerciale dynamique et, par conséquent, la rue sert de pôle d’emploi clé pour aider à soutenir son nombre considérable d’entreprises. Beaucoup de ces entreprises emploient entre zéro et dix personnes. Au-delà de la rue Wellington, les rues adjacentes abritent de nombreux employeurs de plus petite taille, employant jusqu’à 50 personnes. Il s’agit d’un mélange relativement équilibré d’emplois dans les infrastructures municipales, les entreprises et d’autres secteurs. L’ensemble de ces éléments fait de la rue Wellington et de ses environs un pôle d’emploi de premier plan dans le quartier de Verdun.</p><p>Dans l’ensemble, la rue Wellington se situe en milieu de peloton en matière de densité d’emploi. En matière de densité d’emploi, la rue se classe 13e sur 20 rues principales de Montréal et 21e sur 36 rues principales résidentielles.</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -644,13 +566,7 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Rue Wellington is a main commercial street surrounded by largely low-rise apartment
-						dominant residential streets. As a result, the street and surrounding area maintains a
-						relatively high population density. The housing stock both along rue Wellington and in
-						the surrounding area is old – over 50 percent of all housing in the area was built
-						before 1960 and there have been very few new builds in the last three decades.
-					</p>
+					<p>La rue Wellington est une rue commerciale principale entourée de rues résidentielles dominées par des appartements de faible hauteur. Par conséquent, la rue et ses environs conservent une densité de population relativement élevée. Le parc immobilier le long de la rue Wellington et dans les environs est ancien — plus de 50 % de tous les logements de la zone ont été construits avant 1960 et il y a eu très peu de nouvelles constructions au cours des trois dernières décennies. Par conséquent, certains bâtiments, en particulier dans les rues résidentielles proches de la rue Wellington, semblent avoir besoin de réparations externes. En ce qui concerne la typologie des bâtiments, les logements collectifs de trois étages typiquement montréalais prédominent dans le quartier. Ces structures principalement en brique, dont beaucoup sont dotées d’escaliers extérieurs, de petits balcons et de retraits réduits en façade, confèrent au secteur le charme d’un quartier montréalais.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -717,13 +633,7 @@
 							]}
 						/>
 					</div>
-					<p>
-						On average, the residents on and around rue Wellington are young in age, as many blocks
-						around Wellington have an average age of just 38 years old. Unlike similar main
-						commercial streets in other Montreal neighborhoods, like Ave. Mont Royal in the Plateau,
-						there is a significant mix of incomes both on rue Wellington and in the surrounding
-						Verdun neighborhood; but, on average incomes are on the lower end of the spectrum.
-					</p>
+					<p>En moyenne, les personnes résidant sur la rue Wellington et dans les environs sont jeunes, puisque la moyenne d’âge de nombreux pâtés de maisons avoisinant la rue Wellington n’est que de 38 ans. Contrairement à des rues commerciales principales similaires dans d’autres quartiers de Montréal, comme l’avenue du Mont Royal dans le Plateau, la rue Wellington et le quartier Verdun qui l’entoure présentent une grande diversité de revenus, mais les revenus moyens se situent au bas de l’échelle. La rue Wellington et le quartier environnant sont relativement diversifiés, car environ 50 % des personnes qui y habitent appartiennent à une minorité visible et un pourcentage encore plus important est constitué d’immigrants récents. Contrairement à la plupart des autres rues principales de Montréal, il y a un plus grand pourcentage de personnes de langue anglaise que de langue française parmi les personnes résidant sur la rue Wellington et dans les zones environnantes.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -766,15 +676,7 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						The influx of new restaurants, bars, and cafes combined with the street
-						pedestrianization and other placemaking initiatives garnered rue Wellington the title of
-						TimeOut magazines 2022 “world’s coolest street”.
-					</p>
-					<p>
-						In terms of overall street resilience and visitor recovery, rue Wellington ranks 7th out
-						of 20 in visitor resiliency in the region and 21st out of 36 residential main streets.
-					</p>
+					<p>L’afflux de nouveaux restaurants, bars et cafés, combiné à la piétonnisation de la rue et à d’autres initiatives d’aménagement de l’espace public, a valu à la rue Wellington le titre de «rue la plus cool du monde» décerné par le magazine TimeOut en 2022. Malgré cela, le niveau de visites par rapport à la période prépandémique de 2019 oscille toujours autour de 60 %. Alors que le taux de visiteurs récurrents s’est pratiquement rétabli, les visites des locaux et des visiteurs occasionnels sont encore largement inférieures aux chiffres de 2019. Plus important encore, la grande majorité de la perte de visiteurs de la rue Wellington provient de visiteurs peu fréquents.</p><p>En matière de résilience globale de la rue et de récupération des visiteurs, la rue Wellington se classe 7e sur 20 pour la résilience des visiteurs dans la région et 21e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

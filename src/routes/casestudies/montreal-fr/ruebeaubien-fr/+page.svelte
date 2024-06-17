@@ -291,7 +291,7 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Infrastructure municipale</h2>
+					<h2>Profil des enterprises</h2>
 					<div class="controls">
 						<i><small>Cliquez sur une couche pour l’activer ou la désactiver</small></i>
 						<LegendItem

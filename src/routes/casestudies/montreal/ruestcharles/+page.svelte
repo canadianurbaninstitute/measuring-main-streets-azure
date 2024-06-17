@@ -680,7 +680,7 @@ setConfig({
 						/>
 					</div>
 					<p>Rue St. Charles is a predominately commercial street that offers a wide variety of retail and food offerings to the surrounding Longueil and South Shore areas. As such, the street invites a high number of visitors to the street. The majority of these visitors are infrequent – meaning they do not often visit rue St. Charles, but instead visit occasionally to enjoy and experience the many offerings the street provides. Although on a hot summer day, the pedestrianized rue St. Charles still draws visitors coming to enjoy the food, retail, and open street, the COVID-19 pandemic greatly impacted rue St. Charles. Just like many other main streets, the number of current visitors is far lower than pre-pandemic in 2019. In the most recent count of visitors to rue St. Charles, the street sits at just under 60 percent of its 2019 numbers, signifying a notable decrease in the number of visitors – primarily infrequent – that are coming to the street.</p>
-					<p>As a result, in terms of street resilience and visitor recovery, rue St. Charles trails behind most other Montreal main streets and residential main streets. Rue St. Charles ranks 15
+					<p>As a result, in terms of street resilience and visitor recovery, rue St. Charles trails behind most other Montreal main streets and residential main streets. Rue St. Charles ranks 15th out of 20th for visitor resiliency in the region and 33rd out of 26th on residential main streets. </p>
 
 				</div>
 				<div class="map-container">

@@ -221,20 +221,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>
-						Boulevard St. Martin is one the main streets of Laval, QC, a city on an island just
-						north of the Island of Montreal. Laval is largely a suburban city of approximately
-						440,000 residents but large swaths of the island have agricultural lands. Laval is the
-						largest suburb of Montreal and the third largest city in Quebec.
-					</p>
-					<p>
-						Originating in the 19th century, Boulevard St. Martin is among Laval’s oldest and
-						longest boulevards. This particular section of the boulevard features numerous retail
-						and commercial establishments, marking it as a significant commercial main street for
-						the surrounding neighborhoods of Laval. Boulevard St. Martin’s connection to nearby
-						highways and other arterial streets results in significant traffic flowing through the
-						boulevard.
-					</p>
+					<p>Le boulevard Saint-Martin est l’une des rues principales de Laval, au Québec, une ville située sur une île juste au nord de l’île de Montréal. Laval est essentiellement une ville de banlieue d’environ 440 000 habitants, mais de grandes parties de l’île sont occupées par des terres agricoles. Laval est la plus grande banlieue de Montréal et la troisième ville du Québec.</p><p>Le boulevard Saint-Martin, qui date du XIXe siècle, est l’un des plus anciens et des plus longs boulevards de Laval. Cette section particulière du boulevard comporte de nombreux commerces de détail et établissements commerciaux, ce qui en fait une artère commerciale principale importante pour les quartiers environnants de Laval. Le boulevard Saint-Martin est relié aux autoroutes et autres artères avoisinantes, ce qui se traduit par une circulation automobile importante sur le boulevard.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -267,24 +254,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>
-						Boulevard St. Martin is a large and fast arterial road with a built form that primarily
-						serves vehicular traffic. The street includes three circulation lanes in each direction
-						with a speed limit of 50 kmh. Although there are sidewalks and a bike lane on both sides
-						of the street, the number of circulation lanes, speed of vehicles, and number of
-						vehicles make it an unpleasant and unwelcoming place for pedestrians and cyclists.
-					</p>
-					<p>
-						Most buildings along the boulevard are single-story retail structures similar to strip
-						malls, housing various businesses like restaurants and offices. Some larger office parks
-						or buildings are also present. Many of these structures are noticeably set back from the
-						street, owing to the presence of expansive above-ground parking lots. This abundance of
-						above-ground parking highlights the street's car-centric nature.
-					</p>
-					<p>
-						In contrast, the adjacent residential streets surrounding Boulevard St. Martin have a
-						suburban feel, with some streets featuring bungalows with front lawns.
-					</p>
+					<p>Le boulevard Saint-Martin est une grande artère rapide dont la forme bâtie sert principalement à la circulation automobile. La rue comprend trois voies de circulation dans chaque direction avec une limite de vitesse de 50 km/h. Bien qu’il y ait des trottoirs et une piste cyclable des deux côtés de la rue, le nombre de voies de circulation, la vitesse des véhicules et le nombre de véhicules en font un endroit désagréable et peu accueillant pour les piétons et les cyclistes.</p><p>La plupart des bâtiments situés le long du boulevard sont des structures commerciales à un seul étage, semblables à des centres commerciaux, abritant divers commerces tels que des restaurants et des bureaux. Certains parcs ou immeubles de bureaux plus importants sont également présents. Beaucoup de ces structures sont sensiblement en retrait de la rue, en raison de la présence de vastes parcs de stationnement en surface. Cette abondance de stationnements en surface souligne la nature centrée sur la voiture de la rue.</p><p>En revanche, les rues résidentielles adjacentes au boulevard Saint-Martin présentent un aspect de banlieue, certaines d’entre elles abritant des maisons individuelles avec des pelouses à l’avant.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -408,24 +378,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Boulevard St. Martin benefits from essential civic infrastructure, including health and
-						care facilities, and government services. However, it lacks adequate provisions for
-						arts, culture, and recreational amenities. Unlike many of the other case study main
-						streets in Montreal, Boulevard St. Martin primarily serves as a major thoroughfare for
-						vehicular traffic. Consequently, pedestrian-oriented infrastructure such as street
-						furniture, programming, and signage are limited. Nevertheless, the boulevard plays a
-						crucial role in catering to the healthcare needs of the surrounding neighborhoods in
-						Laval, with a notable presence of health and care facilities. Additionally, it hosts
-						important government services, including the Palais de Justice de Laval - the Laval
-						courthouse.
-					</p>
-					<p>
-						However, according to the Civic Infrastructure Index, Boulevard St. Martin lags behind
-						most other Montreal main street case studies and other residential main streets in terms
-						of its civic opportunity. The street ranks 13th out of 20 Montreal main streets and 29th
-						out of 36 residential main streets.
-					</p>
+					<p>Le boulevard Saint-Martin bénéficie d’infrastructures municipales essentielles, notamment d’établissements de santé et de services publics. Cependant, il ne dispose pas de commodités adéquates pour les arts, la culture et les loisirs. Contrairement à de nombreuses autres rues principales de Montréal ayant fait l’objet d’une étude de cas, le boulevard Saint-Martin sert principalement de voie de circulation pour les véhicules. Par conséquent, les infrastructures destinées aux piétons, telles que le mobilier urbain, la programmation et la signalisation, sont limitées. Néanmoins, le boulevard joue un rôle crucial en répondant aux besoins de santé des quartiers environnants de Laval, en raison de la présence appréciable d’établissements de soins et de santé. En outre, il accueille d’importants services gouvernementaux, notamment le Palais de Justice de Laval.</p><p>Cependant, selon l’indice d’infrastructure municipale, le boulevard Saint-Martin accuse un retard par rapport à la plupart des autres études de cas de rues principales de Montréal et d’autres rues principales résidentielles en matière de possibilités civiques. La rue se classe 13e sur 20 rues principales de Montréal et 29e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -465,7 +418,7 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Infrastructure municipale</h2>
+					<h2>Profil des enterprises</h2>
 					<div class="controls">
 						<i><small>Cliquez sur une couche pour l’activer ou la désactiver</small></i>
 						<LegendItem
@@ -515,30 +468,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						There is a relatively equal mix of retail, services, and food and drink businesses along
-						Boulevard St. Martin. Most of the retail and food and drink establishments are large
-						national chains, with little independent food or retail present. Catering to the
-						car-centric nature of the street, many of these establishments have large parking lots
-						and drive-thru’s. Many of the services and service businesses are car related businesses
-						and include gas stations, car garages, and auto care.
-					</p>
-					<p>
-						As one moves east-to-west along Boulevard St. Martin, the commercial landscape does
-						begin to change highlighting that different parts of the street offer different
-						commercial and business options. The western end of this street segment is dominated by
-						larger malls and higher density office parks compared to the low-density and low-rise
-						strip malls on the eastern end.
-					</p>
-					<p>
-						According to the Independent Business Index, boulevard St. Martin lags behind other Main
-						street case studies in terms of level of business independence, ranking 20th out of 20
-						Montreal main streets and 30th out of 36 residential main streets.
-					</p>
-					<p>
-						Similarly, in terms of business density, the street ranks 19th out of 20 Montreal main
-						streets and 32nd out of 36 residential main streets.
-					</p>
+					<p>Le long du boulevard Saint-Martin, les commerces de détail, les services locaux et les services de restauration et débits de boisson sont relativement homogènes. La plupart des commerces de détail et des services de restauration et débits de boissons sont de grandes chaînes nationales, avec peu de commerces de détail ou de restauration indépendants. Pour répondre à la nature centrée sur la voiture de la rue, beaucoup de ces établissements disposent d’un grand stationnement et d’un service à l’auto. De nombreux services et entreprises de services sont liés à l’automobile et comprennent des stations-service, des garages et des services d’entretien automobile.</p><p>En se déplaçant d’est en ouest le long du boulevard Saint-Martin, le paysage commercial commence à changer, soulignant que les différents tronçons de la rue offrent des options commerciales et d’affaires diverses. L’extrémité ouest de ce segment de rue est dominée par de grands centres commerciaux et des parcs de bureaux à forte densité, tandis que l’extrémité est est dominée par des centres commerciaux de faible densité et de faible hauteur.</p><p>Selon l’indice des entreprises indépendantes, le boulevard Saint-Martin est à la traîne par rapport à d’autres études de cas de rues principales en matière de niveau d’indépendance des entreprises, se classant 20e sur 20 rues principales de Montréal et 30e sur 36 rues principales résidentielles.</p><p>De même, en matière de densité commerciale, la rue se classe 19e sur 20 rues principales de Montréal et 32e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -577,23 +507,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>
-						The majority of businesses on Boulevard St. Martin are retail or food and drink and the
-						employment profile of the street is representative of this. Much of the employment along
-						this segment of Boulevard St. Martin is in the businesses that line the street. This
-						includes a mix of both smaller-scale employers, with just 0-5 employees, to larger
-						employers with over 50 employees.
-					</p>
-					<p>
-						While Boulevard St. Martin hosts a substantial portion of employment opportunities, the
-						surrounding area also contributes significantly. To the northeast of this segment,
-						non-retail businesses offer significant job opportunities, while to the southwest, civic
-						infrastructure establishments play a key role in the employment landscape.
-					</p>
-					<p>
-						Overall, Boulevard St. Martin ranks 8th out of 20 Montreal main streets and 7th out of
-						36 residential main streets in terms of its employment density.
-					</p>
+					<p>La majorité des entreprises du boulevard Saint-Martin sont des commerces de détail ou des services de restauration et débits de boissons et le profil de l’emploi de la rue en est représentatif. Une grande partie de l’emploi le long de ce segment du boulevard Saint-Martin se trouve dans les entreprises qui bordent la rue. Il s’agit d’un mélange d’employeurs de petite taille, employant entre 0 et 5 personnes, et d’employeurs plus importants, comptant sur une main-d’œuvre de plus de 50 personnes.</p><p>Si le boulevard Saint-Martin accueille une part importante des opportunités d’emploi, la zone environnante y contribue également de manière significative. Au nord-est de ce segment, les entreprises autres que de détail offrent d’importantes possibilités d’emploi, tandis qu’au sud-ouest, les établissements d’infrastructure municipale jouent un rôle clé dans le paysage de l’emploi.</p><p>Dans l’ensemble, le boulevard Saint-Martin se classe au 8e rang des 20 rues principales de Montréal et au 7e rang des 36 rues principales résidentielles pour ce qui est de la densité d’emploi.</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -654,20 +568,7 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						In general, Boulevard St. Martin’s suburban location in Laval results in a relatively
-						lower population density. As a major arterial road, there is not a significant amount of
-						housing directly on Boulevard St. Martin, but the surrounding areas and adjacent streets
-						do include higher numbers of dwellings. Housing construction experienced steady growth
-						from 2001 to 2021 but has sharply declined since.
-					</p>
-					<p>
-						While the area is primarily characterized by high-rise and low-rise apartments, there
-						still exists a variety of housing types surrounding Boulevard St. Martin. High-rise
-						apartments are prevalent along the boulevard and in the adjacent southern residential
-						areas. In contrast, the northern neighborhood presents a suburban atmosphere with single
-						detached houses and front lawns.
-					</p>
+					<p>En général, la situation de banlieue du boulevard Saint-Martin à Laval se traduit par une densité de population relativement faible. En tant qu’artère principale, il n’y a pas beaucoup d’habitations directement sur le boulevard Saint-Martin, mais les zones environnantes et les rues adjacentes comprennent un plus grand nombre d’habitations. La construction de logements a connu une croissance régulière entre 2001 et 2021, mais a fortement diminué depuis.</p><p>Bien que la zone soit principalement caractérisée par des tours d’habitation et des appartements de faible hauteur, il existe encore une variété de types de logements autour du boulevard Saint-Martin. Les tours d’habitation sont prédominantes le long du boulevard et dans les zones résidentielles adjacentes du sud. En revanche, le quartier nord présente une atmosphère de banlieue avec des maisons individuelles non attenantes et des pelouses.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -734,16 +635,7 @@
 							]}
 						/>
 					</div>
-					<p>
-						The area surrounding Boulevard St. Martin exhibits notable diversity across economic,
-						racial, linguistic, and educational dimensions. Economically, there's a spectrum of
-						incomes both along the street and in neighbouring areas, ranging from low to high.
-						Racially and ethnically, the neighbourhood includes significant proportions of visible
-						minorities and recent immigrants, although the Indigenous population is minimal.
-						Linguistically, the neighbourhood has balanced numbers of English and French speakers.
-						Furthermore, educational attainment varies, with some areas boasting a high percentage
-						of bachelor's degree holders while others have minimal representation.
-					</p>
+					<p>La région entourant le boulevard Saint-Martin présente une diversité considérable sur le plan économique, racial, linguistique et éducatif. Sur le plan économique, il existe un éventail de revenus le long de la rue et dans les zones avoisinantes, allant de faibles à élevés. Sur le plan racial et ethnique, le quartier comprend une proportion importante de minorités visibles et d’immigrants récents, bien que la population autochtone soit minime. Sur le plan linguistique, le quartier compte un nombre équilibré de personnes de langue anglaise et de langue française. En outre, le niveau d’éducation varie, certaines zones affichant un pourcentage élevé de titulaires d’un baccalauréat, tandis que d’autres n’en comptent qu’un nombre minime.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -786,21 +678,7 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						The COVID-19 pandemic significantly impacted the foot traffic on Boulevard St. Martin,
-						with current visitation rates only reaching approximately 50 percent of pre-pandemic
-						levels. Although the number of visits from residents has shown better recovery,
-						underscoring the street's significance as a local hub, there's a notable lag in visits
-						from both recurring and infrequent visitors. There is also a substantial increase in
-						visitation percentages over the weekend, underscoring the importance of the street's
-						commercial establishments as people tend to visit on weekends to shop rather than for
-						weekday employment purposes.
-					</p>
-					<p>
-						In terms of overall street resilience and visitor recovery, Boulevard St. Martin ranks
-						13th out of 20 in visitor resiliency in the region and 29th out of 36 residential main
-						streets.
-					</p>
+					<p>La pandémie de COVID-19 a eu un impact significatif sur la fréquentation du boulevard Saint-Martin, les taux de fréquentation actuels n’atteignant qu’environ 50 % des niveaux d’avant la pandémie. Bien que le nombre de visites des locaux se soit mieux rétabli, soulignant l’importance de la rue en tant que pôle local, il y a un décalage considérable entre les visites des visiteurs récurrents et celles des visiteurs peu fréquents. On observe également une augmentation substantielle des pourcentages de visites pendant le week-end, ce qui souligne l’importance des établissements commerciaux de la rue, car les gens ont tendance à venir le week-end pour faire des achats plutôt que pour travailler en semaine.</p><p>En matière de résilience globale de la rue et de récupération des visiteurs, le boulevard Saint-Martin se classe 13e sur 20 pour la résilience des visiteurs dans la région et 29e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

@@ -217,25 +217,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>
-						Rue Ontario is a primarily commercial and mixed-use east-west street that cuts through
-						downtown Montreal and much of the southern end of the island of Montreal. This segment
-						is situated in the Mercier-Hochelaga-Maisonneuve borough and serves as a primary
-						commercial main street in the Hochelaga neighbourhood. A historically working class and
-						industrial Francophone neighbourhood, Hochelaga has experienced recent physical and
-						demographic changes as new investment and residents enter the area.
-					</p>
-					<p>
-						Rue Ontario blends into the Hochelaga neighbourhood to the north, enjoys convenient
-						access to the Green line of the metro to the west, is flanked to the south by a rail
-						corridor and the Port of Montreal.
-					</p>
-					<p>
-						This segment of the street is pedestrianized in the summer which introduces temporary
-						street furniture, patios, street art, and programming. Programming on the street is
-						managed by Promenade Ontario, the société de développement commercial (SDC) for
-						Hochelaga-Maisonneuve.
-					</p>
+					<p>La rue Ontario est une rue principalement commerciale et à usage mixte qui traverse le centre-ville de Montréal et une grande partie de l’extrémité sud de l’île de Montréal d’est en ouest. Ce tronçon est situé dans l’arrondissement Mercier–Hochelaga-Maisonneuve et sert de rue principale commerciale pour le quartier d’Hochelaga. Quartier francophone historiquement ouvrier et industriel, Hochelaga a connu récemment des transformations physiques et démographiques avec l’arrivée de nouveaux investissements et d’une nouvelle population.</p><p>La rue Ontario se fond dans le quartier d’Hochelaga au nord, bénéficie d’un accès pratique à la ligne verte du métro à l’ouest et est bordée au sud par un corridor ferroviaire et le port de Montréal.</p><p>Ce segment de la rue est piétonnier pendant l’été, ce qui permet d’introduire du mobilier urbain temporaire, des terrasses et de l’art urbain et de programmer des activités. La programmation de la rue est gérée par la Promenade Ontario, la société de développement commercial (SDC) d’Hochelaga-Maisonneuve.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -268,21 +250,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>
-						Rue Ontario is a two-lane street lined with two- to three-storey buildings featuring
-						ground floor retail. The upper floors are a mix of residential and commercial spaces.
-						When the street is not pedestrianized, street parking and bus stops are present on both
-						sides of the road. The street was pedestrianized between June and September 2023, from
-						Rue Darling to Boulevard Pie-IX, providing an open street for the enjoyment of residents
-						and visitors free of vehicular traffic. Access ramps were installed to provide greater
-						access to businesses and terraces.
-					</p>
-					<p>
-						Although there is minimal green space on Ontario street, the proximity to Lalancette
-						park and the Olympic park results in this area being well above the Montreal average in
-						terms of access to green space. The surrounding area is primarily residential and
-						characterized by low-rise apartments of two to four stories and multiplexes.
-					</p>
+					<p>La rue Ontario est une rue à deux voies bordée de bâtiments de deux à trois étages avec des commerces au rez-de-chaussée. Les étages supérieurs sont un assortiment d’espaces résidentiels et commerciaux. Lorsque la rue n’est pas piétonne, des places de stationnement et des arrêts d’autobus sont présents des deux côtés de la rue. La rue a été piétonnisée entre juin et septembre 2023, de la rue Darling au boulevard Pie-IX, offrant ainsi une rue sans circulation automobile pour le plaisir des locaux et des visiteurs. Des rampes d’accès ont été installées pour faciliter l’accès aux commerces et aux terrasses.</p><p>Bien qu’il y ait peu d’espaces verts sur la rue Ontario, la proximité du parc Lalancette et du Parc olympique fait que ce quartier se situe bien au-dessus de la moyenne montréalaise en matière d’accès aux espaces verts. La zone environnante est principalement résidentielle et caractérisée par des immeubles à hauteur restreinte de deux à quatre étages et des logements collectifs.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -406,26 +374,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						This section of rue Ontario is a well-serviced and amenity-rich area due to the
-						prevalence and proximity to a number of key civic infrastructures. Along the street,
-						there is a high prevalence of health and care facilities to serve and support local
-						residents. Within a 10-minute walk to the street, the area boasts all categories of
-						civic infrastructure.
-					</p>
-					<p>
-						The société de développement commercial (SDC) for Hochelaga-Maisonneuve and the summer
-						pedestrianization results in the installation of temporary infrastructure to support
-						civic, social, and commercial life on the street. This includes temporary street
-						furniture, signage, street art, and programming for all ages. During our observer's
-						visit on a hot and cloudy Monday afternoon in July 2023, Rue Ontario was a destination
-						well-utilized by visitors.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, rue Ontario lags behind other Montreal Main
-						Street case studies. In terms of its civic opportunity, rue Ontario sits at just 17th
-						out of 20 Montreal Main Streets and 24th out of 36 residential main streets.
-					</p>
+					<p>Cette section de la rue Ontario est un secteur bien desservi et riche en commodités en raison de la présence et de la proximité d’un certain nombre d’infrastructures municipales clés. Le long de la rue, on trouve une forte prévalence d’établissements de soins de santé pour servir et soutenir la population locale. Dans un rayon de 10 minutes à pied de la rue, le quartier est doté de toutes les catégories d’infrastructures municipales.</p><p>La société de développement commercial (SDC) d’Hochelaga-Maisonneuve et la piétonnisation estivale se traduisent par l’installation d’une infrastructure municipale temporaire pour soutenir la vie municipale, sociale et commerciale de la rue. Cela comprend un mobilier urbain, une signalisation, des œuvres d’art urbain temporaires et une programmation destinée à tous les groupes d’âge. Lors de la visite de la personne chargée de l’observation, un lundi après-midi chaud et nuageux de juillet 2023, la rue Ontario était une destination prisée des visiteurs.</p><p>Selon l’indice d’infrastructure municipale, la rue Ontario est à la traîne par rapport aux autres études de cas des rues principales de Montréal. En matière d’opportunités civiques, la rue Ontario se situe au 17e rang des 20 rues principales de Montréal et au 24e rang des 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -465,7 +414,7 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Infrastructure municipale</h2>
+					<h2>Profil des enterprises</h2>
 					<div class="controls">
 						<i><small>Cliquez sur une couche pour l’activer ou la désactiver</small></i>
 						<LegendItem
@@ -515,32 +464,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Rue Ontario hosts a distinctive mix of newer commercial establishments and older ones.
-						These businesses represent a relatively equal split among the different categories of
-						business - retail, services, and food and drink. This commercial mix features
-						restaurants and cafes, specialty shops, thrift stores, hardware stores, and personal
-						service providers. The combination of old and new serves as a visual representation of
-						change in the neighbourhood.
-					</p>
-					<p>
-						During the pedestrian summer months, businesses spill out onto the street, with
-						restaurant terraces and retail merchandise displays. The street's establishments are
-						mostly independently run, with a few chains present.
-					</p>
-					<p>
-						As a symbol of change in the neighbourhood, there are visible storefront vacancies along
-						with for lease and for sale signs.
-					</p>
-					<p>
-						According to the Independent Business Index, rue Ontario lags behind other Montreal Main
-						Street case studies in terms of business independence, ranking 17th out of 20 Montreal
-						Main Streets and 24th out of 36 residential main streets.
-					</p>
-					<p>
-						However, rue Ontario does have a relatively high business density, ranking 7th out of 20
-						Montreal main streets and 6th out of 36 residential main streets.
-					</p>
+					<p>La rue Ontario abrite un mélange particulier d’établissements commerciaux récents et d’autres, plus anciens. Ces entreprises se répartissent de manière relativement égale entre les différentes catégories de commerce — commerce de détail, fournisseurs de services, services de restauration et débits de boissons. Ce mélange commercial comprend des restaurants et des cafés, des boutiques spécialisées, des friperies, des quincailleries et des fournisseurs de services personnels. La cohabitation de l’ancien et du nouveau sert de représentation visuelle du changement qui s’opère dans le quartier.</p><p>Pendant les mois d’été, les commerces débordent sur la rue, proposant des terrasses de restaurants et des étalages de marchandises. Les établissements de la rue sont pour la plupart gérés par des commerces indépendants, avec quelques chaînes présentes.</p><p>Symbole du changement dans le quartier, les vitrines sont visiblement inoccupées et portent des panneaux à louer ou à vendre.</p><p>Selon l’Indice des entreprises indépendantes, la rue Ontario accuse un retard par rapport aux autres études de cas de la rue principale de Montréal en matière de niveau d’indépendance des entreprises, se classant 17e sur 20 rues principales de Montréal et 24e sur 36 rues principales résidentielles.</p><p>Cependant, la rue Ontario a une densité commerciale relativement élevée, se classant au 7e rang des 20 rues principales de Montréal et au 6e rang des 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -579,22 +503,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>
-						Representative of the commercial nature of Rue Ontario, many of the employers along the
-						street are businesses. Although civic infrastructure is less prevalent than businesses
-						in the area, many of the civic infrastructure establishments employ larger numbers of
-						people than the surrounding businesses.
-					</p>
-					<p>
-						In the wider neighbourhood surrounding Rue Ontario, there are other clusters of business
-						activity, such as along Rue Saint Catherine to the south. But, there are also many other
-						types of employers, which shows the mix of employment opportunities in the Hochelaga
-						area of Rue Ontario.
-					</p>
-					<p>
-						Overall, rue Ontario ranks 11th out of 20 Montreal main streets and 11th out 36
-						residential main streets in terms of its employment density.
-					</p>
+					<p>Représentatifs de la nature commerciale de la rue Ontario, de nombreux employeurs le long de la rue sont des entreprises. Bien que l’infrastructure municipale soit moins présente que les entreprises dans le secteur, de nombreux établissements d’infrastructure municipale emploient un plus grand nombre de personnes que les entreprises environnantes.</p><p>Dans le quartier plus large entourant la rue Ontario, il y a d’autres groupes d’activités commerciales, comme le long de la rue Sainte-Catherine au sud. Mais il y a aussi beaucoup d’autres types d’employeurs, ce qui montre la diversité des possibilités d’emploi dans le quartier Hochelaga de la rue Ontario.</p><p>Dans l’ensemble, la rue Ontario se classe 11e sur 20 rues principales de Montréal et 11e sur 36 rues principales résidentielles en matière de densité d’emploi.</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -656,16 +565,7 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						There are a number of features that characterize the housing on rue Ontario and in the
-						surrounding Hochelaga neighbourhood. The housing is comprised almost exclusively of
-						plexes and low-rise apartments of under five stories. This is representative of the
-						“missing middle” housing that is prevalent in Montreal but missing in many other
-						Canadian cities. There is also an older housing stock as the majority of dwellings were
-						constructed prior to 1960. Visual observations of the street show that some of these
-						older dwellings may be in in need of external major repairs. Both along rue Ontario and
-						the surrounding area, the rate of renters exceeds the Montreal average.
-					</p>
+					<p>Un certain nombre d’éléments caractérisent les logements de la rue Ontario et du quartier Hochelaga qui l’entoure. Les logements sont presque exclusivement composés d’appartements de type collectif et d’immeubles à hauteur restreinte de moins de cinq étages. Ce type de logement est représentatif des logements intermédiaires qui prévalent à Montréal, mais qui sont absents de nombreuses autres villes canadiennes. Le parc immobilier est également plus ancien, la majorité des logements ayant été construits avant 1960. Les observations visuelles de la rue montrent que certaines de ces vieilles habitations ont besoin de réparations extérieures importantes. Le long de la rue Ontario et dans les environs, le taux de locataires est supérieur à la moyenne montréalaise.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -732,14 +632,7 @@
 							]}
 						/>
 					</div>
-					<p>
-						The majority of residents surrounding Rue Ontario come from families who have been in
-						Canada for three generations or more, indicating a lack of newcomer households when
-						compared to Montreal CMA averages. This is representative of the area's history and
-						identity as a Francophone Quebecois neighbourhood. Relatedly, the majority of residents
-						both on rue Ontario and surrounding it are primarily French-speaking. Additionally,
-						there is a younger age demographic with a small household size along rue Ontario.
-					</p>
+					<p>La majorité des personnes résidant dans les environs de la rue Ontario sont issues de familles établies au Canada depuis trois générations ou plus, ce qui indique un manque de ménages de nouveaux arrivants par rapport aux moyennes de la RMR de Montréal. Ceci est représentatif de l’histoire et de l’identité du quartier en tant que quartier québécois francophone. Par ailleurs, la majorité des personnes résidant sur la rue Ontario et dans les environs sont principalement de langue française. De plus, le long de la rue Ontario, la population est plus jeune et les ménages sont de petites tailles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -782,20 +675,7 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						In 2019, Rue Ontario saw nearly 4.5 million unique visitors throughout the entire year.
-						The impact of the COVID-19 pandemic on visits to Ontario street was significant as 2022
-						visitor numbers are hovering at approximately 60 percent of 2019. This loss in visits
-						came primarily from infrequent visits from individuals outside of the Ontario street
-						area. While the 2019-2022 period also saw a significant drop in resident visitors most
-						likely due to COVID-19 restrictions, resident visits have mostly recovered. This
-						signifies the importance and vitality of Ontario street as a local main street.
-					</p>
-					<p>
-						Overall, in terms of street resilience and visitor recovery, rue Ontario trails behind
-						other Montreal main streets and residential main streets. Rue Ontario ranks 9th out of
-						20 in visitor resiliency in the region and 25th out of 36 residential main streets.
-					</p>
+					<p>En 2019, la rue Ontario a accueilli près de 4,5 millions de visiteurs uniques tout au long de l’année. L’impact de la pandémie de COVID-19 sur les visites de la rue Ontario a été important, car le nombre de visiteurs en 2022 se situe à environ 60 % du nombre de 2019. Cette perte de visites est principalement due à des visites peu fréquentes de personnes situées en dehors de la zone de la rue de l’Ontario. Bien que la période 2019-2022 ait également connu une baisse significative du nombre de visites de personnes qui habitent le quartier, très probablement en raison des restrictions de COVID-19, ces visites se sont en grande partie rétablies. Cela témoigne de l’importance et de la vitalité de la rue Ontario en tant que rue principale locale.</p><p>Dans l’ensemble, en matière de résilience de la rue et de récupération des visiteurs, la rue Ontario se situe à la traîne des autres rues principales de Montréal et des rues principales résidentielles. La rue Ontario se classe 9e sur 20 pour la résilience des visiteurs dans la région et 25e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

@@ -222,22 +222,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>
-						Rue St. Charles is located in the city of Longueuil on the south shore of the Saint
-						Lawrence River directly across from the island of Montreal. Longueuil is a suburban city
-						with a population of approximately 250,000. Longueuil has its own bus service provided
-						by the Réseau de transport de Longueuil (RTL) as well as the
-						Longueuil–Université-de-Sherbrooke Metro station which connects Longueuil to downtown
-						Montreal via the Yellow line of the Montreal Metro.
-					</p>
-					<p>
-						Rue St. Charles is one of the main arteries of Longueuil and this segment of Rue St.
-						Charles, between Chemin de Chambly and Rue Guilbault, serves as a main commercial street
-						in Old Longueuil. Since 2022, the area between rue Saint-Jacques and rue
-						Sainte-Sylvestre undergoes pedestrianization from June to September. This transformation
-						sees the construction of terraces and outdoor seating for the restaurants, temporary
-						street furniture, and increased street art and placemaking initiatives.
-					</p>
+					<p>La rue Saint-Charles est située dans la ville de Longueuil, sur la rive sud du fleuve Saint-Laurent, directement en face de l’île de Montréal. Longueuil est une ville de banlieue qui abrite une population d’environ 250 000 habitants. Longueuil possède son propre service de bus assuré par le Réseau de transport de Longueuil (RTL) ainsi que la station de métro Longueuil-Université-de-Sherbrooke qui relie Longueuil au centre-ville de Montréal via la ligne jaune du métro de Montréal.</p><p>La rue Saint-Charles est l’une des principales artères de Longueuil et ce segment de la rue Saint-Charles, entre le chemin de Chambly et la rue Guilbault, sert de principale rue commerciale dans Le Vieux-Longueuil. Depuis 2022, le secteur compris entre la rue Saint-Jacques et la rue Sainte-Sylvestre fait l’objet d’une piétonnisation de juin à septembre. Cette transformation voit la construction de terrasses et de sièges extérieurs pour les restaurants, du mobilier urbain temporaire et une augmentation des initiatives d’art urbain et d’aménagement de l’espace public.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -270,22 +255,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>
-						The building typology on rue St Charles primarily consists of low-rise buildings with
-						ground floor retail. The surrounding area is primarily residential with a mix of single
-						family housing and missing middle low and mid-density buildings.
-					</p>
-					<p>
-						The street itself is wide and consists of two circulation lanes, on street parking, and
-						no bicycle lanes. The streets surrounding rue St Charles are primarily residential, but
-						the highway route 132 is situated just north of this segment of rue St Charles. In the
-						summer months, the street is pedestrianized which shifts the distribution of space to
-						support pedestrians and active modes of mobility. This pedestrianization of rue St
-						Charles is coupled with increased street programming and placemaking, which includes:
-						temporary street furniture, street art, wifi zones, and terraces and outdoor seating for
-						the restaurants. The street is well served by green space with St. Mark’s Park situated
-						directly on this segment of rue St. Charles.
-					</p>
+					<p>La typologie des bâtiments de la rue Saint-Charles se compose principalement d’immeubles de faible hauteur, dotés de commerces au rez-de-chaussée. La zone environnante est principalement résidentielle, composée d’habitations unifamiliales et de logements intermédiaires de type «chaînon manquant» de faible et moyenne densité.</p><p>La rue elle-même est large et inclut deux voies de circulation, un stationnement sur rue, et n’a pas de pistes cyclables. Les rues entourant la rue Saint-Charles sont principalement résidentielles, mais la route 132 est située juste au nord de ce segment de la rue Saint-Charles. Pendant les mois d’été, la rue est piétonne, ce qui modifie la distribution de l’espace en faveur des piétons et des modes de mobilité active. Cette piétonnisation de la rue Saint-Charles s’accompagne d’une programmation et d’un aménagement de l’espace public accru, qui comprennent : du mobilier urbain temporaire, de l’art urbain, des zones wifi, des terrasses et des sièges extérieurs pour les restaurants. La rue est bien desservie par des espaces verts en raison du parc Saint-Mark situé directement sur ce segment de la rue Saint-Charles.</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -409,25 +379,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						This section of rue St Charles is relatively well served by civic infrastructure and all
-						five categories or types of civic infrastructure are present on this street segment.
-						Health and care facilities are the most prominent with eight facilities located directly
-						on this section of rue St Charles. Additionally, when comparing the presence of civic
-						infrastructure in the surrounding area, there is a relative clustering of civic
-						infrastructure on this segment of rue St Charles, which highlights this main streets
-						role as a place to access civic infrastructure.
-					</p>
-					<p>
-						In the summer months, the pedestrianization of the street produces street specific
-						branding, murals, outdoor wifi zones, cooling stations, and street furniture.
-					</p>
-					<p>
-						According to the Civic Infrastructure index, rue St. Charles sits in the middle of the
-						pack among Montreal main street case studies. In terms of its civic opportunity, rue St.
-						Charles ranks 10th out of 20 Montreal main streets and 16th out 36 residential main
-						streets.
-					</p>
+					<p>Cette section de la rue Saint-Charles est relativement bien desservie par les infrastructures municipales puisque les cinq catégories ou types d’infrastructures municipales y sont présents. Les établissements de soins de santé sont les plus importants puisqu’ils sont au nombre de huit sur ce tronçon de la rue Saint-Charles. En outre, si l’on compare la présence d’infrastructures municipales dans la zone environnante, on constate une certaine surconcentration de celles-ci sur ce tronçon de la rue Saint-Charles, ce qui met en évidence le rôle de cette rue principale en tant que lieu d’accès aux infrastructures municipales.</p><p>Pendant les mois d’été, la piétonnisation de la rue engendre une signalisation spécifique de la rue, des peintures murales, des zones wifi en plein air, des stations de rafraîchissement et du mobilier urbain.</p><p>Selon l’indice d’infrastructure municipale, la rue Saint-Charles se situe en milieu de peloton parmi les études de cas des rues principales de Montréal. En matière de possibilités civiques, la rue Saint-Charles se classe 10e sur 20 rues principales de Montréal et 16e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -467,7 +419,7 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Infrastructure municipale</h2>
+					<h2>Profil des enterprises</h2>
 					<div class="controls">
 						<i><small>Cliquez sur une couche pour l’activer ou la désactiver</small></i>
 						<LegendItem
@@ -517,31 +469,7 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Rue St. Charles features a relatively balanced mix of retail, food establishments, and
-						service businesses. The eastern section, particularly during summer pedestrianization,
-						offers Old Longueuil a wide variety of food and restaurant options, ranging from popular
-						Montreal restaurant and bar chains like Frites Alors to local institutions such as Péché
-						Matinal. The summer pedestrianization integrates restaurants onto the street, creating
-						an indoor-outdoor connection through patios, terraces, and picnic areas. On a hot summer
-						day, people are seen sitting in the restaurant terraces, or enjoying a cold drink in the
-						pedestrianized street or in St. Mark’s park.
-					</p>
-					<p>
-						In contrast, the western end, west of rue Saint-Alexandre, shifts towards a more service
-						and office-centric commercial landscape. This area exhibits signs indicating commercial
-						vacancies and available office spaces, highlighting the contrast in the commercial
-						composition between the two segments of Rue St. Charles.
-					</p>
-					<p>
-						According to the Independent Business Index, rue St. Charles ranks 9th out of 20
-						Montreal case studies and 7th out of 36 residential main streets, in terms of its level
-						of business independence.
-					</p>
-					<p>
-						Similarly, in terms of its business density, the street ranks 9th out of 20 Montreal
-						main streets and 10th out of all 36 residential main streets.
-					</p>
+					<p>La rue Saint-Charles présente un mélange relativement équilibré de commerces de détail, d’établissements alimentaires et d’entreprises de services. Le segment est, en particulier pendant la piétonnisation estivale, offre au Vieux-Longueuil une grande variété d’options de restauration, comprenant des chaînes de restaurants et de bars montréalais populaires comme Frites Alors, ainsi que des institutions locales comme Péché Matinal. La piétonnisation estivale intègre les restaurants dans la rue, créant un lien intérieur-extérieur par le biais de patios, de terrasses et d’aires de pique-nique. Par une chaude journée d’été, on peut voir les gens attablés aux terrasses des restaurants ou savourant une boisson fraîche dans la rue piétonne ou dans le parc Saint-Mark.</p><p>En revanche, l’extrémité ouest, à l’ouest de la rue Saint-Alexandre, s’oriente vers un paysage commercial plus axé sur les services et les bureaux. Cette zone présente des panneaux indiquant des locaux commerciaux vacants et des espaces de bureaux disponibles, soulignant le contraste dans la composition commerciale entre les deux segments de la rue Saint-Charles.</p><p>Selon l’indice des entreprises indépendantes, la rue Saint-Charles se classe 9e sur 20 études de cas montréalaises et 7e sur 36 rues principales résidentielles, en matière de niveau d’indépendance des entreprises.</p><p>De même, en matière de densité commerciale, la rue se classe 9e sur 20 rues principales de Montréal et 10e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -580,18 +508,7 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>
-						There is a significant clustering of employment on this segment of rue St. Charles,
-						especially when comparing to the surrounding area. This clustering of employment
-						opportunities further entrenches rue St. Charles as a significant main street in the Old
-						Longueuil neighbourhood. Representative of the commercial nature of rue St. Charles, the
-						majority of employees work for business-related employers which includes the wide array
-						of restaurants and retail establishments.
-					</p>
-					<p>
-						Overall, rue St. Charles ranks 17th out of 20 Montreal main streets and 28th out 36
-						residential main streets in terms of its employment density.
-					</p>
+					<p>Il y a un regroupement important d’emplois sur ce segment de la rue Saint-Charles, surtout lorsqu’on le compare à la zone environnante. Ce regroupement d’emplois conforte la rue Saint-Charles dans son rôle de rue principale du quartier du Vieux-Longueuil. Représentative de la nature commerciale de la rue Saint-Charles, la majorité des personnes travaillent pour des employeurs liés aux affaires, ce qui inclut le large éventail de restaurants et d’établissements de vente au détail.</p><p>Dans l’ensemble, la rue Saint-Charles se classe au 17e rang des 20 rues principales de Montréal et au 28e rang des 36 rues principales résidentielles pour ce qui est de la densité d’emploi.</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -653,18 +570,7 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The majority of housing in and around rue St. Charles predates 1980, with notable spikes
-						in construction between 2006-2010 and 2016-2021. A discernible shift in building and
-						housing characteristics occurs when transitioning from the commercial stretch of rue St.
-						Charles to the neighboring suburban residential streets. Rue St. Charles features some
-						housing atop commercial spaces, but the street's primary structures are predominantly
-						commercial. Despite its suburban setting, the surrounding residential streets exhibit
-						higher-density housing compared to the typical single-detached housing prevalent in
-						suburban areas. Housing on these residential streets consists predominantly of low-rise
-						apartments, with a diverse mix including high-rise apartments, single-detached, and
-						semi-detached houses.
-					</p>
+					<p>La majorité des logements de la rue Saint-Charles et de ses environs datent d’avant 1980, avec des pics de construction importants entre les années 2006 à 2010 et 2016 à 2021. Un changement perceptible dans les caractéristiques des bâtiments et des logements se produit lorsque l’on passe du tronçon commercial de la rue Saint-Charles aux rues résidentielles de banlieue avoisinantes. La rue Saint-Charles comporte quelques logements surmontant des espaces commerciaux, mais les structures principales de la rue sont essentiellement commerciales. Malgré son environnement de banlieue, les rues résidentielles avoisinantes présentent une densité de logements plus élevée que les maisons individuelles non attenantes typiques des zones de banlieue. Les logements de ces rues résidentielles sont principalement des appartements de faible hauteur, avec un mélange varié d’appartements de grande hauteur, de maisons individuelles non attenantes et de maisons jumelées.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -731,18 +637,7 @@
 							]}
 						/>
 					</div>
-					<p>
-						The demographics of the area surrounding rue St. Charles contribute to distinctive local
-						characteristics. With a relatively high average age, many residents on rue St. Charles
-						are above the age of 60. Despite the suburban setting, the average household size is
-						notably small, averaging around one person per household. Socioeconomically, the area is
-						predominantly high income, particularly along rue St. Charles, but this is juxtaposed
-						against pockets of lower average income, which fosters a distinctive mix of higher and
-						lower-income households within the same vicinity. Linguistically, the area is
-						predominately French speaking. While the area has a relatively low percentage of new
-						immigrants, certain sections, especially along rue St. Charles, have a higher influx of
-						new immigrants.
-					</p>
+					<p>Les caractéristiques démographiques de la région entourant la rue Saint-Charles contribuent aux particularités locales. De nombreuses personnes résidant sur la rue Saint-Charles ont plus de 60 ans, assurant une moyenne d’âge relativement élevée. Malgré un environnement de banlieue, la taille moyenne des ménages est particulièrement réduite, avec une moyenne d’environ une personne par ménage. D’un point de vue socio-économique, la zone est majoritairement composée de ménages à revenus élevés, en particulier le long de la rue Saint-Charles, mais cette situation est juxtaposée à des îlots de revenus moyens inférieurs, ce qui favorise un mélange particulier de ménages à revenus élevés et inférieurs au sein d’une même région. Sur le plan linguistique, la zone est majoritairement de langue française. Bien que le pourcentage de nouveaux immigrants soit relativement faible, certaines sections, en particulier le long de la rue Saint-Charles, connaissent un afflux plus important de nouveaux immigrants.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -785,25 +680,7 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Rue St. Charles is a predominately commercial street that offers a wide variety of
-						retail and food offerings to the surrounding Longueil and South Shore areas. As such,
-						the street invites a high number of visitors to the street. The majority of these
-						visitors are infrequent – meaning they do not often visit rue St. Charles, but instead
-						visit occasionally to enjoy and experience the many offerings the street provides.
-						Although on a hot summer day, the pedestrianized rue St. Charles still draws visitors
-						coming to enjoy the food, retail, and open street, the COVID-19 pandemic greatly
-						impacted rue St. Charles. Just like many other main streets, the number of current
-						visitors is far lower than pre-pandemic in 2019. In the most recent count of visitors to
-						rue St. Charles, the street sits at just under 60 percent of its 2019 numbers,
-						signifying a notable decrease in the number of visitors – primarily infrequent – that
-						are coming to the street.
-					</p>
-					<p>
-						As a result, in terms of street resilience and visitor recovery, rue St. Charles trails
-						behind most other Montreal main streets and residential main streets. Rue St. Charles
-						ranks 15
-					</p>
+					<p>La rue Saint-Charles est une rue à prédominance commerciale qui offre une grande variété de commerces de détail et de produits alimentaires aux régions de Longueil et de la Rive-Sud. En tant que telle, la rue accueille un grand nombre de visiteurs. La majorité de ces visiteurs sont peu fréquents et ne se rendent donc pas souvent sur la rue Saint-Charles, mais plutôt occasionnellement pour profiter des nombreuses attractions qu’offre la rue. Bien que par une chaude journée d’été, la rue Saint-Charles, piétonne, attire toujours des visiteurs qui viennent profiter de la nourriture, des commerces et de la rue, la pandémie de COVID-19 a eu un impact considérable sur la rue Saint-Charles. À l’instar de nombreuses autres rues principales, le nombre de visiteurs actuels est bien inférieur à celui d’avant la pandémie en 2019. Dans le décompte le plus récent des visiteurs de la rue Saint-Charles, la rue se situe à un peu moins de 60 pour cent de ses chiffres de 2019, ce qui signifie une importante diminution du nombre de visiteurs — principalement des visiteurs peu fréquents — qui fréquentent la rue.</p><p>Par conséquent, en matière de résilience de la rue et de récupération des visiteurs, la rue Saint-Charles est à la traîne de la plupart des autres rues principales de Montréal et des rues principales résidentielles. La rue Saint-Charles se classe 15e sur 20 pour la résilience des visiteurs dans la région et 33e sur 36 rues principales résidentielles.</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
