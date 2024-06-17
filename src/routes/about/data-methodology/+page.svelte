@@ -2,6 +2,18 @@
 	import '../../styles.css';
 	import Footer from '../../lib/Footer.svelte';
 	import Icon from '@iconify/svelte';
+
+  let mainStreetCollapsed = true;
+  let civicInfrastructureCollapsed = true;
+
+  function toggleMainStreet() {
+    mainStreetCollapsed = !mainStreetCollapsed;
+  }
+
+  function toggleCivicInfrastructure() {
+    civicInfrastructureCollapsed = !civicInfrastructureCollapsed;
+  }
+
 </script>
 
 
@@ -109,8 +121,8 @@
 	</p>
 	<p>In addition, within the Local Services Business Sub Group, businesses under NAICS code categories such as Depository Credit, Accounting, Legal Services, Telecom stores, and Real Estate Offices, had to have less than 50 employees to confirm that they were local instances. For example, to ensure we identified local bank branches and filtered out corporate office locations that may have both been classified under the same NAICS code.
 	</p>
-	<h4>Main Street Business</h4>
-	<div>
+	<h4 on:click={toggleMainStreet}>Main Street Business Table (Click to expand)</h4> 
+	<div class="collapsible-content {mainStreetCollapsed ? '' : 'expanded'}">
 		<table>
 		  <tbody>
 			<tr>
@@ -306,8 +318,8 @@
 		  </tbody>
 		</table>
 	  </div>
-	  <h4>Civic Infrastructure</h4>
-	  <div>
+	  <h4 on:click={toggleCivicInfrastructure}>Civic Infrastructure Table (Click to expand)</h4>
+	  <div class="collapsible-content {civicInfrastructureCollapsed ? '' : 'expanded'}">
 		<table>
 		  <tbody>
 			<tr>
@@ -656,8 +668,15 @@
 </ul>
 </div>
 
+<div class="hero">
+	<h1>Have more questions?</h1>
+	<p>Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry">cui@canurb.org</a>.</p>
+</div>
 
 
+<div class="hero">
+	<br><br><br>
+</div>
 
 
 
@@ -676,4 +695,25 @@ table, td {
 h4, h3 {
 	margin: 1em 0 1em 0;
 }
+
+@media only screen and (min-width: 768px) {
+
+p {
+	max-width: 80%;
+}
+}
+
+.collapsible-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 0;
+  }
+
+  .collapsible-content.expanded {
+    max-height: 1000px; /* Adjust based on content size */
+  }
+
+  h4 {
+    cursor: pointer;
+  }
 </style>

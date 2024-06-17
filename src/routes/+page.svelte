@@ -123,13 +123,13 @@
 	</div>
 </div>
 
-<div class="section">
-	<div class="hero" id="why-now">
+<div class="section" id="why-now">
+	<div class="hero" >
 		<h1>Why Now?</h1>
 		<h2>Main streets require urgent attention and investment.</h2>
 		<h3>
-			We worked across 3 main themes, finding that Main Streets were challenged during the pandemic, and require a more inclusive and innovative
-			approach to allow them to thrive, now more than ever. 
+			Main Streets were challenged during the pandemic, and require a more inclusive and innovative
+			approach to allow them to thrive, now more than ever.
 		</h3>
 		<div class="stat-container">
 			<HeroStat
@@ -290,11 +290,6 @@
 		letter-spacing: -0.1rem;
 	}
 
-	svg {
-		width: auto; /* Make sure SVG scales with the container */
-		height: 100%; /* Fill the entire height of its container */
-		max-height: 100%; /* Ensure SVG does not exceed the height of its container */
-	}
 
 	a {
 		text-decoration: none;
@@ -316,7 +311,7 @@
 		flex-direction: column;
 		padding: 2em;
 		align-items: center;
-		border-bottom: 1px solid var(--brandGrey);
+		/* border-bottom: 1px solid var(--brandGrey); */
 	}
 
 	#why-main-streets {
@@ -327,12 +322,16 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
-		padding: 5em 0 5em 0;
+		padding: 8em 0 8em 0;
 	}
 
 	#why-main-streets h1, #why-main-streets h2, #why-main-streets h3 {
 		color:white;
 		text-align: center;
+	}
+
+	h3 { 
+		max-width: 70%;
 	}
 
 	.stat-container {
@@ -344,7 +343,13 @@
 
 	#why-now {
 		text-align: center;
-
+		padding: 8em 0 8em 0;
+		background: linear-gradient(
+	rgba(83, 233, 101, 0.8),
+	rgba(83, 233, 101, 0.8)), url('https://i.imgur.com/acrIbnP.jpeg');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 
 	#stronger-together {

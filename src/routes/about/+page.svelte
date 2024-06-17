@@ -98,4 +98,11 @@
 		color: var(--brandDarkBlue);
 	}
 
+	@media only screen and (min-width: 768px) {
+
+		p {
+			max-width: 80%;
+		}
+	}
+
 </style>

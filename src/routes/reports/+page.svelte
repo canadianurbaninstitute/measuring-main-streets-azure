@@ -142,9 +142,14 @@
 	
 		#regional {
 		grid-template-columns: repeat(3, 1fr);
+		}
+
+		p {
+			max-width: 80%;
+		}
 	}
 
-	}
+	
 
 
 </style>

@@ -67,36 +67,6 @@
 <Footer />
 
 <style>
-	.chart-container {
-		padding: 0em;
-		border-radius: 1em;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-	}
-	
-	/* 
-	.chart-container.bar {
-		padding: 0 20em 0 10em;
-	} */
-
-	.report-text {
-		margin: 0;
-	}
-
-	.text-container {
-		width: 60%;
-		margin: 0;
-	}
-
-	.slide {
-		display: flex;
-		flex-direction: row;
-		gap: 5em;
-		border-bottom: 1px solid var(--brandGrey);
-		padding: 5em;
-	}
 
 	.full-text {
 		border-bottom: 1px solid var(--brandGrey);
@@ -105,6 +75,7 @@
 		color: var(--brandDarkBlue);
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		gap: 1em;
 	}
 
@@ -114,12 +85,12 @@
 		font-weight: 600;
 	}
 
-	.sticky-content {
-			position: -webkit-sticky; /* for Safari */
-			position: sticky;
-			top: 1em;
-			align-self: flex-start; /* <-- this is the fix */
-		}
+	@media only screen and (min-width: 768px) {
 
+	p {
+		max-width: 80%;
+		text-align: center;
+	}
+}
 
 </style>
