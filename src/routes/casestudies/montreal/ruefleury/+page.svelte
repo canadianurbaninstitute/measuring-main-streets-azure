@@ -28,7 +28,7 @@
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 	import { browser } from '$app/environment';
 	import mapboxgl from 'mapbox-gl';
@@ -212,6 +212,8 @@ setConfig({
 
 <main>
 	<Title outline={RueFleury} name={'Rue Fleury (Ahuntsic)'} location={'Montreal, Québec'} />
+	<LanguageSelector eng={'/casestudies/montreal/ruefleury'} fr={'/casestudies/montreal-fr/ruefleury-fr'} selected='eng'/>
+
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">

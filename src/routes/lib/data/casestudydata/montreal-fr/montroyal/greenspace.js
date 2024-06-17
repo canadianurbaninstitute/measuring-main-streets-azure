@@ -1,0 +1,1 @@
+export default [{"Area":"Mont Royal","Park_Area":0,"Park_Percentage":0},{"Area":"Rayon de 10 minutes de marche","Park_Area":296212.8129,"Park_Percentage":9.0524},{"Area":"Montreal RMR","Park_Area":203290273.9087,"Park_Percentage":3.7479}]

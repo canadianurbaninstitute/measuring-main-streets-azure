@@ -28,7 +28,7 @@
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 	import { browser } from '$app/environment';
 	import mapboxgl from 'mapbox-gl';
@@ -211,12 +211,14 @@ setConfig({
 
 <main>
 	<Title outline={RueWellington} name={'Rue Wellington (Verdun)'} location={'Montreal, Québec'} />
+	<LanguageSelector eng={'/casestudies/montreal/ruewellington'} fr={'/casestudies/montreal-fr/ruewellington-fr'} selected='eng'/>
+
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Rue Wellington serves as a significant east-west thoroughfare on the western edge of Montreal, traversing the neighborhoods of Verdun, Pointe-Sainte-Charles, and Griffintown. Named the “world's coolest street” by TimeOut magazine in 2022, this section known as Promenade Wellington thrives as a bustling commercial hub at the heart of Verdun. In collaboration with the SDC Wellington, Promenade Wellington undergoes pedestrianization during the summer months. The introduction of temporary street furniture, murals, cooling stations, and outdoor patios and terraces further supports the vibrancy of the street.</p>
+					<p>Rue Wellington serves as a significant east-west thoroughfare on the western edge of Montreal, traversing the neighborhoods of Verdun, Pointe-Saint-Charles, and Griffintown. Named the “world's coolest street” by TimeOut magazine in 2022, this section known as Promenade Wellington thrives as a bustling commercial hub at the heart of Verdun. In collaboration with the SDC Wellington, Promenade Wellington undergoes pedestrianization during the summer months. The introduction of temporary street furniture, murals, cooling stations, and outdoor patios and terraces further supports the vibrancy of the street.</p>
 					<p>Yet, the landscape of Verdun is evolving. The surging popularity of Rue Wellington and Verdun, marked by new restaurants, cafes, bars, and streetscape enhancements, accompanies a noticeable uptick in property values and rents. These transformations have sparked concerns regarding gentrification and displacement, prompting local residents and housing advocates to mobilize in support of existing Rue Wellington residents and the broader Verdun community.</p>
 
 				</div>

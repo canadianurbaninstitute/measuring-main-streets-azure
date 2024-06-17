@@ -28,7 +28,7 @@
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 	import { browser } from '$app/environment';
 	import mapboxgl from 'mapbox-gl';
@@ -211,12 +211,14 @@ setConfig({
 
 <main>
 	<Title outline={RueStAnne} name={'Rue St. Anne (Sainte Anne de Bellevue)'} location={'Montreal, Québec'} />
+	<LanguageSelector eng={'/casestudies/montreal/ruestanne'} fr={'/casestudies/montreal-fr/ruestanne-fr'} selected='eng'/>
+
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Located on what's known as the West Island of Montreal, Sainte-Anne de Bellevue is a small and predominantly English-speaking on-island suburb on the western tip of the island of Montreal. Sainte-Anne de Bellevue is home to a number of key points of interest that serve both local residents and visitors to the small town. These include the Morgan Arboretum, the L'Anse-à-l'Orme Nature Park, John Abbott College, McGill University’s Macdonald Campus, and the Sainte-Anne-de-Bellevue Canal. Running parallel to the National Historic Site of Canada recognized Sainte-Anne-de-Bellevue Canal is rue Sainte-Anne – Sainte-Anne-de-Bellevue’s main commercial street that traverses through the historic town center.</p>
+					<p>Located on what's known as the West Island of Montreal, Sainte-Anne-de-Bellevue is a small and predominantly English-speaking on-island suburb on the western tip of the island of Montreal. Sainte-Anne-de-Bellevue is home to a number of key points of interest that serve both local residents and visitors to the small town. These include the Morgan Arboretum, the L'Anse-à-l'Orme Nature Park, John Abbott College, McGill University’s Macdonald Campus, and the Sainte-Anne-de-Bellevue Canal. Running parallel to the National Historic Site of Canada recognized Sainte-Anne-de-Bellevue Canal is rue Sainte-Anne – Sainte-Anne-de-Bellevue’s main commercial street that traverses through the historic town center.</p>
 					<p>Rue Sainte Anne is a quaint main street with picturesque heritage architecture. Beyond its historical and touristic charm, rue Sainte Anne offers a wide variety of waterfront restaurants, independent boutiques, and access to the waterfront and promenade along the Canal.</p>
 
 				</div>

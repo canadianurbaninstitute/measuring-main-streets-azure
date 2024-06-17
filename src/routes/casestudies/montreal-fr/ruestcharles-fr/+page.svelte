@@ -10,25 +10,25 @@
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruestcharles/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruestcharles/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/montreal/ruestcharles/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruestcharles/housingtype';
-	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruestcharles/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestcharles/visitordayofweek';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/businessmix';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/housingconstruction';
+	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
-	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
-	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
+	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 	import { browser } from '$app/environment';
 	import mapboxgl from 'mapbox-gl';
@@ -215,6 +215,8 @@
 		name={'Rue St. Charles (Old Longueuil)'}
 		location={'Montreal, Québec'}
 	/>
+	<LanguageSelector eng={'/casestudies/montreal/ruestcharles'} fr={'/casestudies/montreal-fr/ruestcharles-fr'} selected='fr'/>
+
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -302,7 +304,7 @@
 						/>
 						<LegendItem variant={'line'} label={'Transport en commun'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
-						<SatelliteCheckbox casestudy={'ruestcharles'} section={'builtform'} />
+						<SatelliteCheckboxFr casestudy={'ruestcharles'} section={'builtform'} />
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr80v24n000q01p47bhx29ow'}
@@ -387,13 +389,13 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox
+							<IsochroneCheckboxFr
 								section={'civicinfra'}
 								layer={'ruestcharles-isochrone'}
 								minZoom={13}
 								maxZoom={13.3}
 							/>
-							<EmploymentSizeCheckbox
+							<EmploymentSizeCheckboxFr
 								section={'civicinfra'}
 								layers={[
 									'civicinfra-montreal-education',
@@ -497,13 +499,13 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox
+							<IsochroneCheckboxFr
 								section={'business'}
 								layer={'ruestcharles-isochrone'}
 								minZoom={13}
 								maxZoom={13.3}
 							/>
-							<EmploymentSizeCheckbox
+							<EmploymentSizeCheckboxFr
 								section={'business'}
 								layers={[
 									'business-montreal-retail',
@@ -638,15 +640,15 @@
 						<Dropdown
 							casestudy={'ruestcharles'}
 							section={'housing'}
-							region={'montreal'}
+							region={'montreal-fr'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
+								{ id: 'populationdensity', text: 'Densité de la population' },
+								{ id: 'dwellings', text: 'Logements' },
+								{ id: 'single-detached', text: 'Logements individuels non attenants' },
+								{ id: 'semi-detached', text: 'Logements jumelés' },
 								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'apartment-more-5-stories', text: 'Tours d’habitation' },
+								{ id: 'apartment-less-5-stories', text: 'Immeubles à hauteur restreinte' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
@@ -715,17 +717,17 @@
 						<Dropdown
 							casestudy={'ruestcharles'}
 							section={'demographics'}
-							region={'montreal'}
+							region={'montreal-fr'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Recent Immigrants' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: 'Âge moyen' },
+								{ id: 'household-size', text: 'Taille des ménages' },
+								{ id: 'average-income', text: 'Revenu moyen' },
+								{ id: 'visibleminority', text: 'Minorités visibles' },
+								{ id: 'immigrants', text: 'Immigrants récents' },
+								{ id: 'indigenous', text: 'Population autochtone' },
+								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
+								{ id: 'french-speakers', text: 'Personne de langue française' },
+								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
 							]}
 						/>
 					</div>

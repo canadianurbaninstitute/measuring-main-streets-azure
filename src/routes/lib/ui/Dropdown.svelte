@@ -38,7 +38,7 @@
 	}
 </script>
 
-<small><i>Change Map Layer</i></small>
+<!-- <small><i>Change Map Layer</i></small> -->
 <select bind:value={selected} on:change={toggleCensusLayer}>
 	{#each options as option}
 		<option value={option}>
@@ -111,11 +111,11 @@
 	{/if}
 
 	{#if selected && selected.id === 'apartment-more-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Aparments (more than 5 stories)'} />
+		<Legend maxlabel={'100%'} label={'% Apartments (more than 5 stories)'} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-less-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Aparments (less than 5 stories)'} />
+		<Legend maxlabel={'100%'} label={'% Apartments (less than 5 stories)'} />
 	{/if}
 {/if}
 
@@ -183,13 +183,86 @@
 	{/if}
 
 	{#if selected && selected.id === 'apartment-more-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Aparments (more than 5 stories)'} />
+		<Legend maxlabel={'100%'} label={'% Apartments (more than 5 stories)'} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-less-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Aparments (less than 5 stories)'} />
+		<Legend maxlabel={'100%'} label={'% Apartments (less than 5 stories)'} />
 	{/if}
 {/if}
+
+{#if region && region === 'montreal-fr'}
+	{#if selected && selected.id === 'average-age'}
+		<Legend minlabel={'38'} maxlabel={'79.8'} label={'Âge moyen'} />
+	{/if}
+
+	{#if selected && selected.id === 'household-size'}
+		<Legend minlabel={'1'} maxlabel={'8'} label={'Taille des ménages'} />
+	{/if}
+
+	{#if selected && selected.id === 'average-income'}
+		<Legend
+			maxlabel={'$171,000'}
+			minlabel={'$22,400'}
+			label={'Revenu moyen (Census 2021)'}
+		/>
+	{/if}
+
+	{#if selected && selected.id === 'visibleminority'}
+		<Legend maxlabel={'100%'} label={'% Minorités visibles'} />
+	{/if}
+
+	{#if selected && selected.id === 'immigrants'}
+		<Legend maxlabel={'100%'} label={'% Immigrants récents'} />
+	{/if}
+
+	{#if selected && selected.id === 'indigenous'}
+		<Legend maxlabel={'79%'} label={'% Population autochtone'} />
+	{/if}
+
+	{#if selected && selected.id === 'french-speakers'}
+		<Legend maxlabel={'100%'} label={'% Personne de langue française'} />
+	{/if}
+
+	{#if selected && selected.id === 'english-speakers'}
+		<Legend maxlabel={'100%'} label={'% Personne de langue anglaise'} />
+	{/if}
+
+	{#if selected && selected.id === 'education-bachelors'}
+		<Legend maxlabel={'100%'} label={'% Titulaires d’un baccalauréat'} />
+	{/if}
+
+	<!-- Housing -->
+
+	{#if selected && selected.id === 'populationdensity'}
+		<Legend maxlabel={'159,762'} label={'Densité de la population (personnes/sq.km)'} />
+	{/if}
+
+	{#if selected && selected.id === 'dwellings'}
+		<Legend minlabel={'0'} maxlabel={'4770'} label={'Logements'} />
+	{/if}
+
+	{#if selected && selected.id === 'duplex'}
+		<Legend maxlabel={'100%'} label={'% Duplex'} />
+	{/if}
+
+	{#if selected && selected.id === 'semi-detached'}
+		<Legend maxlabel={'100%'} label={'% Logements jumelés'} />
+	{/if}
+
+	{#if selected && selected.id === 'single-detached'}
+		<Legend maxlabel={'100%'} label={'% Logements individuels non attenants'} />
+	{/if}
+
+	{#if selected && selected.id === 'apartment-more-5-stories'}
+		<Legend maxlabel={'100%'} label={'% Tours d’habitation'} />
+	{/if}
+
+	{#if selected && selected.id === 'apartment-less-5-stories'}
+		<Legend maxlabel={'100%'} label={'% Immeubles à hauteur restreinte'} />
+	{/if}
+{/if}
+
 
 
 {#if region && region === 'edmonton'}
@@ -256,11 +329,11 @@
 	{/if}
 
 	{#if selected && selected.id === 'apartment-more-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Aparments (more than 5 stories)'} />
+		<Legend maxlabel={'100%'} label={'% Apartments (more than 5 stories)'} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-less-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Aparments (less than 5 stories)'} />
+		<Legend maxlabel={'100%'} label={'% Apartments (less than 5 stories)'} />
 	{/if}
 {/if}
 

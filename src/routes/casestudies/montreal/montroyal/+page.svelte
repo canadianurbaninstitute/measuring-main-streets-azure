@@ -28,7 +28,7 @@
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 	import { browser } from '$app/environment';
 	import mapboxgl from 'mapbox-gl';
@@ -211,6 +211,8 @@ setConfig({
 
 <main>
 	<Title outline={MontRoyal} name={'Mont Royal (Plateau)'} location={'Montreal, Québec'} />
+	<LanguageSelector eng={'/casestudies/montreal/montroyal'} fr={'/casestudies/montreal-fr/montroyal-fr'} selected='fr'/>
+
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -374,7 +376,7 @@ setConfig({
 						</div>
 					</div>
 					<p>Avenue du Mont-Royal is in close proximity to all types of civic infrastructure and amenities. It is a well-served area accessible, within a 10-minute walk, to several key amenities and civic infrastructure. This includes a number of health and care facilities, government and community services, and educational facilities. </p>
-					<p>The Mont Royal SDC and the summer pedestrianization results in significant amounts of temporary and permanent infrastructure to promote the street and make it a more attractive, welcoming, and pleasant space for residents and visitors. Year round, this includes signage for the SDC, murals and other art installations, and permanent seating and spaces to linger at the Place Gerard Godin. In the summer months, the street transforms to better support residents, visitors, and the surrounding businesses through street furniture, additional murals and street art, and temporary planters and gardens. </p>
+					<p>The Mont Royal SDC and the summer pedestrianization results in significant amounts of temporary and permanent infrastructure to promote the street and make it a more attractive, welcoming, and pleasant space for residents and visitors. Year round, this includes signage for the SDC, murals and other art installations, and permanent seating and spaces to linger at the Place Gérald Godin. In the summer months, the street transforms to better support residents, visitors, and the surrounding businesses through street furniture, additional murals and street art, and temporary planters and gardens. </p>
 					<p>According to the Civic Infrastructure Index, Ave. Mont-Royal lags behind half of Montreal main streets . In terms of its civic opportunity, Ave. Mont-Royal sits at just 12th out of 20 Montreal Main Streets and 26th out of 36 residential main streets.</p>
 
 				</div>

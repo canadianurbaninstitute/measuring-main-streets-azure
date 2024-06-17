@@ -10,24 +10,24 @@
 
 	import Summary from '../../../lib/Summary.svelte';
 
-	import greenspace from '../../../lib/data/casestudydata/montreal/stdenis/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/stdenis/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/montreal/stdenis/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/stdenis/housingtype';
-	import housingconstruction from '../../../lib/data/casestudydata/montreal/stdenis/housingconstruction';
-	import visitortraffic from '../../../lib/data/casestudydata/montreal/stdenis/visitortraffic';
-	import visitortypes from '../../../lib/data/casestudydata/montreal/stdenis/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/stdenis/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/stdenis/visitordayofweek';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/stdenis/greenspace';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/stdenis/civicmix';
+	import businessmix from '../../../lib/data/casestudydata/montreal-fr/stdenis/businessmix';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/stdenis/housingtype';
+	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/stdenis/housingconstruction';
+	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/stdenis/visitortraffic';
+	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/stdenis/visitortypes';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/stdenis/visitortimeofday';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/stdenis/visitordayofweek';
 
 	import Legend from '../../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
-	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
-	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
@@ -74,17 +74,18 @@
 
 <main>
 	<Title outline={stdenis} name={'St. Denis'} location={'Montreal, Québec'} />
+	<LanguageSelector eng={'/casestudies/montreal/stdenis'} fr={'/casestudies/montreal-fr/stdenis-fr'} selected='fr'/>
+
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
 					<p>
-						The case study aims to provide an overview of the case study area; through a combination
-						of interactive maps, charts and data analysis.
+						L’étude de cas vise à fournir une vue d’ensemble de la zone étudiée, grâce à une combinaison de cartes interactives, de graphiques et d’analyses de données.
 					</p>
 					<p>
-						The map displays the boundaries of the case study, overlaid on the main street network.
+						La carte présente les limites de l’étude de cas, superposées au réseau de rues principales.
 					</p>
 				</div>
 				<div class="map-container">
@@ -119,11 +120,7 @@
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
 					<p>
-						The built form of the case study area is represented through the 3D building layer,
-						transit stops and lines, as well as green space, including a comparative graph of the %
-						of green space present within the case study area, a 10 minute walk radius and in the
-						Census Metropolitan Area the case study is located in. Use the Satellite View toggle to
-						see the case study area overlaid with satellite imagery.
+						La forme bâtie de la zone visée par l’étude de cas est représentée par la couche de bâtiments en 3D, les arrêts et les lignes de transport en commun, ainsi que les espaces verts, y compris un graphique comparatif du pourcentage d’espaces verts présents dans la zone visée par l’étude de cas, dans un rayon de 10 minutes de marche et dans la région métropolitaine de recensement dans laquelle se situe l’étude de cas. Utilisez le bouton « Vue satellite » pour voir la zone visée par l’étude de cas superposée à l’imagerie satellite.
 					</p>
 				</div>
 				<div class="map-container">
@@ -142,7 +139,7 @@
 							bordercolor={'#999797'}
 						/>
 						<LegendItem variant={'line'} label={'Transport en commun'} bordercolor={'#ff4242'} />
-						<SatelliteCheckbox casestudy={'stdenis'} section={'builtform'} />
+						<SatelliteCheckboxFr casestudy={'stdenis'} section={'builtform'} />
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4idy5o02fi01p6ajdegi44'}
@@ -226,13 +223,13 @@
 							section={'civicinfra'}
 						/>
 						<div class="checkbox">
-							<IsochroneCheckbox
+							<IsochroneCheckboxFr
 								section={'civicinfra'}
 								layer={'stdenis-isochrone'}
 								minZoom={13}
 								maxZoom={13.3}
 							/>
-							<EmploymentSizeCheckbox
+							<EmploymentSizeCheckboxFr
 								section={'civicinfra'}
 								layers={[
 									'civicinfra-montreal-education',
@@ -247,18 +244,10 @@
 						</div>
 					</div>
 					<p>
-						Civic Infrastructure present in the case study area is represented through 5 categories:
-						Education, Government & Community Services, Arts & Culture, Recreation, and Healthcare.
-						For more information about how we classified these categories, read our <a
-							href="about/data-methodology">Data and Methodology</a
-						>. The graph displays the proportional mix of Civic Infrastucture in the case study
-						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
-						located in.
+						L’infrastructure municipale présente dans la zone visée par l’étude de cas est représentée par 5 catégories : Éducation, Services gouvernementaux et communautaires, Arts et culture, Loisirs et Soins de santé. Pour plus d’informations sur la façon dont nous avons classé ces catégories, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>. Le graphique montre la proportion d’infrastructures municipales dans la zone visée par l’étude de cas, dans un rayon de 10 minutes de marche et dans la région métropolitaine de recensement où se situe l’étude de cas.
 					</p>
 					<p>
-						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
-						of the case study area, as well as the estimated employment sizes of each location of
-						Civic Infrastructure.
+						Cliquez sur les boutons à bascule « Rayon de marche de 10 minutes » et « Niveau d’emploi » pour afficher un rayon de marche de 10 minutes autour de la zone visée par l’étude de cas, ainsi que le niveau estimé de l’emploi pour chaque emplacement d’infrastructure municipale.
 					</p>
 				</div>
 				<div class="map-container">
@@ -330,13 +319,13 @@
 							section={'business'}
 						/>
 						<div class="checkbox">
-							<IsochroneCheckbox
+							<IsochroneCheckboxFr
 								section={'business'}
 								layer={'stdenis-isochrone'}
 								minZoom={13}
 								maxZoom={13.3}
 							/>
-							<EmploymentSizeCheckbox
+							<EmploymentSizeCheckboxFr
 								section={'business'}
 								layers={[
 									'business-montreal-retail',
@@ -349,18 +338,10 @@
 						</div>
 					</div>
 					<p>
-						Main Street Businesses present in the case study area are represented through 3
-						categories: Retail, Food & Drink and Local Services. For more information about how we
-						classified these categories, read our <a href="about/data-methodology"
-							>Data and Methodology</a
-						>. The graph displays the proportional mix of Main Street Businesses in the case study
-						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
-						located in.
+						Les entreprises de la rue principale présentes dans la zone visée par l’étude de cas sont représentées par trois catégories : Commerce de détail, Services de restauration et débits de boissons et Services locaux. Pour plus d’informations sur la manière dont nous avons classé ces catégories, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>. Le graphique présente la répartition proportionnelle des entreprises de la rue principale dans la zone visée par l’étude de cas, dans un rayon de marche de 10 minutes et dans la région métropolitaine de recensement dans laquelle se situe l’étude de cas.
 					</p>
 					<p>
-						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
-						of the case study area, as well as the estimated employment sizes of each Main Street
-						Business.
+					Cliquez sur les boutons à bascule « Rayon de marche de 10 minutes » et « Niveau d’emploi » pour afficher un rayon de marche de 10 minutes autour de la zone visée par l’étude, ainsi que les estimations du niveau d’emploi de chaque entreprise de la rue principale.
 					</p>
 				</div>
 				<div class="map-container">
@@ -401,9 +382,7 @@
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
 					<p>
-						The estimated employment size of all entities, including main street businesses, civic
-						infrastructure and others, are displayed on this map. For more information about how we
-						calculated these, read our <a href="about/data-methodology">Data and Methodology</a>.
+						Le niveau d’emploi estimé de toutes les entités, y compris les entreprises de la rue principale, les infrastructures municipales et autres, est affiché sur cette carte. Pour plus d’informations sur la manière dont nous avons calculé ces chiffres, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -452,27 +431,23 @@
 						<Dropdown
 							casestudy={'stdenis'}
 							section={'housing'}
-							region={'montreal'}
+							region={'montreal-fr'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
+								{ id: 'populationdensity', text: 'Densité de la population' },
+								{ id: 'dwellings', text: 'Logements' },
+								{ id: 'single-detached', text: 'Logements individuels non attenants' },
+								{ id: 'semi-detached', text: 'Logements jumelés' },
 								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'apartment-more-5-stories', text: 'Tours d’habitation' },
+								{ id: 'apartment-less-5-stories', text: 'Immeubles à hauteur restreinte' }
 							]}
 						/>
 					</div>
 					<p>
-						The map displays a choropleth vizualisation of key housing related Census variables at
-						the Dissemination Area level of the case study and surrounding area. Use the dropdown to
-						toggle between different variables. The data is sourced from Environics Analytics and
-						Statistics Canada.
+						La carte présente une visualisation choroplèthe des variables clés du recensement relatives au logement au niveau de l’aire de diffusion de la zone visée par l’étude de cas et de la zone environnante. Utilisez le menu déroulant pour passer d’une variable à l’autre. Les données proviennent d’Environics Analytics et de Statistique Canada.
 					</p>
 					<p>
-						The charts contrast the housing construction year and the types of housing between the
-						case study area and the Census Metropolitan Area the case study is located in.
+						Les graphiques comparent l’année de construction des logements et les types de logements présents dans la zone visée par l’étude par rapport à la région métropolitaine du recensement dans laquelle se situe l’étude.
 					</p>
 				</div>
 				<div class="map-container">
@@ -526,25 +501,22 @@
 						<Dropdown
 							casestudy={'stdenis'}
 							section={'demographics'}
-							region={'montreal'}
+							region={'montreal-fr'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Recent Immigrants' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: 'Âge moyen' },
+								{ id: 'household-size', text: 'Taille des ménages' },
+								{ id: 'average-income', text: 'Revenu moyen' },
+								{ id: 'visibleminority', text: 'Minorités visibles' },
+								{ id: 'immigrants', text: 'Immigrants récents' },
+								{ id: 'indigenous', text: 'Population autochtone' },
+								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
+								{ id: 'french-speakers', text: 'Personne de langue française' },
+								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
 							]}
 						/>
 					</div>
 					<p>
-						The map displays a choropleth vizualisation of key demograhoic and other local
-						characteristic related Census variables at the Dissemination Area level of the case
-						study and surrounding area. Use the dropdown to toggle between different variables. The
-						data is sourced from Environics Analytics and Statistics Canada.
+						La carte présente une visualisation choroplèthe des principales variables démographiques et d’autres variables de recensement liées aux caractéristiques locales au niveau de l’aire de diffusion de la zone visée par l’étude et de la région environnante. Utilisez le menu déroulant pour passer d’une variable à l’autre. Les données proviennent d’Environics Analytics et de Statistique Canada.
 					</p>
 				</div>
 				<div class="map-container">
@@ -589,13 +561,10 @@
 						/>
 					</div>
 					<p>
-						The heatmap displayed represents the pattern of daily visits from the visitor's home
-						location from 2019 to 2022, which is sourced from Environics Analytics MobileScapes
-						data. To learn more, read our <a href="about/data-methodology">Data and Methodology</a>.
+						La carte de densité affichée représente le schéma des visites quotidiennes à partir du domicile du visiteur de 2019 à 2022, qui provient des données MobileScapes d’Environics Analytics. Pour en savoir plus, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>.
 					</p>
 					<p>
-						The charts display the pattern of visits (relative to 2019) as a line chart, the visit
-						count by type of visitor, as well as the breakdown of visits by time of day and week.
+						Les graphiques présentent le schéma des visites (par rapport à 2019) sous forme de graphique linéaire, le nombre de visites par type de visiteur, ainsi que la répartition des visites par heure de la journée et de la semaine.
 					</p>
 				</div>
 				<div class="map-container">

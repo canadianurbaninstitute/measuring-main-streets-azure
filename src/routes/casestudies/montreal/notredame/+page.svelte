@@ -27,7 +27,7 @@
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
 	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 
 
@@ -78,6 +78,8 @@
 
 <main>
 	<Title outline={notredame} name={'Notre Dame (Saint Henri)'} location={'Montreal, Québec'} />
+	<LanguageSelector eng={'/casestudies/montreal/notredame'} fr={'/casestudies/montreal-fr/notredame-fr'} selected='eng'/>
+
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
