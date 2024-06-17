@@ -91,23 +91,23 @@
 		</h3>
 		<div class="stat-container">
 		<HeroStat
-		number={'75%'}
+		number={'85%'}
 		subtitle={'of Canadians live within 1km of a main street'}
 		/>
 		<HeroStat
-		number={'160,000'}
+		number={'280,000'}
 		subtitle={'Main Street Businesses'}
 		/>
 		<HeroStat
-		number={'1.7 million'}
+		number={'1.9 million'}
 		subtitle={'jobs provided'}
 		/>
 		<HeroStat
-		number={'$250 billion'}
+		number={'$300 billion'}
 		subtitle={'in annual revenue'}
 		/>
 		<HeroStat
-		number={'50,000+'}
+		number={'98,000'}
 		subtitle={'sites of community & civic infrastructure'}
 		/>
 		</div>
