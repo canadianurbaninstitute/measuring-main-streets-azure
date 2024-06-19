@@ -23,8 +23,8 @@
 		<h1>Measuring</h1>
 		<h1>Main Streets</h1>
 		<p>
-			Using a data-oriented approach, Measuring Main Streets explores what’s working, what’s not and
-			what’s next for Canada’s main streets, helping empower decision makers from the neighbourhood
+			Using a data-driven approach, Measuring Main Streets explores what’s working, what’s not and
+			what’s next for Canada’s main streets, empowering city builders from the neighbourhood
 			to the national scale.
 		</p>
 		<div class="splash-buttons">
@@ -45,7 +45,7 @@
 <div class="hero">
 	<!-- <h1>Quick Links</h1> -->
 	<!-- <p>
-		Read the <a href="/about/guide">Measuring Main Streets Guide</a> to understand each component of
+		Read the <a href="/about/platform">Measuring Main Streets Guide</a> to understand each component of
 		the platform in greater detail, or, jump to a section using the links below.
 	</p> -->
 </div>
@@ -104,22 +104,13 @@
 		/>
 		<HeroStat
 		number={'$300 billion'}
-		subtitle={'in annual retail sales'}
+		subtitle={'in annual revenue'}
 		/>
 		<HeroStat
 		number={'98,000'}
-		subtitle={'sites of community & civic infrastructure'}
+		subtitle={'civic infrastructure & community assets'}
 		/>
 		</div>
-
-
-		<!-- <p>
-			Nearly 75% of Canadians live within one kilometre of a main street. Over 160,000 main street
-			businesses provide 1.7 million jobs and generate $250 billion in revenue. Main streets are
-			gathering places home to over 50,000 pieces of community and civic infrastrucutre where
-			personal relationships are created and strengthened, and dense, walkable main streets have
-			positive impacts on environmental sustainability as well as personal health.
-		</p> -->
 	</div>
 </div>
 
@@ -128,8 +119,7 @@
 		<h1>Why Now?</h1>
 		<h2>Main streets require urgent attention and investment.</h2>
 		<h3>
-			Main Streets were challenged during the pandemic, and require a more inclusive and innovative
-			approach to allow them to thrive, now more than ever.
+			Across three key social themes, we found that main street scale investments offer high-impact oppurtunities to effect change in Canadians' lives. When compared to the 'traditional' way of investment based on asset class, this new model founded in a neighbourhood context enables meaningful change.
 		</h3>
 		<div class="stat-container">
 			<HeroStat
@@ -148,21 +138,7 @@
 			color={'var(--brandDarkBlue)'}
 			/>
 			</div>
-		<!-- <p>
-			Main streets that experienced prolonged stress during the pandemic were highly vulnerable to
-			negative cycles of reduced footfall, store vacancies, and diminishing perceptions. Many main
-			streets, especially ones closer to city-centres, remain below 2019 visitor levels. Even before
-			the pandemic, main streets were experiencing significant challenges from long-running shifts
-			to online and big-box consumer behaviour. Our main streets must be cherished and invested in
-			if our country is going to flourish.
-		</p> -->
 	</div>
-
-	<!-- <img
-		src="https://i.imgur.com/EcU0Gd0.jpeg"
-		alt="crossroads"
-		style="height:500px;border-radius:1em;"
-	/> -->
 </div>
 
 <div class="section" id="stronger-together">

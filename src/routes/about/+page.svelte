@@ -13,28 +13,19 @@
 
 <div class="hero">
     <h1> About Measuring Main Streets</h1>
-	<div class="subtitle">
+	<div class="subtitle" style="max-width: 80%;">
 		<h2>The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Infrastructure Canada.</h2>
 	</div>
     <p>
-        It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and
-        Open North.
+		Main streets are the backbone of Canadian society, with 85% of Canadians living within one kilometer of a main street. These streets are home to 280,000 businesses, providing 1.9 million jobs and generating $300 billion in annual revenue. They also house over 98,000 community and civic infrastructure assets.
     </p>
-	<p>The platform is constructed around four interrelated components:</p>
-	<ul>
-		<li>
-		an interactive national map of that provides descriptive data for every main street in the country.
-		</li>
-		<li>
-		a set of 30 full case studies across 10 regions (Toronto; Montreal; Edmonton) as well as 30 partial case studies (data only).
-		</li>
-		<li>
-		a set of analytical research briefs and reports that provide sensemaking and point towards potential policy interventions.
-		</li>
-		<li>
-		a set of smart tools and recommendations to inform main street resiliency and future civic infrastructure investment.
-		</li>
-	</ul>
+	<p>However, planners, developers, and municipal leaders often consider investment decisions based on individual assets rather than the inter-relationship of civic assets, housing and other uses that can be anchored to a main street as the spine of a community. This narrow approach risks compromising the livability of communities by neglecting the scale at which residents and visitors understand and experience a neighbourhood/place.</p>
+	<p>In response, The Canadian Urban Institute (CUI) has developed a groundbreaking toolkit on the newly released Measuring Main Streets platform. These resources, backed by two years of research funded by Infrastructure Canada, offer city builders the means to make informed investments at the main street scale to enhance community, resilience, and equity outcomes.</p>
+	<p>“Without the wider lens of neighborhoods and communities, it’s nearly impossible to assess the health and vitality of our most important places,” says Jennifer Barrett, Managing Director of Programs at CUI. “But up until now, there hasn’t been a way to capture the state of a whole community – the data is often inaccessible or fragmented.”</p>
+	<p>The Measuring Main Streets tool aims to include every main street across Canada, allowing users to evaluate housing, services, civic infrastructure, and more all in one place. This is the first research tool to use main streets as the primary unit of analysis, allowing any user to make the case for their main street.</p>
+	<p>“Main streets are the cornerstone of ‘complete communities’, where Canadians can live, work, and play all within their local neighbourhood,” adds Mary W. Rowe, CEO of CUI. “They are our economic powerhouses and social connective tissue. Decision-makers should invest in solutions to issues like housing, public safety, and sustainability at the scale of the main street, and now there’s a way to do it.”</p>
+	<p>The Canadian Urban Institute has demonstrated a long-time commitment to Canada’s main streets. From Bring Back Main Street in 2018, a nationally coordinated research and action campaign for pandemic recovery, to two rounds of My Main Street, a $15-million program empowering main street businesses and community activations. Since the pandemic, CUI has engaged with diverse stakeholders including the Main Street Action Network to bolster Canada’s main streets, making Measuring Main Streets the latest effort in a push to place main streets at the forefront of thought and action in urbanism.</p>
+	<p>Using a data-driven approach, Measuring Main Streets explores what’s working, what’s not, and what’s next for Canada’s main streets, empowering city builders from the neighborhood to the national scale.</p>
 	</div>
 
 <div id="logo-content">

@@ -18,14 +18,13 @@
 
 <div class="hero">
 	<p>
-		We conducted 60 case studies in total across the Toronto, Montreal and Edmonton regions, 20 in each region. 10 of the 20 are full case
-		studies which combine data about the main streets with qualitative observation from site visits,
-		whilst the further 10 are data-only. The 20 main streets were intended to provide a representative sample of types of streets within each
-		regional context. This included four downtown (workplace-oriented), four small town, and 12
-		neighourhood (residential-oriented) main streets being chosen, with additional emphasis placed on
-		equity-deserving communities. More streets were included in the neighbourhood category as there
-		are a greater variety of streets within the group. Click on a region to browse the case studies.
+		Discover how infrastructure paints a picture of a community through sixty main streets case studies across three Canadian cities.
 	</p>
+	<p>
+		Explore the built form, civic infrastructure, business profile, employment profile, housing, local characteristics, and visitor patterns to get a unique snapshot of how these factors interplay at the neighbourhood scale to influence community outcomes.
+	</p>
+	<p>With 20 case studies in each of the three regions, 10 are bolstered with qualitative observation from site visits, whilst the remaining 10 are data only. The selected main streets aim to provide a representative sample of types of streets within each regional context. This included four downtown (workplace-oriented), four small town, and 12 neighourhood (residential-oriented) main streets being chosen, with additional emphasis placed on equity-deserving communities.</p>
+	<p>Click on a region to browse the case studies.</p>
 </div>
 
 <div class="card-grid">

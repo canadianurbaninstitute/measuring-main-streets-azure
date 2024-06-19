@@ -16,9 +16,11 @@
 
 <div class="hero">
     <h1> Reports </h1>
+	<p>Emerging from the data that underpins the mapping tool, CUI and select partners developed a project executive summary, four research reports, and three regional reports to reveal key findings and messages, enable sensemaking, and point toward real-life applications and interventions.</p>
 	<div class="subtitle">
 		<h2>Executive Summary</h2>
 	</div>
+	<p>Learn about the Measuring Main Street project and platform.</p>
 </div>
 
 
@@ -29,14 +31,14 @@
 	title={'Executive Summary: Measuring Main Streets'}
 	subtitle={''}
 	/>
-	</div>
+</div>
 
 <div class="hero">
 	<div class="subtitle">
 		<h2>Research Briefs</h2>
 	</div>
     <p>
-		This set of research briefs and reports aim to provide sensemaking and point towards potential policy interventions relating to Main Streets, tackling issues around equity, resiliency and governance among others.
+		Research found that the state of a community’s main streets has direct and tangible impacts on social outcomes –– namely resiliency, equity, and community. In each of these thematic briefs, discover three key findings, and nine messages to city builders.
     </p>
 </div>
 
@@ -65,22 +67,36 @@
 	title={'Infrastructure Equity & Main Streets'}
 	subtitle={'Idenitfying equity gaps in main street civic infrastructure'}
 	/>
-
-	<ReportCard
-	link={"https://canurb.org/wp-content/uploads/Data-Driven-Approaches-to-Main-Street-Challenges.pdf"}
-	cardImage={opennorth}
-	title={'Open North: Data Driven Approaches to Main Street Challenges'}
-	subtitle={'Planning data and technology projects to support smart civic infrastructure investments'}
-	/>
 	
 </div>
+
+
+<div class="hero">
+	<div class="subtitle">
+		<h2>Open North Report</h2>
+	</div>
+    <p>
+		This research brief outlines key opportunities for local governments to better integrate data and technology initiatives into the planning of infrastructure investments to address main street challenges. It also highlights examples from local governments who are already strategically integrating data and technology into their city-building work and offers guidance for local government staff seeking to do the same in their communities.
+    </p>
+</div>
+
+<div style="margin: 2em">
+
+<ReportCard
+link={"https://canurb.org/wp-content/uploads/Data-Driven-Approaches-to-Main-Street-Challenges.pdf"}
+cardImage={opennorth}
+title={'Open North: Data Driven Approaches to Main Street Challenges'}
+subtitle={'Planning data and technology projects to support smart civic infrastructure investments'}
+/>
+</div>
+
 
 <div class="hero">
 	<div class="subtitle">
 		<h2>Regional Reports</h2>
 	</div>
     <p>
-		These 3 regional reports dive into detail about the specificities of the Toronto, Montreal and Edmonton regions and their relationship to Main Streets, offering deeper insights and crucial context.
+		Three regional reports provide a higher-level analysis of Toronto, Montreal and Edmonton main streets based on the sixty case studies. The insights and context provided aim to add depth to the data while tackling implications for the three guiding themes of resiliency, equity, and community.
     </p>
 </div>
 
@@ -137,7 +153,7 @@
 	/* Small devices (portrait tablets and large phones, 600px and up) */
 	@media only screen and (min-width: 992px) {
 		.card-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(1, 1fr);
 		}
 	
 		#regional {

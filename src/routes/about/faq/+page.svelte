@@ -53,6 +53,18 @@
 	</Accordion>
     <Accordion>
 		<div class="accordion-header" accordion slot="header">
+			<h4>Why are main streets important?</h4>
+            <Icon icon="iconoir:nav-arrow-down" />
+		</div>
+		<div class="accordion-body" slot="body">
+            <p>
+                Main streets are the backbone of Canadian society, with 85% of Canadians living within one kilometer of a main street. These streets are home to 280,000 businesses, providing 1.9 million jobs and generating $300 billion in annual revenue. They also house over 98,000 community and civic infrastructure assets. 
+            </p>
+            <p>Main streets are the cornerstone of ‘complete communities’, where Canadians can live, work, and play all within their local neighbourhood. They are our economic powerhouses and social connective tissue. </p>
+		</div>
+	</Accordion>
+    <Accordion>
+		<div class="accordion-header" accordion slot="header">
 			<h4>How did you source your data?</h4>
             <Icon icon="iconoir:nav-arrow-down" />
 		</div>
@@ -86,17 +98,12 @@
 	</Accordion> -->
     <Accordion>
 		<div class="accordion-header" accordion slot="header">
-			<h4>I can't find my main street on the Main Street Map?</h4>
+			<h4>Why can't I find my main street on the Main Street Map?</h4>
             <Icon icon="iconoir:nav-arrow-down" />
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-
-                We tried to use a rigourous, data backed methodology for our identification of main streets, which included continuous iteration and incorporation of feedback from a variety of stakeholders. 
-
-                In addition, every street visible on the Main Street Map is clickable and has data associated with it that you can browse, even if it is not visually categorized as a main street.
-                
-                However, this process is still prone to errors due to incomplete data, or other analytical errors. If you have any further questions, please <a href="/about/contact">contact us.</a>
+                CUI used a rigourous, data backed methodology for our identification of main streets, which included continuous iteration and incorporation of feedback from a variety of stakeholders.  However, incomplete data or analytical errors could lead to your main street being excluded from the category of ‘main street’. If you have any further questions or would like to identify a missed main street,  <a href="/about/contact">contact us.</a> Please note that you can still see all of the data associated with your main street using the mapping tool even if it is not visually categorized as a main street by the platform. 
             </p>
 		</div>
 	</Accordion>
@@ -107,7 +114,8 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                Please <a href="/about/contact">contact us with your specific enquiry.</a>
+                The Canadian Urban Institute has used Measuring Main Streets data to produce case studies, reports, and other deliverables for various partners. If you or your organization may be interested in collaborating,
+                please <a href="/about/contact">contact us with your specific enquiry.</a>
             </p>
 		</div>
 	</Accordion>
@@ -122,19 +130,19 @@
             </p>
 		</div>
 	</Accordion>
-    <Accordion>
+    <!-- <Accordion>
 		<div class="accordion-header" accordion slot="header">
 			<h4>What is a report/research brief?</h4>
             <Icon icon="iconoir:nav-arrow-down" />
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                The research briefs and reports aim to provide sensemaking and point towards potential policy interventions relating to Main Streets, tackling issues around equity, resiliency and governance among others.
+                The research briefs and reports aim to provide sensemaking and point towards potential policy interventions relating to Main Streets, tackling issues around equity, resiliency and community among others.
             </p>
             <p>There are also 3 regional reports that dive into detail about the specificities of the Toronto, Montreal and Edmonton regions and their relationship to Main Streets, offering deeper insights and crucial context.
             </p>
 		</div>
-	</Accordion>
+	</Accordion> -->
     <Accordion>
 		<div class="accordion-header" id="last-item" accordion slot="header">
 			<h4>Is this program connected to My Main Street?</h4>
@@ -144,7 +152,7 @@
             <p>
                 My Main Street is a $15-million investment from the Government of Canada through the Federal Economic Development Agency for Southern Ontario (FedDev Ontario) to spur local economic recovery. My Main Street is delivered by the Canadian Urban Institute (CUI) to help support the revitalization of neighbourhoods across southern Ontario.
             </p>
-            <p>The program is not directly connected, however a lot of the technical infrastructure generated by the Measuring Main Streets project has helped to power the My Main Street program.</p>
+            <p>The program is not directly connected, however the technical infrastructure generated by the Measuring Main Streets project has helped to power the My Main Street program and others at the CUI.</p>
 		</div>
 	</Accordion>
 </div>

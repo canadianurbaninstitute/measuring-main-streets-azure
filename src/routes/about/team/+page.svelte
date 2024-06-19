@@ -5,7 +5,7 @@
 </script>
 
 <div class="hero">
-	<h1>Team</h1>
+	<h1>CUI Project Team</h1>
 
 </div>
 
@@ -53,11 +53,6 @@
 </div>
 
 <div>
-	<h2><a href='https://www.linkedin.com/in/neufeldb/'>Bronwyn Neufeld </a></h2>
-	<h3>Field Researcher</h3>
-</div>
-
-<div>
 	<h2><a href='https://www.linkedin.com/in/ever-hughes-93ga64/'>Ever Hughes </a></h2>
 	<h3>Data Intern</h3>
 </div>
@@ -67,11 +62,39 @@
 	<h3>Data Intern</h3>
 </div>
 
-<div>
-	<h2><a href='https://www.linkedin.com/in/elainestam/'>Elaine Stam</a></h2>
-	<h3>Graphic Designer</h3>
 </div>
 
+
+<div class="hero">
+	<h1>Partners & Consultants</h1>
+
+</div>
+
+<div class="card-grid">
+
+	<div>
+		<h2><a href='https://ca.linkedin.com/in/steve-coutts'>Steve Coutts</a></h2>
+		<h3>Open North</h3>
+	</div>
+
+	<div>
+		<h2><a href='https://www.linkedin.com/in/sanjida-rabbi/'>Sanjida Rabbi</a></h2>
+		<h3>Open North</h3>
+	</div>
+
+	<div>
+		<h2><a href='https://www.linkedin.com/in/neufeldb/'>Bronwyn Neufeld </a></h2>
+		<h3>Field Researcher</h3>
+	</div>
+
+	<div>
+		<h2><a href='https://www.linkedin.com/in/elainestam/'>Elaine Stam</a></h2>
+		<h3>Universe Design Studio</h3>
+	</div>
+
+
+
+	
 </div>
 
 

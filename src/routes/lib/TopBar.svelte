@@ -75,10 +75,10 @@
 				<li><a href="/tools">Tools</a></li>
 				<li class="dropdown">
 					<a class="dropdown-title" href="/about">
-						About <Icon icon="icon-park-solid:down-one" /></a>
+						Learn More <Icon icon="icon-park-solid:down-one" /></a>
 					<ul class="dropdown-menu" id="about-menu">
-						<li><a href="/about">Platform</a></li>
-						<li><a href="/about/guide">Guide</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="/about/platform">Platform</a></li>
 						<li><a href="/about/faq">FAQ</a></li>
 						<li><a href="/about/data-methodology">Data & Methodology</a></li>
 						<li><a href="/about/team">Team</a></li>

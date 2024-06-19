@@ -13,7 +13,7 @@
 <div class="hero">
 	<h1>Tools</h1>
 	<p>
-		This set of tools and recommendations aims to inform and contextualize main streets, their resiliency and future civic infrastructure investment.
+		The following set of tools emerged out of the national mapping tool construction, offering a package of resources aimed at supporting deeper understanding and analysis of critical components of main street health. These tools can be used by anyone to dive into their main street context, however the qualitative tool by Open North is specifically designed for practitioners making infrastructure decisions. More tools are coming soon!
 	</p>
 </div>
 
@@ -50,6 +50,8 @@
 	<div class="subtitle">
 		<h2>Graphing Tools</h2>
 	</div>
+	<p>This tool is only applicable for main streets included in a case study.</p>
+
 </div>
 
 <div class="card-grid">
