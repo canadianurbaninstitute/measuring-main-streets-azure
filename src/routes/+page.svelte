@@ -31,7 +31,7 @@
 			<button on:click|preventDefault={scrollIntoView} href="#get-started"
 				>Explore the Platform <Icon icon="ph:arrow-down-bold" /></button
 			>
-			<a href="/reports"
+			<a href="/reports/executive-summary"
 				><button id="executive-summary"
 					>Read the Executive Summary <Icon icon="ph:arrow-right-bold" /></button
 				></a

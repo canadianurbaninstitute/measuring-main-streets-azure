@@ -94,6 +94,12 @@
 		p {
 			max-width: 80%;
 		}
+
+		.hero {
+	margin: 2em 15em 2em 15em;
+}
 	}
+
+
 
 </style>
