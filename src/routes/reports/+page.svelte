@@ -24,7 +24,7 @@
 </div>
 
 
-<div style="margin: 2em">
+<div class='solo-card'>
 	<ReportCard
 	link={"/reports/executive-summary"}
 	cardImage={mainstreets}
@@ -80,7 +80,7 @@
     </p>
 </div>
 
-<div style="margin: 2em">
+<div class='solo-card'>
 
 <ReportCard
 link={"https://canurb.org/wp-content/uploads/Data-Driven-Approaches-to-Main-Street-Challenges.pdf"}
@@ -150,6 +150,10 @@ subtitle={'Planning data and technology projects to support smart civic infrastr
 		grid-template-columns: repeat(1, 1fr);
 	}
 
+	.solo-card {
+		margin: 2em;
+	}
+
 	/* Small devices (portrait tablets and large phones, 600px and up) */
 	@media only screen and (min-width: 992px) {
 		.card-grid {
@@ -160,11 +164,20 @@ subtitle={'Planning data and technology projects to support smart civic infrastr
 		grid-template-columns: repeat(3, 1fr);
 		}
 
-		p {
-			max-width: 80%;
-		}
 	}
 
+	@media only screen and (min-width: 768px) {
+
+		.hero {
+			margin: 2em 15em 2em 15em;
+		}
+
+		.card-grid, .solo-card {
+			margin: 2em 15em 2em 15em;
+		}
+
+
+	}
 	
 
 

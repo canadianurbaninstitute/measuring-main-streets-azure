@@ -99,7 +99,7 @@
 
 	@media only screen and (min-width: 992px) {
 		.card-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(1, 1fr);
 		}
 	}
 	
@@ -107,4 +107,19 @@
 	h1 {
 		margin-bottom: 0;
 	}
+
+
+	@media only screen and (min-width: 768px) {
+
+.hero {
+	margin: 2em 15em 2em 15em;
+}
+
+.card-grid {
+	margin: 2em 15em 2em 15em;
+}
+
+
+}
+
 </style>

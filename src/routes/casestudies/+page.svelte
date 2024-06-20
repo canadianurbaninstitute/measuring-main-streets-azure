@@ -56,12 +56,15 @@
 			grid-template-columns: repeat(3, 1fr);
 		}
 
-		p {
-			max-width: 80%;
-		}
+		.hero {
+	margin: 2em 15em 2em 15em;
+}
+
 	}
 
 	img {
 		width: 100%;
 	}
+
+
 </style>
