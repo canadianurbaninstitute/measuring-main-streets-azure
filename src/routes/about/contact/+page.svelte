@@ -11,7 +11,7 @@
 
 <div class="hero">
     <div class="subtitle">
-		<h2>Enquiries?</h2>
+		<h2>Inquiries?</h2>
 	</div>
     <p>Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry">cui@canurb.org</a>.</p>
 </div>
