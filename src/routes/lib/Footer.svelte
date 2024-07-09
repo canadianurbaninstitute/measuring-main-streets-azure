@@ -23,7 +23,7 @@
 	<div id="logo-content">
 		<p>
 			The Measuring Main Streets platfrom (part of the Research Knowledge Initiative program from
-			Infrastructure Canada) was developed by the Canadian Urban Institute in partnership with
+			Housing, Infrastructure and Communities Canada) was developed by the Canadian Urban Institute in partnership with
 			Environics Analytics and Open North.
 		</p>
 		<div class="logo-group">

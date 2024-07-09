@@ -146,7 +146,7 @@
 		<h1>Canada is Stronger Together</h1>
 		<p>
 			The Measuring Main Streets platform was realized through the Research Knowledge Initiative
-			program from Infrastructure Canada. The Canadian Urban Institute leveraged partners at Environics Analytics and Open
+			program from Housing, Infrastructure and Communities Canada. The Canadian Urban Institute leveraged partners at Environics Analytics and Open
 			North to produce the first ever national-scale main street assessment platform in the face of
 			urgent needs across the country.
 		</p>

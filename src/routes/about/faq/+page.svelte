@@ -20,7 +20,7 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Infrastructure Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and
+                The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Housing, Infrastructure and Communities Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and
                 Open North.
             </p>
             <p>The platform is constructed around four interrelated components:</p>
@@ -81,7 +81,7 @@
 		</div>
 		<div class="accordion-body" slot="body">
             <p>
-                The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Infrastructure Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and Open North.
+                The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Housing, Infrastructure and Communities Canada. It is developed by the Canadian Urban Institute with support from our partners at Environics Analytics and Open North.
             </p>
 		</div>
 	</Accordion>

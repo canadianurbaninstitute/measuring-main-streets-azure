@@ -17,7 +17,7 @@
 <div class="full-text">
 	<h3>Project Overview</h3> 
 	<p>
-		The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Infrastructure Canada. It was developed by the Canadian Urban Institute with support from our partners at Environics Analytics and Open North.</p>
+		The Measuring Main Streets platform is a part of the Research Knowledge Initiative program from Housing, Infrastructure and Communities Canada. It was developed by the Canadian Urban Institute with support from our partners at Environics Analytics and Open North.</p>
 		<p>The platform is constructed around four interrelated components:</p>
 		<ul>
 			<li>An interactive national map of that provides descriptive data for every main street in the country.</li>
