@@ -6,10 +6,9 @@
 	import * as turf from '@turf/turf';
 	import Icon from '@iconify/svelte';
 	import { Tabs } from 'bits-ui';
-	import { driver } from "driver.js";
+	import { driver } from 'driver.js';
 
-	import "driver.js/dist/driver.css";
-	import '../styles.css';
+	import 'driver.js/dist/driver.css';
 
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
@@ -141,14 +140,14 @@
 
 	let driverObj;
 
-	function initiateTutorial () {
+	function initiateTutorial() {
 		driverObj.drive();
 	}
 
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/clurst5kt00a501p27qk6bhvr?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/clurst5kt00a501p27qk6bhvr',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 14,
@@ -160,26 +159,77 @@
 		driverObj = driver({
 			showProgress: true,
 			steps: [
-				{ element: '.hero', popover: { title: 'Main Street Map', description: 'Welcome to the main street map tutorial.', side: "left", align: 'start' }},
-				{ element: '#map', popover: { title: 'Main Street Map', description: 'This is an interactive map of all the main streets in Canada. Search for a place or navigate the map by scrolling or zooming; and then click on a street segment.', side: "bottom", align: 'start' }},
-				{ element: '#sidebar', popover: { title: 'Information', description: 'After you click on a street segment, you can see information associated with the street in this panel.', side: "left", align: 'start' }},
-				{ element: '.tab-container', popover: { title: 'Information', description: 'You can toggle between absolute values and percentiles to view the main street in relation to other main streets.', side: "left", align: 'start' }},
-				{ element: '#controls', popover: { title: 'Legend', description: 'This is a dynamic legend that updates as layers come in and out of view.', side: "left", align: 'start' }},
-				{ element: '#tutorial', popover: { title: 'Tutorial', description: 'Congratulations, you\'ve completed the tutorial! You can revisit it at anytime by clicking this button.', side: "left", align: 'start' }},
+				{
+					element: '.hero',
+					popover: {
+						title: 'Main Street Map',
+						description: 'Welcome to the main street map tutorial.',
+						side: 'left',
+						align: 'start'
+					}
+				},
+				{
+					element: '#map',
+					popover: {
+						title: 'Main Street Map',
+						description:
+							'This is an interactive map of all the main streets in Canada. Search for a place or navigate the map by scrolling or zooming; and then click on a street segment.',
+						side: 'bottom',
+						align: 'start'
+					}
+				},
+				{
+					element: '#sidebar',
+					popover: {
+						title: 'Information',
+						description:
+							'After you click on a street segment, you can see information associated with the street in this panel.',
+						side: 'left',
+						align: 'start'
+					}
+				},
+				{
+					element: '.tab-container',
+					popover: {
+						title: 'Information',
+						description:
+							'You can toggle between absolute values and percentiles to view the main street in relation to other main streets.',
+						side: 'left',
+						align: 'start'
+					}
+				},
+				{
+					element: '#controls',
+					popover: {
+						title: 'Legend',
+						description: 'This is a dynamic legend that updates as layers come in and out of view.',
+						side: 'left',
+						align: 'start'
+					}
+				},
+				{
+					element: '#tutorial',
+					popover: {
+						title: 'Tutorial',
+						description:
+							"Congratulations, you've completed the tutorial! You can revisit it at anytime by clicking this button.",
+						side: 'left',
+						align: 'start'
+					}
+				}
 			]
-			});
+		});
 
-		
 		// Check if the user has visited before
 		if (typeof sessionStorage !== 'undefined') {
 			const hasVisitedBefore = sessionStorage.getItem('hasVisitedBefore');
 
 			if (!hasVisitedBefore) {
-			// Run the tutorial for the first-time visitor
-			initiateTutorial();
+				// Run the tutorial for the first-time visitor
+				initiateTutorial();
 
-			// Set the flag in localStorage
-			sessionStorage.setItem('hasVisitedBefore', 'true');
+				// Set the flag in localStorage
+				sessionStorage.setItem('hasVisitedBefore', 'true');
 			}
 		}
 
@@ -730,13 +780,13 @@
 
 <div class="hero">
 	<div id="title">
-		<h1>Main Street Map </h1> 
+		<h1>Main Street Map</h1>
 		<div on:click={initiateTutorial} id="tutorial">
-			<Icon  icon="fluent:question-circle-12-filled" width="2em" height="2em" color="#002940" />
+			<Icon icon="fluent:question-circle-12-filled" width="2em" height="2em" color="#002940" />
 		</div>
 	</div>
 	<p>
-		This is a map of all the main streets in Canada. Search for a place or navigate the map using
+		This is a map of all of the main streets in Canada. Search for a place or navigate the map using
 		the controls; and then click on a street segment to see information associated with it in the
 		panel on the left. You can toggle between absolute values and percentiles to view the main
 		street in relation to other main streets.

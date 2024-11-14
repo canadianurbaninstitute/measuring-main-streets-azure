@@ -26,7 +26,7 @@
 	<p>“Main streets are the cornerstone of ‘complete communities’, where Canadians can live, work, and play all within their local neighbourhood,” adds Mary W. Rowe, CEO of CUI. “They are our economic powerhouses and social connective tissue. Decision-makers should invest in solutions to issues like housing, public safety, and sustainability at the scale of the main street, and now there’s a way to do it.”</p>
 	<p>The Canadian Urban Institute has demonstrated a long-time commitment to Canada’s main streets. From Bring Back Main Street in 2018, a nationally coordinated research and action campaign for pandemic recovery, to two rounds of My Main Street, a $15-million program empowering main street businesses and community activations. Since the pandemic, CUI has engaged with diverse stakeholders including the Main Street Action Network to bolster Canada’s main streets, making Measuring Main Streets the latest effort in a push to place main streets at the forefront of thought and action in urbanism.</p>
 	<p>Using a data-driven approach, Measuring Main Streets explores what’s working, what’s not, and what’s next for Canada’s main streets, empowering city builders from the neighborhood to the national scale.</p>
-	</div>
+</div>
 
 <div id="logo-content">
 	<div class="logo-group">
