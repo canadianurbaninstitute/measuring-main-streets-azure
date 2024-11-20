@@ -22,21 +22,34 @@
 	let selectedStation = {};
 	let stationSelected = false;
 
+	let ownerData = [
+    {
+        "label": "Owner",
+        "value": 0,
+        "y": "⠀"
+    },
+    {
+        "label": "Renter",
+        "value": 0,
+        "y": "⠀"
+    }
+	];
+
 	let mobilityData = [
     {
         "label": "Car",
         "value": 0,
-        "y": "-"
+        "y": "⠀"
     },
     {
         "label": "Public Transit",
         "value": 0,
-        "y": "-"
+        "y": "⠀"
     },
     {
         "label": "Active Transit",
         "value": 0,
-        "y": "-"
+        "y": "⠀"
     }
 	];
 
@@ -63,27 +76,32 @@
     {
         "label": "Detached",
         "value": 0,
-		"y": '-'
+		"y": '⠀'
     },
     {
         "label": "Semi-Detached",
         "value": 0,
-		"y": '-'
+		"y": '⠀'
+    },
+	{
+        "label": "Row",
+        "value": 0,
+		"y": '⠀'
     },
     {
         "label": "Apt >5",
         "value": 0,
-		"y": '-'
+		"y": '⠀'
     },
     {
         "label": "Apt <5",
         "value": 0,
-		"y": '-'
+		"y": '⠀'
     },
     {
         "label": "Duplex",
         "value": 0,
-		"y": '-'
+		"y": '⠀'
     }
 	];
 
@@ -91,17 +109,17 @@
 		{
 			"label": "0-19",
 			"value": 0,
-			"y": '-'
+			"y": '⠀'
 		},
 		{
 			"label": "20-64",
 			"value": 0,
-			"y": '-'
+			"y": '⠀'
 		},
 		{
 			"label": "65+",
 			"value": 0,
-			"y": '-'
+			"y": '⠀'
 		}
 	];
 
@@ -110,15 +128,15 @@
 		selectedStation = stationData.find(station => station.id === id);
 
 		ageData = [
-		{ label: "0-19", value: selectedStation.age_0_19, "y": '-'},
-		{ label: "20-64", value: selectedStation.age_20_64, "y": '-' },
-		{ label: "65+", value: selectedStation.age_65_over, "y": '-' }
+		{ label: "0-19", value: selectedStation.age_0_19, "y": '⠀'},
+		{ label: "20-64", value: selectedStation.age_20_64, "y": '⠀' },
+		{ label: "65+", value: selectedStation.age_65_over, "y": '⠀' }
 		];
 
 		mobilityData = [
-		{ label: "Car", value: selectedStation.mobiity_car, "y": '-' },
-		{ label: "Public Transit", value: selectedStation.mobility_public_transit, "y": '-' },
-		{ label: "Active Transit", value: selectedStation.mobility_active_transit, "y": '-' }
+		{ label: "Car", value: selectedStation.mobiity_car, "y": '⠀' },
+		{ label: "Public Transit", value: selectedStation.mobility_public_transit, "y": '⠀' },
+		{ label: "Active Transit", value: selectedStation.mobility_active_transit, "y": '⠀' }
 		];
 
 
@@ -130,14 +148,18 @@
 		];
 
 		dwellingData = [
-		{ label: "Detached", value: selectedStation.single_detached, "y": '-' },
-		{ label: "Semi-Detached", value: selectedStation.semi_detached, "y": '-' },
-		{ label: "Apt >5", value: selectedStation.apt_more_5, "y": '-' },
-		{ label: "Apt <5", value: selectedStation.apt_less_5, "y": '-' },
-		{ label: "Duplex", value: selectedStation.duplex, "y": '-' }
+		{ label: "Detached", value: selectedStation.single_detached, "y": '⠀' },
+		{ label: "Semi-Detached", value: selectedStation.row_house, "y": '⠀' },
+		{ label: "Row", value: selectedStation.semi_detached, "y": '⠀' },
+		{ label: "Apt >5", value: selectedStation.apt_more_5, "y": '⠀' },
+		{ label: "Apt <5", value: selectedStation.apt_less_5, "y": '⠀' },
+		{ label: "Duplex", value: selectedStation.duplex, "y": '⠀' }
 		];
 
-		console.log(dwellingData);
+		ownerData = [
+		{ label: "Owner", value: selectedStation.owners, "y": '⠀'},
+		{ label: "Renter", value: selectedStation.renters, "y": '⠀' }
+		];
 	}
 		
 
@@ -151,7 +173,7 @@
 			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
 			center: [-89, 58],
 			zoom: 3.3,
-			maxZoom: 14,
+			maxZoom: 15,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -226,7 +248,7 @@
 
 				// Create a GeoJSON circle feature with an 800m radius using Turf.js
 				const circleFeature = turf.circle(coordinates, radiusInKilometers, {
-					steps: 64, // Increase or decrease for smoother/rougher edges
+					steps: 128, // Increase or decrease for smoother/rougher edges
 					units: 'kilometers'
 				});
 
@@ -238,6 +260,13 @@
 
 				// Set the flag to true indicating a circle is displayed
 				circleDrawn = true;
+
+				 // Zoom and center to the selected station
+				 map.flyTo({
+					center: coordinates,
+					zoom: 14.5, // Adjust the zoom level as needed
+					duration: 1000 // Animation duration in milliseconds
+				});
 			});
 
 			// Event listener for clicks on the map outside of transit-stations
@@ -372,10 +401,10 @@
 
 		<hr>
 
-		{/if}
-
+		<div id='chart-container'>
 
 		<BarChart
+		colors={['#002a41', '#0098D6', '#db3069']}
 		data={ageData}
 		zKey="label"
 		xKey="value"
@@ -385,9 +414,11 @@
 		mode="stacked"
 		legend="true"
 		xSuffix="%"
+		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 		/>
 
 		<BarChart
+		colors={['#002a41', '#0098D6', '#db3069']}
 		data={mobilityData}
 		zKey="label"
 		xKey="value"
@@ -397,33 +428,56 @@
 		mode="stacked"
 		legend="true"
 		xSuffix="%"
+		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 		/>
 
-
 		<BarChart
-		data={dwellingData}
+		colors={['#002a41', '#0098D6']}
+		data={ownerData}
 		zKey="label"
 		xKey="value"
 		yKey="y"
-		title="Dwelling"
+		title="Owners/Renters"
 		xMax=100
 		mode="stacked"
 		legend="true"
 		xSuffix="%"
+		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 		/>
 
 
 		<BarChart
-		data={housingData}
+		colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
+		data={dwellingData}
+		zKey="label"
 		xKey="value"
-		yKey="label"
-		title="Housing"
-		yMax=100
+		yKey="y"
+		title="Dwelling Type"
+		xMax=100
+		mode="stacked"
+		legend="true"
 		xSuffix="%"
+		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 		/>
 
 
-	
+		<BarChart
+		colors={['#002a41']}
+		data={housingData}
+		xKey="value"
+		yKey="label"
+		title="Housing Construction"
+		yMax=100
+		xSuffix="%"
+		padding={{ top: 0, bottom: 0, left: 30, right: 20 }}
+
+		/>
+
+		</div>
+
+
+		{/if}
+
 
 		
 	</div>
@@ -525,7 +579,7 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		padding: 0.5em 1em 0.5em 1em;
+		padding: 1em;
 		overflow-y: scroll;
 		overflow-x: hidden;
 		border-top: 1px solid #eee;
@@ -568,6 +622,12 @@
 		gap: 1em;
 	}
 
+	#chart-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
 	@media only screen and (min-width: 768px) {
 		#content-container {
 			flex-direction: row;
@@ -593,4 +653,6 @@
 		border: 0.5px solid #eee;
 		width: 100%;
 	}
+
+
 </style>
