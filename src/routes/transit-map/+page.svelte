@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import * as turf from '@turf/turf';
+	import {BarChart, ColumnChart } from '@onsvisual/svelte-charts';
 
 	import Footer from '../lib/Footer.svelte';
 
@@ -13,14 +14,138 @@
 
 	let geocoder;
 	let circleDrawn = false;
-	let station = '';
-	let line = '';
-	let stop_status = '';
-	let technology = '';
 	let statusFilters = [];
-let technologyFilters = [];
+	let technologyFilters = [];
 
-	onMount(() => {
+
+	let stationData = []; // Store station data from stations.json
+	let selectedStation = {};
+	let stationSelected = false;
+
+	let mobilityData = [
+    {
+        "label": "Car",
+        "value": 0,
+        "y": "-"
+    },
+    {
+        "label": "Public Transit",
+        "value": 0,
+        "y": "-"
+    },
+    {
+        "label": "Active Transit",
+        "value": 0,
+        "y": "-"
+    }
+	];
+
+	let housingData = [
+    {
+        "label": "Pre-1960",
+        "value": 0
+    },
+    {
+        "label": "1961-80",
+        "value": 0
+    },
+    {
+        "label": "1981-00",
+        "value": 0
+    },
+    {
+        "label": "Post-2000",
+        "value": 0
+    }
+	];
+
+	let dwellingData = [
+    {
+        "label": "Detached",
+        "value": 0,
+		"y": '-'
+    },
+    {
+        "label": "Semi-Detached",
+        "value": 0,
+		"y": '-'
+    },
+    {
+        "label": "Apt >5",
+        "value": 0,
+		"y": '-'
+    },
+    {
+        "label": "Apt <5",
+        "value": 0,
+		"y": '-'
+    },
+    {
+        "label": "Duplex",
+        "value": 0,
+		"y": '-'
+    }
+	];
+
+	let ageData = [
+		{
+			"label": "0-19",
+			"value": 0,
+			"y": '-'
+		},
+		{
+			"label": "20-64",
+			"value": 0,
+			"y": '-'
+		},
+		{
+			"label": "65+",
+			"value": 0,
+			"y": '-'
+		}
+	];
+
+
+	function updateStationData(id) {
+		selectedStation = stationData.find(station => station.id === id);
+
+		ageData = [
+		{ label: "0-19", value: selectedStation.age_0_19, "y": '-'},
+		{ label: "20-64", value: selectedStation.age_20_64, "y": '-' },
+		{ label: "65+", value: selectedStation.age_65_over, "y": '-' }
+		];
+
+		mobilityData = [
+		{ label: "Car", value: selectedStation.mobiity_car, "y": '-' },
+		{ label: "Public Transit", value: selectedStation.mobility_public_transit, "y": '-' },
+		{ label: "Active Transit", value: selectedStation.mobility_active_transit, "y": '-' }
+		];
+
+
+		housingData = [
+		{ label: "Pre-1960", value: selectedStation.housing_pre1960 },
+		{ label: "1961-80", value: selectedStation.housing_1961_80 },
+		{ label: "1981-00", value: selectedStation.housing_1981_00 },
+		{ label: "Post-2000", value: selectedStation.housing_after2000 }
+		];
+
+		dwellingData = [
+		{ label: "Detached", value: selectedStation.single_detached, "y": '-' },
+		{ label: "Semi-Detached", value: selectedStation.semi_detached, "y": '-' },
+		{ label: "Apt >5", value: selectedStation.apt_more_5, "y": '-' },
+		{ label: "Apt <5", value: selectedStation.apt_less_5, "y": '-' },
+		{ label: "Duplex", value: selectedStation.duplex, "y": '-' }
+		];
+
+		console.log(dwellingData);
+	}
+		
+
+	onMount(async () => {
+
+		const response = await fetch('/src/routes/lib/data/stations.json'); // Adjust the path as needed
+		stationData = await response.json();
+
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
@@ -73,27 +198,28 @@ let technologyFilters = [];
 			});
 
 			// Add a layer to display the circle
-			map.addLayer({
-				id: 'circle-radius',
-				type: 'fill',
-				source: 'circle',
-				paint: {
-					'fill-outline-color': '#DB3069',
-					'fill-color': '#db799a',
-					'fill-opacity': 0.4
-				}
-			}, 'transit-stations');
+			map.addLayer(
+				{
+					id: 'circle-radius',
+					type: 'fill',
+					source: 'circle',
+					paint: {
+						'fill-outline-color': '#DB3069',
+						'fill-color': '#db799a',
+						'fill-opacity': 0.4
+					}
+				},
+				'transit-stations'
+			);
 
 			// Event listener for clicks on the transit-stations layer
 			map.on('click', 'transit-stations', (e) => {
 
-				station = e.features[0].properties.stop_label;
-				line = e.features[0].properties.line_label;
-				stop_status = e.features[0].properties.status;
-				technology = e.features[0].properties.technology;
+				const stationId = e.features[0].properties.id;
 
+				updateStationData(stationId);
 
-
+				stationSelected = true;
 
 				const coordinates = e.features[0].geometry.coordinates;
 				const radiusInKilometers = 0.8; // 800 meters is 0.8 kilometers
@@ -116,7 +242,6 @@ let technologyFilters = [];
 
 			// Event listener for clicks on the map outside of transit-stations
 			map.on('click', (e) => {
-				
 				// If a circle is already drawn, remove it when clicking outside the 'transit-stations' layer
 				const features = map.queryRenderedFeatures(e.point, { layers: ['transit-stations'] });
 
@@ -130,10 +255,7 @@ let technologyFilters = [];
 					// Reset the flag
 					circleDrawn = false;
 
-					station = '';
-					line = '';
-					stop_status = '';
-					technology = '';
+					//stationSelected = false;
 				}
 			});
 		});
@@ -175,41 +297,33 @@ let technologyFilters = [];
 				map.getCanvas().style.cursor = '';
 			}
 		);
-
-
 	});
 
 	function applyFilters() {
-	const filterConditions = [];
+		const filterConditions = [];
 
-	// Filter by status if any statuses are selected
-	if (statusFilters.length) {
-		filterConditions.push(['in', ['get', 'status'], ['literal', statusFilters]]);
-	}
-
-	// Filter by technology if any technologies are selected
-	if (technologyFilters.length) {
-		filterConditions.push(['in', ['get', 'technology'], ['literal', technologyFilters]]);
-	}
-
-	// Combine the conditions for each layer
-	const combinedFilter = filterConditions.length ? ['all', ...filterConditions] : true;
-
-	const layers = [
-		'transit-stations',
-		'transit-lines'
-	];
-
-	// Apply the combined filter to each relevant layer
-	layers.forEach((layer) => {
-		if (map.getLayer(layer)) {
-			map.setFilter(layer, combinedFilter);
+		// Filter by status if any statuses are selected
+		if (statusFilters.length) {
+			filterConditions.push(['in', ['get', 'status'], ['literal', statusFilters]]);
 		}
-	});
-}
-	
 
+		// Filter by technology if any technologies are selected
+		if (technologyFilters.length) {
+			filterConditions.push(['in', ['get', 'technology'], ['literal', technologyFilters]]);
+		}
 
+		// Combine the conditions for each layer
+		const combinedFilter = filterConditions.length ? ['all', ...filterConditions] : true;
+
+		const layers = ['transit-stations', 'transit-lines'];
+
+		// Apply the combined filter to each relevant layer
+		layers.forEach((layer) => {
+			if (map.getLayer(layer)) {
+				map.setFilter(layer, combinedFilter);
+			}
+		});
+	}
 </script>
 
 <svelte:head>
@@ -235,33 +349,149 @@ let technologyFilters = [];
 	</p>
 </div>
 
+
+
 <div id="content-container">
+
+
 	<div id="sidebar">
-		<h2>{station}</h2>
-		<h4>{line}</h4>
-	<div class='tag-container'>
-		<div class='tag'>{stop_status}</div>
-		<div class='tag'>{technology}</div>
+		{#if stationSelected}
+
+		<h2>{selectedStation.stop_label}</h2>
+		<h4>{selectedStation.line_label}</h4>
+
+		<div class="tag-container">
+			<div class="tag">{selectedStation.status}</div>
+			<div class="tag">{selectedStation.technology}</div>
+		</div>
+
+		<hr>
+
+		<div>Population: {selectedStation.population}</div>
+		<div>Households: {selectedStation.households}</div>
+
+		<hr>
+
+		{/if}
+
+
+		<BarChart
+		data={ageData}
+		zKey="label"
+		xKey="value"
+		yKey="y"
+		title="Age"
+		xMax=100
+		mode="stacked"
+		legend="true"
+		xSuffix="%"
+		/>
+
+		<BarChart
+		data={mobilityData}
+		zKey="label"
+		xKey="value"
+		yKey="y"
+		title="Mobility"
+		xMax=100
+		mode="stacked"
+		legend="true"
+		xSuffix="%"
+		/>
+
+
+		<BarChart
+		data={dwellingData}
+		zKey="label"
+		xKey="value"
+		yKey="y"
+		title="Dwelling"
+		xMax=100
+		mode="stacked"
+		legend="true"
+		xSuffix="%"
+		/>
+
+
+		<BarChart
+		data={housingData}
+		xKey="value"
+		yKey="label"
+		title="Housing"
+		yMax=100
+		xSuffix="%"
+		/>
+
+
+	
+
+		
 	</div>
 
+
+	<div id=map-container>
 	<div id="filter-container">
-		<h3>Filters</h3>
+		<h4>Filter</h4>
 		<div class="filter-group">
-			<h4>Status</h4>
-			<label><input type="checkbox" bind:group={statusFilters} value="Existing" on:change={applyFilters} /> Existing</label>
-			<label><input type="checkbox" bind:group={statusFilters} value="Construction" on:change={applyFilters} /> Construction</label>
-			<label><input type="checkbox" bind:group={statusFilters} value="Planned" on:change={applyFilters} /> Planned</label>
+			<h4>Status:</h4>
+			<label
+				><input
+					type="checkbox"
+					bind:group={statusFilters}
+					value="Existing"
+					on:change={applyFilters}
+				/> Existing</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={statusFilters}
+					value="Construction"
+					on:change={applyFilters}
+				/> Construction</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={statusFilters}
+					value="Planned"
+					on:change={applyFilters}
+				/> Planned</label
+			>
 		</div>
 	
 		<div class="filter-group">
-			<h4>Technology</h4>
-			<label><input type="checkbox" bind:group={technologyFilters} value="Subway" on:change={applyFilters} /> Subway</label>
-			<label><input type="checkbox" bind:group={technologyFilters} value="LRT" on:change={applyFilters} /> LRT</label>
-			<label><input type="checkbox" bind:group={technologyFilters} value="Commuter" on:change={applyFilters} /> Commuter</label>
+			<h4>Technology:</h4>
+			<label
+				><input
+					type="checkbox"
+					bind:group={technologyFilters}
+					value="Subway"
+					on:change={applyFilters}
+				/> Subway</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={technologyFilters}
+					value="LRT"
+					on:change={applyFilters}
+				/> LRT</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={technologyFilters}
+					value="Commuter"
+					on:change={applyFilters}
+				/> Commuter</label
+			>
 		</div>
-	</div>
-	</div>
+	</div>	
 	<div id="map" />
+</div>
+
+
 </div>
 <Footer />
 
@@ -321,13 +551,21 @@ let technologyFilters = [];
 		gap: 0.5em;
 		width: 100%;
 		padding: 0.5em 0 0 0;
-
 	}
 
 	#filter-container {
-		margin: 1em 0 0 0;
+		display: flex;
+		flex-direction: row;
+		gap: 1em;
 		padding: 1em;
 		border: 1px solid #eee;
+	}
+
+	.filter-group {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1em;
 	}
 
 	@media only screen and (min-width: 768px) {
@@ -336,12 +574,17 @@ let technologyFilters = [];
 		}
 
 		#sidebar {
-			width: 35vw;
+			width: 40vw;
 			border-right: 1px solid #eee;
 		}
 
 		#map {
 			height: 100vh;
+			order: 0;
+		}
+
+		#map-container {
+			width: 100%;
 			order: 0;
 		}
 	}
