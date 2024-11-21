@@ -6,6 +6,8 @@
 	import { BarChart, ColumnChart } from '@onsvisual/svelte-charts';
 	import { Tabs } from 'bits-ui';
 	import Metric from '../lib/ui/Metric.svelte';
+	import stationData from '../lib/data/stations.json';
+
 
 	import Footer from '../lib/Footer.svelte';
 
@@ -19,7 +21,7 @@
 	let statusFilters = [];
 	let technologyFilters = [];
 
-	let stationData = []; // Store station data from stations.json
+	//let stationData = []; // Store station data from stations.json
 	let selectedStation = {};
 	let stationSelected = false;
 
@@ -162,12 +164,12 @@
 	}
 
 	onMount(async () => {
-		const response = await fetch('/src/routes/lib/data/stations.json'); // Adjust the path as needed
-		stationData = await response.json();
+		// const response = await fetch('/src/routes/lib/data/stations.json'); // Adjust the path as needed
+		// stationData = await response.json();
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 15.5,
