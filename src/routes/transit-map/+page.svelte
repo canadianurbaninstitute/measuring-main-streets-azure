@@ -3,7 +3,9 @@
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import * as turf from '@turf/turf';
-	import {BarChart, ColumnChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart } from '@onsvisual/svelte-charts';
+	import { Tabs } from 'bits-ui';
+	import Metric from '../lib/ui/Metric.svelte';
 
 	import Footer from '../lib/Footer.svelte';
 
@@ -17,154 +19,149 @@
 	let statusFilters = [];
 	let technologyFilters = [];
 
-
 	let stationData = []; // Store station data from stations.json
 	let selectedStation = {};
 	let stationSelected = false;
 
 	let ownerData = [
-    {
-        "label": "Owner",
-        "value": 0,
-        "y": "⠀"
-    },
-    {
-        "label": "Renter",
-        "value": 0,
-        "y": "⠀"
-    }
+		{
+			label: 'Owner',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Renter',
+			value: 0,
+			y: '⠀'
+		}
 	];
 
 	let mobilityData = [
-    {
-        "label": "Car",
-        "value": 0,
-        "y": "⠀"
-    },
-    {
-        "label": "Public Transit",
-        "value": 0,
-        "y": "⠀"
-    },
-    {
-        "label": "Active Transit",
-        "value": 0,
-        "y": "⠀"
-    }
+		{
+			label: 'Car',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Public Transit',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Active Transit',
+			value: 0,
+			y: '⠀'
+		}
 	];
 
 	let housingData = [
-    {
-        "label": "Pre-1960",
-        "value": 0
-    },
-    {
-        "label": "1961-80",
-        "value": 0
-    },
-    {
-        "label": "1981-00",
-        "value": 0
-    },
-    {
-        "label": "Post-2000",
-        "value": 0
-    }
+		{
+			label: 'Pre-1960',
+			value: 0
+		},
+		{
+			label: '1961-80',
+			value: 0
+		},
+		{
+			label: '1981-00',
+			value: 0
+		},
+		{
+			label: 'Post-2000',
+			value: 0
+		}
 	];
 
 	let dwellingData = [
-    {
-        "label": "Detached",
-        "value": 0,
-		"y": '⠀'
-    },
-    {
-        "label": "Semi-Detached",
-        "value": 0,
-		"y": '⠀'
-    },
-	{
-        "label": "Row",
-        "value": 0,
-		"y": '⠀'
-    },
-    {
-        "label": "Apt >5",
-        "value": 0,
-		"y": '⠀'
-    },
-    {
-        "label": "Apt <5",
-        "value": 0,
-		"y": '⠀'
-    },
-    {
-        "label": "Duplex",
-        "value": 0,
-		"y": '⠀'
-    }
+		{
+			label: 'Detached',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Semi-Detached',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Row',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Duplex',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Apt >5',
+			value: 0,
+			y: '⠀'
+		},
+		{
+			label: 'Apt <5',
+			value: 0,
+			y: '⠀'
+		}
 	];
 
 	let ageData = [
 		{
-			"label": "0-19",
-			"value": 0,
-			"y": '⠀'
+			label: '0-19',
+			value: 0,
+			y: '⠀'
 		},
 		{
-			"label": "20-64",
-			"value": 0,
-			"y": '⠀'
+			label: '20-64',
+			value: 0,
+			y: '⠀'
 		},
 		{
-			"label": "65+",
-			"value": 0,
-			"y": '⠀'
+			label: '65+',
+			value: 0,
+			y: '⠀'
 		}
 	];
 
-
 	function updateStationData(id) {
-		selectedStation = stationData.find(station => station.id === id);
+		selectedStation = stationData.find((station) => station.id === id);
 
 		ageData = [
-		{ label: "0-19", value: selectedStation.age_0_19, "y": '⠀'},
-		{ label: "20-64", value: selectedStation.age_20_64, "y": '⠀' },
-		{ label: "65+", value: selectedStation.age_65_over, "y": '⠀' }
+			{ label: '0-19', value: selectedStation.age_0_19, y: '⠀' },
+			{ label: '20-64', value: selectedStation.age_20_64, y: '⠀' },
+			{ label: '65+', value: selectedStation.age_65_over, y: '⠀' }
 		];
 
 		mobilityData = [
-		{ label: "Car", value: selectedStation.mobiity_car, "y": '⠀' },
-		{ label: "Public Transit", value: selectedStation.mobility_public_transit, "y": '⠀' },
-		{ label: "Active Transit", value: selectedStation.mobility_active_transit, "y": '⠀' }
+			{ label: 'Car', value: selectedStation.mobiity_car, y: '⠀' },
+			{ label: 'Public Transit', value: selectedStation.mobility_public_transit, y: '⠀' },
+			{ label: 'Active Transit', value: selectedStation.mobility_active_transit, y: '⠀' }
 		];
 
-
 		housingData = [
-		{ label: "Pre-1960", value: selectedStation.housing_pre1960 },
-		{ label: "1961-80", value: selectedStation.housing_1961_80 },
-		{ label: "1981-00", value: selectedStation.housing_1981_00 },
-		{ label: "Post-2000", value: selectedStation.housing_after2000 }
+			{ label: 'Pre-1960', value: selectedStation.housing_pre1960 },
+			{ label: '1961-80', value: selectedStation.housing_1961_80 },
+			{ label: '1981-00', value: selectedStation.housing_1981_00 },
+			{ label: 'Post-2000', value: selectedStation.housing_after2000 }
 		];
 
 		dwellingData = [
-		{ label: "Detached", value: selectedStation.single_detached, "y": '⠀' },
-		{ label: "Semi-Detached", value: selectedStation.row_house, "y": '⠀' },
-		{ label: "Row", value: selectedStation.semi_detached, "y": '⠀' },
-		{ label: "Apt >5", value: selectedStation.apt_more_5, "y": '⠀' },
-		{ label: "Apt <5", value: selectedStation.apt_less_5, "y": '⠀' },
-		{ label: "Duplex", value: selectedStation.duplex, "y": '⠀' }
+			{ label: 'Detached', value: selectedStation.single_detached, y: '⠀' },
+			{ label: 'Semi-Detached', value: selectedStation.row_house, y: '⠀' },
+			{ label: 'Row', value: selectedStation.semi_detached, y: '⠀' },
+			{ label: 'Duplex', value: selectedStation.duplex, y: '⠀' },
+			{ label: 'Apt >5', value: selectedStation.apt_more_5, y: '⠀' },
+			{ label: 'Apt <5', value: selectedStation.apt_less_5, y: '⠀' }
 		];
 
 		ownerData = [
-		{ label: "Owner", value: selectedStation.owners, "y": '⠀'},
-		{ label: "Renter", value: selectedStation.renters, "y": '⠀' }
+			{ label: 'Owner', value: selectedStation.owners, y: '⠀' },
+			{ label: 'Renter', value: selectedStation.renters, y: '⠀' }
 		];
 	}
-		
 
 	onMount(async () => {
-
 		const response = await fetch('/src/routes/lib/data/stations.json'); // Adjust the path as needed
 		stationData = await response.json();
 
@@ -173,7 +170,7 @@
 			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
 			center: [-89, 58],
 			zoom: 3.3,
-			maxZoom: 15,
+			maxZoom: 15.5,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -223,12 +220,13 @@
 			map.addLayer(
 				{
 					id: 'circle-radius',
-					type: 'fill',
+					type: 'line',
 					source: 'circle',
 					paint: {
-						'fill-outline-color': '#DB3069',
-						'fill-color': '#db799a',
-						'fill-opacity': 0.4
+						'line-color': '#222',
+						'line-opacity': 1,
+						'line-width': 3,
+						'line-dasharray': [2, 2]
 					}
 				},
 				'transit-stations'
@@ -236,7 +234,6 @@
 
 			// Event listener for clicks on the transit-stations layer
 			map.on('click', 'transit-stations', (e) => {
-
 				const stationId = e.features[0].properties.id;
 
 				updateStationData(stationId);
@@ -261,24 +258,38 @@
 				// Set the flag to true indicating a circle is displayed
 				circleDrawn = true;
 
-				 // Zoom and center to the selected station
-				 map.flyTo({
+				// Zoom and center to the selected station
+				map.flyTo({
 					center: coordinates,
-					zoom: 14.5, // Adjust the zoom level as needed
+					zoom: 15.1, // Adjust the zoom level as needed
 					duration: 1000 // Animation duration in milliseconds
 				});
-
 
 				// Use 'within' filter to restrict the visibility of layers to the circle area
 				const circlePolygon = circleFeature.geometry;
 
+				// Style the msn-lowdensity layer based on whether the lines are within the circle
+				// map.setPaintProperty('msn-lowdensity', 'line-color', [
+				// 	'case',
+				// 	['within', circlePolygon], // If within the circle
+				// 	'#34bef9',                // Full color
+				// 	'#AAAAAA'                 // Greyed out
+				// ]);
+
+				// // Style the msn-highdensity layer similarly
+				// map.setPaintProperty('msn-highdensity', 'line-color', [
+				// 	'case',
+				// 	['within', circlePolygon], // If within the circle
+				// 	'#004663',                // Full color
+				// 	'#AAAAAA'                 // Greyed out
+				// ]);
+
 				map.setFilter('msn-lowdensity', ['within', circlePolygon]);
 				map.setFilter('msn-highdensity', ['within', circlePolygon]);
 
-				// Optionally set layer opacity to make them visible
+				// Optionally adjust opacity for visibility
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-
 			});
 
 			// Event listener for clicks on the map outside of transit-stations
@@ -296,7 +307,10 @@
 					// Reset the flag
 					circleDrawn = false;
 
-					//stationSelected = false;
+					map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
+					map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
+
+					stationSelected = false;
 				}
 			});
 		});
@@ -390,174 +404,179 @@
 	</p>
 </div>
 
-
-
 <div id="content-container">
-
-
 	<div id="sidebar">
 		{#if stationSelected}
+			<h2>{selectedStation.stop_label}</h2>
+			<h4>{selectedStation.line_label}</h4>
 
-		<h2>{selectedStation.stop_label}</h2>
-		<h4>{selectedStation.line_label}</h4>
+			<div class="tag-container">
+				<div class="tag">{selectedStation.status}</div>
+				<div class="tag">{selectedStation.technology}</div>
+			</div>
 
-		<div class="tag-container">
-			<div class="tag">{selectedStation.status}</div>
-			<div class="tag">{selectedStation.technology}</div>
-		</div>
+			<hr />
 
-		<hr>
+			<Tabs.Root value="demographics" id="tab-container">
+				<Tabs.List class="tab-container">
+					<Tabs.Trigger value="demographics">Demographics</Tabs.Trigger>
+					<Tabs.Trigger value="housing">Housing</Tabs.Trigger>
+					<Tabs.Trigger value="built-form">Built Form</Tabs.Trigger>
+					<Tabs.Trigger value="business">Business</Tabs.Trigger>
+					<Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger>
+				</Tabs.List>
+				<Tabs.Content value="demographics" class="tab-button">
+					<div class='tab-content'>
+					<div class="metric-container">
+						<Metric
+							label={'Population'}
+							value={selectedStation.population}
+							icon={'fluent:people-20-filled'}
+						/>
+						<Metric
+							label={'Households'}
+							value={selectedStation.households}
+							icon={'fluent:people-20-filled'}
+						/>
+					</div>
 
-		<div>Population: {selectedStation.population}</div>
-		<div>Households: {selectedStation.households}</div>
+					<div class="chart-container">
+						<BarChart
+							colors={['#002a41', '#0098D6', '#db3069']}
+							data={ageData}
+							zKey="label"
+							xKey="value"
+							yKey="y"
+							title="Age"
+							xMax="100"
+							mode="stacked"
+							legend="true"
+							xSuffix="%"
+							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+						/>
+						<BarChart
+							colors={['#002a41', '#0098D6', '#db3069']}
+							data={mobilityData}
+							zKey="label"
+							xKey="value"
+							yKey="y"
+							title="Mobility"
+							xMax="100"
+							mode="stacked"
+							legend="true"
+							xSuffix="%"
+							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+						/>
+						<BarChart
+							colors={['#002a41', '#0098D6']}
+							data={ownerData}
+							zKey="label"
+							xKey="value"
+							yKey="y"
+							title="Owners/Renters"
+							xMax="100"
+							mode="stacked"
+							legend="true"
+							xSuffix="%"
+							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+						/>
+					</div>
+				</div>
+				</Tabs.Content>
+				<Tabs.Content value="built-form" class="tab-button">
+					<BarChart
+						colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
+						data={dwellingData}
+						zKey="label"
+						xKey="value"
+						yKey="y"
+						title="Dwelling Type"
+						xMax="100"
+						mode="stacked"
+						legend="true"
+						xSuffix="%"
+						padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+					/>
 
-		<hr>
+					<BarChart
+						colors={['#002a41']}
+						data={housingData}
+						xKey="value"
+						yKey="label"
+						title="Housing Construction"
+						yMax="100"
+						xSuffix="%"
+						padding={{ top: 0, bottom: 0, left: 30, right: 20 }}
+					/>
+				</Tabs.Content>
+				<Tabs.Content value="main-street" class="tab-button" />
+			</Tabs.Root>
 
-		<div id='chart-container'>
-
-		<BarChart
-		colors={['#002a41', '#0098D6', '#db3069']}
-		data={ageData}
-		zKey="label"
-		xKey="value"
-		yKey="y"
-		title="Age"
-		xMax=100
-		mode="stacked"
-		legend="true"
-		xSuffix="%"
-		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-		/>
-
-		<BarChart
-		colors={['#002a41', '#0098D6', '#db3069']}
-		data={mobilityData}
-		zKey="label"
-		xKey="value"
-		yKey="y"
-		title="Mobility"
-		xMax=100
-		mode="stacked"
-		legend="true"
-		xSuffix="%"
-		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-		/>
-
-		<BarChart
-		colors={['#002a41', '#0098D6']}
-		data={ownerData}
-		zKey="label"
-		xKey="value"
-		yKey="y"
-		title="Owners/Renters"
-		xMax=100
-		mode="stacked"
-		legend="true"
-		xSuffix="%"
-		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-		/>
-
-
-		<BarChart
-		colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
-		data={dwellingData}
-		zKey="label"
-		xKey="value"
-		yKey="y"
-		title="Dwelling Type"
-		xMax=100
-		mode="stacked"
-		legend="true"
-		xSuffix="%"
-		padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-		/>
-
-
-		<BarChart
-		colors={['#002a41']}
-		data={housingData}
-		xKey="value"
-		yKey="label"
-		title="Housing Construction"
-		yMax=100
-		xSuffix="%"
-		padding={{ top: 0, bottom: 0, left: 30, right: 20 }}
-
-		/>
-
-		</div>
-
-
+			<hr />
 		{/if}
-
-
-		
 	</div>
 
+	<div id="map-container">
+		<div id="filter-container">
+			<h4>Filter</h4>
+			<div class="filter-group">
+				<h4>Status:</h4>
+				<label
+					><input
+						type="checkbox"
+						bind:group={statusFilters}
+						value="Existing"
+						on:change={applyFilters}
+					/> Existing</label
+				>
+				<label
+					><input
+						type="checkbox"
+						bind:group={statusFilters}
+						value="Construction"
+						on:change={applyFilters}
+					/> Construction</label
+				>
+				<label
+					><input
+						type="checkbox"
+						bind:group={statusFilters}
+						value="Planned"
+						on:change={applyFilters}
+					/> Planned</label
+				>
+			</div>
 
-	<div id=map-container>
-	<div id="filter-container">
-		<h4>Filter</h4>
-		<div class="filter-group">
-			<h4>Status:</h4>
-			<label
-				><input
-					type="checkbox"
-					bind:group={statusFilters}
-					value="Existing"
-					on:change={applyFilters}
-				/> Existing</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={statusFilters}
-					value="Construction"
-					on:change={applyFilters}
-				/> Construction</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={statusFilters}
-					value="Planned"
-					on:change={applyFilters}
-				/> Planned</label
-			>
+			<div class="filter-group">
+				<h4>Technology:</h4>
+				<label
+					><input
+						type="checkbox"
+						bind:group={technologyFilters}
+						value="Subway"
+						on:change={applyFilters}
+					/> Subway</label
+				>
+				<label
+					><input
+						type="checkbox"
+						bind:group={technologyFilters}
+						value="LRT"
+						on:change={applyFilters}
+					/> LRT</label
+				>
+				<label
+					><input
+						type="checkbox"
+						bind:group={technologyFilters}
+						value="Commuter"
+						on:change={applyFilters}
+					/> Commuter</label
+				>
+			</div>
 		</div>
-	
-		<div class="filter-group">
-			<h4>Technology:</h4>
-			<label
-				><input
-					type="checkbox"
-					bind:group={technologyFilters}
-					value="Subway"
-					on:change={applyFilters}
-				/> Subway</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={technologyFilters}
-					value="LRT"
-					on:change={applyFilters}
-				/> LRT</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={technologyFilters}
-					value="Commuter"
-					on:change={applyFilters}
-				/> Commuter</label
-			>
-		</div>
-	</div>	
-	<div id="map" />
-</div>
-
-
+		<div id="map" />
+	</div>
 </div>
 <Footer />
 
@@ -634,10 +653,20 @@
 		gap: 1em;
 	}
 
-	#chart-container {
+	.chart-container {
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
+	}
+
+	.metric-container {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5em;
+	}
+
+	.tab-content {
+		padding: 1em 0 1em 0;
 	}
 
 	@media only screen and (min-width: 768px) {
@@ -646,7 +675,7 @@
 		}
 
 		#sidebar {
-			width: 40vw;
+			width: 50vw;
 			border-right: 1px solid #eee;
 		}
 
@@ -665,6 +694,4 @@
 		border: 0.5px solid #eee;
 		width: 100%;
 	}
-
-
 </style>
