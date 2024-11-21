@@ -267,6 +267,18 @@
 					zoom: 14.5, // Adjust the zoom level as needed
 					duration: 1000 // Animation duration in milliseconds
 				});
+
+
+				// Use 'within' filter to restrict the visibility of layers to the circle area
+				const circlePolygon = circleFeature.geometry;
+
+				map.setFilter('msn-lowdensity', ['within', circlePolygon]);
+				map.setFilter('msn-highdensity', ['within', circlePolygon]);
+
+				// Optionally set layer opacity to make them visible
+				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
+				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+
 			});
 
 			// Event listener for clicks on the map outside of transit-stations
