@@ -75,6 +75,21 @@
 		}
 	];
 
+	let demoData = [
+		{
+			label: 'Visible Minority',
+			value: 0
+		},
+		{
+			label: 'Recent Immigrant',
+			value: 0
+		},
+		{
+			label: 'Indigenous',
+			value: 0
+		}
+	];
+
 	let dwellingData = [
 		{
 			label: 'Detached',
@@ -136,7 +151,7 @@
 		];
 
 		mobilityData = [
-			{ label: 'Car', value: selectedStation.mobiity_car, y: '⠀' },
+			{ label: 'Car', value: selectedStation.mobility_car, y: '⠀' },
 			{ label: 'Public Transit', value: selectedStation.mobility_public_transit, y: '⠀' },
 			{ label: 'Active Transit', value: selectedStation.mobility_active_transit, y: '⠀' }
 		];
@@ -160,6 +175,12 @@
 		ownerData = [
 			{ label: 'Owner', value: selectedStation.owners, y: '⠀' },
 			{ label: 'Renter', value: selectedStation.renters, y: '⠀' }
+		];
+
+		demoData = [
+			{ label: 'Visible Minority', value: selectedStation.visible_minority},
+			{ label: 'Recent Immigrant', value: selectedStation.immigrants_non_permanent_residents},
+			{ label: 'Indigenous', value: selectedStation.indigenous}
 		];
 	}
 
@@ -429,19 +450,10 @@
 				</Tabs.List>
 				<Tabs.Content value="demographics" class="tab-button">
 					<div class='tab-content'>
-					<div class="metric-container">
-						<Metric
-							label={'Population'}
-							value={selectedStation.population}
-							icon={'fluent:people-20-filled'}
-						/>
-						<Metric
-							label={'Households'}
-							value={selectedStation.households}
-							icon={'fluent:people-20-filled'}
-						/>
-					</div>
-
+						<h4>Population: {selectedStation.population}</h4>
+						<h4>Households: {selectedStation.households}</h4>
+						<h4>Average Employment Income: ${selectedStation.average_employment_income}</h4>
+					<hr>
 					<div class="chart-container">
 						<BarChart
 							colors={['#002a41', '#0098D6', '#db3069']}
@@ -470,22 +482,41 @@
 							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 						/>
 						<BarChart
-							colors={['#002a41', '#0098D6']}
-							data={ownerData}
-							zKey="label"
-							xKey="value"
-							yKey="y"
-							title="Owners/Renters"
-							xMax="100"
-							mode="stacked"
-							legend="true"
-							xSuffix="%"
-							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-						/>
+						colors={['#002a41']}
+						data={demoData}
+						xKey="value"
+						yKey="label"
+						title="Population (%)"
+						yMax="100"
+						xSuffix="%"
+						padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+					/>
+					
 					</div>
 				</div>
 				</Tabs.Content>
+				<Tabs.Content value="housing" class="tab-button" >
+					<div class='tab-content'>
+
+					<h4>Dwellings: {selectedStation.dwellings}</h4>
+					<hr>
+					<BarChart
+					colors={['#002a41', '#0098D6']}
+					data={ownerData}
+					zKey="label"
+					xKey="value"
+					yKey="y"
+					title="Owners/Renters"
+					xMax="100"
+					mode="stacked"
+					legend="true"
+					xSuffix="%"
+					padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+				/>
+				</div>
+				</Tabs.Content>
 				<Tabs.Content value="built-form" class="tab-button">
+					<hr>
 					<BarChart
 						colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
 						data={dwellingData}
@@ -505,13 +536,20 @@
 						data={housingData}
 						xKey="value"
 						yKey="label"
-						title="Housing Construction"
+						title="Housing Construction Year"
 						yMax="100"
 						xSuffix="%"
-						padding={{ top: 0, bottom: 0, left: 30, right: 20 }}
+						padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
 					/>
 				</Tabs.Content>
-				<Tabs.Content value="main-street" class="tab-button" />
+				<Tabs.Content value="business" class="tab-button" >
+					<hr>
+					<h4>Businesses: {selectedStation.total_businesses}</h4>
+					<h4>Employment: {selectedStation.total_employment}</h4>
+				</Tabs.Content>
+				<Tabs.Content value="civic" class="tab-button" >
+					<hr>
+				</Tabs.Content>
 			</Tabs.Root>
 
 			<hr />
