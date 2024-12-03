@@ -8,7 +8,6 @@
 	import Metric from '../lib/ui/Metric.svelte';
 	import stationData from '../lib/data/stations.json';
 
-
 	import Footer from '../lib/Footer.svelte';
 
 	mapboxgl.accessToken =
@@ -24,6 +23,8 @@
 	//let stationData = []; // Store station data from stations.json
 	let selectedStation = {};
 	let stationSelected = false;
+
+	let civic;
 
 	let ownerData = [
 		{
@@ -143,7 +144,12 @@
 
 	function updateStationData(id) {
 		selectedStation = stationData.find((station) => station.id === id);
-
+		civic =
+			selectedStation.arts_and_culture +
+			selectedStation.education +
+			selectedStation.government_community_services +
+			selectedStation.healthcare_facilities +
+			selectedStation.recreation;
 		ageData = [
 			{ label: '0-19', value: selectedStation.age_0_19, y: '⠀' },
 			{ label: '20-64', value: selectedStation.age_20_64, y: '⠀' },
@@ -178,19 +184,16 @@
 		];
 
 		demoData = [
-			{ label: 'Visible Minority', value: selectedStation.visible_minority},
-			{ label: 'Recent Immigrant', value: selectedStation.immigrants_non_permanent_residents},
-			{ label: 'Indigenous', value: selectedStation.indigenous}
+			{ label: 'Visible Minority', value: selectedStation.visible_minority },
+			{ label: 'Recent Immigrant', value: selectedStation.immigrants_non_permanent_residents },
+			{ label: 'Indigenous', value: selectedStation.indigenous }
 		];
 	}
 
 	onMount(async () => {
-		// const response = await fetch('/src/routes/lib/data/stations.json'); // Adjust the path as needed
-		// stationData = await response.json();
-
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3',
+			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 15.5,
@@ -284,35 +287,17 @@
 				// Zoom and center to the selected station
 				map.flyTo({
 					center: coordinates,
-					zoom: 15.1, // Adjust the zoom level as needed
+					zoom: 14.5, // Adjust the zoom level as needed
 					duration: 1000 // Animation duration in milliseconds
 				});
 
 				// Use 'within' filter to restrict the visibility of layers to the circle area
 				const circlePolygon = circleFeature.geometry;
 
-				// Style the msn-lowdensity layer based on whether the lines are within the circle
-				// map.setPaintProperty('msn-lowdensity', 'line-color', [
-				// 	'case',
-				// 	['within', circlePolygon], // If within the circle
-				// 	'#34bef9',                // Full color
-				// 	'#AAAAAA'                 // Greyed out
-				// ]);
-
-				// // Style the msn-highdensity layer similarly
-				// map.setPaintProperty('msn-highdensity', 'line-color', [
-				// 	'case',
-				// 	['within', circlePolygon], // If within the circle
-				// 	'#004663',                // Full color
-				// 	'#AAAAAA'                 // Greyed out
-				// ]);
-
 				map.setFilter('msn-lowdensity', ['within', circlePolygon]);
 				map.setFilter('msn-highdensity', ['within', circlePolygon]);
+				//map.setFilter('greenspace', ['within', circlePolygon]);
 
-				// Optionally adjust opacity for visibility
-				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
-				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 			});
 
 			// Event listener for clicks on the map outside of transit-stations
@@ -332,6 +317,7 @@
 
 					map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 					map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
+					
 
 					stationSelected = false;
 				}
@@ -382,12 +368,28 @@
 
 		// Filter by status if any statuses are selected
 		if (statusFilters.length) {
-			filterConditions.push(['in', ['get', 'status'], ['literal', statusFilters]]);
+			filterConditions.push([
+				'any',
+				...statusFilters.map((status) => [
+					'case',
+					['!=', ['index-of', status, ['get', 'status']], -1], // Check if the status exists in the string
+					true, // Include if found
+					false // Exclude if not found
+				])
+			]);
 		}
 
 		// Filter by technology if any technologies are selected
 		if (technologyFilters.length) {
-			filterConditions.push(['in', ['get', 'technology'], ['literal', technologyFilters]]);
+			filterConditions.push([
+				'any',
+				...technologyFilters.map((tech) => [
+					'case',
+					['!=', ['index-of', tech, ['get', 'technology']], -1], // Check if the technology exists in the string
+					true, // Include if found
+					false // Exclude if not found
+				])
+			]);
 		}
 
 		// Combine the conditions for each layer
@@ -401,6 +403,36 @@
 				map.setFilter(layer, combinedFilter);
 			}
 		});
+	}
+
+	function handleTabChange(selectedTab) {
+		// Show specific layers based on the selected tab
+		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
+		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
+		map.setPaintProperty('building-footprint', 'fill-extrusion-opacity', 0);
+		map.setPaintProperty('greenspace', 'fill-opacity', 0);
+
+		switch (selectedTab) {
+			case 'demographics':
+				break;
+			case 'housing':
+				console.log('housing');
+				break;
+			case 'built-form':
+				map.setZoom(15.01);
+				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
+				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+				map.setPaintProperty('building-footprint', 'fill-extrusion-opacity', 0.6);
+				map.setPaintProperty('greenspace', 'fill-opacity', 1);
+
+				break;
+			case 'business':
+				break;
+			case 'civic':
+				break;
+			default:
+				break;
+		}
 	}
 </script>
 
@@ -434,13 +466,22 @@
 			<h4>{selectedStation.line_label}</h4>
 
 			<div class="tag-container">
-				<div class="tag">{selectedStation.status}</div>
-				<div class="tag">{selectedStation.technology}</div>
+				{#each selectedStation.status?.split(', ') || [] as status}
+					<div class="tag">{status}</div>
+				{/each}
+
+				{#each selectedStation.technology?.split(', ') || [] as technology}
+					<div class="tag">{technology}</div>
+				{/each}
 			</div>
 
 			<hr />
 
-			<Tabs.Root value="demographics" id="tab-container">
+			<Tabs.Root
+				value="demographics"
+				id="tab-container"
+				onValueChange={(value) => handleTabChange(value)}
+			>
 				<Tabs.List class="tab-container">
 					<Tabs.Trigger value="demographics">Demographics</Tabs.Trigger>
 					<Tabs.Trigger value="housing">Housing</Tabs.Trigger>
@@ -449,106 +490,112 @@
 					<Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="demographics" class="tab-button">
-					<div class='tab-content'>
+					<div class="tab-content">
 						<h4>Population: {selectedStation.population}</h4>
 						<h4>Households: {selectedStation.households}</h4>
-						<h4>Average Employment Income: ${selectedStation.average_employment_income}</h4>
-					<hr>
-					<div class="chart-container">
-						<BarChart
-							colors={['#002a41', '#0098D6', '#db3069']}
-							data={ageData}
-							zKey="label"
-							xKey="value"
-							yKey="y"
-							title="Age"
-							xMax="100"
-							mode="stacked"
-							legend="true"
-							xSuffix="%"
-							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-						/>
-						<BarChart
-							colors={['#002a41', '#0098D6', '#db3069']}
-							data={mobilityData}
-							zKey="label"
-							xKey="value"
-							yKey="y"
-							title="Mobility"
-							xMax="100"
-							mode="stacked"
-							legend="true"
-							xSuffix="%"
-							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-						/>
-						<BarChart
-						colors={['#002a41']}
-						data={demoData}
-						xKey="value"
-						yKey="label"
-						title="Population (%)"
-						yMax="100"
-						xSuffix="%"
-						padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
-					/>
-					
+						<h4>Average Employment Income: {selectedStation.average_employment_income}</h4>
+						<hr />
+						<div class="chart-container">
+							<BarChart
+								colors={['#002a41', '#0098D6', '#db3069']}
+								data={ageData}
+								zKey="label"
+								xKey="value"
+								yKey="y"
+								title="Age"
+								xMax="100"
+								mode="stacked"
+								legend="true"
+								xSuffix="%"
+								padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+							/>
+							<BarChart
+								colors={['#002a41', '#0098D6', '#db3069']}
+								data={mobilityData}
+								zKey="label"
+								xKey="value"
+								yKey="y"
+								title="Mobility"
+								xMax="100"
+								mode="stacked"
+								legend="true"
+								xSuffix="%"
+								padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+							/>
+							<BarChart
+								colors={['#002a41']}
+								data={demoData}
+								xKey="value"
+								yKey="label"
+								title="Population (%)"
+								yMax="100"
+								xSuffix="%"
+								padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+							/>
+						</div>
 					</div>
-				</div>
 				</Tabs.Content>
-				<Tabs.Content value="housing" class="tab-button" >
-					<div class='tab-content'>
-
-					<h4>Dwellings: {selectedStation.dwellings}</h4>
-					<hr>
-					<BarChart
-					colors={['#002a41', '#0098D6']}
-					data={ownerData}
-					zKey="label"
-					xKey="value"
-					yKey="y"
-					title="Owners/Renters"
-					xMax="100"
-					mode="stacked"
-					legend="true"
-					xSuffix="%"
-					padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-				/>
-				</div>
+				<Tabs.Content value="housing" class="tab-button">
+					<div class="tab-content">
+						<h4>Total Dwellings: {selectedStation.dwellings}</h4>
+						<hr />
+						<div class="chart-container">
+							<BarChart
+								colors={['#002a41', '#0098D6']}
+								data={ownerData}
+								zKey="label"
+								xKey="value"
+								yKey="y"
+								title="Owners/Renters"
+								xMax="100"
+								mode="stacked"
+								legend="true"
+								xSuffix="%"
+								padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+							/>
+							<BarChart
+								colors={['#002a41']}
+								data={housingData}
+								xKey="value"
+								yKey="label"
+								title="Housing Construction Year"
+								yMax="100"
+								xSuffix="%"
+								padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+							/>
+						</div>
+					</div>
 				</Tabs.Content>
 				<Tabs.Content value="built-form" class="tab-button">
-					<hr>
-					<BarChart
-						colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
-						data={dwellingData}
-						zKey="label"
-						xKey="value"
-						yKey="y"
-						title="Dwelling Type"
-						xMax="100"
-						mode="stacked"
-						legend="true"
-						xSuffix="%"
-						padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-					/>
-
-					<BarChart
-						colors={['#002a41']}
-						data={housingData}
-						xKey="value"
-						yKey="label"
-						title="Housing Construction Year"
-						yMax="100"
-						xSuffix="%"
-						padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
-					/>
+					<div class="tab-content">
+						<h4>Green Space: {selectedStation.greenspace} sq. meters</h4>
+						<hr />
+						<BarChart
+							colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
+							data={dwellingData}
+							zKey="label"
+							xKey="value"
+							yKey="y"
+							title="Dwelling Type"
+							xMax="100"
+							mode="stacked"
+							legend="true"
+							xSuffix="%"
+							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+						/>
+						<div />
+					</div></Tabs.Content
+				>
+				<Tabs.Content value="business" class="tab-button">
+					<div class="tab-content">
+						<h4>Businesses: {selectedStation.total_businesses}</h4>
+						<h4>Employment: {selectedStation.total_employment}</h4>
+					</div>
 				</Tabs.Content>
-				<Tabs.Content value="business" class="tab-button" >
-					<hr>
-					<h4>Businesses: {selectedStation.total_businesses}</h4>
-					<h4>Employment: {selectedStation.total_employment}</h4>
-				</Tabs.Content>
-				<Tabs.Content value="civic" class="tab-button" >
-					<hr>
+				<Tabs.Content value="civic" class="tab-button">
+					<div class="tab-content">
+						<h4>Civic Infrastructure: {civic}</h4>
+					</div>
 				</Tabs.Content>
 			</Tabs.Root>
 
