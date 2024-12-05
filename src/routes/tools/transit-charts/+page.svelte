@@ -1,14 +1,15 @@
 <script>
 	import PopulationChart from './PopulationChart.svelte';
-  import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
   import { onMount } from 'svelte';
+  import stationData from '../../lib/data/chart-stations.json';
 
-  let stationData = [];
 
-  onMount(async () => {
-    const response = await fetch('/src/routes/lib/data/chart-stations.json');
-    stationData = await response.json();
-  });
+  // let stationData = [];
+
+  // onMount(async () => {
+  //   const response = await fetch('/src/routes/lib/data/chart-stations.json');
+  //   stationData = await response.json();
+  // });
 </script>
 
 <div class='chart-container'>
