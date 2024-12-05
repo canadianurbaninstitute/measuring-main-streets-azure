@@ -25,6 +25,7 @@
 	let stationSelected = false;
 
 	let civic;
+	let coordinates;
 
 	let ownerData = [
 		{
@@ -266,7 +267,7 @@
 
 				stationSelected = true;
 
-				const coordinates = e.features[0].geometry.coordinates;
+				coordinates = e.features[0].geometry.coordinates;
 				const radiusInKilometers = 0.8; // 800 meters is 0.8 kilometers
 
 				// Create a GeoJSON circle feature with an 800m radius using Turf.js
@@ -296,6 +297,10 @@
 
 				map.setFilter('msn-lowdensity', ['within', circlePolygon]);
 				map.setFilter('msn-highdensity', ['within', circlePolygon]);
+				map.setFilter('civic-infra', ['within', circlePolygon]);
+				map.setFilter('business', ['within', circlePolygon]);
+
+
 				//map.setFilter('greenspace', ['within', circlePolygon]);
 
 			});
@@ -314,9 +319,6 @@
 
 					// Reset the flag
 					circleDrawn = false;
-
-					map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
-					map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
 					
 
 					stationSelected = false;
@@ -411,6 +413,13 @@
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
 		map.setPaintProperty('building-footprint', 'fill-extrusion-opacity', 0);
 		map.setPaintProperty('greenspace', 'fill-opacity', 0);
+		map.setPaintProperty('civic-infra', 'circle-opacity', 0);
+		map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('business', 'circle-opacity', 0);
+		map.setPaintProperty('business', 'circle-stroke-opacity', 0);
+
+
+		
 
 		switch (selectedTab) {
 			case 'demographics':
@@ -419,7 +428,12 @@
 				console.log('housing');
 				break;
 			case 'built-form':
-				map.setZoom(15.01);
+				map.flyTo({
+						center: coordinates,
+						zoom: 14.5, // Adjust the zoom level as needed
+						duration: 1000 // Animation duration in milliseconds
+				});
+
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				map.setPaintProperty('building-footprint', 'fill-extrusion-opacity', 0.6);
@@ -427,8 +441,12 @@
 
 				break;
 			case 'business':
+				map.setPaintProperty('business', 'circle-opacity', 1);
+				map.setPaintProperty('business', 'circle-stroke-opacity', 1);
 				break;
 			case 'civic':
+				map.setPaintProperty('civic-infra', 'circle-opacity', 1);
+				map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 1);
 				break;
 			default:
 				break;

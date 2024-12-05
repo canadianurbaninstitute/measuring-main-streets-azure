@@ -2,7 +2,7 @@
   {
     "id": 1,
     "region": "Calgary",
-    "stop_label": "69 Street SW Station",
+    "stop_label": "69 Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -45,7 +45,7 @@
   {
     "id": 2,
     "region": "Calgary",
-    "stop_label": "Sirocco Station",
+    "stop_label": "Sirocco",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -88,7 +88,7 @@
   {
     "id": 3,
     "region": "Calgary",
-    "stop_label": "45 Street SW Station",
+    "stop_label": "45 Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -131,7 +131,7 @@
   {
     "id": 4,
     "region": "Calgary",
-    "stop_label": "Westbrook Station",
+    "stop_label": "Westbrook",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -174,7 +174,7 @@
   {
     "id": 5,
     "region": "Calgary",
-    "stop_label": "Shaganappi Point Station",
+    "stop_label": "Shaganappi Point",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -217,7 +217,7 @@
   {
     "id": 6,
     "region": "Calgary",
-    "stop_label": "Sunalta Station",
+    "stop_label": "Sunalta",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -260,7 +260,7 @@
   {
     "id": 7,
     "region": "Calgary",
-    "stop_label": "Downtown West - Kerby Station",
+    "stop_label": "Downtown West - Kerby",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -303,7 +303,7 @@
   {
     "id": 8,
     "region": "Calgary",
-    "stop_label": "8th Street SW Station",
+    "stop_label": "8th Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -346,7 +346,7 @@
   {
     "id": 9,
     "region": "Calgary",
-    "stop_label": "7th Street SW Station",
+    "stop_label": "7th Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -389,7 +389,7 @@
   {
     "id": 10,
     "region": "Calgary",
-    "stop_label": "6th Street SW Station",
+    "stop_label": "6th Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -432,7 +432,7 @@
   {
     "id": 11,
     "region": "Calgary",
-    "stop_label": "4th Street SW Station",
+    "stop_label": "4th Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -475,7 +475,7 @@
   {
     "id": 12,
     "region": "Calgary",
-    "stop_label": "3rd Street SW Station",
+    "stop_label": "3rd Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -518,7 +518,7 @@
   {
     "id": 13,
     "region": "Calgary",
-    "stop_label": "1st Street SW Station",
+    "stop_label": "1st Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -561,7 +561,7 @@
   {
     "id": 14,
     "region": "Calgary",
-    "stop_label": "Centre Street Station",
+    "stop_label": "Centre Street",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -604,7 +604,7 @@
   {
     "id": 15,
     "region": "Calgary",
-    "stop_label": "City Hall Station",
+    "stop_label": "City Hall",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -647,7 +647,7 @@
   {
     "id": 16,
     "region": "Calgary",
-    "stop_label": "Bridgeland Station",
+    "stop_label": "Bridgeland",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -690,7 +690,7 @@
   {
     "id": 17,
     "region": "Calgary",
-    "stop_label": "Zoo Station",
+    "stop_label": "Zoo",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -733,7 +733,7 @@
   {
     "id": 18,
     "region": "Calgary",
-    "stop_label": "Barlow/Max Bell Station",
+    "stop_label": "Barlow/Max Bell",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -776,7 +776,7 @@
   {
     "id": 19,
     "region": "Calgary",
-    "stop_label": "Franklin Station",
+    "stop_label": "Franklin",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -819,7 +819,7 @@
   {
     "id": 20,
     "region": "Calgary",
-    "stop_label": "Marlborough Station",
+    "stop_label": "Marlborough",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -862,7 +862,7 @@
   {
     "id": 21,
     "region": "Calgary",
-    "stop_label": "Rundle Station",
+    "stop_label": "Rundle",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -905,7 +905,7 @@
   {
     "id": 22,
     "region": "Calgary",
-    "stop_label": "Whitehorn Station",
+    "stop_label": "Whitehorn",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -948,7 +948,7 @@
   {
     "id": 23,
     "region": "Calgary",
-    "stop_label": "McKnight Westwinds Station",
+    "stop_label": "McKnight Westwinds",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -991,7 +991,7 @@
   {
     "id": 24,
     "region": "Calgary",
-    "stop_label": "Martindale Station",
+    "stop_label": "Martindale",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -1034,7 +1034,7 @@
   {
     "id": 25,
     "region": "Calgary",
-    "stop_label": "Saddletowne Station",
+    "stop_label": "Saddletowne",
     "status": "Existing",
     "line_label": "Blue Line (202)",
     "technology": "LRT",
@@ -1163,7 +1163,7 @@
   {
     "id": 28,
     "region": "Calgary",
-    "stop_label": "Auburn Bay / Mahogany",
+    "stop_label": "Auburn Bay/Mahogany",
     "status": "Planned",
     "line_label": "Green Line",
     "technology": "LRT",
@@ -1507,7 +1507,7 @@
   {
     "id": 36,
     "region": "Calgary",
-    "stop_label": "Lynnwood / Millican",
+    "stop_label": "Lynnwood/Millican",
     "status": "Construction",
     "line_label": "Green Line",
     "technology": "LRT",
@@ -1636,7 +1636,7 @@
   {
     "id": 39,
     "region": "Calgary",
-    "stop_label": "Ramsay / Inglewood",
+    "stop_label": "Ramsay/Inglewood",
     "status": "Construction",
     "line_label": "Green Line",
     "technology": "LRT",
@@ -2324,7 +2324,7 @@
   {
     "id": 55,
     "region": "Calgary",
-    "stop_label": "Tuscany Station",
+    "stop_label": "Tuscany",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2367,7 +2367,7 @@
   {
     "id": 56,
     "region": "Calgary",
-    "stop_label": "Crowfoot Station",
+    "stop_label": "Crowfoot",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2410,7 +2410,7 @@
   {
     "id": 57,
     "region": "Calgary",
-    "stop_label": "Dalhousie Station",
+    "stop_label": "Dalhousie",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2453,7 +2453,7 @@
   {
     "id": 58,
     "region": "Calgary",
-    "stop_label": "Brentwood Station",
+    "stop_label": "Brentwood",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2496,7 +2496,7 @@
   {
     "id": 59,
     "region": "Calgary",
-    "stop_label": "University Station",
+    "stop_label": "University",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2539,7 +2539,7 @@
   {
     "id": 60,
     "region": "Calgary",
-    "stop_label": "Banff Trail Station",
+    "stop_label": "Banff Trail",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2582,7 +2582,7 @@
   {
     "id": 61,
     "region": "Calgary",
-    "stop_label": "Lions Park Station",
+    "stop_label": "Lions Park",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2625,7 +2625,7 @@
   {
     "id": 62,
     "region": "Calgary",
-    "stop_label": "SAIT/ACAD/Jubilee Station",
+    "stop_label": "SAIT/ACAD/Jubilee",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2668,7 +2668,7 @@
   {
     "id": 63,
     "region": "Calgary",
-    "stop_label": "Sunnyside Station",
+    "stop_label": "Sunnyside",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2711,7 +2711,7 @@
   {
     "id": 64,
     "region": "Calgary",
-    "stop_label": "8th Street SW Station",
+    "stop_label": "8th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2754,7 +2754,7 @@
   {
     "id": 65,
     "region": "Calgary",
-    "stop_label": "7th Street SW Station",
+    "stop_label": "7th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2797,7 +2797,7 @@
   {
     "id": 66,
     "region": "Calgary",
-    "stop_label": "6th Street SW Station",
+    "stop_label": "6th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2840,7 +2840,7 @@
   {
     "id": 67,
     "region": "Calgary",
-    "stop_label": "4th Street SW Station",
+    "stop_label": "4th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2883,7 +2883,7 @@
   {
     "id": 68,
     "region": "Calgary",
-    "stop_label": "3rd Street SW Station",
+    "stop_label": "3rd Street SW",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2926,7 +2926,7 @@
   {
     "id": 69,
     "region": "Calgary",
-    "stop_label": "1st Street SW Station",
+    "stop_label": "1st Street SW",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -2969,7 +2969,7 @@
   {
     "id": 70,
     "region": "Calgary",
-    "stop_label": "Centre Street Station",
+    "stop_label": "Centre Street",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3012,7 +3012,7 @@
   {
     "id": 71,
     "region": "Calgary",
-    "stop_label": "City Hall Station",
+    "stop_label": "City Hall",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3055,7 +3055,7 @@
   {
     "id": 72,
     "region": "Calgary",
-    "stop_label": "Victoria Park/Stampede Station",
+    "stop_label": "Victoria Park/Stampede",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3098,7 +3098,7 @@
   {
     "id": 73,
     "region": "Calgary",
-    "stop_label": "Erlton/Stampede Station",
+    "stop_label": "Erlton/Stampede",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3141,7 +3141,7 @@
   {
     "id": 74,
     "region": "Calgary",
-    "stop_label": "39 Avenue Station",
+    "stop_label": "39 Avenue",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3184,7 +3184,7 @@
   {
     "id": 75,
     "region": "Calgary",
-    "stop_label": "Chinook Station",
+    "stop_label": "Chinook",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3227,7 +3227,7 @@
   {
     "id": 76,
     "region": "Calgary",
-    "stop_label": "Heritage Station",
+    "stop_label": "Heritage",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3270,7 +3270,7 @@
   {
     "id": 77,
     "region": "Calgary",
-    "stop_label": "Southland Station",
+    "stop_label": "Southland",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3313,7 +3313,7 @@
   {
     "id": 78,
     "region": "Calgary",
-    "stop_label": "Anderson Station",
+    "stop_label": "Anderson",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3356,7 +3356,7 @@
   {
     "id": 79,
     "region": "Calgary",
-    "stop_label": "Canyon Meadows Station",
+    "stop_label": "Canyon Meadows",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3399,7 +3399,7 @@
   {
     "id": 80,
     "region": "Calgary",
-    "stop_label": "Fish Creek - Lacombe Station",
+    "stop_label": "Fish Creek - Lacombe",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3442,7 +3442,7 @@
   {
     "id": 81,
     "region": "Calgary",
-    "stop_label": "Shawnessy Station",
+    "stop_label": "Shawnessy",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3485,7 +3485,7 @@
   {
     "id": 82,
     "region": "Calgary",
-    "stop_label": "Somerset-Bridlewood Station",
+    "stop_label": "Somerset-Bridlewood",
     "status": "Existing",
     "line_label": "Red Line (201)",
     "technology": "LRT",
@@ -3528,7 +3528,7 @@
   {
     "id": 83,
     "region": "Edmonton",
-    "stop_label": "Clareview Station",
+    "stop_label": "Clareview",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3571,7 +3571,7 @@
   {
     "id": 84,
     "region": "Edmonton",
-    "stop_label": "Belvedere Station",
+    "stop_label": "Belvedere",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3614,7 +3614,7 @@
   {
     "id": 85,
     "region": "Edmonton",
-    "stop_label": "Coliseum Station",
+    "stop_label": "Coliseum",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3657,7 +3657,7 @@
   {
     "id": 86,
     "region": "Edmonton",
-    "stop_label": "Stadium Station",
+    "stop_label": "Stadium",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3700,7 +3700,7 @@
   {
     "id": 87,
     "region": "Edmonton",
-    "stop_label": "Churchill Station",
+    "stop_label": "Churchill",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3743,7 +3743,7 @@
   {
     "id": 88,
     "region": "Edmonton",
-    "stop_label": "Central Station",
+    "stop_label": "Central",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3786,7 +3786,7 @@
   {
     "id": 89,
     "region": "Edmonton",
-    "stop_label": "Bay Enterprise Square Station",
+    "stop_label": "Bay Enterprise Square",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3829,7 +3829,7 @@
   {
     "id": 90,
     "region": "Edmonton",
-    "stop_label": "Corona Station",
+    "stop_label": "Corona",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3872,7 +3872,7 @@
   {
     "id": 91,
     "region": "Edmonton",
-    "stop_label": "Government Station",
+    "stop_label": "Government",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3915,7 +3915,7 @@
   {
     "id": 92,
     "region": "Edmonton",
-    "stop_label": "University Station",
+    "stop_label": "University",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -3958,7 +3958,7 @@
   {
     "id": 93,
     "region": "Edmonton",
-    "stop_label": "Health Sciences Jubilee Station",
+    "stop_label": "Health Sciences Jubilee",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -4001,7 +4001,7 @@
   {
     "id": 94,
     "region": "Edmonton",
-    "stop_label": "McKernan Belgravia Station",
+    "stop_label": "McKernan Belgravia",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -4044,7 +4044,7 @@
   {
     "id": 95,
     "region": "Edmonton",
-    "stop_label": "South Campus Ft Edmonton Station",
+    "stop_label": "South Campus/Fort Edmonton",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -4087,7 +4087,7 @@
   {
     "id": 96,
     "region": "Edmonton",
-    "stop_label": "Southgate Station",
+    "stop_label": "Southgate",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -4130,7 +4130,7 @@
   {
     "id": 97,
     "region": "Edmonton",
-    "stop_label": "Century Park Station",
+    "stop_label": "Century Park",
     "status": "Existing",
     "line_label": "Capital Line",
     "technology": "LRT",
@@ -4388,7 +4388,7 @@
   {
     "id": 103,
     "region": "Edmonton",
-    "stop_label": "NAIT Blatchford Market Station",
+    "stop_label": "NAIT Blatchford Market",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4431,7 +4431,7 @@
   {
     "id": 104,
     "region": "Edmonton",
-    "stop_label": "Kingsway RAH Station",
+    "stop_label": "Kingsway RAH",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4474,7 +4474,7 @@
   {
     "id": 105,
     "region": "Edmonton",
-    "stop_label": "MacEwan Station",
+    "stop_label": "MacEwan",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4517,7 +4517,7 @@
   {
     "id": 106,
     "region": "Edmonton",
-    "stop_label": "Churchill Station",
+    "stop_label": "Churchill",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4560,7 +4560,7 @@
   {
     "id": 107,
     "region": "Edmonton",
-    "stop_label": "Central Station",
+    "stop_label": "Central",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4603,7 +4603,7 @@
   {
     "id": 108,
     "region": "Edmonton",
-    "stop_label": "Bay Enterprise Square Station",
+    "stop_label": "Bay Enterprise Square",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4646,7 +4646,7 @@
   {
     "id": 109,
     "region": "Edmonton",
-    "stop_label": "Corona Station",
+    "stop_label": "Corona",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4689,7 +4689,7 @@
   {
     "id": 110,
     "region": "Edmonton",
-    "stop_label": "Government Station",
+    "stop_label": "Government",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4732,7 +4732,7 @@
   {
     "id": 111,
     "region": "Edmonton",
-    "stop_label": "University Station",
+    "stop_label": "University",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4775,7 +4775,7 @@
   {
     "id": 112,
     "region": "Edmonton",
-    "stop_label": "Health Sciences Jubilee Station",
+    "stop_label": "Health Sciences Jubilee",
     "status": "Existing",
     "line_label": "Metro Line",
     "technology": "LRT",
@@ -4818,7 +4818,7 @@
   {
     "id": 113,
     "region": "Edmonton",
-    "stop_label": "Mill Woods Stop",
+    "stop_label": "Mill Woods",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -4861,7 +4861,7 @@
   {
     "id": 114,
     "region": "Edmonton",
-    "stop_label": "Grey Nuns Stop",
+    "stop_label": "Grey Nuns",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -4904,7 +4904,7 @@
   {
     "id": 115,
     "region": "Edmonton",
-    "stop_label": "Millbourne/Woodvale Stop",
+    "stop_label": "Millbourne/Woodvale",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -4947,7 +4947,7 @@
   {
     "id": 116,
     "region": "Edmonton",
-    "stop_label": "Davies Station",
+    "stop_label": "Davies",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -4990,7 +4990,7 @@
   {
     "id": 117,
     "region": "Edmonton",
-    "stop_label": "Avonmore Stop",
+    "stop_label": "Avonmore",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5033,7 +5033,7 @@
   {
     "id": 118,
     "region": "Edmonton",
-    "stop_label": "Bonnie Doon Stop",
+    "stop_label": "Bonnie Doon",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5076,7 +5076,7 @@
   {
     "id": 119,
     "region": "Edmonton",
-    "stop_label": "Holyrood Stop",
+    "stop_label": "Holyrood",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5119,7 +5119,7 @@
   {
     "id": 120,
     "region": "Edmonton",
-    "stop_label": "Strathearn Stop",
+    "stop_label": "Strathearn",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5162,7 +5162,7 @@
   {
     "id": 121,
     "region": "Edmonton",
-    "stop_label": "Muttart Stop",
+    "stop_label": "Muttart",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5205,7 +5205,7 @@
   {
     "id": 122,
     "region": "Edmonton",
-    "stop_label": "Quarters Stop",
+    "stop_label": "Quarters",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5248,7 +5248,7 @@
   {
     "id": 123,
     "region": "Edmonton",
-    "stop_label": "Churchill Station",
+    "stop_label": "Churchill",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5291,7 +5291,7 @@
   {
     "id": 124,
     "region": "Edmonton",
-    "stop_label": "102 Street Stop",
+    "stop_label": "102 Street",
     "status": "Existing",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5334,7 +5334,7 @@
   {
     "id": 125,
     "region": "Edmonton",
-    "stop_label": "Alex Decoteau Stop",
+    "stop_label": "Alex Decoteau",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5377,7 +5377,7 @@
   {
     "id": 126,
     "region": "Edmonton",
-    "stop_label": "NorQuest Stop",
+    "stop_label": "NorQuest",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5420,7 +5420,7 @@
   {
     "id": 127,
     "region": "Edmonton",
-    "stop_label": "MacEwan Arts/112 Street Stop",
+    "stop_label": "MacEwan Arts/112 Street",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5463,7 +5463,7 @@
   {
     "id": 128,
     "region": "Edmonton",
-    "stop_label": "Wîhkwêntôwin/116 Street Stop",
+    "stop_label": "Wîhkwêntôwin/116 Street",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5506,7 +5506,7 @@
   {
     "id": 129,
     "region": "Edmonton",
-    "stop_label": "Brewery/120 Street Stop",
+    "stop_label": "Brewery/120 Street",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5549,7 +5549,7 @@
   {
     "id": 130,
     "region": "Edmonton",
-    "stop_label": "124 Street Stop",
+    "stop_label": "124 Street",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5592,7 +5592,7 @@
   {
     "id": 131,
     "region": "Edmonton",
-    "stop_label": "Glenora Stop",
+    "stop_label": "Glenora",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5635,7 +5635,7 @@
   {
     "id": 132,
     "region": "Edmonton",
-    "stop_label": "Grovenor/142 Street Stop",
+    "stop_label": "Grovenor/142 Street",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5678,7 +5678,7 @@
   {
     "id": 133,
     "region": "Edmonton",
-    "stop_label": "Stony Plain Road/149 Street Stop",
+    "stop_label": "Stony Plain Road/149 Street",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5721,7 +5721,7 @@
   {
     "id": 134,
     "region": "Edmonton",
-    "stop_label": "Jasper Place Stop",
+    "stop_label": "Jasper Place",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5764,7 +5764,7 @@
   {
     "id": 135,
     "region": "Edmonton",
-    "stop_label": "Glenwood/Sherwood Stop",
+    "stop_label": "Glenwood/Sherwood",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5807,7 +5807,7 @@
   {
     "id": 136,
     "region": "Edmonton",
-    "stop_label": "Meadowlark Stop",
+    "stop_label": "Meadowlark",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5850,7 +5850,7 @@
   {
     "id": 137,
     "region": "Edmonton",
-    "stop_label": "Misericordia Station",
+    "stop_label": "Misericordia",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5893,7 +5893,7 @@
   {
     "id": 138,
     "region": "Edmonton",
-    "stop_label": "West Edmonton Mall Station",
+    "stop_label": "West Edmonton Mall",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5936,7 +5936,7 @@
   {
     "id": 139,
     "region": "Edmonton",
-    "stop_label": "Aldergrove/Belmead Stop",
+    "stop_label": "Aldergrove/Belmead",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -5979,7 +5979,7 @@
   {
     "id": 140,
     "region": "Edmonton",
-    "stop_label": "Lewis Farms Stop",
+    "stop_label": "Lewis Farms",
     "status": "Construction",
     "line_label": "Valley Line",
     "technology": "LRT",
@@ -12730,7 +12730,7 @@
   {
     "id": 297,
     "region": "Greater Golden Horsehoe",
-    "stop_label": "Highway 27 / Woodbine",
+    "stop_label": "Highway 27/Woodbine",
     "status": "Planned",
     "line_label": "Kitchener",
     "technology": "Commuter",
@@ -18664,7 +18664,7 @@
   {
     "id": 435,
     "region": "Greater Golden Horsehoe",
-    "stop_label": "King / Bathurst",
+    "stop_label": "King/Bathurst",
     "status": "Construction",
     "line_label": "Ontario Line",
     "technology": "Subway",
@@ -18707,7 +18707,7 @@
   {
     "id": 436,
     "region": "Greater Golden Horsehoe",
-    "stop_label": "Queen / Spadina",
+    "stop_label": "Queen/Spadina",
     "status": "Construction",
     "line_label": "Ontario Line",
     "technology": "Subway",
@@ -21975,7 +21975,7 @@
   {
     "id": 512,
     "region": "Metro Vancouver",
-    "stop_label": "Green Timbers Station",
+    "stop_label": "Green Timbers",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -22018,7 +22018,7 @@
   {
     "id": 513,
     "region": "Metro Vancouver",
-    "stop_label": "152 St Station",
+    "stop_label": "152 St",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -22061,7 +22061,7 @@
   {
     "id": 514,
     "region": "Metro Vancouver",
-    "stop_label": "Fleetwood Station",
+    "stop_label": "Fleetwood",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -22104,7 +22104,7 @@
   {
     "id": 515,
     "region": "Metro Vancouver",
-    "stop_label": "Bakerview-166 St Station",
+    "stop_label": "Bakerview-166 St",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -22147,7 +22147,7 @@
   {
     "id": 516,
     "region": "Metro Vancouver",
-    "stop_label": "Hillcrest-184 St Station",
+    "stop_label": "Hillcrest-184 St",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -22190,7 +22190,7 @@
   {
     "id": 517,
     "region": "Metro Vancouver",
-    "stop_label": "Clayton Station",
+    "stop_label": "Clayton",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -22233,7 +22233,7 @@
   {
     "id": 518,
     "region": "Metro Vancouver",
-    "stop_label": "Willowbrook Station",
+    "stop_label": "Willowbrook",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -22276,7 +22276,7 @@
   {
     "id": 519,
     "region": "Metro Vancouver",
-    "stop_label": "Langley City Centre Station",
+    "stop_label": "Langley City Centre",
     "status": "Construction",
     "line_label": "Expo Line",
     "technology": "Subway",
@@ -23652,7 +23652,7 @@
   {
     "id": 551,
     "region": "Montreal",
-    "stop_label": "Gare Candiac",
+    "stop_label": "Candiac",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23695,7 +23695,7 @@
   {
     "id": 552,
     "region": "Montreal",
-    "stop_label": "Gare Delson",
+    "stop_label": "Delson",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23738,7 +23738,7 @@
   {
     "id": 553,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Constant",
+    "stop_label": "Saint-Constant",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23781,7 +23781,7 @@
   {
     "id": 554,
     "region": "Montreal",
-    "stop_label": "Gare Sainte-Catherine",
+    "stop_label": "Sainte-Catherine",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23824,7 +23824,7 @@
   {
     "id": 555,
     "region": "Montreal",
-    "stop_label": "Gare LaSalle",
+    "stop_label": "Lasalle",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23867,7 +23867,7 @@
   {
     "id": 556,
     "region": "Montreal",
-    "stop_label": "Gare Du Canal",
+    "stop_label": "Du Canal",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23910,7 +23910,7 @@
   {
     "id": 557,
     "region": "Montreal",
-    "stop_label": "Gare Montréal-Ouest",
+    "stop_label": "Montréal-Ouest",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23953,7 +23953,7 @@
   {
     "id": 558,
     "region": "Montreal",
-    "stop_label": "Gare Vendôme",
+    "stop_label": "Vendôme",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -23996,7 +23996,7 @@
   {
     "id": 559,
     "region": "Montreal",
-    "stop_label": "Gare Lucien-L'Allier",
+    "stop_label": "Lucien-L'Allier",
     "status": "Existing",
     "line_label": "Candiac",
     "technology": "Commuter",
@@ -24039,7 +24039,7 @@
   {
     "id": 560,
     "region": "Montreal",
-    "stop_label": "Station Angrignon",
+    "stop_label": "Angrignon",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24082,7 +24082,7 @@
   {
     "id": 561,
     "region": "Montreal",
-    "stop_label": "Station Monk",
+    "stop_label": "Monk",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24125,7 +24125,7 @@
   {
     "id": 562,
     "region": "Montreal",
-    "stop_label": "Station Jolicoeur",
+    "stop_label": "Jolicoeur",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24168,7 +24168,7 @@
   {
     "id": 563,
     "region": "Montreal",
-    "stop_label": "Station Verdun",
+    "stop_label": "Verdun",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24211,7 +24211,7 @@
   {
     "id": 564,
     "region": "Montreal",
-    "stop_label": "Station De l'Église",
+    "stop_label": "De l'Église",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24254,7 +24254,7 @@
   {
     "id": 565,
     "region": "Montreal",
-    "stop_label": "Station LaSalle",
+    "stop_label": "LaSalle",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24297,7 +24297,7 @@
   {
     "id": 566,
     "region": "Montreal",
-    "stop_label": "Station Charlevoix",
+    "stop_label": "Charlevoix",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24340,7 +24340,7 @@
   {
     "id": 567,
     "region": "Montreal",
-    "stop_label": "Station Lionel-Groulx",
+    "stop_label": "Lionel-Groulx",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24383,7 +24383,7 @@
   {
     "id": 568,
     "region": "Montreal",
-    "stop_label": "Station Atwater",
+    "stop_label": "Atwater",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24426,7 +24426,7 @@
   {
     "id": 569,
     "region": "Montreal",
-    "stop_label": "Station Guy-Concordia",
+    "stop_label": "Guy-Concordia",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24469,7 +24469,7 @@
   {
     "id": 570,
     "region": "Montreal",
-    "stop_label": "Station Peel",
+    "stop_label": "Peel",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24512,7 +24512,7 @@
   {
     "id": 571,
     "region": "Montreal",
-    "stop_label": "Station McGill",
+    "stop_label": "McGill",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24555,7 +24555,7 @@
   {
     "id": 572,
     "region": "Montreal",
-    "stop_label": "Station Place-des-Arts",
+    "stop_label": "Place-des-Arts",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24598,7 +24598,7 @@
   {
     "id": 573,
     "region": "Montreal",
-    "stop_label": "Station Saint-Laurent",
+    "stop_label": "Saint-Laurent",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24641,7 +24641,7 @@
   {
     "id": 574,
     "region": "Montreal",
-    "stop_label": "Station Berri-UQAM",
+    "stop_label": "Berri-UQAM",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24684,7 +24684,7 @@
   {
     "id": 575,
     "region": "Montreal",
-    "stop_label": "Station Beaudry",
+    "stop_label": "Beaudry",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24727,7 +24727,7 @@
   {
     "id": 576,
     "region": "Montreal",
-    "stop_label": "Station Papineau",
+    "stop_label": "Papineau",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24770,7 +24770,7 @@
   {
     "id": 577,
     "region": "Montreal",
-    "stop_label": "Station Frontenac",
+    "stop_label": "Frontenac",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24813,7 +24813,7 @@
   {
     "id": 578,
     "region": "Montreal",
-    "stop_label": "Station Préfontaine",
+    "stop_label": "Préfontaine",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24856,7 +24856,7 @@
   {
     "id": 579,
     "region": "Montreal",
-    "stop_label": "Station Joliette",
+    "stop_label": "Joliette",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24899,7 +24899,7 @@
   {
     "id": 580,
     "region": "Montreal",
-    "stop_label": "Station Pie-IX",
+    "stop_label": "Pie-IX",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24942,7 +24942,7 @@
   {
     "id": 581,
     "region": "Montreal",
-    "stop_label": "Station Viau",
+    "stop_label": "Viau",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -24985,7 +24985,7 @@
   {
     "id": 582,
     "region": "Montreal",
-    "stop_label": "Station Assomption",
+    "stop_label": "Assomption",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -25028,7 +25028,7 @@
   {
     "id": 583,
     "region": "Montreal",
-    "stop_label": "Station Cadillac",
+    "stop_label": "Cadillac",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -25071,7 +25071,7 @@
   {
     "id": 584,
     "region": "Montreal",
-    "stop_label": "Station Langelier",
+    "stop_label": "Langelier",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -25114,7 +25114,7 @@
   {
     "id": 585,
     "region": "Montreal",
-    "stop_label": "Station Radisson",
+    "stop_label": "Radisson",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -25157,7 +25157,7 @@
   {
     "id": 586,
     "region": "Montreal",
-    "stop_label": "Station Honoré-Beaugrand",
+    "stop_label": "Honoré-Beaugrand",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
     "technology": "Subway",
@@ -25200,7 +25200,7 @@
   {
     "id": 587,
     "region": "Montreal",
-    "stop_label": "Station Côte-Vertu",
+    "stop_label": "Côte-Vertu",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25243,7 +25243,7 @@
   {
     "id": 588,
     "region": "Montreal",
-    "stop_label": "Station Du Collège",
+    "stop_label": "Du Collège",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25286,7 +25286,7 @@
   {
     "id": 589,
     "region": "Montreal",
-    "stop_label": "Station De la Savane",
+    "stop_label": "De la Savane",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25329,7 +25329,7 @@
   {
     "id": 590,
     "region": "Montreal",
-    "stop_label": "Station Namur",
+    "stop_label": "Namur",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25372,7 +25372,7 @@
   {
     "id": 591,
     "region": "Montreal",
-    "stop_label": "Station Plamondon",
+    "stop_label": "Plamondon",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25415,7 +25415,7 @@
   {
     "id": 592,
     "region": "Montreal",
-    "stop_label": "Station Côte-Sainte-Catherine",
+    "stop_label": "Côte-Sainte-Catherine",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25458,7 +25458,7 @@
   {
     "id": 593,
     "region": "Montreal",
-    "stop_label": "Station Snowdon",
+    "stop_label": "Snowdon",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25501,7 +25501,7 @@
   {
     "id": 594,
     "region": "Montreal",
-    "stop_label": "Station Villa-Maria",
+    "stop_label": "Villa-Maria",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25544,7 +25544,7 @@
   {
     "id": 595,
     "region": "Montreal",
-    "stop_label": "Station Vendôme",
+    "stop_label": "Vendôme",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25587,7 +25587,7 @@
   {
     "id": 596,
     "region": "Montreal",
-    "stop_label": "Station Place-Saint-Henri",
+    "stop_label": "Place-Saint-Henri",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25630,7 +25630,7 @@
   {
     "id": 597,
     "region": "Montreal",
-    "stop_label": "Station Lionel-Groulx",
+    "stop_label": "Lionel-Groulx",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25673,7 +25673,7 @@
   {
     "id": 598,
     "region": "Montreal",
-    "stop_label": "Station Georges-Vanier",
+    "stop_label": "Georges-Vanier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25716,7 +25716,7 @@
   {
     "id": 599,
     "region": "Montreal",
-    "stop_label": "Station Lucien-L'Allier",
+    "stop_label": "Lucien-L'Allier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25759,7 +25759,7 @@
   {
     "id": 600,
     "region": "Montreal",
-    "stop_label": "Station Bonaventure",
+    "stop_label": "Bonaventure",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25802,7 +25802,7 @@
   {
     "id": 601,
     "region": "Montreal",
-    "stop_label": "Station Square-Victoria–OACI",
+    "stop_label": "Square-Victoria–OACI",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25845,7 +25845,7 @@
   {
     "id": 602,
     "region": "Montreal",
-    "stop_label": "Station Place-d'Armes",
+    "stop_label": "Place-d'Armes",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25888,7 +25888,7 @@
   {
     "id": 603,
     "region": "Montreal",
-    "stop_label": "Station Champ-de-Mars",
+    "stop_label": "Champ-de-Mars",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25931,7 +25931,7 @@
   {
     "id": 604,
     "region": "Montreal",
-    "stop_label": "Station Berri-UQAM",
+    "stop_label": "Berri-UQAM",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -25974,7 +25974,7 @@
   {
     "id": 605,
     "region": "Montreal",
-    "stop_label": "Station Sherbrooke",
+    "stop_label": "Sherbrooke",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26017,7 +26017,7 @@
   {
     "id": 606,
     "region": "Montreal",
-    "stop_label": "Station Mont-Royal",
+    "stop_label": "Mont-Royal",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26060,7 +26060,7 @@
   {
     "id": 607,
     "region": "Montreal",
-    "stop_label": "Station Laurier",
+    "stop_label": "Laurier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26103,7 +26103,7 @@
   {
     "id": 608,
     "region": "Montreal",
-    "stop_label": "Station Rosemont",
+    "stop_label": "Rosemont",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26146,7 +26146,7 @@
   {
     "id": 609,
     "region": "Montreal",
-    "stop_label": "Station Beaubien",
+    "stop_label": "Beaubien",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26189,7 +26189,7 @@
   {
     "id": 610,
     "region": "Montreal",
-    "stop_label": "Station Jean-Talon",
+    "stop_label": "Jean-Talon",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26232,7 +26232,7 @@
   {
     "id": 611,
     "region": "Montreal",
-    "stop_label": "Station Jarry",
+    "stop_label": "Jarry",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26275,7 +26275,7 @@
   {
     "id": 612,
     "region": "Montreal",
-    "stop_label": "Station Crémazie",
+    "stop_label": "Crémazie",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26318,7 +26318,7 @@
   {
     "id": 613,
     "region": "Montreal",
-    "stop_label": "Station Sauvé",
+    "stop_label": "Sauvé",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26361,7 +26361,7 @@
   {
     "id": 614,
     "region": "Montreal",
-    "stop_label": "Station Henri-Bourassa",
+    "stop_label": "Henri-Bourassa",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26404,7 +26404,7 @@
   {
     "id": 615,
     "region": "Montreal",
-    "stop_label": "Station Cartier -Zone B",
+    "stop_label": "Cartier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26447,7 +26447,7 @@
   {
     "id": 616,
     "region": "Montreal",
-    "stop_label": "Station De la Concorde -Zone B",
+    "stop_label": "De la Concorde",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26490,7 +26490,7 @@
   {
     "id": 617,
     "region": "Montreal",
-    "stop_label": "Station Montmorency -Zone B",
+    "stop_label": "Montmorency",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
     "technology": "Subway",
@@ -26533,7 +26533,7 @@
   {
     "id": 618,
     "region": "Montreal",
-    "stop_label": "Station Longueuil-Université de Sherbrooke -Zone B",
+    "stop_label": "Longueuil-Université de Sherbrooke",
     "status": "Existing",
     "line_label": "Ligne 4 - Jaune",
     "technology": "Subway",
@@ -26576,7 +26576,7 @@
   {
     "id": 619,
     "region": "Montreal",
-    "stop_label": "Station Jean-Drapeau",
+    "stop_label": "Jean-Drapeau",
     "status": "Existing",
     "line_label": "Ligne 4 - Jaune",
     "technology": "Subway",
@@ -26619,7 +26619,7 @@
   {
     "id": 620,
     "region": "Montreal",
-    "stop_label": "Station Berri-UQAM",
+    "stop_label": "Berri-UQAM",
     "status": "Existing",
     "line_label": "Ligne 4 - Jaune",
     "technology": "Subway",
@@ -26662,7 +26662,7 @@
   {
     "id": 621,
     "region": "Montreal",
-    "stop_label": "Station Snowdon",
+    "stop_label": "Snowdon",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -26705,7 +26705,7 @@
   {
     "id": 622,
     "region": "Montreal",
-    "stop_label": "Station Côte-des-Neiges",
+    "stop_label": "Côte-des-Neiges",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -26748,7 +26748,7 @@
   {
     "id": 623,
     "region": "Montreal",
-    "stop_label": "Station Université-de-Montréal",
+    "stop_label": "Université-de-Montréal",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -26791,7 +26791,7 @@
   {
     "id": 624,
     "region": "Montreal",
-    "stop_label": "Station Édouard-Montpetit",
+    "stop_label": "Édouard-Montpetit",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -26834,7 +26834,7 @@
   {
     "id": 625,
     "region": "Montreal",
-    "stop_label": "Station Outremont",
+    "stop_label": "Outremont",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -26877,7 +26877,7 @@
   {
     "id": 626,
     "region": "Montreal",
-    "stop_label": "Station Acadie",
+    "stop_label": "Acadie",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -26920,7 +26920,7 @@
   {
     "id": 627,
     "region": "Montreal",
-    "stop_label": "Station Parc",
+    "stop_label": "Parc",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -26963,7 +26963,7 @@
   {
     "id": 628,
     "region": "Montreal",
-    "stop_label": "Station Jean-Talon",
+    "stop_label": "Jean-Talon",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -27006,7 +27006,7 @@
   {
     "id": 629,
     "region": "Montreal",
-    "stop_label": "Station Fabre",
+    "stop_label": "Fabre",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -27049,7 +27049,7 @@
   {
     "id": 630,
     "region": "Montreal",
-    "stop_label": "Station D'Iberville",
+    "stop_label": "D'Iberville",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -27092,7 +27092,7 @@
   {
     "id": 631,
     "region": "Montreal",
-    "stop_label": "Station De Castelnau",
+    "stop_label": "De Castelnau",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -27135,7 +27135,7 @@
   {
     "id": 632,
     "region": "Montreal",
-    "stop_label": "Station Saint-Michel",
+    "stop_label": "Saint-Michel",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
     "technology": "Subway",
@@ -27393,7 +27393,7 @@
   {
     "id": 638,
     "region": "Montreal",
-    "stop_label": "Gare Mascouche",
+    "stop_label": "Mascouche",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27436,7 +27436,7 @@
   {
     "id": 639,
     "region": "Montreal",
-    "stop_label": "Gare Terrebonne",
+    "stop_label": "Terrebonne",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27479,7 +27479,7 @@
   {
     "id": 640,
     "region": "Montreal",
-    "stop_label": "Gare Repentigny",
+    "stop_label": "Repentigny",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27522,7 +27522,7 @@
   {
     "id": 641,
     "region": "Montreal",
-    "stop_label": "Gare Pointe-aux-Trembles",
+    "stop_label": "Pointe-aux-Trembles",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27565,7 +27565,7 @@
   {
     "id": 642,
     "region": "Montreal",
-    "stop_label": "Gare Rivière-des-Prairies",
+    "stop_label": "Rivière-des-Prairies",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27608,7 +27608,7 @@
   {
     "id": 643,
     "region": "Montreal",
-    "stop_label": "Gare Anjou",
+    "stop_label": "Anjou",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27651,7 +27651,7 @@
   {
     "id": 644,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Léonard–Montréal-Nord",
+    "stop_label": "Saint-Léonard–Montréal-Nord",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27694,7 +27694,7 @@
   {
     "id": 645,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Michel–Montréal-Nord",
+    "stop_label": "Saint-Michel–Montréal-Nord",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27737,7 +27737,7 @@
   {
     "id": 646,
     "region": "Montreal",
-    "stop_label": "Gare Sauvé",
+    "stop_label": "Sauvé",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27780,7 +27780,7 @@
   {
     "id": 647,
     "region": "Montreal",
-    "stop_label": "Gare Ahuntsic",
+    "stop_label": "Ahuntsic",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27823,7 +27823,7 @@
   {
     "id": 648,
     "region": "Montreal",
-    "stop_label": "Gare Centrale",
+    "stop_label": "Centrale",
     "status": "Existing",
     "line_label": "Mascouche",
     "technology": "Commuter",
@@ -27866,7 +27866,7 @@
   {
     "id": 649,
     "region": "Montreal",
-    "stop_label": "Gare Mont-Saint-Hilaire",
+    "stop_label": "Mont-Saint-Hilaire",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
     "technology": "Commuter",
@@ -27909,7 +27909,7 @@
   {
     "id": 650,
     "region": "Montreal",
-    "stop_label": "Gare McMasterville",
+    "stop_label": "McMasterville",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
     "technology": "Commuter",
@@ -27952,7 +27952,7 @@
   {
     "id": 651,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Basile-le-Grand",
+    "stop_label": "Saint-Basile-le-Grand",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
     "technology": "Commuter",
@@ -27995,7 +27995,7 @@
   {
     "id": 652,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Bruno",
+    "stop_label": "Saint-Bruno",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
     "technology": "Commuter",
@@ -28038,7 +28038,7 @@
   {
     "id": 653,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Hubert",
+    "stop_label": "Saint-Hubert",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
     "technology": "Commuter",
@@ -28081,7 +28081,7 @@
   {
     "id": 654,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Lambert",
+    "stop_label": "Saint-Lambert",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
     "technology": "Commuter",
@@ -28124,7 +28124,7 @@
   {
     "id": 655,
     "region": "Montreal",
-    "stop_label": "Gare Centrale",
+    "stop_label": "Centrale",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
     "technology": "Commuter",
@@ -28382,7 +28382,7 @@
   {
     "id": 661,
     "region": "Montreal",
-    "stop_label": "Gare Centrale",
+    "stop_label": "Centrale",
     "status": "Existing",
     "line_label": "REM",
     "technology": "LRT",
@@ -29285,7 +29285,7 @@
   {
     "id": 682,
     "region": "Montreal",
-    "stop_label": "Gare Saint-Jérôme",
+    "stop_label": "Saint-Jérôme",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29328,7 +29328,7 @@
   {
     "id": 683,
     "region": "Montreal",
-    "stop_label": "Gare Mirabel",
+    "stop_label": "Mirabel",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29371,7 +29371,7 @@
   {
     "id": 684,
     "region": "Montreal",
-    "stop_label": "Gare Blainville",
+    "stop_label": "Blainville",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29414,7 +29414,7 @@
   {
     "id": 685,
     "region": "Montreal",
-    "stop_label": "Gare Sainte-Thérèse",
+    "stop_label": "Sainte-Thérèse",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29457,7 +29457,7 @@
   {
     "id": 686,
     "region": "Montreal",
-    "stop_label": "Gare Rosemère",
+    "stop_label": "Rosemère",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29500,7 +29500,7 @@
   {
     "id": 687,
     "region": "Montreal",
-    "stop_label": "Gare Sainte-Rose",
+    "stop_label": "Sainte-Rose",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29543,7 +29543,7 @@
   {
     "id": 688,
     "region": "Montreal",
-    "stop_label": "Gare Vimont",
+    "stop_label": "Vimont",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29586,7 +29586,7 @@
   {
     "id": 689,
     "region": "Montreal",
-    "stop_label": "Gare De la Concorde",
+    "stop_label": "De la Concorde",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29629,7 +29629,7 @@
   {
     "id": 690,
     "region": "Montreal",
-    "stop_label": "Gare Bois-de-Boulogne",
+    "stop_label": "Bois-de-Boulogne",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29672,7 +29672,7 @@
   {
     "id": 691,
     "region": "Montreal",
-    "stop_label": "Gare Chabanel",
+    "stop_label": "Chabanel",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29715,7 +29715,7 @@
   {
     "id": 692,
     "region": "Montreal",
-    "stop_label": "Gare Parc",
+    "stop_label": "Parc",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29758,7 +29758,7 @@
   {
     "id": 693,
     "region": "Montreal",
-    "stop_label": "Gare Montréal-Ouest",
+    "stop_label": "Montréal-Ouest",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29801,7 +29801,7 @@
   {
     "id": 694,
     "region": "Montreal",
-    "stop_label": "Gare Vendôme",
+    "stop_label": "Vendôme",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29844,7 +29844,7 @@
   {
     "id": 695,
     "region": "Montreal",
-    "stop_label": "Gare Lucien-L'Allier",
+    "stop_label": "Lucien-L'Allier",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
     "technology": "Commuter",
@@ -29887,7 +29887,7 @@
   {
     "id": 696,
     "region": "Montreal",
-    "stop_label": "Gare Hudson",
+    "stop_label": "Hudson",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -29930,7 +29930,7 @@
   {
     "id": 697,
     "region": "Montreal",
-    "stop_label": "Gare Vaudreuil",
+    "stop_label": "Vaudreuil",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -29973,7 +29973,7 @@
   {
     "id": 698,
     "region": "Montreal",
-    "stop_label": "Gare Dorion",
+    "stop_label": "Dorion",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30016,7 +30016,7 @@
   {
     "id": 699,
     "region": "Montreal",
-    "stop_label": "Gare Pincourt-Terrasse-Vaudreuil",
+    "stop_label": "Pincourt-Terrasse-Vaudreuil",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30059,7 +30059,7 @@
   {
     "id": 700,
     "region": "Montreal",
-    "stop_label": "Gare Île-Perrot",
+    "stop_label": "Île-Perrot",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30102,7 +30102,7 @@
   {
     "id": 701,
     "region": "Montreal",
-    "stop_label": "Gare Sainte-Anne-de-Bellevue",
+    "stop_label": "Sainte-Anne-de-Bellevue",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30145,7 +30145,7 @@
   {
     "id": 702,
     "region": "Montreal",
-    "stop_label": "Gare Baie-d'Urfé",
+    "stop_label": "Baie-d'Urfé",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30188,7 +30188,7 @@
   {
     "id": 703,
     "region": "Montreal",
-    "stop_label": "Gare Beaurepaire",
+    "stop_label": "Beaurepaire",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30231,7 +30231,7 @@
   {
     "id": 704,
     "region": "Montreal",
-    "stop_label": "Gare Beaconsfield",
+    "stop_label": "Beaconsfield",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30274,7 +30274,7 @@
   {
     "id": 705,
     "region": "Montreal",
-    "stop_label": "Gare Cedar Park",
+    "stop_label": "Cedar Park",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30317,7 +30317,7 @@
   {
     "id": 706,
     "region": "Montreal",
-    "stop_label": "Gare Pointe-Claire",
+    "stop_label": "Pointe-Claire",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30360,7 +30360,7 @@
   {
     "id": 707,
     "region": "Montreal",
-    "stop_label": "Gare Valois",
+    "stop_label": "Valois",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30403,7 +30403,7 @@
   {
     "id": 708,
     "region": "Montreal",
-    "stop_label": "Gare Pine Beach",
+    "stop_label": "Pine Beach",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30446,7 +30446,7 @@
   {
     "id": 709,
     "region": "Montreal",
-    "stop_label": "Gare Dorval",
+    "stop_label": "Dorval",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30489,7 +30489,7 @@
   {
     "id": 710,
     "region": "Montreal",
-    "stop_label": "Gare Lachine",
+    "stop_label": "Lachine",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30532,7 +30532,7 @@
   {
     "id": 711,
     "region": "Montreal",
-    "stop_label": "Gare Lucien-L'Allier",
+    "stop_label": "Lucien-L'Allier",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30575,7 +30575,7 @@
   {
     "id": 712,
     "region": "Montreal",
-    "stop_label": "Gare Montréal-Ouest",
+    "stop_label": "Montréal-Ouest",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -30618,7 +30618,7 @@
   {
     "id": 713,
     "region": "Montreal",
-    "stop_label": "Gare Vendôme",
+    "stop_label": "Vendôme",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
     "technology": "Commuter",
@@ -32467,7 +32467,7 @@
   {
     "id": 756,
     "region": "Ottawa-Gatineau",
-    "stop_label": "Sherbourne (Ottawa)",
+    "stop_label": "Sherbourne",
     "status": "Construction",
     "line_label": "Line 3",
     "technology": "LRT",
@@ -33843,7 +33843,7 @@
   {
     "id": 788,
     "region": "Québec",
-    "stop_label": "Le Gendre",
+    "stop_label": "Pôle Le Gendre",
     "status": "Planned",
     "line_label": "Tramway de Québec",
     "technology": "LRT",
@@ -34144,7 +34144,7 @@
   {
     "id": 795,
     "region": "Québec",
-    "stop_label": "de Sainte-Foy",
+    "stop_label": "Pôle de Sainte-Foy",
     "status": "Planned",
     "line_label": "Tramway de Québec",
     "technology": "LRT",
@@ -34273,7 +34273,7 @@
   {
     "id": 798,
     "region": "Québec",
-    "stop_label": "de l'Université Laval",
+    "stop_label": "Pôle de l'Université Laval",
     "status": "Planned",
     "line_label": "Tramway de Québec",
     "technology": "LRT",
@@ -34789,7 +34789,7 @@
   {
     "id": 810,
     "region": "Québec",
-    "stop_label": "de Saint-Roch",
+    "stop_label": "Pôle de Saint-Roch",
     "status": "Planned",
     "line_label": "Tramway de Québec",
     "technology": "LRT",
@@ -34918,7 +34918,7 @@
   {
     "id": 813,
     "region": "Québec",
-    "stop_label": "Hôpital l'Enfant-Jésus",
+    "stop_label": "Hôpital de l'Enfant-Jésus",
     "status": "Planned",
     "line_label": "Tramway de Québec",
     "technology": "LRT",
@@ -35047,7 +35047,7 @@
   {
     "id": 816,
     "region": "Québec",
-    "stop_label": "D'Estimauville",
+    "stop_label": "Pôle D'Estimauville",
     "status": "Planned",
     "line_label": "Tramway de Québec",
     "technology": "LRT",
