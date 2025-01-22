@@ -330,14 +330,7 @@
 			'mouseenter',
 			[
 				'transit-stations',
-				'vancouver-lines',
-				'edmonton-lines',
-				'calgary-lines',
-				'quebec-city-line',
-				'montreal-lines',
-				'ottawa-lines',
-				'waterloo-lines',
-				'toronto-lines'
+				'transit-lines'
 			],
 			() => {
 				map.getCanvas().style.cursor = 'pointer';
@@ -350,19 +343,14 @@
 			'mouseleave',
 			[
 				'transit-stations',
-				'vancouver-lines',
-				'edmonton-lines',
-				'calgary-lines',
-				'quebec-city-line',
-				'montreal-lines',
-				'ottawa-lines',
-				'waterloo-lines',
-				'toronto-lines'
+				'transit-lines',
 			],
 			() => {
 				map.getCanvas().style.cursor = '';
 			}
 		);
+
+		
 	});
 
 	function applyFilters() {
