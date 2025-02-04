@@ -6,7 +6,7 @@
 	import { BarChart, ColumnChart } from '@onsvisual/svelte-charts';
 	import { Tabs } from 'bits-ui';
 	import Metric from '../lib/ui/Metric.svelte';
-	import stationData from '../lib/data/stations.json';
+	//import stationData from '../lib/data/stations.json';
 
 	import Footer from '../lib/Footer.svelte';
 
@@ -300,9 +300,7 @@
 				map.setFilter('civic-infra', ['within', circlePolygon]);
 				map.setFilter('business', ['within', circlePolygon]);
 
-
 				//map.setFilter('greenspace', ['within', circlePolygon]);
-
 			});
 
 			// Event listener for clicks on the map outside of transit-stations
@@ -319,38 +317,77 @@
 
 					// Reset the flag
 					circleDrawn = false;
-					
 
 					stationSelected = false;
 				}
 			});
 		});
 
-		map.on(
-			'mouseenter',
-			[
-				'transit-stations',
-				'transit-lines'
-			],
-			() => {
-				map.getCanvas().style.cursor = 'pointer';
-			}
-		);
+		// Create the popup instance
+		const popup = new mapboxgl.Popup({
+			closeButton: false,
+			closeOnClick: false
+		});
 
-		// Change the cursor back to a pointer
-		// when it leaves the states layer.
-		map.on(
-			'mouseleave',
-			[
-				'transit-stations',
-				'transit-lines',
-			],
-			() => {
-				map.getCanvas().style.cursor = '';
-			}
-		);
+		popup.addClassName('station-popup');
 
-		
+		const popup2 = new mapboxgl.Popup({
+			closeButton: false,
+			closeOnClick: false
+		});
+
+		popup.addClassName('line-popup');
+
+		map.on('mouseenter', ['transit-stations', 'transit-lines'], () => {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+
+		map.on('mousemove', 'transit-stations', (e) => {
+			if (e.features.length > 0) {
+				const coordinates = e.lngLat;
+				const name = e.features[0].properties.stop_label;
+
+				popup
+					.setLngLat(coordinates)
+					.setHTML(
+						`
+                <span class="label-name">${name}</span>
+            `
+					)
+					.addTo(map);
+			}
+		});
+
+		// Handle line popups
+		// map.on('mousemove', 'transit-lines', (e) => {
+		// 	if (e.features.length > 0) {
+		// 		const coordinates = e.lngLat;
+		// 		const name = e.features[0].properties.name;
+
+		// 		popup2
+		// 			.setLngLat(coordinates)
+		// 			.setHTML(
+		// 				`
+        //         <span class="label-name">${name}</span>
+        //     `
+		// 			)
+		// 			.addTo(map);
+		// 	}
+		// });
+
+		// Remove popups when leaving features
+		map.on('mouseleave', 'transit-stations', () => {
+			popup.remove();
+		});
+
+		map.on('mouseleave', 'transit-lines', () => {
+			popup2.remove();
+		});
+
+		// Reset cursor
+		map.on('mouseleave', ['transit-stations', 'transit-lines'], () => {
+			map.getCanvas().style.cursor = '';
+		});
 	});
 
 	function applyFilters() {
@@ -406,9 +443,6 @@
 		map.setPaintProperty('business', 'circle-opacity', 0);
 		map.setPaintProperty('business', 'circle-stroke-opacity', 0);
 
-
-		
-
 		switch (selectedTab) {
 			case 'demographics':
 				break;
@@ -417,9 +451,9 @@
 				break;
 			case 'built-form':
 				map.flyTo({
-						center: coordinates,
-						zoom: 14.5, // Adjust the zoom level as needed
-						duration: 1000 // Animation duration in milliseconds
+					center: coordinates,
+					zoom: 14.5, // Adjust the zoom level as needed
+					duration: 1000 // Animation duration in milliseconds
 				});
 
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
@@ -452,6 +486,8 @@
 		href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
 		type="text/css"
 	/>
+	<link rel="preconnect" href="https://rsms.me/">
+	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </svelte:head>
 
 <div class="hero">
