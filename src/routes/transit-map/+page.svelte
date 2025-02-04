@@ -1,14 +1,16 @@
 <script>
 	import '../styles.css';
-	import { onMount } from 'svelte';
+	import { afterUpdate, onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import * as turf from '@turf/turf';
 	import { BarChart, ColumnChart } from '@onsvisual/svelte-charts';
 	import { Tabs } from 'bits-ui';
+	import Select from 'svelte-select';
 	import Metric from '../lib/ui/Metric.svelte';
-	//import stationData from '../lib/data/stations.json';
 
 	import Footer from '../lib/Footer.svelte';
+
+	import stationData from '../lib/data/stations.json';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -20,9 +22,16 @@
 	let statusFilters = [];
 	let technologyFilters = [];
 
-	//let stationData = []; // Store station data from stations.json
 	let selectedStation = {};
 	let stationSelected = false;
+
+	let stationAll = stationData.map((item) => {
+		return {
+			label: item.stop_label + ' [' + item.line_label + ']',
+			value: item.id,
+			group: item.line_label
+		};
+	});
 
 	let civic;
 	let coordinates;
@@ -144,18 +153,25 @@
 	];
 
 	function updateStationData(id) {
+
 		selectedStation = stationData.find((station) => station.id === id);
+
+		console.log(selectedStation);
+
 		civic =
 			selectedStation.arts_and_culture +
 			selectedStation.education +
 			selectedStation.government_community_services +
 			selectedStation.healthcare_facilities +
 			selectedStation.recreation;
+
 		ageData = [
 			{ label: '0-19', value: selectedStation.age_0_19, y: '⠀' },
 			{ label: '20-64', value: selectedStation.age_20_64, y: '⠀' },
 			{ label: '65+', value: selectedStation.age_65_over, y: '⠀' }
 		];
+
+		console.log(ageData);
 
 		mobilityData = [
 			{ label: 'Car', value: selectedStation.mobility_car, y: '⠀' },
@@ -191,7 +207,68 @@
 		];
 	}
 
-	onMount(async () => {
+	// Extract the station selection logic into a reusable function
+	function handleStationSelection(stationId, coordinates) {
+
+		updateStationData(stationId);
+
+		stationSelected = true;
+
+		const radiusInKilometers = 0.8;
+
+		// Create a GeoJSON circle feature with an 800m radius using Turf.js
+		const circleFeature = turf.circle(coordinates, radiusInKilometers, {
+			steps: 128,
+			units: 'kilometers'
+		});
+
+		// Update the circle data in the source
+		map.getSource('circle').setData({
+			type: 'FeatureCollection',
+			features: [circleFeature]
+		});
+
+		circleDrawn = true;
+
+		// Zoom and center to the selected station
+		map.flyTo({
+			center: coordinates,
+			zoom: 14.5,
+			duration: 1000
+		});
+
+		// Use 'within' filter to restrict the visibility of layers to the circle area
+		const circlePolygon = circleFeature.geometry;
+		map.setFilter('msn-lowdensity', ['within', circlePolygon]);
+		map.setFilter('msn-highdensity', ['within', circlePolygon]);
+		map.setFilter('civic-infra', ['within', circlePolygon]);
+		map.setFilter('business', ['within', circlePolygon]);
+	}
+
+	// Extract the reset logic into a reusable function
+	function resetStationSelection() {
+		map.getSource('circle').setData({
+			type: 'FeatureCollection',
+			features: []
+		});
+		circleDrawn = false;
+		stationSelected = false;
+	}
+
+	// Add the handle select function
+	function handleSelect(event) {
+		if (event.detail) {
+			const stationId = event.detail.value;
+			const selectedStation = stationData.find(station => station.id === stationId);
+			const coordinates = [selectedStation.longitude, selectedStation.latitude];
+			handleStationSelection(stationId, coordinates);
+		} else {
+			// Handle clear selection
+			resetStationSelection();
+		}
+	}
+
+	onMount(() => {
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
@@ -262,63 +339,15 @@
 			// Event listener for clicks on the transit-stations layer
 			map.on('click', 'transit-stations', (e) => {
 				const stationId = e.features[0].properties.id;
-
-				updateStationData(stationId);
-
-				stationSelected = true;
-
-				coordinates = e.features[0].geometry.coordinates;
-				const radiusInKilometers = 0.8; // 800 meters is 0.8 kilometers
-
-				// Create a GeoJSON circle feature with an 800m radius using Turf.js
-				const circleFeature = turf.circle(coordinates, radiusInKilometers, {
-					steps: 128, // Increase or decrease for smoother/rougher edges
-					units: 'kilometers'
-				});
-
-				// Update the circle data in the source
-				map.getSource('circle').setData({
-					type: 'FeatureCollection',
-					features: [circleFeature]
-				});
-
-				// Set the flag to true indicating a circle is displayed
-				circleDrawn = true;
-
-				// Zoom and center to the selected station
-				map.flyTo({
-					center: coordinates,
-					zoom: 14.5, // Adjust the zoom level as needed
-					duration: 1000 // Animation duration in milliseconds
-				});
-
-				// Use 'within' filter to restrict the visibility of layers to the circle area
-				const circlePolygon = circleFeature.geometry;
-
-				map.setFilter('msn-lowdensity', ['within', circlePolygon]);
-				map.setFilter('msn-highdensity', ['within', circlePolygon]);
-				map.setFilter('civic-infra', ['within', circlePolygon]);
-				map.setFilter('business', ['within', circlePolygon]);
-
-				//map.setFilter('greenspace', ['within', circlePolygon]);
+				const coordinates = e.features[0].geometry.coordinates;
+				handleStationSelection(stationId, coordinates);
 			});
 
-			// Event listener for clicks on the map outside of transit-stations
+			// Event listener for clicks outside stations
 			map.on('click', (e) => {
-				// If a circle is already drawn, remove it when clicking outside the 'transit-stations' layer
 				const features = map.queryRenderedFeatures(e.point, { layers: ['transit-stations'] });
-
 				if (circleDrawn && features.length === 0) {
-					// Clear the circle data by setting an empty FeatureCollection
-					map.getSource('circle').setData({
-						type: 'FeatureCollection',
-						features: []
-					});
-
-					// Reset the flag
-					circleDrawn = false;
-
-					stationSelected = false;
+					resetStationSelection();
 				}
 			});
 		});
@@ -501,8 +530,83 @@
 	</p>
 </div>
 
+<div id="controls">
+	<div class="select-wrapper">
+		<Select
+			items={stationAll}
+			on:input={handleSelect}
+			on:clear={handleSelect}
+			placeholder="Search for a station"
+			clearable={true}
+			--border-radius="0"
+			--border="1px solid #eee"
+			--height="60px"
+		/>
+	</div>
+	<div id="filter-container">
+
+		<h4>Filter</h4>
+		<div class="filter-group">
+			<h4>Status:</h4>
+			<label
+				><input
+					type="checkbox"
+					bind:group={statusFilters}
+					value="Existing"
+					on:change={applyFilters}
+				/> Existing</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={statusFilters}
+					value="Construction"
+					on:change={applyFilters}
+				/> Construction</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={statusFilters}
+					value="Planned"
+					on:change={applyFilters}
+				/> Planned</label
+			>
+		</div>
+
+		<div class="filter-group">
+			<h4>Technology:</h4>
+			<label
+				><input
+					type="checkbox"
+					bind:group={technologyFilters}
+					value="Subway"
+					on:change={applyFilters}
+				/> Subway</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={technologyFilters}
+					value="LRT"
+					on:change={applyFilters}
+				/> LRT</label
+			>
+			<label
+				><input
+					type="checkbox"
+					bind:group={technologyFilters}
+					value="Commuter"
+					on:change={applyFilters}
+				/> Commuter</label
+			>
+		</div>
+	</div>
+</div>
 <div id="content-container">
-	<div id="sidebar">
+	
+	
+	<div id="sidebar" class:active={stationSelected}>
 		{#if stationSelected}
 			<h2>{selectedStation.stop_label}</h2>
 			<h4>{selectedStation.line_label}</h4>
@@ -529,7 +633,7 @@
 					<Tabs.Trigger value="housing">Housing</Tabs.Trigger>
 					<Tabs.Trigger value="built-form">Built Form</Tabs.Trigger>
 					<Tabs.Trigger value="business">Business</Tabs.Trigger>
-					<Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger>
+					<!-- <Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger> -->
 				</Tabs.List>
 				<Tabs.Content value="demographics" class="tab-button">
 					<div class="tab-content">
@@ -646,64 +750,6 @@
 	</div>
 
 	<div id="map-container">
-		<div id="filter-container">
-			<h4>Filter</h4>
-			<div class="filter-group">
-				<h4>Status:</h4>
-				<label
-					><input
-						type="checkbox"
-						bind:group={statusFilters}
-						value="Existing"
-						on:change={applyFilters}
-					/> Existing</label
-				>
-				<label
-					><input
-						type="checkbox"
-						bind:group={statusFilters}
-						value="Construction"
-						on:change={applyFilters}
-					/> Construction</label
-				>
-				<label
-					><input
-						type="checkbox"
-						bind:group={statusFilters}
-						value="Planned"
-						on:change={applyFilters}
-					/> Planned</label
-				>
-			</div>
-
-			<div class="filter-group">
-				<h4>Technology:</h4>
-				<label
-					><input
-						type="checkbox"
-						bind:group={technologyFilters}
-						value="Subway"
-						on:change={applyFilters}
-					/> Subway</label
-				>
-				<label
-					><input
-						type="checkbox"
-						bind:group={technologyFilters}
-						value="LRT"
-						on:change={applyFilters}
-					/> LRT</label
-				>
-				<label
-					><input
-						type="checkbox"
-						bind:group={technologyFilters}
-						value="Commuter"
-						on:change={applyFilters}
-					/> Commuter</label
-				>
-			</div>
-		</div>
 		<div id="map" />
 	</div>
 </div>
@@ -728,11 +774,23 @@
 		order: -1;
 	}
 
+	#controls {
+		display: flex;
+		flex-direction: column;
+	}
+
+
 	#content-container {
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
-		border-top: 1px solid #eee;
+		/* border-top: 1px solid #eee; */
+	}
+
+
+	.select-wrapper {
+		width: 100%;
+		margin-bottom: 1em;
 	}
 
 	#sidebar {
@@ -743,6 +801,15 @@
 		overflow-y: scroll;
 		overflow-x: hidden;
 		border-top: 1px solid #eee;
+	}
+
+	#map-container {
+		width: 100%;
+	}
+
+	#map {
+		height: 50vh;
+		width: 100%;
 	}
 
 	h2,
@@ -772,8 +839,10 @@
 		flex-direction: row;
 		gap: 1em;
 		padding: 1em;
-		border: 1px solid #eee;
-	}
+		height: 60px;
+		border-bottom: 1px solid #eee;
+		border-top: 1px solid #eee;
+		}
 
 	.filter-group {
 		display: flex;
@@ -788,34 +857,56 @@
 		gap: 1em;
 	}
 
-	.metric-container {
-		display: flex;
-		flex-direction: row;
-		gap: 0.5em;
-	}
-
 	.tab-content {
 		padding: 1em 0 1em 0;
 	}
 
 	@media only screen and (min-width: 768px) {
-		#content-container {
+		#controls {
+			display: flex;
 			flex-direction: row;
+			align-items: flex-start;
+		}
+
+		.select-wrapper {
+			width: 400px;
+			margin-bottom: 0;
+		}
+
+		#content-container {
+			position: relative;
 		}
 
 		#sidebar {
-			width: 50vw;
-			border-right: 1px solid #eee;
+			position: absolute;
+			left: -400px; /* Starting position off-screen */
+			top: 0;
+			width: 400px;
+			height: 100vh;
+			background: white;
+			transition: left 0.3s ease;
+			z-index: 1;
+			box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+			border-top: none;
 		}
 
-		#map {
-			height: 100vh;
-			order: 0;
+		#sidebar.active {
+			left: 0;
 		}
 
 		#map-container {
 			width: 100%;
-			order: 0;
+			height: calc(100vh - 120px); /* Adjust based on your controls height */
+		}
+
+		#map {
+			height: 100%;
+		}
+
+		#filter-container {
+			flex: 1;
+			background: white;
+			padding: 1em;
 		}
 	}
 

@@ -1,7 +1,7 @@
 [
   {
-    "Y": 51.1807479,
-    "X": -114.0713029,
+    "latitude": 51.1807479,
+    "longitude": -114.0713029,
     "stop_label": "144 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -47,8 +47,8 @@
     "greenspace": 643
   },
   {
-    "Y": 51.0661771,
-    "X": -114.0624934,
+    "latitude": 51.0661771,
+    "longitude": -114.0624934,
     "stop_label": "16 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -94,8 +94,8 @@
     "greenspace": 306
   },
   {
-    "Y": 51.193996,
-    "X": -114.0713131,
+    "latitude": 51.193996,
+    "longitude": -114.0713131,
     "stop_label": "160 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -141,8 +141,8 @@
     "greenspace": 250
   },
   {
-    "Y": 51.0465842,
-    "X": -114.0640924,
+    "latitude": 51.0465842,
+    "longitude": -114.0640924,
     "stop_label": "1st Street SW",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -188,8 +188,8 @@
     "greenspace": 673
   },
   {
-    "Y": 51.0296171,
-    "X": -114.0362427,
+    "latitude": 51.0296171,
+    "longitude": -114.0362427,
     "stop_label": "26 Avenue SE",
     "status": "Construction",
     "line_label": "Green Line",
@@ -235,8 +235,8 @@
     "greenspace": 1187
   },
   {
-    "Y": 51.0787719,
-    "X": -114.0625375,
+    "latitude": 51.0787719,
+    "longitude": -114.0625375,
     "stop_label": "28 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -282,8 +282,8 @@
     "greenspace": 261
   },
   {
-    "Y": 51.017567,
-    "X": -114.0613831,
+    "latitude": 51.017567,
+    "longitude": -114.0613831,
     "stop_label": "39 Avenue",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -329,8 +329,8 @@
     "greenspace": 672
   },
   {
-    "Y": 51.046613,
-    "X": -114.0692625,
+    "latitude": 51.046613,
+    "longitude": -114.0692625,
     "stop_label": "3rd Street SW",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -376,8 +376,8 @@
     "greenspace": 340
   },
   {
-    "Y": 51.0419951,
-    "X": -114.0496686,
+    "latitude": 51.0419951,
+    "longitude": -114.0496686,
     "stop_label": "4 Street SE",
     "status": "Construction",
     "line_label": "Green Line",
@@ -423,8 +423,8 @@
     "greenspace": 1254
   },
   {
-    "Y": 51.0878946,
-    "X": -114.0624316,
+    "latitude": 51.0878946,
+    "longitude": -114.0624316,
     "stop_label": "40 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -470,8 +470,8 @@
     "greenspace": 673
   },
   {
-    "Y": 51.0379605,
-    "X": -114.1541947,
+    "latitude": 51.0379605,
+    "longitude": -114.1541947,
     "stop_label": "45 Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -517,8 +517,8 @@
     "greenspace": 721
   },
   {
-    "Y": 51.0468366,
-    "X": -114.0726676,
+    "latitude": 51.0468366,
+    "longitude": -114.0726676,
     "stop_label": "4th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -564,8 +564,8 @@
     "greenspace": 381
   },
   {
-    "Y": 51.1128179,
-    "X": -114.063834,
+    "latitude": 51.1128179,
+    "longitude": -114.063834,
     "stop_label": "64 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -611,8 +611,8 @@
     "greenspace": 819
   },
   {
-    "Y": 51.0376451,
-    "X": -114.1876094,
+    "latitude": 51.0376451,
+    "longitude": -114.1876094,
     "stop_label": "69 Street SW",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -658,8 +658,8 @@
     "greenspace": 447
   },
   {
-    "Y": 51.0467732,
-    "X": -114.0750848,
+    "latitude": 51.0467732,
+    "longitude": -114.0750848,
     "stop_label": "6th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -705,8 +705,8 @@
     "greenspace": 473
   },
   {
-    "Y": 51.0475185,
-    "X": -114.0677945,
+    "latitude": 51.0475185,
+    "longitude": -114.0677945,
     "stop_label": "7 Avenue SW",
     "status": "Construction",
     "line_label": "Green Line",
@@ -752,8 +752,8 @@
     "greenspace": 677
   },
   {
-    "Y": 51.0469879,
-    "X": -114.0774251,
+    "latitude": 51.0469879,
+    "longitude": -114.0774251,
     "stop_label": "7th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -799,8 +799,8 @@
     "greenspace": 470
   },
   {
-    "Y": 51.0469197,
-    "X": -114.0799562,
+    "latitude": 51.0469197,
+    "longitude": -114.0799562,
     "stop_label": "8th Street SW",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -846,8 +846,8 @@
     "greenspace": 474
   },
   {
-    "Y": 51.0599413,
-    "X": -114.0625291,
+    "latitude": 51.0599413,
+    "longitude": -114.0625291,
     "stop_label": "9 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -893,8 +893,8 @@
     "greenspace": 815
   },
   {
-    "Y": 51.1432709,
-    "X": -114.0678585,
+    "latitude": 51.1432709,
+    "longitude": -114.0678585,
     "stop_label": "96 Avenue N",
     "status": "Planned",
     "line_label": "Green Line",
@@ -940,8 +940,8 @@
     "greenspace": 2863
   },
   {
-    "Y": 50.9543165,
-    "X": -114.0745188,
+    "latitude": 50.9543165,
+    "longitude": -114.0745188,
     "stop_label": "Anderson",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -987,8 +987,8 @@
     "greenspace": 245
   },
   {
-    "Y": 50.8947554,
-    "X": -113.943204,
+    "latitude": 50.8947554,
+    "longitude": -113.943204,
     "stop_label": "Auburn Bay/Mahogany",
     "status": "Planned",
     "line_label": "Green Line",
@@ -1034,8 +1034,8 @@
     "greenspace": 1043
   },
   {
-    "Y": 51.0709541,
-    "X": -114.1155563,
+    "latitude": 51.0709541,
+    "longitude": -114.1155563,
     "stop_label": "Banff Trail",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1081,8 +1081,8 @@
     "greenspace": 530
   },
   {
-    "Y": 51.0454958,
-    "X": -114.0066132,
+    "latitude": 51.0454958,
+    "longitude": -114.0066132,
     "stop_label": "Barlow/Max Bell",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -1128,8 +1128,8 @@
     "greenspace": 776
   },
   {
-    "Y": 51.1276836,
-    "X": -114.0714058,
+    "latitude": 51.1276836,
+    "longitude": -114.0714058,
     "stop_label": "Beddington",
     "status": "Planned",
     "line_label": "Green Line",
@@ -1175,8 +1175,8 @@
     "greenspace": 2575
   },
   {
-    "Y": 51.0870474,
-    "X": -114.1318034,
+    "latitude": 51.0870474,
+    "longitude": -114.1318034,
     "stop_label": "Brentwood",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1222,8 +1222,8 @@
     "greenspace": 681
   },
   {
-    "Y": 51.0490497,
-    "X": -114.0403776,
+    "latitude": 51.0490497,
+    "longitude": -114.0403776,
     "stop_label": "Bridgeland",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -1269,8 +1269,8 @@
     "greenspace": 1221
   },
   {
-    "Y": 50.9359154,
-    "X": -114.0697921,
+    "latitude": 50.9359154,
+    "longitude": -114.0697921,
     "stop_label": "Canyon Meadows",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1316,8 +1316,8 @@
     "greenspace": 3171
   },
   {
-    "Y": 51.0423902,
-    "X": -114.0632278,
+    "latitude": 51.0423902,
+    "longitude": -114.0632278,
     "stop_label": "Centre Street S",
     "status": "Construction",
     "line_label": "Green Line",
@@ -1363,8 +1363,8 @@
     "greenspace": 1016
   },
   {
-    "Y": 51.0463708,
-    "X": -114.0616682,
+    "latitude": 51.0463708,
+    "longitude": -114.0616682,
     "stop_label": "Centre Street",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -1410,8 +1410,8 @@
     "greenspace": 1106
   },
   {
-    "Y": 50.9968079,
-    "X": -114.0658085,
+    "latitude": 50.9968079,
+    "longitude": -114.0658085,
     "stop_label": "Chinook",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1457,8 +1457,8 @@
     "greenspace": 157
   },
   {
-    "Y": 51.0462137,
-    "X": -114.0569992,
+    "latitude": 51.0462137,
+    "longitude": -114.0569992,
     "stop_label": "City Hall",
     "status": "Existing",
     "line_label": "Red Line (201), Blue Line (202)",
@@ -1504,8 +1504,8 @@
     "greenspace": 1074
   },
   {
-    "Y": 51.1224264,
-    "X": -114.2065522,
+    "latitude": 51.1224264,
+    "longitude": -114.2065522,
     "stop_label": "Crowfoot",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1551,8 +1551,8 @@
     "greenspace": 894
   },
   {
-    "Y": 51.1032838,
-    "X": -114.1605254,
+    "latitude": 51.1032838,
+    "longitude": -114.1605254,
     "stop_label": "Dalhousie",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1598,8 +1598,8 @@
     "greenspace": 1430
   },
   {
-    "Y": 50.9522514,
-    "X": -113.9969718,
+    "latitude": 50.9522514,
+    "longitude": -113.9969718,
     "stop_label": "Douglas Glen",
     "status": "Construction",
     "line_label": "Green Line",
@@ -1645,8 +1645,8 @@
     "greenspace": 604
   },
   {
-    "Y": 51.0471263,
-    "X": -114.0872437,
+    "latitude": 51.0471263,
+    "longitude": -114.0872437,
     "stop_label": "Downtown West - Kerby",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -1692,8 +1692,8 @@
     "greenspace": 617
   },
   {
-    "Y": 51.0523555,
-    "X": -114.0678645,
+    "latitude": 51.0523555,
+    "longitude": -114.0678645,
     "stop_label": "Eau Claire",
     "status": "Construction",
     "line_label": "Green Line",
@@ -1739,8 +1739,8 @@
     "greenspace": 672
   },
   {
-    "Y": 51.0320601,
-    "X": -114.0589003,
+    "latitude": 51.0320601,
+    "longitude": -114.0589003,
     "stop_label": "Erlton/Stampede",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1786,8 +1786,8 @@
     "greenspace": 1129
   },
   {
-    "Y": 50.9231615,
-    "X": -114.0730564,
+    "latitude": 50.9231615,
+    "longitude": -114.0730564,
     "stop_label": "Fish Creek - Lacombe",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1833,8 +1833,8 @@
     "greenspace": 3353
   },
   {
-    "Y": 51.0475332,
-    "X": -113.9938962,
+    "latitude": 51.0475332,
+    "longitude": -113.9938962,
     "stop_label": "Franklin",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -1880,8 +1880,8 @@
     "greenspace": 489
   },
   {
-    "Y": 50.9779871,
-    "X": -114.0742715,
+    "latitude": 50.9779871,
+    "longitude": -114.0742715,
     "stop_label": "Heritage",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -1927,8 +1927,8 @@
     "greenspace": 460
   },
   {
-    "Y": 51.0201969,
-    "X": -114.0325049,
+    "latitude": 51.0201969,
+    "longitude": -114.0325049,
     "stop_label": "Highfield",
     "status": "Construction",
     "line_label": "Green Line",
@@ -1974,8 +1974,8 @@
     "greenspace": 6
   },
   {
-    "Y": 50.8797165,
-    "X": -113.9482276,
+    "latitude": 50.8797165,
+    "longitude": -113.9482276,
     "stop_label": "Hospital",
     "status": "Planned",
     "line_label": "Green Line",
@@ -2021,8 +2021,8 @@
     "greenspace": 922
   },
   {
-    "Y": 51.0650408,
-    "X": -114.1035911,
+    "latitude": 51.0650408,
+    "longitude": -114.1035911,
     "stop_label": "Lions Park",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -2068,8 +2068,8 @@
     "greenspace": 391
   },
   {
-    "Y": 50.9991781,
-    "X": -114.0092918,
+    "latitude": 50.9991781,
+    "longitude": -114.0092918,
     "stop_label": "Lynnwood/Millican",
     "status": "Construction",
     "line_label": "Green Line",
@@ -2115,8 +2115,8 @@
     "greenspace": 961
   },
   {
-    "Y": 51.058426,
-    "X": -113.9817163,
+    "latitude": 51.058426,
+    "longitude": -113.9817163,
     "stop_label": "Marlborough",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -2162,8 +2162,8 @@
     "greenspace": 139
   },
   {
-    "Y": 51.1177053,
-    "X": -113.9679024,
+    "latitude": 51.1177053,
+    "longitude": -113.9679024,
     "stop_label": "Martindale",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -2209,8 +2209,8 @@
     "greenspace": 576
   },
   {
-    "Y": 50.9154756,
-    "X": -113.9572336,
+    "latitude": 50.9154756,
+    "longitude": -113.9572336,
     "stop_label": "McKenzie Towne",
     "status": "Planned",
     "line_label": "Green Line",
@@ -2256,8 +2256,8 @@
     "greenspace": 752
   },
   {
-    "Y": 51.1018159,
-    "X": -114.0624368,
+    "latitude": 51.1018159,
+    "longitude": -114.0624368,
     "stop_label": "Mcknight Boulevard",
     "status": "Planned",
     "line_label": "Green Line",
@@ -2303,8 +2303,8 @@
     "greenspace": 1034
   },
   {
-    "Y": 51.109224,
-    "X": -113.9756529,
+    "latitude": 51.109224,
+    "longitude": -113.9756529,
     "stop_label": "McKnight Westwinds",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -2350,8 +2350,8 @@
     "greenspace": 476
   },
   {
-    "Y": 51.1593647,
-    "X": -114.0703571,
+    "latitude": 51.1593647,
+    "longitude": -114.0703571,
     "stop_label": "North Pointe",
     "status": "Planned",
     "line_label": "Green Line",
@@ -2397,8 +2397,8 @@
     "greenspace": 742
   },
   {
-    "Y": 50.9891256,
-    "X": -113.9993304,
+    "latitude": 50.9891256,
+    "longitude": -113.9993304,
     "stop_label": "Ogden",
     "status": "Construction",
     "line_label": "Green Line",
@@ -2444,8 +2444,8 @@
     "greenspace": 464
   },
   {
-    "Y": 50.9263123,
-    "X": -113.9586319,
+    "latitude": 50.9263123,
+    "longitude": -113.9586319,
     "stop_label": "Prestwick",
     "status": "Planned",
     "line_label": "Green Line",
@@ -2491,8 +2491,8 @@
     "greenspace": 1141
   },
   {
-    "Y": 50.9627627,
-    "X": -114.0013137,
+    "latitude": 50.9627627,
+    "longitude": -114.0013137,
     "stop_label": "Quarry Park",
     "status": "Construction",
     "line_label": "Green Line",
@@ -2538,8 +2538,8 @@
     "greenspace": 993
   },
   {
-    "Y": 51.0384657,
-    "X": -114.0365419,
+    "latitude": 51.0384657,
+    "longitude": -114.0365419,
     "stop_label": "Ramsay/Inglewood",
     "status": "Construction",
     "line_label": "Green Line",
@@ -2585,8 +2585,8 @@
     "greenspace": 871
   },
   {
-    "Y": 51.0758603,
-    "X": -113.9817251,
+    "latitude": 51.0758603,
+    "longitude": -113.9817251,
     "stop_label": "Rundle",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -2632,8 +2632,8 @@
     "greenspace": 511
   },
   {
-    "Y": 51.1257147,
-    "X": -113.9481535,
+    "latitude": 51.1257147,
+    "longitude": -113.9481535,
     "stop_label": "Saddletowne",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -2679,8 +2679,8 @@
     "greenspace": 1594
   },
   {
-    "Y": 51.0631335,
-    "X": -114.091313,
+    "latitude": 51.0631335,
+    "longitude": -114.091313,
     "stop_label": "SAIT/ACAD/Jubilee",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -2726,8 +2726,8 @@
     "greenspace": 421
   },
   {
-    "Y": 50.8720863,
-    "X": -113.9538577,
+    "latitude": 50.8720863,
+    "longitude": -113.9538577,
     "stop_label": "Seton",
     "status": "Planned",
     "line_label": "Green Line",
@@ -2773,8 +2773,8 @@
     "greenspace": 1982
   },
   {
-    "Y": 51.0416835,
-    "X": -114.1250072,
+    "latitude": 51.0416835,
+    "longitude": -114.1250072,
     "stop_label": "Shaganappi Point",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -2820,8 +2820,8 @@
     "greenspace": 188
   },
   {
-    "Y": 50.910573,
-    "X": -114.0705658,
+    "latitude": 50.910573,
+    "longitude": -114.0705658,
     "stop_label": "Shawnessy",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -2867,8 +2867,8 @@
     "greenspace": 2209
   },
   {
-    "Y": 50.9360282,
-    "X": -113.9663081,
+    "latitude": 50.9360282,
+    "longitude": -113.9663081,
     "stop_label": "Shepard",
     "status": "Construction",
     "line_label": "Green Line",
@@ -2914,8 +2914,8 @@
     "greenspace": 890
   },
   {
-    "Y": 51.0383797,
-    "X": -114.1690442,
+    "latitude": 51.0383797,
+    "longitude": -114.1690442,
     "stop_label": "Sirocco",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -2961,8 +2961,8 @@
     "greenspace": 1108
   },
   {
-    "Y": 50.8990881,
-    "X": -114.0690009,
+    "latitude": 50.8990881,
+    "longitude": -114.0690009,
     "stop_label": "Somerset-Bridlewood",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -3008,8 +3008,8 @@
     "greenspace": 851
   },
   {
-    "Y": 50.9767165,
-    "X": -113.994245,
+    "latitude": 50.9767165,
+    "longitude": -113.994245,
     "stop_label": "South Hill",
     "status": "Construction",
     "line_label": "Green Line",
@@ -3055,8 +3055,8 @@
     "greenspace": 858
   },
   {
-    "Y": 50.963571,
-    "X": -114.0765605,
+    "latitude": 50.963571,
+    "longitude": -114.0765605,
     "stop_label": "Southland",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -3102,8 +3102,8 @@
     "greenspace": 392
   },
   {
-    "Y": 51.0448181,
-    "X": -114.0991346,
+    "latitude": 51.0448181,
+    "longitude": -114.0991346,
     "stop_label": "Sunalta",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -3149,8 +3149,8 @@
     "greenspace": 320
   },
   {
-    "Y": 51.0562604,
-    "X": -114.0843925,
+    "latitude": 51.0562604,
+    "longitude": -114.0843925,
     "stop_label": "Sunnyside",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -3196,8 +3196,8 @@
     "greenspace": 718
   },
   {
-    "Y": 51.1344705,
-    "X": -114.2355599,
+    "latitude": 51.1344705,
+    "longitude": -114.2355599,
     "stop_label": "Tuscany",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -3243,8 +3243,8 @@
     "greenspace": 1044
   },
   {
-    "Y": 51.0800023,
-    "X": -114.1229092,
+    "latitude": 51.0800023,
+    "longitude": -114.1229092,
     "stop_label": "University",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -3290,8 +3290,8 @@
     "greenspace": 674
   },
   {
-    "Y": 51.0385801,
-    "X": -114.0583081,
+    "latitude": 51.0385801,
+    "longitude": -114.0583081,
     "stop_label": "Victoria Park/Stampede",
     "status": "Existing",
     "line_label": "Red Line (201)",
@@ -3337,8 +3337,8 @@
     "greenspace": 1069
   },
   {
-    "Y": 51.0401971,
-    "X": -114.1363619,
+    "latitude": 51.0401971,
+    "longitude": -114.1363619,
     "stop_label": "Westbrook",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -3384,8 +3384,8 @@
     "greenspace": 190
   },
   {
-    "Y": 51.0859557,
-    "X": -113.9817427,
+    "latitude": 51.0859557,
+    "longitude": -113.9817427,
     "stop_label": "Whitehorn",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -3431,8 +3431,8 @@
     "greenspace": 625
   },
   {
-    "Y": 51.0473692,
-    "X": -114.0248561,
+    "latitude": 51.0473692,
+    "longitude": -114.0248561,
     "stop_label": "Zoo",
     "status": "Existing",
     "line_label": "Blue Line (202)",
@@ -3478,8 +3478,8 @@
     "greenspace": 1184
   },
   {
-    "Y": 53.415696,
-    "X": -113.544774,
+    "latitude": 53.415696,
+    "longitude": -113.544774,
     "stop_label": "Provincial Lands",
     "status": "Planned",
     "line_label": "Capital Line South",
@@ -3525,8 +3525,8 @@
     "greenspace": 504
   },
   {
-    "Y": 53.406692,
-    "X": -113.543057,
+    "latitude": 53.406692,
+    "longitude": -113.543057,
     "stop_label": "Heritage Valley Town Centre",
     "status": "Planned",
     "line_label": "Capital Line South",
@@ -3572,8 +3572,8 @@
     "greenspace": 555
   },
   {
-    "Y": 53.3994,
-    "X": -113.540869,
+    "latitude": 53.3994,
+    "longitude": -113.540869,
     "stop_label": "Desrochers/Allard",
     "status": "Planned",
     "line_label": "Capital Line South",
@@ -3619,8 +3619,8 @@
     "greenspace": 738
   },
   {
-    "Y": 53.42544,
-    "X": -113.544645,
+    "latitude": 53.42544,
+    "longitude": -113.544645,
     "stop_label": "Heritage Valley North",
     "status": "Planned",
     "line_label": "Capital Line South",
@@ -3666,8 +3666,8 @@
     "greenspace": 515
   },
   {
-    "Y": 53.439438,
-    "X": -113.51828,
+    "latitude": 53.439438,
+    "longitude": -113.51828,
     "stop_label": "Twin Brooks",
     "status": "Planned",
     "line_label": "Capital Line South",
@@ -3713,8 +3713,8 @@
     "greenspace": 414
   },
   {
-    "Y": 53.5574869999308,
-    "X": -113.500684000237,
+    "latitude": 53.5574869999308,
+    "longitude": -113.500684000237,
     "stop_label": "Kingsway RAH",
     "status": "Existing",
     "line_label": "Metro Line",
@@ -3760,8 +3760,8 @@
     "greenspace": 258
   },
   {
-    "Y": 53.5476839999346,
-    "X": -113.498180000288,
+    "latitude": 53.5476839999346,
+    "longitude": -113.498180000288,
     "stop_label": "MacEwan",
     "status": "Existing",
     "line_label": "Metro Line",
@@ -3807,8 +3807,8 @@
     "greenspace": 166
   },
   {
-    "Y": 53.565990224664,
-    "X": -113.505816114029,
+    "latitude": 53.565990224664,
+    "longitude": -113.505816114029,
     "stop_label": "NAIT Blatchford Market",
     "status": "Existing",
     "line_label": "Metro Line",
@@ -3854,8 +3854,8 @@
     "greenspace": 294
   },
   {
-    "Y": 53.5431919997619,
-    "X": -113.495209999318,
+    "latitude": 53.5431919997619,
+    "longitude": -113.495209999318,
     "stop_label": "102 Street",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -3901,8 +3901,8 @@
     "greenspace": 454
   },
   {
-    "Y": 53.5444260000126,
-    "X": -113.484008000656,
+    "latitude": 53.5444260000126,
+    "longitude": -113.484008000656,
     "stop_label": "Quarters",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -3948,8 +3948,8 @@
     "greenspace": 1289
   },
   {
-    "Y": 53.5444200000537,
-    "X": -113.489045000243,
+    "latitude": 53.5444200000537,
+    "longitude": -113.489045000243,
     "stop_label": "Churchill",
     "status": "Existing",
     "line_label": "Metro Line, Capital Line, Valley Line",
@@ -3995,8 +3995,8 @@
     "greenspace": 1200
   },
   {
-    "Y": 53.5708629996155,
-    "X": -113.458045999773,
+    "latitude": 53.5708629996155,
+    "longitude": -113.458045999773,
     "stop_label": "Coliseum",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4042,8 +4042,8 @@
     "greenspace": 286
   },
   {
-    "Y": 53.5409359999179,
-    "X": -113.498842000439,
+    "latitude": 53.5409359999179,
+    "longitude": -113.498842000439,
     "stop_label": "Bay Enterprise Square",
     "status": "Existing",
     "line_label": "Metro Line, Capital Line",
@@ -4089,8 +4089,8 @@
     "greenspace": 461
   },
   {
-    "Y": 53.5409769997587,
-    "X": -113.505358000692,
+    "latitude": 53.5409769997587,
+    "longitude": -113.505358000692,
     "stop_label": "Corona",
     "status": "Existing",
     "line_label": "Metro Line, Capital Line",
@@ -4136,8 +4136,8 @@
     "greenspace": 509
   },
   {
-    "Y": 53.5358850004013,
-    "X": -113.510326999277,
+    "latitude": 53.5358850004013,
+    "longitude": -113.510326999277,
     "stop_label": "Government",
     "status": "Existing",
     "line_label": "Metro Line, Capital Line",
@@ -4183,8 +4183,8 @@
     "greenspace": 1748
   },
   {
-    "Y": 53.54096499957,
-    "X": -113.493284000124,
+    "latitude": 53.54096499957,
+    "longitude": -113.493284000124,
     "stop_label": "Central",
     "status": "Existing",
     "line_label": "Metro Line, Capital Line",
@@ -4230,8 +4230,8 @@
     "greenspace": 1410
   },
   {
-    "Y": 53.5601260000588,
-    "X": -113.470460000387,
+    "latitude": 53.5601260000588,
+    "longitude": -113.470460000387,
     "stop_label": "Stadium",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4277,8 +4277,8 @@
     "greenspace": 1112
   },
   {
-    "Y": 53.5199349997927,
-    "X": -113.525922999452,
+    "latitude": 53.5199349997927,
+    "longitude": -113.525922999452,
     "stop_label": "Health Sciences Jubilee",
     "status": "Existing",
     "line_label": "Metro Line, Capital Line",
@@ -4324,8 +4324,8 @@
     "greenspace": 1796
   },
   {
-    "Y": 53.4853439999849,
-    "X": -113.51689200029,
+    "latitude": 53.4853439999849,
+    "longitude": -113.51689200029,
     "stop_label": "Southgate",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4371,8 +4371,8 @@
     "greenspace": 351
   },
   {
-    "Y": 53.5022829998647,
-    "X": -113.5284979994,
+    "latitude": 53.5022829998647,
+    "longitude": -113.5284979994,
     "stop_label": "South Campus/Fort Edmonton",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4418,8 +4418,8 @@
     "greenspace": 853
   },
   {
-    "Y": 53.5280450000396,
-    "X": -113.457534000581,
+    "latitude": 53.5280450000396,
+    "longitude": -113.457534000581,
     "stop_label": "Holyrood",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -4465,8 +4465,8 @@
     "greenspace": 743
   },
   {
-    "Y": 53.5001609996872,
-    "X": -113.444320000654,
+    "latitude": 53.5001609996872,
+    "longitude": -113.444320000654,
     "stop_label": "Davies",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -4512,8 +4512,8 @@
     "greenspace": 838
   },
   {
-    "Y": 53.5196989996156,
-    "X": -113.455350999641,
+    "latitude": 53.5196989996156,
+    "longitude": -113.455350999641,
     "stop_label": "Bonnie Doon",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -4559,8 +4559,8 @@
     "greenspace": 655
   },
   {
-    "Y": 53.5103629997953,
-    "X": -113.455085999866,
+    "latitude": 53.5103629997953,
+    "longitude": -113.455085999866,
     "stop_label": "Avonmore",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -4606,8 +4606,8 @@
     "greenspace": 634
   },
   {
-    "Y": 53.5249399996215,
-    "X": -113.522258000479,
+    "latitude": 53.5249399996215,
+    "longitude": -113.522258000479,
     "stop_label": "University",
     "status": "Existing",
     "line_label": "Metro Line, Capital Line",
@@ -4653,8 +4653,8 @@
     "greenspace": 1664
   },
   {
-    "Y": 53.4630200002193,
-    "X": -113.434653000186,
+    "latitude": 53.4630200002193,
+    "longitude": -113.434653000186,
     "stop_label": "Grey Nuns",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -4700,8 +4700,8 @@
     "greenspace": 556
   },
   {
-    "Y": 53.4753160000467,
-    "X": -113.438958999571,
+    "latitude": 53.4753160000467,
+    "longitude": -113.438958999571,
     "stop_label": "Millbourne/Woodvale",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -4747,8 +4747,8 @@
     "greenspace": 892
   },
   {
-    "Y": 53.4584469996243,
-    "X": -113.429725000202,
+    "latitude": 53.4584469996243,
+    "longitude": -113.429725000202,
     "stop_label": "Mill Woods",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -4794,8 +4794,8 @@
     "greenspace": 508
   },
   {
-    "Y": 53.4578049999917,
-    "X": -113.516302999559,
+    "latitude": 53.4578049999917,
+    "longitude": -113.516302999559,
     "stop_label": "Century Park",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4841,8 +4841,8 @@
     "greenspace": 646
   },
   {
-    "Y": 53.5883489996846,
-    "X": -113.43279999957,
+    "latitude": 53.5883489996846,
+    "longitude": -113.43279999957,
     "stop_label": "Belvedere",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4888,8 +4888,8 @@
     "greenspace": 119
   },
   {
-    "Y": 53.6015920002684,
-    "X": -113.41181899969,
+    "latitude": 53.6015920002684,
+    "longitude": -113.41181899969,
     "stop_label": "Clareview",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4935,8 +4935,8 @@
     "greenspace": 546
   },
   {
-    "Y": 53.5126029999248,
-    "X": -113.526198999479,
+    "latitude": 53.5126029999248,
+    "longitude": -113.526198999479,
     "stop_label": "McKernan Belgravia",
     "status": "Existing",
     "line_label": "Capital Line",
@@ -4982,8 +4982,8 @@
     "greenspace": 1744
   },
   {
-    "Y": 53.5317740003755,
-    "X": -113.463575000338,
+    "latitude": 53.5317740003755,
+    "longitude": -113.463575000338,
     "stop_label": "Strathearn",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -5029,8 +5029,8 @@
     "greenspace": 1589
   },
   {
-    "Y": 53.536627999707,
-    "X": -113.47910299976,
+    "latitude": 53.536627999707,
+    "longitude": -113.47910299976,
     "stop_label": "Muttart",
     "status": "Existing",
     "line_label": "Valley Line",
@@ -5076,8 +5076,8 @@
     "greenspace": 1571
   },
   {
-    "Y": 53.5453,
-    "X": -113.504898,
+    "latitude": 53.5453,
+    "longitude": -113.504898,
     "stop_label": "NorQuest",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5123,8 +5123,8 @@
     "greenspace": 197
   },
   {
-    "Y": 53.546207,
-    "X": -113.513954,
+    "latitude": 53.546207,
+    "longitude": -113.513954,
     "stop_label": "MacEwan Arts/112 Street",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5170,8 +5170,8 @@
     "greenspace": 154
   },
   {
-    "Y": 53.546429,
-    "X": -113.521385,
+    "latitude": 53.546429,
+    "longitude": -113.521385,
     "stop_label": "Wîhkwêntôwin/116 Street",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5217,8 +5217,8 @@
     "greenspace": 229
   },
   {
-    "Y": 53.546326,
-    "X": -113.528534,
+    "latitude": 53.546326,
+    "longitude": -113.528534,
     "stop_label": "Brewery/120 Street",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5264,8 +5264,8 @@
     "greenspace": 220
   },
   {
-    "Y": 53.54697,
-    "X": -113.535927,
+    "latitude": 53.54697,
+    "longitude": -113.535927,
     "stop_label": "124 Street",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5311,8 +5311,8 @@
     "greenspace": 608
   },
   {
-    "Y": 53.546211,
-    "X": -113.551308,
+    "latitude": 53.546211,
+    "longitude": -113.551308,
     "stop_label": "Glenora",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5358,8 +5358,8 @@
     "greenspace": 563
   },
   {
-    "Y": 53.543125,
-    "X": -113.564575,
+    "latitude": 53.543125,
+    "longitude": -113.564575,
     "stop_label": "Grovenor/142 Street",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5405,8 +5405,8 @@
     "greenspace": 642
   },
   {
-    "Y": 53.541328,
-    "X": -113.580696,
+    "latitude": 53.541328,
+    "longitude": -113.580696,
     "stop_label": "Stony Plain Road/149 Street",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5452,8 +5452,8 @@
     "greenspace": 206
   },
   {
-    "Y": 53.5405089,
-    "X": -113.5905493,
+    "latitude": 53.5405089,
+    "longitude": -113.5905493,
     "stop_label": "Jasper Place",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5499,8 +5499,8 @@
     "greenspace": 133
   },
   {
-    "Y": 53.531578,
-    "X": -113.590347,
+    "latitude": 53.531578,
+    "longitude": -113.590347,
     "stop_label": "Glenwood/Sherwood",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5546,8 +5546,8 @@
     "greenspace": 122
   },
   {
-    "Y": 53.521942,
-    "X": -113.5952,
+    "latitude": 53.521942,
+    "longitude": -113.5952,
     "stop_label": "Meadowlark",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5593,8 +5593,8 @@
     "greenspace": 299
   },
   {
-    "Y": 53.519684,
-    "X": -113.61216,
+    "latitude": 53.519684,
+    "longitude": -113.61216,
     "stop_label": "Misericordia",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5640,8 +5640,8 @@
     "greenspace": 315
   },
   {
-    "Y": 53.520256,
-    "X": -113.622894,
+    "latitude": 53.520256,
+    "longitude": -113.622894,
     "stop_label": "West Edmonton Mall",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5687,8 +5687,8 @@
     "greenspace": 345
   },
   {
-    "Y": 53.521355,
-    "X": -113.639442,
+    "latitude": 53.521355,
+    "longitude": -113.639442,
     "stop_label": "Aldergrove/Belmead",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5734,8 +5734,8 @@
     "greenspace": 357
   },
   {
-    "Y": 53.523176028974,
-    "X": -113.66709028974,
+    "latitude": 53.523176028974,
+    "longitude": -113.66709028974,
     "stop_label": "Lewis Farms",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5781,8 +5781,8 @@
     "greenspace": 234
   },
   {
-    "Y": 53.543072,
-    "X": -113.50209,
+    "latitude": 53.543072,
+    "longitude": -113.50209,
     "stop_label": "Alex Decoteau",
     "status": "Construction",
     "line_label": "Valley Line (West)",
@@ -5828,8 +5828,8 @@
     "greenspace": 163
   },
   {
-    "Y": 43.63390427,
-    "X": -80.03418769,
+    "latitude": 43.63390427,
+    "longitude": -80.03418769,
     "stop_label": "Acton",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -5875,8 +5875,8 @@
     "greenspace": 239
   },
   {
-    "Y": 43.7220297,
-    "X": -79.33398073,
+    "latitude": 43.7220297,
+    "longitude": -79.33398073,
     "stop_label": "Aga Khan Park & Museum",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -5922,8 +5922,8 @@
     "greenspace": 1401
   },
   {
-    "Y": 43.78639704,
-    "X": -79.2843721,
+    "latitude": 43.78639704,
+    "longitude": -79.2843721,
     "stop_label": "Agincourt",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -5969,8 +5969,8 @@
     "greenspace": 191
   },
   {
-    "Y": 43.8480619,
-    "X": -79.04227512,
+    "latitude": 43.8480619,
+    "longitude": -79.04227512,
     "stop_label": "Ajax",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -6016,8 +6016,8 @@
     "greenspace": 174
   },
   {
-    "Y": 43.7411075,
-    "X": -79.58930615,
+    "latitude": 43.7411075,
+    "longitude": -79.58930615,
     "stop_label": "Albion",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -6063,8 +6063,8 @@
     "greenspace": 883
   },
   {
-    "Y": 43.31323601,
-    "X": -79.85445657,
+    "latitude": 43.31323601,
+    "longitude": -79.85445657,
     "stop_label": "Aldershot",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -6110,8 +6110,8 @@
     "greenspace": 853
   },
   {
-    "Y": 44.37337651,
-    "X": -79.68686763,
+    "latitude": 44.37337651,
+    "longitude": -79.68686763,
     "stop_label": "Allandale Waterfront",
     "status": "Existing",
     "line_label": "Barrie",
@@ -6157,8 +6157,8 @@
     "greenspace": 423
   },
   {
-    "Y": 43.37965045,
-    "X": -79.76087092,
+    "latitude": 43.37965045,
+    "longitude": -79.76087092,
     "stop_label": "Appleby",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -6204,8 +6204,8 @@
     "greenspace": 393
   },
   {
-    "Y": 43.99981351,
-    "X": -79.459556,
+    "latitude": 43.99981351,
+    "longitude": -79.459556,
     "stop_label": "Aurora",
     "status": "Existing",
     "line_label": "Barrie",
@@ -6251,8 +6251,8 @@
     "greenspace": 1203
   },
   {
-    "Y": 43.7046132,
-    "X": -79.40851185,
+    "latitude": 43.7046132,
+    "longitude": -79.40851185,
     "stop_label": "Avenue",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -6298,8 +6298,8 @@
     "greenspace": 245
   },
   {
-    "Y": 44.35117047,
-    "X": -79.62717436,
+    "latitude": 44.35117047,
+    "longitude": -79.62717436,
     "stop_label": "Barrie South",
     "status": "Existing",
     "line_label": "Barrie",
@@ -6345,8 +6345,8 @@
     "greenspace": 207
   },
   {
-    "Y": 43.66572524,
-    "X": -79.41149051,
+    "latitude": 43.66572524,
+    "longitude": -79.41149051,
     "stop_label": "Bathurst",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -6392,8 +6392,8 @@
     "greenspace": 192
   },
   {
-    "Y": 43.67021507,
-    "X": -79.38986908,
+    "latitude": 43.67021507,
+    "longitude": -79.38986908,
     "stop_label": "Bay",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -6439,8 +6439,8 @@
     "greenspace": 348
   },
   {
-    "Y": 43.76666345,
-    "X": -79.38775574,
+    "latitude": 43.76666345,
+    "longitude": -79.38775574,
     "stop_label": "Bayview",
     "status": "Existing",
     "line_label": "Line 4: Sheppard Subway",
@@ -6486,8 +6486,8 @@
     "greenspace": 452
   },
   {
-    "Y": 43.1808505,
-    "X": -79.47258432,
+    "latitude": 43.1808505,
+    "longitude": -79.47258432,
     "stop_label": "Beamsville",
     "status": "Planned",
     "line_label": "Lakeshore West",
@@ -6533,8 +6533,8 @@
     "greenspace": 100
   },
   {
-    "Y": 43.74037432,
-    "X": -79.23127479,
+    "latitude": 43.74037432,
+    "longitude": -79.23127479,
     "stop_label": "Bellamy/Eglinton GO",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -6580,8 +6580,8 @@
     "greenspace": 520
   },
   {
-    "Y": 43.76919381,
-    "X": -79.37665237,
+    "latitude": 43.76919381,
+    "longitude": -79.37665237,
     "stop_label": "Bessarion",
     "status": "Existing",
     "line_label": "Line 4: Sheppard Subway",
@@ -6627,8 +6627,8 @@
     "greenspace": 526
   },
   {
-    "Y": 43.7300679,
-    "X": -79.27791355,
+    "latitude": 43.7300679,
+    "longitude": -79.27791355,
     "stop_label": "Birchmount",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -6674,8 +6674,8 @@
     "greenspace": 146
   },
   {
-    "Y": 43.97565745,
-    "X": -79.39729763,
+    "latitude": 43.97565745,
+    "longitude": -79.39729763,
     "stop_label": "Bloomington",
     "status": "Existing",
     "line_label": "Richmond Hill",
@@ -6721,8 +6721,8 @@
     "greenspace": 945
   },
   {
-    "Y": 43.65902698,
-    "X": -79.45193473,
+    "latitude": 43.65902698,
+    "longitude": -79.45193473,
     "stop_label": "Bloor",
     "status": "Existing",
     "line_label": "UP Express, Kitchener",
@@ -6768,8 +6768,8 @@
     "greenspace": 138
   },
   {
-    "Y": 43.65774279,
-    "X": -79.44514929,
+    "latitude": 43.65774279,
+    "longitude": -79.44514929,
     "stop_label": "Bloor-Lansdowne",
     "status": "Planned",
     "line_label": "Barrie",
@@ -6815,8 +6815,8 @@
     "greenspace": 140
   },
   {
-    "Y": 43.67100394,
-    "X": -79.38572134,
+    "latitude": 43.67100394,
+    "longitude": -79.38572134,
     "stop_label": "Bloor-Yonge",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway, Line 2: Bloor-Danforth Subway",
@@ -6862,8 +6862,8 @@
     "greenspace": 345
   },
   {
-    "Y": 43.9072052,
-    "X": -78.70363696,
+    "latitude": 43.9072052,
+    "longitude": -78.70363696,
     "stop_label": "Bowmanville",
     "status": "Construction",
     "line_label": "Lakeshore East",
@@ -6909,8 +6909,8 @@
     "greenspace": 495
   },
   {
-    "Y": 44.11718261,
-    "X": -79.55602626,
+    "latitude": 44.11718261,
+    "longitude": -79.55602626,
     "stop_label": "Bradford",
     "status": "Existing",
     "line_label": "Barrie",
@@ -6956,8 +6956,8 @@
     "greenspace": 109
   },
   {
-    "Y": 43.70160743,
-    "X": -79.69134814,
+    "latitude": 43.70160743,
+    "longitude": -79.69134814,
     "stop_label": "Bramalea",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -7003,8 +7003,8 @@
     "greenspace": 460
   },
   {
-    "Y": 43.68699464,
-    "X": -79.76382459,
+    "latitude": 43.68699464,
+    "longitude": -79.76382459,
     "stop_label": "Brampton",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -7050,8 +7050,8 @@
     "greenspace": 895
   },
   {
-    "Y": 43.66598775,
-    "X": -79.73305129,
+    "latitude": 43.66598775,
+    "longitude": -79.73305129,
     "stop_label": "Brampton Gateway Terminal",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -7097,8 +7097,8 @@
     "greenspace": 587
   },
   {
-    "Y": 43.4841536,
-    "X": -80.39875719,
+    "latitude": 43.4841536,
+    "longitude": -80.39875719,
     "stop_label": "Breslau",
     "status": "Planned",
     "line_label": "Kitchener",
@@ -7144,8 +7144,8 @@
     "greenspace": 25
   },
   {
-    "Y": 43.83735455,
-    "X": -79.42245062,
+    "latitude": 43.83735455,
+    "longitude": -79.42245062,
     "stop_label": "Bridge",
     "status": "Construction",
     "line_label": "Yonge North Subway Extension",
@@ -7191,8 +7191,8 @@
     "greenspace": 212
   },
   {
-    "Y": 43.61450127,
-    "X": -79.66355395,
+    "latitude": 43.61450127,
+    "longitude": -79.66355395,
     "stop_label": "Bristol",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -7238,8 +7238,8 @@
     "greenspace": 247
   },
   {
-    "Y": 43.62629014,
-    "X": -79.67957668,
+    "latitude": 43.62629014,
+    "longitude": -79.67957668,
     "stop_label": "Britannia",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -7285,8 +7285,8 @@
     "greenspace": 309
   },
   {
-    "Y": 43.67683851,
-    "X": -79.35878762,
+    "latitude": 43.67683851,
+    "longitude": -79.35878762,
     "stop_label": "Broadview",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -7332,8 +7332,8 @@
     "greenspace": 1519
   },
   {
-    "Y": 43.41642456,
-    "X": -79.72257904,
+    "latitude": 43.41642456,
+    "longitude": -79.72257904,
     "stop_label": "Bronte",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -7379,8 +7379,8 @@
     "greenspace": 1046
   },
   {
-    "Y": 43.34117615,
-    "X": -79.80905453,
+    "latitude": 43.34117615,
+    "longitude": -79.80905453,
     "stop_label": "Burlington",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -7426,8 +7426,8 @@
     "greenspace": 69
   },
   {
-    "Y": 43.59289517,
-    "X": -79.63423525,
+    "latitude": 43.59289517,
+    "longitude": -79.63423525,
     "stop_label": "Burnhamthorpe",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -7473,8 +7473,8 @@
     "greenspace": 439
   },
   {
-    "Y": 43.69217342,
-    "X": -79.46462167,
+    "latitude": 43.69217342,
+    "longitude": -79.46462167,
     "stop_label": "Caledonia",
     "status": "Construction, Planned",
     "line_label": "Eglinton Crosstown LRT, Barrie",
@@ -7520,8 +7520,8 @@
     "greenspace": 103
   },
   {
-    "Y": 43.67386708,
-    "X": -79.36849746,
+    "latitude": 43.67386708,
+    "longitude": -79.36849746,
     "stop_label": "Castle Frank",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -7567,8 +7567,8 @@
     "greenspace": 1674
   },
   {
-    "Y": 43.75711986,
-    "X": -79.19937429,
+    "latitude": 43.75711986,
+    "longitude": -79.19937429,
     "stop_label": "Celeste/Guildwood GO",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -7614,8 +7614,8 @@
     "greenspace": 876
   },
   {
-    "Y": 43.87391802,
-    "X": -79.2885773,
+    "latitude": 43.87391802,
+    "longitude": -79.2885773,
     "stop_label": "Centennial",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -7661,8 +7661,8 @@
     "greenspace": 351
   },
   {
-    "Y": 43.70275158,
-    "X": -79.41737877,
+    "latitude": 43.70275158,
+    "longitude": -79.41737877,
     "stop_label": "Chaplin",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -7708,8 +7708,8 @@
     "greenspace": 132
   },
   {
-    "Y": 43.67834998,
-    "X": -79.35225813,
+    "latitude": 43.67834998,
+    "longitude": -79.35225813,
     "stop_label": "Chester",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -7755,8 +7755,8 @@
     "greenspace": 855
   },
   {
-    "Y": 43.66407776,
-    "X": -79.41834651,
+    "latitude": 43.66407776,
+    "longitude": -79.41834651,
     "stop_label": "Christie",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -7802,8 +7802,8 @@
     "greenspace": 179
   },
   {
-    "Y": 43.80714821,
-    "X": -79.42237431,
+    "latitude": 43.80714821,
+    "longitude": -79.42237431,
     "stop_label": "Clark",
     "status": "Construction",
     "line_label": "Yonge North Subway Extension",
@@ -7849,8 +7849,8 @@
     "greenspace": 300
   },
   {
-    "Y": 43.51235899,
-    "X": -79.6346181,
+    "latitude": 43.51235899,
+    "longitude": -79.6346181,
     "stop_label": "Clarkson",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -7896,8 +7896,8 @@
     "greenspace": 471
   },
   {
-    "Y": 43.6614534,
-    "X": -79.38314253,
+    "latitude": 43.6614534,
+    "longitude": -79.38314253,
     "stop_label": "College",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -7943,8 +7943,8 @@
     "greenspace": 280
   },
   {
-    "Y": 43.24148179,
-    "X": -79.7585069,
+    "latitude": 43.24148179,
+    "longitude": -79.7585069,
     "stop_label": "Confederation",
     "status": "Construction",
     "line_label": "Lakeshore West",
@@ -7990,8 +7990,8 @@
     "greenspace": 661
   },
   {
-    "Y": 43.67043987,
-    "X": -79.59550186,
+    "latitude": 43.67043987,
+    "longitude": -79.59550186,
     "stop_label": "Convair",
     "status": "Planned",
     "line_label": "Eglinton Crosstown West Extension",
@@ -8037,8 +8037,8 @@
     "greenspace": 2294
   },
   {
-    "Y": 43.58448882,
-    "X": -79.62230598,
+    "latitude": 43.58448882,
+    "longitude": -79.62230598,
     "stop_label": "Cooksville",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -8084,8 +8084,8 @@
     "greenspace": 356
   },
   {
-    "Y": 43.58345596,
-    "X": -79.62353503,
+    "latitude": 43.58345596,
+    "longitude": -79.62353503,
     "stop_label": "Cooksville",
     "status": "Existing",
     "line_label": "Milton",
@@ -8131,8 +8131,8 @@
     "greenspace": 494
   },
   {
-    "Y": 43.65214869,
-    "X": -79.36438511,
+    "latitude": 43.65214869,
+    "longitude": -79.36438511,
     "stop_label": "Corktown",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -8178,8 +8178,8 @@
     "greenspace": 214
   },
   {
-    "Y": 43.68940004,
-    "X": -79.34895195,
+    "latitude": 43.68940004,
+    "longitude": -79.34895195,
     "stop_label": "Cosburn",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -8225,8 +8225,8 @@
     "greenspace": 236
   },
   {
-    "Y": 43.65873698,
-    "X": -79.72326506,
+    "latitude": 43.65873698,
+    "longitude": -79.72326506,
     "stop_label": "County Court",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -8272,8 +8272,8 @@
     "greenspace": 271
   },
   {
-    "Y": 43.88371156,
-    "X": -78.76577617,
+    "latitude": 43.88371156,
+    "longitude": -78.76577617,
     "stop_label": "Courtice",
     "status": "Construction",
     "line_label": "Lakeshore East",
@@ -8319,8 +8319,8 @@
     "greenspace": 2342
   },
   {
-    "Y": 43.63717246,
-    "X": -79.6942524,
+    "latitude": 43.63717246,
+    "longitude": -79.6942524,
     "stop_label": "Courtneypark",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -8366,8 +8366,8 @@
     "greenspace": 230
   },
   {
-    "Y": 43.68433271,
-    "X": -79.32310039,
+    "latitude": 43.68433271,
+    "longitude": -79.32310039,
     "stop_label": "Coxwell",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -8413,8 +8413,8 @@
     "greenspace": 136
   },
   {
-    "Y": 43.78707051,
-    "X": -79.41734301,
+    "latitude": 43.78707051,
+    "longitude": -79.41734301,
     "stop_label": "Cummer/Drewry",
     "status": "Planned",
     "line_label": "Yonge North Subway Extension",
@@ -8460,8 +8460,8 @@
     "greenspace": 177
   },
   {
-    "Y": 43.68664562,
-    "X": -79.29904976,
+    "latitude": 43.68664562,
+    "longitude": -79.29904976,
     "stop_label": "Danforth",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -8507,8 +8507,8 @@
     "greenspace": 179
   },
   {
-    "Y": 43.73710658,
-    "X": -79.24623436,
+    "latitude": 43.73710658,
+    "longitude": -79.24623436,
     "stop_label": "Danforth",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -8554,8 +8554,8 @@
     "greenspace": 737
   },
   {
-    "Y": 43.69798652,
-    "X": -79.3972674,
+    "latitude": 43.69798652,
+    "longitude": -79.3972674,
     "stop_label": "Davisville",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -8601,8 +8601,8 @@
     "greenspace": 164
   },
   {
-    "Y": 43.64610958,
-    "X": -79.70616344,
+    "latitude": 43.64610958,
+    "longitude": -79.70616344,
     "stop_label": "Derry",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -8648,8 +8648,8 @@
     "greenspace": 271
   },
   {
-    "Y": 43.6080493,
-    "X": -79.57700105,
+    "latitude": 43.6080493,
+    "longitude": -79.57700105,
     "stop_label": "Dixie",
     "status": "Existing",
     "line_label": "Milton",
@@ -8695,8 +8695,8 @@
     "greenspace": 244
   },
   {
-    "Y": 43.77514363,
-    "X": -79.346976,
+    "latitude": 43.77514363,
+    "longitude": -79.346976,
     "stop_label": "Don Mills",
     "status": "Existing",
     "line_label": "Line 4: Sheppard Subway",
@@ -8742,8 +8742,8 @@
     "greenspace": 412
   },
   {
-    "Y": 43.68118439,
-    "X": -79.33778295,
+    "latitude": 43.68118439,
+    "longitude": -79.33778295,
     "stop_label": "Donlands",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -8789,8 +8789,8 @@
     "greenspace": 118
   },
   {
-    "Y": 43.75360651,
-    "X": -79.47833389,
+    "latitude": 43.75360651,
+    "longitude": -79.47833389,
     "stop_label": "Downsview Park",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway, Barrie",
@@ -8836,8 +8836,8 @@
     "greenspace": 813
   },
   {
-    "Y": 43.758064,
-    "X": -79.5134312,
+    "latitude": 43.758064,
+    "longitude": -79.5134312,
     "stop_label": "Driftwood",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -8883,8 +8883,8 @@
     "greenspace": 740
   },
   {
-    "Y": 43.66025122,
-    "X": -79.43548966,
+    "latitude": 43.66025122,
+    "longitude": -79.43548966,
     "stop_label": "Dufferin",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -8930,8 +8930,8 @@
     "greenspace": 179
   },
   {
-    "Y": 43.7488097,
-    "X": -79.55762384,
+    "latitude": 43.7488097,
+    "longitude": -79.55762384,
     "stop_label": "Duncanwoods",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -8977,8 +8977,8 @@
     "greenspace": 1349
   },
   {
-    "Y": 43.6563274,
-    "X": -79.38091455,
+    "latitude": 43.6563274,
+    "longitude": -79.38091455,
     "stop_label": "Dundas",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -9024,8 +9024,8 @@
     "greenspace": 291
   },
   {
-    "Y": 43.58026844,
-    "X": -79.61638079,
+    "latitude": 43.58026844,
+    "longitude": -79.61638079,
     "stop_label": "Dundas",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -9071,8 +9071,8 @@
     "greenspace": 315
   },
   {
-    "Y": 43.65718087,
-    "X": -79.45241194,
+    "latitude": 43.65718087,
+    "longitude": -79.45241194,
     "stop_label": "Dundas West",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -9118,8 +9118,8 @@
     "greenspace": 3592
   },
   {
-    "Y": 43.262212,
-    "X": -79.88798281,
+    "latitude": 43.262212,
+    "longitude": -79.88798281,
     "stop_label": "Dundurn",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -9165,8 +9165,8 @@
     "greenspace": 877
   },
   {
-    "Y": 43.67485639,
-    "X": -79.4071105,
+    "latitude": 43.67485639,
+    "longitude": -79.4071105,
     "stop_label": "Dupont",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -9212,8 +9212,8 @@
     "greenspace": 202
   },
   {
-    "Y": 44.07925966,
-    "X": -79.45564745,
+    "latitude": 44.07925966,
+    "longitude": -79.45564745,
     "stop_label": "East Gwillimbury",
     "status": "Existing",
     "line_label": "Barrie",
@@ -9259,8 +9259,8 @@
     "greenspace": 673
   },
   {
-    "Y": 43.6552348,
-    "X": -79.34744991,
+    "latitude": 43.6552348,
+    "longitude": -79.34744991,
     "stop_label": "East Harbour",
     "status": "Planned, Construction",
     "line_label": "Lakeshore East, Stouffville, Ontario Line",
@@ -9306,8 +9306,8 @@
     "greenspace": 2850
   },
   {
-    "Y": 43.22810915,
-    "X": -79.76416997,
+    "latitude": 43.22810915,
+    "longitude": -79.76416997,
     "stop_label": "Eastgate",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -9353,8 +9353,8 @@
     "greenspace": 608
   },
   {
-    "Y": 43.70672688,
-    "X": -79.39843817,
+    "latitude": 43.70672688,
+    "longitude": -79.39843817,
     "stop_label": "Eglinton",
     "status": "Existing, Construction",
     "line_label": "Line 1: Yonge-University Subway, Eglinton Crosstown LRT",
@@ -9400,8 +9400,8 @@
     "greenspace": 182
   },
   {
-    "Y": 43.60677898,
-    "X": -79.65291978,
+    "latitude": 43.60677898,
+    "longitude": -79.65291978,
     "stop_label": "Eglinton",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -9447,8 +9447,8 @@
     "greenspace": 398
   },
   {
-    "Y": 43.74041097,
-    "X": -79.23061222,
+    "latitude": 43.74041097,
+    "longitude": -79.23061222,
     "stop_label": "Eglinton",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -9494,8 +9494,8 @@
     "greenspace": 520
   },
   {
-    "Y": 43.69883624,
-    "X": -79.43599464,
+    "latitude": 43.69883624,
+    "longitude": -79.43599464,
     "stop_label": "Eglinton West/Cedarvale",
     "status": "Existing, Construction",
     "line_label": "Line 1: Yonge-University Subway, Eglinton Crosstown LRT",
@@ -9541,8 +9541,8 @@
     "greenspace": 288
   },
   {
-    "Y": 43.74464304,
-    "X": -79.21081588,
+    "latitude": 43.74464304,
+    "longitude": -79.21081588,
     "stop_label": "Eglinton/Kingston",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -9588,8 +9588,8 @@
     "greenspace": 780
   },
   {
-    "Y": 43.78495392,
-    "X": -79.19315895,
+    "latitude": 43.78495392,
+    "longitude": -79.19315895,
     "stop_label": "Ellesmere",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -9635,8 +9635,8 @@
     "greenspace": 2928
   },
   {
-    "Y": 43.75207931,
-    "X": -79.54239473,
+    "latitude": 43.75207931,
+    "longitude": -79.54239473,
     "stop_label": "Emery",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -9682,8 +9682,8 @@
     "greenspace": 532
   },
   {
-    "Y": 43.56688634,
-    "X": -79.66857607,
+    "latitude": 43.56688634,
+    "longitude": -79.66857607,
     "stop_label": "Erindale",
     "status": "Existing",
     "line_label": "Milton",
@@ -9729,8 +9729,8 @@
     "greenspace": 1296
   },
   {
-    "Y": 43.70636891,
-    "X": -79.56185629,
+    "latitude": 43.70636891,
+    "longitude": -79.56185629,
     "stop_label": "Etobicoke North",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -9776,8 +9776,8 @@
     "greenspace": 175
   },
   {
-    "Y": 43.63601679,
-    "X": -79.41903152,
+    "latitude": 43.63601679,
+    "longitude": -79.41903152,
     "stop_label": "Exhibition",
     "status": "Existing, Construction",
     "line_label": "Lakeshore West, Ontario Line",
@@ -9823,8 +9823,8 @@
     "greenspace": 360
   },
   {
-    "Y": 43.69564394,
-    "X": -79.45024455,
+    "latitude": 43.69564394,
+    "longitude": -79.45024455,
     "stop_label": "Fairbank",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -9870,8 +9870,8 @@
     "greenspace": 102
   },
   {
-    "Y": 43.58846712,
-    "X": -79.62770204,
+    "latitude": 43.58846712,
+    "longitude": -79.62770204,
     "stop_label": "Fairview",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -9917,8 +9917,8 @@
     "greenspace": 558
   },
   {
-    "Y": 43.73564746,
-    "X": -79.25312534,
+    "latitude": 43.73564746,
+    "longitude": -79.25312534,
     "stop_label": "Falmouth",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -9964,8 +9964,8 @@
     "greenspace": 138
   },
   {
-    "Y": 43.77977061,
-    "X": -79.41557021,
+    "latitude": 43.77977061,
+    "longitude": -79.41557021,
     "stop_label": "Finch",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -10011,8 +10011,8 @@
     "greenspace": 201
   },
   {
-    "Y": 43.7634905,
-    "X": -79.49098678,
+    "latitude": 43.7634905,
+    "longitude": -79.49098678,
     "stop_label": "Finch West",
     "status": "Existing, Construction",
     "line_label": "Line 1: Yonge-University Subway, Finch West LRT",
@@ -10058,8 +10058,8 @@
     "greenspace": 494
   },
   {
-    "Y": 43.80251883,
-    "X": -79.29160107,
+    "latitude": 43.80251883,
+    "longitude": -79.29160107,
     "stop_label": "Finch-Kennedy",
     "status": "Planned",
     "line_label": "Stouffville",
@@ -10105,8 +10105,8 @@
     "greenspace": 424
   },
   {
-    "Y": 43.71502361,
-    "X": -79.33717113,
+    "latitude": 43.71502361,
+    "longitude": -79.33717113,
     "stop_label": "Flemingdon Park",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -10152,8 +10152,8 @@
     "greenspace": 1536
   },
   {
-    "Y": 43.70103153,
-    "X": -79.42556802,
+    "latitude": 43.70103153,
+    "longitude": -79.42556802,
     "stop_label": "Forest Hill",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -10199,8 +10199,8 @@
     "greenspace": 206
   },
   {
-    "Y": 43.24424078,
-    "X": -79.8247538,
+    "latitude": 43.24424078,
+    "longitude": -79.8247538,
     "stop_label": "Gage Park",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -10246,8 +10246,8 @@
     "greenspace": 320
   },
   {
-    "Y": 43.76217255,
-    "X": -79.19475108,
+    "latitude": 43.76217255,
+    "longitude": -79.19475108,
     "stop_label": "Galloway",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -10293,8 +10293,8 @@
     "greenspace": 1073
   },
   {
-    "Y": 43.65568348,
-    "X": -79.91821891,
+    "latitude": 43.65568348,
+    "longitude": -79.91821891,
     "stop_label": "Georgetown",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -10340,8 +10340,8 @@
     "greenspace": 127
   },
   {
-    "Y": 43.66742848,
-    "X": -79.34248858,
+    "latitude": 43.66742848,
+    "longitude": -79.34248858,
     "stop_label": "Gerrard",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -10387,8 +10387,8 @@
     "greenspace": 201
   },
   {
-    "Y": 43.70954053,
-    "X": -79.44118243,
+    "latitude": 43.70954053,
+    "longitude": -79.44118243,
     "stop_label": "Glencairn",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -10434,8 +10434,8 @@
     "greenspace": 168
   },
   {
-    "Y": 43.72793741,
-    "X": -79.28764136,
+    "latitude": 43.72793741,
+    "longitude": -79.28764136,
     "stop_label": "Golden Mile",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -10481,8 +10481,8 @@
     "greenspace": 174
   },
   {
-    "Y": 43.94002597,
-    "X": -79.39838311,
+    "latitude": 43.94002597,
+    "longitude": -79.39838311,
     "stop_label": "Gormley",
     "status": "Existing",
     "line_label": "Richmond Hill",
@@ -10528,8 +10528,8 @@
     "greenspace": 4137
   },
   {
-    "Y": 43.68281084,
-    "X": -79.33028512,
+    "latitude": 43.68281084,
+    "longitude": -79.33028512,
     "stop_label": "Greenwood",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -10575,8 +10575,8 @@
     "greenspace": 117
   },
   {
-    "Y": 43.20368737,
-    "X": -79.59613147,
+    "latitude": 43.20368737,
+    "longitude": -79.59613147,
     "stop_label": "Grimsby",
     "status": "Construction",
     "line_label": "Lakeshore West",
@@ -10622,8 +10622,8 @@
     "greenspace": 142
   },
   {
-    "Y": 43.54513077,
-    "X": -80.24579064,
+    "latitude": 43.54513077,
+    "longitude": -80.24579064,
     "stop_label": "Guelph",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -10669,8 +10669,8 @@
     "greenspace": 1443
   },
   {
-    "Y": 43.75497519,
-    "X": -79.19808707,
+    "latitude": 43.75497519,
+    "longitude": -79.19808707,
     "stop_label": "Guildwood",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -10716,8 +10716,8 @@
     "greenspace": 1423
   },
   {
-    "Y": 43.74969102,
-    "X": -79.20609901,
+    "latitude": 43.74969102,
+    "longitude": -79.20609901,
     "stop_label": "Guildwood",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -10763,8 +10763,8 @@
     "greenspace": 1525
   },
   {
-    "Y": 43.72707145,
-    "X": -79.29148854,
+    "latitude": 43.72707145,
+    "longitude": -79.29148854,
     "stop_label": "Hakimi Lebovic",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -10810,8 +10810,8 @@
     "greenspace": 248
   },
   {
-    "Y": 43.25296317,
-    "X": -79.8687236,
+    "latitude": 43.25296317,
+    "longitude": -79.8687236,
     "stop_label": "Hamilton",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -10857,8 +10857,8 @@
     "greenspace": 210
   },
   {
-    "Y": 43.6540587,
-    "X": -79.46622431,
+    "latitude": 43.6540587,
+    "longitude": -79.46622431,
     "stop_label": "High Park",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -10904,8 +10904,8 @@
     "greenspace": 3544
   },
   {
-    "Y": 43.84080388,
-    "X": -79.42568835,
+    "latitude": 43.84080388,
+    "longitude": -79.42568835,
     "stop_label": "High Tech",
     "status": "Construction",
     "line_label": "Yonge North Subway Extension",
@@ -10951,8 +10951,8 @@
     "greenspace": 224
   },
   {
-    "Y": 43.70585525,
-    "X": -79.59304575,
+    "latitude": 43.70585525,
+    "longitude": -79.59304575,
     "stop_label": "Highway 27/Woodbine",
     "status": "Planned",
     "line_label": "Kitchener",
@@ -10998,8 +10998,8 @@
     "greenspace": 1813
   },
   {
-    "Y": 43.78355616,
-    "X": -79.52323673,
+    "latitude": 43.78355616,
+    "longitude": -79.52323673,
     "stop_label": "Highway 407",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -11045,8 +11045,8 @@
     "greenspace": 611
   },
   {
-    "Y": 43.73038259,
-    "X": -79.60156006,
+    "latitude": 43.73038259,
+    "longitude": -79.60156006,
     "stop_label": "Humber College",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -11092,8 +11092,8 @@
     "greenspace": 1401
   },
   {
-    "Y": 44.2879859,
-    "X": -79.55842954,
+    "latitude": 44.2879859,
+    "longitude": -79.55842954,
     "stop_label": "Innisfil",
     "status": "Planned",
     "line_label": "Barrie",
@@ -11139,8 +11139,8 @@
     "greenspace": 32
   },
   {
-    "Y": 43.73143561,
-    "X": -79.27119975,
+    "latitude": 43.73143561,
+    "longitude": -79.27119975,
     "stop_label": "Ionview",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -11186,8 +11186,8 @@
     "greenspace": 274
   },
   {
-    "Y": 43.64533328,
-    "X": -79.52459745,
+    "latitude": 43.64533328,
+    "longitude": -79.52459745,
     "stop_label": "Islington",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -11233,8 +11233,8 @@
     "greenspace": 243
   },
   {
-    "Y": 43.68002612,
-    "X": -79.53906657,
+    "latitude": 43.68002612,
+    "longitude": -79.53906657,
     "stop_label": "Islington",
     "status": "Construction",
     "line_label": "Eglinton Crosstown West Extension",
@@ -11280,8 +11280,8 @@
     "greenspace": 182
   },
   {
-    "Y": 43.2567218,
-    "X": -79.86907087,
+    "latitude": 43.2567218,
+    "longitude": -79.86907087,
     "stop_label": "James",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -11327,8 +11327,8 @@
     "greenspace": 90
   },
   {
-    "Y": 43.64979583,
-    "X": -79.48446286,
+    "latitude": 43.64979583,
+    "longitude": -79.48446286,
     "stop_label": "Jane",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -11374,8 +11374,8 @@
     "greenspace": 998
   },
   {
-    "Y": 43.68447869,
-    "X": -79.49881692,
+    "latitude": 43.68447869,
+    "longitude": -79.49881692,
     "stop_label": "Jane",
     "status": "Construction",
     "line_label": "Eglinton Crosstown West Extension",
@@ -11421,8 +11421,8 @@
     "greenspace": 1217
   },
   {
-    "Y": 43.75725878,
-    "X": -79.51772139,
+    "latitude": 43.75725878,
+    "longitude": -79.51772139,
     "stop_label": "Jane and Finch",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -11468,8 +11468,8 @@
     "greenspace": 621
   },
   {
-    "Y": 43.65547528,
-    "X": -79.45985421,
+    "latitude": 43.65547528,
+    "longitude": -79.45985421,
     "stop_label": "Keele",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -11515,8 +11515,8 @@
     "greenspace": 3539
   },
   {
-    "Y": 43.69016349,
-    "X": -79.47506946,
+    "latitude": 43.69016349,
+    "longitude": -79.47506946,
     "stop_label": "Keelesdale",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -11562,8 +11562,8 @@
     "greenspace": 349
   },
   {
-    "Y": 43.24044925,
-    "X": -79.80991697,
+    "latitude": 43.24044925,
+    "longitude": -79.80991697,
     "stop_label": "Kenilworth",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -11609,8 +11609,8 @@
     "greenspace": 89
   },
   {
-    "Y": 43.7322661,
-    "X": -79.26453236,
+    "latitude": 43.7322661,
+    "longitude": -79.26453236,
     "stop_label": "Kennedy",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -11656,8 +11656,8 @@
     "greenspace": 276
   },
   {
-    "Y": 43.7322661,
-    "X": -79.26453236,
+    "latitude": 43.7322661,
+    "longitude": -79.26453236,
     "stop_label": "Kennedy",
     "status": "Existing, Planned",
     "line_label": "Line 2: Bloor-Danforth Subway, Stouffville, Eglinton East LRT",
@@ -11703,8 +11703,8 @@
     "greenspace": 276
   },
   {
-    "Y": 43.64914935,
-    "X": -79.37790761,
+    "latitude": 43.64914935,
+    "longitude": -79.37790761,
     "stop_label": "King",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -11750,8 +11750,8 @@
     "greenspace": 207
   },
   {
-    "Y": 43.64381625,
-    "X": -79.40249937,
+    "latitude": 43.64381625,
+    "longitude": -79.40249937,
     "stop_label": "King/Bathurst",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -11797,8 +11797,8 @@
     "greenspace": 416
   },
   {
-    "Y": 43.91915123,
-    "X": -79.52674405,
+    "latitude": 43.91915123,
+    "longitude": -79.52674405,
     "stop_label": "King City",
     "status": "Existing",
     "line_label": "Barrie",
@@ -11844,8 +11844,8 @@
     "greenspace": 2478
   },
   {
-    "Y": 43.6405981,
-    "X": -79.41965912,
+    "latitude": 43.6405981,
+    "longitude": -79.41965912,
     "stop_label": "King-Liberty",
     "status": "Planned",
     "line_label": "Kitchener",
@@ -11891,8 +11891,8 @@
     "greenspace": 559
   },
   {
-    "Y": 43.63694384,
-    "X": -79.53627996,
+    "latitude": 43.63694384,
+    "longitude": -79.53627996,
     "stop_label": "Kipling",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway, Milton",
@@ -11938,8 +11938,8 @@
     "greenspace": 95
   },
   {
-    "Y": 43.67724679,
-    "X": -79.55091921,
+    "latitude": 43.67724679,
+    "longitude": -79.55091921,
     "stop_label": "Kipling",
     "status": "Construction",
     "line_label": "Eglinton Crosstown West Extension",
@@ -11985,8 +11985,8 @@
     "greenspace": 279
   },
   {
-    "Y": 43.88937827,
-    "X": -79.52444749,
+    "latitude": 43.88937827,
+    "longitude": -79.52444749,
     "stop_label": "Kirby",
     "status": "Planned",
     "line_label": "Barrie",
@@ -12032,8 +12032,8 @@
     "greenspace": 2352
   },
   {
-    "Y": 43.45586655,
-    "X": -80.49329282,
+    "latitude": 43.45586655,
+    "longitude": -80.49329282,
     "stop_label": "Kitchener",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -12079,8 +12079,8 @@
     "greenspace": 116
   },
   {
-    "Y": 43.71357985,
-    "X": -79.36481055,
+    "latitude": 43.71357985,
+    "longitude": -79.36481055,
     "stop_label": "Laird",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -12126,8 +12126,8 @@
     "greenspace": 2234
   },
   {
-    "Y": 43.83735455,
-    "X": -79.42245062,
+    "latitude": 43.83735455,
+    "longitude": -79.42245062,
     "stop_label": "Langstaff",
     "status": "Existing",
     "line_label": "Richmond Hill",
@@ -12173,8 +12173,8 @@
     "greenspace": 212
   },
   {
-    "Y": 43.65912664,
-    "X": -79.44262388,
+    "latitude": 43.65912664,
+    "longitude": -79.44262388,
     "stop_label": "Lansdowne",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -12220,8 +12220,8 @@
     "greenspace": 181
   },
   {
-    "Y": 43.72495739,
-    "X": -79.40217833,
+    "latitude": 43.72495739,
+    "longitude": -79.40217833,
     "stop_label": "Lawrence",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -12267,8 +12267,8 @@
     "greenspace": 291
   },
   {
-    "Y": 43.76808532,
-    "X": -79.18932711,
+    "latitude": 43.76808532,
+    "longitude": -79.18932711,
     "stop_label": "Lawrence",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -12314,8 +12314,8 @@
     "greenspace": 919
   },
   {
-    "Y": 43.75544837,
-    "X": -79.24545655,
+    "latitude": 43.75544837,
+    "longitude": -79.24545655,
     "stop_label": "Lawrence East",
     "status": "Construction",
     "line_label": "Scarborough Subway Extension",
@@ -12361,8 +12361,8 @@
     "greenspace": 1141
   },
   {
-    "Y": 43.71606461,
-    "X": -79.44418943,
+    "latitude": 43.71606461,
+    "longitude": -79.44418943,
     "stop_label": "Lawrence West",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -12408,8 +12408,8 @@
     "greenspace": 101
   },
   {
-    "Y": 43.71105404,
-    "X": -79.3771554,
+    "latitude": 43.71105404,
+    "longitude": -79.3771554,
     "stop_label": "Leaside",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -12455,8 +12455,8 @@
     "greenspace": 774
   },
   {
-    "Y": 43.7710245,
-    "X": -79.3681364,
+    "latitude": 43.7710245,
+    "longitude": -79.3681364,
     "stop_label": "Leslie",
     "status": "Existing",
     "line_label": "Line 4: Sheppard Subway",
@@ -12502,8 +12502,8 @@
     "greenspace": 834
   },
   {
-    "Y": 43.59000254,
-    "X": -79.78892853,
+    "latitude": 43.59000254,
+    "longitude": -79.78892853,
     "stop_label": "Lisgar",
     "status": "Existing",
     "line_label": "Milton",
@@ -12549,8 +12549,8 @@
     "greenspace": 110
   },
   {
-    "Y": 43.59218209,
-    "X": -79.54497438,
+    "latitude": 43.59218209,
+    "longitude": -79.54497438,
     "stop_label": "Long Branch",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -12596,8 +12596,8 @@
     "greenspace": 1140
   },
   {
-    "Y": 43.25910642,
-    "X": -79.90242178,
+    "latitude": 43.25910642,
+    "longitude": -79.90242178,
     "stop_label": "Longwood",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -12643,8 +12643,8 @@
     "greenspace": 1370
   },
   {
-    "Y": 43.68898229,
-    "X": -79.30201584,
+    "latitude": 43.68898229,
+    "longitude": -79.30201584,
     "stop_label": "Main Street",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -12690,8 +12690,8 @@
     "greenspace": 580
   },
   {
-    "Y": 43.70487519,
-    "X": -79.63803275,
+    "latitude": 43.70487519,
+    "longitude": -79.63803275,
     "stop_label": "Malton",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -12737,8 +12737,8 @@
     "greenspace": 1064
   },
   {
-    "Y": 43.85958649,
-    "X": -79.5071977,
+    "latitude": 43.85958649,
+    "longitude": -79.5071977,
     "stop_label": "Maple",
     "status": "Existing",
     "line_label": "Barrie",
@@ -12784,8 +12784,8 @@
     "greenspace": 2807
   },
   {
-    "Y": 43.88234786,
-    "X": -79.26279146,
+    "latitude": 43.88234786,
+    "longitude": -79.26279146,
     "stop_label": "Markham",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -12831,8 +12831,8 @@
     "greenspace": 495
   },
   {
-    "Y": 43.74320047,
-    "X": -79.21891386,
+    "latitude": 43.74320047,
+    "longitude": -79.21891386,
     "stop_label": "Markham",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -12878,8 +12878,8 @@
     "greenspace": 248
   },
   {
-    "Y": 43.73677116,
-    "X": -79.59169654,
+    "latitude": 43.73677116,
+    "longitude": -79.59169654,
     "stop_label": "Martin Grove",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -12925,8 +12925,8 @@
     "greenspace": 779
   },
   {
-    "Y": 43.6747397,
-    "X": -79.5632738,
+    "latitude": 43.6747397,
+    "longitude": -79.5632738,
     "stop_label": "Martin Grove",
     "status": "Construction",
     "line_label": "Eglinton Crosstown West Extension",
@@ -12972,8 +12972,8 @@
     "greenspace": 833
   },
   {
-    "Y": 43.25513268,
-    "X": -79.86417608,
+    "latitude": 43.25513268,
+    "longitude": -79.86417608,
     "stop_label": "Mary",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -13019,8 +13019,8 @@
     "greenspace": 140
   },
   {
-    "Y": 43.74179421,
-    "X": -79.22515444,
+    "latitude": 43.74179421,
+    "longitude": -79.22515444,
     "stop_label": "Mason",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -13066,8 +13066,8 @@
     "greenspace": 282
   },
   {
-    "Y": 43.61948336,
-    "X": -79.67028706,
+    "latitude": 43.61948336,
+    "longitude": -79.67028706,
     "stop_label": "Matheson",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -13113,8 +13113,8 @@
     "greenspace": 109
   },
   {
-    "Y": 43.73886221,
-    "X": -79.23842515,
+    "latitude": 43.73886221,
+    "longitude": -79.23842515,
     "stop_label": "McCowan",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -13160,8 +13160,8 @@
     "greenspace": 859
   },
   {
-    "Y": 43.78962167,
-    "X": -79.25877316,
+    "latitude": 43.78962167,
+    "longitude": -79.25877316,
     "stop_label": "McCowan",
     "status": "Construction",
     "line_label": "Scarborough Subway Extension",
@@ -13207,8 +13207,8 @@
     "greenspace": 89
   },
   {
-    "Y": 43.2577044,
-    "X": -79.91949982,
+    "latitude": 43.2577044,
+    "longitude": -79.91949982,
     "stop_label": "McMaster",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -13254,8 +13254,8 @@
     "greenspace": 1160
   },
   {
-    "Y": 43.5976149,
-    "X": -79.75345725,
+    "latitude": 43.5976149,
+    "longitude": -79.75345725,
     "stop_label": "Meadowvale",
     "status": "Existing",
     "line_label": "Milton",
@@ -13301,8 +13301,8 @@
     "greenspace": 375
   },
   {
-    "Y": 43.73455591,
-    "X": -79.25814236,
+    "latitude": 43.73455591,
+    "longitude": -79.25814236,
     "stop_label": "Midland",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -13348,8 +13348,8 @@
     "greenspace": 173
   },
   {
-    "Y": 43.78620844,
-    "X": -79.18883716,
+    "latitude": 43.78620844,
+    "longitude": -79.18883716,
     "stop_label": "Military Trail",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -13395,8 +13395,8 @@
     "greenspace": 2928
   },
   {
-    "Y": 43.8230486,
-    "X": -79.3014606,
+    "latitude": 43.8230486,
+    "longitude": -79.3014606,
     "stop_label": "Milliken",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -13442,8 +13442,8 @@
     "greenspace": 276
   },
   {
-    "Y": 43.52368537,
-    "X": -79.86617599,
+    "latitude": 43.52368537,
+    "longitude": -79.86617599,
     "stop_label": "Milton",
     "status": "Existing",
     "line_label": "Milton",
@@ -13489,8 +13489,8 @@
     "greenspace": 531
   },
   {
-    "Y": 43.56290385,
-    "X": -79.81894387,
+    "latitude": 43.56290385,
+    "longitude": -79.81894387,
     "stop_label": "Milton-Trafalgar",
     "status": "Planned",
     "line_label": "Milton",
@@ -13536,8 +13536,8 @@
     "greenspace": 218
   },
   {
-    "Y": 43.74995876,
-    "X": -79.55225241,
+    "latitude": 43.74995876,
+    "longitude": -79.55225241,
     "stop_label": "Milvan Rumike",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -13583,8 +13583,8 @@
     "greenspace": 1355
   },
   {
-    "Y": 43.61667703,
-    "X": -79.49680988,
+    "latitude": 43.61667703,
+    "longitude": -79.49680988,
     "stop_label": "Mimico",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -13630,8 +13630,8 @@
     "greenspace": 258
   },
   {
-    "Y": 43.56171133,
-    "X": -79.59070271,
+    "latitude": 43.56171133,
+    "longitude": -79.59070271,
     "stop_label": "Mineola",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -13677,8 +13677,8 @@
     "greenspace": 98
   },
   {
-    "Y": 43.59433476,
-    "X": -79.64709917,
+    "latitude": 43.59433476,
+    "longitude": -79.64709917,
     "stop_label": "Mississauga City Centre",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -13724,8 +13724,8 @@
     "greenspace": 169
   },
   {
-    "Y": 43.6542761,
-    "X": -79.37020945,
+    "latitude": 43.6542761,
+    "longitude": -79.37020945,
     "stop_label": "Moss Park",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -13771,8 +13771,8 @@
     "greenspace": 319
   },
   {
-    "Y": 43.68738602,
-    "X": -79.48726376,
+    "latitude": 43.68738602,
+    "longitude": -79.48726376,
     "stop_label": "Mount Dennis",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT, Kitchener",
@@ -13818,8 +13818,8 @@
     "greenspace": 711
   },
   {
-    "Y": 43.89934925,
-    "X": -79.26311025,
+    "latitude": 43.89934925,
+    "longitude": -79.26311025,
     "stop_label": "Mount Joy",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -13865,8 +13865,8 @@
     "greenspace": 815
   },
   {
-    "Y": 43.7432801,
-    "X": -79.58209453,
+    "latitude": 43.7432801,
+    "longitude": -79.58209453,
     "stop_label": "Mount Olive",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -13912,8 +13912,8 @@
     "greenspace": 673
   },
   {
-    "Y": 43.70840667,
-    "X": -79.39018239,
+    "latitude": 43.70840667,
+    "longitude": -79.39018239,
     "stop_label": "Mount Pleasant",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -13959,8 +13959,8 @@
     "greenspace": 274
   },
   {
-    "Y": 43.67513929,
-    "X": -79.82243206,
+    "latitude": 43.67513929,
+    "longitude": -79.82243206,
     "stop_label": "Mount Pleasant",
     "status": "Existing",
     "line_label": "Kitchener",
@@ -14006,8 +14006,8 @@
     "greenspace": 1084
   },
   {
-    "Y": 44.04038747,
-    "X": -79.45782745,
+    "latitude": 44.04038747,
+    "longitude": -79.45782745,
     "stop_label": "Mulock",
     "status": "Planned",
     "line_label": "Barrie",
@@ -14053,8 +14053,8 @@
     "greenspace": 740
   },
   {
-    "Y": 43.66736899,
-    "X": -79.39356634,
+    "latitude": 43.66736899,
+    "longitude": -79.39356634,
     "stop_label": "Museum",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -14100,8 +14100,8 @@
     "greenspace": 186
   },
   {
-    "Y": 43.23001852,
-    "X": -79.77389241,
+    "latitude": 43.23001852,
+    "longitude": -79.77389241,
     "stop_label": "Nash",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -14147,8 +14147,8 @@
     "greenspace": 197
   },
   {
-    "Y": 44.05952751,
-    "X": -79.45945337,
+    "latitude": 44.05952751,
+    "longitude": -79.45945337,
     "stop_label": "Newmarket",
     "status": "Existing",
     "line_label": "Barrie",
@@ -14194,8 +14194,8 @@
     "greenspace": 412
   },
   {
-    "Y": 43.10899704,
-    "X": -79.06306483,
+    "latitude": 43.10899704,
+    "longitude": -79.06306483,
     "stop_label": "Niagara Falls",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -14241,8 +14241,8 @@
     "greenspace": 87
   },
   {
-    "Y": 43.75596027,
-    "X": -79.52425976,
+    "latitude": 43.75596027,
+    "longitude": -79.52425976,
     "stop_label": "Norfinch Oakdale",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -14288,8 +14288,8 @@
     "greenspace": 172
   },
   {
-    "Y": 43.56985447,
-    "X": -79.60185362,
+    "latitude": 43.56985447,
+    "longitude": -79.60185362,
     "stop_label": "North Service",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -14335,8 +14335,8 @@
     "greenspace": 221
   },
   {
-    "Y": 43.7688401,
-    "X": -79.41277558,
+    "latitude": 43.7688401,
+    "longitude": -79.41277558,
     "stop_label": "North York Centre",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -14382,8 +14382,8 @@
     "greenspace": 122
   },
   {
-    "Y": 43.45489642,
-    "X": -79.68246489,
+    "latitude": 43.45489642,
+    "longitude": -79.68246489,
     "stop_label": "Oakville",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -14429,8 +14429,8 @@
     "greenspace": 656
   },
   {
-    "Y": 43.6973147,
-    "X": -79.44279459,
+    "latitude": 43.6973147,
+    "longitude": -79.44279459,
     "stop_label": "Oakwood",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -14476,8 +14476,8 @@
     "greenspace": 312
   },
   {
-    "Y": 43.72466001,
-    "X": -79.30258487,
+    "latitude": 43.72466001,
+    "longitude": -79.30258487,
     "stop_label": "O'Connor",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -14523,8 +14523,8 @@
     "greenspace": 564
   },
   {
-    "Y": 43.79261755,
-    "X": -79.37135893,
+    "latitude": 43.79261755,
+    "longitude": -79.37135893,
     "stop_label": "Old Cummer",
     "status": "Existing",
     "line_label": "Richmond Hill",
@@ -14570,8 +14570,8 @@
     "greenspace": 1107
   },
   {
-    "Y": 43.99847756,
-    "X": -79.23241807,
+    "latitude": 43.99847756,
+    "longitude": -79.23241807,
     "stop_label": "Old Elm",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -14617,8 +14617,8 @@
     "greenspace": 98
   },
   {
-    "Y": 43.6500832,
-    "X": -79.4950938,
+    "latitude": 43.6500832,
+    "longitude": -79.4950938,
     "stop_label": "Old Mill",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -14664,8 +14664,8 @@
     "greenspace": 1086
   },
   {
-    "Y": 43.76657257,
-    "X": -79.36548325,
+    "latitude": 43.76657257,
+    "longitude": -79.36548325,
     "stop_label": "Oriole",
     "status": "Existing",
     "line_label": "Richmond Hill",
@@ -14711,8 +14711,8 @@
     "greenspace": 923
   },
   {
-    "Y": 43.65085633,
-    "X": -79.38661866,
+    "latitude": 43.65085633,
+    "longitude": -79.38661866,
     "stop_label": "Osgoode",
     "status": "Existing, Construction",
     "line_label": "Line 1: Yonge-University Subway, Ontario Line",
@@ -14758,8 +14758,8 @@
     "greenspace": 134
   },
   {
-    "Y": 43.87074865,
-    "X": -78.88505515,
+    "latitude": 43.87074865,
+    "longitude": -78.88505515,
     "stop_label": "Oshawa",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -14805,8 +14805,8 @@
     "greenspace": 159
   },
   {
-    "Y": 43.6624249,
-    "X": -79.4259385,
+    "latitude": 43.6624249,
+    "longitude": -79.4259385,
     "stop_label": "Ossington",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -14852,8 +14852,8 @@
     "greenspace": 248
   },
   {
-    "Y": 43.2425577,
-    "X": -79.81969871,
+    "latitude": 43.2425577,
+    "longitude": -79.81969871,
     "stop_label": "Ottawa",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -14899,8 +14899,8 @@
     "greenspace": 329
   },
   {
-    "Y": 43.7895634,
-    "X": -79.1943805,
+    "latitude": 43.7895634,
+    "longitude": -79.1943805,
     "stop_label": "Pan Am Sports Centre",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -14946,8 +14946,8 @@
     "greenspace": 2408
   },
   {
-    "Y": 43.67974099,
-    "X": -79.3451772,
+    "latitude": 43.67974099,
+    "longitude": -79.3451772,
     "stop_label": "Pape",
     "status": "Existing, Construction",
     "line_label": "Line 2: Bloor-Danforth Subway, Ontario Line",
@@ -14993,8 +14993,8 @@
     "greenspace": 189
   },
   {
-    "Y": 43.62446677,
-    "X": -79.48625094,
+    "latitude": 43.62446677,
+    "longitude": -79.48625094,
     "stop_label": "Park Lawn",
     "status": "Planned",
     "line_label": "Lakeshore West",
@@ -15040,8 +15040,8 @@
     "greenspace": 1252
   },
   {
-    "Y": 43.23448822,
-    "X": -79.79289656,
+    "latitude": 43.23448822,
+    "longitude": -79.79289656,
     "stop_label": "Parkdale",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -15087,8 +15087,8 @@
     "greenspace": 211
   },
   {
-    "Y": 43.74778919,
-    "X": -79.56233238,
+    "latitude": 43.74778919,
+    "longitude": -79.56233238,
     "stop_label": "Pearldale",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -15134,8 +15134,8 @@
     "greenspace": 1966
   },
   {
-    "Y": 43.69026531,
-    "X": -79.61515295,
+    "latitude": 43.69026531,
+    "longitude": -79.61515295,
     "stop_label": "Pearson",
     "status": "Planned",
     "line_label": "Eglinton Crosstown West Extension",
@@ -15181,8 +15181,8 @@
     "greenspace": 880
   },
   {
-    "Y": 43.72572431,
-    "X": -79.29754977,
+    "latitude": 43.72572431,
+    "longitude": -79.29754977,
     "stop_label": "Pharmacy",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -15228,8 +15228,8 @@
     "greenspace": 564
   },
   {
-    "Y": 43.83161521,
-    "X": -79.08459724,
+    "latitude": 43.83161521,
+    "longitude": -79.08459724,
     "stop_label": "Pickering",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -15275,8 +15275,8 @@
     "greenspace": 867
   },
   {
-    "Y": 43.77752253,
-    "X": -79.51163531,
+    "latitude": 43.77752253,
+    "longitude": -79.51163531,
     "stop_label": "Pioneer Village",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -15322,8 +15322,8 @@
     "greenspace": 970
   },
   {
-    "Y": 43.55777571,
-    "X": -79.58522664,
+    "latitude": 43.55777571,
+    "longitude": -79.58522664,
     "stop_label": "Port Credit",
     "status": "Construction, Existing",
     "line_label": "Hazel McCallion Line, Lakeshore West",
@@ -15369,8 +15369,8 @@
     "greenspace": 332
   },
   {
-    "Y": 43.65243924,
-    "X": -79.37925663,
+    "latitude": 43.65243924,
+    "longitude": -79.37925663,
     "stop_label": "Queen",
     "status": "Existing, Construction",
     "line_label": "Line 1: Yonge-University Subway, Ontario Line",
@@ -15416,8 +15416,8 @@
     "greenspace": 126
   },
   {
-    "Y": 43.25940678,
-    "X": -79.87869083,
+    "latitude": 43.25940678,
+    "longitude": -79.87869083,
     "stop_label": "Queen",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -15463,8 +15463,8 @@
     "greenspace": 467
   },
   {
-    "Y": 43.64867926,
-    "X": -79.39634141,
+    "latitude": 43.64867926,
+    "longitude": -79.39634141,
     "stop_label": "Queen/Spadina",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -15510,8 +15510,8 @@
     "greenspace": 205
   },
   {
-    "Y": 43.659858,
-    "X": -79.39046622,
+    "latitude": 43.659858,
+    "longitude": -79.39046622,
     "stop_label": "Queen's Park",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -15557,8 +15557,8 @@
     "greenspace": 226
   },
   {
-    "Y": 43.23758203,
-    "X": -79.80110363,
+    "latitude": 43.23758203,
+    "longitude": -79.80110363,
     "stop_label": "Queenston",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -15604,8 +15604,8 @@
     "greenspace": 150
   },
   {
-    "Y": 43.57411033,
-    "X": -79.60757193,
+    "latitude": 43.57411033,
+    "longitude": -79.60757193,
     "stop_label": "Queensway",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -15651,8 +15651,8 @@
     "greenspace": 222
   },
   {
-    "Y": 43.66274891,
-    "X": -79.59146113,
+    "latitude": 43.66274891,
+    "longitude": -79.59146113,
     "stop_label": "Renforth",
     "status": "Construction",
     "line_label": "Eglinton Crosstown West Extension",
@@ -15698,8 +15698,8 @@
     "greenspace": 2388
   },
   {
-    "Y": 43.87368782,
-    "X": -79.42625918,
+    "latitude": 43.87368782,
+    "longitude": -79.42625918,
     "stop_label": "Richmond Hill",
     "status": "Existing",
     "line_label": "Richmond Hill",
@@ -15745,8 +15745,8 @@
     "greenspace": 192
   },
   {
-    "Y": 43.88793659,
-    "X": -78.85417843,
+    "latitude": 43.88793659,
+    "longitude": -78.85417843,
     "stop_label": "Ritson Road",
     "status": "Construction",
     "line_label": "Lakeshore East",
@@ -15792,8 +15792,8 @@
     "greenspace": 327
   },
   {
-    "Y": 43.65984991,
-    "X": -79.34569854,
+    "latitude": 43.65984991,
+    "longitude": -79.34569854,
     "stop_label": "Riverside/Leslieville",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -15839,8 +15839,8 @@
     "greenspace": 2867
   },
   {
-    "Y": 43.59621528,
-    "X": -79.63844223,
+    "latitude": 43.59621528,
+    "longitude": -79.63844223,
     "stop_label": "Robert Speck",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -15886,8 +15886,8 @@
     "greenspace": 444
   },
   {
-    "Y": 43.6770959,
-    "X": -79.38852435,
+    "latitude": 43.6770959,
+    "longitude": -79.38852435,
     "stop_label": "Rosedale",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -15933,8 +15933,8 @@
     "greenspace": 480
   },
   {
-    "Y": 43.77970064,
-    "X": -79.13065892,
+    "latitude": 43.77970064,
+    "longitude": -79.13065892,
     "stop_label": "Rouge Hill",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -15980,8 +15980,8 @@
     "greenspace": 1161
   },
   {
-    "Y": 43.74623858,
-    "X": -79.56857411,
+    "latitude": 43.74623858,
+    "longitude": -79.56857411,
     "stop_label": "Rowntree Mills",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -16027,8 +16027,8 @@
     "greenspace": 2008
   },
   {
-    "Y": 43.82339942,
-    "X": -79.42555941,
+    "latitude": 43.82339942,
+    "longitude": -79.42555941,
     "stop_label": "Royal Orchard",
     "status": "Construction",
     "line_label": "Yonge North Subway Extension",
@@ -16074,8 +16074,8 @@
     "greenspace": 359
   },
   {
-    "Y": 43.64812286,
-    "X": -79.51128949,
+    "latitude": 43.64812286,
+    "longitude": -79.51128949,
     "stop_label": "Royal York",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -16121,8 +16121,8 @@
     "greenspace": 751
   },
   {
-    "Y": 43.68248037,
-    "X": -79.52674421,
+    "latitude": 43.68248037,
+    "longitude": -79.52674421,
     "stop_label": "Royal York",
     "status": "Construction",
     "line_label": "Eglinton Crosstown West Extension",
@@ -16168,8 +16168,8 @@
     "greenspace": 244
   },
   {
-    "Y": 43.65166365,
-    "X": -79.47620752,
+    "latitude": 43.65166365,
+    "longitude": -79.47620752,
     "stop_label": "Runnymede",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -16215,8 +16215,8 @@
     "greenspace": 3716
   },
   {
-    "Y": 43.83750289,
-    "X": -79.49810886,
+    "latitude": 43.83750289,
+    "longitude": -79.49810886,
     "stop_label": "Rutherford",
     "status": "Existing",
     "line_label": "Barrie",
@@ -16262,8 +16262,8 @@
     "greenspace": 1062
   },
   {
-    "Y": 43.71726202,
-    "X": -79.25482925,
+    "latitude": 43.71726202,
+    "longitude": -79.25482925,
     "stop_label": "Scarborough",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -16309,8 +16309,8 @@
     "greenspace": 62
   },
   {
-    "Y": 43.77622017,
-    "X": -79.253427,
+    "latitude": 43.77622017,
+    "longitude": -79.253427,
     "stop_label": "Scarborough Centre",
     "status": "Construction",
     "line_label": "Scarborough Subway Extension",
@@ -16356,8 +16356,8 @@
     "greenspace": 188
   },
   {
-    "Y": 43.6838996,
-    "X": -79.51140936,
+    "latitude": 43.6838996,
+    "longitude": -79.51140936,
     "stop_label": "Scarlett",
     "status": "Construction",
     "line_label": "Eglinton Crosstown West Extension",
@@ -16403,8 +16403,8 @@
     "greenspace": 1422
   },
   {
-    "Y": 43.72048733,
-    "X": -79.33889176,
+    "latitude": 43.72048733,
+    "longitude": -79.33889176,
     "stop_label": "Science Centre",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT, Ontario Line",
@@ -16450,8 +16450,8 @@
     "greenspace": 1075
   },
   {
-    "Y": 43.25015733,
-    "X": -79.83249629,
+    "latitude": 43.25015733,
+    "longitude": -79.83249629,
     "stop_label": "Scott Park",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -16497,8 +16497,8 @@
     "greenspace": 324
   },
   {
-    "Y": 43.76107852,
-    "X": -79.50001361,
+    "latitude": 43.76107852,
+    "longitude": -79.50001361,
     "stop_label": "Sentinel",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -16544,8 +16544,8 @@
     "greenspace": 1007
   },
   {
-    "Y": 43.75043845,
-    "X": -79.46247546,
+    "latitude": 43.75043845,
+    "longitude": -79.46247546,
     "stop_label": "Sheppard West",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -16591,8 +16591,8 @@
     "greenspace": 816
   },
   {
-    "Y": 43.76152181,
-    "X": -79.4109239,
+    "latitude": 43.76152181,
+    "longitude": -79.4109239,
     "stop_label": "Sheppard-Yonge",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway, Line 4: Sheppard Subway",
@@ -16638,8 +16638,8 @@
     "greenspace": 168
   },
   {
-    "Y": 43.67236249,
-    "X": -79.37684698,
+    "latitude": 43.67236249,
+    "longitude": -79.37684698,
     "stop_label": "Sherbourne",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -16685,8 +16685,8 @@
     "greenspace": 414
   },
   {
-    "Y": 43.25130877,
-    "X": -79.83841044,
+    "latitude": 43.25130877,
+    "longitude": -79.83841044,
     "stop_label": "Sherman",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -16732,8 +16732,8 @@
     "greenspace": 81
   },
   {
-    "Y": 43.7533078,
-    "X": -79.53622336,
+    "latitude": 43.7533078,
+    "longitude": -79.53622336,
     "stop_label": "Signet Arrow",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -16779,8 +16779,8 @@
     "greenspace": 552
   },
   {
-    "Y": 43.67647076,
-    "X": -79.59322264,
+    "latitude": 43.67647076,
+    "longitude": -79.59322264,
     "stop_label": "Silver Dart",
     "status": "Planned",
     "line_label": "Eglinton Crosstown West Extension",
@@ -16826,8 +16826,8 @@
     "greenspace": 687
   },
   {
-    "Y": 43.66176257,
-    "X": -79.72735524,
+    "latitude": 43.66176257,
+    "longitude": -79.72735524,
     "stop_label": "Sir Lou",
     "status": "Construction",
     "line_label": "Hazel McCallion Line",
@@ -16873,8 +16873,8 @@
     "greenspace": 354
   },
   {
-    "Y": 43.72597811,
-    "X": -79.31352137,
+    "latitude": 43.72597811,
+    "longitude": -79.31352137,
     "stop_label": "Sloane",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -16920,8 +16920,8 @@
     "greenspace": 988
   },
   {
-    "Y": 43.66896214,
-    "X": -79.40476244,
+    "latitude": 43.66896214,
+    "longitude": -79.40476244,
     "stop_label": "Spadina",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -16967,8 +16967,8 @@
     "greenspace": 72
   },
   {
-    "Y": 43.66728897,
-    "X": -79.40397306,
+    "latitude": 43.66728897,
+    "longitude": -79.40397306,
     "stop_label": "Spadina",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -17014,8 +17014,8 @@
     "greenspace": 72
   },
   {
-    "Y": 43.64144954,
-    "X": -79.39566779,
+    "latitude": 43.64144954,
+    "longitude": -79.39566779,
     "stop_label": "Spadina-Front",
     "status": "Planned",
     "line_label": "Barrie",
@@ -17061,8 +17061,8 @@
     "greenspace": 2355
   },
   {
-    "Y": 43.68382386,
-    "X": -79.41533889,
+    "latitude": 43.68382386,
+    "longitude": -79.41533889,
     "stop_label": "St Clair West",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -17108,8 +17108,8 @@
     "greenspace": 395
   },
   {
-    "Y": 43.64766237,
-    "X": -79.38479565,
+    "latitude": 43.64766237,
+    "longitude": -79.38479565,
     "stop_label": "St. Andrew",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -17155,8 +17155,8 @@
     "greenspace": 129
   },
   {
-    "Y": 43.14753712,
-    "X": -79.25581869,
+    "latitude": 43.14753712,
+    "longitude": -79.25581869,
     "stop_label": "St. Catharines",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -17202,8 +17202,8 @@
     "greenspace": 146
   },
   {
-    "Y": 43.68830258,
-    "X": -79.39340094,
+    "latitude": 43.68830258,
+    "longitude": -79.39340094,
     "stop_label": "St. Clair",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -17249,8 +17249,8 @@
     "greenspace": 360
   },
   {
-    "Y": 43.6732457,
-    "X": -79.46592638,
+    "latitude": 43.6732457,
+    "longitude": -79.46592638,
     "stop_label": "St. Clair-Old Weston",
     "status": "Planned",
     "line_label": "Kitchener",
@@ -17296,8 +17296,8 @@
     "greenspace": 182
   },
   {
-    "Y": 43.66828355,
-    "X": -79.39930786,
+    "latitude": 43.66828355,
+    "longitude": -79.39930786,
     "stop_label": "St. George",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway, Line 2: Bloor-Danforth Subway",
@@ -17343,8 +17343,8 @@
     "greenspace": 184
   },
   {
-    "Y": 43.6547939,
-    "X": -79.38830577,
+    "latitude": 43.6547939,
+    "longitude": -79.38830577,
     "stop_label": "St. Patrick",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -17390,8 +17390,8 @@
     "greenspace": 220
   },
   {
-    "Y": 43.79804021,
-    "X": -79.42005191,
+    "latitude": 43.79804021,
+    "longitude": -79.42005191,
     "stop_label": "Steeles",
     "status": "Construction",
     "line_label": "Yonge North Subway Extension",
@@ -17437,8 +17437,8 @@
     "greenspace": 205
   },
   {
-    "Y": 43.74321584,
-    "X": -79.58694715,
+    "latitude": 43.74321584,
+    "longitude": -79.58694715,
     "stop_label": "Stevenson",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -17484,8 +17484,8 @@
     "greenspace": 553
   },
   {
-    "Y": 43.97224658,
-    "X": -79.25006006,
+    "latitude": 43.97224658,
+    "longitude": -79.25006006,
     "stop_label": "Stouffville",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -17531,8 +17531,8 @@
     "greenspace": 369
   },
   {
-    "Y": 43.57611721,
-    "X": -79.70905448,
+    "latitude": 43.57611721,
+    "longitude": -79.70905448,
     "stop_label": "Streetsville",
     "status": "Existing",
     "line_label": "Milton",
@@ -17578,8 +17578,8 @@
     "greenspace": 612
   },
   {
-    "Y": 43.68334262,
-    "X": -79.39124599,
+    "latitude": 43.68334262,
+    "longitude": -79.39124599,
     "stop_label": "Summerhill",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -17625,8 +17625,8 @@
     "greenspace": 615
   },
   {
-    "Y": 43.71706477,
-    "X": -79.34996265,
+    "latitude": 43.71706477,
+    "longitude": -79.34996265,
     "stop_label": "Sunnybrook Park",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -17672,8 +17672,8 @@
     "greenspace": 2259
   },
   {
-    "Y": 43.68276548,
-    "X": -79.61318571,
+    "latitude": 43.68276548,
+    "longitude": -79.61318571,
     "stop_label": "Terminal 1",
     "status": "Existing",
     "line_label": "UP Express",
@@ -17719,8 +17719,8 @@
     "greenspace": 880
   },
   {
-    "Y": 43.70522584,
-    "X": -79.35005436,
+    "latitude": 43.70522584,
+    "longitude": -79.35005436,
     "stop_label": "Thorncliffe Park",
     "status": "Construction",
     "line_label": "Ontario Line",
@@ -17766,8 +17766,8 @@
     "greenspace": 1371
   },
   {
-    "Y": 43.88063523,
-    "X": -78.8859373,
+    "latitude": 43.88063523,
+    "longitude": -78.8859373,
     "stop_label": "Thornton's Corners East",
     "status": "Construction",
     "line_label": "Lakeshore East",
@@ -17813,8 +17813,8 @@
     "greenspace": 496
   },
   {
-    "Y": 43.75927969,
-    "X": -79.50796122,
+    "latitude": 43.75927969,
+    "longitude": -79.50796122,
     "stop_label": "Tobermory",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -17860,8 +17860,8 @@
     "greenspace": 1117
   },
   {
-    "Y": 43.6460219,
-    "X": -79.37913556,
+    "latitude": 43.6460219,
+    "longitude": -79.37913556,
     "stop_label": "Union",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -17907,8 +17907,8 @@
     "greenspace": 202
   },
   {
-    "Y": 43.6449523,
-    "X": -79.37865696,
+    "latitude": 43.6449523,
+    "longitude": -79.37865696,
     "stop_label": "Union",
     "status": "Existing",
     "line_label": "UP Express, Barrie, Kitchener, Lakeshore East, Lakeshore West, Milton, Stouffville, Richmond Hill",
@@ -17954,8 +17954,8 @@
     "greenspace": 2064
   },
   {
-    "Y": 43.85093466,
-    "X": -79.31483304,
+    "latitude": 43.85093466,
+    "longitude": -79.31483304,
     "stop_label": "Unionville",
     "status": "Existing",
     "line_label": "Stouffville",
@@ -18001,8 +18001,8 @@
     "greenspace": 646
   },
   {
-    "Y": 43.79351383,
-    "X": -79.52727364,
+    "latitude": 43.79351383,
+    "longitude": -79.52727364,
     "stop_label": "Vaughan Metropolitan Centre",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -18048,8 +18048,8 @@
     "greenspace": 611
   },
   {
-    "Y": 43.69462149,
-    "X": -79.28945004,
+    "latitude": 43.69462149,
+    "longitude": -79.28945004,
     "stop_label": "Victoria Park",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -18095,8 +18095,8 @@
     "greenspace": 1208
   },
   {
-    "Y": 43.71118675,
-    "X": -79.27920497,
+    "latitude": 43.71118675,
+    "longitude": -79.27920497,
     "stop_label": "Warden",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -18142,8 +18142,8 @@
     "greenspace": 723
   },
   {
-    "Y": 43.66526843,
-    "X": -79.38352756,
+    "latitude": 43.66526843,
+    "longitude": -79.38352756,
     "stop_label": "Wellesley",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -18189,8 +18189,8 @@
     "greenspace": 250
   },
   {
-    "Y": 43.25353787,
-    "X": -79.85927732,
+    "latitude": 43.25353787,
+    "longitude": -79.85927732,
     "stop_label": "Wellington",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -18236,8 +18236,8 @@
     "greenspace": 215
   },
   {
-    "Y": 43.2521095,
-    "X": -79.84897153,
+    "latitude": 43.2521095,
+    "longitude": -79.84897153,
     "stop_label": "Wentworth",
     "status": "Construction",
     "line_label": "Hamilton B-Line LRT",
@@ -18283,8 +18283,8 @@
     "greenspace": 197
   },
   {
-    "Y": 43.26645518,
-    "X": -79.86480119,
+    "latitude": 43.26645518,
+    "longitude": -79.86480119,
     "stop_label": "West Harbour",
     "status": "Existing",
     "line_label": "Lakeshore West",
@@ -18330,8 +18330,8 @@
     "greenspace": 621
   },
   {
-    "Y": 43.77472734,
-    "X": -79.18866081,
+    "latitude": 43.77472734,
+    "longitude": -79.18866081,
     "stop_label": "West Hill",
     "status": "Planned",
     "line_label": "Eglinton East LRT",
@@ -18377,8 +18377,8 @@
     "greenspace": 2798
   },
   {
-    "Y": 43.73467469,
-    "X": -79.60096746,
+    "latitude": 43.73467469,
+    "longitude": -79.60096746,
     "stop_label": "Westmore",
     "status": "Construction",
     "line_label": "Finch West LRT",
@@ -18424,8 +18424,8 @@
     "greenspace": 1431
   },
   {
-    "Y": 43.69915725,
-    "X": -79.5110739,
+    "latitude": 43.69915725,
+    "longitude": -79.5110739,
     "stop_label": "Weston",
     "status": "Existing",
     "line_label": "UP Express, Kitchener",
@@ -18471,8 +18471,8 @@
     "greenspace": 924
   },
   {
-    "Y": 43.86480538,
-    "X": -78.93821901,
+    "latitude": 43.86480538,
+    "longitude": -78.93821901,
     "stop_label": "Whitby",
     "status": "Existing",
     "line_label": "Lakeshore East",
@@ -18518,8 +18518,8 @@
     "greenspace": 818
   },
   {
-    "Y": 43.73409318,
-    "X": -79.44992098,
+    "latitude": 43.73409318,
+    "longitude": -79.44992098,
     "stop_label": "Wilson",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -18565,8 +18565,8 @@
     "greenspace": 940
   },
   {
-    "Y": 43.68654994,
-    "X": -79.31298853,
+    "latitude": 43.68654994,
+    "longitude": -79.31298853,
     "stop_label": "Woodbine",
     "status": "Existing",
     "line_label": "Line 2: Bloor-Danforth Subway",
@@ -18612,8 +18612,8 @@
     "greenspace": 86
   },
   {
-    "Y": 43.72438526,
-    "X": -79.32528528,
+    "latitude": 43.72438526,
+    "longitude": -79.32528528,
     "stop_label": "Wynford",
     "status": "Construction",
     "line_label": "Eglinton Crosstown LRT",
@@ -18659,8 +18659,8 @@
     "greenspace": 1562
   },
   {
-    "Y": 43.74427147,
-    "X": -79.40620131,
+    "latitude": 43.74427147,
+    "longitude": -79.40620131,
     "stop_label": "York Mills",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -18706,8 +18706,8 @@
     "greenspace": 430
   },
   {
-    "Y": 43.7741287,
-    "X": -79.49964473,
+    "latitude": 43.7741287,
+    "longitude": -79.49964473,
     "stop_label": "York University",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -18753,8 +18753,8 @@
     "greenspace": 854
   },
   {
-    "Y": 43.72561566,
-    "X": -79.44786849,
+    "latitude": 43.72561566,
+    "longitude": -79.44786849,
     "stop_label": "Yorkdale",
     "status": "Existing",
     "line_label": "Line 1: Yonge-University Subway",
@@ -18800,8 +18800,8 @@
     "greenspace": 306
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Sportsworld",
     "status": "Planned",
     "line_label": "ION LRT (Stage 2)",
@@ -18847,8 +18847,8 @@
     "greenspace": 618
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Preston",
     "status": "Planned",
     "line_label": "ION LRT (Stage 2)",
@@ -18894,8 +18894,8 @@
     "greenspace": 1836
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Pinebush",
     "status": "Planned",
     "line_label": "ION LRT (Stage 2)",
@@ -18941,8 +18941,8 @@
     "greenspace": 718
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Cambridge Centre Mall",
     "status": "Planned",
     "line_label": "ION LRT (Stage 2)",
@@ -18988,8 +18988,8 @@
     "greenspace": 831
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Can-Amera",
     "status": "Planned",
     "line_label": "ION LRT (Stage 2)",
@@ -19035,8 +19035,8 @@
     "greenspace": 889
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Delta",
     "status": "Planned",
     "line_label": "ION LRT (Stage 2)",
@@ -19082,8 +19082,8 @@
     "greenspace": 912
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Downtown Cambridge",
     "status": "Planned",
     "line_label": "ION LRT (Stage 2)",
@@ -19129,8 +19129,8 @@
     "greenspace": 1046
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Laurier - Waterloo Park",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19176,8 +19176,8 @@
     "greenspace": 2035
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "University of Waterloo",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19223,8 +19223,8 @@
     "greenspace": 1968
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Research and Technology",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19270,8 +19270,8 @@
     "greenspace": 1706
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Block Line",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19317,8 +19317,8 @@
     "greenspace": 2852
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Fairway",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19364,8 +19364,8 @@
     "greenspace": 1600
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Mill",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19411,8 +19411,8 @@
     "greenspace": 653
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Waterloo Public Square",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19458,8 +19458,8 @@
     "greenspace": 613
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Willis Way",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19505,8 +19505,8 @@
     "greenspace": 603
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Conestoga",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19552,8 +19552,8 @@
     "greenspace": 502
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Central Station",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19599,8 +19599,8 @@
     "greenspace": 346
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Kitchener City Hall",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19646,8 +19646,8 @@
     "greenspace": 296
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Victoria Park",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19693,8 +19693,8 @@
     "greenspace": 357
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Queen",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19740,8 +19740,8 @@
     "greenspace": 441
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Frederick",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19787,8 +19787,8 @@
     "greenspace": 378
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Kitchener Market",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19834,8 +19834,8 @@
     "greenspace": 608
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Borden",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19881,8 +19881,8 @@
     "greenspace": 448
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Grand River Hospital",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19928,8 +19928,8 @@
     "greenspace": 107
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Allen",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -19975,8 +19975,8 @@
     "greenspace": 172
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Northfield",
     "status": "Existing",
     "line_label": "ION LRT",
@@ -20022,8 +20022,8 @@
     "greenspace": 181
   },
   {
-    "Y": 45.5666723633728,
-    "X": -73.5914584792402,
+    "latitude": 45.5666723633728,
+    "longitude": -73.5914584792402,
     "stop_label": "Pie-IX",
     "status": "Construction",
     "line_label": "Ligne 5 - Bleue",
@@ -20069,8 +20069,8 @@
     "greenspace": 225
   },
   {
-    "Y": 45.5749174991426,
-    "X": -73.5842417950022,
+    "latitude": 45.5749174991426,
+    "longitude": -73.5842417950022,
     "stop_label": "Viau",
     "status": "Construction",
     "line_label": "Ligne 5 - Bleue",
@@ -20116,8 +20116,8 @@
     "greenspace": 216
   },
   {
-    "Y": 45.583101403716,
-    "X": -73.5811285676584,
+    "latitude": 45.583101403716,
+    "longitude": -73.5811285676584,
     "stop_label": "Lacordier",
     "status": "Construction",
     "line_label": "Ligne 5 - Bleue",
@@ -20163,8 +20163,8 @@
     "greenspace": 232
   },
   {
-    "Y": 45.5920772872393,
-    "X": -73.5749255312778,
+    "latitude": 45.5920772872393,
+    "longitude": -73.5749255312778,
     "stop_label": "Langelier",
     "status": "Construction",
     "line_label": "Ligne 5 - Bleue",
@@ -20210,8 +20210,8 @@
     "greenspace": 320
   },
   {
-    "Y": 45.5971201003878,
-    "X": -73.563154738971,
+    "latitude": 45.5971201003878,
+    "longitude": -73.563154738971,
     "stop_label": "Anjou",
     "status": "Construction",
     "line_label": "Ligne 5 - Bleue",
@@ -20257,8 +20257,8 @@
     "greenspace": 370
   },
   {
-    "Y": 45.4464659999951,
-    "X": -73.603118,
+    "latitude": 45.4464659999951,
+    "longitude": -73.603118,
     "stop_label": "Angrignon",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20304,8 +20304,8 @@
     "greenspace": 1407
   },
   {
-    "Y": 45.4511579999951,
-    "X": -73.593242,
+    "latitude": 45.4511579999951,
+    "longitude": -73.593242,
     "stop_label": "Monk",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20351,8 +20351,8 @@
     "greenspace": 1301
   },
   {
-    "Y": 45.4570099999951,
-    "X": -73.581691,
+    "latitude": 45.4570099999951,
+    "longitude": -73.581691,
     "stop_label": "Jolicoeur",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20398,8 +20398,8 @@
     "greenspace": 479
   },
   {
-    "Y": 45.4594409999951,
-    "X": -73.572021,
+    "latitude": 45.4594409999951,
+    "longitude": -73.572021,
     "stop_label": "Verdun",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20445,8 +20445,8 @@
     "greenspace": 703
   },
   {
-    "Y": 45.4618939999951,
-    "X": -73.567074,
+    "latitude": 45.4618939999951,
+    "longitude": -73.567074,
     "stop_label": "De l'Église",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20492,8 +20492,8 @@
     "greenspace": 967
   },
   {
-    "Y": 45.4710629999951,
-    "X": -73.566267,
+    "latitude": 45.4710629999951,
+    "longitude": -73.566267,
     "stop_label": "LaSalle",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20539,8 +20539,8 @@
     "greenspace": 631
   },
   {
-    "Y": 45.4784649999951,
-    "X": -73.569336,
+    "latitude": 45.4784649999951,
+    "longitude": -73.569336,
     "stop_label": "Charlevoix",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20586,8 +20586,8 @@
     "greenspace": 766
   },
   {
-    "Y": 45.4825089999951,
-    "X": -73.58018,
+    "latitude": 45.4825089999951,
+    "longitude": -73.58018,
     "stop_label": "Lionel-Groulx",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte, Ligne 2 - Orange",
@@ -20633,8 +20633,8 @@
     "greenspace": 667
   },
   {
-    "Y": 45.4900679999951,
-    "X": -73.585812,
+    "latitude": 45.4900679999951,
+    "longitude": -73.585812,
     "stop_label": "Atwater",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20680,8 +20680,8 @@
     "greenspace": 426
   },
   {
-    "Y": 45.4955699999951,
-    "X": -73.57931,
+    "latitude": 45.4955699999951,
+    "longitude": -73.57931,
     "stop_label": "Guy-Concordia",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20727,8 +20727,8 @@
     "greenspace": 520
   },
   {
-    "Y": 45.5008789999951,
-    "X": -73.574715,
+    "latitude": 45.5008789999951,
+    "longitude": -73.574715,
     "stop_label": "Peel",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20774,8 +20774,8 @@
     "greenspace": 501
   },
   {
-    "Y": 45.5040639999951,
-    "X": -73.571586,
+    "latitude": 45.5040639999951,
+    "longitude": -73.571586,
     "stop_label": "McGill",
     "status": "Existing, Construction",
     "line_label": "Ligne 1 - Verte, REM",
@@ -20821,8 +20821,8 @@
     "greenspace": 481
   },
   {
-    "Y": 45.5082199999951,
-    "X": -73.568433,
+    "latitude": 45.5082199999951,
+    "longitude": -73.568433,
     "stop_label": "Place-des-Arts",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20868,8 +20868,8 @@
     "greenspace": 206
   },
   {
-    "Y": 45.5110329999951,
-    "X": -73.564899,
+    "latitude": 45.5110329999951,
+    "longitude": -73.564899,
     "stop_label": "Saint-Laurent",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -20915,8 +20915,8 @@
     "greenspace": 174
   },
   {
-    "Y": 45.5152259999951,
-    "X": -73.561082,
+    "latitude": 45.5152259999951,
+    "longitude": -73.561082,
     "stop_label": "Berri-UQAM",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte, Ligne 2 - Orange, Ligne 4 - Jaune",
@@ -20962,8 +20962,8 @@
     "greenspace": 528
   },
   {
-    "Y": 45.5188309999951,
-    "X": -73.555837,
+    "latitude": 45.5188309999951,
+    "longitude": -73.555837,
     "stop_label": "Beaudry",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21009,8 +21009,8 @@
     "greenspace": 637
   },
   {
-    "Y": 45.5239879999951,
-    "X": -73.552703,
+    "latitude": 45.5239879999951,
+    "longitude": -73.552703,
     "stop_label": "Papineau",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21056,8 +21056,8 @@
     "greenspace": 2348
   },
   {
-    "Y": 45.5335039999951,
-    "X": -73.552196,
+    "latitude": 45.5335039999951,
+    "longitude": -73.552196,
     "stop_label": "Frontenac",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21103,8 +21103,8 @@
     "greenspace": 238
   },
   {
-    "Y": 45.5417169999951,
-    "X": -73.554192,
+    "latitude": 45.5417169999951,
+    "longitude": -73.554192,
     "stop_label": "Préfontaine",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21150,8 +21150,8 @@
     "greenspace": 198
   },
   {
-    "Y": 45.5468319999951,
-    "X": -73.551391,
+    "latitude": 45.5468319999951,
+    "longitude": -73.551391,
     "stop_label": "Joliette",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21197,8 +21197,8 @@
     "greenspace": 727
   },
   {
-    "Y": 45.5536879999951,
-    "X": -73.551757,
+    "latitude": 45.5536879999951,
+    "longitude": -73.551757,
     "stop_label": "Pie-IX",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21244,8 +21244,8 @@
     "greenspace": 2037
   },
   {
-    "Y": 45.5606869999951,
-    "X": -73.54753,
+    "latitude": 45.5606869999951,
+    "longitude": -73.54753,
     "stop_label": "Viau",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21291,8 +21291,8 @@
     "greenspace": 2026
   },
   {
-    "Y": 45.5692849999951,
-    "X": -73.547336,
+    "latitude": 45.5692849999951,
+    "longitude": -73.547336,
     "stop_label": "Assomption",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21338,8 +21338,8 @@
     "greenspace": 2000
   },
   {
-    "Y": 45.5768429999951,
-    "X": -73.54671,
+    "latitude": 45.5768429999951,
+    "longitude": -73.54671,
     "stop_label": "Cadillac",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21385,8 +21385,8 @@
     "greenspace": 322
   },
   {
-    "Y": 45.5827359999951,
-    "X": -73.543133,
+    "latitude": 45.5827359999951,
+    "longitude": -73.543133,
     "stop_label": "Langelier",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21432,8 +21432,8 @@
     "greenspace": 270
   },
   {
-    "Y": 45.5894309999951,
-    "X": -73.539269,
+    "latitude": 45.5894309999951,
+    "longitude": -73.539269,
     "stop_label": "Radisson",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21479,8 +21479,8 @@
     "greenspace": 196
   },
   {
-    "Y": 45.5965719999951,
-    "X": -73.535376,
+    "latitude": 45.5965719999951,
+    "longitude": -73.535376,
     "stop_label": "Honoré-Beaugrand",
     "status": "Existing",
     "line_label": "Ligne 1 - Verte",
@@ -21526,8 +21526,8 @@
     "greenspace": 181
   },
   {
-    "Y": 45.5142369999951,
-    "X": -73.682757,
+    "latitude": 45.5142369999951,
+    "longitude": -73.682757,
     "stop_label": "Côte-Vertu",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21573,8 +21573,8 @@
     "greenspace": 151
   },
   {
-    "Y": 45.5092579999951,
-    "X": -73.674796,
+    "latitude": 45.5092579999951,
+    "longitude": -73.674796,
     "stop_label": "Du Collège",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21620,8 +21620,8 @@
     "greenspace": 100
   },
   {
-    "Y": 45.5000509999951,
-    "X": -73.661538,
+    "latitude": 45.5000509999951,
+    "longitude": -73.661538,
     "stop_label": "De la Savane",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21667,8 +21667,8 @@
     "greenspace": 46
   },
   {
-    "Y": 45.4946429999951,
-    "X": -73.652828,
+    "latitude": 45.4946429999951,
+    "longitude": -73.652828,
     "stop_label": "Namur",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21714,8 +21714,8 @@
     "greenspace": 96
   },
   {
-    "Y": 45.4946439999951,
-    "X": -73.63826,
+    "latitude": 45.4946439999951,
+    "longitude": -73.63826,
     "stop_label": "Plamondon",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21761,8 +21761,8 @@
     "greenspace": 141
   },
   {
-    "Y": 45.4923559999951,
-    "X": -73.6331,
+    "latitude": 45.4923559999951,
+    "longitude": -73.6331,
     "stop_label": "Côte-Sainte-Catherine",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21808,8 +21808,8 @@
     "greenspace": 172
   },
   {
-    "Y": 45.4854329999951,
-    "X": -73.62773,
+    "latitude": 45.4854329999951,
+    "longitude": -73.62773,
     "stop_label": "Snowdon",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange, Ligne 5 - Bleue",
@@ -21855,8 +21855,8 @@
     "greenspace": 104
   },
   {
-    "Y": 45.4797089999951,
-    "X": -73.619821,
+    "latitude": 45.4797089999951,
+    "longitude": -73.619821,
     "stop_label": "Villa-Maria",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21902,8 +21902,8 @@
     "greenspace": 59
   },
   {
-    "Y": 45.4741009999951,
-    "X": -73.603706,
+    "latitude": 45.4741009999951,
+    "longitude": -73.603706,
     "stop_label": "Vendôme",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange, Vaudreuil-Hudson, Saint-Jérôme, Candiac",
@@ -21949,8 +21949,8 @@
     "greenspace": 483
   },
   {
-    "Y": 45.4773199999951,
-    "X": -73.586629,
+    "latitude": 45.4773199999951,
+    "longitude": -73.586629,
     "stop_label": "Place-Saint-Henri",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -21996,8 +21996,8 @@
     "greenspace": 573
   },
   {
-    "Y": 45.4888969999951,
-    "X": -73.576852,
+    "latitude": 45.4888969999951,
+    "longitude": -73.576852,
     "stop_label": "Georges-Vanier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22043,8 +22043,8 @@
     "greenspace": 334
   },
   {
-    "Y": 45.4947449999951,
-    "X": -73.571074,
+    "latitude": 45.4947449999951,
+    "longitude": -73.571074,
     "stop_label": "Lucien-L'Allier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange, Vaudreuil-Hudson, Saint-Jérôme, Candiac",
@@ -22090,8 +22090,8 @@
     "greenspace": 281
   },
   {
-    "Y": 45.4980859999951,
-    "X": -73.567235,
+    "latitude": 45.4980859999951,
+    "longitude": -73.567235,
     "stop_label": "Bonaventure",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22137,8 +22137,8 @@
     "greenspace": 187
   },
   {
-    "Y": 45.5019369999951,
-    "X": -73.563118,
+    "latitude": 45.5019369999951,
+    "longitude": -73.563118,
     "stop_label": "Square-Victoria–OACI",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22184,8 +22184,8 @@
     "greenspace": 600
   },
   {
-    "Y": 45.5063479999951,
-    "X": -73.559548,
+    "latitude": 45.5063479999951,
+    "longitude": -73.559548,
     "stop_label": "Place-d'Armes",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22231,8 +22231,8 @@
     "greenspace": 647
   },
   {
-    "Y": 45.5100469999951,
-    "X": -73.556596,
+    "latitude": 45.5100469999951,
+    "longitude": -73.556596,
     "stop_label": "Champ-de-Mars",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22278,8 +22278,8 @@
     "greenspace": 585
   },
   {
-    "Y": 45.5190599999951,
-    "X": -73.569217,
+    "latitude": 45.5190599999951,
+    "longitude": -73.569217,
     "stop_label": "Sherbrooke",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22325,8 +22325,8 @@
     "greenspace": 498
   },
   {
-    "Y": 45.5249309999951,
-    "X": -73.581959,
+    "latitude": 45.5249309999951,
+    "longitude": -73.581959,
     "stop_label": "Mont-Royal",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22372,8 +22372,8 @@
     "greenspace": 524
   },
   {
-    "Y": 45.5273989999951,
-    "X": -73.586907,
+    "latitude": 45.5273989999951,
+    "longitude": -73.586907,
     "stop_label": "Laurier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22419,8 +22419,8 @@
     "greenspace": 193
   },
   {
-    "Y": 45.5317329999951,
-    "X": -73.59778,
+    "latitude": 45.5317329999951,
+    "longitude": -73.59778,
     "stop_label": "Rosemont",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22466,8 +22466,8 @@
     "greenspace": 334
   },
   {
-    "Y": 45.5353539999951,
-    "X": -73.604688,
+    "latitude": 45.5353539999951,
+    "longitude": -73.604688,
     "stop_label": "Beaubien",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22513,8 +22513,8 @@
     "greenspace": 246
   },
   {
-    "Y": 45.5390559999951,
-    "X": -73.613902,
+    "latitude": 45.5390559999951,
+    "longitude": -73.613902,
     "stop_label": "Jean-Talon",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange, Ligne 5 - Bleue",
@@ -22560,8 +22560,8 @@
     "greenspace": 460
   },
   {
-    "Y": 45.5431909999951,
-    "X": -73.628765,
+    "latitude": 45.5431909999951,
+    "longitude": -73.628765,
     "stop_label": "Jarry",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22607,8 +22607,8 @@
     "greenspace": 482
   },
   {
-    "Y": 45.5460819999951,
-    "X": -73.639052,
+    "latitude": 45.5460819999951,
+    "longitude": -73.639052,
     "stop_label": "Crémazie",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22654,8 +22654,8 @@
     "greenspace": 257
   },
   {
-    "Y": 45.5507569999951,
-    "X": -73.656017,
+    "latitude": 45.5507569999951,
+    "longitude": -73.656017,
     "stop_label": "Sauvé",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange, Mascouche",
@@ -22701,8 +22701,8 @@
     "greenspace": 414
   },
   {
-    "Y": 45.5552769999951,
-    "X": -73.668172,
+    "latitude": 45.5552769999951,
+    "longitude": -73.668172,
     "stop_label": "Henri-Bourassa",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22748,8 +22748,8 @@
     "greenspace": 434
   },
   {
-    "Y": 45.5606979999951,
-    "X": -73.709389,
+    "latitude": 45.5606979999951,
+    "longitude": -73.709389,
     "stop_label": "De la Concorde",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange, Saint-Jérôme",
@@ -22795,8 +22795,8 @@
     "greenspace": 197
   },
   {
-    "Y": 45.5584359999951,
-    "X": -73.722459,
+    "latitude": 45.5584359999951,
+    "longitude": -73.722459,
     "stop_label": "Montmorency -Zone B",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -22842,8 +22842,8 @@
     "greenspace": 46
   },
   {
-    "Y": 45.5124289999951,
-    "X": -73.533127,
+    "latitude": 45.5124289999951,
+    "longitude": -73.533127,
     "stop_label": "Jean-Drapeau",
     "status": "Existing",
     "line_label": "Ligne 4 - Jaune",
@@ -22889,8 +22889,8 @@
     "greenspace": 2920
   },
   {
-    "Y": 45.5248899999951,
-    "X": -73.522098,
+    "latitude": 45.5248899999951,
+    "longitude": -73.522098,
     "stop_label": "Longueuil-Université de Sherbrooke -Zone B",
     "status": "Existing",
     "line_label": "Ligne 4 - Jaune",
@@ -22936,8 +22936,8 @@
     "greenspace": 2545
   },
   {
-    "Y": 45.4968459999951,
-    "X": -73.623386,
+    "latitude": 45.4968459999951,
+    "longitude": -73.623386,
     "stop_label": "Côte-des-Neiges",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -22983,8 +22983,8 @@
     "greenspace": 53
   },
   {
-    "Y": 45.5031879999951,
-    "X": -73.617699,
+    "latitude": 45.5031879999951,
+    "longitude": -73.617699,
     "stop_label": "Université-de-Montréal",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -23030,8 +23030,8 @@
     "greenspace": 65
   },
   {
-    "Y": 45.5099199999951,
-    "X": -73.612858,
+    "latitude": 45.5099199999951,
+    "longitude": -73.612858,
     "stop_label": "Édouard-Montpetit",
     "status": "Existing, Construction",
     "line_label": "Ligne 5 - Bleue, REM",
@@ -23077,8 +23077,8 @@
     "greenspace": 137
   },
   {
-    "Y": 45.5203699999952,
-    "X": -73.614976,
+    "latitude": 45.5203699999952,
+    "longitude": -73.614976,
     "stop_label": "Outremont",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -23124,8 +23124,8 @@
     "greenspace": 185
   },
   {
-    "Y": 45.5234579999951,
-    "X": -73.623257,
+    "latitude": 45.5234579999951,
+    "longitude": -73.623257,
     "stop_label": "Acadie",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -23171,8 +23171,8 @@
     "greenspace": 125
   },
   {
-    "Y": 45.5301769999951,
-    "X": -73.624559,
+    "latitude": 45.5301769999951,
+    "longitude": -73.624559,
     "stop_label": "Parc",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue, Saint-Jérôme",
@@ -23218,8 +23218,8 @@
     "greenspace": 475
   },
   {
-    "Y": 45.5354369999951,
-    "X": -73.619873,
+    "latitude": 45.5354369999951,
+    "longitude": -73.619873,
     "stop_label": "De Castelnau",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -23265,8 +23265,8 @@
     "greenspace": 454
   },
   {
-    "Y": 45.5467529999951,
-    "X": -73.608106,
+    "latitude": 45.5467529999951,
+    "longitude": -73.608106,
     "stop_label": "Fabre",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -23312,8 +23312,8 @@
     "greenspace": 90
   },
   {
-    "Y": 45.5536179999951,
-    "X": -73.601988,
+    "latitude": 45.5536179999951,
+    "longitude": -73.601988,
     "stop_label": "D'Iberville",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -23359,8 +23359,8 @@
     "greenspace": 145
   },
   {
-    "Y": 45.5595599999951,
-    "X": -73.600002,
+    "latitude": 45.5595599999951,
+    "longitude": -73.600002,
     "stop_label": "Saint-Michel",
     "status": "Existing",
     "line_label": "Ligne 5 - Bleue",
@@ -23406,8 +23406,8 @@
     "greenspace": 254
   },
   {
-    "Y": 45.5599969999951,
-    "X": -73.68231,
+    "latitude": 45.5599969999951,
+    "longitude": -73.68231,
     "stop_label": "Cartier",
     "status": "Existing",
     "line_label": "Ligne 2 - Orange",
@@ -23453,8 +23453,8 @@
     "greenspace": 698
   },
   {
-    "Y": 45.4536719921,
-    "X": -73.6417387654,
+    "latitude": 45.4536719921,
+    "longitude": -73.6417387654,
     "stop_label": "Montréal-Ouest",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson, Saint-Jérôme, Candiac",
@@ -23500,8 +23500,8 @@
     "greenspace": 434
   },
   {
-    "Y": 45.4486782596,
-    "X": -73.711323749,
+    "latitude": 45.4486782596,
+    "longitude": -73.711323749,
     "stop_label": "Lachine",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23547,8 +23547,8 @@
     "greenspace": 135
   },
   {
-    "Y": 45.4491999394,
-    "X": -73.7431076525,
+    "latitude": 45.4491999394,
+    "longitude": -73.7431076525,
     "stop_label": "Dorval",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23594,8 +23594,8 @@
     "greenspace": 130
   },
   {
-    "Y": 45.4495939016,
-    "X": -73.7642548485,
+    "latitude": 45.4495939016,
+    "longitude": -73.7642548485,
     "stop_label": "Pine Beach",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23641,8 +23641,8 @@
     "greenspace": 354
   },
   {
-    "Y": 45.4497451853,
-    "X": -73.7908728809,
+    "latitude": 45.4497451853,
+    "longitude": -73.7908728809,
     "stop_label": "Valois",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23688,8 +23688,8 @@
     "greenspace": 618
   },
   {
-    "Y": 45.4472468996,
-    "X": -73.8034394321,
+    "latitude": 45.4472468996,
+    "longitude": -73.8034394321,
     "stop_label": "Pointe-Claire",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23735,8 +23735,8 @@
     "greenspace": 639
   },
   {
-    "Y": 45.4424148333,
-    "X": -73.81987783,
+    "latitude": 45.4424148333,
+    "longitude": -73.81987783,
     "stop_label": "Cedar Park",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23782,8 +23782,8 @@
     "greenspace": 575
   },
   {
-    "Y": 45.4349736673,
-    "X": -73.847391976,
+    "latitude": 45.4349736673,
+    "longitude": -73.847391976,
     "stop_label": "Beaconsfield",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23829,8 +23829,8 @@
     "greenspace": 302
   },
   {
-    "Y": 45.427394676,
-    "X": -73.8872557173,
+    "latitude": 45.427394676,
+    "longitude": -73.8872557173,
     "stop_label": "Beaurepaire",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23876,8 +23876,8 @@
     "greenspace": 1100
   },
   {
-    "Y": 45.4199073968,
-    "X": -73.915558391,
+    "latitude": 45.4199073968,
+    "longitude": -73.915558391,
     "stop_label": "Baie-d'Urfé",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23923,8 +23923,8 @@
     "greenspace": 6022
   },
   {
-    "Y": 45.407606043,
-    "X": -73.951212608,
+    "latitude": 45.407606043,
+    "longitude": -73.951212608,
     "stop_label": "Sainte-Anne-de-Bellevue",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -23970,8 +23970,8 @@
     "greenspace": 12030
   },
   {
-    "Y": 45.3959228327,
-    "X": -73.9654246608,
+    "latitude": 45.3959228327,
+    "longitude": -73.9654246608,
     "stop_label": "Île-Perrot",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -24017,8 +24017,8 @@
     "greenspace": 69
   },
   {
-    "Y": 45.3863907226,
-    "X": -74.0082543463,
+    "latitude": 45.3863907226,
+    "longitude": -74.0082543463,
     "stop_label": "Dorion",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -24064,8 +24064,8 @@
     "greenspace": 1029
   },
   {
-    "Y": 45.4596284629,
-    "X": -74.140935024,
+    "latitude": 45.4596284629,
+    "longitude": -74.140935024,
     "stop_label": "Hudson",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -24111,8 +24111,8 @@
     "greenspace": 317
   },
   {
-    "Y": 45.4999926211,
-    "X": -73.5666664467,
+    "latitude": 45.4999926211,
+    "longitude": -73.5666664467,
     "stop_label": "Gare Centrale",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire, Mascouche, REM",
@@ -24158,8 +24158,8 @@
     "greenspace": 213
   },
   {
-    "Y": 45.5402419383,
-    "X": -73.6769009375,
+    "latitude": 45.5402419383,
+    "longitude": -73.6769009375,
     "stop_label": "Bois-de-Boulogne",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24205,8 +24205,8 @@
     "greenspace": 363
   },
   {
-    "Y": 45.6254300557,
-    "X": -73.7647463212,
+    "latitude": 45.6254300557,
+    "longitude": -73.7647463212,
     "stop_label": "Sainte-Rose",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24252,8 +24252,8 @@
     "greenspace": 2195
   },
   {
-    "Y": 45.6344962314,
-    "X": -73.7957392105,
+    "latitude": 45.6344962314,
+    "longitude": -73.7957392105,
     "stop_label": "Rosemère",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24299,8 +24299,8 @@
     "greenspace": 792
   },
   {
-    "Y": 45.6724175869,
-    "X": -73.8661597194,
+    "latitude": 45.6724175869,
+    "longitude": -73.8661597194,
     "stop_label": "Blainville",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24346,8 +24346,8 @@
     "greenspace": 898
   },
   {
-    "Y": 45.6360297764,
-    "X": -73.8335478331,
+    "latitude": 45.6360297764,
+    "longitude": -73.8335478331,
     "stop_label": "Sainte-Thérèse",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24393,8 +24393,8 @@
     "greenspace": 243
   },
   {
-    "Y": 45.5460432098,
-    "X": -73.2297741039,
+    "latitude": 45.5460432098,
+    "longitude": -73.2297741039,
     "stop_label": "McMasterville",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
@@ -24440,8 +24440,8 @@
     "greenspace": 243
   },
   {
-    "Y": 45.5120189202,
-    "X": -73.3744074542,
+    "latitude": 45.5120189202,
+    "longitude": -73.3744074542,
     "stop_label": "Saint-Bruno",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
@@ -24487,8 +24487,8 @@
     "greenspace": 547
   },
   {
-    "Y": 45.42520771,
-    "X": -73.6569767067,
+    "latitude": 45.42520771,
+    "longitude": -73.6569767067,
     "stop_label": "Lasalle",
     "status": "Existing",
     "line_label": "Candiac",
@@ -24534,8 +24534,8 @@
     "greenspace": 493
   },
   {
-    "Y": 45.3820335019,
-    "X": -73.6000979692,
+    "latitude": 45.3820335019,
+    "longitude": -73.6000979692,
     "stop_label": "Sainte-Catherine",
     "status": "Existing",
     "line_label": "Candiac",
@@ -24581,8 +24581,8 @@
     "greenspace": 2766
   },
   {
-    "Y": 45.5771886398,
-    "X": -73.1784993373,
+    "latitude": 45.5771886398,
+    "longitude": -73.1784993373,
     "stop_label": "Mont-Saint-Hilaire",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
@@ -24628,8 +24628,8 @@
     "greenspace": 762
   },
   {
-    "Y": 45.5232970813,
-    "X": -73.3059218339,
+    "latitude": 45.5232970813,
+    "longitude": -73.3059218339,
     "stop_label": "Saint-Basile-le-Grand",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
@@ -24675,8 +24675,8 @@
     "greenspace": 7649
   },
   {
-    "Y": 45.3989996727,
-    "X": -74.0505567791,
+    "latitude": 45.3989996727,
+    "longitude": -74.0505567791,
     "stop_label": "Vaudreuil",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -24722,8 +24722,8 @@
     "greenspace": 62
   },
   {
-    "Y": 45.3606506456,
-    "X": -73.5147939581,
+    "latitude": 45.3606506456,
+    "longitude": -73.5147939581,
     "stop_label": "Candiac",
     "status": "Existing",
     "line_label": "Candiac",
@@ -24769,8 +24769,8 @@
     "greenspace": 218
   },
   {
-    "Y": 45.6037573178,
-    "X": -73.7426590323,
+    "latitude": 45.6037573178,
+    "longitude": -73.7426590323,
     "stop_label": "Vimont",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24816,8 +24816,8 @@
     "greenspace": 2010
   },
   {
-    "Y": 45.7731786047,
-    "X": -73.9991165741,
+    "latitude": 45.7731786047,
+    "longitude": -73.9991165741,
     "stop_label": "Saint-Jérôme",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24863,8 +24863,8 @@
     "greenspace": 274
   },
   {
-    "Y": 45.5370481844,
-    "X": -73.6580302395,
+    "latitude": 45.5370481844,
+    "longitude": -73.6580302395,
     "stop_label": "Chabanel",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -24910,8 +24910,8 @@
     "greenspace": 115
   },
   {
-    "Y": 45.4996249937,
-    "X": -73.5058220798,
+    "latitude": 45.4996249937,
+    "longitude": -73.5058220798,
     "stop_label": "Saint-Lambert",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
@@ -24957,8 +24957,8 @@
     "greenspace": 209
   },
   {
-    "Y": 45.3668353885,
-    "X": -73.5407995189,
+    "latitude": 45.3668353885,
+    "longitude": -73.5407995189,
     "stop_label": "Delson",
     "status": "Existing",
     "line_label": "Candiac",
@@ -25004,8 +25004,8 @@
     "greenspace": 128
   },
   {
-    "Y": 45.6003121189,
-    "X": -73.6157267455,
+    "latitude": 45.6003121189,
+    "longitude": -73.6157267455,
     "stop_label": "Saint-Léonard–Montréal-Nord",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25051,8 +25051,8 @@
     "greenspace": 86
   },
   {
-    "Y": 45.5823441197,
-    "X": -73.6309263335,
+    "latitude": 45.5823441197,
+    "longitude": -73.6309263335,
     "stop_label": "Saint-Michel–Montréal-Nord",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25098,8 +25098,8 @@
     "greenspace": 80
   },
   {
-    "Y": 45.5356834568,
-    "X": -73.6622901342,
+    "latitude": 45.5356834568,
+    "longitude": -73.6622901342,
     "stop_label": "Ahuntsic",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25145,8 +25145,8 @@
     "greenspace": 94
   },
   {
-    "Y": 45.61838091,
-    "X": -73.5960040301,
+    "latitude": 45.61838091,
+    "longitude": -73.5960040301,
     "stop_label": "Anjou",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25192,8 +25192,8 @@
     "greenspace": 785
   },
   {
-    "Y": 45.6744348251,
-    "X": -73.5074061174,
+    "latitude": 45.6744348251,
+    "longitude": -73.5074061174,
     "stop_label": "Pointe-aux-Trembles",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25239,8 +25239,8 @@
     "greenspace": 1726
   },
   {
-    "Y": 45.7345776061,
-    "X": -73.4861741212,
+    "latitude": 45.7345776061,
+    "longitude": -73.4861741212,
     "stop_label": "Repentigny",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25286,8 +25286,8 @@
     "greenspace": 222
   },
   {
-    "Y": 45.7284217754,
-    "X": -73.5213146963,
+    "latitude": 45.7284217754,
+    "longitude": -73.5213146963,
     "stop_label": "Terrebonne",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25333,8 +25333,8 @@
     "greenspace": 27
   },
   {
-    "Y": 45.6607331946,
-    "X": -73.5389977475,
+    "latitude": 45.6607331946,
+    "longitude": -73.5389977475,
     "stop_label": "Rivière-des-Prairies",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25380,8 +25380,8 @@
     "greenspace": 1503
   },
   {
-    "Y": 45.3871123303,
-    "X": -73.9934982585,
+    "latitude": 45.3871123303,
+    "longitude": -73.9934982585,
     "stop_label": "Pincourt-Terrasse-Vaudreuil",
     "status": "Existing",
     "line_label": "Vaudreuil-Hudson",
@@ -25427,8 +25427,8 @@
     "greenspace": 1046
   },
   {
-    "Y": 45.5080292515,
-    "X": -73.4351285404,
+    "latitude": 45.5080292515,
+    "longitude": -73.4351285404,
     "stop_label": "Saint-Hubert",
     "status": "Existing",
     "line_label": "Mont-Saint-Hilaire",
@@ -25474,8 +25474,8 @@
     "greenspace": 116
   },
   {
-    "Y": 45.3739389675,
-    "X": -73.5702973321,
+    "latitude": 45.3739389675,
+    "longitude": -73.5702973321,
     "stop_label": "Saint-Constant",
     "status": "Existing",
     "line_label": "Candiac",
@@ -25521,8 +25521,8 @@
     "greenspace": 701
   },
   {
-    "Y": 45.729622888,
-    "X": -73.5986741279,
+    "latitude": 45.729622888,
+    "longitude": -73.5986741279,
     "stop_label": "Mascouche",
     "status": "Existing",
     "line_label": "Mascouche",
@@ -25568,8 +25568,8 @@
     "greenspace": 43
   },
   {
-    "Y": 45.4376451911,
-    "X": -73.6558863937,
+    "latitude": 45.4376451911,
+    "longitude": -73.6558863937,
     "stop_label": "Du Canal",
     "status": "Existing",
     "line_label": "Candiac",
@@ -25615,8 +25615,8 @@
     "greenspace": 300
   },
   {
-    "Y": 45.7128839996,
-    "X": -73.9201699996,
+    "latitude": 45.7128839996,
+    "longitude": -73.9201699996,
     "stop_label": "Mirabel",
     "status": "Existing",
     "line_label": "Saint-Jérôme",
@@ -25662,8 +25662,8 @@
     "greenspace": 45
   },
   {
-    "Y": 45.5139385,
-    "X": -73.634535,
+    "latitude": 45.5139385,
+    "longitude": -73.634535,
     "stop_label": "Canora",
     "status": "Construction",
     "line_label": "REM",
@@ -25709,8 +25709,8 @@
     "greenspace": 254
   },
   {
-    "Y": 45.5168372,
-    "X": -73.644589,
+    "latitude": 45.5168372,
+    "longitude": -73.644589,
     "stop_label": "Ville-de-Mont-Royal",
     "status": "Construction",
     "line_label": "REM",
@@ -25756,8 +25756,8 @@
     "greenspace": 292
   },
   {
-    "Y": 45.521957,
-    "X": -73.662428,
+    "latitude": 45.521957,
+    "longitude": -73.662428,
     "stop_label": "Côte-de-Liesse",
     "status": "Construction",
     "line_label": "REM",
@@ -25803,8 +25803,8 @@
     "greenspace": 107
   },
   {
-    "Y": 45.52494,
-    "X": -73.6727196,
+    "latitude": 45.52494,
+    "longitude": -73.6727196,
     "stop_label": "Montpellier",
     "status": "Construction",
     "line_label": "REM",
@@ -25850,8 +25850,8 @@
     "greenspace": 173
   },
   {
-    "Y": 45.5289291,
-    "X": -73.6901653,
+    "latitude": 45.5289291,
+    "longitude": -73.6901653,
     "stop_label": "Du Ruisseau",
     "status": "Construction",
     "line_label": "REM",
@@ -25897,8 +25897,8 @@
     "greenspace": 152
   },
   {
-    "Y": 45.5230167,
-    "X": -73.709816666667,
+    "latitude": 45.5230167,
+    "longitude": -73.709816666667,
     "stop_label": "Bois-Franc",
     "status": "Construction",
     "line_label": "REM",
@@ -25944,8 +25944,8 @@
     "greenspace": 290
   },
   {
-    "Y": 45.5097074,
-    "X": -73.8118921,
+    "latitude": 45.5097074,
+    "longitude": -73.8118921,
     "stop_label": "Pierrefonds-Roxboro",
     "status": "Construction",
     "line_label": "REM",
@@ -25991,8 +25991,8 @@
     "greenspace": 710
   },
   {
-    "Y": 45.5039454,
-    "X": -73.7864233,
+    "latitude": 45.5039454,
+    "longitude": -73.7864233,
     "stop_label": "Sunnybrooke",
     "status": "Construction",
     "line_label": "REM",
@@ -26038,8 +26038,8 @@
     "greenspace": 947
   },
   {
-    "Y": 45.5197674,
-    "X": -73.8527987,
+    "latitude": 45.5197674,
+    "longitude": -73.8527987,
     "stop_label": "Île-Bigras",
     "status": "Construction",
     "line_label": "REM",
@@ -26085,8 +26085,8 @@
     "greenspace": 329
   },
   {
-    "Y": 45.537103,
-    "X": -73.8876422,
+    "latitude": 45.537103,
+    "longitude": -73.8876422,
     "stop_label": "Grand-Moulin",
     "status": "Construction",
     "line_label": "REM",
@@ -26132,8 +26132,8 @@
     "greenspace": 301
   },
   {
-    "Y": 45.5458841,
-    "X": -73.9131412,
+    "latitude": 45.5458841,
+    "longitude": -73.9131412,
     "stop_label": "Deux-Montagnes",
     "status": "Construction",
     "line_label": "REM",
@@ -26179,8 +26179,8 @@
     "greenspace": 198
   },
   {
-    "Y": 45.476855,
-    "X": -73.7916324,
+    "latitude": 45.476855,
+    "longitude": -73.7916324,
     "stop_label": "Des Sources",
     "status": "Construction",
     "line_label": "REM",
@@ -26226,8 +26226,8 @@
     "greenspace": 210
   },
   {
-    "Y": 45.4599452,
-    "X": -73.8353251,
+    "latitude": 45.4599452,
+    "longitude": -73.8353251,
     "stop_label": "Fairview Pointe-Claire",
     "status": "Construction",
     "line_label": "REM",
@@ -26273,8 +26273,8 @@
     "greenspace": 124
   },
   {
-    "Y": 45.439984,
-    "X": -73.886234,
+    "latitude": 45.439984,
+    "longitude": -73.886234,
     "stop_label": "Kirkland",
     "status": "Construction",
     "line_label": "REM",
@@ -26320,8 +26320,8 @@
     "greenspace": 1247
   },
   {
-    "Y": 45.4323293,
-    "X": -73.9084157,
+    "latitude": 45.4323293,
+    "longitude": -73.9084157,
     "stop_label": "Anse-à-l'Orme",
     "status": "Construction",
     "line_label": "REM",
@@ -26367,8 +26367,8 @@
     "greenspace": 6978
   },
   {
-    "Y": 45.478836,
-    "X": -73.760007,
+    "latitude": 45.478836,
+    "longitude": -73.760007,
     "stop_label": "Marie-Curie",
     "status": "Construction",
     "line_label": "REM",
@@ -26414,8 +26414,8 @@
     "greenspace": 1570
   },
   {
-    "Y": 45.496323,
-    "X": -73.558812,
+    "latitude": 45.496323,
+    "longitude": -73.558812,
     "stop_label": "Griffintown - Bernard-Landry",
     "status": "Planned",
     "line_label": "REM",
@@ -26461,8 +26461,8 @@
     "greenspace": 794
   },
   {
-    "Y": 45.5234623,
-    "X": -73.8621965,
+    "latitude": 45.5234623,
+    "longitude": -73.8621965,
     "stop_label": "Sainte-Dorothée",
     "status": "Construction",
     "line_label": "REM",
@@ -26508,8 +26508,8 @@
     "greenspace": 2125
   },
   {
-    "Y": 45.4572952,
-    "X": -73.7496573,
+    "latitude": 45.4572952,
+    "longitude": -73.7496573,
     "stop_label": "YUL-Aéroport-Montréal-Trudeau",
     "status": "Construction",
     "line_label": "REM",
@@ -26555,8 +26555,8 @@
     "greenspace": 917
   },
   {
-    "Y": 45.4703239,
-    "X": -73.5388761,
+    "latitude": 45.4703239,
+    "longitude": -73.5388761,
     "stop_label": "Île-des-Sœurs",
     "status": "Existing",
     "line_label": "REM",
@@ -26602,8 +26602,8 @@
     "greenspace": 233
   },
   {
-    "Y": 45.4649611,
-    "X": -73.4705989,
+    "latitude": 45.4649611,
+    "longitude": -73.4705989,
     "stop_label": "Panama",
     "status": "Existing",
     "line_label": "REM",
@@ -26649,8 +26649,8 @@
     "greenspace": 185
   },
   {
-    "Y": 45.4468594,
-    "X": -73.4335186,
+    "latitude": 45.4468594,
+    "longitude": -73.4335186,
     "stop_label": "Du Quartier",
     "status": "Existing",
     "line_label": "REM",
@@ -26696,8 +26696,8 @@
     "greenspace": 2516
   },
   {
-    "Y": 45.4380649,
-    "X": -73.4305533,
+    "latitude": 45.4380649,
+    "longitude": -73.4305533,
     "stop_label": "Brossard",
     "status": "Existing",
     "line_label": "REM",
@@ -26743,8 +26743,8 @@
     "greenspace": 2456
   },
   {
-    "Y": 45.3808246181159,
-    "X": -75.7712856533925,
+    "latitude": 45.3808246181159,
+    "longitude": -75.7712856533925,
     "stop_label": "Sherbourne",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -26790,8 +26790,8 @@
     "greenspace": 102
   },
   {
-    "Y": 45.3496423323822,
-    "X": -75.7908317141593,
+    "latitude": 45.3496423323822,
+    "longitude": -75.7908317141593,
     "stop_label": "Pinecrest",
     "status": "Construction",
     "line_label": "Line 3",
@@ -26837,8 +26837,8 @@
     "greenspace": 232
   },
   {
-    "Y": 45.3455442085325,
-    "X": -75.8091208175818,
+    "latitude": 45.3455442085325,
+    "longitude": -75.8091208175818,
     "stop_label": "Bayshore",
     "status": "Construction",
     "line_label": "Line 3",
@@ -26884,8 +26884,8 @@
     "greenspace": 2236
   },
   {
-    "Y": 45.3555248244186,
-    "X": -75.7695280789373,
+    "latitude": 45.3555248244186,
+    "longitude": -75.7695280789373,
     "stop_label": "Iris",
     "status": "Construction",
     "line_label": "Line 1",
@@ -26931,8 +26931,8 @@
     "greenspace": 380
   },
   {
-    "Y": 45.3540946770751,
-    "X": -75.7821751575569,
+    "latitude": 45.3540946770751,
+    "longitude": -75.7821751575569,
     "stop_label": "Queensview",
     "status": "Construction",
     "line_label": "Line 3",
@@ -26978,8 +26978,8 @@
     "greenspace": 429
   },
   {
-    "Y": 45.3745354522782,
-    "X": -75.777630044099,
+    "latitude": 45.3745354522782,
+    "longitude": -75.777630044099,
     "stop_label": "New Orchard",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -27025,8 +27025,8 @@
     "greenspace": 115
   },
   {
-    "Y": 45.396622469168,
-    "X": -75.7520073129992,
+    "latitude": 45.396622469168,
+    "longitude": -75.7520073129992,
     "stop_label": "Westboro",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -27072,8 +27072,8 @@
     "greenspace": 319
   },
   {
-    "Y": 45.340865069879,
-    "X": -75.8374733037432,
+    "latitude": 45.340865069879,
+    "longitude": -75.8374733037432,
     "stop_label": "Moodie",
     "status": "Construction",
     "line_label": "Line 3",
@@ -27119,8 +27119,8 @@
     "greenspace": 1702
   },
   {
-    "Y": 45.4736408218758,
-    "X": -75.5340890924103,
+    "latitude": 45.4736408218758,
+    "longitude": -75.5340890924103,
     "stop_label": "Convent Glen",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -27166,10 +27166,10 @@
     "greenspace": 504
   },
   {
-    "Y": 45.3683393446573,
-    "X": -75.6652537456265,
+    "latitude": 45.3683393446573,
+    "longitude": -75.6652537456265,
     "stop_label": "Walkley",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 579,
@@ -27213,10 +27213,10 @@
     "greenspace": 852
   },
   {
-    "Y": 45.404297128585,
-    "X": -75.7147204788338,
+    "latitude": 45.404297128585,
+    "longitude": -75.7147204788338,
     "stop_label": "Corso Italia",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 580,
@@ -27260,8 +27260,8 @@
     "greenspace": 283
   },
   {
-    "Y": 45.3927128560464,
-    "X": -75.7594852172103,
+    "latitude": 45.3927128560464,
+    "longitude": -75.7594852172103,
     "stop_label": "Kichi Zìbì",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -27307,8 +27307,8 @@
     "greenspace": 115
   },
   {
-    "Y": 45.3329227186631,
-    "X": -75.6560167637545,
+    "latitude": 45.3329227186631,
+    "longitude": -75.6560167637545,
     "stop_label": "Uplands",
     "status": "Construction",
     "line_label": "Line 4",
@@ -27354,8 +27354,8 @@
     "greenspace": 55
   },
   {
-    "Y": 45.4513532864285,
-    "X": -75.5836772965835,
+    "latitude": 45.4513532864285,
+    "longitude": -75.5836772965835,
     "stop_label": "Montréal",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -27401,10 +27401,10 @@
     "greenspace": 601
   },
   {
-    "Y": 45.2776118109928,
-    "X": -75.6663099057224,
+    "latitude": 45.2776118109928,
+    "longitude": -75.6663099057224,
     "stop_label": "Limebank",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 584,
@@ -27448,10 +27448,10 @@
     "greenspace": 275
   },
   {
-    "Y": 45.3977307281229,
-    "X": -75.709659417125,
+    "latitude": 45.3977307281229,
+    "longitude": -75.709659417125,
     "stop_label": "Dow's Lake",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 585,
@@ -27495,10 +27495,10 @@
     "greenspace": 817
   },
   {
-    "Y": 45.2934004765455,
-    "X": -75.6326256258787,
+    "latitude": 45.2934004765455,
+    "longitude": -75.6326256258787,
     "stop_label": "Bowesville",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 586,
@@ -27542,8 +27542,8 @@
     "greenspace": 316
   },
   {
-    "Y": 45.3470709929151,
-    "X": -75.760974449213,
+    "latitude": 45.3470709929151,
+    "longitude": -75.760974449213,
     "stop_label": "Algonquin",
     "status": "Construction",
     "line_label": "Line 1",
@@ -27589,10 +27589,10 @@
     "greenspace": 401
   },
   {
-    "Y": 45.3237456936528,
-    "X": -75.6686968019892,
+    "latitude": 45.3237456936528,
+    "longitude": -75.6686968019892,
     "stop_label": "Airport",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 4",
     "technology": "LRT",
     "id": 588,
@@ -27636,8 +27636,8 @@
     "greenspace": 76
   },
   {
-    "Y": 45.420556560044,
-    "X": -75.6823318321421,
+    "latitude": 45.420556560044,
+    "longitude": -75.6823318321421,
     "stop_label": "uOttawa",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -27683,8 +27683,8 @@
     "greenspace": 348
   },
   {
-    "Y": 45.4228139278825,
-    "X": -75.6262868700452,
+    "latitude": 45.4228139278825,
+    "longitude": -75.6262868700452,
     "stop_label": "Cyrville",
     "status": "Existing",
     "line_label": "Line 1",
@@ -27730,8 +27730,8 @@
     "greenspace": 290
   },
   {
-    "Y": 45.4188564004119,
-    "X": -75.704751875699,
+    "latitude": 45.4188564004119,
+    "longitude": -75.704751875699,
     "stop_label": "Lyon",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -27777,8 +27777,8 @@
     "greenspace": 1068
   },
   {
-    "Y": 45.4212930583355,
-    "X": -75.6990822146884,
+    "latitude": 45.4212930583355,
+    "longitude": -75.6990822146884,
     "stop_label": "Parliament",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -27824,8 +27824,8 @@
     "greenspace": 997
   },
   {
-    "Y": 45.4167777045659,
-    "X": -75.6536526702544,
+    "latitude": 45.4167777045659,
+    "longitude": -75.6536526702544,
     "stop_label": "Tremblay",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -27871,8 +27871,8 @@
     "greenspace": 532
   },
   {
-    "Y": 45.4037404714124,
-    "X": -75.7352232178427,
+    "latitude": 45.4037404714124,
+    "longitude": -75.7352232178427,
     "stop_label": "Tunney's Pasture",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -27918,8 +27918,8 @@
     "greenspace": 249
   },
   {
-    "Y": 45.4953629175517,
-    "X": -75.4817516217105,
+    "latitude": 45.4953629175517,
+    "longitude": -75.4817516217105,
     "stop_label": "Trim",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -27965,8 +27965,8 @@
     "greenspace": 1785
   },
   {
-    "Y": 45.4206656125049,
-    "X": -75.6374168944747,
+    "latitude": 45.4206656125049,
+    "longitude": -75.6374168944747,
     "stop_label": "St-Laurent",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -28012,10 +28012,10 @@
     "greenspace": 201
   },
   {
-    "Y": 45.3533842290923,
-    "X": -75.6554482430486,
+    "latitude": 45.3533842290923,
+    "longitude": -75.6554482430486,
     "stop_label": "South Keys",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2, Line 4",
     "technology": "LRT",
     "id": 597,
@@ -28059,8 +28059,8 @@
     "greenspace": 170
   },
   {
-    "Y": 45.4263098960394,
-    "X": -75.6914933898262,
+    "latitude": 45.4263098960394,
+    "longitude": -75.6914933898262,
     "stop_label": "Rideau",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -28106,8 +28106,8 @@
     "greenspace": 1063
   },
   {
-    "Y": 45.4796164736552,
-    "X": -75.5185860084421,
+    "latitude": 45.4796164736552,
+    "longitude": -75.5185860084421,
     "stop_label": "Place d'Orléans",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -28153,10 +28153,10 @@
     "greenspace": 460
   },
   {
-    "Y": 45.3767476313676,
-    "X": -75.6847011694899,
+    "latitude": 45.3767476313676,
+    "longitude": -75.6847011694899,
     "stop_label": "Mooney's Bay",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 600,
@@ -28200,8 +28200,8 @@
     "greenspace": 1843
   },
   {
-    "Y": 45.3661305221699,
-    "X": -75.7821244950212,
+    "latitude": 45.3661305221699,
+    "longitude": -75.7821244950212,
     "stop_label": "Lincoln Fields",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -28247,10 +28247,10 @@
     "greenspace": 202
   },
   {
-    "Y": 45.3138336899998,
-    "X": -75.6318977533812,
+    "latitude": 45.3138336899998,
+    "longitude": -75.6318977533812,
     "stop_label": "Leitrim",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 602,
@@ -28294,8 +28294,8 @@
     "greenspace": 183
   },
   {
-    "Y": 45.4165350969348,
-    "X": -75.6709311992256,
+    "latitude": 45.4165350969348,
+    "longitude": -75.6709311992256,
     "stop_label": "Lees",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -28341,8 +28341,8 @@
     "greenspace": 1198
   },
   {
-    "Y": 45.4136257188103,
-    "X": -75.7136176596787,
+    "latitude": 45.4136257188103,
+    "longitude": -75.7136176596787,
     "stop_label": "Pimisi",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -28388,8 +28388,8 @@
     "greenspace": 1191
   },
   {
-    "Y": 45.4690209679842,
-    "X": -75.5461407222291,
+    "latitude": 45.4690209679842,
+    "longitude": -75.5461407222291,
     "stop_label": "Jeanne d'Arc",
     "status": "Construction",
     "line_label": "Line 1, Line 3",
@@ -28435,8 +28435,8 @@
     "greenspace": 458
   },
   {
-    "Y": 45.4123675847349,
-    "X": -75.6642640712279,
+    "latitude": 45.4123675847349,
+    "longitude": -75.6642640712279,
     "stop_label": "Hurdman",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -28482,10 +28482,10 @@
     "greenspace": 1127
   },
   {
-    "Y": 45.3595506154329,
-    "X": -75.6590459419105,
+    "latitude": 45.3595506154329,
+    "longitude": -75.6590459419105,
     "stop_label": "Greenboro",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 607,
@@ -28529,10 +28529,10 @@
     "greenspace": 296
   },
   {
-    "Y": 45.3857791140109,
-    "X": -75.6958999494068,
+    "latitude": 45.3857791140109,
+    "longitude": -75.6958999494068,
     "stop_label": "Carleton",
-    "status": "Construction",
+    "status": "Existing",
     "line_label": "Line 2",
     "technology": "LRT",
     "id": 608,
@@ -28576,8 +28576,8 @@
     "greenspace": 1627
   },
   {
-    "Y": 45.4310609965537,
-    "X": -75.6084118986394,
+    "latitude": 45.4310609965537,
+    "longitude": -75.6084118986394,
     "stop_label": "Blair",
     "status": "Existing",
     "line_label": "Line 1, Line 3",
@@ -28623,8 +28623,8 @@
     "greenspace": 601
   },
   {
-    "Y": 45.4091959870014,
-    "X": -75.7218399041706,
+    "latitude": 45.4091959870014,
+    "longitude": -75.7218399041706,
     "stop_label": "Bayview",
     "status": "Existing",
     "line_label": "Line 1, Line 2, Line 3",
@@ -28670,8 +28670,8 @@
     "greenspace": 232
   },
   {
-    "Y": 45.4078623,
-    "X": -75.8658737,
+    "latitude": 45.4078623,
+    "longitude": -75.8658737,
     "stop_label": "Eardley",
     "status": "Planned",
     "line_label": "TramGO",
@@ -28717,8 +28717,8 @@
     "greenspace": 390
   },
   {
-    "Y": 45.3970398,
-    "X": -75.8382089,
+    "latitude": 45.3970398,
+    "longitude": -75.8382089,
     "stop_label": "Galeries Aylmer",
     "status": "Planned",
     "line_label": "TramGO",
@@ -28764,8 +28764,8 @@
     "greenspace": 263
   },
   {
-    "Y": 45.4048237,
-    "X": -75.7935467,
+    "latitude": 45.4048237,
+    "longitude": -75.7935467,
     "stop_label": "Rivermead",
     "status": "Planned",
     "line_label": "TramGO",
@@ -28811,8 +28811,8 @@
     "greenspace": 135
   },
   {
-    "Y": 45.4246409,
-    "X": -75.7212991,
+    "latitude": 45.4246409,
+    "longitude": -75.7212991,
     "stop_label": "Chaudières",
     "status": "Planned",
     "line_label": "TramGO",
@@ -28858,8 +28858,8 @@
     "greenspace": 1397
   },
   {
-    "Y": 45.4154771,
-    "X": -75.8088386,
+    "latitude": 45.4154771,
+    "longitude": -75.8088386,
     "stop_label": "Vanier",
     "status": "Planned",
     "line_label": "TramGO",
@@ -28905,8 +28905,8 @@
     "greenspace": 100
   },
   {
-    "Y": 45.4361892,
-    "X": -75.765292,
+    "latitude": 45.4361892,
+    "longitude": -75.765292,
     "stop_label": "Plateau",
     "status": "Planned",
     "line_label": "TramGO",
@@ -28952,8 +28952,8 @@
     "greenspace": 3187
   },
   {
-    "Y": 45.4357394,
-    "X": -75.7996136,
+    "latitude": 45.4357394,
+    "longitude": -75.7996136,
     "stop_label": "Europe",
     "status": "Planned",
     "line_label": "TramGO",
@@ -28999,8 +28999,8 @@
     "greenspace": 168
   },
   {
-    "Y": 45.4219598,
-    "X": -75.7015079,
+    "latitude": 45.4219598,
+    "longitude": -75.7015079,
     "stop_label": "Ottawa",
     "status": "Planned",
     "line_label": "TramGO",
@@ -29046,8 +29046,8 @@
     "greenspace": 1129
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "McCartney",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29093,8 +29093,8 @@
     "greenspace": 222
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Pie-XII",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29140,8 +29140,8 @@
     "greenspace": 98
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Bégon",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29187,8 +29187,8 @@
     "greenspace": 100
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Duchesneau",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29234,8 +29234,8 @@
     "greenspace": 120
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Roland-Beaudin",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29281,8 +29281,8 @@
     "greenspace": 124
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Place Sainte-Foy",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29328,8 +29328,8 @@
     "greenspace": 116
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Desjardins",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29375,8 +29375,8 @@
     "greenspace": 121
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Myrand",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29422,8 +29422,8 @@
     "greenspace": 83
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Maguire",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29469,8 +29469,8 @@
     "greenspace": 83
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Holland",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29516,8 +29516,8 @@
     "greenspace": 365
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Collège Saint-Charles-Garnier",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29563,8 +29563,8 @@
     "greenspace": 539
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Belvédère",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29610,8 +29610,8 @@
     "greenspace": 923
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Jean-Paul-L'Allier",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29657,8 +29657,8 @@
     "greenspace": 742
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Colline Parlementaire",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29704,8 +29704,8 @@
     "greenspace": 798
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "D'Youville",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29751,8 +29751,8 @@
     "greenspace": 795
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Bardy",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29798,8 +29798,8 @@
     "greenspace": 381
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "De Courtemanche",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29845,8 +29845,8 @@
     "greenspace": 379
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Cégep-Limoilou",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29892,8 +29892,8 @@
     "greenspace": 170
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Brown",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29939,8 +29939,8 @@
     "greenspace": 646
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Cartier",
     "status": "Planned",
     "line_label": "Tramway",
@@ -29986,8 +29986,8 @@
     "greenspace": 990
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "CHUL",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30033,8 +30033,8 @@
     "greenspace": 151
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Chaudière",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30080,8 +30080,8 @@
     "greenspace": 88
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "3e Avenue",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30127,8 +30127,8 @@
     "greenspace": 788
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Cégep-Limoilou",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30174,8 +30174,8 @@
     "greenspace": 170
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Hôpital l'Enfant-Jésus",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30221,8 +30221,8 @@
     "greenspace": 430
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Pôle D'Estimauville",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30268,8 +30268,8 @@
     "greenspace": 379
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Pôle de l'Université Laval",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30315,8 +30315,8 @@
     "greenspace": 89
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Pôle de Saint-Roch",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30362,8 +30362,8 @@
     "greenspace": 858
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Pôle de Sainte-Foy",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30409,8 +30409,8 @@
     "greenspace": 254
   },
   {
-    "Y": "NA",
-    "X": "NA",
+    "latitude": "NA",
+    "longitude": "NA",
     "stop_label": "Pôle Le Gendre",
     "status": "Planned",
     "line_label": "Tramway",
@@ -30456,8 +30456,8 @@
     "greenspace": 210
   },
   {
-    "Y": 49.1661058,
-    "X": -122.8014531,
+    "latitude": 49.1661058,
+    "longitude": -122.8014531,
     "stop_label": "152 St",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -30503,8 +30503,8 @@
     "greenspace": 620
   },
   {
-    "Y": 49.200056,
-    "X": -122.948947,
+    "latitude": 49.200056,
+    "longitude": -122.948947,
     "stop_label": "22nd Street",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -30550,8 +30550,8 @@
     "greenspace": 1430
   },
   {
-    "Y": 49.244203,
-    "X": -123.045944,
+    "latitude": 49.244203,
+    "longitude": -123.045944,
     "stop_label": "29th Avenue",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -30597,8 +30597,8 @@
     "greenspace": 223
   },
   {
-    "Y": 49.184448,
-    "X": -123.136286,
+    "latitude": 49.184448,
+    "longitude": -123.136286,
     "stop_label": "Aberdeen",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -30644,8 +30644,8 @@
     "greenspace": 69723
   },
   {
-    "Y": 49.26382129,
-    "X": -123.1522006,
+    "latitude": 49.26382129,
+    "longitude": -123.1522006,
     "stop_label": "Arbutus",
     "status": "Construction",
     "line_label": "Millenium Line Extension (Broadway)",
@@ -30691,8 +30691,8 @@
     "greenspace": 86
   },
   {
-    "Y": 49.1499198,
-    "X": -122.7601178,
+    "latitude": 49.1499198,
+    "longitude": -122.7601178,
     "stop_label": "Bakerview-166 St",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -30738,8 +30738,8 @@
     "greenspace": 756
   },
   {
-    "Y": 49.233244,
-    "X": -122.882803,
+    "latitude": 49.233244,
+    "longitude": -122.882803,
     "stop_label": "Braid",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -30785,8 +30785,8 @@
     "greenspace": 259
   },
   {
-    "Y": 49.266384,
-    "X": -123.001664,
+    "latitude": 49.266384,
+    "longitude": -123.001664,
     "stop_label": "Brentwood Town Centre",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -30832,8 +30832,8 @@
     "greenspace": 207
   },
   {
-    "Y": 49.195535,
-    "X": -123.125904,
+    "latitude": 49.195535,
+    "longitude": -123.125904,
     "stop_label": "Bridgeport",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -30879,8 +30879,8 @@
     "greenspace": 69795
   },
   {
-    "Y": 49.262731,
-    "X": -123.114815,
+    "latitude": 49.262731,
+    "longitude": -123.114815,
     "stop_label": "Broadway-City Hall",
     "status": "Existing, Construction",
     "line_label": "Canada Line, Millenium Line Extension (Broadway)",
@@ -30926,8 +30926,8 @@
     "greenspace": 169
   },
   {
-    "Y": 49.261426,
-    "X": -122.889868,
+    "latitude": 49.261426,
+    "longitude": -122.889868,
     "stop_label": "Burquitlam",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -30973,8 +30973,8 @@
     "greenspace": 6024
   },
   {
-    "Y": 49.285628,
-    "X": -123.119346,
+    "latitude": 49.285628,
+    "longitude": -123.119346,
     "stop_label": "Burrard",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -31020,8 +31020,8 @@
     "greenspace": 134
   },
   {
-    "Y": 49.12120302,
-    "X": -122.6962324,
+    "latitude": 49.12120302,
+    "longitude": -122.6962324,
     "stop_label": "Clayton",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -31067,8 +31067,8 @@
     "greenspace": 412
   },
   {
-    "Y": 49.204672,
-    "X": -122.906383,
+    "latitude": 49.204672,
+    "longitude": -122.906383,
     "stop_label": "Columbia",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -31114,8 +31114,8 @@
     "greenspace": 516
   },
   {
-    "Y": 49.262314,
-    "X": -123.069128,
+    "latitude": 49.262314,
+    "longitude": -123.069128,
     "stop_label": "Commercial-Broadway",
     "status": "Existing",
     "line_label": "Expo Line, Millenium Line",
@@ -31161,8 +31161,8 @@
     "greenspace": 383
   },
   {
-    "Y": 49.274829,
-    "X": -122.800597,
+    "latitude": 49.274829,
+    "longitude": -122.800597,
     "stop_label": "Coquitlam Central",
     "status": "Existing",
     "line_label": "Millennium Line, West Coast Express",
@@ -31208,8 +31208,8 @@
     "greenspace": 167
   },
   {
-    "Y": 49.212064,
-    "X": -122.959192,
+    "latitude": 49.212064,
+    "longitude": -122.959192,
     "stop_label": "Edmonds",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -31255,8 +31255,8 @@
     "greenspace": 604
   },
   {
-    "Y": 49.15736861,
-    "X": -122.7789029,
+    "latitude": 49.15736861,
+    "longitude": -122.7789029,
     "stop_label": "Fleetwood",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -31302,8 +31302,8 @@
     "greenspace": 404
   },
   {
-    "Y": 49.198916,
-    "X": -122.850601,
+    "latitude": 49.198916,
+    "longitude": -122.850601,
     "stop_label": "Gateway",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -31349,8 +31349,8 @@
     "greenspace": 284
   },
   {
-    "Y": 49.264956,
-    "X": -123.013507,
+    "latitude": 49.264956,
+    "longitude": -123.013507,
     "stop_label": "Gilmore",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -31396,8 +31396,8 @@
     "greenspace": 218
   },
   {
-    "Y": 49.28317,
-    "X": -123.115675,
+    "latitude": 49.28317,
+    "longitude": -123.115675,
     "stop_label": "Granville",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -31443,8 +31443,8 @@
     "greenspace": 188
   },
   {
-    "Y": 49.26742296,
-    "X": -123.0947521,
+    "latitude": 49.26742296,
+    "longitude": -123.0947521,
     "stop_label": "Great Northern Way-Emily Carr",
     "status": "Construction",
     "line_label": "Millenium Line Extension (Broadway)",
@@ -31490,8 +31490,8 @@
     "greenspace": 219
   },
   {
-    "Y": 49.17879637,
-    "X": -122.8344129,
+    "latitude": 49.17879637,
+    "longitude": -122.8344129,
     "stop_label": "Green Timbers",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -31537,8 +31537,8 @@
     "greenspace": 2216
   },
   {
-    "Y": 49.1286531,
-    "X": -122.7125283,
+    "latitude": 49.1286531,
+    "longitude": -122.7125283,
     "stop_label": "Hillcrest-184 St",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -31584,8 +31584,8 @@
     "greenspace": 798
   },
   {
-    "Y": 49.264729,
-    "X": -122.982137,
+    "latitude": 49.264729,
+    "longitude": -122.982137,
     "stop_label": "Holdom",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -31631,8 +31631,8 @@
     "greenspace": 689
   },
   {
-    "Y": 49.277299,
-    "X": -122.828179,
+    "latitude": 49.277299,
+    "longitude": -122.828179,
     "stop_label": "Inlet Centre",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -31678,8 +31678,8 @@
     "greenspace": 1382
   },
   {
-    "Y": 49.238405,
-    "X": -123.031806,
+    "latitude": 49.238405,
+    "longitude": -123.031806,
     "stop_label": "Joyce-Collingwood",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -31725,8 +31725,8 @@
     "greenspace": 69
   },
   {
-    "Y": 49.248556,
-    "X": -123.115027,
+    "latitude": 49.248556,
+    "longitude": -123.115027,
     "stop_label": "King Edward",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -31772,8 +31772,8 @@
     "greenspace": 798
   },
   {
-    "Y": 49.182796,
-    "X": -122.844749,
+    "latitude": 49.182796,
+    "longitude": -122.844749,
     "stop_label": "King George",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -31819,8 +31819,8 @@
     "greenspace": 1395
   },
   {
-    "Y": 49.285748,
-    "X": -122.791638,
+    "latitude": 49.285748,
+    "longitude": -122.791638,
     "stop_label": "Lafarge Lake-Douglas",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -31866,8 +31866,8 @@
     "greenspace": 688
   },
   {
-    "Y": 49.254618,
-    "X": -122.939039,
+    "latitude": 49.254618,
+    "longitude": -122.939039,
     "stop_label": "Lake City Way",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -31913,8 +31913,8 @@
     "greenspace": 1484
   },
   {
-    "Y": 49.225737,
-    "X": -123.116569,
+    "latitude": 49.225737,
+    "longitude": -123.116569,
     "stop_label": "Langara-49th Avenue",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -31960,8 +31960,8 @@
     "greenspace": 102
   },
   {
-    "Y": 49.10552391,
-    "X": -122.6602274,
+    "latitude": 49.10552391,
+    "longitude": -122.6602274,
     "stop_label": "Langley City Centre",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -32007,8 +32007,8 @@
     "greenspace": 122
   },
   {
-    "Y": 49.173716,
-    "X": -123.136355,
+    "latitude": 49.173716,
+    "longitude": -123.136355,
     "stop_label": "Lansdowne",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -32054,8 +32054,8 @@
     "greenspace": 837
   },
   {
-    "Y": 49.280416,
-    "X": -122.79382,
+    "latitude": 49.280416,
+    "longitude": -122.79382,
     "stop_label": "Lincoln",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -32101,8 +32101,8 @@
     "greenspace": 690
   },
   {
-    "Y": 49.248517,
-    "X": -122.896916,
+    "latitude": 49.248517,
+    "longitude": -122.896916,
     "stop_label": "Lougheed Town Centre",
     "status": "Existing",
     "line_label": "Expo Line, Millenium Line",
@@ -32148,8 +32148,8 @@
     "greenspace": 136
   },
   {
-    "Y": 49.273152,
-    "X": -123.100344,
+    "latitude": 49.273152,
+    "longitude": -123.100344,
     "stop_label": "Main Street-Science World",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -32195,8 +32195,8 @@
     "greenspace": 218
   },
   {
-    "Y": 49.21650196,
-    "X": -122.6662188,
+    "latitude": 49.21650196,
+    "longitude": -122.6662188,
     "stop_label": "Maple Meadows",
     "status": "Existing",
     "line_label": "West Coast Express",
@@ -32242,8 +32242,8 @@
     "greenspace": 150
   },
   {
-    "Y": 49.209785,
-    "X": -123.117073,
+    "latitude": 49.209785,
+    "longitude": -123.117073,
     "stop_label": "Marine Drive",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -32289,8 +32289,8 @@
     "greenspace": 192
   },
   {
-    "Y": 49.225769,
-    "X": -123.003807,
+    "latitude": 49.225769,
+    "longitude": -123.003807,
     "stop_label": "Metrotown",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -32336,8 +32336,8 @@
     "greenspace": 1011
   },
   {
-    "Y": 49.133695,
-    "X": -122.303974,
+    "latitude": 49.133695,
+    "longitude": -122.303974,
     "stop_label": "Mission City",
     "status": "Existing",
     "line_label": "West Coast Express",
@@ -32383,8 +32383,8 @@
     "greenspace": 67
   },
   {
-    "Y": 49.27796,
-    "X": -122.845608,
+    "latitude": 49.27796,
+    "longitude": -122.845608,
     "stop_label": "Moody Centre",
     "status": "Existing",
     "line_label": "Millennium Line, West Coast Express",
@@ -32430,8 +32430,8 @@
     "greenspace": 1387
   },
   {
-    "Y": 49.2629257,
-    "X": -123.1018644,
+    "latitude": 49.2629257,
+    "longitude": -123.1018644,
     "stop_label": "Mount Pleasant",
     "status": "Construction",
     "line_label": "Millenium Line Extension (Broadway)",
@@ -32477,8 +32477,8 @@
     "greenspace": 107
   },
   {
-    "Y": 49.248243,
-    "X": -123.05572,
+    "latitude": 49.248243,
+    "longitude": -123.05572,
     "stop_label": "Nanaimo",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -32524,8 +32524,8 @@
     "greenspace": 385
   },
   {
-    "Y": 49.201418,
-    "X": -122.912623,
+    "latitude": 49.201418,
+    "longitude": -122.912623,
     "stop_label": "New Westminster",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -32571,8 +32571,8 @@
     "greenspace": 168
   },
   {
-    "Y": 49.232943,
-    "X": -123.116271,
+    "latitude": 49.232943,
+    "longitude": -123.116271,
     "stop_label": "Oakridge-41st Avenue",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -32618,8 +32618,8 @@
     "greenspace": 685
   },
   {
-    "Y": 49.26338535,
-    "X": -123.1250223,
+    "latitude": 49.26338535,
+    "longitude": -123.1250223,
     "stop_label": "Oak-VGH",
     "status": "Construction",
     "line_label": "Millenium Line Extension (Broadway)",
@@ -32665,8 +32665,8 @@
     "greenspace": 181
   },
   {
-    "Y": 49.26660971,
-    "X": -123.1154277,
+    "latitude": 49.26660971,
+    "longitude": -123.1154277,
     "stop_label": "Olympic Village",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -32712,8 +32712,8 @@
     "greenspace": 249
   },
   {
-    "Y": 49.229748,
-    "X": -123.01264,
+    "latitude": 49.229748,
+    "longitude": -123.01264,
     "stop_label": "Patterson",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -32759,8 +32759,8 @@
     "greenspace": 959
   },
   {
-    "Y": 49.225662,
-    "X": -122.687865,
+    "latitude": 49.225662,
+    "longitude": -122.687865,
     "stop_label": "Pitt Meadows",
     "status": "Existing",
     "line_label": "West Coast Express",
@@ -32806,8 +32806,8 @@
     "greenspace": 96
   },
   {
-    "Y": 49.261497,
-    "X": -122.773982,
+    "latitude": 49.261497,
+    "longitude": -122.773982,
     "stop_label": "Port Coquitlam",
     "status": "Existing",
     "line_label": "West Coast Express",
@@ -32853,8 +32853,8 @@
     "greenspace": 638
   },
   {
-    "Y": 49.212335,
-    "X": -122.606021,
+    "latitude": 49.212335,
+    "longitude": -122.606021,
     "stop_label": "Port Haney",
     "status": "Existing",
     "line_label": "West Coast Express",
@@ -32900,8 +32900,8 @@
     "greenspace": 5138
   },
   {
-    "Y": 49.253414,
-    "X": -122.918205,
+    "latitude": 49.253414,
+    "longitude": -122.918205,
     "stop_label": "Production Way-University",
     "status": "Existing",
     "line_label": "Expo Line, Millenium Line",
@@ -32947,8 +32947,8 @@
     "greenspace": 2474
   },
   {
-    "Y": 49.25893,
-    "X": -123.045286,
+    "latitude": 49.25893,
+    "longitude": -123.045286,
     "stop_label": "Renfrew",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -32994,8 +32994,8 @@
     "greenspace": 106
   },
   {
-    "Y": 49.168295,
-    "X": -123.136345,
+    "latitude": 49.168295,
+    "longitude": -123.136345,
     "stop_label": "Richmond-Brighouse",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -33041,8 +33041,8 @@
     "greenspace": 272
   },
   {
-    "Y": 49.220063,
-    "X": -122.988428,
+    "latitude": 49.220063,
+    "longitude": -122.988428,
     "stop_label": "Royal Oak",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -33088,8 +33088,8 @@
     "greenspace": 175
   },
   {
-    "Y": 49.26076,
-    "X": -123.032865,
+    "latitude": 49.26076,
+    "longitude": -123.032865,
     "stop_label": "Rupert",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -33135,8 +33135,8 @@
     "greenspace": 376
   },
   {
-    "Y": 49.224651,
-    "X": -122.889394,
+    "latitude": 49.224651,
+    "longitude": -122.889394,
     "stop_label": "Sapperton",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -33182,8 +33182,8 @@
     "greenspace": 206
   },
   {
-    "Y": 49.204428,
-    "X": -122.874168,
+    "latitude": 49.204428,
+    "longitude": -122.874168,
     "stop_label": "Scott Road",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -33229,8 +33229,8 @@
     "greenspace": 162
   },
   {
-    "Y": 49.192682,
-    "X": -123.159011,
+    "latitude": 49.192682,
+    "longitude": -123.159011,
     "stop_label": "Sea Island Centre",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -33276,8 +33276,8 @@
     "greenspace": 69697
   },
   {
-    "Y": 49.26358232,
-    "X": -123.1372531,
+    "latitude": 49.26358232,
+    "longitude": -123.1372531,
     "stop_label": "South Granville",
     "status": "Construction",
     "line_label": "Millenium Line Extension (Broadway)",
@@ -33323,8 +33323,8 @@
     "greenspace": 188
   },
   {
-    "Y": 49.259163,
-    "X": -122.963858,
+    "latitude": 49.259163,
+    "longitude": -122.963858,
     "stop_label": "Sperling-Burnaby Lake",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -33370,8 +33370,8 @@
     "greenspace": 2059
   },
   {
-    "Y": 49.279293,
-    "X": -123.109171,
+    "latitude": 49.279293,
+    "longitude": -123.109171,
     "stop_label": "Stadium-Chinatown",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -33417,8 +33417,8 @@
     "greenspace": 262
   },
   {
-    "Y": 49.189525,
-    "X": -122.847856,
+    "latitude": 49.189525,
+    "longitude": -122.847856,
     "stop_label": "Surrey Central",
     "status": "Existing",
     "line_label": "Expo Line",
@@ -33464,8 +33464,8 @@
     "greenspace": 362
   },
   {
-    "Y": 49.19667,
-    "X": -123.14657,
+    "latitude": 49.19667,
+    "longitude": -123.14657,
     "stop_label": "Templeton",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -33511,8 +33511,8 @@
     "greenspace": 69797
   },
   {
-    "Y": 49.282419,
-    "X": -123.118192,
+    "latitude": 49.282419,
+    "longitude": -123.118192,
     "stop_label": "Vancouver City Centre",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -33558,8 +33558,8 @@
     "greenspace": 218
   },
   {
-    "Y": 49.265767,
-    "X": -123.078798,
+    "latitude": 49.265767,
+    "longitude": -123.078798,
     "stop_label": "VCC-Clark",
     "status": "Existing",
     "line_label": "Millennium Line",
@@ -33605,8 +33605,8 @@
     "greenspace": 216
   },
   {
-    "Y": 49.28615001,
-    "X": -123.1123,
+    "latitude": 49.28615001,
+    "longitude": -123.1123,
     "stop_label": "Waterfront",
     "status": "Existing",
     "line_label": "Canada Line, Expo Line, West Coast Express",
@@ -33652,8 +33652,8 @@
     "greenspace": 139
   },
   {
-    "Y": 49.11382149,
-    "X": -122.6797469,
+    "latitude": 49.11382149,
+    "longitude": -122.6797469,
     "stop_label": "Willowbrook",
     "status": "Construction",
     "line_label": "Expo Line Extension (Surrey Langley SkyTrain)",
@@ -33699,8 +33699,8 @@
     "greenspace": 96
   },
   {
-    "Y": 49.274577,
-    "X": -123.122014,
+    "latitude": 49.274577,
+    "longitude": -123.122014,
     "stop_label": "Yaletown-Roundhouse",
     "status": "Existing",
     "line_label": "Canada Line",
@@ -33746,8 +33746,8 @@
     "greenspace": 285
   },
   {
-    "Y": 49.194308,
-    "X": -123.178474,
+    "latitude": 49.194308,
+    "longitude": -123.178474,
     "stop_label": "YVR-Airport",
     "status": "Existing",
     "line_label": "Canada Line",
