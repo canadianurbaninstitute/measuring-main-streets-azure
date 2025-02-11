@@ -1,8 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import { MapboxOverlay } from '@deck.gl/mapbox';
-	import { H3HexagonLayer } from '@deck.gl/geo-layers';
 	import 'mapbox-gl/dist/mapbox-gl.css';
 	import hexData from './canada_hexgrid.json';
   
@@ -11,23 +9,7 @@
 	let map;
 	let deckOverlay;
   
-	function getLayers() {
-	  return [
-		new H3HexagonLayer({
-		  id: 'h3-hex-layer',
-		  data: hexData,
-		  pickable: true,
-		  filled: true,
-		  extruded: true,
-		  getHexagon: d => d.hex_id,
-		  getElevation: d => d.residential_count * 0.1, // Scale down elevation
-		  getFillColor: [140, 140, 240, 200],
-		  elevationScale: 1, // Increased scale to match terrain
-		  wireframe: false,
-		})
-	  ];
-	}
-  
+
 	onMount(() => {
 	  map = new mapboxgl.Map({
 		useWebGL2: true,
@@ -52,20 +34,6 @@
 		// Enable terrain with exaggeration
 		map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
   
-		// Initialize Deck.gl overlay with proper GL context
-		deckOverlay = new MapboxOverlay({
-		  interleaved: true,
-		  layers: getLayers(),
-		  glOptions: {
-			// Match Mapbox's WebGL2 context
-			alpha: true,
-			depth: true,
-			stencil: true,
-			antialias: true
-		  }
-		});
-  
-		map.addControl(deckOverlay);
 		map.addControl(new mapboxgl.NavigationControl());
 	  });
 	});
