@@ -97,7 +97,7 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Civic Infrastructure & Recent Immigrants</h3>
+			<h3>Civic Infrastructure & Immigrants and Non-Permanent Residents</h3>
 			<p>
 				A large amount of Canada’s population growth, and subsequent demand for housing, is from
 				immigration. The majority of newly arrived immigrants choose to live in the largest urban
@@ -115,7 +115,7 @@
 	<div class="chart-container bar sticky-content">
 		<CIIRecentImmigrantsMap
 			section={'civic-infra-index-recent-immigrants'}
-			title={'Civic Infrastructure Index in relation to % of Recent Immigrants'}
+			title={'Civic Infrastructure Index in relation to % of "Immigrants and Non-Permanent Residents"'}
 		/>
 	</div>
 </div>

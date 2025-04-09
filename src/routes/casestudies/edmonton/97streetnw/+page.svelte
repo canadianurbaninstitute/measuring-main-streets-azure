@@ -532,7 +532,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 								{ id: 'household-size', text: 'Household Size' },
 								{ id: 'average-income', text: 'Average Income' },
 								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Recent Immigrants' },
+								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
 								{ id: 'indigenous', text: 'Indigenous Population' },
 								{ id: 'english-speakers', text: 'English Speakers' },
 								{ id: 'french-speakers', text: 'French Speakers' },

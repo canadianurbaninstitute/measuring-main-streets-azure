@@ -69,7 +69,7 @@
 	{/if}
 
 	{#if selected && selected.id === 'immigrants'}
-		<Legend maxlabel={'100%'} label={'% Recent Immigrants and New Permanent Residents'} />
+		<Legend maxlabel={'100%'} label={'% Immigrants and Non-Permanent Residents'} />
 	{/if}
 
 	{#if selected && selected.id === 'indigenous'}
@@ -141,7 +141,7 @@
 	{/if}
 
 	{#if selected && selected.id === 'immigrants'}
-		<Legend maxlabel={'100%'} label={'% Recent Immigrants and New Permanent Residents'} />
+		<Legend maxlabel={'100%'} label={'% Immigrants and Non-Permanent Residents'} />
 	{/if}
 
 	{#if selected && selected.id === 'indigenous'}
@@ -287,7 +287,7 @@
 	{/if}
 
 	{#if selected && selected.id === 'immigrants'}
-		<Legend maxlabel={'100%'} label={'% Recent Immigrants and New Permanent Residents'} />
+		<Legend maxlabel={'100%'} label={'% Immigrants and Non-Permanent Residents'} />
 	{/if}
 
 	{#if selected && selected.id === 'indigenous'}

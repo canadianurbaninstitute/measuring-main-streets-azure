@@ -910,7 +910,7 @@
 					</Accordion>
 					<div class="metric-container">
 						<Metric
-							label={'Recent Immigrants'}
+							label={'Immigrants and Non-Permanent Residents'}
 							value={immigrants}
 							suffix={'%'}
 							icon={'mdi:globe'}
@@ -1115,7 +1115,7 @@
 					</Accordion>
 					<div class="metric-container">
 						<Metric
-							label={'Recent Immigrants'}
+							label={'Immigrants and Non-Permanent Residents'}
 							value={per_immigrants_non_permanent_residents}
 							suffix={' Percentile'}
 							icon={'mdi:globe'}

@@ -140,7 +140,7 @@
                     <tspan x="130.72069" y="126.837931">Top 50%</tspan>
                 </text>
                 <text id="Percent-Recent-Immig" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
-                    <tspan x="64.4775176" y="150.32069">Percent Recent Immigrants</tspan>
+                    <tspan x="64.4775176" y="150.32069">Percent Immigrants and Non-Permanent Residents</tspan>
                 </text>
                 <text id="Civic-Infrastructure" transform="translate(5.5, 56) rotate(270) translate(-5.5, -56)" font-family="Inter-Regular, Inter" font-size="9.39310345" font-weight="normal" fill="#000000">
                     <tspan x="-50.3115792" y="59.5">Civic Infrastructure Index</tspan>
