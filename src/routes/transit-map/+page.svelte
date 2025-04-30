@@ -6,7 +6,7 @@
 	import { BarChart, ColumnChart } from '@onsvisual/svelte-charts';
 	import { Tabs } from 'bits-ui';
 	import Select from 'svelte-select';
-	import Metric from '../lib/ui/Metric.svelte';
+	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 
 	import Footer from '../lib/Footer.svelte';
 
@@ -82,21 +82,6 @@
 		},
 		{
 			label: 'Post-2000',
-			value: 0
-		}
-	];
-
-	let demoData = [
-		{
-			label: 'Visible Minority',
-			value: 0
-		},
-		{
-			label: 'Recent Immigrant',
-			value: 0
-		},
-		{
-			label: 'Indigenous',
 			value: 0
 		}
 	];
@@ -200,11 +185,6 @@
 			{ label: 'Renter', value: selectedStation.renters, y: '⠀' }
 		];
 
-		demoData = [
-			{ label: 'Visible Minority', value: selectedStation.visible_minority },
-			{ label: 'Recent Immigrant', value: selectedStation.immigrants_non_permanent_residents },
-			{ label: 'Indigenous', value: selectedStation.indigenous }
-		];
 	}
 
 	// Extract the station selection logic into a reusable function
@@ -465,12 +445,16 @@
 		// Show specific layers based on the selected tab
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
-		map.setPaintProperty('building-footprint', 'fill-extrusion-opacity', 0);
 		map.setPaintProperty('greenspace', 'fill-opacity', 0);
+		map.setPaintProperty('bus-stops', 'circle-opacity', 0);
 		map.setPaintProperty('civic-infra', 'circle-opacity', 0);
 		map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('business', 'circle-opacity', 0);
 		map.setPaintProperty('business', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('employment-size', 'circle-opacity', 0);
+		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
+
+
 
 		switch (selectedTab) {
 			case 'demographics':
@@ -485,20 +469,25 @@
 					duration: 1000 // Animation duration in milliseconds
 				});
 
-				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
-				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-				map.setPaintProperty('building-footprint', 'fill-extrusion-opacity', 0.6);
-				map.setPaintProperty('greenspace', 'fill-opacity', 1);
+				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
+				map.setPaintProperty('bus-stops', 'circle-opacity', 1);
 
 				break;
 			case 'business':
 				map.setPaintProperty('business', 'circle-opacity', 1);
 				map.setPaintProperty('business', 'circle-stroke-opacity', 1);
+				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
+				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
 			case 'civic':
 				map.setPaintProperty('civic-infra', 'circle-opacity', 1);
 				map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 1);
+				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
+				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
+			case 'employment':
+			map.setPaintProperty('employment-size', 'circle-opacity', 0.8);
+			map.setPaintProperty('employment-size', 'circle-stroke-opacity', 1);
 			default:
 				break;
 		}
@@ -624,6 +613,7 @@
 			<hr />
 
 			<Tabs.Root
+				orientation="vertical"
 				value="demographics"
 				id="tab-container"
 				onValueChange={(value) => handleTabChange(value)}
@@ -632,16 +622,53 @@
 					<Tabs.Trigger value="demographics">Demographics</Tabs.Trigger>
 					<Tabs.Trigger value="housing">Housing</Tabs.Trigger>
 					<Tabs.Trigger value="built-form">Built Form</Tabs.Trigger>
-					<Tabs.Trigger value="business">Business</Tabs.Trigger>
-					<!-- <Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger> -->
+					<Tabs.Trigger value="business">Main Street Business</Tabs.Trigger>
+					<Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger>
+					<Tabs.Trigger value="employment">Employment</Tabs.Trigger>
 				</Tabs.List>
 				<Tabs.Content value="demographics" class="tab-button">
 					<div class="tab-content">
-						<h4>Population: {selectedStation.population}</h4>
-						<h4>Households: {selectedStation.households}</h4>
-						<h4>Average Employment Income: {selectedStation.average_employment_income}</h4>
-						<hr />
+						<div class="metric-container">
+						<TransitMetric
+						label={'Population'}
+						value={selectedStation.population}
+						icon={'fluent:people-20-filled'}
+						/>
+						<TransitMetric
+						label={'Households'}
+						value={selectedStation.households}
+						icon={'mdi:house'}
+						/>
+						</div>
+						<TransitMetric
+						label={'Average Employment Income'}
+						value={selectedStation.average_employment_income}
+						icon={'mdi:wallet'}
+						/>
+						<div class="metric-container">
+						<TransitMetric
+						label={'Visible Minority'}
+						value={selectedStation.visible_minority + "%"}
+						icon={'mdi:people'}
+						/>
+						<TransitMetric
+						label={'Immigrants'}
+						value={selectedStation.immigrants_non_permanent_residents + "%"}
+						icon={'mdi:globe'}
+						/>
+						<TransitMetric
+						label={'Indigenous'}
+						value={selectedStation.indigenous + "%"}
+						icon={'mdi:people'}
+						/>
+						</div>
+						<TransitMetric
+						label={'University Degree'}
+						value={"46%"}
+						icon={'mdi:school'}
+						/>
 						<div class="chart-container">
+							<div class="chart">
 							<BarChart
 								colors={['#002a41', '#0098D6', '#db3069']}
 								data={ageData}
@@ -655,37 +682,31 @@
 								xSuffix="%"
 								padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 							/>
-							<BarChart
-								colors={['#002a41', '#0098D6', '#db3069']}
-								data={mobilityData}
-								zKey="label"
-								xKey="value"
-								yKey="y"
-								title="Mobility"
-								xMax="100"
-								mode="stacked"
-								legend="true"
-								xSuffix="%"
-								padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-							/>
-							<BarChart
-								colors={['#002a41']}
-								data={demoData}
-								xKey="value"
-								yKey="label"
-								title="Population (%)"
-								yMax="100"
-								xSuffix="%"
-								padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
-							/>
+							</div>
 						</div>
 					</div>
 				</Tabs.Content>
 				<Tabs.Content value="housing" class="tab-button">
 					<div class="tab-content">
-						<h4>Total Dwellings: {selectedStation.dwellings}</h4>
-						<hr />
+						<div class="metric-container">
+						<TransitMetric
+						label={'Total Dwellings'}
+						value={selectedStation.dwellings}
+						icon={'mdi:house'}
+						/>
+						<TransitMetric
+						label={'Average Value'}
+						value={"$700,000"}
+						icon={'mdi:dollar'}
+						/>
+						<TransitMetric
+						label={'Average Rent'}
+						value={"$2,300"}
+						icon={'mdi:dollar'}
+						/>
+						</div>
 						<div class="chart-container">
+							<div class="chart">
 							<BarChart
 								colors={['#002a41', '#0098D6']}
 								data={ownerData}
@@ -699,24 +720,9 @@
 								xSuffix="%"
 								padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 							/>
+							</div>
+							<div class="chart">
 							<BarChart
-								colors={['#002a41']}
-								data={housingData}
-								xKey="value"
-								yKey="label"
-								title="Housing Construction Year"
-								yMax="100"
-								xSuffix="%"
-								padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
-							/>
-						</div>
-					</div>
-				</Tabs.Content>
-				<Tabs.Content value="built-form" class="tab-button">
-					<div class="tab-content">
-						<h4>Green Space: {selectedStation.greenspace} sq. meters</h4>
-						<hr />
-						<BarChart
 							colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
 							data={dwellingData}
 							zKey="label"
@@ -729,23 +735,97 @@
 							xSuffix="%"
 							padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 						/>
+						</div>
+						<div class="chart">
+							<BarChart
+								colors={['#002a41']}
+								data={housingData}
+								xKey="value"
+								yKey="label"
+								title="Housing Construction Year"
+								yMax="100"
+								xSuffix="%"
+								padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+							/>
+							</div>
+
+						</div>
+					</div>
+				</Tabs.Content>
+				<Tabs.Content value="built-form" class="tab-button">
+					<div class="tab-content">
+						<div class='metric-container'>
+						<TransitMetric
+						label={'Green Space'}
+						value={selectedStation.greenspace + "sq. m"}
+						icon={'mdi:tree'}
+						/>
+						<TransitMetric
+						label={'Population Density'}
+						value={"570"}
+						icon={'mdi:people'}
+						/>
+						<TransitMetric
+						label={'Employment Density'}
+						value={"380"}
+						icon={'mdi:briefcase'}
+						/>
+						</div>
+						<div class="chart-container">
+						<div class="chart">
+
+						<BarChart
+						colors={['#002a41', '#0098D6', '#db3069']}
+						data={mobilityData}
+						zKey="label"
+						xKey="value"
+						yKey="y"
+						title="Mobility"
+						xMax="100"
+						mode="stacked"
+						legend="true"
+						xSuffix="%"
+						padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+						/>
+						</div>
+						</div>
 						<div />
 					</div></Tabs.Content
 				>
 				<Tabs.Content value="business" class="tab-button">
 					<div class="tab-content">
-						<h4>Businesses: {selectedStation.total_businesses}</h4>
-						<h4>Employment: {selectedStation.total_employment}</h4>
+						<div class='metric-container'>
+							<TransitMetric
+							label={'Main Street Businesses'}
+							value={selectedStation.total_businesses}
+							icon={'mdi:shop'}
+							/>
+							<TransitMetric
+							label={'Independent Business Index'}
+							value={"0.87"}
+							icon={'mdi:score'}
+							/>
 					</div>
 				</Tabs.Content>
 				<Tabs.Content value="civic" class="tab-button">
 					<div class="tab-content">
-						<h4>Civic Infrastructure: {civic}</h4>
+						<TransitMetric
+							label={'Civic Infrastructure Loations'}
+							value={"500"}
+							icon={'mdi:museum'}
+							/>
+					</div>
+				</Tabs.Content>
+				<Tabs.Content value="employment" class="tab-button">
+					<div class="tab-content">
+						<TransitMetric
+							label={'Total Employment'}
+							value={"15,345"}
+							icon={'mdi:briefcase'}
+							/>
 					</div>
 				</Tabs.Content>
 			</Tabs.Root>
-
-			<hr />
 		{/if}
 	</div>
 
@@ -758,6 +838,20 @@
 <style>
 	p {
 		margin-top: 0;
+	}
+
+	.metric-container {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5em;
+		/*width: 20vw;*/
+	}
+
+	.chart {
+		/* margin: 1em 0 1em 0; */
+		border: 1px solid #eee;
+		padding: 1em;
+		border-radius: 0.5em;
 	}
 
 	#title {
@@ -784,7 +878,6 @@
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
-		/* border-top: 1px solid #eee; */
 	}
 
 
@@ -852,6 +945,7 @@
 	}
 
 	.chart-container {
+		margin: 1em 0 1em 0;
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
@@ -869,34 +963,25 @@
 		}
 
 		.select-wrapper {
-			width: 400px;
+			width: 35%;
 			margin-bottom: 0;
 		}
 
 		#content-container {
-			position: relative;
+			flex-direction: row;
+			height: calc(100vh - 120px); /* Adjust based on controls height */
 		}
 
 		#sidebar {
-			position: absolute;
-			left: -400px; /* Starting position off-screen */
-			top: 0;
-			width: 400px;
-			height: 100vh;
-			background: white;
-			transition: left 0.3s ease;
-			z-index: 1;
-			box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+			width: 35%;
+			height: 100%;
 			border-top: none;
-		}
-
-		#sidebar.active {
-			left: 0;
+			border-right: 1px solid #eee;
 		}
 
 		#map-container {
-			width: 100%;
-			height: calc(100vh - 120px); /* Adjust based on your controls height */
+			width: 65%;
+			height: 100%;
 		}
 
 		#map {
