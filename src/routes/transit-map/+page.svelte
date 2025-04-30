@@ -137,6 +137,72 @@
 		}
 	];
 
+	// DUMMY
+
+	let businessData = [
+		{
+			label: 'Food and Drink',
+			value: 20,
+			y: '⠀'
+		},
+		{
+			label: 'Retail',
+			value: 50,
+			y: '⠀'
+		},
+		{
+			label: 'Local Services',
+			value: 30,
+			y: '⠀'
+		}
+	];
+
+	let civicData = [
+		{
+			label: 'Arts and Culture',
+			value: 20,
+			y: '⠀'
+		},
+		{
+			label: 'Government and Community Services',
+			value: 15,
+			y: '⠀'
+		},
+		{
+			label: 'Recreation',
+			value: 5,
+			y: '⠀'
+		},
+		{
+			label: 'Healthcare',
+			value: 30,
+			y: '⠀'
+		},
+		{
+			label: 'Education',
+			value: 30,
+			y: '⠀'
+		}
+	];
+
+	let employmentData = [
+		{
+			label: 'Civic Infrastructure',
+			value: 20,
+			y: '⠀'
+		},
+		{
+			label: 'Business',
+			value: 20,
+			y: '⠀'
+		},
+		{
+			label: 'Other',
+			value: 60,
+			y: '⠀'
+		}
+	];
+
 	function updateStationData(id) {
 
 		selectedStation = stationData.find((station) => station.id === id);
@@ -805,6 +871,24 @@
 							value={"0.87"}
 							icon={'mdi:score'}
 							/>
+						</div>
+						<div class="chart-container">
+						<div class="chart">
+						<BarChart
+								colors={['#43b171', '#F13737', '#2a5cac']}
+								data={businessData}
+								zKey="label"
+								xKey="value"
+								yKey="y"
+								title="Main Street Business"
+								xMax="100"
+								mode="stacked"
+								legend="true"
+								xSuffix="%"
+								padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+							/>	
+						</div>
+					</div>
 					</div>
 				</Tabs.Content>
 				<Tabs.Content value="civic" class="tab-button">
@@ -814,6 +898,23 @@
 							value={"500"}
 							icon={'mdi:museum'}
 							/>
+							<div class="chart-container">
+								<div class="chart">
+								<BarChart
+										colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
+										data={civicData}
+										zKey="label"
+										xKey="value"
+										yKey="y"
+										title="Civic Infrastructure"
+										xMax="100"
+										mode="stacked"
+										legend="true"
+										xSuffix="%"
+										padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+									/>	
+								</div>
+							</div>
 					</div>
 				</Tabs.Content>
 				<Tabs.Content value="employment" class="tab-button">
@@ -823,6 +924,23 @@
 							value={"15,345"}
 							icon={'mdi:briefcase'}
 							/>
+							<div class="chart-container">
+								<div class="chart">
+								<BarChart
+									colors={['#db3069', '#0098D6', '#b0b0b0' ]}
+									data={employmentData}
+									zKey="label"
+									xKey="value"
+									yKey="y"
+									title="Employment Mix"
+									xMax="100"
+									mode="stacked"
+									legend="true"
+									xSuffix="%"
+									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+								/>
+								</div>
+							</div>
 					</div>
 				</Tabs.Content>
 			</Tabs.Root>
@@ -998,5 +1116,6 @@
 	hr {
 		border: 0.5px solid #eee;
 		width: 100%;
+		margin: 1em 0 1em 0;
 	}
 </style>
