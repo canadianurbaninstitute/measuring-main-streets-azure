@@ -657,7 +657,7 @@
 				<div>
 				<div id="transit-logos">
 					{#each lineIds as lineId}
-						<img src="/src/routes/lib/assets/transit-logos/{lineId}.svg" alt="Transit line {lineId}" class="transit-logo" />
+						<img src="../lib/assets/transit-logos/{lineId}.svg" alt="Transit line {lineId}" class="transit-logo" />
 					{/each}
 				</div>
 				<h2>{selectedStation.stop_label}</h2>
