@@ -664,6 +664,9 @@
 </div>
 
 <div id="controls">
+	<div class="sidebar-top-controls">
+		<input type="text" bind:value={searchTerm} placeholder="Search for a region, line, or station..." class="search-input"/>
+	</div>
 	<div id="filter-container">
 		<h4>Filter</h4>
 		<div class="filter-group">
@@ -725,10 +728,6 @@
 </div>
 <div id="content-container">
 	<div id="sidebar"> 
-		<div class="sidebar-top-controls">
-			<input type="text" bind:value={searchTerm} placeholder="Search for a region, line, or station..." class="search-input"/>
-		</div>
-
 		{#if stationSelected && !searchTerm}
 			<div class="station-details-scroll-container">
 				{#if selectedStation && selectedStation.id}
@@ -1104,10 +1103,6 @@
 		overflow: hidden;
 	}
 
-	.select-wrapper {
-		width: 100%;
-		margin-bottom: 1em;
-	}
 
 	#sidebar {
 		width: 100%;
@@ -1123,7 +1118,9 @@
 
 	.sidebar-top-controls {
 		padding: 1em;
-		border-bottom: 1px solid #eee;
+		width: 100%;
+		border: 1px solid #eee;
+		width: 35%;
 	}
 
 	.navigation-scroll-container,
@@ -1212,7 +1209,7 @@
 
 	.search-input {
 		width: 100%;
-		padding: 10px;
+		padding: 1em;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		font-size: 0.9em;
@@ -1225,6 +1222,7 @@
 		border-radius: 4px;
 		cursor: pointer;
 		font-size: 0.9em;
+		margin: 1em;
 	}
 
 	.back-button:hover {
@@ -1283,7 +1281,7 @@
 		#controls {
 			display: flex;
 			flex-direction: row;
-			align-items: flex-start;
+			align-items: stretch;
 		}
 
 		#content-container {
@@ -1313,7 +1311,6 @@
 			flex-direction: row;
 			align-items: center;
 			gap: 1em;
-			padding: 0 1em;
 		}
 
 		.filter-group h4 {
