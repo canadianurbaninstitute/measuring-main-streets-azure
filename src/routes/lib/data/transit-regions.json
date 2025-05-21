@@ -1,0 +1,262 @@
+[
+    {
+      "id": "calgary",
+      "name": "Calgary",
+      "bbox": [
+        -114.289,
+        50.822,
+        -113.891,
+        51.244
+      ],
+      "lines": [
+        {
+          "id": 100,
+          "name": "Blue Line"
+        },
+        {
+          "id": 102,
+          "name": "Red Line"
+        },
+        {
+          "id": 101,
+          "name": "Green Line"
+        }
+      ]
+    },
+    {
+      "id": "edmonton",
+      "name": "Edmonton",
+      "bbox": [
+        -113.718,
+        53.349,
+        -113.361,
+        53.652
+      ],
+      "lines": [
+        {
+          "id": 104,
+          "name": "Metro Line"
+        },
+        {
+          "id": 105,
+          "name": "Valley Line"
+        },
+        {
+          "id": 103,
+          "name": "Capital Line"
+        }
+      ]
+    },
+    {
+      "id": "greater_golden_horseshoe",
+      "name": "Greater Golden Horseshoe",
+      "bbox": [
+        -80.595,
+        43.059,
+        -78.654,
+        44.423
+      ],
+      "lines": [
+        {
+          "id": 5,
+          "name": "Line 4: Sheppard"
+        },
+        {
+          "id": 6,
+          "name": "Line 1: Yonge-University"
+        },
+        {
+          "id": 208,
+          "name": "UP Express"
+        },
+        {
+          "id": 206,
+          "name": "Barrie Line"
+        },
+        {
+          "id": 211,
+          "name": "Lakeshore West Line"
+        },
+        {
+          "id": 8,
+          "name": "Line 3: Ontario Line"
+        },
+        {
+          "id": 209,
+          "name": "Kitchener Line"
+        },
+        {
+          "id": 117,
+          "name": "Hamilton B-Line LRT"
+        },
+        {
+          "id": 207,
+          "name": "Stouffville Line"
+        },
+        {
+          "id": 212,
+          "name": "Richmond Hill Line"
+        },
+        {
+          "id": 213,
+          "name": "Milton Line"
+        },
+        {
+          "id": 7,
+          "name": "Line 2: Bloor-Danforth"
+        },
+        {
+          "id": 118,
+          "name": "ION"
+        },
+        {
+          "id": 114,
+          "name": "Line 7: Eglinton East LRT"
+        },
+        {
+          "id": 210,
+          "name": "Lakeshore East Line"
+        },
+        {
+          "id": 115,
+          "name": "Line 6: Finch West"
+        },
+        {
+          "id": 113,
+          "name": "Line 5: Eglinton Crosstown"
+        },
+        {
+          "id": 116,
+          "name": "Hazel McCallion Line"
+        }
+      ]
+    },
+    {
+      "id": "greater_vancouver/lower_mainland",
+      "name": "Greater Vancouver/Lower Mainland",
+      "bbox": [
+        -123.228,
+        49.056,
+        -122.254,
+        49.345
+      ],
+      "lines": [
+        {
+          "id": 10,
+          "name": "Expo Line"
+        },
+        {
+          "id": 214,
+          "name": "West Coast Express"
+        },
+        {
+          "id": 11,
+          "name": "Canada Line"
+        },
+        {
+          "id": 9,
+          "name": "Millenium Line"
+        }
+      ]
+    },
+    {
+      "id": "montreal",
+      "name": "Montreal",
+      "bbox": [
+        -74.192,
+        45.311,
+        -73.126,
+        45.823
+      ],
+      "lines": [
+        {
+          "id": 200,
+          "name": "Ligne Vaudreuil/Hudson"
+        },
+        {
+          "id": 203,
+          "name": "Ligne Candiac"
+        },
+        {
+          "id": 106,
+          "name": "REM"
+        },
+        {
+          "id": 205,
+          "name": "Ligne Mascouche"
+        },
+        {
+          "id": 1,
+          "name": "Ligne Verte"
+        },
+        {
+          "id": 201,
+          "name": "Ligne Mont-Saint-Hilaire"
+        },
+        {
+          "id": 204,
+          "name": "Ligne Saint-Jérôme"
+        },
+        {
+          "id": 2,
+          "name": "Ligne Orange"
+        },
+        {
+          "id": 4,
+          "name": "Ligne Bleue"
+        },
+        {
+          "id": 3,
+          "name": "Ligne Jaune"
+        }
+      ]
+    },
+    {
+      "id": "ottawa-gatineau",
+      "name": "Ottawa-Gatineau",
+      "bbox": [
+        -75.916,
+        45.227,
+        -75.43,
+        45.546
+      ],
+      "lines": [
+        {
+          "id": 109,
+          "name": "Line 2: Bayview-Limebank"
+        },
+        {
+          "id": 110,
+          "name": "Line 3: Trim-Moodie"
+        },
+        {
+          "id": 107,
+          "name": "TramGO"
+        },
+        {
+          "id": 108,
+          "name": "Line 1: Trim-Algonquin"
+        },
+        {
+          "id": 111,
+          "name": "Line 4: Airport - South Keys"
+        }
+      ]
+    },
+    {
+      "id": "ville_de_québec",
+      "name": "Ville de Québec",
+      "bbox": [
+        -71.403,
+        46.71,
+        -71.162,
+        46.896
+      ],
+      "lines": [
+        {
+          "id": 112,
+          "name": "Quebec Tramway"
+        }
+      ]
+    }
+  ]

@@ -5,36 +5,37 @@
 	import * as turf from '@turf/turf';
 	import { BarChart, ColumnChart } from '@onsvisual/svelte-charts';
 	import { Tabs } from 'bits-ui';
-	import Select from 'svelte-select';
 	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 
 	import Footer from '../lib/Footer.svelte';
 
-	import stationData from '../lib/data/stationsTemp.json';
+	import stationRawData from '../lib/data/stationsTemp.json';
+	import transitRegionsRawData from '../lib/data/transit-regions.json';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
 	export let map;
 
-	let geocoder;
 	let circleDrawn = false;
 	let statusFilters = [];
 	let technologyFilters = [];
 
 	let selectedStation = {};
 	let stationSelected = false;
-	let lineIds = [];
-
-	let stationAll = stationData.map((item) => {
-		return {
-			label: item.stop_label + ' [' + item.line_display_names + ']',
-			value: item.id,
-		};
-	});
 
 	let civic;
-	let coordinates;
+
+	let regionsData = [];
+	let processedStationData = [];
+	let searchTerm = '';
+	let activeRegion = null;
+	let activeLine = null;
+
+	let sidebarDisplayItems = [];
+	let displayedRegions = [];
+	let displayedLines = [];
+	let displayedStops = [];
 
 	let ownerData = [
 		{
@@ -137,8 +138,6 @@
 		}
 	];
 
-	// DUMMY
-
 	let businessData = [
 		{
 			label: 'Food and Drink',
@@ -204,10 +203,13 @@
 	];
 
 	function updateStationData(id) {
-		selectedStation = stationData.find((station) => station.id === id);
-		
-		// Parse the line_ids string into an array
-		lineIds = selectedStation.line_ids ? selectedStation.line_ids.split(', ') : [];
+		const station = processedStationData.find((s) => s.id === id);
+		if (!station) {
+			console.error("Station not found for ID:", id);
+			selectedStation = {};
+			return;
+		}
+		selectedStation = station;
 
 		civic =
 			selectedStation.arts_and_culture +
@@ -250,67 +252,204 @@
 		];
 	}
 
-	// Extract the station selection logic into a reusable function
-	function handleStationSelection(stationId, coordinates) {
+	function handleStationSelection(stationId, stationCoordinates) {
+		if (!map) return;
 		updateStationData(stationId);
 
 		stationSelected = true;
 
 		const radiusInKilometers = 0.8;
-
-		// Create a GeoJSON circle feature with an 800m radius using Turf.js
-		const circleFeature = turf.circle(coordinates, radiusInKilometers, {
+		const circleFeature = turf.circle(stationCoordinates, radiusInKilometers, {
 			steps: 128,
 			units: 'kilometers'
 		});
 
-		// Update the circle data in the source
-		map.getSource('circle').setData({
-			type: 'FeatureCollection',
-			features: [circleFeature]
-		});
-
+		if (map.getSource('circle')) {
+			map.getSource('circle').setData({
+				type: 'FeatureCollection',
+				features: [circleFeature]
+			});
+		}
 		circleDrawn = true;
 
-		// Zoom and center to the selected station
 		map.flyTo({
-			center: coordinates,
+			center: stationCoordinates,
 			zoom: 14.5,
 			duration: 1000
 		});
 
-		// Use 'within' filter to restrict the visibility of layers to the circle area
 		const circlePolygon = circleFeature.geometry;
-		map.setFilter('msn-lowdensity', ['within', circlePolygon]);
-		map.setFilter('msn-highdensity', ['within', circlePolygon]);
-		map.setFilter('civic-infra', ['within', circlePolygon]);
-		map.setFilter('business', ['within', circlePolygon]);
+		const thematicLayers = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business'];
+		thematicLayers.forEach(layerId => {
+			if (map.getLayer(layerId)) {
+				map.setFilter(layerId, ['within', circlePolygon]);
+			}
+		});
 	}
 
-	// Extract the reset logic into a reusable function
 	function resetStationSelection() {
-		map.getSource('circle').setData({
-			type: 'FeatureCollection',
-			features: []
-		});
+		if (map && map.getSource('circle')) {
+			map.getSource('circle').setData({
+				type: 'FeatureCollection',
+				features: []
+			});
+		}
 		circleDrawn = false;
 		stationSelected = false;
+		selectedStation = {};
+
+		const thematicLayersToReset = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business', 'employment-size'];
+		thematicLayersToReset.forEach(layerId => {
+			if (map && map.getLayer(layerId)) {
+				map.setFilter(layerId, null);
+			}
+		});
 	}
 
-	// Add the handle select function
-	function handleSelect(event) {
-		if (event.detail) {
-			const stationId = event.detail.value;
-			const selectedStation = stationData.find((station) => station.id === stationId);
-			const coordinates = [selectedStation.longitude, selectedStation.latitude];
-			handleStationSelection(stationId, coordinates);
-		} else {
-			// Handle clear selection
+	function selectRegion(region) {
+		if (!map) return;
+		resetStationSelection();
+		activeRegion = region;
+		activeLine = null;
+		map.fitBounds(region.bbox, { padding: 50, duration: 1000 });
+	}
+
+	function selectLine(line) {
+		if (!map) return;
+		resetStationSelection();
+		activeLine = line;
+		
+		const lineStations = processedStationData.filter(s => s.line_ids_array && s.line_ids_array.includes(line.id));
+		if (lineStations.length > 0) {
+			if (turf && typeof turf.featureCollection === 'function' && typeof turf.point === 'function' && typeof turf.bbox === 'function') {
+				const stationPoints = turf.featureCollection(lineStations.map(s => turf.point([s.longitude, s.latitude])));
+				const lineBbox = turf.bbox(stationPoints);
+				map.fitBounds(lineBbox, { padding: 50, duration: 1000 });
+			} else if (lineStations.length === 1) {
+				map.flyTo({ center: [lineStations[0].longitude, lineStations[0].latitude], zoom: 14.5, duration: 1000 });
+			} else if (activeRegion) {
+				map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
+			}
+		} else if (activeRegion) {
+			map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
+		}
+	}
+
+	function selectStop(station) {
+		handleStationSelection(station.id, [station.longitude, station.latitude]);
+	}
+
+	function navigateBack() {
+		if (!map) return;
+		resetStationSelection();
+		if (activeLine) {
+			activeLine = null;
+			if (activeRegion) {
+				map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
+			}
+		} else if (activeRegion) {
+			activeRegion = null;
+			map.flyTo({ center: [-89, 58], zoom: 3.3, duration: 1000 });
+		}
+	}
+
+	function selectRegionFromSearch(region) {
+		searchTerm = '';
+		selectRegion(region);
+	}
+
+	function selectLineFromSearch(line) {
+		searchTerm = '';
+		const parentRegion = regionsData.find(r => r.id === line.regionId);
+		if (parentRegion) {
+			activeRegion = parentRegion;
+		}
+		selectLine(line);
+	}
+
+	function selectStopFromSearch(stop) {
+		searchTerm = '';
+		selectStop(stop);
+	}
+
+	function handleSidebarBack() {
+		if (stationSelected) {
+			const previouslyActiveLine = activeLine;
+			const previouslyActiveRegion = activeRegion;
+
 			resetStationSelection();
+			stationSelected = false;
+
+			if (map) {
+				if (previouslyActiveLine) {
+					const lineStations = processedStationData.filter(s => s.line_ids_array && s.line_ids_array.includes(previouslyActiveLine.id));
+					if (lineStations.length > 0 && typeof turf !== 'undefined' && turf.featureCollection && turf.point && turf.bbox) {
+						const stationPoints = turf.featureCollection(lineStations.map(s => turf.point([s.longitude, s.latitude])));
+						const lineBbox = turf.bbox(stationPoints);
+						map.fitBounds(lineBbox, { padding: 50, duration: 1000 });
+					} else if (previouslyActiveRegion) { 
+						map.fitBounds(previouslyActiveRegion.bbox, { padding: 50, duration: 1000 });
+					}
+				} else if (previouslyActiveRegion) {
+					map.fitBounds(previouslyActiveRegion.bbox, { padding: 50, duration: 1000 });
+				}
+			}
+		} else {
+			navigateBack();
+		}
+	}
+
+	$: {
+		if (searchTerm) {
+			const lowerSearchTerm = searchTerm.toLowerCase();
+			displayedRegions = regionsData
+				.filter(r => r.name.toLowerCase().includes(lowerSearchTerm))
+				.map(r => ({ ...r, type: 'region' }))
+				.sort((a,b) => a.name.localeCompare(b.name));
+
+			displayedLines = [];
+			regionsData.forEach(r => {
+				r.lines.forEach(l => {
+					if (l.name.toLowerCase().includes(lowerSearchTerm)) {
+						displayedLines.push({ ...l, type: 'line', regionName: r.name, regionId: r.id });
+					}
+				});
+			});
+			displayedLines.sort((a,b) => a.name.localeCompare(b.name));
+
+			displayedStops = processedStationData
+				.filter(s => s.stop_label && s.stop_label.toLowerCase().includes(lowerSearchTerm))
+				.map(s => ({ ...s, type: 'stop' }))
+				.sort((a,b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
+			
+			sidebarDisplayItems = [];
+		} else if (activeLine) {
+			sidebarDisplayItems = processedStationData
+				.filter(s => s.line_ids_array && s.line_ids_array.includes(activeLine.id))
+				.map(s => ({ ...s, type: 'stop' }))
+				.sort((a,b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
+			displayedRegions = []; displayedLines = []; displayedStops = [];
+		} else if (activeRegion) {
+			sidebarDisplayItems = activeRegion.lines
+				.map(l => ({ ...l, type: 'line' }))
+				.sort((a,b) => a.name.localeCompare(b.name));
+			displayedRegions = []; displayedLines = []; displayedStops = [];
+		} else {
+			sidebarDisplayItems = regionsData
+				.map(r => ({ ...r, type: 'region' }))
+				.sort((a,b) => a.name.localeCompare(b.name));
+			displayedRegions = []; displayedLines = []; displayedStops = [];
 		}
 	}
 
 	onMount(() => {
+		regionsData = transitRegionsRawData.sort((a,b) => a.name.localeCompare(b.name));
+
+		processedStationData = stationRawData.map(station => ({
+			...station,
+			line_ids_array: station.line_ids ? station.line_ids.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) : []
+		}));
+
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
@@ -330,30 +469,7 @@
 			})
 		);
 
-		// Geocoder Search
-
 		map.on('load', () => {
-			geocoder = new MapboxGeocoder({
-				accessToken: mapboxgl.accessToken,
-				countries: 'ca',
-				proximity: 'ip',
-				types: 'address, region, country, postcode, district, place, locality, neighborhood',
-				language: 'en, fr',
-				marker: true,
-				zoom: 12,
-				marker: {
-					color: '#0098D6'
-				},
-				placeholder: 'Search for a place',
-				mapboxgl: mapboxgl
-			});
-
-			geocoder.on('results', function (results) {
-				document.getElementById('resetButton').style.display = 'flex'; // Show the button
-			});
-
-			//map.addControl(geocoder, 'top-left');
-
 			map.addSource('circle', {
 				type: 'geojson',
 				data: {
@@ -362,7 +478,6 @@
 				}
 			});
 
-			// Add a layer to display the circle
 			map.addLayer(
 				{
 					id: 'circle-radius',
@@ -378,23 +493,17 @@
 				'transit-stations'
 			);
 
-			// Event listener for clicks on the transit-stations layer
 			map.on('click', 'transit-stations', (e) => {
-				const stationId = e.features[0].properties.id;
-				const coordinates = e.features[0].geometry.coordinates;
-				handleStationSelection(stationId, coordinates);
-			});
-
-			// Event listener for clicks outside stations
-			map.on('click', (e) => {
-				const features = map.queryRenderedFeatures(e.point, { layers: ['transit-stations'] });
-				if (circleDrawn && features.length === 0) {
-					resetStationSelection();
+				if (e.features.length > 0) {
+					const stationId = e.features[0].properties.id;
+					const stationDataForClick = processedStationData.find(s => s.id === stationId);
+					if (stationDataForClick) {
+						selectStop(stationDataForClick);
+					}
 				}
 			});
 		});
 
-		// Create the popup instance
 		const popup = new mapboxgl.Popup({
 			closeButton: false,
 			closeOnClick: false
@@ -429,24 +538,6 @@
 			}
 		});
 
-		// Handle line popups
-		// map.on('mousemove', 'transit-lines', (e) => {
-		// 	if (e.features.length > 0) {
-		// 		const coordinates = e.lngLat;
-		// 		const name = e.features[0].properties.name;
-
-		// 		popup2
-		// 			.setLngLat(coordinates)
-		// 			.setHTML(
-		// 				`
-		//         <span class="label-name">${name}</span>
-		//     `
-		// 			)
-		// 			.addTo(map);
-		// 	}
-		// });
-
-		// Remove popups when leaving features
 		map.on('mouseleave', 'transit-stations', () => {
 			popup.remove();
 		});
@@ -455,7 +546,6 @@
 			popup2.remove();
 		});
 
-		// Reset cursor
 		map.on('mouseleave', ['transit-stations', 'transit-lines'], () => {
 			map.getCanvas().style.cursor = '';
 		});
@@ -464,38 +554,34 @@
 	function applyFilters() {
 		const filterConditions = [];
 
-		// Filter by status if any statuses are selected
 		if (statusFilters.length) {
 			filterConditions.push([
 				'any',
 				...statusFilters.map((status) => [
 					'case',
-					['!=', ['index-of', status, ['get', 'status']], -1], // Check if the status exists in the string
-					true, // Include if found
-					false // Exclude if not found
+					['!=', ['index-of', status, ['get', 'status']], -1],
+					true,
+					false
 				])
 			]);
 		}
 
-		// Filter by technology if any technologies are selected
 		if (technologyFilters.length) {
 			filterConditions.push([
 				'any',
 				...technologyFilters.map((tech) => [
 					'case',
-					['!=', ['index-of', tech, ['get', 'technology']], -1], // Check if the technology exists in the string
-					true, // Include if found
-					false // Exclude if not found
+					['!=', ['index-of', tech, ['get', 'technology']], -1],
+					true,
+					false
 				])
 			]);
 		}
 
-		// Combine the conditions for each layer
 		const combinedFilter = filterConditions.length ? ['all', ...filterConditions] : true;
 
 		const layers = ['transit-stations', 'transit-lines'];
 
-		// Apply the combined filter to each relevant layer
 		layers.forEach((layer) => {
 			if (map.getLayer(layer)) {
 				map.setFilter(layer, combinedFilter);
@@ -504,7 +590,6 @@
 	}
 
 	function handleTabChange(selectedTab) {
-		// Show specific layers based on the selected tab
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
 		map.setPaintProperty('greenspace', 'fill-opacity', 0);
@@ -523,9 +608,9 @@
 				break;
 			case 'built-form':
 				map.flyTo({
-					center: coordinates,
-					zoom: 14.5, // Adjust the zoom level as needed
-					duration: 1000 // Animation duration in milliseconds
+					center: selectedStation.longitude && selectedStation.latitude ? [selectedStation.longitude, selectedStation.latitude] : map.getCenter(),
+					zoom: selectedStation.longitude && selectedStation.latitude ? 14.5 : map.getZoom(),
+					duration: 1000
 				});
 
 				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
@@ -579,18 +664,6 @@
 </div>
 
 <div id="controls">
-	<div class="select-wrapper">
-		<Select
-			items={stationAll}
-			on:input={handleSelect}
-			on:clear={handleSelect}
-			placeholder="Search for a station"
-			clearable={true}
-			--border-radius="0"
-			--border="1px solid #eee"
-			--height="60px"
-		/>
-	</div>
 	<div id="filter-container">
 		<h4>Filter</h4>
 		<div class="filter-group">
@@ -651,276 +724,335 @@
 	</div>
 </div>
 <div id="content-container">
-	<div id="sidebar" class:active={stationSelected}>
-		{#if stationSelected}
-			<div id="station-container">
-				<div>
-				<div id="transit-logos">
-					{#each lineIds as lineId}
-						<img src="../lib/assets/transit-logos/{lineId}.svg" alt="Transit line {lineId}" class="transit-logo" />
-					{/each}
-				</div>
-				<h2>{selectedStation.stop_label}</h2>
-				</div>
-				<h4>{selectedStation.line_display_names}</h4>
-				
+	<div id="sidebar"> 
+		<div class="sidebar-top-controls">
+			<input type="text" bind:value={searchTerm} placeholder="Search for a region, line, or station..." class="search-input"/>
+		</div>
 
+		{#if stationSelected && !searchTerm}
+			<div class="station-details-scroll-container">
+				{#if selectedStation && selectedStation.id}
+					<div id="station-container">
+						<div>
+						<div id="transit-logos">
+							{#each (selectedStation.line_ids ? selectedStation.line_ids.split(',').map(s => s.trim()) : []) as lineId}
+								<img src={`/transit-logos/${lineId}.svg`} alt="transit-logo" class="transit-logo" />
+							{/each}
+						</div>
+						<h2>{selectedStation.stop_label}</h2>
+						</div>
+						<h4>{selectedStation.line_display_names}</h4>
+						
+						<div id="tag-container">
+							<div class="tag-list">
+								<h5>Status:</h5>
+								{#each selectedStation.status?.split(', ') || [] as status}
+									<div class="tag">{status}</div>
+								{/each}
+							</div>
+							<div class="tag-list">
+								<h5>Technology:</h5>
+								{#each selectedStation.technology?.split(', ') || [] as technology}
+									<div class="tag">{technology}</div>
+								{/each}
+							</div>
+						</div>
+					</div>
 
-				<div id="tag-container">
-					<div class="tag-list">
-						<h5>Status:</h5>
-						{#each selectedStation.status?.split(', ') || [] as status}
-							<div class="tag">{status}</div>
-						{/each}
-					</div>
-					<div class="tag-list">
-						<h5>Technology:</h5>
-						{#each selectedStation.technology?.split(', ') || [] as technology}
-							<div class="tag">{technology}</div>
-						{/each}
-					</div>
-				</div>
+					<Tabs.Root
+						orientation="vertical"
+						value="demographics"
+						onValueChange={(value) => handleTabChange(value)}
+					>
+						<Tabs.List class="tab-root">
+							<Tabs.Trigger value="demographics">Demographics</Tabs.Trigger>
+							<Tabs.Trigger value="housing">Housing</Tabs.Trigger>
+							<Tabs.Trigger value="built-form">Built Form</Tabs.Trigger>
+							<Tabs.Trigger value="business">Business</Tabs.Trigger>
+							<Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger>
+							<Tabs.Trigger value="employment">Employment</Tabs.Trigger>
+						</Tabs.List>
+						<Tabs.Content value="demographics" class="tab-button">
+							<div class="tab-content">
+								<div class="metric-container">
+									<TransitMetric
+										label={'Population'}
+										value={selectedStation.population}
+										icon={'fluent:people-20-filled'}
+									/>
+									<TransitMetric
+										label={'Households'}
+										value={selectedStation.households}
+										icon={'mdi:house'}
+									/>
+								</div>
+								<TransitMetric
+									label={'Average Employment Income'}
+									value={selectedStation.average_employment_income}
+									icon={'mdi:wallet'}
+								/>
+								<div class="metric-container">
+									<TransitMetric
+										label={'Visible Minority'}
+										value={selectedStation.visible_minority + '%'}
+										icon={'mdi:people'}
+									/>
+									<TransitMetric
+										label={'Immigrants'}
+										value={selectedStation.immigrants_non_permanent_residents + '%'}
+										icon={'mdi:globe'}
+									/>
+									<TransitMetric
+										label={'Indigenous'}
+										value={selectedStation.indigenous + '%'}
+										icon={'mdi:people'}
+									/>
+								</div>
+								<TransitMetric label={'University Degree'} value={'46%'} icon={'mdi:school'} />
+								<div class="chart-container">
+									<div class="chart">
+										<BarChart
+											colors={['#002a41', '#0098D6', '#db3069']}
+											data={ageData}
+											zKey="label"
+											xKey="value"
+											yKey="y"
+											title="Age"
+											xMax="100"
+											mode="stacked"
+											legend="true"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+										/>
+									</div>
+								</div>
+							</div>
+						</Tabs.Content>
+						<Tabs.Content value="housing" class="tab-button">
+							<div class="tab-content">
+								<div class="metric-container">
+									<TransitMetric
+										label={'Total Dwellings'}
+										value={selectedStation.dwellings}
+										icon={'mdi:house'}
+									/>
+									<TransitMetric label={'Average Value'} value={selectedStation.average_value_of_dwelling} icon={'mdi:dollar'} /> 
+									<TransitMetric label={'Average Rent'} value={selectedStation.average_monthly_shelter_costs_renters} icon={'mdi:dollar'} />
+								</div>
+								<div class="chart-container">
+									<div class="chart">
+										<BarChart
+											colors={['#002a41', '#0098D6']}
+											data={ownerData}
+											zKey="label"
+											xKey="value"
+											yKey="y"
+											title="Owners/Renters"
+											xMax="100"
+											mode="stacked"
+											legend="true"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+										/>
+									</div>
+									<div class="chart">
+										<BarChart
+											colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
+											data={dwellingData}
+											zKey="label"
+											xKey="value"
+											yKey="y"
+											title="Dwelling Type"
+											xMax="100"
+											mode="stacked"
+											legend="true"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+										/>
+									</div>
+									<div class="chart">
+										<BarChart
+											colors={['#002a41']}
+											data={housingData}
+											xKey="value"
+											yKey="label"
+											title="Housing Construction Year"
+											yMax="100"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+										/>
+									</div>
+								</div>
+							</div>
+						</Tabs.Content>
+						<Tabs.Content value="built-form" class="tab-button">
+							<div class="tab-content">
+								<div class="metric-container">
+									<TransitMetric
+										label={'Green Space'}
+										value={selectedStation.greenspace + 'sq. m'}
+										icon={'mdi:tree'}
+									/>
+									<TransitMetric label={'Population Density'} value={selectedStation.population_density_per_square_km} icon={'mdi:people'} /> 
+									<TransitMetric label={'Employment Density'} value={selectedStation.employment_density_per_square_km} icon={'mdi:briefcase'} />
+								</div>
+								<div class="chart-container">
+									<div class="chart">
+										<BarChart
+											colors={['#002a41', '#0098D6', '#db3069']}
+											data={mobilityData}
+											zKey="label"
+											xKey="value"
+											yKey="y"
+											title="Mobility"
+											xMax="100"
+											mode="stacked"
+											legend="true"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+										/>
+									</div>
+								</div>
+								<div />
+							</div></Tabs.Content
+						>
+						<Tabs.Content value="business" class="tab-button">
+							<div class="tab-content">
+								<div class="metric-container">
+									<TransitMetric
+										label={'Main Street Businesses'}
+										value={selectedStation.total_businesses}
+										icon={'mdi:shop'}
+									/>
+									<TransitMetric
+										label={'Independent Business Index'}
+										value={selectedStation.independent_business_index}
+										icon={'mdi:score'}
+									/>
+								</div>
+								<div class="chart-container">
+									<div class="chart">
+										<BarChart
+											colors={['#43b171', '#F13737', '#2a5cac']}
+											data={businessData}
+											zKey="label"
+											xKey="value"
+											yKey="y"
+											title="Main Street Business"
+											xMax="100"
+											mode="stacked"
+											legend="true"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+										/>
+									</div>
+								</div>
+							</div>
+						</Tabs.Content>
+						<Tabs.Content value="civic" class="tab-button">
+							<div class="tab-content">
+								<TransitMetric
+									label={'Civic Infrastructure Loations'}
+									value={civic}
+									icon={'mdi:museum'}
+								/>
+								<div class="chart-container">
+									<div class="chart">
+										<BarChart
+											colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
+											data={civicData}
+											zKey="label"
+											xKey="value"
+											yKey="y"
+											title="Civic Infrastructure"
+											xMax="100"
+											mode="stacked"
+											legend="true"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+										/>
+									</div>
+								</div>
+							</div>
+						</Tabs.Content>
+						<Tabs.Content value="employment" class="tab-button">
+							<div class="tab-content">
+								<TransitMetric label={'Total Employment'} value={selectedStation.total_employment_count_in_catchment} icon={'mdi:briefcase'} />
+								<div class="chart-container">
+									<div class="chart">
+										<BarChart
+											colors={['#db3069', '#0098D6', '#b0b0b0']}
+											data={employmentData}
+											zKey="label"
+											xKey="value"
+											yKey="y"
+											title="Employment Mix"
+											xMax="100"
+											mode="stacked"
+											legend="true"
+											xSuffix="%"
+											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
+										/>
+									</div>
+								</div>
+							</div>
+						</Tabs.Content>
+					</Tabs.Root>
+				{:else if stationSelected} 
+					<p>Loading station details...</p>
+				{/if}
 			</div>
-
-			<Tabs.Root
-				orientation="vertical"
-				value="demographics"
-				onValueChange={(value) => handleTabChange(value)}
-			>
-				<Tabs.List class="tab-root">
-					<Tabs.Trigger value="demographics">Demographics</Tabs.Trigger>
-					<Tabs.Trigger value="housing">Housing</Tabs.Trigger>
-					<Tabs.Trigger value="built-form">Built Form</Tabs.Trigger>
-					<Tabs.Trigger value="business">Business</Tabs.Trigger>
-					<Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger>
-					<Tabs.Trigger value="employment">Employment</Tabs.Trigger>
-				</Tabs.List>
-				<Tabs.Content value="demographics" class="tab-button">
-					<div class="tab-content">
-						<div class="metric-container">
-							<TransitMetric
-								label={'Population'}
-								value={selectedStation.population}
-								icon={'fluent:people-20-filled'}
-							/>
-							<TransitMetric
-								label={'Households'}
-								value={selectedStation.households}
-								icon={'mdi:house'}
-							/>
-						</div>
-						<TransitMetric
-							label={'Average Employment Income'}
-							value={selectedStation.average_employment_income}
-							icon={'mdi:wallet'}
-						/>
-						<div class="metric-container">
-							<TransitMetric
-								label={'Visible Minority'}
-								value={selectedStation.visible_minority + '%'}
-								icon={'mdi:people'}
-							/>
-							<TransitMetric
-								label={'Immigrants'}
-								value={selectedStation.immigrants_non_permanent_residents + '%'}
-								icon={'mdi:globe'}
-							/>
-							<TransitMetric
-								label={'Indigenous'}
-								value={selectedStation.indigenous + '%'}
-								icon={'mdi:people'}
-							/>
-						</div>
-						<TransitMetric label={'University Degree'} value={'46%'} icon={'mdi:school'} />
-						<div class="chart-container">
-							<div class="chart">
-								<BarChart
-									colors={['#002a41', '#0098D6', '#db3069']}
-									data={ageData}
-									zKey="label"
-									xKey="value"
-									yKey="y"
-									title="Age"
-									xMax="100"
-									mode="stacked"
-									legend="true"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-								/>
-							</div>
-						</div>
-					</div>
-				</Tabs.Content>
-				<Tabs.Content value="housing" class="tab-button">
-					<div class="tab-content">
-						<div class="metric-container">
-							<TransitMetric
-								label={'Total Dwellings'}
-								value={selectedStation.dwellings}
-								icon={'mdi:house'}
-							/>
-							<TransitMetric label={'Average Value'} value={'$700,000'} icon={'mdi:dollar'} />
-							<TransitMetric label={'Average Rent'} value={'$2,300'} icon={'mdi:dollar'} />
-						</div>
-						<div class="chart-container">
-							<div class="chart">
-								<BarChart
-									colors={['#002a41', '#0098D6']}
-									data={ownerData}
-									zKey="label"
-									xKey="value"
-									yKey="y"
-									title="Owners/Renters"
-									xMax="100"
-									mode="stacked"
-									legend="true"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-								/>
-							</div>
-							<div class="chart">
-								<BarChart
-									colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
-									data={dwellingData}
-									zKey="label"
-									xKey="value"
-									yKey="y"
-									title="Dwelling Type"
-									xMax="100"
-									mode="stacked"
-									legend="true"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-								/>
-							</div>
-							<div class="chart">
-								<BarChart
-									colors={['#002a41']}
-									data={housingData}
-									xKey="value"
-									yKey="label"
-									title="Housing Construction Year"
-									yMax="100"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
-								/>
-							</div>
-						</div>
-					</div>
-				</Tabs.Content>
-				<Tabs.Content value="built-form" class="tab-button">
-					<div class="tab-content">
-						<div class="metric-container">
-							<TransitMetric
-								label={'Green Space'}
-								value={selectedStation.greenspace + 'sq. m'}
-								icon={'mdi:tree'}
-							/>
-							<TransitMetric label={'Population Density'} value={'570'} icon={'mdi:people'} />
-							<TransitMetric label={'Employment Density'} value={'380'} icon={'mdi:briefcase'} />
-						</div>
-						<div class="chart-container">
-							<div class="chart">
-								<BarChart
-									colors={['#002a41', '#0098D6', '#db3069']}
-									data={mobilityData}
-									zKey="label"
-									xKey="value"
-									yKey="y"
-									title="Mobility"
-									xMax="100"
-									mode="stacked"
-									legend="true"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-								/>
-							</div>
-						</div>
-						<div />
-					</div></Tabs.Content
-				>
-				<Tabs.Content value="business" class="tab-button">
-					<div class="tab-content">
-						<div class="metric-container">
-							<TransitMetric
-								label={'Main Street Businesses'}
-								value={selectedStation.total_businesses}
-								icon={'mdi:shop'}
-							/>
-							<TransitMetric
-								label={'Independent Business Index'}
-								value={'0.87'}
-								icon={'mdi:score'}
-							/>
-						</div>
-						<div class="chart-container">
-							<div class="chart">
-								<BarChart
-									colors={['#43b171', '#F13737', '#2a5cac']}
-									data={businessData}
-									zKey="label"
-									xKey="value"
-									yKey="y"
-									title="Main Street Business"
-									xMax="100"
-									mode="stacked"
-									legend="true"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-								/>
-							</div>
-						</div>
-					</div>
-				</Tabs.Content>
-				<Tabs.Content value="civic" class="tab-button">
-					<div class="tab-content">
-						<TransitMetric
-							label={'Civic Infrastructure Loations'}
-							value={'500'}
-							icon={'mdi:museum'}
-						/>
-						<div class="chart-container">
-							<div class="chart">
-								<BarChart
-									colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-									data={civicData}
-									zKey="label"
-									xKey="value"
-									yKey="y"
-									title="Civic Infrastructure"
-									xMax="100"
-									mode="stacked"
-									legend="true"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-								/>
-							</div>
-						</div>
-					</div>
-				</Tabs.Content>
-				<Tabs.Content value="employment" class="tab-button">
-					<div class="tab-content">
-						<TransitMetric label={'Total Employment'} value={'15,345'} icon={'mdi:briefcase'} />
-						<div class="chart-container">
-							<div class="chart">
-								<BarChart
-									colors={['#db3069', '#0098D6', '#b0b0b0']}
-									data={employmentData}
-									zKey="label"
-									xKey="value"
-									yKey="y"
-									title="Employment Mix"
-									xMax="100"
-									mode="stacked"
-									legend="true"
-									xSuffix="%"
-									padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-								/>
-							</div>
-						</div>
-					</div>
-				</Tabs.Content>
-			</Tabs.Root>
+		{:else}
+			<div class="navigation-scroll-container">
+				{#if searchTerm}
+					{#if displayedRegions.length > 0}
+						<div class="nav-section-header">Regions</div>
+						<ul class="nav-list">
+							{#each displayedRegions as item (item.id)}
+								<li on:click={() => selectRegionFromSearch(item)} class="nav-item region-item">{item.name}</li>
+							{/each}
+						</ul>
+					{/if}
+					{#if displayedLines.length > 0}
+						<div class="nav-section-header">Lines</div>
+						<ul class="nav-list">
+							{#each displayedLines as item (item.id)}
+								<li on:click={() => selectLineFromSearch(item)} class="nav-item line-item">
+									{item.name} <span class="context">({item.regionName})</span>
+								</li>
+							{/each}
+						</ul>
+					{/if}
+					{#if displayedStops.length > 0}
+						<div class="nav-section-header">Stops</div>
+						<ul class="nav-list">
+							{#each displayedStops as item (item.id)}
+								<li on:click={() => selectStopFromSearch(item)} class="nav-item stop-item">
+									{item.stop_label} <span class="context">({item.line_display_names || 'N/A'})</span>
+								</li>
+							{/each}
+						</ul>
+					{/if}
+					{#if displayedRegions.length === 0 && displayedLines.length === 0 && displayedStops.length === 0}
+						<p class="no-results">No results found.</p>
+					{/if}
+				{:else}
+					<ul class="nav-list">
+						{#each sidebarDisplayItems as item (item.id || item.stop_label)}
+							{#if item.type === 'region'}
+								<li on:click={() => selectRegion(item)} class="nav-item region-item">{item.name}</li>
+							{:else if item.type === 'line'}
+								<li on:click={() => selectLine(item)} class="nav-item line-item">{item.name}</li>
+							{:else if item.type === 'stop'}
+								<li on:click={() => selectStop(item)} class="nav-item stop-item">{item.stop_label}</li>
+							{/if}
+						{/each}
+					</ul>
+				{/if}
+			</div>
+		{/if}
+		{#if stationSelected || activeLine || activeRegion}
+		<button on:click={handleSidebarBack} class="back-button">← Back</button>
 		{/if}
 	</div>
 
@@ -939,11 +1071,9 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5em;
-		/*width: 20vw;*/
 	}
 
 	.chart {
-		/* margin: 1em 0 1em 0; */
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 0.5em;
@@ -983,9 +1113,28 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		overflow-y: scroll;
-		overflow-x: hidden;
 		border-top: 1px solid #eee;
+		scrollbar-width: none;
+	}
+
+	#sidebar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.sidebar-top-controls {
+		padding: 1em;
+		border-bottom: 1px solid #eee;
+	}
+
+	.navigation-scroll-container,
+	.station-details-scroll-container {
+		flex-grow: 1;
+		overflow-y: auto;
+	}
+
+	
+	.station-details-scroll-container > div {
+		padding: 1em;
 	}
 
 	#map-container {
@@ -1020,7 +1169,7 @@
 		display: flex;
 		justify-content: center;
 		padding: 0.5em;
-		border: 2px solid #eee;
+		border: 1px solid #ddd;
 		border-radius: 10em;
 		font-size: 0.8em;
 	}
@@ -1036,10 +1185,9 @@
 
 	#filter-container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		gap: 1em;
 		padding: 1em;
-		height: 60px;
 		border-bottom: 1px solid #eee;
 		border-top: 1px solid #eee;
 	}
@@ -1062,11 +1210,73 @@
 		padding: 1em;
 	}
 
-	:global(.tab-root) {
-		padding: 0 1em 0 1em;
-		display: grid;
+	.search-input {
 		width: 100%;
-		grid-template-columns: 1fr 1fr 1fr; /* Two columns; adjust if more tabs */
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		font-size: 0.9em;
+	}
+
+	.back-button {
+		padding: 8px 12px;
+		background-color: #f0f0f0;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		cursor: pointer;
+		font-size: 0.9em;
+	}
+
+	.back-button:hover {
+		background-color: #e0e0e0;
+	}
+
+	.nav-list {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav-item {
+		padding: 1em;
+		cursor: pointer;
+		border-bottom: 1px solid #f5f5f5;
+		transition: background-color 0.1s;
+		font-size: 0.9em;
+	}
+	.nav-item:last-child {
+		border-bottom: none;
+	}
+
+	.nav-item:hover {
+		background-color: #f0f0f0;
+	}
+
+	.region-item {
+		font-weight: bold;
+	}
+	.line-item {
+		padding-left: 20px;
+	}
+	.stop-item {
+		padding-left: 30px;
+	}
+	
+	.nav-section-header {
+		font-weight: bold;
+		margin: 0.8em;
+		color: #555;
+		font-size: 0.8em;
+		text-transform: uppercase;
+	}
+
+	.context {
+		font-size: 0.9em;
+		color: #777;
+	}
+	.no-results {
+		padding: 10px;
+		color: #777;
 	}
 
 	@media only screen and (min-width: 768px) {
@@ -1076,14 +1286,9 @@
 			align-items: flex-start;
 		}
 
-		.select-wrapper {
-			width: 35%;
-			margin-bottom: 0;
-		}
-
 		#content-container {
 			flex-direction: row;
-			height: calc(100vh - 120px); /* Adjust based on controls height */
+			height: calc(100vh - 120px);
 		}
 
 		#sidebar {
@@ -1103,17 +1308,26 @@
 		}
 
 		#filter-container {
-			flex: 1;
-			background: white;
-			padding: 1em;
+			flex-grow: 1;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 1em;
+			padding: 0 1em;
+		}
+
+		.filter-group h4 {
+			white-space: nowrap;
+		}
+
+		:global(.tab-root) {
+			padding: 0 1em 0 1em;
+			display: grid;
+			width: 100%;
+			grid-template-columns: 1fr 1fr 1fr;
+			grid-gap: 2px;
 		}
 	}
-
-	/* hr {
-		border: 0.5px solid #eee;
-		width: 100%;
-		margin: 1em 0 1em 0;
-	} */
 
 	#transit-logos {
 		display: flex;
