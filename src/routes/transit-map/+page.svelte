@@ -317,21 +317,28 @@
 	function selectLine(line) {
 		if (!map) return;
 		resetStationSelection();
+
 		activeLine = line;
-		
-		const lineStations = processedStationData.filter(s => s.line_ids_array && s.line_ids_array.includes(line.id));
-		if (lineStations.length > 0) {
-			if (turf && typeof turf.featureCollection === 'function' && typeof turf.point === 'function' && typeof turf.bbox === 'function') {
-				const stationPoints = turf.featureCollection(lineStations.map(s => turf.point([s.longitude, s.latitude])));
-				const lineBbox = turf.bbox(stationPoints);
-				map.fitBounds(lineBbox, { padding: 50, duration: 1000 });
-			} else if (lineStations.length === 1) {
-				map.flyTo({ center: [lineStations[0].longitude, lineStations[0].latitude], zoom: 14.5, duration: 1000 });
-			} else if (activeRegion) {
-				map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
-			}
-		} else if (activeRegion) {
-			map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
+
+		const selectedLine = map.queryRenderedFeatures({
+			layers: ['transit-lines'],
+			filter: ['==', 'line_id', activeLine.id]
+		});
+
+
+		if (selectedLine.length > 0) {
+
+			// create a feature collection from the selected line
+			const featureCollection = {
+				type: 'FeatureCollection',
+				features: selectedLine
+			};
+
+			// get the bounding box of the feature collection
+			const combinedBBox = turf.bbox(featureCollection); // [minX, minY, maxX, maxY]
+
+			// fit the map to the bounding box
+			map.fitBounds(combinedBBox, { padding: 50, duration: 1000 });
 		}
 	}
 

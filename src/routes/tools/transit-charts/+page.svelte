@@ -1,5 +1,5 @@
 <script>
-	import PopulationChart from './PopulationChart.svelte';
+	import TransitChart from './TransitChart.svelte';
   import { onMount } from 'svelte';
   import stationData from '../../lib/data/chart-stations.json';
 
@@ -14,7 +14,7 @@
 
 <div class='chart-container'>
 <h1>Transit Charts</h1>
-<PopulationChart data={stationData} />
+<TransitChart data={stationData} />
 <div class="legend-container">
   <div class="legend">
     <div class="legend-item">
