@@ -9,7 +9,7 @@
 
 	import Footer from '../lib/Footer.svelte';
 
-	import stationRawData from '../lib/data/stationsTemp.json';
+	import stationRawData from '../lib/data/stations.json';
 	import transitRegionsRawData from '../lib/data/transit-regions.json';
 
 	mapboxgl.accessToken =
@@ -212,16 +212,16 @@
 		selectedStation = station;
 
 		civic =
-			selectedStation.arts_and_culture +
-			selectedStation.education +
-			selectedStation.government_community_services +
-			selectedStation.healthcare_facilities +
-			selectedStation.recreation;
+			selectedStation.ArtsCulture +
+			selectedStation.Education +
+			selectedStation.GovernmentCommunityServices +
+			selectedStation.HealthCareFacilities +
+			selectedStation.RecreationFacilities;
 
 		ageData = [
-			{ label: '0-19', value: selectedStation.age_0_19, y: '⠀' },
-			{ label: '20-64', value: selectedStation.age_20_64, y: '⠀' },
-			{ label: '65+', value: selectedStation.age_65_over, y: '⠀' }
+			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
+			{ label: '20-64', value: selectedStation.WorkingAge, y: '⠀' },
+			{ label: '65+', value: selectedStation.Elderly, y: '⠀' }
 		];
 
 		mobilityData = [
@@ -231,24 +231,24 @@
 		];
 
 		housingData = [
-			{ label: 'Pre-1960', value: selectedStation.housing_pre1960 },
-			{ label: '1961-80', value: selectedStation.housing_1961_80 },
-			{ label: '1981-00', value: selectedStation.housing_1981_00 },
-			{ label: 'Post-2000', value: selectedStation.housing_after2000 }
+			{ label: 'Pre-1960', value: selectedStation.BuiltBefore1961 },
+			{ label: '1961-80', value: selectedStation.BuiltBetween1961And1980 },
+			{ label: '1981-00', value: selectedStation.BuiltBetween1981And2000 },
+			{ label: '2000-2020', value: selectedStation.BuiltBetween2001And2021 }
 		];
 
 		dwellingData = [
-			{ label: 'Detached', value: selectedStation.single_detached, y: '⠀' },
-			{ label: 'Semi-Detached', value: selectedStation.row_house, y: '⠀' },
-			{ label: 'Row', value: selectedStation.semi_detached, y: '⠀' },
-			{ label: 'Duplex', value: selectedStation.duplex, y: '⠀' },
-			{ label: 'Apt >5', value: selectedStation.apt_more_5, y: '⠀' },
-			{ label: 'Apt <5', value: selectedStation.apt_less_5, y: '⠀' }
+			{ label: 'Detached', value: selectedStation.SingleDetachedHouse, y: '⠀' },
+			{ label: 'Semi-Detached', value: selectedStation.RowHouse, y: '⠀' },
+			{ label: 'Row', value: selectedStation.SemiDetachedHouse, y: '⠀' },
+			{ label: 'Duplex', value: selectedStation.DetachedDuplex, y: '⠀' },
+			{ label: 'Apt >5', value: selectedStation.ApartmentFiveOrMoreStory, y: '⠀' },
+			{ label: 'Apt <5', value: selectedStation.ApartmentFewerThanFiveStory, y: '⠀' }
 		];
 
 		ownerData = [
-			{ label: 'Owner', value: selectedStation.owners, y: '⠀' },
-			{ label: 'Renter', value: selectedStation.renters, y: '⠀' }
+			{ label: 'Owner', value: selectedStation.Owned, y: '⠀' },
+			{ label: 'Renter', value: selectedStation.Rented, y: '⠀' }
 		];
 	}
 
@@ -783,38 +783,38 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Population'}
-										value={selectedStation.population}
+										value={selectedStation.TotalPopulation}
 										icon={'fluent:people-20-filled'}
 									/>
 									<TransitMetric
 										label={'Households'}
-										value={selectedStation.households}
+										value={selectedStation.TotalHouseholds}
 										icon={'mdi:house'}
 									/>
 								</div>
 								<TransitMetric
 									label={'Average Employment Income'}
-									value={selectedStation.average_employment_income}
+									value={selectedStation.AverageEmploymentIncome}
 									icon={'mdi:wallet'}
 								/>
 								<div class="metric-container">
 									<TransitMetric
 										label={'Visible Minority'}
-										value={selectedStation.visible_minority + '%'}
+										value={selectedStation.VisibleMinorityTotal + '%'}
 										icon={'mdi:people'}
 									/>
 									<TransitMetric
 										label={'Immigrants'}
-										value={selectedStation.immigrants_non_permanent_residents + '%'}
+										value={selectedStation.TotalImmigrant + '%'}
 										icon={'mdi:globe'}
 									/>
 									<TransitMetric
 										label={'Indigenous'}
-										value={selectedStation.indigenous + '%'}
+										value={selectedStation.IndigenousIdentity + '%'}
 										icon={'mdi:people'}
 									/>
 								</div>
-								<TransitMetric label={'University Degree'} value={'46%'} icon={'mdi:school'} />
+								<TransitMetric label={'University Degree'} value={selectedStation.UniversityDegree + '%'} icon={'mdi:school'} />
 								<div class="chart-container">
 									<div class="chart">
 										<BarChart
@@ -842,8 +842,8 @@
 										value={selectedStation.dwellings}
 										icon={'mdi:house'}
 									/>
-									<TransitMetric label={'Average Value'} value={selectedStation.average_value_of_dwelling} icon={'mdi:dollar'} /> 
-									<TransitMetric label={'Average Rent'} value={selectedStation.average_monthly_shelter_costs_renters} icon={'mdi:dollar'} />
+									<TransitMetric label={'Average Value'} value={selectedStation.HouseValue} icon={'mdi:dollar'} /> 
+									<TransitMetric label={'Average Rent'} value={selectedStation.MonthlyRent} icon={'mdi:dollar'} />
 								</div>
 								<div class="chart-container">
 									<div class="chart">
@@ -896,11 +896,11 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Green Space'}
-										value={selectedStation.greenspace + 'sq. m'}
+										value={selectedStation.GreenspaceArea + 'sq. m'}
 										icon={'mdi:tree'}
 									/>
-									<TransitMetric label={'Population Density'} value={selectedStation.population_density_per_square_km} icon={'mdi:people'} /> 
-									<TransitMetric label={'Employment Density'} value={selectedStation.employment_density_per_square_km} icon={'mdi:briefcase'} />
+									<TransitMetric label={'Population Density'} value={selectedStation.PopulationDensity} icon={'mdi:people'} /> 
+									<TransitMetric label={'Employment Density'} value={selectedStation.EmploymentDensity} icon={'mdi:briefcase'} />
 								</div>
 								<div class="chart-container">
 									<div class="chart">
@@ -927,12 +927,12 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Main Street Businesses'}
-										value={selectedStation.total_businesses}
+										value={selectedStation.MainStreetBusiness}
 										icon={'mdi:shop'}
 									/>
 									<TransitMetric
 										label={'Independent Business Index'}
-										value={selectedStation.independent_business_index}
+										value={selectedStation.bii}
 										icon={'mdi:score'}
 									/>
 								</div>
