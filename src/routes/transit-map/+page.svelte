@@ -983,7 +983,7 @@
 						</Tabs.Content>
 						<Tabs.Content value="employment" class="tab-button">
 							<div class="tab-content">
-								<TransitMetric label={'Total Employment'} value={selectedStation.total_employment_count_in_catchment} icon={'mdi:briefcase'} />
+								<TransitMetric label={'Total Employment'} value={selectedStation.EmployeeCount} icon={'mdi:briefcase'} />
 								<div class="chart-container">
 									<div class="chart">
 										<BarChart

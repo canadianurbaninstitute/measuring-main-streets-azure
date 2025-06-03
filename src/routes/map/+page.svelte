@@ -871,7 +871,6 @@
 						value={'$' + retail_min.toLocaleString() + ' - ' + '$' + retail_max.toLocaleString()}
 						icon={'mdi:graph-line'}
 					/>
-					<hr />
 					<h5>Neighbourhood Characteristics</h5>
 					<h6>Demographic</h6>
 					<Metric
@@ -1451,6 +1450,7 @@
 		#sidebar {
 			width: 35vw;
 			border-right: 1px solid #eee;
+			overflow-y: auto;
 		}
 
 		#controls {

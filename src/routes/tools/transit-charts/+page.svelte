@@ -2,20 +2,13 @@
 	import TransitChart from './TransitChart.svelte';
   import { onMount } from 'svelte';
   import stationData from '../../lib/data/chart-stations.json';
-
-
-  // let stationData = [];
-
-  // onMount(async () => {
-  //   const response = await fetch('/src/routes/lib/data/chart-stations.json');
-  //   stationData = await response.json();
-  // });
 </script>
 
 <div class='chart-container'>
 <h1>Transit Charts</h1>
+<p>The transit chart chart shows key data for each stop along a selected transit line. You can choose a line and a metric—such as population, households, or average income—and the chart will update to display how that metric varies across the stations. Each bar represents a stop, with taller bars indicating higher values. This helps you quickly compare areas along the route and understand patterns in the station areas of the transit system.</p>
 <TransitChart data={stationData} />
-<div class="legend-container">
+<!-- <div class="legend-container">
   <div class="legend">
     <div class="legend-item">
       <span class="legend-box existing"></span>
@@ -30,7 +23,7 @@
       <span>Construction</span>
     </div>
   </div>
-</div>
+</div> -->
 
 
 
