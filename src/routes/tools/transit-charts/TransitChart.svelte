@@ -4,7 +4,6 @@
   import regions from '../../lib/data/transit-regions.json';
   import Select from 'svelte-select';
 
-
   // ————————————————————————————————————————————
   // PROPS & STATE
   // ————————————————————————————————————————————
@@ -14,8 +13,6 @@
   let selectedVariable = 'TotalPopulation';
   let chart;
   let tooltip;
-
-  
 
   // Map of line_id to colour
   const line_colors = {
@@ -31,9 +28,13 @@
   };
 
   const variables = [
-    { value: 'TotalPopulation',        label: 'Population' },
-    { value: 'TotalHouseholds',        label: 'Households' },
-    { value: 'AverageEmploymentIncome',label: 'Average Employment Income ($)' }
+    { value: 'TotalPopulation',         label: 'Population' },
+    { value: 'TotalHouseholds',         label: 'Households' },
+    { value: 'AverageEmploymentIncome', label: 'Average Employment Income ($)' },
+    { value: 'GreenspaceArea',         label: 'Greenspace (sq. m)' },
+    { value: 'HouseValue',         label: 'Average House Value ($)' },
+    { value: 'MonthlyRent',         label: 'Average Monthly Rent ($)' }
+
   ];
 
   // Default selected line (first line of first region)
@@ -62,18 +63,7 @@
       .attr('d', 'M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4')
       .attr('stroke', lineColor)
       .attr('stroke-width', 2)
-      .attr('opacity', );
-
-    // defs.append('pattern')
-    //   .attr('id', 'planned-pattern')
-    //   .attr('patternUnits', 'userSpaceOnUse')
-    //   .attr('width', 8)
-    //   .attr('height', 8)
-    //   .append('path')
-    //   .attr('d', 'M0,0 l8,8 M-2,6 l4,4 M6,-2 l4,4')
-    //   .attr('stroke', lineColor)
-    //   .attr('stroke-width', 1)
-    //   .attr('opacity', 0.5);
+      .attr('opacity', 1);
   }
 
   function getFillStyle(d) {
@@ -85,21 +75,11 @@
     }
   }
 
-  // — Angle becomes steeper as width shrinks —
-  function getLabelRotation(width) {
-    if (width < 500) return -90;
-    if (width < 700) return -65;
-    if (width < 900) return -50;
-    return -40; // wide screens
-  }
-
-  // — Rough bottom-margin required so labels never clip —
-  function estimateMargin(angle, longestLabelLen) {
+  // — Rough left-margin required so labels never clip —
+    function estimateMargin(longestLabelLen) {
     const charWidth = 7;                 // average pixel width of one char
     const labelWidth = longestLabelLen * charWidth;
-    const radians = Math.abs(angle) * Math.PI / 180;
-    const labelHeight = Math.sin(radians) * labelWidth;
-    return 80 + labelHeight;            // 60px is base spacing for circles/line
+    return 100 + labelWidth;            // 60px is base spacing for circles/line
   }
 
   // ————————————————————————————————————————————
@@ -108,23 +88,20 @@
   function updateChart() {
     if (!filteredData.length) return;
 
-    // Calculate responsive geometry first
-    const angle = getLabelRotation(chart.clientWidth);
-    const longestLabelLen = d3.max(filteredData, d => d.stop_label.length);
-    const margin = {
-      top: 50,
-      right: 100,
-      bottom: estimateMargin(angle, longestLabelLen),
-      left: 100
-    };
+    
 
-    const width = chart.clientWidth - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
+    const longestLabelLen = d3.max(filteredData, d => d.stop_label.length);
+
+    // Geometry
+    const margin = { top: 50, right: 50, bottom: 100, left: estimateMargin(longestLabelLen) };  // wide left for labels
+    const width  = chart.clientWidth  - margin.left - margin.right;
+    const barH   = 25;                                             // height per bar
+    const height = barH * filteredData.length;
 
     // Remove only the SVG, not the tooltip
     d3.select(chart).select('svg').remove();
 
-    // Create tooltip div if it doesn't exist
+    // Tooltip (create once)
     if (!tooltip) {
       tooltip = d3.select(chart)
         .append('div')
@@ -143,134 +120,135 @@
 
     const svg = d3.select(chart)
       .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width',  width  + margin.left + margin.right)
+      .attr('height', height + margin.top  + margin.bottom)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const lineColor = line_colors[selectedLine] || '#666';
     createPatterns(svg, lineColor);
 
-    const x = d3.scaleBand()
-      .range([0, width])
+    // Scales
+    const y = d3.scaleBand()
+      .range([0, height])
       .domain(filteredData.map(d => d.stop_label))
-      .padding(0.2);
+      .padding(0.25);
 
-    const y = d3.scaleLinear()
-      .range([height, 0])
-      .domain([0, Math.ceil(d3.max(filteredData, d => +d[selectedVariable]) / 5000) * 5000]); // round to nearest 5000
+    
+    const maxVal = d3.max(filteredData, d => +d[selectedVariable]);
+    const x = d3.scaleLinear()
+      .range([0, width])
+      x.domain([0, maxVal])
+      .nice(); // this rounds to a smart, readable upper bound
 
-    // — Grid —
-    svg.append('g')
-      .attr('class', 'grid')
-      .call(d3.axisLeft(y).tickSize(-width).tickFormat(''))
-      .selectAll('line')
+// Grid (vertical, excluding edges and domain line)
+svg.append('g')
+  .attr('class', 'grid')
+  .call(d3.axisTop(x).tickSize(-height).tickFormat(''))
+  .call(g => {
+    g.select('.domain').remove(); // remove the top axis line
+    g.selectAll('line')
       .attr('stroke', '#ddd')
-      .attr('stroke-dasharray', '2,2');
+      .attr('stroke-dasharray', '2,2')
+  });
 
-    // — Bars —
+    // Bars
     const bars = svg.selectAll('rect')
       .data(filteredData)
       .enter()
       .append('rect')
-      .attr('x', d => x(d.stop_label))
-      .attr('width', x.bandwidth())
-      .attr('y', height)
-      .attr('height', 0)
+      .attr('y', d => y(d.stop_label))
+      .attr('height', y.bandwidth())
+      .attr('x', 0)
+      .attr('width', 0)
       .attr('fill', getFillStyle)
       .attr('stroke', lineColor)
       .attr('stroke-width', 2)
       .on('mouseover', function(event, d) {
-
-        // Highlight the bar by adding a filter
-        d3.select(this)
-          .style('filter', 'brightness(0.9)');
-
+        d3.select(this).style('filter', 'brightness(0.9)');
         const meta = variables.find(v => v.value === selectedVariable);
-        tooltip.transition()
-          .duration(200)
-          .style('opacity', .9);
+        tooltip.transition().duration(200).style('opacity', 0.9);
         tooltip.html(`
-          <div style="font-weight: 600; margin-bottom: 4px;">${d.stop_label}</div>
-          <div style="font-weight: 400; margin-bottom: 4px;">${d.status} Station</div>
+          <div style="font-weight:600;margin-bottom:4px;">${d.stop_label}</div>
+          <div style="font-weight:400;margin-bottom:4px;">${d.status} Station</div>
           <div>${meta.label}: ${d3.format(',')(d[selectedVariable])}</div>
         `)
-          .style('left', (event.pageX + 10) + 'px')
-          .style('top', (event.pageY - 28) + 'px');
+        .style('left', (event.pageX + 10) + 'px')
+        .style('top',  (event.pageY - 28) + 'px');
       })
       .on('mousemove', function(event) {
-        tooltip
-          .style('left', (event.pageX + 10) + 'px')
-          .style('top', (event.pageY - 28) + 'px');
+        tooltip.style('left', (event.pageX + 10) + 'px')
+               .style('top',  (event.pageY - 28) + 'px');
       })
-      .on('mouseout', function(d) {
-        // Remove highlight
-        d3.select(this)
-          .style('filter', 'none');
-
-        tooltip.transition()
-          .duration(500)
-          .style('opacity', 0);
+      .on('mouseout', function() {
+        d3.select(this).style('filter', 'none');
+        tooltip.transition().duration(500).style('opacity', 0);
       });
 
     bars.transition()
       .duration(750)
-      .attr('y', d => y(+d[selectedVariable]))
-      .attr('height', d => height - y(+d[selectedVariable]));
+      .attr('width', d => x(+d[selectedVariable]));
 
-    // — Y-Axis —
+    // Y-axis (stop labels)
     svg.append('g')
-      .call(d3.axisLeft(y).tickFormat(d3.format(',')).ticks(5))
+      .call(d3.axisLeft(y))
+      .call(g => {
+          g.selectAll('.tick line').remove();
+          g.select('.domain').remove();
+        }) 
       .selectAll('text')
-      .style('font-size', '12px')
+      .attr('x', -40)
       .style('font-family', 'Inter, sans-serif')
-      .style('font-weight', '600');
+      .style('font-size', '12px')
+      .style('font-weight', '600')
+      .style('text-transform', 'uppercase');
 
+    // X-axis (numeric values)
+    svg.append('g')
+      .attr('transform', `translate(0,${height})`)
+      .call(d3.axisBottom(x).tickFormat(d3.format(',')))
+      .call(g => {
+          g.selectAll('.tick line').attr('stroke', '#222');
+          g.select('.domain').attr('stroke', '#222'); // set domain line color
+        }) 
+      .selectAll('text')
+      .style('font-family', 'Inter, sans-serif')
+      .style('font-size', '12px')
+      .style('color', '#222')
+      .style('font-weight', '500');
+
+    // X-axis label
     const meta = variables.find(v => v.value === selectedVariable);
     svg.append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', -60)
-      .attr('x', -height / 2)
+      .attr('x', width / 2)
+      .attr('y', height + 50)
       .attr('text-anchor', 'middle')
-      .style('font-size', '14px')
       .style('font-family', 'Inter, sans-serif')
+      .style('font-size', '14px')
       .style('font-weight', '600')
       .style('text-transform', 'uppercase')
       .text(meta ? meta.label : selectedVariable);
 
-    // — X-Axis (transit line) —
-    const xAxis = svg.append('g').attr('transform', `translate(0,${height})`);
-
-    // coloured baseline
-    xAxis.append('line')
-      .attr('x1', 0)
-      .attr('x2', width)
+    // ——————————————————————————————————
+    // Coloured baseline + station dots
+    // ——————————————————————————————————
+    // Vertical baseline at x = 0
+    svg.append('line')
+      .attr('x1', -20)
+      .attr('x2', -20)
+      .attr('y1', 20)
+      .attr('y2', height-20)
       .attr('stroke', lineColor)
       .attr('stroke-width', 4);
 
-    // station labels
-    xAxis.selectAll('text')
-      .data(filteredData)
-      .enter()
-      .append('text')
-      .attr('x', d => x(d.stop_label) + x.bandwidth()/2)
-      .attr('y', 30)
-      .attr('text-anchor', angle === 0 ? 'middle' : 'end')
-      .attr('transform', d => `rotate(${angle}, ${x(d.stop_label) + x.bandwidth() / 2}, 40)`) // pivot at baseline
-      .text(d => d.stop_label)
-      .style('font-size', '12px')
-      .style('font-family', 'Inter, sans-serif')
-      .style('font-weight', '600')
-      .style('text-transform', 'uppercase');
-
-    // station dots
+    // Station dots on the baseline
     svg.append('g')
       .selectAll('circle')
       .data(filteredData)
       .enter()
       .append('circle')
-      .attr('cx', d => x(d.stop_label) + x.bandwidth() / 2)
-      .attr('cy', height)
+      .attr('cx', -20)
+      .attr('cy', d => y(d.stop_label) + y.bandwidth() / 2)
       .attr('r', 6)
       .attr('fill', 'white')
       .attr('stroke', lineColor)
@@ -311,17 +289,13 @@
     </div>
   </div>
 
-  
-
-  <div class="chart" bind:this={chart}>
-  </div>
+  <div class="chart" bind:this={chart}></div>
 </div>
 
 <style>
   .container {
     width: 100%;
     margin: 0 auto;
-    padding: 2em;
   }
 
   .controls {
@@ -348,10 +322,6 @@
     width: 100%;
     border: 1px solid #eee;
     border-radius: 1em;
-  }
-
-  /* Ensure anything that overflows the SVG is still visible */
-  .chart {
-    overflow: visible;
+    overflow: visible; /* ensure dots are visible */
   }
 </style>
