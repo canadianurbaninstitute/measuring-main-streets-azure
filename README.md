@@ -1,4 +1,4 @@
-# Measuring Main Streets – Developer Guide
+# Measuring Main Streets
 
 A SvelteKit-based web application for interactive mapping, data visualization, and research tools, deployed on Azure Static Web Apps.
 
@@ -76,4 +76,4 @@ npm run preview
 - Open a pull request with a clear description of your changes.
 
 ## Contact
-For technical questions or to report issues, please open an issue or contact the maintainers at [cui@canurb.org](mailto:cui@canurb.org?subject=Measuring%20Main%20Streets%20Technical%20Enquiry).
+For technical questions or to report issues, please open an issue or contact us at [cui@canurb.org](mailto:cui@canurb.org?subject=Measuring%20Main%20Streets%20Technical%20Enquiry).
