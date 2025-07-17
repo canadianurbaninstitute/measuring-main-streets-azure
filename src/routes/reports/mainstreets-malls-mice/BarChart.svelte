@@ -14,9 +14,6 @@
 	import distance from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies-distance.csv';
 
 
-
-	import filter from 'svelte-select/filter';
-
 	export let xKey;
 	export let title ='';
 	export let xDomain = [0, null];

@@ -1,10 +1,15 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
+
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import '../../styles.css'
+
 	import cmaSummary from './cma-summary.json';
 	import variableNames from './variable-names.json';
-	import Select from 'svelte-select';
+
+	import { Select } from "bits-ui"
+
 	import Footer from '../../lib/Footer.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import Legend from '../../lib/ui/legends/Legend.svelte';
@@ -34,29 +39,28 @@
 			}))
 	};
 
-	// array of all cma names
-	let cmaAll = cmaSummary.map((item) => {
-		return {
-			label: item.cmaname,
-			value: item.cmaname,
-			group: item.province
-		};
-	});
-
-	let variablesAll = variableNames.map((item) => {
-		return {
-			label: item.name,
-			value: item.variable,
-			group: item.group
-		};
-	});
-
 	let map;
 
+	const grouped = {};
+	for (const cma of cmaSummary) {
+	const province = cma.province || "";
+	if (!grouped[province]) grouped[province] = [];
+	grouped[province].push({ value: String(cma.cmauid), label: cma.cmaname });
+	}
+
+	// Group variables by their group property for Select
+	const variablesGrouped = {};
+	for (const variable of variableNames) {
+		const group = variable.group || "";
+		if (!variablesGrouped[group]) variablesGrouped[group] = [];
+		variablesGrouped[group].push({ value: variable.variable, label: variable.name });
+	}
+
+
 	// initial cma and variable selected
-	let cmaSelected = 'All Regions';
-	let variableSelected = 'Population';
-	let variableSelectedLabel = 'Population';
+	let cmaSelected = '';
+	let variableSelected = '';
+	let variableSelectedLabel = '';
 
 	onMount(() => {
 		map = new mapboxgl.Map({
@@ -104,25 +108,6 @@
 
 		map.addControl(scale, 'bottom-right');
 
-		map.on('mouseenter', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
-			map.getCanvas().style.cursor = 'pointer';
-		});
-
-		map.on('mouseleave', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
-			map.getCanvas().style.cursor = '';
-		});
-
-		map.on('click', 'cma-fill', (e) => {
-			cmaSelected = cmaSummary.filter(
-				(item) => item.cmauid === parseInt(e.features[0].properties.CMAUID)
-			)[0].cmaname;
-		});
-
-		map.on('click', 'cmaPoints', (e) => {
-			console.log(e.features[0]);
-			cmaSelected = e.features[0].properties.cmaname;
-		});
-
 		map.on('zoom', () => {
 			if (map.getZoom() > 6) {
 				// Show the HTML element
@@ -151,10 +136,10 @@
 	// function for what to do when new cma is selected
 	function handleSelect(e) {
 		// reset cma selected variable
-		cmaSelected = e.detail.value;
+		cmaSelected = e;
 
 		// filter cma data to just the cma we selected
-		let filteredData = cmaSummary.filter((item) => item.cmaname === cmaSelected)[0];
+		let filteredData = cmaSummary.filter((item) => item.cmauid === Number(cmaSelected))[0];
 
 		let cmaX = filteredData.x;
 		let cmaY = filteredData.y;
@@ -195,9 +180,9 @@
 	}
 
 	function handleSelectVariable(e) {
-
-		variableSelected = e.detail.value;
-		variableSelectedLabel = e.detail.label;
+		variableSelected = e;
+		const selected = variableNames.find(item => item.variable === variableSelected);
+		variableSelectedLabel = selected ? selected.name : '';
 
 		// filter variable data to just the variable we selected
 		let filteredData = variableNames.filter((item) => item.variable === variableSelected)[0];
@@ -225,12 +210,13 @@
 
 	function resetMap() {
 
-		cmaSelected = 'All Regions';
+		cmaSelected = '';
 
 		map.flyTo({
 				center: [-90, 55],
 				zoom: 3.5,
 			});
+
 			map.setPaintProperty('cma-fill', 'fill-opacity', 0);
 			map.setFilter('cma-fill', [
 				'all',
@@ -268,36 +254,76 @@
 	<div class="controls">
 		<div class="select-wrapper">
 			<h4>Select a variable:</h4>
-			<Select
-				id="select"
-				items={variablesAll}
-				value={variableSelected}
-				groupBy={(item) => item.group}
-				clearable={false}
-				showChevron={true}
-				on:input={handleSelectVariable}
-				--background="white"
-				--item-color="black"
-				--item-is-active-color="black"
-				--item-is-active-bg="#eee"
-			/>
+			<Select.Root type="single" bind:value={variableSelected} onValueChange={handleSelectVariable}>
+				<Select.Trigger class="select-trigger" aria-label="Select Variable">
+					<Icon icon="mdi:chart-bar" class="icon-start" />
+					{#if variableSelected}
+						{variableNames.find(v => v.variable === variableSelected)?.name}
+					{:else}
+						<span class="placeholder">Select a Variable</span>
+					{/if}
+					<Icon icon="mdi:chevron-down" class="icon-end" />
+				</Select.Trigger>
+				<Select.Portal>
+					<Select.Content class="select-content" sideOffset={10}>
+						<Select.Viewport class="select-viewport">
+							{#each Object.entries(variablesGrouped) as [group, options]}
+								<Select.Group>
+									<Select.GroupHeading class="group-heading">{group}</Select.GroupHeading>
+									{#each options as { value, label }}
+										<Select.Item class="select-item" {value} {label}>
+											{label}
+											{#if variableSelected === value}
+												<div class="check-icon">
+													<Icon icon="mdi:check" aria-label="selected" />
+												</div>
+											{/if}
+										</Select.Item>
+									{/each}
+								</Select.Group>
+							{/each}
+						</Select.Viewport>
+					</Select.Content>
+				</Select.Portal>
+			</Select.Root>
 		</div>
-
 		<div class="select-wrapper">
 			<h4>Select a region:</h4>
-			<Select
-				id="select"
-				items={cmaAll}
-				value={cmaSelected}
-				groupBy={(item) => item.group}
-				clearable={false}
-				showChevron={true}
-				on:input={handleSelect}
-				--background="white"
-				--item-color="black"
-				--item-is-active-color="black"
-				--item-is-active-bg="#eee"
-			/>
+<Select.Root type="single" bind:value={cmaSelected} onValueChange={handleSelect}>
+				<Select.Trigger class="select-trigger" aria-label="Select CMA">
+				  <Icon icon="mdi:map-marker-outline" class="icon-start" />
+				  {#if cmaSelected}
+					{cmaSummary.find(c => String(c.cmauid) === cmaSelected)?.cmaname}
+				  {:else}
+					<span class="placeholder">Select a CMA</span>
+				  {/if}
+				  <Icon icon="mdi:chevron-down" class="icon-end" />
+				</Select.Trigger>
+			  
+				<Select.Portal>
+				  <Select.Content class="select-content" sideOffset={10}>
+			  
+					<Select.Viewport class="select-viewport">
+					  {#each Object.entries(grouped) as [province, options]}
+						<Select.Group>
+						  <Select.GroupHeading class="group-heading">{province}</Select.GroupHeading>
+						  {#each options as { value, label }}
+							<Select.Item class="select-item" {value} {label}>
+							  {label}
+							  {#if cmaSelected === value}
+								<div class="check-icon">
+								  <Icon icon="mdi:check" aria-label="selected" />
+								</div>
+							  {/if}
+							</Select.Item>
+						  {/each}
+						</Select.Group>
+					  {/each}
+					</Select.Viewport>
+			  
+				  </Select.Content>
+				</Select.Portal>
+			  </Select.Root>
 		</div>
 
 		<div class="legend">

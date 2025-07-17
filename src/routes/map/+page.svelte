@@ -1,49 +1,53 @@
 <script>
-	import '../styles.css';
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
+	// Import styles and Svelte functionality
+	import '../styles.css'; // Main stylesheet
+	import { onMount } from 'svelte'; // Svelte lifecycle hook
+	import { goto } from '$app/navigation'; // SvelteKit navigation
+
+	// Import Mapbox GL JS for interactive maps
 	import mapboxgl from 'mapbox-gl';
+
+	// Import Turf.js for geospatial operations
 	import * as turf from '@turf/turf';
-	import Icon from '@iconify/svelte';
-	import { Tabs } from 'bits-ui';
-	import { driver } from 'driver.js';
+	import Icon from '@iconify/svelte'; 
 
-	import 'driver.js/dist/driver.css';
+	import { driver } from 'driver.js'; // For guided tutorial
+	import 'driver.js/dist/driver.css'; // Tutorial styles
 
+	// Custom Svelte components for UI
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
 	import Footer from '../lib/Footer.svelte';
 
+	// Set Mapbox access token
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
+	// Exported map variable (for child components)
 	export let map;
-	let id;
+	let id; // Selected street segment id
 
-	// info
+	// --- Sidebar Info State ---
+	// Default values for sidebar metrics (Canada-wide)
 	let streetname = 'Canada';
 	let place = 'Main Streets';
 
-	// basic
-
+	// Population and employment
 	let population = '29,482,761';
 	let populationchange = ' (+5.8%)';
 	let employees = '1,692,453';
 
-	// business
+	// Business metrics
 	let business = '397,476';
 	let business_retail = '185,241';
 	let business_services = '143,274';
 	let business_food_drink = '68,960';
-
 	let independent_business = 0.52; //BII_avg
-
 	let retail_min = '170,832,364,000';
 	let retail_max = '437,305,794,454';
 
-	// civic
-
+	// Civic infrastructure metrics
 	let civic = '197,035';
 	let civic_govt_community = '59,272';
 	let civic_healthcare = '80,252';
@@ -51,34 +55,28 @@
 	let civic_arts_culture = '8,551';
 	let civic_recreation = '14,101';
 
-	// demographic
-
-	// income + education
-
+	// Demographic metrics
+	// Income and education
 	let income = 76427;
 	let education = 28;
 
-	// age
-
+	// Age breakdown
 	let average_age = 41;
 	let age_0_19 = 20;
 	let age_20_64 = 61;
 	let age_over_65 = 19;
 
-	// equity
-
+	// Equity metrics
 	let immigrants = 28.4;
 	let visibleminority = 29.4;
 	let indigenous = 3.9;
 
-	// commute
-
+	// Commute mode share
 	let car = 76;
 	let public_transit = 15;
 	let active_transit = 8;
 
-	// housing
-
+	// Housing metrics
 	let dwellings = '11,936,445';
 	let singledetached = 49;
 	let semidetached = 5;
@@ -86,69 +84,26 @@
 	let apartments_more_than_5 = 11;
 	let apartments_less_than_5 = 19;
 
-	// language
-
+	// Language breakdown
 	let french = 18;
 	let english = 62;
 	let otherlang = 20;
 
-	/**** PERCENTILES ****/
+	let geocoder; // Mapbox geocoder instance
+	let driverObj; // Driver.js tutorial instance
 
-	let per_retail;
-	let per_local_services;
-	let per_food_drink;
-	let per_business_count;
-	let per_government_community_services;
-	let per_healthcare;
-	let per_education;
-	let per_recreation;
-	let per_arts_culture;
-	let per_civic_count;
-	let per_business_independence_index;
-	let per_retail_min;
-	let per_retail_max;
-	let per_greenspace;
-	let per_total_employment;
-	let per_population;
-	let per_households;
-	let per_household_size;
-	let per_population_density;
-	let per_population_change;
-	let per_total_dwellings;
-	let per_single_detached;
-	let per_semi_detached;
-	let per_duplex;
-	let per_apartment_more_5;
-	let per_apartment_less_5;
-	let per_average_age;
-	let per_age_0_19;
-	let per_age_20_64;
-	let per_age_65_Over;
-	let per_university_degree;
-	let per_visible_minorities;
-	let per_immigrants_non_permanent_residents;
-	let per_indigenous;
-	let per_language_english;
-	let per_language_french;
-	let per_language_other;
-	let per_average_employment_income;
-	let per_mobility_car;
-	let per_mobility_public_transit;
-	let per_mobility_active_transit;
-
-	let geocoder;
-
-	let driverObj;
-
+	// Start the guided tutorial
 	function initiateTutorial() {
 		driverObj.drive();
 	}
 
+	// Svelte lifecycle: runs after component is mounted
 	onMount(() => {
+		// --- Initialize Mapbox map ---
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/canadianurbaninstitute/clurst5kt00a501p27qk6bhvr',
-			center: [-89, 58],
+			center: [-89, 58], // Center of Canada
 			zoom: 3.3,
 			maxZoom: 14,
 			minZoom: 2,
@@ -156,6 +111,83 @@
 			attributionControl: false
 		});
 
+		// Add navigation controls (zoom, rotate)
+		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+		// Add custom attribution
+		map.addControl(
+			new mapboxgl.AttributionControl({
+				customAttribution: 'Canadian Urban Institute'
+			})
+		);
+
+		// --- Geocoder Search ---
+		map.on('load', () => {
+			// Add Mapbox geocoder for place search
+			geocoder = new MapboxGeocoder({
+				accessToken: mapboxgl.accessToken,
+				countries: 'ca',
+				proximity: 'ip',
+				types: 'address, region, country, postcode, district, place, locality, neighborhood',
+				language: 'en, fr',
+				marker: true,
+				zoom: 12,
+				marker: {
+					color: '#0098D6'
+				},
+				placeholder: 'Search for a place',
+				mapboxgl: mapboxgl
+			});
+
+			// Show reset button when search results are returned
+			geocoder.on('results', function (results) {
+				document.getElementById('resetButton').style.display = 'flex'; // Show the button
+			});
+
+			map.addControl(geocoder, 'top-left');
+
+			// Add vector source for Canadian Dissemination Areas (DAs)
+			map.addSource('canada-DAs', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.dayeanmd'
+			});
+
+			// Add invisible DA polygons (for highlighting later)
+			map.addLayer(
+				{
+					id: 'canada-DAs',
+					type: 'fill',
+					source: 'canada-DAs',
+					'source-layer': 'canadaDAs',
+					paint: {
+						'fill-outline-color': 'rgba(200,200,200,0.1)',
+						'fill-color': 'rgba(0,0,0,0)'
+					}
+				},
+				// Place polygons under labels, roads and buildings.
+				'mainstreets-base'
+			);
+
+			// Add highlighted DA polygons (for catchment display)
+			map.addLayer(
+				{
+					id: 'canada-DAs-highlighted',
+					type: 'fill',
+					source: 'canada-DAs',
+					'source-layer': 'canadaDAs',
+					paint: {
+						'fill-outline-color': '#DB3069',
+						'fill-color': '#db799a',
+						'fill-opacity': 0.4
+					},
+					filter: ['in', 'DAUID', '']
+				},
+				// Place polygons under labels, roads and buildings.
+				'mainstreets-base'
+			);
+		});
+
+		// --- Guided Tutorial Setup ---
 		driverObj = driver({
 			showProgress: true,
 			steps: [
@@ -189,16 +221,6 @@
 					}
 				},
 				{
-					element: '.tab-container',
-					popover: {
-						title: 'Information',
-						description:
-							'You can toggle between absolute values and percentiles to view the main street in relation to other main streets.',
-						side: 'left',
-						align: 'start'
-					}
-				},
-				{
 					element: '#controls',
 					popover: {
 						title: 'Legend',
@@ -220,7 +242,7 @@
 			]
 		});
 
-		// Check if the user has visited before
+		// --- First-Time Visitor Tutorial ---
 		if (typeof sessionStorage !== 'undefined') {
 			const hasVisitedBefore = sessionStorage.getItem('hasVisitedBefore');
 
@@ -233,6 +255,7 @@
 			}
 		}
 
+		// --- Fetch street-level data for a given segment id ---
 		async function fetchMeasureData(id) {
 			const response = await fetch(`/mainstreets-measures?id=${id}`);
 			if (response.ok) {
@@ -243,152 +266,36 @@
 			}
 		}
 
-		async function fetchPercentileData(id) {
-			const response = await fetch(`/mainstreets-percentile?id=${id}`);
-			if (response.ok) {
-				const data = await response.json();
-				return data;
-			} else {
-				console.error('Failed to fetch data');
-			}
-		}
-
-		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
-		map.addControl(
-			new mapboxgl.AttributionControl({
-				customAttribution: 'Canadian Urban Institute'
-			})
-		);
-
-		// Geocoder Search
-
-		map.on('load', () => {
-			geocoder = new MapboxGeocoder({
-				accessToken: mapboxgl.accessToken,
-				countries: 'ca',
-				proximity: 'ip',
-				types: 'address, region, country, postcode, district, place, locality, neighborhood',
-				language: 'en, fr',
-				marker: true,
-				zoom: 12,
-				marker: {
-					color: '#0098D6'
-				},
-				placeholder: 'Search for a place',
-				mapboxgl: mapboxgl
-			});
-
-			geocoder.on('results', function (results) {
-				document.getElementById('resetButton').style.display = 'flex'; // Show the button
-			});
-
-			map.addControl(geocoder, 'top-left');
-
-			map.addSource('canada-DAs', {
-				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.dayeanmd'
-			});
-
-			map.addLayer(
-				{
-					id: 'canada-DAs',
-					type: 'fill',
-					source: 'canada-DAs',
-					'source-layer': 'canadaDAs',
-					paint: {
-						'fill-outline-color': 'rgba(200,200,200,0.1)',
-						'fill-color': 'rgba(0,0,0,0)'
-					}
-				},
-				// Place polygons under labels, roads and buildings.
-				'mainstreets-base'
-			);
-
-			map.addLayer(
-				{
-					id: 'canada-DAs-highlighted',
-					type: 'fill',
-					source: 'canada-DAs',
-					'source-layer': 'canadaDAs',
-					paint: {
-						'fill-outline-color': '#DB3069',
-						'fill-color': '#db799a',
-						'fill-opacity': 0.4
-					},
-					filter: ['in', 'DAUID', '']
-				},
-				// Place polygons under labels, roads and buildings.
-				'mainstreets-base'
-			);
-		});
-
-		// function for adding percentile suffixes
-
-		function nth(n) {
-			n = parseFloat(n);
-			return ['st', 'nd', 'rd'][((((n + 90) % 100) - 10) % 10) - 1] || 'th';
-		}
-
-		// Function to modify nested data objects
-		function modifyPercentileData(data) {
-			let modifiedData = {};
-			for (let key in data) {
-				if (data.hasOwnProperty(key)) {
-					modifiedData[key] = {};
-					let subData = data[key];
-					for (let subKey in subData) {
-						if (subData.hasOwnProperty(subKey)) {
-							if (subData[subKey] === 'NA') {
-								modifiedData[key][subKey] = 0;
-							} else {
-								let value = parseFloat(subData[subKey]);
-								// Check if the value is a number and not NaN
-								if (!isNaN(value)) {
-									modifiedData[key][subKey] = Math.round(value);
-								} else {
-									// If not a number, keep the original value
-									modifiedData[key][subKey] = subData[subKey];
-								}
-							}
-						}
-					}
-				}
-			}
-			return modifiedData;
-		}
-
+		// --- Map click handler for main street segments ---
 		map.on('click', ['mainstreets-base', 'mainstreets-base-invisible'], (e) => {
-			document.getElementById('percentile-measures').style.display = 'block';
-			document.getElementById('percentile-placeholder').style.display = 'none';
 
-			// map zooming
+			// Get endpoints of clicked street segment
 			const endpoints = e.features[0].geometry.coordinates;
 			const midpoint = turf.midpoint(endpoints[0], endpoints[1]);
 
+			// Zoom to the midpoint of the segment
 			map.flyTo({
 				center: midpoint.geometry.coordinates
 			});
 
-			// button
-
+			// Show reset and catchment buttons
 			document.getElementById('resetButton').style.display = 'flex';
 			document.getElementById('catchment').style.display = 'block';
 
-			// general
-
+			// Store selected segment id
 			id = e.features[0].properties.id;
 
+			// Fetch and update sidebar data for the selected street
 			async function returnStreetData() {
 				let mainstreet_data = await fetchMeasureData(id);
 
 				/***** street *****/
 
+				// Update street and place names
 				streetname = mainstreet_data[0].street_name;
 				place = mainstreet_data[0].city_name;
 
 				// business
-
 				business =
 					mainstreet_data[0].food_drink +
 					mainstreet_data[0].retail +
@@ -401,7 +308,6 @@
 				retail_max = mainstreet_data[0].retail_max;
 
 				// civic
-
 				civic =
 					mainstreet_data[0].arts_culture +
 					mainstreet_data[0].education +
@@ -417,7 +323,6 @@
 				/***** street *****/
 
 				// population + employees
-
 				population = mainstreet_data[0].population;
 				employees = mainstreet_data[0].total_employment.toFixed(0);
 
@@ -430,31 +335,26 @@
 				// demographic
 
 				// income + education
-
 				income = parseFloat(mainstreet_data[0].average_employment_income).toLocaleString();
 				education = mainstreet_data[0].university_degree;
 
 				// age
-
 				average_age = mainstreet_data[0].average_age;
 				age_0_19 = mainstreet_data[0].age_0_19;
 				age_20_64 = mainstreet_data[0].age_20_64;
 				age_over_65 = mainstreet_data[0].age_65_Over;
 
 				// equity
-
 				immigrants = mainstreet_data[0].immigrants_non_permanent_residents;
 				visibleminority = mainstreet_data[0].visible_minorities;
 				indigenous = mainstreet_data[0].indigenous;
 
 				// commute
-
 				car = mainstreet_data[0].mobility_car;
 				public_transit = mainstreet_data[0].mobility_public_transit;
 				active_transit = mainstreet_data[0].mobility_active_transit;
 
 				// housing
-
 				dwellings = mainstreet_data[0].total_dwellings;
 				singledetached = mainstreet_data[0].single_detached;
 				semidetached = mainstreet_data[0].semi_detached;
@@ -463,100 +363,15 @@
 				apartments_less_than_5 = mainstreet_data[0].apartment_less_5;
 
 				//language
-
 				english = mainstreet_data[0].language_english;
 				french = mainstreet_data[0].language_french;
 				otherlang = mainstreet_data[0].language_other;
 			}
 
-			async function returnPercentileData() {
-				let percentile_data = await fetchPercentileData(id);
-
-				percentile_data = modifyPercentileData(percentile_data);
-
-				per_retail = percentile_data[0].per_retail + nth(percentile_data[0].per_retail);
-				per_local_services =
-					percentile_data[0].per_local_services + nth(percentile_data[0].per_local_services);
-				per_food_drink = percentile_data[0].per_food_drink + nth(percentile_data[0].per_food_drink);
-				per_business_count =
-					percentile_data[0].per_business_count + nth(percentile_data[0].per_business_count);
-				per_government_community_services =
-					percentile_data[0].per_government_community_services +
-					nth(percentile_data[0].per_government_community_services);
-				per_healthcare = percentile_data[0].per_healthcare + nth(percentile_data[0].per_healthcare);
-				per_education = percentile_data[0].per_education + nth(percentile_data[0].per_education);
-				per_recreation = percentile_data[0].per_recreation + nth(percentile_data[0].per_recreation);
-				per_arts_culture =
-					percentile_data[0].per_arts_culture + nth(percentile_data[0].per_arts_culture);
-				per_civic_count =
-					percentile_data[0].per_civic_count + nth(percentile_data[0].per_civic_count);
-				per_business_independence_index =
-					percentile_data[0].per_business_independence_index +
-					nth(percentile_data[0].per_business_independence_index);
-				per_retail_min = percentile_data[0].per_retail_min + nth(percentile_data[0].per_retail_min);
-				per_retail_max = percentile_data[0].per_retail_max + nth(percentile_data[0].per_retail_max);
-				per_greenspace = percentile_data[0].per_greenspace + nth(percentile_data[0].per_greenspace);
-				per_total_employment =
-					percentile_data[0].per_total_employment + nth(percentile_data[0].per_total_employment);
-				per_population = percentile_data[0].per_population + nth(percentile_data[0].per_population);
-				per_households = percentile_data[0].per_households + nth(percentile_data[0].per_households);
-				per_household_size =
-					percentile_data[0].per_household_size + nth(percentile_data[0].per_household_size);
-				per_population_density =
-					percentile_data[0].per_population_density +
-					nth(percentile_data[0].per_population_density);
-				per_population_change =
-					percentile_data[0].per_population_change + nth(percentile_data[0].per_population_change);
-				per_total_dwellings =
-					percentile_data[0].per_total_dwellings + nth(percentile_data[0].per_total_dwellings);
-				per_single_detached =
-					percentile_data[0].per_single_detached + nth(percentile_data[0].per_single_detached);
-				per_semi_detached =
-					percentile_data[0].per_semi_detached + nth(percentile_data[0].per_semi_detached);
-				per_duplex = percentile_data[0].per_duplex + nth(percentile_data[0].per_duplex);
-				per_apartment_more_5 =
-					percentile_data[0].per_apartment_more_5 + nth(percentile_data[0].per_apartment_more_5);
-				per_apartment_less_5 =
-					percentile_data[0].per_apartment_less_5 + nth(percentile_data[0].per_apartment_less_5);
-				per_average_age =
-					percentile_data[0].per_average_age + nth(percentile_data[0].per_average_age);
-				per_age_0_19 = percentile_data[0].per_age_0_19 + nth(percentile_data[0].per_age_0_19);
-				per_age_20_64 = percentile_data[0].per_age_20_64 + nth(percentile_data[0].per_age_20_64);
-				per_age_65_Over =
-					percentile_data[0].per_age_65_Over + nth(percentile_data[0].per_age_65_Over);
-				per_university_degree =
-					percentile_data[0].per_university_degree + nth(percentile_data[0].per_university_degree);
-				per_visible_minorities =
-					percentile_data[0].per_visible_minorities +
-					nth(percentile_data[0].per_visible_minorities);
-				per_immigrants_non_permanent_residents =
-					percentile_data[0].per_immigrants_non_permanent_residents +
-					nth(percentile_data[0].per_immigrants_non_permanent_residents);
-				per_indigenous = percentile_data[0].per_indigenous + nth(percentile_data[0].per_indigenous);
-				per_language_english =
-					percentile_data[0].per_language_english + nth(percentile_data[0].per_language_english);
-				per_language_french =
-					percentile_data[0].per_language_french + nth(percentile_data[0].per_language_french);
-				per_language_other =
-					percentile_data[0].per_language_other + nth(percentile_data[0].per_language_other);
-				per_average_employment_income =
-					percentile_data[0].per_average_employment_income +
-					nth(percentile_data[0].per_average_employment_income);
-				per_mobility_car =
-					percentile_data[0].per_mobility_car + nth(percentile_data[0].per_mobility_car);
-				per_mobility_public_transit =
-					percentile_data[0].per_mobility_public_transit +
-					nth(percentile_data[0].per_mobility_public_transit);
-				per_mobility_active_transit =
-					percentile_data[0].per_mobility_active_transit +
-					nth(percentile_data[0].per_mobility_active_transit);
-			}
-
+			// Fetch and update sidebar
 			returnStreetData();
-			returnPercentileData();
 
-			// highlighting road
-
+			// --- Highlighting selected road segment ---
 			let features = map.queryRenderedFeatures(e.point, {
 				layers: ['mainstreets-base', 'mainstreets-base-invisible']
 			});
@@ -565,19 +380,22 @@
 				return;
 			}
 
+			// Remove previous highlight if exists
 			if (typeof map.getLayer('selectedRoad') !== 'undefined') {
 				map.removeLayer('selectedRoad');
 				map.removeSource('selectedRoad');
 			}
 
 			let feature = features[0];
-			let buffered = turf.buffer(feature, 1);
+			let buffered = turf.buffer(feature, 1); // Buffer for catchment
 
+			// Add GeoJSON source for selected road
 			map.addSource('selectedRoad', {
 				type: 'geojson',
 				data: feature.toJSON()
 			});
 
+			// Calculate bounding box for catchment
 			const turfgeobbox = turf.bbox(buffered);
 			const geobboxpoint1 = [turfgeobbox[0], turfgeobbox[1]];
 			const geobboxpoint2 = [turfgeobbox[2], turfgeobbox[3]];
@@ -585,11 +403,10 @@
 			const bboxpoint1 = map.project([turfgeobbox[0], turfgeobbox[1]]);
 			const bboxpoint2 = map.project([turfgeobbox[2], turfgeobbox[3]]);
 
-			//const bboxpolygon = turf.bboxPolygon(geobbox)
-
 			const bbox = [bboxpoint1, bboxpoint2];
 			const geobbox = [geobboxpoint1, geobboxpoint2];
 
+			// Zoom to bounding box
 			map.fitBounds(geobbox);
 
 			// Find features intersecting the bounding box.
@@ -602,6 +419,7 @@
 			// to activate the 'canada-DAs-highlighted' layer.
 			map.setFilter('canada-DAs-highlighted', ['in', 'DAUID', ...dauid]);
 
+			// Add highlight layer for selected road
 			map.addLayer(
 				{
 					id: 'selectedRoad',
@@ -621,13 +439,13 @@
 			);
 		});
 
+		// --- Click handler for case study BIAs ---
 		map.on('click', 'case-study-BIAs', (e) => {
 			const path = e.features[0].properties.path;
 			goto('/casestudies/' + path);
 		});
 
-		// Change the cursor to a pointer when
-		// the mouse is over the states layer.
+		// --- Cursor pointer for interactive layers ---
 		map.on(
 			'mouseenter',
 			[
@@ -642,8 +460,7 @@
 			}
 		);
 
-		// Change the cursor back to a pointer
-		// when it leaves the states layer.
+		// Change the cursor back to a pointer when it leaves the streets layers.
 		map.on(
 			'mouseleave',
 			[
@@ -678,8 +495,6 @@
 	function resetMap() {
 		document.getElementById('resetButton').style.display = 'none';
 		document.getElementById('catchment').style.display = 'none';
-		document.getElementById('percentile-measures').style.display = 'none';
-		document.getElementById('percentile-placeholder').style.display = 'block';
 
 		// reset geocoder
 		geocoder.clear();
@@ -781,18 +596,14 @@
 <div class="hero">
 	<div id="title">
 		<h1>Main Street Map</h1>
-		<div on:click={initiateTutorial} id="tutorial">
-			<Icon icon="fluent:question-circle-12-filled" width="2em" height="2em" color="#002940" />
-		</div>
+		<a on:click={initiateTutorial} id="tutorial">
+			<Icon icon="fluent:question-circle-12-filled" width="1.5em" height="1.5em" color="#002940" />
+		</a>
 	</div>
 	<p>
 		This is a map of all of the main streets in Canada. Search for a place or navigate the map using
 		the controls; and then click on a street segment to see information associated with it in the
-		panel on the left. You can toggle between absolute values and percentiles to view the main
-		street in relation to other main streets.
-	</p>
-	<p>
-		For more information on how we classified main streets and data sources, read our <a
+		panel on the left. For more information on how we classified main streets and data sources, read our <a
 			href="/about/data-methodology">Data Sources & Methodology</a
 		>.
 	</p>
@@ -801,14 +612,7 @@
 <div id="content-container">
 	<div id="sidebar">
 		<h2>{streetname}</h2>
-		<h4>{place}</h4>
-		<hr />
-		<Tabs.Root value="measures" id="tab-container">
-			<Tabs.List class="tab-container">
-				<Tabs.Trigger value="measures">Measures</Tabs.Trigger>
-				<Tabs.Trigger value="percentiles">Percentiles</Tabs.Trigger>
-			</Tabs.List>
-			<Tabs.Content value="measures" class="tab-button">
+		<h4 id='place-name'>{place}</h4>
 				<div id="raw-number-measures">
 					<h5>Street Characteristics</h5>
 					<Accordion>
@@ -973,232 +777,6 @@
 						</div>
 					</Accordion>
 				</div>
-			</Tabs.Content>
-			<Tabs.Content value="percentiles" class="tab-button">
-				<div id="percentile-placeholder">
-					<p>Click on a street to view percentile measures.</p>
-				</div>
-				<div id="percentile-measures">
-					<h5>Street Characteristics</h5>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Civic Infrastructure (on street)'}
-							value={per_civic_count}
-							suffix={' Percentile'}
-							icon={'heroicons:building-library-20-solid'}
-						/>
-						<div slot="body">
-							<div class="metric-container">
-								<Metric
-									label={'Education'}
-									value={per_education}
-									suffix={' Percentile'}
-									icon={'mdi:school'}
-								/>
-								<Metric
-									label={'Arts & Culture'}
-									value={per_arts_culture}
-									suffix={' Percentile'}
-									icon={'fa6-solid:masks-theater'}
-								/>
-								<Metric
-									label={'Recreation'}
-									value={per_recreation}
-									suffix={' Percentile'}
-									icon={'material-symbols:park-rounded'}
-								/>
-							</div>
-							<div class="metric-container">
-								<Metric
-									label={'Government & Community Services'}
-									value={per_government_community_services}
-									suffix={' Percentile'}
-									icon={'mingcute:government-fill'}
-								/>
-								<Metric
-									label={'Health & Care Facilities'}
-									value={per_healthcare}
-									suffix={' Percentile'}
-									icon={'mdi:hospital-box'}
-								/>
-							</div>
-						</div>
-					</Accordion>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Businesses (on street)'}
-							value={per_business_count}
-							suffix={' Percentile'}
-							icon={'mdi:building'}
-						/>
-						<div slot="body" class="metric-container">
-							<Metric
-								label={'Retail'}
-								value={per_retail}
-								suffix={' Percentile'}
-								icon={'mdi:shopping'}
-							/>
-							<Metric
-								label={'Food & Drink'}
-								value={per_food_drink}
-								suffix={' Percentile'}
-								icon={'dashicons:food'}
-							/>
-							<Metric
-								label={'Services'}
-								value={per_local_services}
-								suffix={' Percentile'}
-								icon={'mdi:ticket'}
-							/>
-						</div>
-					</Accordion>
-					<Metric
-						label={'Independent Business Index'}
-						value={per_business_independence_index}
-						suffix={' Percentile'}
-						icon={'mdi:shop'}
-					/>
-					<!-- <Metric
-						label={'Estimated Retail Sales (2023)'}
-						value={per_Retailmin + ' - ' + per_Retailmax}
-						icon={'mdi:graph-line'}
-					/> -->
-
-					<hr />
-					<h5>Neighbourhood Characteristics</h5>
-					<h6>Demographic</h6>
-					<Metric
-						label={'Population'}
-						value={per_population}
-						suffix={' Percentile'}
-						icon={'fluent:people-20-filled'}
-					/>
-					<Metric
-						label={'Employees'}
-						value={per_total_employment}
-						suffix={'  Percentile'}
-						icon={'mdi:briefcase'}
-					/>
-					<div class="metric-container">
-						<Metric
-							label={'Average Income'}
-							value={per_average_employment_income}
-							suffix={' Percentile'}
-							icon={'mdi:wallet'}
-						/>
-						<Metric
-							label={"Bachelor's Degree"}
-							value={per_university_degree}
-							suffix={' Percentile'}
-							icon={'mdi:school'}
-						/>
-					</div>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Average Age'}
-							value={per_average_age}
-							suffix={' Percentile'}
-							icon={'mingcute:birthday-2-fill'}
-						/>
-						<div slot="body" class="metric-container">
-							<Metric label={'0 to 19'} value={per_age_0_19} suffix={' Percentile'} />
-							<Metric label={'20 to 64'} value={per_age_20_64} suffix={' Percentile'} />
-							<Metric label={'65 and over'} value={per_age_65_Over} suffix={' Percentile'} />
-						</div>
-					</Accordion>
-					<div class="metric-container">
-						<Metric
-							label={'Immigrants and Non-Permanent Residents'}
-							value={per_immigrants_non_permanent_residents}
-							suffix={' Percentile'}
-							icon={'mdi:globe'}
-						/>
-						<Metric
-							label={'Visible Minorities'}
-							value={per_visible_minorities}
-							suffix={' Percentile'}
-							icon={'material-symbols:handshake'}
-						/>
-						<Metric
-							label={'Indigenous Population'}
-							value={per_indigenous}
-							suffix={' Percentile'}
-							icon={'mdi:person'}
-						/>
-					</div>
-					<div class="metric-container">
-						<Metric
-							label={'English Speakers'}
-							value={per_language_english}
-							suffix={' Percentile'}
-						/>
-						<Metric label={'French Speakers'} value={per_language_french} suffix={' Percentile'} />
-						<Metric label={'Other Language'} value={per_language_other} suffix={' Percentile'} />
-					</div>
-					<h6>Commuting</h6>
-					<div class="metric-container">
-						<Metric
-							label={'Car'}
-							value={per_mobility_car}
-							suffix={' Percentile'}
-							icon={'mdi:car'}
-						/>
-						<Metric
-							label={'Public Transit'}
-							value={per_mobility_public_transit}
-							suffix={' Percentile'}
-							icon={'mdi:bus'}
-						/>
-						<Metric
-							label={'Active Transit'}
-							value={per_mobility_active_transit}
-							suffix={' Percentile'}
-							icon={'mdi:bike'}
-						/>
-					</div>
-					<h6>Housing</h6>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Dwellings'}
-							value={per_total_dwellings}
-							suffix={' Percentile'}
-							icon={'material-symbols:apartment'}
-						/>
-						<div slot="body">
-							<div class="metric-container">
-								<Metric
-									label={'Single Detached'}
-									value={per_single_detached}
-									suffix={' Percentile'}
-								/>
-								<Metric label={'Semi-Detached'} value={per_semi_detached} suffix={' Percentile'} />
-								<Metric label={'Duplex'} value={per_duplex} suffix={' Percentile'} />
-							</div>
-							<div class="metric-container">
-								<Metric
-									label={'Apartment (>5 stories)'}
-									value={per_apartment_more_5}
-									suffix={' Percentile'}
-								/>
-								<Metric
-									label={'Apartment (<5 stories)'}
-									value={per_apartment_less_5}
-									suffix={' Percentile'}
-								/>
-							</div>
-						</div>
-					</Accordion>
-				</div>
-			</Tabs.Content>
-		</Tabs.Root>
 	</div>
 	<div id="map" />
 	<div id="controls">
@@ -1216,7 +794,7 @@
 				</div>
 			</div>
 			<div class="legend" id="business-civic-legend">
-				<h5><i>Click on a layer to toggle it on or off</i></h5>
+				<h5><i>Toggle layers on or off</i></h5>
 				<div id="case-studies">
 					<LegendItem
 						variant={'polygon'}
@@ -1350,15 +928,6 @@
 		border-top: 1px solid #eee;
 	}
 
-	#percentile-measures {
-		display: none;
-	}
-
-	#percentile-placeholder {
-		display: flex;
-		text-align: center;
-		margin-top: 1em;
-	}
 
 	#controls {
 		display: flex;
@@ -1410,27 +979,16 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5em;
-		/*width: 20vw;*/
 	}
 
-	h6 {
-		margin: 0.5em 0 0.5em 0;
-		font-weight: 500;
-	}
+	h5, h6 { margin: 0.5em 0; }
+	h5, h6 { font-weight: 600; }
+	h4 { font-size: 0.8em; margin: 0; padding: 0.1em 0; }
+	h2 { margin: 0; padding: 0.1em 0; }
 
-	h5 {
-		font-weight: 600;
-		margin: 0.5em 0 0.5em 0;
-	}
 
-	h4 {
-		font-size: 0.8em;
-	}
-
-	h2,
-	h4 {
-		margin: 0;
-		padding: 0.1em 0 0.1em 0;
+	#place-name {
+		margin-bottom: 0.5em;
 	}
 
 	.legend {
@@ -1462,10 +1020,5 @@
 			height: 100vh;
 			order: 0;
 		}
-	}
-
-	hr {
-		border: 0.5px solid #eee;
-		width: 100%;
 	}
 </style>

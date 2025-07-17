@@ -1,14 +1,21 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
+	import { Select } from "bits-ui";
+	import Icon from '@iconify/svelte';
+
+
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import cmaSummary from './cma-summary.json';
-	import Select from 'svelte-select';
+	import '../../styles.css'
+
+
 	import Footer from '../../lib/Footer.svelte';
 	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
-	import Icon from '@iconify/svelte';
+
+	import cmaSummary from './cma-summary.json';
+
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -34,19 +41,17 @@
 			}))
 	};
 
-	// array of all cma names
-	let cmaAll = cmaSummary.map((item) => {
-		return {
-			label: item.cmaname,
-			value: item.cmaname,
-			group: item.province
-		};
-	});
-
 	let map;
 
 	// initial cma and variable selected
-	let cmaSelected = 'All Regions';
+	let cmaSelected = '';
+
+	const grouped = {};
+    for (const cma of cmaSummary) {
+      const province = cma.province || "";
+      if (!grouped[province]) grouped[province] = [];
+      grouped[province].push({ value: String(cma.cmauid), label: cma.cmaname });
+    }
 
 	onMount(() => {
 		map = new mapboxgl.Map({
@@ -94,25 +99,6 @@
 
 		map.addControl(scale, 'bottom-right');
 
-		map.on('mouseenter', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
-			map.getCanvas().style.cursor = 'pointer';
-		});
-
-		map.on('mouseleave', ['cmaPoints', 'cma-fill', 'cma-highlight'], () => {
-			map.getCanvas().style.cursor = '';
-		});
-
-		map.on('click', 'cma-fill', (e) => {
-			cmaSelected = cmaSummary.filter(
-				(item) => item.cmauid === parseInt(e.features[0].properties.CMAUID)
-			)[0].cmaname;
-		});
-
-		map.on('click', 'cmaPoints', (e) => {
-			console.log(e.features[0]);
-			cmaSelected = e.features[0].properties.cmaname;
-		});
-
 		map.on('zoom', () => {
 			if (map.getZoom() > 6) {
 				// Show the HTML element
@@ -140,18 +126,18 @@
 
 	// function for what to do when new cma is selected
 	function handleSelect(e) {
-		// reset cma selected variable
-		cmaSelected = e.detail.value;
+
+		cmaSelected = e;
 
 		// filter cma data to just the cma we selected
-		let filteredData = cmaSummary.filter((item) => item.cmaname === cmaSelected)[0];
+		let filteredData = cmaSummary.filter((item) => item.cmauid === Number(cmaSelected))[0];
 
 		let cmaX = filteredData.x;
 		let cmaY = filteredData.y;
 		let cmauid = filteredData.cmauid.toString();
 
 		// pan and zoom to the new cma - reset pitch and bearing if they changed
-		if (cmaSelected !== 'All CMAs') {
+		if (cmaSelected !== 'All Regions') {
 			map.setZoom(8);
 			map.setBearing(0);
 			map.setPitch(0);
@@ -185,13 +171,15 @@
 	}
 
 	function resetMap() {
-		cmaSelected = 'All CMAs';
+		cmaSelected = '';
 
 		map.flyTo({
 			center: [-90, 55],
 			zoom: 3.5
 		});
+
 		map.setPaintProperty('cma-fill', 'fill-opacity', 0);
+
 		map.setFilter('cma-fill', [
 			'all',
 			[
@@ -226,25 +214,46 @@
 	<div class="controls">
 		<div class="select-wrapper">
 			<h4>Select a region:</h4>
-			<Select
-				id="select"
-				items={cmaAll}
-				value={cmaSelected}
-				groupBy={(item) => item.group}
-				clearable={false}
-				showChevron={true}
-				on:input={handleSelect}
-				--background="white"
-				--item-color="black"
-				--item-is-active-color="black"
-				--item-is-active-bg="#eee"
-			/>
+			<Select.Root type="single" bind:value={cmaSelected} onValueChange={handleSelect}>
+				<Select.Trigger class="select-trigger" aria-label="Select CMA">
+				  <Icon icon="mdi:map-marker-outline" class="icon-start" />
+				  {#if cmaSelected}
+					{cmaSummary.find(c => String(c.cmauid) === cmaSelected)?.cmaname}
+				  {:else}
+					<span class="placeholder">Select a CMA</span>
+				  {/if}
+				  <Icon icon="mdi:chevron-down" class="icon-end" />
+				</Select.Trigger>
+			  
+				<Select.Portal>
+				  <Select.Content class="select-content" sideOffset={10}>
+			  
+					<Select.Viewport class="select-viewport">
+					  {#each Object.entries(grouped) as [province, options]}
+						<Select.Group>
+						  <Select.GroupHeading class="group-heading">{province}</Select.GroupHeading>
+						  {#each options as { value, label }}
+							<Select.Item class="select-item" {value} {label}>
+							  {label}
+							  {#if cmaSelected === value}
+								<div class="check-icon">
+								  <Icon icon="mdi:check" aria-label="selected" />
+								</div>
+							  {/if}
+							</Select.Item>
+						  {/each}
+						</Select.Group>
+					  {/each}
+					</Select.Viewport>
+			  
+				  </Select.Content>
+				</Select.Portal>
+			  </Select.Root>
 		</div>
 
 		<div class="legend">
 			<h4>Legend</h4>
 			<LegendItem variant={'circle'} label={'Census Metropolitan Areas'} bgcolor={'#00adf2'} />
-
 			<div id="legend">
 			<Legend
 					minlabel={'Low'}
@@ -300,9 +309,7 @@
 						id={'canada-civicinfra-education'}
 						{map}
 					/>
-
 					<LegendItem variant={'polygon'} label={'High Density Main Streets'} bgcolor={'#eee'} />
-
 					<LegendItem variant={'polygon'} label={'Low Density Main Streets'} bgcolor={'#dddd'} />
 
 				</div>
@@ -396,6 +403,7 @@
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
+
 
 	@media only screen and (min-width: 768px) {
 

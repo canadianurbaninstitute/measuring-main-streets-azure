@@ -2,8 +2,6 @@
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import cmaSummary from './cma-summary.json';
-	import Select from 'svelte-select';
 	import Footer from '../../lib/Footer.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import Icon from '@iconify/svelte';
@@ -11,40 +9,8 @@
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
-	// creating a geojson for points of CMAs (when zoomed out)
-
-	// let cmaPoints;
-
-	// cmaPoints = {
-	// 	type: 'FeatureCollection',
-	// 	features: cmaSummary
-	// 		.filter((feature) => feature.cmauid !== '000')
-	// 		.map((feature) => ({
-	// 			type: 'Feature',
-	// 			geometry: {
-	// 				type: 'Point',
-	// 				coordinates: [feature.x, feature.y]
-	// 			},
-	// 			properties: {
-	// 				cmauid: feature.cmauid,
-	// 				cmaname: feature.cmaname
-	// 			}
-	// 		}))
-	// };
-
-	// array of all cma names
-	let cmaAll = cmaSummary.map((item) => {
-		return {
-			label: item.cmaname,
-			value: item.cmaname,
-			group: item.province
-		};
-	});
 
 	let map;
-
-	// initial cma and variable selected
-	let cmaSelected = 'All Regions';
 
 	onMount(() => {
 		map = new mapboxgl.Map({
@@ -58,30 +24,6 @@
 			attributionControl: false
 		});
 
-		// map.on('load', function () {
-		// 	map.addLayer({
-		// 		id: 'cmaPoints',
-		// 		type: 'circle',
-		// 		source: {
-		// 			type: 'geojson',
-		// 			data: cmaPoints
-		// 		},
-		// 		paint: {
-		// 			'circle-radius': 4,
-		// 			'circle-color': '#00adf2',
-		// 			'circle-stroke-width': 2,
-		// 			'circle-stroke-color': '#fff'
-		// 		}
-		// 	});
-		// });
-
-		// map.on('zoom', function () {
-		// 	if (map.getZoom() < 6) {
-		// 		map.setLayoutProperty('cmaPoints', 'visibility', 'visible');
-		// 	} else {
-		// 		map.setLayoutProperty('cmaPoints', 'visibility', 'none');
-		// 	}
-		// });
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
@@ -92,99 +34,16 @@
 
 		map.addControl(scale, 'bottom-right');
 
-		map.on('mouseenter', ['cma-fill', 'cma-highlight'], () => {
-			map.getCanvas().style.cursor = 'pointer';
-		});
 
-		map.on('mouseleave', ['cma-fill', 'cma-highlight'], () => {
-			map.getCanvas().style.cursor = '';
-		});
-
-		map.on('click', 'cma-fill', (e) => {
-			cmaSelected = cmaSummary.filter(
-				(item) => item.cmauid === parseInt(e.features[0].properties.CMAUID)
-			)[0].cmaname;
-		});
-
-		// map.on('click', 'cmaPoints', (e) => {
-		// 	console.log(e.features[0]);
-		// 	cmaSelected = e.features[0].properties.cmaname;
-		// });
 	});
 
-	// function for what to do when new cma is selected
-	function handleSelect(e) {
-		// reset cma selected variable
-		cmaSelected = e.detail.value;
-
-		// filter cma data to just the cma we selected
-		let filteredData = cmaSummary.filter((item) => item.cmaname === cmaSelected)[0];
-
-		let cmaX = filteredData.x;
-		let cmaY = filteredData.y;
-		let cmauid = filteredData.cmauid.toString();
-
-		// pan and zoom to the new cma - reset pitch and bearing if they changed
-		if (cmaSelected !== 'All CMAs') {
-			map.setZoom(8);
-			map.setBearing(0);
-			map.setPitch(0);
-			map.panTo([cmaX, cmaY]);
-
-			map.setPaintProperty('cma-fill', 'fill-opacity', 0.8);
-
-			map.setFilter('cma-fill', [
-				'all',
-				[
-					'match',
-					['get', 'CMANAME'],
-					[
-						'Granby',
-						'Saint-Hyacinthe',
-						'North Bay',
-						'Sault Ste. Marie',
-						'Medicine Hat',
-						'Wood Buffalo'
-					],
-					false,
-					true
-				],
-				['match', ['get', 'CMAUID'], [cmauid.toString()], false, true]
-			]);
-
-			map.setFilter('cma-highlight', ['all', ['match', ['get', 'CMAUID'], [cmauid], true, false]]);
-		} else {
-			resetMap();
-		}
-	}
 
 	function resetMap() {
-		cmaSelected = 'All CMAs';
 
 		map.flyTo({
 			center: [-90, 55],
 			zoom: 3.5
 		});
-		map.setPaintProperty('cma-fill', 'fill-opacity', 0);
-		map.setFilter('cma-fill', [
-			'all',
-			[
-				'match',
-				['get', 'CMANAME'],
-				[
-					'Granby',
-					'Saint-Hyacinthe',
-					'North Bay',
-					'Sault Ste. Marie',
-					'Medicine Hat',
-					'Wood Buffalo'
-				],
-				false,
-				true
-			]
-		]);
-
-		map.setFilter('cma-highlight', ['all', ['match', ['get', 'CMAUID'], ['000'], true, false]]);
 	}
 </script>
 
@@ -204,23 +63,6 @@
 
 <div class="map-container">
 	<div class="controls">
-		<div class="select-wrapper">
-			<h4>Select a region:</h4>
-			<Select
-				id="select"
-				items={cmaAll}
-				value={cmaSelected}
-				groupBy={(item) => item.group}
-				clearable={false}
-				showChevron={true}
-				on:input={handleSelect}
-				--background="white"
-				--item-color="black"
-				--item-is-active-color="black"
-				--item-is-active-bg="#eee"
-			/>
-		</div>
-
 		<div class="legend">
 			<h4>Legend</h4>
 			<h5><i>Click to turn layers on and off</i></h5>
@@ -309,12 +151,6 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-	}
-
-	.select-wrapper {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5em;
 	}
 
 	#resetButton {

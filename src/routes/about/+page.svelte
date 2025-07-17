@@ -57,6 +57,7 @@
 		flex-direction: row;
 		padding: 2em;
 		margin: 1em 0 1em 0;
+		justify-content: space-around;
 	}
 
 

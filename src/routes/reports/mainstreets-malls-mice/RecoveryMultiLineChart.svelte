@@ -1,33 +1,30 @@
 <script>
 	import { LayerCake, Svg, Html, groupLonger, flatten } from 'layercake';
-	import '../../styles.css'
+	import '../../styles.css';
 
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format } from 'd3-format';
-	import Svelecte from 'svelecte';
-	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
+	import MultiSelect from 'svelte-multiselect';
 
+	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import MultiLine from '../../lib/chartcomponents/MultiLine.svelte';
 	import AxisX from '../../lib/chartcomponents/AxisX.svelte';
 	import AxisY from '../../lib/chartcomponents/AxisY.svelte';
 	import SharedTooltip from '../../lib/chartcomponents/SharedTooltip.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
-
+	// Data
 	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
 	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
 
 	/* --------------------------------------------
-	 * Set what is our x key to separate it from the other series
+	 * Column keys
 	 */
 	const xKey = 'date';
 	const yKey = 'value';
 	const zKey = 'ms_type';
-
 	const xKeyCast = timeParse('%Y-%m-%d');
 
-	//const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
 	const intialSeriesNames = [
 		'downtown main streets',
 		'malls',
@@ -35,24 +32,17 @@
 		'small town main streets'
 	];
 
-	let seriesNames = [
-		'downtown main streets',
-		'malls',
-		'neighbourhood main streets',
-		'small town main streets'
-	];
+	/* Colors */
+	let seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2']; // base 4
+	let newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2']; // overwritten when selecting
+	let seriesColorsFaded = ['#ddd']; // background layer
 
-	let seriesNamesCaseStudies = [];
-	let seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
-	let newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
-
-	let seriesColorsFaded = ['#ddd'];
-
-	/* Cast values */
+	/* Cast values in CSV */
+	const allColumns = Object.keys(data[0]).filter((d) => d !== xKey);
 	data.forEach((d) => {
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
-		seriesNames.forEach((name) => {
-			d[name] = +d[name];
+		allColumns.forEach((col) => {
+			d[col] = +d[col];
 		});
 	});
 
@@ -60,86 +50,102 @@
 	const formatLabelY = (d) => format(`~s`)(d) + '%';
 	const formatValue = (d) => format('.0f')(d) + '%';
 
-	let selectedValues = [];
-	let selectedLabels;
+	/* ------------------------------------------------
+	 * Build flat options for svelte-multiselect
+	 * dataset.casestudies() -> [{label:'City', options:[{value,text},...]},...]
+	 * MultiSelect needs a flat array of selectable items with a 'label' prop.
+	 * We'll retain the city name in a 'group' field for optional display.
+	 */
+	const rawGroups = dataset.casestudies();
 
-	let groupedData;
-	let groupedDataCategories;
+	// helper: pick the key that exists in the CSV (value vs text)
+	function matchCsvKey(o) {
+		const row = data[0];
+		if (o.value in row) return o.value;
+		if (o.text in row) return o.text;
+		// fallback: try a normalized variant (strip spaces) if needed
+		const norm = o.text.replace(/\s+/g, '');
+		if (norm in row) return norm;
+		return null; // no match; user will see it but selecting won't add a line
+	}
 
-	let filteredData = data.map(function (dataEntry) {
-		let newObj = { date: dataEntry.date };
-		intialSeriesNames.forEach(function (key) {
-			newObj[key] = dataEntry[key];
-		});
-		return newObj;
-	});
+	const casestudyOptions = rawGroups.flatMap((g) =>
+		g.options.map((o) => {
+			const col = matchCsvKey(o);
+			return {
+				label: `${o.text} (${g.label})`, // what user sees/searches (includes group)
+				value: col ?? o.value,            // chart lookup key (best effort)
+				group: g.label,                   // keep group metadata if needed elsewhere
+				shortLabel: o.text                // clean label for legend
+			};
+		})
+	);
 
-	groupedDataCategories = groupLonger(data, seriesNames, {
+	/* Two-way binding target for MultiSelect */
+	let selectedOptions = [];
+
+	/* Derive the *data column* names to plot */
+	$: selectedValues = selectedOptions
+		.map((o) => o.value)
+		.filter((v) => v && v in data[0]); // ignore unmatched
+
+	/* Labels for legend (display only) */
+	$: selectedLabels = selectedOptions.map((o) => o.shortLabel ?? o.label);
+
+	/* Data used by charts */
+	let groupedDataCategories = groupLonger(data, intialSeriesNames, {
 		groupTo: zKey,
 		valueTo: yKey
-	});
+	}); // static grey background lines
 
-	groupedData = groupLonger(data, seriesNames, {
-		groupTo: zKey,
-		valueTo: yKey
-	});
+	let groupedData = groupedDataCategories; // foreground lines (changes w/ selection)
+	let filteredData = buildFilteredData(intialSeriesNames); // drives tooltip
 
-	function handleChange(e) {
+	/* React to selection changes */
+	$: updateFromSelection(selectedValues);
 
-		// adding lines + filtering data
-
-		seriesColors = ['#ddd', '#ddd', '#ddd', '#ddd'];
-		newLineSeriesColors = ['#00ADF2'];
-
-
-		// look at the current values in the list and add them to the casestudies series names
-		selectedValues.forEach((value) => seriesNamesCaseStudies.push(value));
-
-		// update the data for the interactive newly added lines using the data
-		groupedData = groupLonger(data, seriesNamesCaseStudies, {
-			groupTo: zKey,
-			valueTo: yKey
-		});
-
-		// filtered data for GroupLabels for the newly added lines
-
-		filteredData = data.map(function (dataEntry) {
-			let newObj = { date: dataEntry.date };
-			selectedValues.forEach(function (key) {
-				newObj[key] = dataEntry[key];
-			});
-			return newObj;
-		});
-
-		// REMOVING THE LINES
-
-		// if selected values is empty
-		if (selectedValues.length === 0) {
-
+	function updateFromSelection(values) {
+		if (!values || values.length === 0) {
+			// Reset to initial 4 base categories
 			seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
 			newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
 
-
-
-			// reset previously selected casestudies
-			seriesNamesCaseStudies = [];
-
-			// reset all data to be the initial 4 categories
 			groupedData = groupLonger(data, intialSeriesNames, {
 				groupTo: zKey,
 				valueTo: yKey
 			});
 
-			// reset filtered data for group labels to be initial 4 categories
-
-			filteredData = data.map(function (dataEntry) {
-				let newObj = { date: dataEntry.date };
-				intialSeriesNames.forEach(function (key) {
-					newObj[key] = dataEntry[key];
-				});
-				return newObj;
-			});
+			filteredData = buildFilteredData(intialSeriesNames);
+			return;
 		}
+
+		// Show base series in grey; highlight selected in blue
+		seriesColors = ['#ddd', '#ddd', '#ddd', '#ddd'];
+		newLineSeriesColors = ['#00ADF2'];
+
+		groupedData = groupLonger(data, values, {
+			groupTo: zKey,
+			valueTo: yKey
+		});
+
+		filteredData = buildFilteredData(values);
+	}
+
+	function buildFilteredData(keys) {
+		return data.map((row) => {
+			const obj = { date: row.date };
+			keys.forEach((k) => {
+				obj[k] = row[k];
+			});
+			return obj;
+		});
+	}
+
+	/* Optional: inspect event payloads from MultiSelect */
+	function handleMultiSelectChange(e) {
+		// e.detail.type: 'add' | 'remove' | 'removeAll' | ...
+		// e.detail.option / options
+		console.log('MultiSelect change:', e.detail);
 	}
 </script>
 
@@ -147,29 +153,28 @@
 	<h4>Visitor Levels (%) relative to the same month in 2019</h4>
 
 	<div class="controls">
-		<Svelecte
-			on:change={handleChange}
-			bind:value={selectedValues}
-			multiple
-			options={dataset.casestudies()}
+		<MultiSelect
+			bind:selected={selectedOptions}
+			options={casestudyOptions}
 			placeholder="Add a street"
-			clearable
+			removeAllTitle="Clear"
+			onchange={handleMultiSelectChange}
 		/>
-		<div class="legend-container">
-			<LegendItem variant={'line'} label={'Downtown Main Streets'} bordercolor={seriesColors[0]} />
-			<LegendItem variant={'line'} label={'Malls'} bordercolor={seriesColors[1]} />
-			<LegendItem variant={'line'} label={'Neighbourhood Main Streets'} bordercolor={seriesColors[2]} />
-			<LegendItem variant={'line'} label={'Small Town Main Streets'} bordercolor={seriesColors[3]} />
 
-			{#each selectedValues as value}
-			<LegendItem variant={'line'} label={value} bordercolor={'#00ADF2'} />
+		<div class="legend-container">
+			<LegendItem variant="line" label="Downtown Main Streets" bordercolor={seriesColors[0]} />
+			<LegendItem variant="line" label="Malls" bordercolor={seriesColors[1]} />
+			<LegendItem variant="line" label="Neighbourhood Main Streets" bordercolor={seriesColors[2]} />
+			<LegendItem variant="line" label="Small Town Main Streets" bordercolor={seriesColors[3]} />
+
+			{#each selectedLabels as lbl}
+				<LegendItem variant="line" label={lbl} bordercolor="#00ADF2" />
 			{/each}
 		</div>
-
-
 	</div>
 
 	<div class="chart">
+		<!-- Background: always show 4 base categories in faded grey -->
 		<LayerCake
 			position="absolute"
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
@@ -186,6 +191,8 @@
 				<MultiLine />
 			</Svg>
 		</LayerCake>
+
+		<!-- Foreground: selected case studies (or 4 base categories when none selected) -->
 		<LayerCake
 			position="absolute"
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
@@ -218,12 +225,6 @@
 </div>
 
 <style>
-	/*
-          The wrapper div needs to have an explicit width and height in CSS.
-          It can also be a flexbox child or CSS grid element.
-          The point being it needs dimensions since the <LayerCake> element will
-          expand to fill it.
-        */
 	.chart {
 		width: 100%;
 		height: 500px;
@@ -243,7 +244,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
 	.controls:hover {
 		cursor: pointer;
 	}
@@ -257,6 +257,4 @@
 		padding: 0.5em;
 		flex-wrap: wrap;
 	}
-
-
 </style>

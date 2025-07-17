@@ -5,7 +5,6 @@
 	import environics from '../lib/assets/logos/environics_logo.svg';
 	import schoolofcities from '../lib/assets/logos/soc_logo.svg';
 	import opennorth from '../lib/assets/logos/opennorth_logo.svg';
-	import HubspotForm from './ui/HubspotForm.svelte'
 	import SocialLinks from './ui/SocialLinks.svelte';
 </script>
 
@@ -13,11 +12,6 @@
 	<div class="footer-content">
 		<a href="/"><img src={mms} alt="Measuring Main Street" /></a>
 		<div id="social">
-		<!-- <p>Subscribe to the Canadian Urban Institute newsletter</p>
-		<HubspotForm      
-		portalId="8260137"      
-		formId="6697fce8-23ec-49ad-bb8c-b6174d3bebaa"      
-	 	/> -->
 		</div>
 	</div>
 	<div id="logo-content">

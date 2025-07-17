@@ -2,146 +2,146 @@
   {
     "variable": "population",
     "name": "Population",
-    "group": "population"
+    "group": "Population"
   },
   {
     "variable": "population_density",
     "name": "Population Density",
-    "group": "population"
+    "group": "Population"
   },
   {
     "variable": "average_age",
     "name": "Average Age",
-    "group": "resident age"
+    "group": "Resident Age"
   },
   {
     "variable": "age_0_19",
     "name": "Age 0 to 19",
-    "group": "resident age"
+    "group": "Resident Age"
   },
   {
     "variable": "age_20_64",
     "name": "Age 20 to 64",
-    "group": "resident age"
+    "group": "Resident Age"
   },
   {
     "variable": "age_65_Over",
     "name": "Age 65 and Over",
-    "group": "resident age"
+    "group": "Resident Age"
   },
   {
     "variable": "household_size",
     "name": "Average Household Size",
-    "group": "housing"
+    "group": "Housing"
   },
   {
     "variable": "single_detached",
     "name": "Single Detached Housing",
-    "group": "housing"
+    "group": "Housing"
   },
   {
     "variable": "semi_detached",
     "name": "Semi-Detached Housing",
-    "group": "housing"
+    "group": "Housing"
   },
   {
     "variable": "apartment_more_5",
     "name": "Apartment (>5 stories)",
-    "group": "housing"
+    "group": "Housing"
   },
   {
     "variable": "apartment_less_5",
     "name": "Apartment (<5 stories)",
-    "group": "housing"
+    "group": "Housing"
   },
   {
     "variable": "duplex",
     "name": "Duplex / Row Housing",
-    "group": "housing"
+    "group": "Housing"
   },
   {
     "variable": "university_degree",
     "name": "Bachelors Degree",
-    "group": "demographic"
+    "group": "Demographic"
   },
   {
     "variable": "mobility_car",
     "name": "Car",
-    "group": "primary commuting method"
+    "group": "Primary Commuting Method"
   },
   {
     "variable": "mobility_public_transit",
     "name": "Public Transit",
-    "group": "primary commuting method"
+    "group": "Primary Commuting Method"
   },
   {
     "variable": "mobility_active_transit",
     "name": "Active Transit",
-    "group": "primary commuting method"
+    "group": "Primary Commuting Method"
   },
   {
     "variable": "visible_minorities",
     "name": "Visible Minorities",
-    "group": "demographic"
+    "group": "Demographic"
   },
   {
     "variable": "indigenous",
     "name": "Indigenous",
-    "group": "demographic"
+    "group": "Demographic"
   },
   {
     "variable": "immigrants_non_permanent_residents",
     "name": "Immigrants and Non-Permanent Residents",
-    "group": "demographic"
+    "group": "Demographic"
   },
   {
     "variable": "language_english",
     "name": "English",
-    "group": "primary language"
+    "group": "Primary Language"
   },
   {
     "variable": "language_french",
     "name": "French",
-    "group": "primary language"
+    "group": "Primary Language"
   },
   {
     "variable": "language_other",
     "name": "Other Language",
-    "group": "primary language"
+    "group": "Primary Language"
   },
   {
     "variable": "population_change",
     "name": "Population Change (since 2016)",
-    "group": "population"
+    "group": "Population"
   },
   {
     "variable": "average_employment_income",
     "name": "Average Employment Income",
-    "group": "employment"
+    "group": "Employment"
   },
   {
     "variable": "commute_15",
     "name": "Commutes under 15 minutes",
-    "group": "commute time"
+    "group": "Commute Time"
   },
   {
     "variable": "commute_30",
     "name": "Commutes: 15 to 30 minutes",
-    "group": "commute time"
+    "group": "Commute Time"
   },
   {
     "variable": "commute_45",
     "name": "Commutes: 30 to 45 minutes",
-    "group": "commute time"
+    "group": "Commute Time"
   },
   {
     "variable": "commute_60",
     "name": "Commutes: 45 - 60 minutes",
-    "group": "commute time"
+    "group": "Commute Time"
   },
   {
     "variable": "commute_over_60",
     "name": "Commutes over 60 minutes",
-    "group": "commute time"
+    "group": "Commute Time"
   }
 ]

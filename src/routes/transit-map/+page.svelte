@@ -1,10 +1,10 @@
 <script>
 	import '../styles.css';
-	import { afterUpdate, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import * as turf from '@turf/turf';
-	import { BarChart, ColumnChart } from '@onsvisual/svelte-charts';
-	import { Tabs } from 'bits-ui';
+	import { BarChart } from '@onsvisual/svelte-charts';
+	import { Tabs, Checkbox } from 'bits-ui';
 	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 
 	import Footer from '../lib/Footer.svelte';
@@ -655,8 +655,6 @@
 		href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
 		type="text/css"
 	/>
-	<link rel="preconnect" href="https://rsms.me/" />
-	<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 </svelte:head>
 
 <div class="hero">

@@ -62,16 +62,23 @@
 		<nav>
 			<ul>
 				<li><a href="/map">Main Street Map</a></li>
+				<li><a href="/transit-map">Transit Map</a></li>
 				<li class="dropdown">
-					<a class="dropdown-title" href="/casestudies">
+					<a class="dropdown-title" href="#">
 						Case Studies <Icon icon="icon-park-solid:down-one" /></a>
 					<ul class="dropdown-menu">
-						<li><a href="/casestudies/toronto">Toronto</a></li>
-						<li><a href="/casestudies/montreal">Montreal</a></li>
-						<li><a href="/casestudies/edmonton">Edmonton</a></li>
+						<li><a href="#">TOD on Main</a></li>
+						<li><a href="/casestudies">Measuring Main Streets</a></li>
 					</ul>
 				</li>
-				<li><a href="/reports">Reports</a></li>
+				<li class="dropdown">
+					<a class="dropdown-title" href="#">
+						Reports <Icon icon="icon-park-solid:down-one" /></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">TOD on Main</a></li>
+						<li><a href="/reports">Measuring Main Streets</a></li>
+					</ul>
+				</li>
 				<li><a href="/tools">Tools</a></li>
 				<li class="dropdown">
 					<a class="dropdown-title" href="/about">

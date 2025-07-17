@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import regions from '../../lib/data/transit-regions.json';
-	import Select from 'svelte-select'; // Original import
 
 	export let data = [];
 

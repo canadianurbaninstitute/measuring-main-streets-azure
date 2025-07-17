@@ -1,7 +1,6 @@
 <script>
 	import '../../styles.css';
 	import Footer from '../../lib/Footer.svelte';
-    import HubspotForm from '../../lib/ui/HubspotForm.svelte'
 	import SocialLinks from '../../lib/ui/SocialLinks.svelte';
 </script>
 
@@ -21,11 +20,7 @@
 		<h2>Newsletter</h2>
 	</div>
     <div>
-		<p>Subscribe to the Canadian Urban Institute newsletter, and connect with us on social media!</p>
-		<HubspotForm      
-		portalId="8260137"      
-		formId="6697fce8-23ec-49ad-bb8c-b6174d3bebaa"      
-	 	/>
+		<p> <a href="https://canurb.org/subscribe/">Subscribe</a> to the Canadian Urban Institute newsletter, and connect with us on social media!</p>
 	</div>
 	<SocialLinks/>
 </div>

@@ -1,6 +1,4 @@
 <script>
-	import Arrow from './ui/Arrow.svelte';
-
 	export let name;
 	export let location;
 	export let outline;
@@ -61,8 +59,6 @@
 		padding: 2.5em;
 
 	}
-
-
 
 	@media only screen and (min-width: 768px) {
 		.blueprint {

@@ -10,13 +10,7 @@
 </script>
 
 <div class="hero">
-	<h1>Case Studies</h1>
-	<div class="subtitle">
-		<h2>Regions</h2>
-	</div>
-</div>
-
-<div class="hero">
+	<h1>Measuring Main Streets Case Studies</h1>
 	<p>
 		Discover how infrastructure paints a picture of a community through sixty main streets case studies across three Canadian cities.
 	</p>
