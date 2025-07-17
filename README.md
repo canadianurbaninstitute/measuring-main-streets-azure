@@ -1,5 +1,7 @@
 # Measuring Main Streets
 
+Welcome to the MMS repo.
+
 A SvelteKit-based web application for interactive mapping, data visualization, and research tools, deployed on Azure Static Web Apps.
 
 ## Table of Contents
