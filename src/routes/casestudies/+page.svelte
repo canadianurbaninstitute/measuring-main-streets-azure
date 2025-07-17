@@ -1,12 +1,11 @@
 <script>
 	import '../styles.css';
-	import { base } from '$app/paths';
 	import Card from '../lib/ui/Card.svelte';
 
 	import Toronto from '../lib/assets/boundaries/Toronto.svg';
 	import Montreal from '../lib/assets/boundaries/Montreal.svg';
 	import Edmonton from '../lib/assets/boundaries/Edmonton.svg';
-	import Footer from '../lib/Footer.svelte';
+	import Footer from '../lib/ui/Footer.svelte';
 </script>
 
 <div class="hero">
@@ -43,6 +42,10 @@
 		overflow: hidden;
 	}
 
+	img {
+		width: 100%;
+	}
+
 	/*DESKTOP*/
 
 	@media only screen and (min-width: 768px) {
@@ -51,14 +54,9 @@
 		}
 
 		.hero {
-	margin: 2em 15em 2em 15em;
-}
+			margin: 2em 15em 2em 15em;
+		}
 
 	}
-
-	img {
-		width: 100%;
-	}
-
 
 </style>

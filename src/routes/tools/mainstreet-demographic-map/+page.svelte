@@ -10,7 +10,7 @@
 
 	import { Select } from "bits-ui"
 
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import Icon from '@iconify/svelte';

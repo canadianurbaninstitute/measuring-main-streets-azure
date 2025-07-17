@@ -2,7 +2,7 @@
 	import './styles.css';
 	import HeroCard from './lib/ui/HeroCard.svelte';
 	import HeroStat from './lib/ui/HeroStat.svelte';
-	import Footer from './lib/Footer.svelte';
+	import Footer from './lib/ui/Footer.svelte';
 	import collage from './lib/assets/graphics/MMS-collage.jpg';
 	import canada_logo from './lib/assets/logos/canada_logo.svg';
 	import cui_logo from './lib/assets/logos/cui_logo_white.svg';
@@ -271,7 +271,6 @@
 	.splash {
 		display: flex;
 		flex-direction: column;
-		width: 100vw;
 		border-bottom: 1px solid #eee;
 		align-items: stretch;
 	}

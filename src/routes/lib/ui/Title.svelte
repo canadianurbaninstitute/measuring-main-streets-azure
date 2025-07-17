@@ -27,7 +27,7 @@
 	.title {
 		color: white;
 		position: relative;
-		height: 20%; /* background-color: rgba(255, 255, 255, 1); */
+		height: 20%;
 		padding: 5em 0 5em 0;
 	}
 

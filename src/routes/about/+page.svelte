@@ -6,7 +6,7 @@
 	import schoolofcities from '../lib/assets/logos/soc_logo.svg';
 	import opennorth from '../lib/assets/logos/opennorth_logo.svg';
 	import collage from '../lib/assets/graphics/MMS-collage.jpg'
-	import Footer from '../lib/Footer.svelte';
+	import Footer from '../lib/ui/Footer.svelte';
 
 </script>
 

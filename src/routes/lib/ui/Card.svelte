@@ -3,7 +3,6 @@
     export let cardImage;
     export let streetName;</script>
 
-
 <a href={link}>
 <div class="card">
     <div class="card-img">
@@ -12,7 +11,6 @@
     <h4>{streetName}</h4>
 </div>
 </a>
-
 
 <style>
      .card {

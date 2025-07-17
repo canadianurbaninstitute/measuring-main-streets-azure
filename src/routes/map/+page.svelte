@@ -18,7 +18,7 @@
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
-	import Footer from '../lib/Footer.svelte';
+	import Footer from '../lib/ui/Footer.svelte';
 
 	// Set Mapbox access token
 	mapboxgl.accessToken =

@@ -1,9 +1,8 @@
 <script>
 	import { NavigationMenu } from "bits-ui";
 	import Icon from "@iconify/svelte";
-	import logo from "../lib/assets/logos/cui_logo.svg"; // unused visually but kept if you want to swap brands
-	import mms_logo from "../lib/assets/logos/mms_logo.svg";
-	import mms_logo_alt from "../lib/assets/logos/mms_logo_alt.svg";
+	import mms_logo from "../assets/logos/mms_logo.svg";
+	import mms_logo_alt from "../assets/logos/mms_logo_alt.svg";
   
 	// Logo hover swap ---------------------------------------------------------
 	let imageSrc = mms_logo;
@@ -37,7 +36,6 @@
   
 	const learnMore = [
 	  { title: "About", href: "/about" },
-	  { title: "Platform", href: "/about/platform" },
 	  { title: "FAQ", href: "/about/faq" },
 	  { title: "Data & Methodology", href: "/about/data-methodology" },
 	  { title: "Team", href: "/about/team" },
@@ -84,6 +82,7 @@
 			<NavigationMenu.Link href="/transit-map" class="nav-link">Transit Map</NavigationMenu.Link>
 		  </NavigationMenu.Item>
    		  -->
+		  
 		  <!-- Case Studies Dropdown -->
 		  <NavigationMenu.Item value="case-studies" class="nav-menu-item">
 			<NavigationMenu.Trigger class="nav-trigger">

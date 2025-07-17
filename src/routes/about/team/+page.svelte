@@ -1,6 +1,6 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 	import Icon from '@iconify/svelte';
 </script>
 

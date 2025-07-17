@@ -1,6 +1,6 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 	import SocialLinks from '../../lib/ui/SocialLinks.svelte';
 </script>
 
@@ -24,6 +24,8 @@
 	</div>
 	<SocialLinks/>
 </div>
+
+<br><br>
 
 <Footer/>
 

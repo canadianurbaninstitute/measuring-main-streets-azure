@@ -1,13 +1,14 @@
 <script>
-	import Title from '../../lib/Title.svelte';
+	import Title from '../../lib/ui/Title.svelte';
 	import malls from '../../lib/assets/graphics/malls.svg';
 	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
 	import BarChart from './BarChart.svelte';
 	import MultiLineChart from './MultiLineChart.svelte';
 	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 
 	import '../../styles.css';
+	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
@@ -41,7 +42,7 @@
 	</div>
 
 	<div class="chart-container sticky-content">
-		<RecoveryMultiLineChart />
+		<RecoveryMultiLineChart dataset={dataset} />
 	</div>
 </div>
 

@@ -1,6 +1,5 @@
 <script>
-	import TopBar2 from './lib/TopBar2.svelte';
-	import Footer from './lib/Footer.svelte';
+	import TopBar from './lib/ui/TopBar.svelte';
 </script>
 
 <svelte:head>
@@ -9,7 +8,7 @@
 </svelte:head>
 
 
-<TopBar2/>
+<TopBar/>
 
 <slot />
 

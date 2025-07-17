@@ -9,7 +9,7 @@
 	import '../../styles.css'
 
 
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 

@@ -7,7 +7,7 @@
 	import { Tabs, Checkbox } from 'bits-ui';
 	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 
-	import Footer from '../lib/Footer.svelte';
+	import Footer from '../lib/ui/Footer.svelte';
 
 	import stationRawData from '../lib/data/stations.json';
 	import transitRegionsRawData from '../lib/data/transit-regions.json';

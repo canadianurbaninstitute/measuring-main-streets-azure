@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import Icon from '@iconify/svelte';
 

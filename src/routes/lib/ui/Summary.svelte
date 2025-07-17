@@ -13,7 +13,6 @@
             {location}
         </h2>
     </div>
-        <!-- <p>West Queen West is a vibrant area with close access to jobs, entertainment and civic infrastructure. It faces challenges on income polarization, older physical structures, and changes to the retail economy. </p> -->
 </div>
 
 <style>
@@ -49,11 +48,6 @@
     }
 }
 
-/* p {
-    color: white;
-    max-width: 40%;
-} */
-
 .blueprint {
     height: 100vh;
     background-color:var(--brandDarkBlue);
@@ -66,7 +60,5 @@
     justify-content: center;
     align-items: center;
 }
-
-
 
 </style>

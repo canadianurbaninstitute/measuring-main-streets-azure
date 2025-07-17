@@ -1,6 +1,6 @@
 <script>
     import '../styles.css'
-	import Footer from '../lib/Footer.svelte'
+	import Footer from '../lib/ui/Footer.svelte'
 	import ReportCard from '../lib/ui/ReportCard.svelte';
 	import malls from '../lib/assets/graphics/malls.svg'
 	import resiliency from '../lib/assets/graphics/resiliency.svg';

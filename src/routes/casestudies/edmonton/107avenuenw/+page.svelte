@@ -3,12 +3,12 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/Title.svelte';
+	import Title from '../../../lib/ui/Title.svelte';
 	import HundredSevenAvenueNW from '../../../lib/assets/boundaries/edmontonboundaries/107AvenueNW.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Summary from '../../../lib/Summary.svelte';
+	import Summary from '../../../lib/ui/Summary.svelte';
 
 	import greenspace from '../../../lib/data/casestudydata/edmonton/107avenuenw/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/107avenuenw/civicmix';

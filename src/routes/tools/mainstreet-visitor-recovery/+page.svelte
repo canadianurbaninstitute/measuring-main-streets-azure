@@ -1,6 +1,6 @@
 <script>
     import RecoveryMultiLineChart from "../../reports/mainstreets-malls-mice/RecoveryMultiLineChart.svelte";
-    import Footer from "../../lib/Footer.svelte";
+    import Footer from "../../lib/ui/Footer.svelte";
 </script>
 
 

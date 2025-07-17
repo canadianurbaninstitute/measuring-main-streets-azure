@@ -3,12 +3,12 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/Title.svelte';
+	import Title from '../../../lib/ui/Title.svelte';
 	import StonyPlainRoadNW from '../../../lib/assets/boundaries/edmontonboundaries/StonyPlainRoadNW.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Summary from '../../../lib/Summary.svelte';
+	import Summary from '../../../lib/ui/Summary.svelte';
 
 	import greenspace from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/civicmix';

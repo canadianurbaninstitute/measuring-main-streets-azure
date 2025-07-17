@@ -1,7 +1,6 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/Footer.svelte';
-	import Icon from '@iconify/svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 
   let mainStreetCollapsed = true;
   let civicInfrastructureCollapsed = true;
@@ -678,11 +677,6 @@
 	<br><br><br>
 </div>
 
-
-
-
-
-
 <Footer/>
 
 <style>
@@ -698,9 +692,10 @@ h4, h3 {
 
 @media only screen and (min-width: 768px) {
 
-p {
-	max-width: 80%;
-}
+	p {
+		max-width: 80%;
+	}
+
 }
 
 .collapsible-content {
@@ -710,7 +705,7 @@ p {
   }
 
   .collapsible-content.expanded {
-    max-height: 1000px; /* Adjust based on content size */
+    max-height: 1000px;
   }
 
   h4 {

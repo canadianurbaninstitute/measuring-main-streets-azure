@@ -1,6 +1,5 @@
 <script>
 	import '../../styles.css';
-    
     export let number;
 	export let finding;
 	export let message1;

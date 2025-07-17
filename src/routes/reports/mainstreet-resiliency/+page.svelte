@@ -1,5 +1,5 @@
 <script>
-	import Title from '../../lib/Title.svelte';
+	import Title from '../../lib/ui/Title.svelte';
 	import resiliency from '../../lib/assets/graphics/resiliency.svg';
 	import correlation from '../../lib/assets/graphics/correlation-plot.png';
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
@@ -8,7 +8,7 @@
 	import BarChartStacked from './BarChartStacked.svelte';
 	import CivicBarChart from './CivicBarChart.svelte';
 	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 
 	import '../../styles.css';
 

@@ -2,11 +2,11 @@
 	export let label;
 	export let variant;
 	export let bgcolor;
-	export let bordercolor;
+	export let bordercolor = 'rgba(0,0,0,0)';
 	export let id;
 	export let button = false;
 	export let section;
-	export let map; // Allow map to be directly passed as a prop
+	export let map;
 	export let featuretype = 'circle';
 	export let targetopacity = 0.9;
 
@@ -133,7 +133,7 @@
 		width: 100%;
 		display: flex;
 		padding: 0.2em;
-		margin: 0.5em 0 0.5em 0;
+		margin: 0.2em 0 0.2em 0;
 	}
 
 	.layerOn {

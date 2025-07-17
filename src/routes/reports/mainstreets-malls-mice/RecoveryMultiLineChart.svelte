@@ -5,7 +5,6 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format } from 'd3-format';
-	import MultiSelect from 'svelte-multiselect';
 
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import MultiLine from '../../lib/chartcomponents/MultiLine.svelte';
@@ -14,12 +13,16 @@
 	import SharedTooltip from '../../lib/chartcomponents/SharedTooltip.html.svelte';
 
 	// Data
-	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
-	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
 
-	/* --------------------------------------------
-	 * Column keys
-	 */
+	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
+
+	export let dataset;
+	export let title = 'Visitor Levels (%) relative to the same month in 2019';
+
+	import MultiSelect from 'svelte-multiselect';
+
+	/* Column keys */
+
 	const xKey = 'date';
 	const yKey = 'value';
 	const zKey = 'ms_type';
@@ -33,11 +36,13 @@
 	];
 
 	/* Colors */
+
 	let seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2']; // base 4
 	let newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2']; // overwritten when selecting
 	let seriesColorsFaded = ['#ddd']; // background layer
 
 	/* Cast values in CSV */
+
 	const allColumns = Object.keys(data[0]).filter((d) => d !== xKey);
 	data.forEach((d) => {
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
@@ -56,6 +61,7 @@
 	 * MultiSelect needs a flat array of selectable items with a 'label' prop.
 	 * We'll retain the city name in a 'group' field for optional display.
 	 */
+
 	const rawGroups = dataset.casestudies();
 
 	// helper: pick the key that exists in the CSV (value vs text)
@@ -120,6 +126,7 @@
 		}
 
 		// Show base series in grey; highlight selected in blue
+		
 		seriesColors = ['#ddd', '#ddd', '#ddd', '#ddd'];
 		newLineSeriesColors = ['#00ADF2'];
 
@@ -150,7 +157,7 @@
 </script>
 
 <div class="chart-container">
-	<h4>Visitor Levels (%) relative to the same month in 2019</h4>
+	<h4>{title}</h4>
 
 	<div class="controls">
 		<MultiSelect

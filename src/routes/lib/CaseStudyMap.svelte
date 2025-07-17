@@ -17,7 +17,6 @@
 	export let attribution = 'Canadian Urban Institute';
 	export let style = 'mapbox://styles/mapbox/light-v11';
 
-
 	let pageHeight;
 	let pageWidth;
 
@@ -30,13 +29,7 @@
 
 	export let map;
 
-	const maxBounds = [
-		[-79.6772, 43.44], // SW coords
-		[-79.04763, 44.03074] // NE coords
-	];
-
 	onMount(() => {
-
 		map = new mapboxgl.Map({
 			container: section,
 			style: style,
@@ -48,7 +41,6 @@
 			pitch: pitch,
 			projection: 'globe',
 			scrollZoom: false,
-			// maxBounds: maxBounds,
 			attributionControl: false
 		});
 
@@ -103,7 +95,6 @@
 
 <style>
 	.map {
-		/* width: 100%; */
 		border: 2px solid #dddddd;
 		border-radius: 0.8em;
 	}

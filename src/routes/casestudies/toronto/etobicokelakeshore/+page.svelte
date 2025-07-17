@@ -3,12 +3,12 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/Title.svelte';
+	import Title from '../../../lib/ui/Title.svelte';
 	import etobicokelakeshore from '../../../lib/assets/boundaries/torontoboundaries/EtobicokeLakeshore.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Summary from '../../../lib/Summary.svelte';
+	import Summary from '../../../lib/ui/Summary.svelte';
 
 	import greenspace from '../../../lib/data/casestudydata/toronto/etobicokelakeshore/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/toronto/etobicokelakeshore/civicmix';

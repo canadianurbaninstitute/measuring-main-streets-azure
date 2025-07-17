@@ -62,25 +62,6 @@
         });
 	});
 
-	// function navigateMap(event) {
-	// 	const selectedRegion = event.target.value;
-	// 	if (selectedRegion === 'toronto') {
-	// 		map.jumpTo({
-	// 			center: [-79.3659, 43.9085]
-	// 		});
-	// 	} else if (selectedRegion === 'montreal') {
-	// 		map.jumpTo({
-	// 			center: [-73.617, 45.578],
-	// 			zoom: 8.5
-	// 		});
-	// 	} else if (selectedRegion === 'edmonton') {
-	// 		map.jumpTo({
-	// 			center: [-113.376, 53.549]
-	// 		});
-	// 	}
-	// }
-
-
 </script>
 
 <div class="chart-container">

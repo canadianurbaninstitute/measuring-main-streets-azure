@@ -21,11 +21,6 @@
 
 	let map;
 
-	const maxBounds = [
-		[-79.6772, 43.44], // SW coords
-		[-79.04763, 44.03074] // NE coords
-	];
-
 	onMount(() => {
 
 		map = new mapboxgl.Map({
@@ -39,7 +34,6 @@
 			pitch: pitch,
 			projection: 'globe',
 			scrollZoom: false,
-			// maxBounds: maxBounds,
 			attributionControl: false
 		});
 
@@ -64,26 +58,6 @@
 				});
 
 	});
-
-
-	// function navigateMap(event) {
-	// 		const selectedRegion = event.target.value;
-	// 		if (selectedRegion === 'Toronto') {
-	// 			map.jumpTo({
-	// 				center: [-79.5365, 43.9245],
-	// 			});
-	// 		} else if (selectedRegion === 'Montreal') {
-	// 			map.jumpTo({
-	// 				center: [-73.617, 45.578],
-	// 				zoom: 8
-	// 			});
-	// 		} else if (selectedRegion === 'Edmonton') {
-	// 			map.jumpTo({
-	// 				center: [-113.7768, 53.4757],
-	// 				zoom: 7.5
-	// 			});
-	// 		}
-	// 	}
 </script>
 
 <!-- Need to fix labels not working at some point -->

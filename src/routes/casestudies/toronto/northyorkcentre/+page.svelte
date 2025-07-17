@@ -3,12 +3,12 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/Title.svelte';
+	import Title from '../../../lib/ui/Title.svelte';
 	import northyorkcentre from '../../../lib/assets/boundaries/torontoboundaries/NorthYorkCentre.svg';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Summary from '../../../lib/Summary.svelte';
+	import Summary from '../../../lib/ui/Summary.svelte';
 
 	import greenspace from '../../../lib/data/casestudydata/toronto/northyorkcentre/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/toronto/northyorkcentre/civicmix';

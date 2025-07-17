@@ -1,6 +1,5 @@
 <script>
     import Icon from "@iconify/svelte";
-
 </script>
 
 <div id="social-links">

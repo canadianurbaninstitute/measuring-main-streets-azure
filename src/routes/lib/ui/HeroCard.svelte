@@ -7,7 +7,6 @@
 
 
 <a href={link}>
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="card">
     <div class="card-img-container">
         <img src={cardImage} alt="card">
@@ -30,8 +29,8 @@
         flex-direction: column;
         border: 1px solid #ddd;
         border-radius: 1em;
-        justify-content: space-between; /* This ensures that the footer of the card (if any) aligns to the bottom */
-        height: 100%; /* Make the card fill the height of the grid item */
+        justify-content: space-between; 
+        height: 100%;
     }
 
     .card:hover {
@@ -49,20 +48,12 @@
         justify-content: space-between;
         align-items: center;
     }
+
     
-    h2 {
-        color: var(--brandDarkBlue);
-        font-weight: 400;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
     .card-img-container {
         width: 100%;
         height: 250px;
-        border-radius: 1em 1em 0 0; /*fix*/
+        border-radius: 1em 1em 0 0; 
         overflow: hidden;
 
     }
@@ -71,12 +62,18 @@
         height: 100%;
         width: 100%;
         object-fit: cover;
-        }
+    }
+    
+    h2 {
+        color: var(--brandDarkBlue);
+        font-weight: 400;
+    }
 
     h5 {
         font-weight: 400;
     }
 
-
-
+    a {
+        text-decoration: none;
+    }
 </style>

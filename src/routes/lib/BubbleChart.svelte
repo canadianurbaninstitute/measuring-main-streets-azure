@@ -1,26 +1,18 @@
 <script>
-    import { LayerCake, Svg, Canvas } from 'layercake';
     import { ScatterChart } from '@onsvisual/svelte-charts';
 
+    import LegendItem from "./ui/legends/LegendItem.svelte"
   
-    // import ScatterSvg from '../../lib/chartcomponents/Scatter.svg.svelte';
-    // import AxisX from '../../lib/chartcomponents/AxisX.svelte';
-    // import AxisY from '../../lib/chartcomponents/AxisY.svelte';
-    import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-  
-    // This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../lib/data/reportdata/montreal/bubble-montreal.csv';
-
-    console.log(data);
+    export let data;
 
     const doHoverScatter = (e) => hoveredScatter = e.detail.id;
 	const doSelectScatter = (e) => selectedScatter = e.detail.id;
+
     let hover = true;
 	let hoveredScatter = null;
 	let select = true;
 	let selectedScatter = null;
   </script>
-  
   
   <div class='chart-container'>
 
@@ -36,30 +28,19 @@
 				{select} selected={selectedScatter} on:select={doSelectScatter} labels/>
 
 
-  <div class='controls'>
-    <div class="legend-container">
-		<LegendItem variant={'circle'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-        <LegendItem variant={'circle'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-        <LegendItem variant={'circle'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-        <LegendItem variant={'circle'} label={'Malls'} bgcolor={'#DB3069'} />
+    <div class='controls'>
+        <div class="legend-container">
+            <LegendItem variant={'circle'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
+            <LegendItem variant={'circle'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
+            <LegendItem variant={'circle'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
+            <LegendItem variant={'circle'} label={'Malls'} bgcolor={'#DB3069'} />
+        </div>
     </div>
-</div>
   </div>
 
 
 
   <style>
-	/*
-      The wrapper div needs to have an explicit width and height in CSS.
-      It can also be a flexbox child or CSS grid element.
-      The point being it needs dimensions since the <LayerCake> element will
-      expand to fill it.
-    */
-	.chart {
-		width: 100%;
-		height: 800px;
-		position: relative;
-	}
 
 	.chart-container {
         display: flex;

@@ -40,7 +40,6 @@
     height: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-    /* border: 1px solid #000033; */
   }
 
   .minlabel {

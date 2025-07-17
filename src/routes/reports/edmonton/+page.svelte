@@ -1,13 +1,20 @@
 <script>
-	import Title from '../../lib/Title.svelte';
+	import Title from '../../lib/ui/Title.svelte';
 	import blank from '../../lib/assets/graphics/blank.svg';
+
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
-	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
-	import BubbleChart from './BubbleChart.svelte';
-	import Footer from '../../lib/Footer.svelte';
+
+	import Footer from '../../lib/ui/Footer.svelte';
+	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
+	import BubbleChart from '../../lib/BubbleChart.svelte'
+
 
 	import '../../styles.css';
+
+	import { dataset } from '../../lib/data/reportdata/edmonton/selectLabels.js';
+	import data from '../../lib/data/reportdata/edmonton/bubble-edmonton.csv';
+
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
@@ -119,7 +126,7 @@
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<RecoveryMultiLineChart />
+		<RecoveryMultiLineChart dataset={dataset}/>
 	</div>
 </div>
 
@@ -167,7 +174,7 @@
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<BubbleChart />
+		<BubbleChart data={data} />
 	</div>
 </div>
 
@@ -375,7 +382,7 @@
 	.sticky-content {
 		position: relative;
 		top: 1em;
-		align-self: flex-start; /* <-- this is the fix */
+		align-self: flex-start;
 	}
 
 	@media only screen and (min-width: 768px) {

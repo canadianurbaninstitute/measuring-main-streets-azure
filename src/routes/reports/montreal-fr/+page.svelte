@@ -1,12 +1,17 @@
 <script>
-	import Title from '../../lib/Title.svelte';
+	import Title from '../../lib/ui/Title.svelte';
 	import blank from '../../lib/assets/graphics/blank.svg';
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
-	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
+	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
-	import BubbleChart from './BubbleChart.svelte';
-	import Footer from '../../lib/Footer.svelte';
+	import BubbleChart from '../../lib/BubbleChart.svelte'
+	import Footer from '../../lib/ui/Footer.svelte';
 	import LanguageSelector from '../../lib/ui/LanguageSelector.svelte';
+
+	import { dataset } from '../../lib/data/reportdata/montreal/selectLabels.js';
+	import data from '../../lib/data/reportdata/montreal/bubble-montreal.csv';
+
+
 
 
 	import '../../styles.css';
@@ -86,7 +91,7 @@
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<RecoveryMultiLineChart />
+		<RecoveryMultiLineChart dataset={dataset} title={'Pourcentage du nombre de visites (par rapport à 2019)'}/>
 	</div>
 </div>
 
@@ -113,7 +118,7 @@
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<BubbleChart />
+		<BubbleChart data={data} />
 	</div>
 </div>
 

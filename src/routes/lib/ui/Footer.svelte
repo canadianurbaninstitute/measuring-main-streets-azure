@@ -1,11 +1,11 @@
 <script>
-	import cui from '../lib/assets/logos/cui_logo_white.svg';
-	import mms from '../lib/assets/logos/mms_logo_white.svg';
-	import canada from '../lib/assets/logos/canada_logo.svg';
-	import environics from '../lib/assets/logos/environics_logo.svg';
-	import schoolofcities from '../lib/assets/logos/soc_logo.svg';
-	import opennorth from '../lib/assets/logos/opennorth_logo.svg';
-	import SocialLinks from './ui/SocialLinks.svelte';
+	import cui from '../assets/logos/cui_logo_white.svg';
+	import mms from '../assets/logos/mms_logo_white.svg';
+	import canada from '../assets/logos/canada_logo.svg';
+	import environics from '../assets/logos/environics_logo.svg';
+	import schoolofcities from '../assets/logos/soc_logo.svg';
+	import opennorth from '../assets/logos/opennorth_logo.svg';
+	import SocialLinks from './SocialLinks.svelte';
 </script>
 
 <div id="bar">
@@ -23,8 +23,7 @@
 		<div class="logo-group">
 			<img src={canada} alt="Canadian Urban Institute" />
 			<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
-			<a href="https://environicsanalytics.com/en-ca/home"
-				><img src={environics} alt="Environics Analytics" /></a
+			<a href="https://environicsanalytics.com/en-ca/home"><img src={environics} alt="Environics Analytics" /></a
 			>
 			<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
 		</div>
@@ -37,8 +36,6 @@
 	a {
 		text-decoration: none;
 	}
-
-
 
 	#logo-content {
 		margin: 1em;
@@ -84,24 +81,12 @@
 	.footer-content {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
 		padding: 1em;
-		width: 80%;
-		justify-content: space-between;
 	}
 
 	.footer-content img {
 		height: 100px;
-	}
-
-
-	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
-
-	@media only screen and (max-width: 768px) {
-		#bar,
-		.logo-group, .footer-content {
-			flex-direction: column;
-			text-align: center;
-		}
 	}
 
 </style>

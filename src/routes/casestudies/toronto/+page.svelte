@@ -3,7 +3,7 @@
 	import Card from '../../lib/ui/Card.svelte';
 	import { writable } from 'svelte/store';
 	import Icon from '@iconify/svelte';
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 
 	import Brampton from '../../lib/assets/boundaries/torontoboundaries/Brampton.svg';
 	import CaledonEast from '../../lib/assets/boundaries/torontoboundaries/CaledonEast.svg';

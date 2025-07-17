@@ -1,6 +1,6 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/Footer.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 </script>
 
 <div class="collage-image-container">

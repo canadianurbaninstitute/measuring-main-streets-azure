@@ -16,9 +16,8 @@
     --range-float-inactive:  var(--range-handle-inactive); /* inactive floating label background color */
     --range-float:           var(--range-handle-focus); /* floating label background color */
     --range-float-text:      white; /* text color on floating label */
-
     --background: #ffffff;
-    --foreground: #111111;
+    --foreground: #222;
     --foreground-alt: #555555;
     --muted: #f4f4f5;
     --muted-foreground: #999999;

@@ -7,7 +7,7 @@
 	import demographic from '../lib/assets/graphics/demographic.svg';
 	import regional from '../lib/assets/graphics/regional.svg';
 	import opennorth from '../lib/assets/graphics/opennorth.svg';
-	import Footer from '../lib/Footer.svelte';
+	import Footer from '../lib/ui/Footer.svelte';
 </script>
 
 <div class="hero">

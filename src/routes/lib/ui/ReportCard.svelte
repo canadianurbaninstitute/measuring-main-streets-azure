@@ -6,10 +6,7 @@
 </script>
 
 <a href={link}>
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div
-		class="card"
-	>
+	<div class="card">
 		<div class="card-img-container">
 			<img src={cardImage} alt="card" />
 		</div>
@@ -29,8 +26,8 @@
 		flex-direction: row;
 		border: 1px solid #ddd;
 		border-radius: 1em;
-		justify-content: space-between; /* This ensures that the footer of the card (if any) aligns to the bottom */
-		height: 100%; /* Make the card fill the height of the grid item */
+		justify-content: space-between;
+		height: 100%;
 	}
 
 	.card:hover {
@@ -54,10 +51,14 @@
 		font-size: calc(1rem + 1vw);
 	}
 
+	h5 {
+		font-weight: 400;
+	}
+
 	a {
 		text-decoration: none;
 	}
-
+	
 	.card-img-container {
         overflow: hidden;
         padding: 1em;
@@ -73,7 +74,5 @@
 	}
 
 
-	h5 {
-		font-weight: 400;
-	}
+
 </style>

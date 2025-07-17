@@ -32,13 +32,7 @@
 		width: 100%;
 		justify-content: space-between;
 	}
-
-	/* .metric:hover {
-		background-color: #eee;
-		transition: 0.3s;
-		cursor: pointer;
-	} */
-
+	
 	.text {
 		display: flex;
 		flex-direction: column;
