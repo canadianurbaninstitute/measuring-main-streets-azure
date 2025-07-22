@@ -40,7 +40,7 @@
 	</div>
 </div>
 
-<span id="get-started" />
+<span id="get-started"></span>
 
 <div class="card-grid">
 	<HeroCard
