@@ -11,12 +11,21 @@
 <div class="hero">
 	<h1>Measuring Main Streets Case Studies</h1>
 	<p>
-		Discover how infrastructure paints a picture of a community through sixty main streets case studies across three Canadian cities.
+		Discover how infrastructure paints a picture of a community through sixty main streets case
+		studies across three Canadian cities.
 	</p>
 	<p>
-		Explore the built form, civic infrastructure, business profile, employment profile, housing, local characteristics, and visitor patterns to get a unique snapshot of how these factors interplay at the neighbourhood scale to influence community outcomes.
+		Explore the built form, civic infrastructure, business profile, employment profile, housing,
+		local characteristics, and visitor patterns to get a unique snapshot of how these factors
+		interplay at the neighbourhood scale to influence community outcomes.
 	</p>
-	<p>With 20 case studies in each of the three regions, 10 are bolstered with qualitative observation from site visits, whilst the remaining 10 are data only. The selected main streets aim to provide a representative sample of types of streets within each regional context. This included four downtown (workplace-oriented), four small town, and 12 neighourhood (residential-oriented) main streets being chosen, with additional emphasis placed on equity-deserving communities.</p>
+	<p>
+		With 20 case studies in each of the three regions, 10 are bolstered with qualitative observation
+		from site visits, whilst the remaining 10 are data only. The selected main streets aim to
+		provide a representative sample of types of streets within each regional context. This included
+		four downtown (workplace-oriented), four small town, and 12 neighourhood (residential-oriented)
+		main streets being chosen, with additional emphasis placed on equity-deserving communities.
+	</p>
 	<p>Click on a region to browse the case studies.</p>
 </div>
 
@@ -56,7 +65,5 @@
 		.hero {
 			margin: 2em 15em 2em 15em;
 		}
-
 	}
-
 </style>

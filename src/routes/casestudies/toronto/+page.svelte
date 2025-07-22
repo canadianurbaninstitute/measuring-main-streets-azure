@@ -64,9 +64,24 @@
 			type: 'suburban'
 		},
 		{ link: '/casestudies/toronto/weston', image: Weston, name: 'Weston Road', type: 'suburban' },
-		{ link: '/casestudies/toronto/sutton', image: Sutton, name: 'High Street (Sutton)', type: 'suburban' },
-		{ link: '/casestudies/toronto/uxbridge', image: Uxbridge, name: 'Brock Street (Uxbridge)', type: 'rural' },
-		{ link: '/casestudies/toronto/newmarket', image: Newmarket, name: 'Main Street South (Newmarket)', type: 'rural' },
+		{
+			link: '/casestudies/toronto/sutton',
+			image: Sutton,
+			name: 'High Street (Sutton)',
+			type: 'suburban'
+		},
+		{
+			link: '/casestudies/toronto/uxbridge',
+			image: Uxbridge,
+			name: 'Brock Street (Uxbridge)',
+			type: 'rural'
+		},
+		{
+			link: '/casestudies/toronto/newmarket',
+			image: Newmarket,
+			name: 'Main Street South (Newmarket)',
+			type: 'rural'
+		},
 		{
 			link: '/casestudies/toronto/spadinachinatown',
 			image: SpadinaChinatown,
@@ -115,8 +130,18 @@
 			name: 'Kingston Road (Pickering)',
 			type: 'suburban'
 		},
-		{ link: '/casestudies/toronto/oakville', image: Oakville, name: 'Lakeshore Road West (Oakville)', type: 'rural' },
-		{ link: '/casestudies/toronto/schomberg', image: Schomberg, name: 'Main Street (Schomberg)', type: 'rural' }
+		{
+			link: '/casestudies/toronto/oakville',
+			image: Oakville,
+			name: 'Lakeshore Road West (Oakville)',
+			type: 'rural'
+		},
+		{
+			link: '/casestudies/toronto/schomberg',
+			image: Schomberg,
+			name: 'Main Street (Schomberg)',
+			type: 'rural'
+		}
 	];
 
 	const activeFilters = writable([]);
@@ -213,7 +238,7 @@
 
 <div class="card-grid">
 	{#each filteredFullCaseStudies as card}
-		<div class='card'><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
+		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
 
@@ -228,7 +253,7 @@
 </div>
 <div class="card-grid">
 	{#each filteredDataCaseStudies as card}
-		<div class='card'><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
+		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
 
@@ -239,7 +264,8 @@
 		border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		display: flex;
@@ -286,7 +312,6 @@
 		grid-template-columns: repeat(1, 1fr);
 		overflow: hidden;
 		grid-auto-rows: 1fr;
-
 	}
 
 	.card {
@@ -305,10 +330,9 @@
 		}
 
 		.checkbox-group {
-		flex-direction: row;
-		align-items: flex-start;
-	}
-
+			flex-direction: row;
+			align-items: flex-start;
+		}
 	}
 
 	/*TABLET*/

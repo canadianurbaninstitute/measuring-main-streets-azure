@@ -9,7 +9,7 @@
 
 	// Import Turf.js for geospatial operations
 	import * as turf from '@turf/turf';
-	import Icon from '@iconify/svelte'; 
+	import Icon from '@iconify/svelte';
 
 	import { driver } from 'driver.js'; // For guided tutorial
 	import 'driver.js/dist/driver.css'; // Tutorial styles
@@ -268,7 +268,6 @@
 
 		// --- Map click handler for main street segments ---
 		map.on('click', ['mainstreets-base', 'mainstreets-base-invisible'], (e) => {
-
 			// Get endpoints of clicked street segment
 			const endpoints = e.features[0].geometry.coordinates;
 			const midpoint = turf.midpoint(endpoints[0], endpoints[1]);
@@ -603,182 +602,159 @@
 	<p>
 		This is a map of all of the main streets in Canada. Search for a place or navigate the map using
 		the controls; and then click on a street segment to see information associated with it in the
-		panel on the left. For more information on how we classified main streets and data sources, read our <a
-			href="/about/data-methodology">Data Sources & Methodology</a
-		>.
+		panel on the left. For more information on how we classified main streets and data sources, read
+		our <a href="/about/data-methodology">Data Sources & Methodology</a>.
 	</p>
 </div>
 
 <div id="content-container">
 	<div id="sidebar">
 		<h2>{streetname}</h2>
-		<h4 id='place-name'>{place}</h4>
-				<div id="raw-number-measures">
-					<h5>Street Characteristics</h5>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Civic Infrastructure (on street)'}
-							value={civic}
-							icon={'heroicons:building-library-20-solid'}
-						/>
-						<div slot="body">
-							<div class="metric-container">
-								<Metric label={'Education'} value={civic_education} icon={'mdi:school'} />
-								<Metric
-									label={'Arts & Culture'}
-									value={civic_arts_culture}
-									icon={'fa6-solid:masks-theater'}
-								/>
-								<Metric
-									label={'Recreation'}
-									value={civic_recreation}
-									icon={'material-symbols:park-rounded'}
-								/>
-							</div>
-							<div class="metric-container">
-								<Metric
-									label={'Government & Community Services'}
-									value={civic_govt_community}
-									icon={'mingcute:government-fill'}
-								/>
-								<Metric
-									label={'Health & Care Facilities'}
-									value={civic_healthcare}
-									icon={'mdi:hospital-box'}
-								/>
-							</div>
-						</div>
-					</Accordion>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Businesses (on street)'}
-							value={business}
-							icon={'mdi:building'}
-						/>
-						<div slot="body" class="metric-container">
-							<Metric label={'Retail'} value={business_retail} icon={'mdi:shopping'} />
-							<Metric label={'Food & Drink'} value={business_food_drink} icon={'dashicons:food'} />
-							<Metric label={'Services'} value={business_services} icon={'mdi:ticket'} />
-						</div>
-					</Accordion>
-					<Metric
-						label={'Independent Business Index'}
-						value={independent_business}
-						icon={'mdi:shop'}
-					/>
-					<Metric
-						label={'Estimated Retail Sales (2023)'}
-						value={'$' + retail_min.toLocaleString() + ' - ' + '$' + retail_max.toLocaleString()}
-						icon={'mdi:graph-line'}
-					/>
-					<h5>Neighbourhood Characteristics</h5>
-					<h6>Demographic</h6>
-					<Metric
-						label={'Population (% change since 2016)'}
-						value={population + populationchange}
-						icon={'fluent:people-20-filled'}
-					/>
-					<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
+		<h4 id="place-name">{place}</h4>
+		<div id="raw-number-measures">
+			<h5>Street Characteristics</h5>
+			<Accordion>
+				<Metric
+					accordion
+					slot="header"
+					label={'Civic Infrastructure (on street)'}
+					value={civic}
+					icon={'heroicons:building-library-20-solid'}
+				/>
+				<div slot="body">
 					<div class="metric-container">
+						<Metric label={'Education'} value={civic_education} icon={'mdi:school'} />
 						<Metric
-							label={'Average Income'}
-							prefix={'$'}
-							value={income.toLocaleString()}
-							icon={'mdi:wallet'}
+							label={'Arts & Culture'}
+							value={civic_arts_culture}
+							icon={'fa6-solid:masks-theater'}
 						/>
 						<Metric
-							label={"Bachelor's Degree"}
-							value={education}
-							suffix={'%'}
-							icon={'mdi:school'}
-						/>
-					</div>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Average Age'}
-							value={average_age}
-							icon={'mingcute:birthday-2-fill'}
-						/>
-						<div slot="body" class="metric-container">
-							<Metric label={'0 to 19'} value={age_0_19} suffix={'%'} />
-							<Metric label={'20 to 64'} value={age_20_64} suffix={'%'} />
-							<Metric label={'65 and over'} value={age_over_65} suffix={'%'} />
-						</div>
-					</Accordion>
-					<div class="metric-container">
-						<Metric
-							label={'Immigrants and Non-Permanent Residents'}
-							value={immigrants}
-							suffix={'%'}
-							icon={'mdi:globe'}
-						/>
-						<Metric
-							label={'Visible Minorities'}
-							value={visibleminority}
-							suffix={'%'}
-							icon={'material-symbols:handshake'}
-						/>
-						<Metric
-							label={'Indigenous Population'}
-							value={indigenous}
-							suffix={'%'}
-							icon={'mdi:person'}
+							label={'Recreation'}
+							value={civic_recreation}
+							icon={'material-symbols:park-rounded'}
 						/>
 					</div>
 					<div class="metric-container">
-						<Metric label={'English Speakers'} value={english} suffix={'%'} />
-						<Metric label={'French Speakers'} value={french} suffix={'%'} />
-						<Metric label={'Other Language'} value={otherlang} suffix={'%'} />
-					</div>
-					<h6>Commuting</h6>
-					<div class="metric-container">
-						<Metric label={'Car'} value={car} suffix={'%'} icon={'mdi:car'} />
-						<Metric label={'Public Transit'} value={public_transit} suffix={'%'} icon={'mdi:bus'} />
 						<Metric
-							label={'Active Transit'}
-							value={active_transit}
-							suffix={'%'}
-							icon={'mdi:bike'}
+							label={'Government & Community Services'}
+							value={civic_govt_community}
+							icon={'mingcute:government-fill'}
+						/>
+						<Metric
+							label={'Health & Care Facilities'}
+							value={civic_healthcare}
+							icon={'mdi:hospital-box'}
 						/>
 					</div>
-					<h6>Housing</h6>
-					<Accordion>
-						<Metric
-							accordion
-							slot="header"
-							label={'Dwellings'}
-							value={dwellings}
-							icon={'material-symbols:apartment'}
-						/>
-						<div slot="body">
-							<div class="metric-container">
-								<Metric label={'Single Detached'} value={singledetached} suffix={'%'} />
-								<Metric label={'Semi-Detached'} value={semidetached} suffix={'%'} />
-								<Metric label={'Duplex'} value={duplex} suffix={'%'} />
-							</div>
-							<div class="metric-container">
-								<Metric
-									label={'Apartment (>5 stories)'}
-									value={apartments_more_than_5}
-									suffix={'%'}
-								/>
-								<Metric
-									label={'Apartment (<5 stories)'}
-									value={apartments_less_than_5}
-									suffix={'%'}
-								/>
-							</div>
-						</div>
-					</Accordion>
 				</div>
+			</Accordion>
+			<Accordion>
+				<Metric
+					accordion
+					slot="header"
+					label={'Businesses (on street)'}
+					value={business}
+					icon={'mdi:building'}
+				/>
+				<div slot="body" class="metric-container">
+					<Metric label={'Retail'} value={business_retail} icon={'mdi:shopping'} />
+					<Metric label={'Food & Drink'} value={business_food_drink} icon={'dashicons:food'} />
+					<Metric label={'Services'} value={business_services} icon={'mdi:ticket'} />
+				</div>
+			</Accordion>
+			<Metric label={'Independent Business Index'} value={independent_business} icon={'mdi:shop'} />
+			<Metric
+				label={'Estimated Retail Sales (2023)'}
+				value={'$' + retail_min.toLocaleString() + ' - ' + '$' + retail_max.toLocaleString()}
+				icon={'mdi:graph-line'}
+			/>
+			<h5>Neighbourhood Characteristics</h5>
+			<h6>Demographic</h6>
+			<Metric
+				label={'Population (% change since 2016)'}
+				value={population + populationchange}
+				icon={'fluent:people-20-filled'}
+			/>
+			<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
+			<div class="metric-container">
+				<Metric
+					label={'Average Income'}
+					prefix={'$'}
+					value={income.toLocaleString()}
+					icon={'mdi:wallet'}
+				/>
+				<Metric label={"Bachelor's Degree"} value={education} suffix={'%'} icon={'mdi:school'} />
+			</div>
+			<Accordion>
+				<Metric
+					accordion
+					slot="header"
+					label={'Average Age'}
+					value={average_age}
+					icon={'mingcute:birthday-2-fill'}
+				/>
+				<div slot="body" class="metric-container">
+					<Metric label={'0 to 19'} value={age_0_19} suffix={'%'} />
+					<Metric label={'20 to 64'} value={age_20_64} suffix={'%'} />
+					<Metric label={'65 and over'} value={age_over_65} suffix={'%'} />
+				</div>
+			</Accordion>
+			<div class="metric-container">
+				<Metric
+					label={'Immigrants and Non-Permanent Residents'}
+					value={immigrants}
+					suffix={'%'}
+					icon={'mdi:globe'}
+				/>
+				<Metric
+					label={'Visible Minorities'}
+					value={visibleminority}
+					suffix={'%'}
+					icon={'material-symbols:handshake'}
+				/>
+				<Metric
+					label={'Indigenous Population'}
+					value={indigenous}
+					suffix={'%'}
+					icon={'mdi:person'}
+				/>
+			</div>
+			<div class="metric-container">
+				<Metric label={'English Speakers'} value={english} suffix={'%'} />
+				<Metric label={'French Speakers'} value={french} suffix={'%'} />
+				<Metric label={'Other Language'} value={otherlang} suffix={'%'} />
+			</div>
+			<h6>Commuting</h6>
+			<div class="metric-container">
+				<Metric label={'Car'} value={car} suffix={'%'} icon={'mdi:car'} />
+				<Metric label={'Public Transit'} value={public_transit} suffix={'%'} icon={'mdi:bus'} />
+				<Metric label={'Active Transit'} value={active_transit} suffix={'%'} icon={'mdi:bike'} />
+			</div>
+			<h6>Housing</h6>
+			<Accordion>
+				<Metric
+					accordion
+					slot="header"
+					label={'Dwellings'}
+					value={dwellings}
+					icon={'material-symbols:apartment'}
+				/>
+				<div slot="body">
+					<div class="metric-container">
+						<Metric label={'Single Detached'} value={singledetached} suffix={'%'} />
+						<Metric label={'Semi-Detached'} value={semidetached} suffix={'%'} />
+						<Metric label={'Duplex'} value={duplex} suffix={'%'} />
+					</div>
+					<div class="metric-container">
+						<Metric label={'Apartment (>5 stories)'} value={apartments_more_than_5} suffix={'%'} />
+						<Metric label={'Apartment (<5 stories)'} value={apartments_less_than_5} suffix={'%'} />
+					</div>
+				</div>
+			</Accordion>
+		</div>
 	</div>
-	<div id="map" />
+	<div id="map"></div>
 	<div id="controls">
 		<div>
 			<button id="resetButton" on:click={resetMap}>
@@ -928,7 +904,6 @@
 		border-top: 1px solid #eee;
 	}
 
-
 	#controls {
 		display: flex;
 		flex-direction: column;
@@ -942,7 +917,8 @@
 		border: 1px solid rgba(28, 32, 36, 0.302);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		width: 100%;
@@ -959,14 +935,17 @@
 
 	#resetButton:hover {
 		cursor: pointer;
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
 
 	#business-civic-legend {
-		transition: opacity 0.3s, visibility 0.3s;
+		transition:
+			opacity 0.3s,
+			visibility 0.3s;
 		opacity: 0;
 		visibility: hidden;
 	}
@@ -981,11 +960,23 @@
 		gap: 0.5em;
 	}
 
-	h5, h6 { margin: 0.5em 0; }
-	h5, h6 { font-weight: 600; }
-	h4 { font-size: 0.8em; margin: 0; padding: 0.1em 0; }
-	h2 { margin: 0; padding: 0.1em 0; }
-
+	h5,
+	h6 {
+		margin: 0.5em 0;
+	}
+	h5,
+	h6 {
+		font-weight: 600;
+	}
+	h4 {
+		font-size: 0.8em;
+		margin: 0;
+		padding: 0.1em 0;
+	}
+	h2 {
+		margin: 0;
+		padding: 0.1em 0;
+	}
 
 	#place-name {
 		margin-bottom: 0.5em;

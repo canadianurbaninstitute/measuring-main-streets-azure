@@ -198,12 +198,10 @@
 	</div>
 </div>
 
-
-
 <div class="hero">
 	<p>
-		We conducted 10 full case studies in the Montreal region, which which combine data about the main
-		streets with qualitative observation from site visits. The selection of main streets was
+		We conducted 10 full case studies in the Montreal region, which which combine data about the
+		main streets with qualitative observation from site visits. The selection of main streets was
 		intended to provide a representative sample of types of streets within each regional context.
 		This included downtown (workplace-oriented), small town, and neighourhood (residential-oriented)
 		main streets being chosen, with additional emphasis placed on equity-deserving communities. More
@@ -245,14 +243,14 @@
 
 <div class="card-grid">
 	{#each filteredFullCaseStudies as card}
-		<div class='card'><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
+		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
 
 <div class="hero">
-<div class="subtitle">
-	<h2>Data Case Studies</h2>
-</div>
+	<div class="subtitle">
+		<h2>Data Case Studies</h2>
+	</div>
 	<p>
 		These are the 10 data only case studies in the Montreal region. Use the filters above to filter
 		the case studies by type, or click on a case study to read it.
@@ -260,7 +258,7 @@
 </div>
 <div class="card-grid">
 	{#each filteredDataCaseStudies as card}
-	<div class='card'><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
+		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
 
@@ -271,7 +269,8 @@
 		border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		display: flex;
@@ -318,7 +317,6 @@
 		grid-template-columns: repeat(1, 1fr);
 		overflow: hidden;
 		grid-auto-rows: 1fr;
-
 	}
 
 	.card {
@@ -337,10 +335,9 @@
 		}
 
 		.checkbox-group {
-		flex-direction: row;
-		align-items: flex-start;
-	}
-
+			flex-direction: row;
+			align-items: flex-start;
+		}
 	}
 
 	/*TABLET*/

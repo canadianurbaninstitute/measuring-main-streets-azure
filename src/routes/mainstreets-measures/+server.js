@@ -1,4 +1,6 @@
 // src/routes/api/mainstreets-measures/+server.js
+// This script is responsible for conncecting to the supabase database based on the main street id and fetching relevant main street information.
+
 import { supabase } from '../lib/supabaseClient'; // Adjust the path as necessary
 
 export async function GET({ url }) {

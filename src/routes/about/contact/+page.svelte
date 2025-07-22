@@ -9,28 +9,27 @@
 </div>
 
 <div class="hero">
-    <div class="subtitle">
+	<div class="subtitle">
 		<h2>Inquiries?</h2>
 	</div>
-    <p>Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry">cui@canurb.org</a>.</p>
+	<p>
+		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry">cui@canurb.org</a>.
+	</p>
 </div>
 
 <div class="hero">
-    <div class="subtitle">
+	<div class="subtitle">
 		<h2>Newsletter</h2>
 	</div>
-    <div>
-		<p> <a href="https://canurb.org/subscribe/">Subscribe</a> to the Canadian Urban Institute newsletter, and connect with us on social media.</p>
+	<div>
+		<p>
+			<a href="https://canurb.org/subscribe/">Subscribe</a> to the Canadian Urban Institute newsletter,
+			and connect with us on social media.
+		</p>
 	</div>
-	<SocialLinks/>
+	<SocialLinks />
 </div>
 
-<br><br>
+<br/><br/>
 
-<Footer/>
-
-
-
-
-
-
+<Footer />
