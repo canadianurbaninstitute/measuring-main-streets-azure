@@ -20,7 +20,8 @@ A SvelteKit-based web application for interactive mapping, data visualization, a
 - **Framework:** [SvelteKit](https://kit.svelte.dev/)
 - **Build Tool:** [Vite](https://vitejs.dev/)
 - **Deployment:** [Azure Static Web Apps](https://learn.microsoft.com/en-us/azure/static-web-apps/)
-- **Mapping & Visualization:** [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/), [D3.js](https://d3js.org/), [LayerCake](https://layercake.graphics/)
+- **Mapping:** [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/)
+- **Data Visualization**: [D3.js](https://d3js.org/), [LayerCake](https://layercake.graphics/), [ONSvisual/svelte-charts](https://github.com/ONSvisual/svelte-charts)
 - **UI Library:** [Bits UI](https://bits-ui.com/)
 
 ## Project Structure
