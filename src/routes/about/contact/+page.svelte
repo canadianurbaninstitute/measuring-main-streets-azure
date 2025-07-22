@@ -20,7 +20,7 @@
 		<h2>Newsletter</h2>
 	</div>
     <div>
-		<p> <a href="https://canurb.org/subscribe/">Subscribe</a> to the Canadian Urban Institute newsletter, and connect with us on social media!</p>
+		<p> <a href="https://canurb.org/subscribe/">Subscribe</a> to the Canadian Urban Institute newsletter, and connect with us on social media.</p>
 	</div>
 	<SocialLinks/>
 </div>
