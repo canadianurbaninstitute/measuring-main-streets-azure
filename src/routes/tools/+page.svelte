@@ -41,9 +41,6 @@
 	/>
 
 	<ReportCard link={'/tools/housing-density-map'} cardImage={housing} title={'Housing Dot Density Map'} subtitle={''} />
-
-	<!-- <ReportCard link={'/tools'} cardImage={regional} title={'Regional Main Street Metrics Map'} subtitle={''} /> -->
-
 </div>
 
 <div class="hero">
@@ -61,8 +58,6 @@
 		title={'Main Street Visitor Recovery'}
 		subtitle={''}
 	/>
-
-	<!-- <ReportCard link={'/'} cardImage={mainstreets} title={'Main Street Correlation'} subtitle={''} /> -->
 </div>
 
 <div class="hero">

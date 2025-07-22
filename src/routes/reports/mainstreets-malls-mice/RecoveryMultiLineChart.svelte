@@ -264,4 +264,9 @@
 		padding: 0.5em;
 		flex-wrap: wrap;
 	}
+
+	
+	:global(div.multiselect) {
+    --sms-remove-btn-hover-color: var(--brandDarkBlue);
+  }
 </style>

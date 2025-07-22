@@ -1,6 +1,7 @@
 <script>
-    import RecoveryMultiLineChart from "../../reports/mainstreets-malls-mice/RecoveryMultiLineChart.svelte";
+    import RecoveryMultiLineChart from "../../reports/mainstreets-malls-mice/RecoveryMultiLineChart.svelte"
     import Footer from "../../lib/ui/Footer.svelte";
+    import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
 </script>
 
 
@@ -17,7 +18,7 @@
 <div class='map-container'>
 
 
-<RecoveryMultiLineChart/>
+<RecoveryMultiLineChart dataset={dataset}/>
 
 </div>
 
