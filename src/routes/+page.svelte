@@ -199,7 +199,7 @@
 		flex-direction: column;
 		padding: 2em;
 		align-items: center;
-		/* border-bottom: 1px solid var(--brandGrey); */
+		gap: 1em;
 	}
 
 	#why-main-streets {

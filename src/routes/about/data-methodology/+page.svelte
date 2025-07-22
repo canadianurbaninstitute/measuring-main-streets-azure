@@ -792,9 +792,7 @@
 <div class="hero">
 	<h1>Have more questions?</h1>
 	<p>
-		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry"
-			>cui@canurb.org</a
-		>.
+		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry">cui@canurb.org</a>.
 	</p>
 </div>
 
@@ -806,11 +804,6 @@
 		border: 1px solid #ddd;
 		border-collapse: collapse;
 		padding: 1em;
-	}
-
-	h3,
-	h4 {
-		margin: 1em 0 1em 0;
 	}
 
 	.collapsible-content {
