@@ -63,8 +63,11 @@
 		bbox2 = turf.bbox(circle2);
 	}
 
-	// Update map bounds and center based on selection
-	$: if (map1 && selectedStation1 && station1Data && circle1) {
+	// Update map bounds, center, and style based on selection
+	$: if (map1 && selectedStation1 && station1Data && circle1 && map1.isStyleLoaded() && map1.getLayer('transit-station-points')) {
+
+		const selectedStationFilter = ['==', ['get', 'station_id'], station1Data.id];
+
 		// Check if the source exists before trying to update it
 		if (map1.getSource('station-radius')) {
 			// Update the radius circle data
@@ -74,10 +77,21 @@
 		// Update map bounds and center
 		map1.setMaxBounds(bbox1);
 		map1.setCenter(station1Coords);
+	
+		// Update the paint properties to conditionally color stations
+		map1.setPaintProperty('transit-station-points', 'circle-color', [
+			'case',
+			selectedStationFilter,
+			'#F4743B', // Selected station
+			'white'  // Non-selected stations
+		]);
 	}
 
-	// Update map bounds and center based on selection
-	$: if (map2 && selectedStation2 && station2Data && circle2) {
+	// Update map bounds, center, and style based on selection
+	$: if (map2 && selectedStation2 && station2Data && circle2 && map2.isStyleLoaded() && map2.getLayer('transit-station-points')) {
+
+		const selectedStationFilter = ['==', ['get', 'station_id'], station2Data.id];
+
 		// Check if the source exists before trying to update it
 		if (map2.getSource('station-radius')) {
 			// Update the radius circle data
@@ -87,9 +101,17 @@
 		// Update map bounds and center
 		map2.setMaxBounds(bbox2);
 		map2.setCenter(station2Coords);
+
+		map2.setPaintProperty('transit-station-points', 'circle-color', [
+			'case',
+			selectedStationFilter,
+			'#F4743B', // Selected station
+			'white'  // Non-selected stations
+		]);
 	}
 
 	onMount(() => {
+
 		// Convert station data to geojson
 		const stationGeojson = {
 			type: "FeatureCollection",
@@ -100,45 +122,31 @@
 				coordinates: [point.longitude, point.latitude]
 				},
 			properties: {
-			name: point.stop_label
+			name: point.stop_label,
+			station_id: point.id
 			}
 		}))
 		};
 
-		// Create polygon from bounding box
-		const bboxPolygon = {
-			type: 'Feature',
-			geometry: {
-				type: 'Polygon',
-				coordinates: [[
-				[bbox1[0], bbox1[1]], // southwest
-				[bbox1[2], bbox1[1]], // southeast
-				[bbox1[2], bbox1[3]], // northeast
-				[bbox1[0], bbox1[3]], // northwest
-				[bbox1[0], bbox1[1]]  // close the polygon
-				]]
-			}
-			};
-
+		// TEST: create map bounds with bounding box (SW and NE corners)
 		const mapBounds1 = [[bbox1[0], bbox1[1]], [bbox1[2], bbox1[3]]]
 
 		// Create first map
 		map1 = new mapboxgl.Map({
 			container: 'map1',
-			style: 'mapbox://styles/canadianurbaninstitute/cmddiqsp202kn01s4789nbj0l',
+			style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
 			center: [-79.238666491, 43.7937808965],
 			zoom: 13,
 			minZoom: 2,
 			maxBounds: mapBounds1,
 			scrollZoom: true,
-			// dragPan: false,
 			attributionControl: false
 		});
 
 		// Create second map
 		map2 = new mapboxgl.Map({
 			container: 'map2',
-			style: 'mapbox://styles/canadianurbaninstitute/cmddiqsp202kn01s4789nbj0l',
+			style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
 			center: [-114.0624934, 51.0661771],
 			zoom: 13,
 			minZoom: 2,
@@ -162,12 +170,6 @@
           		data: circle1
         	});
 
-			// Add bounding box source
-			map1.addSource('bbox', {
-				type: 'geojson',
-				data: bboxPolygon
-			});
-			
 			// Add station radius layer
 			map1.addLayer({
 				id: 'station-radius',
@@ -179,37 +181,14 @@
 				}
         	});
 
-			// Add bbox layer
-			map1.addLayer({
-				id: 'bbox-fill',
-				type: 'fill',
-				source: 'bbox',
-				paint: {
-					'fill-color': '#088',
-					'fill-opacity': 0.2
-				}
-			});
-
 			// Add transit station points
 			map1.addLayer({
-				id: 'all-transit-station-point',
-				type: 'circle',
-				source: 'transit-station-data',
-				paint: {
-					'circle-radius': 14,
-					'circle-color': 'white',
-					'circle-stroke-color': 'black',
-					'circle-stroke-width': 2
-					}
-			});
-
-			map1.addLayer({
-				id: 'transit-station-point',
+				id: 'transit-station-points',
 				type: 'circle',
 				source: 'transit-station-data',
 				paint: {
 					'circle-radius': 10,
-					'circle-color': '#FF5722',
+					'circle-color': "white",
 					'circle-stroke-color': 'black',
 					'circle-stroke-width': 2
 					}
@@ -231,7 +210,7 @@
     		source: 'transit-station-data',
     		paint: {
       			'circle-radius': 10,
-      			'circle-color': '#FF5722',
+      			'circle-color': 'white',
 				'circle-stroke-color': 'black',
 				'circle-stroke-width': 2
     			}
@@ -246,40 +225,38 @@
 	<h1>Urban Form Comparison</h1>
 	<h2>Mapping Tool</h2>
 	<p>
-		Description
+		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns to select transit stations to compare.
 	</p>
 </div>
 
-<div class = "station-selection">
-
-	<div id="select1">
-		<select bind:value={selectedStation1}>
-			<option disabled selected value={null}>Markham North (Line 7: Eglinton East LRT)</option>
-			{#each stations as station}
-			<option value={station}>
-				{station}
-			</option>
-			{/each}
-		</select>
-	</div>
-
-	<div id="select2">
-		<select bind:value={selectedStation2}>
-			<option disabled selected value={null}>144 Avenue N (Green Line)</option>
-			{#each stations as station}
-			<option value={station}>
-				{station}
-			</option>
-			{/each}
-		</select>
-	</div>
-
-
-</div>
-
 <div class="map-container">
-	<div id="map1" />
-	<div id="map2" />
+	<div class="map-column">
+		<div id="select1">
+			<select bind:value={selectedStation1}>
+				<option disabled selected value={null}>Markham North (Line 7: Eglinton East LRT)</option>
+				{#each stations as station}
+				<option value={station}>
+					{station}
+				</option>
+				{/each}
+			</select>
+		</div>
+		<div id="map1" />
+	</div>
+	
+	<div class="map-column">
+		<div id="select2">
+			<select bind:value={selectedStation2}>
+				<option disabled selected value={null}>144 Avenue N (Green Line)</option>
+				{#each stations as station}
+				<option value={station}>
+					{station}
+				</option>
+				{/each}
+			</select>
+		</div>
+		<div id="map2" />
+	</div>
 </div>
 
 
@@ -287,20 +264,43 @@
 <style>
 	#map1, #map2 {
 		width: 450px;
-		height: 450px;
+		height: 100%;
+		min-height: 450px;
 		border-radius: 50%; /* Circular frame */
 		overflow: hidden;   /* Clip map to circle */
-		border: 4px solid #333;
+		border: 2px solid #d3d3d3;
+		padding: 20px;
 	}
+
 	.map-container {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 30px; /* Gap between map columns */
+		width: 100%;
+		margin: 0 auto;
 	}
-	.station-selection {
-		width: 400px;
+
+	/* Place maps side by side */
+	.map-column {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px; /* Gap between dropdown and map */
 	}
+
+	/* Dropdown container */
 	#select1, #select2 {
-		width: 400px;
+		width: 300px;
+	}
+
+	/* Dropdown style */
+	#select1 select, #select2 select {
+		width: 100%;
+		padding: 8px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
 	}
 </style>
 
