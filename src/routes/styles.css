@@ -1,5 +1,7 @@
 :root {
     font-family: Inter, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     --brandDarkBlue: #002940;
     --brandLightBlue: #00adf2;
     --brandGreen: #58e965;
