@@ -32,7 +32,13 @@
 	let bbox1;
 	let bbox2;
 
-	// Add label field for stations
+	// For layer toggle
+	let greenspaceCheck;
+	let roadsCheck;
+	let transitCheck;
+	let stationCheck;
+
+	// Add label field for station dropdown
 	const stationsProcessed = stationRawData.map(station => ({
 		...station,
 		label: `${station.stop_label} (${station.line_display_names})`
@@ -43,6 +49,7 @@
 
 	// Create circle and bounding box for first station
 	$: if (selectedStation1) {
+
 		station1Data = stationsProcessed.find(station => station.label === selectedStation1);
 		station1Coords = [station1Data.longitude, station1Data.latitude];
 		circle1 = turf.circle(station1Coords, radiusInKilometers, {
@@ -54,6 +61,7 @@
 
 	// Create circle and bounding box for second station
 	$: if (selectedStation2) {
+
 		station2Data = stationsProcessed.find(station => station.label === selectedStation2);
 		station2Coords = [station2Data.longitude, station2Data.latitude];
 		circle2 = turf.circle(station2Coords, radiusInKilometers, {
@@ -82,8 +90,22 @@
 		map1.setPaintProperty('transit-station-points', 'circle-color', [
 			'case',
 			selectedStationFilter,
-			'#F4743B', // Selected station
-			'white'  // Non-selected stations
+			'#FFFFFF', // Selected station
+			'#B8B8B8'  // Non-selected stations
+		]);
+
+		map1.setPaintProperty('transit-station-points', 'circle-stroke-color', [
+			'case',
+			selectedStationFilter,
+			'#000000', // Selected station
+			'#949292'  // Non-selected stations
+		]);
+
+		map1.setPaintProperty('transit-station-points', 'circle-stroke-width', [
+			'case',
+			selectedStationFilter,
+			2, // Selected station
+			1  // Non-selected stations
 		]);
 	}
 
@@ -105,12 +127,78 @@
 		map2.setPaintProperty('transit-station-points', 'circle-color', [
 			'case',
 			selectedStationFilter,
-			'#F4743B', // Selected station
-			'white'  // Non-selected stations
+			'#FFFFFF', // Selected station
+			'#B8B8B8'  // Non-selected stations
+		]);
+
+		map2.setPaintProperty('transit-station-points', 'circle-stroke-color', [
+			'case',
+			selectedStationFilter,
+			'#000000', // Selected station
+			'#949292'  // Non-selected stations
+		]);
+
+		map2.setPaintProperty('transit-station-points', 'circle-stroke-width', [
+			'case',
+			selectedStationFilter,
+			2, // Selected station
+			1  // Non-selected stations
 		]);
 	}
 
+	// Layer visibility toggles
+	$: if (map1 && map1.isStyleLoaded() && map1.getLayer('greenspace') && map1.getLayer('transit-lines-white') && map1.getLayer('road-simple')) {
+		map1.setLayoutProperty('greenspace', 'visibility', greenspaceCheck ? 'visible' : 'none'); 
+		map1.setLayoutProperty('transit-lines-white', 'visibility', transitCheck ? 'visible' : 'none');
+
+		// Get all layers with 'source-layer' = road
+		const roadLayers = map1.getStyle().layers.filter(layer => layer['source-layer'] === 'road'); 
+		roadLayers.forEach(layer => map1.setLayoutProperty(layer.id, 'visibility', roadsCheck ? 'visible' : 'none'));
+	}
+
+	$: if (map2 && map2.isStyleLoaded() && map2.getLayer('greenspace') && map2.getLayer('transit-lines-white') && map1.getLayer('road-simple')) {
+		map2.setLayoutProperty('greenspace', 'visibility', greenspaceCheck ? 'visible' : 'none');
+		map2.setLayoutProperty('transit-lines-white', 'visibility', transitCheck ? 'visible' : 'none');
+
+		// Get all layers with 'source-layer' = road
+		const roadLayers = map2.getStyle().layers.filter(layer => layer['source-layer'] === 'road'); 
+		roadLayers.forEach(layer => map2.setLayoutProperty(layer.id, 'visibility', roadsCheck ? 'visible' : 'none'));
+	}
+
+	// Transit station visibility toggles
+	$: if (map1 && selectedStation1 && station1Data && map1.getLayer('transit-station-points')) {
+		const selectedStationFilter = ['==', ['get', 'station_id'], station1Data.id];
+
+		map1.setLayoutProperty('transit-station-points', 'visibility', stationCheck ? 'visible' : 'none');
+
+		// Only hide non-selected stations???
+		// map1.setLayoutProperty('transit-station-points', 'visibility', [
+		// 	'case',
+		// 	selectedStationFilter,
+		// 	'visible', // Selected station
+		// 	stationCheck ? 'visible' : 'none'  // Non-selected stations
+		// ]);
+		
+		// map1.setPaintProperty('transit-station-points', 'circle-opacity', [
+		// 	'case',
+		// 	selectedStationFilter,
+		// 	1, // Selected station
+		// 	0  // Non-selected stations
+		// ]);
+	}
+
+	$: if (map2 && selectedStation2 && station2Data && map2.getLayer('transit-station-points')) {
+		const selectedStationFilter = ['==', ['get', 'station_id'], station2Data.id];
+
+		map2.setLayoutProperty('transit-station-points', 'visibility', stationCheck ? 'visible' : 'none');
+	}
+
 	onMount(() => {
+
+		greenspaceCheck = true;
+		roadsCheck = true;
+		transitCheck = true;
+		stationCheck = true
 
 		// Convert station data to geojson
 		const stationGeojson = {
@@ -128,9 +216,6 @@
 		}))
 		};
 
-		// TEST: create map bounds with bounding box (SW and NE corners)
-		const mapBounds1 = [[bbox1[0], bbox1[1]], [bbox1[2], bbox1[3]]]
-
 		// Create first map
 		map1 = new mapboxgl.Map({
 			container: 'map1',
@@ -138,8 +223,9 @@
 			center: [-79.238666491, 43.7937808965],
 			zoom: 13,
 			minZoom: 2,
-			maxBounds: mapBounds1,
-			scrollZoom: true,
+			maxBounds: bbox1,
+			// scrollZoom: false,
+			// dragPan: false,
 			attributionControl: false
 		});
 
@@ -151,7 +237,8 @@
 			zoom: 13,
 			minZoom: 2,
 			maxBounds: bbox2,
-			scrollZoom: true,
+			// scrollZoom: false,
+			// dragPan: false,
 			attributionControl: false
 		});
 
@@ -176,8 +263,9 @@
 				type: 'fill',
 				source: 'station-radius',
 				paint: {
-					'fill-color': '#8CCFFF',
-					'fill-opacity': 0.2
+					'fill-color': 'transparent',
+            		'fill-opacity': 1.0,
+					'fill-outline-color': "red"
 				}
         	});
 
@@ -188,7 +276,7 @@
 				source: 'transit-station-data',
 				paint: {
 					'circle-radius': 10,
-					'circle-color': "white",
+					'circle-color': "#FFFFFF",
 					'circle-stroke-color': 'black',
 					'circle-stroke-width': 2
 					}
@@ -210,13 +298,21 @@
     		source: 'transit-station-data',
     		paint: {
       			'circle-radius': 10,
-      			'circle-color': 'white',
+      			'circle-color': '#FFFFFF',
 				'circle-stroke-color': 'black',
 				'circle-stroke-width': 2
     			}
   			});
 		});
-	
+
+		// TEST: hide road network
+		// map2.on('style.load', () => {
+		// 	const roadLayers = map2.getStyle().layers.filter(layer => layer['source-layer'] === 'road');
+		// 	console.log(roadLayers); 
+		// 	roadLayers.forEach(layer => map2.setLayoutProperty(layer.id, 'visibility', 'none'));
+		// 	console.log(map2.getStyle().layers);
+		// });
+		
 	});
 
 </script>
@@ -224,14 +320,17 @@
 <div class="hero">
 	<h1>Urban Form Comparison</h1>
 	<h2>Mapping Tool</h2>
-	<p>
+	<p id="description">
 		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns to select transit stations to compare.
 	</p>
 </div>
 
 <div class="map-container">
+
+	<!-- Display first map -->
 	<div class="map-column">
 		<div id="select1">
+			<!-- Station dropdown selection -->
 			<select bind:value={selectedStation1}>
 				<option disabled selected value={null}>Markham North (Line 7: Eglinton East LRT)</option>
 				{#each stations as station}
@@ -244,8 +343,10 @@
 		<div id="map1" />
 	</div>
 	
+	<!-- Display second map -->
 	<div class="map-column">
 		<div id="select2">
+			<!-- Station dropdown selection -->
 			<select bind:value={selectedStation2}>
 				<option disabled selected value={null}>144 Avenue N (Green Line)</option>
 				{#each stations as station}
@@ -257,8 +358,27 @@
 		</div>
 		<div id="map2" />
 	</div>
+
 </div>
 
+<div class = "layers">
+	<label>
+		<input type="checkbox" bind:checked={greenspaceCheck} />
+		Greenspace
+	</label>
+	<label>
+		<input type="checkbox" bind:checked={roadsCheck} />
+		Road Network
+	</label>
+	<label>
+		<input type="checkbox" bind:checked={transitCheck} />
+		Transit Lines
+	</label>
+	<label>
+		<input type="checkbox" bind:checked={stationCheck} />
+		Transit Stations
+	</label>
+</div>
 
 
 <style>
@@ -285,6 +405,7 @@
 	/* Place maps side by side */
 	.map-column {
 		display: flex;
+		width: 450px;
 		flex-direction: column;
 		align-items: center;
 		gap: 20px; /* Gap between dropdown and map */
@@ -302,5 +423,26 @@
 		border: 1px solid #ccc;
 		border-radius: 4px;
 	}
+
+	.layers {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+		margin-top: 30px;
+		width: 100%;
+	}
+
+	/* .layers label {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		cursor: pointer;
+		font-size: 14px;
+	}
+
+	.layers input[type="checkbox"] {
+		margin: 0;
+	} */
 </style>
 
