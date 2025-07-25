@@ -101,7 +101,7 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
-			<h3>Ecommerce</h3> 
+			<h3>E-Commerce</h3> 
 			<p>
 				As all types of physical locations showed declines in activity in the early stages of the pandemic, e-commerce boomed. April 2020 saw the share of e-commerce for all retail trade rise above 10% for the first time. Prior to the pandemic, e-commerce accounted for a rising share of the value of retail transactions but had yet to breach the 4% mark. This sudden spike led to many predictions that this was an inevitable acceleration of an existing trend that would continue beyond the end of the pandemic. These predictions did not come to fruition as e-commerce stayed well above expected levels for the core two years of the pandemic before retreating to the historic trend. While the pandemic does not seem to have accelerated a consumer shift to online retail, the long-term pattern continues to rise steadily.			</p>
 		</div>
@@ -170,76 +170,3 @@
 
 <Footer />
 
-<style>
-	.chart-container {
-		padding: 0em;
-		border-radius: 1em;
-		width: 100%;
-	}
-
-	.report-text {
-		margin: 0;
-	}
-
-	.slide {
-		display: flex;
-		flex-direction: column;
-		gap: 2.5em;
-		border-bottom: 1px solid var(--brandGrey);
-		padding: 2.5em;
-	}
-
-	.full-text {
-		border-bottom: 1px solid var(--brandGrey);
-		padding: 2.5em;
-		background-color: white;
-		color: var(--brandDarkBlue);
-		display: flex;
-		flex-direction: column;
-	}
-
-	.key-findings {
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-		padding: 2.5em;
-	}
-
-	h3 {
-		color:var(--brandLightBlue);
-		text-transform: uppercase;
-		font-weight: 600;
-	}
-
-	.sticky-content {
-			position: relative;
-			top: 1em;
-			align-self: flex-start; /* <-- this is the fix */
-		}
-
-	@media only screen and (min-width: 768px) {
-
-		.sticky-content {
-			position: -webkit-sticky; /* for Safari */
-			position: sticky;
-		}
-
-		.slide {
-		display: flex;
-		flex-direction: row;
-		padding: 5em;
-		gap: 5em;
-		}
-
-		.full-text {
-			padding: 5em;
-		}
-		
-		.text-container {
-		width: 60%;
-		margin: 0;
-	}
-
-	}
-
-</style>

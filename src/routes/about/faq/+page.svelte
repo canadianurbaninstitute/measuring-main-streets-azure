@@ -12,7 +12,7 @@
 	</div>
 </div>
 
-<div class="hero faq">
+<div class="faq">
 	<Accordion>
 		<div class="accordion-header" accordion slot="header">
 			<h4>What is Measuring Main Streets?</h4>
@@ -179,7 +179,7 @@
 <Footer />
 
 <style>
-	.hero.faq {
+	.faq {
 		align-items: stretch;
 		margin: 2em;
 		width: 70%;
@@ -193,6 +193,7 @@
 		border: 1px solid var(--brandGrey);
 		border-bottom: none;
 		width: 100%;
+		justify-content: space-between;
 	}
 
 	#last-item {

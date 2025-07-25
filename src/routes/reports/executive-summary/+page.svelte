@@ -40,11 +40,9 @@
 
 
 @media only screen and (min-width: 768px) {
-
 	.hero {
 		margin: 2em 15em 2em 15em;
 	}
-
 }
 
 img {

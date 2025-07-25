@@ -62,8 +62,8 @@
 			grid-template-columns: repeat(3, 1fr);
 		}
 
-		.hero {
-			margin: 2em 15em 2em 15em;
+		p {
+			max-width: 80%;
 		}
 	}
 </style>

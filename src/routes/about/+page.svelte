@@ -91,32 +91,14 @@
 <Footer />
 
 <style>
-	a {
-		text-decoration: none;
-	}
-
 	.logo-group {
 		position: relative;
 		display: flex;
 		align-items: center;
-		flex-direction: row;
+		flex-direction: column;
 		padding: 2em;
 		margin: 1em 0 1em 0;
 		justify-content: space-around;
-	}
-
-	#collage {
-		width: 100%;
-		margin-top: 1em;
-	}
-
-	/* MOBILE FLEX COLUMN (STACKED) LAYOUT */
-
-	@media only screen and (max-width: 768px) {
-		.logo-group {
-			flex-direction: column;
-			text-align: center;
-		}
 	}
 
 	.logo-group img {
@@ -125,18 +107,28 @@
 		filter: brightness(0) saturate(100%);
 	}
 
+	#collage {
+		width: 100%;
+		margin-top: 1em;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
 	a:hover {
 		opacity: 0.5;
 		cursor: pointer;
 	}
 
 	@media only screen and (min-width: 768px) {
-		p {
-			max-width: 80%;
+		.logo-group {
+			flex-direction: row;
+			text-align: center;
 		}
 
-		.hero {
-			margin: 2em 15em 2em 15em;
+		p {
+			max-width: 80%;
 		}
 	}
 </style>
