@@ -1,0 +1,134 @@
+{
+  "Population": [
+      {
+          "value": "population",
+          "label": "Population"
+      },
+      {
+          "value": "population_density",
+          "label": "Population Density"
+      },
+      {
+          "value": "population_change",
+          "label": "Population Change (since 2016)"
+      }
+  ],
+  "Resident Age": [
+      {
+          "value": "average_age",
+          "label": "Average Age"
+      },
+      {
+          "value": "age_0_19",
+          "label": "Age 0 to 19"
+      },
+      {
+          "value": "age_20_64",
+          "label": "Age 20 to 64"
+      },
+      {
+          "value": "age_65_Over",
+          "label": "Age 65 and Over"
+      }
+  ],
+  "Housing": [
+      {
+          "value": "household_size",
+          "label": "Average Household Size"
+      },
+      {
+          "value": "single_detached",
+          "label": "Single Detached Housing"
+      },
+      {
+          "value": "semi_detached",
+          "label": "Semi-Detached Housing"
+      },
+      {
+          "value": "apartment_more_5",
+          "label": "Apartment (>5 stories)"
+      },
+      {
+          "value": "apartment_less_5",
+          "label": "Apartment (<5 stories)"
+      },
+      {
+          "value": "duplex",
+          "label": "Duplex / Row Housing"
+      }
+  ],
+  "Demographic": [
+      {
+          "value": "university_degree",
+          "label": "Bachelors Degree"
+      },
+      {
+          "value": "visible_minorities",
+          "label": "Visible Minorities"
+      },
+      {
+          "value": "indigenous",
+          "label": "Indigenous"
+      },
+      {
+          "value": "immigrants_non_permanent_residents",
+          "label": "Immigrants and Non-Permanent Residents"
+      }
+  ],
+  "Primary Commuting Method": [
+      {
+          "value": "mobility_car",
+          "label": "Car"
+      },
+      {
+          "value": "mobility_public_transit",
+          "label": "Public Transit"
+      },
+      {
+          "value": "mobility_active_transit",
+          "label": "Active Transit"
+      }
+  ],
+  "Primary Language": [
+      {
+          "value": "language_english",
+          "label": "English"
+      },
+      {
+          "value": "language_french",
+          "label": "French"
+      },
+      {
+          "value": "language_other",
+          "label": "Other Language"
+      }
+  ],
+  "Employment": [
+      {
+          "value": "average_employment_income",
+          "label": "Average Employment Income"
+      }
+  ],
+  "Commute Time": [
+      {
+          "value": "commute_15",
+          "label": "Commutes under 15 minutes"
+      },
+      {
+          "value": "commute_30",
+          "label": "Commutes: 15 to 30 minutes"
+      },
+      {
+          "value": "commute_45",
+          "label": "Commutes: 30 to 45 minutes"
+      },
+      {
+          "value": "commute_60",
+          "label": "Commutes: 45 - 60 minutes"
+      },
+      {
+          "value": "commute_over_60",
+          "label": "Commutes over 60 minutes"
+      }
+  ]
+}
