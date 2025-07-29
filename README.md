@@ -52,7 +52,6 @@ npm run preview
 ### Azure Static Web Apps
 - The project uses [`svelte-adapter-azure-swa`](https://github.com/geoffrich/svelte-adapter-azure-swa) for deployment.
 - Output is generated in the `.svelte-kit` and `build` directories.
-- Configure Azure SWA as per [adapter docs](https://github.com/Azure/static-web-apps-cli) and your environment.
 
 ## Contributing
 - Fork the repository and create a feature branch.
