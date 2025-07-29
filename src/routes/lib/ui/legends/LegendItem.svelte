@@ -1,19 +1,29 @@
 <script>
+	// essential props
 	export let label;
-	export let variant;
+	export let variant; // can be 'circle', 'polygon' or 'line'
 	export let bgcolor;
+
+	
+	// optional props
+	
 	export let bordercolor = 'rgba(0,0,0,0)';
-	export let id;
-	export let button = false;
+
+	// use if turning into a toggle
+	export let button = false; 
+	export let id; // layer id to target
+	export let targetopacity = 0.9; // target opacity if the layer is switched back on
+	export let featuretype = 'circle'; // needs to be set to the feature type the mapbox layer is, 'circle', 'fill', or 'line'
+	let layerActive = true;
+
+
+	// MMS case study relevant props and imports
 	export let section;
 	export let map;
-	export let featuretype = 'circle';
-	export let targetopacity = 0.9;
-
 	import { mapStoreList } from '../../mapStore';
 	import { onDestroy } from 'svelte';
 
-	let layerActive = true;
+	/* MMS CASE STUDIES */
 
 	// Subscribe to the map store only if section is provided
 	let unsubscribe;
@@ -31,6 +41,9 @@
 			unsubscribe();
 		}
 	});
+
+	/* Funtion to toggle layer visibility on and off by setting opacity */
+
 
 	function toggleLayerVisibility() {
 		if (map) {
@@ -68,6 +81,8 @@
 		}
 	}
 </script>
+
+<!-- Legend Item HTML -->
 
 {#if button}
 	<button class={layerActive ? 'layerOn' : 'layerOff'} on:click={toggleLayerVisibility}>
@@ -136,15 +151,6 @@
 		margin: 0.2em 0 0.2em 0;
 	}
 
-	.layerOn {
-		opacity: 1;
-	}
-
-	.layerOff {
-		opacity: 0.6;
-		border: 1px dashed rgba(27, 31, 35, 0.3);
-	}
-
 	button:hover {
 		cursor: pointer;
 		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
@@ -159,4 +165,14 @@
 		background-color: #edeff2;
 		transition: 0.3s;
 	}
+
+	.layerOn {
+		opacity: 1;
+	}
+
+	.layerOff {
+		opacity: 0.6;
+		border: 1px dashed rgba(27, 31, 35, 0.3);
+	}
+
 </style>

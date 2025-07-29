@@ -1,5 +1,8 @@
+<!-- UI component that displays a dropdown used in the MMS Case Studies for toggling demographic variables.-->
 <script>
 	import { onDestroy } from 'svelte';
+
+	// props
 	import Legend from './legends/Legend.svelte';
 	import { mapStoreList } from '../mapStore'; // Import the mapStore
 

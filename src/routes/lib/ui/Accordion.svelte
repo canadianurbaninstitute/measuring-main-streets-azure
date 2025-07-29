@@ -1,8 +1,10 @@
 <script>
-    import collapse from 'svelte-collapse'
-    export let open = false
-    export let duration = 0.2
-    export let easing = 'ease'
+    import collapse from 'svelte-collapse';
+
+    // props
+    export let open = false;
+    export let duration = 0.2;
+    export let easing = 'ease';
 
     function handleToggle () {
         open = !open
@@ -17,15 +19,12 @@
 </script> 
 
 <div class='card' class:open aria-expanded={open}>
-
     <div class='card-header' role="button" tabindex="0" on:keydown={handleToggle} on:click={handleToggle}>
         <slot name='header'/>
         </div>
-
     <div class='card-body' use:collapse={{open, duration, easing}}>
         <slot name='body'/>
     </div>
-
 </div>
 
 <style>

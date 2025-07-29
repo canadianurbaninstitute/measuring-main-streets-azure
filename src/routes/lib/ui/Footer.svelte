@@ -37,33 +37,6 @@
 		text-decoration: none;
 	}
 
-	#logo-content {
-		margin: 1em;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		max-width: 80%;
-	}
-
-	.logo-group {
-		position: relative;
-		background-color: var(--brandDarkBlue);
-		display: flex;
-		align-items: center;
-		flex-direction: row;
-	}
-
-	#bar {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 100%;
-		justify-content: space-between;
-		background-color: var(--brandDarkBlue);
-	}
-
-
 	img {
 		height: 60px;
 		padding: 0.5em;
@@ -76,6 +49,32 @@
 
 	p {
 		color: white;
+	}
+
+	#logo-content {
+		margin: 1em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		max-width: 80%;
+	}
+
+	#bar {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		justify-content: space-between;
+		background-color: var(--brandDarkBlue);
+	}
+
+	.logo-group {
+		position: relative;
+		background-color: var(--brandDarkBlue);
+		display: flex;
+		align-items: center;
+		flex-direction: row;
 	}
 
 	.footer-content {

@@ -1,7 +1,11 @@
+<!-- UI component that displays a clickable card with an image and a street name used in the MMS Case Study pages to list case studies in a grid/lists.-->
+
 <script>
+    // props
     export let link;
     export let cardImage;
-    export let streetName;</script>
+    export let streetName;
+</script>
 
 <a href={link}>
 <div class="card">
