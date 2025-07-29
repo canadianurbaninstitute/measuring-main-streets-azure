@@ -16,7 +16,7 @@ Welcome to the Measuring Main Streets Platform repository. MMSP is a SvelteKit-b
 ## Tech Stack
 - **Framework:** [SvelteKit](https://kit.svelte.dev/)
 - **Build Tool:** [Vite](https://vitejs.dev/)
-- **Deployment:** [Azure Static Web Apps](https://learn.microsoft.com/en-us/azure/static-web-apps/)
+- **Deployment:** [Azure Static Web Apps](https://learn.microsoft.com/en-us/azure/static-web-apps/) via [svelte-adapter-azure-swa](https://github.com/geoffrich/svelte-adapter-azure-swa)
 - **Mapping:** [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/)
 - **Data Visualization**: [D3.js](https://d3js.org/), [LayerCake](https://layercake.graphics/), [ONSvisual/svelte-charts](https://github.com/ONSvisual/svelte-charts)
 - **UI Library:** [Bits UI](https://bits-ui.com/)
@@ -50,9 +50,8 @@ npm run preview
 ```
 
 ### Azure Static Web Apps
-- The project uses `svelte-adapter-azure-swa` for deployment.
+- The project uses [`svelte-adapter-azure-swa`](https://github.com/geoffrich/svelte-adapter-azure-swa) for deployment.
 - Output is generated in the `.svelte-kit` and `build` directories.
-- Configure Azure SWA as per [adapter docs](https://github.com/Azure/static-web-apps-cli) and your environment.
 
 ## Contributing
 - Fork the repository and create a feature branch.
