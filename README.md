@@ -6,7 +6,6 @@ A SvelteKit-based web application for interactive mapping, data visualization, a
 
 ## Table of Contents
 - [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
 - [Setup & Installation](#setup--installation)
 - [Development](#development)
 - [Build & Deployment](#build--deployment)
@@ -23,22 +22,6 @@ A SvelteKit-based web application for interactive mapping, data visualization, a
 - **Mapping:** [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/)
 - **Data Visualization**: [D3.js](https://d3js.org/), [LayerCake](https://layercake.graphics/), [ONSvisual/svelte-charts](https://github.com/ONSvisual/svelte-charts)
 - **UI Library:** [Bits UI](https://bits-ui.com/)
-
-## Project Structure
-```
-measuring-main-streets-azure/
-├── src/                # SvelteKit app source code
-│   ├── routes/         # SvelteKit file-based routing (pages, API, endpoints)
-│   ├── lib/            # Shared Svelte components, assets, stores
-│   └── app.html        # HTML template
-├── static/             # Static assets (favicon, images, SVGs)
-├── scripts/            # Utility scripts (e.g., setupTypeScript.js)
-├── tests/              # Playwright end-to-end tests
-├── package.json        # Project metadata, dependencies, scripts
-├── svelte.config.js    # SvelteKit configuration (Azure adapter)
-├── vite.config.js      # Vite configuration (plugins, DSV)
-├── playwright.config.js# Playwright test config
-```
 
 ## Setup & Installation
 ### Prerequisites
