@@ -35,8 +35,8 @@ jobs:
         env:
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY}}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET}}
-          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
-          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
