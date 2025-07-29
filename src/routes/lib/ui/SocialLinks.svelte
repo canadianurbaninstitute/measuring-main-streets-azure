@@ -1,3 +1,4 @@
+<!-- UI component that displays a set of social media icons.-->
 <script>
     import Icon from "@iconify/svelte";
 </script>

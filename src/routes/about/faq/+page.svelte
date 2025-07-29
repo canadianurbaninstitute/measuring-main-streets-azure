@@ -196,14 +196,14 @@
 		justify-content: space-between;
 	}
 
-	#last-item {
-		border-bottom: 1px solid var(--brandGrey);
-	}
-
 	.accordion-body {
 		padding: 1em;
 		border: 1px solid var(--brandGrey);
 		border-top: none;
 		min-width: 100%;
+	}
+
+	#last-item {
+		border-bottom: 1px solid var(--brandGrey);
 	}
 </style>

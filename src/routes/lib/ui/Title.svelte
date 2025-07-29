@@ -1,3 +1,4 @@
+<!-- UI component that displays a summary slide containing a title, subtitle and image used on Measuring Main Streets Case Studies and Reports.-->
 <script>
 	export let name;
 	export let location;
@@ -5,7 +6,7 @@
 	export let bg = '';
 </script>
 
-<div class="blueprint" style="background: linear-gradient(
+<div class="summary" style="background: linear-gradient(
 	rgba(255, 255, 255, 0.7),
 	rgba(255, 255, 255, 0.5),
 	rgba(255, 255, 255, 0.7)), url({bg});background-color: white;
@@ -51,7 +52,7 @@
         letter-spacing: -0.1rem;
 	}
 
-	.blueprint {
+	.summary {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -61,7 +62,7 @@
 	}
 
 	@media only screen and (min-width: 768px) {
-		.blueprint {
+		.summary {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;

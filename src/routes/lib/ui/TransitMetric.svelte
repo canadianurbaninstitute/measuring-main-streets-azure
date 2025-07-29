@@ -1,3 +1,4 @@
+<!-- UI component that displays a key metric used on National Transit Map sidebar.-->
 <script>
 	import Icon from '@iconify/svelte';
 	export let label = '';

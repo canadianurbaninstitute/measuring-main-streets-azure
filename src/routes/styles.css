@@ -9,6 +9,15 @@
     --brandPink: #DB3069;
     --brandYellow: #F1C500;
     --range-slider: #dadcdc;
+
+    --background: #ffffff;
+    --foreground: #222;
+    --foreground-alt: #555555;
+    --muted: #f4f4f5;
+    --muted-foreground: #999999;
+    --border-input: rgba(0, 0, 0, 0.15);
+    --shadow-popover: 0 4px 12px rgba(0, 0, 0, 0.1);
+
     /* slider main background color */
     --range-handle-inactive: #dadcdc;
     /* inactive handle color */
@@ -27,13 +36,6 @@
     /* floating label background color */
     --range-float-text: white;
     /* text color on floating label */
-    --background: #ffffff;
-    --foreground: #222;
-    --foreground-alt: #555555;
-    --muted: #f4f4f5;
-    --muted-foreground: #999999;
-    --border-input: rgba(0, 0, 0, 0.15);
-    --shadow-popover: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 body {

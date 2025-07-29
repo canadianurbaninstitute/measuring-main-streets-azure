@@ -8,8 +8,7 @@
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Summary from '../../../lib/ui/Summary.svelte';
-
+	import Footer from '../../../lib/ui/Footer.svelte';
 	import greenspace from '../../../lib/data/casestudydata/toronto/thorncliffepark/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/toronto/thorncliffepark/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/thorncliffepark/businessmix';
@@ -780,7 +779,7 @@
 			</div>
 		</section>
 	</div>
-	<Summary name={'Overlea Boulevard (Thorncliffe Park)'} location={'Toronto, Ontario'} />
+	<Footer/>
 </main>
 
 <style>
@@ -831,20 +830,7 @@
 		flex-direction: column;
 	}
 
-	h2 {
-		padding-bottom: 0.2em;
-		margin: 0 auto;
-		font-family: 'Gelasio', serif;
-		font-weight: 400;
-		font-size: 28px;
-		color: var(--brandLightBlue);
-	}
 
-	h5 {
-		margin: 0 auto;
-		font-family: 'Inter', sans-serif;
-		color: var(--brandDarkBlue);
-	}
 
 	.controls {
 		border: 2px solid #ddd;
@@ -868,8 +854,8 @@
 
 		.section-container {
 			flex-direction: column;
+			gap: 2em;
 		}
-
 		.content-container {
 			max-width: 100%;
 		}

@@ -8,8 +8,7 @@
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Summary from '../../../lib/ui/Summary.svelte';
-
+	import Footer from '../../../lib/ui/Footer.svelte';
 	import greenspace from '../../../lib/data/casestudydata/edmonton/82avenuenw/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/82avenuenw/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/82avenuenw/businessmix';
@@ -776,7 +775,7 @@ Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets an
 			</div>
 		</section>
 	</div>
-	<Summary name={'Whyte (82) Avenue NW'} location={'Edmonton, Alberta'} />
+	<Footer/>
 </main>
 
 <style>
@@ -805,6 +804,9 @@ Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets an
 		line-height: 160%;
 		text-align: left;
 		margin: 0 2em 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
 	}
 
 	.graphics-container {
@@ -826,20 +828,7 @@ Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets an
 		flex-direction: column;
 	}
 
-	h2 {
-		padding-bottom: 0.2em;
-		margin: 0 auto;
-		font-family: 'Gelasio', serif;
-		font-weight: 400;
-		font-size: 28px;
-		color: var(--brandLightBlue);
-	}
 
-	h5 {
-		margin: 0 auto;
-		font-family: 'Inter', sans-serif;
-		color: var(--brandDarkBlue);
-	}
 
 	.controls {
 		border: 2px solid #ddd;
@@ -863,8 +852,8 @@ Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets an
 
 		.section-container {
 			flex-direction: column;
+			gap: 2em;
 		}
-
 		.content-container {
 			max-width: 100%;
 		}

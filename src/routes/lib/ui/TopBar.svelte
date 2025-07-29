@@ -1,3 +1,5 @@
+<!-- UI component for navigation bar.-->
+
 <script>
 	import { NavigationMenu } from "bits-ui";
 	import Icon from "@iconify/svelte";

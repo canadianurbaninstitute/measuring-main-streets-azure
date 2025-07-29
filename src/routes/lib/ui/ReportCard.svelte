@@ -1,3 +1,4 @@
+<!-- UI component that displays a report with a title, subtitle and associated image or icon.-->
 <script>
 	export let link;
 	export let cardImage;
@@ -58,21 +59,18 @@
 	a {
 		text-decoration: none;
 	}
-	
+
 	.card-img-container {
-        overflow: hidden;
-        padding: 1em;
+		overflow: hidden;
+		padding: 1em;
 	}
 
 	.card-img-container img {
 		height: 100%;
 		width: 100%;
 		object-fit: cover;
-        overflow: hidden;
+		overflow: hidden;
 		max-height: 100px;
 		border-radius: 1em;
 	}
-
-
-
 </style>

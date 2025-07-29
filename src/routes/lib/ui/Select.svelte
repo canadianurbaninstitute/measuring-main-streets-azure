@@ -1,3 +1,4 @@
+<!-- UI component used for creating select dropdowns. Data can be grouped or ungrouped.-->
 <script>
 
 import { Select } from "bits-ui"

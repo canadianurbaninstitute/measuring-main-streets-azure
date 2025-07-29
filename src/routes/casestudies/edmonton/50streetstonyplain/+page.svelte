@@ -8,8 +8,7 @@
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Summary from '../../../lib/ui/Summary.svelte';
-
+	import Footer from '../../../lib/ui/Footer.svelte';
 	import greenspace from '../../../lib/data/casestudydata/edmonton/50streetstonyplain/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/50streetstonyplain/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/50streetstonyplain/businessmix';
@@ -749,7 +748,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Summary name={'50 Street StonyPlain'} location={'Edmonton, Alberta'} />
+	<Footer/>
 </main>
 
 <style>
@@ -778,6 +777,9 @@ setConfig({
 		line-height: 160%;
 		text-align: left;
 		margin: 0 2em 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
 	}
 
 	.graphics-container {
@@ -799,20 +801,7 @@ setConfig({
 		flex-direction: column;
 	}
 
-	h2 {
-		padding-bottom: 0.2em;
-		margin: 0 auto;
-		font-family: 'Gelasio', serif;
-		font-weight: 400;
-		font-size: 28px;
-		color: var(--brandLightBlue);
-	}
 
-	h5 {
-		margin: 0 auto;
-		font-family: 'Inter', sans-serif;
-		color: var(--brandDarkBlue);
-	}
 
 	.controls {
 		border: 2px solid #ddd;
@@ -836,8 +825,8 @@ setConfig({
 
 		.section-container {
 			flex-direction: column;
+			gap: 2em;
 		}
-
 		.content-container {
 			max-width: 100%;
 		}

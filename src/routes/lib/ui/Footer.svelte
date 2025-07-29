@@ -1,3 +1,4 @@
+<!-- Footer used across various pages.-->
 <script>
 	import cui from '../assets/logos/cui_logo_white.svg';
 	import mms from '../assets/logos/mms_logo_white.svg';

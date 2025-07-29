@@ -1,3 +1,4 @@
+<!-- UI component that displays a key metric used on National Main Street Map sidebar.-->
 <script>
 	import Icon from '@iconify/svelte';
 	export let label = '';
@@ -15,7 +16,7 @@
 		<div class="label">{label}</div>
 	</div>
 	{#if accordion}
-	<Icon icon="mdi:unfold-more-horizontal" />
+		<Icon icon="mdi:unfold-more-horizontal" />
 	{/if}
 </div>
 
