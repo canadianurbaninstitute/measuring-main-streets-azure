@@ -51,10 +51,10 @@ npm run preview
 
 ### Azure Static Web Apps
 - The project uses [`svelte-adapter-azure-swa`](https://github.com/geoffrich/svelte-adapter-azure-swa) for deployment.
-- Output is generated in the `.svelte-kit` and `build` directories.
+- Each commit to main triggers a Github Action which deploys the app. You can view the Github Action under 'Actions'.
 
 ## Contributing
-- Fork the repository and create a feature branch.
+- Create a feature branch.
 - Follow existing code style.
 - Write or update tests for new features.
 - Open a pull request with a clear description of your changes.
