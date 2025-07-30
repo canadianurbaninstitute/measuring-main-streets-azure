@@ -15,7 +15,7 @@
 </div>
 
 
-<div class='map-container'>
+<div class='chart-container'>
 
 
 <RecoveryMultiLineChart dataset={dataset}/>
@@ -25,7 +25,7 @@
 <Footer/>
 
 <style>
-    .map-container {
+    .chart-container {
         margin: 2em;
     }
 </style>

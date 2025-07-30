@@ -3,15 +3,19 @@
 	import * as d3 from 'd3';
 	import regions from '../../lib/data/transit-regions.json';
 
+	// Component props - receives transit station data from parent
 	export let data = [];
 
-	let selectedLine = null;
-	let selectedVariable = 'TotalPopulation';
-	let chart; // bind:this to the main chart div
-	let tooltip;
+	// Reactive state for user selections
+	let selectedLine = null; // Currently selected transit line ID
+	let selectedVariable = 'TotalPopulation'; // Currently selected metric to display
+	let chart; // Reference to the main chart container div
+	let tooltip; // D3 tooltip element for hover interactions
 
-	const stickyXAxisHeight = 35; // Height for the area of the sticky X-axis ticks/numbers
+	// Height reserved for the sticky X-axis that remains visible during scroll
+	const stickyXAxisHeight = 35;
 
+	// Color mapping for different transit lines - each line has a unique color
 	const line_colors = {
 		7: '#00923f',
 		6: '#f8c300',
@@ -59,6 +63,7 @@
 		114: '#a6dca8'
 	};
 
+	// Available metrics that can be displayed for each station
 	const variables = [
 		{ value: 'TotalPopulation', label: 'Population' },
 		{ value: 'TotalHouseholds', label: 'Households' },
@@ -68,11 +73,14 @@
 		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' }
 	];
 
+	// Auto-select first available line when component initializes
 	$: if (selectedLine === null && regions.length) {
 		const firstRegion = regions[0];
 		if (firstRegion?.lines?.length) selectedLine = firstRegion.lines[0].id;
 	}
 
+	// Filter and sort data for the selected transit line
+	// Data is sorted by stop sequence to maintain proper station order
 	$: filteredData =
 		data && data.length
 			? data
@@ -80,6 +88,11 @@
 					.sort((a, b) => a.stop_sequence - b.stop_sequence)
 			: [];
 
+	/**
+	 * Creates SVG pattern for construction status stations
+	 * @param {Object} svgCtx - SVG context to append pattern to
+	 * @param {string} lineColor - Color to use for the pattern
+	 */
 	function createPatterns(svgCtx, lineColor) {
 		const defs = svgCtx.append('defs');
 		defs
@@ -94,34 +107,53 @@
 			.attr('stroke-width', 2)
 			.attr('opacity', 1);
 	}
+
+	/**
+	 * Determines fill style based on station status
+	 * @param {Object} d - Station data object
+	 * @returns {string} Fill style (color, pattern, or transparent)
+	 */
 	function getFillStyle(d) {
 		const base = line_colors[d.line_id] || '#666';
 		switch (d.status) {
 			case 'Construction':
-				return 'url(#construction-pattern)';
+				return 'url(#construction-pattern)'; // Diagonal pattern for construction
 			case 'Planned':
-				return 'transparent';
+				return 'transparent'; // Transparent for planned stations
 			default:
-				return base;
+				return base; // Solid color for operational stations
 		}
 	}
+
+	/**
+	 * Calculates left margin based on longest station name
+	 * Ensures station labels have enough space to display
+	 * @param {number} longestLabelLen - Length of longest station name
+	 * @returns {number} Calculated margin width
+	 */
 	function estimateMargin(longestLabelLen) {
 		const charWidth = 7;
 		const labelWidth = longestLabelLen * charWidth;
 		return 100 + labelWidth;
 	}
 
+	/**
+	 * Main chart rendering function - creates horizontal bar chart
+	 * Uses D3 to create interactive visualization with sticky X-axis
+	 */
 	function updateChart() {
 		if (!chart) return;
 
-		// Apply padding to main chart div to make space for sticky X-axis ticks SVG
+		// Add padding to accommodate sticky X-axis
 		chart.style.paddingBottom = `${stickyXAxisHeight}px`;
 
+		// Clear chart if no data available
 		if (!filteredData.length) {
-			d3.select(chart).selectAll('svg').remove(); // Clear all SVGs if no data
+			d3.select(chart).selectAll('svg').remove();
 			return;
 		}
 
+		// Calculate chart dimensions and margins
 		const longestLabelLen = d3.max(filteredData, (d) => d.stop_label.length) || 10;
 		const margin = {
 			top: 50,
@@ -131,10 +163,10 @@
 		};
 		const chartHostDivWidth = chart.clientWidth || 600;
 		const plotAreaWidth = chartHostDivWidth - margin.left - margin.right;
-		const barH = 25;
+		const barH = 25; // Height of each bar
 		const plotAreaHeight = barH * filteredData.length;
 
-		// --- Tooltip ---
+		// Create tooltip for hover interactions
 		if (!tooltip) {
 			tooltip = d3
 				.select('body')
@@ -153,7 +185,7 @@
 				.style('transition', 'left 0.1s ease-out, top 0.1s ease-out');
 		}
 
-		// --- Main Chart SVG (for plot area, Y-axis, grid, X-AXIS TITLE) ---
+		// Create main chart SVG for plot area, Y-axis, and grid
 		d3.select(chart).select('svg.main-chart-svg').remove();
 		const rootSvg = d3
 			.select(chart)
@@ -166,18 +198,22 @@
 			.append('g')
 			.attr('transform', `translate(${margin.left},${margin.top})`);
 
+		// Create patterns for construction status and set up scales
 		const lineColor = line_colors[selectedLine] || '#666';
 		createPatterns(plotAreaG, lineColor);
 
+		// Y-scale for station names (categorical)
 		const y = d3
 			.scaleBand()
 			.range([0, plotAreaHeight])
 			.domain(filteredData.map((d) => d.stop_label))
 			.padding(0.25);
+		
+		// X-scale for metric values (continuous)
 		const maxVal = d3.max(filteredData, (d) => +d[selectedVariable]) || 0;
 		const x = d3.scaleLinear().range([0, plotAreaWidth]).domain([0, maxVal]).nice();
 
-	
+		// Add grid lines for better readability
 		plotAreaG
 			.append('g')
 			.attr('class', 'grid')
@@ -187,6 +223,7 @@
 				g.selectAll('line').attr('stroke', '#ddd').attr('stroke-dasharray', '2,2');
 			});
 
+		// Create horizontal bars for each station
 		const bars = plotAreaG
 			.selectAll('rect.bar-element')
 			.data(filteredData)
@@ -200,6 +237,7 @@
 			.attr('fill', getFillStyle)
 			.attr('stroke', lineColor)
 			.attr('stroke-width', 2)
+			// Mouse interaction handlers
 			.on('mouseover', function (event, d) {
 	    d3.select(this)
 					.style('filter', 'brightness(0.9)')
@@ -226,11 +264,13 @@
 				tooltip.transition().duration(500).style('opacity', 0);
 			});
 
+		// Animate bars to their final width
 		bars
 			.transition()
 			.duration(750)
 			.attr('width', (d) => x(+d[selectedVariable]));
 
+		// Add Y-axis with station names
 		plotAreaG
 			.append('g')
 			.call(d3.axisLeft(y))
@@ -245,6 +285,7 @@
 			.style('font-weight', '600')
 			.style('text-transform', 'uppercase');
 
+		// Add vertical line connecting station indicators
 		plotAreaG
 			.append('line')
 			.attr('x1', -20)
@@ -254,6 +295,7 @@
 			.attr('stroke', lineColor)
 			.attr('stroke-width', 4);
 
+		// Add station indicator circles on the left
 		plotAreaG
 			.append('g')
 			.selectAll('circle')
@@ -267,36 +309,21 @@
 			.attr('stroke', lineColor)
 			.attr('stroke-width', 4);
 
-		// X-Axis TITLE (stays with main chart, scrolls normally)
-		const metaVariable = variables.find((v) => v.value === selectedVariable);
-
-		// plotAreaG
-		// 	.append('text')
-		// 	.attr('class', 'x-axis-title')
-		// 	.attr('x', plotAreaWidth / 2)
-		// 	.attr('y', plotAreaHeight + 45) // Positioned below bars, within rootSvg's bottom margin
-		// 	.attr('text-anchor', 'middle')
-		// 	.style('font-family', 'Inter, sans-serif')
-		// 	.style('font-size', '14px')
-		// 	.style('font-weight', '600')
-		// 	.style('text-transform', 'uppercase')
-		// 	.text(metaVariable ? metaVariable.label : selectedVariable);
-
-		// --- STICKY X-AXIS TICKS/NUMBERS/LINE (Separate SVG) ---
-
+		// Create sticky X-axis that remains visible during scroll
 		d3.select(chart).select('svg.x-axis-ticks-svg').remove();
 
 		const xAxisTicksSvg = d3
 			.select(chart)
 			.append('svg')
-			.attr('class', 'x-axis-ticks-svg') // For CSS styling (sticky)
-			.attr('width', chartHostDivWidth) // Takes full width of .chart div
-			.attr('height', stickyXAxisHeight); // Fixed height for this SVG
+			.attr('class', 'x-axis-ticks-svg') // CSS class for sticky positioning
+			.attr('width', chartHostDivWidth)
+			.attr('height', stickyXAxisHeight);
 
 		const xAxisG = xAxisTicksSvg
 			.append('g')
-			.attr('transform', `translate(${margin.left}, ${stickyXAxisHeight - 25})`); // Vertically center/position axis line
+			.attr('transform', `translate(${margin.left}, ${stickyXAxisHeight - 25})`);
 
+		// Style the X-axis with formatted numbers
 		xAxisG.call(d3.axisBottom(x).tickFormat(d3.format(','))).call((g) => {
 			g.selectAll('.tick line').attr('stroke', '#444');
       g.selectAll('.tick line').attr('stroke-width', '2px');
@@ -308,28 +335,34 @@
 				.style('font-family', 'Inter, sans-serif')
 				.style('font-size', '12px')
 				.style('font-weight', '600')
-        .style('text-shadow', '0 0 5px white, 0 0 5px white');
+        .style('text-shadow', '0 0 5px white, 0 0 5px white'); // White glow for readability
 
 		});
 	}
 
+	// Reactive statement - update chart when selections or data change
 	$: if (chart && selectedLine !== null && selectedVariable && data) {
 		updateChart();
 	}
 
+	// Component lifecycle management
 	onMount(() => {
+		// Initial chart render if data is available
 		if (data && data.length > 0 && regions && regions.length > 0) {
 			updateChart();
 		}
+		// Handle window resize for responsive behavior
 		window.addEventListener('resize', updateChart);
 		return () => {
 			window.removeEventListener('resize', updateChart);
-			if (tooltip) tooltip.remove();
+			if (tooltip) tooltip.remove(); // Clean up tooltip on unmount
 		};
 	});
 </script>
 
+<!-- Main component template -->
 <div class="container">
+	<!-- Control panel for user selections -->
 	<div class="controls">
 		<div class="select-wrapper">
 			<label for="line-select">Select Line:</label>
@@ -357,16 +390,20 @@
 		</div>
 	</div>
 
+	<!-- Chart container where D3 visualization is rendered -->
 	<div class="chart" bind:this={chart} />
 </div>
 
 <style>
+	/* Main container styling */
 	.container {
 		width: 100%;
-		margin: 0 auto;
+		margin: 0;
 		font-family: 'Inter', sans-serif;
+		max-width: 90vw;
 	}
 
+	/* Control panel layout */
 	.controls {
 		display: flex;
 		gap: 1em;
@@ -393,21 +430,22 @@
 		font-size: 1em;
 	}
 
+	/* Chart container with relative positioning for sticky elements */
 	.chart {
 		width: 100%;
-		position: relative; /* Important for sticky positioning context of child SVG */
-		border: 1px solid #eee; /* Original border */
-		border-radius: 8px; /* Original radius */
+		position: relative; /* Required for sticky positioning context */
+		border: 1px solid #eee;
+		border-radius: 8px;
 	}
 
-	/* Styles for the SVG that contains the sticky X-axis ticks/numbers/line */
+	/* Sticky X-axis styling - remains visible during scroll */
 	:global(svg.x-axis-ticks-svg) {
-		position: -webkit-sticky; /* Safari */
+		position: -webkit-sticky; /* Safari support */
 		position: sticky;
-		bottom: 0; /* Stick to the bottom of the .chart container */
-		left: 0; /* Align to the left of .chart container */
-		width: 100%; /* Span full width of .chart container */
-		z-index: 990; /* Ensure it's above main chart SVG content if they overlap slightly during scroll */
+		bottom: 0; /* Stick to bottom of chart container */
+		left: 0; /* Align to left edge */
+		width: 100%; /* Full width */
+		z-index: 990; /* Ensure visibility above other chart elements */
   }
 
 </style>

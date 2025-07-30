@@ -1,233 +1,106 @@
 <script>
+	// --- Imports ---
 	import '../styles.css';
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import * as turf from '@turf/turf';
 	import { BarChart } from '@onsvisual/svelte-charts';
-	import { Tabs, Checkbox } from 'bits-ui';
+	import { Tabs } from 'bits-ui';
 	import TransitMetric from '../lib/ui/TransitMetric.svelte';
-
 	import Footer from '../lib/ui/Footer.svelte';
 
+	// --- Data Imports ---
 	import stationRawData from '../lib/data/stations.json';
 	import transitRegionsRawData from '../lib/data/transit-regions.json';
 
+	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
+	// --- Reactive/Exported Variables ---
 	export let map;
 
+	// --- UI State Variables ---
 	let circleDrawn = false;
 	let statusFilters = [];
 	let technologyFilters = [];
-
 	let selectedStation = {};
 	let stationSelected = false;
-
-	let civic;
-
 	let regionsData = [];
 	let processedStationData = [];
 	let searchTerm = '';
 	let activeRegion = null;
 	let activeLine = null;
-
 	let sidebarDisplayItems = [];
 	let displayedRegions = [];
 	let displayedLines = [];
 	let displayedStops = [];
 
+	// --- Chart Data Templates ---
 	let ownerData = [
-		{
-			label: 'Owner',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Renter',
-			value: 0,
-			y: '⠀'
-		}
-	];
-
-	let mobilityData = [
-		{
-			label: 'Car',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Public Transit',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Active Transit',
-			value: 0,
-			y: '⠀'
-		}
+		{ label: 'Owner', value: 0, y: '⠀' },
+		{ label: 'Renter', value: 0, y: '⠀' }
 	];
 
 	let housingData = [
-		{
-			label: 'Pre-1960',
-			value: 0
-		},
-		{
-			label: '1961-80',
-			value: 0
-		},
-		{
-			label: '1981-00',
-			value: 0
-		},
-		{
-			label: 'Post-2000',
-			value: 0
-		}
+		{ label: 'Pre-1960', value: 0 },
+		{ label: '1961-80', value: 0 },
+		{ label: '1981-00', value: 0 },
+		{ label: 'Post-2000', value: 0 }
 	];
 
 	let dwellingData = [
-		{
-			label: 'Detached',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Semi-Detached',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Row',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Duplex',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Apt >5',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: 'Apt <5',
-			value: 0,
-			y: '⠀'
-		}
+		{ label: 'Detached', value: 0, y: '⠀' },
+		{ label: 'Semi-Detached', value: 0, y: '⠀' },
+		{ label: 'Row', value: 0, y: '⠀' },
+		{ label: 'Duplex', value: 0, y: '⠀' },
+		{ label: 'Apt >5', value: 0, y: '⠀' },
+		{ label: 'Apt <5', value: 0, y: '⠀' }
 	];
 
 	let ageData = [
-		{
-			label: '0-19',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: '20-64',
-			value: 0,
-			y: '⠀'
-		},
-		{
-			label: '65+',
-			value: 0,
-			y: '⠀'
-		}
+		{ label: '0-19', value: 0, y: '⠀' },
+		{ label: '20-64', value: 0, y: '⠀' },
+		{ label: '65+', value: 0, y: '⠀' }
 	];
 
 	let businessData = [
-		{
-			label: 'Food and Drink',
-			value: 20,
-			y: '⠀'
-		},
-		{
-			label: 'Retail',
-			value: 50,
-			y: '⠀'
-		},
-		{
-			label: 'Local Services',
-			value: 30,
-			y: '⠀'
-		}
+		{ label: 'Food and Drink', value: 0, y: '⠀' },
+		{ label: 'Retail', value: 0, y: '⠀' },
+		{ label: 'Local Services', value: 0, y: '⠀' }
 	];
 
 	let civicData = [
-		{
-			label: 'Arts and Culture',
-			value: 20,
-			y: '⠀'
-		},
-		{
-			label: 'Government and Community Services',
-			value: 15,
-			y: '⠀'
-		},
-		{
-			label: 'Recreation',
-			value: 5,
-			y: '⠀'
-		},
-		{
-			label: 'Healthcare',
-			value: 30,
-			y: '⠀'
-		},
-		{
-			label: 'Education',
-			value: 30,
-			y: '⠀'
-		}
+		{ label: 'Arts and Culture', value: 0, y: '⠀' },
+		{ label: 'Government and Community Services', value: 0, y: '⠀' },
+		{ label: 'Recreation', value: 0, y: '⠀' },
+		{ label: 'Healthcare', value: 0, y: '⠀' },
+		{ label: 'Education', value: 0, y: '⠀' }
 	];
 
+	// --- Static Chart Data (TODO: Add to stations file) ---
 	let employmentData = [
-		{
-			label: 'Civic Infrastructure',
-			value: 20,
-			y: '⠀'
-		},
-		{
-			label: 'Business',
-			value: 20,
-			y: '⠀'
-		},
-		{
-			label: 'Other',
-			value: 60,
-			y: '⠀'
-		}
+		{ label: 'Civic Infrastructure', value: 20, y: '⠀' },
+		{ label: 'Business', value: 20, y: '⠀' },
+		{ label: 'Other', value: 60, y: '⠀' }
 	];
 
+	// --- Data/Map Update Functions ---
 	function updateStationData(id) {
 		const station = processedStationData.find((s) => s.id === id);
+
 		if (!station) {
 			console.error("Station not found for ID:", id);
 			selectedStation = {};
 			return;
 		}
-		selectedStation = station;
 
-		civic =
-			selectedStation.ArtsCulture +
-			selectedStation.Education +
-			selectedStation.GovernmentCommunityServices +
-			selectedStation.HealthCareFacilities +
-			selectedStation.RecreationFacilities;
+		selectedStation = station;
 
 		ageData = [
 			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
 			{ label: '20-64', value: selectedStation.WorkingAge, y: '⠀' },
 			{ label: '65+', value: selectedStation.Elderly, y: '⠀' }
-		];
-
-		mobilityData = [
-			{ label: 'Car', value: selectedStation.mobility_car, y: '⠀' },
-			{ label: 'Public Transit', value: selectedStation.mobility_public_transit, y: '⠀' },
-			{ label: 'Active Transit', value: selectedStation.mobility_active_transit, y: '⠀' }
 		];
 
 		housingData = [
@@ -242,16 +115,31 @@
 			{ label: 'Semi-Detached', value: selectedStation.RowHouse, y: '⠀' },
 			{ label: 'Row', value: selectedStation.SemiDetachedHouse, y: '⠀' },
 			{ label: 'Duplex', value: selectedStation.DetachedDuplex, y: '⠀' },
-			{ label: 'Apt >5', value: selectedStation.ApartmentFiveOrMoreStory, y: '⠀' },
-			{ label: 'Apt <5', value: selectedStation.ApartmentFewerThanFiveStory, y: '⠀' }
+			{ label: 'Apt >5', value: selectedStation["Apartment,FiveOrMoreStory"], y: '⠀' },
+			{ label: 'Apt <5', value: selectedStation["Apartment,FewerThanFiveStory"], y: '⠀' }
 		];
 
 		ownerData = [
 			{ label: 'Owner', value: selectedStation.Owned, y: '⠀' },
 			{ label: 'Renter', value: selectedStation.Rented, y: '⠀' }
 		];
+
+		businessData = [
+			{ label: 'Food and Drink', value: selectedStation["Food and Drink"], y: '⠀' },
+			{ label: 'Retail', value: selectedStation["Retail"], y: '⠀' },
+			{ label: 'Local Services', value: selectedStation["Services and Other"], y: '⠀' }
+		];
+
+		civicData = [
+			{ label: 'Arts and Culture', value: selectedStation["Arts and Culture"], y: '⠀' },
+			{ label: 'Government and Community Services', value: selectedStation["Government and Community Services"], y: '⠀' },
+			{ label: 'Recreation', value: selectedStation["Recreation Facilities"], y: '⠀' },
+			{ label: 'Healthcare', value: selectedStation["Health and Care Facilities"], y: '⠀' },
+			{ label: 'Education', value: selectedStation["Education"], y: '⠀' }
+		];
 	}
 
+	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
 		if (!map) return;
 		updateStationData(stationId);
@@ -325,19 +213,12 @@
 			filter: ['==', 'line_id', activeLine.id]
 		});
 
-
 		if (selectedLine.length > 0) {
-
-			// create a feature collection from the selected line
 			const featureCollection = {
 				type: 'FeatureCollection',
 				features: selectedLine
 			};
-
-			// get the bounding box of the feature collection
-			const combinedBBox = turf.bbox(featureCollection); // [minX, minY, maxX, maxY]
-
-			// fit the map to the bounding box
+			const combinedBBox = turf.bbox(featureCollection);
 			map.fitBounds(combinedBBox, { padding: 50, duration: 1000 });
 		}
 	}
@@ -360,6 +241,7 @@
 		}
 	}
 
+	// --- Search/Sidebar Selection Functions ---
 	function selectRegionFromSearch(region) {
 		searchTerm = '';
 		selectRegion(region);
@@ -406,6 +288,7 @@
 		}
 	}
 
+	// --- Svelte Reactivity: Sidebar Display Logic ---
 	$: {
 		if (searchTerm) {
 			const lowerSearchTerm = searchTerm.toLowerCase();
@@ -449,12 +332,13 @@
 		}
 	}
 
+	// --- Svelte Lifecycle: onMount (Map Initialization) ---
 	onMount(() => {
 		regionsData = transitRegionsRawData.sort((a,b) => a.name.localeCompare(b.name));
 
 		processedStationData = stationRawData.map(station => ({
 			...station,
-			line_ids_array: station.line_ids ? station.line_ids.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) : []
+			line_ids_array: station.line_id ? station.line_id.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) : []
 		}));
 
 		map = new mapboxgl.Map({
@@ -558,6 +442,7 @@
 		});
 	});
 
+	// --- Filter/Tab UI Handlers ---
 	function applyFilters() {
 		const filterConditions = [];
 
@@ -739,13 +624,13 @@
 					<div id="station-container">
 						<div>
 						<div id="transit-logos">
-							{#each (selectedStation.line_ids ? selectedStation.line_ids.split(',').map(s => s.trim()) : []) as lineId}
+							{#each (selectedStation.line_id ? selectedStation.line_id.split(',').map(s => s.trim()) : []) as lineId}
 								<img src={`/transit-logos/${lineId}.svg`} alt="transit-logo" class="transit-logo" />
 							{/each}
 						</div>
 						<h2>{selectedStation.stop_label}</h2>
 						</div>
-						<h4>{selectedStation.line_display_names}</h4>
+						<h4>{selectedStation.line_display_name}</h4>
 						
 						<div id="tag-container">
 							<div class="tag-list">
@@ -900,23 +785,6 @@
 									<TransitMetric label={'Population Density'} value={selectedStation.PopulationDensity} icon={'mdi:people'} /> 
 									<TransitMetric label={'Employment Density'} value={selectedStation.EmploymentDensity} icon={'mdi:briefcase'} />
 								</div>
-								<div class="chart-container">
-									<div class="chart">
-										<BarChart
-											colors={['#002a41', '#0098D6', '#db3069']}
-											data={mobilityData}
-											zKey="label"
-											xKey="value"
-											yKey="y"
-											title="Mobility"
-											xMax="100"
-											mode="stacked"
-											legend="true"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-										/>
-									</div>
-								</div>
 								<div />
 							</div></Tabs.Content
 						>
@@ -925,7 +793,7 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Main Street Businesses'}
-										value={selectedStation.MainStreetBusiness}
+										value={selectedStation.BusinessCount}
 										icon={'mdi:shop'}
 									/>
 									<TransitMetric
@@ -957,7 +825,7 @@
 							<div class="tab-content">
 								<TransitMetric
 									label={'Civic Infrastructure Loations'}
-									value={civic}
+									value={selectedStation.CivicCount}
 									icon={'mdi:museum'}
 								/>
 								<div class="chart-container">
@@ -1032,7 +900,7 @@
 						<ul class="nav-list">
 							{#each displayedStops as item (item.id)}
 								<li on:click={() => selectStopFromSearch(item)} class="nav-item stop-item">
-									{item.stop_label} <span class="context">({item.line_display_names || 'N/A'})</span>
+									{item.stop_label} <span class="context">({item.line_display_name || 'N/A'})</span>
 								</li>
 							{/each}
 						</ul>
