@@ -8,6 +8,7 @@
 	import { Tabs } from 'bits-ui';
 	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 	import Footer from '../lib/ui/Footer.svelte';
+	import Fuse from 'fuse.js';
 
 	// --- Data Imports ---
 	import stationRawData from '../lib/data/stations.json';
@@ -32,9 +33,11 @@
 	let activeRegion = null;
 	let activeLine = null;
 	let sidebarDisplayItems = [];
-	let displayedRegions = [];
-	let displayedLines = [];
-	let displayedStops = [];
+
+	// --- Fuse.js Search Instances ---
+	let regionsFuse;
+	let linesFuse;
+	let stopsFuse;
 
 	// --- Chart Data Templates ---
 	let ownerData = [
@@ -84,6 +87,71 @@
 		{ label: 'Business', value: 20, y: '⠀' },
 		{ label: 'Other', value: 60, y: '⠀' }
 	];
+
+	// --- Search Functions ---
+	function initializeSearchIndexes() {
+		// Configure Fuse.js options for better search
+		const fuseOptions = {
+			threshold: 0.3,
+			includeScore: true,
+			keys: ['name', 'stop_label', 'line_display_name']
+		};
+
+		// Create search indexes
+		regionsFuse = new Fuse(regionsData, {
+			...fuseOptions,
+			keys: ['name']
+		});
+
+		// Create lines search data with region context
+		const linesWithContext = [];
+		regionsData.forEach(region => {
+			region.lines.forEach(line => {
+				linesWithContext.push({
+					...line,
+					regionName: region.name,
+					regionId: region.id
+				});
+			});
+		});
+		linesFuse = new Fuse(linesWithContext, {
+			...fuseOptions,
+			keys: ['name', 'regionName']
+		});
+
+		// Create stops search index
+		stopsFuse = new Fuse(processedStationData, {
+			...fuseOptions,
+			keys: ['stop_label', 'line_display_name']
+		});
+	}
+
+	function performSearch(query) {
+		if (!query.trim()) {
+			return {
+				regions: [],
+				lines: [],
+				stops: []
+			};
+		}
+
+		const regions = regionsFuse.search(query).map(result => ({
+			...result.item,
+			type: 'region'
+		}));
+
+		const lines = linesFuse.search(query).map(result => ({
+			...result.item,
+			type: 'line'
+		}));
+
+		const stops = stopsFuse.search(query).map(result => ({
+			...result.item,
+			type: 'stop'
+		}));
+
+		return { regions, lines, stops };
+	}
 
 	// --- Data/Map Update Functions ---
 	function updateStationData(id) {
@@ -141,33 +209,43 @@
 
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
+
+		// run update function to fetch relevant station data
+
 		if (!map) return;
 		updateStationData(stationId);
 
 		stationSelected = true;
 
+		// draw the MTSA circle 
 		const radiusInKilometers = 0.8;
 		const circleFeature = turf.circle(stationCoordinates, radiusInKilometers, {
 			steps: 128,
 			units: 'kilometers'
 		});
 
+		// if the circle feature exists, update it and set variable to be true
 		if (map.getSource('circle')) {
 			map.getSource('circle').setData({
 				type: 'FeatureCollection',
 				features: [circleFeature]
 			});
 		}
+
 		circleDrawn = true;
 
+		// zoom too station
 		map.flyTo({
 			center: stationCoordinates,
 			zoom: 14.5,
 			duration: 1000
 		});
 
+		// filter layers to be only visible within the circle - could change to be colored inside circle grey outside but more complex
+		
 		const circlePolygon = circleFeature.geometry;
 		const thematicLayers = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business'];
+
 		thematicLayers.forEach(layerId => {
 			if (map.getLayer(layerId)) {
 				map.setFilter(layerId, ['within', circlePolygon]);
@@ -176,6 +254,8 @@
 	}
 
 	function resetStationSelection() {
+
+		// remove circle
 		if (map && map.getSource('circle')) {
 			map.getSource('circle').setData({
 				type: 'FeatureCollection',
@@ -183,9 +263,12 @@
 			});
 		}
 		circleDrawn = false;
+
+		// reset station
 		stationSelected = false;
 		selectedStation = {};
 
+		//reset layer filters 
 		const thematicLayersToReset = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business', 'employment-size'];
 		thematicLayersToReset.forEach(layerId => {
 			if (map && map.getLayer(layerId)) {
@@ -194,11 +277,17 @@
 		});
 	}
 
+	// search helper functions
+
 	function selectRegion(region) {
 		if (!map) return;
 		resetStationSelection();
+
 		activeRegion = region;
 		activeLine = null;
+
+
+		// zoom map to region based on bbox from transit-regions.json 
 		map.fitBounds(region.bbox, { padding: 50, duration: 1000 });
 	}
 
@@ -206,19 +295,26 @@
 		if (!map) return;
 		resetStationSelection();
 
+
+		
 		activeLine = line;
 
+		// find which line is selected on the map based on id
 		const selectedLine = map.queryRenderedFeatures({
 			layers: ['transit-lines'],
 			filter: ['==', 'line_id', activeLine.id]
 		});
 
+
+		// if there is a line selected, zoom to it based on calculated bbox
 		if (selectedLine.length > 0) {
 			const featureCollection = {
 				type: 'FeatureCollection',
 				features: selectedLine
 			};
+
 			const combinedBBox = turf.bbox(featureCollection);
+
 			map.fitBounds(combinedBBox, { padding: 50, duration: 1000 });
 		}
 	}
@@ -228,16 +324,23 @@
 	}
 
 	function navigateBack() {
+		// navigate back to reset
 		if (!map) return;
 		resetStationSelection();
+
+		// line case: zoom to region line is in
+
 		if (activeLine) {
 			activeLine = null;
 			if (activeRegion) {
 				map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
 			}
+		// region case: reset map
+
 		} else if (activeRegion) {
 			activeRegion = null;
 			map.flyTo({ center: [-89, 58], zoom: 3.3, duration: 1000 });
+			// TODO: should resetStationSelection run here too
 		}
 	}
 
@@ -263,10 +366,12 @@
 
 	function handleSidebarBack() {
 		if (stationSelected) {
+
 			const previouslyActiveLine = activeLine;
 			const previouslyActiveRegion = activeRegion;
 
 			resetStationSelection();
+
 			stationSelected = false;
 
 			if (map) {
@@ -288,47 +393,25 @@
 		}
 	}
 
-	// --- Svelte Reactivity: Sidebar Display Logic ---
+	// --- Reactive Logic with Fuse.js search library ---
+	$: searchResults = searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] };
+	
 	$: {
 		if (searchTerm) {
-			const lowerSearchTerm = searchTerm.toLowerCase();
-			displayedRegions = regionsData
-				.filter(r => r.name.toLowerCase().includes(lowerSearchTerm))
-				.map(r => ({ ...r, type: 'region' }))
-				.sort((a,b) => a.name.localeCompare(b.name));
-
-			displayedLines = [];
-			regionsData.forEach(r => {
-				r.lines.forEach(l => {
-					if (l.name.toLowerCase().includes(lowerSearchTerm)) {
-						displayedLines.push({ ...l, type: 'line', regionName: r.name, regionId: r.id });
-					}
-				});
-			});
-			displayedLines.sort((a,b) => a.name.localeCompare(b.name));
-
-			displayedStops = processedStationData
-				.filter(s => s.stop_label && s.stop_label.toLowerCase().includes(lowerSearchTerm))
-				.map(s => ({ ...s, type: 'stop' }))
-				.sort((a,b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
-			
 			sidebarDisplayItems = [];
 		} else if (activeLine) {
 			sidebarDisplayItems = processedStationData
 				.filter(s => s.line_ids_array && s.line_ids_array.includes(activeLine.id))
 				.map(s => ({ ...s, type: 'stop' }))
 				.sort((a,b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
-			displayedRegions = []; displayedLines = []; displayedStops = [];
 		} else if (activeRegion) {
 			sidebarDisplayItems = activeRegion.lines
 				.map(l => ({ ...l, type: 'line' }))
 				.sort((a,b) => a.name.localeCompare(b.name));
-			displayedRegions = []; displayedLines = []; displayedStops = [];
 		} else {
 			sidebarDisplayItems = regionsData
 				.map(r => ({ ...r, type: 'region' }))
 				.sort((a,b) => a.name.localeCompare(b.name));
-			displayedRegions = []; displayedLines = []; displayedStops = [];
 		}
 	}
 
@@ -340,6 +423,12 @@
 			...station,
 			line_ids_array: station.line_id ? station.line_id.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) : []
 		}));
+
+		// Initialize search indexes after data is loaded
+
+		initializeSearchIndexes();
+
+		// add map
 
 		map = new mapboxgl.Map({
 			container: 'map',
@@ -360,6 +449,7 @@
 			})
 		);
 
+		// add circle source and layer
 		map.on('load', () => {
 			map.addSource('circle', {
 				type: 'geojson',
@@ -384,6 +474,7 @@
 				'transit-stations'
 			);
 
+			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
 				if (e.features.length > 0) {
 					const stationId = e.features[0].properties.id;
@@ -395,6 +486,7 @@
 			});
 		});
 
+		// show popups on hover
 		const popup = new mapboxgl.Popup({
 			closeButton: false,
 			closeOnClick: false
@@ -877,35 +969,35 @@
 		{:else}
 			<div class="navigation-scroll-container">
 				{#if searchTerm}
-					{#if displayedRegions.length > 0}
+					{#if searchResults.regions.length > 0}
 						<div class="nav-section-header">Regions</div>
 						<ul class="nav-list">
-							{#each displayedRegions as item (item.id)}
+							{#each searchResults.regions as item (item.id)}
 								<li on:click={() => selectRegionFromSearch(item)} class="nav-item region-item">{item.name}</li>
 							{/each}
 						</ul>
 					{/if}
-					{#if displayedLines.length > 0}
+					{#if searchResults.lines.length > 0}
 						<div class="nav-section-header">Lines</div>
 						<ul class="nav-list">
-							{#each displayedLines as item (item.id)}
+							{#each searchResults.lines as item (item.id)}
 								<li on:click={() => selectLineFromSearch(item)} class="nav-item line-item">
 									{item.name} <span class="context">({item.regionName})</span>
 								</li>
 							{/each}
 						</ul>
 					{/if}
-					{#if displayedStops.length > 0}
+					{#if searchResults.stops.length > 0}
 						<div class="nav-section-header">Stops</div>
 						<ul class="nav-list">
-							{#each displayedStops as item (item.id)}
+							{#each searchResults.stops as item (item.id)}
 								<li on:click={() => selectStopFromSearch(item)} class="nav-item stop-item">
 									{item.stop_label} <span class="context">({item.line_display_name || 'N/A'})</span>
 								</li>
 							{/each}
 						</ul>
 					{/if}
-					{#if displayedRegions.length === 0 && displayedLines.length === 0 && displayedStops.length === 0}
+					{#if searchResults.regions.length === 0 && searchResults.lines.length === 0 && searchResults.stops.length === 0}
 						<p class="no-results">No results found.</p>
 					{/if}
 				{:else}
@@ -1125,12 +1217,13 @@
 
 	.region-item {
 		font-weight: bold;
+		padding-left: 1em;
 	}
 	.line-item {
-		padding-left: 20px;
+		padding-left: 1em;
 	}
 	.stop-item {
-		padding-left: 30px;
+		padding-left: 1em;
 	}
 	
 	.nav-section-header {
