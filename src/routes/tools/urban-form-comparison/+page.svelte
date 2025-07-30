@@ -3,6 +3,7 @@
 	import mapboxgl from 'mapbox-gl';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import * as turf from '@turf/turf';
+	import { DropdownMenu } from "bits-ui";
 
 	import stationRawData from '../../lib/data/stations.json';
 	import transitRegionsRawData from '../../lib/data/transit-regions.json';
@@ -16,12 +17,6 @@
 	let map1;
 	let map2;
 
-	// Map data storage
-	const mapData = {
-		1: { data: {}, coords: [], circle: null, bbox: null },
-		2: { data: {}, coords: [], circle: null, bbox: null }
-	};
-
 	// Initial stations
 	let selectedStation1 = "Markham North (Line 7: Eglinton East LRT)";
 	let selectedStation2 = "144 Avenue N (Green Line)";
@@ -34,7 +29,15 @@
 		style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
 		zoom: 13,
 		minZoom: 2,
+		// scrollZoom: false,
+		// dragPan: false,
 		attributionControl: false
+	};
+
+	// Map data storage
+	const mapData = {
+		1: { data: {}, coords: [], circle: null, bbox: null },
+		2: { data: {}, coords: [], circle: null, bbox: null }
 	};
 
 	// For layer toggle
@@ -43,8 +46,6 @@
 	let transitCheck;
 	let stationCheck;
 	let parkingCheck;
-
-
 
 	// Create line-to-region mapping
 	function mapLineToRegion(){
@@ -57,10 +58,10 @@
 		});
 
 		return lineToRegion;
-	};
+	}
 
 	// Create station labels, map stations to regions
-	function processStationData(){
+	function processStationData(stationRawData){
 		const lineToRegion = mapLineToRegion();
 		
 		return stationRawData.map(station => ({
@@ -71,7 +72,7 @@
 				: [],
 			region: lineToRegion[station.line_ids?.split(',')[0]?.trim()] || null
 		}));
-	};
+	}
 
 	// Create circle and bounding box for station
 	function updateStationData(mapIndex, selectedStation){
@@ -83,7 +84,7 @@
 		});
 		const bbox = turf.bbox(circle);
 		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
-	};
+	}
 
 	// Create map instances
 	function createMap(containerId, centre, maxBounds){
@@ -93,138 +94,177 @@
 			centre,
 			maxBounds
 		});
-	};
+	}
 
-	// TO IMPLEMENT: Add layers to map
-	function addMapLayers(map){
+	// Add layers to map (transit, etc.)
+	function addMapLayers(map, allStationData, selectedStationData){
 
-	};
+		// Add transit station source
+		map.addSource('transit-station-data', {
+				type: 'geojson',
+				data: allStationData
+		});
 
-	// TO IMPLEMENT: flyto, setcentre, change transit point styling.
-	function updateMapForStation(map){
+		// Add station points
+		map.addLayer({
+				id: 'transit-station-points',
+				type: 'circle',
+				source: 'transit-station-data',
+				paint: {
+					'circle-radius': 10,
+					'circle-color': "#FFFFFF",
+					'circle-stroke-color': 'black',
+					'circle-stroke-width': 2
+					}
+			});
 
-	};
+		// Add station radius source
+		map.addSource('station-radius', {
+			type: 'geojson',
+			data: selectedStationData.circle
+		});
+
+		// Add station radius layer
+		map.addLayer({
+			id: 'station-radius',
+			type: 'fill',
+			source: 'station-radius',
+			paint: {
+				'fill-color': 'transparent',
+				'fill-opacity': 1.0,
+				'fill-outline-color': "red"
+			}
+		});
+	}
+
+	// Update station styling for selected station
+	function updateStationStyling(map, selectedStationFilter) {
+		const styleUpdates = [
+			['circle-color', ['case', selectedStationFilter, '#FFFFFF', '#B8B8B8']],
+			['circle-stroke-color', ['case', selectedStationFilter, '#000000', '#949292']],
+			['circle-stroke-width', ['case', selectedStationFilter, 2, 1]]
+		];
+
+		styleUpdates.forEach(([property, value]) => {
+			map.setPaintProperty('transit-station-points', property, value);
+		});
+	}
+	
+	// Update map for selected station
+	function updateMapWithStationData(map, stationData, options = {}) {
+		const {
+			radiusSourceId = 'station-radius',
+			stationLayerId = 'transit-station-points',
+			updateStylingCallback = null
+		} = options;
+
+		// Validate inputs
+		if (!map || !stationData) {
+			console.warn('Map or station data is missing');
+			return;
+		}
+
+		const { data, circle, bbox, coords } = stationData;
+
+		// Check if map is ready and has required data
+		if (!map.isStyleLoaded() || !data || !circle || !map.getLayer(stationLayerId)) {
+			return;
+		}
+
+		try {
+			// Create filter for selected station
+			const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
+
+			// Update the radius circle data if source exists
+			if (map.getSource(radiusSourceId)) {map.getSource(radiusSourceId).setData(circle);}
+
+			// Update map bounds and center
+			if (bbox) {map.setMaxBounds(bbox);} 
+			if (coords) {map.setCenter(coords);}
+
+			// Update station styling if callback is provided
+			if (updateStylingCallback && typeof updateStylingCallback === 'function') {
+				updateStylingCallback(map, selectedStationFilter);
+			}
+
+		} catch (error) {
+			console.error('Error updating map with station data:', error);
+		}
+	}
+
+	// Handle layer toggles
+	function mapLayerToggle(map, layerVisibilityConfig) {
+    // Check if map is ready and all required layers exist
+		const requiredLayers = ['greenspace', 'transit-lines-white', 'road-simple', 'parking', 'transit-station-points'];
+		
+		if (!map || !map.isStyleLoaded()) {
+			return false; // Map not ready
+		}
+		
+		// Check if all required layers exist
+		const allLayersExist = requiredLayers.every(layerId => map.getLayer(layerId));
+		if (!allLayersExist) {
+			return false; // Not all layers are loaded yet
+		}
+		
+		// Update individual layer visibility
+		map.setLayoutProperty('greenspace', 'visibility', layerVisibilityConfig.greenspace ? 'visible' : 'none');
+		map.setLayoutProperty('transit-lines-white', 'visibility', layerVisibilityConfig.transit ? 'visible' : 'none');
+		map.setLayoutProperty('parking', 'visibility', layerVisibilityConfig.parking ? 'visible' : 'none');
+		map.setLayoutProperty('transit-station-points', 'visibility', layerVisibilityConfig.stations ? 'visible' : 'none');
+		
+		// Handle road layers (multiple layers with source-layer = 'road')
+		const roadLayers = map.getStyle().layers.filter(layer => layer['source-layer'] === 'road'); // Get all layers with source-layer = road
+		roadLayers.forEach(layer => {
+			map.setLayoutProperty(layer.id, 'visibility', layerVisibilityConfig.roads ? 'visible' : 'none');
+		});
+		
+		return true; // Successfully updated
+	}
 
 	// Process station data
-	const stationsProcessed = processStationData();
+	const stationsProcessed = processStationData(stationRawData);
 
 	// List of stations for dropdown
 	const stations = stationsProcessed.map(station => station.label);
 
-	// Create circle and bounding box for first station
-	$: if (selectedStation1) {
+	// Map 1
+	$: if (selectedStation1 && mapData[1]) {
+		// Create circle and bounding box
 		updateStationData(1, selectedStation1);
+		// Update map for selection
+		updateMapWithStationData(map1, mapData[1], {
+			updateStylingCallback: updateStationStyling
+		});
 	}
 
-	// Create circle and bounding box for second station
-	$: if (selectedStation2) {
+	// Map 2
+	$: if (selectedStation2 && mapData[2]) {
+		// Create circle and bounding box
 		updateStationData(2, selectedStation2);
+		// Update map for selection
+		updateMapWithStationData(map2, mapData[2], {
+			updateStylingCallback: updateStationStyling
+		});
 	}
-
-	// Update map bounds, center, and style based on selection
-	$: if (map1 && selectedStation1 && mapData[1].data && mapData[1].circle && map1.isStyleLoaded() && map1.getLayer('transit-station-points')) {
-
-		const selectedStationFilter = ['==', ['get', 'station_id'], mapData[1].data.id];
-
-		// Check if the source exists before trying to update it
-		if (map1.getSource('station-radius')) {
-			// Update the radius circle data
-			map1.getSource('station-radius').setData(mapData[1].circle);
-		}
-		
-		// Update map bounds and center
-		map1.setMaxBounds(mapData[1].bbox);
-		map1.setCenter(mapData[1].coords);
 	
-		// Update the paint properties to conditionally color stations
-		map1.setPaintProperty('transit-station-points', 'circle-color', [
-			'case',
-			selectedStationFilter,
-			'#FFFFFF', // Selected station
-			'#B8B8B8'  // Non-selected stations
-		]);
-
-		map1.setPaintProperty('transit-station-points', 'circle-stroke-color', [
-			'case',
-			selectedStationFilter,
-			'#000000', // Selected station
-			'#949292'  // Non-selected stations
-		]);
-
-		map1.setPaintProperty('transit-station-points', 'circle-stroke-width', [
-			'case',
-			selectedStationFilter,
-			2, // Selected station
-			1  // Non-selected stations
-		]);
-	}
-
-	// Update map bounds, center, and style based on selection
-	$: if (map2 && selectedStation2 && mapData[2].data && mapData[2].circle && map2.isStyleLoaded() && map2.getLayer('transit-station-points')) {
-
-		const selectedStationFilter = ['==', ['get', 'station_id'], mapData[2].data.id];
-
-		// Check if the source exists before trying to update it
-		if (map2.getSource('station-radius')) {
-			// Update the radius circle data
-			map2.getSource('station-radius').setData(mapData[2].circle);
-		}
-		
-		// Update map bounds and center
-		map2.setMaxBounds(mapData[2].bbox);
-		map2.setCenter(mapData[2].coords);
-
-		map2.setPaintProperty('transit-station-points', 'circle-color', [
-			'case',
-			selectedStationFilter,
-			'#FFFFFF', // Selected station
-			'#B8B8B8'  // Non-selected stations
-		]);
-
-		map2.setPaintProperty('transit-station-points', 'circle-stroke-color', [
-			'case',
-			selectedStationFilter,
-			'#000000', // Selected station
-			'#949292'  // Non-selected stations
-		]);
-
-		map2.setPaintProperty('transit-station-points', 'circle-stroke-width', [
-			'case',
-			selectedStationFilter,
-			2, // Selected station
-			1  // Non-selected stations
-		]);
-	}
-
-	// Layer visibility toggles
-	$: if (map1 && map1.isStyleLoaded() && map1.getLayer('greenspace') && map1.getLayer('transit-lines-white') && map1.getLayer('road-simple') && map1.getLayer('parking')) {
-		map1.setLayoutProperty('greenspace', 'visibility', greenspaceCheck ? 'visible' : 'none'); 
-		map1.setLayoutProperty('transit-lines-white', 'visibility', transitCheck ? 'visible' : 'none');
-		map1.setLayoutProperty('parking', 'visibility', parkingCheck ? 'visible' : 'none');
-
-		// Get all layers with 'source-layer' = road
-		const roadLayers = map1.getStyle().layers.filter(layer => layer['source-layer'] === 'road'); 
-		roadLayers.forEach(layer => map1.setLayoutProperty(layer.id, 'visibility', roadsCheck ? 'visible' : 'none'));
-	}
-
-	$: if (map2 && map2.isStyleLoaded() && map2.getLayer('greenspace') && map2.getLayer('transit-lines-white') && map2.getLayer('road-simple') && map2.getLayer('parking')) {
-		map2.setLayoutProperty('greenspace', 'visibility', greenspaceCheck ? 'visible' : 'none');
-		map2.setLayoutProperty('transit-lines-white', 'visibility', transitCheck ? 'visible' : 'none');
-		map2.setLayoutProperty('parking', 'visibility', parkingCheck ? 'visible' : 'none');
-
-		// Get all layers with 'source-layer' = road
-		const roadLayers = map2.getStyle().layers.filter(layer => layer['source-layer'] === 'road'); 
-		roadLayers.forEach(layer => map2.setLayoutProperty(layer.id, 'visibility', roadsCheck ? 'visible' : 'none'));
-	}
-
-	// Transit station visibility toggles
-	$: if (map1 && selectedStation1 && mapData[1].data && map1.getLayer('transit-station-points')) {
-		map1.setLayoutProperty('transit-station-points', 'visibility', stationCheck ? 'visible' : 'none');
-	}
-
-	$: if (map2 && selectedStation2 && mapData[2].data && map2.getLayer('transit-station-points')) {
-		map2.setLayoutProperty('transit-station-points', 'visibility', stationCheck ? 'visible' : 'none');
-	}
+	// Add layer toggles
+	// Map 1
+	$: mapLayerToggle(map1, {
+		greenspace: greenspaceCheck,
+		transit: transitCheck,
+		parking: parkingCheck,
+		stations: stationCheck,
+		roads: roadsCheck
+	});
+	// Map 2
+	$: mapLayerToggle(map2, {
+		greenspace: greenspaceCheck,
+		transit: transitCheck,
+		parking: parkingCheck,
+		stations: stationCheck,
+		roads: roadsCheck
+	});
 
 	onMount(() => {
 
@@ -258,92 +298,17 @@
 		map1 = createMap('map1', [-79.238666491, 43.7937808965], mapData[1].bbox || [[-180, -85], [180, 85]]);
 		map2 = createMap('map2', [-114.0624934, 51.0661771], mapData[2].bbox || [[-180, -85], [180, 85]]);
 
-		// map1 = new mapboxgl.Map({
-		// 	container: 'map1',
-		// 	style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
-		// 	center: [-79.238666491, 43.7937808965],
-		// 	zoom: 13,
-		// 	minZoom: 2,
-		// 	maxBounds: mapData[1].bbox,
-		// 	// scrollZoom: false,
-		// 	// dragPan: false,
-		// 	attributionControl: false
-		// });
-
-		// // Create second map
-		// map2 = new mapboxgl.Map({
-		// 	container: 'map2',
-		// 	style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
-		// 	center: [-114.0624934, 51.0661771],
-		// 	zoom: 13,
-		// 	minZoom: 2,
-		// 	maxBounds: mapData[2].bbox,
-		// 	// scrollZoom: false,
-		// 	// dragPan: false,
-		// 	attributionControl: false
-		// });
-
 		// Load first map
 		map1.on('load', () => {
-			
-			// Add station data source
-			map1.addSource('transit-station-data', {
-				type: 'geojson',
-				data: stationGeojson
-			});
-
-			// Add station radius source
-			map1.addSource('station-radius', {
-          		type: 'geojson',
-          		data: mapData[1].circle
-        	});
-
-			// Add station radius layer
-			map1.addLayer({
-				id: 'station-radius',
-				type: 'fill',
-				source: 'station-radius',
-				paint: {
-					'fill-color': 'transparent',
-            		'fill-opacity': 1.0,
-					'fill-outline-color': "red"
-				}
-        	});
-
-			// Add transit station points
-			map1.addLayer({
-				id: 'transit-station-points',
-				type: 'circle',
-				source: 'transit-station-data',
-				paint: {
-					'circle-radius': 10,
-					'circle-color': "#FFFFFF",
-					'circle-stroke-color': 'black',
-					'circle-stroke-width': 2
-					}
-			});
-
+			// Add layers
+			addMapLayers(map1, stationGeojson, mapData[1]);
 		});
 
 		// Load second map
 		map2.on('load', () => {
-			map2.addSource('transit-station-data', {
-			type: 'geojson',
-			data: stationGeojson
-		});
 
-		// Add transit station points
-  		map2.addLayer({
-    		id: 'transit-station-points',
-    		type: 'circle',
-    		source: 'transit-station-data',
-    		paint: {
-      			'circle-radius': 10,
-      			'circle-color': '#FFFFFF',
-				'circle-stroke-color': 'black',
-				'circle-stroke-width': 2
-    			}
-  			});
+			// Add layers
+			addMapLayers(map2, stationGeojson, mapData[2]);
 		});
 		
 	});
