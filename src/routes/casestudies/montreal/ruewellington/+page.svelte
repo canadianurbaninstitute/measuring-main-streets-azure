@@ -26,8 +26,7 @@
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 	import { timeFormat } from 'd3-time-format';
 	import { browser } from '$app/environment';
 	import mapboxgl from 'mapbox-gl';

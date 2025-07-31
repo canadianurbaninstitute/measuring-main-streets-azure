@@ -7,7 +7,7 @@
 
 	import Footer from '../../lib/ui/Footer.svelte';
 	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
-	import BubbleChart from '../../lib/BubbleChart.svelte'
+	import BubbleChart from '../../lib/components/BubbleChart.svelte'
 
 
 	import '../../styles.css';

@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import regions from '../../lib/data/transit-regions.json';
+	import Select from '../../lib/ui/Select.svelte';
+	import transitLines from './transit-lines.json'
 
 	// Component props - receives transit station data from parent
 	export let data = [];
@@ -15,7 +17,7 @@
 	// Height reserved for the sticky X-axis that remains visible during scroll
 	const stickyXAxisHeight = 35;
 
-	// Color mapping for different transit lines - each line has a unique color
+	// Color mapping for different transit lines - each line has a unique color base on id
 	const line_colors = {
 		7: '#00923f',
 		6: '#f8c300',
@@ -67,7 +69,7 @@
 	const variables = [
 		{ value: 'TotalPopulation', label: 'Population' },
 		{ value: 'TotalHouseholds', label: 'Households' },
-		{ value: 'GreenspaceArea', label: 'Greenspace (sq. m)' },
+		{ value: 'GreenspaceArea', label: 'Greenspace (square metres)' },
 		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
 		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
 		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' }
@@ -77,6 +79,16 @@
 	$: if (selectedLine === null && regions.length) {
 		const firstRegion = regions[0];
 		if (firstRegion?.lines?.length) selectedLine = firstRegion.lines[0].id;
+	}
+
+	// Handle selection from the new Select component
+	function handleLineSelect(value) {
+		selectedLine = +value; // Convert to number to match existing behavior
+	}
+
+	// Handle variable selection
+	function handleVariableSelect(value) {
+		selectedVariable = value;
 	}
 
 	// Filter and sort data for the selected transit line
@@ -366,27 +378,11 @@
 	<div class="controls">
 		<div class="select-wrapper">
 			<label for="line-select">Select Line:</label>
-			<select
-				id="line-select"
-				bind:value={selectedLine}
-				on:change={() => (selectedLine = +selectedLine)}
-			>
-				{#each regions as region}
-					<optgroup label={region.name}>
-						{#each region.lines as line}
-							<option value={line.id}>{line.name}</option>
-						{/each}
-					</optgroup>
-				{/each}
-			</select>
+			<Select data={transitLines} icon="mdi:train" placeholder={"Select a Transit Line"} selected={100} handleSelectfunction={handleLineSelect}></Select>
 		</div>
 		<div class="select-wrapper">
 			<label for="variable-select">Select Variable:</label>
-			<select id="variable-select" bind:value={selectedVariable}>
-				{#each variables as variable}
-					<option value={variable.value}>{variable.label}</option>
-				{/each}
-			</select>
+			<Select data={variables} icon="mdi:chart-bar" placeholder={"Select Variable"} selected={'TotalPopulation'} handleSelectfunction={handleVariableSelect}></Select>
 		</div>
 	</div>
 
@@ -415,19 +411,12 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.5em;
+		min-width: 350px;
 	}
 	.select-wrapper label {
 		font-size: 0.9em;
 		font-weight: 500;
 		color: #333;
-	}
-	select {
-		padding: 0.75em 1em;
-		border-radius: 6px;
-		border: 1px solid #ccc;
-		min-width: 280px;
-		background-color: white;
-		font-size: 1em;
 	}
 
 	/* Chart container with relative positioning for sticky elements */

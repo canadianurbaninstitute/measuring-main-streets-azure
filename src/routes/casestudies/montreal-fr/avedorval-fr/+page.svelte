@@ -25,8 +25,7 @@
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/CaseStudyMap.svelte';
-	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
 
 	import { timeFormat } from 'd3-time-format';
 

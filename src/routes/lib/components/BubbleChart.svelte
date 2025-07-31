@@ -1,7 +1,7 @@
 <script>
     import { ScatterChart } from '@onsvisual/svelte-charts';
 
-    import LegendItem from "./ui/legends/LegendItem.svelte"
+    import LegendItem from "../ui/legends/LegendItem.svelte"
   
     export let data;
 
