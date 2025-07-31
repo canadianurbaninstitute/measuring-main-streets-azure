@@ -11,8 +11,8 @@
 	import Fuse from 'fuse.js';
 
 	// --- Data Imports ---
-	import stationRawData from '../lib/data/stations.json';
-	import transitRegionsRawData from '../lib/data/transit-regions.json';
+	import stationRawData from '../lib/data/transitdata/stations.json';
+	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -650,7 +650,6 @@
 		<input type="text" bind:value={searchTerm} placeholder="Search for a region, line, or station..." class="search-input"/>
 	</div>
 	<div id="filter-container">
-		<h4>Filter</h4>
 		<div class="filter-group">
 			<h4>Status:</h4>
 			<label

@@ -260,6 +260,14 @@ button:active {
     height: 1.5em;
 }
 
+.icon-start.combobox {
+    position: absolute;
+    left: 1em;
+    margin-right: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .icon-end {
     margin-left: auto;
     color: var(--muted-foreground);

@@ -80,6 +80,3 @@ function isGroupedData(data) {
             </Select.Content>
         </Select.Portal>
     </Select.Root>
-
-<style>
-</style>

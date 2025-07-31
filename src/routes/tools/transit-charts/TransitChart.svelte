@@ -1,9 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
-	import regions from '../../lib/data/transit-regions.json';
 	import Select from '../../lib/ui/Select.svelte';
-	import transitLines from './transit-lines.json'
+	import transitLines from './transit-lines.json'; // labels for the select dropdown
 
 	// Component props - receives transit station data from parent
 	export let data = [];
@@ -11,6 +10,7 @@
 	// Reactive state for user selections
 	let selectedLine = null; // Currently selected transit line ID
 	let selectedVariable = 'TotalPopulation'; // Currently selected metric to display
+
 	let chart; // Reference to the main chart container div
 	let tooltip; // D3 tooltip element for hover interactions
 
@@ -65,7 +65,7 @@
 		114: '#a6dca8'
 	};
 
-	// Available metrics that can be displayed for each station
+	// Available metrics that can be displayed for each station add more as needed
 	const variables = [
 		{ value: 'TotalPopulation', label: 'Population' },
 		{ value: 'TotalHouseholds', label: 'Households' },
@@ -76,9 +76,9 @@
 	];
 
 	// Auto-select first available line when component initializes
-	$: if (selectedLine === null && regions.length) {
-		const firstRegion = regions[0];
-		if (firstRegion?.lines?.length) selectedLine = firstRegion.lines[0].id;
+	$: if (selectedLine === null && transitLines) {
+		const firstRegion = Object.values(transitLines)[0];
+		if (firstRegion?.length) selectedLine = firstRegion[0].value;
 	}
 
 	// Handle selection from the new Select component
@@ -167,10 +167,11 @@
 
 		// Calculate chart dimensions and margins
 		const longestLabelLen = d3.max(filteredData, (d) => d.stop_label.length) || 10;
+
 		const margin = {
 			top: 50,
 			right: 50,
-			bottom: 60, 
+			bottom: 60,
 			left: estimateMargin(longestLabelLen)
 		};
 		const chartHostDivWidth = chart.clientWidth || 600;
@@ -220,7 +221,7 @@
 			.range([0, plotAreaHeight])
 			.domain(filteredData.map((d) => d.stop_label))
 			.padding(0.25);
-		
+
 		// X-scale for metric values (continuous)
 		const maxVal = d3.max(filteredData, (d) => +d[selectedVariable]) || 0;
 		const x = d3.scaleLinear().range([0, plotAreaWidth]).domain([0, maxVal]).nice();
@@ -249,16 +250,14 @@
 			.attr('fill', getFillStyle)
 			.attr('stroke', lineColor)
 			.attr('stroke-width', 2)
+
 			// Mouse interaction handlers
 			.on('mouseover', function (event, d) {
-	    d3.select(this)
-					.style('filter', 'brightness(0.9)')
-					.style('cursor', 'pointer');
+				d3.select(this).style('filter', 'brightness(0.9)').style('cursor', 'pointer');
 				const currentVarMeta = variables.find((v) => v.value === selectedVariable);
 
 				tooltip.transition().duration(200).style('opacity', 0.9);
-				tooltip
-					.html(
+				tooltip.html(
 						`<div style="font-weight:600;margin-bottom:4px;">${d.stop_label}</div>` +
 							`<div style="font-weight:400;margin-bottom:4px;">${d.status || 'N/A'} Station</div>` +
 							`<div>${currentVarMeta.label}: ${d3.format(',')(d[selectedVariable])}</div>`
@@ -338,17 +337,16 @@
 		// Style the X-axis with formatted numbers
 		xAxisG.call(d3.axisBottom(x).tickFormat(d3.format(','))).call((g) => {
 			g.selectAll('.tick line').attr('stroke', '#444');
-      g.selectAll('.tick line').attr('stroke-width', '2px');
+			g.selectAll('.tick line').attr('stroke-width', '2px');
 			g.selectAll('.tick text').attr('fill', '#444');
 			g.select('.domain').attr('stroke', '#444');
-      g.select('.domain').attr('stroke-width', '2px');
+			g.select('.domain').attr('stroke-width', '2px');
 
 			g.selectAll('text')
 				.style('font-family', 'Inter, sans-serif')
 				.style('font-size', '12px')
 				.style('font-weight', '600')
-        .style('text-shadow', '0 0 5px white, 0 0 5px white'); // White glow for readability
-
+				.style('text-shadow', '0 0 5px white, 0 0 5px white'); // White glow for readability
 		});
 	}
 
@@ -360,7 +358,7 @@
 	// Component lifecycle management
 	onMount(() => {
 		// Initial chart render if data is available
-		if (data && data.length > 0 && regions && regions.length > 0) {
+		if (data && data.length > 0 && transitLines) {
 			updateChart();
 		}
 		// Handle window resize for responsive behavior
@@ -378,11 +376,26 @@
 	<div class="controls">
 		<div class="select-wrapper">
 			<label for="line-select">Select Line:</label>
-			<Select data={transitLines} icon="mdi:train" placeholder={"Select a Transit Line"} selected={100} handleSelectfunction={handleLineSelect}></Select>
+			<Select
+				data={transitLines}
+				icon="mdi:train"
+				placeholder={'Select a Transit Line'}
+				selected={100}
+				handleSelectfunction={handleLineSelect}
+			></Select>
+		
 		</div>
 		<div class="select-wrapper">
 			<label for="variable-select">Select Variable:</label>
-			<Select data={variables} icon="mdi:chart-bar" placeholder={"Select Variable"} selected={'TotalPopulation'} handleSelectfunction={handleVariableSelect}></Select>
+			<Select
+				data={variables}
+				icon="mdi:chart-bar"
+				placeholder={'Select Variable'}
+				selected={'TotalPopulation'}
+				handleSelectfunction={handleVariableSelect}
+			></Select>
+		</div>
+		<div class="select-wrapper">
 		</div>
 	</div>
 
@@ -435,6 +448,5 @@
 		left: 0; /* Align to left edge */
 		width: 100%; /* Full width */
 		z-index: 990; /* Ensure visibility above other chart elements */
-  }
-
+	}
 </style>

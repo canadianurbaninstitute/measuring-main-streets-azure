@@ -1,7 +1,7 @@
 <script>
 	import TransitChart from './TransitChart.svelte';
 
-	import stationData from '../../lib/data/chart-stations.json';
+	import stationData from '../../lib/data/transitdata/chart-stations.json';
 
 	import '../../styles.css';
 </script>
