@@ -397,13 +397,13 @@
 				handleSelect={handleVariableSelect}
 			></Select>
 		</div>
-		<div class="select-wrapper">
-			<Combobox
+		<!-- <div class="select-wrapper">
+			<Combobo
 			data={transitStations}
 			icon="mdi:train"
 			placeholder={'Search for a Transit Station'}
 		></Combobox>
-		</div>
+		</div> -->
 	</div>
 
 	<!-- Chart container where D3 visualization is rendered -->
