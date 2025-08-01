@@ -1,6 +1,6 @@
 # Measuring Main Streets
 
-Welcome to the Measuring Main Streets Platform repository. MMSP is a SvelteKit-based web application for interactive mapping, data visualization, and research tools, deployed with Azure Static Web Apps.
+Welcome to the Measuring Main Streets Platform repo. MMSP is a SvelteKit-based web application for interactive mapping, data visualization, and research tools, deployed with Azure Static Web Apps.
 
 ## Table of Contents
 - [Tech Stack](#tech-stack)
