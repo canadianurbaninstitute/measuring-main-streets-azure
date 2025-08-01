@@ -241,12 +241,12 @@
 	<div class="controls">
 		<div class="select-wrapper">
 			<h4>Select a variable:</h4>
-			<Select handleSelectfunction={handleSelectVariable} data={variableNamesGrouped} icon="mdi:chart-bar" placeholder={"Select a variable"}></Select>
+			<Select handleSelect={handleSelectVariable} data={variableNamesGrouped} icon="mdi:chart-bar" placeholder={"Select a variable"}></Select>
 		</div>
 
 		<div class="select-wrapper">
 			<h4>Select a region:</h4>
-			<Select handleSelectfunction={handleSelect} data={cmaSummaryGrouped} icon="mdi:map-marker-outline" selected={'Population'} placeholder={"Select a region"}></Select>
+			<Select handleSelect={handleSelect} data={cmaSummaryGrouped} icon="mdi:map-marker-outline" selected={'Population'} placeholder={"Select a region"}></Select>
 		</div>
 
 

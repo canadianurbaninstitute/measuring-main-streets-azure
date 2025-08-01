@@ -4,7 +4,7 @@
 import { Select } from "bits-ui"
 import Icon from '@iconify/svelte'
 
-export let handleSelectfunction;
+export let handleSelect;
 export let data;
 export let icon;
 export let placeholder;
@@ -33,7 +33,7 @@ function isGroupedData(data) {
 }
 
 </script>
-    <Select.Root type="single" bind:value={selected} onValueChange={handleSelectfunction}>
+    <Select.Root type="single" bind:value={selected} onValueChange={handleSelect}>
         <Select.Trigger class="select-trigger" aria-label="Select">
             <Icon icon={icon} class="icon-start" />
             {#if selected}

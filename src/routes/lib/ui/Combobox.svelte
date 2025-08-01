@@ -3,7 +3,7 @@
 import { Combobox } from "bits-ui"
 import Icon from '@iconify/svelte'
 
-export let handleSelectfunction;
+export let handleSelect;
 export let data;
 export let icon;
 export let placeholder;
@@ -90,7 +90,7 @@ function handleOpenChange(open) {
 <Combobox.Root 
     {type} 
     bind:value={selected} 
-    onValueChange={handleSelectfunction}
+    onValueChange={handleSelect}
     onOpenChange={handleOpenChange}
 >
     <div class="relative">

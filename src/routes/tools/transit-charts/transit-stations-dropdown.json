@@ -1,0 +1,3394 @@
+{
+    "Quebec Tramway": [
+      {
+        "value": 619,
+        "label": "McCartney"
+      },
+      {
+        "value": 620,
+        "label": "Pie-XII"
+      },
+      {
+        "value": 621,
+        "label": "Bégon"
+      },
+      {
+        "value": 622,
+        "label": "Duchesneau"
+      },
+      {
+        "value": 623,
+        "label": "Roland-Beaudin"
+      },
+      {
+        "value": 624,
+        "label": "Place Sainte-Foy"
+      },
+      {
+        "value": 625,
+        "label": "Desjardins"
+      },
+      {
+        "value": 626,
+        "label": "Myrand"
+      },
+      {
+        "value": 627,
+        "label": "Maguire"
+      },
+      {
+        "value": 628,
+        "label": "Holland"
+      },
+      {
+        "value": 629,
+        "label": "Collège Saint-Charles-Garnier"
+      },
+      {
+        "value": 630,
+        "label": "Belvédère"
+      },
+      {
+        "value": 631,
+        "label": "Jean-Paul-L'Allier"
+      },
+      {
+        "value": 632,
+        "label": "Colline Parlementaire"
+      },
+      {
+        "value": 633,
+        "label": "D'Youville"
+      },
+      {
+        "value": 634,
+        "label": "Bardy"
+      },
+      {
+        "value": 635,
+        "label": "De Courtemanche"
+      },
+      {
+        "value": 636,
+        "label": "Cégep-Limoilou"
+      },
+      {
+        "value": 637,
+        "label": "Brown"
+      },
+      {
+        "value": 638,
+        "label": "Cartier"
+      },
+      {
+        "value": 639,
+        "label": "CHUL"
+      },
+      {
+        "value": 640,
+        "label": "Chaudière"
+      },
+      {
+        "value": 641,
+        "label": "3e Avenue"
+      },
+      {
+        "value": 642,
+        "label": "Cégep-Limoilou"
+      },
+      {
+        "value": 643,
+        "label": "Hôpital l'Enfant-Jésus"
+      },
+      {
+        "value": 644,
+        "label": "Pôle D'Estimauville"
+      },
+      {
+        "value": 645,
+        "label": "Pôle de l'Université Laval"
+      },
+      {
+        "value": 646,
+        "label": "Pôle de Saint-Roch"
+      },
+      {
+        "value": 647,
+        "label": "Pôle de Sainte-Foy"
+      },
+      {
+        "value": 648,
+        "label": "Pôle Le Gendre"
+      }
+    ],
+    "Line 1: Trim-Algonquin": [
+      {
+        "value": 589,
+        "label": "uOttawa"
+      },
+      {
+        "value": 590,
+        "label": "Cyrville"
+      },
+      {
+        "value": 591,
+        "label": "Lyon"
+      },
+      {
+        "value": 592,
+        "label": "Parliament"
+      },
+      {
+        "value": 593,
+        "label": "Tremblay"
+      },
+      {
+        "value": 594,
+        "label": "Tunney's Pasture"
+      },
+      {
+        "value": 596,
+        "label": "St-Laurent"
+      },
+      {
+        "value": 598,
+        "label": "Rideau"
+      },
+      {
+        "value": 603,
+        "label": "Lees"
+      },
+      {
+        "value": 604,
+        "label": "Pimisi"
+      },
+      {
+        "value": 606,
+        "label": "Hurdman"
+      },
+      {
+        "value": 609,
+        "label": "Blair"
+      },
+      {
+        "value": 610,
+        "label": "Bayview"
+      },
+      {
+        "value": 570,
+        "label": "Sherbourne"
+      },
+      {
+        "value": 573,
+        "label": "Iris"
+      },
+      {
+        "value": 575,
+        "label": "New Orchard"
+      },
+      {
+        "value": 576,
+        "label": "Westboro"
+      },
+      {
+        "value": 578,
+        "label": "Convent Glen"
+      },
+      {
+        "value": 581,
+        "label": "Kichi Zìbì"
+      },
+      {
+        "value": 583,
+        "label": "Montréal"
+      },
+      {
+        "value": 587,
+        "label": "Algonquin"
+      },
+      {
+        "value": 595,
+        "label": "Trim"
+      },
+      {
+        "value": 599,
+        "label": "Place d'Orléans"
+      },
+      {
+        "value": 601,
+        "label": "Lincoln Fields"
+      },
+      {
+        "value": 605,
+        "label": "Jeanne d'Arc"
+      }
+    ],
+    "Line 2: Bayview-Limebank": [
+      {
+        "value": 579,
+        "label": "Walkley"
+      },
+      {
+        "value": 580,
+        "label": "Corso Italia"
+      },
+      {
+        "value": 584,
+        "label": "Limebank"
+      },
+      {
+        "value": 585,
+        "label": "Dow's Lake"
+      },
+      {
+        "value": 586,
+        "label": "Bowesville"
+      },
+      {
+        "value": 597,
+        "label": "South Keys"
+      },
+      {
+        "value": 600,
+        "label": "Mooney's Bay"
+      },
+      {
+        "value": 602,
+        "label": "Leitrim"
+      },
+      {
+        "value": 607,
+        "label": "Greenboro"
+      },
+      {
+        "value": 608,
+        "label": "Carleton"
+      },
+      {
+        "value": 610,
+        "label": "Bayview"
+      }
+    ],
+    "Line 3: Trim-Moodie": [
+      {
+        "value": 589,
+        "label": "uOttawa"
+      },
+      {
+        "value": 591,
+        "label": "Lyon"
+      },
+      {
+        "value": 592,
+        "label": "Parliament"
+      },
+      {
+        "value": 593,
+        "label": "Tremblay"
+      },
+      {
+        "value": 594,
+        "label": "Tunney's Pasture"
+      },
+      {
+        "value": 596,
+        "label": "St-Laurent"
+      },
+      {
+        "value": 598,
+        "label": "Rideau"
+      },
+      {
+        "value": 603,
+        "label": "Lees"
+      },
+      {
+        "value": 604,
+        "label": "Pimisi"
+      },
+      {
+        "value": 606,
+        "label": "Hurdman"
+      },
+      {
+        "value": 609,
+        "label": "Blair"
+      },
+      {
+        "value": 610,
+        "label": "Bayview"
+      },
+      {
+        "value": 570,
+        "label": "Sherbourne"
+      },
+      {
+        "value": 571,
+        "label": "Pinecrest"
+      },
+      {
+        "value": 572,
+        "label": "Bayshore"
+      },
+      {
+        "value": 574,
+        "label": "Queensview"
+      },
+      {
+        "value": 575,
+        "label": "New Orchard"
+      },
+      {
+        "value": 576,
+        "label": "Westboro"
+      },
+      {
+        "value": 577,
+        "label": "Moodie"
+      },
+      {
+        "value": 578,
+        "label": "Convent Glen"
+      },
+      {
+        "value": 581,
+        "label": "Kichi Zìbì"
+      },
+      {
+        "value": 583,
+        "label": "Montréal"
+      },
+      {
+        "value": 595,
+        "label": "Trim"
+      },
+      {
+        "value": 599,
+        "label": "Place d'Orléans"
+      },
+      {
+        "value": 601,
+        "label": "Lincoln Fields"
+      },
+      {
+        "value": 605,
+        "label": "Jeanne d'Arc"
+      }
+    ],
+    "Line 4: Airport-South Keys": [
+      {
+        "value": 582,
+        "label": "Uplands"
+      },
+      {
+        "value": 588,
+        "label": "Airport"
+      },
+      {
+        "value": 597,
+        "label": "South Keys"
+      }
+    ],
+    "TramGO": [
+      {
+        "value": 611,
+        "label": "Eardley"
+      },
+      {
+        "value": 612,
+        "label": "Galeries Aylmer"
+      },
+      {
+        "value": 613,
+        "label": "Rivermead"
+      },
+      {
+        "value": 614,
+        "label": "Chaudières"
+      },
+      {
+        "value": 615,
+        "label": "Vanier"
+      },
+      {
+        "value": 616,
+        "label": "Plateau"
+      },
+      {
+        "value": 617,
+        "label": "Europe"
+      },
+      {
+        "value": 618,
+        "label": "Ottawa"
+      }
+    ],
+    "Ligne Bleue": [
+      {
+        "value": 427,
+        "label": "Pie-IX"
+      },
+      {
+        "value": 428,
+        "label": "Viau"
+      },
+      {
+        "value": 429,
+        "label": "Lacordier"
+      },
+      {
+        "value": 430,
+        "label": "Langelier"
+      },
+      {
+        "value": 431,
+        "label": "Anjou"
+      },
+      {
+        "value": 465,
+        "label": "Snowdon"
+      },
+      {
+        "value": 480,
+        "label": "Jean-Talon"
+      },
+      {
+        "value": 489,
+        "label": "Côte-des-Neiges"
+      },
+      {
+        "value": 490,
+        "label": "Université-de-Montréal"
+      },
+      {
+        "value": 491,
+        "label": "Édouard-Montpetit"
+      },
+      {
+        "value": 492,
+        "label": "Outremont"
+      },
+      {
+        "value": 493,
+        "label": "Acadie"
+      },
+      {
+        "value": 494,
+        "label": "Parc"
+      },
+      {
+        "value": 495,
+        "label": "De Castelnau"
+      },
+      {
+        "value": 496,
+        "label": "Fabre"
+      },
+      {
+        "value": 497,
+        "label": "D'Iberville"
+      },
+      {
+        "value": 498,
+        "label": "Saint-Michel"
+      }
+    ],
+    "Ligne Candiac": [
+      {
+        "value": 467,
+        "label": "Vendôme"
+      },
+      {
+        "value": 470,
+        "label": "Lucien-L'Allier"
+      },
+      {
+        "value": 500,
+        "label": "Montréal-Ouest"
+      },
+      {
+        "value": 522,
+        "label": "Lasalle"
+      },
+      {
+        "value": 523,
+        "label": "Sainte-Catherine"
+      },
+      {
+        "value": 527,
+        "label": "Candiac"
+      },
+      {
+        "value": 532,
+        "label": "Delson"
+      },
+      {
+        "value": 543,
+        "label": "Saint-Constant"
+      },
+      {
+        "value": 545,
+        "label": "Du Canal"
+      }
+    ],
+    "Ligne Jaune": [
+      {
+        "value": 446,
+        "label": "Berri-UQAM"
+      },
+      {
+        "value": 487,
+        "label": "Jean-Drapeau"
+      },
+      {
+        "value": 488,
+        "label": "Longueuil-Université de Sherbrooke -Zone B"
+      }
+    ],
+    "Ligne Mascouche": [
+      {
+        "value": 483,
+        "label": "Sauvé"
+      },
+      {
+        "value": 514,
+        "label": "Gare Centrale"
+      },
+      {
+        "value": 533,
+        "label": "Saint-Léonard–Montréal-Nord"
+      },
+      {
+        "value": 534,
+        "label": "Saint-Michel–Montréal-Nord"
+      },
+      {
+        "value": 535,
+        "label": "Ahuntsic"
+      },
+      {
+        "value": 536,
+        "label": "Anjou"
+      },
+      {
+        "value": 537,
+        "label": "Pointe-aux-Trembles"
+      },
+      {
+        "value": 538,
+        "label": "Repentigny"
+      },
+      {
+        "value": 539,
+        "label": "Terrebonne"
+      },
+      {
+        "value": 540,
+        "label": "Rivière-des-Prairies"
+      },
+      {
+        "value": 544,
+        "label": "Mascouche"
+      }
+    ],
+    "Ligne Mont-Saint-Hilaire": [
+      {
+        "value": 514,
+        "label": "Gare Centrale"
+      },
+      {
+        "value": 520,
+        "label": "McMasterville"
+      },
+      {
+        "value": 521,
+        "label": "Saint-Bruno"
+      },
+      {
+        "value": 524,
+        "label": "Mont-Saint-Hilaire"
+      },
+      {
+        "value": 525,
+        "label": "Saint-Basile-le-Grand"
+      },
+      {
+        "value": 531,
+        "label": "Saint-Lambert"
+      },
+      {
+        "value": 542,
+        "label": "Saint-Hubert"
+      }
+    ],
+    "Ligne Orange": [
+      {
+        "value": 439,
+        "label": "Lionel-Groulx"
+      },
+      {
+        "value": 446,
+        "label": "Berri-UQAM"
+      },
+      {
+        "value": 459,
+        "label": "Côte-Vertu"
+      },
+      {
+        "value": 460,
+        "label": "Du Collège"
+      },
+      {
+        "value": 461,
+        "label": "De la Savane"
+      },
+      {
+        "value": 462,
+        "label": "Namur"
+      },
+      {
+        "value": 463,
+        "label": "Plamondon"
+      },
+      {
+        "value": 464,
+        "label": "Côte-Sainte-Catherine"
+      },
+      {
+        "value": 465,
+        "label": "Snowdon"
+      },
+      {
+        "value": 466,
+        "label": "Villa-Maria"
+      },
+      {
+        "value": 467,
+        "label": "Vendôme"
+      },
+      {
+        "value": 468,
+        "label": "Place-Saint-Henri"
+      },
+      {
+        "value": 469,
+        "label": "Georges-Vanier"
+      },
+      {
+        "value": 470,
+        "label": "Lucien-L'Allier"
+      },
+      {
+        "value": 471,
+        "label": "Bonaventure"
+      },
+      {
+        "value": 472,
+        "label": "Square-Victoria–OACI"
+      },
+      {
+        "value": 473,
+        "label": "Place-d'Armes"
+      },
+      {
+        "value": 474,
+        "label": "Champ-de-Mars"
+      },
+      {
+        "value": 475,
+        "label": "Sherbrooke"
+      },
+      {
+        "value": 476,
+        "label": "Mont-Royal"
+      },
+      {
+        "value": 477,
+        "label": "Laurier"
+      },
+      {
+        "value": 478,
+        "label": "Rosemont"
+      },
+      {
+        "value": 479,
+        "label": "Beaubien"
+      },
+      {
+        "value": 480,
+        "label": "Jean-Talon"
+      },
+      {
+        "value": 481,
+        "label": "Jarry"
+      },
+      {
+        "value": 482,
+        "label": "Crémazie"
+      },
+      {
+        "value": 483,
+        "label": "Sauvé"
+      },
+      {
+        "value": 484,
+        "label": "Henri-Bourassa"
+      },
+      {
+        "value": 485,
+        "label": "De la Concorde"
+      },
+      {
+        "value": 486,
+        "label": "Montmorency -Zone B"
+      },
+      {
+        "value": 499,
+        "label": "Cartier"
+      }
+    ],
+    "Ligne Saint-Jérôme": [
+      {
+        "value": 467,
+        "label": "Vendôme"
+      },
+      {
+        "value": 470,
+        "label": "Lucien-L'Allier"
+      },
+      {
+        "value": 485,
+        "label": "De la Concorde"
+      },
+      {
+        "value": 494,
+        "label": "Parc"
+      },
+      {
+        "value": 500,
+        "label": "Montréal-Ouest"
+      },
+      {
+        "value": 515,
+        "label": "Bois-de-Boulogne"
+      },
+      {
+        "value": 516,
+        "label": "Sainte-Rose"
+      },
+      {
+        "value": 517,
+        "label": "Rosemère"
+      },
+      {
+        "value": 518,
+        "label": "Blainville"
+      },
+      {
+        "value": 519,
+        "label": "Sainte-Thérèse"
+      },
+      {
+        "value": 528,
+        "label": "Vimont"
+      },
+      {
+        "value": 529,
+        "label": "Saint-Jérôme"
+      },
+      {
+        "value": 530,
+        "label": "Chabanel"
+      },
+      {
+        "value": 546,
+        "label": "Mirabel"
+      }
+    ],
+    "Ligne Vaudreuil/Hudson": [
+      {
+        "value": 467,
+        "label": "Vendôme"
+      },
+      {
+        "value": 470,
+        "label": "Lucien-L'Allier"
+      },
+      {
+        "value": 500,
+        "label": "Montréal-Ouest"
+      },
+      {
+        "value": 501,
+        "label": "Lachine"
+      },
+      {
+        "value": 502,
+        "label": "Dorval"
+      },
+      {
+        "value": 503,
+        "label": "Pine Beach"
+      },
+      {
+        "value": 504,
+        "label": "Valois"
+      },
+      {
+        "value": 505,
+        "label": "Pointe-Claire"
+      },
+      {
+        "value": 506,
+        "label": "Cedar Park"
+      },
+      {
+        "value": 507,
+        "label": "Beaconsfield"
+      },
+      {
+        "value": 508,
+        "label": "Beaurepaire"
+      },
+      {
+        "value": 509,
+        "label": "Baie-d'Urfé"
+      },
+      {
+        "value": 510,
+        "label": "Sainte-Anne-de-Bellevue"
+      },
+      {
+        "value": 511,
+        "label": "Île-Perrot"
+      },
+      {
+        "value": 512,
+        "label": "Dorion"
+      },
+      {
+        "value": 513,
+        "label": "Hudson"
+      },
+      {
+        "value": 526,
+        "label": "Vaudreuil"
+      },
+      {
+        "value": 541,
+        "label": "Pincourt-Terrasse-Vaudreuil"
+      }
+    ],
+    "Ligne Verte": [
+      {
+        "value": 432,
+        "label": "Angrignon"
+      },
+      {
+        "value": 433,
+        "label": "Monk"
+      },
+      {
+        "value": 434,
+        "label": "Jolicoeur"
+      },
+      {
+        "value": 435,
+        "label": "Verdun"
+      },
+      {
+        "value": 436,
+        "label": "De l'Église"
+      },
+      {
+        "value": 437,
+        "label": "LaSalle"
+      },
+      {
+        "value": 438,
+        "label": "Charlevoix"
+      },
+      {
+        "value": 439,
+        "label": "Lionel-Groulx"
+      },
+      {
+        "value": 440,
+        "label": "Atwater"
+      },
+      {
+        "value": 441,
+        "label": "Guy-Concordia"
+      },
+      {
+        "value": 442,
+        "label": "Peel"
+      },
+      {
+        "value": 443,
+        "label": "McGill"
+      },
+      {
+        "value": 444,
+        "label": "Place-des-Arts"
+      },
+      {
+        "value": 445,
+        "label": "Saint-Laurent"
+      },
+      {
+        "value": 446,
+        "label": "Berri-UQAM"
+      },
+      {
+        "value": 447,
+        "label": "Beaudry"
+      },
+      {
+        "value": 448,
+        "label": "Papineau"
+      },
+      {
+        "value": 449,
+        "label": "Frontenac"
+      },
+      {
+        "value": 450,
+        "label": "Préfontaine"
+      },
+      {
+        "value": 451,
+        "label": "Joliette"
+      },
+      {
+        "value": 452,
+        "label": "Pie-IX"
+      },
+      {
+        "value": 453,
+        "label": "Viau"
+      },
+      {
+        "value": 454,
+        "label": "Assomption"
+      },
+      {
+        "value": 455,
+        "label": "Cadillac"
+      },
+      {
+        "value": 456,
+        "label": "Langelier"
+      },
+      {
+        "value": 457,
+        "label": "Radisson"
+      },
+      {
+        "value": 458,
+        "label": "Honoré-Beaugrand"
+      }
+    ],
+    "REM": [
+      {
+        "value": 563,
+        "label": "Griffintown - Bernard-Landry"
+      },
+      {
+        "value": 514,
+        "label": "Gare Centrale"
+      },
+      {
+        "value": 566,
+        "label": "Île-des-Sœurs"
+      },
+      {
+        "value": 567,
+        "label": "Panama"
+      },
+      {
+        "value": 568,
+        "label": "Du Quartier"
+      },
+      {
+        "value": 569,
+        "label": "Brossard"
+      },
+      {
+        "value": 443,
+        "label": "McGill"
+      },
+      {
+        "value": 491,
+        "label": "Édouard-Montpetit"
+      },
+      {
+        "value": 547,
+        "label": "Canora"
+      },
+      {
+        "value": 548,
+        "label": "Ville-de-Mont-Royal"
+      },
+      {
+        "value": 549,
+        "label": "Côte-de-Liesse"
+      },
+      {
+        "value": 550,
+        "label": "Montpellier"
+      },
+      {
+        "value": 551,
+        "label": "Du Ruisseau"
+      },
+      {
+        "value": 552,
+        "label": "Bois-Franc"
+      },
+      {
+        "value": 553,
+        "label": "Pierrefonds-Roxboro"
+      },
+      {
+        "value": 554,
+        "label": "Sunnybrooke"
+      },
+      {
+        "value": 555,
+        "label": "Île-Bigras"
+      },
+      {
+        "value": 556,
+        "label": "Grand-Moulin"
+      },
+      {
+        "value": 557,
+        "label": "Deux-Montagnes"
+      },
+      {
+        "value": 558,
+        "label": "Des Sources"
+      },
+      {
+        "value": 559,
+        "label": "Fairview Pointe-Claire"
+      },
+      {
+        "value": 560,
+        "label": "Kirkland"
+      },
+      {
+        "value": 561,
+        "label": "Anse-à-l'Orme"
+      },
+      {
+        "value": 562,
+        "label": "Marie-Curie"
+      },
+      {
+        "value": 564,
+        "label": "Sainte-Dorothée"
+      },
+      {
+        "value": 565,
+        "label": "YUL-Aéroport-Montréal-Trudeau"
+      }
+    ],
+    "Canada Line": [
+      {
+        "value": 728,
+        "label": "Capstan"
+      },
+      {
+        "value": 652,
+        "label": "Aberdeen"
+      },
+      {
+        "value": 657,
+        "label": "Bridgeport"
+      },
+      {
+        "value": 658,
+        "label": "Broadway-City Hall"
+      },
+      {
+        "value": 676,
+        "label": "King Edward"
+      },
+      {
+        "value": 680,
+        "label": "Langara-49th Avenue"
+      },
+      {
+        "value": 682,
+        "label": "Lansdowne"
+      },
+      {
+        "value": 687,
+        "label": "Marine Drive"
+      },
+      {
+        "value": 694,
+        "label": "Oakridge-41st Avenue"
+      },
+      {
+        "value": 696,
+        "label": "Olympic Village"
+      },
+      {
+        "value": 703,
+        "label": "Richmond-Brighouse"
+      },
+      {
+        "value": 708,
+        "label": "Sea Island Centre"
+      },
+      {
+        "value": 713,
+        "label": "Templeton"
+      },
+      {
+        "value": 714,
+        "label": "Vancouver City Centre"
+      },
+      {
+        "value": 716,
+        "label": "Waterfront"
+      },
+      {
+        "value": 718,
+        "label": "Yaletown-Roundhouse"
+      },
+      {
+        "value": 719,
+        "label": "YVR-Airport"
+      }
+    ],
+    "Expo Line": [
+      {
+        "value": 650,
+        "label": "22nd Street"
+      },
+      {
+        "value": 651,
+        "label": "29th Avenue"
+      },
+      {
+        "value": 655,
+        "label": "Braid"
+      },
+      {
+        "value": 660,
+        "label": "Burrard"
+      },
+      {
+        "value": 662,
+        "label": "Columbia"
+      },
+      {
+        "value": 663,
+        "label": "Commercial-Broadway"
+      },
+      {
+        "value": 665,
+        "label": "Edmonds"
+      },
+      {
+        "value": 667,
+        "label": "Gateway"
+      },
+      {
+        "value": 669,
+        "label": "Granville"
+      },
+      {
+        "value": 675,
+        "label": "Joyce-Collingwood"
+      },
+      {
+        "value": 677,
+        "label": "King George"
+      },
+      {
+        "value": 684,
+        "label": "Lougheed Town Centre"
+      },
+      {
+        "value": 685,
+        "label": "Main Street-Science World"
+      },
+      {
+        "value": 688,
+        "label": "Metrotown"
+      },
+      {
+        "value": 692,
+        "label": "Nanaimo"
+      },
+      {
+        "value": 693,
+        "label": "New Westminster"
+      },
+      {
+        "value": 697,
+        "label": "Patterson"
+      },
+      {
+        "value": 701,
+        "label": "Production Way-University"
+      },
+      {
+        "value": 704,
+        "label": "Royal Oak"
+      },
+      {
+        "value": 706,
+        "label": "Sapperton"
+      },
+      {
+        "value": 707,
+        "label": "Scott Road"
+      },
+      {
+        "value": 711,
+        "label": "Stadium-Chinatown"
+      },
+      {
+        "value": 712,
+        "label": "Surrey Central"
+      },
+      {
+        "value": 716,
+        "label": "Waterfront"
+      },
+      {
+        "value": 649,
+        "label": "152 St"
+      },
+      {
+        "value": 654,
+        "label": "Bakerview-166 St"
+      },
+      {
+        "value": 661,
+        "label": "Clayton"
+      },
+      {
+        "value": 666,
+        "label": "Fleetwood"
+      },
+      {
+        "value": 671,
+        "label": "Green Timbers"
+      },
+      {
+        "value": 672,
+        "label": "Hillcrest-184 St"
+      },
+      {
+        "value": 681,
+        "label": "Langley City Centre"
+      },
+      {
+        "value": 717,
+        "label": "Willowbrook"
+      }
+    ],
+    "Millenium Line": [
+      {
+        "value": 656,
+        "label": "Brentwood Town Centre"
+      },
+      {
+        "value": 659,
+        "label": "Burquitlam"
+      },
+      {
+        "value": 663,
+        "label": "Commercial-Broadway"
+      },
+      {
+        "value": 664,
+        "label": "Coquitlam Central"
+      },
+      {
+        "value": 668,
+        "label": "Gilmore"
+      },
+      {
+        "value": 673,
+        "label": "Holdom"
+      },
+      {
+        "value": 674,
+        "label": "Inlet Centre"
+      },
+      {
+        "value": 678,
+        "label": "Lafarge Lake-Douglas"
+      },
+      {
+        "value": 679,
+        "label": "Lake City Way"
+      },
+      {
+        "value": 683,
+        "label": "Lincoln"
+      },
+      {
+        "value": 684,
+        "label": "Lougheed Town Centre"
+      },
+      {
+        "value": 690,
+        "label": "Moody Centre"
+      },
+      {
+        "value": 701,
+        "label": "Production Way-University"
+      },
+      {
+        "value": 702,
+        "label": "Renfrew"
+      },
+      {
+        "value": 705,
+        "label": "Rupert"
+      },
+      {
+        "value": 710,
+        "label": "Sperling-Burnaby Lake"
+      },
+      {
+        "value": 715,
+        "label": "VCC-Clark"
+      },
+      {
+        "value": 653,
+        "label": "Arbutus"
+      },
+      {
+        "value": 658,
+        "label": "Broadway-City Hall"
+      },
+      {
+        "value": 670,
+        "label": "Great Northern Way-Emily Carr"
+      },
+      {
+        "value": 691,
+        "label": "Mount Pleasant"
+      },
+      {
+        "value": 695,
+        "label": "Oak-VGH"
+      },
+      {
+        "value": 709,
+        "label": "South Granville"
+      }
+    ],
+    "West Coast Express": [
+      {
+        "value": 664,
+        "label": "Coquitlam Central"
+      },
+      {
+        "value": 686,
+        "label": "Maple Meadows"
+      },
+      {
+        "value": 689,
+        "label": "Mission City"
+      },
+      {
+        "value": 690,
+        "label": "Moody Centre"
+      },
+      {
+        "value": 698,
+        "label": "Pitt Meadows"
+      },
+      {
+        "value": 699,
+        "label": "Port Coquitlam"
+      },
+      {
+        "value": 700,
+        "label": "Port Haney"
+      },
+      {
+        "value": 716,
+        "label": "Waterfront"
+      }
+    ],
+    "Barrie Line": [
+      {
+        "value": 145,
+        "label": "Bloor-Lansdowne"
+      },
+      {
+        "value": 160,
+        "label": "Caledonia"
+      },
+      {
+        "value": 237,
+        "label": "Innisfil"
+      },
+      {
+        "value": 256,
+        "label": "Kirby"
+      },
+      {
+        "value": 299,
+        "label": "Mulock"
+      },
+      {
+        "value": 363,
+        "label": "Spadina-Front"
+      },
+      {
+        "value": 131,
+        "label": "Allandale Waterfront"
+      },
+      {
+        "value": 133,
+        "label": "Aurora"
+      },
+      {
+        "value": 135,
+        "label": "Barrie South"
+      },
+      {
+        "value": 148,
+        "label": "Bradford"
+      },
+      {
+        "value": 188,
+        "label": "Downsview Park"
+      },
+      {
+        "value": 197,
+        "label": "East Gwillimbury"
+      },
+      {
+        "value": 252,
+        "label": "King City"
+      },
+      {
+        "value": 272,
+        "label": "Maple"
+      },
+      {
+        "value": 302,
+        "label": "Newmarket"
+      },
+      {
+        "value": 346,
+        "label": "Rutherford"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      }
+    ],
+    "Hamilton B-Line LRT": [
+      {
+        "value": 195,
+        "label": "Dundurn"
+      },
+      {
+        "value": 199,
+        "label": "Eastgate"
+      },
+      {
+        "value": 218,
+        "label": "Gage Park"
+      },
+      {
+        "value": 241,
+        "label": "James"
+      },
+      {
+        "value": 247,
+        "label": "Kenilworth"
+      },
+      {
+        "value": 269,
+        "label": "Longwood"
+      },
+      {
+        "value": 277,
+        "label": "Mary"
+      },
+      {
+        "value": 282,
+        "label": "McMaster"
+      },
+      {
+        "value": 301,
+        "label": "Nash"
+      },
+      {
+        "value": 317,
+        "label": "Ottawa"
+      },
+      {
+        "value": 321,
+        "label": "Parkdale"
+      },
+      {
+        "value": 329,
+        "label": "Queen"
+      },
+      {
+        "value": 332,
+        "label": "Queenston"
+      },
+      {
+        "value": 351,
+        "label": "Scott Park"
+      },
+      {
+        "value": 356,
+        "label": "Sherman"
+      },
+      {
+        "value": 388,
+        "label": "Wellington"
+      },
+      {
+        "value": 389,
+        "label": "Wentworth"
+      }
+    ],
+    "Hazel McCallion Line": [
+      {
+        "value": 151,
+        "label": "Brampton Gateway Terminal"
+      },
+      {
+        "value": 154,
+        "label": "Bristol"
+      },
+      {
+        "value": 155,
+        "label": "Britannia"
+      },
+      {
+        "value": 159,
+        "label": "Burnhamthorpe"
+      },
+      {
+        "value": 172,
+        "label": "Cooksville"
+      },
+      {
+        "value": 176,
+        "label": "County Court"
+      },
+      {
+        "value": 178,
+        "label": "Courtneypark"
+      },
+      {
+        "value": 184,
+        "label": "Derry"
+      },
+      {
+        "value": 193,
+        "label": "Dundas"
+      },
+      {
+        "value": 201,
+        "label": "Eglinton"
+      },
+      {
+        "value": 211,
+        "label": "Fairview"
+      },
+      {
+        "value": 279,
+        "label": "Matheson"
+      },
+      {
+        "value": 291,
+        "label": "Mineola"
+      },
+      {
+        "value": 292,
+        "label": "Mississauga City Centre"
+      },
+      {
+        "value": 305,
+        "label": "North Service"
+      },
+      {
+        "value": 327,
+        "label": "Port Credit"
+      },
+      {
+        "value": 333,
+        "label": "Queensway"
+      },
+      {
+        "value": 338,
+        "label": "Robert Speck"
+      },
+      {
+        "value": 359,
+        "label": "Sir Lou"
+      }
+    ],
+    "ION": [
+      {
+        "value": 401,
+        "label": "Sportsworld"
+      },
+      {
+        "value": 402,
+        "label": "Preston"
+      },
+      {
+        "value": 403,
+        "label": "Pinebush"
+      },
+      {
+        "value": 404,
+        "label": "Cambridge Centre Mall"
+      },
+      {
+        "value": 405,
+        "label": "Can-Amera"
+      },
+      {
+        "value": 406,
+        "label": "Delta"
+      },
+      {
+        "value": 407,
+        "label": "Downtown Cambridge"
+      },
+      {
+        "value": 408,
+        "label": "Laurier - Waterloo Park"
+      },
+      {
+        "value": 409,
+        "label": "University of Waterloo"
+      },
+      {
+        "value": 410,
+        "label": "Research and Technology"
+      },
+      {
+        "value": 411,
+        "label": "Block Line"
+      },
+      {
+        "value": 412,
+        "label": "Fairway"
+      },
+      {
+        "value": 413,
+        "label": "Mill"
+      },
+      {
+        "value": 414,
+        "label": "Waterloo Public Square"
+      },
+      {
+        "value": 415,
+        "label": "Willis Way"
+      },
+      {
+        "value": 416,
+        "label": "Conestoga"
+      },
+      {
+        "value": 417,
+        "label": "Central Station"
+      },
+      {
+        "value": 418,
+        "label": "Kitchener City Hall"
+      },
+      {
+        "value": 419,
+        "label": "Victoria Park"
+      },
+      {
+        "value": 420,
+        "label": "Queen"
+      },
+      {
+        "value": 421,
+        "label": "Frederick"
+      },
+      {
+        "value": 422,
+        "label": "Kitchener Market"
+      },
+      {
+        "value": 423,
+        "label": "Borden"
+      },
+      {
+        "value": 424,
+        "label": "Grand River Hospital"
+      },
+      {
+        "value": 425,
+        "label": "Allen"
+      },
+      {
+        "value": 426,
+        "label": "Northfield"
+      }
+    ],
+    "Kitchener Line": [
+      {
+        "value": 152,
+        "label": "Breslau"
+      },
+      {
+        "value": 234,
+        "label": "Highway 27/Woodbine"
+      },
+      {
+        "value": 253,
+        "label": "King-Liberty"
+      },
+      {
+        "value": 368,
+        "label": "St. Clair-Old Weston"
+      },
+      {
+        "value": 125,
+        "label": "Acton"
+      },
+      {
+        "value": 144,
+        "label": "Bloor"
+      },
+      {
+        "value": 149,
+        "label": "Bramalea"
+      },
+      {
+        "value": 150,
+        "label": "Brampton"
+      },
+      {
+        "value": 208,
+        "label": "Etobicoke North"
+      },
+      {
+        "value": 220,
+        "label": "Georgetown"
+      },
+      {
+        "value": 227,
+        "label": "Guelph"
+      },
+      {
+        "value": 257,
+        "label": "Kitchener"
+      },
+      {
+        "value": 271,
+        "label": "Malton"
+      },
+      {
+        "value": 298,
+        "label": "Mount Pleasant"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      },
+      {
+        "value": 393,
+        "label": "Weston"
+      },
+      {
+        "value": 294,
+        "label": "Mount Dennis"
+      }
+    ],
+    "Lakeshore East Line": [
+      {
+        "value": 128,
+        "label": "Ajax"
+      },
+      {
+        "value": 181,
+        "label": "Danforth"
+      },
+      {
+        "value": 202,
+        "label": "Eglinton"
+      },
+      {
+        "value": 228,
+        "label": "Guildwood"
+      },
+      {
+        "value": 315,
+        "label": "Oshawa"
+      },
+      {
+        "value": 325,
+        "label": "Pickering"
+      },
+      {
+        "value": 340,
+        "label": "Rouge Hill"
+      },
+      {
+        "value": 347,
+        "label": "Scarborough"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      },
+      {
+        "value": 394,
+        "label": "Whitby"
+      },
+      {
+        "value": 147,
+        "label": "Bowmanville"
+      },
+      {
+        "value": 177,
+        "label": "Courtice"
+      },
+      {
+        "value": 198,
+        "label": "East Harbour"
+      },
+      {
+        "value": 336,
+        "label": "Ritson Road"
+      },
+      {
+        "value": 379,
+        "label": "Thornton's Corners East"
+      }
+    ],
+    "Lakeshore West Line": [
+      {
+        "value": 139,
+        "label": "Beamsville"
+      },
+      {
+        "value": 320,
+        "label": "Park Lawn"
+      },
+      {
+        "value": 130,
+        "label": "Aldershot"
+      },
+      {
+        "value": 132,
+        "label": "Appleby"
+      },
+      {
+        "value": 157,
+        "label": "Bronte"
+      },
+      {
+        "value": 158,
+        "label": "Burlington"
+      },
+      {
+        "value": 168,
+        "label": "Clarkson"
+      },
+      {
+        "value": 209,
+        "label": "Exhibition"
+      },
+      {
+        "value": 231,
+        "label": "Hamilton"
+      },
+      {
+        "value": 268,
+        "label": "Long Branch"
+      },
+      {
+        "value": 290,
+        "label": "Mimico"
+      },
+      {
+        "value": 303,
+        "label": "Niagara Falls"
+      },
+      {
+        "value": 307,
+        "label": "Oakville"
+      },
+      {
+        "value": 327,
+        "label": "Port Credit"
+      },
+      {
+        "value": 366,
+        "label": "St. Catharines"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      },
+      {
+        "value": 390,
+        "label": "West Harbour"
+      },
+      {
+        "value": 170,
+        "label": "Confederation"
+      },
+      {
+        "value": 226,
+        "label": "Grimsby"
+      }
+    ],
+    "Line 1: Yonge-University": [
+      {
+        "value": 180,
+        "label": "Cummer/Drewry"
+      },
+      {
+        "value": 146,
+        "label": "Bloor-Yonge"
+      },
+      {
+        "value": 169,
+        "label": "College"
+      },
+      {
+        "value": 183,
+        "label": "Davisville"
+      },
+      {
+        "value": 188,
+        "label": "Downsview Park"
+      },
+      {
+        "value": 192,
+        "label": "Dundas"
+      },
+      {
+        "value": 196,
+        "label": "Dupont"
+      },
+      {
+        "value": 200,
+        "label": "Eglinton"
+      },
+      {
+        "value": 203,
+        "label": "Eglinton West/Cedarvale"
+      },
+      {
+        "value": 213,
+        "label": "Finch"
+      },
+      {
+        "value": 214,
+        "label": "Finch West"
+      },
+      {
+        "value": 222,
+        "label": "Glencairn"
+      },
+      {
+        "value": 235,
+        "label": "Highway 407"
+      },
+      {
+        "value": 250,
+        "label": "King"
+      },
+      {
+        "value": 261,
+        "label": "Lawrence"
+      },
+      {
+        "value": 264,
+        "label": "Lawrence West"
+      },
+      {
+        "value": 300,
+        "label": "Museum"
+      },
+      {
+        "value": 306,
+        "label": "North York Centre"
+      },
+      {
+        "value": 314,
+        "label": "Osgoode"
+      },
+      {
+        "value": 326,
+        "label": "Pioneer Village"
+      },
+      {
+        "value": 328,
+        "label": "Queen"
+      },
+      {
+        "value": 331,
+        "label": "Queen's Park"
+      },
+      {
+        "value": 339,
+        "label": "Rosedale"
+      },
+      {
+        "value": 353,
+        "label": "Sheppard West"
+      },
+      {
+        "value": 354,
+        "label": "Sheppard-Yonge"
+      },
+      {
+        "value": 361,
+        "label": "Spadina"
+      },
+      {
+        "value": 364,
+        "label": "St Clair West"
+      },
+      {
+        "value": 365,
+        "label": "St. Andrew"
+      },
+      {
+        "value": 367,
+        "label": "St. Clair"
+      },
+      {
+        "value": 369,
+        "label": "St. George"
+      },
+      {
+        "value": 370,
+        "label": "St. Patrick"
+      },
+      {
+        "value": 375,
+        "label": "Summerhill"
+      },
+      {
+        "value": 381,
+        "label": "Union"
+      },
+      {
+        "value": 384,
+        "label": "Vaughan Metropolitan Centre"
+      },
+      {
+        "value": 387,
+        "label": "Wellesley"
+      },
+      {
+        "value": 395,
+        "label": "Wilson"
+      },
+      {
+        "value": 398,
+        "label": "York Mills"
+      },
+      {
+        "value": 399,
+        "label": "York University"
+      },
+      {
+        "value": 400,
+        "label": "Yorkdale"
+      },
+      {
+        "value": 153,
+        "label": "Bridge"
+      },
+      {
+        "value": 167,
+        "label": "Clark"
+      },
+      {
+        "value": 233,
+        "label": "High Tech"
+      },
+      {
+        "value": 342,
+        "label": "Royal Orchard"
+      },
+      {
+        "value": 371,
+        "label": "Steeles"
+      }
+    ],
+    "Line 2: Bloor-Danforth": [
+      {
+        "value": 254,
+        "label": "Kipling"
+      },
+      {
+        "value": 239,
+        "label": "Islington"
+      },
+      {
+        "value": 343,
+        "label": "Royal York"
+      },
+      {
+        "value": 312,
+        "label": "Old Mill"
+      },
+      {
+        "value": 242,
+        "label": "Jane"
+      },
+      {
+        "value": 345,
+        "label": "Runnymede"
+      },
+      {
+        "value": 232,
+        "label": "High Park"
+      },
+      {
+        "value": 245,
+        "label": "Keele"
+      },
+      {
+        "value": 194,
+        "label": "Dundas West"
+      },
+      {
+        "value": 260,
+        "label": "Lansdowne"
+      },
+      {
+        "value": 190,
+        "label": "Dufferin"
+      },
+      {
+        "value": 316,
+        "label": "Ossington"
+      },
+      {
+        "value": 166,
+        "label": "Christie"
+      },
+      {
+        "value": 136,
+        "label": "Bathurst"
+      },
+      {
+        "value": 362,
+        "label": "Spadina"
+      },
+      {
+        "value": 369,
+        "label": "St. George"
+      },
+      {
+        "value": 137,
+        "label": "Bay"
+      },
+      {
+        "value": 146,
+        "label": "Bloor-Yonge"
+      },
+      {
+        "value": 355,
+        "label": "Sherbourne"
+      },
+      {
+        "value": 161,
+        "label": "Castle Frank"
+      },
+      {
+        "value": 156,
+        "label": "Broadview"
+      },
+      {
+        "value": 165,
+        "label": "Chester"
+      },
+      {
+        "value": 319,
+        "label": "Pape"
+      },
+      {
+        "value": 187,
+        "label": "Donlands"
+      },
+      {
+        "value": 225,
+        "label": "Greenwood"
+      },
+      {
+        "value": 179,
+        "label": "Coxwell"
+      },
+      {
+        "value": 396,
+        "label": "Woodbine"
+      },
+      {
+        "value": 270,
+        "label": "Main Street"
+      },
+      {
+        "value": 385,
+        "label": "Victoria Park"
+      },
+      {
+        "value": 386,
+        "label": "Warden"
+      },
+      {
+        "value": 249,
+        "label": "Kennedy"
+      },
+      {
+        "value": 263,
+        "label": "Lawrence East"
+      },
+      {
+        "value": 348,
+        "label": "Scarborough Centre"
+      },
+      {
+        "value": 281,
+        "label": "McCowan/Sheppard"
+      }
+    ],
+    "Line 3: Ontario Line": [
+      {
+        "value": 174,
+        "label": "Corktown"
+      },
+      {
+        "value": 175,
+        "label": "Cosburn"
+      },
+      {
+        "value": 198,
+        "label": "East Harbour"
+      },
+      {
+        "value": 209,
+        "label": "Exhibition"
+      },
+      {
+        "value": 216,
+        "label": "Flemingdon Park"
+      },
+      {
+        "value": 221,
+        "label": "Gerrard"
+      },
+      {
+        "value": 251,
+        "label": "King/Bathurst"
+      },
+      {
+        "value": 293,
+        "label": "Moss Park"
+      },
+      {
+        "value": 314,
+        "label": "Osgoode"
+      },
+      {
+        "value": 319,
+        "label": "Pape"
+      },
+      {
+        "value": 328,
+        "label": "Queen"
+      },
+      {
+        "value": 330,
+        "label": "Queen/Spadina"
+      },
+      {
+        "value": 337,
+        "label": "Riverside/Leslieville"
+      },
+      {
+        "value": 350,
+        "label": "Science Centre"
+      },
+      {
+        "value": 378,
+        "label": "Thorncliffe Park"
+      }
+    ],
+    "Line 4: Sheppard": [
+      {
+        "value": 354,
+        "label": "Sheppard-Yonge"
+      },
+      {
+        "value": 138,
+        "label": "Bayview"
+      },
+      {
+        "value": 141,
+        "label": "Bessarion"
+      },
+      {
+        "value": 266,
+        "label": "Leslie"
+      },
+      {
+        "value": 186,
+        "label": "Don Mills"
+      }
+    ],
+    "Line 5: Eglinton Crosstown": [
+      {
+        "value": 171,
+        "label": "Convair"
+      },
+      {
+        "value": 323,
+        "label": "Pearson"
+      },
+      {
+        "value": 358,
+        "label": "Silver Dart"
+      },
+      {
+        "value": 126,
+        "label": "Aga Khan Park & Museum"
+      },
+      {
+        "value": 134,
+        "label": "Avenue"
+      },
+      {
+        "value": 142,
+        "label": "Birchmount"
+      },
+      {
+        "value": 160,
+        "label": "Caledonia"
+      },
+      {
+        "value": 164,
+        "label": "Chaplin"
+      },
+      {
+        "value": 200,
+        "label": "Eglinton"
+      },
+      {
+        "value": 203,
+        "label": "Eglinton West/Cedarvale"
+      },
+      {
+        "value": 210,
+        "label": "Fairbank"
+      },
+      {
+        "value": 217,
+        "label": "Forest Hill"
+      },
+      {
+        "value": 223,
+        "label": "Golden Mile"
+      },
+      {
+        "value": 230,
+        "label": "Hakimi Lebovic"
+      },
+      {
+        "value": 238,
+        "label": "Ionview"
+      },
+      {
+        "value": 240,
+        "label": "Islington-Eglinton"
+      },
+      {
+        "value": 243,
+        "label": "Jane-Eglinton"
+      },
+      {
+        "value": 246,
+        "label": "Keelesdale"
+      },
+      {
+        "value": 249,
+        "label": "Kennedy"
+      },
+      {
+        "value": 255,
+        "label": "Kipling-Eglinton"
+      },
+      {
+        "value": 258,
+        "label": "Laird"
+      },
+      {
+        "value": 265,
+        "label": "Leaside"
+      },
+      {
+        "value": 276,
+        "label": "Martin Grove"
+      },
+      {
+        "value": 294,
+        "label": "Mount Dennis"
+      },
+      {
+        "value": 297,
+        "label": "Mount Pleasant"
+      },
+      {
+        "value": 308,
+        "label": "Oakwood"
+      },
+      {
+        "value": 309,
+        "label": "O'Connor"
+      },
+      {
+        "value": 324,
+        "label": "Pharmacy"
+      },
+      {
+        "value": 334,
+        "label": "Renforth"
+      },
+      {
+        "value": 344,
+        "label": "Royal York-Eglinton"
+      },
+      {
+        "value": 349,
+        "label": "Scarlett"
+      },
+      {
+        "value": 350,
+        "label": "Science Centre"
+      },
+      {
+        "value": 360,
+        "label": "Sloane"
+      },
+      {
+        "value": 376,
+        "label": "Sunnybrook Park"
+      },
+      {
+        "value": 397,
+        "label": "Wynford"
+      }
+    ],
+    "Line 6: Finch West": [
+      {
+        "value": 129,
+        "label": "Albion"
+      },
+      {
+        "value": 189,
+        "label": "Driftwood"
+      },
+      {
+        "value": 191,
+        "label": "Duncanwoods"
+      },
+      {
+        "value": 206,
+        "label": "Emery"
+      },
+      {
+        "value": 214,
+        "label": "Finch West"
+      },
+      {
+        "value": 236,
+        "label": "Humber College"
+      },
+      {
+        "value": 244,
+        "label": "Jane and Finch"
+      },
+      {
+        "value": 275,
+        "label": "Martin Grove"
+      },
+      {
+        "value": 289,
+        "label": "Milvan Rumike"
+      },
+      {
+        "value": 296,
+        "label": "Mount Olive"
+      },
+      {
+        "value": 304,
+        "label": "Norfinch Oakdale"
+      },
+      {
+        "value": 322,
+        "label": "Pearldale"
+      },
+      {
+        "value": 341,
+        "label": "Rowntree Mills"
+      },
+      {
+        "value": 352,
+        "label": "Sentinel"
+      },
+      {
+        "value": 357,
+        "label": "Signet Arrow"
+      },
+      {
+        "value": 372,
+        "label": "Stevenson"
+      },
+      {
+        "value": 380,
+        "label": "Tobermory"
+      },
+      {
+        "value": 392,
+        "label": "Westmore"
+      }
+    ],
+    "Line 7: Eglinton East LRT": [
+      {
+        "value": 140,
+        "label": "Bellamy/Eglinton GO"
+      },
+      {
+        "value": 162,
+        "label": "Celeste/Guildwood GO"
+      },
+      {
+        "value": 182,
+        "label": "Danforth"
+      },
+      {
+        "value": 204,
+        "label": "Eglinton/Kingston"
+      },
+      {
+        "value": 205,
+        "label": "Ellesmere"
+      },
+      {
+        "value": 212,
+        "label": "Falmouth"
+      },
+      {
+        "value": 219,
+        "label": "Galloway"
+      },
+      {
+        "value": 229,
+        "label": "Guildwood"
+      },
+      {
+        "value": 249,
+        "label": "Kennedy"
+      },
+      {
+        "value": 262,
+        "label": "Lawrence"
+      },
+      {
+        "value": 274,
+        "label": "Markham"
+      },
+      {
+        "value": 278,
+        "label": "Mason"
+      },
+      {
+        "value": 280,
+        "label": "McCowan"
+      },
+      {
+        "value": 281,
+        "label": "McCowan/Sheppard"
+      },
+      {
+        "value": 284,
+        "label": "Midland"
+      },
+      {
+        "value": 285,
+        "label": "Military Trail"
+      },
+      {
+        "value": 318,
+        "label": "Pan Am Sports Centre"
+      },
+      {
+        "value": 391,
+        "label": "West Hill"
+      },
+      {
+        "value": 720,
+        "label": "Markham North"
+      },
+      {
+        "value": 721,
+        "label": "Shorting"
+      },
+      {
+        "value": 722,
+        "label": "Neilson/Berner Trl"
+      },
+      {
+        "value": 723,
+        "label": "Washburn"
+      },
+      {
+        "value": 724,
+        "label": "Malvern Town Centre"
+      },
+      {
+        "value": 725,
+        "label": "Sheppard/Brenyon"
+      },
+      {
+        "value": 726,
+        "label": "Morningside/Sheppard"
+      },
+      {
+        "value": 727,
+        "label": "Sheppard/Neilson"
+      }
+    ],
+    "Milton Line": [
+      {
+        "value": 173,
+        "label": "Cooksville"
+      },
+      {
+        "value": 185,
+        "label": "Dixie"
+      },
+      {
+        "value": 207,
+        "label": "Erindale"
+      },
+      {
+        "value": 254,
+        "label": "Kipling"
+      },
+      {
+        "value": 267,
+        "label": "Lisgar"
+      },
+      {
+        "value": 283,
+        "label": "Meadowvale"
+      },
+      {
+        "value": 287,
+        "label": "Milton"
+      },
+      {
+        "value": 288,
+        "label": "Milton-Trafalgar"
+      },
+      {
+        "value": 374,
+        "label": "Streetsville"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      }
+    ],
+    "Richmond Hill Line": [
+      {
+        "value": 143,
+        "label": "Bloomington"
+      },
+      {
+        "value": 224,
+        "label": "Gormley"
+      },
+      {
+        "value": 259,
+        "label": "Langstaff"
+      },
+      {
+        "value": 310,
+        "label": "Old Cummer"
+      },
+      {
+        "value": 313,
+        "label": "Oriole"
+      },
+      {
+        "value": 335,
+        "label": "Richmond Hill"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      }
+    ],
+    "Stouffville Line": [
+      {
+        "value": 215,
+        "label": "Finch-Kennedy"
+      },
+      {
+        "value": 127,
+        "label": "Agincourt"
+      },
+      {
+        "value": 163,
+        "label": "Centennial"
+      },
+      {
+        "value": 249,
+        "label": "Kennedy"
+      },
+      {
+        "value": 273,
+        "label": "Markham"
+      },
+      {
+        "value": 286,
+        "label": "Milliken"
+      },
+      {
+        "value": 295,
+        "label": "Mount Joy"
+      },
+      {
+        "value": 311,
+        "label": "Old Elm"
+      },
+      {
+        "value": 373,
+        "label": "Stouffville"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      },
+      {
+        "value": 383,
+        "label": "Unionville"
+      },
+      {
+        "value": 198,
+        "label": "East Harbour"
+      }
+    ],
+    "UP Express": [
+      {
+        "value": 144,
+        "label": "Bloor"
+      },
+      {
+        "value": 377,
+        "label": "Terminal 1"
+      },
+      {
+        "value": 382,
+        "label": "Union"
+      },
+      {
+        "value": 393,
+        "label": "Weston"
+      }
+    ],
+    "Capital Line": [
+      {
+        "value": 75,
+        "label": "Provincial Lands"
+      },
+      {
+        "value": 76,
+        "label": "Heritage Valley Town Centre"
+      },
+      {
+        "value": 77,
+        "label": "Desrochers/Allard"
+      },
+      {
+        "value": 78,
+        "label": "Heritage Valley North"
+      },
+      {
+        "value": 79,
+        "label": "Twin Brooks"
+      },
+      {
+        "value": 85,
+        "label": "Churchill"
+      },
+      {
+        "value": 86,
+        "label": "Coliseum"
+      },
+      {
+        "value": 87,
+        "label": "Bay Enterprise Square"
+      },
+      {
+        "value": 88,
+        "label": "Corona"
+      },
+      {
+        "value": 89,
+        "label": "Government"
+      },
+      {
+        "value": 90,
+        "label": "Central"
+      },
+      {
+        "value": 91,
+        "label": "Stadium"
+      },
+      {
+        "value": 92,
+        "label": "Health Sciences Jubilee"
+      },
+      {
+        "value": 93,
+        "label": "Southgate"
+      },
+      {
+        "value": 94,
+        "label": "South Campus/Fort Edmonton"
+      },
+      {
+        "value": 99,
+        "label": "University"
+      },
+      {
+        "value": 103,
+        "label": "Century Park"
+      },
+      {
+        "value": 104,
+        "label": "Belvedere"
+      },
+      {
+        "value": 105,
+        "label": "Clareview"
+      },
+      {
+        "value": 106,
+        "label": "McKernan Belgravia"
+      }
+    ],
+    "Metro Line": [
+      {
+        "value": 80,
+        "label": "Kingsway RAH"
+      },
+      {
+        "value": 81,
+        "label": "MacEwan"
+      },
+      {
+        "value": 82,
+        "label": "NAIT Blatchford Market"
+      },
+      {
+        "value": 85,
+        "label": "Churchill"
+      },
+      {
+        "value": 87,
+        "label": "Bay Enterprise Square"
+      },
+      {
+        "value": 88,
+        "label": "Corona"
+      },
+      {
+        "value": 89,
+        "label": "Government"
+      },
+      {
+        "value": 90,
+        "label": "Central"
+      },
+      {
+        "value": 92,
+        "label": "Health Sciences Jubilee"
+      },
+      {
+        "value": 99,
+        "label": "University"
+      }
+    ],
+    "Valley Line": [
+      {
+        "value": 83,
+        "label": "102 Street"
+      },
+      {
+        "value": 84,
+        "label": "Quarters"
+      },
+      {
+        "value": 85,
+        "label": "Churchill"
+      },
+      {
+        "value": 95,
+        "label": "Holyrood"
+      },
+      {
+        "value": 96,
+        "label": "Davies"
+      },
+      {
+        "value": 97,
+        "label": "Bonnie Doon"
+      },
+      {
+        "value": 98,
+        "label": "Avonmore"
+      },
+      {
+        "value": 100,
+        "label": "Grey Nuns"
+      },
+      {
+        "value": 101,
+        "label": "Millbourne/Woodvale"
+      },
+      {
+        "value": 102,
+        "label": "Mill Woods"
+      },
+      {
+        "value": 107,
+        "label": "Strathearn"
+      },
+      {
+        "value": 108,
+        "label": "Muttart"
+      },
+      {
+        "value": 109,
+        "label": "NorQuest"
+      },
+      {
+        "value": 110,
+        "label": "MacEwan Arts/112 Street"
+      },
+      {
+        "value": 111,
+        "label": "Wîhkwêntôwin/116 Street"
+      },
+      {
+        "value": 112,
+        "label": "Brewery/120 Street"
+      },
+      {
+        "value": 113,
+        "label": "124 Street"
+      },
+      {
+        "value": 114,
+        "label": "Glenora"
+      },
+      {
+        "value": 115,
+        "label": "Grovenor/142 Street"
+      },
+      {
+        "value": 116,
+        "label": "Stony Plain Road/149 Street"
+      },
+      {
+        "value": 117,
+        "label": "Jasper Place"
+      },
+      {
+        "value": 118,
+        "label": "Glenwood/Sherwood"
+      },
+      {
+        "value": 119,
+        "label": "Meadowlark"
+      },
+      {
+        "value": 120,
+        "label": "Misericordia"
+      },
+      {
+        "value": 121,
+        "label": "West Edmonton Mall"
+      },
+      {
+        "value": 122,
+        "label": "Aldergrove/Belmead"
+      },
+      {
+        "value": 123,
+        "label": "Lewis Farms"
+      },
+      {
+        "value": 124,
+        "label": "Alex Decoteau"
+      }
+    ],
+    "Blue Line": [
+      {
+        "value": 4,
+        "label": "1st Street SW"
+      },
+      {
+        "value": 8,
+        "label": "3rd Street SW"
+      },
+      {
+        "value": 11,
+        "label": "45 Street SW"
+      },
+      {
+        "value": 12,
+        "label": "4th Street SW"
+      },
+      {
+        "value": 14,
+        "label": "69 Street SW"
+      },
+      {
+        "value": 15,
+        "label": "6th Street SW"
+      },
+      {
+        "value": 17,
+        "label": "7th Street SW"
+      },
+      {
+        "value": 18,
+        "label": "8th Street SW"
+      },
+      {
+        "value": 24,
+        "label": "Barlow/Max Bell"
+      },
+      {
+        "value": 27,
+        "label": "Bridgeland"
+      },
+      {
+        "value": 30,
+        "label": "Centre Street"
+      },
+      {
+        "value": 32,
+        "label": "City Hall"
+      },
+      {
+        "value": 36,
+        "label": "Downtown West - Kerby"
+      },
+      {
+        "value": 40,
+        "label": "Franklin"
+      },
+      {
+        "value": 46,
+        "label": "Marlborough"
+      },
+      {
+        "value": 47,
+        "label": "Martindale"
+      },
+      {
+        "value": 50,
+        "label": "McKnight Westwinds"
+      },
+      {
+        "value": 56,
+        "label": "Rundle"
+      },
+      {
+        "value": 57,
+        "label": "Saddletowne"
+      },
+      {
+        "value": 60,
+        "label": "Shaganappi Point"
+      },
+      {
+        "value": 63,
+        "label": "Sirocco"
+      },
+      {
+        "value": 67,
+        "label": "Sunalta"
+      },
+      {
+        "value": 72,
+        "label": "Westbrook"
+      },
+      {
+        "value": 73,
+        "label": "Whitehorn"
+      },
+      {
+        "value": 74,
+        "label": "Zoo"
+      }
+    ],
+    "Green Line": [
+      {
+        "value": 1,
+        "label": "144 Avenue N"
+      },
+      {
+        "value": 2,
+        "label": "16 Avenue N"
+      },
+      {
+        "value": 3,
+        "label": "160 Avenue N"
+      },
+      {
+        "value": 6,
+        "label": "28 Avenue N"
+      },
+      {
+        "value": 10,
+        "label": "40 Avenue N"
+      },
+      {
+        "value": 13,
+        "label": "64 Avenue N"
+      },
+      {
+        "value": 19,
+        "label": "9 Avenue N"
+      },
+      {
+        "value": 20,
+        "label": "96 Avenue N"
+      },
+      {
+        "value": 22,
+        "label": "Auburn Bay/Mahogany"
+      },
+      {
+        "value": 25,
+        "label": "Beddington"
+      },
+      {
+        "value": 43,
+        "label": "Hospital"
+      },
+      {
+        "value": 48,
+        "label": "McKenzie Towne"
+      },
+      {
+        "value": 49,
+        "label": "Mcknight Boulevard"
+      },
+      {
+        "value": 51,
+        "label": "North Pointe"
+      },
+      {
+        "value": 53,
+        "label": "Prestwick"
+      },
+      {
+        "value": 59,
+        "label": "Seton"
+      },
+      {
+        "value": 5,
+        "label": "26 Avenue SE"
+      },
+      {
+        "value": 9,
+        "label": "4 Street SE"
+      },
+      {
+        "value": 16,
+        "label": "7 Avenue SW"
+      },
+      {
+        "value": 29,
+        "label": "Centre Street S"
+      },
+      {
+        "value": 35,
+        "label": "Douglas Glen"
+      },
+      {
+        "value": 37,
+        "label": "Eau Claire"
+      },
+      {
+        "value": 42,
+        "label": "Highfield"
+      },
+      {
+        "value": 45,
+        "label": "Lynnwood/Millican"
+      },
+      {
+        "value": 52,
+        "label": "Ogden"
+      },
+      {
+        "value": 54,
+        "label": "Quarry Park"
+      },
+      {
+        "value": 55,
+        "label": "Ramsay/Inglewood"
+      },
+      {
+        "value": 62,
+        "label": "Shepard"
+      },
+      {
+        "value": 65,
+        "label": "South Hill"
+      }
+    ],
+    "Red Line": [
+      {
+        "value": 4,
+        "label": "1st Street SW"
+      },
+      {
+        "value": 7,
+        "label": "39 Avenue"
+      },
+      {
+        "value": 8,
+        "label": "3rd Street SW"
+      },
+      {
+        "value": 12,
+        "label": "4th Street SW"
+      },
+      {
+        "value": 15,
+        "label": "6th Street SW"
+      },
+      {
+        "value": 17,
+        "label": "7th Street SW"
+      },
+      {
+        "value": 18,
+        "label": "8th Street SW"
+      },
+      {
+        "value": 21,
+        "label": "Anderson"
+      },
+      {
+        "value": 23,
+        "label": "Banff Trail"
+      },
+      {
+        "value": 26,
+        "label": "Brentwood"
+      },
+      {
+        "value": 28,
+        "label": "Canyon Meadows"
+      },
+      {
+        "value": 30,
+        "label": "Centre Street"
+      },
+      {
+        "value": 31,
+        "label": "Chinook"
+      },
+      {
+        "value": 32,
+        "label": "City Hall"
+      },
+      {
+        "value": 33,
+        "label": "Crowfoot"
+      },
+      {
+        "value": 34,
+        "label": "Dalhousie"
+      },
+      {
+        "value": 38,
+        "label": "Erlton/Stampede"
+      },
+      {
+        "value": 39,
+        "label": "Fish Creek - Lacombe"
+      },
+      {
+        "value": 41,
+        "label": "Heritage"
+      },
+      {
+        "value": 44,
+        "label": "Lions Park"
+      },
+      {
+        "value": 58,
+        "label": "SAIT/ACAD/Jubilee"
+      },
+      {
+        "value": 61,
+        "label": "Shawnessy"
+      },
+      {
+        "value": 64,
+        "label": "Somerset-Bridlewood"
+      },
+      {
+        "value": 66,
+        "label": "Southland"
+      },
+      {
+        "value": 68,
+        "label": "Sunnyside"
+      },
+      {
+        "value": 69,
+        "label": "Tuscany"
+      },
+      {
+        "value": 70,
+        "label": "University"
+      },
+      {
+        "value": 71,
+        "label": "Victoria Park/Stampede"
+      }
+    ]
+  }

@@ -2,7 +2,11 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import Select from '../../lib/ui/Select.svelte';
-	import transitLines from './transit-lines.json'; // labels for the select dropdown
+	import Combobox from '../../lib/ui/Combobox.svelte';
+	import transitLines from './transit-lines-dropdown.json'; // labels for the select dropdown
+
+	import transitStations from './transit-stations-dropdown.json'; // labels for the select dropdown
+
 
 	// Component props - receives transit station data from parent
 	export let data = [];
@@ -381,7 +385,7 @@
 				icon="mdi:train"
 				placeholder={'Select a Transit Line'}
 				selected={100}
-				handleSelectfunction={handleLineSelect}
+				handleSelect={handleLineSelect}
 			></Select>
 		
 		</div>
@@ -392,10 +396,15 @@
 				icon="mdi:chart-bar"
 				placeholder={'Select Variable'}
 				selected={'TotalPopulation'}
-				handleSelectfunction={handleVariableSelect}
+				handleSelect={handleVariableSelect}
 			></Select>
 		</div>
 		<div class="select-wrapper">
+			<Combobox
+			data={transitStations}
+			icon="mdi:train"
+			placeholder={'Search for a Transit Station'}
+		></Combobox>
 		</div>
 	</div>
 
