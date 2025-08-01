@@ -5,8 +5,8 @@
 	import * as turf from '@turf/turf';
 	import { DropdownMenu } from "bits-ui";
 
-	import stationRawData from '../../lib/data/stations.json';
-	import transitRegionsRawData from '../../lib/data/transit-regions.json';
+	import stationRawData from '../../lib/data/transitdata/stations.json';
+	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
 
     import '../../styles.css';
 
