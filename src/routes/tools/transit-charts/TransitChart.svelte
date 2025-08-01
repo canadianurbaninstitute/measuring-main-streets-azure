@@ -3,10 +3,8 @@
 	import * as d3 from 'd3';
 	import Select from '../../lib/ui/Select.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
-	import transitLines from './transit-lines-dropdown.json'; // labels for the select dropdown
-
-	import transitStations from './transit-stations-dropdown.json'; // labels for the select dropdown
-
+	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json'; // labels for the select dropdown
+	import transitStations from '../../lib/data/transitdata/transit-stations-dropdown.json'; // labels for the select dropdown
 
 	// Component props - receives transit station data from parent
 	export let data = [];

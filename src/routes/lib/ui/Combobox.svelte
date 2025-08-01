@@ -12,40 +12,9 @@ export let type = 'single'; // 'single' or 'multiple'
 
 let searchValue = "";
 
-// Helper function to get label from grouped variable names
-function getLabel(value) {
-    // Check if data is grouped (object with groups) or ungrouped (array)
-    if (Array.isArray(data)) {
-        // Ungrouped data - direct array of options
-        const found = data.find(v => v.value === value);
-        return found ? found.label : null;
-    } else {
-        // Grouped data - object with groups
-        for (const group of Object.values(data)) {
-            const found = group.find(v => v.value === value);
-            if (found) return found.label;
-        }
-    }
-    return null;
-}
-
 // Helper function to check if data is grouped
 function isGroupedData(data) {
     return !Array.isArray(data) && typeof data === 'object';
-}
-
-// Helper function to flatten data for filtering
-function flattenData(data) {
-    if (Array.isArray(data)) {
-        return data;
-    } else {
-        // Grouped data - flatten into single array
-        const flattened = [];
-        for (const group of Object.values(data)) {
-            flattened.push(...group);
-        }
-        return flattened;
-    }
 }
 
 // Filter data based on search value
@@ -192,6 +161,8 @@ function handleOpenChange(open) {
         align-items: center;
         justify-content: center;
         touch-action: none;
+        background: none !important; /* needed cause its a button; probably better to not use important though so investigate futher*/
+        box-shadow: none !important; /* needed cause its a button; probably better to not use important though so investigate futher*/
     }
 
     :global(.combobox-content) {
