@@ -66,7 +66,7 @@
 		
 		return stationRawData.map(station => ({
 			...station,
-			label: `${station.stop_label} (${station.line_display_names})`,
+			label: `${station.stop_label} (${station.line_display_name})`,
 			line_ids_array: station.line_ids 
 				? station.line_ids.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) 
 				: [],
@@ -166,7 +166,7 @@
 
 		const { data, circle, bbox, coords } = stationData;
 
-		// Check if map is ready and has required data
+		// Check if map is loaded and has required data
 		if (!map.isStyleLoaded() || !data || !circle || !map.getLayer(stationLayerId)) {
 			return;
 		}
