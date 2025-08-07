@@ -201,7 +201,7 @@
 	// Handle layer toggles
 	function mapLayerToggle(map, layerVisibilityConfig) {
     // Check if map is ready and all required layers exist
-		const requiredLayers = ['greenspace', 'transit-lines-white', 'road-simple', 'parking', 'transit-station-points'];
+		const requiredLayers = ['greenspace', 'transit-lines-white', 'road-simple', 'parking', 'transit-station-points', 'buildings-ab'];
 		
 		if (!map || !map.isStyleLoaded()) {
 			return false; // Map not ready
@@ -225,6 +225,12 @@
 			map.setLayoutProperty(layer.id, 'visibility', layerVisibilityConfig.roads ? 'visible' : 'none');
 		});
 		
+		// Handle building layers
+		const buildingLayers = ['buildings-ab', 'buildings-bc', 'buildings-on', 'buildings-qc'];
+		buildingLayers.forEach(layer => {
+			map.setLayoutProperty(layer, 'visibility', layerVisibilityConfig.buildings ? 'visible' : 'none');
+		});
+
 		return true; // Successfully updated
 	}
 
@@ -258,7 +264,8 @@
 		transit: transitCheck,
 		parking: parkingCheck,
 		stations: stationCheck,
-		roads: roadsCheck
+		roads: roadsCheck,
+		buildings: buildingsCheck
 	});
 	// Map 2
 	$: mapLayerToggle(map2, {
@@ -266,7 +273,8 @@
 		transit: transitCheck,
 		parking: parkingCheck,
 		stations: stationCheck,
-		roads: roadsCheck
+		roads: roadsCheck,
+		buildings: buildingsCheck
 	});
 
 	onMount(() => {
