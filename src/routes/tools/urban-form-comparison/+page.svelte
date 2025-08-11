@@ -3,10 +3,12 @@
 	import mapboxgl from 'mapbox-gl';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import * as turf from '@turf/turf';
-	import { DropdownMenu } from "bits-ui";
+
+	import Combobox from '../../lib/ui/Combobox.svelte';
+	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	import stationRawData from '../../lib/data/transitdata/stations.json';
-	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
+	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
 
     import '../../styles.css';
 
@@ -18,19 +20,20 @@
 	let map2;
 
 	// Initial stations
-	let selectedStation1 = "Markham North (Line 7: Eglinton East LRT)";
-	let selectedStation2 = "144 Avenue N (Green Line)";
+	let selectedStation1 = "573";
+	let selectedStation2 = "10";
 
 	// Station area radius in km
 	const radiusInKilometers = 0.8;
 
 	// Map configuration
+	// https://docs.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
 	const mapConfig = {
 		style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
 		zoom: 13,
 		minZoom: 2,
-		// scrollZoom: false,
-		// dragPan: false,
+		scrollZoom: false,
+		dragPan: false,
 		attributionControl: false
 	};
 
@@ -46,37 +49,25 @@
 	let transitCheck;
 	let stationCheck;
 	let parkingCheck;
+	let buildingsCheck;
 
-	// Create line-to-region mapping
-	function mapLineToRegion(){
-		const lineToRegion = {};
-
-		transitRegionsRawData.forEach(region => {
-			region.lines.forEach(line => {
-				lineToRegion[line.id] = region.name;
-			});
-		});
-
-		return lineToRegion;
-	}
 
 	// Create station labels, map stations to regions
 	function processStationData(stationRawData){
-		const lineToRegion = mapLineToRegion();
 		
 		return stationRawData.map(station => ({
 			...station,
-			label: `${station.stop_label} (${station.line_display_name})`,
 			line_ids_array: station.line_ids 
 				? station.line_ids.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) 
-				: [],
-			region: lineToRegion[station.line_ids?.split(',')[0]?.trim()] || null
+				: []
 		}));
 	}
 
 	// Create circle and bounding box for station
-	function updateStationData(mapIndex, selectedStation){
-		const stationData = stationsProcessed.find(station => station.label === selectedStation);
+	function updateStationData(mapIndex, selectedStationId){
+		const stationData = stationsProcessed.find(station => station.id === selectedStationId);
+		if (!stationData) return;
+
 		const coords = [stationData.longitude, stationData.latitude];
 		const circle = turf.circle(coords, radiusInKilometers, {
 			steps: 128,
@@ -84,6 +75,18 @@
 		});
 		const bbox = turf.bbox(circle);
 		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
+
+		console.log(stationData);
+
+	}
+
+	// Handle station selection from combobox
+	function handleStation1Select(value) {
+		selectedStation1 = value.toString();
+	}
+
+	function handleStation2Select(value) {
+		selectedStation2 = value.toString();
 	}
 
 	// Create map instances
@@ -180,7 +183,10 @@
 
 			// Update map bounds and center
 			if (bbox) {map.setMaxBounds(bbox);} 
-			if (coords) {map.setCenter(coords);}
+			if (coords) {
+				map.setCenter(coords);
+				// map.setZoom(15);
+			}
 
 			// Update station styling if callback is provided
 			if (updateStylingCallback && typeof updateStylingCallback === 'function') {
@@ -195,7 +201,7 @@
 	// Handle layer toggles
 	function mapLayerToggle(map, layerVisibilityConfig) {
     // Check if map is ready and all required layers exist
-		const requiredLayers = ['greenspace', 'transit-lines-white', 'road-simple', 'parking', 'transit-station-points'];
+		const requiredLayers = ['greenspace', 'transit-lines-white', 'road-simple', 'parking', 'transit-station-points', 'buildings-ab'];
 		
 		if (!map || !map.isStyleLoaded()) {
 			return false; // Map not ready
@@ -219,14 +225,17 @@
 			map.setLayoutProperty(layer.id, 'visibility', layerVisibilityConfig.roads ? 'visible' : 'none');
 		});
 		
+		// Handle building layers
+		const buildingLayers = ['buildings-ab', 'buildings-bc', 'buildings-on', 'buildings-qc'];
+		buildingLayers.forEach(layer => {
+			map.setLayoutProperty(layer, 'visibility', layerVisibilityConfig.buildings ? 'visible' : 'none');
+		});
+
 		return true; // Successfully updated
 	}
 
 	// Process station data
 	const stationsProcessed = processStationData(stationRawData);
-
-	// List of stations for dropdown
-	const stations = stationsProcessed.map(station => station.label);
 
 	// Map 1
 	$: if (selectedStation1 && mapData[1]) {
@@ -255,7 +264,8 @@
 		transit: transitCheck,
 		parking: parkingCheck,
 		stations: stationCheck,
-		roads: roadsCheck
+		roads: roadsCheck,
+		buildings: buildingsCheck
 	});
 	// Map 2
 	$: mapLayerToggle(map2, {
@@ -263,7 +273,8 @@
 		transit: transitCheck,
 		parking: parkingCheck,
 		stations: stationCheck,
-		roads: roadsCheck
+		roads: roadsCheck,
+		buildings: buildingsCheck
 	});
 
 	onMount(() => {
@@ -277,6 +288,7 @@
 		transitCheck = true;
 		stationCheck = true
 		parkingCheck = true;
+		buildingsCheck = true;
 
 		// Convert station data to geojson
 		const stationGeojson = {
@@ -294,9 +306,9 @@
 		}))
 		};
 
-		// Create first map
-		map1 = createMap('map1', [-79.238666491, 43.7937808965], mapData[1].bbox || [[-180, -85], [180, 85]]);
-		map2 = createMap('map2', [-114.0624934, 51.0661771], mapData[2].bbox || [[-180, -85], [180, 85]]);
+		// Create maps
+		map1 = createMap('map1', [-75.76952808, 45.35552482], mapData[1].bbox || [[-180, -85], [180, 85]]);
+		map2 = createMap('map2', [-114.0624316, 51.0878946], mapData[2].bbox || [[-180, -85], [180, 85]]);
 
 		// Load first map
 		map1.on('load', () => {
@@ -329,14 +341,13 @@
 	<div class="map-column">
 		<div id="select1">
 			<!-- Station dropdown selection -->
-			<select bind:value={selectedStation1}>
-				<option disabled selected value={null}>Markham North (Line 7: Eglinton East LRT)</option>
-				{#each stations as station}
-				<option value={station}>
-					{station}
-				</option>
-				{/each}
-			</select>
+			<Combobox
+				handleSelect = {handleStation1Select}
+				data = {transitStationsDropdown}
+				icon = "mdi:train"
+				placeholder = {'Search for a station'}
+				selected = {selectedStation1}>
+			</Combobox>
 		</div>
 		<div id="map1" />
 	</div>
@@ -345,14 +356,13 @@
 	<div class="map-column">
 		<div id="select2">
 			<!-- Station dropdown selection -->
-			<select bind:value={selectedStation2}>
-				<option disabled selected value={null}>144 Avenue N (Green Line)</option>
-				{#each stations as station}
-				<option value={station}>
-					{station}
-				</option>
-				{/each}
-			</select>
+			<Combobox
+				handleSelect = {handleStation2Select}
+				data = {transitStationsDropdown}
+				icon = "mdi:train"
+				placeholder = {'Search for a station'}
+				selected = {selectedStation2}>
+			</Combobox>
 		</div>
 		<div id="map2" />
 	</div>
@@ -380,8 +390,12 @@
 		<input type="checkbox" bind:checked={parkingCheck} />
 		Parking
 	</label>
+	<label>
+		<input type="checkbox" bind:checked={buildingsCheck} />
+		Buildings
+	</label>
+	
 </div>
-
 
 <style>
 	#map1, #map2 {
@@ -416,14 +430,6 @@
 	/* Dropdown container */
 	#select1, #select2 {
 		width: 300px;
-	}
-
-	/* Dropdown style */
-	#select1 select, #select2 select {
-		width: 100%;
-		padding: 8px;
-		border: 1px solid #ccc;
-		border-radius: 4px;
 	}
 
 	.layers {
