@@ -8,7 +8,6 @@
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	import stationRawData from '../../lib/data/transitdata/stations.json';
-	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
 	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
 
     import '../../styles.css';
@@ -28,6 +27,7 @@
 	const radiusInKilometers = 0.8;
 
 	// Map configuration
+	// https://docs.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
 	const mapConfig = {
 		style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
 		zoom: 13,
