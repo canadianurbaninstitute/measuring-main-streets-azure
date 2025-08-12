@@ -1,15 +1,14 @@
 <script>
 	// --- Imports ---
-	import '../styles.css';
-	import { onMount } from 'svelte';
-	import mapboxgl from 'mapbox-gl';
-	import * as turf from '@turf/turf';
 	import { BarChart } from '@onsvisual/svelte-charts';
+	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
-	import TransitMetric from '../lib/ui/TransitMetric.svelte';
-	import Footer from '../lib/ui/Footer.svelte';
 	import Fuse from 'fuse.js';
-
+	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';
+	import Footer from '../lib/ui/Footer.svelte';
+	import TransitMetric from '../lib/ui/TransitMetric.svelte';
+	import '../styles.css';
 	// --- Data Imports ---
 	import stationRawData from '../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
@@ -105,8 +104,8 @@
 
 		// Create lines search data with region context
 		const linesWithContext = [];
-		regionsData.forEach(region => {
-			region.lines.forEach(line => {
+		regionsData.forEach((region) => {
+			region.lines.forEach((line) => {
 				linesWithContext.push({
 					...line,
 					regionName: region.name,
@@ -135,17 +134,17 @@
 			};
 		}
 
-		const regions = regionsFuse.search(query).map(result => ({
+		const regions = regionsFuse.search(query).map((result) => ({
 			...result.item,
 			type: 'region'
 		}));
 
-		const lines = linesFuse.search(query).map(result => ({
+		const lines = linesFuse.search(query).map((result) => ({
 			...result.item,
 			type: 'line'
 		}));
 
-		const stops = stopsFuse.search(query).map(result => ({
+		const stops = stopsFuse.search(query).map((result) => ({
 			...result.item,
 			type: 'stop'
 		}));
@@ -158,7 +157,7 @@
 		const station = processedStationData.find((s) => s.id === id);
 
 		if (!station) {
-			console.error("Station not found for ID:", id);
+			console.error('Station not found for ID:', id);
 			selectedStation = {};
 			return;
 		}
@@ -183,8 +182,8 @@
 			{ label: 'Semi-Detached', value: selectedStation.RowHouse, y: '⠀' },
 			{ label: 'Row', value: selectedStation.SemiDetachedHouse, y: '⠀' },
 			{ label: 'Duplex', value: selectedStation.DetachedDuplex, y: '⠀' },
-			{ label: 'Apt >5', value: selectedStation["Apartment,FiveOrMoreStory"], y: '⠀' },
-			{ label: 'Apt <5', value: selectedStation["Apartment,FewerThanFiveStory"], y: '⠀' }
+			{ label: 'Apt >5', value: selectedStation['Apartment,FiveOrMoreStory'], y: '⠀' },
+			{ label: 'Apt <5', value: selectedStation['Apartment,FewerThanFiveStory'], y: '⠀' }
 		];
 
 		ownerData = [
@@ -193,23 +192,26 @@
 		];
 
 		businessData = [
-			{ label: 'Food and Drink', value: selectedStation["Food and Drink"], y: '⠀' },
-			{ label: 'Retail', value: selectedStation["Retail"], y: '⠀' },
-			{ label: 'Local Services', value: selectedStation["Services and Other"], y: '⠀' }
+			{ label: 'Food and Drink', value: selectedStation['Food and Drink'], y: '⠀' },
+			{ label: 'Retail', value: selectedStation['Retail'], y: '⠀' },
+			{ label: 'Local Services', value: selectedStation['Services and Other'], y: '⠀' }
 		];
 
 		civicData = [
-			{ label: 'Arts and Culture', value: selectedStation["Arts and Culture"], y: '⠀' },
-			{ label: 'Government and Community Services', value: selectedStation["Government and Community Services"], y: '⠀' },
-			{ label: 'Recreation', value: selectedStation["Recreation Facilities"], y: '⠀' },
-			{ label: 'Healthcare', value: selectedStation["Health and Care Facilities"], y: '⠀' },
-			{ label: 'Education', value: selectedStation["Education"], y: '⠀' }
+			{ label: 'Arts and Culture', value: selectedStation['Arts and Culture'], y: '⠀' },
+			{
+				label: 'Government and Community Services',
+				value: selectedStation['Government and Community Services'],
+				y: '⠀'
+			},
+			{ label: 'Recreation', value: selectedStation['Recreation Facilities'], y: '⠀' },
+			{ label: 'Healthcare', value: selectedStation['Health and Care Facilities'], y: '⠀' },
+			{ label: 'Education', value: selectedStation['Education'], y: '⠀' }
 		];
 	}
 
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
-
 		// run update function to fetch relevant station data
 
 		if (!map) return;
@@ -217,7 +219,7 @@
 
 		stationSelected = true;
 
-		// draw the MTSA circle 
+		// draw the MTSA circle
 		const radiusInKilometers = 0.8;
 		const circleFeature = turf.circle(stationCoordinates, radiusInKilometers, {
 			steps: 128,
@@ -234,7 +236,7 @@
 
 		circleDrawn = true;
 
-		// zoom too station
+		// zoom to station
 		map.flyTo({
 			center: stationCoordinates,
 			zoom: 14.5,
@@ -242,11 +244,11 @@
 		});
 
 		// filter layers to be only visible within the circle - could change to be colored inside circle grey outside but more complex
-		
+
 		const circlePolygon = circleFeature.geometry;
 		const thematicLayers = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business'];
 
-		thematicLayers.forEach(layerId => {
+		thematicLayers.forEach((layerId) => {
 			if (map.getLayer(layerId)) {
 				map.setFilter(layerId, ['within', circlePolygon]);
 			}
@@ -254,7 +256,6 @@
 	}
 
 	function resetStationSelection() {
-
 		// remove circle
 		if (map && map.getSource('circle')) {
 			map.getSource('circle').setData({
@@ -268,9 +269,15 @@
 		stationSelected = false;
 		selectedStation = {};
 
-		//reset layer filters 
-		const thematicLayersToReset = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business', 'employment-size'];
-		thematicLayersToReset.forEach(layerId => {
+		//reset layer filters
+		const thematicLayersToReset = [
+			'msn-lowdensity',
+			'msn-highdensity',
+			'civic-infra',
+			'business',
+			'employment-size'
+		];
+		thematicLayersToReset.forEach((layerId) => {
 			if (map && map.getLayer(layerId)) {
 				map.setFilter(layerId, null);
 			}
@@ -286,8 +293,7 @@
 		activeRegion = region;
 		activeLine = null;
 
-
-		// zoom map to region based on bbox from transit-regions.json 
+		// zoom map to region based on bbox from transit-regions.json
 		map.fitBounds(region.bbox, { padding: 50, duration: 1000 });
 	}
 
@@ -295,8 +301,6 @@
 		if (!map) return;
 		resetStationSelection();
 
-
-		
 		activeLine = line;
 
 		// find which line is selected on the map based on id
@@ -304,7 +308,6 @@
 			layers: ['transit-lines'],
 			filter: ['==', 'line_id', activeLine.id]
 		});
-
 
 		// if there is a line selected, zoom to it based on calculated bbox
 		if (selectedLine.length > 0) {
@@ -335,8 +338,7 @@
 			if (activeRegion) {
 				map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
 			}
-		// region case: reset map
-
+			// region case: reset map
 		} else if (activeRegion) {
 			activeRegion = null;
 			map.flyTo({ center: [-89, 58], zoom: 3.3, duration: 1000 });
@@ -352,7 +354,7 @@
 
 	function selectLineFromSearch(line) {
 		searchTerm = '';
-		const parentRegion = regionsData.find(r => r.id === line.regionId);
+		const parentRegion = regionsData.find((r) => r.id === line.regionId);
 		if (parentRegion) {
 			activeRegion = parentRegion;
 		}
@@ -366,7 +368,6 @@
 
 	function handleSidebarBack() {
 		if (stationSelected) {
-
 			const previouslyActiveLine = activeLine;
 			const previouslyActiveRegion = activeRegion;
 
@@ -376,12 +377,22 @@
 
 			if (map) {
 				if (previouslyActiveLine) {
-					const lineStations = processedStationData.filter(s => s.line_ids_array && s.line_ids_array.includes(previouslyActiveLine.id));
-					if (lineStations.length > 0 && typeof turf !== 'undefined' && turf.featureCollection && turf.point && turf.bbox) {
-						const stationPoints = turf.featureCollection(lineStations.map(s => turf.point([s.longitude, s.latitude])));
+					const lineStations = processedStationData.filter(
+						(s) => s.line_ids_array && s.line_ids_array.includes(previouslyActiveLine.id)
+					);
+					if (
+						lineStations.length > 0 &&
+						typeof turf !== 'undefined' &&
+						turf.featureCollection &&
+						turf.point &&
+						turf.bbox
+					) {
+						const stationPoints = turf.featureCollection(
+							lineStations.map((s) => turf.point([s.longitude, s.latitude]))
+						);
 						const lineBbox = turf.bbox(stationPoints);
 						map.fitBounds(lineBbox, { padding: 50, duration: 1000 });
-					} else if (previouslyActiveRegion) { 
+					} else if (previouslyActiveRegion) {
 						map.fitBounds(previouslyActiveRegion.bbox, { padding: 50, duration: 1000 });
 					}
 				} else if (previouslyActiveRegion) {
@@ -395,33 +406,38 @@
 
 	// --- Reactive Logic with Fuse.js search library ---
 	$: searchResults = searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] };
-	
+
 	$: {
 		if (searchTerm) {
 			sidebarDisplayItems = [];
 		} else if (activeLine) {
 			sidebarDisplayItems = processedStationData
-				.filter(s => s.line_ids_array && s.line_ids_array.includes(activeLine.id))
-				.map(s => ({ ...s, type: 'stop' }))
-				.sort((a,b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
+				.filter((s) => s.line_ids_array && s.line_ids_array.includes(activeLine.id))
+				.map((s) => ({ ...s, type: 'stop' }))
+				.sort((a, b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
 		} else if (activeRegion) {
 			sidebarDisplayItems = activeRegion.lines
-				.map(l => ({ ...l, type: 'line' }))
-				.sort((a,b) => a.name.localeCompare(b.name));
+				.map((l) => ({ ...l, type: 'line' }))
+				.sort((a, b) => a.name.localeCompare(b.name));
 		} else {
 			sidebarDisplayItems = regionsData
-				.map(r => ({ ...r, type: 'region' }))
-				.sort((a,b) => a.name.localeCompare(b.name));
+				.map((r) => ({ ...r, type: 'region' }))
+				.sort((a, b) => a.name.localeCompare(b.name));
 		}
 	}
 
 	// --- Svelte Lifecycle: onMount (Map Initialization) ---
 	onMount(() => {
-		regionsData = transitRegionsRawData.sort((a,b) => a.name.localeCompare(b.name));
+		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
-		processedStationData = stationRawData.map(station => ({
+		processedStationData = stationRawData.map((station) => ({
 			...station,
-			line_ids_array: station.line_id ? station.line_id.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) : []
+			line_ids_array: station.line_id
+				? station.line_id
+						.split(',')
+						.map((s) => parseInt(s.trim(), 10))
+						.filter((n) => !isNaN(n))
+				: []
 		}));
 
 		// Initialize search indexes after data is loaded
@@ -478,7 +494,7 @@
 			map.on('click', 'transit-stations', (e) => {
 				if (e.features.length > 0) {
 					const stationId = e.features[0].properties.id;
-					const stationDataForClick = processedStationData.find(s => s.id === stationId);
+					const stationDataForClick = processedStationData.find((s) => s.id === stationId);
 					if (stationDataForClick) {
 						selectStop(stationDataForClick);
 					}
@@ -592,7 +608,10 @@
 				break;
 			case 'built-form':
 				map.flyTo({
-					center: selectedStation.longitude && selectedStation.latitude ? [selectedStation.longitude, selectedStation.latitude] : map.getCenter(),
+					center:
+						selectedStation.longitude && selectedStation.latitude
+							? [selectedStation.longitude, selectedStation.latitude]
+							: map.getCenter(),
 					zoom: selectedStation.longitude && selectedStation.latitude ? 14.5 : map.getZoom(),
 					duration: 1000
 				});
@@ -647,7 +666,12 @@
 
 <div id="controls">
 	<div class="sidebar-top-controls">
-		<input type="text" bind:value={searchTerm} placeholder="Search for a region, line, or station..." class="search-input"/>
+		<input
+			type="text"
+			bind:value={searchTerm}
+			placeholder="Search for a region, line, or station..."
+			class="search-input"
+		/>
 	</div>
 	<div id="filter-container">
 		<div class="filter-group">
@@ -708,21 +732,27 @@
 	</div>
 </div>
 <div id="content-container">
-	<div id="sidebar"> 
+	<div id="sidebar">
 		{#if stationSelected && !searchTerm}
 			<div class="station-details-scroll-container">
 				{#if selectedStation && selectedStation.id}
 					<div id="station-container">
 						<div>
-						<div id="transit-logos">
-							{#each (selectedStation.line_id ? selectedStation.line_id.split(',').map(s => s.trim()) : []) as lineId}
-								<img src={`/transit-logos/${lineId}.svg`} alt="transit-logo" class="transit-logo" />
-							{/each}
-						</div>
-						<h2>{selectedStation.stop_label}</h2>
+							<div id="transit-logos">
+								{#each selectedStation.line_id ? selectedStation.line_id
+											.split(',')
+											.map((s) => s.trim()) : [] as lineId}
+									<img
+										src={`/transit-logos/${lineId}.svg`}
+										alt="transit-logo"
+										class="transit-logo"
+									/>
+								{/each}
+							</div>
+							<h2>{selectedStation.stop_label}</h2>
 						</div>
 						<h4>{selectedStation.line_display_name}</h4>
-						
+
 						<div id="tag-container">
 							<div class="tag-list">
 								<h5>Status:</h5>
@@ -788,7 +818,11 @@
 										icon={'mdi:people'}
 									/>
 								</div>
-								<TransitMetric label={'University Degree'} value={selectedStation.UniversityDegree + '%'} icon={'mdi:school'} />
+								<TransitMetric
+									label={'University Degree'}
+									value={selectedStation.UniversityDegree + '%'}
+									icon={'mdi:school'}
+								/>
 								<div class="chart-container">
 									<div class="chart">
 										<BarChart
@@ -816,8 +850,16 @@
 										value={selectedStation.dwellings}
 										icon={'mdi:house'}
 									/>
-									<TransitMetric label={'Average Value'} value={selectedStation.HouseValue} icon={'mdi:dollar'} /> 
-									<TransitMetric label={'Average Rent'} value={selectedStation.MonthlyRent} icon={'mdi:dollar'} />
+									<TransitMetric
+										label={'Average Value'}
+										value={selectedStation.HouseValue}
+										icon={'mdi:dollar'}
+									/>
+									<TransitMetric
+										label={'Average Rent'}
+										value={selectedStation.MonthlyRent}
+										icon={'mdi:dollar'}
+									/>
 								</div>
 								<div class="chart-container">
 									<div class="chart">
@@ -873,10 +915,18 @@
 										value={selectedStation.GreenspaceArea + 'sq. m'}
 										icon={'mdi:tree'}
 									/>
-									<TransitMetric label={'Population Density'} value={selectedStation.PopulationDensity} icon={'mdi:people'} /> 
-									<TransitMetric label={'Employment Density'} value={selectedStation.EmploymentDensity} icon={'mdi:briefcase'} />
+									<TransitMetric
+										label={'Population Density'}
+										value={selectedStation.PopulationDensity}
+										icon={'mdi:people'}
+									/>
+									<TransitMetric
+										label={'Employment Density'}
+										value={selectedStation.EmploymentDensity}
+										icon={'mdi:briefcase'}
+									/>
 								</div>
-								<div />
+								<div></div>
 							</div></Tabs.Content
 						>
 						<Tabs.Content value="business" class="tab-button">
@@ -940,7 +990,11 @@
 						</Tabs.Content>
 						<Tabs.Content value="employment" class="tab-button">
 							<div class="tab-content">
-								<TransitMetric label={'Total Employment'} value={selectedStation.EmployeeCount} icon={'mdi:briefcase'} />
+								<TransitMetric
+									label={'Total Employment'}
+									value={selectedStation.EmployeeCount}
+									icon={'mdi:briefcase'}
+								/>
 								<div class="chart-container">
 									<div class="chart">
 										<BarChart
@@ -961,7 +1015,7 @@
 							</div>
 						</Tabs.Content>
 					</Tabs.Root>
-				{:else if stationSelected} 
+				{:else if stationSelected}
 					<p>Loading station details...</p>
 				{/if}
 			</div>
@@ -972,7 +1026,9 @@
 						<div class="nav-section-header">Regions</div>
 						<ul class="nav-list">
 							{#each searchResults.regions as item (item.id)}
-								<li on:click={() => selectRegionFromSearch(item)} class="nav-item region-item">{item.name}</li>
+								<li on:click={() => selectRegionFromSearch(item)} class="nav-item region-item">
+									{item.name}
+								</li>
 							{/each}
 						</ul>
 					{/if}
@@ -1003,11 +1059,15 @@
 					<ul class="nav-list">
 						{#each sidebarDisplayItems as item (item.id || item.stop_label)}
 							{#if item.type === 'region'}
-								<li on:click={() => selectRegion(item)} class="nav-item region-item">{item.name}</li>
+								<li on:click={() => selectRegion(item)} class="nav-item region-item">
+									{item.name}
+								</li>
 							{:else if item.type === 'line'}
 								<li on:click={() => selectLine(item)} class="nav-item line-item">{item.name}</li>
 							{:else if item.type === 'stop'}
-								<li on:click={() => selectStop(item)} class="nav-item stop-item">{item.stop_label}</li>
+								<li on:click={() => selectStop(item)} class="nav-item stop-item">
+									{item.stop_label}
+								</li>
 							{/if}
 						{/each}
 					</ul>
@@ -1015,12 +1075,12 @@
 			</div>
 		{/if}
 		{#if stationSelected || activeLine || activeRegion}
-		<button on:click={handleSidebarBack} class="back-button">← Back</button>
+			<button on:click={handleSidebarBack} class="back-button">← Back</button>
 		{/if}
 	</div>
 
 	<div id="map-container">
-		<div id="map" />
+		<div id="map"></div>
 	</div>
 </div>
 <Footer />
@@ -1067,7 +1127,6 @@
 		overflow: hidden;
 	}
 
-
 	#sidebar {
 		width: 100%;
 		display: flex;
@@ -1093,7 +1152,6 @@
 		overflow-y: auto;
 	}
 
-	
 	.station-details-scroll-container > div {
 		padding: 1em;
 	}
@@ -1224,7 +1282,7 @@
 	.stop-item {
 		padding-left: 1em;
 	}
-	
+
 	.nav-section-header {
 		font-weight: bold;
 		margin: 0.8em;
