@@ -1,16 +1,15 @@
 <script>
-	import { onMount } from 'svelte';
-	import mapboxgl from 'mapbox-gl';
-	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import * as turf from '@turf/turf';
+	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';
+	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 	import Combobox from '../../lib/ui/Combobox.svelte';
-	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
 
-    import '../../styles.css';
+	import '../../styles.css';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -20,8 +19,8 @@
 	let map2;
 
 	// Initial stations
-	let selectedStation1 = "573";
-	let selectedStation2 = "10";
+	let selectedStation1 = '573';
+	let selectedStation2 = '10';
 
 	// Station area radius in km
 	const radiusInKilometers = 0.8;
@@ -34,7 +33,8 @@
 		minZoom: 2,
 		scrollZoom: false,
 		dragPan: false,
-		attributionControl: false
+		attributionControl: false,
+		projection: 'mercator'
 	};
 
 	// Map data storage
@@ -51,21 +51,22 @@
 	let parkingCheck;
 	let buildingsCheck;
 
-
 	// Create station labels, map stations to regions
-	function processStationData(stationRawData){
-		
-		return stationRawData.map(station => ({
+	function processStationData(stationRawData) {
+		return stationRawData.map((station) => ({
 			...station,
-			line_ids_array: station.line_ids 
-				? station.line_ids.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n)) 
+			line_ids_array: station.line_ids
+				? station.line_ids
+						.split(',')
+						.map((s) => parseInt(s.trim(), 10))
+						.filter((n) => !isNaN(n))
 				: []
 		}));
 	}
 
 	// Create circle and bounding box for station
-	function updateStationData(mapIndex, selectedStationId){
-		const stationData = stationsProcessed.find(station => station.id === selectedStationId);
+	function updateStationData(mapIndex, selectedStationId) {
+		const stationData = stationsProcessed.find((station) => station.id === selectedStationId);
 		if (!stationData) return;
 
 		const coords = [stationData.longitude, stationData.latitude];
@@ -75,9 +76,7 @@
 		});
 		const bbox = turf.bbox(circle);
 		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
-
-		console.log(stationData);
-
+		// console.log(stationData);
 	}
 
 	// Handle station selection from combobox
@@ -90,36 +89,33 @@
 	}
 
 	// Create map instances
-	function createMap(containerId, centre, maxBounds){
+	function createMap(containerId, centre, maxBounds) {
 		return new mapboxgl.Map({
 			container: containerId,
-			...mapConfig,
-			centre,
-			maxBounds
+			...mapConfig
 		});
 	}
 
 	// Add layers to map (transit, etc.)
-	function addMapLayers(map, allStationData, selectedStationData){
-
+	function addMapLayers(map, allStationData, selectedStationData) {
 		// Add transit station source
 		map.addSource('transit-station-data', {
-				type: 'geojson',
-				data: allStationData
+			type: 'geojson',
+			data: allStationData
 		});
 
 		// Add station points
 		map.addLayer({
-				id: 'transit-station-points',
-				type: 'circle',
-				source: 'transit-station-data',
-				paint: {
-					'circle-radius': 10,
-					'circle-color': "#FFFFFF",
-					'circle-stroke-color': 'black',
-					'circle-stroke-width': 2
-					}
-			});
+			id: 'transit-station-points',
+			type: 'circle',
+			source: 'transit-station-data',
+			paint: {
+				'circle-radius': 10,
+				'circle-color': '#FFFFFF',
+				'circle-stroke-color': 'black',
+				'circle-stroke-width': 2
+			}
+		});
 
 		// Add station radius source
 		map.addSource('station-radius', {
@@ -135,7 +131,7 @@
 			paint: {
 				'fill-color': 'transparent',
 				'fill-opacity': 1.0,
-				'fill-outline-color': "red"
+				'fill-outline-color': 'red'
 			}
 		});
 	}
@@ -152,7 +148,7 @@
 			map.setPaintProperty('transit-station-points', property, value);
 		});
 	}
-	
+
 	// Update map for selected station
 	function updateMapWithStationData(map, stationData, options = {}) {
 		const {
@@ -179,20 +175,20 @@
 			const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
 
 			// Update the radius circle data if source exists
-			if (map.getSource(radiusSourceId)) {map.getSource(radiusSourceId).setData(circle);}
-
-			// Update map bounds and center
-			if (bbox) {map.setMaxBounds(bbox);} 
-			if (coords) {
-				map.setCenter(coords);
-				// map.setZoom(15);
+			if (map.getSource(radiusSourceId)) {
+				map.getSource(radiusSourceId).setData(circle);
 			}
 
+			// Update map bounds and center
+			if (bbox && coords) {
+				// set bounds AFTER setting center, otherwise the bounds may be off
+				map.setCenter(coords);
+				map.fitBounds(bbox, { padding: 0 });
+			}
 			// Update station styling if callback is provided
 			if (updateStylingCallback && typeof updateStylingCallback === 'function') {
 				updateStylingCallback(map, selectedStationFilter);
 			}
-
 		} catch (error) {
 			console.error('Error updating map with station data:', error);
 		}
@@ -200,35 +196,66 @@
 
 	// Handle layer toggles
 	function mapLayerToggle(map, layerVisibilityConfig) {
-    // Check if map is ready and all required layers exist
-		const requiredLayers = ['greenspace', 'transit-lines-white', 'road-simple', 'parking', 'transit-station-points', 'buildings-ab'];
-		
+		// Check if map is ready and all required layers exist
+		const requiredLayers = [
+			'greenspace',
+			'transit-lines-white',
+			'road-simple',
+			'parking',
+			'transit-station-points',
+			'buildings-ab'
+		];
+
 		if (!map || !map.isStyleLoaded()) {
 			return false; // Map not ready
 		}
-		
+
 		// Check if all required layers exist
-		const allLayersExist = requiredLayers.every(layerId => map.getLayer(layerId));
+		const allLayersExist = requiredLayers.every((layerId) => map.getLayer(layerId));
 		if (!allLayersExist) {
 			return false; // Not all layers are loaded yet
 		}
-		
+
 		// Update individual layer visibility
-		map.setLayoutProperty('greenspace', 'visibility', layerVisibilityConfig.greenspace ? 'visible' : 'none');
-		map.setLayoutProperty('transit-lines-white', 'visibility', layerVisibilityConfig.transit ? 'visible' : 'none');
-		map.setLayoutProperty('parking', 'visibility', layerVisibilityConfig.parking ? 'visible' : 'none');
-		map.setLayoutProperty('transit-station-points', 'visibility', layerVisibilityConfig.stations ? 'visible' : 'none');
-		
+		map.setLayoutProperty(
+			'greenspace',
+			'visibility',
+			layerVisibilityConfig.greenspace ? 'visible' : 'none'
+		);
+		map.setLayoutProperty(
+			'transit-lines-white',
+			'visibility',
+			layerVisibilityConfig.transit ? 'visible' : 'none'
+		);
+		map.setLayoutProperty(
+			'parking',
+			'visibility',
+			layerVisibilityConfig.parking ? 'visible' : 'none'
+		);
+		map.setLayoutProperty(
+			'transit-station-points',
+			'visibility',
+			layerVisibilityConfig.stations ? 'visible' : 'none'
+		);
+
 		// Handle road layers (multiple layers with source-layer = 'road')
-		const roadLayers = map.getStyle().layers.filter(layer => layer['source-layer'] === 'road'); // Get all layers with source-layer = road
-		roadLayers.forEach(layer => {
-			map.setLayoutProperty(layer.id, 'visibility', layerVisibilityConfig.roads ? 'visible' : 'none');
+		const roadLayers = map.getStyle().layers.filter((layer) => layer['source-layer'] === 'road'); // Get all layers with source-layer = road
+		roadLayers.forEach((layer) => {
+			map.setLayoutProperty(
+				layer.id,
+				'visibility',
+				layerVisibilityConfig.roads ? 'visible' : 'none'
+			);
 		});
-		
+
 		// Handle building layers
 		const buildingLayers = ['buildings-ab', 'buildings-bc', 'buildings-on', 'buildings-qc'];
-		buildingLayers.forEach(layer => {
-			map.setLayoutProperty(layer, 'visibility', layerVisibilityConfig.buildings ? 'visible' : 'none');
+		buildingLayers.forEach((layer) => {
+			map.setLayoutProperty(
+				layer,
+				'visibility',
+				layerVisibilityConfig.buildings ? 'visible' : 'none'
+			);
 		});
 
 		return true; // Successfully updated
@@ -256,7 +283,7 @@
 			updateStylingCallback: updateStationStyling
 		});
 	}
-	
+
 	// Add layer toggles
 	// Map 1
 	$: mapLayerToggle(map1, {
@@ -278,7 +305,6 @@
 	});
 
 	onMount(() => {
-
 		// Initialize data
 		updateStationData(1, selectedStation1);
 		updateStationData(2, selectedStation2);
@@ -286,90 +312,90 @@
 		greenspaceCheck = true;
 		roadsCheck = true;
 		transitCheck = true;
-		stationCheck = true
+		stationCheck = true;
 		parkingCheck = true;
 		buildingsCheck = true;
 
 		// Convert station data to geojson
 		const stationGeojson = {
-			type: "FeatureCollection",
-			features: stationRawData.map(point => ({
-				type: "Feature",
+			type: 'FeatureCollection',
+			features: stationRawData.map((point) => ({
+				type: 'Feature',
 				geometry: {
-				type: "Point",
-				coordinates: [point.longitude, point.latitude]
+					type: 'Point',
+					coordinates: [point.longitude, point.latitude]
 				},
-			properties: {
-			name: point.stop_label,
-			station_id: point.id
-			}
-		}))
+				properties: {
+					name: point.stop_label,
+					station_id: point.id
+				}
+			}))
 		};
 
 		// Create maps
-		map1 = createMap('map1', [-75.76952808, 45.35552482], mapData[1].bbox || [[-180, -85], [180, 85]]);
-		map2 = createMap('map2', [-114.0624316, 51.0878946], mapData[2].bbox || [[-180, -85], [180, 85]]);
+		map1 = createMap('map1');
+		map2 = createMap('map2');
 
 		// Load first map
 		map1.on('load', () => {
 			// Add layers
 			addMapLayers(map1, stationGeojson, mapData[1]);
+			map1.setCenter([-75.76952808, 45.35552482]);
+			map1.fitBounds(mapData[1].bbox, { padding: 10 });
 		});
 
 		// Load second map
 		map2.on('load', () => {
-
 			// Add layers
 			addMapLayers(map2, stationGeojson, mapData[2]);
+			map2.setCenter([-114.0624316, 51.0878946]);
+			map2.fitBounds(mapData[2].bbox, { padding: 10 });
 		});
-		
 	});
-
 </script>
 
 <div class="hero">
 	<h1>Urban Form Comparison</h1>
 	<h2>Mapping Tool</h2>
 	<p id="description">
-		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns to select transit stations to compare.
+		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns
+		to select transit stations to compare.
 	</p>
 </div>
 
 <div class="map-container">
-
 	<!-- Display first map -->
 	<div class="map-column">
 		<div id="select1">
 			<!-- Station dropdown selection -->
 			<Combobox
-				handleSelect = {handleStation1Select}
-				data = {transitStationsDropdown}
-				icon = "mdi:train"
-				placeholder = {'Search for a station'}
-				selected = {selectedStation1}>
-			</Combobox>
+				handleSelect={handleStation1Select}
+				data={transitStationsDropdown}
+				icon="mdi:train"
+				placeholder={'Search for a station'}
+				selected={selectedStation1}
+			></Combobox>
 		</div>
-		<div id="map1" />
+		<div id="map1"></div>
 	</div>
-	
+
 	<!-- Display second map -->
 	<div class="map-column">
 		<div id="select2">
 			<!-- Station dropdown selection -->
 			<Combobox
-				handleSelect = {handleStation2Select}
-				data = {transitStationsDropdown}
-				icon = "mdi:train"
-				placeholder = {'Search for a station'}
-				selected = {selectedStation2}>
-			</Combobox>
+				handleSelect={handleStation2Select}
+				data={transitStationsDropdown}
+				icon="mdi:train"
+				placeholder={'Search for a station'}
+				selected={selectedStation2}
+			></Combobox>
 		</div>
-		<div id="map2" />
+		<div id="map2"></div>
 	</div>
-
 </div>
 
-<div class = "layers">
+<div class="layers">
 	<label>
 		<input type="checkbox" bind:checked={greenspaceCheck} />
 		Greenspace
@@ -394,16 +420,16 @@
 		<input type="checkbox" bind:checked={buildingsCheck} />
 		Buildings
 	</label>
-	
 </div>
 
 <style>
-	#map1, #map2 {
+	#map1,
+	#map2 {
 		width: 450px;
 		height: 100%;
 		min-height: 450px;
 		border-radius: 50%; /* Circular frame */
-		overflow: hidden;   /* Clip map to circle */
+		overflow: hidden; /* Clip map to circle */
 		border: 2px solid #d3d3d3;
 		padding: 20px;
 	}
@@ -428,7 +454,8 @@
 	}
 
 	/* Dropdown container */
-	#select1, #select2 {
+	#select1,
+	#select2 {
 		width: 300px;
 	}
 
@@ -450,8 +477,7 @@
 		font-size: 14px;
 	}
 
-	.layers input[type="checkbox"] {
+	.layers input[type='checkbox'] {
 		margin: 0;
 	}
 </style>
-
