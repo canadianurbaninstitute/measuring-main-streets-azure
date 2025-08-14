@@ -341,7 +341,7 @@
 			// Add layers
 			addMapLayers(map1, stationGeojson, mapData[1]);
 			map1.setCenter([-75.76952808, 45.35552482]);
-			map1.fitBounds(mapData[1].bbox, { padding: 10 });
+			map1.fitBounds(mapData[1].bbox, { padding: 0 });
 		});
 
 		// Load second map
@@ -349,7 +349,7 @@
 			// Add layers
 			addMapLayers(map2, stationGeojson, mapData[2]);
 			map2.setCenter([-114.0624316, 51.0878946]);
-			map2.fitBounds(mapData[2].bbox, { padding: 10 });
+			map2.fitBounds(mapData[2].bbox, { padding: 0 });
 		});
 	});
 </script>
