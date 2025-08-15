@@ -40,6 +40,10 @@
   },
   "type": "module",
   "dependencies": {
+    "@deck.gl/aggregation-layers": "^9.1.14",
+    "@deck.gl/core": "^9.1.14",
+    "@deck.gl/geo-layers": "^9.1.14",
+    "@deck.gl/mapbox": "^9.1.14",
     "@onsvisual/svelte-charts": "^0.4.11",
     "@rollup/plugin-dsv": "^3.0.4",
     "@supabase/supabase-js": "^2.42.0",
