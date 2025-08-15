@@ -1,10 +1,10 @@
 <script>
-	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
+	import { onMount } from 'svelte';
+	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
 	import Select from '../../lib/ui/Select.svelte';
-	import Combobox from '../../lib/ui/Combobox.svelte';
-	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json'; // labels for the select dropdown
-	import transitStations from '../../lib/data/transitdata/transit-stations-dropdown.json'; // labels for the select dropdown
+	// labels for the select dropdown
+	// labels for the select dropdown
 
 	// Component props - receives transit station data from parent
 	export let data = [];
@@ -259,7 +259,8 @@
 				const currentVarMeta = variables.find((v) => v.value === selectedVariable);
 
 				tooltip.transition().duration(200).style('opacity', 0.9);
-				tooltip.html(
+				tooltip
+					.html(
 						`<div style="font-weight:600;margin-bottom:4px;">${d.stop_label}</div>` +
 							`<div style="font-weight:400;margin-bottom:4px;">${d.status || 'N/A'} Station</div>` +
 							`<div>${currentVarMeta.label}: ${d3.format(',')(d[selectedVariable])}</div>`
@@ -385,7 +386,6 @@
 				selected={100}
 				handleSelect={handleLineSelect}
 			></Select>
-		
 		</div>
 		<div class="select-wrapper">
 			<label for="variable-select">Select Variable:</label>
@@ -407,7 +407,7 @@
 	</div>
 
 	<!-- Chart container where D3 visualization is rendered -->
-	<div class="chart" bind:this={chart} />
+	<div class="chart" bind:this={chart}></div>
 </div>
 
 <style>

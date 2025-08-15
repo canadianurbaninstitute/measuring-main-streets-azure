@@ -1,5 +1,6 @@
 <script>
 	import TransitChart from './TransitChart.svelte';
+	import TransitMap from './TransitMap.svelte';
 
 	import stationData from '../../lib/data/transitdata/chart-stations.json';
 
@@ -19,6 +20,9 @@
 
 <div class="chart-container">
 	<TransitChart data={stationData} />
+</div>
+<div class="chart-container">
+	<TransitMap />
 </div>
 
 <style>
