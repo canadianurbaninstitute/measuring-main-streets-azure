@@ -49,14 +49,6 @@
     // Dynamic size based on zoom
     const hexSize = zoomToHexSize(map.getZoom());
 
-    // Don't recalculate if hex size hasn't changed
-    if (hexSize === lastHexSize) {
-      console.log("Not recalculating");
-      return;
-    }
-
-    lastHexSize = hexSize;
-
     document.getElementById('zoom').textContent = `Zoom: ${map.getZoom().toFixed(2)} | Hex Size: ${hexSize} km`;
 
     const hexGrid = turf.hexGrid(bbox, hexSize, { units: 'kilometers' });
