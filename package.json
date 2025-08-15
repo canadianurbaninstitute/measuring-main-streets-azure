@@ -43,7 +43,10 @@
     "@deck.gl/aggregation-layers": "^9.1.14",
     "@deck.gl/core": "^9.1.14",
     "@deck.gl/geo-layers": "^9.1.14",
+    "@deck.gl/layers": "^9.1.14",
     "@deck.gl/mapbox": "^9.1.14",
+    "@loaders.gl/core": "^4.3.4",
+    "@loaders.gl/mvt": "^4.3.4",
     "@onsvisual/svelte-charts": "^0.4.11",
     "@rollup/plugin-dsv": "^3.0.4",
     "@supabase/supabase-js": "^2.42.0",
@@ -62,7 +65,8 @@
     "svelecte": "^5.2.0",
     "svelte-collapse": "^0.1.2",
     "svelte-multiselect": "^11.2.2",
-    "svelte-range-slider-pips": "^4.0.7"
+    "svelte-range-slider-pips": "^4.0.7",
+    "turf": "^3.0.14"
   },
   "engines": {
     "node": ">=18.13"
