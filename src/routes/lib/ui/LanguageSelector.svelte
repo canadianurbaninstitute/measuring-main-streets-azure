@@ -5,6 +5,7 @@
 	export let selected;
 </script>
 
+<!-- TODO: Use semantic html nav components -->
 <div id="language-selector">
 	<h4>
 		<a data-sveltekit-preload-data="false" href={eng} class:selected={selected === 'eng'}>ENGLISH</a
