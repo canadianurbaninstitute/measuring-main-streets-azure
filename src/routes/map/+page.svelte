@@ -8,17 +8,17 @@
 	import mapboxgl from 'mapbox-gl';
 
 	// Import Turf.js for geospatial operations
-	import * as turf from '@turf/turf';
 	import Icon from '@iconify/svelte';
+	import * as turf from '@turf/turf';
 
 	import { driver } from 'driver.js'; // For guided tutorial
 	import 'driver.js/dist/driver.css'; // Tutorial styles
 
 	// Custom Svelte components for UI
-	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
-	import Metric from '../lib/ui/Metric.svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
 	import Footer from '../lib/ui/Footer.svelte';
+	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
+	import Metric from '../lib/ui/Metric.svelte';
 
 	// Set Mapbox access token
 	mapboxgl.accessToken =

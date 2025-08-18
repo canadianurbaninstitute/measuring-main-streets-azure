@@ -1,6 +1,7 @@
 <script>
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
+	import '../../styles.css';
 	// --- Data Imports ---
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
@@ -9,8 +10,8 @@
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 	export let mapStyle =
 		'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true';
-	export let containerClass = 'map-container';
 
+	export let containerClass = 'map-container';
 	let mapContainer;
 	let map;
 	let activeLine = null;
@@ -136,7 +137,12 @@
 	});
 </script>
 
-<div id="map" bind:this={mapContainer} class={containerClass}></div>
+<svelte:head>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+</svelte:head>
+<div bind:this={mapContainer} class={containerClass}>
+	<div id="map"></div>
+</div>
 
 <style>
 	#map {
@@ -144,11 +150,6 @@
 		width: 100%;
 		position: relative;
 		order: -1;
-	}
-
-	#controls {
-		display: flex;
-		flex-direction: column;
 	}
 
 	.map-container {

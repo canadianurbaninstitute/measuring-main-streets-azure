@@ -18,14 +18,17 @@
 	</p>
 </div>
 
-<div class="chart-container">
-	<TransitChart data={stationData} />
-</div>
-<div class="chart-container">
-	<TransitMap />
+<div class="grid grid-cols-3 gap-4">
+	<div class="chart-container col-span-3">
+		<TransitMap />
+	</div>
+	<div class="chart-container col-span-3">
+		<TransitChart data={stationData} />
+	</div>
 </div>
 
-<style>
+<style lang="postcss">
+	@reference "tailwindcss";
 	.chart-container {
 		margin: 2em;
 	}
