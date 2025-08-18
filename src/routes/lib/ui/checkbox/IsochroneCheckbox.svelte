@@ -1,8 +1,8 @@
-
 <script>
-    import { onMount, onDestroy } from 'svelte';
-    import Icon from '@iconify/svelte';
-	import { mapStoreList } from '../../mapStore'; // Import the mapStore
+	import Icon from '@iconify/svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { mapStoreList } from '../../stores/mapStore';
+	// Import the mapStore
 
 	export let layer;
 	export let minZoom = 13.8;
@@ -21,34 +21,33 @@
 
 	// Unsubscribe when the component is destroyed to prevent memory leaks
 	onDestroy(unsubscribe);
-  
-    let isChecked = false;
-  
-    function toggleLayerOpacity() {
-      if (map) {
-        const layerId = layer;
-        const visibility = isChecked ? 'visible' : 'none';
-		const opacity = isChecked ? 0.9 : 0;
-        const zoom = isChecked ? minZoom : maxZoom;
-        map.setLayoutProperty(layerId, 'visibility', visibility);
-		map.setPaintProperty(layerId, 'fill-opacity', opacity);
-        map.easeTo({zoom})
-      }
-    }
-  
-    onMount(() => {
-      toggleLayerOpacity(); // Initialize layer opacity based on the initial checkbox state
-    });
-  </script>
-  
-  <button class={isChecked ? 'layerOn' : 'layerOff'}>
-    <Icon icon="mdi:walk" />
-  <label>
-    <input type="checkbox" bind:checked={isChecked} on:change={toggleLayerOpacity} />
-    10 Minute Walk Radius
-  </label>
+
+	let isChecked = false;
+
+	function toggleLayerOpacity() {
+		if (map) {
+			const layerId = layer;
+			const visibility = isChecked ? 'visible' : 'none';
+			const opacity = isChecked ? 0.9 : 0;
+			const zoom = isChecked ? minZoom : maxZoom;
+			map.setLayoutProperty(layerId, 'visibility', visibility);
+			map.setPaintProperty(layerId, 'fill-opacity', opacity);
+			map.easeTo({ zoom });
+		}
+	}
+
+	onMount(() => {
+		toggleLayerOpacity(); // Initialize layer opacity based on the initial checkbox state
+	});
+</script>
+
+<button class={isChecked ? 'layerOn' : 'layerOff'}>
+	<Icon icon="mdi:walk" />
+	<label>
+		<input type="checkbox" bind:checked={isChecked} on:change={toggleLayerOpacity} />
+		10 Minute Walk Radius
+	</label>
 </button>
-  
 
 <style>
 	label {
@@ -71,7 +70,8 @@
 		border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		display: flex;
@@ -90,15 +90,18 @@
 
 	button:hover {
 		cursor: pointer;
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
 
 	button:active {
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
-			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25), 0px 1px 0px 0px rgba(225, 228, 232, 0.2);
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25),
+			0px 1px 0px 0px rgba(225, 228, 232, 0.2);
 		background-color: #edeff2;
 		transition: 0.3s;
 	}

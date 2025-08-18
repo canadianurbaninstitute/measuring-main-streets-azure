@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueSainteCatherine from '../../../lib/assets/boundaries/montrealboundaries/RueSainteCatherine.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruesaintecatherine/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -209,7 +209,11 @@
 
 <main>
 	<Title outline={RueSainteCatherine} name={'Rue Sainte-Catherine'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruesaintecatherine'} fr={'/casestudies/montreal-fr/ruesaintecatherine-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruesaintecatherine'}
+		fr={'/casestudies/montreal-fr/ruesaintecatherine-fr'}
+		selected="fr"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
@@ -217,10 +221,23 @@
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
 					<p>
-						Située au cœur du quartier des Spectacles — le principal quartier culturel de Montréal —, la rue Sainte-Catherine est l’une des artères commerciales les plus emblématiques et les plus animées de Montréal. En tant que principale artère commerciale de la ville, elle joue un rôle crucial dans l’économie et le tissu culturel de Montréal. La rue s’étend sur plusieurs quartiers, offrant une gamme variée d’options de magasinage, de restauration et de divertissement, ce qui en fait une destination populaire pour les locaux et les touristes.
+						Située au cœur du quartier des Spectacles — le principal quartier culturel de Montréal
+						—, la rue Sainte-Catherine est l’une des artères commerciales les plus emblématiques et
+						les plus animées de Montréal. En tant que principale artère commerciale de la ville,
+						elle joue un rôle crucial dans l’économie et le tissu culturel de Montréal. La rue
+						s’étend sur plusieurs quartiers, offrant une gamme variée d’options de magasinage, de
+						restauration et de divertissement, ce qui en fait une destination populaire pour les
+						locaux et les touristes.
 					</p>
 					<p>
-						Cette étude se concentre sur le segment de la rue Sainte-Catherine entre la rue Guy et la rue Jeanne Mance en raison de son emplacement au cœur du centre-ville, de la présence d’une SDC (Société de développement commercial) qui soutient activement les entreprises locales, et de son lien étroit avec le quartier des Spectacles. Ce secteur de la rue Sainte-Catherine est caractérisé par la présence de grands magasins, de boutiques, de restaurants, de grands centres commerciaux, du Musée d’art contemporain de Montréal et de festivals tels que le Festival international de jazz de Montréal et Les Francos de Montréal.
+						Cette étude se concentre sur le segment de la rue Sainte-Catherine entre la rue Guy et
+						la rue Jeanne Mance en raison de son emplacement au cœur du centre-ville, de la présence
+						d’une SDC (Société de développement commercial) qui soutient activement les entreprises
+						locales, et de son lien étroit avec le quartier des Spectacles. Ce secteur de la rue
+						Sainte-Catherine est caractérisé par la présence de grands magasins, de boutiques, de
+						restaurants, de grands centres commerciaux, du Musée d’art contemporain de Montréal et
+						de festivals tels que le Festival international de jazz de Montréal et Les Francos de
+						Montréal.
 					</p>
 				</div>
 				<div class="map-container">
@@ -255,10 +272,23 @@
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
 					<p>
-						Cette section de la rue Sainte-Catherine présente une forme bâtie distincte qui change au fur et à mesure que l’on se déplace de l’extrémité est à l’extrémité ouest. Près de la rue Jeanne-Mance, à l’extrémité est, la rue a fait l’objet de rénovations qui ont permis d’élargir les trottoirs et de remplacer le stationnement dans la rue. Ici, la rue est caractérisée par une seule voie de circulation, ce qui permet de créer un environnement plus favorable aux piétons. Dans le quartier des Spectacles, près de la rue Jeanne-Mance, la rue Sainte-Catherine est entièrement piétonne et se fond dans les places et les espaces ouverts à l’extérieur du Musée d’art contemporain. Plus près de la rue Guy, à l’extrémité ouest du segment de rue, la rue n’a pas été rénovée récemment et comprend deux voies de circulation et deux voies de stationnement. Il est important de noter que tous les bâtiments situés le long de cette rue comprennent des commerces au rez-de-chaussée.
+						Cette section de la rue Sainte-Catherine présente une forme bâtie distincte qui change
+						au fur et à mesure que l’on se déplace de l’extrémité est à l’extrémité ouest. Près de
+						la rue Jeanne-Mance, à l’extrémité est, la rue a fait l’objet de rénovations qui ont
+						permis d’élargir les trottoirs et de remplacer le stationnement dans la rue. Ici, la rue
+						est caractérisée par une seule voie de circulation, ce qui permet de créer un
+						environnement plus favorable aux piétons. Dans le quartier des Spectacles, près de la
+						rue Jeanne-Mance, la rue Sainte-Catherine est entièrement piétonne et se fond dans les
+						places et les espaces ouverts à l’extérieur du Musée d’art contemporain. Plus près de la
+						rue Guy, à l’extrémité ouest du segment de rue, la rue n’a pas été rénovée récemment et
+						comprend deux voies de circulation et deux voies de stationnement. Il est important de
+						noter que tous les bâtiments situés le long de cette rue comprennent des commerces au
+						rez-de-chaussée.
 					</p>
 					<p>
-						La rue Sainte-Catherine est relativement mal desservie en matière d’espaces verts directement le long de la rue. Cependant, sa position centrale permet de disposer d’un grand nombre d’espaces verts à dix minutes de marche.
+						La rue Sainte-Catherine est relativement mal desservie en matière d’espaces verts
+						directement le long de la rue. Cependant, sa position centrale permet de disposer d’un
+						grand nombre d’espaces verts à dix minutes de marche.
 					</p>
 				</div>
 				<div class="map-container">
@@ -383,7 +413,32 @@
 							/>
 						</div>
 					</div>
-					<p>La rue Sainte-Catherine se trouve au cœur du centre-ville et est donc très bien desservie par tous les types d’infrastructures municipales. Le centre-ville étant une destination touristique de premier plan, le pourcentage d’infrastructures artistiques et culturelles y est beaucoup plus élevé que dans la moyenne de la RMR de Montréal.</p><p>À l’extrémité est du segment de rue se trouve la Place des Arts, le plus grand complexe culturel et artistique du Canada. Outre les salles de musique, les espaces culturels et les musées, la place elle-même remplit des fonctions civiques essentielles et est le lieu central de plusieurs festivals tout au long de l’année. La place est également très bien aménagée, avec des panneaux de signalisation, du mobilier urbain, des stations de rafraîchissement en été, et bien d’autres choses encore. C’est donc une place très animée qui attire de nombreux visiteurs et touristes.</p><p>Cette section de la rue Sainte-Catherine fait partie de la SDC du centre-ville qui coordonne une grande partie de la programmation de la rue. La signalisation et l’image de marque de la SDC sont présentes tout au long de la rue Sainte-Catherine et sur la Place des Arts.</p><p>Selon l’indice d’infrastructure municipale, la rue Sainte-Catherine se classe bien en matière de possibilités civiques. La rue se classe au 2e rang des 20 rues principales de Montréal et au 6e rang des 12 rues principales de centres-villes.</p>
+					<p>
+						La rue Sainte-Catherine se trouve au cœur du centre-ville et est donc très bien
+						desservie par tous les types d’infrastructures municipales. Le centre-ville étant une
+						destination touristique de premier plan, le pourcentage d’infrastructures artistiques et
+						culturelles y est beaucoup plus élevé que dans la moyenne de la RMR de Montréal.
+					</p>
+					<p>
+						À l’extrémité est du segment de rue se trouve la Place des Arts, le plus grand complexe
+						culturel et artistique du Canada. Outre les salles de musique, les espaces culturels et
+						les musées, la place elle-même remplit des fonctions civiques essentielles et est le
+						lieu central de plusieurs festivals tout au long de l’année. La place est également très
+						bien aménagée, avec des panneaux de signalisation, du mobilier urbain, des stations de
+						rafraîchissement en été, et bien d’autres choses encore. C’est donc une place très
+						animée qui attire de nombreux visiteurs et touristes.
+					</p>
+					<p>
+						Cette section de la rue Sainte-Catherine fait partie de la SDC du centre-ville qui
+						coordonne une grande partie de la programmation de la rue. La signalisation et l’image
+						de marque de la SDC sont présentes tout au long de la rue Sainte-Catherine et sur la
+						Place des Arts.
+					</p>
+					<p>
+						Selon l’indice d’infrastructure municipale, la rue Sainte-Catherine se classe bien en
+						matière de possibilités civiques. La rue se classe au 2e rang des 20 rues principales de
+						Montréal et au 6e rang des 12 rues principales de centres-villes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -473,7 +528,33 @@
 							/>
 						</div>
 					</div>
-					<p>La rue Sainte-Catherine est la principale artère commerciale du centre-ville de Montréal, abritant une multitude d’entreprises qui s’alignent le long de ses rues et de ses environs. En outre, le vaste réseau souterrain de la ville, qui s’étend sur plus de 33 kilomètres et qui est connu sous le nom de ville souterraine, se croise sous la rue Sainte-Catherine et aux alentours, offrant un accès direct aux stations de métro et aux complexes commerciaux. Les centres commerciaux emblématiques du centre-ville, tels que le Centre Eaton et le Complexe Desjardins, sont facilement accessibles depuis la rue.</p><p>La majorité de ces commerces sont des commerces de détail, avec une prédominance de chaînes de magasins nationales et internationales telles que Uniqlo, Nike et Footlocker, aux côtés de diverses chaînes de restaurants et de restauration rapide régionales et nationales. À l’extrémité est, près de la Place des Arts, certains restaurants offrent des places en plein air pendant les mois d’été.</p><p>Selon l’indice des entreprises indépendantes, la rue Sainte-Catherine est à la traîne par rapport aux autres études de cas de la rue principale en matière de niveau d’indépendance des entreprises, se classant 18e sur 20 rues principales de Montréal et 10e sur 12 rues principales de centres-villes.</p><p>Cependant, la rue Sainte-Catherine se classe au premier rang de toutes les rues principales de Montréal et au premier rang de toutes les rues principales de centres-villes en matière de densité commerciale.</p>
+					<p>
+						La rue Sainte-Catherine est la principale artère commerciale du centre-ville de
+						Montréal, abritant une multitude d’entreprises qui s’alignent le long de ses rues et de
+						ses environs. En outre, le vaste réseau souterrain de la ville, qui s’étend sur plus de
+						33 kilomètres et qui est connu sous le nom de ville souterraine, se croise sous la rue
+						Sainte-Catherine et aux alentours, offrant un accès direct aux stations de métro et aux
+						complexes commerciaux. Les centres commerciaux emblématiques du centre-ville, tels que
+						le Centre Eaton et le Complexe Desjardins, sont facilement accessibles depuis la rue.
+					</p>
+					<p>
+						La majorité de ces commerces sont des commerces de détail, avec une prédominance de
+						chaînes de magasins nationales et internationales telles que Uniqlo, Nike et Footlocker,
+						aux côtés de diverses chaînes de restaurants et de restauration rapide régionales et
+						nationales. À l’extrémité est, près de la Place des Arts, certains restaurants offrent
+						des places en plein air pendant les mois d’été.
+					</p>
+					<p>
+						Selon l’indice des entreprises indépendantes, la rue Sainte-Catherine est à la traîne
+						par rapport aux autres études de cas de la rue principale en matière de niveau
+						d’indépendance des entreprises, se classant 18e sur 20 rues principales de Montréal et
+						10e sur 12 rues principales de centres-villes.
+					</p>
+					<p>
+						Cependant, la rue Sainte-Catherine se classe au premier rang de toutes les rues
+						principales de Montréal et au premier rang de toutes les rues principales de
+						centres-villes en matière de densité commerciale.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,7 +593,21 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>Situées dans le quartier central des affaires de Montréal, la rue Sainte-Catherine et ses zones environnantes constituent le principal pôle d’emploi de la ville. Ce secteur est caractérisé par un éventail diversifié d’employeurs, de tailles et d’industries variés. Compte tenu de la présence importante d’établissements de vente au détail et de restauration, une part considérable de la main-d’œuvre est employée dans ces secteurs. En outre, le paysage est marqué par la proéminence de grands immeubles de bureaux et de gratte-ciel, qui accueillent un nombre important de personnels d’entreprises et de bureaux. Bien que moins fréquentes, les perspectives d’emploi dans les infrastructures municipales voisines contribuent également à la main-d’œuvre de la zone.</p><p>Ainsi, la rue Sainte-Catherine se classe au premier rang de la région et au deuxième rang des rues principales de centres-villes en matière de densité d’emploi.</p>
+					<p>
+						Situées dans le quartier central des affaires de Montréal, la rue Sainte-Catherine et
+						ses zones environnantes constituent le principal pôle d’emploi de la ville. Ce secteur
+						est caractérisé par un éventail diversifié d’employeurs, de tailles et d’industries
+						variés. Compte tenu de la présence importante d’établissements de vente au détail et de
+						restauration, une part considérable de la main-d’œuvre est employée dans ces secteurs.
+						En outre, le paysage est marqué par la proéminence de grands immeubles de bureaux et de
+						gratte-ciel, qui accueillent un nombre important de personnels d’entreprises et de
+						bureaux. Bien que moins fréquentes, les perspectives d’emploi dans les infrastructures
+						municipales voisines contribuent également à la main-d’œuvre de la zone.
+					</p>
+					<p>
+						Ainsi, la rue Sainte-Catherine se classe au premier rang de la région et au deuxième
+						rang des rues principales de centres-villes en matière de densité d’emploi.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -574,7 +669,17 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Le centre-ville de Montréal se caractérise principalement par une abondance d’immeubles de bureaux et de commerces, bien que l’activité résidentielle y soit toujours présente. Le paysage résidentiel sur et aux alentours de la rue Sainte-Catherine se compose principalement de condominiums et plus particulièrement de logements de luxe. Ces résidences sont principalement situées dans des tours d’habitation, dont la plupart ont été construites après 2016. En raison du coût élevé du développement et du logement dans cette zone, de nombreux logements sont relativement petits. Cela se reflète dans la faible densité de population de la zone, malgré un nombre élevé de logements, ce qui se traduit par un nombre réduit d’occupants par logement.</p>
+					<p>
+						Le centre-ville de Montréal se caractérise principalement par une abondance d’immeubles
+						de bureaux et de commerces, bien que l’activité résidentielle y soit toujours présente.
+						Le paysage résidentiel sur et aux alentours de la rue Sainte-Catherine se compose
+						principalement de condominiums et plus particulièrement de logements de luxe. Ces
+						résidences sont principalement situées dans des tours d’habitation, dont la plupart ont
+						été construites après 2016. En raison du coût élevé du développement et du logement dans
+						cette zone, de nombreux logements sont relativement petits. Cela se reflète dans la
+						faible densité de population de la zone, malgré un nombre élevé de logements, ce qui se
+						traduit par un nombre réduit d’occupants par logement.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -637,11 +742,22 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
-					<p>Étant située au centre-ville et abritant des employeurs, des entreprises et des universités importantes, la rue Sainte-Catherine présente une démographie locale distincte, tant sur la rue qu’aux alentours. Le paysage résidentiel, principalement composé de petits logements qui ne conviennent pas aux familles, façonne également la démographie du quartier. Ces logements compacts s’adressent davantage à des individus qu’à des familles, ce qui se traduit par une moyenne d’âge et une taille des ménages plus faibles. De plus, la proximité d’employeurs importants et d’universités anglophones comme l’Université McGill et l’Université Concordia favorise un taux élevé d’immigrants récents, une prédominance de personnes de langue anglaise et une proportion importante de titulaires d’un baccalauréat.</p>
+					<p>
+						Étant située au centre-ville et abritant des employeurs, des entreprises et des
+						universités importantes, la rue Sainte-Catherine présente une démographie locale
+						distincte, tant sur la rue qu’aux alentours. Le paysage résidentiel, principalement
+						composé de petits logements qui ne conviennent pas aux familles, façonne également la
+						démographie du quartier. Ces logements compacts s’adressent davantage à des individus
+						qu’à des familles, ce qui se traduit par une moyenne d’âge et une taille des ménages
+						plus faibles. De plus, la proximité d’employeurs importants et d’universités anglophones
+						comme l’Université McGill et l’Université Concordia favorise un taux élevé d’immigrants
+						récents, une prédominance de personnes de langue anglaise et une proportion importante
+						de titulaires d’un baccalauréat.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -684,7 +800,28 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>Le centre-ville de Montréal, comme la plupart des autres centres-villes d’Amérique du Nord, a connu une forte baisse du nombre de visiteurs quotidiens depuis la période précédant la pandémie de COVID-19. Notamment, le travail hybride et à distance a réduit le nombre de personnes qui se déplacent pour y travailler quotidiennement. Par conséquent, le nombre de visiteurs est aujourd’hui nettement inférieur à ce qu’il était avant la pandémie de COVID-19 en 2019. À l’heure actuelle, le niveau des visites par rapport à 2019 se situe juste en dessous de 50 %. Alors que le nombre de visiteurs locaux s’est relativement rétabli, le nombre et la fréquence des visiteurs récurrents et peu fréquents sont nettement inférieurs.</p><p>Par conséquent, la rue Sainte-Catherine se classe au dernier rang des 20 rues principales de Montréal et au 10e rang des 12 rues principales de centres-villes en matière de résilience de la rue et de récupération des visiteurs.</p><p>Pour remédier à cette situation, la Ville de Montréal a élaboré un certain nombre de nouvelles initiatives, de plans et de programmes tels qu’une zone nocturne de 24 heures et un plan de revitalisation du centre-ville afin de revitaliser le centre-ville et d’augmenter le nombre de visiteurs dans le secteur.</p>
+					<p>
+						Le centre-ville de Montréal, comme la plupart des autres centres-villes d’Amérique du
+						Nord, a connu une forte baisse du nombre de visiteurs quotidiens depuis la période
+						précédant la pandémie de COVID-19. Notamment, le travail hybride et à distance a réduit
+						le nombre de personnes qui se déplacent pour y travailler quotidiennement. Par
+						conséquent, le nombre de visiteurs est aujourd’hui nettement inférieur à ce qu’il était
+						avant la pandémie de COVID-19 en 2019. À l’heure actuelle, le niveau des visites par
+						rapport à 2019 se situe juste en dessous de 50 %. Alors que le nombre de visiteurs
+						locaux s’est relativement rétabli, le nombre et la fréquence des visiteurs récurrents et
+						peu fréquents sont nettement inférieurs.
+					</p>
+					<p>
+						Par conséquent, la rue Sainte-Catherine se classe au dernier rang des 20 rues
+						principales de Montréal et au 10e rang des 12 rues principales de centres-villes en
+						matière de résilience de la rue et de récupération des visiteurs.
+					</p>
+					<p>
+						Pour remédier à cette situation, la Ville de Montréal a élaboré un certain nombre de
+						nouvelles initiatives, de plans et de programmes tels qu’une zone nocturne de 24 heures
+						et un plan de revitalisation du centre-ville afin de revitaliser le centre-ville et
+						d’augmenter le nombre de visiteurs dans le secteur.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -761,7 +898,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -813,8 +950,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

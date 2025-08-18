@@ -3,45 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import northyorkcentre from '../../../lib/assets/boundaries/torontoboundaries/NorthYorkCentre.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/toronto/northyorkcentre/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/northyorkcentre/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/northyorkcentre/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/northyorkcentre/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/toronto/northyorkcentre/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/northyorkcentre/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/northyorkcentre/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/toronto/northyorkcentre/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/northyorkcentre/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/northyorkcentre/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/northyorkcentre/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/northyorkcentre/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/northyorkcentre/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/northyorkcentre/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
-
-	import mapboxgl from "mapbox-gl";
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import mapboxgl from 'mapbox-gl';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -83,9 +81,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -215,10 +213,23 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>This segment of Yonge Street formed the civic heart of North York before amalgamation into the City of Toronto in 1998. Today, it is the city's largest urban centre outside of the downtown core.</p>
-					<p>As North York experienced a post-war population boom, its municipal institutions were built along Yonge Street. Since the opening of Line 1's Finch, North York Centre, and Sheppard subway stations in the 70s and 80s, the area has seen a boom in development planned around transit accessibility and pedestrian life.</p>
-					<p>The North York Centre study area extends from Highway 401 in the south to Hendon and Bishop Avenues in the north, and is bound by Beecroft Rd to the west and Doris Ave to Bonnington Pl to the east. This segment of Yonge Street is located in the North York borough of Toronto.</p>
-
+					<p>
+						This segment of Yonge Street formed the civic heart of North York before amalgamation
+						into the City of Toronto in 1998. Today, it is the city's largest urban centre outside
+						of the downtown core.
+					</p>
+					<p>
+						As North York experienced a post-war population boom, its municipal institutions were
+						built along Yonge Street. Since the opening of Line 1's Finch, North York Centre, and
+						Sheppard subway stations in the 70s and 80s, the area has seen a boom in development
+						planned around transit accessibility and pedestrian life.
+					</p>
+					<p>
+						The North York Centre study area extends from Highway 401 in the south to Hendon and
+						Bishop Avenues in the north, and is bound by Beecroft Rd to the west and Doris Ave to
+						Bonnington Pl to the east. This segment of Yonge Street is located in the North York
+						borough of Toronto.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -251,10 +262,24 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>North York Centre is considered Toronto's third downtown. The entire corridor is highly dense and walkable, going two or three buildings deep on either side of Yonge Street. Modern high-rise towers of offices and residential fill the skyline above Yonge Street's original pre-80s pattern of small, interconnected storefronts.</p>
-					<p>Yonge Street's streetscape is deliberately designed for a comfortable pedestrian experience, despite the wide vehicular right-of-way, with wide sidewalks, parks, landscaping, and even measures to mitigate wind chill.</p>
-					<p>Peculiarly, going one block east or west away from Yonge Street, the high density pattern of transit-oriented development reverts immediately to a grid street pattern of low-density suburban housing. Even the residential towers inbetween are built on superblock-style lots. This limits interaction between Yonge Street and the surrounding post-war suburbs.</p>
-
+					<p>
+						North York Centre is considered Toronto's third downtown. The entire corridor is highly
+						dense and walkable, going two or three buildings deep on either side of Yonge Street.
+						Modern high-rise towers of offices and residential fill the skyline above Yonge Street's
+						original pre-80s pattern of small, interconnected storefronts.
+					</p>
+					<p>
+						Yonge Street's streetscape is deliberately designed for a comfortable pedestrian
+						experience, despite the wide vehicular right-of-way, with wide sidewalks, parks,
+						landscaping, and even measures to mitigate wind chill.
+					</p>
+					<p>
+						Peculiarly, going one block east or west away from Yonge Street, the high density
+						pattern of transit-oriented development reverts immediately to a grid street pattern of
+						low-density suburban housing. Even the residential towers inbetween are built on
+						superblock-style lots. This limits interaction between Yonge Street and the surrounding
+						post-war suburbs.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -274,7 +299,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'northyorkcentre'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5d860p01au01p6hcwadd6k'}
@@ -359,7 +383,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'northyorkcentre-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'northyorkcentre-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -369,19 +398,34 @@ setConfig({
 									'civicinfra-toronto-health',
 									'civicinfra-toronto-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Parks, tree-shaded areas, and benches line this segment of Yonge Street. The Yonge North York BIA has added picnic tables throughout the Yonge Street segment encouraging residents, visitors, and workers alike to linger in the area.</p>
-					<p>Mel Lastman Square, the central civic feature of North York Centre, is a 20,000 square foot open space featuring a garden court, an outdoor ampitheatre, fountains, and a reflecting pool that turns into a wintertime ice rink. The Square is used for many activities, including cultural festivals, concerts, and political demonstrations.</p>
-					<p>According to the Civic Infrastructure Index, Yonge Street in North York Centre lags behind half of Toronto Main Streets case studies in terms of civic opportunity, at 11th out of 20, and last out of 12 Downtown Main Streets. This may be due to North York's amalgamation into the City of Toronto and the subsequent shift of major civic institutions to Toronto's downtown core.</p>
-
+					<p>
+						Parks, tree-shaded areas, and benches line this segment of Yonge Street. The Yonge North
+						York BIA has added picnic tables throughout the Yonge Street segment encouraging
+						residents, visitors, and workers alike to linger in the area.
+					</p>
+					<p>
+						Mel Lastman Square, the central civic feature of North York Centre, is a 20,000 square
+						foot open space featuring a garden court, an outdoor ampitheatre, fountains, and a
+						reflecting pool that turns into a wintertime ice rink. The Square is used for many
+						activities, including cultural festivals, concerts, and political demonstrations.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, Yonge Street in North York Centre lags
+						behind half of Toronto Main Streets case studies in terms of civic opportunity, at 11th
+						out of 20, and last out of 12 Downtown Main Streets. This may be due to North York's
+						amalgamation into the City of Toronto and the subsequent shift of major civic
+						institutions to Toronto's downtown core.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5d860p01au01p6hcwadd6k'}
-						center={ [-79.4126, 43.7675]}
+						center={[-79.4126, 43.7675]}
 						zoom={13.3}
 						minZoom={13}
 						pitch={0}
@@ -448,7 +492,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'northyorkcentre-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'northyorkcentre-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -456,19 +505,31 @@ setConfig({
 									'business-toronto-services',
 									'business-toronto-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>The North York Centre segment of Yonge Street boasts an impressive range of restaurants, bars, and cultural offerings. Old and new storefront on Yonge feature international chains and local offerings. reflective of the increasingly diverse neighbourhood. With very few vacant storefronts, this segment of Yonge Street is fully activated.</p>
-					<p>According to the Independent Business Index, Yonge Street in North York Centre lags behind other Main Street case studies in terms of the level of business independence, ranking 11th out of 20 Toronto Main Streets and 7th out of 12 Downtown Main Streets.</p>
-					<p>North York Centre is in the middle of the pack for business density, at 10th out of 20 Toronto Main Streets and lags behind most Downtown Main Streets at 9th out of 12.</p>
-
+					<p>
+						The North York Centre segment of Yonge Street boasts an impressive range of restaurants,
+						bars, and cultural offerings. Old and new storefront on Yonge feature international
+						chains and local offerings. reflective of the increasingly diverse neighbourhood. With
+						very few vacant storefronts, this segment of Yonge Street is fully activated.
+					</p>
+					<p>
+						According to the Independent Business Index, Yonge Street in North York Centre lags
+						behind other Main Street case studies in terms of the level of business independence,
+						ranking 11th out of 20 Toronto Main Streets and 7th out of 12 Downtown Main Streets.
+					</p>
+					<p>
+						North York Centre is in the middle of the pack for business density, at 10th out of 20
+						Toronto Main Streets and lags behind most Downtown Main Streets at 9th out of 12.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5d860p01au01p6hcwadd6k'}
-						center={ [-79.4126, 43.7675]}
+						center={[-79.4126, 43.7675]}
 						zoom={13.3}
 						minZoom={13}
 						pitch={0}
@@ -502,10 +563,24 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>North York Centre's three-stop access to Line 1 and direct access to the busy 401 Highway provides the area's employers access to the regional labour force.</p>
-					<p>North York Centre is a dense employment hub for northern Toronto. The small storefronts along Yonge Street and on perpendicular streets accommodate small businesses with zero to five employees. Larger employers, many with up to 50 employees, and several up to 100, are located in larger buildings.</p>
-					<p>For employment density, North York Centre ranks well in comparison to Toronto Main Streets at 6th out of 20, but sits in last place for the 12 Downtown Main Streets.</p>
-					<p>This Yonge Street segment intersects with two east-west employment corridors: the major one south along Sheppard Ave; a minor one north along Finch Ave.</p>
+					<p>
+						North York Centre's three-stop access to Line 1 and direct access to the busy 401
+						Highway provides the area's employers access to the regional labour force.
+					</p>
+					<p>
+						North York Centre is a dense employment hub for northern Toronto. The small storefronts
+						along Yonge Street and on perpendicular streets accommodate small businesses with zero
+						to five employees. Larger employers, many with up to 50 employees, and several up to
+						100, are located in larger buildings.
+					</p>
+					<p>
+						For employment density, North York Centre ranks well in comparison to Toronto Main
+						Streets at 6th out of 20, but sits in last place for the 12 Downtown Main Streets.
+					</p>
+					<p>
+						This Yonge Street segment intersects with two east-west employment corridors: the major
+						one south along Sheppard Ave; a minor one north along Finch Ave.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -562,13 +637,21 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>The North York Centre study area saw a late 80s housing construction boom, peaking in the 2001-2005 period (when over 20% of the housing stock was built), and steadily tapering off until present time. Over 80% of the total housing stock in North York Centre and the surrounding area are high-rise apartments. This results in a significant contrast in the population density within the North York Centre study area and the surrounding areas. As a result of the concentration of high rise apartments, the North York Centre study area has a significantly higher population density than areas surrounding it.</p>
-
+					<p>
+						The North York Centre study area saw a late 80s housing construction boom, peaking in
+						the 2001-2005 period (when over 20% of the housing stock was built), and steadily
+						tapering off until present time. Over 80% of the total housing stock in North York
+						Centre and the surrounding area are high-rise apartments. This results in a significant
+						contrast in the population density within the North York Centre study area and the
+						surrounding areas. As a result of the concentration of high rise apartments, the North
+						York Centre study area has a significantly higher population density than areas
+						surrounding it.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -587,7 +670,7 @@ setConfig({
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-												xKey="Construction Year"
+								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
@@ -635,8 +718,13 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>North York Centre is a highly diverse neighbourhood and this diversity is represented in the case study area. Indeed, of all local residents, 69.7% are recent immigrants, and 70.1% are visible minorities. Additionally, the majority of these residents hold a bachelors degree and the average individual full time annual employment income of residents in this study area is approximately $93,000.</p>
-
+					<p>
+						North York Centre is a highly diverse neighbourhood and this diversity is represented in
+						the case study area. Indeed, of all local residents, 69.7% are recent immigrants, and
+						70.1% are visible minorities. Additionally, the majority of these residents hold a
+						bachelors degree and the average individual full time annual employment income of
+						residents in this study area is approximately $93,000.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -667,7 +755,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -680,9 +767,20 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>North York Centre's Resiliency Score ranks well for Toronto Main Streets at 7th out of 20, and beats all other Downtown Main Streets at 1st place.</p>
-					<p>While total annual visits have decreased since the pre-pandemic 2019 level, the number of visits by residents to North York Centre increased to over 10 million in 2022 surpassing the 2019 resident visitor rate.</p>
-					<p>Interestingly, the busiest time of day is the 12am to 6am period, indicating that this segment of Yonge Street caters to an after hours crowd, often seeking late night food or entertainment.</p>
+					<p>
+						North York Centre's Resiliency Score ranks well for Toronto Main Streets at 7th out of
+						20, and beats all other Downtown Main Streets at 1st place.
+					</p>
+					<p>
+						While total annual visits have decreased since the pre-pandemic 2019 level, the number
+						of visits by residents to North York Centre increased to over 10 million in 2022
+						surpassing the 2019 resident visitor rate.
+					</p>
+					<p>
+						Interestingly, the busiest time of day is the 12am to 6am period, indicating that this
+						segment of Yonge Street caters to an after hours crowd, often seeking late night food or
+						entertainment.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -759,7 +857,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -811,8 +909,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

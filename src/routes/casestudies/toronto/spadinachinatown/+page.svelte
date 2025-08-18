@@ -3,36 +3,36 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import spadinachinatown from '../../../lib/assets/boundaries/torontoboundaries/SpadinaChinatown.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/toronto/spadinachinatown/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/spadinachinatown/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/spadinachinatown/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/spadinachinatown/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/toronto/spadinachinatown/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/spadinachinatown/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/spadinachinatown/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/toronto/spadinachinatown/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/spadinachinatown/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/spadinachinatown/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/spadinachinatown/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/spadinachinatown/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/spadinachinatown/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/spadinachinatown/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
 
-	import { visitorMapStore } from '../../../lib/mapStore';
+	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -71,7 +71,11 @@
 </svelte:head>
 
 <main>
-	<Title outline={spadinachinatown} name={'Spadina Avenue (Chinatown)'} location={'Toronto, Ontario'} />
+	<Title
+		outline={spadinachinatown}
+		name={'Spadina Avenue (Chinatown)'}
+		location={'Toronto, Ontario'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
@@ -671,7 +675,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -723,8 +727,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

@@ -1,16 +1,20 @@
 <!-- UI component that displays an option for selecting french and english used on Measuring Main Streets case studies and Montreal report.-->
 <script>
-	import { report } from "process";
-
 	export let eng;
 	export let fr;
 	export let selected;
 </script>
 
+<!-- TODO: Use semantic html nav components -->
 <div id="language-selector">
-	<h4><a href={eng} class:selected={selected === 'eng'}>ENGLISH</a></h4>
+	<h4>
+		<a data-sveltekit-preload-data="false" href={eng} class:selected={selected === 'eng'}>ENGLISH</a
+		>
+	</h4>
 	<h4>|</h4>
-	<h4><a href={fr} class:selected={selected === 'fr'}>FRANÇAIS</a></h4>
+	<h4>
+		<a data-sveltekit-preload-data="false" href={fr} class:selected={selected === 'fr'}>FRANÇAIS</a>
+	</h4>
 </div>
 
 <style>

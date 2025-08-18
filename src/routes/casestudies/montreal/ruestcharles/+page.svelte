@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueStCharles from '../../../lib/assets/boundaries/montrealboundaries/RueStCharles.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruestcharles/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruestcharles/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal/ruestcharles/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruestcharles/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal/ruestcharles/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal/ruestcharles/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruestcharles/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal/ruestcharles/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestcharles/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestcharles/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +82,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -208,17 +208,38 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={RueStCharles} name={'Rue St. Charles (Old Longueuil)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruestcharles'} fr={'/casestudies/montreal-fr/ruestcharles-fr'} selected='eng'/>
+	<Title
+		outline={RueStCharles}
+		name={'Rue St. Charles (Old Longueuil)'}
+		location={'Montreal, Québec'}
+	/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruestcharles'}
+		fr={'/casestudies/montreal-fr/ruestcharles-fr'}
+		selected="eng"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Rue St. Charles is located in the city of Longueuil on the south shore of the Saint Lawrence River directly across from the island of Montreal. Longueuil is a suburban city with a population of approximately 250,000. Longueuil has its own bus service provided by the Réseau de transport de Longueuil (RTL) as well as the Longueuil–Université-de-Sherbrooke Metro station which connects Longueuil to downtown Montreal via the Yellow line of the Montreal Metro.</p>
-					<p>Rue St. Charles is one of the main arteries of Longueuil and this segment of Rue St. Charles, between Chemin de Chambly and Rue Guilbault, serves as a main commercial street in Old Longueuil. Since 2022, the area between rue Saint-Jacques and rue Sainte-Sylvestre undergoes pedestrianization from June to September. This transformation sees the construction of terraces and outdoor seating for the restaurants, temporary street furniture, and increased street art and placemaking initiatives.</p>
-
+					<p>
+						Rue St. Charles is located in the city of Longueuil on the south shore of the Saint
+						Lawrence River directly across from the island of Montreal. Longueuil is a suburban city
+						with a population of approximately 250,000. Longueuil has its own bus service provided
+						by the Réseau de transport de Longueuil (RTL) as well as the
+						Longueuil–Université-de-Sherbrooke Metro station which connects Longueuil to downtown
+						Montreal via the Yellow line of the Montreal Metro.
+					</p>
+					<p>
+						Rue St. Charles is one of the main arteries of Longueuil and this segment of Rue St.
+						Charles, between Chemin de Chambly and Rue Guilbault, serves as a main commercial street
+						in Old Longueuil. Since 2022, the area between rue Saint-Jacques and rue
+						Sainte-Sylvestre undergoes pedestrianization from June to September. This transformation
+						sees the construction of terraces and outdoor seating for the restaurants, temporary
+						street furniture, and increased street art and placemaking initiatives.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -237,7 +258,7 @@ setConfig({
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr80v24n000q01p47bhx29ow'}
-						center={[-73.510, 45.539]}
+						center={[-73.51, 45.539]}
 						zoom={13}
 						pitch={50}
 						bearing={0}
@@ -251,9 +272,22 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>The building typology on rue St Charles primarily consists of low-rise buildings with ground floor retail. The surrounding area is primarily residential with a mix of single family housing and missing middle low and mid-density buildings.</p>
-					<p>The street itself is wide and consists of two circulation lanes, on street parking, and no bicycle lanes. The streets surrounding rue St Charles are primarily residential, but the highway route 132 is situated just north of this segment of rue St Charles. In the summer months, the street is pedestrianized which shifts the distribution of space to support pedestrians and active modes of mobility. This pedestrianization of rue St Charles is coupled with increased street programming and placemaking, which includes: temporary street furniture, street art, wifi zones, and terraces and outdoor seating for the restaurants. The street is well served by green space with St. Mark’s Park situated directly on this segment of rue St. Charles.</p>
-
+					<p>
+						The building typology on rue St Charles primarily consists of low-rise buildings with
+						ground floor retail. The surrounding area is primarily residential with a mix of single
+						family housing and missing middle low and mid-density buildings.
+					</p>
+					<p>
+						The street itself is wide and consists of two circulation lanes, on street parking, and
+						no bicycle lanes. The streets surrounding rue St Charles are primarily residential, but
+						the highway route 132 is situated just north of this segment of rue St Charles. In the
+						summer months, the street is pedestrianized which shifts the distribution of space to
+						support pedestrians and active modes of mobility. This pedestrianization of rue St
+						Charles is coupled with increased street programming and placemaking, which includes:
+						temporary street furniture, street art, wifi zones, and terraces and outdoor seating for
+						the restaurants. The street is well served by green space with St. Mark’s Park situated
+						directly on this segment of rue St. Charles.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -273,7 +307,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'ruestcharles'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr80v24n000q01p47bhx29ow'}
@@ -358,7 +391,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'ruestcharles-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'ruestcharles-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -368,14 +406,30 @@ setConfig({
 									'civicinfra-montreal-health',
 									'civicinfra-montreal-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>This section of rue St Charles is relatively well served by civic infrastructure and all five categories or types of civic infrastructure are present on this street segment. Health and care facilities are the most prominent with eight facilities located directly on this section of rue St Charles. Additionally, when comparing the presence of civic infrastructure in the surrounding area, there is a relative clustering of civic infrastructure on this segment of rue St Charles, which highlights this main streets role as a place to access civic infrastructure.</p>
-					<p>In the summer months, the pedestrianization of the street produces street specific branding, murals, outdoor wifi zones, cooling stations, and street furniture.</p>
-					<p>According to the Civic Infrastructure index, rue St. Charles sits in the middle of the pack among  Montreal main street case studies. In terms of its civic opportunity, rue St. Charles ranks 10th out of 20 Montreal main streets and 16th out 36 residential main streets.</p>
-
+					<p>
+						This section of rue St Charles is relatively well served by civic infrastructure and all
+						five categories or types of civic infrastructure are present on this street segment.
+						Health and care facilities are the most prominent with eight facilities located directly
+						on this section of rue St Charles. Additionally, when comparing the presence of civic
+						infrastructure in the surrounding area, there is a relative clustering of civic
+						infrastructure on this segment of rue St Charles, which highlights this main streets
+						role as a place to access civic infrastructure.
+					</p>
+					<p>
+						In the summer months, the pedestrianization of the street produces street specific
+						branding, murals, outdoor wifi zones, cooling stations, and street furniture.
+					</p>
+					<p>
+						According to the Civic Infrastructure index, rue St. Charles sits in the middle of the
+						pack among Montreal main street case studies. In terms of its civic opportunity, rue St.
+						Charles ranks 10th out of 20 Montreal main streets and 16th out 36 residential main
+						streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -447,7 +501,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'ruestcharles-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'ruestcharles-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -455,14 +514,36 @@ setConfig({
 									'business-montreal-services',
 									'business-montreal-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Rue St. Charles features a relatively balanced mix of retail, food establishments, and service businesses. The eastern section, particularly during summer pedestrianization, offers Old Longueuil a wide variety of food and restaurant options, ranging from popular Montreal restaurant and bar chains like Frites Alors to local institutions such as Péché Matinal. The summer pedestrianization integrates restaurants onto the street, creating an indoor-outdoor connection through patios, terraces, and picnic areas. On a hot summer day, people are seen sitting in the restaurant terraces, or enjoying a cold drink in the pedestrianized street or in St. Mark’s park.</p>
-					<p>In contrast, the western end, west of rue Saint-Alexandre, shifts towards a more service and office-centric commercial landscape. This area exhibits signs indicating commercial vacancies and available office spaces, highlighting the contrast in the commercial composition between the two segments of Rue St. Charles.</p>
-					<p>According to the Independent Business Index, rue St. Charles ranks 9th out of 20 Montreal case studies and 7th out of 36 residential main streets, in terms of its level of business independence.</p>
-					<p>Similarly, in terms of its business density, the street ranks 9th out of 20 Montreal main streets and 10th out of all 36 residential main streets.</p>
+					<p>
+						Rue St. Charles features a relatively balanced mix of retail, food establishments, and
+						service businesses. The eastern section, particularly during summer pedestrianization,
+						offers Old Longueuil a wide variety of food and restaurant options, ranging from popular
+						Montreal restaurant and bar chains like Frites Alors to local institutions such as Péché
+						Matinal. The summer pedestrianization integrates restaurants onto the street, creating
+						an indoor-outdoor connection through patios, terraces, and picnic areas. On a hot summer
+						day, people are seen sitting in the restaurant terraces, or enjoying a cold drink in the
+						pedestrianized street or in St. Mark’s park.
+					</p>
+					<p>
+						In contrast, the western end, west of rue Saint-Alexandre, shifts towards a more service
+						and office-centric commercial landscape. This area exhibits signs indicating commercial
+						vacancies and available office spaces, highlighting the contrast in the commercial
+						composition between the two segments of Rue St. Charles.
+					</p>
+					<p>
+						According to the Independent Business Index, rue St. Charles ranks 9th out of 20
+						Montreal case studies and 7th out of 36 residential main streets, in terms of its level
+						of business independence.
+					</p>
+					<p>
+						Similarly, in terms of its business density, the street ranks 9th out of 20 Montreal
+						main streets and 10th out of all 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -501,8 +582,18 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>There is a significant clustering of employment on this segment of rue St. Charles, especially when comparing to the surrounding area. This clustering of employment opportunities further entrenches rue St. Charles as a significant main street in the Old Longueuil neighbourhood. Representative of the commercial nature of rue St. Charles, the majority of employees work for business-related employers which includes the wide array of restaurants and retail establishments.</p>
-					<p>Overall, rue St. Charles ranks 17th out of 20 Montreal main streets and 28th out 36 residential main streets in terms of its employment density.</p>
+					<p>
+						There is a significant clustering of employment on this segment of rue St. Charles,
+						especially when comparing to the surrounding area. This clustering of employment
+						opportunities further entrenches rue St. Charles as a significant main street in the Old
+						Longueuil neighbourhood. Representative of the commercial nature of rue St. Charles, the
+						majority of employees work for business-related employers which includes the wide array
+						of restaurants and retail establishments.
+					</p>
+					<p>
+						Overall, rue St. Charles ranks 17th out of 20 Montreal main streets and 28th out 36
+						residential main streets in terms of its employment density.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -559,13 +650,23 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>The majority of housing in and around rue St. Charles predates 1980, with notable spikes in construction between 2006-2010 and 2016-2021. A discernible shift in building and housing characteristics occurs when transitioning from the commercial stretch of rue St. Charles to the neighboring suburban residential streets. Rue St. Charles features some housing atop commercial spaces, but the street's primary structures are predominantly commercial. Despite its suburban setting, the surrounding residential streets exhibit higher-density housing compared to the typical single-detached housing prevalent in suburban areas. Housing on these residential streets consists predominantly of low-rise apartments, with a diverse mix including high-rise apartments, single-detached, and semi-detached houses.</p>
-
+					<p>
+						The majority of housing in and around rue St. Charles predates 1980, with notable spikes
+						in construction between 2006-2010 and 2016-2021. A discernible shift in building and
+						housing characteristics occurs when transitioning from the commercial stretch of rue St.
+						Charles to the neighboring suburban residential streets. Rue St. Charles features some
+						housing atop commercial spaces, but the street's primary structures are predominantly
+						commercial. Despite its suburban setting, the surrounding residential streets exhibit
+						higher-density housing compared to the typical single-detached housing prevalent in
+						suburban areas. Housing on these residential streets consists predominantly of low-rise
+						apartments, with a diverse mix including high-rise apartments, single-detached, and
+						semi-detached houses.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -632,8 +733,18 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>The demographics of the area surrounding rue St. Charles contribute to distinctive local characteristics. With a relatively high average age, many residents on rue St. Charles are above the age of 60. Despite the suburban setting, the average household size is notably small, averaging around one person per household. Socioeconomically, the area is predominantly high income, particularly along rue St. Charles, but this is juxtaposed against pockets of lower average income, which fosters a distinctive mix of higher and lower-income households within the same vicinity. Linguistically, the area is predominately French speaking. While the area has a relatively low percentage of new immigrants, certain sections, especially along rue St. Charles, have a higher influx of new immigrants.</p>
-
+					<p>
+						The demographics of the area surrounding rue St. Charles contribute to distinctive local
+						characteristics. With a relatively high average age, many residents on rue St. Charles
+						are above the age of 60. Despite the suburban setting, the average household size is
+						notably small, averaging around one person per household. Socioeconomically, the area is
+						predominantly high income, particularly along rue St. Charles, but this is juxtaposed
+						against pockets of lower average income, which fosters a distinctive mix of higher and
+						lower-income households within the same vicinity. Linguistically, the area is
+						predominately French speaking. While the area has a relatively low percentage of new
+						immigrants, certain sections, especially along rue St. Charles, have a higher influx of
+						new immigrants.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -664,7 +775,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -677,9 +787,26 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>Rue St. Charles is a predominately commercial street that offers a wide variety of retail and food offerings to the surrounding Longueil and South Shore areas. As such, the street invites a high number of visitors to the street. The majority of these visitors are infrequent – meaning they do not often visit rue St. Charles, but instead visit occasionally to enjoy and experience the many offerings the street provides. Although on a hot summer day, the pedestrianized rue St. Charles still draws visitors coming to enjoy the food, retail, and open street, the COVID-19 pandemic greatly impacted rue St. Charles. Just like many other main streets, the number of current visitors is far lower than pre-pandemic in 2019. In the most recent count of visitors to rue St. Charles, the street sits at just under 60 percent of its 2019 numbers, signifying a notable decrease in the number of visitors – primarily infrequent – that are coming to the street.</p>
-					<p>As a result, in terms of street resilience and visitor recovery, rue St. Charles trails behind most other Montreal main streets and residential main streets. Rue St. Charles ranks 15th out of 20th for visitor resiliency in the region and 33rd out of 26th on residential main streets. </p>
-
+					<p>
+						Rue St. Charles is a predominately commercial street that offers a wide variety of
+						retail and food offerings to the surrounding Longueil and South Shore areas. As such,
+						the street invites a high number of visitors to the street. The majority of these
+						visitors are infrequent – meaning they do not often visit rue St. Charles, but instead
+						visit occasionally to enjoy and experience the many offerings the street provides.
+						Although on a hot summer day, the pedestrianized rue St. Charles still draws visitors
+						coming to enjoy the food, retail, and open street, the COVID-19 pandemic greatly
+						impacted rue St. Charles. Just like many other main streets, the number of current
+						visitors is far lower than pre-pandemic in 2019. In the most recent count of visitors to
+						rue St. Charles, the street sits at just under 60 percent of its 2019 numbers,
+						signifying a notable decrease in the number of visitors – primarily infrequent – that
+						are coming to the street.
+					</p>
+					<p>
+						As a result, in terms of street resilience and visitor recovery, rue St. Charles trails
+						behind most other Montreal main streets and residential main streets. Rue St. Charles
+						ranks 15th out of 20th for visitor resiliency in the region and 33rd out of 26th on
+						residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -756,7 +883,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -808,8 +935,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

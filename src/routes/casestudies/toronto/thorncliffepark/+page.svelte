@@ -3,42 +3,37 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import thorncliffepark from '../../../lib/assets/boundaries/torontoboundaries/ThorncliffePark.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/toronto/thorncliffepark/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/thorncliffepark/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/thorncliffepark/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/thorncliffepark/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/toronto/thorncliffepark/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/thorncliffepark/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/thorncliffepark/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/toronto/thorncliffepark/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/thorncliffepark/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/thorncliffepark/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/thorncliffepark/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/thorncliffepark/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/thorncliffepark/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/thorncliffepark/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
-	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
 
-	import { onMount } from 'svelte';
-
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -230,16 +225,30 @@
 </svelte:head>
 
 <main>
-	<Title outline={thorncliffepark} name={'Overlea Boulevard (Thorncliffe Park)'} location={'Toronto, Ontario'} />
+	<Title
+		outline={thorncliffepark}
+		name={'Overlea Boulevard (Thorncliffe Park)'}
+		location={'Toronto, Ontario'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Overlea Boulevard, running east-west, is the Neighbourhood Main Street of the Thorncliffe Park neighbourhood, located at the geographic centre of Toronto.</p>
-					<p>With the construction of the Ontario Line subway and its maintenance and storage facility, the area is undergoing significant change.</p>
-					<p>The Thorncliffe Park study area extends west to east across the near entirety of Overlea Boulevard, from Millwood Rd to the bridge over the Don River. It includes all the estabishments north of the Boulevard up to the railway and hydro corridor, and the Overlea Mews plaza and East York Town Centre mall to the south.</p>
-
+					<p>
+						Overlea Boulevard, running east-west, is the Neighbourhood Main Street of the
+						Thorncliffe Park neighbourhood, located at the geographic centre of Toronto.
+					</p>
+					<p>
+						With the construction of the Ontario Line subway and its maintenance and storage
+						facility, the area is undergoing significant change.
+					</p>
+					<p>
+						The Thorncliffe Park study area extends west to east across the near entirety of Overlea
+						Boulevard, from Millwood Rd to the bridge over the Don River. It includes all the
+						estabishments north of the Boulevard up to the railway and hydro corridor, and the
+						Overlea Mews plaza and East York Town Centre mall to the south.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -272,9 +281,19 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>Overlea Boulevard is a four lane road with a grassy, tree-lined central median that tapers to give way for left turn lanes at major intersections. The sidewalks are narrow, typical of suburban development, separated from the road by a strip of grass. As Overlea Boulevard is the one road into and out of the study area, it is well served by a series of school and transit buses.</p>
-					<p>Buildings are set far back from the roads, often with parking fronting the lots. North of Overlea includes low-density, suburban-style strip malls, plazas, and parking lots. East York Town Centre lies to the south surrounded in a sea of parking. Residential apartment complexes lie further south.</p>
-
+					<p>
+						Overlea Boulevard is a four lane road with a grassy, tree-lined central median that
+						tapers to give way for left turn lanes at major intersections. The sidewalks are narrow,
+						typical of suburban development, separated from the road by a strip of grass. As Overlea
+						Boulevard is the one road into and out of the study area, it is well served by a series
+						of school and transit buses.
+					</p>
+					<p>
+						Buildings are set far back from the roads, often with parking fronting the lots. North
+						of Overlea includes low-density, suburban-style strip malls, plazas, and parking lots.
+						East York Town Centre lies to the south surrounded in a sea of parking. Residential
+						apartment complexes lie further south.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -294,7 +313,6 @@
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'thorncliffepark'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq2v0eo2017201p6hvc26ctb'}
@@ -379,7 +397,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'thorncliffepark-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'thorncliffepark-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -389,14 +412,29 @@
 									'civicinfra-toronto-health',
 									'civicinfra-toronto-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Thorncliffe Park, when compared to the Toronto CMA, has a much higher proportion of Healthcare in its civic infrastructure mix. Clinics can be found throughout the plazas, strips, and malls.</p>
-					<p>The Neighbourhood Organization runs youth supports and newcomer employment programming out of the Thorncliffe Park Youth Wellness Hub. They are expanding their footprint into the second floor of the East York Town Centre, which used to house a municipal vaccination clinic.</p>
-					<p>According to the Civic Infrastructure Index, this segment of Thorncliffe Park lags behind most Toronto Main Street case studies in terms of civic opportunity, at 15th out of 20, and 25th out of 36 Neighbourhood Main Streets. Despite the cultural diversity of the neighbourhoods' residents, there are no Arts and Culture facilities to support expressions of those identities.</p>
-
+					<p>
+						Thorncliffe Park, when compared to the Toronto CMA, has a much higher proportion of
+						Healthcare in its civic infrastructure mix. Clinics can be found throughout the plazas,
+						strips, and malls.
+					</p>
+					<p>
+						The Neighbourhood Organization runs youth supports and newcomer employment programming
+						out of the Thorncliffe Park Youth Wellness Hub. They are expanding their footprint into
+						the second floor of the East York Town Centre, which used to house a municipal
+						vaccination clinic.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, this segment of Thorncliffe Park lags
+						behind most Toronto Main Street case studies in terms of civic opportunity, at 15th out
+						of 20, and 25th out of 36 Neighbourhood Main Streets. Despite the cultural diversity of
+						the neighbourhoods' residents, there are no Arts and Culture facilities to support
+						expressions of those identities.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -468,7 +506,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'thorncliffepark-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'thorncliffepark-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -476,14 +519,28 @@
 									'business-toronto-services',
 									'business-toronto-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>The concentration of immigrant-run commercial establishments north of Overlea has long been considered the cultural hub of the Thorncliffe Park community. Unfortunately, construction of Ontario Line infrastructure has resulted in the displacement of dozens of businesses and hundreds of jobs. With many businesses unable to find a suitable location within the neighbourhood, many have been forced to move out of the community or shut down.</p>
-					<p>According to the Independent Business Index, Thorncliffe Park ranks behind most other Main Street case studies in terms of level of business independence, ranking 17th out of 20 Toronto Main Streets, and 27th out of 36 Neighbourhood Main Streets.</p>
-					<p>Thorncliffe Park also ranks the same in terms of business density, reflective of its suburban built form.</p>
-
+					<p>
+						The concentration of immigrant-run commercial establishments north of Overlea has long
+						been considered the cultural hub of the Thorncliffe Park community. Unfortunately,
+						construction of Ontario Line infrastructure has resulted in the displacement of dozens
+						of businesses and hundreds of jobs. With many businesses unable to find a suitable
+						location within the neighbourhood, many have been forced to move out of the community or
+						shut down.
+					</p>
+					<p>
+						According to the Independent Business Index, Thorncliffe Park ranks behind most other
+						Main Street case studies in terms of level of business independence, ranking 17th out of
+						20 Toronto Main Streets, and 27th out of 36 Neighbourhood Main Streets.
+					</p>
+					<p>
+						Thorncliffe Park also ranks the same in terms of business density, reflective of its
+						suburban built form.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -522,8 +579,20 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Throughout the Thorncliffe Park study area, employment is generally spread throughout the low-density commercial structures each with ample parking. There's a mix of businesses with zero to five employees in smaller units, and larger businesses with up to 50 employees in larger, but not taller, buildings. Costco is a dominant presence and competes with East York Town Centre for local patronage. Just north across the tracks, Leaside Business Park hosts a greater concentration of commercial and industrial establishments.</p>
-					<p>For employment density, Thorncliffe Park ranks middle in comparison to Toronto Main Streets at 9th out of 20, and relatively better at 14th out of 36 Neighbourhood Main Streets.</p>
+					<p>
+						Throughout the Thorncliffe Park study area, employment is generally spread throughout
+						the low-density commercial structures each with ample parking. There's a mix of
+						businesses with zero to five employees in smaller units, and larger businesses with up
+						to 50 employees in larger, but not taller, buildings. Costco is a dominant presence and
+						competes with East York Town Centre for local patronage. Just north across the tracks,
+						Leaside Business Park hosts a greater concentration of commercial and industrial
+						establishments.
+					</p>
+					<p>
+						For employment density, Thorncliffe Park ranks middle in comparison to Toronto Main
+						Streets at 9th out of 20, and relatively better at 14th out of 36 Neighbourhood Main
+						Streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -580,13 +649,19 @@
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Since this segment of Thorncliffe Park is primarily zoned for commercial and industrial uses, residents can be found outside of the study area to the south in apartment tower complexes. These apartment complexes represent approximately eighty percent of the housing stock. Additionally, some low-density housing is present on and around this section of Thorncliffe Park. Most likely attributed to the purpose built housing boom, over 30% of the total housing stock was built in the 1961-80 period.</p>
-
+					<p>
+						Since this segment of Thorncliffe Park is primarily zoned for commercial and industrial
+						uses, residents can be found outside of the study area to the south in apartment tower
+						complexes. These apartment complexes represent approximately eighty percent of the
+						housing stock. Additionally, some low-density housing is present on and around this
+						section of Thorncliffe Park. Most likely attributed to the purpose built housing boom,
+						over 30% of the total housing stock was built in the 1961-80 period.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -605,7 +680,7 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-												xKey="Construction Year"
+								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
@@ -653,10 +728,22 @@
 							]}
 						/>
 					</div>
-					<p>Of residents around the Thorncliffe Park study area, 60% are recent immigrants and 67% are visible minorities.</p>
-					<p>According to the City of Toronto's 2016 Demographic Snapshot of Thorncliffe Park, it is a culturally and linguistically diverse neighbourhood with Urdu as the top non-English mother tongue, followed far behind by Pashto, Tagalog, Farsi, then Gujarati. In 2016, 89% of households rented, which was far above the City-wide rate of 47%. That same year, 46% of households had low-income status, versus 20% city-wide.</p>
-					<p>As a designated Neighbourhood Improvement Area, the community is recognized as equity-deserving, warranting special place-based policies to improve the well-being of residents.</p>
-
+					<p>
+						Of residents around the Thorncliffe Park study area, 60% are recent immigrants and 67%
+						are visible minorities.
+					</p>
+					<p>
+						According to the City of Toronto's 2016 Demographic Snapshot of Thorncliffe Park, it is
+						a culturally and linguistically diverse neighbourhood with Urdu as the top non-English
+						mother tongue, followed far behind by Pashto, Tagalog, Farsi, then Gujarati. In 2016,
+						89% of households rented, which was far above the City-wide rate of 47%. That same year,
+						46% of households had low-income status, versus 20% city-wide.
+					</p>
+					<p>
+						As a designated Neighbourhood Improvement Area, the community is recognized as
+						equity-deserving, warranting special place-based policies to improve the well-being of
+						residents.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -687,7 +774,6 @@
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -700,8 +786,17 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>Thorncliffe Park ranks high in Resiliency Score, at 3rd out of 20 Toronto Main Streets, and 4th out of 26 Neighbourhood Main Streets.</p>
-					<p>While Main Streets that heavily relied on non-resident visitors have been slow to recover since pandemic shut downs in 2019, Thorncliffe Park businesses have been able to count on local patronage from within the neighbourhood and Flemingdon Park to the northeast, pushing visit numbers to momentarily hit 100% the relative 2019 level near the end of 2022.</p>
+					<p>
+						Thorncliffe Park ranks high in Resiliency Score, at 3rd out of 20 Toronto Main Streets,
+						and 4th out of 26 Neighbourhood Main Streets.
+					</p>
+					<p>
+						While Main Streets that heavily relied on non-resident visitors have been slow to
+						recover since pandemic shut downs in 2019, Thorncliffe Park businesses have been able to
+						count on local patronage from within the neighbourhood and Flemingdon Park to the
+						northeast, pushing visit numbers to momentarily hit 100% the relative 2019 level near
+						the end of 2022.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -778,7 +873,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -828,8 +923,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

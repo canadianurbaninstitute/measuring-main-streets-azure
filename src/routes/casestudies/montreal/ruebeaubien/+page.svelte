@@ -3,38 +3,37 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import ruebeaubien from '../../../lib/assets/boundaries/montrealboundaries/RueBeaubien.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruebeaubien/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruebeaubien/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal/ruebeaubien/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruebeaubien/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal/ruebeaubien/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal/ruebeaubien/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruebeaubien/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal/ruebeaubien/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruebeaubien/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruebeaubien/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruebeaubien/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/ruebeaubien/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruebeaubien/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruebeaubien/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
 
-
-	import { visitorMapStore } from '../../../lib/mapStore';
+	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -60,8 +59,6 @@
 	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
-
-
 </script>
 
 <svelte:head>
@@ -75,17 +72,29 @@
 </svelte:head>
 
 <main>
-	<Title outline={ruebeaubien} name={'Rue Beaubien (Rosement-La-Petit-Patrie)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruebeaubien'} fr={'/casestudies/montreal-fr/ruebeaubien-fr'} selected='eng'/>
+	<Title
+		outline={ruebeaubien}
+		name={'Rue Beaubien (Rosement-La-Petit-Patrie)'}
+		location={'Montreal, Québec'}
+	/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruebeaubien'}
+		fr={'/casestudies/montreal-fr/ruebeaubien-fr'}
+		selected="eng"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-										<h2>Overview</h2>
-<p>The case study aims to provide an overview of the case study area; through a combination of interactive maps, charts and data analysis. </p>
-<p>
-The map displays the boundaries of the case study, overlaid on the main street network. </p>
+					<h2>Overview</h2>
+					<p>
+						The case study aims to provide an overview of the case study area; through a combination
+						of interactive maps, charts and data analysis.
+					</p>
+					<p>
+						The map displays the boundaries of the case study, overlaid on the main street network.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -117,7 +126,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-<h2>Built Form</h2>
+					<h2>Built Form</h2>
 					<p>
 						The built form of the case study area is represented through the 3D building layer,
 						transit stops and lines, as well as green space, including a comparative graph of the %
@@ -576,7 +585,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -674,7 +682,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -726,8 +734,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

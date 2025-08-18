@@ -3,45 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import MississaugaDundas from '../../../lib/assets/boundaries/torontoboundaries/MississaugaDundas.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/toronto/mississaugadundas/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/mississaugadundas/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/toronto/mississaugadundas/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
-
-	import mapboxgl from "mapbox-gl";
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import mapboxgl from 'mapbox-gl';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -209,15 +207,26 @@
 </svelte:head>
 
 <main>
-	<Title outline={MississaugaDundas} name={'Dundas Street (Mississauga)'} location={'Toronto, Ontario'} />
+	<Title
+		outline={MississaugaDundas}
+		name={'Dundas Street (Mississauga)'}
+		location={'Toronto, Ontario'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>The surveyed route that would become Dundas Street was completed in 1796 and would help to promote the colonial settlement of lands taken from Indigenous Peoples. Today, Dundas runs east-west through Misssissauga and is used as a major thoroughfare.</p>
-					<p>The Mississauga Dundas study area includes a segment of Dundas Street E which begins at the Mississauga-Toronto border at Etobicoke Creek and extends westward toward Cawthra Rd. This segment is located in Misssauga's most southeastern neighbourhood, Lakeview.</p>
-
+					<p>
+						The surveyed route that would become Dundas Street was completed in 1796 and would help
+						to promote the colonial settlement of lands taken from Indigenous Peoples. Today, Dundas
+						runs east-west through Misssissauga and is used as a major thoroughfare.
+					</p>
+					<p>
+						The Mississauga Dundas study area includes a segment of Dundas Street E which begins at
+						the Mississauga-Toronto border at Etobicoke Creek and extends westward toward Cawthra
+						Rd. This segment is located in Misssauga's most southeastern neighbourhood, Lakeview.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -236,7 +245,7 @@
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
-						center={[-79.585, 43.610]}
+						center={[-79.585, 43.61]}
 						zoom={13}
 						pitch={50}
 						bearing={-10}
@@ -250,9 +259,20 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>This segment of Dundas Street E is six lanes wide with a central median used for left turns. The sidewalks are narrow, typical of suburban development. The streetscape and surrounding buildings are designed to prioritize vehicular access. The western half of the segment is flanked to the south by employment lands which extends north in the eastern half. To the north are predominantly low-density residential neighbourhoods. Compared to the Toronto CMA, Mississauga Dundas lacks green space, but this improves within a ten-minute walk.</p>
-					<p>The Mississauga Dundas study area may soon see significant change. In 2018, City Council endorsed the Dundas Connects Master Plan, which introduce Bus Rapid Transit infrastructure investment toward a mixed-use vision of urban renewal.</p>
-
+					<p>
+						This segment of Dundas Street E is six lanes wide with a central median used for left
+						turns. The sidewalks are narrow, typical of suburban development. The streetscape and
+						surrounding buildings are designed to prioritize vehicular access. The western half of
+						the segment is flanked to the south by employment lands which extends north in the
+						eastern half. To the north are predominantly low-density residential neighbourhoods.
+						Compared to the Toronto CMA, Mississauga Dundas lacks green space, but this improves
+						within a ten-minute walk.
+					</p>
+					<p>
+						The Mississauga Dundas study area may soon see significant change. In 2018, City Council
+						endorsed the Dundas Connects Master Plan, which introduce Bus Rapid Transit
+						infrastructure investment toward a mixed-use vision of urban renewal.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -272,7 +292,6 @@
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'mississaugadundas'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clpsmsvux00qf01p4aads90be'}
@@ -357,7 +376,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'mississaugadundas-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'mississaugadundas-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -367,14 +391,28 @@
 									'civicinfra-toronto-health',
 									'civicinfra-toronto-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Considering that this segment of Dundas is designed to accommodate vehicular traffic, the area lacks much of the pedestrian infrastructure and placemaking seen in other case studies. Visiting the street often requires people to spend money, either on food or entertainment. Beyond visiting for a particular establishment, the area lacks the public realm that encourages people to linger. The Mississauga Chinese Centre is one notable exception as it is a showcase of Chinese-style architecture.</p>
-					<p>Civic infrastructure provision may improve as the segment transforms into a mixed-use transit corridor.</p>
-					<p>According to the Civic Infrastructure Index, this segment of Dundas Street E ranks poorly in terms of civic opportunity, at 17th out of 20 Toronto Main Streets, and 27th out of 36 for Neighbourhood Main Streets.</p>
-
+					<p>
+						Considering that this segment of Dundas is designed to accommodate vehicular traffic,
+						the area lacks much of the pedestrian infrastructure and placemaking seen in other case
+						studies. Visiting the street often requires people to spend money, either on food or
+						entertainment. Beyond visiting for a particular establishment, the area lacks the public
+						realm that encourages people to linger. The Mississauga Chinese Centre is one notable
+						exception as it is a showcase of Chinese-style architecture.
+					</p>
+					<p>
+						Civic infrastructure provision may improve as the segment transforms into a mixed-use
+						transit corridor.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, this segment of Dundas Street E ranks
+						poorly in terms of civic opportunity, at 17th out of 20 Toronto Main Streets, and 27th
+						out of 36 for Neighbourhood Main Streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -446,7 +484,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'mississaugadundas-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'mississaugadundas-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -454,14 +497,26 @@
 									'business-toronto-services',
 									'business-toronto-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>The Mississauga Dundas corridor is home to a series of establishments providing automobile services. There's also a mix of independent and chain restaurants, along with big box retail. The area hosts the Mississauga Chinese Centre, acting as the suburban city's unofficial Chinatown.</p>
-					<p>According to the Independent Business Index, Mississauga Dundas ranks 12th out of 20 Toronto Main Streets and 21st out of 36 Neighbourhood Main Streets.</p>
-					<p>For business density, Mississauga Dundas ranks at 16th out of 20 Toronto Main Streets and 24th out of 36 Neighbourhood Main Streets. These rankings may be due to the low-density, suburban built form pattern of the corridor.</p>
-
+					<p>
+						The Mississauga Dundas corridor is home to a series of establishments providing
+						automobile services. There's also a mix of independent and chain restaurants, along with
+						big box retail. The area hosts the Mississauga Chinese Centre, acting as the suburban
+						city's unofficial Chinatown.
+					</p>
+					<p>
+						According to the Independent Business Index, Mississauga Dundas ranks 12th out of 20
+						Toronto Main Streets and 21st out of 36 Neighbourhood Main Streets.
+					</p>
+					<p>
+						For business density, Mississauga Dundas ranks at 16th out of 20 Toronto Main Streets
+						and 24th out of 36 Neighbourhood Main Streets. These rankings may be due to the
+						low-density, suburban built form pattern of the corridor.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -500,9 +555,20 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>For employment density, Mississauga Dundas ranks 7th out of 20 Toronto Main Streets and 12th out of 36 Neighbourhood Main Streets.</p>
-					<p>While ranking lower in terms of business density compared to other Main Streets, the presence of less but larger employers makes Mississauga Dundas a significant employment hub.</p>
-					<p>There's a significant mix of Main Street Businesses with some Civic Infrastructure employment. Expanding out of the segment, the surrounding area sees large concentrations of non-Main Street Businesses, such as industrial establishments.</p>
+					<p>
+						For employment density, Mississauga Dundas ranks 7th out of 20 Toronto Main Streets and
+						12th out of 36 Neighbourhood Main Streets.
+					</p>
+					<p>
+						While ranking lower in terms of business density compared to other Main Streets, the
+						presence of less but larger employers makes Mississauga Dundas a significant employment
+						hub.
+					</p>
+					<p>
+						There's a significant mix of Main Street Businesses with some Civic Infrastructure
+						employment. Expanding out of the segment, the surrounding area sees large concentrations
+						of non-Main Street Businesses, such as industrial establishments.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -559,13 +625,20 @@
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>More than half of the housing in the Mississauga Dundas study area was built in the 1961-80 period. Despite the predominant low-density character of the neighbourhood's residential areas, the presence of high-rise garden towers and low-rise apartments does diversify the local housing mix. However, these high rise towers and low-rise apartments are primarily located on the northwest side of the street. As a result, the northwestern area of the study area maintains a significantly higher average population density than the areas to the southeast.</p>
-
+					<p>
+						More than half of the housing in the Mississauga Dundas study area was built in the
+						1961-80 period. Despite the predominant low-density character of the neighbourhood's
+						residential areas, the presence of high-rise garden towers and low-rise apartments does
+						diversify the local housing mix. However, these high rise towers and low-rise apartments
+						are primarily located on the northwest side of the street. As a result, the northwestern
+						area of the study area maintains a significantly higher average population density than
+						the areas to the southeast.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -584,7 +657,7 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-												xKey="Construction Year"
+								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
@@ -632,8 +705,14 @@
 							]}
 						/>
 					</div>
-					<p>The Mississauga Dundas study area maintains distinct socio-demographic characteristics. For example, of the residents around the Mississauga Dundas study area, more than half of current residents are recent immigrants. In addition, 40% of the residents in this study area are visible minorities. In terms of average income, there's a notable contrast between the northwest and southeast areas. The average income in the northwest neighborhoods is considerably lower than that in the southeast.</p>
-
+					<p>
+						The Mississauga Dundas study area maintains distinct socio-demographic characteristics.
+						For example, of the residents around the Mississauga Dundas study area, more than half
+						of current residents are recent immigrants. In addition, 40% of the residents in this
+						study area are visible minorities. In terms of average income, there's a notable
+						contrast between the northwest and southeast areas. The average income in the northwest
+						neighborhoods is considerably lower than that in the southeast.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -664,7 +743,6 @@
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -677,8 +755,15 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>Mississauga Dundas' Resiliency Score ranks middle for Toronto Main Streets at 9th out of 20 and just outside of the top third for Neighbourhood Main Streets at 13th out of 36.</p>
-					<p>This segment of Dundas has generally relied upon infrequent visits by non-residents. The 12pm to 3pm period is the busiest time of the day, and Saturday sees the largest portion of visits on a weekly basis.</p>
+					<p>
+						Mississauga Dundas' Resiliency Score ranks middle for Toronto Main Streets at 9th out of
+						20 and just outside of the top third for Neighbourhood Main Streets at 13th out of 36.
+					</p>
+					<p>
+						This segment of Dundas has generally relied upon infrequent visits by non-residents. The
+						12pm to 3pm period is the busiest time of the day, and Saturday sees the largest portion
+						of visits on a weekly basis.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -755,7 +840,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -807,8 +892,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

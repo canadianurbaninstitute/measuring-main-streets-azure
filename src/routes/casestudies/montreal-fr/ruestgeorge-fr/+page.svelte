@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueStGeorge from '../../../lib/assets/boundaries/montrealboundaries/RueStGeorge.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruestgeorge/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -213,14 +213,31 @@
 		name={'Rue St. George (Saint Jerome)'}
 		location={'Montreal, Québec'}
 	/>
-	<LanguageSelector eng={'/casestudies/montreal/ruestgeorge'} fr={'/casestudies/montreal-fr/ruestgeorge-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruestgeorge'}
+		fr={'/casestudies/montreal-fr/ruestgeorge-fr'}
+		selected="fr"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>La rue Saint-Georges est une rue commerciale principale située dans la ville de Saint-Jérôme. Saint-Jérôme est une ville de banlieue de 80 000 habitants située à environ 45 km au nord-ouest de Montréal. La ville est la porte d’entrée des Laurentides et sert donc de point de départ à de nombreuses randonnées cyclistes et autres excursions dans les montagnes à partir de Montréal. Saint-Jérôme est accessible depuis Montréal par le train de banlieue EXXO2 qui relie le centre-ville de Montréal à Saint-Jérôme en un peu plus d’une heure.</p><p>Cette section particulière de la rue Saint-Georges comporte de nombreux commerces et établissements commerciaux, ce qui en fait la principale artère commerciale au cœur du centre-ville historique de Saint-Jérôme.</p>
+					<p>
+						La rue Saint-Georges est une rue commerciale principale située dans la ville de
+						Saint-Jérôme. Saint-Jérôme est une ville de banlieue de 80 000 habitants située à
+						environ 45 km au nord-ouest de Montréal. La ville est la porte d’entrée des Laurentides
+						et sert donc de point de départ à de nombreuses randonnées cyclistes et autres
+						excursions dans les montagnes à partir de Montréal. Saint-Jérôme est accessible depuis
+						Montréal par le train de banlieue EXXO2 qui relie le centre-ville de Montréal à
+						Saint-Jérôme en un peu plus d’une heure.
+					</p>
+					<p>
+						Cette section particulière de la rue Saint-Georges comporte de nombreux commerces et
+						établissements commerciaux, ce qui en fait la principale artère commerciale au cœur du
+						centre-ville historique de Saint-Jérôme.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -253,7 +270,24 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>La forme bâtie de la rue Saint-Georges change au fur et à mesure que l’on traverse ce segment de rue. À l’extrémité sud du segment, près de la rue de Saint-Janvier, la rue a une ou deux voies de circulation dans chaque direction. Plus au nord, cependant, la rue devient unidirectionnelle avec deux voies de circulation et du stationnement des deux côtés de la rue. Il n’y a pas de pistes cyclables ni de marquage pour les vélos dans la rue, mais il y a des stations de bus. Le trottoir et l’état de la rue changent également au fur et à mesure que l’on se dirige vers le nord : le trottoir devient plus large et comporte davantage d’arbres, de bancs et de poubelles. Le matériau du trottoir passe également du béton à la brique rouge. Les bâtiments qui bordent la rue Saint-Georges sont principalement des immeubles commerciaux de deux ou trois étages abritant des commerces au rez-de-chaussée, mais de grands bâtiments institutionnels sont également disséminés dans la rue.</p><p>La rue Saint-Georges bénéficie de nombreux espaces verts accessibles en moins de 10 minutes de marche.</p>
+					<p>
+						La forme bâtie de la rue Saint-Georges change au fur et à mesure que l’on traverse ce
+						segment de rue. À l’extrémité sud du segment, près de la rue de Saint-Janvier, la rue a
+						une ou deux voies de circulation dans chaque direction. Plus au nord, cependant, la rue
+						devient unidirectionnelle avec deux voies de circulation et du stationnement des deux
+						côtés de la rue. Il n’y a pas de pistes cyclables ni de marquage pour les vélos dans la
+						rue, mais il y a des stations de bus. Le trottoir et l’état de la rue changent également
+						au fur et à mesure que l’on se dirige vers le nord : le trottoir devient plus large et
+						comporte davantage d’arbres, de bancs et de poubelles. Le matériau du trottoir passe
+						également du béton à la brique rouge. Les bâtiments qui bordent la rue Saint-Georges
+						sont principalement des immeubles commerciaux de deux ou trois étages abritant des
+						commerces au rez-de-chaussée, mais de grands bâtiments institutionnels sont également
+						disséminés dans la rue.
+					</p>
+					<p>
+						La rue Saint-Georges bénéficie de nombreux espaces verts accessibles en moins de
+						10 minutes de marche.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -377,7 +411,24 @@
 							/>
 						</div>
 					</div>
-					<p>La rue Saint-Georges bénéficie d’une solide infrastructure municipale comprenant des services gouvernementaux et communautaires, des établissements de soins et de santé, ainsi que des établissements d’enseignement. Parmi ces derniers, il convient de noter l’immeuble de bureaux du ministère des Transports et de la Mobilité durable du Québec et le campus de l’Université du Québec en Outaouais, situés directement sur la rue. De plus, les locaux ont accès à de petites cliniques de santé et à une pharmacie le long de la rue. Les environs immédiats de la rue Saint-Georges sont bien équipés en commodités de santé, de soins et de services gouvernementaux pour desservir les personnes résidant à Saint-Jérôme. Cependant, il y a un manque flagrant d’art et de culture ainsi que d’équipements de loisirs dans la rue et ses environs.</p><p>Selon l’indice d’infrastructure municipale, la rue Saint-Georges surpasse la plupart des autres études de cas de rues principales en matière d’opportunités civiques. La rue se classe au troisième rang des 20 rues principales de la région et au premier rang des 12 rues principales de petites villes.</p>
+					<p>
+						La rue Saint-Georges bénéficie d’une solide infrastructure municipale comprenant des
+						services gouvernementaux et communautaires, des établissements de soins et de santé,
+						ainsi que des établissements d’enseignement. Parmi ces derniers, il convient de noter
+						l’immeuble de bureaux du ministère des Transports et de la Mobilité durable du Québec et
+						le campus de l’Université du Québec en Outaouais, situés directement sur la rue. De
+						plus, les locaux ont accès à de petites cliniques de santé et à une pharmacie le long de
+						la rue. Les environs immédiats de la rue Saint-Georges sont bien équipés en commodités
+						de santé, de soins et de services gouvernementaux pour desservir les personnes résidant
+						à Saint-Jérôme. Cependant, il y a un manque flagrant d’art et de culture ainsi que
+						d’équipements de loisirs dans la rue et ses environs.
+					</p>
+					<p>
+						Selon l’indice d’infrastructure municipale, la rue Saint-Georges surpasse la plupart des
+						autres études de cas de rues principales en matière d’opportunités civiques. La rue se
+						classe au troisième rang des 20 rues principales de la région et au premier rang des
+						12 rues principales de petites villes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -467,7 +518,32 @@
 							/>
 						</div>
 					</div>
-					<p>La rue Saint-Georges présente un mélange relativement équilibré d’entreprises, comprenant des commerces de détail, des services locaux, et des services de restauration et débits de boissons, avec une légère prédominance des entreprises de services. Tout comme les changements dans la forme bâtie, le profil des entreprises varie le long de la rue. Vers l’extrémité nord du segment, il y a une plus grande concentration de restaurants et de bars, y compris des restaurants locaux indépendants comme le restaurant Arousse et des chaînes régionales comme le bar La P’tite Grenouille. Pendant les mois d’été, certains de ces établissements étendent leur offre avec des terrasses et des places assises sur la rue.</p><p>Malgré sa situation centrale dans le centre-ville de Saint-Jérôme, la rue Saint-Georges connaît une vacance commerciale marquée. Les panneaux à vendre et à louer sont nombreux dans la rue, en particulier dans les bureaux et les espaces commerciaux situés au-dessus des commerces du rez-de-chaussée.</p><p>Selon l’indice des entreprises indépendantes, la rue Saint-Georges se classe au 6e rang des 20 rues principales de Montréal et au 4e rang des 12 rues principales de petites villes en ce qui a trait à l’indépendance des entreprises.</p><p>En matière de densité commerciale, la rue se classe 10e sur 20 rues principales de la région et 3e sur 12 rues principales de petites villes.</p>
+					<p>
+						La rue Saint-Georges présente un mélange relativement équilibré d’entreprises,
+						comprenant des commerces de détail, des services locaux, et des services de restauration
+						et débits de boissons, avec une légère prédominance des entreprises de services. Tout
+						comme les changements dans la forme bâtie, le profil des entreprises varie le long de la
+						rue. Vers l’extrémité nord du segment, il y a une plus grande concentration de
+						restaurants et de bars, y compris des restaurants locaux indépendants comme le
+						restaurant Arousse et des chaînes régionales comme le bar La P’tite Grenouille. Pendant
+						les mois d’été, certains de ces établissements étendent leur offre avec des terrasses et
+						des places assises sur la rue.
+					</p>
+					<p>
+						Malgré sa situation centrale dans le centre-ville de Saint-Jérôme, la rue Saint-Georges
+						connaît une vacance commerciale marquée. Les panneaux à vendre et à louer sont nombreux
+						dans la rue, en particulier dans les bureaux et les espaces commerciaux situés au-dessus
+						des commerces du rez-de-chaussée.
+					</p>
+					<p>
+						Selon l’indice des entreprises indépendantes, la rue Saint-Georges se classe au 6e rang
+						des 20 rues principales de Montréal et au 4e rang des 12 rues principales de petites
+						villes en ce qui a trait à l’indépendance des entreprises.
+					</p>
+					<p>
+						En matière de densité commerciale, la rue se classe 10e sur 20 rues principales de la
+						région et 3e sur 12 rues principales de petites villes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -506,7 +582,21 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>Les possibilités d’emploi sont nombreuses le long de la rue Saint-Georges, tant sur ce tronçon que sur le reste de la rue. Représentatifs du profil des entreprises, les petits commerces et services, tels que les restaurants et les bars, sont les principaux employeurs, employant entre zéro et cinq personnes. De plus, la rue est dotée d’infrastructures municipales appréciables, dont l’Université du Québec en Outaouais et les bureaux du ministère des Transports et de la Mobilité durable du Québec, qui contribuent de façon importante à l’emploi local.</p><p>Dans l’ensemble, la rue Saint-Georges se classe au 10e rang des 20 rues principales de Montréal en matière de densité d’emploi. Cependant, parmi les autres rues principales de petites villes, la rue Saint-Georges se classe au premier rang des 12 rues principales de petites villes en ce qui a trait à la densité d’emploi.</p>
+					<p>
+						Les possibilités d’emploi sont nombreuses le long de la rue Saint-Georges, tant sur ce
+						tronçon que sur le reste de la rue. Représentatifs du profil des entreprises, les petits
+						commerces et services, tels que les restaurants et les bars, sont les principaux
+						employeurs, employant entre zéro et cinq personnes. De plus, la rue est dotée
+						d’infrastructures municipales appréciables, dont l’Université du Québec en Outaouais et
+						les bureaux du ministère des Transports et de la Mobilité durable du Québec, qui
+						contribuent de façon importante à l’emploi local.
+					</p>
+					<p>
+						Dans l’ensemble, la rue Saint-Georges se classe au 10e rang des 20 rues principales de
+						Montréal en matière de densité d’emploi. Cependant, parmi les autres rues principales de
+						petites villes, la rue Saint-Georges se classe au premier rang des 12 rues principales
+						de petites villes en ce qui a trait à la densité d’emploi.
+					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -567,7 +657,16 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Saint-Jérôme, petite ville de banlieue, conserve une densité de population relativement faible, même dans son centre-ville. Malgré cela, le type de logement prédominant sur et aux abords de la rue Saint-Georges est constitué d’appartements de faible hauteur et de duplex, avec seulement un petit pourcentage de maisons individuelles non attenantes. Le parc immobilier est principalement ancien, la majorité des logements ayant été construits avant 1960 et le développement ayant été minime depuis les années 2000. Le long de la rue Saint-Georges elle-même, on trouve peu de logements, seuls quelques bâtiments commerciaux comportant des logements aux derniers étages.</p>
+					<p>
+						Saint-Jérôme, petite ville de banlieue, conserve une densité de population relativement
+						faible, même dans son centre-ville. Malgré cela, le type de logement prédominant sur et
+						aux abords de la rue Saint-Georges est constitué d’appartements de faible hauteur et de
+						duplex, avec seulement un petit pourcentage de maisons individuelles non attenantes. Le
+						parc immobilier est principalement ancien, la majorité des logements ayant été
+						construits avant 1960 et le développement ayant été minime depuis les années 2000. Le
+						long de la rue Saint-Georges elle-même, on trouve peu de logements, seuls quelques
+						bâtiments commerciaux comportant des logements aux derniers étages.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -630,11 +729,23 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
-					<p>La rue Saint-Georges à Saint-Jérôme se caractérise par plusieurs attributs locaux distincts. La population a tendance à être plus âgée en moyenne, avec des ménages de petite taille, principalement composés d’une seule personne. Les niveaux de revenus sont particulièrement bas dans cette zone et le pourcentage de minorités visibles est relativement faible. Bien que la proportion d’immigrants récents soit légèrement plus élevée dans ce segment et ses environs, le pourcentage global reste assez faible. En outre, le pourcentage de personnes de langue anglaise est proche de zéro, la quasi-totalité des locaux étant de langue française. Enfin, le pourcentage de personnes titulaires d’un baccalauréat est très faible. L’ensemble de ces facteurs façonne le profil démographique de la rue Saint-Georges, reflétant ses caractéristiques locales uniques.</p>
+					<p>
+						La rue Saint-Georges à Saint-Jérôme se caractérise par plusieurs attributs locaux
+						distincts. La population a tendance à être plus âgée en moyenne, avec des ménages de
+						petite taille, principalement composés d’une seule personne. Les niveaux de revenus sont
+						particulièrement bas dans cette zone et le pourcentage de minorités visibles est
+						relativement faible. Bien que la proportion d’immigrants récents soit légèrement plus
+						élevée dans ce segment et ses environs, le pourcentage global reste assez faible. En
+						outre, le pourcentage de personnes de langue anglaise est proche de zéro, la
+						quasi-totalité des locaux étant de langue française. Enfin, le pourcentage de personnes
+						titulaires d’un baccalauréat est très faible. L’ensemble de ces facteurs façonne le
+						profil démographique de la rue Saint-Georges, reflétant ses caractéristiques locales
+						uniques.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -677,7 +788,23 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>Le rayon du nombre de visites à partir du domicile des visiteurs a considérablement diminué, ce qui indique que les personnes qui viennent de plus loin ne visitent pas la rue dans la même mesure qu’avant la pandémie en 2019. En outre, bien que les niveaux globaux de visites approchent 80 % de leurs niveaux de 2019, ce qui indique une reprise relativement saine de la pandémie de COVID-19, le nombre de visites classées par type de visiteur a considérablement diminué par rapport à 2019. La diminution du nombre de visiteurs peu fréquents est particulièrement remarquable, passant d’environ 800 000 visiteurs par an à moins de 400 000 visiteurs. Il est intéressant de noter que le plus grand nombre de visiteurs est observé les jeudis et vendredis.</p><p>En matière de résilience globale de la rue et de récupération des visiteurs, la rue Saint-Georges est à la traîne par rapport à d’autres études de cas de rues principales. Elle se classe 17e sur 20 pour la résilience des visiteurs dans la région et 11e sur 12 rues principales de petites villes.</p>
+					<p>
+						Le rayon du nombre de visites à partir du domicile des visiteurs a considérablement
+						diminué, ce qui indique que les personnes qui viennent de plus loin ne visitent pas la
+						rue dans la même mesure qu’avant la pandémie en 2019. En outre, bien que les niveaux
+						globaux de visites approchent 80 % de leurs niveaux de 2019, ce qui indique une reprise
+						relativement saine de la pandémie de COVID-19, le nombre de visites classées par type de
+						visiteur a considérablement diminué par rapport à 2019. La diminution du nombre de
+						visiteurs peu fréquents est particulièrement remarquable, passant d’environ
+						800 000 visiteurs par an à moins de 400 000 visiteurs. Il est intéressant de noter que
+						le plus grand nombre de visiteurs est observé les jeudis et vendredis.
+					</p>
+					<p>
+						En matière de résilience globale de la rue et de récupération des visiteurs, la rue
+						Saint-Georges est à la traîne par rapport à d’autres études de cas de rues principales.
+						Elle se classe 17e sur 20 pour la résilience des visiteurs dans la région et 11e sur
+						12 rues principales de petites villes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -754,7 +881,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -806,8 +933,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

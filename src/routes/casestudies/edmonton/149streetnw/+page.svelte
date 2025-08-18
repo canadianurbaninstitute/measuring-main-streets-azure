@@ -3,44 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import HundredFortyNineStreetNW from '../../../lib/assets/boundaries/edmontonboundaries/149StreetNW.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/149streetnw/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/149streetnw/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/149streetnw/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/149streetnw/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/149streetnw/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/149streetnw/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/149streetnw/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/149streetnw/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/149streetnw/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/149streetnw/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/149streetnw/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/149streetnw/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/149streetnw/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/149streetnw/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -84,7 +83,7 @@
 
 	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -208,14 +207,24 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={HundredFortyNineStreetNW} name={'149 Street NW (West Edmonton)'} location={'Edmonton, Alberta'} />
+	<Title
+		outline={HundredFortyNineStreetNW}
+		name={'149 Street NW (West Edmonton)'}
+		location={'Edmonton, Alberta'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>149 Street NW is an arterial roadway in Edmonton. This road acts as a north-south vehicle corridor lined with residential and commercial uses. The study area segment straddles Jasper Park, and the neighbourhoods of Sherwood and Parkview. 149 Street lies west of Old Strathcona and the North Saskatchewan River. The road connects directly to Whitemud Drive to the south, an inner city freeway. At the north end, 149 connects to Stony Plain Rd, an arterial leading to the core.</p>
-
+					<p>
+						149 Street NW is an arterial roadway in Edmonton. This road acts as a north-south
+						vehicle corridor lined with residential and commercial uses. The study area segment
+						straddles Jasper Park, and the neighbourhoods of Sherwood and Parkview. 149 Street lies
+						west of Old Strathcona and the North Saskatchewan River. The road connects directly to
+						Whitemud Drive to the south, an inner city freeway. At the north end, 149 connects to
+						Stony Plain Rd, an arterial leading to the core.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -248,10 +257,28 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>149 Street NW's land use is segregated. There are pockets of businesses on either end of the study area with residential taking up the remaining area. Buildings along 149 are generally one to two-storeys in height.</p>
-					<p>From 87 Ave to 91 Ave there are strip malls lining the west side of 149 leading to apartments in the north. A service road runs parellel to the east with no sidewalk. There is even a sign prohibiting walking on the east side of 149. The service road provides direct access to single family dwellings.</p>
-					<p>149 Street NW has six lanes for traffic with additional room for parking. The four lanes in the middle are unobstructed driving lanes and act as area's north-south corridor for personal automobiles and bus transit. The speed limit on this street is 60 km/hr and there only four signalized intersections in the study area. The built form prioritizes vehicular mobility and lacks features for a safe and comfortable pedestrian experience.</p>
-					<p>There are on demand transit bus stops along 149. Implemented in 2021, the service lets transit users to request a bus, either by phone, website, or app.</p>
+					<p>
+						149 Street NW's land use is segregated. There are pockets of businesses on either end of
+						the study area with residential taking up the remaining area. Buildings along 149 are
+						generally one to two-storeys in height.
+					</p>
+					<p>
+						From 87 Ave to 91 Ave there are strip malls lining the west side of 149 leading to
+						apartments in the north. A service road runs parellel to the east with no sidewalk.
+						There is even a sign prohibiting walking on the east side of 149. The service road
+						provides direct access to single family dwellings.
+					</p>
+					<p>
+						149 Street NW has six lanes for traffic with additional room for parking. The four lanes
+						in the middle are unobstructed driving lanes and act as area's north-south corridor for
+						personal automobiles and bus transit. The speed limit on this street is 60 km/hr and
+						there only four signalized intersections in the study area. The built form prioritizes
+						vehicular mobility and lacks features for a safe and comfortable pedestrian experience.
+					</p>
+					<p>
+						There are on demand transit bus stops along 149. Implemented in 2021, the service lets
+						transit users to request a bus, either by phone, website, or app.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -271,7 +298,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'149streetnw'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9pesfj003j01qogyvr5sh6'}
@@ -356,7 +382,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'149streetnw-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'149streetnw-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -366,11 +397,15 @@ setConfig({
 									'civicinfra-edmonton-health',
 									'civicinfra-edmonton-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>According to the Civic Infrastructure Index, 149 Street ranks low at 16th of 20 Edmonton Main Streets and 19th of 36 Neighbourhood Main Streets.</p>
+					<p>
+						According to the Civic Infrastructure Index, 149 Street ranks low at 16th of 20 Edmonton
+						Main Streets and 19th of 36 Neighbourhood Main Streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -442,7 +477,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'149streetnw-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'149streetnw-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -450,12 +490,24 @@ setConfig({
 									'business-edmonton-services',
 									'business-edmonton-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>According to the Independent Business Index, 149 Street ranks low at 15th of 20 Edmonton Main Streets and 32nd of 36 Neighbourhood Main Streets. 149 Street also ranks low in business density, at 18th of 20 and 31st of 36.</p>
-					<p>On the northwest corner of 149 Street and 87 Ave, in the south portion of the study area, there is a cluster of businesses. This features a mix of local businesses, such as the BonTon Bakery, chain establishments, such as McDonald's and Chopped Leaf, medical services, and bank branches. Going north, the street transitions abruptly to suburban residential and back to another cluster of businesses. All the businesses are catered to vehicular access with parking lots and ample room for larger vehicles.</p>
+					<p>
+						According to the Independent Business Index, 149 Street ranks low at 15th of 20 Edmonton
+						Main Streets and 32nd of 36 Neighbourhood Main Streets. 149 Street also ranks low in
+						business density, at 18th of 20 and 31st of 36.
+					</p>
+					<p>
+						On the northwest corner of 149 Street and 87 Ave, in the south portion of the study
+						area, there is a cluster of businesses. This features a mix of local businesses, such as
+						the BonTon Bakery, chain establishments, such as McDonald's and Chopped Leaf, medical
+						services, and bank branches. Going north, the street transitions abruptly to suburban
+						residential and back to another cluster of businesses. All the businesses are catered to
+						vehicular access with parking lots and ample room for larger vehicles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -494,8 +546,16 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Possibly due to the configuration of 149 Street NW, with suburban pattern commercial lots on the west and no activation on the east, there isn't a significant concentration of businesses or establishments as seen in other Edmonton Main Street case studies.</p>
-					<p>Reflective of its suburban built form and activation only on the western portion of the segment, 149 Street ranks 18th of Edmonton Main Streets for employment density, and 35th of 36 Neighbourhood Main Streets.</p>
+					<p>
+						Possibly due to the configuration of 149 Street NW, with suburban pattern commercial
+						lots on the west and no activation on the east, there isn't a significant concentration
+						of businesses or establishments as seen in other Edmonton Main Street case studies.
+					</p>
+					<p>
+						Reflective of its suburban built form and activation only on the western portion of the
+						segment, 149 Street ranks 18th of Edmonton Main Streets for employment density, and 35th
+						of 36 Neighbourhood Main Streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -552,14 +612,25 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>The general trend of housing types along 149 Street NW tended toward low-rise apartment buildings on the west and single family dwelling to the east. Similar to other mature neighbourhoods in Edmonton, there were some new residential infill construction to the east. There was one undeveloped plot with a for sale sign. The apartments and houses alike were set back from the road. The setbacks on the lots and presence of the service road gives the street a wide feel.</p>
-					<p>There are also many homes as one makes their way away from 149. Like the Parkview neighbouhrood to the east, many of the homes were built in the mid 1950s to 60s. THe apartments were generally constructed in the 70s to 80s period. The dwellings observed looked to be in used condition, with some of the housing stock having seen better days.</p>
-
+					<p>
+						The general trend of housing types along 149 Street NW tended toward low-rise apartment
+						buildings on the west and single family dwelling to the east. Similar to other mature
+						neighbourhoods in Edmonton, there were some new residential infill construction to the
+						east. There was one undeveloped plot with a for sale sign. The apartments and houses
+						alike were set back from the road. The setbacks on the lots and presence of the service
+						road gives the street a wide feel.
+					</p>
+					<p>
+						There are also many homes as one makes their way away from 149. Like the Parkview
+						neighbouhrood to the east, many of the homes were built in the mid 1950s to 60s. THe
+						apartments were generally constructed in the 70s to 80s period. The dwellings observed
+						looked to be in used condition, with some of the housing stock having seen better days.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -626,8 +697,10 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>Of residents in the study area, 28% are recent immigrants and 31% are visible minorities.</p>
-
+					<p>
+						Of residents in the study area, 28% are recent immigrants and 31% are visible
+						minorities.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -658,7 +731,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -671,9 +743,20 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>149 Street NW's Resiliency Score ranks high at 2nd of 20 Edmonton Main Streets and 2nd of 36 Neighbourhood Main Streets, second to only 50 Street in Beaumont in both categories.</p>
-					<p>Foot traffic levels relative to 2019 seem to have stablized between 76.4% in 2021 and 2022 75.2% in 2022.</p>
-					<p>In terms of visits by time of day, the busiest period is between 12pm and 6pm. It's worth noting that a significant percentage of visits happen between 12am and 6am (around 14%) signifying nighttime patronage. Friday is the busiest day of the week.</p>
+					<p>
+						149 Street NW's Resiliency Score ranks high at 2nd of 20 Edmonton Main Streets and 2nd
+						of 36 Neighbourhood Main Streets, second to only 50 Street in Beaumont in both
+						categories.
+					</p>
+					<p>
+						Foot traffic levels relative to 2019 seem to have stablized between 76.4% in 2021 and
+						2022 75.2% in 2022.
+					</p>
+					<p>
+						In terms of visits by time of day, the busiest period is between 12pm and 6pm. It's
+						worth noting that a significant percentage of visits happen between 12am and 6am (around
+						14%) signifying nighttime patronage. Friday is the busiest day of the week.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -750,7 +833,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -802,8 +885,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

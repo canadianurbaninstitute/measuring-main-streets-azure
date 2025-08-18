@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import MontRoyal from '../../../lib/assets/boundaries/montrealboundaries/MontRoyal.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/montroyal/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/montroyal/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/montroyal/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/montroyal/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/montroyal/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/montroyal/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/montroyal/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/montroyal/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/montroyal/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/montroyal/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/montroyal/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/montroyal/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/montroyal/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/montroyal/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -209,13 +209,32 @@
 
 <main>
 	<Title outline={MontRoyal} name={'Mont Royal (Plateau)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/montroyal'} fr={'/casestudies/montreal-fr/montroyal-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/montroyal'}
+		fr={'/casestudies/montreal-fr/montroyal-fr'}
+		selected="fr"
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>L’avenue du Mont-Royal est une importante artère commerciale orientée est-ouest de l’arrondissement du Plateau-Mont-Royal à Montréal, au Québec. S’étendant au pied du Mont-Royal, la rue traverse l’arrondissement du Plateau-Mont-Royal de l’avenue du Parc à la rue Frontenac et offre une vue imprenable sur la montagne et le stade olympique. Cette étude de cas se concentre sur le tronçon de l’avenue du Mont-Royal situé entre les grandes artères nord-sud de la rue Saint-Denis et de la rue Papineau.</p><p>L’avenue du Mont-Royal est un centre d’activité commerciale très animé et est réputée pour son large éventail de boutiques, de restaurants et de bars. Depuis 2020, l’avenue Mont-Royal fait l’objet d’une piétonnisation de juin à septembre. Cette transformation crée une rue piétonne de 36 pâtés de maisons et entraîne un étalement de l’engagement commercial sur la rue, une valorisation de la programmation et de l’aménagement de l’espace public, ainsi qu’une augmentation du nombre de visites dans le quartier.</p>
+					<p>
+						L’avenue du Mont-Royal est une importante artère commerciale orientée est-ouest de
+						l’arrondissement du Plateau-Mont-Royal à Montréal, au Québec. S’étendant au pied du
+						Mont-Royal, la rue traverse l’arrondissement du Plateau-Mont-Royal de l’avenue du Parc à
+						la rue Frontenac et offre une vue imprenable sur la montagne et le stade olympique.
+						Cette étude de cas se concentre sur le tronçon de l’avenue du Mont-Royal situé entre les
+						grandes artères nord-sud de la rue Saint-Denis et de la rue Papineau.
+					</p>
+					<p>
+						L’avenue du Mont-Royal est un centre d’activité commerciale très animé et est réputée
+						pour son large éventail de boutiques, de restaurants et de bars. Depuis 2020, l’avenue
+						Mont-Royal fait l’objet d’une piétonnisation de juin à septembre. Cette transformation
+						crée une rue piétonne de 36 pâtés de maisons et entraîne un étalement de l’engagement
+						commercial sur la rue, une valorisation de la programmation et de l’aménagement de
+						l’espace public, ainsi qu’une augmentation du nombre de visites dans le quartier.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -248,7 +267,27 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>La typologie des bâtiments de ce corridor à usage mixte reste relativement cohérente avec des immeubles de deux à trois étages, comprenant des commerces actifs au rez-de-chaussée et des logements résidentiels au-dessus. La zone résidentielle environnante se compose presque exclusivement de logements collectifs. L’ensemble de cette typologie de logements collectifs mixtes est représentatif du charme esthétique du quartier du Plateau-Mont-Royal.</p><p>La rue comporte une voie de circulation et un stationnement sur rue dans chaque direction, mais pas de piste cyclable. Plusieurs lignes d’autobus circulent sur l’avenue du Mont-Royal et des arrêts sont aménagés de part et d’autre de la rue. À l’extrémité sud-ouest du segment de rue se trouve la station de métro Mont-Royal, qui dessert la ligne orange du métro de Montréal.</p><p>Depuis 2020, l’avenue du Mont-Royal est piétonne en été et les piétons disposent de plus d’espace pour s’arrêter et s’attarder grâce à un mobilier urbain temporaire, des bancs et des tables. De nombreux commerces s’étendent sur les trottoirs et dans la rue grâce à des terrasses et des structures temporaires.</p>
+					<p>
+						La typologie des bâtiments de ce corridor à usage mixte reste relativement cohérente
+						avec des immeubles de deux à trois étages, comprenant des commerces actifs au
+						rez-de-chaussée et des logements résidentiels au-dessus. La zone résidentielle
+						environnante se compose presque exclusivement de logements collectifs. L’ensemble de
+						cette typologie de logements collectifs mixtes est représentatif du charme esthétique du
+						quartier du Plateau-Mont-Royal.
+					</p>
+					<p>
+						La rue comporte une voie de circulation et un stationnement sur rue dans chaque
+						direction, mais pas de piste cyclable. Plusieurs lignes d’autobus circulent sur l’avenue
+						du Mont-Royal et des arrêts sont aménagés de part et d’autre de la rue. À l’extrémité
+						sud-ouest du segment de rue se trouve la station de métro Mont-Royal, qui dessert la
+						ligne orange du métro de Montréal.
+					</p>
+					<p>
+						Depuis 2020, l’avenue du Mont-Royal est piétonne en été et les piétons disposent de plus
+						d’espace pour s’arrêter et s’attarder grâce à un mobilier urbain temporaire, des bancs
+						et des tables. De nombreux commerces s’étendent sur les trottoirs et dans la rue grâce à
+						des terrasses et des structures temporaires.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -372,7 +411,31 @@
 							/>
 						</div>
 					</div>
-					<p>L’avenue du Mont-Royal se trouve à proximité de tous les types d’infrastructures municipales et de commodités. Il s’agit d’une zone bien desservie, accessible en moins de 10 minutes de marche à plusieurs commodités et infrastructures municipales clés. Celles-ci comprennent un certain nombre d’établissements de soins de santé, de services gouvernementaux et communautaires, et d’établissements d’enseignement.</p><p>La SDC du Mont-Royal et la piétonnisation estivale entraînent une quantité importante d’infrastructures temporaires et permanentes destinées à promouvoir la rue et à en faire un espace plus attrayant, accueillant et agréable pour les personnes résidant dans le quartier et les visiteurs. Tout au long de l’année, ces infrastructures comprennent des panneaux de signalisation pour la SDC, des peintures murales et d’autres installations artistiques, ainsi que des sièges permanents et des espaces pour s’attarder sur la place Gérald-Godin. Pendant les mois d’été, la rue se transforme pour mieux soutenir les locaux, les visiteurs et les entreprises environnantes, grâce à du mobilier urbain, des peintures murales et des œuvres d’art urbain supplémentaires, ainsi qu’à des jardinières et des jardins temporaires.</p><p>Selon l’indice des infrastructures municipales, l’avenue du Mont-Royal est en retard par rapport à la moitié des rues principales de Montréal. En matière d’opportunités civiques, l’avenue du Mont-Royal se situe au 12e rang des 20 rues principales de Montréal et au 26e rang des 36 rues principales résidentielles.</p>
+					<p>
+						L’avenue du Mont-Royal se trouve à proximité de tous les types d’infrastructures
+						municipales et de commodités. Il s’agit d’une zone bien desservie, accessible en moins
+						de 10 minutes de marche à plusieurs commodités et infrastructures municipales clés.
+						Celles-ci comprennent un certain nombre d’établissements de soins de santé, de services
+						gouvernementaux et communautaires, et d’établissements d’enseignement.
+					</p>
+					<p>
+						La SDC du Mont-Royal et la piétonnisation estivale entraînent une quantité importante
+						d’infrastructures temporaires et permanentes destinées à promouvoir la rue et à en faire
+						un espace plus attrayant, accueillant et agréable pour les personnes résidant dans le
+						quartier et les visiteurs. Tout au long de l’année, ces infrastructures comprennent des
+						panneaux de signalisation pour la SDC, des peintures murales et d’autres installations
+						artistiques, ainsi que des sièges permanents et des espaces pour s’attarder sur la place
+						Gérald-Godin. Pendant les mois d’été, la rue se transforme pour mieux soutenir les
+						locaux, les visiteurs et les entreprises environnantes, grâce à du mobilier urbain, des
+						peintures murales et des œuvres d’art urbain supplémentaires, ainsi qu’à des jardinières
+						et des jardins temporaires.
+					</p>
+					<p>
+						Selon l’indice des infrastructures municipales, l’avenue du Mont-Royal est en retard par
+						rapport à la moitié des rues principales de Montréal. En matière d’opportunités
+						civiques, l’avenue du Mont-Royal se situe au 12e rang des 20 rues principales de
+						Montréal et au 26e rang des 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -462,7 +525,30 @@
 							/>
 						</div>
 					</div>
-					<p>L’avenue du Mont-Royal compte un nombre d’établissements de vente au détail, de services de restauration et débits de boissons supérieur à la moyenne de la RMR de Montréal, ce qui fait de ce corridor une destination commerciale importante. Les commerces du rez-de-chaussée débordent sur l’avenue et les magasins de détail présentent des portants remplis de vêtements et d’autres marchandises. De nombreux établissements commerciaux laissent leurs fenêtres et leurs portes ouvertes, atténuant ainsi la frontière entre l’intérieur et l’extérieur. De nombreux bars, restaurants et cafés incitent les locaux et les visiteurs à s’attarder sur les terrasses aménagées en plein air. La plupart des établissements sont gérés par des commerces indépendants, comme les favoris locaux Café Rico et Soleil de Saigon, mais quelques grandes chaînes, comme A&W et Subway, sont présentes. Cette forte vitalité commerciale se traduit par un très petit nombre de vitrines vacantes apparentes dans la rue.</p><p>Selon l’Indice des entreprises indépendantes, l’avenue du Mont-Royal accuse un retard par rapport aux autres études de cas de rues principales de Montréal en matière de niveau d’indépendance des entreprises, se classant 16e sur 20 rues principales de Montréal et 23e sur 36 rues principales résidentielles.</p><p>L’avenue du Mont-Royal a une densité commerciale élevée, se classant 4e sur 20 rues principales de Montréal et 2e sur 36 rues principales résidentielles.</p>
+					<p>
+						L’avenue du Mont-Royal compte un nombre d’établissements de vente au détail, de services
+						de restauration et débits de boissons supérieur à la moyenne de la RMR de Montréal, ce
+						qui fait de ce corridor une destination commerciale importante. Les commerces du
+						rez-de-chaussée débordent sur l’avenue et les magasins de détail présentent des portants
+						remplis de vêtements et d’autres marchandises. De nombreux établissements commerciaux
+						laissent leurs fenêtres et leurs portes ouvertes, atténuant ainsi la frontière entre
+						l’intérieur et l’extérieur. De nombreux bars, restaurants et cafés incitent les locaux
+						et les visiteurs à s’attarder sur les terrasses aménagées en plein air. La plupart des
+						établissements sont gérés par des commerces indépendants, comme les favoris locaux Café
+						Rico et Soleil de Saigon, mais quelques grandes chaînes, comme A&W et Subway, sont
+						présentes. Cette forte vitalité commerciale se traduit par un très petit nombre de
+						vitrines vacantes apparentes dans la rue.
+					</p>
+					<p>
+						Selon l’Indice des entreprises indépendantes, l’avenue du Mont-Royal accuse un retard
+						par rapport aux autres études de cas de rues principales de Montréal en matière de
+						niveau d’indépendance des entreprises, se classant 16e sur 20 rues principales de
+						Montréal et 23e sur 36 rues principales résidentielles.
+					</p>
+					<p>
+						L’avenue du Mont-Royal a une densité commerciale élevée, se classant 4e sur 20 rues
+						principales de Montréal et 2e sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -501,7 +587,21 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>L’avenue du Mont-Royal est une artère commerciale très animée. Par conséquent, la majorité des emplois le long de l’avenue du Mont-Royal se trouvent dans les entreprises environnantes et une proportion beaucoup plus faible au sein de l’infrastructure municipale. Cependant, ce profil d’emploi commence à changer lorsque l’on s’étend dans le quartier du Plateau qui entoure l’avenue du Mont-Royal. Dans les environs immédiats de la rue, le rôle de l’infrastructure municipale dans la création d’emplois devient de plus en plus important. Dans ces zones, un plus grand nombre de personnes travaillent dans l’infrastructure municipale.</p><p>Dans l’ensemble, l’avenue du Mont-Royal se classe en bonne position pour ce qui est de sa densité d’emploi, au 5e rang des 20 rues principales de Montréal et au 9e rang des 36 rues principales résidentielles.</p>
+					<p>
+						L’avenue du Mont-Royal est une artère commerciale très animée. Par conséquent, la
+						majorité des emplois le long de l’avenue du Mont-Royal se trouvent dans les entreprises
+						environnantes et une proportion beaucoup plus faible au sein de l’infrastructure
+						municipale. Cependant, ce profil d’emploi commence à changer lorsque l’on s’étend dans
+						le quartier du Plateau qui entoure l’avenue du Mont-Royal. Dans les environs immédiats
+						de la rue, le rôle de l’infrastructure municipale dans la création d’emplois devient de
+						plus en plus important. Dans ces zones, un plus grand nombre de personnes travaillent
+						dans l’infrastructure municipale.
+					</p>
+					<p>
+						Dans l’ensemble, l’avenue du Mont-Royal se classe en bonne position pour ce qui est de
+						sa densité d’emploi, au 5e rang des 20 rues principales de Montréal et au 9e rang des
+						36 rues principales résidentielles.
+					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -562,7 +662,20 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Plus de 60 % des logements situés autour de l’avenue du Mont-Royal ont été construits avant les années 1960, ce qui confère au quartier un caractère historique urbain peu élevé, mais dense. Les rues orientées nord-sud, perpendiculaires à l’avenue, sont similaires en matière d’échelle et d’esthétique et présentent principalement des formes d’habitation de type logement collectif de deux à trois étages, avec plusieurs grands immeubles d’appartements ne dépassant pas quatre étages. Ce type de logement collectif est représentatif du quartier environnant du Plateau. Par rapport à la zone, le secteur entourant l’avenue accueille un taux plus élevé de ménages locataires.</p><p>Les quartiers de Montréal comme celui-ci présentent les logements de type intermédiaires qui font défaut dans les autres grandes banlieues canadiennes.</p>
+					<p>
+						Plus de 60 % des logements situés autour de l’avenue du Mont-Royal ont été construits
+						avant les années 1960, ce qui confère au quartier un caractère historique urbain peu
+						élevé, mais dense. Les rues orientées nord-sud, perpendiculaires à l’avenue, sont
+						similaires en matière d’échelle et d’esthétique et présentent principalement des formes
+						d’habitation de type logement collectif de deux à trois étages, avec plusieurs grands
+						immeubles d’appartements ne dépassant pas quatre étages. Ce type de logement collectif
+						est représentatif du quartier environnant du Plateau. Par rapport à la zone, le secteur
+						entourant l’avenue accueille un taux plus élevé de ménages locataires.
+					</p>
+					<p>
+						Les quartiers de Montréal comme celui-ci présentent les logements de type intermédiaires
+						qui font défaut dans les autres grandes banlieues canadiennes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -625,11 +738,23 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
-					<p>Cette section de l’avenue du Mont-Royal présente certaines caractéristiques importantes et appréciables. L’âge moyen des personnes résidant dans la rue est jeune, une grande partie du segment de la rue étant composée de personnes dans la trentaine avancée. La taille des ménages sur l’avenue du Mont-Royal est également relativement faible, ce qui est probablement le reflet de la jeunesse de la population et de la taille réduite du parc immobilier. En ce qui concerne les caractéristiques des personnes vivant sur l’avenue du Mont-Royal, la répartition entre personnes de langue anglaise et personnes de langue française est relativement similaire, et environ la moitié de la population est constituée d’immigrants récents. En outre, le revenu moyen des personnes vivant sur l’avenue du Mont-Royal est très élevé et environ 100 % des personnes qui y vivent sont titulaires d’un baccalauréat.</p>
+					<p>
+						Cette section de l’avenue du Mont-Royal présente certaines caractéristiques importantes
+						et appréciables. L’âge moyen des personnes résidant dans la rue est jeune, une grande
+						partie du segment de la rue étant composée de personnes dans la trentaine avancée. La
+						taille des ménages sur l’avenue du Mont-Royal est également relativement faible, ce qui
+						est probablement le reflet de la jeunesse de la population et de la taille réduite du
+						parc immobilier. En ce qui concerne les caractéristiques des personnes vivant sur
+						l’avenue du Mont-Royal, la répartition entre personnes de langue anglaise et personnes
+						de langue française est relativement similaire, et environ la moitié de la population
+						est constituée d’immigrants récents. En outre, le revenu moyen des personnes vivant sur
+						l’avenue du Mont-Royal est très élevé et environ 100 % des personnes qui y vivent sont
+						titulaires d’un baccalauréat.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -672,7 +797,28 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>En tant que grande rue commerciale, l’avenue du Mont-Royal connaît des niveaux de fréquentation relativement élevés. Toutefois, si l’on compare les niveaux de fréquentation actuels à ceux de 2019, on constate que le nombre de visiteurs dans la rue a considérablement diminué depuis la pandémie de COVID-19. Le rayon d’action des visiteurs a diminué de manière significative depuis la pandémie de COVID-19 en 2019. Cela signifie qu’actuellement, la plupart des visiteurs proviennent d’endroits plus rapprochés de la rue ou y résident. De même, en 2019, la majorité des visiteurs étaient des visiteurs peu fréquents, alors que lors du plus récent décompte, en 2022, la majorité des visiteurs étaient des personnes résidant sur l’avenue du Mont-Royal. Probablement en raison de la présence importante de commerces le long de la rue, la plupart des visites ont lieu entre 12 h et 18 h, pendant les heures d’ouverture habituelles. Bien que la majorité des visites aient lieu le jeudi, le vendredi et le samedi, la répartition est relativement égale sur l’ensemble de la semaine, ce qui montre que la rue et ses commerces sont fréquemment visités tout au long de la semaine.</p><p>Dans l’ensemble, en matière de résilience de la rue et de récupération des visiteurs, l’avenue du Mont-Royal est à la traîne par rapport aux autres études de cas de rues principales. Elle se classe au 10e rang sur 20 pour la résilience des visiteurs dans la région et au 26e rang sur 36 rues principales résidentielles.</p>
+					<p>
+						En tant que grande rue commerciale, l’avenue du Mont-Royal connaît des niveaux de
+						fréquentation relativement élevés. Toutefois, si l’on compare les niveaux de
+						fréquentation actuels à ceux de 2019, on constate que le nombre de visiteurs dans la rue
+						a considérablement diminué depuis la pandémie de COVID-19. Le rayon d’action des
+						visiteurs a diminué de manière significative depuis la pandémie de COVID-19 en 2019.
+						Cela signifie qu’actuellement, la plupart des visiteurs proviennent d’endroits plus
+						rapprochés de la rue ou y résident. De même, en 2019, la majorité des visiteurs étaient
+						des visiteurs peu fréquents, alors que lors du plus récent décompte, en 2022, la
+						majorité des visiteurs étaient des personnes résidant sur l’avenue du Mont-Royal.
+						Probablement en raison de la présence importante de commerces le long de la rue, la
+						plupart des visites ont lieu entre 12 h et 18 h, pendant les heures d’ouverture
+						habituelles. Bien que la majorité des visites aient lieu le jeudi, le vendredi et le
+						samedi, la répartition est relativement égale sur l’ensemble de la semaine, ce qui
+						montre que la rue et ses commerces sont fréquemment visités tout au long de la semaine.
+					</p>
+					<p>
+						Dans l’ensemble, en matière de résilience de la rue et de récupération des visiteurs,
+						l’avenue du Mont-Royal est à la traîne par rapport aux autres études de cas de rues
+						principales. Elle se classe au 10e rang sur 20 pour la résilience des visiteurs dans la
+						région et au 26e rang sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -749,7 +895,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -801,8 +947,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

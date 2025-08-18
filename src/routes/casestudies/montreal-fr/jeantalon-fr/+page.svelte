@@ -3,36 +3,37 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import jeantalon from '../../../lib/assets/boundaries/montrealboundaries/JeanTalon.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/jeantalon/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/jeantalon/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/jeantalon/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/jeantalon/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/jeantalon/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/jeantalon/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/jeantalon/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/jeantalon/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/jeantalon/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/jeantalon/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/jeantalon/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/jeantalon/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/jeantalon/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/jeantalon/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
 
-	import { visitorMapStore } from '../../../lib/mapStore';
+	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -72,17 +73,23 @@
 
 <main>
 	<Title outline={jeantalon} name={'Jean Talon (Parc-Extension)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/jeantalon'} fr={'/casestudies/montreal-fr/jeantalon-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/jeantalon'}
+		fr={'/casestudies/montreal-fr/jeantalon-fr'}
+		selected="fr"
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
 					<p>
-						L’étude de cas vise à fournir une vue d’ensemble de la zone étudiée, grâce à une combinaison de cartes interactives, de graphiques et d’analyses de données.
+						L’étude de cas vise à fournir une vue d’ensemble de la zone étudiée, grâce à une
+						combinaison de cartes interactives, de graphiques et d’analyses de données.
 					</p>
 					<p>
-						La carte présente les limites de l’étude de cas, superposées au réseau de rues principales.
+						La carte présente les limites de l’étude de cas, superposées au réseau de rues
+						principales.
 					</p>
 				</div>
 				<div class="map-container">
@@ -117,7 +124,13 @@
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
 					<p>
-						La forme bâtie de la zone visée par l’étude de cas est représentée par la couche de bâtiments en 3D, les arrêts et les lignes de transport en commun, ainsi que les espaces verts, y compris un graphique comparatif du pourcentage d’espaces verts présents dans la zone visée par l’étude de cas, dans un rayon de 10 minutes de marche et dans la région métropolitaine de recensement dans laquelle se situe l’étude de cas. Utilisez le bouton « Vue satellite » pour voir la zone visée par l’étude de cas superposée à l’imagerie satellite.
+						La forme bâtie de la zone visée par l’étude de cas est représentée par la couche de
+						bâtiments en 3D, les arrêts et les lignes de transport en commun, ainsi que les espaces
+						verts, y compris un graphique comparatif du pourcentage d’espaces verts présents dans la
+						zone visée par l’étude de cas, dans un rayon de 10 minutes de marche et dans la région
+						métropolitaine de recensement dans laquelle se situe l’étude de cas. Utilisez le bouton
+						« Vue satellite » pour voir la zone visée par l’étude de cas superposée à l’imagerie
+						satellite.
 					</p>
 				</div>
 				<div class="map-container">
@@ -241,10 +254,22 @@
 						</div>
 					</div>
 					<p>
-						L’infrastructure municipale présente dans la zone visée par l’étude de cas est représentée par 5 catégories : Éducation, Services gouvernementaux et communautaires, Arts et culture, Loisirs et Soins de santé. Pour plus d’informations sur la façon dont nous avons classé ces catégories, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>. Le graphique montre la proportion d’infrastructures municipales dans la zone visée par l’étude de cas, dans un rayon de 10 minutes de marche et dans la région métropolitaine de recensement où se situe l’étude de cas.
+						L’infrastructure municipale présente dans la zone visée par l’étude de cas est
+						représentée par 5 catégories : Éducation, Services gouvernementaux et communautaires,
+						Arts et culture, Loisirs et Soins de santé. Pour plus d’informations sur la façon dont
+						nous avons classé ces catégories, veuillez consulter la section <a
+							href="about/data-methodology"
+						>
+							Données et méthodologie
+						</a>. Le graphique montre la proportion d’infrastructures municipales dans la zone visée
+						par l’étude de cas, dans un rayon de 10 minutes de marche et dans la région
+						métropolitaine de recensement où se situe l’étude de cas.
 					</p>
 					<p>
-						Cliquez sur les boutons à bascule « Rayon de marche de 10 minutes » et « Niveau d’emploi » pour afficher un rayon de marche de 10 minutes autour de la zone visée par l’étude de cas, ainsi que le niveau estimé de l’emploi pour chaque emplacement d’infrastructure municipale.
+						Cliquez sur les boutons à bascule « Rayon de marche de 10 minutes » et « Niveau
+						d’emploi » pour afficher un rayon de marche de 10 minutes autour de la zone visée par
+						l’étude de cas, ainsi que le niveau estimé de l’emploi pour chaque emplacement
+						d’infrastructure municipale.
 					</p>
 				</div>
 				<div class="map-container">
@@ -335,10 +360,22 @@
 						</div>
 					</div>
 					<p>
-						Les entreprises de la rue principale présentes dans la zone visée par l’étude de cas sont représentées par trois catégories : Commerce de détail, Services de restauration et débits de boissons et Services locaux. Pour plus d’informations sur la manière dont nous avons classé ces catégories, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>. Le graphique présente la répartition proportionnelle des entreprises de la rue principale dans la zone visée par l’étude de cas, dans un rayon de marche de 10 minutes et dans la région métropolitaine de recensement dans laquelle se situe l’étude de cas.
+						Les entreprises de la rue principale présentes dans la zone visée par l’étude de cas
+						sont représentées par trois catégories : Commerce de détail, Services de restauration et
+						débits de boissons et Services locaux. Pour plus d’informations sur la manière dont nous
+						avons classé ces catégories, veuillez consulter la section <a
+							href="about/data-methodology"
+						>
+							Données et méthodologie
+						</a>. Le graphique présente la répartition proportionnelle des entreprises de la rue
+						principale dans la zone visée par l’étude de cas, dans un rayon de marche de 10 minutes
+						et dans la région métropolitaine de recensement dans laquelle se situe l’étude de cas.
 					</p>
 					<p>
-					Cliquez sur les boutons à bascule « Rayon de marche de 10 minutes » et « Niveau d’emploi » pour afficher un rayon de marche de 10 minutes autour de la zone visée par l’étude, ainsi que les estimations du niveau d’emploi de chaque entreprise de la rue principale.
+						Cliquez sur les boutons à bascule « Rayon de marche de 10 minutes » et « Niveau
+						d’emploi » pour afficher un rayon de marche de 10 minutes autour de la zone visée par
+						l’étude, ainsi que les estimations du niveau d’emploi de chaque entreprise de la rue
+						principale.
 					</p>
 				</div>
 				<div class="map-container">
@@ -379,7 +416,10 @@
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
 					<p>
-						Le niveau d’emploi estimé de toutes les entités, y compris les entreprises de la rue principale, les infrastructures municipales et autres, est affiché sur cette carte. Pour plus d’informations sur la manière dont nous avons calculé ces chiffres, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>.
+						Le niveau d’emploi estimé de toutes les entités, y compris les entreprises de la rue
+						principale, les infrastructures municipales et autres, est affiché sur cette carte. Pour
+						plus d’informations sur la manière dont nous avons calculé ces chiffres, veuillez
+						consulter la section <a href="about/data-methodology"> Données et méthodologie </a>.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -441,10 +481,15 @@
 						/>
 					</div>
 					<p>
-						La carte présente une visualisation choroplèthe des variables clés du recensement relatives au logement au niveau de l’aire de diffusion de la zone visée par l’étude de cas et de la zone environnante. Utilisez le menu déroulant pour passer d’une variable à l’autre. Les données proviennent d’Environics Analytics et de Statistique Canada.
+						La carte présente une visualisation choroplèthe des variables clés du recensement
+						relatives au logement au niveau de l’aire de diffusion de la zone visée par l’étude de
+						cas et de la zone environnante. Utilisez le menu déroulant pour passer d’une variable à
+						l’autre. Les données proviennent d’Environics Analytics et de Statistique Canada.
 					</p>
 					<p>
-						Les graphiques comparent l’année de construction des logements et les types de logements présents dans la zone visée par l’étude par rapport à la région métropolitaine du recensement dans laquelle se situe l’étude.
+						Les graphiques comparent l’année de construction des logements et les types de logements
+						présents dans la zone visée par l’étude par rapport à la région métropolitaine du
+						recensement dans laquelle se situe l’étude.
 					</p>
 				</div>
 				<div class="map-container">
@@ -508,12 +553,16 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
 					<p>
-						La carte présente une visualisation choroplèthe des principales variables démographiques et d’autres variables de recensement liées aux caractéristiques locales au niveau de l’aire de diffusion de la zone visée par l’étude et de la région environnante. Utilisez le menu déroulant pour passer d’une variable à l’autre. Les données proviennent d’Environics Analytics et de Statistique Canada.
+						La carte présente une visualisation choroplèthe des principales variables démographiques
+						et d’autres variables de recensement liées aux caractéristiques locales au niveau de
+						l’aire de diffusion de la zone visée par l’étude et de la région environnante. Utilisez
+						le menu déroulant pour passer d’une variable à l’autre. Les données proviennent
+						d’Environics Analytics et de Statistique Canada.
 					</p>
 				</div>
 				<div class="map-container">
@@ -558,10 +607,18 @@
 						/>
 					</div>
 					<p>
-						La carte de densité affichée représente le schéma des visites quotidiennes à partir du domicile du visiteur de 2019 à 2022, qui provient des données MobileScapes d’Environics Analytics. Pour en savoir plus, veuillez consulter la section <a href="about/data-methodology"> Données et méthodologie </a>.
+						La carte de densité affichée représente le schéma des visites quotidiennes à partir du
+						domicile du visiteur de 2019 à 2022, qui provient des données MobileScapes d’Environics
+						Analytics. Pour en savoir plus, veuillez consulter la section <a
+							href="about/data-methodology"
+						>
+							Données et méthodologie
+						</a>.
 					</p>
 					<p>
-						Les graphiques présentent le schéma des visites (par rapport à 2019) sous forme de graphique linéaire, le nombre de visites par type de visiteur, ainsi que la répartition des visites par heure de la journée et de la semaine.
+						Les graphiques présentent le schéma des visites (par rapport à 2019) sous forme de
+						graphique linéaire, le nombre de visites par type de visiteur, ainsi que la répartition
+						des visites par heure de la journée et de la semaine.
 					</p>
 				</div>
 				<div class="map-container">
@@ -639,7 +696,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -691,8 +748,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

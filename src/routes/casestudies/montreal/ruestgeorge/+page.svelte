@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueStGeorge from '../../../lib/assets/boundaries/montrealboundaries/RueStGeorge.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruestgeorge/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruestgeorge/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal/ruestgeorge/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruestgeorge/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal/ruestgeorge/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal/ruestgeorge/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruestgeorge/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal/ruestgeorge/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestgeorge/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestgeorge/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruestgeorge/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/ruestgeorge/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestgeorge/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestgeorge/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +82,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -208,17 +208,35 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={RueStGeorge} name={'Rue St. George (Saint Jerome)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruestgeorge'} fr={'/casestudies/montreal-fr/ruestgeorge-fr'} selected='eng'/>
+	<Title
+		outline={RueStGeorge}
+		name={'Rue St. George (Saint Jerome)'}
+		location={'Montreal, Québec'}
+	/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruestgeorge'}
+		fr={'/casestudies/montreal-fr/ruestgeorge-fr'}
+		selected="eng"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Rue St. Georges is a main commercial street located in the city of Saint Jerome. Saint Jerome is a suburban city of 80,000 located approximately 45km northwest of Montreal. The city serves as a gateway to the Laurentian mountains and thus serves as a starting point for many cycling and other trips into the mountains from Montreal. Saint Jerome is reachable from Montreal via an EXXO2 Commuter train that connects downtown Montreal to Saint Jerome is just over an hour.</p>
-					<p>This particular section of rue St. Georges features numerous retail and commercial establishments, situating it as the major commercial artery in the heart of the historic downtown Saint Jerome.</p>
-
+					<p>
+						Rue St. Georges is a main commercial street located in the city of Saint Jerome. Saint
+						Jerome is a suburban city of 80,000 located approximately 45km northwest of Montreal.
+						The city serves as a gateway to the Laurentian mountains and thus serves as a starting
+						point for many cycling and other trips into the mountains from Montreal. Saint Jerome is
+						reachable from Montreal via an EXXO2 Commuter train that connects downtown Montreal to
+						Saint Jerome is just over an hour.
+					</p>
+					<p>
+						This particular section of rue St. Georges features numerous retail and commercial
+						establishments, situating it as the major commercial artery in the heart of the historic
+						downtown Saint Jerome.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -251,9 +269,22 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>The built form of rue St. Georges changes as one traverses along this street segment. On the southern end of the segment, near Rue de Saint-Janvier, the street has one to two circulation lanes in each direction. Further north, however, the street becomes one-way with two circulation lanes and parking on both sides of the street. There are no bike lanes or bike markings on the street, but there are bus stations. The sidewalk and conditions of the street also change as one moves further north – the sidewalk gets wider and includes more trees, benches, and trashcans. The sidewalk material also changes from concrete to red brick. The buildings along rue St. Georges are primarily two to three story commercial buildings with ground floor retail, however there are also large institutional buildings scattered throughout the street segment.</p>
-					<p>Rue St. Georges benefits from substantial green space that is accessible within a 10 minute walk.</p>
-
+					<p>
+						The built form of rue St. Georges changes as one traverses along this street segment. On
+						the southern end of the segment, near Rue de Saint-Janvier, the street has one to two
+						circulation lanes in each direction. Further north, however, the street becomes one-way
+						with two circulation lanes and parking on both sides of the street. There are no bike
+						lanes or bike markings on the street, but there are bus stations. The sidewalk and
+						conditions of the street also change as one moves further north – the sidewalk gets
+						wider and includes more trees, benches, and trashcans. The sidewalk material also
+						changes from concrete to red brick. The buildings along rue St. Georges are primarily
+						two to three story commercial buildings with ground floor retail, however there are also
+						large institutional buildings scattered throughout the street segment.
+					</p>
+					<p>
+						Rue St. Georges benefits from substantial green space that is accessible within a 10
+						minute walk.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -273,7 +304,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'ruestgeorge'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr81f0yf000p01qh94qob7bh'}
@@ -358,7 +388,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'ruestgeorge-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'ruestgeorge-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -368,13 +403,27 @@ setConfig({
 									'civicinfra-montreal-health',
 									'civicinfra-montreal-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Rue St. Georges benefits from a robust array of civic infrastructure including government and community services, health and care facilities, and educational institutions. Noteworthy among these are the Quebec Transportation and Mobility office building and a campus of the University of Quebec in Outaouais situated directly on the street. Furthermore, residents have access to small health clinics and a pharmacy along the thoroughfare. The immediate vicinity of rue St. Georges is well-equipped with health, care, and government amenities to serve the residents of Saint Jerome. However, there is a notable lack of arts and culture as well as recreational facilities in both the street and its surrounding area.</p>
-					<p>According to the Civic Infrastructure Index, rue St. Georges surpasses most other main street case studies in terms of its civic opportunity. The street ranks 3rd out of 20 main streets in the region and 1st among 12 small town main streets.</p>
-
+					<p>
+						Rue St. Georges benefits from a robust array of civic infrastructure including
+						government and community services, health and care facilities, and educational
+						institutions. Noteworthy among these are the Quebec Transportation and Mobility office
+						building and a campus of the University of Quebec in Outaouais situated directly on the
+						street. Furthermore, residents have access to small health clinics and a pharmacy along
+						the thoroughfare. The immediate vicinity of rue St. Georges is well-equipped with
+						health, care, and government amenities to serve the residents of Saint Jerome. However,
+						there is a notable lack of arts and culture as well as recreational facilities in both
+						the street and its surrounding area.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, rue St. Georges surpasses most other main
+						street case studies in terms of its civic opportunity. The street ranks 3rd out of 20
+						main streets in the region and 1st among 12 small town main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -446,7 +495,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'ruestgeorge-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'ruestgeorge-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -454,15 +508,35 @@ setConfig({
 									'business-montreal-services',
 									'business-montreal-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Rue St. Georges boasts a relatively balanced mix of retail, services, and food and beverage establishments, with a slight predominance of service businesses. Similar to the changes in the built form, the business profile varies along the street. Towards the northern end of the segment, there's a greater concentration of restaurants and bars, including both local independent restaurants like Restaurant Arousse and regional chains such as La P’tite Grenouille bar. During the summer months, some of these establishments extend their offerings with terraces and outdoor seating on the street.</p>
-					<p>Despite its central location in downtown Saint Jerome, rue St. Georges experiences noticeable commercial vacancies. For sale and for rent signs are prevalent throughout the street, particularly in the office and commercial spaces situated above ground-floor retail units.</p>
-					<p>According to the Independent Business Index, rue St. Georges ranks 6th out of 20 Montreal main streets and 4th out of 12 smalltown main streets in terms of its business independence.</p>
-					<p>In terms of business density, the street ranks 10th out of 20 main streets in the region and 3rd out of 12 smalltown main streets.</p>
-
+					<p>
+						Rue St. Georges boasts a relatively balanced mix of retail, services, and food and
+						beverage establishments, with a slight predominance of service businesses. Similar to
+						the changes in the built form, the business profile varies along the street. Towards the
+						northern end of the segment, there's a greater concentration of restaurants and bars,
+						including both local independent restaurants like Restaurant Arousse and regional chains
+						such as La P’tite Grenouille bar. During the summer months, some of these establishments
+						extend their offerings with terraces and outdoor seating on the street.
+					</p>
+					<p>
+						Despite its central location in downtown Saint Jerome, rue St. Georges experiences
+						noticeable commercial vacancies. For sale and for rent signs are prevalent throughout
+						the street, particularly in the office and commercial spaces situated above ground-floor
+						retail units.
+					</p>
+					<p>
+						According to the Independent Business Index, rue St. Georges ranks 6th out of 20
+						Montreal main streets and 4th out of 12 smalltown main streets in terms of its business
+						independence.
+					</p>
+					<p>
+						In terms of business density, the street ranks 10th out of 20 main streets in the region
+						and 3rd out of 12 smalltown main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -501,8 +575,20 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Employment opportunities are prevalent along rue St. Georges, both on this street segment and on the rest of the street. Representative of the business profile, small-scale businesses and services, such as the restaurants and bars, serve as primary employers, typically with staff sizes ranging from zero to five employees. Moreover, the street features notable civic infrastructure, including the University of Quebec in Outaouais and the Quebec Transportation and Mobility office, which contributes significantly to local employment.</p>
-					<p>Overall, rue St. Georges ranks 10th out of 20 Montreal main streets in terms of its employment density. Among other smalltown main streets, however, rue St. Georges ranks 1st out of 12 smalltown main streets in terms of its employment density.</p>
+					<p>
+						Employment opportunities are prevalent along rue St. Georges, both on this street
+						segment and on the rest of the street. Representative of the business profile,
+						small-scale businesses and services, such as the restaurants and bars, serve as primary
+						employers, typically with staff sizes ranging from zero to five employees. Moreover, the
+						street features notable civic infrastructure, including the University of Quebec in
+						Outaouais and the Quebec Transportation and Mobility office, which contributes
+						significantly to local employment.
+					</p>
+					<p>
+						Overall, rue St. Georges ranks 10th out of 20 Montreal main streets in terms of its
+						employment density. Among other smalltown main streets, however, rue St. Georges ranks
+						1st out of 12 smalltown main streets in terms of its employment density.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -559,13 +645,20 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Saint Jerome, a small and suburban city, maintains a relatively low population density even within its downtown area. Despite this, the predominant housing type on and around rue St. Georges consists of low-rise apartments and duplexes, with only a small percentage of single-detached houses. The housing stock is predominantly older, with the majority constructed before 1960 and minimal development since the 2000s. Along rue St. Georges itself, housing is limited, with only a few of the commercial buildings featuring housing on the top floors.</p>
-					
+					<p>
+						Saint Jerome, a small and suburban city, maintains a relatively low population density
+						even within its downtown area. Despite this, the predominant housing type on and around
+						rue St. Georges consists of low-rise apartments and duplexes, with only a small
+						percentage of single-detached houses. The housing stock is predominantly older, with the
+						majority constructed before 1960 and minimal development since the 2000s. Along rue St.
+						Georges itself, housing is limited, with only a few of the commercial buildings
+						featuring housing on the top floors.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -632,8 +725,17 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>Rue St. Georges in Saint Jerome is characterized by several distinct local attributes. The population tends to be older on average, with small household sizes, primarily consisting of one-person households. Income levels are notably low in this area, and there is a relatively low percentage of visible minorities. While there is a slightly higher proportion of recent immigrants in this segment and its surroundings, the overall percentage remains quite low. Additionally, there's a near-zero percentage of English speakers, with almost everyone being French speakers. Moreover, there's a very low percentage of individuals holding bachelor's degrees. These factors collectively shape the demographic profile of rue St. Georges, reflecting its unique local characteristics.</p>
-
+					<p>
+						Rue St. Georges in Saint Jerome is characterized by several distinct local attributes.
+						The population tends to be older on average, with small household sizes, primarily
+						consisting of one-person households. Income levels are notably low in this area, and
+						there is a relatively low percentage of visible minorities. While there is a slightly
+						higher proportion of recent immigrants in this segment and its surroundings, the overall
+						percentage remains quite low. Additionally, there's a near-zero percentage of English
+						speakers, with almost everyone being French speakers. Moreover, there's a very low
+						percentage of individuals holding bachelor's degrees. These factors collectively shape
+						the demographic profile of rue St. Georges, reflecting its unique local characteristics.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -664,7 +766,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -677,8 +778,22 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>The number of visits from residents' home locations has notably decreased in radius, indicating that individuals from further away are not visiting the street to the same extent as they did before the pandemic in 2019. Additionally, although overall visit levels are approaching 80% of their 2019 levels, indicating a relatively healthy recovery from the COVID-19 pandemic, the number of visits categorized by type of visitor has significantly declined compared to 2019. Particularly noteworthy is the decrease in the number of infrequent visitors, dropping from approximately 800,000 visitors per year to under 400,000 visitors. Interestingly, the highest number of visitors is observed on Thursdays and Fridays.</p>
-					<p>In terms of overall street resilience and visitor recovery, rue St. Georges trails behind other main street case studies. It ranks 17th out of 20 in visitor resiliency in the region and 11th out of 12 smalltown main streets.</p>
+					<p>
+						The number of visits from residents' home locations has notably decreased in radius,
+						indicating that individuals from further away are not visiting the street to the same
+						extent as they did before the pandemic in 2019. Additionally, although overall visit
+						levels are approaching 80% of their 2019 levels, indicating a relatively healthy
+						recovery from the COVID-19 pandemic, the number of visits categorized by type of visitor
+						has significantly declined compared to 2019. Particularly noteworthy is the decrease in
+						the number of infrequent visitors, dropping from approximately 800,000 visitors per year
+						to under 400,000 visitors. Interestingly, the highest number of visitors is observed on
+						Thursdays and Fridays.
+					</p>
+					<p>
+						In terms of overall street resilience and visitor recovery, rue St. Georges trails
+						behind other main street case studies. It ranks 17th out of 20 in visitor resiliency in
+						the region and 11th out of 12 smalltown main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -755,7 +870,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -807,8 +922,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

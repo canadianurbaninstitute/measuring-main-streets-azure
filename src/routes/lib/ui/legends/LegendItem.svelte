@@ -4,24 +4,22 @@
 	export let variant; // can be 'circle', 'polygon' or 'line'
 	export let bgcolor;
 
-	
 	// optional props
-	
+
 	export let bordercolor = 'rgba(0,0,0,0)';
 
 	// use if turning into a toggle
-	export let button = false; 
+	export let button = false;
 	export let id; // layer id to target
 	export let targetopacity = 0.9; // target opacity if the layer is switched back on
 	export let featuretype = 'circle'; // needs to be set to the feature type the mapbox layer is, 'circle', 'fill', or 'line'
 	let layerActive = true;
 
-
 	// MMS case study relevant props and imports
 	export let section;
 	export let map;
-	import { mapStoreList } from '../../mapStore';
 	import { onDestroy } from 'svelte';
+	import { mapStoreList } from '../../stores/mapStore';
 
 	/* MMS CASE STUDIES */
 
@@ -44,7 +42,6 @@
 
 	/* Funtion to toggle layer visibility on and off by setting opacity */
 
-
 	function toggleLayerVisibility() {
 		if (map) {
 			// get opacity of the type of feature the legend item is
@@ -54,27 +51,17 @@
 				map.setPaintProperty(id, `${featuretype}-opacity`, 0);
 				if (featuretype === 'circle') {
 					map.setPaintProperty(id, `${featuretype}-stroke-opacity`, 0);
-				}
-				else if ( id === 'case-study-BIAs' ) {
-					map.setLayoutProperty(
-                        id,
-                        'visibility',
-                        'none'
-                    );
+				} else if (id === 'case-study-BIAs') {
+					map.setLayoutProperty(id, 'visibility', 'none');
 				}
 				layerActive = false;
-			// set opacity to provided targetopacity, default is 0.9
+				// set opacity to provided targetopacity, default is 0.9
 			} else {
 				map.setPaintProperty(id, `${featuretype}-opacity`, targetopacity);
 				if (featuretype === 'circle') {
 					map.setPaintProperty(id, `${featuretype}-stroke-opacity`, targetopacity);
-				}
-				else if ( id === 'case-study-BIAs' ) {
-					map.setLayoutProperty(
-                        id,
-                        'visibility',
-                        'visible'
-                    );
+				} else if (id === 'case-study-BIAs') {
+					map.setLayoutProperty(id, 'visibility', 'visible');
 				}
 				layerActive = true;
 			}
@@ -142,7 +129,8 @@
 		border: 1px solid rgba(28, 32, 36, 0.302);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		width: 100%;
@@ -153,15 +141,18 @@
 
 	button:hover {
 		cursor: pointer;
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
 
 	button:active {
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
-			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25), 0px 1px 0px 0px rgba(225, 228, 232, 0.2);
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25),
+			0px 1px 0px 0px rgba(225, 228, 232, 0.2);
 		background-color: #edeff2;
 		transition: 0.3s;
 	}
@@ -174,5 +165,4 @@
 		opacity: 0.6;
 		border: 1px dashed rgba(27, 31, 35, 0.3);
 	}
-
 </style>

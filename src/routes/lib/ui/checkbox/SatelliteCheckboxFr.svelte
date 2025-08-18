@@ -1,6 +1,7 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
-	import { mapStoreList } from '../../mapStore'; // Import the mapStore
+	import { onDestroy, onMount } from 'svelte';
+	import { mapStoreList } from '../../stores/mapStore';
+	// Import the mapStore
 
 	import Icon from '@iconify/svelte';
 
@@ -22,7 +23,6 @@
 
 	function toggleLayerOpacity() {
 		if (map) {
-
 			const layer = 'satellite-imagery';
 			const visibility = isChecked ? 'visible' : 'none';
 			const opacity = isChecked ? 1 : 0;
@@ -33,7 +33,6 @@
 			map.setLayoutProperty(layer, 'visibility', visibility);
 			map.setPaintProperty(layer, 'raster-opacity', opacity);
 			map.setPaintProperty(casestudy, 'line-color', linecolor);
-
 
 			map.easeTo({
 				pitch: pitch,
@@ -81,7 +80,8 @@
 		border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		display: flex;
@@ -101,15 +101,18 @@
 
 	button:hover {
 		cursor: pointer;
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
 
 	button:active {
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
-			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25), 0px 1px 0px 0px rgba(225, 228, 232, 0.2);
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25),
+			0px 1px 0px 0px rgba(225, 228, 232, 0.2);
 		background-color: #edeff2;
 		transition: 0.3s;
 	}

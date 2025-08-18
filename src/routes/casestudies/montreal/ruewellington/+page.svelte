@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueWellington from '../../../lib/assets/boundaries/montrealboundaries/RueWellington.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruewellington/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruewellington/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal/ruewellington/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruewellington/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal/ruewellington/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal/ruewellington/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruewellington/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal/ruewellington/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruewellington/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruewellington/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruewellington/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/ruewellington/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruewellington/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruewellington/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +82,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -209,16 +209,35 @@ setConfig({
 
 <main>
 	<Title outline={RueWellington} name={'Rue Wellington (Verdun)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruewellington'} fr={'/casestudies/montreal-fr/ruewellington-fr'} selected='eng'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruewellington'}
+		fr={'/casestudies/montreal-fr/ruewellington-fr'}
+		selected="eng"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Rue Wellington serves as a significant east-west thoroughfare on the western edge of Montreal, traversing the neighborhoods of Verdun, Pointe-Saint-Charles, and Griffintown. Named the “world's coolest street” by TimeOut magazine in 2022, this section known as Promenade Wellington thrives as a bustling commercial hub at the heart of Verdun. In collaboration with the SDC Wellington, Promenade Wellington undergoes pedestrianization during the summer months. The introduction of temporary street furniture, murals, cooling stations, and outdoor patios and terraces further supports the vibrancy of the street.</p>
-					<p>Yet, the landscape of Verdun is evolving. The surging popularity of Rue Wellington and Verdun, marked by new restaurants, cafes, bars, and streetscape enhancements, accompanies a noticeable uptick in property values and rents. These transformations have sparked concerns regarding gentrification and displacement, prompting local residents and housing advocates to mobilize in support of existing Rue Wellington residents and the broader Verdun community.</p>
-
+					<p>
+						Rue Wellington serves as a significant east-west thoroughfare on the western edge of
+						Montreal, traversing the neighborhoods of Verdun, Pointe-Saint-Charles, and Griffintown.
+						Named the “world's coolest street” by TimeOut magazine in 2022, this section known as
+						Promenade Wellington thrives as a bustling commercial hub at the heart of Verdun. In
+						collaboration with the SDC Wellington, Promenade Wellington undergoes pedestrianization
+						during the summer months. The introduction of temporary street furniture, murals,
+						cooling stations, and outdoor patios and terraces further supports the vibrancy of the
+						street.
+					</p>
+					<p>
+						Yet, the landscape of Verdun is evolving. The surging popularity of Rue Wellington and
+						Verdun, marked by new restaurants, cafes, bars, and streetscape enhancements,
+						accompanies a noticeable uptick in property values and rents. These transformations have
+						sparked concerns regarding gentrification and displacement, prompting local residents
+						and housing advocates to mobilize in support of existing Rue Wellington residents and
+						the broader Verdun community.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -251,10 +270,26 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>Rue Wellington features a circulation lane and on-street parking in both directions. The street is also well-served by public transit with the de l’Église metro station of the Green Line and bus stops present on both sides of the street serving multiple bus routes.</p>
-					<p>Reflecting the prevalent "missing middle" and mid-density characteristic of Montreal, the buildings along Rue Wellington primarily consist of three to four-story buildings with ground-floor retail spaces and upper floor residential. The street also includes some fully residential buildings. During summer pedestrianization, all circulation lanes are closed to vehicular traffic and the street opens entirely for pedestrians and active mobility users.</p>
-					<p>Although there is minimal greenspace directly on this segment of rue Wellington, the street is very well served by greenspace within a ten-minute walk. The St. Lawrence river, located just east of rue Wellington, features a number of parks, walking and cycling paths, and the popular Verdun beach along its shore.</p>
-
+					<p>
+						Rue Wellington features a circulation lane and on-street parking in both directions. The
+						street is also well-served by public transit with the de l’Église metro station of the
+						Green Line and bus stops present on both sides of the street serving multiple bus
+						routes.
+					</p>
+					<p>
+						Reflecting the prevalent "missing middle" and mid-density characteristic of Montreal,
+						the buildings along Rue Wellington primarily consist of three to four-story buildings
+						with ground-floor retail spaces and upper floor residential. The street also includes
+						some fully residential buildings. During summer pedestrianization, all circulation lanes
+						are closed to vehicular traffic and the street opens entirely for pedestrians and active
+						mobility users.
+					</p>
+					<p>
+						Although there is minimal greenspace directly on this segment of rue Wellington, the
+						street is very well served by greenspace within a ten-minute walk. The St. Lawrence
+						river, located just east of rue Wellington, features a number of parks, walking and
+						cycling paths, and the popular Verdun beach along its shore.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -274,7 +309,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'ruewellington'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr83ya8h000s01nu14my3o3u'}
@@ -359,7 +393,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'ruewellington-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'ruewellington-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -369,14 +408,31 @@ setConfig({
 									'civicinfra-montreal-health',
 									'civicinfra-montreal-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>This section of rue Wellington includes a large share of health and care facilities and government and community services such as a Service Canada National Defence building. In comparison, the street does not boast high percentages of recreational, educational, or arts facilities. However, within a ten-minute walk, a number of educational facilities are accessible.</p>
-					<p>The rue Wellington Société de Développement Commercial (SDC) and the summer pedestrianization results in the installation of temporary infrastructure to support the civic, social, and commercial life and vitality on the street. This includes temporary street furniture, increased signage, murals and street art, terraces, cooling stations, outdoor wifi zones, and programming for all ages.</p>
-					<p>However, according to the Civic Infrastructure index, rue Wellington lags behind most other Montreal and residential main street case studies. In terms of its civic opportunity, rue Wellington ranks 19th out of 20 Montreal main streets and 35th out of 36 residential main streets.</p>
-
+					<p>
+						This section of rue Wellington includes a large share of health and care facilities and
+						government and community services such as a Service Canada National Defence building. In
+						comparison, the street does not boast high percentages of recreational, educational, or
+						arts facilities. However, within a ten-minute walk, a number of educational facilities
+						are accessible.
+					</p>
+					<p>
+						The rue Wellington Société de Développement Commercial (SDC) and the summer
+						pedestrianization results in the installation of temporary infrastructure to support the
+						civic, social, and commercial life and vitality on the street. This includes temporary
+						street furniture, increased signage, murals and street art, terraces, cooling stations,
+						outdoor wifi zones, and programming for all ages.
+					</p>
+					<p>
+						However, according to the Civic Infrastructure index, rue Wellington lags behind most
+						other Montreal and residential main street case studies. In terms of its civic
+						opportunity, rue Wellington ranks 19th out of 20 Montreal main streets and 35th out of
+						36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -448,7 +504,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'ruewellington-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'ruewellington-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -456,14 +517,26 @@ setConfig({
 									'business-montreal-services',
 									'business-montreal-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>This stretch of Rue Wellington offers a lively mix of businesses, covering retail, services, and food and drink establishments. The diversity extends to the businesses themselves, ranging from longstanding to more recently established, and a blend of both independent and chain ownership.</p>
-					<p>According to the Independent Business Index, rue Wellington lags behind other Montreal main street case studies in terms of business independence, ranking 14th out of 20 Montreal main streets and 18th out of 36 residential main streets.</p>
-					<p>However, rue Wellington does have a relatively high business density, ranking 6th out of 20 Montreal main streets and 4th out of 36 residential main streets.</p>
-
+					<p>
+						This stretch of Rue Wellington offers a lively mix of businesses, covering retail,
+						services, and food and drink establishments. The diversity extends to the businesses
+						themselves, ranging from longstanding to more recently established, and a blend of both
+						independent and chain ownership.
+					</p>
+					<p>
+						According to the Independent Business Index, rue Wellington lags behind other Montreal
+						main street case studies in terms of business independence, ranking 14th out of 20
+						Montreal main streets and 18th out of 36 residential main streets.
+					</p>
+					<p>
+						However, rue Wellington does have a relatively high business density, ranking 6th out of
+						20 Montreal main streets and 4th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -502,8 +575,16 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>This segment of Rue Wellington includes vibrant commercial activity and as a result the street serves as a key employment hub to help support its considerable number of businesses.</p>
-					<p>Overall, rue Wellington sits in the middle of the pack in terms of its employment density. In terms of its employment density, the street ranks 13th out of 20 Montreal main streets and 21st out of 36 residential main streets.</p>
+					<p>
+						This segment of Rue Wellington includes vibrant commercial activity and as a result the
+						street serves as a key employment hub to help support its considerable number of
+						businesses.
+					</p>
+					<p>
+						Overall, rue Wellington sits in the middle of the pack in terms of its employment
+						density. In terms of its employment density, the street ranks 13th out of 20 Montreal
+						main streets and 21st out of 36 residential main streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -560,13 +641,18 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Rue Wellington is a main commercial street surrounded by largely low-rise apartment dominant residential streets. As a result, the street and surrounding area maintains a relatively high population density. The housing stock both along rue Wellington and in the surrounding area is old – over 50 percent of all housing in the area was built before 1960 and there have been very few new builds in the last three decades.</p>
-
+					<p>
+						Rue Wellington is a main commercial street surrounded by largely low-rise apartment
+						dominant residential streets. As a result, the street and surrounding area maintains a
+						relatively high population density. The housing stock both along rue Wellington and in
+						the surrounding area is old – over 50 percent of all housing in the area was built
+						before 1960 and there have been very few new builds in the last three decades.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -633,8 +719,13 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>On average, the residents on and around rue Wellington are young in age, as many blocks around Wellington have an average age of just 38 years old. Unlike similar main commercial streets in other Montreal neighborhoods, like Ave. Mont Royal in the Plateau, there is a significant mix of incomes both on rue Wellington and in the surrounding Verdun neighborhood; but, on average incomes are on the lower end of the spectrum.</p>
-
+					<p>
+						On average, the residents on and around rue Wellington are young in age, as many blocks
+						around Wellington have an average age of just 38 years old. Unlike similar main
+						commercial streets in other Montreal neighborhoods, like Ave. Mont Royal in the Plateau,
+						there is a significant mix of incomes both on rue Wellington and in the surrounding
+						Verdun neighborhood; but, on average incomes are on the lower end of the spectrum.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -665,7 +756,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -678,8 +768,15 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>The influx of new restaurants, bars, and cafes combined with the street pedestrianization and other placemaking initiatives garnered rue Wellington the title of TimeOut magazines 2022 “world’s coolest street”.</p>
-					<p>In terms of overall street resilience and visitor recovery, rue Wellington ranks 7th out of 20 in visitor resiliency in the region and 21st out of 36 residential main streets.</p>
+					<p>
+						The influx of new restaurants, bars, and cafes combined with the street
+						pedestrianization and other placemaking initiatives garnered rue Wellington the title of
+						TimeOut magazines 2022 “world’s coolest street”.
+					</p>
+					<p>
+						In terms of overall street resilience and visitor recovery, rue Wellington ranks 7th out
+						of 20 in visitor resiliency in the region and 21st out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -756,7 +853,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -808,8 +905,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;
