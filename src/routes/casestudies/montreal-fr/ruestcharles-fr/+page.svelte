@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueStCharles from '../../../lib/assets/boundaries/montrealboundaries/RueStCharles.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruestcharles/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -213,14 +213,34 @@
 		name={'Rue St. Charles (Old Longueuil)'}
 		location={'Montreal, Québec'}
 	/>
-	<LanguageSelector eng={'/casestudies/montreal/ruestcharles'} fr={'/casestudies/montreal-fr/ruestcharles-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruestcharles'}
+		fr={'/casestudies/montreal-fr/ruestcharles-fr'}
+		selected="fr"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>La rue Saint-Charles est située dans la ville de Longueuil, sur la rive sud du fleuve Saint-Laurent, directement en face de l’île de Montréal. Longueuil est une ville de banlieue qui abrite une population d’environ 250 000 habitants. Longueuil possède son propre service de bus assuré par le Réseau de transport de Longueuil (RTL) ainsi que la station de métro Longueuil-Université-de-Sherbrooke qui relie Longueuil au centre-ville de Montréal via la ligne jaune du métro de Montréal.</p><p>La rue Saint-Charles est l’une des principales artères de Longueuil et ce segment de la rue Saint-Charles, entre le chemin de Chambly et la rue Guilbault, sert de principale rue commerciale dans Le Vieux-Longueuil. Depuis 2022, le secteur compris entre la rue Saint-Jacques et la rue Sainte-Sylvestre fait l’objet d’une piétonnisation de juin à septembre. Cette transformation voit la construction de terrasses et de sièges extérieurs pour les restaurants, du mobilier urbain temporaire et une augmentation des initiatives d’art urbain et d’aménagement de l’espace public.</p>
+					<p>
+						La rue Saint-Charles est située dans la ville de Longueuil, sur la rive sud du fleuve
+						Saint-Laurent, directement en face de l’île de Montréal. Longueuil est une ville de
+						banlieue qui abrite une population d’environ 250 000 habitants. Longueuil possède son
+						propre service de bus assuré par le Réseau de transport de Longueuil (RTL) ainsi que la
+						station de métro Longueuil-Université-de-Sherbrooke qui relie Longueuil au centre-ville
+						de Montréal via la ligne jaune du métro de Montréal.
+					</p>
+					<p>
+						La rue Saint-Charles est l’une des principales artères de Longueuil et ce segment de la
+						rue Saint-Charles, entre le chemin de Chambly et la rue Guilbault, sert de principale
+						rue commerciale dans Le Vieux-Longueuil. Depuis 2022, le secteur compris entre la rue
+						Saint-Jacques et la rue Sainte-Sylvestre fait l’objet d’une piétonnisation de juin à
+						septembre. Cette transformation voit la construction de terrasses et de sièges
+						extérieurs pour les restaurants, du mobilier urbain temporaire et une augmentation des
+						initiatives d’art urbain et d’aménagement de l’espace public.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -253,7 +273,24 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>La typologie des bâtiments de la rue Saint-Charles se compose principalement d’immeubles de faible hauteur, dotés de commerces au rez-de-chaussée. La zone environnante est principalement résidentielle, composée d’habitations unifamiliales et de logements intermédiaires de type «chaînon manquant» de faible et moyenne densité.</p><p>La rue elle-même est large et inclut deux voies de circulation, un stationnement sur rue, et n’a pas de pistes cyclables. Les rues entourant la rue Saint-Charles sont principalement résidentielles, mais la route 132 est située juste au nord de ce segment de la rue Saint-Charles. Pendant les mois d’été, la rue est piétonne, ce qui modifie la distribution de l’espace en faveur des piétons et des modes de mobilité active. Cette piétonnisation de la rue Saint-Charles s’accompagne d’une programmation et d’un aménagement de l’espace public accru, qui comprennent : du mobilier urbain temporaire, de l’art urbain, des zones wifi, des terrasses et des sièges extérieurs pour les restaurants. La rue est bien desservie par des espaces verts en raison du parc Saint-Mark situé directement sur ce segment de la rue Saint-Charles.</p>
+					<p>
+						La typologie des bâtiments de la rue Saint-Charles se compose principalement d’immeubles
+						de faible hauteur, dotés de commerces au rez-de-chaussée. La zone environnante est
+						principalement résidentielle, composée d’habitations unifamiliales et de logements
+						intermédiaires de type «chaînon manquant» de faible et moyenne densité.
+					</p>
+					<p>
+						La rue elle-même est large et inclut deux voies de circulation, un stationnement sur
+						rue, et n’a pas de pistes cyclables. Les rues entourant la rue Saint-Charles sont
+						principalement résidentielles, mais la route 132 est située juste au nord de ce segment
+						de la rue Saint-Charles. Pendant les mois d’été, la rue est piétonne, ce qui modifie la
+						distribution de l’espace en faveur des piétons et des modes de mobilité active. Cette
+						piétonnisation de la rue Saint-Charles s’accompagne d’une programmation et d’un
+						aménagement de l’espace public accru, qui comprennent : du mobilier urbain temporaire,
+						de l’art urbain, des zones wifi, des terrasses et des sièges extérieurs pour les
+						restaurants. La rue est bien desservie par des espaces verts en raison du parc
+						Saint-Mark situé directement sur ce segment de la rue Saint-Charles.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -377,7 +414,27 @@
 							/>
 						</div>
 					</div>
-					<p>Cette section de la rue Saint-Charles est relativement bien desservie par les infrastructures municipales puisque les cinq catégories ou types d’infrastructures municipales y sont présents. Les établissements de soins de santé sont les plus importants puisqu’ils sont au nombre de huit sur ce tronçon de la rue Saint-Charles. En outre, si l’on compare la présence d’infrastructures municipales dans la zone environnante, on constate une certaine surconcentration de celles-ci sur ce tronçon de la rue Saint-Charles, ce qui met en évidence le rôle de cette rue principale en tant que lieu d’accès aux infrastructures municipales.</p><p>Pendant les mois d’été, la piétonnisation de la rue engendre une signalisation spécifique de la rue, des peintures murales, des zones wifi en plein air, des stations de rafraîchissement et du mobilier urbain.</p><p>Selon l’indice d’infrastructure municipale, la rue Saint-Charles se situe en milieu de peloton parmi les études de cas des rues principales de Montréal. En matière de possibilités civiques, la rue Saint-Charles se classe 10e sur 20 rues principales de Montréal et 16e sur 36 rues principales résidentielles.</p>
+					<p>
+						Cette section de la rue Saint-Charles est relativement bien desservie par les
+						infrastructures municipales puisque les cinq catégories ou types d’infrastructures
+						municipales y sont présents. Les établissements de soins de santé sont les plus
+						importants puisqu’ils sont au nombre de huit sur ce tronçon de la rue Saint-Charles. En
+						outre, si l’on compare la présence d’infrastructures municipales dans la zone
+						environnante, on constate une certaine surconcentration de celles-ci sur ce tronçon de
+						la rue Saint-Charles, ce qui met en évidence le rôle de cette rue principale en tant que
+						lieu d’accès aux infrastructures municipales.
+					</p>
+					<p>
+						Pendant les mois d’été, la piétonnisation de la rue engendre une signalisation
+						spécifique de la rue, des peintures murales, des zones wifi en plein air, des stations
+						de rafraîchissement et du mobilier urbain.
+					</p>
+					<p>
+						Selon l’indice d’infrastructure municipale, la rue Saint-Charles se situe en milieu de
+						peloton parmi les études de cas des rues principales de Montréal. En matière de
+						possibilités civiques, la rue Saint-Charles se classe 10e sur 20 rues principales de
+						Montréal et 16e sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -467,7 +524,34 @@
 							/>
 						</div>
 					</div>
-					<p>La rue Saint-Charles présente un mélange relativement équilibré de commerces de détail, d’établissements alimentaires et d’entreprises de services. Le segment est, en particulier pendant la piétonnisation estivale, offre au Vieux-Longueuil une grande variété d’options de restauration, comprenant des chaînes de restaurants et de bars montréalais populaires comme Frites Alors, ainsi que des institutions locales comme Péché Matinal. La piétonnisation estivale intègre les restaurants dans la rue, créant un lien intérieur-extérieur par le biais de patios, de terrasses et d’aires de pique-nique. Par une chaude journée d’été, on peut voir les gens attablés aux terrasses des restaurants ou savourant une boisson fraîche dans la rue piétonne ou dans le parc Saint-Mark.</p><p>En revanche, l’extrémité ouest, à l’ouest de la rue Saint-Alexandre, s’oriente vers un paysage commercial plus axé sur les services et les bureaux. Cette zone présente des panneaux indiquant des locaux commerciaux vacants et des espaces de bureaux disponibles, soulignant le contraste dans la composition commerciale entre les deux segments de la rue Saint-Charles.</p><p>Selon l’indice des entreprises indépendantes, la rue Saint-Charles se classe 9e sur 20 études de cas montréalaises et 7e sur 36 rues principales résidentielles, en matière de niveau d’indépendance des entreprises.</p><p>De même, en matière de densité commerciale, la rue se classe 9e sur 20 rues principales de Montréal et 10e sur 36 rues principales résidentielles.</p>
+					<p>
+						La rue Saint-Charles présente un mélange relativement équilibré de commerces de détail,
+						d’établissements alimentaires et d’entreprises de services. Le segment est, en
+						particulier pendant la piétonnisation estivale, offre au Vieux-Longueuil une grande
+						variété d’options de restauration, comprenant des chaînes de restaurants et de bars
+						montréalais populaires comme Frites Alors, ainsi que des institutions locales comme
+						Péché Matinal. La piétonnisation estivale intègre les restaurants dans la rue, créant un
+						lien intérieur-extérieur par le biais de patios, de terrasses et d’aires de pique-nique.
+						Par une chaude journée d’été, on peut voir les gens attablés aux terrasses des
+						restaurants ou savourant une boisson fraîche dans la rue piétonne ou dans le parc
+						Saint-Mark.
+					</p>
+					<p>
+						En revanche, l’extrémité ouest, à l’ouest de la rue Saint-Alexandre, s’oriente vers un
+						paysage commercial plus axé sur les services et les bureaux. Cette zone présente des
+						panneaux indiquant des locaux commerciaux vacants et des espaces de bureaux disponibles,
+						soulignant le contraste dans la composition commerciale entre les deux segments de la
+						rue Saint-Charles.
+					</p>
+					<p>
+						Selon l’indice des entreprises indépendantes, la rue Saint-Charles se classe 9e sur
+						20 études de cas montréalaises et 7e sur 36 rues principales résidentielles, en matière
+						de niveau d’indépendance des entreprises.
+					</p>
+					<p>
+						De même, en matière de densité commerciale, la rue se classe 9e sur 20 rues principales
+						de Montréal et 10e sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -506,7 +590,19 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>Il y a un regroupement important d’emplois sur ce segment de la rue Saint-Charles, surtout lorsqu’on le compare à la zone environnante. Ce regroupement d’emplois conforte la rue Saint-Charles dans son rôle de rue principale du quartier du Vieux-Longueuil. Représentative de la nature commerciale de la rue Saint-Charles, la majorité des personnes travaillent pour des employeurs liés aux affaires, ce qui inclut le large éventail de restaurants et d’établissements de vente au détail.</p><p>Dans l’ensemble, la rue Saint-Charles se classe au 17e rang des 20 rues principales de Montréal et au 28e rang des 36 rues principales résidentielles pour ce qui est de la densité d’emploi.</p>
+					<p>
+						Il y a un regroupement important d’emplois sur ce segment de la rue Saint-Charles,
+						surtout lorsqu’on le compare à la zone environnante. Ce regroupement d’emplois conforte
+						la rue Saint-Charles dans son rôle de rue principale du quartier du Vieux-Longueuil.
+						Représentative de la nature commerciale de la rue Saint-Charles, la majorité des
+						personnes travaillent pour des employeurs liés aux affaires, ce qui inclut le large
+						éventail de restaurants et d’établissements de vente au détail.
+					</p>
+					<p>
+						Dans l’ensemble, la rue Saint-Charles se classe au 17e rang des 20 rues principales de
+						Montréal et au 28e rang des 36 rues principales résidentielles pour ce qui est de la
+						densité d’emploi.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -568,7 +664,20 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>La majorité des logements de la rue Saint-Charles et de ses environs datent d’avant 1980, avec des pics de construction importants entre les années 2006 à 2010 et 2016 à 2021. Un changement perceptible dans les caractéristiques des bâtiments et des logements se produit lorsque l’on passe du tronçon commercial de la rue Saint-Charles aux rues résidentielles de banlieue avoisinantes. La rue Saint-Charles comporte quelques logements surmontant des espaces commerciaux, mais les structures principales de la rue sont essentiellement commerciales. Malgré son environnement de banlieue, les rues résidentielles avoisinantes présentent une densité de logements plus élevée que les maisons individuelles non attenantes typiques des zones de banlieue. Les logements de ces rues résidentielles sont principalement des appartements de faible hauteur, avec un mélange varié d’appartements de grande hauteur, de maisons individuelles non attenantes et de maisons jumelées.</p>
+					<p>
+						La majorité des logements de la rue Saint-Charles et de ses environs datent d’avant
+						1980, avec des pics de construction importants entre les années 2006 à 2010 et 2016 à
+						2021. Un changement perceptible dans les caractéristiques des bâtiments et des logements
+						se produit lorsque l’on passe du tronçon commercial de la rue Saint-Charles aux rues
+						résidentielles de banlieue avoisinantes. La rue Saint-Charles comporte quelques
+						logements surmontant des espaces commerciaux, mais les structures principales de la rue
+						sont essentiellement commerciales. Malgré son environnement de banlieue, les rues
+						résidentielles avoisinantes présentent une densité de logements plus élevée que les
+						maisons individuelles non attenantes typiques des zones de banlieue. Les logements de
+						ces rues résidentielles sont principalement des appartements de faible hauteur, avec un
+						mélange varié d’appartements de grande hauteur, de maisons individuelles non attenantes
+						et de maisons jumelées.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -631,11 +740,24 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
-					<p>Les caractéristiques démographiques de la région entourant la rue Saint-Charles contribuent aux particularités locales. De nombreuses personnes résidant sur la rue Saint-Charles ont plus de 60 ans, assurant une moyenne d’âge relativement élevée. Malgré un environnement de banlieue, la taille moyenne des ménages est particulièrement réduite, avec une moyenne d’environ une personne par ménage. D’un point de vue socio-économique, la zone est majoritairement composée de ménages à revenus élevés, en particulier le long de la rue Saint-Charles, mais cette situation est juxtaposée à des îlots de revenus moyens inférieurs, ce qui favorise un mélange particulier de ménages à revenus élevés et inférieurs au sein d’une même région. Sur le plan linguistique, la zone est majoritairement de langue française. Bien que le pourcentage de nouveaux immigrants soit relativement faible, certaines sections, en particulier le long de la rue Saint-Charles, connaissent un afflux plus important de nouveaux immigrants.</p>
+					<p>
+						Les caractéristiques démographiques de la région entourant la rue Saint-Charles
+						contribuent aux particularités locales. De nombreuses personnes résidant sur la rue
+						Saint-Charles ont plus de 60 ans, assurant une moyenne d’âge relativement élevée. Malgré
+						un environnement de banlieue, la taille moyenne des ménages est particulièrement
+						réduite, avec une moyenne d’environ une personne par ménage. D’un point de vue
+						socio-économique, la zone est majoritairement composée de ménages à revenus élevés, en
+						particulier le long de la rue Saint-Charles, mais cette situation est juxtaposée à des
+						îlots de revenus moyens inférieurs, ce qui favorise un mélange particulier de ménages à
+						revenus élevés et inférieurs au sein d’une même région. Sur le plan linguistique, la
+						zone est majoritairement de langue française. Bien que le pourcentage de nouveaux
+						immigrants soit relativement faible, certaines sections, en particulier le long de la
+						rue Saint-Charles, connaissent un afflux plus important de nouveaux immigrants.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -678,7 +800,28 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>La rue Saint-Charles est une rue à prédominance commerciale qui offre une grande variété de commerces de détail et de produits alimentaires aux régions de Longueil et de la Rive-Sud. En tant que telle, la rue accueille un grand nombre de visiteurs. La majorité de ces visiteurs sont peu fréquents et ne se rendent donc pas souvent sur la rue Saint-Charles, mais plutôt occasionnellement pour profiter des nombreuses attractions qu’offre la rue. Bien que par une chaude journée d’été, la rue Saint-Charles, piétonne, attire toujours des visiteurs qui viennent profiter de la nourriture, des commerces et de la rue, la pandémie de COVID-19 a eu un impact considérable sur la rue Saint-Charles. À l’instar de nombreuses autres rues principales, le nombre de visiteurs actuels est bien inférieur à celui d’avant la pandémie en 2019. Dans le décompte le plus récent des visiteurs de la rue Saint-Charles, la rue se situe à un peu moins de 60 pour cent de ses chiffres de 2019, ce qui signifie une importante diminution du nombre de visiteurs — principalement des visiteurs peu fréquents — qui fréquentent la rue.</p><p>Par conséquent, en matière de résilience de la rue et de récupération des visiteurs, la rue Saint-Charles est à la traîne de la plupart des autres rues principales de Montréal et des rues principales résidentielles. La rue Saint-Charles se classe 15e sur 20 pour la résilience des visiteurs dans la région et 33e sur 36 rues principales résidentielles.</p>
+					<p>
+						La rue Saint-Charles est une rue à prédominance commerciale qui offre une grande variété
+						de commerces de détail et de produits alimentaires aux régions de Longueil et de la
+						Rive-Sud. En tant que telle, la rue accueille un grand nombre de visiteurs. La majorité
+						de ces visiteurs sont peu fréquents et ne se rendent donc pas souvent sur la rue
+						Saint-Charles, mais plutôt occasionnellement pour profiter des nombreuses attractions
+						qu’offre la rue. Bien que par une chaude journée d’été, la rue Saint-Charles, piétonne,
+						attire toujours des visiteurs qui viennent profiter de la nourriture, des commerces et
+						de la rue, la pandémie de COVID-19 a eu un impact considérable sur la rue Saint-Charles.
+						À l’instar de nombreuses autres rues principales, le nombre de visiteurs actuels est
+						bien inférieur à celui d’avant la pandémie en 2019. Dans le décompte le plus récent des
+						visiteurs de la rue Saint-Charles, la rue se situe à un peu moins de 60 pour cent de ses
+						chiffres de 2019, ce qui signifie une importante diminution du nombre de visiteurs —
+						principalement des visiteurs peu fréquents — qui fréquentent la rue.
+					</p>
+					<p>
+						Par conséquent, en matière de résilience de la rue et de récupération des visiteurs, la
+						rue Saint-Charles est à la traîne de la plupart des autres rues principales de Montréal
+						et des rues principales résidentielles. La rue Saint-Charles se classe 15e sur 20 pour
+						la résilience des visiteurs dans la région et 33e sur 36 rues principales
+						résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -755,7 +898,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -807,8 +950,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

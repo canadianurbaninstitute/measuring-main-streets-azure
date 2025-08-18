@@ -3,45 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import kingstonroad from '../../../lib/assets/boundaries/torontoboundaries/KingstonRd.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/toronto/kingstonroad/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/kingstonroad/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/kingstonroad/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/kingstonroad/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/toronto/kingstonroad/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/kingstonroad/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/kingstonroad/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/toronto/kingstonroad/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/kingstonroad/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/kingstonroad/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/kingstonroad/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/kingstonroad/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/kingstonroad/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/kingstonroad/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
-
-	import mapboxgl from "mapbox-gl";
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import mapboxgl from 'mapbox-gl';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -209,15 +207,28 @@
 </svelte:head>
 
 <main>
-	<Title outline={kingstonroad} name={'Kingston Road (Scarborough Cliffside)'} location={'Toronto, Ontario'} />
+	<Title
+		outline={kingstonroad}
+		name={'Kingston Road (Scarborough Cliffside)'}
+		location={'Toronto, Ontario'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>The name 'Kingston' originates from Kingston, Ontario, as Kingston Rd. was historically the primary route connecting Toronto to settlements east of the city. Until 1998, Kingston Rd. was part of Highway 2. Today, it serves as a major east-west arterial road traversing most of Scarborough.</p>
-					<p>This section of Kingston Rd., located between Midland Ave. to the east and Highview Ave. to the west, plays a vital role as the main street for the surrounding Cliffside neighborhood in Scarborough. Notably, this stretch boasts a dense concentration of businesses, making it a significant commercial hub within the area.</p>
-
+					<p>
+						The name 'Kingston' originates from Kingston, Ontario, as Kingston Rd. was historically
+						the primary route connecting Toronto to settlements east of the city. Until 1998,
+						Kingston Rd. was part of Highway 2. Today, it serves as a major east-west arterial road
+						traversing most of Scarborough.
+					</p>
+					<p>
+						This section of Kingston Rd., located between Midland Ave. to the east and Highview Ave.
+						to the west, plays a vital role as the main street for the surrounding Cliffside
+						neighborhood in Scarborough. Notably, this stretch boasts a dense concentration of
+						businesses, making it a significant commercial hub within the area.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -250,10 +261,23 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>Kingston Rd. serves as a major arterial route primarily designated for vehicular traffic. The road features six lanes of circulation – three in each direction – with a central median dividing the lanes. Although sidewalks are present on both sides of the road, the width, number of lanes, vehicle speed, and lack of cycling infrastructure make it unsupportive of active mobility. Moreover, this section of Kingston Rd. offers limited public spaces or areas for leisure, with few benches and minimal tree coverage.</p>
-					<p>The buildings along Kingston Rd. consist of a mix of strip malls – low-rise and connected commercial buildings with large parking lots in front of them – with some newer and higher density mixed-use and condo developments.</p>
-					<p>While Kingston Rd. has very little greenspace on the street itself, significant greenspace is accessible to the road within a ten-minute walk.</p>
-
+					<p>
+						Kingston Rd. serves as a major arterial route primarily designated for vehicular
+						traffic. The road features six lanes of circulation – three in each direction – with a
+						central median dividing the lanes. Although sidewalks are present on both sides of the
+						road, the width, number of lanes, vehicle speed, and lack of cycling infrastructure make
+						it unsupportive of active mobility. Moreover, this section of Kingston Rd. offers
+						limited public spaces or areas for leisure, with few benches and minimal tree coverage.
+					</p>
+					<p>
+						The buildings along Kingston Rd. consist of a mix of strip malls – low-rise and
+						connected commercial buildings with large parking lots in front of them – with some
+						newer and higher density mixed-use and condo developments.
+					</p>
+					<p>
+						While Kingston Rd. has very little greenspace on the street itself, significant
+						greenspace is accessible to the road within a ten-minute walk.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -273,7 +297,6 @@
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} />
 						<SatelliteCheckbox casestudy={'kingstonroad'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5kd1rt000001qu3prhb37l'}
@@ -358,7 +381,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'kingstonroad-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'kingstonroad-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -368,13 +396,27 @@
 									'civicinfra-toronto-health',
 									'civicinfra-toronto-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Despite Kingston Rd.'s role as a pivotal commercial hub in Cliffside, it lacks the same concentration or density of civic infrastructure. Nonetheless, this segment of Kingston Rd. does feature some health and care facilities. Although not present on Kingston Rd. itself, residents do still have access to government and community services, arts and culture, and educational facilities within a ten-minute walk. For instance, residents within this radius can easily reach significant destination civic infrastructure like Variety Village, Bluffer’s Park, and Cardinal Newman High School. Yet, due to the car-centric nature of Kingston Rd., pedestrian access to these vital amenities remains limited.</p>
-					<p>According to the Civic Infrastructure Index, Kingston Rd. ranks 12th out of 20 Toronto case studies in terms of its civic opportunity. Compared to other residential streets, Kingston Rd. ranks 18th out of 36 residential main streets.</p>
-
+					<p>
+						Despite Kingston Rd.'s role as a pivotal commercial hub in Cliffside, it lacks the same
+						concentration or density of civic infrastructure. Nonetheless, this segment of Kingston
+						Rd. does feature some health and care facilities. Although not present on Kingston Rd.
+						itself, residents do still have access to government and community services, arts and
+						culture, and educational facilities within a ten-minute walk. For instance, residents
+						within this radius can easily reach significant destination civic infrastructure like
+						Variety Village, Bluffer’s Park, and Cardinal Newman High School. Yet, due to the
+						car-centric nature of Kingston Rd., pedestrian access to these vital amenities remains
+						limited.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, Kingston Rd. ranks 12th out of 20 Toronto
+						case studies in terms of its civic opportunity. Compared to other residential streets,
+						Kingston Rd. ranks 18th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -446,7 +488,12 @@
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'kingstonroad-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'kingstonroad-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -454,14 +501,31 @@
 									'business-toronto-services',
 									'business-toronto-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>There is a significant clustering of business and retail on this section of Kingston Rd. While service businesses are the most prevalent, the road includes a mix of services, retail, and food and drink establishments. A similar business mix is present within a ten-minute walk of the road. The businesses themselves are a mix of independently owned stores and national chains. Indeed, according to the Independent Business Index, Kingston Rd. ranks 5th out of 20 Toronto main streets and 9th out of 36 residential main streets.</p>
-					<p>There is also a relative difference in the business landscape between the northern and southern ends of this segment of Kingston Rd. Specifically, vacant storefronts are present among the older retail on the northern end of the road. In contrast, the southern side consists of larger strips malls with less commercial vacancy but clear signs of development pressure.</p>
-					<p>In terms of business density, the street ranks 6th out of 20 Toronto main streets and 12th out of 36 residential main streets.</p>
-
+					<p>
+						There is a significant clustering of business and retail on this section of Kingston Rd.
+						While service businesses are the most prevalent, the road includes a mix of services,
+						retail, and food and drink establishments. A similar business mix is present within a
+						ten-minute walk of the road. The businesses themselves are a mix of independently owned
+						stores and national chains. Indeed, according to the Independent Business Index,
+						Kingston Rd. ranks 5th out of 20 Toronto main streets and 9th out of 36 residential main
+						streets.
+					</p>
+					<p>
+						There is also a relative difference in the business landscape between the northern and
+						southern ends of this segment of Kingston Rd. Specifically, vacant storefronts are
+						present among the older retail on the northern end of the road. In contrast, the
+						southern side consists of larger strips malls with less commercial vacancy but clear
+						signs of development pressure.
+					</p>
+					<p>
+						In terms of business density, the street ranks 6th out of 20 Toronto main streets and
+						12th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -500,8 +564,20 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Kingston Rd. maintains a significant businesses density, especially when compared to the surrounding neighbourhoods of Scarborough. As a result, there is a relative clustering of employment along this segment of Kingston Rd. as well, especially among smaller scale businesses of between zero to five employees. While there is a smaller number of employment opportunities among the civic infrastructure on Kingston Rd. itself, directly off of the road are largescale civic infrastructure that employ up to 50 employees.</p>
-					<p>However, in terms of overall employment density, Kingston Rd. has a lower employment density than most other main street case studies. The street ranks 15th out of 20 Toronto main streets in terms of employment density and 33rd out of 36 residential main streets.</p>
+					<p>
+						Kingston Rd. maintains a significant businesses density, especially when compared to the
+						surrounding neighbourhoods of Scarborough. As a result, there is a relative clustering
+						of employment along this segment of Kingston Rd. as well, especially among smaller scale
+						businesses of between zero to five employees. While there is a smaller number of
+						employment opportunities among the civic infrastructure on Kingston Rd. itself, directly
+						off of the road are largescale civic infrastructure that employ up to 50 employees.
+					</p>
+					<p>
+						However, in terms of overall employment density, Kingston Rd. has a lower employment
+						density than most other main street case studies. The street ranks 15th out of 20
+						Toronto main streets in terms of employment density and 33rd out of 36 residential main
+						streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -558,14 +634,25 @@
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>The population density on Kingston Rd. is slightly higher than on streets directly adjacent to it, although the difference is minimal. Despite the fact that there is not a significant difference in the population density, there is a notably higher number of dwellings on Kingston Rd. than in the surrounding streets. This is because the housing typology on Kingston Rd. consists primarily of high-rise and low-rise apartment buildings compared to the higher prevalence of single-detached housing in the surrounding areas.</p>
-					<p>The housing on and around Kingston Rd. also represents a mix of older and newer construction. The majority of housing on the road was constructed either before 1960 or between 2016 and 2021.</p>
-
+					<p>
+						The population density on Kingston Rd. is slightly higher than on streets directly
+						adjacent to it, although the difference is minimal. Despite the fact that there is not a
+						significant difference in the population density, there is a notably higher number of
+						dwellings on Kingston Rd. than in the surrounding streets. This is because the housing
+						typology on Kingston Rd. consists primarily of high-rise and low-rise apartment
+						buildings compared to the higher prevalence of single-detached housing in the
+						surrounding areas.
+					</p>
+					<p>
+						The housing on and around Kingston Rd. also represents a mix of older and newer
+						construction. The majority of housing on the road was constructed either before 1960 or
+						between 2016 and 2021.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -584,7 +671,7 @@
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-												xKey="Construction Year"
+								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
@@ -632,9 +719,22 @@
 							]}
 						/>
 					</div>
-					<p>There are notable key characteristics of the residents of Kingston Rd. that distinguishes the road from surrounding streets and neighbourhoods. For instance, the road maintains a lower average age and smaller household size compared to adjacent areas. Additionally, the average income on Kingston Rd. is lower than in its surroundings. This is particularly evident when comparing it to neighborhoods southeast of the road. Kingston Rd. also has a lower percentage of bachelor’s degree holders compared to neighboring areas.</p>
-					<p>Socio-demographically, Kingston Rd. demonstrates relative diversity. Specifically, there is a higher proportion of visible minorities residing on and around Kingston Rd., comprising almost 50% of the population. Furthermore, approximately 20% of the residents are recent immigrants. However, despite this diversity, the Indigenous population is nearly nonexistent, comprising almost zero percent of the total population.</p>
-
+					<p>
+						There are notable key characteristics of the residents of Kingston Rd. that
+						distinguishes the road from surrounding streets and neighbourhoods. For instance, the
+						road maintains a lower average age and smaller household size compared to adjacent
+						areas. Additionally, the average income on Kingston Rd. is lower than in its
+						surroundings. This is particularly evident when comparing it to neighborhoods southeast
+						of the road. Kingston Rd. also has a lower percentage of bachelor’s degree holders
+						compared to neighboring areas.
+					</p>
+					<p>
+						Socio-demographically, Kingston Rd. demonstrates relative diversity. Specifically, there
+						is a higher proportion of visible minorities residing on and around Kingston Rd.,
+						comprising almost 50% of the population. Furthermore, approximately 20% of the residents
+						are recent immigrants. However, despite this diversity, the Indigenous population is
+						nearly nonexistent, comprising almost zero percent of the total population.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -665,7 +765,6 @@
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -678,9 +777,26 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>Kingston Rd. draws significant numbers of visitors from all across Scarborough and Toronto, and this distribution of visitors’ home location has remained relatively stable throughout the pandemic and post-pandemic. Additionally, Kingston Rd. has recovered from the decrease in visitation experienced throughout the pandemic, and now sees an increase to nearly 120% the level of visits relative to pre-pandemic in 2019. This recovery of visitors has occurred along all three types of visitors, as the total number of resident, recurring, and infrequent visitors has largely recovered to 2019 numbers. This resurgence of visitors highlights the significance of Kingston Rd. as a key main street in the Cliffside neighbourhood of Scarborough.</p>
-					<p>Importantly, visits to Kingston Rd. largely occur in the afternoon, between noon and 6pm, and in the latter half of the week, mainly on Wednesday, Thursday, Friday, and Saturday.</p>
-					<p>As a result, in terms of overall street resilience and visitor recovery, Kingston Rd. ranks 4th out of 20 Toronto main streets and 5th out of 36 residential main streets.</p>
+					<p>
+						Kingston Rd. draws significant numbers of visitors from all across Scarborough and
+						Toronto, and this distribution of visitors’ home location has remained relatively stable
+						throughout the pandemic and post-pandemic. Additionally, Kingston Rd. has recovered from
+						the decrease in visitation experienced throughout the pandemic, and now sees an increase
+						to nearly 120% the level of visits relative to pre-pandemic in 2019. This recovery of
+						visitors has occurred along all three types of visitors, as the total number of
+						resident, recurring, and infrequent visitors has largely recovered to 2019 numbers. This
+						resurgence of visitors highlights the significance of Kingston Rd. as a key main street
+						in the Cliffside neighbourhood of Scarborough.
+					</p>
+					<p>
+						Importantly, visits to Kingston Rd. largely occur in the afternoon, between noon and
+						6pm, and in the latter half of the week, mainly on Wednesday, Thursday, Friday, and
+						Saturday.
+					</p>
+					<p>
+						As a result, in terms of overall street resilience and visitor recovery, Kingston Rd.
+						ranks 4th out of 20 Toronto main streets and 5th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -757,7 +873,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -807,8 +923,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

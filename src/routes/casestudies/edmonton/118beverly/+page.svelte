@@ -3,44 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import HundredEighteenBeverly from '../../../lib/assets/boundaries/edmontonboundaries/118Beverly.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/118beverly/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/118beverly/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/118beverly/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/118beverly/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/118beverly/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/118beverly/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/118beverly/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/118beverly/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/118beverly/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/118beverly/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/118beverly/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/118beverly/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/118beverly/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/118beverly/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -840,7 +839,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -892,8 +891,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

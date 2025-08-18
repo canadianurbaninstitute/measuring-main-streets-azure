@@ -3,45 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import WestQueenWest from '../../../lib/assets/boundaries/torontoboundaries/WestQueenWest.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/toronto/westqueenwest/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/westqueenwest/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/westqueenwest/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/westqueenwest/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/toronto/westqueenwest/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/westqueenwest/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/westqueenwest/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/toronto/westqueenwest/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/westqueenwest/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/westqueenwest/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/westqueenwest/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
-
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
 	import RangeSlider from 'svelte-range-slider-pips';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -410,7 +408,11 @@
 						off-leash space and sports fields. The park has served as a community hub and gathering
 						space in Toronto’s west end for years.
 					</p>
-					<p>According to the Civic Infrastructure Index, West Queen West surpasses most other main street case studies. In terms of its civic opportunity, West Queen West ranks 6th out of 20 Toronto main streets and 9th out of 36 residential main streets. </p>
+					<p>
+						According to the Civic Infrastructure Index, West Queen West surpasses most other main
+						street case studies. In terms of its civic opportunity, West Queen West ranks 6th out of
+						20 Toronto main streets and 9th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -508,9 +510,15 @@
 						There are a number of event venues, especially in the western segment of the street
 						which often draw large crowds for concerns and other events.
 					</p>
-					<p>West Queen West surpasses other Main Street case studies in terms of level of independence of businesses, ranking 6th out of 20 Toronto Main Streets and 10th out of 36 residential Main Streets.
+					<p>
+						West Queen West surpasses other Main Street case studies in terms of level of
+						independence of businesses, ranking 6th out of 20 Toronto Main Streets and 10th out of
+						36 residential Main Streets.
 					</p>
-					<p>In terms of business density, the street ranks 8th out of 20 main streets in the region and 13th out of 36 residential main streets. </p>
+					<p>
+						In terms of business density, the street ranks 8th out of 20 main streets in the region
+						and 13th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -555,7 +563,11 @@
 						most large employers are concentrated just east, in downtown, or south, in Liberty
 						Village, of the street itself.
 					</p>
-					<p>Overall, West Queen West has very high employment density. It ranks 3rd out of 20 Toronto Main Streets in terms of employment density and 1st out of 36 residential main streets.</p>
+					<p>
+						Overall, West Queen West has very high employment density. It ranks 3rd out of 20
+						Toronto Main Streets in terms of employment density and 1st out of 36 residential main
+						streets.
+					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -617,11 +629,20 @@
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
 					<p>
-						There is a general split in the housing typology north and south of West Queen West. North of the street, the predominant housing form are smaller apartment buildings with less than five units and duplexes. This area also features single-family and detached homes. On the southern side of the street, high-rise condominium and apartment buildings dominate. There are exceptions to this and numerous examples of mid-rise apartment buildings throughout the street. In general, however, the area on and surrounding West Queen West is dominated by high-rise apartments. 
+						There is a general split in the housing typology north and south of West Queen West.
+						North of the street, the predominant housing form are smaller apartment buildings with
+						less than five units and duplexes. This area also features single-family and detached
+						homes. On the southern side of the street, high-rise condominium and apartment buildings
+						dominate. There are exceptions to this and numerous examples of mid-rise apartment
+						buildings throughout the street. In general, however, the area on and surrounding West
+						Queen West is dominated by high-rise apartments.
 					</p>
 					<p>
-						Generally, the population density is high for Canada and the GTA throughout the area, though south of the street is much denser with increased construction in the last 20 years. In contrast, the neighbourhoods north of the street have seen stable or declining populations in the same period as two-to-three unit buildings are converted into single-family houses. 
-
+						Generally, the population density is high for Canada and the GTA throughout the area,
+						though south of the street is much denser with increased construction in the last 20
+						years. In contrast, the neighbourhoods north of the street have seen stable or declining
+						populations in the same period as two-to-three unit buildings are converted into
+						single-family houses.
 					</p>
 				</div>
 				<div class="map-container">
@@ -690,7 +711,16 @@
 						/>
 					</div>
 					<p>
-						On average, both West Queen West and the neighbourhoods surrounding the street are characterized by small households of approximately one-person. The neighbourhoods surrounding West Queen West are more highly educated and less likely to be a first-generation immigrant than the regional average. These areas also include a relatively diverse mix of average ages, with averages in the neighbourhoods surrounding West Queen West ranging from around 30 years old all the way to approximately 80 years old. Additionally, residents of West Queen West and the surrounding areas are more likely to be both in the upper quintile of income and more likely to be in the bottom decile of income — indicating a polarized income distribution with limited representation of middle income households.  
+						On average, both West Queen West and the neighbourhoods surrounding the street are
+						characterized by small households of approximately one-person. The neighbourhoods
+						surrounding West Queen West are more highly educated and less likely to be a
+						first-generation immigrant than the regional average. These areas also include a
+						relatively diverse mix of average ages, with averages in the neighbourhoods surrounding
+						West Queen West ranging from around 30 years old all the way to approximately 80 years
+						old. Additionally, residents of West Queen West and the surrounding areas are more
+						likely to be both in the upper quintile of income and more likely to be in the bottom
+						decile of income — indicating a polarized income distribution with limited
+						representation of middle income households.
 					</p>
 				</div>
 				<div class="map-container">
@@ -735,10 +765,25 @@
 						/>
 					</div>
 					<p>
-						West Queen West does draw visitors from throughout the Greater Toronto Area, but the vast majority of visits come from local residents within Toronto. Additionally, the radius from where visitors originated from has decreased between 2019 and 2022, indicating that the COVID-19 pandemic impacted the distance residents were willing to travel to visit West Queen West. Additionally, while the level of visits relative to 2019 currently hovers just over 80 percent, indicating relatively strong visitor recovery from the pandemic, the number of visitors has decreased significantly. This decrease in visitors is seen most prominently with infrequent visitors. 
+						West Queen West does draw visitors from throughout the Greater Toronto Area, but the
+						vast majority of visits come from local residents within Toronto. Additionally, the
+						radius from where visitors originated from has decreased between 2019 and 2022,
+						indicating that the COVID-19 pandemic impacted the distance residents were willing to
+						travel to visit West Queen West. Additionally, while the level of visits relative to
+						2019 currently hovers just over 80 percent, indicating relatively strong visitor
+						recovery from the pandemic, the number of visitors has decreased significantly. This
+						decrease in visitors is seen most prominently with infrequent visitors.
 					</p>
-					<p>Generally, visitor traffic is heaviest on Fridays and Saturdays and in the late afternoon or evening which highlights the importance of West Queen West as a commercial street – as most visits occur outside of normal business hours. </p>
-					<p>In terms of overall street resilience and visitor recovery, West Queen West trails behind other main street case studies. It ranks 17th out of 20 in visitor resiliency in the region and 35th out of 36 residential main streets. </p>
+					<p>
+						Generally, visitor traffic is heaviest on Fridays and Saturdays and in the late
+						afternoon or evening which highlights the importance of West Queen West as a commercial
+						street – as most visits occur outside of normal business hours.
+					</p>
+					<p>
+						In terms of overall street resilience and visitor recovery, West Queen West trails
+						behind other main street case studies. It ranks 17th out of 20 in visitor resiliency in
+						the region and 35th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -815,7 +860,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -867,8 +912,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

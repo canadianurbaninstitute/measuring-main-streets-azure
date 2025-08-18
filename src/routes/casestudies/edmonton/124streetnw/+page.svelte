@@ -40,7 +40,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { visitorMapStore, mapStoreList } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -219,10 +219,15 @@
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
 					<p>
-						124 Street NW is an arterial commercial street known for its private art galleries, historical homes, shopping, and, to some, the Duchess Bake Shop. It is situated in the historical Westmount neighbourhood of Edmonton. This segment is currently undergoing a larger renewal initaitive.
+						124 Street NW is an arterial commercial street known for its private art galleries,
+						historical homes, shopping, and, to some, the Duchess Bake Shop. It is situated in the
+						historical Westmount neighbourhood of Edmonton. This segment is currently undergoing a
+						larger renewal initaitive.
 					</p>
 					<p>
-						124 Street has made a name for itself in the Edmonton arts community and this reputation has attracted artists, resulting in a mix of public and private visual art integrated into the streetscape.
+						124 Street has made a name for itself in the Edmonton arts community and this reputation
+						has attracted artists, resulting in a mix of public and private visual art integrated
+						into the streetscape.
 					</p>
 				</div>
 				<div class="map-container">
@@ -257,10 +262,16 @@
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
 					<p>
-						124 Street is a four lane arterial road with a decent flow of traffic, of both personal automobiles and bus transit. The two outer lanes are used for parking with signs restricting weekday hours. There are two blocks at the north end with a tree-lined median. An inlaid brick pattern makes a chevron pattern around the bases of the street lanterns.
+						124 Street is a four lane arterial road with a decent flow of traffic, of both personal
+						automobiles and bus transit. The two outer lanes are used for parking with signs
+						restricting weekday hours. There are two blocks at the north end with a tree-lined
+						median. An inlaid brick pattern makes a chevron pattern around the bases of the street
+						lanterns.
 					</p>
 					<p>
-						Some street interecting east-west feature widened cross sections for accommodating angle parking. Most intersections have pedestrian crossings with button activivated lights. Others have signage and ramps.
+						Some street interecting east-west feature widened cross sections for accommodating angle
+						parking. Most intersections have pedestrian crossings with button activivated lights.
+						Others have signage and ramps.
 					</p>
 					<p>
 						As 107 Ave and 111 Ave are larger arterial roads, their intersections with 124 Street
@@ -848,7 +859,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -900,8 +911,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

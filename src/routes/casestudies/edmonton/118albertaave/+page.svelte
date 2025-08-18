@@ -3,44 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import HundredEighteenAlbertaAve from '../../../lib/assets/boundaries/edmontonboundaries/118AlbertaAve.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/118albertaave/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/118albertaave/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/118albertaave/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/118albertaave/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/118albertaave/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/118albertaave/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/118albertaave/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/118albertaave/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/118albertaave/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/118albertaave/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/118albertaave/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/118albertaave/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/118albertaave/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/118albertaave/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +81,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -208,14 +207,29 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={HundredEighteenAlbertaAve} name={'118 Avenue (Alberta Avenue)'} location={'Edmonton, Alberta'} />
+	<Title
+		outline={HundredEighteenAlbertaAve}
+		name={'118 Avenue (Alberta Avenue)'}
+		location={'Edmonton, Alberta'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>118 Avenue is a commercial street in the Alberta neighbourhood of Edmonton. The street runs east-west and is located north of Edmonton's main downtown. This segment of 118 Avenue began as a main street for a smaller community, Norwood, before amalgamation.</p>
-					<p>The history of 118 Avenue follows a non-linear trajectory of disrepair and revitalization. Today, the area has a strong local music, arts, and culture scene and an eclectic mix of residents, businesses, and visitors. The Avenue is home to permanent arts locales such as the Nina Haggerty Centre for the Arts and the Carrot Community Arts Coffeehouse, both established neighbourhood community hubs. The Avenue serves as the temporary home for arts festivals throughout the year.</p>
+					<p>
+						118 Avenue is a commercial street in the Alberta neighbourhood of Edmonton. The street
+						runs east-west and is located north of Edmonton's main downtown. This segment of 118
+						Avenue began as a main street for a smaller community, Norwood, before amalgamation.
+					</p>
+					<p>
+						The history of 118 Avenue follows a non-linear trajectory of disrepair and
+						revitalization. Today, the area has a strong local music, arts, and culture scene and an
+						eclectic mix of residents, businesses, and visitors. The Avenue is home to permanent
+						arts locales such as the Nina Haggerty Centre for the Arts and the Carrot Community Arts
+						Coffeehouse, both established neighbourhood community hubs. The Avenue serves as the
+						temporary home for arts festivals throughout the year.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -248,9 +262,23 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>118 Avenue itself has a consistent design throughout the study area from 95 St NW to 82 St NW. The streetscape consists of relatively wide, tree-lined sidewalks. There are four lanes for vehicles with street parking.</p>
-					<p>The streets that connect with 118 form an alternating pattern of T intersections. At many, there are bump-outs and curb extensions with decorative benches and plants. Most side streets feature angled parking stalls along the sides of buildings, transitioning into residential areas where available parking becomes parallel.</p>
-					<p>The scale of buildings are generally one to two-storeys in height and are consistent through the study area, save for residential apartments. There is little to no new infill development and many buildings have noticeable wear and tear. There are quite a few strip mall style lots with parking between the storefronts and sidewalks.</p>
+					<p>
+						118 Avenue itself has a consistent design throughout the study area from 95 St NW to 82
+						St NW. The streetscape consists of relatively wide, tree-lined sidewalks. There are four
+						lanes for vehicles with street parking.
+					</p>
+					<p>
+						The streets that connect with 118 form an alternating pattern of T intersections. At
+						many, there are bump-outs and curb extensions with decorative benches and plants. Most
+						side streets feature angled parking stalls along the sides of buildings, transitioning
+						into residential areas where available parking becomes parallel.
+					</p>
+					<p>
+						The scale of buildings are generally one to two-storeys in height and are consistent
+						through the study area, save for residential apartments. There is little to no new
+						infill development and many buildings have noticeable wear and tear. There are quite a
+						few strip mall style lots with parking between the storefronts and sidewalks.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -270,7 +298,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'118albertaave'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9mwbk0003q01ns7k79dvj6'}
@@ -355,7 +382,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'118albertaave-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'118albertaave-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -365,13 +397,28 @@ setConfig({
 									'civicinfra-edmonton-health',
 									'civicinfra-edmonton-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>118 Avenue lies within the Alberta Avenue BIA and was part of the Avenue Initiative Revitalization that began in 2006, a neighbourhood revitalization program aiming to attract people by improving the streetscape and vibrancy of the corridor.</p>
-					<p>During the field visit, the 118 was lined with stone decorative benches, themed street signs, artistic cutouts attached to specialty street lanterns, and flower planters in bloom. Murals adorn the sides of many buildings. Investment, from both City and community initiatives, are evident in the look and feel of the Avenue.</p>
-					<p>According to the Civic Infrastructure Index, this segment of 118 ranks 7th out of 20 Edmonton Main Streets and 3rd of 36 Neighbourhood Main Streets. Led by Arts on the Ave, the area is being developed into a community arts hub. The organization runs the Kaleido Family Arts Festival in the fall and Deep Freeze Festival in the winter.</p>
+					<p>
+						118 Avenue lies within the Alberta Avenue BIA and was part of the Avenue Initiative
+						Revitalization that began in 2006, a neighbourhood revitalization program aiming to
+						attract people by improving the streetscape and vibrancy of the corridor.
+					</p>
+					<p>
+						During the field visit, the 118 was lined with stone decorative benches, themed street
+						signs, artistic cutouts attached to specialty street lanterns, and flower planters in
+						bloom. Murals adorn the sides of many buildings. Investment, from both City and
+						community initiatives, are evident in the look and feel of the Avenue.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, this segment of 118 ranks 7th out of 20
+						Edmonton Main Streets and 3rd of 36 Neighbourhood Main Streets. Led by Arts on the Ave,
+						the area is being developed into a community arts hub. The organization runs the Kaleido
+						Family Arts Festival in the fall and Deep Freeze Festival in the winter.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -443,7 +490,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'118albertaave-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'118albertaave-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -451,13 +503,27 @@ setConfig({
 									'business-edmonton-services',
 									'business-edmonton-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Business along 118 Avenue features a wide range of offerings, from specialty food stores to barber shops and hair salons. Many businesses are independent or family-run. Despite the many restaurants, there is a noticeable lack of patios and outdoor dining. There are also several auto body service and repair shops.</p>
-					<p>According to the Independent Business Index, 118 Avenue in Alberta ranks 7th of 20 Edmonton Main Streets and 15th of Neighbourhood Main Streets. For business density, 118 Avenue ranks 10th of 20 and 18th of 36.</p>
-					<p>While there are well-established community-oriented businesses, there are also many storefront that are vacant or up for lease or sale. These factors contribute to an overall sense of quietness on the street.</p>
+					<p>
+						Business along 118 Avenue features a wide range of offerings, from specialty food stores
+						to barber shops and hair salons. Many businesses are independent or family-run. Despite
+						the many restaurants, there is a noticeable lack of patios and outdoor dining. There are
+						also several auto body service and repair shops.
+					</p>
+					<p>
+						According to the Independent Business Index, 118 Avenue in Alberta ranks 7th of 20
+						Edmonton Main Streets and 15th of Neighbourhood Main Streets. For business density, 118
+						Avenue ranks 10th of 20 and 18th of 36.
+					</p>
+					<p>
+						While there are well-established community-oriented businesses, there are also many
+						storefront that are vacant or up for lease or sale. These factors contribute to an
+						overall sense of quietness on the street.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -496,8 +562,17 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Employment in along this segment of 118 Avenue is primarily concentrated on along the commercial street itself. Small establishments with zero to five employees line 118 Avenue, with slightly larger employers concentrated at the eastern end. 118 itself seems to play a local role as the primary commercial corridor as the surrounding neighbourhoods are almost solely residential with scattered establishments throughout.</p>
-					<p>For employment density, 118 Avenue in Alberta ranks in the middle at 10th of 20 Edmonton Main Streets and 18th of 36 Neighbourhood Main Streets.</p>
+					<p>
+						Employment in along this segment of 118 Avenue is primarily concentrated on along the
+						commercial street itself. Small establishments with zero to five employees line 118
+						Avenue, with slightly larger employers concentrated at the eastern end. 118 itself seems
+						to play a local role as the primary commercial corridor as the surrounding
+						neighbourhoods are almost solely residential with scattered establishments throughout.
+					</p>
+					<p>
+						For employment density, 118 Avenue in Alberta ranks in the middle at 10th of 20 Edmonton
+						Main Streets and 18th of 36 Neighbourhood Main Streets.
+					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -553,13 +628,25 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>The housing within the study area are located predominantly away from 118 Avenue itself. The streets and avenues in this area intersect in a grid pattern where streets are closer together than the avenues. This results in the north-south streets containing most of the housing stock, with the houses and apartments mostly facing east-west. There is one infill mixed-use building along the Avenue, but otherwise the housing is noticeably tucked behind the main street.</p>
-					<p>The housing stock features mostly low-rise apartments (over 40%) followed by single-detached dwellings (almost 40%). Most of the housing was built in the pre-1960 to 1980 period. The area features less infill than other neighbourhoods of the same age in Edmonton.</p>
+					<p>
+						The housing within the study area are located predominantly away from 118 Avenue itself.
+						The streets and avenues in this area intersect in a grid pattern where streets are
+						closer together than the avenues. This results in the north-south streets containing
+						most of the housing stock, with the houses and apartments mostly facing east-west. There
+						is one infill mixed-use building along the Avenue, but otherwise the housing is
+						noticeably tucked behind the main street.
+					</p>
+					<p>
+						The housing stock features mostly low-rise apartments (over 40%) followed by
+						single-detached dwellings (almost 40%). Most of the housing was built in the pre-1960 to
+						1980 period. The area features less infill than other neighbourhoods of the same age in
+						Edmonton.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -626,7 +713,10 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>Of residents in the study area, 31% are recent immigrants and 37% are visible minorities.</p>
+					<p>
+						Of residents in the study area, 31% are recent immigrants and 37% are visible
+						minorities.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -657,7 +747,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -670,9 +759,22 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>118 Avenue in Alberta's Resiliency Score ranks low at 15th of 20 Edmonton Main Streets and 24th of 36 Neighbourhood Main Streets.</p>
-					<p>Since 2019 before the pandemic shutdowns, overall visit counts have decreased by more than 50% by 2022. But the level of visits relative to 2019 have been slowly recovering since the beginning of 2022. While this segment of 118 Avenue has relied primarily on infrequent visitors from across the region, despite visits across the board decreasing since 2019, resident and recurring visits have remained stable between 2021 and 2022 but have not recovered fully.</p>
-					<p>It is busiest during the 12pm to 6pm period, with Friday being the busiest day but by only slightly over Saturday.</p>
+					<p>
+						118 Avenue in Alberta's Resiliency Score ranks low at 15th of 20 Edmonton Main Streets
+						and 24th of 36 Neighbourhood Main Streets.
+					</p>
+					<p>
+						Since 2019 before the pandemic shutdowns, overall visit counts have decreased by more
+						than 50% by 2022. But the level of visits relative to 2019 have been slowly recovering
+						since the beginning of 2022. While this segment of 118 Avenue has relied primarily on
+						infrequent visitors from across the region, despite visits across the board decreasing
+						since 2019, resident and recurring visits have remained stable between 2021 and 2022 but
+						have not recovered fully.
+					</p>
+					<p>
+						It is busiest during the 12pm to 6pm period, with Friday being the busiest day but by
+						only slightly over Saturday.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -749,7 +851,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -801,8 +903,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

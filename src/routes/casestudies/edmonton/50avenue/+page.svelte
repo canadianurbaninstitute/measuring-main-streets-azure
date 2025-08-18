@@ -3,38 +3,36 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import FiftyAvenue from '../../../lib/assets/boundaries/edmontonboundaries/50Avenue.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/50avenue/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/50avenue/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/50avenue/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/50avenue/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/50avenue/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/50avenue/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/50avenue/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/50avenue/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/50avenue/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/50avenue/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/50avenue/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/50avenue/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/50avenue/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/50avenue/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
 
-
-	import { visitorMapStore } from '../../../lib/mapStore';
+	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -60,8 +58,6 @@
 	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
-
-
 </script>
 
 <svelte:head>
@@ -80,10 +76,14 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-										<h2>Overview</h2>
-<p>The case study aims to provide an overview of the case study area; through a combination of interactive maps, charts and data analysis. </p>
-<p>
-The map displays the boundaries of the case study, overlaid on the main street network. </p>
+					<h2>Overview</h2>
+					<p>
+						The case study aims to provide an overview of the case study area; through a combination
+						of interactive maps, charts and data analysis.
+					</p>
+					<p>
+						The map displays the boundaries of the case study, overlaid on the main street network.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -102,7 +102,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={15}
 						pitch={50}
 						bearing={0}
@@ -115,7 +115,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-<h2>Built Form</h2>
+					<h2>Built Form</h2>
 					<p>
 						The built form of the case study area is represented through the 3D building layer,
 						transit stops and lines, as well as green space, including a comparative graph of the %
@@ -144,7 +144,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={15.5}
 						minZoom={15}
 						pitch={60}
@@ -262,7 +262,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={14.5}
 						minZoom={13}
 						pitch={0}
@@ -364,7 +364,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={14.5}
 						minZoom={13}
 						pitch={0}
@@ -408,7 +408,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={14.5}
 						minZoom={13}
 						pitch={0}
@@ -476,7 +476,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={14.5}
 						minZoom={13}
 						pitch={0}
@@ -548,7 +548,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={14.5}
 						minZoom={13}
 						pitch={0}
@@ -574,7 +574,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -600,7 +599,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clt4ms9rr02i701p4f1h72p78'}
-						center={[-113.550, 53.265]}
+						center={[-113.55, 53.265]}
 						zoom={9}
 						pitch={0}
 						bearing={0}
@@ -672,7 +671,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -724,8 +723,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

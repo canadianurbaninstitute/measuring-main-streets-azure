@@ -1,8 +1,9 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
 	import Icon from '@iconify/svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import EmpSizeLegend from '../../assets/employmentsizelegend.svg';
-	import { mapStoreList } from '../../mapStore'; // Import the mapStore
+	import { mapStoreList } from '../../stores/mapStore';
+	// Import the mapStore
 
 	export let layers = [];
 	export let minZoom = 14.1;
@@ -29,15 +30,29 @@
 			const zoom = isChecked ? minZoom : maxZoom;
 			const opacity = isChecked ? 0.8 : 1;
 			const radius = isChecked
-			? ['step', ['coalesce', ['get', 'empsize_EmpSzNm'], ['get', 'EmpSizeNum']], 5, 5, 10, 10, 15, 50, 20, 100, 25, 1000, 5]
-			: 5;
+				? [
+						'step',
+						['coalesce', ['get', 'empsize_EmpSzNm'], ['get', 'EmpSizeNum']],
+						5,
+						5,
+						10,
+						10,
+						15,
+						50,
+						20,
+						100,
+						25,
+						1000,
+						5
+					]
+				: 5;
 
 			for (let i = 0; i < layerList.length; i++) {
 				const layerId = layerList[i];
 				const currentOpacity = map.getPaintProperty(layerId, 'circle-opacity');
 				if (currentOpacity != 0) {
-				map.setPaintProperty(layerId, 'circle-radius', radius);
-				map.setPaintProperty(layerId, 'circle-opacity', opacity);
+					map.setPaintProperty(layerId, 'circle-radius', radius);
+					map.setPaintProperty(layerId, 'circle-opacity', opacity);
 				}
 			}
 
@@ -89,7 +104,8 @@
 		border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		display: flex;
@@ -118,15 +134,18 @@
 
 	button:hover {
 		cursor: pointer;
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
 
 	button:active {
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
-			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25), 0px 1px 0px 0px rgba(225, 228, 232, 0.2);
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25),
+			0px 1px 0px 0px rgba(225, 228, 232, 0.2);
 		background-color: #edeff2;
 		transition: 0.3s;
 	}

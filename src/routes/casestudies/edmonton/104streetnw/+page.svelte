@@ -40,7 +40,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { visitorMapStore, mapStoreList } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -72,7 +72,6 @@
 	/*                                   Stores                                   */
 	/* -------------------------------------------------------------------------- */
 
-
 	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
@@ -91,15 +90,23 @@
 </svelte:head>
 
 <main>
-	<Title outline={HundredFourStreetNW} name={'104 Street NW (Calgary Trail)'} location={'Edmonton, Alberta'} />
+	<Title
+		outline={HundredFourStreetNW}
+		name={'104 Street NW (Calgary Trail)'}
+		location={'Edmonton, Alberta'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-										<h2>Overview</h2>
-<p>The case study aims to provide an overview of the case study area; through a combination of interactive maps, charts and data analysis. </p>
-<p>
-The map displays the boundaries of the case study, overlaid on the main street network. </p>
+					<h2>Overview</h2>
+					<p>
+						The case study aims to provide an overview of the case study area; through a combination
+						of interactive maps, charts and data analysis.
+					</p>
+					<p>
+						The map displays the boundaries of the case study, overlaid on the main street network.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -131,7 +138,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-<h2>Built Form</h2>
+					<h2>Built Form</h2>
 					<p>
 						The built form of the case study area is represented through the 3D building layer,
 						transit stops and lines, as well as green space, including a comparative graph of the %
@@ -158,7 +165,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'104streetnw'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9lyhc9003801qo3ks8aepj'}
@@ -243,7 +249,12 @@ The map displays the boundaries of the case study, overlaid on the main street n
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'104streetnw-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'104streetnw-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -253,7 +264,8 @@ The map displays the boundaries of the case study, overlaid on the main street n
 									'civicinfra-edmonton-health',
 									'civicinfra-edmonton-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
@@ -467,7 +479,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
@@ -584,7 +596,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -682,7 +693,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -734,8 +745,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

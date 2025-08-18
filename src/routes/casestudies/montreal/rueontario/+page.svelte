@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueOntario from '../../../lib/assets/boundaries/montrealboundaries/RueOntario.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal/rueontario/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/rueontario/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal/rueontario/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/rueontario/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal/rueontario/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal/rueontario/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal/rueontario/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal/rueontario/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/rueontario/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/rueontario/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/rueontario/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/rueontario/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/rueontario/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/rueontario/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +82,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -209,16 +209,36 @@ setConfig({
 
 <main>
 	<Title outline={RueOntario} name={'Rue Ontario (Hochelaga)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/rueontario'} fr={'/casestudies/montreal-fr/rueontario-fr'} selected='eng'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/rueontario'}
+		fr={'/casestudies/montreal-fr/rueontario-fr'}
+		selected="eng"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Rue Ontario is a primarily commercial and mixed-use east-west street that cuts through downtown Montreal and much of the southern end of the island of Montreal. This segment is situated in the Mercier-Hochelaga-Maisonneuve borough and serves as a primary commercial main street in the Hochelaga neighbourhood. A historically working class and industrial Francophone neighbourhood, Hochelaga has experienced recent physical and demographic changes as new investment and residents enter the area. </p>
-					<p>Rue Ontario blends into the Hochelaga neighbourhood to the north, enjoys convenient access to the Green line of the metro to the west, is flanked to the south by a rail corridor and the Port of Montreal. </p>
-					<p>This segment of the street is pedestrianized in the summer which introduces temporary street furniture, patios, street art, and programming. Programming on the street is managed by Promenade Ontario, the société de développement commercial (SDC) for Hochelaga-Maisonneuve.</p>
+					<p>
+						Rue Ontario is a primarily commercial and mixed-use east-west street that cuts through
+						downtown Montreal and much of the southern end of the island of Montreal. This segment
+						is situated in the Mercier-Hochelaga-Maisonneuve borough and serves as a primary
+						commercial main street in the Hochelaga neighbourhood. A historically working class and
+						industrial Francophone neighbourhood, Hochelaga has experienced recent physical and
+						demographic changes as new investment and residents enter the area.
+					</p>
+					<p>
+						Rue Ontario blends into the Hochelaga neighbourhood to the north, enjoys convenient
+						access to the Green line of the metro to the west, is flanked to the south by a rail
+						corridor and the Port of Montreal.
+					</p>
+					<p>
+						This segment of the street is pedestrianized in the summer which introduces temporary
+						street furniture, patios, street art, and programming. Programming on the street is
+						managed by Promenade Ontario, the société de développement commercial (SDC) for
+						Hochelaga-Maisonneuve.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -251,8 +271,21 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>Rue Ontario is a two-lane street lined with two- to three-storey buildings featuring ground floor retail. The upper floors are a mix of residential and commercial spaces. When the street is not pedestrianized, street parking and bus stops are present on both sides of the road. The street was pedestrianized between June and September 2023, from Rue Darling to Boulevard Pie-IX, providing an open street for the enjoyment of residents and visitors free of vehicular traffic. Access ramps were installed to provide greater access to businesses and terraces.</p>
-					<p>Although there is minimal green space on Ontario street, the proximity to Lalancette park and the Olympic park results in this area being well above the Montreal average in terms of access to green space. The surrounding area is primarily residential and characterized by low-rise apartments of two to four stories and multiplexes. </p>
+					<p>
+						Rue Ontario is a two-lane street lined with two- to three-storey buildings featuring
+						ground floor retail. The upper floors are a mix of residential and commercial spaces.
+						When the street is not pedestrianized, street parking and bus stops are present on both
+						sides of the road. The street was pedestrianized between June and September 2023, from
+						Rue Darling to Boulevard Pie-IX, providing an open street for the enjoyment of residents
+						and visitors free of vehicular traffic. Access ramps were installed to provide greater
+						access to businesses and terraces.
+					</p>
+					<p>
+						Although there is minimal green space on Ontario street, the proximity to Lalancette
+						park and the Olympic park results in this area being well above the Montreal average in
+						terms of access to green space. The surrounding area is primarily residential and
+						characterized by low-rise apartments of two to four stories and multiplexes.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -272,7 +305,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'rueontario'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr6sevh1012q01qx7agy1jq6'}
@@ -357,7 +389,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'rueontario-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'rueontario-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -367,13 +404,31 @@ setConfig({
 									'civicinfra-montreal-health',
 									'civicinfra-montreal-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>This section of rue Ontario is a well-serviced and amenity-rich area due to the prevalence and proximity to a number of key civic infrastructures. Along the street, there is a high prevalence of health and care facilities to serve and support local residents. Within a 10-minute walk to the street, the area boasts all categories of civic infrastructure. </p>
-					<p>The société de développement commercial (SDC) for Hochelaga-Maisonneuve and the summer pedestrianization results in the installation of temporary infrastructure to support civic, social, and commercial life on the street. This includes temporary street furniture, signage, street art, and programming for all ages. During our observer's visit on a hot and cloudy Monday afternoon in July 2023, Rue Ontario was a destination well-utilized by visitors.</p>
-					<p>According to the Civic Infrastructure Index, rue Ontario lags behind other Montreal Main Street case studies. In terms of its civic opportunity, rue Ontario sits at just 17th out of 20 Montreal Main Streets and 24th out of 36 residential main streets. </p>
+					<p>
+						This section of rue Ontario is a well-serviced and amenity-rich area due to the
+						prevalence and proximity to a number of key civic infrastructures. Along the street,
+						there is a high prevalence of health and care facilities to serve and support local
+						residents. Within a 10-minute walk to the street, the area boasts all categories of
+						civic infrastructure.
+					</p>
+					<p>
+						The société de développement commercial (SDC) for Hochelaga-Maisonneuve and the summer
+						pedestrianization results in the installation of temporary infrastructure to support
+						civic, social, and commercial life on the street. This includes temporary street
+						furniture, signage, street art, and programming for all ages. During our observer's
+						visit on a hot and cloudy Monday afternoon in July 2023, Rue Ontario was a destination
+						well-utilized by visitors.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, rue Ontario lags behind other Montreal Main
+						Street case studies. In terms of its civic opportunity, rue Ontario sits at just 17th
+						out of 20 Montreal Main Streets and 24th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -445,7 +500,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'rueontario-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'rueontario-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -453,16 +513,37 @@ setConfig({
 									'business-montreal-services',
 									'business-montreal-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Rue Ontario hosts a distinctive mix of newer commercial establishments and older ones. These businesses represent a relatively equal split among the different categories of business - retail, services, and food and drink. This commercial mix features restaurants and cafes, specialty shops, thrift stores, hardware stores, and personal service providers. The combination of old and new serves as a visual representation of change in the neighbourhood.</p>
-					<p>During the pedestrian summer months, businesses spill out onto the street, with restaurant terraces and retail merchandise displays. The street's establishments are mostly independently run, with a few chains present.</p>
-					<p>As a symbol of change in the neighbourhood, there are visible storefront vacancies along with for lease and for sale signs.</p>
-					<p>According to the Independent Business Index, rue Ontario lags behind other Montreal Main Street case studies in terms of business independence, ranking 17th out of 20 Montreal Main Streets and 24th out of 36 residential main streets.</p>
-					<p>However, rue Ontario does have a relatively high business density, ranking 7th out of 20 Montreal main streets and 6th out of 36 residential main streets. </p>
-
+					<p>
+						Rue Ontario hosts a distinctive mix of newer commercial establishments and older ones.
+						These businesses represent a relatively equal split among the different categories of
+						business - retail, services, and food and drink. This commercial mix features
+						restaurants and cafes, specialty shops, thrift stores, hardware stores, and personal
+						service providers. The combination of old and new serves as a visual representation of
+						change in the neighbourhood.
+					</p>
+					<p>
+						During the pedestrian summer months, businesses spill out onto the street, with
+						restaurant terraces and retail merchandise displays. The street's establishments are
+						mostly independently run, with a few chains present.
+					</p>
+					<p>
+						As a symbol of change in the neighbourhood, there are visible storefront vacancies along
+						with for lease and for sale signs.
+					</p>
+					<p>
+						According to the Independent Business Index, rue Ontario lags behind other Montreal Main
+						Street case studies in terms of business independence, ranking 17th out of 20 Montreal
+						Main Streets and 24th out of 36 residential main streets.
+					</p>
+					<p>
+						However, rue Ontario does have a relatively high business density, ranking 7th out of 20
+						Montreal main streets and 6th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -501,9 +582,22 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Representative of the commercial nature of Rue Ontario, many of the employers along the street are businesses. Although civic infrastructure is less prevalent than businesses in the area, many of the civic infrastructure establishments employ larger numbers of people than the surrounding businesses. </p>
-					<p>In the wider neighbourhood surrounding Rue Ontario, there are other clusters of business activity, such as along Rue Saint Catherine to the south. But, there are also many other types of employers, which shows the mix of employment opportunities in the Hochelaga area of Rue Ontario. </p>
-					<p>Overall, rue Ontario ranks 11th out of 20 Montreal main streets and 11th out 36 residential main streets in terms of its employment density. </p>
+					<p>
+						Representative of the commercial nature of Rue Ontario, many of the employers along the
+						street are businesses. Although civic infrastructure is less prevalent than businesses
+						in the area, many of the civic infrastructure establishments employ larger numbers of
+						people than the surrounding businesses.
+					</p>
+					<p>
+						In the wider neighbourhood surrounding Rue Ontario, there are other clusters of business
+						activity, such as along Rue Saint Catherine to the south. But, there are also many other
+						types of employers, which shows the mix of employment opportunities in the Hochelaga
+						area of Rue Ontario.
+					</p>
+					<p>
+						Overall, rue Ontario ranks 11th out of 20 Montreal main streets and 11th out 36
+						residential main streets in terms of its employment density.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -560,13 +654,21 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>There are a number of features that characterize the housing on rue Ontario and in the surrounding Hochelaga neighbourhood. The housing is comprised almost exclusively of plexes and low-rise apartments of under five stories. This is representative of the “missing middle” housing that is prevalent in Montreal but missing in many other Canadian cities. There is also an older housing stock as the majority of dwellings were constructed prior to 1960. Visual observations of the street show that some of these older dwellings may be in in need of external major repairs. Both along rue Ontario and the surrounding area, the rate of renters exceeds the Montreal average.</p>
-
+					<p>
+						There are a number of features that characterize the housing on rue Ontario and in the
+						surrounding Hochelaga neighbourhood. The housing is comprised almost exclusively of
+						plexes and low-rise apartments of under five stories. This is representative of the
+						“missing middle” housing that is prevalent in Montreal but missing in many other
+						Canadian cities. There is also an older housing stock as the majority of dwellings were
+						constructed prior to 1960. Visual observations of the street show that some of these
+						older dwellings may be in in need of external major repairs. Both along rue Ontario and
+						the surrounding area, the rate of renters exceeds the Montreal average.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -633,8 +735,14 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>The majority of residents surrounding Rue Ontario come from families who have been in Canada for three generations or more, indicating a lack of newcomer households when compared to Montreal CMA averages. This is representative of the area's history and identity as a Francophone Quebecois neighbourhood. Relatedly, the majority of residents both on rue Ontario and surrounding it are primarily French-speaking. Additionally, there is a younger age demographic with a small household size along rue Ontario. </p>
-
+					<p>
+						The majority of residents surrounding Rue Ontario come from families who have been in
+						Canada for three generations or more, indicating a lack of newcomer households when
+						compared to Montreal CMA averages. This is representative of the area's history and
+						identity as a Francophone Quebecois neighbourhood. Relatedly, the majority of residents
+						both on rue Ontario and surrounding it are primarily French-speaking. Additionally,
+						there is a younger age demographic with a small household size along rue Ontario.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -665,7 +773,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -678,8 +785,20 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>In 2019, Rue Ontario saw nearly 4.5 million unique visitors throughout the entire year. The impact of the COVID-19 pandemic on visits to Ontario street was significant as 2022 visitor numbers are hovering at approximately 60 percent of 2019. This loss in visits came primarily from infrequent visits from individuals outside of the Ontario street area. While the 2019-2022 period also saw a significant drop in resident visitors most likely due to COVID-19 restrictions, resident visits have mostly recovered. This signifies the importance and vitality of Ontario street as a local main street. </p>
-					<p>Overall, in terms of street resilience and visitor recovery, rue Ontario trails behind other Montreal main streets and residential main streets. Rue Ontario ranks 9th out of 20 in visitor resiliency in the region and 25th out of 36 residential main streets. </p>
+					<p>
+						In 2019, Rue Ontario saw nearly 4.5 million unique visitors throughout the entire year.
+						The impact of the COVID-19 pandemic on visits to Ontario street was significant as 2022
+						visitor numbers are hovering at approximately 60 percent of 2019. This loss in visits
+						came primarily from infrequent visits from individuals outside of the Ontario street
+						area. While the 2019-2022 period also saw a significant drop in resident visitors most
+						likely due to COVID-19 restrictions, resident visits have mostly recovered. This
+						signifies the importance and vitality of Ontario street as a local main street.
+					</p>
+					<p>
+						Overall, in terms of street resilience and visitor recovery, rue Ontario trails behind
+						other Montreal main streets and residential main streets. Rue Ontario ranks 9th out of
+						20 in visitor resiliency in the region and 25th out of 36 residential main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -756,7 +875,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -808,8 +927,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

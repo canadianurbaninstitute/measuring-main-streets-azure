@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueStAnne from '../../../lib/assets/boundaries/montrealboundaries/RueStAnne.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruestanne/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruestanne/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal/ruestanne/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruestanne/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal/ruestanne/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal/ruestanne/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruestanne/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal/ruestanne/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestanne/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestanne/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruestanne/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/ruestanne/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestanne/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruestanne/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +82,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -208,17 +208,39 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={RueStAnne} name={'Rue St. Anne (Sainte Anne de Bellevue)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruestanne'} fr={'/casestudies/montreal-fr/ruestanne-fr'} selected='eng'/>
+	<Title
+		outline={RueStAnne}
+		name={'Rue St. Anne (Sainte Anne de Bellevue)'}
+		location={'Montreal, Québec'}
+	/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruestanne'}
+		fr={'/casestudies/montreal-fr/ruestanne-fr'}
+		selected="eng"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Located on what's known as the West Island of Montreal, Sainte-Anne-de-Bellevue is a small and predominantly English-speaking on-island suburb on the western tip of the island of Montreal. Sainte-Anne-de-Bellevue is home to a number of key points of interest that serve both local residents and visitors to the small town. These include the Morgan Arboretum, the L'Anse-à-l'Orme Nature Park, John Abbott College, McGill University’s Macdonald Campus, and the Sainte-Anne-de-Bellevue Canal. Running parallel to the National Historic Site of Canada recognized Sainte-Anne-de-Bellevue Canal is rue Sainte-Anne – Sainte-Anne-de-Bellevue’s main commercial street that traverses through the historic town center.</p>
-					<p>Rue Sainte Anne is a quaint main street with picturesque heritage architecture. Beyond its historical and touristic charm, rue Sainte Anne offers a wide variety of waterfront restaurants, independent boutiques, and access to the waterfront and promenade along the Canal.</p>
-
+					<p>
+						Located on what's known as the West Island of Montreal, Sainte-Anne-de-Bellevue is a
+						small and predominantly English-speaking on-island suburb on the western tip of the
+						island of Montreal. Sainte-Anne-de-Bellevue is home to a number of key points of
+						interest that serve both local residents and visitors to the small town. These include
+						the Morgan Arboretum, the L'Anse-à-l'Orme Nature Park, John Abbott College, McGill
+						University’s Macdonald Campus, and the Sainte-Anne-de-Bellevue Canal. Running parallel
+						to the National Historic Site of Canada recognized Sainte-Anne-de-Bellevue Canal is rue
+						Sainte-Anne – Sainte-Anne-de-Bellevue’s main commercial street that traverses through
+						the historic town center.
+					</p>
+					<p>
+						Rue Sainte Anne is a quaint main street with picturesque heritage architecture. Beyond
+						its historical and touristic charm, rue Sainte Anne offers a wide variety of waterfront
+						restaurants, independent boutiques, and access to the waterfront and promenade along the
+						Canal.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -252,11 +274,25 @@ setConfig({
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
 
-						<p>The buildings along rue Sainte-Anne primarily consist of low-rise structures with ground floor retail spaces. The surrounding area is predominantly residential, featuring a mix of single-detached houses and low-rise apartments.</p>
-						<p>Rue Sainte-Anne is a two-way street with one lane for traffic in each direction. While street parking is available in certain sections, the narrow width of the street limits parking availability. Although there are no designated bike lanes, on a hot summer day, a number of cyclists were observed using the street.</p>
-						<p>Just south of rue Sainte-Anne is the Promenade du Canal, a boardwalk that runs along the Canal. There are numerous connections between rue Sainte-Anne and the promenade, facilitated by surrounding restaurants and pathways, creating a seamless link between the two. The promenade itself offers various amenities for visitors, including ample tree cover, picnic tables, benches, water fountains, and trash cans, inviting individuals to linger and enjoy the surroundings.</p>
-	
-
+					<p>
+						The buildings along rue Sainte-Anne primarily consist of low-rise structures with ground
+						floor retail spaces. The surrounding area is predominantly residential, featuring a mix
+						of single-detached houses and low-rise apartments.
+					</p>
+					<p>
+						Rue Sainte-Anne is a two-way street with one lane for traffic in each direction. While
+						street parking is available in certain sections, the narrow width of the street limits
+						parking availability. Although there are no designated bike lanes, on a hot summer day,
+						a number of cyclists were observed using the street.
+					</p>
+					<p>
+						Just south of rue Sainte-Anne is the Promenade du Canal, a boardwalk that runs along the
+						Canal. There are numerous connections between rue Sainte-Anne and the promenade,
+						facilitated by surrounding restaurants and pathways, creating a seamless link between
+						the two. The promenade itself offers various amenities for visitors, including ample
+						tree cover, picnic tables, benches, water fountains, and trash cans, inviting
+						individuals to linger and enjoy the surroundings.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -276,7 +312,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'ruestanne'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr7woapp000601qh4reh2jlg'}
@@ -361,7 +396,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'ruestanne-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'ruestanne-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -371,14 +411,36 @@ setConfig({
 									'civicinfra-montreal-health',
 									'civicinfra-montreal-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					
-					<p>Rue Sainte-Anne is relatively well served by both health and care facilities and government and community services. These health care facilities are primarily small and independent health clinics. Within a ten-minute walk, the presence of McGill University’s Macdonald Campus and John Abbott College among other educational institutions makes the area well served by education civic infrastructure. On rue Sainte-Anne itself, there is one small park that features some programming. In the summer months, for example, a stage was built in the park and signage indicated a small public music event happening in the park and on the street. The nearby Promenade du Canal offers a wider variety and quantity of amenities to visitors including benches, picnic tables, and water fountains.</p>
-					<p>Despite these key amenities, rue Sainte-Anne is underserved in regard to other key civic infrastructures such as arts and culture and recreation. However, within a ten-minute walk, these civic infrastructures do become available to residents of rue Sainte-Anne at similar rates as the Montreal CMA average.</p>
-					<p>According to the Civic Infrastructure index, rue Sainte-Anne lags behind most other Montreal and residential main street case studies. In terms of its civic opportunity, rue Sainte-Anne ranks 18th out of 20 Montreal main streets and 11th out of 12 small town main streets.</p>
+
+					<p>
+						Rue Sainte-Anne is relatively well served by both health and care facilities and
+						government and community services. These health care facilities are primarily small and
+						independent health clinics. Within a ten-minute walk, the presence of McGill
+						University’s Macdonald Campus and John Abbott College among other educational
+						institutions makes the area well served by education civic infrastructure. On rue
+						Sainte-Anne itself, there is one small park that features some programming. In the
+						summer months, for example, a stage was built in the park and signage indicated a small
+						public music event happening in the park and on the street. The nearby Promenade du
+						Canal offers a wider variety and quantity of amenities to visitors including benches,
+						picnic tables, and water fountains.
+					</p>
+					<p>
+						Despite these key amenities, rue Sainte-Anne is underserved in regard to other key civic
+						infrastructures such as arts and culture and recreation. However, within a ten-minute
+						walk, these civic infrastructures do become available to residents of rue Sainte-Anne at
+						similar rates as the Montreal CMA average.
+					</p>
+					<p>
+						According to the Civic Infrastructure index, rue Sainte-Anne lags behind most other
+						Montreal and residential main street case studies. In terms of its civic opportunity,
+						rue Sainte-Anne ranks 18th out of 20 Montreal main streets and 11th out of 12 small town
+						main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -450,7 +512,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'ruestanne-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'ruestanne-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -458,13 +525,32 @@ setConfig({
 									'business-montreal-services',
 									'business-montreal-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Rue Sainte-Anne serves as a main commercial street due to its dense concentration of businesses compared to the surrounding area. The majority of the businesses found on rue Sainte-Anne are restaurants and other food and drink establishments. Sainte-Anne-de-Bellevue is a small town, but rue Sainte-Anne offers a wide variety and quantity of food options including Thai and seafood restaurants, ice cream shops, and cafes such as the local favorite café Twig. In the warm summer months, some of the restaurants have outdoor patios and terraces that spill out onto the sidewalk, creating an indoor-outdoor connection with the street itself. On the southern side of the street, many of the restaurants have patios offering waterfront dining along the Canal. Rue Sainte-Anne also boasts a number of independent boutiques.</p>
-					<p>According to the Independent Business Index, rue Sainte-Anne ranks 11th out of 20 Montreal main street case studies and 5th out of 12 small town main streets, in terms of its level of business independence.</p>
-					<p>Similarly, in terms of its business density, the street ranks 13th out of 20 Montreal main streets and 7th out of 12 small town main streets.</p>
+					<p>
+						Rue Sainte-Anne serves as a main commercial street due to its dense concentration of
+						businesses compared to the surrounding area. The majority of the businesses found on rue
+						Sainte-Anne are restaurants and other food and drink establishments.
+						Sainte-Anne-de-Bellevue is a small town, but rue Sainte-Anne offers a wide variety and
+						quantity of food options including Thai and seafood restaurants, ice cream shops, and
+						cafes such as the local favorite café Twig. In the warm summer months, some of the
+						restaurants have outdoor patios and terraces that spill out onto the sidewalk, creating
+						an indoor-outdoor connection with the street itself. On the southern side of the street,
+						many of the restaurants have patios offering waterfront dining along the Canal. Rue
+						Sainte-Anne also boasts a number of independent boutiques.
+					</p>
+					<p>
+						According to the Independent Business Index, rue Sainte-Anne ranks 11th out of 20
+						Montreal main street case studies and 5th out of 12 small town main streets, in terms of
+						its level of business independence.
+					</p>
+					<p>
+						Similarly, in terms of its business density, the street ranks 13th out of 20 Montreal
+						main streets and 7th out of 12 small town main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -503,9 +589,17 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>There is a significant clustering of employment on this section of rue Sainte-Anne. Representative of the dominance of small and independent retail and food and drink establishments on the street, the majority of employment is in the businesses and includes only between zero and 10 employees.</p>
-					<p>However, rue Sainte-Anne lags behind all other Montreal main street case studies in terms of its employment density, as it ranks 20th out of 20 Montreal main streets. Additionally, the street ranks 11th out of 12 small town main streets.</p>
-
+					<p>
+						There is a significant clustering of employment on this section of rue Sainte-Anne.
+						Representative of the dominance of small and independent retail and food and drink
+						establishments on the street, the majority of employment is in the businesses and
+						includes only between zero and 10 employees.
+					</p>
+					<p>
+						However, rue Sainte-Anne lags behind all other Montreal main street case studies in
+						terms of its employment density, as it ranks 20th out of 20 Montreal main streets.
+						Additionally, the street ranks 11th out of 12 small town main streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -562,12 +656,22 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>The population density generally decreases as one moves further away from rue Sainte-Anne, which highlights its presence as a main street. On rue Sainte-Anne, there is some housing on the eastern end of the street segment, but the majority of the housing is located just off rue Sainte-Anne and on the surrounding streets. In terms of the housing stock itself, the buildings are generally older – the majority of housing was built pre-1960 with very minimal new construction since 2001. Additionally, much of the housing is in low-rise apartments, although there is a higher than Montreal average of both semi-detached and high-rise apartments. Despite its suburban location, there is a significantly below average percentage of single-detached housing.</p>
+					<p>
+						The population density generally decreases as one moves further away from rue
+						Sainte-Anne, which highlights its presence as a main street. On rue Sainte-Anne, there
+						is some housing on the eastern end of the street segment, but the majority of the
+						housing is located just off rue Sainte-Anne and on the surrounding streets. In terms of
+						the housing stock itself, the buildings are generally older – the majority of housing
+						was built pre-1960 with very minimal new construction since 2001. Additionally, much of
+						the housing is in low-rise apartments, although there is a higher than Montreal average
+						of both semi-detached and high-rise apartments. Despite its suburban location, there is
+						a significantly below average percentage of single-detached housing.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -634,8 +738,19 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>Rue Sainte-Anne is characterized by several distinctive demographic features that set it apart from its neighboring areas. The presence of McGill University’s Macdonald campus and John Abbott College contributes to a relatively younger population demographic, while the prevalence of low-rise apartments results in smaller household sizes compared to surrounding regions. This, coupled with a significant student presence, correlates with the area's lower average income. Additionally, Rue Sainte-Anne exhibits higher percentages of visible minorities and recent immigrants. Sainte-Anne-de-Bellevue is situated in the English-speaking West Island. As a result, the street itself maintains a predominantly English-speaking population, with a notable absence of native French speakers. However, bilingualism remains prevalent among residents, reflecting the broader linguistic context of the region.</p>
-
+					<p>
+						Rue Sainte-Anne is characterized by several distinctive demographic features that set it
+						apart from its neighboring areas. The presence of McGill University’s Macdonald campus
+						and John Abbott College contributes to a relatively younger population demographic,
+						while the prevalence of low-rise apartments results in smaller household sizes compared
+						to surrounding regions. This, coupled with a significant student presence, correlates
+						with the area's lower average income. Additionally, Rue Sainte-Anne exhibits higher
+						percentages of visible minorities and recent immigrants. Sainte-Anne-de-Bellevue is
+						situated in the English-speaking West Island. As a result, the street itself maintains a
+						predominantly English-speaking population, with a notable absence of native French
+						speakers. However, bilingualism remains prevalent among residents, reflecting the
+						broader linguistic context of the region.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -666,7 +781,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -679,9 +793,25 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>The visitors to Rue Sainte-Anne predominantly consist of infrequent visitors, with the majority of visits occurring over the weekend, particularly on Fridays and Saturdays. Despite the challenges posed by the COVID-19 pandemic, the number of resident and recurring visitors to the street remained relatively stable, indicating consistent local patronage throughout the pandemic. However, there was a notable decline in the number of infrequent visitors during this period.</p>
-					<p>Analysis of visitor origins reveals that a significant portion of daily foot traffic originates from the West Island, indicating that a considerable proportion of Rue Sainte-Anne's visitors hail from the surrounding area. This underscores the street's importance as a local destination within the West Island community.</p>
-					<p>However, in terms of overall street resilience and visitor recovery, rue Sainte-Anne ranks 11th out of 20 in visitor resiliency in the region and 10th out of 12 small town main streets.</p>
+					<p>
+						The visitors to Rue Sainte-Anne predominantly consist of infrequent visitors, with the
+						majority of visits occurring over the weekend, particularly on Fridays and Saturdays.
+						Despite the challenges posed by the COVID-19 pandemic, the number of resident and
+						recurring visitors to the street remained relatively stable, indicating consistent local
+						patronage throughout the pandemic. However, there was a notable decline in the number of
+						infrequent visitors during this period.
+					</p>
+					<p>
+						Analysis of visitor origins reveals that a significant portion of daily foot traffic
+						originates from the West Island, indicating that a considerable proportion of Rue
+						Sainte-Anne's visitors hail from the surrounding area. This underscores the street's
+						importance as a local destination within the West Island community.
+					</p>
+					<p>
+						However, in terms of overall street resilience and visitor recovery, rue Sainte-Anne
+						ranks 11th out of 20 in visitor resiliency in the region and 10th out of 12 small town
+						main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -758,7 +888,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -810,8 +940,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

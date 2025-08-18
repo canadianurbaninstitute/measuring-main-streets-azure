@@ -3,8 +3,9 @@
 	import { onDestroy } from 'svelte';
 
 	// props
+	import { mapStoreList } from '../stores/mapStore';
 	import Legend from './legends/Legend.svelte';
-	import { mapStoreList } from '../mapStore'; // Import the mapStore
+	// Import the mapStore
 
 	export let options = [];
 	export let casestudy;
@@ -204,11 +205,7 @@
 	{/if}
 
 	{#if selected && selected.id === 'average-income'}
-		<Legend
-			maxlabel={'$171,000'}
-			minlabel={'$22,400'}
-			label={'Revenu moyen (Census 2021)'}
-		/>
+		<Legend maxlabel={'$171,000'} minlabel={'$22,400'} label={'Revenu moyen (Census 2021)'} />
 	{/if}
 
 	{#if selected && selected.id === 'visibleminority'}
@@ -265,8 +262,6 @@
 		<Legend maxlabel={'100%'} label={'% Immeubles à hauteur restreinte'} />
 	{/if}
 {/if}
-
-
 
 {#if region && region === 'edmonton'}
 	{#if selected && selected.id === 'average-age'}
@@ -350,7 +345,8 @@
 		border: 1px solid rgba(27, 31, 35, 0.3);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 	}
 

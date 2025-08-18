@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueFleury from '../../../lib/assets/boundaries/montrealboundaries/RueFleury.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruefleury/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruefleury/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/ruefleury/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruefleury/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruefleury/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruefleury/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/ruefleury/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruefleury/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruefleury/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruefleury/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/ruefleury/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/ruefleury/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruefleury/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruefleury/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -209,14 +209,30 @@
 
 <main>
 	<Title outline={RueFleury} name={'Rue Fleury (Ahuntsic)'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruefleury'} fr={'/casestudies/montreal-fr/ruefleury-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruefleury'}
+		fr={'/casestudies/montreal-fr/ruefleury-fr'}
+		selected="fr"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>La rue Fleury est une rue principale commerciale à vocation mixte située dans l’arrondissement Ahuntsic, dans la partie nord de l’île de Montréal. Village indépendant à l’origine, Ahuntsic a d’abord été annexé par la Ville de Montréal en 1910, puis fusionné à l’arrondissement Ahuntsic-Cartierville en 2002.</p><p>Cette section de la rue Fleury, aussi connue sous le nom de Promenade Fleury, s’étend entre la rue Saint-Hubert et l’avenue Papineau. Durant les mois d’été, la SDC (Société de développement commercial) de la Promenade Fleury met en place du mobilier urbain temporaire, des terrasses, de l’art urbain et une programmation pour soutenir ses 250 commerces.</p>
+					<p>
+						La rue Fleury est une rue principale commerciale à vocation mixte située dans
+						l’arrondissement Ahuntsic, dans la partie nord de l’île de Montréal. Village indépendant
+						à l’origine, Ahuntsic a d’abord été annexé par la Ville de Montréal en 1910, puis
+						fusionné à l’arrondissement Ahuntsic-Cartierville en 2002.
+					</p>
+					<p>
+						Cette section de la rue Fleury, aussi connue sous le nom de Promenade Fleury, s’étend
+						entre la rue Saint-Hubert et l’avenue Papineau. Durant les mois d’été, la SDC (Société
+						de développement commercial) de la Promenade Fleury met en place du mobilier urbain
+						temporaire, des terrasses, de l’art urbain et une programmation pour soutenir ses
+						250 commerces.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -249,7 +265,25 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>La rue Fleury est une rue à double sens dotée d’une voie de circulation et d’une voie de stationnement dans chaque direction. La rue n’a pas de voies réservées aux vélos, mais les trottoirs sont larges et offrent suffisamment d’espace pour que les piétons puissent marcher et s’attarder grâce aux bancs, au mobilier urbain et aux arrêts de bus.</p><p>Les bâtiments situés le long de la rue Fleury sont principalement des structures de faible hauteur, dont certaines sont à usage mixte, avec des commerces au rez-de-chaussée et des logements au-dessus. La forme du bâti change également au fur et à mesure que l’on se déplace le long de la rue Fleury, certaines parties de ce segment de rue étant essentiellement commerciales, tandis que d’autres sont principalement résidentielles. L’ensemble crée un paysage commercial et résidentiel prospère sur la rue Fleury.</p><p>Bien qu’il n’y ait pas d’espace vert sur cette section de la rue Fleury, la proximité du parc Ahuntsic, du parc Saint-Paul-de-la-Croix et de la rivière des Prairies rend la rue très accessible à des espaces verts à moins de dix minutes de marche.</p>
+					<p>
+						La rue Fleury est une rue à double sens dotée d’une voie de circulation et d’une voie de
+						stationnement dans chaque direction. La rue n’a pas de voies réservées aux vélos, mais
+						les trottoirs sont larges et offrent suffisamment d’espace pour que les piétons puissent
+						marcher et s’attarder grâce aux bancs, au mobilier urbain et aux arrêts de bus.
+					</p>
+					<p>
+						Les bâtiments situés le long de la rue Fleury sont principalement des structures de
+						faible hauteur, dont certaines sont à usage mixte, avec des commerces au rez-de-chaussée
+						et des logements au-dessus. La forme du bâti change également au fur et à mesure que
+						l’on se déplace le long de la rue Fleury, certaines parties de ce segment de rue étant
+						essentiellement commerciales, tandis que d’autres sont principalement résidentielles.
+						L’ensemble crée un paysage commercial et résidentiel prospère sur la rue Fleury.
+					</p>
+					<p>
+						Bien qu’il n’y ait pas d’espace vert sur cette section de la rue Fleury, la proximité du
+						parc Ahuntsic, du parc Saint-Paul-de-la-Croix et de la rivière des Prairies rend la rue
+						très accessible à des espaces verts à moins de dix minutes de marche.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -373,7 +407,28 @@
 							/>
 						</div>
 					</div>
-					<p>Ce tronçon de la rue Fleury est très bien desservi par les établissements de soins et de santé. Il s’agit principalement de centres de santé et de bien-être indépendants et de petite taille. En comparaison, la rue ne présente pas un pourcentage élevé d’équipements de loisirs et ne comprend pas d’infrastructures artistiques et culturelles. Cependant, à moins de dix minutes de marche, toutes les catégories d’infrastructures municipales sont accessibles aux personnes qui habitent sur la rue Fleury.</p><p>La Société de Développement commercial (SDC) de la Promenade Fleury soutient plus de 250 entreprises, les locaux et les visiteurs le long de la rue. Pendant les mois d’été, la SDC facilite la programmation de la rue, y compris les installations temporaires comme le mobilier urbain, la signalisation, les terrasses, les zones wifi en plein air, et diverses activités pour tous les âges, améliorant ainsi la vie civique, sociale et commerciale.</p><p>Selon l’indice d’infrastructure municipale, la rue Fleury est en retard par rapport à la plupart des autres études de cas de rues principales en matière d’opportunités civiques. La rue se classe 15e sur 20 rues principales de Montréal et 28e sur 36 rues principales résidentielles.</p>
+					<p>
+						Ce tronçon de la rue Fleury est très bien desservi par les établissements de soins et de
+						santé. Il s’agit principalement de centres de santé et de bien-être indépendants et de
+						petite taille. En comparaison, la rue ne présente pas un pourcentage élevé d’équipements
+						de loisirs et ne comprend pas d’infrastructures artistiques et culturelles. Cependant, à
+						moins de dix minutes de marche, toutes les catégories d’infrastructures municipales sont
+						accessibles aux personnes qui habitent sur la rue Fleury.
+					</p>
+					<p>
+						La Société de Développement commercial (SDC) de la Promenade Fleury soutient plus de
+						250 entreprises, les locaux et les visiteurs le long de la rue. Pendant les mois d’été,
+						la SDC facilite la programmation de la rue, y compris les installations temporaires
+						comme le mobilier urbain, la signalisation, les terrasses, les zones wifi en plein air,
+						et diverses activités pour tous les âges, améliorant ainsi la vie civique, sociale et
+						commerciale.
+					</p>
+					<p>
+						Selon l’indice d’infrastructure municipale, la rue Fleury est en retard par rapport à la
+						plupart des autres études de cas de rues principales en matière d’opportunités civiques.
+						La rue se classe 15e sur 20 rues principales de Montréal et 28e sur 36 rues principales
+						résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -463,7 +518,30 @@
 							/>
 						</div>
 					</div>
-					<p>Cette partie de la rue Fleury présente un mélange relativement équilibré de commerces de détail, de services, de restauration et de boissons, avec peu d’inoccupations commerciales observables. La majorité des 250 commerces présents sont indépendants, bien que plusieurs grandes chaînes de magasins et pharmacies soient également présentes. Parmi ces commerces, on trouve un mélange d’établissements plus anciens et plus récents, notamment des restaurants établis de longue date et populaires tels que le restaurant La Citronnelle et L’Estaminet, ainsi que des boutiques telles que la très populaire Casa Luca.</p><p>Bien que la rue ne soit pas piétonne en été, de nombreux restaurants s’étendent sur la chaussée, remplaçant certaines places de stationnement sur la rue par des terrasses et des bancs en plein air.</p><p>Selon l’indice des entreprises indépendantes, la rue Fleury se classe 13e sur 20 rues principales de Montréal et 13e sur 36 rues principales résidentielles en matière d’indépendance commerciale.</p><p>En matière de densité commerciale, la rue se classe 8e sur 20 rues principales de Montréal et 9e sur 36 rues principales résidentielles.</p>
+					<p>
+						Cette partie de la rue Fleury présente un mélange relativement équilibré de commerces de
+						détail, de services, de restauration et de boissons, avec peu d’inoccupations
+						commerciales observables. La majorité des 250 commerces présents sont indépendants, bien
+						que plusieurs grandes chaînes de magasins et pharmacies soient également présentes.
+						Parmi ces commerces, on trouve un mélange d’établissements plus anciens et plus récents,
+						notamment des restaurants établis de longue date et populaires tels que le restaurant La
+						Citronnelle et L’Estaminet, ainsi que des boutiques telles que la très populaire Casa
+						Luca.
+					</p>
+					<p>
+						Bien que la rue ne soit pas piétonne en été, de nombreux restaurants s’étendent sur la
+						chaussée, remplaçant certaines places de stationnement sur la rue par des terrasses et
+						des bancs en plein air.
+					</p>
+					<p>
+						Selon l’indice des entreprises indépendantes, la rue Fleury se classe 13e sur 20 rues
+						principales de Montréal et 13e sur 36 rues principales résidentielles en matière
+						d’indépendance commerciale.
+					</p>
+					<p>
+						En matière de densité commerciale, la rue se classe 8e sur 20 rues principales de
+						Montréal et 9e sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -502,7 +580,23 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>La rue Fleury est une artère principale animée d’une activité commerciale dynamique au sein du quartier d’Ahuntsic, à prédominance résidentielle. Par conséquent, ce secteur de la rue Fleury est une plaque tournante de l’emploi, avec une concentration appréciable de petites entreprises. À l’image de la communauté résidentielle environnante, beaucoup de ces entreprises emploient entre zéro et dix personnes. Alors que la rue Fleury accueille la majorité des emplois liés aux entreprises, la zone environnante présente une plus grande présence d’emplois à plus grande échelle, en particulier dans les services municipaux. Par conséquent, les personnes qui habitent dans cette zone sont bien desservies par un certain nombre de perspectives d’emploi dans les infrastructures municipales, les entreprises ou d’autres services et entreprises.</p><p>Dans l’ensemble, la rue Fleury est à la traîne des autres études de cas de rues principales en matière de densité d’emploi, se classant au 14e rang sur 20 pour la densité d’emploi dans la région et au 25e rang sur 36 rues principales résidentielles.</p>
+					<p>
+						La rue Fleury est une artère principale animée d’une activité commerciale dynamique au
+						sein du quartier d’Ahuntsic, à prédominance résidentielle. Par conséquent, ce secteur de
+						la rue Fleury est une plaque tournante de l’emploi, avec une concentration appréciable
+						de petites entreprises. À l’image de la communauté résidentielle environnante, beaucoup
+						de ces entreprises emploient entre zéro et dix personnes. Alors que la rue Fleury
+						accueille la majorité des emplois liés aux entreprises, la zone environnante présente
+						une plus grande présence d’emplois à plus grande échelle, en particulier dans les
+						services municipaux. Par conséquent, les personnes qui habitent dans cette zone sont
+						bien desservies par un certain nombre de perspectives d’emploi dans les infrastructures
+						municipales, les entreprises ou d’autres services et entreprises.
+					</p>
+					<p>
+						Dans l’ensemble, la rue Fleury est à la traîne des autres études de cas de rues
+						principales en matière de densité d’emploi, se classant au 14e rang sur 20 pour la
+						densité d’emploi dans la région et au 25e rang sur 36 rues principales résidentielles.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -564,7 +658,21 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>La rue Fleury et ses environs sont marqués par des logements plus anciens, dont la majorité a été construite avant 1960. Bien qu’une partie importante ait été construite entre 1961 et 1980, il n’y a eu que très peu de nouveaux logements depuis 2000. La zone présente une densité de population relativement faible, ce qui se reflète dans la présence de maisons individuelles non attenantes, bien qu’en petit nombre. Cette faible densité d’habitation distingue ce quartier des communautés voisines sur l’île de Montréal, en particulier celles situées au sud d’Ahuntsic. Malgré cela, conformément au phénomène bien connu à Montréal des logements intermédiaires, les appartements de faible hauteur dominent en tant que principal type de logement. Le long de la rue Fleury, la plupart des logements sont des immeubles d’habitation de faible hauteur, tandis que les rues résidentielles environnantes sont principalement composées de logements collectifs de trois étages, qui se distinguent par leurs escaliers extérieurs emblématiques de la ville de Montréal.</p>
+					<p>
+						La rue Fleury et ses environs sont marqués par des logements plus anciens, dont la
+						majorité a été construite avant 1960. Bien qu’une partie importante ait été construite
+						entre 1961 et 1980, il n’y a eu que très peu de nouveaux logements depuis 2000. La zone
+						présente une densité de population relativement faible, ce qui se reflète dans la
+						présence de maisons individuelles non attenantes, bien qu’en petit nombre. Cette faible
+						densité d’habitation distingue ce quartier des communautés voisines sur l’île de
+						Montréal, en particulier celles situées au sud d’Ahuntsic. Malgré cela, conformément au
+						phénomène bien connu à Montréal des logements intermédiaires, les appartements de faible
+						hauteur dominent en tant que principal type de logement. Le long de la rue Fleury, la
+						plupart des logements sont des immeubles d’habitation de faible hauteur, tandis que les
+						rues résidentielles environnantes sont principalement composées de logements collectifs
+						de trois étages, qui se distinguent par leurs escaliers extérieurs emblématiques de la
+						ville de Montréal.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -627,11 +735,22 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
-					<p>Plusieurs caractéristiques démographiques et locales clés aident à définir ce segment de la rue Fleury et le quartier Ahuntsic qui l’englobe. La rue Fleury et le quartier Ahuntsic sont tous deux des zones majoritairement de langue française. Sur le plan économique, la région présente une gamme variée de revenus des ménages, comprenant des ménages aisés approchant les 170 000 $ et des revenus plus modestes avoisinant les 50 000 $. En outre, la présence de minorités visibles est importante, et ce pourcentage augmente à mesure que l’on s’éloigne vers l’est. En revanche, il n’y a pas de population autochtone dans le quartier. Alors que la rue Fleury elle-même présente une proportion plus faible d’immigrants récents, les régions voisines affichent des pourcentages plus élevés.</p>
+					<p>
+						Plusieurs caractéristiques démographiques et locales clés aident à définir ce segment de
+						la rue Fleury et le quartier Ahuntsic qui l’englobe. La rue Fleury et le quartier
+						Ahuntsic sont tous deux des zones majoritairement de langue française. Sur le plan
+						économique, la région présente une gamme variée de revenus des ménages, comprenant des
+						ménages aisés approchant les 170 000 $ et des revenus plus modestes avoisinant les
+						50 000 $. En outre, la présence de minorités visibles est importante, et ce pourcentage
+						augmente à mesure que l’on s’éloigne vers l’est. En revanche, il n’y a pas de population
+						autochtone dans le quartier. Alors que la rue Fleury elle-même présente une proportion
+						plus faible d’immigrants récents, les régions voisines affichent des pourcentages plus
+						élevés.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -674,7 +793,23 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>Le rétablissement de la rue Fleury post-COVID a été remarquable par rapport à d’autres rues principales de la région de Montréal. Malgré des baisses significatives du nombre de visiteurs pendant la pandémie, les données les plus récentes montrent une reprise de près de 100 % en matière de niveau de visites par rapport à 2019. Alors que le nombre de visiteurs peu fréquents sur la rue Fleury a considérablement diminué entre 2019 et 2022, le nombre de visites de personnes résidant sur place s’est stabilisé et le nombre de visiteurs récurrents a augmenté de manière significative. Ces données sont encourageantes et représentent le potentiel des rues principales résidentielles à rebondir après les défis associés à la pandémie et à continuer à desservir leurs quartiers.</p><p>En effet, en matière de résilience globale de la rue et de récupération des visiteurs, la rue Fleury se classe 2e sur 20 rues principales de Montréal en matière de résilience des visiteurs et 3e au total sur 36 rues principales résidentielles.</p>
+					<p>
+						Le rétablissement de la rue Fleury post-COVID a été remarquable par rapport à d’autres
+						rues principales de la région de Montréal. Malgré des baisses significatives du nombre
+						de visiteurs pendant la pandémie, les données les plus récentes montrent une reprise de
+						près de 100 % en matière de niveau de visites par rapport à 2019. Alors que le nombre de
+						visiteurs peu fréquents sur la rue Fleury a considérablement diminué entre 2019 et 2022,
+						le nombre de visites de personnes résidant sur place s’est stabilisé et le nombre de
+						visiteurs récurrents a augmenté de manière significative. Ces données sont
+						encourageantes et représentent le potentiel des rues principales résidentielles à
+						rebondir après les défis associés à la pandémie et à continuer à desservir leurs
+						quartiers.
+					</p>
+					<p>
+						En effet, en matière de résilience globale de la rue et de récupération des visiteurs,
+						la rue Fleury se classe 2e sur 20 rues principales de Montréal en matière de résilience
+						des visiteurs et 3e au total sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -751,7 +886,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -803,8 +938,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueSainteCatherine from '../../../lib/assets/boundaries/montrealboundaries/RueSainteCatherine.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal/ruesaintecatherine/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +82,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -209,16 +209,34 @@ setConfig({
 
 <main>
 	<Title outline={RueSainteCatherine} name={'Rue Sainte-Catherine'} location={'Montreal, Québec'} />
-	<LanguageSelector eng={'/casestudies/montreal/ruesaintecatherine'} fr={'/casestudies/montreal-fr/ruesaintecatherine-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruesaintecatherine'}
+		fr={'/casestudies/montreal-fr/ruesaintecatherine-fr'}
+		selected="fr"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Located in the heart of the Quartier des Spectacles - Montreal's major cultural district - Rue Sainte-Catherine is one of the most iconic and bustling commercial thoroughfares in Montreal. As the city’s main commercial artery, it plays a crucial role in Montreal’s economy and cultural fabric. The street stretches across multiple neighborhoods, offering a diverse range of shopping, dining, and entertainment options, making it a popular destination for both locals and tourists.</p>
-					<p>This study focuses on the segment of rue Sainte-Catherine between rue Guy and rue Jeanne Mance due to its placement within the downtown core, the presence of an SDC (Société de développement commercial) which actively supports local businesses, and its strong connection to the Quartier des Spectacles. This area of rue Sainte-Catherine is characterized by major department stores, boutiques, restaurants, large shopping centres, and Montreal’s Contemporary Art Museum as well as festivals such as the Montreal International Jazz Festival and Les Francos de Montreal.</p>
-
+					<p>
+						Located in the heart of the Quartier des Spectacles - Montreal's major cultural district
+						- Rue Sainte-Catherine is one of the most iconic and bustling commercial thoroughfares
+						in Montreal. As the city’s main commercial artery, it plays a crucial role in Montreal’s
+						economy and cultural fabric. The street stretches across multiple neighborhoods,
+						offering a diverse range of shopping, dining, and entertainment options, making it a
+						popular destination for both locals and tourists.
+					</p>
+					<p>
+						This study focuses on the segment of rue Sainte-Catherine between rue Guy and rue Jeanne
+						Mance due to its placement within the downtown core, the presence of an SDC (Société de
+						développement commercial) which actively supports local businesses, and its strong
+						connection to the Quartier des Spectacles. This area of rue Sainte-Catherine is
+						characterized by major department stores, boutiques, restaurants, large shopping
+						centres, and Montreal’s Contemporary Art Museum as well as festivals such as the
+						Montreal International Jazz Festival and Les Francos de Montreal.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -251,9 +269,23 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>This section of rue Sainte-Catherine exhibits a distinct built form that changes as one moves from its eastern end to the western end. Near rue Jeanne Mance, on the eastern end, the street has undergone renovations, resulting in wider sidewalks in place of street parking. Here, the street is characterized by a single circulation lane, allowing for a more pedestrian-friendly environment. In the Quartier des Spectacles area near rue Jeanne Mance, rue Sainte-Catherine is completely pedestrianized and weaves into the plazas and open spaces outside of the Contemporary Art Museum. Closer to rue Guy, on the western end of the street segment, the street is not recently renovated and instead includes two circulation lanes and two parking lanes. Importantly, all buildings along this street include ground-floor retail.</p>
-					<p>Rue Sainte-Catherine is relatively underserved in terms of greenspace directly along the street. However, its central position ensures ample greenspace is available within a ten-minute walk.</p>
-
+					<p>
+						This section of rue Sainte-Catherine exhibits a distinct built form that changes as one
+						moves from its eastern end to the western end. Near rue Jeanne Mance, on the eastern
+						end, the street has undergone renovations, resulting in wider sidewalks in place of
+						street parking. Here, the street is characterized by a single circulation lane, allowing
+						for a more pedestrian-friendly environment. In the Quartier des Spectacles area near rue
+						Jeanne Mance, rue Sainte-Catherine is completely pedestrianized and weaves into the
+						plazas and open spaces outside of the Contemporary Art Museum. Closer to rue Guy, on the
+						western end of the street segment, the street is not recently renovated and instead
+						includes two circulation lanes and two parking lanes. Importantly, all buildings along
+						this street include ground-floor retail.
+					</p>
+					<p>
+						Rue Sainte-Catherine is relatively underserved in terms of greenspace directly along the
+						street. However, its central position ensures ample greenspace is available within a
+						ten-minute walk.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -273,7 +305,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'ruesaintecatherine'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr6vs03l00m101qv9wvk98ji'}
@@ -358,7 +389,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'ruesaintecatherine-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'ruesaintecatherine-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -368,14 +404,35 @@ setConfig({
 									'civicinfra-montreal-health',
 									'civicinfra-montreal-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Rue Sainte-Catherine is in the heart of the downtown core and thus is very well served by all types of civic infrastructure. Due to the downtown serving as a key tourist destination, there is a much larger percentage of arts and culture infrastructure compared to the Montreal CMA average.</p>
-					<p>On the eastern end of the street segment is the Place des Arts – the largest cultural and artistic complex in Canada. Beyond the music venues, cultural spaces, and museums, the square itself serves key civic purposes and is the central location of several festivals year-round. The square is also highly programmed with signage, street furniture, cooling stations in the summer, and much more. As a result, it is a busy square that attracts lots of visitors and tourists.</p>
-					<p>This section of rue Sainte-Catherine is part of the downtown SDC which coordinates much of the street programming. Signage and branding for the SDC is present all along rue Sainte-Catherine and in the Place des Arts.</p>
-					<p>According to the Civic Infrastructure Index, rue Sainte-Catherine ranks well in terms of its civic opportunity. The street ranks 2nd among all 20 Montreal main streets and 6th out of 12 downtown main streets.</p>
+					<p>
+						Rue Sainte-Catherine is in the heart of the downtown core and thus is very well served
+						by all types of civic infrastructure. Due to the downtown serving as a key tourist
+						destination, there is a much larger percentage of arts and culture infrastructure
+						compared to the Montreal CMA average.
+					</p>
+					<p>
+						On the eastern end of the street segment is the Place des Arts – the largest cultural
+						and artistic complex in Canada. Beyond the music venues, cultural spaces, and museums,
+						the square itself serves key civic purposes and is the central location of several
+						festivals year-round. The square is also highly programmed with signage, street
+						furniture, cooling stations in the summer, and much more. As a result, it is a busy
+						square that attracts lots of visitors and tourists.
+					</p>
+					<p>
+						This section of rue Sainte-Catherine is part of the downtown SDC which coordinates much
+						of the street programming. Signage and branding for the SDC is present all along rue
+						Sainte-Catherine and in the Place des Arts.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, rue Sainte-Catherine ranks well in terms of
+						its civic opportunity. The street ranks 2nd among all 20 Montreal main streets and 6th
+						out of 12 downtown main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -447,7 +504,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'ruesaintecatherine-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'ruesaintecatherine-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -455,15 +517,34 @@ setConfig({
 									'business-montreal-services',
 									'business-montreal-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Rue Sainte-Catherine stands as downtown Montreal's primary commercial thoroughfare, boasting a multitude of businesses lining its streets and surroundings. Additionally, the city's extensive underground network, spanning over 33 kilometers and known as the underground city, intersects beneath and around Rue Sainte-Catherine, offering direct access to metro stations and shopping complexes. Iconic downtown malls such as the Eaton Centre and Complexe Desjardins are easily reachable from the street.</p>
-					<p>The majority of these businesses are retail, with a prevalence of national and international chain stores including Uniqlo, Nike, and Footlocker, alongside various regional and national restaurant and fast food chains. Towards the eastern end, near Place des Arts, some eateries offer outdoor seating during the summer months.</p>
-					<p>According to the Independent Business Index, rue Sainte-Catherine lags behind other Main Street case studies in terms of the level of business independence, ranking 18th out of 20 Montreal main streets and 10th out of 12 downtown main streets.</p>
-					<p>However, rue Sainte-Catherine ranks first of all Montreal main streets and first of all downtown main streets in terms of its business density.</p>
-
+					<p>
+						Rue Sainte-Catherine stands as downtown Montreal's primary commercial thoroughfare,
+						boasting a multitude of businesses lining its streets and surroundings. Additionally,
+						the city's extensive underground network, spanning over 33 kilometers and known as the
+						underground city, intersects beneath and around Rue Sainte-Catherine, offering direct
+						access to metro stations and shopping complexes. Iconic downtown malls such as the Eaton
+						Centre and Complexe Desjardins are easily reachable from the street.
+					</p>
+					<p>
+						The majority of these businesses are retail, with a prevalence of national and
+						international chain stores including Uniqlo, Nike, and Footlocker, alongside various
+						regional and national restaurant and fast food chains. Towards the eastern end, near
+						Place des Arts, some eateries offer outdoor seating during the summer months.
+					</p>
+					<p>
+						According to the Independent Business Index, rue Sainte-Catherine lags behind other Main
+						Street case studies in terms of the level of business independence, ranking 18th out of
+						20 Montreal main streets and 10th out of 12 downtown main streets.
+					</p>
+					<p>
+						However, rue Sainte-Catherine ranks first of all Montreal main streets and first of all
+						downtown main streets in terms of its business density.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -502,8 +583,20 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Situated within Montreal's Central Business District (CBD), rue Sainte-Catherine and its surrounding vicinity serve as a principal employment hub in the city. This area is characterized by a diverse array of employers, spanning various sizes and industries. Given the substantial presence of retail and food establishments, a considerable portion of the workforce is employed within these sectors. Additionally, the landscape is marked by the prominence of large office buildings and skyscrapers, accommodating significant numbers of corporate and office employees. Although less common, employment opportunities in nearby civic infrastructure also contribute to the area's workforce.</p>
-					<p>As a result, rue Sainte-Catherine ranks first in the region and 2nd among all downtown main streets in terms of its employment density.</p>
+					<p>
+						Situated within Montreal's Central Business District (CBD), rue Sainte-Catherine and its
+						surrounding vicinity serve as a principal employment hub in the city. This area is
+						characterized by a diverse array of employers, spanning various sizes and industries.
+						Given the substantial presence of retail and food establishments, a considerable portion
+						of the workforce is employed within these sectors. Additionally, the landscape is marked
+						by the prominence of large office buildings and skyscrapers, accommodating significant
+						numbers of corporate and office employees. Although less common, employment
+						opportunities in nearby civic infrastructure also contribute to the area's workforce.
+					</p>
+					<p>
+						As a result, rue Sainte-Catherine ranks first in the region and 2nd among all downtown
+						main streets in terms of its employment density.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -560,13 +653,21 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Downtown Montreal is primarily characterized by its abundance of office and retail buildings, although residential activity is still present. The housing landscape on and around Sainte-Catherine predominantly consists of condominiums, with a notable emphasis on luxury units. These residences are predominantly situated in high-rise apartment buildings, most of which have been constructed after 2016. Due to the high cost of development and housing in this area, many of the units are relatively small. This is reflected in the area's relatively low population density, despite a high number of housing units, resulting in fewer occupants per unit.</p>
-
+					<p>
+						Downtown Montreal is primarily characterized by its abundance of office and retail
+						buildings, although residential activity is still present. The housing landscape on and
+						around Sainte-Catherine predominantly consists of condominiums, with a notable emphasis
+						on luxury units. These residences are predominantly situated in high-rise apartment
+						buildings, most of which have been constructed after 2016. Due to the high cost of
+						development and housing in this area, many of the units are relatively small. This is
+						reflected in the area's relatively low population density, despite a high number of
+						housing units, resulting in fewer occupants per unit.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -633,7 +734,17 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>The downtown location of Rue Sainte Catherine, coupled with its proximity to major employers, businesses, and universities, contributes to a distinctive local demographic both on and around the street. The housing landscape, primarily comprising small units unsuitable for families, further shapes the area's demographics. These compact units cater more to individuals than families, resulting in a lower average age and household size. Furthermore, the proximity to prominent employers and English-language universities like McGill University and Concordia University, fosters high levels of recent immigrants, a predominance of English speakers, and a notable proportion of bachelor’s degree holders.</p>
+					<p>
+						The downtown location of Rue Sainte Catherine, coupled with its proximity to major
+						employers, businesses, and universities, contributes to a distinctive local demographic
+						both on and around the street. The housing landscape, primarily comprising small units
+						unsuitable for families, further shapes the area's demographics. These compact units
+						cater more to individuals than families, resulting in a lower average age and household
+						size. Furthermore, the proximity to prominent employers and English-language
+						universities like McGill University and Concordia University, fosters high levels of
+						recent immigrants, a predominance of English speakers, and a notable proportion of
+						bachelor’s degree holders.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -664,7 +775,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -677,9 +787,24 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>Downtown Montreal, like most other downtowns across North America, has seen a significant drop in the number of daily visitors since before the COVID-19 pandemic. Notably, hybrid and remote work has reduced the number of daily office workers to the downtowns. As a result, visitor levels today are significantly below the numbers pre-COVID in 2019. At present, the level of visits relative to 2019 is hovering right under 50-percent. While the number of resident visitors has relatively recovered, the number and frequency of recurring and infrequent visitors is significantly lagging.</p>
-					<p>As a result, rue Sainte-Catherine ranks last out of 20 Montreal main streets and 10th out of 12 downtown main streets in terms of street resilience and visitor recovery.</p>
-					<p>To address this, the City of Montreal has developed a number of new initiatives, plans, and programs such as a 24-hour nighttime zone and a downtown revitalization plan to revitalize the downtown core and increase the number of visitors to the area.</p>
+					<p>
+						Downtown Montreal, like most other downtowns across North America, has seen a
+						significant drop in the number of daily visitors since before the COVID-19 pandemic.
+						Notably, hybrid and remote work has reduced the number of daily office workers to the
+						downtowns. As a result, visitor levels today are significantly below the numbers
+						pre-COVID in 2019. At present, the level of visits relative to 2019 is hovering right
+						under 50-percent. While the number of resident visitors has relatively recovered, the
+						number and frequency of recurring and infrequent visitors is significantly lagging.
+					</p>
+					<p>
+						As a result, rue Sainte-Catherine ranks last out of 20 Montreal main streets and 10th
+						out of 12 downtown main streets in terms of street resilience and visitor recovery.
+					</p>
+					<p>
+						To address this, the City of Montreal has developed a number of new initiatives, plans,
+						and programs such as a 24-hour nighttime zone and a downtown revitalization plan to
+						revitalize the downtown core and increase the number of visitors to the area.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -756,7 +881,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -808,8 +933,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

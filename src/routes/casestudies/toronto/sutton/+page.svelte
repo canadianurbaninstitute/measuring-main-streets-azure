@@ -3,45 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import sutton from '../../../lib/assets/boundaries/torontoboundaries/Sutton.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/toronto/sutton/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/toronto/sutton/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/toronto/sutton/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/toronto/sutton/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/toronto/sutton/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/toronto/sutton/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/toronto/sutton/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/toronto/sutton/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/toronto/sutton/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/toronto/sutton/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/sutton/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/sutton/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/toronto/sutton/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/toronto/sutton/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
-
-	import mapboxgl from "mapbox-gl";
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import mapboxgl from 'mapbox-gl';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -83,9 +81,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -215,9 +213,22 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>With a population of approximately 6,000 residents, Sutton is a suburban community situated just two kilometers south of Lake Simcoe. Formerly known as the Village of Sutton until its amalgamation with the Town of Georgina in 1971, Sutton is located in the Regional Municipality of York. Its proximity to Lake Simcoe has made Sutton and its surrounding areas popular tourist and cottage destinations. Sutton is well-served by the York Region Transit (YRT), which provides local, rapid, and specialized transit services across all nine York Region municipalities, as well as by the GO train, offering convenient access to downtown Toronto.</p>
-					<p>High St., situated in historic downtown Sutton, serves as the main street for the community. Despite having a relatively low business density, High St. benefits from the presence of the Downtown Sutton Business Improvement Area (BIA), offering residents and visitors alike a variety of commercial offerings and experiences.</p>
-
+					<p>
+						With a population of approximately 6,000 residents, Sutton is a suburban community
+						situated just two kilometers south of Lake Simcoe. Formerly known as the Village of
+						Sutton until its amalgamation with the Town of Georgina in 1971, Sutton is located in
+						the Regional Municipality of York. Its proximity to Lake Simcoe has made Sutton and its
+						surrounding areas popular tourist and cottage destinations. Sutton is well-served by the
+						York Region Transit (YRT), which provides local, rapid, and specialized transit services
+						across all nine York Region municipalities, as well as by the GO train, offering
+						convenient access to downtown Toronto.
+					</p>
+					<p>
+						High St., situated in historic downtown Sutton, serves as the main street for the
+						community. Despite having a relatively low business density, High St. benefits from the
+						presence of the Downtown Sutton Business Improvement Area (BIA), offering residents and
+						visitors alike a variety of commercial offerings and experiences.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -250,9 +261,20 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>High St. consists of one circulation lane and one on-street parking lane in each direction with no designated cycling lanes or infrastructure. Despite its primary focus on vehicular use, the street's relatively narrow width, combined with a maximum speed limit of 50 km/h and the presence of traffic lights, enhances its suitability for pedestrian and active mobility.</p>
-					<p>The building typology along High St. is predominantly low-density, featuring one- and two-storey structures, some of which are fully-detached, with ground floor retail spaces. However, High St. and the surrounding area within a 10-minute walk are notably lacking in accessibility to green spaces. This disparity becomes particularly evident when compared to the average percentage of greenspace in the Toronto CMA.</p>
-
+					<p>
+						High St. consists of one circulation lane and one on-street parking lane in each
+						direction with no designated cycling lanes or infrastructure. Despite its primary focus
+						on vehicular use, the street's relatively narrow width, combined with a maximum speed
+						limit of 50 km/h and the presence of traffic lights, enhances its suitability for
+						pedestrian and active mobility.
+					</p>
+					<p>
+						The building typology along High St. is predominantly low-density, featuring one- and
+						two-storey structures, some of which are fully-detached, with ground floor retail
+						spaces. However, High St. and the surrounding area within a 10-minute walk are notably
+						lacking in accessibility to green spaces. This disparity becomes particularly evident
+						when compared to the average percentage of greenspace in the Toronto CMA.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -272,7 +294,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'sutton'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5hw60o01a401quf34z533x'}
@@ -357,7 +378,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'sutton-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'sutton-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -367,18 +393,33 @@ setConfig({
 									'civicinfra-toronto-health',
 									'civicinfra-toronto-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>There is a relative clustering of civic infrastructure on High St. and within a 10-minute walking radius of the street. The street itself is well-served by government services, community services, and health facilities. Expanding this scope to include civic infrastructure accessible within a 10-minute walk reveals the availability of educational facilities and arts and culture amenities. Additionally, the Downtown Sutton BIA serves to support the local businesses situated on High St. However, access to recreational facilities is limited for both High St. and its residents. Despite this lack of formal recreational facilities on High St., the popular annual Sutton Fair and Horse Show is located just north of High St and draws visitors and residents to the area.</p>
-					<p>According to the Civic Infrastructure Index, High St. ranks in the middle of the pack compared to other main street case studies. In terms of its civic opportunity, High St. ranks 9th out of 20 Toronto main streets and 5th out of 12 small town main streets.</p>
-
+					<p>
+						There is a relative clustering of civic infrastructure on High St. and within a
+						10-minute walking radius of the street. The street itself is well-served by government
+						services, community services, and health facilities. Expanding this scope to include
+						civic infrastructure accessible within a 10-minute walk reveals the availability of
+						educational facilities and arts and culture amenities. Additionally, the Downtown Sutton
+						BIA serves to support the local businesses situated on High St. However, access to
+						recreational facilities is limited for both High St. and its residents. Despite this
+						lack of formal recreational facilities on High St., the popular annual Sutton Fair and
+						Horse Show is located just north of High St and draws visitors and residents to the
+						area.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, High St. ranks in the middle of the pack
+						compared to other main street case studies. In terms of its civic opportunity, High St.
+						ranks 9th out of 20 Toronto main streets and 5th out of 12 small town main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5hw60o01a401quf34z533x'}
-						center={ [-79.3587, 44.3039]}
+						center={[-79.3587, 44.3039]}
 						zoom={15}
 						minZoom={13.3}
 						pitch={0}
@@ -445,7 +486,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'sutton-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'sutton-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -453,19 +499,36 @@ setConfig({
 									'business-toronto-services',
 									'business-toronto-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>The majority of businesses on High St. are located within the Downtown Sutton BIA boundaries. These businesses are primarily comprised of food and drink establishments and businesses offering various services. While not as prevalent, High St. does still feature several retail businesses. On the nearby Dalton Road, accessible to High St. within a 10-minute walk, is another relative cluster of businesses, including a more significant percentage of retail establishments. The majority of the businesses in the Downtown Sutton BIA and on High St. are independently owned restaurants, shops, and services, offering residents and visitors of downtown Sutton a localized shopping experience.</p>
-					<p>High St. surpasses many other main street case studies in terms of its businesses level of independence, ranking 4th out of 20 Toronto main streets and 6th out 12 small town main streets.</p>
-					<p>However, in terms of business density, the street ranks 12th in the region and 10th out of the 12 small town main streets.</p>
-
+					<p>
+						The majority of businesses on High St. are located within the Downtown Sutton BIA
+						boundaries. These businesses are primarily comprised of food and drink establishments
+						and businesses offering various services. While not as prevalent, High St. does still
+						feature several retail businesses. On the nearby Dalton Road, accessible to High St.
+						within a 10-minute walk, is another relative cluster of businesses, including a more
+						significant percentage of retail establishments. The majority of the businesses in the
+						Downtown Sutton BIA and on High St. are independently owned restaurants, shops, and
+						services, offering residents and visitors of downtown Sutton a localized shopping
+						experience.
+					</p>
+					<p>
+						High St. surpasses many other main street case studies in terms of its businesses level
+						of independence, ranking 4th out of 20 Toronto main streets and 6th out 12 small town
+						main streets.
+					</p>
+					<p>
+						However, in terms of business density, the street ranks 12th in the region and 10th out
+						of the 12 small town main streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5hw60o01a401quf34z533x'}
-						center={ [-79.3587, 44.3039]}
+						center={[-79.3587, 44.3039]}
 						zoom={15}
 						minZoom={13.3}
 						pitch={0}
@@ -499,15 +562,27 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>High St. predominantly hosts small, independent businesses. Reflecting this, most employers on High St. employ between zero to five individuals. While the bulk of employment opportunities are concentrated within the street's businesses, there's also some small-scale employment within civic infrastructure. In the broader vicinity, especially along Dalton Road, larger employers and more opportunities within civic infrastructure can be found. Looking at Sutton's employment landscape as a whole, High St. and its surrounding area emerge as crucial hubs for local employment.</p>
-					<p>However, in terms of overall employment density, High St. has a lower employment density than most other main street case studies. The street ranks 18th out of 20 Toronto main streets in terms of employment density and 9th out of 12 small town main streets.</p>
+					<p>
+						High St. predominantly hosts small, independent businesses. Reflecting this, most
+						employers on High St. employ between zero to five individuals. While the bulk of
+						employment opportunities are concentrated within the street's businesses, there's also
+						some small-scale employment within civic infrastructure. In the broader vicinity,
+						especially along Dalton Road, larger employers and more opportunities within civic
+						infrastructure can be found. Looking at Sutton's employment landscape as a whole, High
+						St. and its surrounding area emerge as crucial hubs for local employment.
+					</p>
+					<p>
+						However, in terms of overall employment density, High St. has a lower employment density
+						than most other main street case studies. The street ranks 18th out of 20 Toronto main
+						streets in terms of employment density and 9th out of 12 small town main streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5hw60o01a401quf34z533x'}
-						center={ [-79.3587, 44.3039]}
+						center={[-79.3587, 44.3039]}
 						zoom={15}
 						minZoom={13.3}
 						pitch={0}
@@ -557,19 +632,29 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Sutton is a small suburban community and as a result it has a very low population density. However, High St. and the areas around it do have a higher population density than the rest of Sutton. This is representative of the presence of low-rise apartment buildings of under five-stories that are present on High St. but nowhere else in the vicinity. Besides this limited presence of low-rise apartments on High St., the vast majority of the remaining housing is in single-detached dwellings.</p>
-					<p>The housing stock itself is old as approximately 50-percent of all housing was built before 1960. The years following saw some new housing being built, but since 2000 virtually no new housing has been built.</p>
-
+					<p>
+						Sutton is a small suburban community and as a result it has a very low population
+						density. However, High St. and the areas around it do have a higher population density
+						than the rest of Sutton. This is representative of the presence of low-rise apartment
+						buildings of under five-stories that are present on High St. but nowhere else in the
+						vicinity. Besides this limited presence of low-rise apartments on High St., the vast
+						majority of the remaining housing is in single-detached dwellings.
+					</p>
+					<p>
+						The housing stock itself is old as approximately 50-percent of all housing was built
+						before 1960. The years following saw some new housing being built, but since 2000
+						virtually no new housing has been built.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5hw60o01a401quf34z533x'}
-						center={ [-79.3587, 44.3039]}
+						center={[-79.3587, 44.3039]}
 						zoom={15}
 						minZoom={13.3}
 						pitch={0}
@@ -583,7 +668,7 @@ setConfig({
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
 								data={housingconstruction}
-												xKey="Construction Year"
+								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
@@ -631,14 +716,27 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>This segment of High St. provides a snapshot of Sutton's demographic landscape, reflecting the mix of recent immigrants, Indigenous population, English and French speakers, and individuals with bachelor’s degrees found throughout the town. However, there are minor differences between High St. residents and those in wider Sutton. The average age in and around High St. tends to be slightly higher, though not markedly so. Additionally, households along High St. and its immediate vicinity are typically smaller, particularly when compared to areas south, west, and east of the street.</p>
-					<p>Interestingly, High St. serves as an economic divide, with areas to the north and northwest generally boasting higher average incomes than those to the south. Lastly, while Sutton as a whole has a low percentage of visible minorities, this specific section of High St. and the nearby southwest area have a slightly larger visible minority population, although still relatively small.</p>
-
+					<p>
+						This segment of High St. provides a snapshot of Sutton's demographic landscape,
+						reflecting the mix of recent immigrants, Indigenous population, English and French
+						speakers, and individuals with bachelor’s degrees found throughout the town. However,
+						there are minor differences between High St. residents and those in wider Sutton. The
+						average age in and around High St. tends to be slightly higher, though not markedly so.
+						Additionally, households along High St. and its immediate vicinity are typically
+						smaller, particularly when compared to areas south, west, and east of the street.
+					</p>
+					<p>
+						Interestingly, High St. serves as an economic divide, with areas to the north and
+						northwest generally boasting higher average incomes than those to the south. Lastly,
+						while Sutton as a whole has a low percentage of visible minorities, this specific
+						section of High St. and the nearby southwest area have a slightly larger visible
+						minority population, although still relatively small.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clq5hw60o01a401quf34z533x'}
-						center={ [-79.3587, 44.3039]}
+						center={[-79.3587, 44.3039]}
 						zoom={15}
 						minZoom={13.3}
 						pitch={0}
@@ -664,7 +762,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -677,10 +774,27 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>High St. has experienced a resurgence in visitors since the onset of the COVID-19 pandemic, underscoring its significance as a key main street and destination within the Sutton area. While many main streets nationwide are grappling with a slow return to pre-pandemic visitor levels, High St. has witnessed notable growth in visitation. Currently, the rate of visits is approximately 125% compared to 2019, indicating a 25% increase in visitation since that time.</p>
-					<p>Importantly, this recovery and growth in visits is consistent across all visitor types - residents, infrequent visitors, and frequent visitors - with most reaching 2019 levels.</p>
-					<p>The majority of visits to High St. occur during daytime hours, between 9 am and 6 pm, and predominantly on weekdays from Tuesday to Friday.</p>
-					<p>As a result, High St. ranks 1st overall in terms of its overall street resilience and visitor recovery among all 20 Toronto main streets and 2nd out of 12 small town main streets.</p>
+					<p>
+						High St. has experienced a resurgence in visitors since the onset of the COVID-19
+						pandemic, underscoring its significance as a key main street and destination within the
+						Sutton area. While many main streets nationwide are grappling with a slow return to
+						pre-pandemic visitor levels, High St. has witnessed notable growth in visitation.
+						Currently, the rate of visits is approximately 125% compared to 2019, indicating a 25%
+						increase in visitation since that time.
+					</p>
+					<p>
+						Importantly, this recovery and growth in visits is consistent across all visitor types -
+						residents, infrequent visitors, and frequent visitors - with most reaching 2019 levels.
+					</p>
+					<p>
+						The majority of visits to High St. occur during daytime hours, between 9 am and 6 pm,
+						and predominantly on weekdays from Tuesday to Friday.
+					</p>
+					<p>
+						As a result, High St. ranks 1st overall in terms of its overall street resilience and
+						visitor recovery among all 20 Toronto main streets and 2nd out of 12 small town main
+						streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -757,7 +871,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -809,8 +923,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

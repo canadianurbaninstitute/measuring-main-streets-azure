@@ -3,44 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import JasperAvenue from '../../../lib/assets/boundaries/edmontonboundaries/JasperAve.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/jasperavenue/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/jasperavenue/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/jasperavenue/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/jasperavenue/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/jasperavenue/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/jasperavenue/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/jasperavenue/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/jasperavenue/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/jasperavenue/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/jasperavenue/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/jasperavenue/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/jasperavenue/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/jasperavenue/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/jasperavenue/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -82,9 +81,9 @@
 	/*                                Photos Setup                                */
 	/* -------------------------------------------------------------------------- */
 
-// Cloudinary Config
+	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -214,9 +213,21 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Jasper Avenue is considered to be <i>the</i> main street of Edmonton. A locale for shopping, dining, and entertainment, Jasper is technically 101 Avenue NW but is one of the select few streets in the city predominantly referred to by its name. The street runs east-west and sits north of the North Saskatchewan River in the centre of downtown Edmonton.</p>
-					<p>Jasper has been Edmonton's commercial street since 1871. Due to the long history of this street, there is a mix of building ages and architectural styles. For example, the Jasper Block is one of the oldest standing 20th century buildings downtown. This Block sits among a backdrop of high-rises, modern buildings, and heritage properties. The Alberta Block, built in 1909, underwent a renovation in 2016. Jasper Avenue acts as a vehicle, transit, and pedestrian corridor as well as the home to many restaurants and long-time made in Edmonton businesses.</p>
-
+					<p>
+						Jasper Avenue is considered to be <i>the</i> main street of Edmonton. A locale for shopping,
+						dining, and entertainment, Jasper is technically 101 Avenue NW but is one of the select few
+						streets in the city predominantly referred to by its name. The street runs east-west and
+						sits north of the North Saskatchewan River in the centre of downtown Edmonton.
+					</p>
+					<p>
+						Jasper has been Edmonton's commercial street since 1871. Due to the long history of this
+						street, there is a mix of building ages and architectural styles. For example, the
+						Jasper Block is one of the oldest standing 20th century buildings downtown. This Block
+						sits among a backdrop of high-rises, modern buildings, and heritage properties. The
+						Alberta Block, built in 1909, underwent a renovation in 2016. Jasper Avenue acts as a
+						vehicle, transit, and pedestrian corridor as well as the home to many restaurants and
+						long-time made in Edmonton businesses.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -235,7 +246,7 @@ setConfig({
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9pse0i004701nsefzddeiw'}
-						center={[-113.502, 53.540]}
+						center={[-113.502, 53.54]}
 						zoom={13}
 						pitch={50}
 						bearing={0}
@@ -249,9 +260,21 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>Jasper Avenue runs directly across Edmonton's downtown and the built form is typical of a North American central business district with a mix of high and low-rise buildings in a relatively dense configuration. A significant amount of traffic can be seen on Jasper. The street is used by all modes of transportation and the parallel streets of 102 and 100 Avenues features dedicated bike lanes. There are six lanes of traffic with wide sidewalks on either side. There is one scramble crosswalk at the intersection between 104 Street NW and Jasper Avenue. If one looks norths along 108, 107, or 106 Streets, the towers of MacEwan University line up.</p>
-					<p>The Valley Line LRT, the oldest running public transit train line in the city, runs underground parallel to Jasper. Two stations, Corona and Bay/Enterprise Square, lay within the study area with a total of nine entrances to access the train.</p>
-
+					<p>
+						Jasper Avenue runs directly across Edmonton's downtown and the built form is typical of
+						a North American central business district with a mix of high and low-rise buildings in
+						a relatively dense configuration. A significant amount of traffic can be seen on Jasper.
+						The street is used by all modes of transportation and the parallel streets of 102 and
+						100 Avenues features dedicated bike lanes. There are six lanes of traffic with wide
+						sidewalks on either side. There is one scramble crosswalk at the intersection between
+						104 Street NW and Jasper Avenue. If one looks norths along 108, 107, or 106 Streets, the
+						towers of MacEwan University line up.
+					</p>
+					<p>
+						The Valley Line LRT, the oldest running public transit train line in the city, runs
+						underground parallel to Jasper. Two stations, Corona and Bay/Enterprise Square, lay
+						within the study area with a total of nine entrances to access the train.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -271,7 +294,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'jasperavenue'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9pse0i004701nsefzddeiw'}
@@ -356,7 +378,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'jasperavenue-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'jasperavenue-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -366,14 +393,26 @@ setConfig({
 									'civicinfra-edmonton-health',
 									'civicinfra-edmonton-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Jasper Avenue features cohesive branding, with the style of light poles and intersection furniture consistent across the study area. Beaver Hill House Park (amisko waciw waskahikan ihtawin), a public space with benches, greenery, and a plaza often used for events and demonstrations, sits at the northeast corner of 105 St and Jasper.</p>
-					<p>A recent project on the perpendicular 108 St has created decorative circular traffic medians with sculptures.</p>
-					<p>Acording to the Civic Infrastructure Index, Jasper ranks 3rd of 20 Edmonton Main Streets and 12 Downtown Main Streets. This is due to its central location and access to civic opportunity.</p>
-
+					<p>
+						Jasper Avenue features cohesive branding, with the style of light poles and intersection
+						furniture consistent across the study area. Beaver Hill House Park (amisko waciw
+						waskahikan ihtawin), a public space with benches, greenery, and a plaza often used for
+						events and demonstrations, sits at the northeast corner of 105 St and Jasper.
+					</p>
+					<p>
+						A recent project on the perpendicular 108 St has created decorative circular traffic
+						medians with sculptures.
+					</p>
+					<p>
+						Acording to the Civic Infrastructure Index, Jasper ranks 3rd of 20 Edmonton Main Streets
+						and 12 Downtown Main Streets. This is due to its central location and access to civic
+						opportunity.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -445,7 +484,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'jasperavenue-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'jasperavenue-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -453,14 +497,28 @@ setConfig({
 									'business-edmonton-services',
 									'business-edmonton-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>According to the Independent Businsess Index, Jasper ranks in the middle at 10th of 20 Edmonton Main Streets and 8th of 12 Downtown Main Streets. For buisness density, Jaspers ranks 2nd in Edmonton and 3rd of Downtown Main Streets.</p>
-					<p>Jasper Avenue's businesses are situated at street level with office space ascending above in high-rise buildings. Jasper tends to attract a slightly older crowd and the local businesses cater more to young professionals and downtown workers than university students. Jasper is also a nightlife area, with many bars and late night venues.</p>
-					<p>There are a couple of high-end restaurants and cocktail bars such as Bar Bricco and Pablo, some coffee shops such as Coffee Bureau and Lock Stock Coffee, and some Edmontonian businesses such as Farrow Sandwiches, Remedy Cafe, Dorinku Osaka, and Wee Book Inn.</p>
-
+					<p>
+						According to the Independent Businsess Index, Jasper ranks in the middle at 10th of 20
+						Edmonton Main Streets and 8th of 12 Downtown Main Streets. For buisness density, Jaspers
+						ranks 2nd in Edmonton and 3rd of Downtown Main Streets.
+					</p>
+					<p>
+						Jasper Avenue's businesses are situated at street level with office space ascending
+						above in high-rise buildings. Jasper tends to attract a slightly older crowd and the
+						local businesses cater more to young professionals and downtown workers than university
+						students. Jasper is also a nightlife area, with many bars and late night venues.
+					</p>
+					<p>
+						There are a couple of high-end restaurants and cocktail bars such as Bar Bricco and
+						Pablo, some coffee shops such as Coffee Bureau and Lock Stock Coffee, and some
+						Edmontonian businesses such as Farrow Sandwiches, Remedy Cafe, Dorinku Osaka, and Wee
+						Book Inn.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -499,8 +557,16 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>As this segment of Jasper Avenue is within Edmonton's downtown and central business district, there is a mix of businesses ranging in size from zero to 50 employees. There are 1,348 businesses per square kilometre in the area. Small businesses line the ground levels while larger businesses are housed within the high-rise towers.</p>
-					<p>Reflective of its central location, Jasper ranks 2nd for Edmonton Main Streets in terms of employmenty density and 6th for Downtown Main Streets.</p>
+					<p>
+						As this segment of Jasper Avenue is within Edmonton's downtown and central business
+						district, there is a mix of businesses ranging in size from zero to 50 employees. There
+						are 1,348 businesses per square kilometre in the area. Small businesses line the ground
+						levels while larger businesses are housed within the high-rise towers.
+					</p>
+					<p>
+						Reflective of its central location, Jasper ranks 2nd for Edmonton Main Streets in terms
+						of employmenty density and 6th for Downtown Main Streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -557,13 +623,20 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>The housing mix in the Jasper Avenue study area is almost exclusively high-rise apartments (over 60%) and low-rise apartments (over 30%). There are a few apartment buildings fronting Jasper itself, but most are either one street north or south, though still visible from the Avenue. At the time of the field visit, there were several apartment buildings under construction with concrete skeletons erected. There is a cluster of residential north on 104 St NW. There are a couple of mixed-use buildings on Jasper as well.</p>
-
+					<p>
+						The housing mix in the Jasper Avenue study area is almost exclusively high-rise
+						apartments (over 60%) and low-rise apartments (over 30%). There are a few apartment
+						buildings fronting Jasper itself, but most are either one street north or south, though
+						still visible from the Avenue. At the time of the field visit, there were several
+						apartment buildings under construction with concrete skeletons erected. There is a
+						cluster of residential north on 104 St NW. There are a couple of mixed-use buildings on
+						Jasper as well.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -630,8 +703,10 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>Of residents in the study area, 37% are recent immigrants and 38% are visible minorities.</p>
-
+					<p>
+						Of residents in the study area, 37% are recent immigrants and 38% are visible
+						minorities.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -662,7 +737,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -675,9 +749,20 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>The legacy of COVID-19 has left a bit of a lull in the patronage of downtown businessess by office workers. With many still working from home, hybrid or fully remote, the liveliness of the Avenue at peak lunch has diminished.</p>
-					<p>Typical of central business districts, this segment of Jasper Avenue saw over 6 million visits in 2019 before the pandemic with more than half by infrequent visitors. By the end of 2022, total annual visits decreased by over 3 million.</p>
-					<p>Due to Jasper's reliance on infrequent visitors, its Resiliency Score ranks low at 18th of 20 Edmonton Main Streets and 8th of 12 Downtown Main Streets.</p>
+					<p>
+						The legacy of COVID-19 has left a bit of a lull in the patronage of downtown businessess
+						by office workers. With many still working from home, hybrid or fully remote, the
+						liveliness of the Avenue at peak lunch has diminished.
+					</p>
+					<p>
+						Typical of central business districts, this segment of Jasper Avenue saw over 6 million
+						visits in 2019 before the pandemic with more than half by infrequent visitors. By the
+						end of 2022, total annual visits decreased by over 3 million.
+					</p>
+					<p>
+						Due to Jasper's reliance on infrequent visitors, its Resiliency Score ranks low at 18th
+						of 20 Edmonton Main Streets and 8th of 12 Downtown Main Streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -754,7 +839,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -806,8 +891,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

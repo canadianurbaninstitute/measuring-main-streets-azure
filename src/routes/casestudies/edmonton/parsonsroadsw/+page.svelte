@@ -28,13 +28,11 @@
 	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import { timeFormat } from 'd3-time-format';
 
-
 	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
 
-
-	import { visitorMapStore } from '../../../lib/mapStore';
+	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -60,8 +58,6 @@
 	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
-
-
 </script>
 
 <svelte:head>
@@ -75,15 +71,23 @@
 </svelte:head>
 
 <main>
-	<Title outline={ParsonsRoadSW} name={'Parsons Road SW (South Edmonton Common)'} location={'Edmonton, Alberta'} />
+	<Title
+		outline={ParsonsRoadSW}
+		name={'Parsons Road SW (South Edmonton Common)'}
+		location={'Edmonton, Alberta'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-										<h2>Overview</h2>
-<p>The case study aims to provide an overview of the case study area; through a combination of interactive maps, charts and data analysis. </p>
-<p>
-The map displays the boundaries of the case study, overlaid on the main street network. </p>
+					<h2>Overview</h2>
+					<p>
+						The case study aims to provide an overview of the case study area; through a combination
+						of interactive maps, charts and data analysis.
+					</p>
+					<p>
+						The map displays the boundaries of the case study, overlaid on the main street network.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -115,7 +119,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-<h2>Built Form</h2>
+					<h2>Built Form</h2>
 					<p>
 						The built form of the case study area is represented through the 3D building layer,
 						transit stops and lines, as well as green space, including a comparative graph of the %
@@ -574,7 +578,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -672,7 +675,7 @@ The map displays the boundaries of the case study, overlaid on the main street n
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -724,8 +727,6 @@ The map displays the boundaries of the case study, overlaid on the main street n
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

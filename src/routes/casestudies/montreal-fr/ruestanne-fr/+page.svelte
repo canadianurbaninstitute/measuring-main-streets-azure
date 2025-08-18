@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import RueStAnne from '../../../lib/assets/boundaries/montrealboundaries/RueStAnne.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruestanne/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruestanne/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/ruestanne/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruestanne/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/ruestanne/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/ruestanne/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/ruestanne/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/ruestanne/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruestanne/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruestanne/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/ruestanne/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/ruestanne/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruestanne/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/ruestanne/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -213,14 +213,35 @@
 		name={'Rue St. Anne (Sainte Anne de Bellevue)'}
 		location={'Montreal, Québec'}
 	/>
-	<LanguageSelector eng={'/casestudies/montreal/ruestanne'} fr={'/casestudies/montreal-fr/ruestanne-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/ruestanne'}
+		fr={'/casestudies/montreal-fr/ruestanne-fr'}
+		selected="fr"
+	/>
 
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>Située sur ce que l’on appelle l’ouest de l’île de Montréal, Sainte-Anne-de-Bellevue est une petite banlieue majoritairement de langue anglaise située à l’extrémité ouest de l’île de Montréal. Sainte-Anne-de-Bellevue abrite un certain nombre de points d’intérêt importants qui servent à la fois aux locaux et aux visiteurs de la petite ville. Il s’agit notamment de l’Arboretum Morgan, du Parc naturel de L’Anse-à-l’Orme, du Collège John Abbott, du Campus Macdonald de l’Université McGill et du canal de Sainte-Anne-de-Bellevue. Parallèlement au canal de Sainte-Anne-de-Bellevue, reconnu comme lieu historique national du Canada, se trouve la rue Sainte-Anne, la principale artère commerciale de Sainte-Anne-de-Bellevue, qui traverse le centre historique de la ville.</p><p>La rue Sainte-Anne est une rue principale pittoresque dotée d’une architecture patrimoniale charmante. Au-delà de son charme historique et touristique, la rue Sainte-Anne offre une grande variété de restaurants au bord de l’eau, de boutiques indépendantes et un accès au bord de l’eau et à la promenade le long du canal.</p>
+					<p>
+						Située sur ce que l’on appelle l’ouest de l’île de Montréal, Sainte-Anne-de-Bellevue est
+						une petite banlieue majoritairement de langue anglaise située à l’extrémité ouest de
+						l’île de Montréal. Sainte-Anne-de-Bellevue abrite un certain nombre de points d’intérêt
+						importants qui servent à la fois aux locaux et aux visiteurs de la petite ville. Il
+						s’agit notamment de l’Arboretum Morgan, du Parc naturel de L’Anse-à-l’Orme, du Collège
+						John Abbott, du Campus Macdonald de l’Université McGill et du canal de
+						Sainte-Anne-de-Bellevue. Parallèlement au canal de Sainte-Anne-de-Bellevue, reconnu
+						comme lieu historique national du Canada, se trouve la rue Sainte-Anne, la principale
+						artère commerciale de Sainte-Anne-de-Bellevue, qui traverse le centre historique de la
+						ville.
+					</p>
+					<p>
+						La rue Sainte-Anne est une rue principale pittoresque dotée d’une architecture
+						patrimoniale charmante. Au-delà de son charme historique et touristique, la rue
+						Sainte-Anne offre une grande variété de restaurants au bord de l’eau, de boutiques
+						indépendantes et un accès au bord de l’eau et à la promenade le long du canal.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -253,7 +274,28 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>Les bâtiments situés le long de la rue Sainte-Anne sont principalement des structures de faible hauteur dotées d’espaces commerciaux au rez-de-chaussée. La zone environnante est essentiellement résidentielle, et comprend un mélange de maisons individuelles et d’appartements de faible hauteur.</p><p>La rue Sainte-Anne est une rue à double sens avec une voie de circulation dans chaque direction. Il est possible de se garer dans la rue à certains endroits, mais l’étroitesse de la rue limite les possibilités de stationnement. Bien qu’il n’y ait pas de pistes cyclables, on a pu observer, lors d’une chaude journée d’été, un certain nombre de cyclistes empruntant la rue.</p><p>Juste au sud de la rue Sainte-Anne se trouve la Promenade du Canal, une promenade qui longe le canal. Il existe de nombreuses connexions entre la rue Sainte-Anne et la promenade, facilitées par les restaurants et les sentiers environnants, créant ainsi un lien continu entre les deux. La promenade elle-même offre diverses commodités aux visiteurs, notamment un grand nombre d’arbres, des tables de pique-nique, des bancs, des fontaines d’eau et des poubelles, invitant les gens à s’attarder et à profiter de l’environnement.</p>
+					<p>
+						Les bâtiments situés le long de la rue Sainte-Anne sont principalement des structures de
+						faible hauteur dotées d’espaces commerciaux au rez-de-chaussée. La zone environnante est
+						essentiellement résidentielle, et comprend un mélange de maisons individuelles et
+						d’appartements de faible hauteur.
+					</p>
+					<p>
+						La rue Sainte-Anne est une rue à double sens avec une voie de circulation dans chaque
+						direction. Il est possible de se garer dans la rue à certains endroits, mais
+						l’étroitesse de la rue limite les possibilités de stationnement. Bien qu’il n’y ait pas
+						de pistes cyclables, on a pu observer, lors d’une chaude journée d’été, un certain
+						nombre de cyclistes empruntant la rue.
+					</p>
+					<p>
+						Juste au sud de la rue Sainte-Anne se trouve la Promenade du Canal, une promenade qui
+						longe le canal. Il existe de nombreuses connexions entre la rue Sainte-Anne et la
+						promenade, facilitées par les restaurants et les sentiers environnants, créant ainsi un
+						lien continu entre les deux. La promenade elle-même offre diverses commodités aux
+						visiteurs, notamment un grand nombre d’arbres, des tables de pique-nique, des bancs, des
+						fontaines d’eau et des poubelles, invitant les gens à s’attarder et à profiter de
+						l’environnement.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -378,7 +420,32 @@
 						</div>
 					</div>
 
-					<p>La rue Sainte-Anne est relativement bien desservie par les établissements de santé ainsi que par les services gouvernementaux et communautaires. Ces établissements de santé sont principalement de petites cliniques indépendantes. À dix minutes de marche, la présence du campus Macdonald de l’Université McGill et du collège John Abbott, entre autres établissements d’enseignement, fait que le quartier est bien desservi par l’infrastructure municipale en matière d’éducation. Sur la rue Sainte-Anne elle-même, il y a un petit parc qui offre une certaine programmation. Pendant les mois d’été, par exemple, une scène a été construite dans le parc et des panneaux signalaient un petit événement musical public qui se déroulait dans le parc et dans la rue. La Promenade du Canal, située à proximité, offre une plus grande variété et davantage de commodités aux visiteurs, notamment des bancs, des tables de pique-nique et des fontaines d’eau.</p><p>Malgré ces commodités essentielles, la rue Sainte-Anne est mal desservie en ce qui concerne d’autres infrastructures municipales clés telles que les arts et la culture et les loisirs. Cependant, à dix minutes de marche, ces infrastructures municipales sont accessibles aux personnes qui habitent sur la rue Sainte-Anne dans des proportions similaires à la moyenne de la RMR de Montréal.</p><p>Selon l’indice d’infrastructure municipale, la rue Sainte-Anne est en retard par rapport à la plupart des autres études de cas de Montréal et des rues principales résidentielles. En matière de possibilités civiques, la rue Sainte-Anne se classe 18e sur 20 rues principales de Montréal et 11e sur 12 rues principales de petites villes.</p>
+					<p>
+						La rue Sainte-Anne est relativement bien desservie par les établissements de santé ainsi
+						que par les services gouvernementaux et communautaires. Ces établissements de santé sont
+						principalement de petites cliniques indépendantes. À dix minutes de marche, la présence
+						du campus Macdonald de l’Université McGill et du collège John Abbott, entre autres
+						établissements d’enseignement, fait que le quartier est bien desservi par
+						l’infrastructure municipale en matière d’éducation. Sur la rue Sainte-Anne elle-même, il
+						y a un petit parc qui offre une certaine programmation. Pendant les mois d’été, par
+						exemple, une scène a été construite dans le parc et des panneaux signalaient un petit
+						événement musical public qui se déroulait dans le parc et dans la rue. La Promenade du
+						Canal, située à proximité, offre une plus grande variété et davantage de commodités aux
+						visiteurs, notamment des bancs, des tables de pique-nique et des fontaines d’eau.
+					</p>
+					<p>
+						Malgré ces commodités essentielles, la rue Sainte-Anne est mal desservie en ce qui
+						concerne d’autres infrastructures municipales clés telles que les arts et la culture et
+						les loisirs. Cependant, à dix minutes de marche, ces infrastructures municipales sont
+						accessibles aux personnes qui habitent sur la rue Sainte-Anne dans des proportions
+						similaires à la moyenne de la RMR de Montréal.
+					</p>
+					<p>
+						Selon l’indice d’infrastructure municipale, la rue Sainte-Anne est en retard par rapport
+						à la plupart des autres études de cas de Montréal et des rues principales
+						résidentielles. En matière de possibilités civiques, la rue Sainte-Anne se classe 18e
+						sur 20 rues principales de Montréal et 11e sur 12 rues principales de petites villes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -468,7 +535,29 @@
 							/>
 						</div>
 					</div>
-					<p>La rue Sainte-Anne fait office de rue commerciale principale en raison de sa concentration dense de commerces par rapport à la zone environnante. La majorité des entreprises situées sur la rue Sainte-Anne est constituée de restaurants et d’autres établissements de restauration. Sainte-Anne-de-Bellevue est une petite ville, mais la rue Sainte-Anne offre une grande variété et une grande quantité d’options pour se nourrir, y compris des restaurants thaïlandais et de fruits de mer, des marchands de crème glacée et des cafés tels que le café Twig, le préféré des locaux. Pendant les chauds mois d’été, certains restaurants disposent de patios et de terrasses qui débordent sur le trottoir, créant ainsi un lien entre l’intérieur et l’extérieur de la rue. Sur le côté sud de la rue, de nombreux restaurants sont dotés de terrasses qui permettent de manger au bord de l’eau, le long du canal. La rue Sainte-Anne compte également un certain nombre de boutiques indépendantes.</p><p>Selon l’indice des entreprises indépendantes, la rue Sainte-Anne se classe 11e sur 20 études de cas de rues principales de Montréal et 5e sur 12 rues principales de petites villes, en matière de niveau d’indépendance des entreprises.</p><p>De même, en matière de densité commerciale, la rue se classe 13e sur 20 rues principales de Montréal et 7e sur 12 rues principales de petites villes.</p>
+					<p>
+						La rue Sainte-Anne fait office de rue commerciale principale en raison de sa
+						concentration dense de commerces par rapport à la zone environnante. La majorité des
+						entreprises situées sur la rue Sainte-Anne est constituée de restaurants et d’autres
+						établissements de restauration. Sainte-Anne-de-Bellevue est une petite ville, mais la
+						rue Sainte-Anne offre une grande variété et une grande quantité d’options pour se
+						nourrir, y compris des restaurants thaïlandais et de fruits de mer, des marchands de
+						crème glacée et des cafés tels que le café Twig, le préféré des locaux. Pendant les
+						chauds mois d’été, certains restaurants disposent de patios et de terrasses qui
+						débordent sur le trottoir, créant ainsi un lien entre l’intérieur et l’extérieur de la
+						rue. Sur le côté sud de la rue, de nombreux restaurants sont dotés de terrasses qui
+						permettent de manger au bord de l’eau, le long du canal. La rue Sainte-Anne compte
+						également un certain nombre de boutiques indépendantes.
+					</p>
+					<p>
+						Selon l’indice des entreprises indépendantes, la rue Sainte-Anne se classe 11e sur
+						20 études de cas de rues principales de Montréal et 5e sur 12 rues principales de
+						petites villes, en matière de niveau d’indépendance des entreprises.
+					</p>
+					<p>
+						De même, en matière de densité commerciale, la rue se classe 13e sur 20 rues principales
+						de Montréal et 7e sur 12 rues principales de petites villes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -507,7 +596,18 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>Cette section de la rue Sainte-Anne présente une concentration importante d’emplois. Représentative de la prédominance des petits commerces de détail indépendants et des établissements de restauration sur la rue, la majorité des emplois se trouvent dans les entreprises, qui n’emploient qu’entre zéro et dix personnes.</p><p>Cependant, la rue Sainte-Anne est à la traîne de toutes les autres études de cas de rues principales de Montréal en matière de densité d’emploi, puisqu’elle se classe 20e sur 20 rues principales de Montréal. De plus, la rue se classe 11e sur 12 rues principales de petites villes.</p>
+					<p>
+						Cette section de la rue Sainte-Anne présente une concentration importante d’emplois.
+						Représentative de la prédominance des petits commerces de détail indépendants et des
+						établissements de restauration sur la rue, la majorité des emplois se trouvent dans les
+						entreprises, qui n’emploient qu’entre zéro et dix personnes.
+					</p>
+					<p>
+						Cependant, la rue Sainte-Anne est à la traîne de toutes les autres études de cas de rues
+						principales de Montréal en matière de densité d’emploi, puisqu’elle se classe 20e sur
+						20 rues principales de Montréal. De plus, la rue se classe 11e sur 12 rues principales
+						de petites villes.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -569,7 +669,19 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>La densité de population diminue généralement au fur et à mesure que l’on s’éloigne de la rue Sainte-Anne, ce qui met en évidence sa présence en tant que rue principale. Sur la rue Sainte-Anne, on trouve quelques logements à l’extrémité est du segment de rue, mais la majorité des logements sont situés juste à côté de la rue Sainte-Anne et dans les rues avoisinantes. En ce qui concerne le parc immobilier lui-même, les bâtiments sont généralement plus anciens — la majorité des logements ont été construits avant 1960 et il y a eu très peu de nouvelles constructions depuis 2001. En outre, la plupart des logements sont des appartements de faible hauteur, bien qu’il y ait plus de maisons jumelées et de tours d’habitation que la moyenne montréalaise. Malgré sa situation en banlieue, le pourcentage de maisons individuelles non attenantes est nettement inférieur à la moyenne.</p>
+					<p>
+						La densité de population diminue généralement au fur et à mesure que l’on s’éloigne de
+						la rue Sainte-Anne, ce qui met en évidence sa présence en tant que rue principale. Sur
+						la rue Sainte-Anne, on trouve quelques logements à l’extrémité est du segment de rue,
+						mais la majorité des logements sont situés juste à côté de la rue Sainte-Anne et dans
+						les rues avoisinantes. En ce qui concerne le parc immobilier lui-même, les bâtiments
+						sont généralement plus anciens — la majorité des logements ont été construits avant 1960
+						et il y a eu très peu de nouvelles constructions depuis 2001. En outre, la plupart des
+						logements sont des appartements de faible hauteur, bien qu’il y ait plus de maisons
+						jumelées et de tours d’habitation que la moyenne montréalaise. Malgré sa situation en
+						banlieue, le pourcentage de maisons individuelles non attenantes est nettement inférieur
+						à la moyenne.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -632,11 +744,25 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
-					<p>La rue Sainte-Anne présente plusieurs caractéristiques démographiques qui la distinguent des quartiers avoisinants. La présence du campus Macdonald de l’Université McGill et du Collège John Abbott contribue à une démographie relativement jeune, tandis que la prédominance d’appartements de faible hauteur se traduit par des ménages de plus petite taille que dans les régions avoisinantes. Cette situation, associée à la présence importante d’une population étudiante, est en corrélation avec le revenu moyen plus faible du quartier. En outre, la rue Sainte-Anne présente des pourcentages plus élevés de minorités visibles et d’immigrants récents. Sainte-Anne-de-Bellevue est située dans l’ouest de l’île où l’on parle anglais. Par conséquent, la rue elle-même conserve une population majoritairement de langue anglaise, et l’on note une absence marquée de personnes dont le français est la langue maternelle. Cependant, le bilinguisme reste répandu parmi les locaux, ce qui reflète le contexte linguistique plus large de la région.</p>
+					<p>
+						La rue Sainte-Anne présente plusieurs caractéristiques démographiques qui la distinguent
+						des quartiers avoisinants. La présence du campus Macdonald de l’Université McGill et du
+						Collège John Abbott contribue à une démographie relativement jeune, tandis que la
+						prédominance d’appartements de faible hauteur se traduit par des ménages de plus petite
+						taille que dans les régions avoisinantes. Cette situation, associée à la présence
+						importante d’une population étudiante, est en corrélation avec le revenu moyen plus
+						faible du quartier. En outre, la rue Sainte-Anne présente des pourcentages plus élevés
+						de minorités visibles et d’immigrants récents. Sainte-Anne-de-Bellevue est située dans
+						l’ouest de l’île où l’on parle anglais. Par conséquent, la rue elle-même conserve une
+						population majoritairement de langue anglaise, et l’on note une absence marquée de
+						personnes dont le français est la langue maternelle. Cependant, le bilinguisme reste
+						répandu parmi les locaux, ce qui reflète le contexte linguistique plus large de la
+						région.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -679,7 +805,26 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>Les visiteurs de la rue Sainte-Anne sont principalement des visiteurs peu fréquents, la majorité des visites ayant lieu le week-end, en particulier les vendredis et samedis. Malgré les défis posés par la pandémie de COVID-19, le nombre de personnes résidant dans la rue et de visiteurs récurrents est resté relativement stable, ce qui indique une fréquentation locale constante tout au long de la pandémie. Cependant, le nombre de visiteurs occasionnels a connu une forte baisse au cours de cette période.</p><p>L’analyse de l’origine des visiteurs révèle qu’une part importante du trafic piétonnier quotidien provient de l’ouest de l’île, ce qui indique qu’une proportion considérable des visiteurs de la rue Sainte-Anne provient de la région environnante. Cela souligne l’importance de la rue en tant que destination locale au sein de la communauté de l’ouest de l’île.</p><p>Cependant, en matière de résilience globale de la rue et de récupération des visiteurs, la rue Sainte-Anne se classe 11e sur 20 pour la résilience des visiteurs dans la région et 10e sur 12 rues principales de petites villes.</p>
+					<p>
+						Les visiteurs de la rue Sainte-Anne sont principalement des visiteurs peu fréquents, la
+						majorité des visites ayant lieu le week-end, en particulier les vendredis et samedis.
+						Malgré les défis posés par la pandémie de COVID-19, le nombre de personnes résidant dans
+						la rue et de visiteurs récurrents est resté relativement stable, ce qui indique une
+						fréquentation locale constante tout au long de la pandémie. Cependant, le nombre de
+						visiteurs occasionnels a connu une forte baisse au cours de cette période.
+					</p>
+					<p>
+						L’analyse de l’origine des visiteurs révèle qu’une part importante du trafic piétonnier
+						quotidien provient de l’ouest de l’île, ce qui indique qu’une proportion considérable
+						des visiteurs de la rue Sainte-Anne provient de la région environnante. Cela souligne
+						l’importance de la rue en tant que destination locale au sein de la communauté de
+						l’ouest de l’île.
+					</p>
+					<p>
+						Cependant, en matière de résilience globale de la rue et de récupération des visiteurs,
+						la rue Sainte-Anne se classe 11e sur 20 pour la résilience des visiteurs dans la région
+						et 10e sur 12 rues principales de petites villes.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -756,7 +901,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -808,8 +953,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

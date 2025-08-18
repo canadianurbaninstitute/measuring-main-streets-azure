@@ -3,44 +3,43 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import StonyPlainRoadNW from '../../../lib/assets/boundaries/edmontonboundaries/StonyPlainRoadNW.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/stonyplainroadnw/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -72,7 +71,6 @@
 	/*                                   Stores                                   */
 	/* -------------------------------------------------------------------------- */
 
-	
 	visitorMapStore.subscribe((value) => {
 		map = value;
 	});
@@ -85,7 +83,7 @@
 
 	// Cloudinary Config
 
-setConfig({
+	setConfig({
 		cloudName: 'dfseerxb3'
 	});
 
@@ -209,14 +207,23 @@ setConfig({
 </svelte:head>
 
 <main>
-	<Title outline={StonyPlainRoadNW} name={'Stony Plain Road NW (Jasper Place)'} location={'Edmonton, Alberta'} />
+	<Title
+		outline={StonyPlainRoadNW}
+		name={'Stony Plain Road NW (Jasper Place)'}
+		location={'Edmonton, Alberta'}
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Overview</h2>
-					<p>Stony Plain Road NW is situated at the intersection of the Canora and West Jasper Place neighbourhoods in Edmonton. It sits west of the main downtown area. The street is north of the North Saskatchewan River and runs east-west connecting into the core of the city. The study area was part of its own village, Jasper Place, and managed to resist amalgamation with the City of Edmonton until 1964.</p>
-
+					<p>
+						Stony Plain Road NW is situated at the intersection of the Canora and West Jasper Place
+						neighbourhoods in Edmonton. It sits west of the main downtown area. The street is north
+						of the North Saskatchewan River and runs east-west connecting into the core of the city.
+						The study area was part of its own village, Jasper Place, and managed to resist
+						amalgamation with the City of Edmonton until 1964.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -249,7 +256,18 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Built Form</h2>
-					<p>Stony Plain Road's built form is spread out and primarily low-rise, but this will be changing dramatically as it is currently undergoing construction of the new Valley Line Light Rail Transit. At the time of the field visit, the entirety of the two east-bound lanes were closed off by fences, with all traffic being redirected through the westbound lanes. There are pedestrian crossings at all intersections with flashing indicators. The buildings don't exceed two-storeys in height, and most apartment buildings are located off the avenue. Of all the Edmontonian Main Street case studies, Stony Plan had the highest number of vacant, abandoned, or to be demolished buildings, and parking lots observed. This contributed greatly to an overall lack of business interaction with the street.</p>
+					<p>
+						Stony Plain Road's built form is spread out and primarily low-rise, but this will be
+						changing dramatically as it is currently undergoing construction of the new Valley Line
+						Light Rail Transit. At the time of the field visit, the entirety of the two east-bound
+						lanes were closed off by fences, with all traffic being redirected through the westbound
+						lanes. There are pedestrian crossings at all intersections with flashing indicators. The
+						buildings don't exceed two-storeys in height, and most apartment buildings are located
+						off the avenue. Of all the Edmontonian Main Street case studies, Stony Plan had the
+						highest number of vacant, abandoned, or to be demolished buildings, and parking lots
+						observed. This contributed greatly to an overall lack of business interaction with the
+						street.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -269,7 +287,6 @@ setConfig({
 						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'stonyplainroadnw'} section={'builtform'} />
-
 					</div>
 					<CaseStudyMap
 						style={'mapbox://styles/canadianurbaninstitute/clr9q5wrw004201pe6uwv4ucd'}
@@ -354,7 +371,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'civicinfra'} layer={'civicinfra-photos'} />
-							<IsochroneCheckbox section={'civicinfra'} layer={'stonyplainroadnw-isochrone'} minZoom={13} maxZoom={13.3}/>
+							<IsochroneCheckbox
+								section={'civicinfra'}
+								layer={'stonyplainroadnw-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'civicinfra'}
 								layers={[
@@ -364,15 +386,31 @@ setConfig({
 									'civicinfra-edmonton-health',
 									'civicinfra-edmonton-recreation'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>Stony Plain Road is part of the Stony Plain Road Business Improvement Area. There are tall, decorative street lights that border both sides of the street throughout the study area. The height and spacing of the street lanterns create a cohesive, repetitive pattern along the street.</p>
-					<p>The BIA does not have an overly noticeable presence in the area outside of a couple of street banners hanging from the lanterns. There were no branded street signs or other branded infrastructure. There is noticeable wear and tear on the north sidewalk.</p>
-					<p>At the intersection of Stony Plain Road and 152 St, there is a square with silver metallic tables and benches. There are wayfinding signs around the area.</p>
-					<p>According to the Civic Infrastructure Index, Stony Plain Road ranks low for civic opportunity at 15th of 20 Edmonton Main Streets and 17th of 36 Neighbourhood Main Streets.</p>
-
+					<p>
+						Stony Plain Road is part of the Stony Plain Road Business Improvement Area. There are
+						tall, decorative street lights that border both sides of the street throughout the study
+						area. The height and spacing of the street lanterns create a cohesive, repetitive
+						pattern along the street.
+					</p>
+					<p>
+						The BIA does not have an overly noticeable presence in the area outside of a couple of
+						street banners hanging from the lanterns. There were no branded street signs or other
+						branded infrastructure. There is noticeable wear and tear on the north sidewalk.
+					</p>
+					<p>
+						At the intersection of Stony Plain Road and 152 St, there is a square with silver
+						metallic tables and benches. There are wayfinding signs around the area.
+					</p>
+					<p>
+						According to the Civic Infrastructure Index, Stony Plain Road ranks low for civic
+						opportunity at 15th of 20 Edmonton Main Streets and 17th of 36 Neighbourhood Main
+						Streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -444,7 +482,12 @@ setConfig({
 						/>
 						<div class="checkbox">
 							<PhotosCheckbox section={'business'} layer={'business-photos'} />
-							<IsochroneCheckbox section={'business'} layer={'stonyplainroadnw-isochrone'} minZoom={13} maxZoom={13.3} />
+							<IsochroneCheckbox
+								section={'business'}
+								layer={'stonyplainroadnw-isochrone'}
+								minZoom={13}
+								maxZoom={13.3}
+							/>
 							<EmploymentSizeCheckbox
 								section={'business'}
 								layers={[
@@ -452,14 +495,26 @@ setConfig({
 									'business-edmonton-services',
 									'business-edmonton-food-drink'
 								]}
-								minZoom={13} maxZoom={13.3}
+								minZoom={13}
+								maxZoom={13.3}
 							/>
 						</div>
 					</div>
-					<p>According to the Independent Business Index, Stony Plain Road ranks 9th of 20 Edmonton Main Streets and 22nd of 36 Neighbourhood Main Streets. For business density, Stony Plain ranks 8th of 20 and 16th of 36.</p>
-					<p>Due to the LRT construction at the time of observation, businesses along the southern portion of the street were difficult to access. To account for this, wayfinding signs were present indicating that businesses were still open during construction.</p>
-					<p>Some businesses of note include Revolution Cycle, Celebrate Gluten Free Bakery, and a noticeable clustering of pawn shops. Overall, possibly due to construction, there was little interaction between businesses and the street.</p>
-
+					<p>
+						According to the Independent Business Index, Stony Plain Road ranks 9th of 20 Edmonton
+						Main Streets and 22nd of 36 Neighbourhood Main Streets. For business density, Stony
+						Plain ranks 8th of 20 and 16th of 36.
+					</p>
+					<p>
+						Due to the LRT construction at the time of observation, businesses along the southern
+						portion of the street were difficult to access. To account for this, wayfinding signs
+						were present indicating that businesses were still open during construction.
+					</p>
+					<p>
+						Some businesses of note include Revolution Cycle, Celebrate Gluten Free Bakery, and a
+						noticeable clustering of pawn shops. Overall, possibly due to construction, there was
+						little interaction between businesses and the street.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -498,9 +553,19 @@ setConfig({
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Employment Profile</h2>
-					<p>Available employment data for the Stony Plain Road NW study area reveals a significant concentration of employment on the main street, especially when compared to the relative lack of employment in the surrounding residential neighbourhood.</p>
-					<p>Businesses generally range from zero to 10 employees, with a concentration of businesses in the strip mall at the southeast corner of the study area.</p>
-					<p>For employment density, Stony Plain ranks low at 15th of 20 Edmonton Main Streets and 29th of 36 Neighbourhood Main Streets.</p>
+					<p>
+						Available employment data for the Stony Plain Road NW study area reveals a significant
+						concentration of employment on the main street, especially when compared to the relative
+						lack of employment in the surrounding residential neighbourhood.
+					</p>
+					<p>
+						Businesses generally range from zero to 10 employees, with a concentration of businesses
+						in the strip mall at the southeast corner of the study area.
+					</p>
+					<p>
+						For employment density, Stony Plain ranks low at 15th of 20 Edmonton Main Streets and
+						29th of 36 Neighbourhood Main Streets.
+					</p>
 
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -557,13 +622,19 @@ setConfig({
 								{ id: 'semi-detached', text: 'Semi Detached' },
 								{ id: 'duplex', text: 'Duplex' },
 								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>Housing for the study area can be found predominantly off of Stony Plan Road itself. There a significant number of low-rise apartment buildings close to the avenue, being the predominant housing form in the area at about 80%. They are spread out to accommodate ample parking for residents in laneways. The single-detached housing that could be found appeared to be older in construction and were not particularly well maintained.</p>
-
+					<p>
+						Housing for the study area can be found predominantly off of Stony Plan Road itself.
+						There a significant number of low-rise apartment buildings close to the avenue, being
+						the predominant housing form in the area at about 80%. They are spread out to
+						accommodate ample parking for residents in laneways. The single-detached housing that
+						could be found appeared to be older in construction and were not particularly well
+						maintained.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -630,8 +701,10 @@ setConfig({
 							]}
 						/>
 					</div>
-					<p>Of residents in the study area, 31% are recent immigrants and 34% are visible minorities.</p>
-
+					<p>
+						Of residents in the study area, 31% are recent immigrants and 34% are visible
+						minorities.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -662,7 +735,6 @@ setConfig({
 										const visibility = y === year ? 'visible' : 'none';
 										map.setLayoutProperty(`visitors-${y}`, 'visibility', visibility);
 									});
-									
 								} else {
 									console.log('Map style is not loaded.');
 								}
@@ -675,9 +747,19 @@ setConfig({
 							hoverable={false}
 						/>
 					</div>
-					<p>Prior to the pandemic, Stony Plain Road NW saw nearly 2 million visits in 2019. Total visits decreased year by year and by 2022, total visits for that year dipped below 1 million.</p>
-					<p>On a daily basis, the 12pm to 6pm range is the busiest time of day. Saturday is the busiest day of the week followed by Thursday.</p>
-					<p>Stony Plain Road's low Resiliency Score ranks it at 13th of 20 Edmonton Main Streets and 20th of Neighbourhood Main Streets.</p>
+					<p>
+						Prior to the pandemic, Stony Plain Road NW saw nearly 2 million visits in 2019. Total
+						visits decreased year by year and by 2022, total visits for that year dipped below 1
+						million.
+					</p>
+					<p>
+						On a daily basis, the 12pm to 6pm range is the busiest time of day. Saturday is the
+						busiest day of the week followed by Thursday.
+					</p>
+					<p>
+						Stony Plain Road's low Resiliency Score ranks it at 13th of 20 Edmonton Main Streets and
+						20th of Neighbourhood Main Streets.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -754,7 +836,7 @@ setConfig({
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -806,8 +888,6 @@ setConfig({
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;

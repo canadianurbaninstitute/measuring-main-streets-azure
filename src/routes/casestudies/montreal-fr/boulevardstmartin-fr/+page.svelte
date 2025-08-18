@@ -3,44 +3,44 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import BoulStMartin from '../../../lib/assets/boundaries/montrealboundaries/BoulStMartin.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/montreal-fr/boulevardstmartin/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
+	import { browser } from '$app/environment';
+	import { timeFormat } from 'd3-time-format';
+	import mapboxgl from 'mapbox-gl';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
+	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import LanguageSelector from '../../../lib/ui/LanguageSelector.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
-	import RangeSlider from 'svelte-range-slider-pips';
+	import { buildImageUrl, setConfig } from 'cloudinary-build-url';
 	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
+	import RangeSlider from 'svelte-range-slider-pips';
 
 	import { onMount } from 'svelte';
 
-	import { visitorMapStore, mapStoreList } from '../../../lib/mapStore';
+	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -213,13 +213,31 @@
 		name={'Boulevard St. Martin (Laval)'}
 		location={'Montreal, Québec'}
 	/>
-	<LanguageSelector eng={'/casestudies/montreal/boulevardstmartin'} fr={'/casestudies/montreal-fr/boulevardstmartin-fr'} selected='fr'/>
+	<LanguageSelector
+		eng={'/casestudies/montreal/boulevardstmartin'}
+		fr={'/casestudies/montreal-fr/boulevardstmartin-fr'}
+		selected="fr"
+	/>
 	<div class="container">
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Vue d’ensemble</h2>
-					<p>Le boulevard Saint-Martin est l’une des rues principales de Laval, au Québec, une ville située sur une île juste au nord de l’île de Montréal. Laval est essentiellement une ville de banlieue d’environ 440 000 habitants, mais de grandes parties de l’île sont occupées par des terres agricoles. Laval est la plus grande banlieue de Montréal et la troisième ville du Québec.</p><p>Le boulevard Saint-Martin, qui date du XIXe siècle, est l’un des plus anciens et des plus longs boulevards de Laval. Cette section particulière du boulevard comporte de nombreux commerces de détail et établissements commerciaux, ce qui en fait une artère commerciale principale importante pour les quartiers environnants de Laval. Le boulevard Saint-Martin est relié aux autoroutes et autres artères avoisinantes, ce qui se traduit par une circulation automobile importante sur le boulevard.</p>
+					<p>
+						Le boulevard Saint-Martin est l’une des rues principales de Laval, au Québec, une ville
+						située sur une île juste au nord de l’île de Montréal. Laval est essentiellement une
+						ville de banlieue d’environ 440 000 habitants, mais de grandes parties de l’île sont
+						occupées par des terres agricoles. Laval est la plus grande banlieue de Montréal et la
+						troisième ville du Québec.
+					</p>
+					<p>
+						Le boulevard Saint-Martin, qui date du XIXe siècle, est l’un des plus anciens et des
+						plus longs boulevards de Laval. Cette section particulière du boulevard comporte de
+						nombreux commerces de détail et établissements commerciaux, ce qui en fait une artère
+						commerciale principale importante pour les quartiers environnants de Laval. Le boulevard
+						Saint-Martin est relié aux autoroutes et autres artères avoisinantes, ce qui se traduit
+						par une circulation automobile importante sur le boulevard.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -252,7 +270,28 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Forme bâtie</h2>
-					<p>Le boulevard Saint-Martin est une grande artère rapide dont la forme bâtie sert principalement à la circulation automobile. La rue comprend trois voies de circulation dans chaque direction avec une limite de vitesse de 50 km/h. Bien qu’il y ait des trottoirs et une piste cyclable des deux côtés de la rue, le nombre de voies de circulation, la vitesse des véhicules et le nombre de véhicules en font un endroit désagréable et peu accueillant pour les piétons et les cyclistes.</p><p>La plupart des bâtiments situés le long du boulevard sont des structures commerciales à un seul étage, semblables à des centres commerciaux, abritant divers commerces tels que des restaurants et des bureaux. Certains parcs ou immeubles de bureaux plus importants sont également présents. Beaucoup de ces structures sont sensiblement en retrait de la rue, en raison de la présence de vastes parcs de stationnement en surface. Cette abondance de stationnements en surface souligne la nature centrée sur la voiture de la rue.</p><p>En revanche, les rues résidentielles adjacentes au boulevard Saint-Martin présentent un aspect de banlieue, certaines d’entre elles abritant des maisons individuelles avec des pelouses à l’avant.</p>
+					<p>
+						Le boulevard Saint-Martin est une grande artère rapide dont la forme bâtie sert
+						principalement à la circulation automobile. La rue comprend trois voies de circulation
+						dans chaque direction avec une limite de vitesse de 50 km/h. Bien qu’il y ait des
+						trottoirs et une piste cyclable des deux côtés de la rue, le nombre de voies de
+						circulation, la vitesse des véhicules et le nombre de véhicules en font un endroit
+						désagréable et peu accueillant pour les piétons et les cyclistes.
+					</p>
+					<p>
+						La plupart des bâtiments situés le long du boulevard sont des structures commerciales à
+						un seul étage, semblables à des centres commerciaux, abritant divers commerces tels que
+						des restaurants et des bureaux. Certains parcs ou immeubles de bureaux plus importants
+						sont également présents. Beaucoup de ces structures sont sensiblement en retrait de la
+						rue, en raison de la présence de vastes parcs de stationnement en surface. Cette
+						abondance de stationnements en surface souligne la nature centrée sur la voiture de la
+						rue.
+					</p>
+					<p>
+						En revanche, les rues résidentielles adjacentes au boulevard Saint-Martin présentent un
+						aspect de banlieue, certaines d’entre elles abritant des maisons individuelles avec des
+						pelouses à l’avant.
+					</p>
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -376,7 +415,26 @@
 							/>
 						</div>
 					</div>
-					<p>Le boulevard Saint-Martin bénéficie d’infrastructures municipales essentielles, notamment d’établissements de santé et de services publics. Cependant, il ne dispose pas de commodités adéquates pour les arts, la culture et les loisirs. Contrairement à de nombreuses autres rues principales de Montréal ayant fait l’objet d’une étude de cas, le boulevard Saint-Martin sert principalement de voie de circulation pour les véhicules. Par conséquent, les infrastructures destinées aux piétons, telles que le mobilier urbain, la programmation et la signalisation, sont limitées. Néanmoins, le boulevard joue un rôle crucial en répondant aux besoins de santé des quartiers environnants de Laval, en raison de la présence appréciable d’établissements de soins et de santé. En outre, il accueille d’importants services gouvernementaux, notamment le Palais de Justice de Laval.</p><p>Cependant, selon l’indice d’infrastructure municipale, le boulevard Saint-Martin accuse un retard par rapport à la plupart des autres études de cas de rues principales de Montréal et d’autres rues principales résidentielles en matière de possibilités civiques. La rue se classe 13e sur 20 rues principales de Montréal et 29e sur 36 rues principales résidentielles.</p>
+					<p>
+						Le boulevard Saint-Martin bénéficie d’infrastructures municipales essentielles,
+						notamment d’établissements de santé et de services publics. Cependant, il ne dispose pas
+						de commodités adéquates pour les arts, la culture et les loisirs. Contrairement à de
+						nombreuses autres rues principales de Montréal ayant fait l’objet d’une étude de cas, le
+						boulevard Saint-Martin sert principalement de voie de circulation pour les véhicules.
+						Par conséquent, les infrastructures destinées aux piétons, telles que le mobilier
+						urbain, la programmation et la signalisation, sont limitées. Néanmoins, le boulevard
+						joue un rôle crucial en répondant aux besoins de santé des quartiers environnants de
+						Laval, en raison de la présence appréciable d’établissements de soins et de santé. En
+						outre, il accueille d’importants services gouvernementaux, notamment le Palais de
+						Justice de Laval.
+					</p>
+					<p>
+						Cependant, selon l’indice d’infrastructure municipale, le boulevard Saint-Martin accuse
+						un retard par rapport à la plupart des autres études de cas de rues principales de
+						Montréal et d’autres rues principales résidentielles en matière de possibilités
+						civiques. La rue se classe 13e sur 20 rues principales de Montréal et 29e sur 36 rues
+						principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -466,7 +524,34 @@
 							/>
 						</div>
 					</div>
-					<p>Le long du boulevard Saint-Martin, les commerces de détail, les services locaux et les services de restauration et débits de boisson sont relativement homogènes. La plupart des commerces de détail et des services de restauration et débits de boissons sont de grandes chaînes nationales, avec peu de commerces de détail ou de restauration indépendants. Pour répondre à la nature centrée sur la voiture de la rue, beaucoup de ces établissements disposent d’un grand stationnement et d’un service à l’auto. De nombreux services et entreprises de services sont liés à l’automobile et comprennent des stations-service, des garages et des services d’entretien automobile.</p><p>En se déplaçant d’est en ouest le long du boulevard Saint-Martin, le paysage commercial commence à changer, soulignant que les différents tronçons de la rue offrent des options commerciales et d’affaires diverses. L’extrémité ouest de ce segment de rue est dominée par de grands centres commerciaux et des parcs de bureaux à forte densité, tandis que l’extrémité est est dominée par des centres commerciaux de faible densité et de faible hauteur.</p><p>Selon l’indice des entreprises indépendantes, le boulevard Saint-Martin est à la traîne par rapport à d’autres études de cas de rues principales en matière de niveau d’indépendance des entreprises, se classant 20e sur 20 rues principales de Montréal et 30e sur 36 rues principales résidentielles.</p><p>De même, en matière de densité commerciale, la rue se classe 19e sur 20 rues principales de Montréal et 32e sur 36 rues principales résidentielles.</p>
+					<p>
+						Le long du boulevard Saint-Martin, les commerces de détail, les services locaux et les
+						services de restauration et débits de boisson sont relativement homogènes. La plupart
+						des commerces de détail et des services de restauration et débits de boissons sont de
+						grandes chaînes nationales, avec peu de commerces de détail ou de restauration
+						indépendants. Pour répondre à la nature centrée sur la voiture de la rue, beaucoup de
+						ces établissements disposent d’un grand stationnement et d’un service à l’auto. De
+						nombreux services et entreprises de services sont liés à l’automobile et comprennent des
+						stations-service, des garages et des services d’entretien automobile.
+					</p>
+					<p>
+						En se déplaçant d’est en ouest le long du boulevard Saint-Martin, le paysage commercial
+						commence à changer, soulignant que les différents tronçons de la rue offrent des options
+						commerciales et d’affaires diverses. L’extrémité ouest de ce segment de rue est dominée
+						par de grands centres commerciaux et des parcs de bureaux à forte densité, tandis que
+						l’extrémité est est dominée par des centres commerciaux de faible densité et de faible
+						hauteur.
+					</p>
+					<p>
+						Selon l’indice des entreprises indépendantes, le boulevard Saint-Martin est à la traîne
+						par rapport à d’autres études de cas de rues principales en matière de niveau
+						d’indépendance des entreprises, se classant 20e sur 20 rues principales de Montréal et
+						30e sur 36 rues principales résidentielles.
+					</p>
+					<p>
+						De même, en matière de densité commerciale, la rue se classe 19e sur 20 rues principales
+						de Montréal et 32e sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -505,7 +590,26 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>Profil d’emploi</h2>
-					<p>La majorité des entreprises du boulevard Saint-Martin sont des commerces de détail ou des services de restauration et débits de boissons et le profil de l’emploi de la rue en est représentatif. Une grande partie de l’emploi le long de ce segment du boulevard Saint-Martin se trouve dans les entreprises qui bordent la rue. Il s’agit d’un mélange d’employeurs de petite taille, employant entre 0 et 5 personnes, et d’employeurs plus importants, comptant sur une main-d’œuvre de plus de 50 personnes.</p><p>Si le boulevard Saint-Martin accueille une part importante des opportunités d’emploi, la zone environnante y contribue également de manière significative. Au nord-est de ce segment, les entreprises autres que de détail offrent d’importantes possibilités d’emploi, tandis qu’au sud-ouest, les établissements d’infrastructure municipale jouent un rôle clé dans le paysage de l’emploi.</p><p>Dans l’ensemble, le boulevard Saint-Martin se classe au 8e rang des 20 rues principales de Montréal et au 7e rang des 36 rues principales résidentielles pour ce qui est de la densité d’emploi.</p>
+					<p>
+						La majorité des entreprises du boulevard Saint-Martin sont des commerces de détail ou
+						des services de restauration et débits de boissons et le profil de l’emploi de la rue en
+						est représentatif. Une grande partie de l’emploi le long de ce segment du boulevard
+						Saint-Martin se trouve dans les entreprises qui bordent la rue. Il s’agit d’un mélange
+						d’employeurs de petite taille, employant entre 0 et 5 personnes, et d’employeurs plus
+						importants, comptant sur une main-d’œuvre de plus de 50 personnes.
+					</p>
+					<p>
+						Si le boulevard Saint-Martin accueille une part importante des opportunités d’emploi, la
+						zone environnante y contribue également de manière significative. Au nord-est de ce
+						segment, les entreprises autres que de détail offrent d’importantes possibilités
+						d’emploi, tandis qu’au sud-ouest, les établissements d’infrastructure municipale jouent
+						un rôle clé dans le paysage de l’emploi.
+					</p>
+					<p>
+						Dans l’ensemble, le boulevard Saint-Martin se classe au 8e rang des 20 rues principales
+						de Montréal et au 7e rang des 36 rues principales résidentielles pour ce qui est de la
+						densité d’emploi.
+					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
 				<div class="map-container">
@@ -566,7 +670,22 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>En général, la situation de banlieue du boulevard Saint-Martin à Laval se traduit par une densité de population relativement faible. En tant qu’artère principale, il n’y a pas beaucoup d’habitations directement sur le boulevard Saint-Martin, mais les zones environnantes et les rues adjacentes comprennent un plus grand nombre d’habitations. La construction de logements a connu une croissance régulière entre 2001 et 2021, mais a fortement diminué depuis.</p><p>Bien que la zone soit principalement caractérisée par des tours d’habitation et des appartements de faible hauteur, il existe encore une variété de types de logements autour du boulevard Saint-Martin. Les tours d’habitation sont prédominantes le long du boulevard et dans les zones résidentielles adjacentes du sud. En revanche, le quartier nord présente une atmosphère de banlieue avec des maisons individuelles non attenantes et des pelouses.</p>
+					<p>
+						En général, la situation de banlieue du boulevard Saint-Martin à Laval se traduit par
+						une densité de population relativement faible. En tant qu’artère principale, il n’y a
+						pas beaucoup d’habitations directement sur le boulevard Saint-Martin, mais les zones
+						environnantes et les rues adjacentes comprennent un plus grand nombre d’habitations. La
+						construction de logements a connu une croissance régulière entre 2001 et 2021, mais a
+						fortement diminué depuis.
+					</p>
+					<p>
+						Bien que la zone soit principalement caractérisée par des tours d’habitation et des
+						appartements de faible hauteur, il existe encore une variété de types de logements
+						autour du boulevard Saint-Martin. Les tours d’habitation sont prédominantes le long du
+						boulevard et dans les zones résidentielles adjacentes du sud. En revanche, le quartier
+						nord présente une atmosphère de banlieue avec des maisons individuelles non attenantes
+						et des pelouses.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -629,11 +748,21 @@
 								{ id: 'indigenous', text: 'Population autochtone' },
 								{ id: 'english-speakers', text: 'Personne de langue anglaise' },
 								{ id: 'french-speakers', text: 'Personne de langue française' },
-								{ id: 'education-bachelors', text: "Titulaires d’un baccalauréat" }
+								{ id: 'education-bachelors', text: 'Titulaires d’un baccalauréat' }
 							]}
 						/>
 					</div>
-					<p>La région entourant le boulevard Saint-Martin présente une diversité considérable sur le plan économique, racial, linguistique et éducatif. Sur le plan économique, il existe un éventail de revenus le long de la rue et dans les zones avoisinantes, allant de faibles à élevés. Sur le plan racial et ethnique, le quartier comprend une proportion importante de minorités visibles et d’immigrants récents, bien que la population autochtone soit minime. Sur le plan linguistique, le quartier compte un nombre équilibré de personnes de langue anglaise et de langue française. En outre, le niveau d’éducation varie, certaines zones affichant un pourcentage élevé de titulaires d’un baccalauréat, tandis que d’autres n’en comptent qu’un nombre minime.</p>
+					<p>
+						La région entourant le boulevard Saint-Martin présente une diversité considérable sur le
+						plan économique, racial, linguistique et éducatif. Sur le plan économique, il existe un
+						éventail de revenus le long de la rue et dans les zones avoisinantes, allant de faibles
+						à élevés. Sur le plan racial et ethnique, le quartier comprend une proportion importante
+						de minorités visibles et d’immigrants récents, bien que la population autochtone soit
+						minime. Sur le plan linguistique, le quartier compte un nombre équilibré de personnes de
+						langue anglaise et de langue française. En outre, le niveau d’éducation varie, certaines
+						zones affichant un pourcentage élevé de titulaires d’un baccalauréat, tandis que
+						d’autres n’en comptent qu’un nombre minime.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -676,7 +805,22 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>La pandémie de COVID-19 a eu un impact significatif sur la fréquentation du boulevard Saint-Martin, les taux de fréquentation actuels n’atteignant qu’environ 50 % des niveaux d’avant la pandémie. Bien que le nombre de visites des locaux se soit mieux rétabli, soulignant l’importance de la rue en tant que pôle local, il y a un décalage considérable entre les visites des visiteurs récurrents et celles des visiteurs peu fréquents. On observe également une augmentation substantielle des pourcentages de visites pendant le week-end, ce qui souligne l’importance des établissements commerciaux de la rue, car les gens ont tendance à venir le week-end pour faire des achats plutôt que pour travailler en semaine.</p><p>En matière de résilience globale de la rue et de récupération des visiteurs, le boulevard Saint-Martin se classe 13e sur 20 pour la résilience des visiteurs dans la région et 29e sur 36 rues principales résidentielles.</p>
+					<p>
+						La pandémie de COVID-19 a eu un impact significatif sur la fréquentation du boulevard
+						Saint-Martin, les taux de fréquentation actuels n’atteignant qu’environ 50 % des niveaux
+						d’avant la pandémie. Bien que le nombre de visites des locaux se soit mieux rétabli,
+						soulignant l’importance de la rue en tant que pôle local, il y a un décalage
+						considérable entre les visites des visiteurs récurrents et celles des visiteurs peu
+						fréquents. On observe également une augmentation substantielle des pourcentages de
+						visites pendant le week-end, ce qui souligne l’importance des établissements commerciaux
+						de la rue, car les gens ont tendance à venir le week-end pour faire des achats plutôt
+						que pour travailler en semaine.
+					</p>
+					<p>
+						En matière de résilience globale de la rue et de récupération des visiteurs, le
+						boulevard Saint-Martin se classe 13e sur 20 pour la résilience des visiteurs dans la
+						région et 29e sur 36 rues principales résidentielles.
+					</p>
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -753,7 +897,7 @@
 			</div>
 		</section>
 	</div>
-	<Footer/>
+	<Footer />
 </main>
 
 <style>
@@ -805,8 +949,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-
-
 
 	.controls {
 		border: 2px solid #ddd;
