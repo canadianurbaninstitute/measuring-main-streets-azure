@@ -76,7 +76,6 @@
 		});
 		const bbox = turf.bbox(circle);
 		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
-		// console.log(stationData);
 	}
 
 	// Handle station selection from combobox

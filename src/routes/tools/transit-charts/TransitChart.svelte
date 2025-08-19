@@ -6,12 +6,10 @@
 	// labels for the select dropdown
 	// labels for the select dropdown
 
-	// Component props - receives transit station data from parent
-	export let data = [];
+	let { data = [], selectedLine = $bindable(), variables } = $props();
 
 	// Reactive state for user selections
-	let selectedLine = null; // Currently selected transit line ID
-	let selectedVariable = 'TotalPopulation'; // Currently selected metric to display
+	let selectedVariable = $state('TotalPopulation'); // Currently selected metric to display
 
 	let chart; // Reference to the main chart container div
 	let tooltip; // D3 tooltip element for hover interactions
@@ -67,26 +65,10 @@
 		114: '#a6dca8'
 	};
 
-	// Available metrics that can be displayed for each station add more as needed
-	const variables = [
-		{ value: 'TotalPopulation', label: 'Population' },
-		{ value: 'TotalHouseholds', label: 'Households' },
-		{ value: 'GreenspaceArea', label: 'Greenspace (square metres)' },
-		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
-		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
-		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' }
-	];
-
-	// Auto-select first available line when component initializes
-	$: if (selectedLine === null && transitLines) {
-		const firstRegion = Object.values(transitLines)[0];
-		if (firstRegion?.length) selectedLine = firstRegion[0].value;
-	}
-
 	// Handle selection from the new Select component
-	function handleLineSelect(value) {
-		selectedLine = +value; // Convert to number to match existing behavior
-	}
+	// function handleLineSelect(value) {
+	// 	selectedLine = +value; // Convert to number to match existing behavior
+	// }
 
 	// Handle variable selection
 	function handleVariableSelect(value) {
@@ -95,12 +77,13 @@
 
 	// Filter and sort data for the selected transit line
 	// Data is sorted by stop sequence to maintain proper station order
-	$: filteredData =
+	let filteredData = $derived(
 		data && data.length
 			? data
 					.filter((d) => +d.line_id === +selectedLine)
 					.sort((a, b) => a.stop_sequence - b.stop_sequence)
-			: [];
+			: []
+	);
 
 	/**
 	 * Creates SVG pattern for construction status stations
@@ -354,9 +337,11 @@
 	}
 
 	// Reactive statement - update chart when selections or data change
-	$: if (chart && selectedLine !== null && selectedVariable && data) {
-		updateChart();
-	}
+	$effect(() => {
+		if (chart && selectedLine !== 0 && selectedVariable && data) {
+			updateChart();
+		}
+	});
 
 	// Component lifecycle management
 	onMount(() => {
@@ -383,8 +368,7 @@
 				data={transitLines}
 				icon="mdi:train"
 				placeholder={'Select a Transit Line'}
-				selected={100}
-				handleSelect={handleLineSelect}
+				bind:selected={selectedLine}
 			></Select>
 		</div>
 		<div class="select-wrapper">
