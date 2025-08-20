@@ -347,7 +347,7 @@
 	});
 
 	$effect(() => {
-		if (chart) {
+		if (chart && selectedStation && selectedLine) {
 			d3.select(chart)
 				.selectAll('rect.bar-element')
 				.style('opacity', (d: any) => {

@@ -67,11 +67,9 @@
 			map.setPaintProperty('transit-stations', 'circle-color', [
 				'case',
 				['==', ['get', 'id'], selectedStationId],
-				'#f1c500', // yellow for selected station
+				'#FFD700', // yellow for selected station
 				'#fff' // default station color
 			]);
-
-			console.log(selectedStationId);
 		} else {
 			// Reset all stations to default color and opacity
 			map.setPaintProperty('transit-stations', 'circle-color', '#fff');
@@ -209,6 +207,10 @@
 				if (stationId) {
 					highlightStation(stationId);
 					selectedStation = +stationId;
+				}
+				if (!stationId) {
+					highlightStation(null);
+					selectedStation = 0;
 				}
 			} else {
 				clearSelection();
