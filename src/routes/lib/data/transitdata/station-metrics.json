@@ -1,0 +1,7260 @@
+[
+  {
+    "id": "1",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 161914.0118,
+    "pct_buildings": 8.0566,
+    "area_parking": 3474.4098,
+    "pct_parking": 0.1729,
+    "area_green": 340819.7363,
+    "pct_green": 16.9587
+  },
+  {
+    "id": "10",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 388599.6124,
+    "pct_buildings": 19.3362,
+    "area_parking": 41230.2385,
+    "pct_parking": 2.0516,
+    "area_green": 233451.4763,
+    "pct_green": 11.6162
+  },
+  {
+    "id": "100",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 320186.5443,
+    "pct_buildings": 15.9321,
+    "area_parking": 92649.7654,
+    "pct_parking": 4.6101,
+    "area_green": 327215.252,
+    "pct_green": 16.2818
+  },
+  {
+    "id": "101",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 306277.5707,
+    "pct_buildings": 15.24,
+    "area_parking": 2652.2548,
+    "pct_parking": 0.132,
+    "area_green": 575508.6768,
+    "pct_green": 28.6365
+  },
+  {
+    "id": "102",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 317373.0398,
+    "pct_buildings": 15.7921,
+    "area_parking": 162911.1493,
+    "pct_parking": 8.1062,
+    "area_green": 352040.5935,
+    "pct_green": 17.5171
+  },
+  {
+    "id": "103",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 323337.5765,
+    "pct_buildings": 16.0888,
+    "area_parking": 73426.7764,
+    "pct_parking": 3.6536,
+    "area_green": 370139.5968,
+    "pct_green": 18.4176
+  },
+  {
+    "id": "104",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 321985.5315,
+    "pct_buildings": 16.0216,
+    "area_parking": 28833.3438,
+    "pct_parking": 1.4347,
+    "area_green": 50162.8395,
+    "pct_green": 2.496
+  },
+  {
+    "id": "105",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 267769.5403,
+    "pct_buildings": 13.3239,
+    "area_parking": 197822.9045,
+    "pct_parking": 9.8434,
+    "area_green": 337160.3396,
+    "pct_green": 16.7766
+  },
+  {
+    "id": "106",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 397175.6002,
+    "pct_buildings": 19.7629,
+    "area_parking": 55542.0045,
+    "pct_parking": 2.7637,
+    "area_green": 197783.36,
+    "pct_green": 9.8414
+  },
+  {
+    "id": "107",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 334254.3249,
+    "pct_buildings": 16.632,
+    "area_parking": 9427.5015,
+    "pct_parking": 0.4691,
+    "area_green": 392836.8359,
+    "pct_green": 19.547
+  },
+  {
+    "id": "108",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 157279.8087,
+    "pct_buildings": 7.826,
+    "area_parking": 32282.3437,
+    "pct_parking": 1.6063,
+    "area_green": 990306.8495,
+    "pct_green": 49.2763
+  },
+  {
+    "id": "109",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 664650.5503,
+    "pct_buildings": 33.0721,
+    "area_parking": 215679.7394,
+    "pct_parking": 10.7319,
+    "area_green": 46704.8158,
+    "pct_green": 2.324
+  },
+  {
+    "id": "11",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 348736.5351,
+    "pct_buildings": 17.3527,
+    "area_parking": 22304.0369,
+    "pct_parking": 1.1098,
+    "area_green": 311338.8866,
+    "pct_green": 15.4918
+  },
+  {
+    "id": "110",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 544548.5164,
+    "pct_buildings": 27.096,
+    "area_parking": 169394.2053,
+    "pct_parking": 8.4288,
+    "area_green": 71603.0798,
+    "pct_green": 3.5629
+  },
+  {
+    "id": "111",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 479114.6166,
+    "pct_buildings": 23.8401,
+    "area_parking": 139172.359,
+    "pct_parking": 6.925,
+    "area_green": 212842.3946,
+    "pct_green": 10.5908
+  },
+  {
+    "id": "112",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 451864.9871,
+    "pct_buildings": 22.4842,
+    "area_parking": 93925.836,
+    "pct_parking": 4.6736,
+    "area_green": 299270.5451,
+    "pct_green": 14.8913
+  },
+  {
+    "id": "113",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 397753.8575,
+    "pct_buildings": 19.7917,
+    "area_parking": 47504.7014,
+    "pct_parking": 2.3638,
+    "area_green": 331133.1214,
+    "pct_green": 16.4767
+  },
+  {
+    "id": "114",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 313405.1785,
+    "pct_buildings": 15.5946,
+    "area_parking": 10159.531,
+    "pct_parking": 0.5055,
+    "area_green": 342353.005,
+    "pct_green": 17.035
+  },
+  {
+    "id": "115",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 337274.0157,
+    "pct_buildings": 16.7823,
+    "area_parking": 6719.0146,
+    "pct_parking": 0.3343,
+    "area_green": 307555.4803,
+    "pct_green": 15.3035
+  },
+  {
+    "id": "116",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 405130.7256,
+    "pct_buildings": 20.1588,
+    "area_parking": 5502.251,
+    "pct_parking": 0.2738,
+    "area_green": 133977.57,
+    "pct_green": 6.6665
+  },
+  {
+    "id": "117",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 410702.1977,
+    "pct_buildings": 20.436,
+    "area_green": 12491.2066,
+    "pct_green": 0.6215
+  },
+  {
+    "id": "118",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 359650.3367,
+    "pct_buildings": 17.8957,
+    "area_parking": 714.0661,
+    "pct_parking": 0.0355,
+    "area_green": 96599.1097,
+    "pct_green": 4.8066
+  },
+  {
+    "id": "119",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 426341.7581,
+    "pct_buildings": 21.2142,
+    "area_parking": 53180.8728,
+    "pct_parking": 2.6462,
+    "area_green": 129148.6941,
+    "pct_green": 6.4263
+  },
+  {
+    "id": "12",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 731922.9074,
+    "pct_buildings": 36.4195,
+    "area_parking": 258213.2617,
+    "pct_parking": 12.8483,
+    "area_green": 107427.8883,
+    "pct_green": 5.3455
+  },
+  {
+    "id": "120",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 473923.5453,
+    "pct_buildings": 23.5818,
+    "area_parking": 129888.4367,
+    "pct_parking": 6.4631,
+    "area_green": 102543.8094,
+    "pct_green": 5.1024
+  },
+  {
+    "id": "121",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 551715.5905,
+    "pct_buildings": 27.4526,
+    "area_parking": 216707.0154,
+    "pct_parking": 10.783,
+    "area_green": 181457.6218,
+    "pct_green": 9.0291
+  },
+  {
+    "id": "122",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 402118.5745,
+    "pct_buildings": 20.0089,
+    "area_parking": 24189.1808,
+    "pct_parking": 1.2036,
+    "area_green": 258607.2514,
+    "pct_green": 12.8679
+  },
+  {
+    "id": "123",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 134194.9732,
+    "pct_buildings": 6.6774,
+    "area_parking": 27586.9045,
+    "pct_parking": 1.3727,
+    "area_green": 746135.0628,
+    "pct_green": 37.1267
+  },
+  {
+    "id": "124",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 697505.4865,
+    "pct_buildings": 34.7069,
+    "area_parking": 237386.4283,
+    "pct_parking": 11.812,
+    "area_green": 71166.505,
+    "pct_green": 3.5411
+  },
+  {
+    "id": "13",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 379926.2033,
+    "pct_buildings": 18.9046,
+    "area_parking": 61923.2571,
+    "pct_parking": 3.0812,
+    "area_green": 222754.6896,
+    "pct_green": 11.084
+  },
+  {
+    "id": "14",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 366945.0321,
+    "pct_buildings": 18.2587,
+    "area_parking": 67133.9143,
+    "pct_parking": 3.3405,
+    "area_green": 297022.2576,
+    "pct_green": 14.7794
+  },
+  {
+    "id": "15",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 683854.6774,
+    "pct_buildings": 34.0277,
+    "area_parking": 265527.4738,
+    "pct_parking": 13.2123,
+    "area_green": 124145.3453,
+    "pct_green": 6.1773
+  },
+  {
+    "id": "16",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 698541.4282,
+    "pct_buildings": 34.7585,
+    "area_parking": 213092.6458,
+    "pct_parking": 10.6032,
+    "area_green": 121695.2357,
+    "pct_green": 6.0554
+  },
+  {
+    "id": "17",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 634668.9102,
+    "pct_buildings": 31.5803,
+    "area_parking": 266748.2742,
+    "pct_parking": 13.273,
+    "area_green": 128042.032,
+    "pct_green": 6.3712
+  },
+  {
+    "id": "18",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 587414.0851,
+    "pct_buildings": 29.2289,
+    "area_parking": 255121.4468,
+    "pct_parking": 12.6945,
+    "area_green": 160082.2196,
+    "pct_green": 7.9655
+  },
+  {
+    "id": "19",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 383076.3548,
+    "pct_buildings": 19.0614,
+    "area_parking": 40073.4073,
+    "pct_parking": 1.994,
+    "area_green": 383188.1222,
+    "pct_green": 19.0669
+  },
+  {
+    "id": "2",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 485709.5441,
+    "pct_buildings": 24.1683,
+    "area_parking": 38913.8587,
+    "pct_parking": 1.9363,
+    "area_green": 100796.5297,
+    "pct_green": 5.0155
+  },
+  {
+    "id": "20",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 253221.9881,
+    "pct_buildings": 12.6,
+    "area_parking": 60415.9548,
+    "pct_parking": 3.0062,
+    "area_green": 708535.4836,
+    "pct_green": 35.2558
+  },
+  {
+    "id": "21",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 329510.4643,
+    "pct_buildings": 16.396,
+    "area_parking": 139687.4774,
+    "pct_parking": 6.9507,
+    "area_green": 125058.8303,
+    "pct_green": 6.2228
+  },
+  {
+    "id": "22",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 368363.4885,
+    "pct_buildings": 18.3293,
+    "area_parking": 11533.5274,
+    "pct_parking": 0.5739,
+    "area_green": 225376.1613,
+    "pct_green": 11.2144
+  },
+  {
+    "id": "23",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 324907.687,
+    "pct_buildings": 16.167,
+    "area_parking": 169371.3398,
+    "pct_parking": 8.4277,
+    "area_green": 394452.0524,
+    "pct_green": 19.6274
+  },
+  {
+    "id": "24",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 180577.3027,
+    "pct_buildings": 8.9853,
+    "area_parking": 81329.2727,
+    "pct_parking": 4.0468,
+    "area_green": 384716.474,
+    "pct_green": 19.143
+  },
+  {
+    "id": "25",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 332867.4053,
+    "pct_buildings": 16.563,
+    "area_parking": 43990.5716,
+    "pct_parking": 2.1889,
+    "area_green": 307646.0812,
+    "pct_green": 15.3081
+  },
+  {
+    "id": "26",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 352956.8026,
+    "pct_buildings": 17.5627,
+    "area_parking": 161497.1209,
+    "pct_parking": 8.0359,
+    "area_green": 213678.4686,
+    "pct_green": 10.6324
+  },
+  {
+    "id": "27",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 247870.2351,
+    "pct_buildings": 12.3337,
+    "area_parking": 46025.1055,
+    "pct_parking": 2.2901,
+    "area_green": 398351.8406,
+    "pct_green": 19.8215
+  },
+  {
+    "id": "28",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 285118.5231,
+    "pct_buildings": 14.1871,
+    "area_parking": 30305.7098,
+    "pct_parking": 1.508,
+    "area_green": 261161.1019,
+    "pct_green": 12.995
+  },
+  {
+    "id": "29",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 700805.3348,
+    "pct_buildings": 34.8711,
+    "area_parking": 249828.4196,
+    "pct_parking": 12.4311,
+    "area_green": 84761.8975,
+    "pct_green": 4.2176
+  },
+  {
+    "id": "3",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 78825.8273,
+    "pct_buildings": 3.9223,
+    "area_parking": 673.8,
+    "pct_parking": 0.0335,
+    "area_green": 53828.4265,
+    "pct_green": 2.6784
+  },
+  {
+    "id": "30",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 642097.0239,
+    "pct_buildings": 31.9499,
+    "area_parking": 233055.3699,
+    "pct_parking": 11.5965,
+    "area_green": 98642.3356,
+    "pct_green": 4.9083
+  },
+  {
+    "id": "31",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 500876.9256,
+    "pct_buildings": 24.923,
+    "area_parking": 198187.2433,
+    "pct_parking": 9.8615,
+    "area_green": 50076.619,
+    "pct_green": 2.4917
+  },
+  {
+    "id": "32",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 504843.4713,
+    "pct_buildings": 25.1203,
+    "area_parking": 235742.0933,
+    "pct_parking": 11.7302,
+    "area_green": 127524.682,
+    "pct_green": 6.3455
+  },
+  {
+    "id": "33",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 353672.1922,
+    "pct_buildings": 17.5983,
+    "area_parking": 206611.2713,
+    "pct_parking": 10.2807,
+    "area_green": 228755.2903,
+    "pct_green": 11.3826
+  },
+  {
+    "id": "34",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 332475.68,
+    "pct_buildings": 16.5435,
+    "area_parking": 99133.3323,
+    "pct_parking": 4.9327,
+    "area_green": 273443.6492,
+    "pct_green": 13.6062
+  },
+  {
+    "id": "35",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 222366.0474,
+    "pct_buildings": 11.0646,
+    "area_parking": 35564.2827,
+    "pct_parking": 1.7696,
+    "area_green": 174718.3285,
+    "pct_green": 8.6937
+  },
+  {
+    "id": "36",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 467794.1793,
+    "pct_buildings": 23.2768,
+    "area_parking": 205929.2388,
+    "pct_parking": 10.2468,
+    "area_green": 232773.3048,
+    "pct_green": 11.5825
+  },
+  {
+    "id": "37",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 444910.5933,
+    "pct_buildings": 22.1382,
+    "area_parking": 103498.9709,
+    "pct_parking": 5.15,
+    "area_green": 480466.8223,
+    "pct_green": 23.9074
+  },
+  {
+    "id": "38",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 321463.4003,
+    "pct_buildings": 15.9956,
+    "area_parking": 190059.3004,
+    "pct_parking": 9.4571,
+    "area_green": 481387.6711,
+    "pct_green": 23.9532
+  },
+  {
+    "id": "39",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 225232.7748,
+    "pct_buildings": 11.2073,
+    "area_parking": 66826.1059,
+    "pct_parking": 3.3252,
+    "area_green": 188862.6315,
+    "pct_green": 9.3976
+  },
+  {
+    "id": "4",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 690855.1212,
+    "pct_buildings": 34.376,
+    "area_parking": 207693.8773,
+    "pct_parking": 10.3346,
+    "area_green": 100394.0445,
+    "pct_green": 4.9955
+  },
+  {
+    "id": "40",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 346820.2313,
+    "pct_buildings": 17.2573,
+    "area_parking": 58327.4708,
+    "pct_parking": 2.9023,
+    "area_green": 119858.677,
+    "pct_green": 5.964
+  },
+  {
+    "id": "41",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 373030.7587,
+    "pct_buildings": 18.5615,
+    "area_parking": 103238.9564,
+    "pct_parking": 5.137,
+    "area_green": 163460.4011,
+    "pct_green": 8.1336
+  },
+  {
+    "id": "42",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 482279.9764,
+    "pct_buildings": 23.9976,
+    "area_parking": 18261.3887,
+    "pct_parking": 0.9087
+  },
+  {
+    "id": "43",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 224074.4107,
+    "pct_buildings": 11.1496,
+    "area_parking": 87328.1519,
+    "pct_parking": 4.3453,
+    "area_green": 189234.2138,
+    "pct_green": 9.416
+  },
+  {
+    "id": "44",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 409339.9839,
+    "pct_buildings": 20.3682,
+    "area_parking": 110023.7405,
+    "pct_parking": 5.4746,
+    "area_green": 240188.3101,
+    "pct_green": 11.9514
+  },
+  {
+    "id": "45",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 184097.5396,
+    "pct_buildings": 9.1604,
+    "area_parking": 35500.5102,
+    "pct_parking": 1.7665,
+    "area_green": 366241.4424,
+    "pct_green": 18.2237
+  },
+  {
+    "id": "46",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 477785.5693,
+    "pct_buildings": 23.774,
+    "area_parking": 176566.2831,
+    "pct_parking": 8.7857,
+    "area_green": 80383.9972,
+    "pct_green": 3.9998
+  },
+  {
+    "id": "47",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 278708.1088,
+    "pct_buildings": 13.8681,
+    "area_parking": 629.3452,
+    "pct_parking": 0.0313,
+    "area_green": 142589.9491,
+    "pct_green": 7.0951
+  },
+  {
+    "id": "48",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 424156.7781,
+    "pct_buildings": 21.1055,
+    "area_parking": 37842.4581,
+    "pct_parking": 1.883,
+    "area_green": 283209.9931,
+    "pct_green": 14.0921
+  },
+  {
+    "id": "49",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 318775.874,
+    "pct_buildings": 15.8619,
+    "area_parking": 22074.1434,
+    "pct_parking": 1.0984,
+    "area_green": 311103.5439,
+    "pct_green": 15.4801
+  },
+  {
+    "id": "5",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 312172.7649,
+    "pct_buildings": 15.5333,
+    "area_parking": 105190.41,
+    "pct_parking": 5.2341,
+    "area_green": 5792.9618,
+    "pct_green": 0.2882
+  },
+  {
+    "id": "50",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 177933.4353,
+    "pct_buildings": 8.8537,
+    "area_parking": 77744.9898,
+    "pct_parking": 3.8685,
+    "area_green": 353672.7938,
+    "pct_green": 17.5983
+  },
+  {
+    "id": "51",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 376894.9925,
+    "pct_buildings": 18.7538,
+    "area_parking": 171175.3044,
+    "pct_parking": 8.5175,
+    "area_green": 411616.0959,
+    "pct_green": 20.4815
+  },
+  {
+    "id": "52",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 240041.8902,
+    "pct_buildings": 11.9442,
+    "area_parking": 122452.5288,
+    "pct_parking": 6.0931,
+    "area_green": 89564.8092,
+    "pct_green": 4.4566
+  },
+  {
+    "id": "53",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 387415.3997,
+    "pct_buildings": 19.2773,
+    "area_parking": 108120.6206,
+    "pct_parking": 5.3799,
+    "area_green": 220969.8696,
+    "pct_green": 10.9952
+  },
+  {
+    "id": "54",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 152380.1734,
+    "pct_buildings": 7.5822,
+    "area_parking": 92806.3269,
+    "pct_parking": 4.6179,
+    "area_green": 381679.1305,
+    "pct_green": 18.9918
+  },
+  {
+    "id": "55",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 336232.9404,
+    "pct_buildings": 16.7305,
+    "area_parking": 54511.3115,
+    "pct_parking": 2.7124,
+    "area_green": 212394.1144,
+    "pct_green": 10.5684
+  },
+  {
+    "id": "56",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 422110.8856,
+    "pct_buildings": 21.0037,
+    "area_parking": 245999.7951,
+    "pct_parking": 12.2406,
+    "area_green": 91039.9556,
+    "pct_green": 4.53
+  },
+  {
+    "id": "57",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 407479.7986,
+    "pct_buildings": 20.2756,
+    "area_parking": 26301.777,
+    "pct_parking": 1.3087,
+    "area_green": 316079.6453,
+    "pct_green": 15.7277
+  },
+  {
+    "id": "58",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 399391.9199,
+    "pct_buildings": 19.8732,
+    "area_parking": 131952.8373,
+    "pct_parking": 6.5658,
+    "area_green": 387414.9671,
+    "pct_green": 19.2772
+  },
+  {
+    "id": "59",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 208750.0476,
+    "pct_buildings": 10.3871,
+    "area_parking": 23417.1119,
+    "pct_parking": 1.1652,
+    "area_green": 131868.3881,
+    "pct_green": 6.5616
+  },
+  {
+    "id": "6",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 489581.1008,
+    "pct_buildings": 24.3609,
+    "area_parking": 11124.6753,
+    "pct_parking": 0.5535,
+    "area_green": 106923.3139,
+    "pct_green": 5.3204
+  },
+  {
+    "id": "60",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 265287.5969,
+    "pct_buildings": 13.2004,
+    "area_parking": 22873.4862,
+    "pct_parking": 1.1382,
+    "area_green": 727314.3227,
+    "pct_green": 36.1902
+  },
+  {
+    "id": "61",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 354036.2957,
+    "pct_buildings": 17.6164,
+    "area_parking": 23597.8523,
+    "pct_parking": 1.1742,
+    "area_green": 120999.1494,
+    "pct_green": 6.0208
+  },
+  {
+    "id": "62",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 168515.1659,
+    "pct_buildings": 8.3851,
+    "area_parking": 217248.2896,
+    "pct_parking": 10.81,
+    "area_green": 297442.3052,
+    "pct_green": 14.8003
+  },
+  {
+    "id": "63",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 366539.6352,
+    "pct_buildings": 18.2385,
+    "area_parking": 35766.1251,
+    "pct_parking": 1.7797,
+    "area_green": 314936.4239,
+    "pct_green": 15.6708
+  },
+  {
+    "id": "64",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 304497.2145,
+    "pct_buildings": 15.1514,
+    "area_parking": 80092.8385,
+    "pct_parking": 3.9853,
+    "area_green": 172036.4803,
+    "pct_green": 8.5603
+  },
+  {
+    "id": "65",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 174131.582,
+    "pct_buildings": 8.6646,
+    "area_parking": 18689.7854,
+    "pct_parking": 0.93,
+    "area_green": 322673.465,
+    "pct_green": 16.0558
+  },
+  {
+    "id": "66",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 382426.0062,
+    "pct_buildings": 19.029,
+    "area_parking": 182201.8558,
+    "pct_parking": 9.0661,
+    "area_green": 72906.5424,
+    "pct_green": 3.6277
+  },
+  {
+    "id": "67",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 348144.6989,
+    "pct_buildings": 17.3232,
+    "area_parking": 61673.426,
+    "pct_parking": 3.0688,
+    "area_green": 259008.7948,
+    "pct_green": 12.8879
+  },
+  {
+    "id": "68",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 356801.9008,
+    "pct_buildings": 17.754,
+    "area_parking": 95407.781,
+    "pct_parking": 4.7474,
+    "area_green": 520670.3507,
+    "pct_green": 25.9079
+  },
+  {
+    "id": "69",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 280557.5641,
+    "pct_buildings": 13.9602,
+    "area_parking": 18907.0992,
+    "pct_parking": 0.9408,
+    "area_green": 356817.7285,
+    "pct_green": 17.7548
+  },
+  {
+    "id": "7",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 372214.4904,
+    "pct_buildings": 18.5209,
+    "area_parking": 68131.6313,
+    "pct_parking": 3.3901,
+    "area_green": 295564.725,
+    "pct_green": 14.7069
+  },
+  {
+    "id": "70",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 381069.6323,
+    "pct_buildings": 18.9615,
+    "area_parking": 160687.7829,
+    "pct_parking": 7.9956,
+    "area_green": 471964.7311,
+    "pct_green": 23.4843
+  },
+  {
+    "id": "71",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 458017.9577,
+    "pct_buildings": 22.7904,
+    "area_parking": 323257.091,
+    "pct_parking": 16.0848,
+    "area_green": 222127.9824,
+    "pct_green": 11.0528
+  },
+  {
+    "id": "72",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 415967.5147,
+    "pct_buildings": 20.698,
+    "area_parking": 62288.9466,
+    "pct_parking": 3.0994,
+    "area_green": 282977.1791,
+    "pct_green": 14.0806
+  },
+  {
+    "id": "73",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 473951.3088,
+    "pct_buildings": 23.5832,
+    "area_parking": 57475.8753,
+    "pct_parking": 2.8599,
+    "area_green": 66740.9015,
+    "pct_green": 3.3209
+  },
+  {
+    "id": "74",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 119145.8445,
+    "pct_buildings": 5.9285,
+    "area_parking": 103303.8532,
+    "pct_parking": 5.1403,
+    "area_green": 328634.2142,
+    "pct_green": 16.3524
+  },
+  {
+    "id": "75",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 149769.0744,
+    "pct_buildings": 7.4523,
+    "area_parking": 2027.2708,
+    "pct_parking": 0.1009,
+    "area_green": 304129.0711,
+    "pct_green": 15.1331
+  },
+  {
+    "id": "76",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 172760.1232,
+    "pct_buildings": 8.5963,
+    "area_green": 346859.0369,
+    "pct_green": 17.2592
+  },
+  {
+    "id": "77",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 234284.5591,
+    "pct_buildings": 11.6577,
+    "area_parking": 2833.5847,
+    "pct_parking": 0.141,
+    "area_green": 351340.095,
+    "pct_green": 17.4822
+  },
+  {
+    "id": "78",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 91156.7882,
+    "pct_buildings": 4.5358,
+    "area_parking": 35926.3234,
+    "pct_parking": 1.7876,
+    "area_green": 418545.9385,
+    "pct_green": 20.8263
+  },
+  {
+    "id": "79",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 176745.6415,
+    "pct_buildings": 8.7946,
+    "area_parking": 3469.0035,
+    "pct_parking": 0.1726,
+    "area_green": 982580.8455,
+    "pct_green": 48.8919
+  },
+  {
+    "id": "8",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 745006.9925,
+    "pct_buildings": 37.0705,
+    "area_parking": 240400.9912,
+    "pct_parking": 11.962,
+    "area_green": 103524.0333,
+    "pct_green": 5.1512
+  },
+  {
+    "id": "80",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 434713.3876,
+    "pct_buildings": 21.6308,
+    "area_parking": 124641.775,
+    "pct_parking": 6.202,
+    "area_green": 101887.949,
+    "pct_green": 5.0698
+  },
+  {
+    "id": "81",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 687509.1777,
+    "pct_buildings": 34.2095,
+    "area_parking": 163319.3639,
+    "pct_parking": 8.1266,
+    "area_green": 48238.8522,
+    "pct_green": 2.4003
+  },
+  {
+    "id": "82",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 304000.409,
+    "pct_buildings": 15.1267,
+    "area_parking": 130646.7873,
+    "pct_parking": 6.5008,
+    "area_green": 161816.6962,
+    "pct_green": 8.0518
+  },
+  {
+    "id": "83",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 632351.5419,
+    "pct_buildings": 31.465,
+    "area_parking": 237639.4486,
+    "pct_parking": 11.8246,
+    "area_green": 198242.1266,
+    "pct_green": 9.8643
+  },
+  {
+    "id": "84",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 431326.3101,
+    "pct_buildings": 21.4622,
+    "area_parking": 104915.8364,
+    "pct_parking": 5.2205,
+    "area_green": 399937.6851,
+    "pct_green": 19.9004
+  },
+  {
+    "id": "85",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 571788.7372,
+    "pct_buildings": 28.4514,
+    "area_parking": 176480.1515,
+    "pct_parking": 8.7814,
+    "area_green": 270973.0686,
+    "pct_green": 13.4833
+  },
+  {
+    "id": "86",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 318502.4547,
+    "pct_buildings": 15.8483,
+    "area_parking": 157745.9175,
+    "pct_parking": 7.8492,
+    "area_green": 144140.7044,
+    "pct_green": 7.1722
+  },
+  {
+    "id": "87",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 614910.6455,
+    "pct_buildings": 30.5971,
+    "area_parking": 197055.2552,
+    "pct_parking": 9.8052,
+    "area_green": 221366.3809,
+    "pct_green": 11.0149
+  },
+  {
+    "id": "88",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 643644.1435,
+    "pct_buildings": 32.0269,
+    "area_parking": 221468.2712,
+    "pct_parking": 11.02,
+    "area_green": 111189.2813,
+    "pct_green": 5.5326
+  },
+  {
+    "id": "89",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 298502.9847,
+    "pct_buildings": 14.8531,
+    "area_parking": 176225.1471,
+    "pct_parking": 8.7687,
+    "area_green": 577161.5677,
+    "pct_green": 28.7188
+  },
+  {
+    "id": "9",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 373045.8298,
+    "pct_buildings": 18.5623,
+    "area_parking": 219045.4487,
+    "pct_parking": 10.8994,
+    "area_green": 281265.0796,
+    "pct_green": 13.9954
+  },
+  {
+    "id": "90",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 562602.7616,
+    "pct_buildings": 27.9944,
+    "area_parking": 172609.5095,
+    "pct_parking": 8.5888,
+    "area_green": 339978.2681,
+    "pct_green": 16.9169
+  },
+  {
+    "id": "91",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 315421.9863,
+    "pct_buildings": 15.695,
+    "area_parking": 64633.7955,
+    "pct_parking": 3.2161,
+    "area_green": 565895.1356,
+    "pct_green": 28.1582
+  },
+  {
+    "id": "92",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 548067.6446,
+    "pct_buildings": 27.2711,
+    "area_parking": 122503.5955,
+    "pct_parking": 6.0956,
+    "area_green": 218710.0363,
+    "pct_green": 10.8827
+  },
+  {
+    "id": "93",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 428979.9973,
+    "pct_buildings": 21.3455,
+    "area_parking": 139443.0306,
+    "pct_parking": 6.9385,
+    "area_green": 305596.5569,
+    "pct_green": 15.2061
+  },
+  {
+    "id": "94",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 219751.3525,
+    "pct_buildings": 10.9345,
+    "area_parking": 60138.1627,
+    "pct_parking": 2.9924,
+    "area_green": 314297.6844,
+    "pct_green": 15.639
+  },
+  {
+    "id": "95",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 396355.0115,
+    "pct_buildings": 19.7221,
+    "area_parking": 50299.0842,
+    "pct_parking": 2.5028,
+    "area_green": 171551.4797,
+    "pct_green": 8.5362
+  },
+  {
+    "id": "96",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 374733.906,
+    "pct_buildings": 18.6463,
+    "area_parking": 55617.2904,
+    "pct_parking": 2.7674,
+    "area_green": 310616.1178,
+    "pct_green": 15.4558
+  },
+  {
+    "id": "97",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 431856.8838,
+    "pct_buildings": 21.4886,
+    "area_parking": 71835.6099,
+    "pct_parking": 3.5744,
+    "area_green": 122757.9619,
+    "pct_green": 6.1083
+  },
+  {
+    "id": "98",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 326406.3471,
+    "pct_buildings": 16.2415,
+    "area_parking": 4140.5581,
+    "pct_parking": 0.206,
+    "area_green": 430706.6361,
+    "pct_green": 21.4314
+  },
+  {
+    "id": "99",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 503843.6442,
+    "pct_buildings": 25.0706,
+    "area_parking": 134374.4722,
+    "pct_parking": 6.6863,
+    "area_green": 461465.6794,
+    "pct_green": 22.9619
+  },
+  {
+    "id": "649",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 363521.7397,
+    "pct_buildings": 18.0884,
+    "area_parking": 98347.7229,
+    "pct_parking": 4.8937,
+    "area_green": 150654.7973,
+    "pct_green": 7.4964
+  },
+  {
+    "id": "650",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 221707.0775,
+    "pct_buildings": 11.0318,
+    "area_parking": 38934.8495,
+    "pct_parking": 1.9373,
+    "area_green": 237072.8751,
+    "pct_green": 11.7964
+  },
+  {
+    "id": "651",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 439388.4872,
+    "pct_buildings": 21.8634,
+    "area_parking": 7694.9251,
+    "pct_parking": 0.3829,
+    "area_green": 171624.0525,
+    "pct_green": 8.5398
+  },
+  {
+    "id": "652",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 411896.4218,
+    "pct_buildings": 20.4954,
+    "area_parking": 225270.7209,
+    "pct_parking": 11.2092,
+    "area_green": 136858.8558,
+    "pct_green": 6.8099
+  },
+  {
+    "id": "653",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 598407.474,
+    "pct_buildings": 29.7759,
+    "area_parking": 16090.1858,
+    "pct_parking": 0.8006,
+    "area_green": 78149.0138,
+    "pct_green": 3.8886
+  },
+  {
+    "id": "654",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 374985.4474,
+    "pct_buildings": 18.6588,
+    "area_parking": 45469.124,
+    "pct_parking": 2.2625,
+    "area_green": 260027.5788,
+    "pct_green": 12.9386
+  },
+  {
+    "id": "655",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 218769.4962,
+    "pct_buildings": 10.8857,
+    "area_parking": 20137.3245,
+    "pct_parking": 1.002,
+    "area_green": 323273.6519,
+    "pct_green": 16.0857
+  },
+  {
+    "id": "656",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 421075.8866,
+    "pct_buildings": 20.9522,
+    "area_parking": 113455.2311,
+    "pct_parking": 5.6454,
+    "area_green": 181435.2886,
+    "pct_green": 9.028
+  },
+  {
+    "id": "657",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 261530.0811,
+    "pct_buildings": 13.0134,
+    "area_parking": 141014.5609,
+    "pct_parking": 7.0167,
+    "area_green": 39890.2028,
+    "pct_green": 1.9849
+  },
+  {
+    "id": "658",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 670015.6106,
+    "pct_buildings": 33.3391,
+    "area_parking": 89406.2412,
+    "pct_parking": 4.4487,
+    "area_green": 81671.5471,
+    "pct_green": 4.0639
+  },
+  {
+    "id": "659",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 317116.2379,
+    "pct_buildings": 15.7793,
+    "area_parking": 33038.9799,
+    "pct_parking": 1.644,
+    "area_green": 228430.5707,
+    "pct_green": 11.3664
+  },
+  {
+    "id": "660",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 776265.7356,
+    "pct_buildings": 38.6259,
+    "area_parking": 50638.0589,
+    "pct_parking": 2.5197,
+    "area_green": 84338.2174,
+    "pct_green": 4.1966
+  },
+  {
+    "id": "661",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 448070.9444,
+    "pct_buildings": 22.2954,
+    "area_parking": 44368.3619,
+    "pct_parking": 2.2077,
+    "area_green": 268604.127,
+    "pct_green": 13.3654
+  },
+  {
+    "id": "662",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 315739.9529,
+    "pct_buildings": 15.7108,
+    "area_parking": 36052.616,
+    "pct_parking": 1.7939,
+    "area_green": 151470.6041,
+    "pct_green": 7.537
+  },
+  {
+    "id": "663",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 465831.564,
+    "pct_buildings": 23.1792,
+    "area_parking": 38853.2909,
+    "pct_parking": 1.9333,
+    "area_green": 220111.8509,
+    "pct_green": 10.9525
+  },
+  {
+    "id": "664",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 343555.7089,
+    "pct_buildings": 17.0949,
+    "area_parking": 199032.2125,
+    "pct_parking": 9.9036,
+    "area_green": 250679.8032,
+    "pct_green": 12.4735
+  },
+  {
+    "id": "665",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 322820.3905,
+    "pct_buildings": 16.0631,
+    "area_parking": 24477.4911,
+    "pct_parking": 1.218,
+    "area_green": 638807.415,
+    "pct_green": 31.7862
+  },
+  {
+    "id": "666",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 519409.7376,
+    "pct_buildings": 25.8451,
+    "area_parking": 75129.4899,
+    "pct_parking": 3.7383,
+    "area_green": 119504.4246,
+    "pct_green": 5.9464
+  },
+  {
+    "id": "667",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 345833.1188,
+    "pct_buildings": 17.2082,
+    "area_parking": 81548.9243,
+    "pct_parking": 4.0578,
+    "area_green": 245074.3377,
+    "pct_green": 12.1946
+  },
+  {
+    "id": "668",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 447232.4092,
+    "pct_buildings": 22.2537,
+    "area_parking": 149670.4411,
+    "pct_parking": 7.4474,
+    "area_green": 188245.578,
+    "pct_green": 9.3668
+  },
+  {
+    "id": "669",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 926023.386,
+    "pct_buildings": 46.0777,
+    "area_parking": 83896.9423,
+    "pct_parking": 4.1746,
+    "area_green": 70839.7947,
+    "pct_green": 3.5249
+  },
+  {
+    "id": "670",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 544079.2734,
+    "pct_buildings": 27.0727,
+    "area_parking": 144583.3545,
+    "pct_parking": 7.1943,
+    "area_green": 83321.4904,
+    "pct_green": 4.146
+  },
+  {
+    "id": "671",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 251007.2714,
+    "pct_buildings": 12.4898,
+    "area_parking": 143479.7653,
+    "pct_parking": 7.1394,
+    "area_green": 790210.5906,
+    "pct_green": 39.3198
+  },
+  {
+    "id": "672",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 324841.0242,
+    "pct_buildings": 16.1637,
+    "area_parking": 57866.6759,
+    "pct_parking": 2.8794,
+    "area_green": 422070.9359,
+    "pct_green": 21.0017
+  },
+  {
+    "id": "673",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 349808.6323,
+    "pct_buildings": 17.406,
+    "area_parking": 59064.3531,
+    "pct_parking": 2.939,
+    "area_green": 207183.4826,
+    "pct_green": 10.3092
+  },
+  {
+    "id": "674",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 320992.1825,
+    "pct_buildings": 15.9721,
+    "area_parking": 49031.6491,
+    "pct_parking": 2.4397,
+    "area_green": 449169.7196,
+    "pct_green": 22.3501
+  },
+  {
+    "id": "675",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 463381.3673,
+    "pct_buildings": 23.0572,
+    "area_parking": 25117.3287,
+    "pct_parking": 1.2498,
+    "area_green": 99110.9567,
+    "pct_green": 4.9316
+  },
+  {
+    "id": "676",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 412987.4568,
+    "pct_buildings": 20.5497,
+    "area_parking": 27027.5335,
+    "pct_parking": 1.3449,
+    "area_green": 382678.3353,
+    "pct_green": 19.0416
+  },
+  {
+    "id": "677",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 479108.7756,
+    "pct_buildings": 23.8398,
+    "area_parking": 172580.5736,
+    "pct_parking": 8.5874,
+    "area_green": 231852.3182,
+    "pct_green": 11.5367
+  },
+  {
+    "id": "678",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 334226.4971,
+    "pct_buildings": 16.6307,
+    "area_parking": 136267.6933,
+    "pct_parking": 6.7805,
+    "area_green": 607490.8553,
+    "pct_green": 30.2279
+  },
+  {
+    "id": "679",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 312198.702,
+    "pct_buildings": 15.5346,
+    "area_parking": 17942.7588,
+    "pct_parking": 0.8928,
+    "area_green": 297750.4567,
+    "pct_green": 14.8157
+  },
+  {
+    "id": "680",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 415354.5737,
+    "pct_buildings": 20.6675,
+    "area_parking": 30086.0507,
+    "pct_parking": 1.497,
+    "area_green": 443074.1298,
+    "pct_green": 22.0468
+  },
+  {
+    "id": "681",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 493460.6469,
+    "pct_buildings": 24.5539,
+    "area_parking": 177652.9533,
+    "pct_parking": 8.8398,
+    "area_green": 83279.62,
+    "pct_green": 4.1439
+  },
+  {
+    "id": "682",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 761073.814,
+    "pct_buildings": 37.87,
+    "area_parking": 312737.9254,
+    "pct_parking": 15.5614,
+    "area_green": 43165.9335,
+    "pct_green": 2.1479
+  },
+  {
+    "id": "683",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 434367.2142,
+    "pct_buildings": 21.6135,
+    "area_parking": 240085.022,
+    "pct_parking": 11.9463,
+    "area_green": 247586.6384,
+    "pct_green": 12.3196
+  },
+  {
+    "id": "684",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 352621.4697,
+    "pct_buildings": 17.546,
+    "area_parking": 89441.2814,
+    "pct_parking": 4.4505,
+    "area_green": 460455.8051,
+    "pct_green": 22.9117
+  },
+  {
+    "id": "685",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 460639.2598,
+    "pct_buildings": 22.9208,
+    "area_parking": 145857.7264,
+    "pct_parking": 7.2577,
+    "area_green": 210877.7168,
+    "pct_green": 10.493
+  },
+  {
+    "id": "686",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 377841.0122,
+    "pct_buildings": 18.8009,
+    "area_parking": 98484.1111,
+    "pct_parking": 4.9004,
+    "area_green": 116017.0397,
+    "pct_green": 5.7729
+  },
+  {
+    "id": "687",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 463402.0779,
+    "pct_buildings": 23.0583,
+    "area_parking": 35822.0793,
+    "pct_parking": 1.7825,
+    "area_green": 72244.1718,
+    "pct_green": 3.5948
+  },
+  {
+    "id": "688",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 507562.5846,
+    "pct_buildings": 25.2556,
+    "area_parking": 92941.5253,
+    "pct_parking": 4.6246,
+    "area_green": 250767.5254,
+    "pct_green": 12.4779
+  },
+  {
+    "id": "689",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 148951.8559,
+    "pct_buildings": 7.4116,
+    "area_parking": 24427.1148,
+    "pct_parking": 1.2155,
+    "area_green": 140584.3715,
+    "pct_green": 6.9953
+  },
+  {
+    "id": "690",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 204776.4064,
+    "pct_buildings": 10.1894,
+    "area_parking": 71420.5723,
+    "pct_parking": 3.5538,
+    "area_green": 611170.5524,
+    "pct_green": 30.411
+  },
+  {
+    "id": "691",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 676147.2855,
+    "pct_buildings": 33.6442,
+    "area_parking": 80804.8897,
+    "pct_parking": 4.0207,
+    "area_green": 59973.3477,
+    "pct_green": 2.9842
+  },
+  {
+    "id": "692",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 460528.1761,
+    "pct_buildings": 22.9153,
+    "area_parking": 18265.7272,
+    "pct_parking": 0.9089,
+    "area_green": 173265.1584,
+    "pct_green": 8.6214
+  },
+  {
+    "id": "693",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 352328.1568,
+    "pct_buildings": 17.5314,
+    "area_parking": 49024.5462,
+    "pct_parking": 2.4394,
+    "area_green": 84479.727,
+    "pct_green": 4.2036
+  },
+  {
+    "id": "694",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 472216.027,
+    "pct_buildings": 23.4968,
+    "area_parking": 19490.1613,
+    "pct_parking": 0.9698,
+    "area_green": 210556.2505,
+    "pct_green": 10.477
+  },
+  {
+    "id": "695",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 598155.0845,
+    "pct_buildings": 29.7634,
+    "area_parking": 46221.0665,
+    "pct_parking": 2.2999,
+    "area_green": 118205.2118,
+    "pct_green": 5.8817
+  },
+  {
+    "id": "696",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 549776.5614,
+    "pct_buildings": 27.3561,
+    "area_parking": 92014.5898,
+    "pct_parking": 4.5785,
+    "area_green": 164466.6974,
+    "pct_green": 8.1836
+  },
+  {
+    "id": "697",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 290920.3118,
+    "pct_buildings": 14.4758,
+    "area_parking": 56250.8134,
+    "pct_parking": 2.799,
+    "area_green": 845133.0663,
+    "pct_green": 42.0527
+  },
+  {
+    "id": "698",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 358911.8408,
+    "pct_buildings": 17.859,
+    "area_parking": 44993.4953,
+    "pct_parking": 2.2388,
+    "area_green": 114263.9027,
+    "pct_green": 5.6856
+  },
+  {
+    "id": "699",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 323026.2205,
+    "pct_buildings": 16.0733,
+    "area_parking": 98705.9214,
+    "pct_parking": 4.9115,
+    "area_green": 181949.6998,
+    "pct_green": 9.0536
+  },
+  {
+    "id": "700",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 75504.123,
+    "pct_buildings": 3.757,
+    "area_parking": 24800.8356,
+    "pct_parking": 1.2341,
+    "area_green": 332852.3795,
+    "pct_green": 16.5623
+  },
+  {
+    "id": "701",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 390223.8856,
+    "pct_buildings": 19.417,
+    "area_parking": 47230.8457,
+    "pct_parking": 2.3501,
+    "area_green": 440150.4484,
+    "pct_green": 21.9013
+  },
+  {
+    "id": "702",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 497026.015,
+    "pct_buildings": 24.7313,
+    "area_parking": 107475.2123,
+    "pct_parking": 5.3478,
+    "area_green": 152791.0715,
+    "pct_green": 7.6027
+  },
+  {
+    "id": "703",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 701563.0821,
+    "pct_buildings": 34.9088,
+    "area_parking": 186048.5324,
+    "pct_parking": 9.2575,
+    "area_green": 254653.9312,
+    "pct_green": 12.6712
+  },
+  {
+    "id": "704",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 478847.0808,
+    "pct_buildings": 23.8268,
+    "area_parking": 85755.0116,
+    "pct_parking": 4.2671,
+    "area_green": 163998.4164,
+    "pct_green": 8.1603
+  },
+  {
+    "id": "705",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 480610.3081,
+    "pct_buildings": 23.9145,
+    "area_parking": 124797.7558,
+    "pct_parking": 6.2098,
+    "area_green": 135377.9929,
+    "pct_green": 6.7362
+  },
+  {
+    "id": "706",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 292163.7701,
+    "pct_buildings": 14.5377,
+    "area_parking": 20689.6933,
+    "pct_parking": 1.0295,
+    "area_green": 145231.9319,
+    "pct_green": 7.2265
+  },
+  {
+    "id": "707",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 204909.1241,
+    "pct_buildings": 10.196,
+    "area_parking": 128244.7025,
+    "pct_parking": 6.3813,
+    "area_green": 296697.8054,
+    "pct_green": 14.7633
+  },
+  {
+    "id": "708",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 179357.6625,
+    "pct_buildings": 8.9246,
+    "area_parking": 229667.6137,
+    "pct_parking": 11.428,
+    "area_green": 290176.4145,
+    "pct_green": 14.4388
+  },
+  {
+    "id": "709",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 634074.8113,
+    "pct_buildings": 31.5507,
+    "area_parking": 34308.0454,
+    "pct_parking": 1.7071,
+    "area_green": 85142.9397,
+    "pct_green": 4.2366
+  },
+  {
+    "id": "710",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 210452.9912,
+    "pct_buildings": 10.4719,
+    "area_parking": 16882.0986,
+    "pct_parking": 0.84,
+    "area_green": 636385.8929,
+    "pct_green": 31.6657
+  },
+  {
+    "id": "711",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 713300.8953,
+    "pct_buildings": 35.4929,
+    "area_parking": 142781.522,
+    "pct_parking": 7.1046,
+    "area_green": 180350.3333,
+    "pct_green": 8.974
+  },
+  {
+    "id": "712",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 452457.2079,
+    "pct_buildings": 22.5137,
+    "area_parking": 218959.2541,
+    "pct_parking": 10.8951,
+    "area_green": 207928.8734,
+    "pct_green": 10.3463
+  },
+  {
+    "id": "713",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 94057.1868,
+    "pct_buildings": 4.6802,
+    "area_parking": 259245.068,
+    "pct_parking": 12.8997,
+    "area_green": 418880.1014,
+    "pct_green": 20.8429
+  },
+  {
+    "id": "714",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 956841.8083,
+    "pct_buildings": 47.6112,
+    "area_parking": 80480.8067,
+    "pct_parking": 4.0046,
+    "area_green": 79572.643,
+    "pct_green": 3.9594
+  },
+  {
+    "id": "715",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 478390.0857,
+    "pct_buildings": 23.804,
+    "area_parking": 93942.0018,
+    "pct_parking": 4.6744,
+    "area_green": 119459.8536,
+    "pct_green": 5.9442
+  },
+  {
+    "id": "716",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 626440.067,
+    "pct_buildings": 31.1708,
+    "area_parking": 70567.0703,
+    "pct_parking": 3.5113,
+    "area_green": 87771.1975,
+    "pct_green": 4.3674
+  },
+  {
+    "id": "717",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 489600.8873,
+    "pct_buildings": 24.3619,
+    "area_parking": 262954.4931,
+    "pct_parking": 13.0843,
+    "area_green": 35622.9889,
+    "pct_green": 1.7726
+  },
+  {
+    "id": "718",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 545439.1856,
+    "pct_buildings": 27.1403,
+    "area_parking": 63798.4837,
+    "pct_parking": 3.1745,
+    "area_green": 160933.08,
+    "pct_green": 8.0078
+  },
+  {
+    "id": "719",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 264168.3406,
+    "pct_buildings": 13.1447,
+    "area_parking": 70782.8165,
+    "pct_parking": 3.5221,
+    "area_green": 358913.0336,
+    "pct_green": 17.859
+  },
+  {
+    "id": "728",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 361550.5204,
+    "pct_buildings": 17.9903,
+    "area_parking": 199935.1473,
+    "pct_parking": 9.9485,
+    "area_green": 73385.6373,
+    "pct_green": 3.6516
+  },
+  {
+    "id": "125",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 191016.45,
+    "pct_buildings": 9.5047,
+    "area_parking": 39889.1629,
+    "pct_parking": 1.9848,
+    "area_green": 354355.3515,
+    "pct_green": 17.6322
+  },
+  {
+    "id": "126",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 268550.7147,
+    "pct_buildings": 13.3627,
+    "area_parking": 290361.3931,
+    "pct_parking": 14.448,
+    "area_green": 321006.9196,
+    "pct_green": 15.9729
+  },
+  {
+    "id": "127",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 329190.6574,
+    "pct_buildings": 16.3801,
+    "area_parking": 157061.5979,
+    "pct_parking": 7.8152,
+    "area_green": 187865.6291,
+    "pct_green": 9.3479
+  },
+  {
+    "id": "128",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 111779.7133,
+    "pct_buildings": 5.562,
+    "area_parking": 123022.0689,
+    "pct_parking": 6.1214,
+    "area_green": 161908.414,
+    "pct_green": 8.0563
+  },
+  {
+    "id": "129",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 334102.7228,
+    "pct_buildings": 16.6245,
+    "area_parking": 185941.4353,
+    "pct_parking": 9.2522,
+    "area_green": 208622.474,
+    "pct_green": 10.3808
+  },
+  {
+    "id": "130",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 145755.2853,
+    "pct_buildings": 7.2526,
+    "area_parking": 92531.7755,
+    "pct_parking": 4.6043,
+    "area_green": 439108.5632,
+    "pct_green": 21.8495
+  },
+  {
+    "id": "131",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 161054.7422,
+    "pct_buildings": 8.0139,
+    "area_parking": 31106.4008,
+    "pct_parking": 1.5478,
+    "area_green": 200442.3384,
+    "pct_green": 9.9737
+  },
+  {
+    "id": "132",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 324814.3719,
+    "pct_buildings": 16.1623,
+    "area_parking": 190847.7243,
+    "pct_parking": 9.4963,
+    "area_green": 242447.5945,
+    "pct_green": 12.0639
+  },
+  {
+    "id": "133",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 254430.4614,
+    "pct_buildings": 12.6601,
+    "area_parking": 136575.4981,
+    "pct_parking": 6.7958,
+    "area_green": 345614.756,
+    "pct_green": 17.1973
+  },
+  {
+    "id": "134",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 491432.9341,
+    "pct_buildings": 24.453,
+    "area_parking": 26656.482,
+    "pct_parking": 1.3264,
+    "area_green": 141446.4284,
+    "pct_green": 7.0382
+  },
+  {
+    "id": "135",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 89869.0208,
+    "pct_buildings": 4.4718,
+    "area_parking": 26582.9207,
+    "pct_parking": 1.3227,
+    "area_green": 454108.3592,
+    "pct_green": 22.5958
+  },
+  {
+    "id": "136",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 601548.6883,
+    "pct_buildings": 29.9323,
+    "area_parking": 33428.094,
+    "pct_parking": 1.6633,
+    "area_green": 138850.8993,
+    "pct_green": 6.909
+  },
+  {
+    "id": "137",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 712361.8677,
+    "pct_buildings": 35.4462,
+    "area_parking": 53839.2301,
+    "pct_parking": 2.679,
+    "area_green": 286089.3801,
+    "pct_green": 14.2354
+  },
+  {
+    "id": "138",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 377951.454,
+    "pct_buildings": 18.8064,
+    "area_parking": 98844.4255,
+    "pct_parking": 4.9184,
+    "area_green": 103620.1926,
+    "pct_green": 5.156
+  },
+  {
+    "id": "139",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 307634.7478,
+    "pct_buildings": 15.3075,
+    "area_parking": 24282.1822,
+    "pct_parking": 1.2082,
+    "area_green": 89302.5164,
+    "pct_green": 4.4436
+  },
+  {
+    "id": "140",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 314792.2947,
+    "pct_buildings": 15.6636,
+    "area_parking": 86414.5952,
+    "pct_parking": 4.2999,
+    "area_green": 114741.0464,
+    "pct_green": 5.7094
+  },
+  {
+    "id": "141",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 398847.5054,
+    "pct_buildings": 19.8461,
+    "area_parking": 89518.3183,
+    "pct_parking": 4.4543,
+    "area_green": 176944.6383,
+    "pct_green": 8.8045
+  },
+  {
+    "id": "142",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 459831.6687,
+    "pct_buildings": 22.8806,
+    "area_parking": 194712.1765,
+    "pct_parking": 9.6886,
+    "area_green": 106375.5551,
+    "pct_green": 5.2931
+  },
+  {
+    "id": "143",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 12101.0528,
+    "pct_buildings": 0.6021,
+    "area_parking": 18993.4369,
+    "pct_parking": 0.9451,
+    "area_green": 783238.3002,
+    "pct_green": 38.9729
+  },
+  {
+    "id": "144",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 587849.2202,
+    "pct_buildings": 29.2506,
+    "area_parking": 76901.4892,
+    "pct_parking": 3.8265,
+    "area_green": 71297.595,
+    "pct_green": 3.5477
+  },
+  {
+    "id": "145",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 632860.9767,
+    "pct_buildings": 31.4903,
+    "area_parking": 85073.8921,
+    "pct_parking": 4.2332,
+    "area_green": 97685.054,
+    "pct_green": 4.8607
+  },
+  {
+    "id": "146",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 705736.3538,
+    "pct_buildings": 35.1165,
+    "area_parking": 54299.8919,
+    "pct_parking": 2.7019,
+    "area_green": 238002.4762,
+    "pct_green": 11.8427
+  },
+  {
+    "id": "147",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 173253.7145,
+    "pct_buildings": 8.6209,
+    "area_parking": 116838.4316,
+    "pct_parking": 5.8137,
+    "area_green": 231705.1813,
+    "pct_green": 11.5293
+  },
+  {
+    "id": "148",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 147326.0277,
+    "pct_buildings": 7.3307,
+    "area_parking": 49374.4485,
+    "pct_parking": 2.4568,
+    "area_green": 77004.0705,
+    "pct_green": 3.8316
+  },
+  {
+    "id": "149",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 487105.2628,
+    "pct_buildings": 24.2377,
+    "area_parking": 183988.0198,
+    "pct_parking": 9.155,
+    "area_green": 47711.3609,
+    "pct_green": 2.3741
+  },
+  {
+    "id": "150",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 363495.5491,
+    "pct_buildings": 18.087,
+    "area_parking": 115966.0751,
+    "pct_parking": 5.7703,
+    "area_green": 142008.4656,
+    "pct_green": 7.0661
+  },
+  {
+    "id": "151",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 315574.6921,
+    "pct_buildings": 15.7026,
+    "area_parking": 197400.2306,
+    "pct_parking": 9.8224,
+    "area_green": 478860.2116,
+    "pct_green": 23.8274
+  },
+  {
+    "id": "152",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 4828.7831,
+    "pct_buildings": 0.2403,
+    "area_green": 492639.841,
+    "pct_green": 24.5131
+  },
+  {
+    "id": "153",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 156069.031,
+    "pct_buildings": 7.7658,
+    "area_parking": 199626.5905,
+    "pct_parking": 9.9332,
+    "area_green": 511162.2121,
+    "pct_green": 25.4347
+  },
+  {
+    "id": "154",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 129142.9922,
+    "pct_buildings": 6.426,
+    "area_parking": 80300.167,
+    "pct_parking": 3.9956,
+    "area_green": 115350.4211,
+    "pct_green": 5.7397
+  },
+  {
+    "id": "155",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 385791.9277,
+    "pct_buildings": 19.1965,
+    "area_parking": 310071.9547,
+    "pct_parking": 15.4288,
+    "area_green": 3697.858,
+    "pct_green": 0.184
+  },
+  {
+    "id": "156",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 300797.3185,
+    "pct_buildings": 14.9673,
+    "area_parking": 26441.6337,
+    "pct_parking": 1.3157,
+    "area_green": 821935.8374,
+    "pct_green": 40.8984
+  },
+  {
+    "id": "157",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 276700.8413,
+    "pct_buildings": 13.7683,
+    "area_parking": 127181.0919,
+    "pct_parking": 6.3284,
+    "area_green": 22225.8714,
+    "pct_green": 1.1059
+  },
+  {
+    "id": "158",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 267568.401,
+    "pct_buildings": 13.3138,
+    "area_parking": 186115.9135,
+    "pct_parking": 9.2609,
+    "area_green": 42429.5878,
+    "pct_green": 2.1112
+  },
+  {
+    "id": "159",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 346237.0449,
+    "pct_buildings": 17.2283,
+    "area_parking": 258241.0363,
+    "pct_parking": 12.8497,
+    "area_green": 329069.8697,
+    "pct_green": 16.3741
+  },
+  {
+    "id": "160",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 439570.5599,
+    "pct_buildings": 21.8724,
+    "area_parking": 65300.5167,
+    "pct_parking": 3.2493,
+    "area_green": 230102.3209,
+    "pct_green": 11.4496
+  },
+  {
+    "id": "161",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 247650.5254,
+    "pct_buildings": 12.3228,
+    "area_parking": 27409.1995,
+    "pct_parking": 1.3638,
+    "area_green": 961615.6863,
+    "pct_green": 47.8487
+  },
+  {
+    "id": "162",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 204639.1708,
+    "pct_buildings": 10.1826,
+    "area_parking": 55970.7336,
+    "pct_parking": 2.785,
+    "area_green": 639306.7536,
+    "pct_green": 31.811
+  },
+  {
+    "id": "163",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 272672.4459,
+    "pct_buildings": 13.5678,
+    "area_parking": 223222.8991,
+    "pct_parking": 11.1073,
+    "area_green": 252574.1436,
+    "pct_green": 12.5677
+  },
+  {
+    "id": "164",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 459084.5954,
+    "pct_buildings": 22.8434,
+    "area_parking": 21289.2022,
+    "pct_parking": 1.0593,
+    "area_green": 145136.1677,
+    "pct_green": 7.2218
+  },
+  {
+    "id": "165",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 506304.1185,
+    "pct_buildings": 25.193,
+    "area_parking": 39583.7826,
+    "pct_parking": 1.9696,
+    "area_green": 228043.918,
+    "pct_green": 11.3472
+  },
+  {
+    "id": "166",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 571914.2663,
+    "pct_buildings": 28.4577,
+    "area_parking": 24207.3897,
+    "pct_parking": 1.2045,
+    "area_green": 186538.6365,
+    "pct_green": 9.2819
+  },
+  {
+    "id": "167",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 418295.9007,
+    "pct_buildings": 20.8138,
+    "area_parking": 68040.4165,
+    "pct_parking": 3.3856,
+    "area_green": 151116.8545,
+    "pct_green": 7.5194
+  },
+  {
+    "id": "168",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 200554.964,
+    "pct_buildings": 9.9793,
+    "area_parking": 199542.2308,
+    "pct_parking": 9.929,
+    "area_green": 298474.9018,
+    "pct_green": 14.8517
+  },
+  {
+    "id": "169",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 804173.5411,
+    "pct_buildings": 40.0146,
+    "area_parking": 76008.8491,
+    "pct_parking": 3.7821,
+    "area_green": 196526.0135,
+    "pct_green": 9.7789
+  },
+  {
+    "id": "170",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 281371.8388,
+    "pct_buildings": 14.0007,
+    "area_parking": 170443.8645,
+    "pct_parking": 8.4811,
+    "area_green": 38306.5551,
+    "pct_green": 1.9061
+  },
+  {
+    "id": "171",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 103550.2259,
+    "pct_buildings": 5.1525,
+    "area_parking": 185766.1753,
+    "pct_parking": 9.2435,
+    "area_green": 369336.5934,
+    "pct_green": 18.3777
+  },
+  {
+    "id": "172",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 280324.5648,
+    "pct_buildings": 13.9486,
+    "area_parking": 145200.0202,
+    "pct_parking": 7.225,
+    "area_green": 284065.8239,
+    "pct_green": 14.1347
+  },
+  {
+    "id": "173",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 286581.6346,
+    "pct_buildings": 14.2599,
+    "area_parking": 139941.7232,
+    "pct_parking": 6.9633,
+    "area_green": 201074.889,
+    "pct_green": 10.0052
+  },
+  {
+    "id": "174",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 601004.8134,
+    "pct_buildings": 29.9052,
+    "area_parking": 76430.0792,
+    "pct_parking": 3.8031,
+    "area_green": 154285.0298,
+    "pct_green": 7.677
+  },
+  {
+    "id": "175",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 454501.5288,
+    "pct_buildings": 22.6154,
+    "area_parking": 33718.325,
+    "pct_parking": 1.6778,
+    "area_green": 140998.1583,
+    "pct_green": 7.0159
+  },
+  {
+    "id": "176",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 318644.211,
+    "pct_buildings": 15.8553,
+    "area_parking": 159126.58,
+    "pct_parking": 7.9179,
+    "area_green": 285534.6559,
+    "pct_green": 14.2078
+  },
+  {
+    "id": "177",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 33546.6641,
+    "pct_buildings": 1.6692,
+    "area_parking": 4872.7184,
+    "pct_parking": 0.2425,
+    "area_green": 405165.437,
+    "pct_green": 20.1605
+  },
+  {
+    "id": "178",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 521487.6889,
+    "pct_buildings": 25.9485,
+    "area_parking": 245036.6422,
+    "pct_parking": 12.1927,
+    "area_green": 56735.93,
+    "pct_green": 2.8231
+  },
+  {
+    "id": "179",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 513613.6064,
+    "pct_buildings": 25.5567,
+    "area_parking": 40496.6426,
+    "pct_parking": 2.0151,
+    "area_green": 125332.0663,
+    "pct_green": 6.2364
+  },
+  {
+    "id": "180",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 321081.6951,
+    "pct_buildings": 15.9766,
+    "area_parking": 148108.3695,
+    "pct_parking": 7.3697,
+    "area_green": 183550.9978,
+    "pct_green": 9.1333
+  },
+  {
+    "id": "181",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 475607.552,
+    "pct_buildings": 23.6656,
+    "area_parking": 59815.7138,
+    "pct_parking": 2.9763,
+    "area_green": 174560.5634,
+    "pct_green": 8.6859
+  },
+  {
+    "id": "182",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 347694.3758,
+    "pct_buildings": 17.3008,
+    "area_parking": 115412.7254,
+    "pct_parking": 5.7428,
+    "area_green": 155356.8606,
+    "pct_green": 7.7303
+  },
+  {
+    "id": "183",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 410316.2305,
+    "pct_buildings": 20.4168,
+    "area_parking": 48395.3912,
+    "pct_parking": 2.4081,
+    "area_green": 422967.7589,
+    "pct_green": 21.0463
+  },
+  {
+    "id": "184",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 292566.9649,
+    "pct_buildings": 14.5577,
+    "area_parking": 191064.9305,
+    "pct_parking": 9.5071,
+    "area_green": 169051.2338,
+    "pct_green": 8.4118
+  },
+  {
+    "id": "185",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 379413.816,
+    "pct_buildings": 18.8791,
+    "area_parking": 229425.3053,
+    "pct_parking": 11.4159,
+    "area_green": 248265.6465,
+    "pct_green": 12.3534
+  },
+  {
+    "id": "186",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 376233.7185,
+    "pct_buildings": 18.7209,
+    "area_parking": 187817.7555,
+    "pct_parking": 9.3456,
+    "area_green": 159922.703,
+    "pct_green": 7.9575
+  },
+  {
+    "id": "187",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 529996.0204,
+    "pct_buildings": 26.3719,
+    "area_parking": 36463.4714,
+    "pct_parking": 1.8144,
+    "area_green": 110097.4872,
+    "pct_green": 5.4783
+  },
+  {
+    "id": "188",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 431074.7211,
+    "pct_buildings": 21.4497,
+    "area_parking": 116068.4793,
+    "pct_parking": 5.7754,
+    "area_green": 479587.3126,
+    "pct_green": 23.8636
+  },
+  {
+    "id": "189",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 289280.6793,
+    "pct_buildings": 14.3942,
+    "area_parking": 129900.3243,
+    "pct_parking": 6.4637,
+    "area_green": 540081.878,
+    "pct_green": 26.8737
+  },
+  {
+    "id": "190",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 595378.1627,
+    "pct_buildings": 29.6252,
+    "area_parking": 36752.6263,
+    "pct_parking": 1.8288,
+    "area_green": 121584.1778,
+    "pct_green": 6.0499
+  },
+  {
+    "id": "191",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 415886.0684,
+    "pct_buildings": 20.6939,
+    "area_parking": 75894.2566,
+    "pct_parking": 3.7764,
+    "area_green": 430814.8258,
+    "pct_green": 21.4368
+  },
+  {
+    "id": "192",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 897622.9717,
+    "pct_buildings": 44.6645,
+    "area_parking": 68924.6323,
+    "pct_parking": 3.4296,
+    "area_green": 126057.6624,
+    "pct_green": 6.2725
+  },
+  {
+    "id": "193",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 263503.0821,
+    "pct_buildings": 13.1116,
+    "area_parking": 221806.9324,
+    "pct_parking": 11.0368,
+    "area_green": 230637.9165,
+    "pct_green": 11.4762
+  },
+  {
+    "id": "194",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 571135.1397,
+    "pct_buildings": 28.4189,
+    "area_parking": 75913.6354,
+    "pct_parking": 3.7774,
+    "area_green": 84316.0185,
+    "pct_green": 4.1955
+  },
+  {
+    "id": "195",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 339352.4098,
+    "pct_buildings": 16.8857,
+    "area_parking": 97311.6926,
+    "pct_parking": 4.8421,
+    "area_green": 300822.369,
+    "pct_green": 14.9685
+  },
+  {
+    "id": "196",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 530790.3708,
+    "pct_buildings": 26.4114,
+    "area_parking": 61013.8169,
+    "pct_parking": 3.036,
+    "area_green": 152115.3518,
+    "pct_green": 7.5691
+  },
+  {
+    "id": "197",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 5892.0721,
+    "pct_buildings": 0.2932,
+    "area_parking": 38024.0337,
+    "pct_parking": 1.892,
+    "area_green": 345792.0695,
+    "pct_green": 17.2061
+  },
+  {
+    "id": "198",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 315470.1167,
+    "pct_buildings": 15.6974,
+    "area_parking": 106505.5504,
+    "pct_parking": 5.2996,
+    "area_green": 228517.4305,
+    "pct_green": 11.3707
+  },
+  {
+    "id": "199",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 170488.7031,
+    "pct_buildings": 8.4833,
+    "area_parking": 240473.5485,
+    "pct_parking": 11.9656,
+    "area_green": 230360.5422,
+    "pct_green": 11.4624
+  },
+  {
+    "id": "200",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 577720.8022,
+    "pct_buildings": 28.7466,
+    "area_parking": 68392.3624,
+    "pct_parking": 3.4031,
+    "area_green": 151914.0855,
+    "pct_green": 7.559
+  },
+  {
+    "id": "201",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 178811.0968,
+    "pct_buildings": 8.8974,
+    "area_parking": 84784.1513,
+    "pct_parking": 4.2187,
+    "area_green": 272393.8311,
+    "pct_green": 13.554
+  },
+  {
+    "id": "202",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 314356.5788,
+    "pct_buildings": 15.642,
+    "area_parking": 85958.7638,
+    "pct_parking": 4.2772,
+    "area_green": 112954.2135,
+    "pct_green": 5.6204
+  },
+  {
+    "id": "203",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 429673.4581,
+    "pct_buildings": 21.38,
+    "area_parking": 28824.1258,
+    "pct_parking": 1.4342,
+    "area_green": 167229.1183,
+    "pct_green": 8.3211
+  },
+  {
+    "id": "204",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 277518.5143,
+    "pct_buildings": 13.8089,
+    "area_parking": 74319.773,
+    "pct_parking": 3.6981,
+    "area_green": 259003.2331,
+    "pct_green": 12.8877
+  },
+  {
+    "id": "205",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 137747.7856,
+    "pct_buildings": 6.8541,
+    "area_parking": 112082.0905,
+    "pct_parking": 5.5771,
+    "area_green": 1133072.8427,
+    "pct_green": 56.3802
+  },
+  {
+    "id": "206",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 346728.3675,
+    "pct_buildings": 17.2527,
+    "area_parking": 126921.7551,
+    "pct_parking": 6.3155,
+    "area_green": 393446.0933,
+    "pct_green": 19.5773
+  },
+  {
+    "id": "207",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 93719.0155,
+    "pct_buildings": 4.6633,
+    "area_parking": 119235.556,
+    "pct_parking": 5.933,
+    "area_green": 766302.8945,
+    "pct_green": 38.1302
+  },
+  {
+    "id": "208",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 445645.0572,
+    "pct_buildings": 22.1747,
+    "area_parking": 129309.4342,
+    "pct_parking": 6.4343,
+    "area_green": 93339.2332,
+    "pct_green": 4.6444
+  },
+  {
+    "id": "209",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 592554.1864,
+    "pct_buildings": 29.4847,
+    "area_parking": 249991.8141,
+    "pct_parking": 12.4393,
+    "area_green": 202929.3014,
+    "pct_green": 10.0975
+  },
+  {
+    "id": "210",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 493697.1622,
+    "pct_buildings": 24.5657,
+    "area_parking": 73645.7861,
+    "pct_parking": 3.6645,
+    "area_green": 149273.5348,
+    "pct_green": 7.4276
+  },
+  {
+    "id": "211",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 254091.4795,
+    "pct_buildings": 12.6432,
+    "area_parking": 93605.2052,
+    "pct_parking": 4.6577,
+    "area_green": 268175.0682,
+    "pct_green": 13.344
+  },
+  {
+    "id": "212",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 364316.3592,
+    "pct_buildings": 18.1279,
+    "area_parking": 91314.4067,
+    "pct_parking": 4.5437,
+    "area_green": 73376.7633,
+    "pct_green": 3.6511
+  },
+  {
+    "id": "213",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 381111.1252,
+    "pct_buildings": 18.9636,
+    "area_parking": 139198.7564,
+    "pct_parking": 6.9263,
+    "area_green": 164177.4857,
+    "pct_green": 8.1693
+  },
+  {
+    "id": "214",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 366977.221,
+    "pct_buildings": 18.2603,
+    "area_parking": 87517.7028,
+    "pct_parking": 4.3548,
+    "area_green": 329588.4592,
+    "pct_green": 16.3999
+  },
+  {
+    "id": "215",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 434314.6045,
+    "pct_buildings": 21.6109,
+    "area_parking": 107858.2435,
+    "pct_parking": 5.3669,
+    "area_green": 103035.3975,
+    "pct_green": 5.1269
+  },
+  {
+    "id": "216",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 234327.9231,
+    "pct_buildings": 11.6598,
+    "area_parking": 174843.8217,
+    "pct_parking": 8.7,
+    "area_green": 815815.2004,
+    "pct_green": 40.5939
+  },
+  {
+    "id": "217",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 454555.921,
+    "pct_buildings": 22.6181,
+    "area_parking": 25702.3853,
+    "pct_parking": 1.2789,
+    "area_green": 154315.4148,
+    "pct_green": 7.6785
+  },
+  {
+    "id": "218",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 419275.6615,
+    "pct_buildings": 20.8626,
+    "area_parking": 34868.891,
+    "pct_parking": 1.735,
+    "area_green": 314641.3708,
+    "pct_green": 15.6561
+  },
+  {
+    "id": "219",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 269008.8427,
+    "pct_buildings": 13.3855,
+    "area_parking": 59037.6447,
+    "pct_parking": 2.9376,
+    "area_green": 443772.7194,
+    "pct_green": 22.0815
+  },
+  {
+    "id": "220",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 259797.9597,
+    "pct_buildings": 12.9272,
+    "area_parking": 68493.0061,
+    "pct_parking": 3.4081,
+    "area_green": 317264.8876,
+    "pct_green": 15.7867
+  },
+  {
+    "id": "221",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 576914.5476,
+    "pct_buildings": 28.7065,
+    "area_parking": 50978.6722,
+    "pct_parking": 2.5366,
+    "area_green": 125012.2632,
+    "pct_green": 6.2204
+  },
+  {
+    "id": "222",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 387854.7209,
+    "pct_buildings": 19.2991,
+    "area_parking": 24102.383,
+    "pct_parking": 1.1993,
+    "area_green": 121495.602,
+    "pct_green": 6.0455
+  },
+  {
+    "id": "223",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 556283.3903,
+    "pct_buildings": 27.6799,
+    "area_parking": 407519.3387,
+    "pct_parking": 20.2776,
+    "area_green": 116297.6874,
+    "pct_green": 5.7868
+  },
+  {
+    "id": "224",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 7532.8165,
+    "pct_buildings": 0.3748,
+    "area_parking": 26938.5274,
+    "pct_parking": 1.3404,
+    "area_green": 181258.5544,
+    "pct_green": 9.0192
+  },
+  {
+    "id": "225",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 523528.8237,
+    "pct_buildings": 26.0501,
+    "area_parking": 47478.0297,
+    "pct_parking": 2.3624,
+    "area_green": 161989.2386,
+    "pct_green": 8.0604
+  },
+  {
+    "id": "226",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 149836.782,
+    "pct_buildings": 7.4557,
+    "area_parking": 60047.109,
+    "pct_parking": 2.9879,
+    "area_green": 388224.7611,
+    "pct_green": 19.3175
+  },
+  {
+    "id": "227",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 401106.8511,
+    "pct_buildings": 19.9585,
+    "area_parking": 153234.4252,
+    "pct_parking": 7.6247,
+    "area_green": 116020.5056,
+    "pct_green": 5.773
+  },
+  {
+    "id": "228",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 233638.0929,
+    "pct_buildings": 11.6255,
+    "area_parking": 48746.6889,
+    "pct_parking": 2.4256,
+    "area_green": 489377.1635,
+    "pct_green": 24.3507
+  },
+  {
+    "id": "229",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 223701.9218,
+    "pct_buildings": 11.1311,
+    "area_parking": 42391.3392,
+    "pct_parking": 2.1093,
+    "area_green": 531466.7289,
+    "pct_green": 26.4451
+  },
+  {
+    "id": "230",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 470332.5662,
+    "pct_buildings": 23.4031,
+    "area_parking": 440116.8109,
+    "pct_parking": 21.8996,
+    "area_green": 228756.5765,
+    "pct_green": 11.3826
+  },
+  {
+    "id": "231",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 610148.0475,
+    "pct_buildings": 30.3601,
+    "area_parking": 236975.8918,
+    "pct_parking": 11.7916,
+    "area_green": 105075.6393,
+    "pct_green": 5.2284
+  },
+  {
+    "id": "232",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 299360.0787,
+    "pct_buildings": 14.8958,
+    "area_parking": 19232.9889,
+    "pct_parking": 0.957,
+    "area_green": 754103.7316,
+    "pct_green": 37.5232
+  },
+  {
+    "id": "233",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 272180.1253,
+    "pct_buildings": 13.5433,
+    "area_parking": 223895.0989,
+    "pct_parking": 11.1407,
+    "area_green": 238966.2554,
+    "pct_green": 11.8906
+  },
+  {
+    "id": "234",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 357755.4176,
+    "pct_buildings": 17.8014,
+    "area_parking": 107702.0566,
+    "pct_parking": 5.3591,
+    "area_green": 565159.6912,
+    "pct_green": 28.1216
+  },
+  {
+    "id": "235",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 144503.3353,
+    "pct_buildings": 7.1903,
+    "area_parking": 123393.7249,
+    "pct_parking": 6.1399,
+    "area_green": 940357.9634,
+    "pct_green": 46.7909
+  },
+  {
+    "id": "236",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 327777.3103,
+    "pct_buildings": 16.3098,
+    "area_parking": 195293.699,
+    "pct_parking": 9.7176,
+    "area_green": 444206.0918,
+    "pct_green": 22.1031
+  },
+  {
+    "id": "237",
+    "area_buffer": 2009700.7197,
+    "area_green": 136395.197,
+    "pct_green": 6.7868
+  },
+  {
+    "id": "238",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 356971.607,
+    "pct_buildings": 17.7624,
+    "area_parking": 137712.0493,
+    "pct_parking": 6.8524,
+    "area_green": 150464.9482,
+    "pct_green": 7.4869
+  },
+  {
+    "id": "239",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 333244.1875,
+    "pct_buildings": 16.5818,
+    "area_parking": 111677.5641,
+    "pct_parking": 5.5569,
+    "area_green": 275926.3527,
+    "pct_green": 13.7297
+  },
+  {
+    "id": "240",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 380157.7738,
+    "pct_buildings": 18.9161,
+    "area_parking": 32099.1025,
+    "pct_parking": 1.5972,
+    "area_green": 291842.1693,
+    "pct_green": 14.5217
+  },
+  {
+    "id": "241",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 638173.3269,
+    "pct_buildings": 31.7546,
+    "area_parking": 267409.2314,
+    "pct_parking": 13.3059,
+    "area_green": 57871.1304,
+    "pct_green": 2.8796
+  },
+  {
+    "id": "242",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 400078.5002,
+    "pct_buildings": 19.9074,
+    "area_parking": 34147.5535,
+    "pct_parking": 1.6991,
+    "area_green": 294228.7532,
+    "pct_green": 14.6404
+  },
+  {
+    "id": "243",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 219013.4194,
+    "pct_buildings": 10.8978,
+    "area_parking": 33470.5809,
+    "pct_parking": 1.6655,
+    "area_green": 861933.5868,
+    "pct_green": 42.8887
+  },
+  {
+    "id": "244",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 328386.5581,
+    "pct_buildings": 16.3401,
+    "area_parking": 149154.5604,
+    "pct_parking": 7.4217,
+    "area_green": 317516.2998,
+    "pct_green": 15.7992
+  },
+  {
+    "id": "245",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 395098.2602,
+    "pct_buildings": 19.6596,
+    "area_parking": 38294.0041,
+    "pct_parking": 1.9055,
+    "area_green": 479727.0136,
+    "pct_green": 23.8706
+  },
+  {
+    "id": "246",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 344549.2914,
+    "pct_buildings": 17.1443,
+    "area_parking": 63582.664,
+    "pct_parking": 3.1638,
+    "area_green": 377321.3173,
+    "pct_green": 18.775
+  },
+  {
+    "id": "247",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 140421.0432,
+    "pct_buildings": 6.9872,
+    "area_parking": 25376.4062,
+    "pct_parking": 1.2627,
+    "area_green": 75714.8732,
+    "pct_green": 3.7675
+  },
+  {
+    "id": "249",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 325127.579,
+    "pct_buildings": 16.1779,
+    "area_parking": 126297.9846,
+    "pct_parking": 6.2844,
+    "area_green": 170133.2832,
+    "pct_green": 8.4656
+  },
+  {
+    "id": "250",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 939092.2334,
+    "pct_buildings": 46.728,
+    "area_parking": 50402.3055,
+    "pct_parking": 2.508,
+    "area_green": 90199.5941,
+    "pct_green": 4.4882
+  },
+  {
+    "id": "251",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 651383.5962,
+    "pct_buildings": 32.412,
+    "area_parking": 49005.7032,
+    "pct_parking": 2.4385,
+    "area_green": 225443.3243,
+    "pct_green": 11.2178
+  },
+  {
+    "id": "252",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 9274.1367,
+    "pct_buildings": 0.4615,
+    "area_parking": 17513.7466,
+    "pct_parking": 0.8715,
+    "area_green": 435695.7674,
+    "pct_green": 21.6796
+  },
+  {
+    "id": "253",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 678947.8768,
+    "pct_buildings": 33.7835,
+    "area_parking": 127600.7533,
+    "pct_parking": 6.3492,
+    "area_green": 125621.0229,
+    "pct_green": 6.2507
+  },
+  {
+    "id": "254",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 284956.3193,
+    "pct_buildings": 14.179,
+    "area_parking": 138928.1712,
+    "pct_parking": 6.9129,
+    "area_green": 76127.7624,
+    "pct_green": 3.788
+  },
+  {
+    "id": "255",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 381660.3566,
+    "pct_buildings": 18.9909,
+    "area_parking": 56800.3855,
+    "pct_parking": 2.8263,
+    "area_green": 148009.5125,
+    "pct_green": 7.3648
+  },
+  {
+    "id": "256",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 89914.5667,
+    "pct_buildings": 4.474,
+    "area_parking": 6428.0232,
+    "pct_parking": 0.3198,
+    "area_green": 154300.5824,
+    "pct_green": 7.6778
+  },
+  {
+    "id": "257",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 441617.1691,
+    "pct_buildings": 21.9743,
+    "area_parking": 216246.9269,
+    "pct_parking": 10.7602,
+    "area_green": 61924.5575,
+    "pct_green": 3.0813
+  },
+  {
+    "id": "258",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 416936.5259,
+    "pct_buildings": 20.7462,
+    "area_parking": 134663.84,
+    "pct_parking": 6.7007,
+    "area_green": 137515.3281,
+    "pct_green": 6.8426
+  },
+  {
+    "id": "259",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 156069.031,
+    "pct_buildings": 7.7658,
+    "area_parking": 199626.5905,
+    "pct_parking": 9.9332,
+    "area_green": 511162.2121,
+    "pct_green": 25.4347
+  },
+  {
+    "id": "260",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 641626.8384,
+    "pct_buildings": 31.9265,
+    "area_parking": 65802.1494,
+    "pct_parking": 3.2742,
+    "area_green": 89797.4083,
+    "pct_green": 4.4682
+  },
+  {
+    "id": "261",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 430478.9309,
+    "pct_buildings": 21.4201,
+    "area_parking": 11260.5764,
+    "pct_parking": 0.5603,
+    "area_green": 168549.1865,
+    "pct_green": 8.3868
+  },
+  {
+    "id": "262",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 319460.3642,
+    "pct_buildings": 15.8959,
+    "area_parking": 114033.3533,
+    "pct_parking": 5.6741,
+    "area_green": 174918.1584,
+    "pct_green": 8.7037
+  },
+  {
+    "id": "263",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 279967.7182,
+    "pct_buildings": 13.9308,
+    "area_parking": 54290.6578,
+    "pct_parking": 2.7014,
+    "area_green": 522317.1452,
+    "pct_green": 25.9898
+  },
+  {
+    "id": "264",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 360457.1677,
+    "pct_buildings": 17.9359,
+    "area_parking": 83724.9292,
+    "pct_parking": 4.166,
+    "area_green": 91084.9957,
+    "pct_green": 4.5323
+  },
+  {
+    "id": "265",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 394093.8993,
+    "pct_buildings": 19.6096,
+    "area_parking": 23389.9744,
+    "pct_parking": 1.1639,
+    "area_green": 268484.3584,
+    "pct_green": 13.3594
+  },
+  {
+    "id": "266",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 309412.6648,
+    "pct_buildings": 15.396,
+    "area_parking": 125581.8854,
+    "pct_parking": 6.2488,
+    "area_green": 493442.4977,
+    "pct_green": 24.553
+  },
+  {
+    "id": "267",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 177998.5441,
+    "pct_buildings": 8.857,
+    "area_parking": 108681.9899,
+    "pct_parking": 5.4079,
+    "area_green": 132844.5326,
+    "pct_green": 6.6102
+  },
+  {
+    "id": "268",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 259547.8807,
+    "pct_buildings": 12.9148,
+    "area_parking": 66225.2424,
+    "pct_parking": 3.2953,
+    "area_green": 633932.7727,
+    "pct_green": 31.5436
+  },
+  {
+    "id": "269",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 330790.0042,
+    "pct_buildings": 16.4597,
+    "area_parking": 97717.633,
+    "pct_parking": 4.8623,
+    "area_green": 150033.5254,
+    "pct_green": 7.4655
+  },
+  {
+    "id": "270",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 467544.3965,
+    "pct_buildings": 23.2644,
+    "area_parking": 49920.9187,
+    "pct_parking": 2.484,
+    "area_green": 157405.4235,
+    "pct_green": 7.8323
+  },
+  {
+    "id": "271",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 398539.4031,
+    "pct_buildings": 19.8308,
+    "area_parking": 272231.7587,
+    "pct_parking": 13.5459,
+    "area_green": 163860.2375,
+    "pct_green": 8.1535
+  },
+  {
+    "id": "272",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 328453.9569,
+    "pct_buildings": 16.3434,
+    "area_parking": 187041.492,
+    "pct_parking": 9.3069,
+    "area_green": 248291.9449,
+    "pct_green": 12.3547
+  },
+  {
+    "id": "273",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 329122.1611,
+    "pct_buildings": 16.3767,
+    "area_parking": 47771.8993,
+    "pct_parking": 2.3771,
+    "area_green": 248894.5108,
+    "pct_green": 12.3847
+  },
+  {
+    "id": "274",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 292729.0005,
+    "pct_buildings": 14.5658,
+    "area_parking": 110879.5237,
+    "pct_parking": 5.5172,
+    "area_green": 174030.3523,
+    "pct_green": 8.6595
+  },
+  {
+    "id": "275",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 346079.3638,
+    "pct_buildings": 17.2204,
+    "area_parking": 123952.032,
+    "pct_parking": 6.1677,
+    "area_green": 193844.6091,
+    "pct_green": 9.6454
+  },
+  {
+    "id": "276",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 274797.4752,
+    "pct_buildings": 13.6736,
+    "area_parking": 44860.8601,
+    "pct_parking": 2.2322,
+    "area_green": 447899.1435,
+    "pct_green": 22.2869
+  },
+  {
+    "id": "277",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 621881.5025,
+    "pct_buildings": 30.944,
+    "area_parking": 223545.3927,
+    "pct_parking": 11.1233,
+    "area_green": 101723.8686,
+    "pct_green": 5.0616
+  },
+  {
+    "id": "278",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 302028.2861,
+    "pct_buildings": 15.0285,
+    "area_parking": 110264.0021,
+    "pct_parking": 5.4866,
+    "area_green": 132011.1036,
+    "pct_green": 6.5687
+  },
+  {
+    "id": "279",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 266179.0861,
+    "pct_buildings": 13.2447,
+    "area_parking": 292001.5928,
+    "pct_parking": 14.5296,
+    "area_green": 143788.8516,
+    "pct_green": 7.1547
+  },
+  {
+    "id": "280",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 312130.444,
+    "pct_buildings": 15.5312,
+    "area_parking": 129772.8944,
+    "pct_parking": 6.4573,
+    "area_green": 251435.0484,
+    "pct_green": 12.5111
+  },
+  {
+    "id": "281",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 418003.6591,
+    "pct_buildings": 20.7993,
+    "area_parking": 173034.5409,
+    "pct_parking": 8.61,
+    "area_green": 75770.3268,
+    "pct_green": 3.7702
+  },
+  {
+    "id": "282",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 374907.7553,
+    "pct_buildings": 18.6549,
+    "area_parking": 70169.2879,
+    "pct_parking": 3.4915,
+    "area_green": 238365.4174,
+    "pct_green": 11.8607
+  },
+  {
+    "id": "283",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 372702.4098,
+    "pct_buildings": 18.5452,
+    "area_parking": 328112.92,
+    "pct_parking": 16.3265,
+    "area_green": 168334.4679,
+    "pct_green": 8.3761
+  },
+  {
+    "id": "284",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 339126.0543,
+    "pct_buildings": 16.8745,
+    "area_parking": 94757.6511,
+    "pct_parking": 4.715,
+    "area_green": 113438.6914,
+    "pct_green": 5.6446
+  },
+  {
+    "id": "285",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 201256.3981,
+    "pct_buildings": 10.0142,
+    "area_parking": 96710.8403,
+    "pct_parking": 4.8122,
+    "area_green": 743756.5711,
+    "pct_green": 37.0083
+  },
+  {
+    "id": "286",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 378090.0291,
+    "pct_buildings": 18.8133,
+    "area_parking": 215233.5707,
+    "pct_parking": 10.7097,
+    "area_green": 4344.261,
+    "pct_green": 0.2162
+  },
+  {
+    "id": "287",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 180630.1029,
+    "pct_buildings": 8.9879,
+    "area_parking": 161581.0049,
+    "pct_parking": 8.0401,
+    "area_green": 225069.9243,
+    "pct_green": 11.1992
+  },
+  {
+    "id": "288",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 15165.785,
+    "pct_buildings": 0.7546,
+    "area_parking": 9393.014,
+    "pct_parking": 0.4674,
+    "area_green": 205866.3475,
+    "pct_green": 10.2436
+  },
+  {
+    "id": "289",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 394321.7143,
+    "pct_buildings": 19.6209,
+    "area_parking": 84786.5505,
+    "pct_parking": 4.2189,
+    "area_green": 388287.4884,
+    "pct_green": 19.3207
+  },
+  {
+    "id": "290",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 386670.0958,
+    "pct_buildings": 19.2402,
+    "area_parking": 60655.6029,
+    "pct_parking": 3.0181,
+    "area_green": 104011.165,
+    "pct_green": 5.1755
+  },
+  {
+    "id": "291",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 46609.0331,
+    "pct_buildings": 2.3192,
+    "area_parking": 41453.7242,
+    "pct_parking": 2.0627,
+    "area_green": 83435.4335,
+    "pct_green": 4.1516
+  },
+  {
+    "id": "292",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 299049.0094,
+    "pct_buildings": 14.8803,
+    "area_parking": 263998.372,
+    "pct_parking": 13.1362,
+    "area_green": 312063.5715,
+    "pct_green": 15.5279
+  },
+  {
+    "id": "293",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 744734.4649,
+    "pct_buildings": 37.057,
+    "area_parking": 73125.725,
+    "pct_parking": 3.6386,
+    "area_green": 147971.3093,
+    "pct_green": 7.3629
+  },
+  {
+    "id": "294",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 256729.0326,
+    "pct_buildings": 12.7745,
+    "area_parking": 62128.7697,
+    "pct_parking": 3.0914,
+    "area_green": 524179.7067,
+    "pct_green": 26.0825
+  },
+  {
+    "id": "295",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 380567.6964,
+    "pct_buildings": 18.9365,
+    "area_parking": 170155.6144,
+    "pct_parking": 8.4667,
+    "area_green": 325409.8279,
+    "pct_green": 16.192
+  },
+  {
+    "id": "296",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 291702.406,
+    "pct_buildings": 14.5147,
+    "area_parking": 161489.3464,
+    "pct_parking": 8.0355,
+    "area_green": 195197.5567,
+    "pct_green": 9.7128
+  },
+  {
+    "id": "297",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 543352.4958,
+    "pct_buildings": 27.0365,
+    "area_parking": 50087.6534,
+    "pct_parking": 2.4923,
+    "area_green": 109595.5833,
+    "pct_green": 5.4533
+  },
+  {
+    "id": "298",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 357797.1357,
+    "pct_buildings": 17.8035,
+    "area_parking": 59341.4848,
+    "pct_parking": 2.9528,
+    "area_green": 42434.2868,
+    "pct_green": 2.1115
+  },
+  {
+    "id": "299",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 124927.0098,
+    "pct_buildings": 6.2162,
+    "area_parking": 111456.6021,
+    "pct_parking": 5.5459,
+    "area_green": 363565.3353,
+    "pct_green": 18.0905
+  },
+  {
+    "id": "300",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 725740.8265,
+    "pct_buildings": 36.1119,
+    "area_parking": 57337.839,
+    "pct_parking": 2.8531,
+    "area_green": 263391.1037,
+    "pct_green": 13.106
+  },
+  {
+    "id": "301",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 164477.3065,
+    "pct_buildings": 8.1842,
+    "area_parking": 184064.9583,
+    "pct_parking": 9.1588,
+    "area_green": 222019.3827,
+    "pct_green": 11.0474
+  },
+  {
+    "id": "302",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 120604.1922,
+    "pct_buildings": 6.0011,
+    "area_parking": 156111.2457,
+    "pct_parking": 7.7679,
+    "area_green": 353063.6815,
+    "pct_green": 17.568
+  },
+  {
+    "id": "303",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 165060.9234,
+    "pct_buildings": 8.2132,
+    "area_parking": 47029.2477,
+    "pct_parking": 2.3401,
+    "area_green": 176281.7385,
+    "pct_green": 8.7715
+  },
+  {
+    "id": "304",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 337184.3698,
+    "pct_buildings": 16.7778,
+    "area_parking": 176184.5777,
+    "pct_parking": 8.7667,
+    "area_green": 273677.5967,
+    "pct_green": 13.6178
+  },
+  {
+    "id": "305",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 95008.0506,
+    "pct_buildings": 4.7275,
+    "area_parking": 106129.9718,
+    "pct_parking": 5.2809,
+    "area_green": 293566.9852,
+    "pct_green": 14.6075
+  },
+  {
+    "id": "306",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 438593.669,
+    "pct_buildings": 21.8238,
+    "area_parking": 63340.1754,
+    "pct_parking": 3.1517,
+    "area_green": 357713.7133,
+    "pct_green": 17.7994
+  },
+  {
+    "id": "307",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 120029.7988,
+    "pct_buildings": 5.9725,
+    "area_parking": 279624.5008,
+    "pct_parking": 13.9137,
+    "area_green": 371943.7999,
+    "pct_green": 18.5074
+  },
+  {
+    "id": "308",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 475746.1472,
+    "pct_buildings": 23.6725,
+    "area_parking": 60774.9912,
+    "pct_parking": 3.0241,
+    "area_green": 132857.4562,
+    "pct_green": 6.6108
+  },
+  {
+    "id": "309",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 377881.4573,
+    "pct_buildings": 18.8029,
+    "area_parking": 216482.1586,
+    "pct_parking": 10.7719,
+    "area_green": 288872.9831,
+    "pct_green": 14.3739
+  },
+  {
+    "id": "310",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 255951.7461,
+    "pct_buildings": 12.7358,
+    "area_parking": 54558.2377,
+    "pct_parking": 2.7147,
+    "area_green": 674175.1422,
+    "pct_green": 33.546
+  },
+  {
+    "id": "311",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 15064.84,
+    "pct_buildings": 0.7496,
+    "area_parking": 23641.3609,
+    "pct_parking": 1.1764,
+    "area_green": 646930.0114,
+    "pct_green": 32.1904
+  },
+  {
+    "id": "312",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 213197.6826,
+    "pct_buildings": 10.6084,
+    "area_parking": 23186.2423,
+    "pct_parking": 1.1537,
+    "area_green": 855463.2632,
+    "pct_green": 42.5667
+  },
+  {
+    "id": "313",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 278938.6821,
+    "pct_buildings": 13.8796,
+    "area_parking": 129075.8759,
+    "pct_parking": 6.4226,
+    "area_green": 472429.0414,
+    "pct_green": 23.5074
+  },
+  {
+    "id": "314",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 976826.6013,
+    "pct_buildings": 48.6056,
+    "area_parking": 46124.6773,
+    "pct_parking": 2.2951,
+    "area_green": 78843.1424,
+    "pct_green": 3.9231
+  },
+  {
+    "id": "315",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 241716.925,
+    "pct_buildings": 12.0275,
+    "area_parking": 112381.8835,
+    "pct_parking": 5.592,
+    "area_green": 6652.9873,
+    "pct_green": 0.331
+  },
+  {
+    "id": "316",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 546042.6232,
+    "pct_buildings": 27.1703,
+    "area_parking": 23143.8288,
+    "pct_parking": 1.1516,
+    "area_green": 203928.6237,
+    "pct_green": 10.1472
+  },
+  {
+    "id": "317",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 371444.3738,
+    "pct_buildings": 18.4826,
+    "area_parking": 33284.6806,
+    "pct_parking": 1.6562,
+    "area_green": 176829.7388,
+    "pct_green": 8.7988
+  },
+  {
+    "id": "318",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 157520.606,
+    "pct_buildings": 7.838,
+    "area_parking": 100957.7277,
+    "pct_parking": 5.0235,
+    "area_green": 833362.7557,
+    "pct_green": 41.467
+  },
+  {
+    "id": "319",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 530478.5496,
+    "pct_buildings": 26.3959,
+    "area_parking": 33955.6795,
+    "pct_parking": 1.6896,
+    "area_green": 157084.1881,
+    "pct_green": 7.8163
+  },
+  {
+    "id": "320",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 307448.2096,
+    "pct_buildings": 15.2982,
+    "area_parking": 86973.87,
+    "pct_parking": 4.3277,
+    "area_green": 323931.8848,
+    "pct_green": 16.1184
+  },
+  {
+    "id": "321",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 57646.9013,
+    "pct_buildings": 2.8684,
+    "area_parking": 35895.8853,
+    "pct_parking": 1.7861,
+    "area_green": 209981.4902,
+    "pct_green": 10.4484
+  },
+  {
+    "id": "322",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 320212.1003,
+    "pct_buildings": 15.9333,
+    "area_parking": 51759.3188,
+    "pct_parking": 2.5755,
+    "area_green": 651292.7266,
+    "pct_green": 32.4074
+  },
+  {
+    "id": "323",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 376719.9544,
+    "pct_buildings": 18.7451,
+    "area_parking": 493719.1095,
+    "pct_parking": 24.5668,
+    "area_green": 28947.1555,
+    "pct_green": 1.4404
+  },
+  {
+    "id": "324",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 375527.6325,
+    "pct_buildings": 18.6857,
+    "area_parking": 370569.1884,
+    "pct_parking": 18.439,
+    "area_green": 319478.0918,
+    "pct_green": 15.8968
+  },
+  {
+    "id": "325",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 235635.5933,
+    "pct_buildings": 11.7249,
+    "area_parking": 310172.2781,
+    "pct_parking": 15.4338,
+    "area_green": 92208.7214,
+    "pct_green": 4.5882
+  },
+  {
+    "id": "326",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 286611.9851,
+    "pct_buildings": 14.2614,
+    "area_parking": 220902.0398,
+    "pct_parking": 10.9918,
+    "area_green": 498441.2856,
+    "pct_green": 24.8018
+  },
+  {
+    "id": "327",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 169817.1273,
+    "pct_buildings": 8.4499,
+    "area_parking": 107201.3175,
+    "pct_parking": 5.3342,
+    "area_green": 187558.4724,
+    "pct_green": 9.3327
+  },
+  {
+    "id": "328",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 949118.0172,
+    "pct_buildings": 47.2268,
+    "area_parking": 50350.8292,
+    "pct_parking": 2.5054,
+    "area_green": 127961.5809,
+    "pct_green": 6.3672
+  },
+  {
+    "id": "329",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 550872.3905,
+    "pct_buildings": 27.4107,
+    "area_parking": 154020.9814,
+    "pct_parking": 7.6639,
+    "area_green": 128121.5071,
+    "pct_green": 6.3752
+  },
+  {
+    "id": "330",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 814033.5349,
+    "pct_buildings": 40.5052,
+    "area_parking": 77173.1057,
+    "pct_parking": 3.84,
+    "area_green": 100235.7445,
+    "pct_green": 4.9876
+  },
+  {
+    "id": "331",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 765810.6489,
+    "pct_buildings": 38.1057,
+    "area_parking": 74596.9138,
+    "pct_parking": 3.7118,
+    "area_green": 231423.731,
+    "pct_green": 11.5153
+  },
+  {
+    "id": "332",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 58530.9395,
+    "pct_buildings": 2.9124,
+    "area_parking": 39854.5585,
+    "pct_parking": 1.9831,
+    "area_green": 114243.5473,
+    "pct_green": 5.6846
+  },
+  {
+    "id": "333",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 158535.6438,
+    "pct_buildings": 7.8885,
+    "area_parking": 173892.2978,
+    "pct_parking": 8.6526,
+    "area_green": 322789.1256,
+    "pct_green": 16.0616
+  },
+  {
+    "id": "334",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 208862.4813,
+    "pct_buildings": 10.3927,
+    "area_parking": 182160.1301,
+    "pct_parking": 9.064,
+    "area_green": 481154.9783,
+    "pct_green": 23.9416
+  },
+  {
+    "id": "335",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 125968.5152,
+    "pct_buildings": 6.268,
+    "area_parking": 112755.4057,
+    "pct_parking": 5.6106,
+    "area_green": 187319.0741,
+    "pct_green": 9.3207
+  },
+  {
+    "id": "336",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 223676.5503,
+    "pct_buildings": 11.1298,
+    "area_parking": 75369.6019,
+    "pct_parking": 3.7503,
+    "area_green": 200263.0603,
+    "pct_green": 9.9648
+  },
+  {
+    "id": "337",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 515323.254,
+    "pct_buildings": 25.6418,
+    "area_parking": 113322.886,
+    "pct_parking": 5.6388,
+    "area_green": 152726.1394,
+    "pct_green": 7.5994
+  },
+  {
+    "id": "338",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 348418.7696,
+    "pct_buildings": 17.3368,
+    "area_parking": 297323.3875,
+    "pct_parking": 14.7944,
+    "area_green": 255849.0755,
+    "pct_green": 12.7307
+  },
+  {
+    "id": "339",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 536996.0265,
+    "pct_buildings": 26.7202,
+    "area_parking": 35943.3182,
+    "pct_parking": 1.7885,
+    "area_green": 348720.5234,
+    "pct_green": 17.3519
+  },
+  {
+    "id": "340",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 188325.3019,
+    "pct_buildings": 9.3708,
+    "area_parking": 50366.4848,
+    "pct_parking": 2.5062,
+    "area_green": 171290.7497,
+    "pct_green": 8.5232
+  },
+  {
+    "id": "341",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 243928.7372,
+    "pct_buildings": 12.1376,
+    "area_parking": 42299.2736,
+    "pct_parking": 2.1048,
+    "area_green": 688843.8385,
+    "pct_green": 34.2759
+  },
+  {
+    "id": "342",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 270196.2376,
+    "pct_buildings": 13.4446,
+    "area_parking": 60938.6791,
+    "pct_parking": 3.0322,
+    "area_green": 594119.3415,
+    "pct_green": 29.5626
+  },
+  {
+    "id": "343",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 345172.3407,
+    "pct_buildings": 17.1753,
+    "area_parking": 32359.2065,
+    "pct_parking": 1.6102,
+    "area_green": 231123.4764,
+    "pct_green": 11.5004
+  },
+  {
+    "id": "344",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 341772.0528,
+    "pct_buildings": 17.0061,
+    "area_parking": 35404.3934,
+    "pct_parking": 1.7617,
+    "area_green": 294763.9041,
+    "pct_green": 14.6671
+  },
+  {
+    "id": "345",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 433293.8832,
+    "pct_buildings": 21.5601,
+    "area_parking": 23938.012,
+    "pct_parking": 1.1911,
+    "area_green": 267784.7536,
+    "pct_green": 13.3246
+  },
+  {
+    "id": "346",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 423806.3103,
+    "pct_buildings": 21.088,
+    "area_parking": 54091.3737,
+    "pct_parking": 2.6915,
+    "area_green": 328805.353,
+    "pct_green": 16.3609
+  },
+  {
+    "id": "347",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 357788.9584,
+    "pct_buildings": 17.8031,
+    "area_parking": 70609.326,
+    "pct_parking": 3.5134,
+    "area_green": 125805.9143,
+    "pct_green": 6.2599
+  },
+  {
+    "id": "348",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 337984.6243,
+    "pct_buildings": 16.8177,
+    "area_parking": 327368.524,
+    "pct_parking": 16.2894,
+    "area_green": 187090.3386,
+    "pct_green": 9.3094
+  },
+  {
+    "id": "349",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 194912.9336,
+    "pct_buildings": 9.6986,
+    "area_parking": 61048.8651,
+    "pct_parking": 3.0377,
+    "area_green": 826239.5911,
+    "pct_green": 41.1126
+  },
+  {
+    "id": "350",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 280340.5173,
+    "pct_buildings": 13.9494,
+    "area_parking": 288801.9314,
+    "pct_parking": 14.3704,
+    "area_green": 429819.5785,
+    "pct_green": 21.3872
+  },
+  {
+    "id": "351",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 506885.6642,
+    "pct_buildings": 25.2219,
+    "area_parking": 56752.9642,
+    "pct_parking": 2.824,
+    "area_green": 44925.8116,
+    "pct_green": 2.2354
+  },
+  {
+    "id": "352",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 284454.155,
+    "pct_buildings": 14.1541,
+    "area_parking": 60472.1262,
+    "pct_parking": 3.009,
+    "area_green": 528816.1718,
+    "pct_green": 26.3132
+  },
+  {
+    "id": "353",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 267450.1489,
+    "pct_buildings": 13.308,
+    "area_parking": 85901.688,
+    "pct_parking": 4.2744,
+    "area_green": 196023.6851,
+    "pct_green": 9.7539
+  },
+  {
+    "id": "354",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 448114.1698,
+    "pct_buildings": 22.2976,
+    "area_parking": 49070.6545,
+    "pct_parking": 2.4417,
+    "area_green": 182926.5754,
+    "pct_green": 9.1022
+  },
+  {
+    "id": "355",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 494048.0632,
+    "pct_buildings": 24.5832,
+    "area_parking": 50976.4982,
+    "pct_parking": 2.5365,
+    "area_green": 357774.7539,
+    "pct_green": 17.8024
+  },
+  {
+    "id": "356",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 520822.8323,
+    "pct_buildings": 25.9154,
+    "area_parking": 60850.3332,
+    "pct_parking": 3.0278,
+    "area_green": 42156.656,
+    "pct_green": 2.0977
+  },
+  {
+    "id": "357",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 369532.8829,
+    "pct_buildings": 18.3875,
+    "area_parking": 154311.3958,
+    "pct_parking": 7.6783,
+    "area_green": 300452.3539,
+    "pct_green": 14.9501
+  },
+  {
+    "id": "358",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 237760.9141,
+    "pct_buildings": 11.8307,
+    "area_parking": 193110.4972,
+    "pct_parking": 9.6089,
+    "area_green": 410367.4425,
+    "pct_green": 20.4193
+  },
+  {
+    "id": "359",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 264314.6289,
+    "pct_buildings": 13.1519,
+    "area_parking": 208157.4074,
+    "pct_parking": 10.3576,
+    "area_green": 544373.4314,
+    "pct_green": 27.0873
+  },
+  {
+    "id": "360",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 306634.3077,
+    "pct_buildings": 15.2577,
+    "area_parking": 65059.3356,
+    "pct_parking": 3.2373,
+    "area_green": 604491.7713,
+    "pct_green": 30.0787
+  },
+  {
+    "id": "361",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 627993.6224,
+    "pct_buildings": 31.2481,
+    "area_parking": 54329.7939,
+    "pct_parking": 2.7034,
+    "area_green": 70099.7775,
+    "pct_green": 3.4881
+  },
+  {
+    "id": "362",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 635336.1194,
+    "pct_buildings": 31.6135,
+    "area_parking": 48510.4393,
+    "pct_parking": 2.4138,
+    "area_green": 116584.31,
+    "pct_green": 5.8011
+  },
+  {
+    "id": "363",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 646546.289,
+    "pct_buildings": 32.1713,
+    "area_parking": 62173.4493,
+    "pct_parking": 3.0937,
+    "area_green": 187763.6139,
+    "pct_green": 9.3429
+  },
+  {
+    "id": "364",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 463843.7478,
+    "pct_buildings": 23.0802,
+    "area_parking": 23875.4632,
+    "pct_parking": 1.188,
+    "area_green": 306300.8553,
+    "pct_green": 15.2411
+  },
+  {
+    "id": "365",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 997652.3142,
+    "pct_buildings": 49.6418,
+    "area_parking": 39418.6227,
+    "pct_parking": 1.9614,
+    "area_green": 103006.2867,
+    "pct_green": 5.1255
+  },
+  {
+    "id": "366",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 297025.7482,
+    "pct_buildings": 14.7796,
+    "area_parking": 68346.1557,
+    "pct_parking": 3.4008,
+    "area_green": 130051.1826,
+    "pct_green": 6.4712
+  },
+  {
+    "id": "367",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 429275.4477,
+    "pct_buildings": 21.3602,
+    "area_parking": 39678.7374,
+    "pct_parking": 1.9744,
+    "area_green": 515260.9746,
+    "pct_green": 25.6387
+  },
+  {
+    "id": "368",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 523017.659,
+    "pct_buildings": 26.0247,
+    "area_parking": 165214.3388,
+    "pct_parking": 8.2208,
+    "area_green": 98131.7092,
+    "pct_green": 4.8829
+  },
+  {
+    "id": "369",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 663508.4549,
+    "pct_buildings": 33.0153,
+    "area_parking": 47095.0273,
+    "pct_parking": 2.3434,
+    "area_green": 193304.4976,
+    "pct_green": 9.6186
+  },
+  {
+    "id": "370",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 892145.7132,
+    "pct_buildings": 44.392,
+    "area_parking": 71236.8638,
+    "pct_parking": 3.5447,
+    "area_green": 112282.6531,
+    "pct_green": 5.587
+  },
+  {
+    "id": "371",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 402177.2831,
+    "pct_buildings": 20.0118,
+    "area_parking": 154234.8295,
+    "pct_parking": 7.6745,
+    "area_green": 44843.3845,
+    "pct_green": 2.2313
+  },
+  {
+    "id": "372",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 323648.5574,
+    "pct_buildings": 16.1043,
+    "area_parking": 179022.3105,
+    "pct_parking": 8.9079,
+    "area_green": 144865.526,
+    "pct_green": 7.2083
+  },
+  {
+    "id": "373",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 76872.1234,
+    "pct_buildings": 3.8251,
+    "area_parking": 73730.1822,
+    "pct_parking": 3.6687,
+    "area_green": 250096.8886,
+    "pct_green": 12.4445
+  },
+  {
+    "id": "374",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 274757.634,
+    "pct_buildings": 13.6716,
+    "area_parking": 157495.5062,
+    "pct_parking": 7.8368,
+    "area_green": 492628.6983,
+    "pct_green": 24.5125
+  },
+  {
+    "id": "375",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 455899.4856,
+    "pct_buildings": 22.6849,
+    "area_parking": 38353.2187,
+    "pct_parking": 1.9084,
+    "area_green": 443171.4608,
+    "pct_green": 22.0516
+  },
+  {
+    "id": "376",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 231639.0324,
+    "pct_buildings": 11.526,
+    "area_parking": 68981.0867,
+    "pct_parking": 3.4324,
+    "area_green": 1026391.8812,
+    "pct_green": 51.0719
+  },
+  {
+    "id": "377",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 278364.6819,
+    "pct_buildings": 13.8511,
+    "area_parking": 220945.1499,
+    "pct_parking": 10.9939,
+    "area_green": 62335.925,
+    "pct_green": 3.1018
+  },
+  {
+    "id": "378",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 312435.8674,
+    "pct_buildings": 15.5464,
+    "area_parking": 207817.9029,
+    "pct_parking": 10.3407,
+    "area_green": 502647.6309,
+    "pct_green": 25.0111
+  },
+  {
+    "id": "379",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 151414.8885,
+    "pct_buildings": 7.5342,
+    "area_parking": 90823.1491,
+    "pct_parking": 4.5192,
+    "area_green": 220055.3303,
+    "pct_green": 10.9497
+  },
+  {
+    "id": "380",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 255563.1118,
+    "pct_buildings": 12.7165,
+    "area_parking": 87153.9471,
+    "pct_parking": 4.3367,
+    "area_green": 599914.1663,
+    "pct_green": 29.8509
+  },
+  {
+    "id": "381",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 922636.5289,
+    "pct_buildings": 45.9092,
+    "area_parking": 48497.8165,
+    "pct_parking": 2.4132,
+    "area_green": 121116.6889,
+    "pct_green": 6.0266
+  },
+  {
+    "id": "382",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 869312.657,
+    "pct_buildings": 43.2558,
+    "area_parking": 41027.8292,
+    "pct_parking": 2.0415,
+    "area_green": 119685.6093,
+    "pct_green": 5.9554
+  },
+  {
+    "id": "383",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 82374.6628,
+    "pct_buildings": 4.0989,
+    "area_parking": 159748.7636,
+    "pct_parking": 7.9489,
+    "area_green": 94892.4845,
+    "pct_green": 4.7217
+  },
+  {
+    "id": "384",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 380727.2419,
+    "pct_buildings": 18.9445,
+    "area_parking": 272515.3762,
+    "pct_parking": 13.56,
+    "area_green": 180122.3165,
+    "pct_green": 8.9626
+  },
+  {
+    "id": "385",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 304686.4285,
+    "pct_buildings": 15.1608,
+    "area_parking": 95146.2983,
+    "pct_parking": 4.7344,
+    "area_green": 537572.1279,
+    "pct_green": 26.7489
+  },
+  {
+    "id": "386",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 279798.48,
+    "pct_buildings": 13.9224,
+    "area_parking": 64962.8015,
+    "pct_parking": 3.2325,
+    "area_green": 498211.1593,
+    "pct_green": 24.7903
+  },
+  {
+    "id": "387",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 767031.5001,
+    "pct_buildings": 38.1665,
+    "area_parking": 73685.557,
+    "pct_parking": 3.6665,
+    "area_green": 187293.277,
+    "pct_green": 9.3195
+  },
+  {
+    "id": "388",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 523964.4255,
+    "pct_buildings": 26.0718,
+    "area_parking": 177038.8618,
+    "pct_parking": 8.8092,
+    "area_green": 111983.1562,
+    "pct_green": 5.5721
+  },
+  {
+    "id": "389",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 528733.8606,
+    "pct_buildings": 26.3091,
+    "area_parking": 96976.0688,
+    "pct_parking": 4.8254,
+    "area_green": 60033.6738,
+    "pct_green": 2.9872
+  },
+  {
+    "id": "390",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 383539.8627,
+    "pct_buildings": 19.0844,
+    "area_parking": 130652.1321,
+    "pct_parking": 6.5011,
+    "area_green": 223223.4318,
+    "pct_green": 11.1073
+  },
+  {
+    "id": "391",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 207155.1743,
+    "pct_buildings": 10.3078,
+    "area_parking": 86595.7813,
+    "pct_parking": 4.3089,
+    "area_green": 801874.6517,
+    "pct_green": 39.9002
+  },
+  {
+    "id": "392",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 381359.3248,
+    "pct_buildings": 18.9759,
+    "area_parking": 163433.1278,
+    "pct_parking": 8.1322,
+    "area_green": 180279.616,
+    "pct_green": 8.9705
+  },
+  {
+    "id": "393",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 370120.0879,
+    "pct_buildings": 18.4167,
+    "area_parking": 82194.5516,
+    "pct_parking": 4.0899,
+    "area_green": 314148.589,
+    "pct_green": 15.6316
+  },
+  {
+    "id": "394",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 95964.7575,
+    "pct_buildings": 4.7751,
+    "area_parking": 159900.8143,
+    "pct_parking": 7.9564,
+    "area_green": 344612.9978,
+    "pct_green": 17.1475
+  },
+  {
+    "id": "395",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 228968.8086,
+    "pct_buildings": 11.3932,
+    "area_parking": 145586.841,
+    "pct_parking": 7.2442,
+    "area_green": 99497.3515,
+    "pct_green": 4.9509
+  },
+  {
+    "id": "396",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 495795.0712,
+    "pct_buildings": 24.6701,
+    "area_parking": 26800.5758,
+    "pct_parking": 1.3336,
+    "area_green": 102635.2329,
+    "pct_green": 5.107
+  },
+  {
+    "id": "397",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 149604.4731,
+    "pct_buildings": 7.4441,
+    "area_parking": 147811.9606,
+    "pct_parking": 7.3549,
+    "area_green": 859755.0847,
+    "pct_green": 42.7803
+  },
+  {
+    "id": "398",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 253367.5161,
+    "pct_buildings": 12.6072,
+    "area_parking": 32243.8864,
+    "pct_parking": 1.6044,
+    "area_green": 605333.8429,
+    "pct_green": 30.1206
+  },
+  {
+    "id": "399",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 361373.1234,
+    "pct_buildings": 17.9814,
+    "area_parking": 188447.3004,
+    "pct_parking": 9.3769,
+    "area_green": 727042.6109,
+    "pct_green": 36.1767
+  },
+  {
+    "id": "400",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 337492.162,
+    "pct_buildings": 16.7932,
+    "area_parking": 158448.1878,
+    "pct_parking": 7.8842,
+    "area_green": 184475.8593,
+    "pct_green": 9.1793
+  },
+  {
+    "id": "401",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 178853.4228,
+    "pct_buildings": 8.8995,
+    "area_parking": 178160.4444,
+    "pct_parking": 8.865,
+    "area_green": 375340.2461,
+    "pct_green": 18.6764
+  },
+  {
+    "id": "402",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 223141.3107,
+    "pct_buildings": 11.1032,
+    "area_parking": 83736.9091,
+    "pct_parking": 4.1666,
+    "area_green": 523302.055,
+    "pct_green": 26.0388
+  },
+  {
+    "id": "403",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 389853.2533,
+    "pct_buildings": 19.3986,
+    "area_parking": 370140.3499,
+    "pct_parking": 18.4177,
+    "area_green": 3134.1979,
+    "pct_green": 0.156
+  },
+  {
+    "id": "404",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 292628.9701,
+    "pct_buildings": 14.5608,
+    "area_parking": 311132.7698,
+    "pct_parking": 15.4815,
+    "area_green": 416056.8981,
+    "pct_green": 20.7024
+  },
+  {
+    "id": "405",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 167613.4406,
+    "pct_buildings": 8.3402,
+    "area_parking": 156697.7423,
+    "pct_parking": 7.7971,
+    "area_green": 609691.8198,
+    "pct_green": 30.3374
+  },
+  {
+    "id": "406",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 228950.5814,
+    "pct_buildings": 11.3923,
+    "area_parking": 104801.3062,
+    "pct_parking": 5.2148,
+    "area_green": 118917.5623,
+    "pct_green": 5.9172
+  },
+  {
+    "id": "407",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 267348.3561,
+    "pct_buildings": 13.3029,
+    "area_parking": 99435.1513,
+    "pct_parking": 4.9478,
+    "area_green": 81060.9061,
+    "pct_green": 4.0335
+  },
+  {
+    "id": "408",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 329880.6944,
+    "pct_buildings": 16.4144,
+    "area_parking": 202530.027,
+    "pct_parking": 10.0776,
+    "area_green": 681876.8419,
+    "pct_green": 33.9293
+  },
+  {
+    "id": "409",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 395634.0254,
+    "pct_buildings": 19.6862,
+    "area_parking": 296813.8527,
+    "pct_parking": 14.7691,
+    "area_green": 433159.6643,
+    "pct_green": 21.5534
+  },
+  {
+    "id": "410",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 286885.0055,
+    "pct_buildings": 14.275,
+    "area_parking": 337068.8466,
+    "pct_parking": 16.7721,
+    "area_green": 359043.2691,
+    "pct_green": 17.8655
+  },
+  {
+    "id": "411",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 216357.8841,
+    "pct_buildings": 10.7657,
+    "area_parking": 90486.445,
+    "pct_parking": 4.5025,
+    "area_green": 477435.8142,
+    "pct_green": 23.7566
+  },
+  {
+    "id": "412",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 368138.1366,
+    "pct_buildings": 18.3181,
+    "area_parking": 280538.3932,
+    "pct_parking": 13.9592,
+    "area_green": 75209.2655,
+    "pct_green": 3.7423
+  },
+  {
+    "id": "413",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 272494.0649,
+    "pct_buildings": 13.5589,
+    "area_parking": 83760.0596,
+    "pct_parking": 4.1678,
+    "area_green": 384437.3263,
+    "pct_green": 19.1291
+  },
+  {
+    "id": "414",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 373412.2314,
+    "pct_buildings": 18.5805,
+    "area_parking": 180536.4332,
+    "pct_parking": 8.9832,
+    "area_green": 286298.1076,
+    "pct_green": 14.2458
+  },
+  {
+    "id": "415",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 389162.7329,
+    "pct_buildings": 19.3642,
+    "area_parking": 178810.0487,
+    "pct_parking": 8.8973,
+    "area_green": 199328.5718,
+    "pct_green": 9.9183
+  },
+  {
+    "id": "416",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 348770.4386,
+    "pct_buildings": 17.3543,
+    "area_parking": 265800.0209,
+    "pct_parking": 13.2259,
+    "area_green": 94428.9019,
+    "pct_green": 4.6987
+  },
+  {
+    "id": "417",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 389678.5039,
+    "pct_buildings": 19.3899,
+    "area_parking": 239779.4077,
+    "pct_parking": 11.9311,
+    "area_green": 199554.4589,
+    "pct_green": 9.9296
+  },
+  {
+    "id": "418",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 482719.1571,
+    "pct_buildings": 24.0195,
+    "area_parking": 259333.1033,
+    "pct_parking": 12.9041,
+    "area_green": 126608.6283,
+    "pct_green": 6.2999
+  },
+  {
+    "id": "419",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 456448.3726,
+    "pct_buildings": 22.7123,
+    "area_parking": 264964.6659,
+    "pct_parking": 13.1843,
+    "area_green": 216904.2131,
+    "pct_green": 10.7929
+  },
+  {
+    "id": "420",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 470919.894,
+    "pct_buildings": 23.4323,
+    "area_parking": 224370.2264,
+    "pct_parking": 11.1644,
+    "area_green": 204433.0324,
+    "pct_green": 10.1723
+  },
+  {
+    "id": "421",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 490621.8302,
+    "pct_buildings": 24.4127,
+    "area_parking": 220778.4087,
+    "pct_parking": 10.9856,
+    "area_green": 137214.3894,
+    "pct_green": 6.8276
+  },
+  {
+    "id": "422",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 445088.3221,
+    "pct_buildings": 22.147,
+    "area_parking": 184775.1822,
+    "pct_parking": 9.1942,
+    "area_green": 160015.013,
+    "pct_green": 7.9621
+  },
+  {
+    "id": "423",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 336073.2633,
+    "pct_buildings": 16.7226,
+    "area_parking": 134630.3078,
+    "pct_parking": 6.699,
+    "area_green": 334463.3311,
+    "pct_green": 16.6424
+  },
+  {
+    "id": "424",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 394836.4839,
+    "pct_buildings": 19.6465,
+    "area_parking": 222864.6104,
+    "pct_parking": 11.0894,
+    "area_green": 195337.939,
+    "pct_green": 9.7198
+  },
+  {
+    "id": "425",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 397549.3447,
+    "pct_buildings": 19.7815,
+    "area_parking": 201976.2222,
+    "pct_parking": 10.0501,
+    "area_green": 105751.2153,
+    "pct_green": 5.262
+  },
+  {
+    "id": "426",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 342380.8137,
+    "pct_buildings": 17.0364,
+    "area_parking": 287122.569,
+    "pct_parking": 14.2868,
+    "area_green": 37184.7425,
+    "pct_green": 1.8503
+  },
+  {
+    "id": "570",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 237025.5834,
+    "pct_buildings": 11.7941,
+    "area_parking": 41896.1423,
+    "pct_parking": 2.0847,
+    "area_green": 280419.2035,
+    "pct_green": 13.9533
+  },
+  {
+    "id": "571",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 347892.736,
+    "pct_buildings": 17.3107,
+    "area_parking": 170057.0335,
+    "pct_parking": 8.4618,
+    "area_green": 188838.4503,
+    "pct_green": 9.3963
+  },
+  {
+    "id": "572",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 267646.6741,
+    "pct_buildings": 13.3177,
+    "area_parking": 96526.2621,
+    "pct_parking": 4.803,
+    "area_green": 422834.9632,
+    "pct_green": 21.0397
+  },
+  {
+    "id": "573",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 229218.215,
+    "pct_buildings": 11.4056,
+    "area_parking": 51506.4384,
+    "pct_parking": 2.5629,
+    "area_green": 511591.1189,
+    "pct_green": 25.4561
+  },
+  {
+    "id": "574",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 329570.5597,
+    "pct_buildings": 16.399,
+    "area_parking": 135525.5686,
+    "pct_parking": 6.7436,
+    "area_green": 364557.4826,
+    "pct_green": 18.1399
+  },
+  {
+    "id": "575",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 281588.5764,
+    "pct_buildings": 14.0115,
+    "area_parking": 112130.0546,
+    "pct_parking": 5.5794,
+    "area_green": 360248.0551,
+    "pct_green": 17.9255
+  },
+  {
+    "id": "576",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 338694.2037,
+    "pct_buildings": 16.853,
+    "area_parking": 85757.1954,
+    "pct_parking": 4.2672,
+    "area_green": 452490.8305,
+    "pct_green": 22.5153
+  },
+  {
+    "id": "577",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 78665.1613,
+    "pct_buildings": 3.9143,
+    "area_parking": 39896.5623,
+    "pct_parking": 1.9852,
+    "area_green": 548363.5513,
+    "pct_green": 27.2858
+  },
+  {
+    "id": "578",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 275756.2628,
+    "pct_buildings": 13.7213,
+    "area_parking": 78683.3675,
+    "pct_parking": 3.9152,
+    "area_green": 336873.9986,
+    "pct_green": 16.7624
+  },
+  {
+    "id": "579",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 273457.7851,
+    "pct_buildings": 13.6069,
+    "area_parking": 115513.6854,
+    "pct_parking": 5.7478,
+    "area_green": 483704.9712,
+    "pct_green": 24.0685
+  },
+  {
+    "id": "580",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 455427.0641,
+    "pct_buildings": 22.6614,
+    "area_parking": 135265.6074,
+    "pct_parking": 6.7306,
+    "area_green": 111586.6562,
+    "pct_green": 5.5524
+  },
+  {
+    "id": "581",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 261471.1823,
+    "pct_buildings": 13.0105,
+    "area_parking": 51335.8832,
+    "pct_parking": 2.5544,
+    "area_green": 249979.6728,
+    "pct_green": 12.4387
+  },
+  {
+    "id": "582",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 45210.7343,
+    "pct_buildings": 2.2496,
+    "area_parking": 93045.5253,
+    "pct_parking": 4.6298,
+    "area_green": 1068524.1244,
+    "pct_green": 53.1683
+  },
+  {
+    "id": "583",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 170354.5274,
+    "pct_buildings": 8.4766,
+    "area_parking": 135935.0882,
+    "pct_parking": 6.7639,
+    "area_green": 828299.275,
+    "pct_green": 41.2151
+  },
+  {
+    "id": "584",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 48132.0182,
+    "pct_buildings": 2.395,
+    "area_parking": 2058.6195,
+    "pct_parking": 0.1024,
+    "area_green": 711916.9274,
+    "pct_green": 35.424
+  },
+  {
+    "id": "585",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 255569.2022,
+    "pct_buildings": 12.7168,
+    "area_parking": 101126.776,
+    "pct_parking": 5.0319,
+    "area_green": 458565.2097,
+    "pct_green": 22.8176
+  },
+  {
+    "id": "586",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 1844.5478,
+    "pct_buildings": 0.0918,
+    "area_parking": 28407.5987,
+    "pct_parking": 1.4135,
+    "area_green": 1059205.479,
+    "pct_green": 52.7046
+  },
+  {
+    "id": "587",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 345257.4578,
+    "pct_buildings": 17.1795,
+    "area_parking": 237141.586,
+    "pct_parking": 11.7998,
+    "area_green": 235484.3728,
+    "pct_green": 11.7174
+  },
+  {
+    "id": "588",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 125075.3106,
+    "pct_buildings": 6.2236,
+    "area_parking": 158568.5242,
+    "pct_parking": 7.8902,
+    "area_green": 535193.8708,
+    "pct_green": 26.6305
+  },
+  {
+    "id": "589",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 483317.9437,
+    "pct_buildings": 24.0492,
+    "area_parking": 66210.8104,
+    "pct_parking": 3.2946,
+    "area_green": 348370.6949,
+    "pct_green": 17.3345
+  },
+  {
+    "id": "590",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 244578.4587,
+    "pct_buildings": 12.1699,
+    "area_parking": 229737.2669,
+    "pct_parking": 11.4314,
+    "area_green": 509450.809,
+    "pct_green": 25.3496
+  },
+  {
+    "id": "591",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 481438.3716,
+    "pct_buildings": 23.9557,
+    "area_parking": 116966.525,
+    "pct_parking": 5.8201,
+    "area_green": 493958.9314,
+    "pct_green": 24.5787
+  },
+  {
+    "id": "592",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 582965.7417,
+    "pct_buildings": 29.0076,
+    "area_parking": 119797.7146,
+    "pct_parking": 5.961,
+    "area_green": 460586.1364,
+    "pct_green": 22.9181
+  },
+  {
+    "id": "593",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 273831.065,
+    "pct_buildings": 13.6255,
+    "area_parking": 248038.0853,
+    "pct_parking": 12.342,
+    "area_green": 302463.1346,
+    "pct_green": 15.0502
+  },
+  {
+    "id": "594",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 395214.1091,
+    "pct_buildings": 19.6653,
+    "area_parking": 139463.9035,
+    "pct_parking": 6.9395,
+    "area_green": 215659.5451,
+    "pct_green": 10.7309
+  },
+  {
+    "id": "595",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 92523.5264,
+    "pct_buildings": 4.6038,
+    "area_parking": 146157.3374,
+    "pct_parking": 7.2726,
+    "area_green": 427905.1153,
+    "pct_green": 21.292
+  },
+  {
+    "id": "596",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 367404.8879,
+    "pct_buildings": 18.2816,
+    "area_parking": 332154.1007,
+    "pct_parking": 16.5275,
+    "area_green": 261460.3156,
+    "pct_green": 13.0099
+  },
+  {
+    "id": "597",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 291462.6427,
+    "pct_buildings": 14.5028,
+    "area_parking": 175936.6338,
+    "pct_parking": 8.7544,
+    "area_green": 396574.7544,
+    "pct_green": 19.733
+  },
+  {
+    "id": "598",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 615285.795,
+    "pct_buildings": 30.6158,
+    "area_parking": 107931.2151,
+    "pct_parking": 5.3705,
+    "area_green": 348705.7313,
+    "pct_green": 17.3511
+  },
+  {
+    "id": "599",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 311452.1413,
+    "pct_buildings": 15.4974,
+    "area_parking": 176634.3837,
+    "pct_parking": 8.7891,
+    "area_green": 285813.041,
+    "pct_green": 14.2217
+  },
+  {
+    "id": "600",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 150674.6427,
+    "pct_buildings": 7.4974,
+    "area_parking": 160560.4442,
+    "pct_parking": 7.9893,
+    "area_green": 609693.6413,
+    "pct_green": 30.3375
+  },
+  {
+    "id": "601",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 277072.5148,
+    "pct_buildings": 13.7868,
+    "area_parking": 129387.1491,
+    "pct_parking": 6.4381,
+    "area_green": 354170.7301,
+    "pct_green": 17.6231
+  },
+  {
+    "id": "602",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 32864.3889,
+    "pct_buildings": 1.6353,
+    "area_parking": 17069.9509,
+    "pct_parking": 0.8494,
+    "area_green": 1430303.2211,
+    "pct_green": 71.17
+  },
+  {
+    "id": "603",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 198772.9717,
+    "pct_buildings": 9.8907,
+    "area_parking": 50134.4114,
+    "pct_parking": 2.4946,
+    "area_green": 698616.2521,
+    "pct_green": 34.7622
+  },
+  {
+    "id": "604",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 325217.0094,
+    "pct_buildings": 16.1824,
+    "area_parking": 79230.0636,
+    "pct_parking": 3.9424,
+    "area_green": 412728.8677,
+    "pct_green": 20.5368
+  },
+  {
+    "id": "605",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 280262.4501,
+    "pct_buildings": 13.9455,
+    "area_parking": 177485.6503,
+    "pct_parking": 8.8314,
+    "area_green": 203633.939,
+    "pct_green": 10.1326
+  },
+  {
+    "id": "606",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 120305.0095,
+    "pct_buildings": 5.9862,
+    "area_parking": 95155.2919,
+    "pct_parking": 4.7348,
+    "area_green": 834465.7918,
+    "pct_green": 41.5219
+  },
+  {
+    "id": "607",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 197821.2536,
+    "pct_buildings": 9.8433,
+    "area_parking": 160244.667,
+    "pct_parking": 7.9736,
+    "area_green": 641397.3606,
+    "pct_green": 31.9151
+  },
+  {
+    "id": "608",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 168738.7627,
+    "pct_buildings": 8.3962,
+    "area_parking": 120376.7764,
+    "pct_parking": 5.9898,
+    "area_green": 925315.247,
+    "pct_green": 46.0424
+  },
+  {
+    "id": "609",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 248529.5083,
+    "pct_buildings": 12.3665,
+    "area_parking": 270212.561,
+    "pct_parking": 13.4454,
+    "area_green": 394621.4293,
+    "pct_green": 19.6358
+  },
+  {
+    "id": "610",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 279303.605,
+    "pct_buildings": 13.8978,
+    "area_parking": 95315.3115,
+    "pct_parking": 4.7428,
+    "area_green": 340126.7078,
+    "pct_green": 16.9242
+  },
+  {
+    "id": "611",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 178791.7503,
+    "pct_buildings": 8.8964,
+    "area_parking": 7489.6919,
+    "pct_parking": 0.3727,
+    "area_green": 157416.6362,
+    "pct_green": 7.8328
+  },
+  {
+    "id": "612",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 338035.9754,
+    "pct_buildings": 16.8202,
+    "area_parking": 112481.8437,
+    "pct_parking": 5.5969,
+    "area_green": 148816.3519,
+    "pct_green": 7.4049
+  },
+  {
+    "id": "613",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 149739.2325,
+    "pct_buildings": 7.4508,
+    "area_parking": 36005.3497,
+    "pct_parking": 1.7916,
+    "area_green": 453961.1103,
+    "pct_green": 22.5885
+  },
+  {
+    "id": "614",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 306596.0799,
+    "pct_buildings": 15.2558,
+    "area_parking": 71180.0326,
+    "pct_parking": 3.5418,
+    "area_green": 234068.0241,
+    "pct_green": 11.6469
+  },
+  {
+    "id": "615",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 106831.4643,
+    "pct_buildings": 5.3158,
+    "area_parking": 34162.9591,
+    "pct_parking": 1.6999,
+    "area_green": 738610.7311,
+    "pct_green": 36.7523
+  },
+  {
+    "id": "616",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 98258.3187,
+    "pct_buildings": 4.8892,
+    "area_parking": 76596.9867,
+    "pct_parking": 3.8114,
+    "area_green": 1194911.5001,
+    "pct_green": 59.4572
+  },
+  {
+    "id": "617",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 268337.523,
+    "pct_buildings": 13.3521,
+    "area_parking": 92063.0617,
+    "pct_parking": 4.5809,
+    "area_green": 439634.1407,
+    "pct_green": 21.8756
+  },
+  {
+    "id": "618",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 468145.78,
+    "pct_buildings": 23.2943,
+    "area_parking": 103960.4388,
+    "pct_parking": 5.1729,
+    "area_green": 508471.8721,
+    "pct_green": 25.3009
+  },
+  {
+    "id": "720",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 427556.1197,
+    "pct_buildings": 21.2746,
+    "area_parking": 161792.1664,
+    "pct_parking": 8.0506,
+    "area_green": 99218.6901,
+    "pct_green": 4.937
+  },
+  {
+    "id": "721",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 488039.7372,
+    "pct_buildings": 24.2842,
+    "area_parking": 98421.6824,
+    "pct_parking": 4.8973,
+    "area_green": 75084.2182,
+    "pct_green": 3.7361
+  },
+  {
+    "id": "722",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 319036.6511,
+    "pct_buildings": 15.8748,
+    "area_parking": 90536.981,
+    "pct_parking": 4.505,
+    "area_green": 120986.0918,
+    "pct_green": 6.0201
+  },
+  {
+    "id": "723",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 311563.0157,
+    "pct_buildings": 15.503,
+    "area_parking": 82015.0878,
+    "pct_parking": 4.081,
+    "area_green": 278163.5096,
+    "pct_green": 13.841
+  },
+  {
+    "id": "724",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 350627.684,
+    "pct_buildings": 17.4468,
+    "area_parking": 119534.0543,
+    "pct_parking": 5.9479,
+    "area_green": 212229.3523,
+    "pct_green": 10.5602
+  },
+  {
+    "id": "725",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 296818.2875,
+    "pct_buildings": 14.7693,
+    "area_parking": 90125.7756,
+    "pct_parking": 4.4845,
+    "area_green": 151016.7017,
+    "pct_green": 7.5144
+  },
+  {
+    "id": "726",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 315330.6158,
+    "pct_buildings": 15.6904,
+    "area_parking": 113574.1244,
+    "pct_parking": 5.6513,
+    "area_green": 126453.528,
+    "pct_green": 6.2922
+  },
+  {
+    "id": "727",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 268947.6093,
+    "pct_buildings": 13.3825,
+    "area_parking": 48692.6666,
+    "pct_parking": 2.4229,
+    "area_green": 56926.5176,
+    "pct_green": 2.8326
+  },
+  {
+    "id": "427",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 490442.4182,
+    "pct_buildings": 24.4038,
+    "area_parking": 97148.506,
+    "pct_parking": 4.834,
+    "area_green": 139255.4397,
+    "pct_green": 6.9292
+  },
+  {
+    "id": "428",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 439622.7613,
+    "pct_buildings": 21.875,
+    "area_parking": 114669.841,
+    "pct_parking": 5.7058,
+    "area_green": 154618.4948,
+    "pct_green": 7.6936
+  },
+  {
+    "id": "429",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 459337.7757,
+    "pct_buildings": 22.856,
+    "area_parking": 31697.1746,
+    "pct_parking": 1.5772,
+    "area_green": 122384.9813,
+    "pct_green": 6.0897
+  },
+  {
+    "id": "430",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 440096.8013,
+    "pct_buildings": 21.8986,
+    "area_parking": 121998.6359,
+    "pct_parking": 6.0705,
+    "area_green": 223428.6667,
+    "pct_green": 11.1175
+  },
+  {
+    "id": "431",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 386323.8232,
+    "pct_buildings": 19.223,
+    "area_parking": 317789.2913,
+    "pct_parking": 15.8128,
+    "area_green": 305336.3975,
+    "pct_green": 15.1931
+  },
+  {
+    "id": "432",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 287753.9166,
+    "pct_buildings": 14.3182,
+    "area_parking": 122507.0904,
+    "pct_parking": 6.0958,
+    "area_green": 809552.4458,
+    "pct_green": 40.2822
+  },
+  {
+    "id": "433",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 452400.9286,
+    "pct_buildings": 22.5109,
+    "area_parking": 14018.4255,
+    "pct_parking": 0.6975,
+    "area_green": 239828.3048,
+    "pct_green": 11.9335
+  },
+  {
+    "id": "434",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 468242.1559,
+    "pct_buildings": 23.2991,
+    "area_parking": 28590.2534,
+    "pct_parking": 1.4226,
+    "area_green": 200708.2633,
+    "pct_green": 9.987
+  },
+  {
+    "id": "435",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 597152.7221,
+    "pct_buildings": 29.7135,
+    "area_parking": 37216.9941,
+    "pct_parking": 1.8519,
+    "area_green": 157159.6083,
+    "pct_green": 7.8201
+  },
+  {
+    "id": "436",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 523396.3377,
+    "pct_buildings": 26.0435,
+    "area_parking": 50201.6616,
+    "pct_parking": 2.498,
+    "area_green": 276262.6216,
+    "pct_green": 13.7465
+  },
+  {
+    "id": "437",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 392763.0627,
+    "pct_buildings": 19.5434,
+    "area_parking": 60356.0226,
+    "pct_parking": 3.0032,
+    "area_green": 389217.8494,
+    "pct_green": 19.367
+  },
+  {
+    "id": "438",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 458736.3499,
+    "pct_buildings": 22.8261,
+    "area_parking": 46987.3532,
+    "pct_parking": 2.338,
+    "area_green": 285632.9157,
+    "pct_green": 14.2127
+  },
+  {
+    "id": "439",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 505746.8858,
+    "pct_buildings": 25.1653,
+    "area_parking": 67116.2963,
+    "pct_parking": 3.3396,
+    "area_green": 277378.6519,
+    "pct_green": 13.802
+  },
+  {
+    "id": "440",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 571692.1694,
+    "pct_buildings": 28.4466,
+    "area_parking": 52007.9086,
+    "pct_parking": 2.5878,
+    "area_green": 133679.4789,
+    "pct_green": 6.6517
+  },
+  {
+    "id": "441",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 714998.629,
+    "pct_buildings": 35.5774,
+    "area_parking": 67610.8608,
+    "pct_parking": 3.3642,
+    "area_green": 109103.6372,
+    "pct_green": 5.4288
+  },
+  {
+    "id": "442",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 876295.9758,
+    "pct_buildings": 43.6033,
+    "area_parking": 47662.6889,
+    "pct_parking": 2.3716,
+    "area_green": 156064.8146,
+    "pct_green": 7.7656
+  },
+  {
+    "id": "443",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 889685.2633,
+    "pct_buildings": 44.2695,
+    "area_parking": 54893.0043,
+    "pct_parking": 2.7314,
+    "area_green": 137134.44,
+    "pct_green": 6.8236
+  },
+  {
+    "id": "444",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 859566.5572,
+    "pct_buildings": 42.7709,
+    "area_parking": 75315.6118,
+    "pct_parking": 3.7476,
+    "area_green": 86464.5418,
+    "pct_green": 4.3024
+  },
+  {
+    "id": "445",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 815911.8139,
+    "pct_buildings": 40.5987,
+    "area_parking": 98935.312,
+    "pct_parking": 4.9229,
+    "area_green": 110383.4134,
+    "pct_green": 5.4925
+  },
+  {
+    "id": "446",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 735117.7986,
+    "pct_buildings": 36.5785,
+    "area_parking": 79176.2538,
+    "pct_parking": 3.9397,
+    "area_green": 145127.4528,
+    "pct_green": 7.2213
+  },
+  {
+    "id": "447",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 709450.8867,
+    "pct_buildings": 35.3013,
+    "area_parking": 70241.6547,
+    "pct_parking": 3.4951,
+    "area_green": 124679.3234,
+    "pct_green": 6.2039
+  },
+  {
+    "id": "448",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 580870.5725,
+    "pct_buildings": 28.9033,
+    "area_parking": 94846.6978,
+    "pct_parking": 4.7194,
+    "area_green": 150111.5054,
+    "pct_green": 7.4693
+  },
+  {
+    "id": "449",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 552973.2804,
+    "pct_buildings": 27.5152,
+    "area_parking": 91066.8022,
+    "pct_parking": 4.5314,
+    "area_green": 124822.435,
+    "pct_green": 6.211
+  },
+  {
+    "id": "450",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 545965.3268,
+    "pct_buildings": 27.1665,
+    "area_parking": 100405.9304,
+    "pct_parking": 4.9961,
+    "area_green": 110738.4599,
+    "pct_green": 5.5102
+  },
+  {
+    "id": "451",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 570541.9924,
+    "pct_buildings": 28.3894,
+    "area_parking": 68276.7759,
+    "pct_parking": 3.3974,
+    "area_green": 141005.6521,
+    "pct_green": 7.0163
+  },
+  {
+    "id": "452",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 553873.2492,
+    "pct_buildings": 27.56,
+    "area_parking": 79424.9591,
+    "pct_parking": 3.9521,
+    "area_green": 539309.6276,
+    "pct_green": 26.8353
+  },
+  {
+    "id": "453",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 560008.8539,
+    "pct_buildings": 27.8653,
+    "area_parking": 145038.1198,
+    "pct_parking": 7.2169,
+    "area_green": 705141.4652,
+    "pct_green": 35.0869
+  },
+  {
+    "id": "454",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 485882.7772,
+    "pct_buildings": 24.1769,
+    "area_parking": 126332.4252,
+    "pct_parking": 6.2861,
+    "area_green": 189335.0468,
+    "pct_green": 9.4211
+  },
+  {
+    "id": "455",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 450874.7105,
+    "pct_buildings": 22.4349,
+    "area_parking": 41711.3033,
+    "pct_parking": 2.0755,
+    "area_green": 206853.6873,
+    "pct_green": 10.2928
+  },
+  {
+    "id": "456",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 389504.2672,
+    "pct_buildings": 19.3812,
+    "area_parking": 40346.3034,
+    "pct_parking": 2.0076,
+    "area_green": 466327.1176,
+    "pct_green": 23.2038
+  },
+  {
+    "id": "457",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 331354.8848,
+    "pct_buildings": 16.4878,
+    "area_parking": 155397.9886,
+    "pct_parking": 7.7324,
+    "area_green": 459308.2414,
+    "pct_green": 22.8546
+  },
+  {
+    "id": "458",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 336244.0656,
+    "pct_buildings": 16.7311,
+    "area_parking": 105486.0109,
+    "pct_parking": 5.2488,
+    "area_green": 207002.9389,
+    "pct_green": 10.3002
+  },
+  {
+    "id": "459",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 381718.8183,
+    "pct_buildings": 18.9938,
+    "area_parking": 101214.7914,
+    "pct_parking": 5.0363,
+    "area_green": 126079.6792,
+    "pct_green": 6.2736
+  },
+  {
+    "id": "460",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 404111.0058,
+    "pct_buildings": 20.108,
+    "area_parking": 105125.2687,
+    "pct_parking": 5.2309,
+    "area_green": 159861.4525,
+    "pct_green": 7.9545
+  },
+  {
+    "id": "461",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 515421.3501,
+    "pct_buildings": 25.6467,
+    "area_parking": 120061.42,
+    "pct_parking": 5.9741,
+    "area_green": 299691.4889,
+    "pct_green": 14.9122
+  },
+  {
+    "id": "462",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 483405.9586,
+    "pct_buildings": 24.0536,
+    "area_parking": 140172.494,
+    "pct_parking": 6.9748,
+    "area_green": 179130.0266,
+    "pct_green": 8.9133
+  },
+  {
+    "id": "463",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 531578.9858,
+    "pct_buildings": 26.4507,
+    "area_parking": 55656.4084,
+    "pct_parking": 2.7694,
+    "area_green": 150588.7626,
+    "pct_green": 7.4931
+  },
+  {
+    "id": "464",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 539366.0291,
+    "pct_buildings": 26.8381,
+    "area_parking": 40862.8497,
+    "pct_parking": 2.0333,
+    "area_green": 113083.4659,
+    "pct_green": 5.6269
+  },
+  {
+    "id": "465",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 526718.5101,
+    "pct_buildings": 26.2088,
+    "area_parking": 16136.97,
+    "pct_parking": 0.803,
+    "area_green": 100899.4501,
+    "pct_green": 5.0206
+  },
+  {
+    "id": "466",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 505789.4074,
+    "pct_buildings": 25.1674,
+    "area_parking": 14983.3487,
+    "pct_parking": 0.7456,
+    "area_green": 39358.655,
+    "pct_green": 1.9584
+  },
+  {
+    "id": "467",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 418320.2215,
+    "pct_buildings": 20.8151,
+    "area_parking": 45776.0149,
+    "pct_parking": 2.2778,
+    "area_green": 217095.3872,
+    "pct_green": 10.8024
+  },
+  {
+    "id": "468",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 559352.3378,
+    "pct_buildings": 27.8326,
+    "area_parking": 59693.2727,
+    "pct_parking": 2.9703,
+    "area_green": 255791.7524,
+    "pct_green": 12.7279
+  },
+  {
+    "id": "469",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 593603.6686,
+    "pct_buildings": 29.5369,
+    "area_parking": 41703.54,
+    "pct_parking": 2.0751,
+    "area_green": 181546.4875,
+    "pct_green": 9.0335
+  },
+  {
+    "id": "470",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 778491.8099,
+    "pct_buildings": 38.7367,
+    "area_parking": 71208.0921,
+    "pct_parking": 3.5432,
+    "area_green": 138752.7127,
+    "pct_green": 6.9041
+  },
+  {
+    "id": "471",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 855779.757,
+    "pct_buildings": 42.5824,
+    "area_parking": 72533.9425,
+    "pct_parking": 3.6092,
+    "area_green": 98165.6897,
+    "pct_green": 4.8846
+  },
+  {
+    "id": "472",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 910562.1142,
+    "pct_buildings": 45.3083,
+    "area_parking": 84472.5763,
+    "pct_parking": 4.2032,
+    "area_green": 116334.7483,
+    "pct_green": 5.7887
+  },
+  {
+    "id": "473",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 813374.1066,
+    "pct_buildings": 40.4724,
+    "area_parking": 82230.9376,
+    "pct_parking": 4.0917,
+    "area_green": 203303.0166,
+    "pct_green": 10.1161
+  },
+  {
+    "id": "474",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 713754.9816,
+    "pct_buildings": 35.5155,
+    "area_parking": 112395.9941,
+    "pct_parking": 5.5927,
+    "area_green": 275265.1605,
+    "pct_green": 13.6968
+  },
+  {
+    "id": "475",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 723413.4125,
+    "pct_buildings": 35.9961,
+    "area_parking": 47230.9272,
+    "pct_parking": 2.3501,
+    "area_green": 202264.9359,
+    "pct_green": 10.0644
+  },
+  {
+    "id": "476",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 814852.1482,
+    "pct_buildings": 40.5459,
+    "area_parking": 22833.5361,
+    "pct_parking": 1.1362,
+    "area_green": 59758.8795,
+    "pct_green": 2.9735
+  },
+  {
+    "id": "477",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 721303.093,
+    "pct_buildings": 35.8911,
+    "area_parking": 18691.1157,
+    "pct_parking": 0.93,
+    "area_green": 145804.6994,
+    "pct_green": 7.255
+  },
+  {
+    "id": "478",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 674605.1945,
+    "pct_buildings": 33.5674,
+    "area_parking": 39244.4425,
+    "pct_parking": 1.9528,
+    "area_green": 146928.8762,
+    "pct_green": 7.311
+  },
+  {
+    "id": "479",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 763226.7321,
+    "pct_buildings": 37.9771,
+    "area_parking": 31692.1034,
+    "pct_parking": 1.577,
+    "area_green": 38066.6239,
+    "pct_green": 1.8941
+  },
+  {
+    "id": "480",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 724539.8906,
+    "pct_buildings": 36.0521,
+    "area_parking": 23003.4019,
+    "pct_parking": 1.1446,
+    "area_green": 57607.5328,
+    "pct_green": 2.8665
+  },
+  {
+    "id": "481",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 629003.9183,
+    "pct_buildings": 31.2984,
+    "area_parking": 39765.5444,
+    "pct_parking": 1.9787,
+    "area_green": 184247.0359,
+    "pct_green": 9.1679
+  },
+  {
+    "id": "482",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 584937.4702,
+    "pct_buildings": 29.1057,
+    "area_parking": 103824.9957,
+    "pct_parking": 5.1662,
+    "area_green": 159466.6902,
+    "pct_green": 7.9348
+  },
+  {
+    "id": "483",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 465948.426,
+    "pct_buildings": 23.185,
+    "area_parking": 45716.5238,
+    "pct_parking": 2.2748,
+    "area_green": 226196.9939,
+    "pct_green": 11.2553
+  },
+  {
+    "id": "484",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 334884.1554,
+    "pct_buildings": 16.6634,
+    "area_parking": 23951.7754,
+    "pct_parking": 1.1918,
+    "area_green": 272488.4499,
+    "pct_green": 13.5587
+  },
+  {
+    "id": "485",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 330915.4962,
+    "pct_buildings": 16.4659,
+    "area_parking": 61155.9819,
+    "pct_parking": 3.043,
+    "area_green": 179161.1845,
+    "pct_green": 8.9148
+  },
+  {
+    "id": "486",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 366436.671,
+    "pct_buildings": 18.2334,
+    "area_parking": 281013.9962,
+    "pct_parking": 13.9829,
+    "area_green": 90838.239,
+    "pct_green": 4.52
+  },
+  {
+    "id": "487",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 37558.8415,
+    "pct_buildings": 1.8689,
+    "area_parking": 80080.3197,
+    "pct_parking": 3.9847,
+    "area_green": 1192076.3268,
+    "pct_green": 59.3161
+  },
+  {
+    "id": "488",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 174937.7267,
+    "pct_buildings": 8.7047,
+    "area_parking": 154674.3706,
+    "pct_parking": 7.6964,
+    "area_green": 318358.1106,
+    "pct_green": 15.8411
+  },
+  {
+    "id": "489",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 547273.6294,
+    "pct_buildings": 27.2316,
+    "area_parking": 91403.0319,
+    "pct_parking": 4.5481,
+    "area_green": 286987.6352,
+    "pct_green": 14.2801
+  },
+  {
+    "id": "490",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 453860.9643,
+    "pct_buildings": 22.5835,
+    "area_parking": 72581.7219,
+    "pct_parking": 3.6116,
+    "area_green": 677495.7845,
+    "pct_green": 33.7113
+  },
+  {
+    "id": "491",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 370678.017,
+    "pct_buildings": 18.4444,
+    "area_parking": 52808.1138,
+    "pct_parking": 2.6277,
+    "area_green": 645027.3849,
+    "pct_green": 32.0957
+  },
+  {
+    "id": "492",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 558026.2024,
+    "pct_buildings": 27.7666,
+    "area_parking": 47301.8489,
+    "pct_parking": 2.3537,
+    "area_green": 142295.0159,
+    "pct_green": 7.0804
+  },
+  {
+    "id": "493",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 533716.8983,
+    "pct_buildings": 26.557,
+    "area_parking": 65380.8322,
+    "pct_parking": 3.2533,
+    "area_green": 64801.0228,
+    "pct_green": 3.2244
+  },
+  {
+    "id": "494",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 588272.6405,
+    "pct_buildings": 29.2717,
+    "area_parking": 46967.0811,
+    "pct_parking": 2.337,
+    "area_green": 312982.6821,
+    "pct_green": 15.5736
+  },
+  {
+    "id": "495",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 666562.1065,
+    "pct_buildings": 33.1672,
+    "area_parking": 48493.6947,
+    "pct_parking": 2.413,
+    "area_green": 251819.212,
+    "pct_green": 12.5302
+  },
+  {
+    "id": "496",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 614542.7433,
+    "pct_buildings": 30.5788,
+    "area_parking": 17968.6065,
+    "pct_parking": 0.8941,
+    "area_green": 58628.8967,
+    "pct_green": 2.9173
+  },
+  {
+    "id": "497",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 546046.2788,
+    "pct_buildings": 27.1705,
+    "area_parking": 15765.2637,
+    "pct_parking": 0.7845,
+    "area_green": 42130.978,
+    "pct_green": 2.0964
+  },
+  {
+    "id": "498",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 527641.8923,
+    "pct_buildings": 26.2547,
+    "area_parking": 42376.683,
+    "pct_parking": 2.1086,
+    "area_green": 77417.6651,
+    "pct_green": 3.8522
+  },
+  {
+    "id": "499",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 282334.6236,
+    "pct_buildings": 14.0486,
+    "area_parking": 50931.5393,
+    "pct_parking": 2.5343,
+    "area_green": 205276.1051,
+    "pct_green": 10.2143
+  },
+  {
+    "id": "500",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 381917.1122,
+    "pct_buildings": 19.0037,
+    "area_parking": 48741.0842,
+    "pct_parking": 2.4253,
+    "area_green": 136354.3471,
+    "pct_green": 6.7848
+  },
+  {
+    "id": "501",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 347966.2321,
+    "pct_buildings": 17.3143,
+    "area_parking": 3796.2311,
+    "pct_parking": 0.1889,
+    "area_green": 21765.795,
+    "pct_green": 1.083
+  },
+  {
+    "id": "502",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 199600.2276,
+    "pct_buildings": 9.9318,
+    "area_parking": 327749.0756,
+    "pct_parking": 16.3084,
+    "area_green": 156080.6998,
+    "pct_green": 7.7664
+  },
+  {
+    "id": "503",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 285333.5464,
+    "pct_buildings": 14.1978,
+    "area_parking": 68311.3058,
+    "pct_parking": 3.3991,
+    "area_green": 62104.995,
+    "pct_green": 3.0903
+  },
+  {
+    "id": "504",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 151566.7872,
+    "pct_buildings": 7.5418,
+    "area_parking": 32869.2476,
+    "pct_parking": 1.6355,
+    "area_green": 139215.9038,
+    "pct_green": 6.9272
+  },
+  {
+    "id": "505",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 143454.0553,
+    "pct_buildings": 7.1381,
+    "area_parking": 38113.7847,
+    "pct_parking": 1.8965,
+    "area_green": 516223.5617,
+    "pct_green": 25.6866
+  },
+  {
+    "id": "506",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 209508.3387,
+    "pct_buildings": 10.4249,
+    "area_parking": 45556.2307,
+    "pct_parking": 2.2668,
+    "area_green": 340760.7614,
+    "pct_green": 16.9558
+  },
+  {
+    "id": "507",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 229112.0306,
+    "pct_buildings": 11.4003,
+    "area_parking": 51886.7034,
+    "pct_parking": 2.5818,
+    "area_green": 113135.8225,
+    "pct_green": 5.6295
+  },
+  {
+    "id": "508",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 170679.5525,
+    "pct_buildings": 8.4928,
+    "area_parking": 7270.3442,
+    "pct_parking": 0.3618,
+    "area_green": 601383.3616,
+    "pct_green": 29.924
+  },
+  {
+    "id": "509",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 254464.7202,
+    "pct_buildings": 12.6618,
+    "area_parking": 38293.054,
+    "pct_parking": 1.9054,
+    "area_green": 214374.423,
+    "pct_green": 10.667
+  },
+  {
+    "id": "510",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 215411.7306,
+    "pct_buildings": 10.7186,
+    "area_parking": 83188.956,
+    "pct_parking": 4.1394,
+    "area_green": 108442.7371,
+    "pct_green": 5.396
+  },
+  {
+    "id": "511",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 132060.0567,
+    "pct_buildings": 6.5711,
+    "area_parking": 135857.9126,
+    "pct_parking": 6.7601,
+    "area_green": 581214.8858,
+    "pct_green": 28.9205
+  },
+  {
+    "id": "512",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 122355.8938,
+    "pct_buildings": 6.0883,
+    "area_parking": 61511.9203,
+    "pct_parking": 3.0608,
+    "area_green": 127268.6459,
+    "pct_green": 6.3327
+  },
+  {
+    "id": "513",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 46388.9465,
+    "pct_buildings": 2.3083,
+    "area_parking": 39102.2337,
+    "pct_parking": 1.9457,
+    "area_green": 407191.5654,
+    "pct_green": 20.2613
+  },
+  {
+    "id": "514",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 901590.0796,
+    "pct_buildings": 44.8619,
+    "area_parking": 75081.5601,
+    "pct_parking": 3.736,
+    "area_green": 96233.1007,
+    "pct_green": 4.7884
+  },
+  {
+    "id": "515",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 325292.3002,
+    "pct_buildings": 16.1861,
+    "area_parking": 47315.2631,
+    "pct_parking": 2.3543,
+    "area_green": 275449.1609,
+    "pct_green": 13.706
+  },
+  {
+    "id": "516",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 157496.5136,
+    "pct_buildings": 7.8368,
+    "area_parking": 25978.9725,
+    "pct_parking": 1.2927,
+    "area_green": 394767.1668,
+    "pct_green": 19.6431
+  },
+  {
+    "id": "517",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 165248.2117,
+    "pct_buildings": 8.2225,
+    "area_parking": 27931.3292,
+    "pct_parking": 1.3898,
+    "area_green": 228030.0033,
+    "pct_green": 11.3465
+  },
+  {
+    "id": "518",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 278930.7291,
+    "pct_buildings": 13.8792,
+    "area_parking": 64082.4853,
+    "pct_parking": 3.1887,
+    "area_green": 124924.9152,
+    "pct_green": 6.2161
+  },
+  {
+    "id": "519",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 328954.1158,
+    "pct_buildings": 16.3683,
+    "area_parking": 154930.0123,
+    "pct_parking": 7.7091,
+    "area_green": 100733.2735,
+    "pct_green": 5.0124
+  },
+  {
+    "id": "520",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 59430.9347,
+    "pct_buildings": 2.9572,
+    "area_parking": 47769.718,
+    "pct_parking": 2.377,
+    "area_green": 311383.1377,
+    "pct_green": 15.494
+  },
+  {
+    "id": "521",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 146918.6888,
+    "pct_buildings": 7.3105,
+    "area_parking": 141323.0607,
+    "pct_parking": 7.032,
+    "area_green": 43461.8045,
+    "pct_green": 2.1626
+  },
+  {
+    "id": "522",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 164214.4394,
+    "pct_buildings": 8.1711,
+    "area_parking": 12031.0383,
+    "pct_parking": 0.5986,
+    "area_green": 176895.4695,
+    "pct_green": 8.8021
+  },
+  {
+    "id": "523",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 57644.305,
+    "pct_buildings": 2.8683,
+    "area_parking": 55598.0963,
+    "pct_parking": 2.7665,
+    "area_green": 698669.9206,
+    "pct_green": 34.7649
+  },
+  {
+    "id": "524",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 26747.4877,
+    "pct_buildings": 1.3309,
+    "area_parking": 14520.7367,
+    "pct_parking": 0.7225,
+    "area_green": 194670.1426,
+    "pct_green": 9.6865
+  },
+  {
+    "id": "525",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 77694.7856,
+    "pct_buildings": 3.866,
+    "area_parking": 78292.6443,
+    "pct_parking": 3.8957,
+    "area_green": 518367.0532,
+    "pct_green": 25.7932
+  },
+  {
+    "id": "526",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 278853.1198,
+    "pct_buildings": 13.8754,
+    "area_parking": 215328.3507,
+    "pct_parking": 10.7144,
+    "area_green": 520258.5796,
+    "pct_green": 25.8874
+  },
+  {
+    "id": "527",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 133617.129,
+    "pct_buildings": 6.6486,
+    "area_parking": 15395.6176,
+    "pct_parking": 0.7661,
+    "area_green": 529166.1989,
+    "pct_green": 26.3306
+  },
+  {
+    "id": "528",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 224664.1705,
+    "pct_buildings": 11.179,
+    "area_parking": 36714.181,
+    "pct_parking": 1.8268,
+    "area_green": 508523.1042,
+    "pct_green": 25.3034
+  },
+  {
+    "id": "529",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 109604.4509,
+    "pct_buildings": 5.4538,
+    "area_parking": 126498.4111,
+    "pct_parking": 6.2944,
+    "area_green": 172185.3587,
+    "pct_green": 8.5677
+  },
+  {
+    "id": "530",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 584722.0564,
+    "pct_buildings": 29.095,
+    "area_parking": 267406.5695,
+    "pct_parking": 13.3058,
+    "area_green": 63813.3806,
+    "pct_green": 3.1753
+  },
+  {
+    "id": "531",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 352280.9038,
+    "pct_buildings": 17.529,
+    "area_parking": 101441.7124,
+    "pct_parking": 5.0476,
+    "area_green": 162386.235,
+    "pct_green": 8.0801
+  },
+  {
+    "id": "532",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 65039.6102,
+    "pct_buildings": 3.2363,
+    "area_parking": 146816.9724,
+    "pct_parking": 7.3054,
+    "area_green": 645946.7133,
+    "pct_green": 32.1414
+  },
+  {
+    "id": "533",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 507096.0583,
+    "pct_buildings": 25.2324,
+    "area_parking": 65909.4001,
+    "pct_parking": 3.2796,
+    "area_green": 63237.6099,
+    "pct_green": 3.1466
+  },
+  {
+    "id": "534",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 452191.5479,
+    "pct_buildings": 22.5004,
+    "area_parking": 33732.0784,
+    "pct_parking": 1.6785,
+    "area_green": 36981.6943,
+    "pct_green": 1.8402
+  },
+  {
+    "id": "535",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 559662.6676,
+    "pct_buildings": 27.8481,
+    "area_parking": 216486.9662,
+    "pct_parking": 10.7721,
+    "area_green": 92776.4312,
+    "pct_green": 4.6164
+  },
+  {
+    "id": "536",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 306305.802,
+    "pct_buildings": 15.2414,
+    "area_parking": 34871.7279,
+    "pct_parking": 1.7352,
+    "area_green": 184555.663,
+    "pct_green": 9.1832
+  },
+  {
+    "id": "537",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 151884.27,
+    "pct_buildings": 7.5576,
+    "area_parking": 41694.9459,
+    "pct_parking": 2.0747,
+    "area_green": 979266.1041,
+    "pct_green": 48.727
+  },
+  {
+    "id": "538",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 111764.0523,
+    "pct_buildings": 5.5612,
+    "area_parking": 19057.8939,
+    "pct_parking": 0.9483,
+    "area_green": 61566.913,
+    "pct_green": 3.0635
+  },
+  {
+    "id": "539",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 73813.7241,
+    "pct_buildings": 3.6729,
+    "area_parking": 26247.9922,
+    "pct_parking": 1.3061,
+    "area_green": 965205.9044,
+    "pct_green": 48.0273
+  },
+  {
+    "id": "540",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 142156.5757,
+    "pct_buildings": 7.0735,
+    "area_parking": 45158.1796,
+    "pct_parking": 2.247,
+    "area_green": 483305.6786,
+    "pct_green": 24.0486
+  },
+  {
+    "id": "541",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 189622.1646,
+    "pct_buildings": 9.4353,
+    "area_parking": 151733.6492,
+    "pct_parking": 7.5501,
+    "area_green": 120618.8295,
+    "pct_green": 6.0018
+  },
+  {
+    "id": "542",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 219945.4098,
+    "pct_buildings": 10.9442,
+    "area_parking": 152035.2765,
+    "pct_parking": 7.5651,
+    "area_green": 309755.7889,
+    "pct_green": 15.413
+  },
+  {
+    "id": "543",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 60480.5955,
+    "pct_buildings": 3.0094,
+    "area_parking": 70257.5573,
+    "pct_parking": 3.4959,
+    "area_green": 193310.1099,
+    "pct_green": 9.6189
+  },
+  {
+    "id": "544",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 131776.6807,
+    "pct_buildings": 6.557,
+    "area_parking": 29349.2493,
+    "pct_parking": 1.4604,
+    "area_green": 202141.7104,
+    "pct_green": 10.0583
+  },
+  {
+    "id": "545",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 337900.9393,
+    "pct_buildings": 16.8135,
+    "area_parking": 17937.9641,
+    "pct_parking": 0.8926,
+    "area_green": 195867.2938,
+    "pct_green": 9.7461
+  },
+  {
+    "id": "546",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 68840.8501,
+    "pct_buildings": 3.4254,
+    "area_parking": 9749.4129,
+    "pct_parking": 0.4851,
+    "area_green": 104223.3999,
+    "pct_green": 5.186
+  },
+  {
+    "id": "547",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 425177.5736,
+    "pct_buildings": 21.1563,
+    "area_parking": 21498.5016,
+    "pct_parking": 1.0697,
+    "area_green": 150869.7966,
+    "pct_green": 7.5071
+  },
+  {
+    "id": "548",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 344120.437,
+    "pct_buildings": 17.123,
+    "area_parking": 15393.5661,
+    "pct_parking": 0.766,
+    "area_green": 176522.9672,
+    "pct_green": 8.7835
+  },
+  {
+    "id": "549",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 609007.2799,
+    "pct_buildings": 30.3034,
+    "area_parking": 94910.4048,
+    "pct_parking": 4.7226,
+    "area_green": 51112.2002,
+    "pct_green": 2.5433
+  },
+  {
+    "id": "550",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 471145.4226,
+    "pct_buildings": 23.4436,
+    "area_parking": 63614.1429,
+    "pct_parking": 3.1654,
+    "area_green": 86766.491,
+    "pct_green": 4.3174
+  },
+  {
+    "id": "551",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 351118.3289,
+    "pct_buildings": 17.4712,
+    "area_parking": 17624.0961,
+    "pct_parking": 0.877,
+    "area_green": 176644.0655,
+    "pct_green": 8.7896
+  },
+  {
+    "id": "552",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 387246.1822,
+    "pct_buildings": 19.2688,
+    "area_parking": 41313.9709,
+    "pct_parking": 2.0557,
+    "area_green": 133609.5261,
+    "pct_green": 6.6482
+  },
+  {
+    "id": "553",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 298341.2836,
+    "pct_buildings": 14.8451,
+    "area_parking": 63223.4959,
+    "pct_parking": 3.1459,
+    "area_green": 92345.4576,
+    "pct_green": 4.595
+  },
+  {
+    "id": "554",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 291223.4471,
+    "pct_buildings": 14.4909,
+    "area_parking": 55778.934,
+    "pct_parking": 2.7755,
+    "area_green": 188677.7256,
+    "pct_green": 9.3883
+  },
+  {
+    "id": "555",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 142247.9325,
+    "pct_buildings": 7.0781,
+    "area_parking": 16449.5992,
+    "pct_parking": 0.8185,
+    "area_green": 251081.7124,
+    "pct_green": 12.4935
+  },
+  {
+    "id": "556",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 185365.0833,
+    "pct_buildings": 9.2235,
+    "area_parking": 22831.863,
+    "pct_parking": 1.1361,
+    "area_green": 150068.912,
+    "pct_green": 7.4672
+  },
+  {
+    "id": "557",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 212871.7729,
+    "pct_buildings": 10.5922,
+    "area_parking": 50595.4858,
+    "pct_parking": 2.5176,
+    "area_green": 350818.0557,
+    "pct_green": 17.4562
+  },
+  {
+    "id": "558",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 521781.9607,
+    "pct_buildings": 25.9632,
+    "area_parking": 139219.9901,
+    "pct_parking": 6.9274,
+    "area_green": 5340.9684,
+    "pct_green": 0.2658
+  },
+  {
+    "id": "559",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 362382.4532,
+    "pct_buildings": 18.0317,
+    "area_parking": 208134.0263,
+    "pct_parking": 10.3565,
+    "area_green": 208079.8016,
+    "pct_green": 10.3538
+  },
+  {
+    "id": "560",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 262883.1602,
+    "pct_buildings": 13.0807,
+    "area_parking": 80569.7157,
+    "pct_parking": 4.009,
+    "area_green": 354401.5425,
+    "pct_green": 17.6345
+  },
+  {
+    "id": "561",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 181696.7359,
+    "pct_buildings": 9.041,
+    "area_parking": 96833.8803,
+    "pct_parking": 4.8183,
+    "area_green": 990878.8956,
+    "pct_green": 49.3048
+  },
+  {
+    "id": "562",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 118464.5849,
+    "pct_buildings": 5.8946,
+    "area_parking": 155267.1629,
+    "pct_parking": 7.7259,
+    "area_green": 875906.8115,
+    "pct_green": 43.5839
+  },
+  {
+    "id": "563",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 674261.2422,
+    "pct_buildings": 33.5503,
+    "area_parking": 72010.9929,
+    "pct_parking": 3.5832,
+    "area_green": 348949.3957,
+    "pct_green": 17.3633
+  },
+  {
+    "id": "564",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 154415.4441,
+    "pct_buildings": 7.6835,
+    "area_parking": 36419.844,
+    "pct_parking": 1.8122,
+    "area_green": 450938.1968,
+    "pct_green": 22.4381
+  },
+  {
+    "id": "565",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 209605.9601,
+    "pct_buildings": 10.4297,
+    "area_parking": 234977.3564,
+    "pct_parking": 11.6922,
+    "area_green": 201845.8484,
+    "pct_green": 10.0436
+  },
+  {
+    "id": "566",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 168314.7948,
+    "pct_buildings": 8.3751,
+    "area_parking": 96149.8484,
+    "pct_parking": 4.7843,
+    "area_green": 162048.2038,
+    "pct_green": 8.0633
+  },
+  {
+    "id": "567",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 308519.5921,
+    "pct_buildings": 15.3515,
+    "area_parking": 262151.5827,
+    "pct_parking": 13.0443,
+    "area_green": 190933.6961,
+    "pct_green": 9.5006
+  },
+  {
+    "id": "568",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 259431.5501,
+    "pct_buildings": 12.909,
+    "area_parking": 191188.2112,
+    "pct_parking": 9.5133,
+    "area_green": 428114.2373,
+    "pct_green": 21.3024
+  },
+  {
+    "id": "569",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 101495.4683,
+    "pct_buildings": 5.0503,
+    "area_parking": 150692.1596,
+    "pct_parking": 7.4982,
+    "area_green": 537793.0848,
+    "pct_green": 26.7599
+  },
+  {
+    "id": "619",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 184103.7419,
+    "pct_buildings": 9.1608,
+    "area_parking": 23882.2868,
+    "pct_parking": 1.1884,
+    "area_green": 245811.084,
+    "pct_green": 12.2312
+  },
+  {
+    "id": "620",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 90208.3241,
+    "pct_buildings": 4.4886,
+    "area_parking": 58025.0395,
+    "pct_parking": 2.8872,
+    "area_green": 459267.1277,
+    "pct_green": 22.8525
+  },
+  {
+    "id": "621",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 172272.5184,
+    "pct_buildings": 8.572,
+    "area_parking": 95225.8733,
+    "pct_parking": 4.7383,
+    "area_green": 108039.6104,
+    "pct_green": 5.3759
+  },
+  {
+    "id": "622",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 290042.743,
+    "pct_buildings": 14.4321,
+    "area_parking": 94049.451,
+    "pct_parking": 4.6798,
+    "area_green": 96744.3765,
+    "pct_green": 4.8139
+  },
+  {
+    "id": "623",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 277750.3209,
+    "pct_buildings": 13.8205,
+    "area_parking": 170548.6899,
+    "pct_parking": 8.4863,
+    "area_green": 200072.9002,
+    "pct_green": 9.9554
+  },
+  {
+    "id": "624",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 345190.5145,
+    "pct_buildings": 17.1762,
+    "area_parking": 129579.347,
+    "pct_parking": 6.4477,
+    "area_green": 238687.5162,
+    "pct_green": 11.8768
+  },
+  {
+    "id": "625",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 197507.6317,
+    "pct_buildings": 9.8277,
+    "area_parking": 171865.5647,
+    "pct_parking": 8.5518,
+    "area_green": 407984.3905,
+    "pct_green": 20.3008
+  },
+  {
+    "id": "626",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 121378.9598,
+    "pct_buildings": 6.0397,
+    "area_parking": 79871.7433,
+    "pct_parking": 3.9743,
+    "area_green": 330180.3217,
+    "pct_green": 16.4293
+  },
+  {
+    "id": "627",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 119861.86,
+    "pct_buildings": 5.9642,
+    "area_parking": 28828.7574,
+    "pct_parking": 1.4345,
+    "area_green": 153109.5717,
+    "pct_green": 7.6185
+  },
+  {
+    "id": "628",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 158417.2005,
+    "pct_buildings": 7.8826,
+    "area_parking": 83628.3239,
+    "pct_parking": 4.1612,
+    "area_green": 239199.7069,
+    "pct_green": 11.9023
+  },
+  {
+    "id": "629",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 201270.2215,
+    "pct_buildings": 10.0149,
+    "area_parking": 111630.8425,
+    "pct_parking": 5.5546,
+    "area_green": 316781.2882,
+    "pct_green": 15.7626
+  },
+  {
+    "id": "630",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 262651.5687,
+    "pct_buildings": 13.0692,
+    "area_parking": 115080.2271,
+    "pct_parking": 5.7262,
+    "area_green": 307165.41,
+    "pct_green": 15.2841
+  },
+  {
+    "id": "631",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 375052.1719,
+    "pct_buildings": 18.6621,
+    "area_parking": 137036.8007,
+    "pct_parking": 6.8188,
+    "area_green": 226503.2699,
+    "pct_green": 11.2705
+  },
+  {
+    "id": "632",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 409037.4687,
+    "pct_buildings": 20.3532,
+    "area_parking": 73652.9802,
+    "pct_parking": 3.6649,
+    "area_green": 555439.4968,
+    "pct_green": 27.6379
+  },
+  {
+    "id": "633",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 517198.9886,
+    "pct_buildings": 25.7351,
+    "area_parking": 89117.0174,
+    "pct_parking": 4.4343,
+    "area_green": 432429.9578,
+    "pct_green": 21.5171
+  },
+  {
+    "id": "634",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 251375.146,
+    "pct_buildings": 12.5081,
+    "area_parking": 133325.9211,
+    "pct_parking": 6.6341,
+    "area_green": 266105.7959,
+    "pct_green": 13.2411
+  },
+  {
+    "id": "635",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 223603.6731,
+    "pct_buildings": 11.1262,
+    "area_parking": 139637.2916,
+    "pct_parking": 6.9482,
+    "area_green": 335588.9027,
+    "pct_green": 16.6985
+  },
+  {
+    "id": "636",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 219001.0558,
+    "pct_buildings": 10.8972,
+    "area_parking": 70638.6527,
+    "pct_parking": 3.5149,
+    "area_green": 68334.7072,
+    "pct_green": 3.4002
+  },
+  {
+    "id": "637",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 342590.7765,
+    "pct_buildings": 17.0469,
+    "area_parking": 62019.9052,
+    "pct_parking": 3.086,
+    "area_green": 452200.2448,
+    "pct_green": 22.5009
+  },
+  {
+    "id": "638",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 357632.5717,
+    "pct_buildings": 17.7953,
+    "area_parking": 44110.0407,
+    "pct_parking": 2.1949,
+    "area_green": 493371.07,
+    "pct_green": 24.5495
+  },
+  {
+    "id": "639",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 336618.1353,
+    "pct_buildings": 16.7497,
+    "area_parking": 137888.55,
+    "pct_parking": 6.8611,
+    "area_green": 158754.3926,
+    "pct_green": 7.8994
+  },
+  {
+    "id": "640",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 55288.4893,
+    "pct_buildings": 2.7511,
+    "area_parking": 80062.6731,
+    "pct_parking": 3.9838,
+    "area_green": 619175.5316,
+    "pct_green": 30.8093
+  },
+  {
+    "id": "641",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 189379.6541,
+    "pct_buildings": 9.4233,
+    "area_parking": 104544.768,
+    "pct_parking": 5.202,
+    "area_green": 312377.7051,
+    "pct_green": 15.5435
+  },
+  {
+    "id": "642",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 219001.0558,
+    "pct_buildings": 10.8972,
+    "area_parking": 70638.6527,
+    "pct_parking": 3.5149,
+    "area_green": 68334.7072,
+    "pct_green": 3.4002
+  },
+  {
+    "id": "643",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 207997.3051,
+    "pct_buildings": 10.3497,
+    "area_parking": 62241.6289,
+    "pct_parking": 3.0971,
+    "area_green": 152006.081,
+    "pct_green": 7.5636
+  },
+  {
+    "id": "644",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 169903.3093,
+    "pct_buildings": 8.4542,
+    "area_parking": 138813.466,
+    "pct_parking": 6.9072,
+    "area_green": 208225.3747,
+    "pct_green": 10.361
+  },
+  {
+    "id": "645",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 260573.8255,
+    "pct_buildings": 12.9658,
+    "area_parking": 179255.0741,
+    "pct_parking": 8.9195,
+    "area_green": 362406.9464,
+    "pct_green": 18.0329
+  },
+  {
+    "id": "646",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 277321.6234,
+    "pct_buildings": 13.7992,
+    "area_parking": 110222.9157,
+    "pct_parking": 5.4845,
+    "area_green": 436717.3135,
+    "pct_green": 21.7305
+  },
+  {
+    "id": "647",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 245862.8271,
+    "pct_buildings": 12.2338,
+    "area_parking": 189742.9991,
+    "pct_parking": 9.4414,
+    "area_green": 107275.5001,
+    "pct_green": 5.3379
+  },
+  {
+    "id": "648",
+    "area_buffer": 2009700.7197,
+    "area_buildings": 87334.6001,
+    "pct_buildings": 4.3457,
+    "area_parking": 75742.243,
+    "pct_parking": 3.7688,
+    "area_green": 561211.2113,
+    "pct_green": 27.9251
+  }
+]

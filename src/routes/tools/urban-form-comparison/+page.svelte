@@ -8,6 +8,7 @@
 
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
+	import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
 
 	import '../../styles.css';
 
@@ -22,17 +23,23 @@
 	let selectedStation1 = '573';
 	let selectedStation2 = '10';
 
+	let station1Metrics; 
+	let station2Metrics; 
+
+	let station1Data;
+	let station2Data;
+
 	// Station area radius in km
 	const radiusInKilometers = 0.8;
 
 	// Map configuration
-	// https://docs.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
 	const mapConfig = {
 		style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
 		zoom: 13,
 		minZoom: 2,
 		scrollZoom: false,
 		dragPan: false,
+		dragRotate: false,
 		attributionControl: false,
 		projection: 'mercator'
 	};
@@ -51,7 +58,7 @@
 	let parkingCheck;
 	let buildingsCheck;
 
-	// Create station labels, map stations to regions
+	// Split line data to array
 	function processStationData(stationRawData) {
 		return stationRawData.map((station) => ({
 			...station,
@@ -76,7 +83,6 @@
 		});
 		const bbox = turf.bbox(circle);
 		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
-		// console.log(stationData);
 	}
 
 	// Handle station selection from combobox
@@ -272,6 +278,9 @@
 		updateMapWithStationData(map1, mapData[1], {
 			updateStylingCallback: updateStationStyling
 		});
+
+		station1Metrics = stationMetrics.find(station => station.id === selectedStation1);
+		station1Data = stationsProcessed.find(station => station.id === selectedStation1);
 	}
 
 	// Map 2
@@ -282,6 +291,9 @@
 		updateMapWithStationData(map2, mapData[2], {
 			updateStylingCallback: updateStationStyling
 		});
+
+		station2Metrics = stationMetrics.find(station => station.id === selectedStation2);
+		station2Data = stationsProcessed.find(station => station.id === selectedStation2);
 	}
 
 	// Add layer toggles
@@ -363,10 +375,10 @@
 	</p>
 </div>
 
-<div class="map-container">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-fit mx-auto">
 	<!-- Display first map -->
-	<div class="map-column">
-		<div id="select1">
+	<div class="flex flex-col items-center">
+		<div class="w-80 py-2 mx-auto my-auto">
 			<!-- Station dropdown selection -->
 			<Combobox
 				handleSelect={handleStation1Select}
@@ -380,8 +392,8 @@
 	</div>
 
 	<!-- Display second map -->
-	<div class="map-column">
-		<div id="select2">
+	<div class="flex flex-col items-center">
+		<div class="w-80 py-2 mx-auto my-auto">
 			<!-- Station dropdown selection -->
 			<Combobox
 				handleSelect={handleStation2Select}
@@ -395,31 +407,107 @@
 	</div>
 </div>
 
-<div class="layers">
-	<label>
-		<input type="checkbox" bind:checked={greenspaceCheck} />
-		Greenspace
-	</label>
-	<label>
+<div class="flex justify-center text-sm px-2 py-4">
+	<label class="px-2">
 		<input type="checkbox" bind:checked={roadsCheck} />
 		Road Network
 	</label>
-	<label>
+	<label class="px-2">
 		<input type="checkbox" bind:checked={transitCheck} />
 		Transit Lines
 	</label>
-	<label>
+	<label class="px-2">
 		<input type="checkbox" bind:checked={stationCheck} />
 		Transit Stations
 	</label>
-	<label>
+	<label class="px-2">
+		<input type="checkbox" bind:checked={greenspaceCheck} />
+		Greenspace
+	</label>
+	<label class="px-2">
 		<input type="checkbox" bind:checked={parkingCheck} />
 		Parking
 	</label>
-	<label>
+	<label class="px-2">
 		<input type="checkbox" bind:checked={buildingsCheck} />
 		Buildings
 	</label>
+</div>
+
+
+<div class="container mx-auto flex justify-center w-4xl pb-5">
+	<table class="table-fixed w-full border-l border-r border-gray-200">  
+	<thead class="text-base text-gray-700 uppercase border-t border-gray-200">    
+		<tr>      
+			<th class="w-2/5 px-6 pt-2 bg-gray-50">{station1Data.stop_label}</th>      
+			<th class="w-1/5 px-6 pt-2"></th>     
+			<th class="w-2/5 px-6 pt-2 bg-gray-50">{station2Data.stop_label}</th>    
+		</tr>  
+	</thead>  
+		<tbody>    
+			<tr class="text-xs text-gray-700 text-center uppercase">      
+				<td class="px-6 bg-gray-50">{station1Data.line_display_name}</td>      
+				<td></td>      
+				<td class="px-6 bg-gray-50">{station2Data.line_display_name}</td>    
+			</tr>    
+			<tr class="text-xs text-gray-700 text-center border-b border-gray-200">      
+				<td class="pb-1 text-center bg-gray-50">{station1Data.region}</td>      
+				<td></td>      
+				<td class="pb-1 text-center bg-gray-50">{station2Data.region}</td>    
+			</tr>    
+			<tr class="text-sm border-b border-gray-200">     
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_green === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_green.toFixed(1)}%
+                    {/if}
+				</td>      
+				<td class="py-1 text-center">% Greenspace</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_green === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_green.toFixed(1)}%
+                    {/if}
+				</td>    
+			</tr>  
+			<tr class="text-sm border-b border-gray-200">     
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_parking === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_parking.toFixed(1)}%
+                    {/if}
+				</td>      
+				<td class="py-1 text-center">% Parking</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_parking === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_parking.toFixed(1)}%
+                    {/if}
+				</td>    
+			</tr>  
+			<tr class="text-sm border-b border-gray-200">     
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_buildings === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_buildings.toFixed(1)}%
+                    {/if}
+				</td>      
+				<td class="py-1 text-center">% Buildings</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_buildings === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_buildings.toFixed(1)}%
+                    {/if}
+				</td>    
+			</tr>  
+		</tbody>
+	</table>
 </div>
 
 <style>
@@ -452,32 +540,5 @@
 		align-items: center;
 		gap: 20px; /* Gap between dropdown and map */
 	}
-
-	/* Dropdown container */
-	#select1,
-	#select2 {
-		width: 300px;
-	}
-
-	.layers {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 20px;
-		margin-top: 30px;
-		margin-bottom: 50px;
-		width: 100%;
-	}
-
-	.layers label {
-		display: flex;
-		align-items: center;
-		gap: 5px;
-		cursor: pointer;
-		font-size: 14px;
-	}
-
-	.layers input[type='checkbox'] {
-		margin: 0;
-	}
+	
 </style>
