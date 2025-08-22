@@ -375,7 +375,7 @@
 	</p>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-fit mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-fit mx-auto">
 	<!-- Display first map -->
 	<div class="flex flex-col items-center">
 		<div class="w-80 py-2 mx-auto my-auto">
@@ -456,19 +456,55 @@
 				<td class="pb-1 text-center bg-gray-50">{station2Data.region}</td>    
 			</tr>    
 			<tr class="text-sm border-b border-gray-200">     
-				<td class="py-1 text-center bg-gray-50">{station1Metrics.pct_green.toFixed(1)}%</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_green === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_green.toFixed(1)}%
+                    {/if}
+				</td>      
 				<td class="py-1 text-center">% Greenspace</td>      
-				<td class="py-1 text-center bg-gray-50">{station2Metrics.pct_green.toFixed(1)}%</td>    
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_green === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_green.toFixed(1)}%
+                    {/if}
+				</td>    
 			</tr>  
 			<tr class="text-sm border-b border-gray-200">     
-				<td class="py-1 text-center bg-gray-50">{station1Metrics.pct_parking.toFixed(1)}%</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_parking === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_parking.toFixed(1)}%
+                    {/if}
+				</td>      
 				<td class="py-1 text-center">% Parking</td>      
-				<td class="py-1 text-center bg-gray-50">{station2Metrics.pct_parking.toFixed(1)}%</td>    
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_parking === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_parking.toFixed(1)}%
+                    {/if}
+				</td>    
 			</tr>  
 			<tr class="text-sm border-b border-gray-200">     
-				<td class="py-1 text-center bg-gray-50">{station1Metrics.pct_buildings.toFixed(1)}%</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_buildings === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_buildings.toFixed(1)}%
+                    {/if}
+				</td>      
 				<td class="py-1 text-center">% Buildings</td>      
-				<td class="py-1 text-center bg-gray-50">{station2Metrics.pct_buildings.toFixed(1)}%</td>    
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_buildings === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_buildings.toFixed(1)}%
+                    {/if}
+				</td>    
 			</tr>  
 		</tbody>
 	</table>
