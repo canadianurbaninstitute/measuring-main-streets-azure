@@ -57,19 +57,7 @@
 	let stationCheck;
 	let parkingCheck;
 	let buildingsCheck;
-
-	// Split line data to array
-	function processStationData(stationRawData) {
-		return stationRawData.map((station) => ({
-			...station,
-			line_ids_array: station.line_ids
-				? station.line_ids
-						.split(',')
-						.map((s) => parseInt(s.trim(), 10))
-						.filter((n) => !isNaN(n))
-				: []
-		}));
-	}
+	let waterCheck;
 
 	// Create circle and bounding box for station
 	function updateStationData(mapIndex, selectedStationId) {
@@ -95,7 +83,7 @@
 	}
 
 	// Create map instances
-	function createMap(containerId, centre, maxBounds) {
+	function createMap(containerId) {
 		return new mapboxgl.Map({
 			container: containerId,
 			...mapConfig
@@ -124,22 +112,22 @@
 		});
 
 		// Add station radius source
-		map.addSource('station-radius', {
-			type: 'geojson',
-			data: selectedStationData.circle
-		});
+		// map.addSource('station-radius', {
+		// 	type: 'geojson',
+		// 	data: selectedStationData.circle
+		// });
 
-		// Add station radius layer
-		map.addLayer({
-			id: 'station-radius',
-			type: 'fill',
-			source: 'station-radius',
-			paint: {
-				'fill-color': 'transparent',
-				'fill-opacity': 1.0,
-				'fill-outline-color': 'red'
-			}
-		});
+		// // Add station radius layer
+		// map.addLayer({
+		// 	id: 'station-radius',
+		// 	type: 'fill',
+		// 	source: 'station-radius',
+		// 	paint: {
+		// 		'fill-color': 'transparent',
+		// 		'fill-opacity': 1.0,
+		// 		'fill-outline-color': 'red'
+		// 	}
+		// });
 	}
 
 	// Update station styling for selected station
@@ -165,7 +153,6 @@
 
 		// Validate inputs
 		if (!map || !stationData) {
-			console.warn('Map or station data is missing');
 			return;
 		}
 
@@ -176,7 +163,7 @@
 			return;
 		}
 
-		try {
+		// try {
 			// Create filter for selected station
 			const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
 
@@ -195,9 +182,6 @@
 			if (updateStylingCallback && typeof updateStylingCallback === 'function') {
 				updateStylingCallback(map, selectedStationFilter);
 			}
-		} catch (error) {
-			console.error('Error updating map with station data:', error);
-		}
 	}
 
 	// Handle layer toggles
@@ -209,7 +193,8 @@
 			'road-simple',
 			'parking',
 			'transit-station-points',
-			'buildings-ab'
+			'buildings-ab',
+			'water-1'
 		];
 
 		if (!map || !map.isStyleLoaded()) {
@@ -264,11 +249,22 @@
 			);
 		});
 
+		// Handle water layers
+		const waterLayers = ['water-1', 'waterway-1'];
+		waterLayers.forEach((layer) => {
+			map.setLayoutProperty(
+				layer,
+				'visibility',
+				layerVisibilityConfig.water ? 'visible' : 'none'
+			);
+		});
+
+
 		return true; // Successfully updated
 	}
 
-	// Process station data
-	const stationsProcessed = processStationData(stationRawData);
+	// Station data
+	const stationsProcessed = stationRawData;
 
 	// Map 1
 	$: if (selectedStation1 && mapData[1]) {
@@ -304,7 +300,8 @@
 		parking: parkingCheck,
 		stations: stationCheck,
 		roads: roadsCheck,
-		buildings: buildingsCheck
+		buildings: buildingsCheck,
+		water: waterCheck
 	});
 	// Map 2
 	$: mapLayerToggle(map2, {
@@ -313,7 +310,8 @@
 		parking: parkingCheck,
 		stations: stationCheck,
 		roads: roadsCheck,
-		buildings: buildingsCheck
+		buildings: buildingsCheck,
+		water: waterCheck
 	});
 
 	onMount(() => {
@@ -327,6 +325,7 @@
 		stationCheck = true;
 		parkingCheck = true;
 		buildingsCheck = true;
+		waterCheck = true;
 
 		// Convert station data to geojson
 		const stationGeojson = {
@@ -432,6 +431,10 @@
 		<input type="checkbox" bind:checked={buildingsCheck} />
 		Buildings
 	</label>
+	<label class="px-2">
+		<input type="checkbox" bind:checked={waterCheck} />
+		Water
+	</label>
 </div>
 
 
@@ -506,6 +509,23 @@
                     {/if}
 				</td>    
 			</tr>  
+			<tr class="text-sm border-b border-gray-200">     
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_water === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_water.toFixed(1)}%
+                    {/if}
+				</td>      
+				<td class="py-1 text-center">% Water</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_water === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_water.toFixed(1)}%
+                    {/if}
+				</td>    
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -521,24 +541,4 @@
 		border: 2px solid #d3d3d3;
 		padding: 20px;
 	}
-
-	.map-container {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: flex-start;
-		gap: 30px; /* Gap between map columns */
-		width: 100%;
-		margin: 0 auto;
-	}
-
-	/* Place maps side by side */
-	.map-column {
-		display: flex;
-		width: 450px;
-		flex-direction: column;
-		align-items: center;
-		gap: 20px; /* Gap between dropdown and map */
-	}
-	
 </style>
