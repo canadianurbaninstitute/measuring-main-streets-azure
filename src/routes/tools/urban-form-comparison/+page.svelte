@@ -494,18 +494,18 @@
 			</tr>  
 			<tr class="text-sm border-b border-gray-200">     
 				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.pct_buildings === undefined}
+					{#if station1Metrics.pct_building === undefined}
 						N/A
 					{:else}
-						{station1Metrics.pct_buildings.toFixed(1)}%
+						{station1Metrics.pct_building.toFixed(1)}%
                     {/if}
 				</td>      
 				<td class="py-1 text-center">% Buildings</td>      
 				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.pct_buildings === undefined}
+					{#if station2Metrics.pct_building === undefined}
 						N/A
 					{:else}
-						{station2Metrics.pct_buildings.toFixed(1)}%
+						{station2Metrics.pct_building.toFixed(1)}%
                     {/if}
 				</td>    
 			</tr>  
