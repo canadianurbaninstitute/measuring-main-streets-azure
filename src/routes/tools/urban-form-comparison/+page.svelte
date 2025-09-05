@@ -3,8 +3,10 @@
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import Icon from '@iconify/svelte'
 
 	import Combobox from '../../lib/ui/Combobox.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
@@ -57,19 +59,7 @@
 	let stationCheck;
 	let parkingCheck;
 	let buildingsCheck;
-
-	// Split line data to array
-	function processStationData(stationRawData) {
-		return stationRawData.map((station) => ({
-			...station,
-			line_ids_array: station.line_ids
-				? station.line_ids
-						.split(',')
-						.map((s) => parseInt(s.trim(), 10))
-						.filter((n) => !isNaN(n))
-				: []
-		}));
-	}
+	let waterCheck;
 
 	// Create circle and bounding box for station
 	function updateStationData(mapIndex, selectedStationId) {
@@ -95,7 +85,7 @@
 	}
 
 	// Create map instances
-	function createMap(containerId, centre, maxBounds) {
+	function createMap(containerId) {
 		return new mapboxgl.Map({
 			container: containerId,
 			...mapConfig
@@ -124,22 +114,22 @@
 		});
 
 		// Add station radius source
-		map.addSource('station-radius', {
-			type: 'geojson',
-			data: selectedStationData.circle
-		});
+		// map.addSource('station-radius', {
+		// 	type: 'geojson',
+		// 	data: selectedStationData.circle
+		// });
 
-		// Add station radius layer
-		map.addLayer({
-			id: 'station-radius',
-			type: 'fill',
-			source: 'station-radius',
-			paint: {
-				'fill-color': 'transparent',
-				'fill-opacity': 1.0,
-				'fill-outline-color': 'red'
-			}
-		});
+		// // Add station radius layer
+		// map.addLayer({
+		// 	id: 'station-radius',
+		// 	type: 'fill',
+		// 	source: 'station-radius',
+		// 	paint: {
+		// 		'fill-color': 'transparent',
+		// 		'fill-opacity': 1.0,
+		// 		'fill-outline-color': 'red'
+		// 	}
+		// });
 	}
 
 	// Update station styling for selected station
@@ -165,7 +155,6 @@
 
 		// Validate inputs
 		if (!map || !stationData) {
-			console.warn('Map or station data is missing');
 			return;
 		}
 
@@ -176,7 +165,7 @@
 			return;
 		}
 
-		try {
+		// try {
 			// Create filter for selected station
 			const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
 
@@ -195,9 +184,6 @@
 			if (updateStylingCallback && typeof updateStylingCallback === 'function') {
 				updateStylingCallback(map, selectedStationFilter);
 			}
-		} catch (error) {
-			console.error('Error updating map with station data:', error);
-		}
 	}
 
 	// Handle layer toggles
@@ -209,7 +195,8 @@
 			'road-simple',
 			'parking',
 			'transit-station-points',
-			'buildings-ab'
+			'buildings-ab',
+			'water-1'
 		];
 
 		if (!map || !map.isStyleLoaded()) {
@@ -264,11 +251,22 @@
 			);
 		});
 
+		// Handle water layers
+		const waterLayers = ['water-1', 'waterway-1'];
+		waterLayers.forEach((layer) => {
+			map.setLayoutProperty(
+				layer,
+				'visibility',
+				layerVisibilityConfig.water ? 'visible' : 'none'
+			);
+		});
+
+
 		return true; // Successfully updated
 	}
 
-	// Process station data
-	const stationsProcessed = processStationData(stationRawData);
+	// Station data
+	const stationsProcessed = stationRawData;
 
 	// Map 1
 	$: if (selectedStation1 && mapData[1]) {
@@ -304,7 +302,8 @@
 		parking: parkingCheck,
 		stations: stationCheck,
 		roads: roadsCheck,
-		buildings: buildingsCheck
+		buildings: buildingsCheck,
+		water: waterCheck
 	});
 	// Map 2
 	$: mapLayerToggle(map2, {
@@ -313,7 +312,8 @@
 		parking: parkingCheck,
 		stations: stationCheck,
 		roads: roadsCheck,
-		buildings: buildingsCheck
+		buildings: buildingsCheck,
+		water: waterCheck
 	});
 
 	onMount(() => {
@@ -327,6 +327,7 @@
 		stationCheck = true;
 		parkingCheck = true;
 		buildingsCheck = true;
+		waterCheck = true;
 
 		// Convert station data to geojson
 		const stationGeojson = {
@@ -407,35 +408,65 @@
 	</div>
 </div>
 
-<div class="flex justify-center text-sm px-2 py-4">
-	<label class="px-2">
-		<input type="checkbox" bind:checked={roadsCheck} />
-		Road Network
+<div class="flex justify-center text-sm px-2 py-4 gap-2 flex-wrap">
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={roadsCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {roadsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:road" class="mr-1" />
+			Road Network
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={transitCheck} />
-		Transit Lines
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={transitCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {transitCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:transit-connection-variant" class="mr-1" />
+			Transit Lines
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={stationCheck} />
-		Transit Stations
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={stationCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {stationCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:train" class="mr-1" />
+			Transit Stations
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={greenspaceCheck} />
-		Greenspace
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={greenspaceCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {greenspaceCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:pine-tree-variant" class="mr-1" />
+			Greenspace
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={parkingCheck} />
-		Parking
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={parkingCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {parkingCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:car" class="mr-1" />
+			Parking
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={buildingsCheck} />
-		Buildings
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={buildingsCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {buildingsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:office-building" class="mr-1" />
+			Buildings
+		</div>
+	</label>
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={waterCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {waterCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:waves" class="mr-1" />
+			Water
+		</div>
 	</label>
 </div>
 
-
-<div class="container mx-auto flex justify-center w-4xl pb-5">
+<div class="container mx-auto flex justify-center w-4xl pb-10">
 	<table class="table-fixed w-full border-l border-r border-gray-200">  
 	<thead class="text-base text-gray-700 uppercase border-t border-gray-200">    
 		<tr>      
@@ -450,11 +481,16 @@
 				<td></td>      
 				<td class="px-6 bg-gray-50">{station2Data.line_display_name}</td>    
 			</tr>    
-			<tr class="text-xs text-gray-700 text-center border-b border-gray-200">      
-				<td class="pb-1 text-center bg-gray-50">{station1Data.region}</td>      
+			<tr class="text-xs text-gray-700 text-center">      
+				<td class="pb-1 bg-gray-50">{station1Data.region}</td>      
 				<td></td>      
-				<td class="pb-1 text-center bg-gray-50">{station2Data.region}</td>    
-			</tr>    
+				<td class="pb-1 bg-gray-50">{station2Data.region}</td>    
+			</tr> 
+			<tr class="text-xs text-gray-700 text-center border-b border-gray-200">      
+				<td class="pb-1 bg-gray-50">{station1Data.status}</td>      
+				<td></td>      
+				<td class="pb-1 bg-gray-50">{station2Data.status}</td>    
+			</tr>
 			<tr class="text-sm border-b border-gray-200">     
 				<td class="py-1 text-center bg-gray-50">
 					{#if station1Metrics.pct_green === undefined}
@@ -491,24 +527,43 @@
 			</tr>  
 			<tr class="text-sm border-b border-gray-200">     
 				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.pct_buildings === undefined}
+					{#if station1Metrics.pct_building === undefined}
 						N/A
 					{:else}
-						{station1Metrics.pct_buildings.toFixed(1)}%
+						{station1Metrics.pct_building.toFixed(1)}%
                     {/if}
 				</td>      
 				<td class="py-1 text-center">% Buildings</td>      
 				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.pct_buildings === undefined}
+					{#if station2Metrics.pct_building === undefined}
 						N/A
 					{:else}
-						{station2Metrics.pct_buildings.toFixed(1)}%
+						{station2Metrics.pct_building.toFixed(1)}%
                     {/if}
 				</td>    
 			</tr>  
+			<tr class="text-sm border-b border-gray-200">     
+				<td class="py-1 text-center bg-gray-50">
+					{#if station1Metrics.pct_water === undefined}
+						N/A
+					{:else}
+						{station1Metrics.pct_water.toFixed(1)}%
+                    {/if}
+				</td>      
+				<td class="py-1 text-center">% Water</td>      
+				<td class="py-1 text-center bg-gray-50">
+					{#if station2Metrics.pct_water === undefined}
+						N/A
+					{:else}
+						{station2Metrics.pct_water.toFixed(1)}%
+                    {/if}
+				</td>    
+			</tr>
 		</tbody>
 	</table>
 </div>
+
+<Footer />
 
 <style>
 	#map1,
@@ -521,24 +576,4 @@
 		border: 2px solid #d3d3d3;
 		padding: 20px;
 	}
-
-	.map-container {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: flex-start;
-		gap: 30px; /* Gap between map columns */
-		width: 100%;
-		margin: 0 auto;
-	}
-
-	/* Place maps side by side */
-	.map-column {
-		display: flex;
-		width: 450px;
-		flex-direction: column;
-		align-items: center;
-		gap: 20px; /* Gap between dropdown and map */
-	}
-	
 </style>
