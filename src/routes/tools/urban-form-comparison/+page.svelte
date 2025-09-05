@@ -6,11 +6,11 @@
 	import Icon from '@iconify/svelte'
 
 	import Combobox from '../../lib/ui/Combobox.svelte';
+	import Footer from '../../lib/ui/Footer.svelte';
 
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
 	import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
-	import Footer from '../../lib/ui/Footer.svelte';
 
 	import '../../styles.css';
 
@@ -411,7 +411,7 @@
 <div class="flex justify-center text-sm px-2 py-4 gap-2 flex-wrap">
 	<label class="cursor-pointer">
 		<input type="checkbox" bind:checked={roadsCheck} class="sr-only" />
-		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {roadsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {roadsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
 			<Icon icon="mdi:road" class="mr-1" />
 			Road Network
 		</div>
@@ -419,7 +419,7 @@
 	
 	<label class="cursor-pointer">
 		<input type="checkbox" bind:checked={transitCheck} class="sr-only" />
-		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {transitCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {transitCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
 			<Icon icon="mdi:transit-connection-variant" class="mr-1" />
 			Transit Lines
 		</div>
@@ -427,7 +427,7 @@
 	
 	<label class="cursor-pointer">
 		<input type="checkbox" bind:checked={stationCheck} class="sr-only" />
-		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {stationCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {stationCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
 			<Icon icon="mdi:train" class="mr-1" />
 			Transit Stations
 		</div>
@@ -435,7 +435,7 @@
 	
 	<label class="cursor-pointer">
 		<input type="checkbox" bind:checked={greenspaceCheck} class="sr-only" />
-		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {greenspaceCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {greenspaceCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
 			<Icon icon="mdi:pine-tree-variant" class="mr-1" />
 			Greenspace
 		</div>
@@ -443,7 +443,7 @@
 	
 	<label class="cursor-pointer">
 		<input type="checkbox" bind:checked={parkingCheck} class="sr-only" />
-		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {parkingCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {parkingCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
 			<Icon icon="mdi:car" class="mr-1" />
 			Parking
 		</div>
@@ -451,7 +451,7 @@
 	
 	<label class="cursor-pointer">
 		<input type="checkbox" bind:checked={buildingsCheck} class="sr-only" />
-		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {buildingsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {buildingsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
 			<Icon icon="mdi:office-building" class="mr-1" />
 			Buildings
 		</div>
@@ -459,7 +459,7 @@
 	
 	<label class="cursor-pointer">
 		<input type="checkbox" bind:checked={waterCheck} class="sr-only" />
-		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {waterCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 text-xs {waterCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
 			<Icon icon="mdi:waves" class="mr-1" />
 			Water
 		</div>
@@ -481,11 +481,16 @@
 				<td></td>      
 				<td class="px-6 bg-gray-50">{station2Data.line_display_name}</td>    
 			</tr>    
-			<tr class="text-xs text-gray-700 text-center border-b border-gray-200">      
-				<td class="pb-1 text-center bg-gray-50">{station1Data.region}</td>      
+			<tr class="text-xs text-gray-700 text-center">      
+				<td class="pb-1 bg-gray-50">{station1Data.region}</td>      
 				<td></td>      
-				<td class="pb-1 text-center bg-gray-50">{station2Data.region}</td>    
-			</tr>    
+				<td class="pb-1 bg-gray-50">{station2Data.region}</td>    
+			</tr> 
+			<tr class="text-xs text-gray-700 text-center border-b border-gray-200">      
+				<td class="pb-1 bg-gray-50">{station1Data.status}</td>      
+				<td></td>      
+				<td class="pb-1 bg-gray-50">{station2Data.status}</td>    
+			</tr>
 			<tr class="text-sm border-b border-gray-200">     
 				<td class="py-1 text-center bg-gray-50">
 					{#if station1Metrics.pct_green === undefined}
