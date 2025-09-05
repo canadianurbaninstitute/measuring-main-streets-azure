@@ -3,12 +3,14 @@
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import Icon from '@iconify/svelte'
 
 	import Combobox from '../../lib/ui/Combobox.svelte';
 
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
 	import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
+	import Footer from '../../lib/ui/Footer.svelte';
 
 	import '../../styles.css';
 
@@ -406,39 +408,65 @@
 	</div>
 </div>
 
-<div class="flex justify-center text-sm px-2 py-4">
-	<label class="px-2">
-		<input type="checkbox" bind:checked={roadsCheck} />
-		Road Network
+<div class="flex justify-center text-sm px-2 py-4 gap-2 flex-wrap">
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={roadsCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {roadsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:road" class="mr-1" />
+			Road Network
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={transitCheck} />
-		Transit Lines
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={transitCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {transitCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:transit-connection-variant" class="mr-1" />
+			Transit Lines
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={stationCheck} />
-		Transit Stations
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={stationCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {stationCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:train" class="mr-1" />
+			Transit Stations
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={greenspaceCheck} />
-		Greenspace
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={greenspaceCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {greenspaceCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:pine-tree-variant" class="mr-1" />
+			Greenspace
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={parkingCheck} />
-		Parking
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={parkingCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {parkingCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:car" class="mr-1" />
+			Parking
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={buildingsCheck} />
-		Buildings
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={buildingsCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {buildingsCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:office-building" class="mr-1" />
+			Buildings
+		</div>
 	</label>
-	<label class="px-2">
-		<input type="checkbox" bind:checked={waterCheck} />
-		Water
+	
+	<label class="cursor-pointer">
+		<input type="checkbox" bind:checked={waterCheck} class="sr-only" />
+		<div class="flex items-center px-3 py-2 rounded-md border transition-colors duration-200 {waterCheck ? 'bg-gray-200 border-gray-300' : 'bg-white border-gray-300 hover:bg-gray-50'}">
+			<Icon icon="mdi:waves" class="mr-1" />
+			Water
+		</div>
 	</label>
 </div>
 
-
-<div class="container mx-auto flex justify-center w-4xl pb-5">
+<div class="container mx-auto flex justify-center w-4xl pb-10">
 	<table class="table-fixed w-full border-l border-r border-gray-200">  
 	<thead class="text-base text-gray-700 uppercase border-t border-gray-200">    
 		<tr>      
@@ -529,6 +557,8 @@
 		</tbody>
 	</table>
 </div>
+
+<Footer />
 
 <style>
 	#map1,
