@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as turf from '@turf/turf';
+	import type { FeatureCollection, Geometry } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../styles.css';
@@ -97,7 +98,7 @@
 			});
 			if (features.length) {
 				// Compute bbox of the line
-				const featureCollection = {
+				const featureCollection: FeatureCollection<Geometry> = {
 					type: 'FeatureCollection',
 					features
 				};
@@ -197,8 +198,17 @@
 
 		map.on('click', ['transit-lines', 'transit-stations'], (e) => {
 			if (e.features.length > 0) {
-				const lineId = e.features[0]?.properties?.line_id ?? null;
+				const lineProp = e.features[0]?.properties?.line_id ?? null;
 				const stationId = e.features[0]?.properties?.id ?? null;
+
+				let lineIds: number[] = [];
+				if (typeof lineProp === 'string') {
+					lineIds = lineProp.split(',').map((l) => +l.trim());
+				} else if (typeof lineProp === 'number') {
+					lineIds = [lineProp];
+				}
+
+				const lineId = lineIds[0];
 				if (lineId && +lineId !== selectedLine) {
 					highlightLine(+lineId);
 					selectCurrentLine(+lineId);

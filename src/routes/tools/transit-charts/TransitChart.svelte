@@ -2,7 +2,6 @@
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
 	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
-	import Select from '../../lib/ui/Select.svelte';
 	// labels for the select dropdown
 	// labels for the select dropdown
 
@@ -11,7 +10,7 @@
 		selectedLine = $bindable(),
 		variables,
 		selectedVariable,
-		selectedStation
+		selectedStation = $bindable()
 	} = $props();
 
 	let chart; // Reference to the main chart container div
@@ -218,11 +217,14 @@
 		plotAreaG
 			.append('g')
 			.attr('class', 'grid')
-			.call(d3.axisTop(x).tickSize(-plotAreaHeight).tickFormat(''))
+			.call((g) => d3.axisTop(x).tickSize(-plotAreaHeight)(g))
 			.call((g) => {
 				g.select('.domain').remove();
 				g.selectAll('line').attr('stroke', '#ddd').attr('stroke-dasharray', '2,2');
 			});
+
+		//remove automatically generated tick labels
+		plotAreaG.selectAll('.tick text').remove();
 
 		// Create horizontal bars for each station
 		const bars = plotAreaG
@@ -347,23 +349,21 @@
 	});
 
 	$effect(() => {
-		if (chart && selectedStation && selectedLine) {
-			d3.select(chart)
-				.selectAll('rect.bar-element')
-				.style('opacity', (d: any) => {
-					return !selectedStation || +d.id === selectedStation ? 1 : 0.3;
-				});
-			d3.select(chart)
-				.selectAll('circle')
-				.style('opacity', (d: any) => {
-					return !selectedStation || +d.id === selectedStation ? 1 : 0.3;
-				});
-			d3.select(chart)
-				.selectAll('line')
-				.style('opacity', (d: any) => {
-					return !selectedStation ? 1 : 0.1;
-				});
-		}
+		if (!chart) return;
+
+		const isSelected = (d: any) => !selectedStation || +d.id === selectedStation;
+
+		d3.select(chart)
+			.selectAll('rect.bar-element')
+			.style('opacity', (d: any) => (isSelected(d) ? 1 : 0.3));
+
+		d3.select(chart)
+			.selectAll('circle')
+			.style('opacity', (d: any) => (isSelected(d) ? 1 : 0.3));
+
+		d3.select(chart)
+			.selectAll('line')
+			.style('opacity', !selectedStation ? 1 : 0.1);
 	});
 
 	// Component lifecycle management
