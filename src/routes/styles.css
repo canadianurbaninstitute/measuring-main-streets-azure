@@ -43,6 +43,7 @@ body {
 	margin: 0;
 	background-color: #ffffff;
 	opacity: 1;
+	overflow-x: hidden;
 }
 
 * {
@@ -106,7 +107,7 @@ p {
 	background: #000 !important;
 	color: white;
 	border-radius: 0.5em;
-	padding: 1em;
+	padding: 1em !important;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 

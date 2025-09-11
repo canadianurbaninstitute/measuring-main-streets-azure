@@ -1,17 +1,17 @@
-<script>
+<script lang="ts">
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
 	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
-	import Select from '../../lib/ui/Select.svelte';
 	// labels for the select dropdown
 	// labels for the select dropdown
 
-	// Component props - receives transit station data from parent
-	export let data = [];
-
-	// Reactive state for user selections
-	let selectedLine = null; // Currently selected transit line ID
-	let selectedVariable = 'TotalPopulation'; // Currently selected metric to display
+	let {
+		data = [],
+		selectedLine = $bindable(),
+		variables,
+		selectedVariable,
+		selectedStation = $bindable()
+	} = $props();
 
 	let chart; // Reference to the main chart container div
 	let tooltip; // D3 tooltip element for hover interactions
@@ -67,26 +67,10 @@
 		114: '#a6dca8'
 	};
 
-	// Available metrics that can be displayed for each station add more as needed
-	const variables = [
-		{ value: 'TotalPopulation', label: 'Population' },
-		{ value: 'TotalHouseholds', label: 'Households' },
-		{ value: 'GreenspaceArea', label: 'Greenspace (square metres)' },
-		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
-		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
-		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' }
-	];
-
-	// Auto-select first available line when component initializes
-	$: if (selectedLine === null && transitLines) {
-		const firstRegion = Object.values(transitLines)[0];
-		if (firstRegion?.length) selectedLine = firstRegion[0].value;
-	}
-
 	// Handle selection from the new Select component
-	function handleLineSelect(value) {
-		selectedLine = +value; // Convert to number to match existing behavior
-	}
+	// function handleLineSelect(value) {
+	// 	selectedLine = +value; // Convert to number to match existing behavior
+	// }
 
 	// Handle variable selection
 	function handleVariableSelect(value) {
@@ -95,12 +79,13 @@
 
 	// Filter and sort data for the selected transit line
 	// Data is sorted by stop sequence to maintain proper station order
-	$: filteredData =
+	let filteredData = $derived(
 		data && data.length
 			? data
 					.filter((d) => +d.line_id === +selectedLine)
 					.sort((a, b) => a.stop_sequence - b.stop_sequence)
-			: [];
+			: []
+	);
 
 	/**
 	 * Creates SVG pattern for construction status stations
@@ -176,7 +161,7 @@
 			bottom: 60,
 			left: estimateMargin(longestLabelLen)
 		};
-		const chartHostDivWidth = chart.clientWidth || 600;
+		const chartHostDivWidth = chart.getBoundingClientRect().width;
 		const plotAreaWidth = chartHostDivWidth - margin.left - margin.right;
 		const barH = 25; // Height of each bar
 		const plotAreaHeight = barH * filteredData.length;
@@ -206,7 +191,7 @@
 			.select(chart)
 			.append('svg')
 			.attr('class', 'main-chart-svg')
-			.attr('width', plotAreaWidth + margin.left + margin.right)
+			.attr('width', chartHostDivWidth)
 			.attr('height', plotAreaHeight + margin.top);
 
 		const plotAreaG = rootSvg
@@ -232,11 +217,14 @@
 		plotAreaG
 			.append('g')
 			.attr('class', 'grid')
-			.call(d3.axisTop(x).tickSize(-plotAreaHeight).tickFormat(''))
+			.call((g) => d3.axisTop(x).tickSize(-plotAreaHeight)(g))
 			.call((g) => {
 				g.select('.domain').remove();
 				g.selectAll('line').attr('stroke', '#ddd').attr('stroke-dasharray', '2,2');
 			});
+
+		//remove automatically generated tick labels
+		plotAreaG.selectAll('.tick text').remove();
 
 		// Create horizontal bars for each station
 		const bars = plotAreaG
@@ -354,9 +342,29 @@
 	}
 
 	// Reactive statement - update chart when selections or data change
-	$: if (chart && selectedLine !== null && selectedVariable && data) {
-		updateChart();
-	}
+	$effect(() => {
+		if (chart && selectedLine !== 0 && selectedVariable && data) {
+			updateChart();
+		}
+	});
+
+	$effect(() => {
+		if (!chart) return;
+
+		const isSelected = (d: any) => !selectedStation || +d.id === selectedStation;
+
+		d3.select(chart)
+			.selectAll('rect.bar-element')
+			.style('opacity', (d: any) => (isSelected(d) ? 1 : 0.3));
+
+		d3.select(chart)
+			.selectAll('circle')
+			.style('opacity', (d: any) => (isSelected(d) ? 1 : 0.3));
+
+		d3.select(chart)
+			.selectAll('line')
+			.style('opacity', !selectedStation ? 1 : 0.1);
+	});
 
 	// Component lifecycle management
 	onMount(() => {
@@ -375,37 +383,6 @@
 
 <!-- Main component template -->
 <div class="container">
-	<!-- Control panel for user selections -->
-	<div class="controls">
-		<div class="select-wrapper">
-			<label for="line-select">Select Line:</label>
-			<Select
-				data={transitLines}
-				icon="mdi:train"
-				placeholder={'Select a Transit Line'}
-				selected={100}
-				handleSelect={handleLineSelect}
-			></Select>
-		</div>
-		<div class="select-wrapper">
-			<label for="variable-select">Select Variable:</label>
-			<Select
-				data={variables}
-				icon="mdi:chart-bar"
-				placeholder={'Select Variable'}
-				selected={'TotalPopulation'}
-				handleSelect={handleVariableSelect}
-			></Select>
-		</div>
-		<!-- <div class="select-wrapper">
-			<Combobo
-			data={transitStations}
-			icon="mdi:train"
-			placeholder={'Search for a Transit Station'}
-		></Combobox>
-		</div> -->
-	</div>
-
 	<!-- Chart container where D3 visualization is rendered -->
 	<div class="chart" bind:this={chart}></div>
 </div>
@@ -413,35 +390,15 @@
 <style>
 	/* Main container styling */
 	.container {
-		width: 100%;
+		box-sizing: border-box;
+		width: 90%;
 		margin: 0;
 		font-family: 'Inter', sans-serif;
-		max-width: 90vw;
 	}
-
-	/* Control panel layout */
-	.controls {
-		display: flex;
-		gap: 1em;
-		margin-bottom: 1.5em;
-		flex-wrap: wrap;
-		align-items: flex-end;
-	}
-	.select-wrapper {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5em;
-		min-width: 350px;
-	}
-	.select-wrapper label {
-		font-size: 0.9em;
-		font-weight: 500;
-		color: #333;
-	}
-
 	/* Chart container with relative positioning for sticky elements */
 	.chart {
 		width: 100%;
+		box-sizing: border-box;
 		position: relative; /* Required for sticky positioning context */
 		border: 1px solid #eee;
 		border-radius: 8px;

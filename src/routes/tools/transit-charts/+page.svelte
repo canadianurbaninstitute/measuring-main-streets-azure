@@ -1,10 +1,35 @@
 <script>
+	import stationData from '../../lib/data/transitdata/chart-stations.json';
+	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
+	import '../../styles.css';
 	import TransitChart from './TransitChart.svelte';
 	import TransitMap from './TransitMap.svelte';
+	import Select from '../../lib/ui/Select.svelte';
 
-	import stationData from '../../lib/data/transitdata/chart-stations.json';
+	// Available metrics that can be displayed for each station add more as needed
+	const variablesArray = [
+		{ value: 'TotalPopulation', label: 'Population' },
+		{ value: 'TotalHouseholds', label: 'Households' },
+		{ value: 'GreenspaceArea', label: 'Greenspace (square metres)' },
+		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
+		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
+		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' }
+	];
 
-	import '../../styles.css';
+	let variables = $state(variablesArray);
+	let selectedVariable = $state('TotalPopulation'); // Currently selected metric to display
+	let data = $state(stationData);
+	let selectedLine = $state(0);
+	let selectedStation = $state(0);
+	// Auto-select first available line when component initializes
+	$effect(() => {
+		if (selectedLine === 0 && transitLines) {
+			const firstRegion = Object.values(transitLines)[0];
+			if (firstRegion?.length) {
+				selectedLine = firstRegion[0].value;
+			}
+		}
+	});
 </script>
 
 <div class="hero">
@@ -17,17 +42,69 @@
 		patterns in the station areas of the transit system.
 	</p>
 </div>
-
-<div class="grid grid-cols-3 gap-4">
-	<div class="chart-container col-span-3">
-		<TransitMap />
+<div class="chart-container grid grid-cols-1 md:grid-cols-3 gap-4">
+	<!-- Control panel for user selections -->
+	<div class="container col-span-1 md:col-span-3">
+		<div class="controls">
+			<div class="select-wrapper">
+				<label for="line-select">Select Line:</label>
+				<Select
+					data={transitLines}
+					icon="mdi:train"
+					placeholder={'Select a Transit Line'}
+					bind:selected={selectedLine}
+				></Select>
+			</div>
+			<div class="select-wrapper">
+				<label for="variable-select">Select Variable:</label>
+				<Select
+					data={variables}
+					icon="mdi:chart-bar"
+					placeholder={'Select Variable'}
+					bind:selected={selectedVariable}
+				></Select>
+			</div>
+		</div>
+		<!-- <div class="select-wrapper">
+			<Combobo
+			data={transitStations}
+			icon="mdi:train"
+			placeholder={'Search for a Transit Station'}
+		></Combobox>
+		</div> -->
 	</div>
-	<div class="chart-container col-span-3">
-		<TransitChart data={stationData} />
+	<div class="col-span-1 md:col-span-1 w-[90%] md:w-full">
+		<TransitMap bind:selectedLine bind:selectedStation />
+	</div>
+	<div class="col-span-1 md:col-span-2">
+		<TransitChart {data} bind:selectedLine {variables} bind:selectedStation {selectedVariable} />
 	</div>
 </div>
 
 <style lang="postcss">
+	/* Main container styling */
+	.container {
+		width: 100%;
+	}
+	/* Control panel layout */
+	.controls {
+		display: flex;
+		gap: 1em;
+		flex-wrap: wrap;
+		align-items: flex-end;
+	}
+	.select-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+		min-width: 350px;
+	}
+	.select-wrapper label {
+		font-size: 0.9em;
+		font-weight: 500;
+		color: #333;
+	}
+
 	@reference "tailwindcss";
 	.chart-container {
 		margin: 2em;

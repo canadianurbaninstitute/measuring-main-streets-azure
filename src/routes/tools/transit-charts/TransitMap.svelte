@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+	import * as turf from '@turf/turf';
+	import type { FeatureCollection, Geometry } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../styles.css';
@@ -6,21 +8,31 @@
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
 
-	export let accessToken =
+	let { selectedLine = $bindable(), selectedStation = $bindable() } = $props();
+	let accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
-	export let mapStyle =
-		'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true';
+	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true';
 
-	export let containerClass = 'map-container';
+	let containerClass = 'map-container';
 	let mapContainer;
 	let map;
-	let activeLine = null;
 	let regionsData = [];
-	let selectedStation = {};
 	let stationSelected = false;
 	let processedStationData = [];
 	let activeRegion = null;
 
+	function buildLineIndex(regionsData) {
+		const index = new Map();
+		regionsData.forEach((region) => {
+			region.lines.forEach((line) => {
+				index.set(line.id, region.bbox);
+			});
+		});
+		return index;
+	}
+
+	// usage
+	const lineIndex = buildLineIndex(transitRegionsRawData);
 	function updateStationData(id) {
 		const station = processedStationData.find((s) => s.id === id);
 
@@ -33,33 +45,76 @@
 		selectedStation = station;
 	}
 
-	function selectLine(line) {
+	function highlightLine(selectedLineId: number | null) {
 		if (!map) return;
-		resetStationSelection();
-
-		activeLine = line;
-
-		// find which line is selected on the map based on id
-		const selectedLine = map.queryRenderedFeatures({
-			layers: ['transit-lines'],
-			filter: ['==', 'line_id', activeLine.id]
-		});
-
-		// if there is a line selected, zoom to it based on calculated bbox
-		if (selectedLine.length > 0) {
-			const featureCollection = {
-				type: 'FeatureCollection',
-				features: selectedLine
-			};
-
-			const combinedBBox = turf.bbox(featureCollection);
-
-			map.fitBounds(combinedBBox, { padding: 50, duration: 1000 });
+		if (selectedLineId) {
+			map.setPaintProperty('transit-lines', 'line-opacity', [
+				'match',
+				['get', 'line_id'],
+				selectedLineId,
+				1, // selected line fully opaque
+				0.2 // other lines semi-transparent
+			]);
+		} else {
+			map.setPaintProperty('transit-lines', 'line-opacity', 1);
 		}
 	}
 
-	function selectStop(station) {
-		handleStationSelection(station.id, [station.longitude, station.latitude]);
+	function highlightStation(selectedStationId: number | null) {
+		if (!map) return;
+
+		if (selectedStationId) {
+			// Set color: yellow for selected, original for others
+			map.setPaintProperty('transit-stations', 'circle-color', [
+				'case',
+				['==', ['get', 'id'], selectedStationId],
+				'#FFD700', // yellow for selected station
+				'#fff' // default station color
+			]);
+		} else {
+			// Reset all stations to default color and opacity
+			map.setPaintProperty('transit-stations', 'circle-color', '#fff');
+			map.setPaintProperty('transit-stations', 'circle-opacity', 1);
+		}
+	}
+
+	function selectCurrentLine(line: number) {
+		if (!map || !line) return;
+
+		// Step 1: zoom to the region first
+		const bounds = lineIndex.get(line);
+		if (!bounds) {
+			console.warn('No region bounds found for line:', line);
+			return;
+		}
+		map.fitBounds(bounds, { padding: 50, duration: 1000 });
+		// Step 2: wait for the line's features to be fully loaded
+		const handleDataEvent = (e) => {
+			// Only proceed once tiles for 'transit-lines' layer are loaded
+			if (!e.isSourceLoaded) return;
+			const features = map.queryRenderedFeatures({
+				layers: ['transit-lines'],
+				filter: ['==', 'line_id', line]
+			});
+			if (features.length) {
+				// Compute bbox of the line
+				const featureCollection: FeatureCollection<Geometry> = {
+					type: 'FeatureCollection',
+					features
+				};
+				const combinedBBox = turf.bbox(featureCollection);
+				map.fitBounds(combinedBBox, { padding: 50, duration: 1000 });
+				highlightLine(line);
+				// Remove listener once done
+				map.off('sourcedata', handleDataEvent);
+			}
+		};
+		map.on('sourcedata', handleDataEvent);
+	}
+
+	function clearSelection() {
+		highlightLine(null); // restore all colors
+		selectedStation = 0;
 	}
 
 	onMount(() => {
@@ -90,6 +145,8 @@
 			attributionControl: false
 		});
 
+		map.getCanvas().style.cursor = 'pointer';
+
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 		map.addControl(
@@ -115,7 +172,17 @@
 			map.getCanvas().style.cursor = 'pointer';
 		});
 
+		map.on('mousemove', 'transit-lines', (e) => {
+			map.getCanvas().style.cursor = 'pointer';
+			if (e.features.length > 0) {
+				const coordinates = e.lngLat;
+				const name = e.features[0].properties.name;
+				popup.setLngLat(coordinates).setHTML(`<span class="label-name">${name}</span>`).addTo(map);
+			}
+		});
+
 		map.on('mousemove', 'transit-stations', (e) => {
+			map.getCanvas().style.cursor = 'pointer';
 			if (e.features.length > 0) {
 				const coordinates = e.lngLat;
 				const name = e.features[0].properties.stop_label;
@@ -123,31 +190,73 @@
 			}
 		});
 
-		map.on('mouseleave', 'transit-stations', () => {
+		map.on('mouseleave', ['transit-stations', 'transit-lines'], () => {
+			map.getCanvas().style.cursor = '';
 			popup.remove();
-		});
-
-		map.on('mouseleave', 'transit-lines', () => {
 			popup2.remove();
 		});
 
-		map.on('mouseleave', ['transit-stations', 'transit-lines'], () => {
-			map.getCanvas().style.cursor = '';
+		map.on('click', ['transit-lines', 'transit-stations'], (e) => {
+			if (e.features.length > 0) {
+				const lineProp = e.features[0]?.properties?.line_id ?? null;
+				const stationId = e.features[0]?.properties?.id ?? null;
+
+				let lineIds: number[] = [];
+				if (typeof lineProp === 'string') {
+					lineIds = lineProp.split(',').map((l) => +l.trim());
+				} else if (typeof lineProp === 'number') {
+					lineIds = [lineProp];
+				}
+
+				const lineId = lineIds[0];
+				if (lineId && +lineId !== selectedLine) {
+					highlightLine(+lineId);
+					selectCurrentLine(+lineId);
+					selectedLine = +lineId;
+				}
+				if (stationId) {
+					highlightStation(stationId);
+					selectedStation = +stationId;
+				}
+				if (!stationId) {
+					highlightStation(null);
+					selectedStation = 0;
+				}
+			} else {
+				clearSelection();
+			}
 		});
+
+		map.on('load', () => {
+			// force recalculation of container dimensions
+			map.resize();
+		});
+	});
+
+	$effect(() => {
+		if (map && selectedLine) {
+			selectCurrentLine(selectedLine);
+		}
 	});
 </script>
 
 <svelte:head>
 	<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+	<script
+		src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"
+	></script>
+	<link
+		rel="stylesheet"
+		href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+		type="text/css"
+	/>
 </svelte:head>
-<div bind:this={mapContainer} class={containerClass}>
-	<div id="map"></div>
-</div>
+<div bind:this={mapContainer} class={containerClass} id="map"></div>
 
 <style>
 	#map {
-		height: 50vh;
 		width: 100%;
+		height: 100%;
 		position: relative;
 		order: -1;
 	}
@@ -156,8 +265,8 @@
 		position: relative;
 		border: 1px solid #eee;
 		width: 100%;
-		height: 400px;
-		max-width: 90vw;
+		min-height: 200px;
+		height: 100%;
 		border-radius: 8px;
 	}
 </style>

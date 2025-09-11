@@ -159,7 +159,6 @@
 					const section = sections.find((sec) => sec === id);
 					if (section) {
 						const sectionValue = photosections[section];
-						console.log(section);
 						const sectionGeoJSON = createGeoJSON(sectionValue);
 						// Add markers to the map.
 						for (const marker of sectionGeoJSON.features) {
