@@ -26,7 +26,7 @@
 	let statusFilters = [];
 	let technologyFilters = [];
 
-	let selectedStation: Station = {};
+	let selectedStation: Station = { id: null };
 	let stationSelected = false;
 	let regionsData = [];
 	let processedStationData = [];
@@ -193,22 +193,72 @@
 			{ label: 'Renter', value: selectedStation.Rented, y: '⠀' }
 		];
 
-		businessData = [
-			{ label: 'Food and Drink', value: selectedStation['Food and Drink'], y: '⠀' },
-			{ label: 'Retail', value: selectedStation['Retail'], y: '⠀' },
-			{ label: 'Local Services', value: selectedStation['Services and Other'], y: '⠀' }
-		];
+		const totalBusinessData =
+			(selectedStation['Food and Drink'] ?? 0) +
+			(selectedStation['Retail'] ?? 0) +
+			(selectedStation['Services and Other'] ?? 0);
 
-		civicData = [
-			{ label: 'Arts and Culture', value: selectedStation['Arts and Culture'], y: '⠀' },
+		businessData = [
 			{
-				label: 'Government and Community Services',
-				value: selectedStation['Government and Community Services'],
+				label: 'Food and Drink',
+				value: totalBusinessData
+					? (selectedStation['Food and Drink'] / totalBusinessData) * 100
+					: 0,
 				y: '⠀'
 			},
-			{ label: 'Recreation', value: selectedStation['Recreation Facilities'], y: '⠀' },
-			{ label: 'Healthcare', value: selectedStation['Health and Care Facilities'], y: '⠀' },
-			{ label: 'Education', value: selectedStation['Education'], y: '⠀' }
+			{
+				label: 'Retail',
+				value: totalBusinessData ? (selectedStation['Retail'] / totalBusinessData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: 'Local Services',
+				value: totalBusinessData
+					? (selectedStation['Services and Other'] / totalBusinessData) * 100
+					: 0,
+				y: '⠀'
+			}
+		];
+
+		const totalCivicData =
+			(selectedStation['Arts and Culture'] ?? 0) +
+			(selectedStation['Government and Community Services'] ?? 0) +
+			(selectedStation['Recreation Facilities'] ?? 0) +
+			(selectedStation['Health and Care Facilities'] ?? 0) +
+			(selectedStation['Education'] ?? 0);
+
+		civicData = [
+			{
+				label: 'Arts and Culture',
+				value: totalCivicData ? (selectedStation['Arts and Culture'] / totalCivicData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: 'Government and Community Services',
+				value: totalCivicData
+					? (selectedStation['Government and Community Services'] / totalCivicData) * 100
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Recreation',
+				value: totalCivicData
+					? (selectedStation['Recreation Facilities'] / totalCivicData) * 100
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Healthcare',
+				value: totalCivicData
+					? (selectedStation['Health and Care Facilities'] / totalCivicData) * 100
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Education',
+				value: totalCivicData ? (selectedStation['Education'] / totalCivicData) * 100 : 0,
+				y: '⠀'
+			}
 		];
 	}
 
@@ -269,7 +319,7 @@
 
 		// reset station
 		stationSelected = false;
-		selectedStation = {};
+		selectedStation = { id: null };
 
 		//reset layer filters
 		const thematicLayersToReset = [
