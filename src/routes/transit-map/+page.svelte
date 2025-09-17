@@ -12,6 +12,7 @@
 	// --- Data Imports ---
 	import stationRawData from '../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
+	import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -32,6 +33,7 @@
 	let activeRegion = null;
 	let activeLine = null;
 	let sidebarDisplayItems = [];
+	let stationBuiltForm = [];
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
@@ -163,6 +165,8 @@
 		}
 
 		selectedStation = station;
+
+		stationBuiltForm = builtFormMetrics.find(station => station.id === selectedStation.id);
 
 		ageData = [
 			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
@@ -402,6 +406,13 @@
 		} else {
 			navigateBack();
 		}
+	}
+
+	// --- Format Display Numbers ---
+	// https://stackoverflow.com/a/10899795
+	function numberWithCommas(n) {
+		var parts=n.toString().split(".");
+		return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
 	}
 
 	// --- Reactive Logic with Fuse.js search library ---
@@ -787,18 +798,18 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Population'}
-										value={selectedStation.TotalPopulation}
+										value={selectedStation.TotalPopulation.toLocaleString()}
 										icon={'fluent:people-20-filled'}
 									/>
 									<TransitMetric
 										label={'Households'}
-										value={selectedStation.TotalHouseholds}
+										value={selectedStation.TotalHouseholds.toLocaleString()}
 										icon={'mdi:house'}
 									/>
 								</div>
 								<TransitMetric
 									label={'Average Employment Income'}
-									value={selectedStation.AverageEmploymentIncome}
+									value={'$' + Math.round(selectedStation.AverageEmploymentIncome).toLocaleString()}
 									icon={'mdi:wallet'}
 								/>
 								<div class="metric-container">
@@ -852,12 +863,12 @@
 									/>
 									<TransitMetric
 										label={'Average Value'}
-										value={selectedStation.HouseValue}
+										value={Math.round(selectedStation.HouseValue).toLocaleString()}
 										icon={'mdi:dollar'}
 									/>
 									<TransitMetric
 										label={'Average Rent'}
-										value={selectedStation.MonthlyRent}
+										value={Math.round(selectedStation.MonthlyRent).toLocaleString()}
 										icon={'mdi:dollar'}
 									/>
 								</div>
@@ -912,17 +923,34 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Green Space'}
-										value={selectedStation.GreenspaceArea + 'sq. m'}
-										icon={'mdi:tree'}
+										value={Math.round(stationBuiltForm.area_green).toLocaleString() + ' sq. m'}
+										icon={'mdi:pine-tree-variant'}
 									/>
 									<TransitMetric
+										label={'Water'}
+										value={Math.round(stationBuiltForm.area_water).toLocaleString() + ' sq. m'}
+										icon={'mdi:waves'}
+									/>
+									<TransitMetric
+										label={'Buildings'}
+										value={Math.round(stationBuiltForm.area_building).toLocaleString() + ' sq. m'}
+										icon={'mdi:office-building'}
+									/>
+									<TransitMetric
+										label={'Parking'}
+										value={Math.round(stationBuiltForm.area_parking).toLocaleString() + ' sq. m'}
+										icon={'mdi:car'}
+									/>
+								</div>
+								<div class="metric-container">
+									<TransitMetric
 										label={'Population Density'}
-										value={selectedStation.PopulationDensity}
+										value={Math.round(selectedStation.PopulationDensity).toLocaleString() + ' / sq. km'}
 										icon={'mdi:people'}
 									/>
 									<TransitMetric
 										label={'Employment Density'}
-										value={selectedStation.EmploymentDensity}
+										value={Math.round(selectedStation.EmploymentDensity).toLocaleString() + ' / sq. km'}
 										icon={'mdi:briefcase'}
 									/>
 								</div>
@@ -934,7 +962,7 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Main Street Businesses'}
-										value={selectedStation.BusinessCount}
+										value={Math.round(selectedStation.BusinessCount).toLocaleString()}
 										icon={'mdi:shop'}
 									/>
 									<TransitMetric
@@ -965,8 +993,8 @@
 						<Tabs.Content value="civic" class="tab-button">
 							<div class="tab-content">
 								<TransitMetric
-									label={'Civic Infrastructure Loations'}
-									value={selectedStation.CivicCount}
+									label={'Civic Infrastructure Locations'}
+									value={Math.round(selectedStation.CivicCount).toLocaleString()}
 									icon={'mdi:museum'}
 								/>
 								<div class="chart-container">
@@ -992,7 +1020,7 @@
 							<div class="tab-content">
 								<TransitMetric
 									label={'Total Employment'}
-									value={selectedStation.EmployeeCount}
+									value={Math.round(selectedStation.EmployeeCount).toLocaleString()}
 									icon={'mdi:briefcase'}
 								/>
 								<div class="chart-container">

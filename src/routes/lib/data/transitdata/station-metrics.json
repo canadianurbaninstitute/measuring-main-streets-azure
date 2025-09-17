@@ -5,9 +5,11 @@
     "area_building": 161914.0118,
     "area_parking": 3474.4098,
     "area_green": 340819.7363,
+    "area_water": 0,
     "pct_building": 8.0566,
     "pct_parking": 0.1729,
-    "pct_green": 16.9587
+    "pct_green": 16.9587,
+    "pct_water": 0
   },
   {
     "id": "10",
@@ -63,9 +65,11 @@
     "area_building": 322890.6488,
     "area_parking": 73426.3488,
     "area_green": 370139.5968,
+    "area_water": 0,
     "pct_building": 16.0666,
     "pct_parking": 3.6536,
-    "pct_green": 18.4176
+    "pct_green": 18.4176,
+    "pct_water": 0
   },
   {
     "id": "104",
@@ -85,9 +89,11 @@
     "area_building": 267769.5403,
     "area_parking": 154137.1816,
     "area_green": 337160.3396,
+    "area_water": 0,
     "pct_building": 13.3239,
     "pct_parking": 7.6697,
-    "pct_green": 16.7766
+    "pct_green": 16.7766,
+    "pct_water": 0
   },
   {
     "id": "106",
@@ -95,9 +101,11 @@
     "area_building": 397175.6002,
     "area_parking": 55542.0045,
     "area_green": 197783.36,
+    "area_water": 0,
     "pct_building": 19.7629,
     "pct_parking": 2.7637,
-    "pct_green": 9.8414
+    "pct_green": 9.8414,
+    "pct_water": 0
   },
   {
     "id": "107",
@@ -201,9 +209,11 @@
     "area_building": 313405.1785,
     "area_parking": 10159.531,
     "area_green": 342353.005,
+    "area_water": 0,
     "pct_building": 15.5946,
     "pct_parking": 0.5055,
-    "pct_green": 17.035
+    "pct_green": 17.035,
+    "pct_water": 0
   },
   {
     "id": "115",
@@ -211,9 +221,11 @@
     "area_building": 337274.0157,
     "area_parking": 6719.0146,
     "area_green": 307555.4803,
+    "area_water": 0,
     "pct_building": 16.7823,
     "pct_parking": 0.3343,
-    "pct_green": 15.3035
+    "pct_green": 15.3035,
+    "pct_water": 0
   },
   {
     "id": "116",
@@ -221,17 +233,23 @@
     "area_building": 405130.7256,
     "area_parking": 5502.251,
     "area_green": 133977.57,
+    "area_water": 0,
     "pct_building": 20.1588,
     "pct_parking": 0.2738,
-    "pct_green": 6.6665
+    "pct_green": 6.6665,
+    "pct_water": 0
   },
   {
     "id": "117",
     "area_buffer": 2009700.7197,
     "area_building": 410702.1977,
+    "area_parking": 0,
     "area_green": 12491.2066,
+    "area_water": 0,
     "pct_building": 20.436,
-    "pct_green": 0.6215
+    "pct_parking": 0,
+    "pct_green": 0.6215,
+    "pct_water": 0
   },
   {
     "id": "118",
@@ -239,9 +257,11 @@
     "area_building": 359650.3367,
     "area_parking": 714.0661,
     "area_green": 96599.1097,
+    "area_water": 0,
     "pct_building": 17.8957,
     "pct_parking": 0.0355,
-    "pct_green": 4.8066
+    "pct_green": 4.8066,
+    "pct_water": 0
   },
   {
     "id": "119",
@@ -249,9 +269,11 @@
     "area_building": 426341.7581,
     "area_parking": 53180.8728,
     "area_green": 129148.6941,
+    "area_water": 0,
     "pct_building": 21.2142,
     "pct_parking": 2.6462,
-    "pct_green": 6.4263
+    "pct_green": 6.4263,
+    "pct_water": 0
   },
   {
     "id": "12",
@@ -271,9 +293,11 @@
     "area_building": 473923.5453,
     "area_parking": 129888.2085,
     "area_green": 102543.8094,
+    "area_water": 0,
     "pct_building": 23.5818,
     "pct_parking": 6.4631,
-    "pct_green": 5.1024
+    "pct_green": 5.1024,
+    "pct_water": 0
   },
   {
     "id": "121",
@@ -293,9 +317,11 @@
     "area_building": 402118.5745,
     "area_parking": 24189.1808,
     "area_green": 258607.2514,
+    "area_water": 0,
     "pct_building": 20.0089,
     "pct_parking": 1.2036,
-    "pct_green": 12.8679
+    "pct_green": 12.8679,
+    "pct_water": 0
   },
   {
     "id": "123",
@@ -315,9 +341,11 @@
     "area_building": 697505.488,
     "area_parking": 237386.4283,
     "area_green": 71166.505,
+    "area_water": 0,
     "pct_building": 34.7069,
     "pct_parking": 11.812,
-    "pct_green": 3.5411
+    "pct_green": 3.5411,
+    "pct_water": 0
   },
   {
     "id": "13",
@@ -325,9 +353,11 @@
     "area_building": 379926.2033,
     "area_parking": 61923.2571,
     "area_green": 222754.6896,
+    "area_water": 0,
     "pct_building": 18.9046,
     "pct_parking": 3.0812,
-    "pct_green": 11.084
+    "pct_green": 11.084,
+    "pct_water": 0
   },
   {
     "id": "14",
@@ -407,9 +437,11 @@
     "area_building": 485709.5441,
     "area_parking": 38913.8587,
     "area_green": 100796.5297,
+    "area_water": 0,
     "pct_building": 24.1683,
     "pct_parking": 1.9363,
-    "pct_green": 5.0155
+    "pct_green": 5.0155,
+    "pct_water": 0
   },
   {
     "id": "20",
@@ -453,9 +485,11 @@
     "area_building": 324508.4678,
     "area_parking": 169371.3398,
     "area_green": 394452.0524,
+    "area_water": 0,
     "pct_building": 16.1471,
     "pct_parking": 8.4277,
-    "pct_green": 19.6274
+    "pct_green": 19.6274,
+    "pct_water": 0
   },
   {
     "id": "24",
@@ -559,9 +593,11 @@
     "area_building": 500876.9256,
     "area_parking": 198187.2433,
     "area_green": 50076.619,
+    "area_water": 0,
     "pct_building": 24.923,
     "pct_parking": 9.8615,
-    "pct_green": 2.4917
+    "pct_green": 2.4917,
+    "pct_water": 0
   },
   {
     "id": "32",
@@ -677,9 +713,11 @@
     "area_building": 346820.2313,
     "area_parking": 58327.4708,
     "area_green": 119858.677,
+    "area_water": 0,
     "pct_building": 17.2573,
     "pct_parking": 2.9023,
-    "pct_green": 5.964
+    "pct_green": 5.964,
+    "pct_water": 0
   },
   {
     "id": "41",
@@ -698,8 +736,12 @@
     "area_buffer": 2009700.7197,
     "area_building": 482279.9764,
     "area_parking": 18261.3887,
+    "area_green": 0,
+    "area_water": 0,
     "pct_building": 23.9976,
-    "pct_parking": 0.9087
+    "pct_parking": 0.9087,
+    "pct_green": 0,
+    "pct_water": 0
   },
   {
     "id": "43",
@@ -719,9 +761,11 @@
     "area_building": 408891.1784,
     "area_parking": 110023.7405,
     "area_green": 240188.3101,
+    "area_water": 0,
     "pct_building": 20.3459,
     "pct_parking": 5.4746,
-    "pct_green": 11.9514
+    "pct_green": 11.9514,
+    "pct_water": 0
   },
   {
     "id": "45",
@@ -729,9 +773,11 @@
     "area_building": 184097.5396,
     "area_parking": 35500.5102,
     "area_green": 366241.4424,
+    "area_water": 0,
     "pct_building": 9.1604,
     "pct_parking": 1.7665,
-    "pct_green": 18.2237
+    "pct_green": 18.2237,
+    "pct_water": 0
   },
   {
     "id": "46",
@@ -739,9 +785,11 @@
     "area_building": 477785.5693,
     "area_parking": 176566.2831,
     "area_green": 80383.9972,
+    "area_water": 0,
     "pct_building": 23.774,
     "pct_parking": 8.7857,
-    "pct_green": 3.9998
+    "pct_green": 3.9998,
+    "pct_water": 0
   },
   {
     "id": "47",
@@ -785,9 +833,11 @@
     "area_building": 312172.7649,
     "area_parking": 105190.41,
     "area_green": 5792.9618,
+    "area_water": 0,
     "pct_building": 15.5333,
     "pct_parking": 5.2341,
-    "pct_green": 0.2882
+    "pct_green": 0.2882,
+    "pct_water": 0
   },
   {
     "id": "50",
@@ -866,10 +916,12 @@
     "area_buffer": 2009700.7197,
     "area_building": 422110.8856,
     "area_parking": 245999.7951,
-    "area_green": 91039.9556,
+    "area_green": 91039.9552,
+    "area_water": 0,
     "pct_building": 21.0037,
     "pct_parking": 12.2406,
-    "pct_green": 4.53
+    "pct_green": 4.53,
+    "pct_water": 0
   },
   {
     "id": "57",
@@ -889,9 +941,11 @@
     "area_building": 399361.9196,
     "area_parking": 131952.8373,
     "area_green": 387414.9671,
+    "area_water": 0,
     "pct_building": 19.8717,
     "pct_parking": 6.5658,
-    "pct_green": 19.2772
+    "pct_green": 19.2772,
+    "pct_water": 0
   },
   {
     "id": "59",
@@ -911,9 +965,11 @@
     "area_building": 489581.1008,
     "area_parking": 11124.6753,
     "area_green": 106923.3139,
+    "area_water": 0,
     "pct_building": 24.3609,
     "pct_parking": 0.5535,
-    "pct_green": 5.3204
+    "pct_green": 5.3204,
+    "pct_water": 0
   },
   {
     "id": "60",
@@ -945,9 +1001,11 @@
     "area_building": 168515.1659,
     "area_parking": 217248.2896,
     "area_green": 297442.3052,
+    "area_water": 0,
     "pct_building": 8.3851,
     "pct_parking": 10.81,
-    "pct_green": 14.8003
+    "pct_green": 14.8003,
+    "pct_water": 0
   },
   {
     "id": "63",
@@ -991,9 +1049,11 @@
     "area_building": 382426.0062,
     "area_parking": 182201.8558,
     "area_green": 72906.5424,
+    "area_water": 0,
     "pct_building": 19.029,
     "pct_parking": 9.0661,
-    "pct_green": 3.6277
+    "pct_green": 3.6277,
+    "pct_water": 0
   },
   {
     "id": "67",
@@ -1085,9 +1145,11 @@
     "area_building": 473951.3088,
     "area_parking": 57475.8753,
     "area_green": 66740.9015,
+    "area_water": 0,
     "pct_building": 23.5832,
     "pct_parking": 2.8599,
-    "pct_green": 3.3209
+    "pct_green": 3.3209,
+    "pct_water": 0
   },
   {
     "id": "74",
@@ -1117,9 +1179,11 @@
     "id": "76",
     "area_buffer": 2009700.7197,
     "area_building": 172760.1232,
+    "area_parking": 0,
     "area_green": 346859.0369,
     "area_water": 8213.2498,
     "pct_building": 8.5963,
+    "pct_parking": 0,
     "pct_green": 17.2592,
     "pct_water": 0.4087
   },
@@ -1177,9 +1241,11 @@
     "area_building": 434712.713,
     "area_parking": 124641.775,
     "area_green": 101887.949,
+    "area_water": 0,
     "pct_building": 21.6307,
     "pct_parking": 6.202,
-    "pct_green": 5.0698
+    "pct_green": 5.0698,
+    "pct_water": 0
   },
   {
     "id": "81",
@@ -1187,9 +1253,11 @@
     "area_building": 687509.1792,
     "area_parking": 163319.3639,
     "area_green": 48238.8522,
+    "area_water": 0,
     "pct_building": 34.2095,
     "pct_parking": 8.1266,
-    "pct_green": 2.4003
+    "pct_green": 2.4003,
+    "pct_water": 0
   },
   {
     "id": "82",
@@ -1341,9 +1409,11 @@
     "area_building": 428979.9973,
     "area_parking": 139443.0306,
     "area_green": 305596.5569,
+    "area_water": 0,
     "pct_building": 21.3455,
     "pct_parking": 6.9385,
-    "pct_green": 15.2061
+    "pct_green": 15.2061,
+    "pct_water": 0
   },
   {
     "id": "94",
@@ -1363,9 +1433,11 @@
     "area_building": 396355.0115,
     "area_parking": 50299.0842,
     "area_green": 171551.4797,
+    "area_water": 0,
     "pct_building": 19.7221,
     "pct_parking": 2.5028,
-    "pct_green": 8.5362
+    "pct_green": 8.5362,
+    "pct_water": 0
   },
   {
     "id": "96",
@@ -1385,9 +1457,11 @@
     "area_building": 431856.8838,
     "area_parking": 71835.6099,
     "area_green": 122757.9619,
+    "area_water": 0,
     "pct_building": 21.4886,
     "pct_parking": 3.5744,
-    "pct_green": 6.1083
+    "pct_green": 6.1083,
+    "pct_water": 0
   },
   {
     "id": "98",
@@ -1395,9 +1469,11 @@
     "area_building": 326406.3471,
     "area_parking": 4140.5581,
     "area_green": 430706.6361,
+    "area_water": 0,
     "pct_building": 16.2415,
     "pct_parking": 0.206,
-    "pct_green": 21.4314
+    "pct_green": 21.4314,
+    "pct_water": 0
   },
   {
     "id": "99",
@@ -1441,9 +1517,11 @@
     "area_building": 439388.4872,
     "area_parking": 7694.9251,
     "area_green": 171624.0525,
+    "area_water": 0,
     "pct_building": 21.8634,
     "pct_parking": 0.3829,
-    "pct_green": 8.5398
+    "pct_green": 8.5398,
+    "pct_water": 0
   },
   {
     "id": "652",
@@ -1463,9 +1541,11 @@
     "area_building": 598407.474,
     "area_parking": 16090.1858,
     "area_green": 78149.0138,
+    "area_water": 0,
     "pct_building": 29.7759,
     "pct_parking": 0.8006,
-    "pct_green": 3.8886
+    "pct_green": 3.8886,
+    "pct_water": 0
   },
   {
     "id": "654",
@@ -1473,9 +1553,11 @@
     "area_building": 374985.4474,
     "area_parking": 45469.124,
     "area_green": 260027.5788,
+    "area_water": 0,
     "pct_building": 18.6588,
     "pct_parking": 2.2625,
-    "pct_green": 12.9386
+    "pct_green": 12.9386,
+    "pct_water": 0
   },
   {
     "id": "655",
@@ -1531,9 +1613,11 @@
     "area_building": 317116.2379,
     "area_parking": 33038.9799,
     "area_green": 228430.5707,
+    "area_water": 0,
     "pct_building": 15.7793,
     "pct_parking": 1.644,
-    "pct_green": 11.3664
+    "pct_green": 11.3664,
+    "pct_water": 0
   },
   {
     "id": "660",
@@ -1601,9 +1685,11 @@
     "area_building": 322820.3905,
     "area_parking": 24477.4911,
     "area_green": 638807.415,
+    "area_water": 0,
     "pct_building": 16.0631,
     "pct_parking": 1.218,
-    "pct_green": 31.7862
+    "pct_green": 31.7862,
+    "pct_water": 0
   },
   {
     "id": "666",
@@ -1611,9 +1697,11 @@
     "area_building": 519409.7376,
     "area_parking": 75129.4899,
     "area_green": 119504.4246,
+    "area_water": 0,
     "pct_building": 25.8451,
     "pct_parking": 3.7383,
-    "pct_green": 5.9464
+    "pct_green": 5.9464,
+    "pct_water": 0
   },
   {
     "id": "667",
@@ -1621,9 +1709,11 @@
     "area_building": 345833.1188,
     "area_parking": 80367.2073,
     "area_green": 245074.3377,
+    "area_water": 0,
     "pct_building": 17.2082,
     "pct_parking": 3.999,
-    "pct_green": 12.1946
+    "pct_green": 12.1946,
+    "pct_water": 0
   },
   {
     "id": "668",
@@ -1763,9 +1853,11 @@
     "area_building": 312198.702,
     "area_parking": 17942.7588,
     "area_green": 297750.4567,
+    "area_water": 0,
     "pct_building": 15.5346,
     "pct_parking": 0.8928,
-    "pct_green": 14.8157
+    "pct_green": 14.8157,
+    "pct_water": 0
   },
   {
     "id": "680",
@@ -1785,9 +1877,11 @@
     "area_building": 493460.6469,
     "area_parking": 177652.9533,
     "area_green": 83279.62,
+    "area_water": 0,
     "pct_building": 24.5539,
     "pct_parking": 8.8398,
-    "pct_green": 4.1439
+    "pct_green": 4.1439,
+    "pct_water": 0
   },
   {
     "id": "682",
@@ -1843,9 +1937,11 @@
     "area_building": 377841.0122,
     "area_parking": 98484.1111,
     "area_green": 116017.0397,
+    "area_water": 0,
     "pct_building": 18.8009,
     "pct_parking": 4.9004,
-    "pct_green": 5.7729
+    "pct_green": 5.7729,
+    "pct_water": 0
   },
   {
     "id": "687",
@@ -1865,9 +1961,11 @@
     "area_building": 507562.5846,
     "area_parking": 92941.4934,
     "area_green": 250767.5254,
+    "area_water": 0,
     "pct_building": 25.2556,
     "pct_parking": 4.6246,
-    "pct_green": 12.4779
+    "pct_green": 12.4779,
+    "pct_water": 0
   },
   {
     "id": "689",
@@ -1935,9 +2033,11 @@
     "area_building": 472216.027,
     "area_parking": 19490.1613,
     "area_green": 210556.2505,
+    "area_water": 0,
     "pct_building": 23.4968,
     "pct_parking": 0.9698,
-    "pct_green": 10.477
+    "pct_green": 10.477,
+    "pct_water": 0
   },
   {
     "id": "695",
@@ -2053,9 +2153,11 @@
     "area_building": 478847.0808,
     "area_parking": 85751.8043,
     "area_green": 163998.4164,
+    "area_water": 0,
     "pct_building": 23.8268,
     "pct_parking": 4.2669,
-    "pct_green": 8.1603
+    "pct_green": 8.1603,
+    "pct_water": 0
   },
   {
     "id": "705",
@@ -2099,9 +2201,11 @@
     "area_building": 179357.6625,
     "area_parking": 229667.5256,
     "area_green": 290176.4145,
+    "area_water": 0,
     "pct_building": 8.9246,
     "pct_parking": 11.4279,
-    "pct_green": 14.4388
+    "pct_green": 14.4388,
+    "pct_water": 0
   },
   {
     "id": "709",
@@ -2181,9 +2285,11 @@
     "area_building": 478390.0857,
     "area_parking": 93942.0018,
     "area_green": 119459.8536,
+    "area_water": 0,
     "pct_building": 23.804,
     "pct_parking": 4.6744,
-    "pct_green": 5.9442
+    "pct_green": 5.9442,
+    "pct_water": 0
   },
   {
     "id": "716",
@@ -2227,9 +2333,11 @@
     "area_building": 264168.3406,
     "area_parking": 70782.7926,
     "area_green": 358913.0336,
+    "area_water": 0,
     "pct_building": 13.1447,
     "pct_parking": 3.5221,
-    "pct_green": 17.859
+    "pct_green": 17.859,
+    "pct_water": 0
   },
   {
     "id": "728",
@@ -2297,9 +2405,11 @@
     "area_building": 334102.7228,
     "area_parking": 185941.4353,
     "area_green": 208622.474,
+    "area_water": 0,
     "pct_building": 16.6245,
     "pct_parking": 9.2522,
-    "pct_green": 10.3808
+    "pct_green": 10.3808,
+    "pct_water": 0
   },
   {
     "id": "130",
@@ -2331,9 +2441,11 @@
     "area_building": 324814.3719,
     "area_parking": 190847.7243,
     "area_green": 242447.5945,
+    "area_water": 0,
     "pct_building": 16.1623,
     "pct_parking": 9.4963,
-    "pct_green": 12.0639
+    "pct_green": 12.0639,
+    "pct_water": 0
   },
   {
     "id": "133",
@@ -2341,9 +2453,11 @@
     "area_building": 254430.4614,
     "area_parking": 136591.4731,
     "area_green": 345614.756,
+    "area_water": 0,
     "pct_building": 12.6601,
     "pct_parking": 6.7966,
-    "pct_green": 17.1973
+    "pct_green": 17.1973,
+    "pct_water": 0
   },
   {
     "id": "134",
@@ -2351,9 +2465,11 @@
     "area_building": 491432.9341,
     "area_parking": 26656.482,
     "area_green": 141446.4284,
+    "area_water": 0,
     "pct_building": 24.453,
     "pct_parking": 1.3264,
-    "pct_green": 7.0382
+    "pct_green": 7.0382,
+    "pct_water": 0
   },
   {
     "id": "135",
@@ -2373,9 +2489,11 @@
     "area_building": 601548.6883,
     "area_parking": 33428.094,
     "area_green": 138850.8993,
+    "area_water": 0,
     "pct_building": 29.9323,
     "pct_parking": 1.6633,
-    "pct_green": 6.909
+    "pct_green": 6.909,
+    "pct_water": 0
   },
   {
     "id": "137",
@@ -2395,9 +2513,11 @@
     "area_building": 377951.454,
     "area_parking": 98844.4255,
     "area_green": 103620.1926,
+    "area_water": 0,
     "pct_building": 18.8064,
     "pct_parking": 4.9184,
-    "pct_green": 5.156
+    "pct_green": 5.156,
+    "pct_water": 0
   },
   {
     "id": "139",
@@ -2417,9 +2537,11 @@
     "area_building": 314792.2947,
     "area_parking": 86414.5952,
     "area_green": 114741.0464,
+    "area_water": 0,
     "pct_building": 15.6636,
     "pct_parking": 4.2999,
-    "pct_green": 5.7094
+    "pct_green": 5.7094,
+    "pct_water": 0
   },
   {
     "id": "141",
@@ -2439,9 +2561,11 @@
     "area_building": 459831.6687,
     "area_parking": 194712.1765,
     "area_green": 106375.5551,
+    "area_water": 0,
     "pct_building": 22.8806,
     "pct_parking": 9.6886,
-    "pct_green": 5.2931
+    "pct_green": 5.2931,
+    "pct_water": 0
   },
   {
     "id": "143",
@@ -2461,9 +2585,11 @@
     "area_building": 587849.2202,
     "area_parking": 77043.6329,
     "area_green": 71297.595,
+    "area_water": 0,
     "pct_building": 29.2506,
     "pct_parking": 3.8336,
-    "pct_green": 3.5477
+    "pct_green": 3.5477,
+    "pct_water": 0
   },
   {
     "id": "145",
@@ -2471,9 +2597,11 @@
     "area_building": 632860.9767,
     "area_parking": 85524.2664,
     "area_green": 97685.054,
+    "area_water": 0,
     "pct_building": 31.4903,
     "pct_parking": 4.2556,
-    "pct_green": 4.8607
+    "pct_green": 4.8607,
+    "pct_water": 0
   },
   {
     "id": "146",
@@ -2481,9 +2609,11 @@
     "area_building": 705736.3538,
     "area_parking": 54361.6834,
     "area_green": 238002.4762,
+    "area_water": 0,
     "pct_building": 35.1165,
     "pct_parking": 2.705,
-    "pct_green": 11.8427
+    "pct_green": 11.8427,
+    "pct_water": 0
   },
   {
     "id": "147",
@@ -2549,9 +2679,11 @@
     "id": "152",
     "area_buffer": 2009700.7197,
     "area_building": 4828.7831,
+    "area_parking": 0,
     "area_green": 492639.841,
     "area_water": 477362.1722,
     "pct_building": 0.2403,
+    "pct_parking": 0,
     "pct_green": 24.5131,
     "pct_water": 23.7529
   },
@@ -2585,9 +2717,11 @@
     "area_building": 385791.9277,
     "area_parking": 310071.9547,
     "area_green": 3697.858,
+    "area_water": 0,
     "pct_building": 19.1965,
     "pct_parking": 15.4288,
-    "pct_green": 0.184
+    "pct_green": 0.184,
+    "pct_water": 0
   },
   {
     "id": "156",
@@ -2607,9 +2741,11 @@
     "area_building": 276700.8413,
     "area_parking": 127181.0919,
     "area_green": 22225.8714,
+    "area_water": 0,
     "pct_building": 13.7683,
     "pct_parking": 6.3284,
-    "pct_green": 1.1059
+    "pct_green": 1.1059,
+    "pct_water": 0
   },
   {
     "id": "158",
@@ -2641,9 +2777,11 @@
     "area_building": 439570.5599,
     "area_parking": 65300.5167,
     "area_green": 230102.3209,
+    "area_water": 0,
     "pct_building": 21.8724,
     "pct_parking": 3.2493,
-    "pct_green": 11.4496
+    "pct_green": 11.4496,
+    "pct_water": 0
   },
   {
     "id": "161",
@@ -2663,9 +2801,11 @@
     "area_building": 204639.1708,
     "area_parking": 55970.7336,
     "area_green": 639306.7536,
+    "area_water": 0,
     "pct_building": 10.1826,
     "pct_parking": 2.785,
-    "pct_green": 31.811
+    "pct_green": 31.811,
+    "pct_water": 0
   },
   {
     "id": "163",
@@ -2673,9 +2813,11 @@
     "area_building": 272672.4459,
     "area_parking": 223222.8991,
     "area_green": 252574.1436,
+    "area_water": 0,
     "pct_building": 13.5678,
     "pct_parking": 11.1073,
-    "pct_green": 12.5677
+    "pct_green": 12.5677,
+    "pct_water": 0
   },
   {
     "id": "164",
@@ -2683,9 +2825,11 @@
     "area_building": 459084.5954,
     "area_parking": 21289.2022,
     "area_green": 145136.1677,
+    "area_water": 0,
     "pct_building": 22.8434,
     "pct_parking": 1.0593,
-    "pct_green": 7.2218
+    "pct_green": 7.2218,
+    "pct_water": 0
   },
   {
     "id": "165",
@@ -2693,9 +2837,11 @@
     "area_building": 506304.1185,
     "area_parking": 40163.4796,
     "area_green": 228043.918,
+    "area_water": 0,
     "pct_building": 25.193,
     "pct_parking": 1.9985,
-    "pct_green": 11.3472
+    "pct_green": 11.3472,
+    "pct_water": 0
   },
   {
     "id": "166",
@@ -2703,9 +2849,11 @@
     "area_building": 571914.2663,
     "area_parking": 24207.3897,
     "area_green": 186538.6365,
+    "area_water": 0,
     "pct_building": 28.4577,
     "pct_parking": 1.2045,
-    "pct_green": 9.2819
+    "pct_green": 9.2819,
+    "pct_water": 0
   },
   {
     "id": "167",
@@ -2713,9 +2861,11 @@
     "area_building": 418295.9007,
     "area_parking": 68040.4165,
     "area_green": 151116.8545,
+    "area_water": 0,
     "pct_building": 20.8138,
     "pct_parking": 3.3856,
-    "pct_green": 7.5194
+    "pct_green": 7.5194,
+    "pct_water": 0
   },
   {
     "id": "168",
@@ -2759,9 +2909,11 @@
     "area_building": 103550.2259,
     "area_parking": 184866.5297,
     "area_green": 369336.5934,
+    "area_water": 0,
     "pct_building": 5.1525,
     "pct_parking": 9.1987,
-    "pct_green": 18.3777
+    "pct_green": 18.3777,
+    "pct_water": 0
   },
   {
     "id": "172",
@@ -2769,9 +2921,11 @@
     "area_building": 280324.5648,
     "area_parking": 145199.7426,
     "area_green": 284065.8239,
+    "area_water": 0,
     "pct_building": 13.9486,
     "pct_parking": 7.2249,
-    "pct_green": 14.1347
+    "pct_green": 14.1347,
+    "pct_water": 0
   },
   {
     "id": "173",
@@ -2779,9 +2933,11 @@
     "area_building": 286581.6346,
     "area_parking": 139941.4453,
     "area_green": 201074.889,
+    "area_water": 0,
     "pct_building": 14.2599,
     "pct_parking": 6.9633,
-    "pct_green": 10.0052
+    "pct_green": 10.0052,
+    "pct_water": 0
   },
   {
     "id": "174",
@@ -2801,9 +2957,11 @@
     "area_building": 454501.5288,
     "area_parking": 34298.0221,
     "area_green": 140998.1583,
+    "area_water": 0,
     "pct_building": 22.6154,
     "pct_parking": 1.7066,
-    "pct_green": 7.0159
+    "pct_green": 7.0159,
+    "pct_water": 0
   },
   {
     "id": "176",
@@ -2835,9 +2993,11 @@
     "area_building": 521487.6889,
     "area_parking": 245036.6422,
     "area_green": 56735.93,
+    "area_water": 0,
     "pct_building": 25.9485,
     "pct_parking": 12.1927,
-    "pct_green": 2.8231
+    "pct_green": 2.8231,
+    "pct_water": 0
   },
   {
     "id": "179",
@@ -2845,9 +3005,11 @@
     "area_building": 513613.6064,
     "area_parking": 40496.6426,
     "area_green": 125332.0663,
+    "area_water": 0,
     "pct_building": 25.5567,
     "pct_parking": 2.0151,
-    "pct_green": 6.2364
+    "pct_green": 6.2364,
+    "pct_water": 0
   },
   {
     "id": "180",
@@ -2855,9 +3017,11 @@
     "area_building": 321081.6951,
     "area_parking": 148163.9246,
     "area_green": 183550.9978,
+    "area_water": 0,
     "pct_building": 15.9766,
     "pct_parking": 7.3724,
-    "pct_green": 9.1333
+    "pct_green": 9.1333,
+    "pct_water": 0
   },
   {
     "id": "181",
@@ -2865,9 +3029,11 @@
     "area_building": 475607.552,
     "area_parking": 55382.184,
     "area_green": 174560.5634,
+    "area_water": 0,
     "pct_building": 23.6656,
     "pct_parking": 2.7557,
-    "pct_green": 8.6859
+    "pct_green": 8.6859,
+    "pct_water": 0
   },
   {
     "id": "182",
@@ -2923,9 +3089,11 @@
     "area_building": 376233.7185,
     "area_parking": 187759.359,
     "area_green": 159922.703,
+    "area_water": 0,
     "pct_building": 18.7209,
     "pct_parking": 9.3427,
-    "pct_green": 7.9575
+    "pct_green": 7.9575,
+    "pct_water": 0
   },
   {
     "id": "187",
@@ -2933,9 +3101,11 @@
     "area_building": 529996.0204,
     "area_parking": 36463.4714,
     "area_green": 110097.4872,
+    "area_water": 0,
     "pct_building": 26.3719,
     "pct_parking": 1.8144,
-    "pct_green": 5.4783
+    "pct_green": 5.4783,
+    "pct_water": 0
   },
   {
     "id": "188",
@@ -2943,9 +3113,11 @@
     "area_building": 431074.7211,
     "area_parking": 116068.4793,
     "area_green": 479587.3126,
+    "area_water": 0,
     "pct_building": 21.4497,
     "pct_parking": 5.7754,
-    "pct_green": 23.8636
+    "pct_green": 23.8636,
+    "pct_water": 0
   },
   {
     "id": "189",
@@ -2953,9 +3125,11 @@
     "area_building": 289280.6793,
     "area_parking": 129900.3243,
     "area_green": 540081.878,
+    "area_water": 0,
     "pct_building": 14.3942,
     "pct_parking": 6.4637,
-    "pct_green": 26.8737
+    "pct_green": 26.8737,
+    "pct_water": 0
   },
   {
     "id": "190",
@@ -2963,9 +3137,11 @@
     "area_building": 595378.1627,
     "area_parking": 36813.5318,
     "area_green": 121584.1778,
+    "area_water": 0,
     "pct_building": 29.6252,
     "pct_parking": 1.8318,
-    "pct_green": 6.0499
+    "pct_green": 6.0499,
+    "pct_water": 0
   },
   {
     "id": "191",
@@ -2997,9 +3173,11 @@
     "area_building": 263503.0821,
     "area_parking": 221785.9081,
     "area_green": 230637.9165,
+    "area_water": 0,
     "pct_building": 13.1116,
     "pct_parking": 11.0358,
-    "pct_green": 11.4762
+    "pct_green": 11.4762,
+    "pct_water": 0
   },
   {
     "id": "194",
@@ -3067,9 +3245,11 @@
     "area_building": 170488.7031,
     "area_parking": 240473.5485,
     "area_green": 230360.5422,
+    "area_water": 0,
     "pct_building": 8.4833,
     "pct_parking": 11.9656,
-    "pct_green": 11.4624
+    "pct_green": 11.4624,
+    "pct_water": 0
   },
   {
     "id": "200",
@@ -3089,9 +3269,11 @@
     "area_building": 178811.0968,
     "area_parking": 84784.1513,
     "area_green": 272393.8311,
+    "area_water": 0,
     "pct_building": 8.8974,
     "pct_parking": 4.2187,
-    "pct_green": 13.554
+    "pct_green": 13.554,
+    "pct_water": 0
   },
   {
     "id": "202",
@@ -3099,9 +3281,11 @@
     "area_building": 314356.5788,
     "area_parking": 85958.7638,
     "area_green": 112954.2135,
+    "area_water": 0,
     "pct_building": 15.642,
     "pct_parking": 4.2772,
-    "pct_green": 5.6204
+    "pct_green": 5.6204,
+    "pct_water": 0
   },
   {
     "id": "203",
@@ -3109,9 +3293,11 @@
     "area_building": 429673.4581,
     "area_parking": 28941.183,
     "area_green": 167229.1183,
+    "area_water": 0,
     "pct_building": 21.38,
     "pct_parking": 1.4401,
-    "pct_green": 8.3211
+    "pct_green": 8.3211,
+    "pct_water": 0
   },
   {
     "id": "204",
@@ -3119,9 +3305,11 @@
     "area_building": 277518.5143,
     "area_parking": 74319.773,
     "area_green": 259003.2331,
+    "area_water": 0,
     "pct_building": 13.8089,
     "pct_parking": 3.6981,
-    "pct_green": 12.8877
+    "pct_green": 12.8877,
+    "pct_water": 0
   },
   {
     "id": "205",
@@ -3165,9 +3353,11 @@
     "area_building": 445645.0572,
     "area_parking": 129309.4342,
     "area_green": 93339.2332,
+    "area_water": 0,
     "pct_building": 22.1747,
     "pct_parking": 6.4343,
-    "pct_green": 4.6444
+    "pct_green": 4.6444,
+    "pct_water": 0
   },
   {
     "id": "209",
@@ -3187,9 +3377,11 @@
     "area_building": 493697.1622,
     "area_parking": 73647.0192,
     "area_green": 149273.5348,
+    "area_water": 0,
     "pct_building": 24.5657,
     "pct_parking": 3.6646,
-    "pct_green": 7.4276
+    "pct_green": 7.4276,
+    "pct_water": 0
   },
   {
     "id": "211",
@@ -3233,9 +3425,11 @@
     "area_building": 366977.221,
     "area_parking": 87517.7027,
     "area_green": 329588.4592,
+    "area_water": 0,
     "pct_building": 18.2603,
     "pct_parking": 4.3548,
-    "pct_green": 16.3999
+    "pct_green": 16.3999,
+    "pct_water": 0
   },
   {
     "id": "215",
@@ -3243,9 +3437,11 @@
     "area_building": 434314.6045,
     "area_parking": 107858.2435,
     "area_green": 103035.3975,
+    "area_water": 0,
     "pct_building": 21.6109,
     "pct_parking": 5.3669,
-    "pct_green": 5.1269
+    "pct_green": 5.1269,
+    "pct_water": 0
   },
   {
     "id": "216",
@@ -3265,9 +3461,11 @@
     "area_building": 454555.921,
     "area_parking": 25702.3853,
     "area_green": 154315.4148,
+    "area_water": 0,
     "pct_building": 22.6181,
     "pct_parking": 1.2789,
-    "pct_green": 7.6785
+    "pct_green": 7.6785,
+    "pct_water": 0
   },
   {
     "id": "218",
@@ -3287,9 +3485,11 @@
     "area_building": 269008.8427,
     "area_parking": 59037.6447,
     "area_green": 443772.7194,
+    "area_water": 0,
     "pct_building": 13.3855,
     "pct_parking": 2.9376,
-    "pct_green": 22.0815
+    "pct_green": 22.0815,
+    "pct_water": 0
   },
   {
     "id": "220",
@@ -3309,9 +3509,11 @@
     "area_building": 576914.5476,
     "area_parking": 50978.6722,
     "area_green": 125012.2632,
+    "area_water": 0,
     "pct_building": 28.7065,
     "pct_parking": 2.5366,
-    "pct_green": 6.2204
+    "pct_green": 6.2204,
+    "pct_water": 0
   },
   {
     "id": "222",
@@ -3319,9 +3521,11 @@
     "area_building": 387854.7209,
     "area_parking": 24102.383,
     "area_green": 121495.602,
+    "area_water": 0,
     "pct_building": 19.2991,
     "pct_parking": 1.1993,
-    "pct_green": 6.0455
+    "pct_green": 6.0455,
+    "pct_water": 0
   },
   {
     "id": "223",
@@ -3329,9 +3533,11 @@
     "area_building": 556283.3903,
     "area_parking": 407519.3387,
     "area_green": 116297.6874,
+    "area_water": 0,
     "pct_building": 27.6799,
     "pct_parking": 20.2776,
-    "pct_green": 5.7868
+    "pct_green": 5.7868,
+    "pct_water": 0
   },
   {
     "id": "224",
@@ -3351,9 +3557,11 @@
     "area_building": 523528.8237,
     "area_parking": 47478.0297,
     "area_green": 161989.2386,
+    "area_water": 0,
     "pct_building": 26.0501,
     "pct_parking": 2.3624,
-    "pct_green": 8.0604
+    "pct_green": 8.0604,
+    "pct_water": 0
   },
   {
     "id": "226",
@@ -3385,9 +3593,11 @@
     "area_building": 233638.0929,
     "area_parking": 48746.6889,
     "area_green": 489377.1635,
+    "area_water": 0,
     "pct_building": 11.6255,
     "pct_parking": 2.4256,
-    "pct_green": 24.3507
+    "pct_green": 24.3507,
+    "pct_water": 0
   },
   {
     "id": "229",
@@ -3395,9 +3605,11 @@
     "area_building": 223701.9218,
     "area_parking": 42391.3392,
     "area_green": 531466.7289,
+    "area_water": 0,
     "pct_building": 11.1311,
     "pct_parking": 2.1093,
-    "pct_green": 26.4451
+    "pct_green": 26.4451,
+    "pct_water": 0
   },
   {
     "id": "230",
@@ -3405,9 +3617,11 @@
     "area_building": 470332.5662,
     "area_parking": 440116.8109,
     "area_green": 228756.5765,
+    "area_water": 0,
     "pct_building": 23.4031,
     "pct_parking": 21.8996,
-    "pct_green": 11.3826
+    "pct_green": 11.3826,
+    "pct_water": 0
   },
   {
     "id": "231",
@@ -3484,8 +3698,12 @@
   {
     "id": "237",
     "area_buffer": 2009700.7197,
+    "area_building": 0,
+    "area_parking": 0,
     "area_green": 136395.197,
     "area_water": 3972.8824,
+    "pct_building": 0,
+    "pct_parking": 0,
     "pct_green": 6.7868,
     "pct_water": 0.1977
   },
@@ -3495,9 +3713,11 @@
     "area_building": 356971.607,
     "area_parking": 137721.1631,
     "area_green": 150464.9482,
+    "area_water": 0,
     "pct_building": 17.7624,
     "pct_parking": 6.8528,
-    "pct_green": 7.4869
+    "pct_green": 7.4869,
+    "pct_water": 0
   },
   {
     "id": "239",
@@ -3565,9 +3785,11 @@
     "area_building": 328386.5581,
     "area_parking": 149154.5604,
     "area_green": 317516.2998,
+    "area_water": 0,
     "pct_building": 16.3401,
     "pct_parking": 7.4217,
-    "pct_green": 15.7992
+    "pct_green": 15.7992,
+    "pct_water": 0
   },
   {
     "id": "245",
@@ -3599,9 +3821,11 @@
     "area_building": 140421.0432,
     "area_parking": 25376.4062,
     "area_green": 75714.8732,
+    "area_water": 0,
     "pct_building": 6.9872,
     "pct_parking": 1.2627,
-    "pct_green": 3.7675
+    "pct_green": 3.7675,
+    "pct_water": 0
   },
   {
     "id": "249",
@@ -3609,9 +3833,11 @@
     "area_building": 325127.579,
     "area_parking": 124090.1619,
     "area_green": 170133.2832,
+    "area_water": 0,
     "pct_building": 16.1779,
     "pct_parking": 6.1746,
-    "pct_green": 8.4656
+    "pct_green": 8.4656,
+    "pct_water": 0
   },
   {
     "id": "250",
@@ -3655,9 +3881,11 @@
     "area_building": 678947.8768,
     "area_parking": 126546.9606,
     "area_green": 125621.0229,
+    "area_water": 0,
     "pct_building": 33.7835,
     "pct_parking": 6.2968,
-    "pct_green": 6.2507
+    "pct_green": 6.2507,
+    "pct_water": 0
   },
   {
     "id": "254",
@@ -3665,9 +3893,11 @@
     "area_building": 284956.3193,
     "area_parking": 138928.1712,
     "area_green": 76127.7624,
+    "area_water": 0,
     "pct_building": 14.179,
     "pct_parking": 6.9129,
-    "pct_green": 3.788
+    "pct_green": 3.788,
+    "pct_water": 0
   },
   {
     "id": "255",
@@ -3675,9 +3905,11 @@
     "area_building": 381660.3566,
     "area_parking": 56800.3855,
     "area_green": 148009.5125,
+    "area_water": 0,
     "pct_building": 18.9909,
     "pct_parking": 2.8263,
-    "pct_green": 7.3648
+    "pct_green": 7.3648,
+    "pct_water": 0
   },
   {
     "id": "256",
@@ -3733,9 +3965,11 @@
     "area_building": 641626.8384,
     "area_parking": 65816.3511,
     "area_green": 89797.4083,
+    "area_water": 0,
     "pct_building": 31.9265,
     "pct_parking": 3.2749,
-    "pct_green": 4.4682
+    "pct_green": 4.4682,
+    "pct_water": 0
   },
   {
     "id": "261",
@@ -3743,9 +3977,11 @@
     "area_building": 430478.9309,
     "area_parking": 11260.5764,
     "area_green": 168549.1865,
+    "area_water": 0,
     "pct_building": 21.4201,
     "pct_parking": 0.5603,
-    "pct_green": 8.3868
+    "pct_green": 8.3868,
+    "pct_water": 0
   },
   {
     "id": "262",
@@ -3753,9 +3989,11 @@
     "area_building": 319460.3642,
     "area_parking": 114033.3533,
     "area_green": 174918.1584,
+    "area_water": 0,
     "pct_building": 15.8959,
     "pct_parking": 5.6741,
-    "pct_green": 8.7037
+    "pct_green": 8.7037,
+    "pct_water": 0
   },
   {
     "id": "263",
@@ -3847,9 +4085,11 @@
     "area_building": 467544.3965,
     "area_parking": 45512.5219,
     "area_green": 157405.4235,
+    "area_water": 0,
     "pct_building": 23.2644,
     "pct_parking": 2.2646,
-    "pct_green": 7.8323
+    "pct_green": 7.8323,
+    "pct_water": 0
   },
   {
     "id": "271",
@@ -3857,9 +4097,11 @@
     "area_building": 398539.4031,
     "area_parking": 272231.7587,
     "area_green": 163860.2375,
+    "area_water": 0,
     "pct_building": 19.8308,
     "pct_parking": 13.5459,
-    "pct_green": 8.1535
+    "pct_green": 8.1535,
+    "pct_water": 0
   },
   {
     "id": "272",
@@ -3891,9 +4133,11 @@
     "area_building": 292729.0005,
     "area_parking": 110879.5237,
     "area_green": 174030.3523,
+    "area_water": 0,
     "pct_building": 14.5658,
     "pct_parking": 5.5172,
-    "pct_green": 8.6595
+    "pct_green": 8.6595,
+    "pct_water": 0
   },
   {
     "id": "275",
@@ -3901,9 +4145,11 @@
     "area_building": 346079.3638,
     "area_parking": 123952.032,
     "area_green": 193844.6091,
+    "area_water": 0,
     "pct_building": 17.2204,
     "pct_parking": 6.1677,
-    "pct_green": 9.6454
+    "pct_green": 9.6454,
+    "pct_water": 0
   },
   {
     "id": "276",
@@ -3935,9 +4181,11 @@
     "area_building": 302028.2861,
     "area_parking": 110264.0021,
     "area_green": 132011.1036,
+    "area_water": 0,
     "pct_building": 15.0285,
     "pct_parking": 5.4866,
-    "pct_green": 6.5687
+    "pct_green": 6.5687,
+    "pct_water": 0
   },
   {
     "id": "279",
@@ -3957,9 +4205,11 @@
     "area_building": 312130.444,
     "area_parking": 129770.7913,
     "area_green": 251435.0484,
+    "area_water": 0,
     "pct_building": 15.5312,
     "pct_parking": 6.4572,
-    "pct_green": 12.5111
+    "pct_green": 12.5111,
+    "pct_water": 0
   },
   {
     "id": "281",
@@ -3979,9 +4229,11 @@
     "area_building": 374907.7553,
     "area_parking": 70440.301,
     "area_green": 238365.4174,
+    "area_water": 0,
     "pct_building": 18.6549,
     "pct_parking": 3.505,
-    "pct_green": 11.8607
+    "pct_green": 11.8607,
+    "pct_water": 0
   },
   {
     "id": "283",
@@ -3989,9 +4241,11 @@
     "area_building": 372702.4098,
     "area_parking": 328112.92,
     "area_green": 168334.4679,
+    "area_water": 0,
     "pct_building": 18.5452,
     "pct_parking": 16.3265,
-    "pct_green": 8.3761
+    "pct_green": 8.3761,
+    "pct_water": 0
   },
   {
     "id": "284",
@@ -3999,9 +4253,11 @@
     "area_building": 339126.0543,
     "area_parking": 92549.8284,
     "area_green": 113438.6914,
+    "area_water": 0,
     "pct_building": 16.8745,
     "pct_parking": 4.6052,
-    "pct_green": 5.6446
+    "pct_green": 5.6446,
+    "pct_water": 0
   },
   {
     "id": "285",
@@ -4069,9 +4325,11 @@
     "area_building": 386670.0958,
     "area_parking": 60655.6029,
     "area_green": 104011.165,
+    "area_water": 0,
     "pct_building": 19.2402,
     "pct_parking": 3.0181,
-    "pct_green": 5.1755
+    "pct_green": 5.1755,
+    "pct_water": 0
   },
   {
     "id": "291",
@@ -4079,9 +4337,11 @@
     "area_building": 46609.0331,
     "area_parking": 41453.7242,
     "area_green": 83435.4335,
+    "area_water": 0,
     "pct_building": 2.3192,
     "pct_parking": 2.0627,
-    "pct_green": 4.1516
+    "pct_green": 4.1516,
+    "pct_water": 0
   },
   {
     "id": "292",
@@ -4137,9 +4397,11 @@
     "area_building": 291702.406,
     "area_parking": 161489.3464,
     "area_green": 195197.5567,
+    "area_water": 0,
     "pct_building": 14.5147,
     "pct_parking": 8.0355,
-    "pct_green": 9.7128
+    "pct_green": 9.7128,
+    "pct_water": 0
   },
   {
     "id": "297",
@@ -4231,9 +4493,11 @@
     "area_building": 337184.3698,
     "area_parking": 176184.5777,
     "area_green": 273677.5967,
+    "area_water": 0,
     "pct_building": 16.7778,
     "pct_parking": 8.7667,
-    "pct_green": 13.6178
+    "pct_green": 13.6178,
+    "pct_water": 0
   },
   {
     "id": "305",
@@ -4277,9 +4541,11 @@
     "area_building": 475746.1472,
     "area_parking": 60892.0485,
     "area_green": 132857.4562,
+    "area_water": 0,
     "pct_building": 23.6725,
     "pct_parking": 3.0299,
-    "pct_green": 6.6108
+    "pct_green": 6.6108,
+    "pct_water": 0
   },
   {
     "id": "309",
@@ -4287,9 +4553,11 @@
     "area_building": 377881.4573,
     "area_parking": 216482.1586,
     "area_green": 288872.9831,
+    "area_water": 0,
     "pct_building": 18.8029,
     "pct_parking": 10.7719,
-    "pct_green": 14.3739
+    "pct_green": 14.3739,
+    "pct_water": 0
   },
   {
     "id": "310",
@@ -4357,9 +4625,11 @@
     "area_building": 241716.925,
     "area_parking": 112433.198,
     "area_green": 6652.9873,
+    "area_water": 0,
     "pct_building": 12.0275,
     "pct_parking": 5.5945,
-    "pct_green": 0.331
+    "pct_green": 0.331,
+    "pct_water": 0
   },
   {
     "id": "316",
@@ -4367,9 +4637,11 @@
     "area_building": 546042.6232,
     "area_parking": 23204.7343,
     "area_green": 203928.6237,
+    "area_water": 0,
     "pct_building": 27.1703,
     "pct_parking": 1.1546,
-    "pct_green": 10.1472
+    "pct_green": 10.1472,
+    "pct_water": 0
   },
   {
     "id": "317",
@@ -4401,9 +4673,11 @@
     "area_building": 530478.5496,
     "area_parking": 34535.3766,
     "area_green": 157084.1881,
+    "area_water": 0,
     "pct_building": 26.3959,
     "pct_parking": 1.7184,
-    "pct_green": 7.8163
+    "pct_green": 7.8163,
+    "pct_water": 0
   },
   {
     "id": "320",
@@ -4423,9 +4697,11 @@
     "area_building": 57646.9013,
     "area_parking": 35895.8853,
     "area_green": 209981.4902,
+    "area_water": 0,
     "pct_building": 2.8684,
     "pct_parking": 1.7861,
-    "pct_green": 10.4484
+    "pct_green": 10.4484,
+    "pct_water": 0
   },
   {
     "id": "322",
@@ -4445,9 +4721,11 @@
     "area_building": 376719.9544,
     "area_parking": 489163.5224,
     "area_green": 28947.1555,
+    "area_water": 0,
     "pct_building": 18.7451,
     "pct_parking": 24.3401,
-    "pct_green": 1.4404
+    "pct_green": 1.4404,
+    "pct_water": 0
   },
   {
     "id": "324",
@@ -4455,9 +4733,11 @@
     "area_building": 375527.6325,
     "area_parking": 370569.1884,
     "area_green": 319478.0918,
+    "area_water": 0,
     "pct_building": 18.6857,
     "pct_parking": 18.439,
-    "pct_green": 15.8968
+    "pct_green": 15.8968,
+    "pct_water": 0
   },
   {
     "id": "325",
@@ -4465,9 +4745,11 @@
     "area_building": 235635.5933,
     "area_parking": 310234.5444,
     "area_green": 92208.7214,
+    "area_water": 0,
     "pct_building": 11.7249,
     "pct_parking": 15.4369,
-    "pct_green": 4.5882
+    "pct_green": 4.5882,
+    "pct_water": 0
   },
   {
     "id": "326",
@@ -4547,9 +4829,11 @@
     "area_building": 58530.9395,
     "area_parking": 39854.5585,
     "area_green": 114243.5473,
+    "area_water": 0,
     "pct_building": 2.9124,
     "pct_parking": 1.9831,
-    "pct_green": 5.6846
+    "pct_green": 5.6846,
+    "pct_water": 0
   },
   {
     "id": "333",
@@ -4557,9 +4841,11 @@
     "area_building": 158535.6438,
     "area_parking": 173892.2978,
     "area_green": 322789.1256,
+    "area_water": 0,
     "pct_building": 7.8885,
     "pct_parking": 8.6526,
-    "pct_green": 16.0616
+    "pct_green": 16.0616,
+    "pct_water": 0
   },
   {
     "id": "334",
@@ -4579,9 +4865,11 @@
     "area_building": 125968.5152,
     "area_parking": 112755.4057,
     "area_green": 187319.0741,
+    "area_water": 0,
     "pct_building": 6.268,
     "pct_parking": 5.6106,
-    "pct_green": 9.3207
+    "pct_green": 9.3207,
+    "pct_water": 0
   },
   {
     "id": "336",
@@ -4721,9 +5009,11 @@
     "area_building": 357788.9584,
     "area_parking": 70609.326,
     "area_green": 125805.9143,
+    "area_water": 0,
     "pct_building": 17.8031,
     "pct_parking": 3.5134,
-    "pct_green": 6.2599
+    "pct_green": 6.2599,
+    "pct_water": 0
   },
   {
     "id": "348",
@@ -4767,9 +5057,11 @@
     "area_building": 506885.6642,
     "area_parking": 56752.9642,
     "area_green": 44925.8116,
+    "area_water": 0,
     "pct_building": 25.2219,
     "pct_parking": 2.824,
-    "pct_green": 2.2354
+    "pct_green": 2.2354,
+    "pct_water": 0
   },
   {
     "id": "352",
@@ -4789,9 +5081,11 @@
     "area_building": 267450.1489,
     "area_parking": 85901.688,
     "area_green": 196023.6851,
+    "area_water": 0,
     "pct_building": 13.308,
     "pct_parking": 4.2744,
-    "pct_green": 9.7539
+    "pct_green": 9.7539,
+    "pct_water": 0
   },
   {
     "id": "354",
@@ -4811,9 +5105,11 @@
     "area_building": 494048.0632,
     "area_parking": 50976.4982,
     "area_green": 357774.7539,
+    "area_water": 0,
     "pct_building": 24.5832,
     "pct_parking": 2.5365,
-    "pct_green": 17.8024
+    "pct_green": 17.8024,
+    "pct_water": 0
   },
   {
     "id": "356",
@@ -4821,9 +5117,11 @@
     "area_building": 520822.8323,
     "area_parking": 60850.3332,
     "area_green": 42156.656,
+    "area_water": 0,
     "pct_building": 25.9154,
     "pct_parking": 3.0278,
-    "pct_green": 2.0977
+    "pct_green": 2.0977,
+    "pct_water": 0
   },
   {
     "id": "357",
@@ -4843,9 +5141,11 @@
     "area_building": 237760.9141,
     "area_parking": 192210.8517,
     "area_green": 410367.4425,
+    "area_water": 0,
     "pct_building": 11.8307,
     "pct_parking": 9.5642,
-    "pct_green": 20.4193
+    "pct_green": 20.4193,
+    "pct_water": 0
   },
   {
     "id": "359",
@@ -4949,9 +5249,11 @@
     "area_building": 429275.4477,
     "area_parking": 41278.4456,
     "area_green": 515260.9746,
+    "area_water": 0,
     "pct_building": 21.3602,
     "pct_parking": 2.054,
-    "pct_green": 25.6387
+    "pct_green": 25.6387,
+    "pct_water": 0
   },
   {
     "id": "368",
@@ -4959,9 +5261,11 @@
     "area_building": 523017.659,
     "area_parking": 165227.9594,
     "area_green": 98131.7092,
+    "area_water": 0,
     "pct_building": 26.0247,
     "pct_parking": 8.2215,
-    "pct_green": 4.8829
+    "pct_green": 4.8829,
+    "pct_water": 0
   },
   {
     "id": "369",
@@ -4993,9 +5297,11 @@
     "area_building": 402177.2831,
     "area_parking": 154234.8295,
     "area_green": 44843.3845,
+    "area_water": 0,
     "pct_building": 20.0118,
     "pct_parking": 7.6745,
-    "pct_green": 2.2313
+    "pct_green": 2.2313,
+    "pct_water": 0
   },
   {
     "id": "372",
@@ -5003,9 +5309,11 @@
     "area_building": 323648.5574,
     "area_parking": 179022.3105,
     "area_green": 144865.526,
+    "area_water": 0,
     "pct_building": 16.1043,
     "pct_parking": 8.9079,
-    "pct_green": 7.2083
+    "pct_green": 7.2083,
+    "pct_water": 0
   },
   {
     "id": "373",
@@ -5061,9 +5369,11 @@
     "area_building": 278364.6819,
     "area_parking": 220940.413,
     "area_green": 62335.925,
+    "area_water": 0,
     "pct_building": 13.8511,
     "pct_parking": 10.9937,
-    "pct_green": 3.1018
+    "pct_green": 3.1018,
+    "pct_water": 0
   },
   {
     "id": "378",
@@ -5095,9 +5405,11 @@
     "area_building": 255563.1118,
     "area_parking": 87153.9471,
     "area_green": 599914.1663,
+    "area_water": 0,
     "pct_building": 12.7165,
     "pct_parking": 4.3367,
-    "pct_green": 29.8509
+    "pct_green": 29.8509,
+    "pct_water": 0
   },
   {
     "id": "381",
@@ -5201,9 +5513,11 @@
     "area_building": 528733.8606,
     "area_parking": 96976.0688,
     "area_green": 60033.6738,
+    "area_water": 0,
     "pct_building": 26.3091,
     "pct_parking": 4.8254,
-    "pct_green": 2.9872
+    "pct_green": 2.9872,
+    "pct_water": 0
   },
   {
     "id": "390",
@@ -5223,9 +5537,11 @@
     "area_building": 207155.1743,
     "area_parking": 86595.7813,
     "area_green": 801874.6517,
+    "area_water": 0,
     "pct_building": 10.3078,
     "pct_parking": 4.3089,
-    "pct_green": 39.9002
+    "pct_green": 39.9002,
+    "pct_water": 0
   },
   {
     "id": "392",
@@ -5269,9 +5585,11 @@
     "area_building": 228968.8086,
     "area_parking": 145586.841,
     "area_green": 99497.3515,
+    "area_water": 0,
     "pct_building": 11.3932,
     "pct_parking": 7.2442,
-    "pct_green": 4.9509
+    "pct_green": 4.9509,
+    "pct_water": 0
   },
   {
     "id": "396",
@@ -5279,9 +5597,11 @@
     "area_building": 495795.0712,
     "area_parking": 26800.5758,
     "area_green": 102635.2329,
+    "area_water": 0,
     "pct_building": 24.6701,
     "pct_parking": 1.3336,
-    "pct_green": 5.107
+    "pct_green": 5.107,
+    "pct_water": 0
   },
   {
     "id": "397",
@@ -5325,9 +5645,11 @@
     "area_building": 337492.162,
     "area_parking": 158448.1878,
     "area_green": 184475.8593,
+    "area_water": 0,
     "pct_building": 16.7932,
     "pct_parking": 7.8842,
-    "pct_green": 9.1793
+    "pct_green": 9.1793,
+    "pct_water": 0
   },
   {
     "id": "401",
@@ -5359,9 +5681,11 @@
     "area_building": 389853.2533,
     "area_parking": 370140.3499,
     "area_green": 3134.1979,
+    "area_water": 0,
     "pct_building": 19.3986,
     "pct_parking": 18.4177,
-    "pct_green": 0.156
+    "pct_green": 0.156,
+    "pct_water": 0
   },
   {
     "id": "404",
@@ -5465,9 +5789,11 @@
     "area_building": 368138.1366,
     "area_parking": 280538.3779,
     "area_green": 75209.2655,
+    "area_water": 0,
     "pct_building": 18.3181,
     "pct_parking": 13.9592,
-    "pct_green": 3.7423
+    "pct_green": 3.7423,
+    "pct_water": 0
   },
   {
     "id": "413",
@@ -5583,9 +5909,11 @@
     "area_building": 445088.3221,
     "area_parking": 189679.3864,
     "area_green": 160015.013,
+    "area_water": 0,
     "pct_building": 22.147,
     "pct_parking": 9.4382,
-    "pct_green": 7.9621
+    "pct_green": 7.9621,
+    "pct_water": 0
   },
   {
     "id": "423",
@@ -5593,9 +5921,11 @@
     "area_building": 336073.2633,
     "area_parking": 134630.1405,
     "area_green": 334463.3311,
+    "area_water": 0,
     "pct_building": 16.7226,
     "pct_parking": 6.699,
-    "pct_green": 16.6424
+    "pct_green": 16.6424,
+    "pct_water": 0
   },
   {
     "id": "424",
@@ -5603,9 +5933,11 @@
     "area_building": 394836.4839,
     "area_parking": 224638.8569,
     "area_green": 195337.939,
+    "area_water": 0,
     "pct_building": 19.6465,
     "pct_parking": 11.1777,
-    "pct_green": 9.7198
+    "pct_green": 9.7198,
+    "pct_water": 0
   },
   {
     "id": "425",
@@ -5613,9 +5945,11 @@
     "area_building": 397549.3447,
     "area_parking": 203673.4007,
     "area_green": 105751.2153,
+    "area_water": 0,
     "pct_building": 19.7815,
     "pct_parking": 10.1345,
-    "pct_green": 5.262
+    "pct_green": 5.262,
+    "pct_water": 0
   },
   {
     "id": "426",
@@ -5623,9 +5957,11 @@
     "area_building": 342380.8137,
     "area_parking": 286751.8589,
     "area_green": 37184.7425,
+    "area_water": 0,
     "pct_building": 17.0364,
     "pct_parking": 14.2684,
-    "pct_green": 1.8503
+    "pct_green": 1.8503,
+    "pct_water": 0
   },
   {
     "id": "570",
@@ -5645,9 +5981,11 @@
     "area_building": 347892.736,
     "area_parking": 170330.7529,
     "area_green": 188838.4503,
+    "area_water": 0,
     "pct_building": 17.3107,
     "pct_parking": 8.4754,
-    "pct_green": 9.3963
+    "pct_green": 9.3963,
+    "pct_water": 0
   },
   {
     "id": "572",
@@ -5679,9 +6017,11 @@
     "area_building": 329570.5597,
     "area_parking": 135525.5686,
     "area_green": 364557.4826,
+    "area_water": 0,
     "pct_building": 16.399,
     "pct_parking": 6.7436,
-    "pct_green": 18.1399
+    "pct_green": 18.1399,
+    "pct_water": 0
   },
   {
     "id": "575",
@@ -5725,9 +6065,11 @@
     "area_building": 275756.2628,
     "area_parking": 78844.9861,
     "area_green": 336873.9986,
+    "area_water": 0,
     "pct_building": 13.7213,
     "pct_parking": 3.9232,
-    "pct_green": 16.7624
+    "pct_green": 16.7624,
+    "pct_water": 0
   },
   {
     "id": "579",
@@ -5747,9 +6089,11 @@
     "area_building": 455427.0641,
     "area_parking": 135265.6074,
     "area_green": 111586.6562,
+    "area_water": 0,
     "pct_building": 22.6614,
     "pct_parking": 6.7306,
-    "pct_green": 5.5524
+    "pct_green": 5.5524,
+    "pct_water": 0
   },
   {
     "id": "581",
@@ -5781,9 +6125,11 @@
     "area_building": 170354.5274,
     "area_parking": 136222.1483,
     "area_green": 828299.275,
+    "area_water": 0,
     "pct_building": 8.4766,
     "pct_parking": 6.7782,
-    "pct_green": 41.2151
+    "pct_green": 41.2151,
+    "pct_water": 0
   },
   {
     "id": "584",
@@ -5839,9 +6185,11 @@
     "area_building": 125075.3106,
     "area_parking": 158530.441,
     "area_green": 535193.8708,
+    "area_water": 0,
     "pct_building": 6.2236,
     "pct_parking": 7.8883,
-    "pct_green": 26.6305
+    "pct_green": 26.6305,
+    "pct_water": 0
   },
   {
     "id": "589",
@@ -5909,9 +6257,11 @@
     "area_building": 395214.1091,
     "area_parking": 139640.9915,
     "area_green": 215659.5451,
+    "area_water": 0,
     "pct_building": 19.6653,
     "pct_parking": 6.9483,
-    "pct_green": 10.7309
+    "pct_green": 10.7309,
+    "pct_water": 0
   },
   {
     "id": "595",
@@ -5931,9 +6281,11 @@
     "area_building": 367404.8879,
     "area_parking": 327719.1681,
     "area_green": 261460.3156,
+    "area_water": 0,
     "pct_building": 18.2816,
     "pct_parking": 16.3069,
-    "pct_green": 13.0099
+    "pct_green": 13.0099,
+    "pct_water": 0
   },
   {
     "id": "597",
@@ -6121,9 +6473,11 @@
     "area_building": 338035.9754,
     "area_parking": 112891.1271,
     "area_green": 148816.3519,
+    "area_water": 0,
     "pct_building": 16.8202,
     "pct_parking": 5.6173,
-    "pct_green": 7.4049
+    "pct_green": 7.4049,
+    "pct_water": 0
   },
   {
     "id": "613",
@@ -6203,9 +6557,11 @@
     "area_building": 427556.1197,
     "area_parking": 161792.1664,
     "area_green": 99218.6901,
+    "area_water": 0,
     "pct_building": 21.2746,
     "pct_parking": 8.0506,
-    "pct_green": 4.937
+    "pct_green": 4.937,
+    "pct_water": 0
   },
   {
     "id": "721",
@@ -6225,9 +6581,11 @@
     "area_building": 319036.6511,
     "area_parking": 90620.5868,
     "area_green": 120986.0918,
+    "area_water": 0,
     "pct_building": 15.8748,
     "pct_parking": 4.5092,
-    "pct_green": 6.0201
+    "pct_green": 6.0201,
+    "pct_water": 0
   },
   {
     "id": "723",
@@ -6235,9 +6593,11 @@
     "area_building": 311563.0157,
     "area_parking": 82015.0878,
     "area_green": 278163.5096,
+    "area_water": 0,
     "pct_building": 15.503,
     "pct_parking": 4.081,
-    "pct_green": 13.841
+    "pct_green": 13.841,
+    "pct_water": 0
   },
   {
     "id": "724",
@@ -6245,9 +6605,11 @@
     "area_building": 350627.684,
     "area_parking": 119617.6601,
     "area_green": 212229.3523,
+    "area_water": 0,
     "pct_building": 17.4468,
     "pct_parking": 5.952,
-    "pct_green": 10.5602
+    "pct_green": 10.5602,
+    "pct_water": 0
   },
   {
     "id": "725",
@@ -6255,9 +6617,11 @@
     "area_building": 296818.2875,
     "area_parking": 90125.7756,
     "area_green": 151016.7017,
+    "area_water": 0,
     "pct_building": 14.7693,
     "pct_parking": 4.4845,
-    "pct_green": 7.5144
+    "pct_green": 7.5144,
+    "pct_water": 0
   },
   {
     "id": "726",
@@ -6265,9 +6629,11 @@
     "area_building": 315330.6158,
     "area_parking": 113574.1244,
     "area_green": 126453.528,
+    "area_water": 0,
     "pct_building": 15.6904,
     "pct_parking": 5.6513,
-    "pct_green": 6.2922
+    "pct_green": 6.2922,
+    "pct_water": 0
   },
   {
     "id": "727",
@@ -6275,9 +6641,11 @@
     "area_building": 268947.6093,
     "area_parking": 48692.6666,
     "area_green": 56926.5176,
+    "area_water": 0,
     "pct_building": 13.3825,
     "pct_parking": 2.4229,
-    "pct_green": 2.8326
+    "pct_green": 2.8326,
+    "pct_water": 0
   },
   {
     "id": "427",
@@ -6285,9 +6653,11 @@
     "area_building": 490442.4182,
     "area_parking": 97689.5225,
     "area_green": 139255.4397,
+    "area_water": 0,
     "pct_building": 24.4038,
     "pct_parking": 4.8609,
-    "pct_green": 6.9292
+    "pct_green": 6.9292,
+    "pct_water": 0
   },
   {
     "id": "428",
@@ -6295,9 +6665,11 @@
     "area_building": 439622.7613,
     "area_parking": 115081.2664,
     "area_green": 154618.4948,
+    "area_water": 0,
     "pct_building": 21.875,
     "pct_parking": 5.7263,
-    "pct_green": 7.6936
+    "pct_green": 7.6936,
+    "pct_water": 0
   },
   {
     "id": "429",
@@ -6305,9 +6677,11 @@
     "area_building": 459337.7757,
     "area_parking": 32633.5568,
     "area_green": 122384.9813,
+    "area_water": 0,
     "pct_building": 22.856,
     "pct_parking": 1.6238,
-    "pct_green": 6.0897
+    "pct_green": 6.0897,
+    "pct_water": 0
   },
   {
     "id": "430",
@@ -6315,9 +6689,11 @@
     "area_building": 440096.8013,
     "area_parking": 122224.4346,
     "area_green": 223428.6667,
+    "area_water": 0,
     "pct_building": 21.8986,
     "pct_parking": 6.0817,
-    "pct_green": 11.1175
+    "pct_green": 11.1175,
+    "pct_water": 0
   },
   {
     "id": "431",
@@ -6325,9 +6701,11 @@
     "area_building": 386323.8232,
     "area_parking": 318092.3262,
     "area_green": 305336.3975,
+    "area_water": 0,
     "pct_building": 19.223,
     "pct_parking": 15.8278,
-    "pct_green": 15.1931
+    "pct_green": 15.1931,
+    "pct_water": 0
   },
   {
     "id": "432",
@@ -6491,9 +6869,11 @@
     "area_building": 815911.8139,
     "area_parking": 99515.1789,
     "area_green": 110383.4134,
+    "area_water": 0,
     "pct_building": 40.5987,
     "pct_parking": 4.9517,
-    "pct_green": 5.4925
+    "pct_green": 5.4925,
+    "pct_water": 0
   },
   {
     "id": "446",
@@ -6501,9 +6881,11 @@
     "area_building": 735117.7986,
     "area_parking": 80051.661,
     "area_green": 145127.4528,
+    "area_water": 0,
     "pct_building": 36.5785,
     "pct_parking": 3.9833,
-    "pct_green": 7.2213
+    "pct_green": 7.2213,
+    "pct_water": 0
   },
   {
     "id": "447",
@@ -6511,9 +6893,11 @@
     "area_building": 709450.8867,
     "area_parking": 71081.0012,
     "area_green": 124679.3234,
+    "area_water": 0,
     "pct_building": 35.3013,
     "pct_parking": 3.5369,
-    "pct_green": 6.2039
+    "pct_green": 6.2039,
+    "pct_water": 0
   },
   {
     "id": "448",
@@ -6533,9 +6917,11 @@
     "area_building": 552973.2804,
     "area_parking": 91196.2984,
     "area_green": 124822.435,
+    "area_water": 0,
     "pct_building": 27.5152,
     "pct_parking": 4.5378,
-    "pct_green": 6.211
+    "pct_green": 6.211,
+    "pct_water": 0
   },
   {
     "id": "450",
@@ -6543,9 +6929,11 @@
     "area_building": 545965.3268,
     "area_parking": 100701.6488,
     "area_green": 110738.4599,
+    "area_water": 0,
     "pct_building": 27.1665,
     "pct_parking": 5.0108,
-    "pct_green": 5.5102
+    "pct_green": 5.5102,
+    "pct_water": 0
   },
   {
     "id": "451",
@@ -6553,9 +6941,11 @@
     "area_building": 570541.9924,
     "area_parking": 68712.893,
     "area_green": 141005.6521,
+    "area_water": 0,
     "pct_building": 28.3894,
     "pct_parking": 3.4191,
-    "pct_green": 7.0163
+    "pct_green": 7.0163,
+    "pct_water": 0
   },
   {
     "id": "452",
@@ -6587,9 +6977,11 @@
     "area_building": 485882.7772,
     "area_parking": 119339.9333,
     "area_green": 189335.0468,
+    "area_water": 0,
     "pct_building": 24.1769,
     "pct_parking": 5.9382,
-    "pct_green": 9.4211
+    "pct_green": 9.4211,
+    "pct_water": 0
   },
   {
     "id": "455",
@@ -6597,9 +6989,11 @@
     "area_building": 450874.7105,
     "area_parking": 41711.3033,
     "area_green": 206853.6873,
+    "area_water": 0,
     "pct_building": 22.4349,
     "pct_parking": 2.0755,
-    "pct_green": 10.2928
+    "pct_green": 10.2928,
+    "pct_water": 0
   },
   {
     "id": "456",
@@ -6607,9 +7001,11 @@
     "area_building": 389504.2672,
     "area_parking": 40585.2835,
     "area_green": 466327.1176,
+    "area_water": 0,
     "pct_building": 19.3812,
     "pct_parking": 2.0195,
-    "pct_green": 23.2038
+    "pct_green": 23.2038,
+    "pct_water": 0
   },
   {
     "id": "457",
@@ -6617,9 +7013,11 @@
     "area_building": 331354.8848,
     "area_parking": 155636.9687,
     "area_green": 459308.2414,
+    "area_water": 0,
     "pct_building": 16.4878,
     "pct_parking": 7.7443,
-    "pct_green": 22.8546
+    "pct_green": 22.8546,
+    "pct_water": 0
   },
   {
     "id": "458",
@@ -6627,9 +7025,11 @@
     "area_building": 336244.0656,
     "area_parking": 105486.0109,
     "area_green": 207002.9389,
+    "area_water": 0,
     "pct_building": 16.7311,
     "pct_parking": 5.2488,
-    "pct_green": 10.3002
+    "pct_green": 10.3002,
+    "pct_water": 0
   },
   {
     "id": "459",
@@ -6637,9 +7037,11 @@
     "area_building": 381718.8183,
     "area_parking": 101214.7914,
     "area_green": 126079.6792,
+    "area_water": 0,
     "pct_building": 18.9938,
     "pct_parking": 5.0363,
-    "pct_green": 6.2736
+    "pct_green": 6.2736,
+    "pct_water": 0
   },
   {
     "id": "460",
@@ -6647,9 +7049,11 @@
     "area_building": 404111.0058,
     "area_parking": 105125.2687,
     "area_green": 159861.4525,
+    "area_water": 0,
     "pct_building": 20.108,
     "pct_parking": 5.2309,
-    "pct_green": 7.9545
+    "pct_green": 7.9545,
+    "pct_water": 0
   },
   {
     "id": "461",
@@ -6657,9 +7061,11 @@
     "area_building": 515421.3501,
     "area_parking": 118741.8264,
     "area_green": 299691.4889,
+    "area_water": 0,
     "pct_building": 25.6467,
     "pct_parking": 5.9084,
-    "pct_green": 14.9122
+    "pct_green": 14.9122,
+    "pct_water": 0
   },
   {
     "id": "462",
@@ -6667,9 +7073,11 @@
     "area_building": 483405.9586,
     "area_parking": 138852.9004,
     "area_green": 179130.0266,
+    "area_water": 0,
     "pct_building": 24.0536,
     "pct_parking": 6.9091,
-    "pct_green": 8.9133
+    "pct_green": 8.9133,
+    "pct_water": 0
   },
   {
     "id": "463",
@@ -6677,9 +7085,11 @@
     "area_building": 531578.9858,
     "area_parking": 55656.4084,
     "area_green": 150588.7626,
+    "area_water": 0,
     "pct_building": 26.4507,
     "pct_parking": 2.7694,
-    "pct_green": 7.4931
+    "pct_green": 7.4931,
+    "pct_water": 0
   },
   {
     "id": "464",
@@ -6687,9 +7097,11 @@
     "area_building": 539366.0291,
     "area_parking": 40862.8497,
     "area_green": 113083.4659,
+    "area_water": 0,
     "pct_building": 26.8381,
     "pct_parking": 2.0333,
-    "pct_green": 5.6269
+    "pct_green": 5.6269,
+    "pct_water": 0
   },
   {
     "id": "465",
@@ -6697,9 +7109,11 @@
     "area_building": 526718.5101,
     "area_parking": 16136.97,
     "area_green": 100899.4501,
+    "area_water": 0,
     "pct_building": 26.2088,
     "pct_parking": 0.803,
-    "pct_green": 5.0206
+    "pct_green": 5.0206,
+    "pct_water": 0
   },
   {
     "id": "466",
@@ -6851,9 +7265,11 @@
     "area_building": 674605.1945,
     "area_parking": 41053.0233,
     "area_green": 146928.8762,
+    "area_water": 0,
     "pct_building": 33.5674,
     "pct_parking": 2.0427,
-    "pct_green": 7.311
+    "pct_green": 7.311,
+    "pct_water": 0
   },
   {
     "id": "479",
@@ -6861,9 +7277,11 @@
     "area_building": 763226.7321,
     "area_parking": 33143.847,
     "area_green": 38066.6239,
+    "area_water": 0,
     "pct_building": 37.9771,
     "pct_parking": 1.6492,
-    "pct_green": 1.8941
+    "pct_green": 1.8941,
+    "pct_water": 0
   },
   {
     "id": "480",
@@ -6871,9 +7289,11 @@
     "area_building": 724539.8906,
     "area_parking": 23003.4019,
     "area_green": 57607.5328,
+    "area_water": 0,
     "pct_building": 36.0521,
     "pct_parking": 1.1446,
-    "pct_green": 2.8665
+    "pct_green": 2.8665,
+    "pct_water": 0
   },
   {
     "id": "481",
@@ -6881,9 +7301,11 @@
     "area_building": 629003.9183,
     "area_parking": 39765.5444,
     "area_green": 184247.0359,
+    "area_water": 0,
     "pct_building": 31.2984,
     "pct_parking": 1.9787,
-    "pct_green": 9.1679
+    "pct_green": 9.1679,
+    "pct_water": 0
   },
   {
     "id": "482",
@@ -6891,9 +7313,11 @@
     "area_building": 584937.4702,
     "area_parking": 103949.8994,
     "area_green": 159466.6902,
+    "area_water": 0,
     "pct_building": 29.1057,
     "pct_parking": 5.1724,
-    "pct_green": 7.9348
+    "pct_green": 7.9348,
+    "pct_water": 0
   },
   {
     "id": "483",
@@ -6901,9 +7325,11 @@
     "area_building": 465948.426,
     "area_parking": 45716.5238,
     "area_green": 226196.9939,
+    "area_water": 0,
     "pct_building": 23.185,
     "pct_parking": 2.2748,
-    "pct_green": 11.2553
+    "pct_green": 11.2553,
+    "pct_water": 0
   },
   {
     "id": "484",
@@ -6923,9 +7349,11 @@
     "area_building": 330915.4962,
     "area_parking": 61155.9819,
     "area_green": 179161.1845,
+    "area_water": 0,
     "pct_building": 16.4659,
     "pct_parking": 3.043,
-    "pct_green": 8.9148
+    "pct_green": 8.9148,
+    "pct_water": 0
   },
   {
     "id": "486",
@@ -6969,9 +7397,11 @@
     "area_building": 547273.6294,
     "area_parking": 91403.0319,
     "area_green": 286987.6352,
+    "area_water": 0,
     "pct_building": 27.2316,
     "pct_parking": 4.5481,
-    "pct_green": 14.2801
+    "pct_green": 14.2801,
+    "pct_water": 0
   },
   {
     "id": "490",
@@ -6979,9 +7409,11 @@
     "area_building": 453860.9643,
     "area_parking": 72758.3993,
     "area_green": 677495.7845,
+    "area_water": 0,
     "pct_building": 22.5835,
     "pct_parking": 3.6204,
-    "pct_green": 33.7113
+    "pct_green": 33.7113,
+    "pct_water": 0
   },
   {
     "id": "491",
@@ -7049,9 +7481,11 @@
     "area_building": 614542.7433,
     "area_parking": 17968.6065,
     "area_green": 58628.8967,
+    "area_water": 0,
     "pct_building": 30.5788,
     "pct_parking": 0.8941,
-    "pct_green": 2.9173
+    "pct_green": 2.9173,
+    "pct_water": 0
   },
   {
     "id": "497",
@@ -7059,9 +7493,11 @@
     "area_building": 546046.2788,
     "area_parking": 16061.5495,
     "area_green": 42130.978,
+    "area_water": 0,
     "pct_building": 27.1705,
     "pct_parking": 0.7992,
-    "pct_green": 2.0964
+    "pct_green": 2.0964,
+    "pct_water": 0
   },
   {
     "id": "498",
@@ -7069,9 +7505,11 @@
     "area_building": 527641.8923,
     "area_parking": 42496.7515,
     "area_green": 77417.6651,
+    "area_water": 0,
     "pct_building": 26.2547,
     "pct_parking": 2.1146,
-    "pct_green": 3.8522
+    "pct_green": 3.8522,
+    "pct_water": 0
   },
   {
     "id": "499",
@@ -7091,9 +7529,11 @@
     "area_building": 381917.1122,
     "area_parking": 48741.0842,
     "area_green": 136354.3471,
+    "area_water": 0,
     "pct_building": 19.0037,
     "pct_parking": 2.4253,
-    "pct_green": 6.7848
+    "pct_green": 6.7848,
+    "pct_water": 0
   },
   {
     "id": "501",
@@ -7101,9 +7541,11 @@
     "area_building": 347966.2321,
     "area_parking": 3796.2311,
     "area_green": 21765.795,
+    "area_water": 0,
     "pct_building": 17.3143,
     "pct_parking": 0.1889,
-    "pct_green": 1.083
+    "pct_green": 1.083,
+    "pct_water": 0
   },
   {
     "id": "502",
@@ -7111,9 +7553,11 @@
     "area_building": 199600.2276,
     "area_parking": 327749.0697,
     "area_green": 156080.6998,
+    "area_water": 0,
     "pct_building": 9.9318,
     "pct_parking": 16.3084,
-    "pct_green": 7.7664
+    "pct_green": 7.7664,
+    "pct_water": 0
   },
   {
     "id": "503",
@@ -7121,9 +7565,11 @@
     "area_building": 285333.5464,
     "area_parking": 68338.8092,
     "area_green": 62104.995,
+    "area_water": 0,
     "pct_building": 14.1978,
     "pct_parking": 3.4004,
-    "pct_green": 3.0903
+    "pct_green": 3.0903,
+    "pct_water": 0
   },
   {
     "id": "504",
@@ -7155,9 +7601,11 @@
     "area_building": 209508.3387,
     "area_parking": 45581.7413,
     "area_green": 340760.7614,
+    "area_water": 0,
     "pct_building": 10.4249,
     "pct_parking": 2.2681,
-    "pct_green": 16.9558
+    "pct_green": 16.9558,
+    "pct_water": 0
   },
   {
     "id": "507",
@@ -7177,9 +7625,11 @@
     "area_building": 170679.5525,
     "area_parking": 7296.2275,
     "area_green": 601383.3616,
+    "area_water": 0,
     "pct_building": 8.4928,
     "pct_parking": 0.3631,
-    "pct_green": 29.924
+    "pct_green": 29.924,
+    "pct_water": 0
   },
   {
     "id": "509",
@@ -7259,9 +7709,11 @@
     "area_building": 325292.3002,
     "area_parking": 47315.2631,
     "area_green": 275449.1609,
+    "area_water": 0,
     "pct_building": 16.1861,
     "pct_parking": 2.3543,
-    "pct_green": 13.706
+    "pct_green": 13.706,
+    "pct_water": 0
   },
   {
     "id": "516",
@@ -7293,9 +7745,11 @@
     "area_building": 278930.7291,
     "area_parking": 64082.4853,
     "area_green": 124924.9152,
+    "area_water": 0,
     "pct_building": 13.8792,
     "pct_parking": 3.1887,
-    "pct_green": 6.2161
+    "pct_green": 6.2161,
+    "pct_water": 0
   },
   {
     "id": "519",
@@ -7303,9 +7757,11 @@
     "area_building": 328954.1158,
     "area_parking": 154999.4691,
     "area_green": 100733.2735,
+    "area_water": 0,
     "pct_building": 16.3683,
     "pct_parking": 7.7126,
-    "pct_green": 5.0124
+    "pct_green": 5.0124,
+    "pct_water": 0
   },
   {
     "id": "520",
@@ -7325,9 +7781,11 @@
     "area_building": 146918.6888,
     "area_parking": 141323.0607,
     "area_green": 43461.8045,
+    "area_water": 0,
     "pct_building": 7.3105,
     "pct_parking": 7.032,
-    "pct_green": 2.1626
+    "pct_green": 2.1626,
+    "pct_water": 0
   },
   {
     "id": "522",
@@ -7383,9 +7841,11 @@
     "area_building": 278853.1198,
     "area_parking": 215328.3507,
     "area_green": 520258.5796,
+    "area_water": 0,
     "pct_building": 13.8754,
     "pct_parking": 10.7144,
-    "pct_green": 25.8874
+    "pct_green": 25.8874,
+    "pct_water": 0
   },
   {
     "id": "527",
@@ -7429,9 +7889,11 @@
     "area_building": 584722.0564,
     "area_parking": 262386.6876,
     "area_green": 63813.3806,
+    "area_water": 0,
     "pct_building": 29.095,
     "pct_parking": 13.056,
-    "pct_green": 3.1753
+    "pct_green": 3.1753,
+    "pct_water": 0
   },
   {
     "id": "531",
@@ -7487,9 +7949,11 @@
     "area_building": 559662.6676,
     "area_parking": 212473.5062,
     "area_green": 92776.4312,
+    "area_water": 0,
     "pct_building": 27.8481,
     "pct_parking": 10.5724,
-    "pct_green": 4.6164
+    "pct_green": 4.6164,
+    "pct_water": 0
   },
   {
     "id": "536",
@@ -7581,9 +8045,11 @@
     "area_building": 60480.5955,
     "area_parking": 70326.1763,
     "area_green": 193310.1099,
+    "area_water": 0,
     "pct_building": 3.0094,
     "pct_parking": 3.4993,
-    "pct_green": 9.6189
+    "pct_green": 9.6189,
+    "pct_water": 0
   },
   {
     "id": "544",
@@ -7591,9 +8057,11 @@
     "area_building": 131776.6807,
     "area_parking": 29349.2493,
     "area_green": 202141.7104,
+    "area_water": 0,
     "pct_building": 6.557,
     "pct_parking": 1.4604,
-    "pct_green": 10.0583
+    "pct_green": 10.0583,
+    "pct_water": 0
   },
   {
     "id": "545",
@@ -7625,9 +8093,11 @@
     "area_building": 425177.5736,
     "area_parking": 21498.5016,
     "area_green": 150869.7966,
+    "area_water": 0,
     "pct_building": 21.1563,
     "pct_parking": 1.0697,
-    "pct_green": 7.5071
+    "pct_green": 7.5071,
+    "pct_water": 0
   },
   {
     "id": "548",
@@ -7635,9 +8105,11 @@
     "area_building": 344120.437,
     "area_parking": 15393.5661,
     "area_green": 176522.9672,
+    "area_water": 0,
     "pct_building": 17.123,
     "pct_parking": 0.766,
-    "pct_green": 8.7835
+    "pct_green": 8.7835,
+    "pct_water": 0
   },
   {
     "id": "549",
@@ -7645,9 +8117,11 @@
     "area_building": 609007.2799,
     "area_parking": 94910.4048,
     "area_green": 51112.2002,
+    "area_water": 0,
     "pct_building": 30.3034,
     "pct_parking": 4.7226,
-    "pct_green": 2.5433
+    "pct_green": 2.5433,
+    "pct_water": 0
   },
   {
     "id": "550",
@@ -7655,9 +8129,11 @@
     "area_building": 471145.4226,
     "area_parking": 63611.2149,
     "area_green": 86766.491,
+    "area_water": 0,
     "pct_building": 23.4436,
     "pct_parking": 3.1652,
-    "pct_green": 4.3174
+    "pct_green": 4.3174,
+    "pct_water": 0
   },
   {
     "id": "551",
@@ -7665,9 +8141,11 @@
     "area_building": 351118.3289,
     "area_parking": 17624.0961,
     "area_green": 176644.0655,
+    "area_water": 0,
     "pct_building": 17.4712,
     "pct_parking": 0.877,
-    "pct_green": 8.7896
+    "pct_green": 8.7896,
+    "pct_water": 0
   },
   {
     "id": "552",
@@ -7735,9 +8213,11 @@
     "area_building": 212871.7729,
     "area_parking": 50862.9158,
     "area_green": 350818.0557,
+    "area_water": 0,
     "pct_building": 10.5922,
     "pct_parking": 2.5309,
-    "pct_green": 17.4562
+    "pct_green": 17.4562,
+    "pct_water": 0
   },
   {
     "id": "558",
@@ -7745,9 +8225,11 @@
     "area_building": 521781.9607,
     "area_parking": 139219.9901,
     "area_green": 5340.9684,
+    "area_water": 0,
     "pct_building": 25.9632,
     "pct_parking": 6.9274,
-    "pct_green": 0.2658
+    "pct_green": 0.2658,
+    "pct_water": 0
   },
   {
     "id": "559",
@@ -7755,9 +8237,11 @@
     "area_building": 362382.4532,
     "area_parking": 208134.0263,
     "area_green": 208079.8016,
+    "area_water": 0,
     "pct_building": 18.0317,
     "pct_parking": 10.3565,
-    "pct_green": 10.3538
+    "pct_green": 10.3538,
+    "pct_water": 0
   },
   {
     "id": "560",
@@ -7825,9 +8309,11 @@
     "area_building": 209605.9601,
     "area_parking": 234977.3564,
     "area_green": 201845.8484,
+    "area_water": 0,
     "pct_building": 10.4297,
     "pct_parking": 11.6922,
-    "pct_green": 10.0436
+    "pct_green": 10.0436,
+    "pct_water": 0
   },
   {
     "id": "566",
@@ -7895,9 +8381,11 @@
     "area_building": 90208.3241,
     "area_parking": 58025.0395,
     "area_green": 459267.1277,
+    "area_water": 0,
     "pct_building": 4.4886,
     "pct_parking": 2.8872,
-    "pct_green": 22.8525
+    "pct_green": 22.8525,
+    "pct_water": 0
   },
   {
     "id": "621",
@@ -7905,9 +8393,11 @@
     "area_building": 172272.5184,
     "area_parking": 95225.8733,
     "area_green": 108039.6104,
+    "area_water": 0,
     "pct_building": 8.572,
     "pct_parking": 4.7383,
-    "pct_green": 5.3759
+    "pct_green": 5.3759,
+    "pct_water": 0
   },
   {
     "id": "622",
@@ -7915,9 +8405,11 @@
     "area_building": 290042.743,
     "area_parking": 94049.451,
     "area_green": 96744.3765,
+    "area_water": 0,
     "pct_building": 14.4321,
     "pct_parking": 4.6798,
-    "pct_green": 4.8139
+    "pct_green": 4.8139,
+    "pct_water": 0
   },
   {
     "id": "623",
@@ -7925,9 +8417,11 @@
     "area_building": 277750.3209,
     "area_parking": 170548.6899,
     "area_green": 200072.9002,
+    "area_water": 0,
     "pct_building": 13.8205,
     "pct_parking": 8.4863,
-    "pct_green": 9.9554
+    "pct_green": 9.9554,
+    "pct_water": 0
   },
   {
     "id": "624",
@@ -7935,9 +8429,11 @@
     "area_building": 345190.5145,
     "area_parking": 132782.8722,
     "area_green": 238687.5162,
+    "area_water": 0,
     "pct_building": 17.1762,
     "pct_parking": 6.6071,
-    "pct_green": 11.8768
+    "pct_green": 11.8768,
+    "pct_water": 0
   },
   {
     "id": "625",
@@ -7945,9 +8441,11 @@
     "area_building": 197507.6317,
     "area_parking": 197322.969,
     "area_green": 407984.3905,
+    "area_water": 0,
     "pct_building": 9.8277,
     "pct_parking": 9.8185,
-    "pct_green": 20.3008
+    "pct_green": 20.3008,
+    "pct_water": 0
   },
   {
     "id": "626",
@@ -7955,9 +8453,11 @@
     "area_building": 121378.9598,
     "area_parking": 83068.8588,
     "area_green": 330180.3217,
+    "area_water": 0,
     "pct_building": 6.0397,
     "pct_parking": 4.1334,
-    "pct_green": 16.4293
+    "pct_green": 16.4293,
+    "pct_water": 0
   },
   {
     "id": "627",
@@ -7965,9 +8465,11 @@
     "area_building": 119861.86,
     "area_parking": 28828.7574,
     "area_green": 153109.5717,
+    "area_water": 0,
     "pct_building": 5.9642,
     "pct_parking": 1.4345,
-    "pct_green": 7.6185
+    "pct_green": 7.6185,
+    "pct_water": 0
   },
   {
     "id": "628",
@@ -8083,9 +8585,11 @@
     "area_building": 342590.7765,
     "area_parking": 62019.9052,
     "area_green": 452200.2448,
+    "area_water": 0,
     "pct_building": 17.0469,
     "pct_parking": 3.086,
-    "pct_green": 22.5009
+    "pct_green": 22.5009,
+    "pct_water": 0
   },
   {
     "id": "638",
@@ -8105,9 +8609,11 @@
     "area_building": 336618.1353,
     "area_parking": 141238.5636,
     "area_green": 158754.3926,
+    "area_water": 0,
     "pct_building": 16.7497,
     "pct_parking": 7.0278,
-    "pct_green": 7.8994
+    "pct_green": 7.8994,
+    "pct_water": 0
   },
   {
     "id": "640",
@@ -8175,9 +8681,11 @@
     "area_building": 260573.8255,
     "area_parking": 207886.1491,
     "area_green": 362406.9464,
+    "area_water": 0,
     "pct_building": 12.9658,
     "pct_parking": 10.3441,
-    "pct_green": 18.0329
+    "pct_green": 18.0329,
+    "pct_water": 0
   },
   {
     "id": "646",
@@ -8197,9 +8705,11 @@
     "area_building": 245862.8271,
     "area_parking": 189889.4875,
     "area_green": 107275.5001,
+    "area_water": 0,
     "pct_building": 12.2338,
     "pct_parking": 9.4486,
-    "pct_green": 5.3379
+    "pct_green": 5.3379,
+    "pct_water": 0
   },
   {
     "id": "648",
