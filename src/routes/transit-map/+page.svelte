@@ -815,23 +815,23 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Visible Minority'}
-										value={selectedStation.VisibleMinorityTotal + '%'}
+										value={Math.round(selectedStation.VisibleMinorityTotal * 10) / 10 + '%'} 
 										icon={'mdi:people'}
 									/>
 									<TransitMetric
 										label={'Immigrants'}
-										value={selectedStation.TotalImmigrant + '%'}
+										value={Math.round(selectedStation.TotalImmigrant * 10) / 10 + '%'}
 										icon={'mdi:globe'}
 									/>
 									<TransitMetric
 										label={'Indigenous'}
-										value={selectedStation.IndigenousIdentity + '%'}
+										value={Math.round(selectedStation.IndigenousIdentity * 10) / 10 + '%'}
 										icon={'mdi:people'}
 									/>
 								</div>
 								<TransitMetric
 									label={'University Degree'}
-									value={selectedStation.UniversityDegree + '%'}
+									value={Math.round(selectedStation.UniversityDegree * 10) / 10 + '%'}
 									icon={'mdi:school'}
 								/>
 								<div class="chart-container">
