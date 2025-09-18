@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// --- Imports ---
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import * as turf from '@turf/turf';
@@ -10,9 +10,10 @@
 	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 	import '../styles.css';
 	// --- Data Imports ---
+	import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
+	import type { Station } from '../lib/data/transitdata/stations';
 	import stationRawData from '../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
-	import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -25,7 +26,7 @@
 	let circleDrawn = false;
 	let statusFilters = [];
 	let technologyFilters = [];
-	let selectedStation = {};
+	let selectedStation: Station = { id: null };
 	let stationSelected = false;
 	let regionsData = [];
 	let processedStationData = [];
@@ -160,13 +161,13 @@
 
 		if (!station) {
 			console.error('Station not found for ID:', id);
-			selectedStation = {};
+			selectedStation = { id: null };
 			return;
 		}
 
 		selectedStation = station;
 
-		stationBuiltForm = builtFormMetrics.find(station => station.id === selectedStation.id);
+		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id);
 
 		ageData = [
 			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
@@ -195,22 +196,72 @@
 			{ label: 'Renter', value: selectedStation.Rented, y: '⠀' }
 		];
 
-		businessData = [
-			{ label: 'Food and Drink', value: selectedStation['Food and Drink'], y: '⠀' },
-			{ label: 'Retail', value: selectedStation['Retail'], y: '⠀' },
-			{ label: 'Local Services', value: selectedStation['Services and Other'], y: '⠀' }
-		];
+		const totalBusinessData =
+			(selectedStation['Food and Drink'] ?? 0) +
+			(selectedStation['Retail'] ?? 0) +
+			(selectedStation['Services and Other'] ?? 0);
 
-		civicData = [
-			{ label: 'Arts and Culture', value: selectedStation['Arts and Culture'], y: '⠀' },
+		businessData = [
 			{
-				label: 'Government and Community Services',
-				value: selectedStation['Government and Community Services'],
+				label: 'Food and Drink',
+				value: totalBusinessData
+					? (selectedStation['Food and Drink'] / totalBusinessData) * 100
+					: 0,
 				y: '⠀'
 			},
-			{ label: 'Recreation', value: selectedStation['Recreation Facilities'], y: '⠀' },
-			{ label: 'Healthcare', value: selectedStation['Health and Care Facilities'], y: '⠀' },
-			{ label: 'Education', value: selectedStation['Education'], y: '⠀' }
+			{
+				label: 'Retail',
+				value: totalBusinessData ? (selectedStation['Retail'] / totalBusinessData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: 'Local Services',
+				value: totalBusinessData
+					? (selectedStation['Services and Other'] / totalBusinessData) * 100
+					: 0,
+				y: '⠀'
+			}
+		];
+
+		const totalCivicData =
+			(selectedStation['Arts and Culture'] ?? 0) +
+			(selectedStation['Government and Community Services'] ?? 0) +
+			(selectedStation['Recreation Facilities'] ?? 0) +
+			(selectedStation['Health and Care Facilities'] ?? 0) +
+			(selectedStation['Education'] ?? 0);
+
+		civicData = [
+			{
+				label: 'Arts and Culture',
+				value: totalCivicData ? (selectedStation['Arts and Culture'] / totalCivicData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: 'Government and Community Services',
+				value: totalCivicData
+					? (selectedStation['Government and Community Services'] / totalCivicData) * 100
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Recreation',
+				value: totalCivicData
+					? (selectedStation['Recreation Facilities'] / totalCivicData) * 100
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Healthcare',
+				value: totalCivicData
+					? (selectedStation['Health and Care Facilities'] / totalCivicData) * 100
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Education',
+				value: totalCivicData ? (selectedStation['Education'] / totalCivicData) * 100 : 0,
+				y: '⠀'
+			}
 		];
 	}
 
@@ -271,7 +322,7 @@
 
 		// reset station
 		stationSelected = false;
-		selectedStation = {};
+		selectedStation = { id: null };
 
 		//reset layer filters
 		const thematicLayersToReset = [
@@ -411,8 +462,8 @@
 	// --- Format Display Numbers ---
 	// https://stackoverflow.com/a/10899795
 	function numberWithCommas(n) {
-		var parts=n.toString().split(".");
-		return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+		var parts = n.toString().split('.');
+		return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (parts[1] ? '.' + parts[1] : '');
 	}
 
 	// --- Reactive Logic with Fuse.js search library ---
@@ -785,13 +836,19 @@
 						value="demographics"
 						onValueChange={(value) => handleTabChange(value)}
 					>
-						<Tabs.List class="tab-root">
-							<Tabs.Trigger value="demographics">Demographics</Tabs.Trigger>
-							<Tabs.Trigger value="housing">Housing</Tabs.Trigger>
-							<Tabs.Trigger value="built-form">Built Form</Tabs.Trigger>
-							<Tabs.Trigger value="business">Business</Tabs.Trigger>
-							<Tabs.Trigger value="civic">Civic Infrastructure</Tabs.Trigger>
-							<Tabs.Trigger value="employment">Employment</Tabs.Trigger>
+						<Tabs.List class="flex-wrap">
+							<Tabs.Trigger class="rounded-md shadow-sm" value="demographics"
+								>Demographics</Tabs.Trigger
+							>
+							<Tabs.Trigger class="rounded-md shadow-sm" value="housing">Housing</Tabs.Trigger>
+							<Tabs.Trigger class="rounded-md shadow-sm" value="built-form">Built Form</Tabs.Trigger
+							>
+							<Tabs.Trigger class="rounded-md shadow-sm" value="business">Business</Tabs.Trigger>
+							<Tabs.Trigger class="rounded-md shadow-sm" value="civic"
+								>Civic Infrastructure</Tabs.Trigger
+							>
+							<Tabs.Trigger class="rounded-md shadow-sm" value="employment">Employment</Tabs.Trigger
+							>
 						</Tabs.List>
 						<Tabs.Content value="demographics" class="tab-button">
 							<div class="tab-content">
@@ -815,7 +872,7 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Visible Minority'}
-										value={Math.round(selectedStation.VisibleMinorityTotal * 10) / 10 + '%'} 
+										value={Math.round(selectedStation.VisibleMinorityTotal * 10) / 10 + '%'}
 										icon={'mdi:people'}
 									/>
 									<TransitMetric
@@ -923,12 +980,14 @@
 								<div class="metric-container">
 									<TransitMetric
 										label={'Population Density'}
-										value={Math.round(selectedStation.PopulationDensity).toLocaleString() + ' / sq. km'}
+										value={Math.round(selectedStation.PopulationDensity).toLocaleString() +
+											' / sq. km'}
 										icon={'mdi:people'}
 									/>
 									<TransitMetric
 										label={'Employment Density'}
-										value={Math.round(selectedStation.EmploymentDensity).toLocaleString() + ' / sq. km'}
+										value={Math.round(selectedStation.EmploymentDensity).toLocaleString() +
+											' / sq. km'}
 										icon={'mdi:briefcase'}
 									/>
 								</div>
@@ -1342,6 +1401,7 @@
 
 		#sidebar {
 			width: 35%;
+			min-width: 400px;
 			height: 100%;
 			border-top: none;
 			border-right: 1px solid #eee;
@@ -1368,12 +1428,12 @@
 			white-space: nowrap;
 		}
 
-		:global(.tab-root) {
+		:global [data-tabs-list] {
 			padding: 0 1em 0 1em;
 			display: grid;
 			width: 100%;
 			grid-template-columns: 1fr 1fr 1fr;
-			grid-gap: 2px;
+			grid-gap: 4px;
 		}
 	}
 
