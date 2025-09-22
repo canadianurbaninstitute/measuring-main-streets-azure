@@ -9,6 +9,15 @@
 	import Footer from '../lib/ui/Footer.svelte';
 	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 	import '../styles.css';
+
+	// --- Import Tabs ---
+	import DemographicsTab from './components/DemographicsTab.svelte';
+	import HousingTab from './components/HousingTab.svelte';
+	import BuiltFormTab from './components/BuiltFormTab.svelte';
+	import BusinessTab from './components/BusinessTab.svelte';
+	import CivicTab from './components/CivicTab.svelte';
+	import EmploymentTab from './components/EmploymentTab.svelte';
+
 	// --- Data Imports ---
 	import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
@@ -851,255 +860,42 @@
 							>
 						</Tabs.List>
 						<Tabs.Content value="demographics" class="tab-button">
-							<div class="tab-content">
-								<div class="metric-container">
-									<TransitMetric
-										label={'Population'}
-										value={selectedStation.TotalPopulation.toLocaleString()}
-										icon={'fluent:people-20-filled'}
-									/>
-									<TransitMetric
-										label={'Households'}
-										value={selectedStation.TotalHouseholds.toLocaleString()}
-										icon={'mdi:house'}
-									/>
-								</div>
-								<TransitMetric
-									label={'Average Employment Income'}
-									value={'$' + Math.round(selectedStation.AverageEmploymentIncome).toLocaleString()}
-									icon={'mdi:wallet'}
-								/>
-								<div class="metric-container">
-									<TransitMetric
-										label={'Visible Minority'}
-										value={Math.round(selectedStation.VisibleMinorityTotal * 10) / 10 + '%'}
-										icon={'mdi:people'}
-									/>
-									<TransitMetric
-										label={'Immigrants'}
-										value={Math.round(selectedStation.TotalImmigrant * 10) / 10 + '%'}
-										icon={'mdi:globe'}
-									/>
-									<TransitMetric
-										label={'Indigenous'}
-										value={Math.round(selectedStation.IndigenousIdentity * 10) / 10 + '%'}
-										icon={'mdi:people'}
-									/>
-								</div>
-								<TransitMetric
-									label={'University Degree'}
-									value={Math.round(selectedStation.UniversityDegree * 10) / 10 + '%'}
-									icon={'mdi:school'}
-								/>
-								<div class="chart-container">
-									<div class="chart">
-										<BarChart
-											colors={['#002a41', '#0098D6', '#db3069']}
-											data={ageData}
-											zKey="label"
-											xKey="value"
-											yKey="y"
-											title="Age"
-											xMax="100"
-											mode="stacked"
-											legend="true"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-										/>
-									</div>
-								</div>
-							</div>
+							<DemographicsTab 
+								{selectedStation} 
+								{ageData}
+							/>
 						</Tabs.Content>
 						<Tabs.Content value="housing" class="tab-button">
-							<div class="tab-content">
-								<div class="metric-container">
-									<TransitMetric
-										label={'Total Dwellings'}
-										value={selectedStation.dwellings}
-										icon={'mdi:house'}
-									/>
-									<TransitMetric
-										label={'Average Value'}
-										value={Math.round(selectedStation.HouseValue).toLocaleString()}
-										icon={'mdi:dollar'}
-									/>
-									<TransitMetric
-										label={'Average Rent'}
-										value={Math.round(selectedStation.MonthlyRent).toLocaleString()}
-										icon={'mdi:dollar'}
-									/>
-								</div>
-								<div class="chart-container">
-									<div class="chart">
-										<BarChart
-											colors={['#002a41', '#0098D6']}
-											data={ownerData}
-											zKey="label"
-											xKey="value"
-											yKey="y"
-											title="Owners/Renters"
-											xMax="100"
-											mode="stacked"
-											legend="true"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-										/>
-									</div>
-									<div class="chart">
-										<BarChart
-											colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
-											data={dwellingData}
-											zKey="label"
-											xKey="value"
-											yKey="y"
-											title="Dwelling Type"
-											xMax="100"
-											mode="stacked"
-											legend="true"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-										/>
-									</div>
-									<div class="chart">
-										<BarChart
-											colors={['#002a41']}
-											data={housingData}
-											xKey="value"
-											yKey="label"
-											title="Housing Construction Year"
-											yMax="100"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
-										/>
-									</div>
-								</div>
-							</div>
+							<HousingTab 
+								{selectedStation}
+								{ownerData}
+								{dwellingData}
+								{housingData}
+							/>
 						</Tabs.Content>
 						<Tabs.Content value="built-form" class="tab-button">
-							<div class="tab-content">
-								<div class="metric-container">
-									<TransitMetric
-										label={'Population Density'}
-										value={Math.round(selectedStation.PopulationDensity).toLocaleString() +
-											' / sq. km'}
-										icon={'mdi:people'}
-									/>
-									<TransitMetric
-										label={'Employment Density'}
-										value={Math.round(selectedStation.EmploymentDensity).toLocaleString() +
-											' / sq. km'}
-										icon={'mdi:briefcase'}
-									/>
-								</div>
-								<div class="metric-container">
-									<TransitMetric
-										label={'Green Space'}
-										value={Math.round(stationBuiltForm.area_green).toLocaleString() + ' sq. m'}
-										icon={'mdi:pine-tree-variant'}
-									/>
-									<TransitMetric
-										label={'Water'}
-										value={Math.round(stationBuiltForm.area_water).toLocaleString() + ' sq. m'}
-										icon={'mdi:waves'}
-									/>
-									<TransitMetric
-										label={'Buildings'}
-										value={Math.round(stationBuiltForm.area_building).toLocaleString() + ' sq. m'}
-										icon={'mdi:office-building'}
-									/>
-									<TransitMetric
-										label={'Parking'}
-										value={Math.round(stationBuiltForm.area_parking).toLocaleString() + ' sq. m'}
-										icon={'mdi:car'}
-									/>
-								</div>
-								<div></div>
-							</div></Tabs.Content
-						>
+							<BuiltFormTab
+								{selectedStation}
+								{stationBuiltForm}
+							/>
+						</Tabs.Content>
 						<Tabs.Content value="business" class="tab-button">
-							<div class="tab-content">
-								<div class="metric-container">
-									<TransitMetric
-										label={'Main Street Businesses'}
-										value={Math.round(selectedStation.BusinessCount).toLocaleString()}
-										icon={'mdi:shop'}
-									/>
-									<TransitMetric
-										label={'Independent Business Index'}
-										value={selectedStation.bii}
-										icon={'mdi:score'}
-									/>
-								</div>
-								<div class="chart-container">
-									<div class="chart">
-										<BarChart
-											colors={['#43b171', '#F13737', '#2a5cac']}
-											data={businessData}
-											zKey="label"
-											xKey="value"
-											yKey="y"
-											title="Main Street Business"
-											xMax="100"
-											mode="stacked"
-											legend="true"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-										/>
-									</div>
-								</div>
-							</div>
+							<BusinessTab
+								{selectedStation}
+								{businessData}
+							/>
 						</Tabs.Content>
 						<Tabs.Content value="civic" class="tab-button">
-							<div class="tab-content">
-								<TransitMetric
-									label={'Civic Infrastructure Locations'}
-									value={Math.round(selectedStation.CivicCount).toLocaleString()}
-									icon={'mdi:museum'}
-								/>
-								<div class="chart-container">
-									<div class="chart">
-										<BarChart
-											colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-											data={civicData}
-											zKey="label"
-											xKey="value"
-											yKey="y"
-											title="Civic Infrastructure"
-											xMax="100"
-											mode="stacked"
-											legend="true"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-										/>
-									</div>
-								</div>
-							</div>
+							<CivicTab
+								{selectedStation}
+								{civicData}
+							/>
 						</Tabs.Content>
 						<Tabs.Content value="employment" class="tab-button">
-							<div class="tab-content">
-								<TransitMetric
-									label={'Total Employment'}
-									value={Math.round(selectedStation.EmployeeCount).toLocaleString()}
-									icon={'mdi:briefcase'}
-								/>
-								<div class="chart-container">
-									<div class="chart">
-										<BarChart
-											colors={['#db3069', '#0098D6', '#b0b0b0']}
-											data={employmentData}
-											zKey="label"
-											xKey="value"
-											yKey="y"
-											title="Employment Mix"
-											xMax="100"
-											mode="stacked"
-											legend="true"
-											xSuffix="%"
-											padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
-										/>
-									</div>
-								</div>
-							</div>
+							<EmploymentTab
+								{selectedStation}
+								{employmentData}
+							/>
 						</Tabs.Content>
 					</Tabs.Root>
 				{:else if stationSelected}
@@ -1175,18 +971,6 @@
 <style>
 	p {
 		margin-top: 0;
-	}
-
-	.metric-container {
-		display: flex;
-		flex-direction: row;
-		gap: 0.5em;
-	}
-
-	.chart {
-		border: 1px solid #eee;
-		padding: 1em;
-		border-radius: 0.5em;
 	}
 
 	#title {
@@ -1303,17 +1087,6 @@
 		flex-direction: row;
 		align-items: center;
 		gap: 1em;
-	}
-
-	.chart-container {
-		margin: 1em 0 1em 0;
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-	}
-
-	.tab-content {
-		padding: 1em;
 	}
 
 	.search-input {
