@@ -2,9 +2,9 @@
 	import * as turf from '@turf/turf';
 	import type { FeatureCollection, Geometry } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import '../../styles.css';
-	// --- Data Imports ---
+// --- Data Imports ---
 	import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
 
@@ -20,6 +20,63 @@
 	let stationSelected = false;
 	let processedStationData = [];
 	let activeRegion = null;
+
+  	const line_colors = {
+		7: '#00923f',
+		6: '#f8c300',
+		5: '#a21a68',
+		8: '#00b0ef',
+		113: '#f58831',
+		206: '#005e9f',
+		209: '#00853d',
+		210: '#ee2e22',
+		211: '#8d0133',
+		213: '#dd6327',
+		212: '#02abe7',
+		207: '#7d4b0d',
+		115: '#8a999a',
+		208: '#2486c7',
+		116: '#b6d87b',
+		117: '#1cb4e3',
+		118: '#0c4c91',
+		1: '#008e4f',
+		2: '#ef8122',
+		3: '#ffe32a',
+		4: '#0183c9',
+		200: '#f06278',
+		204: '#ffdc7e',
+		201: '#9897c7',
+		203: '#55b6b1',
+		205: '#ca559a',
+		106: '#89bd40',
+		112: '#f9c322',
+		102: '#d51b32',
+		100: '#028ab1',
+		101: '#02aa1d',
+		104: '#ff0f00',
+		103: '#111e89',
+		105: '#1b8744',
+		11: '#019bc8',
+		10: '#005dab',
+		9: '#fed126',
+		214: '#77278d',
+		108: '#d30f1d',
+		110: '#8f7210',
+		111: '#0980a5',
+		107: '#0070ff',
+		109: '#65a233',
+		114: '#a6dca8'
+	};
+
+  function desaturate(hex: string, amount = 0.5): string {
+    // amount = 0 → original, 1 → fully grey
+    const [r, g, b] = hex.match(/\w\w/g)!.map(x => parseInt(x, 16));
+    const avg = (r + g + b) / 3;
+    const newR = Math.round(r + (avg - r) * amount);
+    const newG = Math.round(g + (avg - g) * amount);
+    const newB = Math.round(b + (avg - b) * amount);
+    return `rgb(${newR}, ${newG}, ${newB})`;
+  }
 
 	function buildLineIndex(regionsData) {
 		const index = new Map();
@@ -45,29 +102,34 @@
 		selectedStation = station;
 	}
 
-	function highlightLine(selectedLineId: number | null) {
-		if (!map) return;
-		if (selectedLineId) {
-			map.setPaintProperty('transit-lines', 'line-opacity', [
-				'match',
-				['get', 'line_id'],
-				selectedLineId,
-				1, // selected line fully opaque
-				0.2 // other lines semi-transparent
-			]);
-		} else {
-			map.setPaintProperty('transit-lines', 'line-opacity', 1);
-		}
-	}
+function highlightLine(selectedLineId: number | null) {
+  if (!map) return;
+
+  const matchExpression: any[] = ['match', ['get', 'line_id']];
+
+  Object.entries(line_colors).forEach(([id, color]) => {
+    const numericId = Number(id);
+    if (numericId === selectedLineId) {
+      matchExpression.push(numericId, color); // keep original
+    } else {
+      matchExpression.push(numericId, desaturate(color, 1)); // desaturate others
+    }
+  });
+
+  matchExpression.push('#cccccc'); // fallback
+
+  map.setPaintProperty('transit-lines', 'line-color', matchExpression);
+}
 
 	function highlightStation(selectedStationId: number | null) {
 		if (!map) return;
+    if (!map.getLayer('transit-stations')) return;
 
 		if (selectedStationId) {
 			// Set color: yellow for selected, original for others
 			map.setPaintProperty('transit-stations', 'circle-color', [
 				'case',
-				['==', ['get', 'id'], selectedStationId],
+				['==', ['get', 'id'], selectedStationId.toString()],
 				'#FFD700', // yellow for selected station
 				'#fff' // default station color
 			]);
@@ -80,7 +142,6 @@
 
 	function selectCurrentLine(line: number) {
 		if (!map || !line) return;
-
 		// Step 1: zoom to the region first
 		const bounds = lineIndex.get(line);
 		if (!bounds) {
@@ -227,17 +288,35 @@
 			}
 		});
 
-		map.on('load', () => {
-			// force recalculation of container dimensions
-			map.resize();
-		});
+    map.on('load', async () => {
+      await tick();
+      map.resize();
+    })
 	});
 
-	$effect(() => {
-		if (map && selectedLine) {
-			selectCurrentLine(selectedLine);
-		}
-	});
+$effect(() => {
+  if (map && selectedLine) {
+    (async () => {
+      selectCurrentLine(selectedLine);
+      await tick();   // wait for DOM updates
+      map.resize();   // recalc map size
+    })();
+  }
+});
+
+// $effect(() => {
+//   if (!map) return;
+
+//   if (selectedStation != null && selectedStation !== 0) {
+//     highlightStation(selectedStation);
+//   } else {
+//     highlightStation(null);
+//   }
+// });
+
+$effect(() => {
+  highlightStation(selectedStation ?? null)
+});
 </script>
 
 <svelte:head>
@@ -256,6 +335,7 @@
 <style>
 	#map {
 		width: 100%;
+    min-height: 600px;
 		height: 100%;
 		position: relative;
 		order: -1;

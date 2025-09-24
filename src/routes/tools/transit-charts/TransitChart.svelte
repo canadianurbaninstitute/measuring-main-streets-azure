@@ -264,6 +264,9 @@
 			.on('mouseout', function () {
 				d3.select(this).style('filter', 'none');
 				tooltip.transition().duration(500).style('opacity', 0);
+			})
+      .on('click', function (e, d) {
+        selectedStation = +d.id;
 			});
 
 		// Animate bars to their final width
