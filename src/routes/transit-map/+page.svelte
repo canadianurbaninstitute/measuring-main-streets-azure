@@ -846,17 +846,17 @@
 						onValueChange={(value) => handleTabChange(value)}
 					>
 						<Tabs.List class="flex-wrap">
-							<Tabs.Trigger class="rounded-md shadow-sm" value="demographics"
+							<Tabs.Trigger  class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="demographics"
 								>Demographics</Tabs.Trigger
 							>
-							<Tabs.Trigger class="rounded-md shadow-sm" value="housing">Housing</Tabs.Trigger>
-							<Tabs.Trigger class="rounded-md shadow-sm" value="built-form">Built Form</Tabs.Trigger
+							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="housing">Housing</Tabs.Trigger>
+							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="built-form">Built Form</Tabs.Trigger
 							>
-							<Tabs.Trigger class="rounded-md shadow-sm" value="business">Business</Tabs.Trigger>
-							<Tabs.Trigger class="rounded-md shadow-sm" value="civic"
+							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="business">Business</Tabs.Trigger>
+							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="civic"
 								>Civic Infrastructure</Tabs.Trigger
 							>
-							<Tabs.Trigger class="rounded-md shadow-sm" value="employment">Employment</Tabs.Trigger
+							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="employment">Employment</Tabs.Trigger
 							>
 						</Tabs.List>
 						<Tabs.Content value="demographics" class="tab-button">
