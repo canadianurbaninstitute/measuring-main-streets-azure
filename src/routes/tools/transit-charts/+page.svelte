@@ -1,10 +1,11 @@
 <script>
-	import stationData from '../../lib/data/transitdata/chart-stations.json';
+	import { onMount } from 'svelte';
+  // import stationData from '../../lib/data/transitdata/chart-stations.json';
 	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
+	import Select from '../../lib/ui/Select.svelte';
 	import '../../styles.css';
 	import TransitChart from './TransitChart.svelte';
 	import TransitMap from './TransitMap.svelte';
-	import Select from '../../lib/ui/Select.svelte';
 
 	// Available metrics that can be displayed for each station add more as needed
 	const variablesArray = [
@@ -18,7 +19,7 @@
 
 	let variables = $state(variablesArray);
 	let selectedVariable = $state('TotalPopulation'); // Currently selected metric to display
-	let data = $state(stationData);
+	let data = $state();
 	let selectedLine = $state(0);
 	let selectedStation = $state(0);
 	// Auto-select first available line when component initializes
@@ -30,6 +31,16 @@
 			}
 		}
 	});
+
+  onMount(async () => {
+    try {
+      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/chart-stations.json');
+      data = await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  });
+
 </script>
 
 <div class="hero">
@@ -77,7 +88,9 @@
 		<TransitMap bind:selectedLine bind:selectedStation />
 	</div>
 	<div class="col-span-1 md:col-span-2">
+    {#if data?.length}
 		<TransitChart {data} bind:selectedLine {variables} bind:selectedStation {selectedVariable} />
+    {/if}
 	</div>
 </div>
 
