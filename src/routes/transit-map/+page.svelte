@@ -468,13 +468,6 @@
 		}
 	}
 
-	// --- Format Display Numbers ---
-	// https://stackoverflow.com/a/10899795
-	function numberWithCommas(n) {
-		var parts = n.toString().split('.');
-		return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (parts[1] ? '.' + parts[1] : '');
-	}
-
 	// --- Reactive Logic with Fuse.js search library ---
 	$: searchResults = searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] };
 
@@ -571,6 +564,12 @@
 					}
 				}
 			});
+			// click function for transit region points
+			map.on('click', 'transit-region-points', (e) => {
+				const regionId = e.features[0].properties.id;
+				const regionClicked = regionsData.find((r) => r.id === regionId);
+				selectRegion(regionClicked);
+			});
 		});
 
 		// show popups on hover
@@ -588,7 +587,14 @@
 
 		popup.addClassName('line-popup');
 
-		map.on('mouseenter', ['transit-stations', 'transit-lines'], () => {
+		const popup3 = new mapboxgl.Popup({
+			closeButton: false,
+			closeOnClick: false
+		});
+
+		popup3.addClassName('region-popup');
+
+		map.on('mouseenter', ['transit-stations', 'transit-lines', 'transit-region-points'], () => {
 			map.getCanvas().style.cursor = 'pointer';
 		});
 
@@ -608,6 +614,24 @@
 			}
 		});
 
+		map.on('mousemove', 'transit-region-points', (e) => {
+			if (e.features.length > 0) {
+				const coordinates = e.lngLat;
+				const name = e.features[0].properties.region;
+
+				if (map.getZoom() <= 5){ // only show pop-up if map is zoomed out
+					popup3
+						.setLngLat(coordinates)
+						.setHTML(
+							`
+					<span class="label-name">${name}</span>
+							`
+						)
+						.addTo(map);
+				}
+			}
+		});
+
 		map.on('mouseleave', 'transit-stations', () => {
 			popup.remove();
 		});
@@ -616,9 +640,14 @@
 			popup2.remove();
 		});
 
-		map.on('mouseleave', ['transit-stations', 'transit-lines'], () => {
+		map.on('mouseleave', 'transit-region-points', () => {
+			popup3.remove();
+		});
+
+		map.on('mouseleave', ['transit-stations', 'transit-lines', 'transit-region-points'], () => {
 			map.getCanvas().style.cursor = '';
 		});
+
 	});
 
 	// --- Filter/Tab UI Handlers ---
