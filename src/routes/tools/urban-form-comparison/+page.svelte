@@ -34,6 +34,10 @@
 	let station1Data;
 	let station2Data;
 
+	// Error messages for user display
+	let station1Error = '';
+	let station2Error = '';
+
 	// Station area radius in km
 	const radiusInKilometers = 0.8;
 
@@ -89,9 +93,11 @@
 		
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 1: Station not found in data`);
+			station1Error = 'Station data not available';
 			return; // Keep previous valid state
 		}
 		
+		station1Error = ''; // Clear error on successful selection
 		selectedStation1 = newStationId;
 	}
 
@@ -101,9 +107,11 @@
 		
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 2: Station not found in data`);
+			station2Error = 'Station data not available';
 			return; // Keep previous valid state
 		}
 		
+		station2Error = ''; // Clear error on successful selection
 		selectedStation2 = newStationId;
 	}
 
@@ -297,6 +305,9 @@
 		const updateSuccess = updateStationData(1, selectedStation1);
 		
 		if (updateSuccess) {
+			// Clear any previous errors
+			station1Error = '';
+			
 			// Update map for selection
 			updateMapWithStationData(map1, mapData[1], {
 				updateStylingCallback: updateStationStyling
@@ -317,6 +328,9 @@
 		const updateSuccess = updateStationData(2, selectedStation2);
 		
 		if (updateSuccess) {
+			// Clear any previous errors
+			station2Error = '';
+			
 			// Update map for selection
 			updateMapWithStationData(map2, mapData[2], {
 				updateStylingCallback: updateStationStyling
@@ -443,6 +457,11 @@
 				placeholder={'Search for a station'}
 				selected={selectedStation1}
 			></Combobox>
+			<div class="h-4 text-center">
+				{#if station1Error}
+					<div class="error-message">{station1Error}</div>
+				{/if}
+			</div>
 		</div>
 		<div id="map1"></div>
 	</div>
@@ -458,6 +477,11 @@
 				placeholder={'Search for a station'}
 				selected={selectedStation2}
 			></Combobox>
+			<div class="h-4 text-center">
+				{#if station2Error}
+					<div class="error-message">{station2Error}</div>
+				{/if}
+			</div>
 		</div>
 		<div id="map2"></div>
 	</div>
@@ -501,7 +525,7 @@
 	/>
 </div>
 
-<div class="container mx-auto flex justify-center w-4xl pb-10">
+<div class="container mx-auto flex justify-center px-4 sm:px-6 pb-10 max-w-4xl">
 	<MetricsDisplay 
 		{station1Data}
 		{station2Data}
@@ -522,5 +546,10 @@
 		overflow: hidden; /* Clip map to circle */
 		border: 2px solid #d3d3d3;
 		padding: 20px;
+	}
+
+	.error-message {
+		color: #dc2626;
+		font-size: 0.875rem;
 	}
 </style>
