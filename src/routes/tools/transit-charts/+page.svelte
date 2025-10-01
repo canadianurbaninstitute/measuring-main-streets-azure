@@ -14,7 +14,13 @@
 		{ value: 'GreenspaceArea', label: 'Greenspace (square metres)' },
 		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
 		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
-		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' }
+		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' },
+    { value: 'EmployeeCount', label: 'Number of Employees (2021)'},
+    { value: 'EmploymentDensity', label: 'Employment Density (2021)'},
+    { value: 'Main Street Business', label: 'Main Street Businesses'},
+    { value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations'},
+    {value: 'TotalImmigrant', label: 'Total Immigrants (%) (2021)'},
+    {value: 'VisibleMinorityTotal', label: 'Visible Minorities (%) (2021)'},    
 	];
 
 	let variables = $state(variablesArray);
