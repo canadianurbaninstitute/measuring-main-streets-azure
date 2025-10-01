@@ -34,6 +34,10 @@
 	let station1Data;
 	let station2Data;
 
+	// Error messages for user display
+	let station1Error = '';
+	let station2Error = '';
+
 	// Station area radius in km
 	const radiusInKilometers = 0.8;
 
@@ -67,7 +71,10 @@
 	// Create circle and bounding box for station
 	function updateStationData(mapIndex, selectedStationId) {
 		const stationData = stationsProcessed.find((station) => station.id === selectedStationId);
-		if (!stationData) return;
+		if (!stationData) {
+			console.warn(`Station with ID "${selectedStationId}" not found in station data for map ${mapIndex}`);
+			return false;
+		}
 
 		const coords = [stationData.longitude, stationData.latitude];
 		const circle = turf.circle(coords, radiusInKilometers, {
@@ -76,15 +83,36 @@
 		});
 		const bbox = turf.bbox(circle);
 		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
+		return true;
 	}
 
 	// Handle station selection from combobox
 	function handleStation1Select(value) {
-		selectedStation1 = value.toString();
+		const newStationId = value.toString();
+		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
+		
+		if (!stationExists) {
+			console.error(`Cannot select station "${newStationId}" for Map 1: Station not found in data`);
+			station1Error = 'Station data not available';
+			return; // Keep previous valid state
+		}
+		
+		station1Error = ''; // Clear error on successful selection
+		selectedStation1 = newStationId;
 	}
 
 	function handleStation2Select(value) {
-		selectedStation2 = value.toString();
+		const newStationId = value.toString();
+		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
+		
+		if (!stationExists) {
+			console.error(`Cannot select station "${newStationId}" for Map 2: Station not found in data`);
+			station2Error = 'Station data not available';
+			return; // Keep previous valid state
+		}
+		
+		station2Error = ''; // Clear error on successful selection
+		selectedStation2 = newStationId;
 	}
 
 	// Create map instances
@@ -274,27 +302,47 @@
 	// Map 1
 	$: if (selectedStation1 && mapData[1]) {
 		// Create circle and bounding box
-		updateStationData(1, selectedStation1);
-		// Update map for selection
-		updateMapWithStationData(map1, mapData[1], {
-			updateStylingCallback: updateStationStyling
-		});
+		const updateSuccess = updateStationData(1, selectedStation1);
+		
+		if (updateSuccess) {
+			// Clear any previous errors
+			station1Error = '';
+			
+			// Update map for selection
+			updateMapWithStationData(map1, mapData[1], {
+				updateStylingCallback: updateStationStyling
+			});
 
-		station1Metrics = stationMetrics.find(station => station.id === selectedStation1);
-		station1Data = stationsProcessed.find(station => station.id === selectedStation1);
+			station1Metrics = stationMetrics.find(station => station.id === selectedStation1);
+			station1Data = stationsProcessed.find(station => station.id === selectedStation1);
+			
+			if (!station1Metrics) {
+				console.warn(`Metrics not found for station "${selectedStation1}" (Map 1)`);
+			}
+		}
 	}
 
 	// Map 2
 	$: if (selectedStation2 && mapData[2]) {
 		// Create circle and bounding box
-		updateStationData(2, selectedStation2);
-		// Update map for selection
-		updateMapWithStationData(map2, mapData[2], {
-			updateStylingCallback: updateStationStyling
-		});
+		const updateSuccess = updateStationData(2, selectedStation2);
+		
+		if (updateSuccess) {
+			// Clear any previous errors
+			station2Error = '';
+			
+			// Update map for selection
+			updateMapWithStationData(map2, mapData[2], {
+				updateStylingCallback: updateStationStyling
+			});
 
-		station2Metrics = stationMetrics.find(station => station.id === selectedStation2);
-		station2Data = stationsProcessed.find(station => station.id === selectedStation2);
+			station2Metrics = stationMetrics.find(station => station.id === selectedStation2);
+			station2Data = stationsProcessed.find(station => station.id === selectedStation2);
+			
+			if (!station2Metrics) {
+				console.warn(`Metrics not found for station "${selectedStation2}" (Map 2)`);
+			}
+		}
 	}
 
 	// Add layer toggles
@@ -320,6 +368,20 @@
 	});
 
 	onMount(() => {
+		// Validate initial stations exist in data
+		const station1Exists = stationsProcessed.find((station) => station.id === selectedStation1);
+		const station2Exists = stationsProcessed.find((station) => station.id === selectedStation2);
+		
+		if (!station1Exists) {
+			console.error(`Initial station "${selectedStation1}" for Map 1 not found in data. Using first available station.`);
+			selectedStation1 = stationsProcessed[0]?.id || '1';
+		}
+		
+		if (!station2Exists) {
+			console.error(`Initial station "${selectedStation2}" for Map 2 not found in data. Using second available station.`);
+			selectedStation2 = stationsProcessed[1]?.id || '2';
+		}
+		
 		// Initialize data
 		updateStationData(1, selectedStation1);
 		updateStationData(2, selectedStation2);
@@ -356,16 +418,20 @@
 		map1.on('load', () => {
 			// Add layers
 			addMapLayers(map1, stationGeojson, mapData[1]);
-			map1.setCenter([-75.76952808, 45.35552482]);
-			map1.fitBounds(mapData[1].bbox, { padding: 0 });
+			if (mapData[1].coords && mapData[1].bbox) {
+				map1.setCenter(mapData[1].coords);
+				map1.fitBounds(mapData[1].bbox, { padding: 0 });
+			}
 		});
 
 		// Load second map
 		map2.on('load', () => {
 			// Add layers
 			addMapLayers(map2, stationGeojson, mapData[2]);
-			map2.setCenter([-114.0624316, 51.0878946]);
-			map2.fitBounds(mapData[2].bbox, { padding: 0 });
+			if (mapData[2].coords && mapData[2].bbox) {
+				map2.setCenter(mapData[2].coords);
+				map2.fitBounds(mapData[2].bbox, { padding: 0 });
+			}
 		});
 	});
 </script>
@@ -391,6 +457,11 @@
 				placeholder={'Search for a station'}
 				selected={selectedStation1}
 			></Combobox>
+			<div class="h-4 text-center">
+				{#if station1Error}
+					<div class="error-message">{station1Error}</div>
+				{/if}
+			</div>
 		</div>
 		<div id="map1"></div>
 	</div>
@@ -406,6 +477,11 @@
 				placeholder={'Search for a station'}
 				selected={selectedStation2}
 			></Combobox>
+			<div class="h-4 text-center">
+				{#if station2Error}
+					<div class="error-message">{station2Error}</div>
+				{/if}
+			</div>
 		</div>
 		<div id="map2"></div>
 	</div>
@@ -449,7 +525,7 @@
 	/>
 </div>
 
-<div class="container mx-auto flex justify-center w-4xl pb-10">
+<div class="container mx-auto flex justify-center px-4 sm:px-6 pb-10 max-w-4xl">
 	<MetricsDisplay 
 		{station1Data}
 		{station2Data}
@@ -470,5 +546,10 @@
 		overflow: hidden; /* Clip map to circle */
 		border: 2px solid #d3d3d3;
 		padding: 20px;
+	}
+
+	.error-message {
+		color: #dc2626;
+		font-size: 0.875rem;
 	}
 </style>
