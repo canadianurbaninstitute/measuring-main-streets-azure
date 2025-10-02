@@ -15,12 +15,11 @@
 		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
 		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
 		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' },
-    { value: 'EmployeeCount', label: 'Number of Employees (2021)'},
-    { value: 'EmploymentDensity', label: 'Employment Density (2021)'},
+    { value: 'EmployeeCount', label: 'Number of Employees'},
     { value: 'Main Street Business', label: 'Main Street Businesses'},
     { value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations'},
-    {value: 'TotalImmigrant', label: 'Total Immigrants (%) (2021)'},
-    {value: 'VisibleMinorityTotal', label: 'Visible Minorities (%) (2021)'},    
+    {value: 'TotalImmigrant', label: 'Total Immigrants (%)'},
+    {value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)'},    
 	];
 
 	let variables = $state(variablesArray);
@@ -56,7 +55,7 @@
 		line and a metric—such as population, households, or average income—and the chart will update to
 		display how that metric varies across the stations. Each bar represents a stop, with taller bars
 		indicating higher values. This helps you quickly compare areas along the route and understand
-		patterns in the station areas of the transit system.
+		patterns in the station areas of the transit system. Data is from 2024 unless otherwise specified.
 	</p>
 </div>
 <div class="chart-container grid grid-cols-1 md:grid-cols-3 gap-4">
