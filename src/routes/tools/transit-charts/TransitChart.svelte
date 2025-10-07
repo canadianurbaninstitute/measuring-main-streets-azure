@@ -158,7 +158,7 @@
 		const margin = {
 			top: 50,
 			right: 50,
-			bottom: 60,
+			bottom: 50,
 			left: estimateMargin(longestLabelLen)
 		};
 		const chartHostDivWidth = chart.getBoundingClientRect().width;
@@ -284,7 +284,7 @@
 				g.select('.domain').remove();
 			})
 			.selectAll('text')
-			.attr('x', -40)
+			.attr('dx', -40)
 			.style('font-family', 'Inter, sans-serif')
 			.style('font-size', '12px')
 			.style('font-weight', '600')
@@ -322,7 +322,7 @@
 			.append('svg')
 			.attr('class', 'x-axis-ticks-svg') // CSS class for sticky positioning
 			.attr('width', chartHostDivWidth)
-			.attr('height', stickyXAxisHeight);
+			.attr('height', stickyXAxisHeight + 25);
 
 		const xAxisG = xAxisTicksSvg
 			.append('g')
@@ -337,6 +337,10 @@
 			g.select('.domain').attr('stroke-width', '2px');
 
 			g.selectAll('text')
+        .attr('transform', 'rotate(-45)')
+        .attr('dx', '-0.5em') // move left
+        .attr('dy', '0.5em')  // move down
+        .style('text-anchor', 'end') 
 				.style('font-family', 'Inter, sans-serif')
 				.style('font-size', '12px')
 				.style('font-weight', '600')
