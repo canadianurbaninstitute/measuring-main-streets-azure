@@ -5,7 +5,7 @@
 	import { onMount, tick } from 'svelte';
 	import '../../styles.css';
 // --- Data Imports ---
-	import stationRawData from '../../lib/data/transitdata/stations.json';
+	// import stationRawData from '../../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
 
 	let { selectedLine = $bindable(), selectedStation = $bindable() } = $props();
@@ -20,6 +20,7 @@
 	let stationSelected = false;
 	let processedStationData = [];
 	let activeRegion = null;
+  let stationRawData
 
   	const line_colors = {
 		7: '#00923f',
@@ -67,7 +68,6 @@
 		109: '#65a233',
 		114: '#a6dca8'
 	};
-
   function desaturate(hex: string, amount = 0.5): string {
     // amount = 0 → original, 1 → fully grey
     const [r, g, b] = hex.match(/\w\w/g)!.map(x => parseInt(x, 16));
@@ -178,7 +178,15 @@ function highlightLine(selectedLineId: number | null) {
 		selectedStation = 0;
 	}
 
-	onMount(() => {
+	onMount(async () => {
+    try {
+      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json');
+      stationRawData = await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return
+    }
+
 		if (!accessToken) {
 			console.error('Mapbox access token is required');
 			return;
@@ -291,11 +299,16 @@ function highlightLine(selectedLineId: number | null) {
     map.on('load', async () => {
       await tick();
       map.resize();
-    })
+
+      // If there's already a selectedLine, zoom to it after map loads
+      if (selectedLine) {
+        selectCurrentLine(selectedLine);
+      }
+    });
 	});
 
 $effect(() => {
-  if (map && selectedLine) {
+  if (map && map.loaded() && selectedLine) {
     (async () => {
       selectCurrentLine(selectedLine);
       await tick();   // wait for DOM updates

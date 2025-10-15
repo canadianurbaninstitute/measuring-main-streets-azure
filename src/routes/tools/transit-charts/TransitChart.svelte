@@ -1,7 +1,8 @@
 <script lang="ts">
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
-	import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
+	import lineColors from '../../lib/data/transitdata/line-colors.json';
+	// import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
 	// labels for the select dropdown
 	// labels for the select dropdown
 
@@ -15,57 +16,21 @@
 
 	let chart; // Reference to the main chart container div
 	let tooltip; // D3 tooltip element for hover interactions
-
+  let transitLines = $state();
 	// Height reserved for the sticky X-axis that remains visible during scroll
-	const stickyXAxisHeight = 35;
+	const stickyXAxisHeight = 50;
 
 	// Color mapping for different transit lines - each line has a unique color base on id
-	const line_colors = {
-		7: '#00923f',
-		6: '#f8c300',
-		5: '#a21a68',
-		8: '#00b0ef',
-		113: '#f58831',
-		206: '#005e9f',
-		209: '#00853d',
-		210: '#ee2e22',
-		211: '#8d0133',
-		213: '#dd6327',
-		212: '#02abe7',
-		207: '#7d4b0d',
-		115: '#8a999a',
-		208: '#2486c7',
-		116: '#b6d87b',
-		117: '#1cb4e3',
-		118: '#0c4c91',
-		1: '#008e4f',
-		2: '#ef8122',
-		3: '#ffe32a',
-		4: '#0183c9',
-		200: '#f06278',
-		204: '#ffdc7e',
-		201: '#9897c7',
-		203: '#55b6b1',
-		205: '#ca559a',
-		106: '#89bd40',
-		112: '#f9c322',
-		102: '#d51b32',
-		100: '#028ab1',
-		101: '#02aa1d',
-		104: '#ff0f00',
-		103: '#111e89',
-		105: '#1b8744',
-		11: '#019bc8',
-		10: '#005dab',
-		9: '#fed126',
-		214: '#77278d',
-		108: '#d30f1d',
-		110: '#8f7210',
-		111: '#0980a5',
-		107: '#0070ff',
-		109: '#65a233',
-		114: '#a6dca8'
-	};
+	const line_colors = lineColors;
+
+  onMount(async () => {
+    try {
+      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-lines-dropdown.json');
+      transitLines = await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  });
 
 	// Handle selection from the new Select component
 	// function handleLineSelect(value) {
@@ -130,10 +95,10 @@
 	 * @param {number} longestLabelLen - Length of longest station name
 	 * @returns {number} Calculated margin width
 	 */
-	function estimateMargin(longestLabelLen) {
-		const charWidth = 7;
+	function estimateMargin(longestLabelLen, chartHostDivWidth = 600) {
+		const charWidth = chartHostDivWidth < 500 ? 5 : 7;
 		const labelWidth = longestLabelLen * charWidth;
-		return 100 + labelWidth;
+		return 70 + labelWidth;
 	}
 
 	/**
@@ -144,7 +109,7 @@
 		if (!chart) return;
 
 		// Add padding to accommodate sticky X-axis
-		chart.style.paddingBottom = `${stickyXAxisHeight}px`;
+		chart.style.paddingBottom = `${0}px`;
 
 		// Clear chart if no data available
 		if (!filteredData.length) {
@@ -155,13 +120,13 @@
 		// Calculate chart dimensions and margins
 		const longestLabelLen = d3.max(filteredData, (d) => d.stop_label.length) || 10;
 
+    const chartHostDivWidth = chart.getBoundingClientRect().width;
 		const margin = {
 			top: 50,
-			right: 50,
-			bottom: 50,
-			left: estimateMargin(longestLabelLen)
+			right: chartHostDivWidth < 500 ? 20 : 50,
+			bottom: 40,
+			left: estimateMargin(longestLabelLen, chartHostDivWidth)
 		};
-		const chartHostDivWidth = chart.getBoundingClientRect().width;
 		const plotAreaWidth = chartHostDivWidth - margin.left - margin.right;
 		const barH = 25; // Height of each bar
 		const plotAreaHeight = barH * filteredData.length;
@@ -187,12 +152,12 @@
 
 		// Create main chart SVG for plot area, Y-axis, and grid
 		d3.select(chart).select('svg.main-chart-svg').remove();
-		const rootSvg = d3
+		const rootSvg = d3 
 			.select(chart)
 			.append('svg')
 			.attr('class', 'main-chart-svg')
 			.attr('width', chartHostDivWidth)
-			.attr('height', plotAreaHeight + margin.top);
+			.attr('height', plotAreaHeight + margin.top + margin.bottom);
 
 		const plotAreaG = rootSvg
 			.append('g')
@@ -284,9 +249,11 @@
 				g.select('.domain').remove();
 			})
 			.selectAll('text')
-			.attr('dx', -40)
+			.attr('dx', -25)
+      .attr('dy', -15)
+	    .attr('transform', 'rotate(-30)')
 			.style('font-family', 'Inter, sans-serif')
-			.style('font-size', '12px')
+			.style('font-size', chartHostDivWidth < 500 ? '10px' : '12px')
 			.style('font-weight', '600')
 			.style('text-transform', 'uppercase');
 
@@ -322,11 +289,12 @@
 			.append('svg')
 			.attr('class', 'x-axis-ticks-svg') // CSS class for sticky positioning
 			.attr('width', chartHostDivWidth)
-			.attr('height', stickyXAxisHeight + 25);
+			.attr('height', stickyXAxisHeight)
+      .attr('transform', `translate(${0}, ${-30})`);;
 
 		const xAxisG = xAxisTicksSvg
 			.append('g')
-			.attr('transform', `translate(${margin.left}, ${stickyXAxisHeight - 25})`);
+			.attr('transform', `translate(${margin.left}, ${0})`);
 
 		// Style the X-axis with formatted numbers
 		xAxisG.call(d3.axisBottom(x).tickFormat(d3.format(','))).call((g) => {
@@ -397,19 +365,20 @@
 <style>
 	/* Main container styling */
 	.container {
+    min-width: 100%;
 		box-sizing: border-box;
-		width: 90%;
 		margin: 0;
 		font-family: 'Inter', sans-serif;
 	}
 	/* Chart container with relative positioning for sticky elements */
 	.chart {
-		width: 100%;
-		box-sizing: border-box;
+    background: transparent;
+    min-width: 100%;
 		position: relative; /* Required for sticky positioning context */
 		border: 1px solid #eee;
 		border-radius: 8px;
 	}
+
 
 	/* Sticky X-axis styling - remains visible during scroll */
 	:global(svg.x-axis-ticks-svg) {

@@ -4,15 +4,13 @@
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import Icon from '@iconify/svelte'
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
-	import MetricsDisplay from './MetricsDisplay.svelte';
 	import Checkbox from './Checkbox.svelte';
-
-	// Data Imports
-	import stationRawData from '../../lib/data/transitdata/stations.json';
-	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
+	import MetricsDisplay from './MetricsDisplay.svelte';
+// Data Imports
+	// import stationRawData from '../../lib/data/transitdata/stations.json';
+	// import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
 	import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
 
 	import '../../styles.css';
@@ -67,6 +65,28 @@
 	let parkingCheck;
 	let buildingsCheck;
 	let waterCheck;
+
+  // load data from remote
+  let transitStationsDropdown
+  let stationRawData
+  
+  onMount(async () => {
+    try {
+      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-stations-dropdown.json');
+      transit = await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  });
+
+    onMount(async () => {
+    try {
+      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json');
+      stationRawData = await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  });
 
 	// Create circle and bounding box for station
 	function updateStationData(mapIndex, selectedStationId) {
