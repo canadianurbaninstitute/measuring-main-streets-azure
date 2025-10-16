@@ -1,8 +1,7 @@
-//TODO: Number of employees McCowan/Sheppard seems high
-
 <script>
+	// TODO: Number of employees McCowan/Sheppard seems high
 	import { onMount } from 'svelte';
-  // import stationData from '../../lib/data/transitdata/chart-stations.json';
+	// import stationData from '../../lib/data/transitdata/chart-stations.json';
 	// import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
 	import lineColors from '../../lib/data/transitdata/line-colors.json';
 	import Select from '../../lib/ui/Select.svelte';
@@ -19,17 +18,17 @@
 		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
 		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
 		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' },
-    { value: 'EmployeeCount', label: 'Number of Employees'},
-    { value: 'Main Street Business', label: 'Main Street Businesses'},
-    { value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations'},
-    {value: 'TotalImmigrant', label: 'Total Immigrants (%)'},
-    {value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)'},    
+		{ value: 'EmployeeCount', label: 'Number of Employees' },
+		{ value: 'Main Street Business', label: 'Main Street Businesses' },
+		{ value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations' },
+		{ value: 'TotalImmigrant', label: 'Total Immigrants (%)' },
+		{ value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)' }
 	];
 
 	let variables = $state(variablesArray);
 	let selectedVariable = $state('TotalPopulation'); // Currently selected metric to display
 	let data = $state();
-  let transitLines = $state();
+	let transitLines = $state();
 	let selectedLine = $state(0);
 	let selectedStation = $state(0);
 	// Auto-select first available line when component initializes
@@ -42,27 +41,30 @@
 		}
 	});
 
-  let lineColor = $derived(lineColors[selectedLine]);
+	let lineColor = $derived(lineColors[selectedLine]);
 
-  onMount(async () => {
-    try {
-      //TODO change to chart_stations.json once transit-data script is working
-      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/chart-stations.json');
-      data = await response.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  });
+	onMount(async () => {
+		try {
+			//TODO change to chart_stations.json once transit-data script is working
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/chart-stations.json'
+			);
+			data = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	});
 
-    onMount(async () => {
-    try {
-      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-lines-dropdown.json');
-      transitLines = await response.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  });
-
+	onMount(async () => {
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-lines-dropdown.json'
+			);
+			transitLines = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	});
 </script>
 
 <div class="hero">
@@ -72,7 +74,8 @@
 		line and a metric—such as population, households, or average income—and the chart will update to
 		display how that metric varies across the stations. Each bar represents a stop, with taller bars
 		indicating higher values. This helps you quickly compare areas along the route and understand
-		patterns in the station areas of the transit system. Data is from 2024 unless otherwise specified.
+		patterns in the station areas of the transit system. Data is from 2024 unless otherwise
+		specified.
 	</p>
 </div>
 <div class="chart-container grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -110,12 +113,12 @@
 		<TransitMap bind:selectedLine bind:selectedStation />
 	</div>
 	<div class="col-span-1 md:col-span-2 w-[90%] order-1 md:order-2">
-    {#if data?.length}
-		<TransitChart {data} bind:selectedLine {variables} bind:selectedStation {selectedVariable} />
-    {#if typeof lineColor === 'string'}
-      <TransitLegend bind:lineColor/>
-    {/if}
-    {/if}
+		{#if data?.length}
+			<TransitChart {data} bind:selectedLine {variables} bind:selectedStation {selectedVariable} />
+			{#if typeof lineColor === 'string'}
+				<TransitLegend bind:lineColor />
+			{/if}
+		{/if}
 	</div>
 </div>
 
