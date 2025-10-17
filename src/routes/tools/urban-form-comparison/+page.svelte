@@ -21,7 +21,7 @@
 
 	// Initial stations
 	let selectedStation1 = '573';
-	let selectedStation2 = '10';
+	let selectedStation2 = '194';
 
 	let station1Metrics;
 	let station2Metrics;
@@ -318,7 +318,7 @@
 	// const stationsProcessed = stationRawData; // Now handled reactively
 
 	// Map 1
-	$: if (selectedStation1 && mapData[1]) {
+	$: if (selectedStation1 && mapData[1] && stationsProcessed.length > 0) {
 		const updateSuccess = updateStationData(1, selectedStation1);
 		if (updateSuccess) {
 			station1Error = '';
@@ -340,7 +340,7 @@
 	}
 
 	// Map 2
-	$: if (selectedStation2 && mapData[2]) {
+	$: if (selectedStation2 && mapData[2] && stationsProcessed.length > 0) {
 		const updateSuccess = updateStationData(2, selectedStation2);
 		if (updateSuccess) {
 			station2Error = '';
@@ -382,6 +382,35 @@
 		water: waterCheck
 	});
 
+	
+	// Validate initial stations
+	let initialStationsValidated = false;
+
+	$: if (!initialStationsValidated && stationsProcessed.length > 0) {
+		const station1Exists = stationsProcessed.find(
+			(station) => station.id.toString() === selectedStation1
+		);
+		const station2Exists = stationsProcessed.find(
+			(station) => station.id.toString() === selectedStation2
+		);
+
+		if (!station1Exists) {
+			console.error(
+				`Initial station "${selectedStation1}" for Map 1 not found in data. Using first available station.`
+			);
+			selectedStation1 = stationsProcessed[0]?.id.toString() || '1';
+		}
+
+		if (!station2Exists) {
+			console.error(
+				`Initial station "${selectedStation2}" for Map 2 not found in data. Using second available station.`
+			);
+			selectedStation2 = stationsProcessed[1]?.id.toString() || '2';
+		}
+
+		initialStationsValidated = true;
+	}
+
 	onMount(async () => {
 		try {
 			const response = await fetch(
@@ -399,28 +428,6 @@
 			stationRawData = await response.json();
 		} catch (error) {
 			console.error('Error fetching map station data:', error);
-		}
-
-		// Validate initial stations exist in data
-		const station1Exists = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStation1
-		);
-		const station2Exists = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStation2
-		);
-
-		if (!station1Exists) {
-			console.error(
-				`Initial station "${selectedStation1}" for Map 1 not found in data. Using first available station.`
-			);
-			selectedStation1 = stationsProcessed[0]?.id || '1';
-		}
-
-		if (!station2Exists) {
-			console.error(
-				`Initial station "${selectedStation2}" for Map 2 not found in data. Using second available station.`
-			);
-			selectedStation2 = stationsProcessed[1]?.id || '2';
 		}
 
 		// Initialize data
