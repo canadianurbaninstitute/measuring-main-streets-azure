@@ -1,27 +1,23 @@
 <script lang="ts">
 	// --- Imports ---
-	import { BarChart } from '@onsvisual/svelte-charts';
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
 	import Fuse from 'fuse.js';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import Footer from '../lib/ui/Footer.svelte';
-	import TransitMetric from '../lib/ui/TransitMetric.svelte';
 	import '../styles.css';
-
-	// --- Import Tabs ---
-	import DemographicsTab from './components/DemographicsTab.svelte';
-	import HousingTab from './components/HousingTab.svelte';
+// --- Import Tabs ---
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import BusinessTab from './components/BusinessTab.svelte';
 	import CivicTab from './components/CivicTab.svelte';
+	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
-
-	// --- Data Imports ---
+	import HousingTab from './components/HousingTab.svelte';
+// --- Data Imports ---
 	import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
-	import stationRawData from '../lib/data/transitdata/stations.json';
+// import stationRawData from '../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 
 	// --- Mapbox Access Token ---
@@ -43,12 +39,15 @@
 	let activeRegion = null;
 	let activeLine = null;
 	let sidebarDisplayItems = [];
-	let stationBuiltForm = [];
+	let stationBuiltForm = {};
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
 	let linesFuse;
 	let stopsFuse;
+
+  // load data from remote
+  let stationRawData
 
 	// --- Chart Data Templates ---
 	let ownerData = [
@@ -176,7 +175,7 @@
 
 		selectedStation = station;
 
-		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id);
+		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
 
 		ageData = [
 			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
@@ -491,7 +490,14 @@
 	}
 
 	// --- Svelte Lifecycle: onMount (Map Initialization) ---
-	onMount(() => {
+	onMount(async() => {
+    try {
+      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json');
+      stationRawData = await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
 		processedStationData = stationRawData.map((station) => ({

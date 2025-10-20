@@ -1,19 +1,14 @@
-<script>
+<script lang="ts">
 	// Imports
 	import * as turf from '@turf/turf';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import Icon from '@iconify/svelte'
+	import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
-	import MetricsDisplay from './MetricsDisplay.svelte';
 	import Checkbox from './Checkbox.svelte';
-
-	// Data Imports
-	import stationRawData from '../../lib/data/transitdata/stations.json';
-	import transitStationsDropdown from '../../lib/data/transitdata/transit-stations-dropdown.json';
-	import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
+	import MetricsDisplay from './MetricsDisplay.svelte';
 
 	import '../../styles.css';
 
@@ -26,10 +21,10 @@
 
 	// Initial stations
 	let selectedStation1 = '573';
-	let selectedStation2 = '10';
+	let selectedStation2 = '194';
 
-	let station1Metrics; 
-	let station2Metrics; 
+	let station1Metrics;
+	let station2Metrics;
 
 	let station1Data;
 	let station2Data;
@@ -68,14 +63,26 @@
 	let buildingsCheck;
 	let waterCheck;
 
+	// Data variables. Initialize as empty arrays.
+	let transitStationsDropdown = [];
+	let stationRawData = [];
+
+	// Create reactive station data from stationRawData.
+	$: stationsProcessed = stationRawData || [];
+
 	// Create circle and bounding box for station
 	function updateStationData(mapIndex, selectedStationId) {
-		const stationData = stationsProcessed.find((station) => station.id === selectedStationId);
+		const stationData = stationsProcessed.find(
+			(station) => station.id.toString() === selectedStationId
+		);
 		if (!stationData) {
-			console.warn(`Station with ID "${selectedStationId}" not found in station data for map ${mapIndex}`);
+			console.warn(
+				`Station with ID "${selectedStationId}" not found in station data for map ${mapIndex}`
+			);
+			// Set a default empty fallback so that the page does not break
+			mapData[mapIndex] = { data: null, coords: [], circle: null, bbox: null };
 			return false;
 		}
-
 		const coords = [stationData.longitude, stationData.latitude];
 		const circle = turf.circle(coords, radiusInKilometers, {
 			steps: 128,
@@ -89,14 +96,15 @@
 	// Handle station selection from combobox
 	function handleStation1Select(value) {
 		const newStationId = value.toString();
+
 		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
-		
+
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 1: Station not found in data`);
 			station1Error = 'Station data not available';
 			return; // Keep previous valid state
 		}
-		
+
 		station1Error = ''; // Clear error on successful selection
 		selectedStation1 = newStationId;
 	}
@@ -104,22 +112,28 @@
 	function handleStation2Select(value) {
 		const newStationId = value.toString();
 		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
-		
+
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 2: Station not found in data`);
 			station2Error = 'Station data not available';
 			return; // Keep previous valid state
 		}
-		
+
 		station2Error = ''; // Clear error on successful selection
 		selectedStation2 = newStationId;
 	}
 
 	// Create map instances
 	function createMap(containerId) {
+		// Ensure the projection value matches the Mapbox typings by casting it to the expected type.
+		const cfg = {
+			...mapConfig,
+			projection: mapConfig.projection as unknown as mapboxgl.Projection
+		};
+
 		return new mapboxgl.Map({
 			container: containerId,
-			...mapConfig
+			...cfg
 		});
 	}
 
@@ -177,7 +191,15 @@
 	}
 
 	// Update map for selected station
-	function updateMapWithStationData(map, stationData, options = {}) {
+	function updateMapWithStationData(
+		map: mapboxgl.Map | undefined,
+		stationData: any,
+		options: {
+			radiusSourceId?: string;
+			stationLayerId?: string;
+			updateStylingCallback?: ((map: mapboxgl.Map, selectedStationFilter: any) => void) | null;
+		} = {}
+	) {
 		const {
 			radiusSourceId = 'station-radius',
 			stationLayerId = 'transit-station-points',
@@ -196,25 +218,26 @@
 			return;
 		}
 
-		// try {
-			// Create filter for selected station
-			const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
+		// Create filter for selected station
+		const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
 
-			// Update the radius circle data if source exists
-			if (map.getSource(radiusSourceId)) {
-				map.getSource(radiusSourceId).setData(circle);
-			}
+		// Update the radius circle data if source exists
+		const source = map.getSource(radiusSourceId) as mapboxgl.GeoJSONSource | undefined;
+		if (source) {
+			// GeoJSONSource doesn't have perfect typings here, so cast to any for setData
+			(source as any).setData(circle);
+		}
 
-			// Update map bounds and center
-			if (bbox && coords) {
-				// set bounds AFTER setting center, otherwise the bounds may be off
-				map.setCenter(coords);
-				map.fitBounds(bbox, { padding: 0 });
-			}
-			// Update station styling if callback is provided
-			if (updateStylingCallback && typeof updateStylingCallback === 'function') {
-				updateStylingCallback(map, selectedStationFilter);
-			}
+		// Update map bounds and center
+		if (bbox && coords) {
+			// set bounds AFTER setting center, otherwise the bounds may be off
+			map.setCenter(coords);
+			map.fitBounds(bbox, { padding: 0 });
+		}
+		// Update station styling if callback is provided
+		if (updateStylingCallback && typeof updateStylingCallback === 'function') {
+			updateStylingCallback(map, selectedStationFilter);
+		}
 	}
 
 	// Handle layer toggles
@@ -285,66 +308,58 @@
 		// Handle water layers
 		const waterLayers = ['water-1', 'waterway-1'];
 		waterLayers.forEach((layer) => {
-			map.setLayoutProperty(
-				layer,
-				'visibility',
-				layerVisibilityConfig.water ? 'visible' : 'none'
-			);
+			map.setLayoutProperty(layer, 'visibility', layerVisibilityConfig.water ? 'visible' : 'none');
 		});
-
 
 		return true; // Successfully updated
 	}
 
-	// Station data
-	const stationsProcessed = stationRawData;
+	// Station data will be that already loaded
+	// const stationsProcessed = stationRawData; // Now handled reactively
 
 	// Map 1
-	$: if (selectedStation1 && mapData[1]) {
-		// Create circle and bounding box
+	$: if (selectedStation1 && mapData[1] && stationsProcessed.length > 0) {
 		const updateSuccess = updateStationData(1, selectedStation1);
-		
 		if (updateSuccess) {
-			// Clear any previous errors
 			station1Error = '';
-			
-			// Update map for selection
 			updateMapWithStationData(map1, mapData[1], {
 				updateStylingCallback: updateStationStyling
 			});
-
-			station1Metrics = stationMetrics.find(station => station.id === selectedStation1);
-			station1Data = stationsProcessed.find(station => station.id === selectedStation1);
-			
+			station1Metrics = stationMetrics.find(
+				(station) => station.id.toString() === selectedStation1
+			);
+			station1Data = stationsProcessed.find(
+				(station) => station.id.toString() === selectedStation1
+			);
 			if (!station1Metrics) {
 				console.warn(`Metrics not found for station "${selectedStation1}" (Map 1)`);
 			}
+		} else {
+			station1Error = 'Station data not available';
 		}
 	}
 
 	// Map 2
-	$: if (selectedStation2 && mapData[2]) {
-		// Create circle and bounding box
+	$: if (selectedStation2 && mapData[2] && stationsProcessed.length > 0) {
 		const updateSuccess = updateStationData(2, selectedStation2);
-		
 		if (updateSuccess) {
-			// Clear any previous errors
 			station2Error = '';
-			
-			// Update map for selection
 			updateMapWithStationData(map2, mapData[2], {
 				updateStylingCallback: updateStationStyling
 			});
-
-			station2Metrics = stationMetrics.find(station => station.id === selectedStation2);
-			station2Data = stationsProcessed.find(station => station.id === selectedStation2);
-			
+			station2Metrics = stationMetrics.find(
+				(station) => station.id.toString() === selectedStation2
+			);
+			station2Data = stationsProcessed.find(
+				(station) => station.id.toString() === selectedStation2
+			);
 			if (!station2Metrics) {
 				console.warn(`Metrics not found for station "${selectedStation2}" (Map 2)`);
 			}
+		} else {
+			station2Error = 'Station data not available';
 		}
 	}
-
 	// Add layer toggles
 	// Map 1
 	$: mapLayerToggle(map1, {
@@ -367,21 +382,54 @@
 		water: waterCheck
 	});
 
-	onMount(() => {
-		// Validate initial stations exist in data
-		const station1Exists = stationsProcessed.find((station) => station.id === selectedStation1);
-		const station2Exists = stationsProcessed.find((station) => station.id === selectedStation2);
-		
+	
+	// Validate initial stations
+	let initialStationsValidated = false;
+
+	$: if (!initialStationsValidated && stationsProcessed.length > 0) {
+		const station1Exists = stationsProcessed.find(
+			(station) => station.id.toString() === selectedStation1
+		);
+		const station2Exists = stationsProcessed.find(
+			(station) => station.id.toString() === selectedStation2
+		);
+
 		if (!station1Exists) {
-			console.error(`Initial station "${selectedStation1}" for Map 1 not found in data. Using first available station.`);
-			selectedStation1 = stationsProcessed[0]?.id || '1';
+			console.error(
+				`Initial station "${selectedStation1}" for Map 1 not found in data. Using first available station.`
+			);
+			selectedStation1 = stationsProcessed[0]?.id.toString() || '1';
 		}
-		
+
 		if (!station2Exists) {
-			console.error(`Initial station "${selectedStation2}" for Map 2 not found in data. Using second available station.`);
-			selectedStation2 = stationsProcessed[1]?.id || '2';
+			console.error(
+				`Initial station "${selectedStation2}" for Map 2 not found in data. Using second available station.`
+			);
+			selectedStation2 = stationsProcessed[1]?.id.toString() || '2';
 		}
-		
+
+		initialStationsValidated = true;
+	}
+
+	onMount(async () => {
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-stations-dropdown.json'
+			);
+			transitStationsDropdown = await response.json();
+		} catch (error) {
+			console.error('Error fetching station dropdown data:', error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json'
+			);
+			stationRawData = await response.json();
+		} catch (error) {
+			console.error('Error fetching map station data:', error);
+		}
+
 		// Initialize data
 		updateStationData(1, selectedStation1);
 		updateStationData(2, selectedStation2);
@@ -404,8 +452,8 @@
 					coordinates: [point.longitude, point.latitude]
 				},
 				properties: {
-					name: point.stop_label,
-					station_id: point.id
+					name: point?.stop_label ?? null,
+					station_id: point?.id ?? null
 				}
 			}))
 		};
@@ -488,50 +536,21 @@
 </div>
 
 <div class="flex justify-center text-sm px-2 py-4 gap-2 flex-wrap">
-	<Checkbox 
-		bind:checked={roadsCheck}
-		label="Road Network"
-		icon="mdi:road"
-	/>
-	<Checkbox 
+	<Checkbox bind:checked={roadsCheck} label="Road Network" icon="mdi:road" />
+	<Checkbox
 		bind:checked={transitCheck}
 		label="Transit Lines"
 		icon="mdi:transit-connection-variant"
 	/>
-	<Checkbox 
-		bind:checked={stationCheck}
-		label="Transit Stations"
-		icon="mdi:train"
-	/>
-	<Checkbox 
-		bind:checked={greenspaceCheck}
-		label="Greenspace"
-		icon="mdi:pine-tree-variant"
-	/>
-	<Checkbox 
-		bind:checked={waterCheck}
-		label="Water"
-		icon="mdi:waves"
-	/>	
-	<Checkbox 
-		bind:checked={buildingsCheck}
-		label="Buildings"
-		icon="mdi:office-building"
-	/>
-	<Checkbox 
-		bind:checked={parkingCheck}
-		label="Parking"
-		icon="mdi:car"
-	/>
+	<Checkbox bind:checked={stationCheck} label="Transit Stations" icon="mdi:train" />
+	<Checkbox bind:checked={greenspaceCheck} label="Greenspace" icon="mdi:pine-tree-variant" />
+	<Checkbox bind:checked={waterCheck} label="Water" icon="mdi:waves" />
+	<Checkbox bind:checked={buildingsCheck} label="Buildings" icon="mdi:office-building" />
+	<Checkbox bind:checked={parkingCheck} label="Parking" icon="mdi:car" />
 </div>
 
 <div class="container mx-auto flex justify-center px-4 sm:px-6 pb-10 max-w-4xl">
-	<MetricsDisplay 
-		{station1Data}
-		{station2Data}
-		{station1Metrics}
-		{station2Metrics}
-	/>
+	<MetricsDisplay {station1Data} {station2Data} {station1Metrics} {station2Metrics} />
 </div>
 
 <Footer />
