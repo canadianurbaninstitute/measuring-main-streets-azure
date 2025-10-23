@@ -24,22 +24,22 @@
     <div class="metric-container">
         <TransitMetric
             label={'Green Space'}
-            value={Math.round(stationBuiltForm.area_green).toLocaleString() + ' sq. m'}
+            value={Math.round(stationBuiltForm.greenspace_area).toLocaleString() + ' sq. m'}
             icon={'mdi:pine-tree-variant'}
         />
         <TransitMetric
             label={'Water'}
-            value={Math.round(stationBuiltForm.area_water).toLocaleString() + ' sq. m'}
+            value={Math.round(stationBuiltForm.water_area).toLocaleString() + ' sq. m'}
             icon={'mdi:waves'}
         />
         <TransitMetric
             label={'Buildings'}
-            value={Math.round(stationBuiltForm.area_building).toLocaleString() + ' sq. m'}
+            value={Math.round(stationBuiltForm.building_area).toLocaleString() + ' sq. m'}
             icon={'mdi:office-building'}
         />
         <TransitMetric
             label={'Parking'}
-            value={Math.round(stationBuiltForm.area_parking).toLocaleString() + ' sq. m'}
+            value={Math.round(stationBuiltForm.parking_area).toLocaleString() + ' sq. m'}
             icon={'mdi:car'}
         />
     </div>

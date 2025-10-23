@@ -4,7 +4,7 @@
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
+	// import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
 	import Checkbox from './Checkbox.svelte';
@@ -38,7 +38,7 @@
 
 	// Map configuration
 	const mapConfig = {
-		style: 'mapbox://styles/canadianurbaninstitute/cmdge4s08000g01s51sgiaaek',
+		style: 'mapbox://styles/canadianurbaninstitute/cmh3pmhrl009d01rwbtnc9eza',
 		zoom: 13,
 		minZoom: 2,
 		scrollZoom: false,
@@ -66,6 +66,7 @@
 	// Data variables. Initialize as empty arrays.
 	let transitStationsDropdown = [];
 	let stationRawData = [];
+	let stationMetrics = [];
 
 	// Create reactive station data from stationRawData.
 	$: stationsProcessed = stationRawData || [];
@@ -245,12 +246,12 @@
 		// Check if map is ready and all required layers exist
 		const requiredLayers = [
 			'greenspace',
-			'transit-lines-white',
-			'road-simple',
+			'transit-lines',
+			'road',
 			'parking',
 			'transit-station-points',
-			'buildings-ab',
-			'water-1'
+			'all-buildings',
+			'water'
 		];
 
 		if (!map || !map.isStyleLoaded()) {
@@ -270,7 +271,7 @@
 			layerVisibilityConfig.greenspace ? 'visible' : 'none'
 		);
 		map.setLayoutProperty(
-			'transit-lines-white',
+			'transit-lines',
 			'visibility',
 			layerVisibilityConfig.transit ? 'visible' : 'none'
 		);
@@ -284,6 +285,11 @@
 			'visibility',
 			layerVisibilityConfig.stations ? 'visible' : 'none'
 		);
+		map.setLayoutProperty(
+			'all-buildings',
+			'visibility',
+			layerVisibilityConfig.buildings ? 'visible' : 'none'
+		);
 
 		// Handle road layers (multiple layers with source-layer = 'road')
 		const roadLayers = map.getStyle().layers.filter((layer) => layer['source-layer'] === 'road'); // Get all layers with source-layer = road
@@ -295,18 +301,9 @@
 			);
 		});
 
-		// Handle building layers
-		const buildingLayers = ['buildings-ab', 'buildings-bc', 'buildings-on', 'buildings-qc'];
-		buildingLayers.forEach((layer) => {
-			map.setLayoutProperty(
-				layer,
-				'visibility',
-				layerVisibilityConfig.buildings ? 'visible' : 'none'
-			);
-		});
 
 		// Handle water layers
-		const waterLayers = ['water-1', 'waterway-1'];
+		const waterLayers = ['water', 'waterway'];
 		waterLayers.forEach((layer) => {
 			map.setLayoutProperty(layer, 'visibility', layerVisibilityConfig.water ? 'visible' : 'none');
 		});
@@ -423,11 +420,20 @@
 
 		try {
 			const response = await fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json'
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
 			);
 			stationRawData = await response.json();
 		} catch (error) {
 			console.error('Error fetching map station data:', error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
+			);
+			stationMetrics = await response.json();
+		} catch (error) {
+			console.error('Error fetching built form metric data:', error);
 		}
 
 		// Initialize data
