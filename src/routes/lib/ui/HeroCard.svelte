@@ -13,7 +13,7 @@
 		</div>
 		<div class="card-text-container">
 			<div>
-				<h2>{title}</h2>
+				<h3>{title}</h3>
 				<h5>{subtitle}</h5>
 			</div>
 		</div>
@@ -59,11 +59,6 @@
 		height: 100%;
 		width: 100%;
 		object-fit: cover;
-	}
-
-	h2 {
-		color: var(--brandDarkBlue);
-		font-weight: 400;
 	}
 
 	h5 {

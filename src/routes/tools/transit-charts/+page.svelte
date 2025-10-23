@@ -47,7 +47,7 @@
 		try {
 			//TODO change to chart_stations.json once transit-data script is working
 			const response = await fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/chart-stations.json'
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/chart_stations_enriched.json'
 			);
 			data = await response.json();
 		} catch (error) {

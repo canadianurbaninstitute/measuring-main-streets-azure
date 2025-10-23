@@ -54,21 +54,31 @@ h1 {
 	font-family: 'Inter', sans-serif;
 	color: var(--brandDarkBlue);
 	font-weight: 600;
-	font-size: 2rem;
+	font-size: 3rem;
+	line-height: 100%;
 	letter-spacing: -0.01em;
-	margin: 0;
+	margin-bottom: 20px;
 }
 
 h2 {
 	font-family: 'Gelasio', serif;
-	font-weight: 400;
-	font-size: 2rem;
+	font-weight: 600;
+	font-size: 2.5rem;
 	color: var(--brandDarkBlue);
 	letter-spacing: -0.01em;
 	margin: 0;
+	max-width: 34rem;
 }
 
-h3,
+h3 {
+	font-family: 'Inter', sans-serif;
+	font-size: 2rem;
+	color: var(--brandDarkBlue);
+	letter-spacing: -0.01em;
+	line-height: 120%;
+	font-weight: 500;
+	max-width: 34rem;
+}
 h4,
 h5 {
 	margin: 0;
@@ -76,12 +86,12 @@ h5 {
 	color: var(--brandDarkBlue);
 	letter-spacing: -0.01em;
 	font-weight: 500;
+	max-width: 34rem;
 }
 
 p {
 	line-height: 150%;
-	margin: 0;
-  max-width: 34rem;
+	max-width: 34rem;
 }
 
 .hero {

@@ -7,18 +7,18 @@
 	import { onMount } from 'svelte';
 	import Footer from '../lib/ui/Footer.svelte';
 	import '../styles.css';
-// --- Import Tabs ---
+	// --- Import Tabs ---
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import BusinessTab from './components/BusinessTab.svelte';
 	import CivicTab from './components/CivicTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
-// --- Data Imports ---
+	// --- Data Imports ---
 	import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
-// import stationRawData from '../lib/data/transitdata/stations.json';
-	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
+	// import stationRawData from '../lib/data/transitdata/stations.json';
+	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -28,6 +28,7 @@
 	export let map;
 
 	// --- UI State Variables ---
+	let transitRegionsRawData = [];
 	let circleDrawn = false;
 	let statusFilters = [];
 	let technologyFilters = [];
@@ -46,8 +47,8 @@
 	let linesFuse;
 	let stopsFuse;
 
-  // load data from remote
-  let stationRawData
+	// load data from remote
+	let stationRawData;
 
 	// --- Chart Data Templates ---
 	let ownerData = [
@@ -490,13 +491,24 @@
 	}
 
 	// --- Svelte Lifecycle: onMount (Map Initialization) ---
-	onMount(async() => {
-    try {
-      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json');
-      stationRawData = await response.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+	onMount(async () => {
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json'
+			);
+			stationRawData = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit-regions.json'
+			);
+			transitRegionsRawData = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
 
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -625,7 +637,8 @@
 				const coordinates = e.lngLat;
 				const name = e.features[0].properties.region;
 
-				if (map.getZoom() <= 5){ // only show pop-up if map is zoomed out
+				if (map.getZoom() <= 5) {
+					// only show pop-up if map is zoomed out
 					popup3
 						.setLngLat(coordinates)
 						.setHTML(
@@ -653,7 +666,6 @@
 		map.on('mouseleave', ['transit-stations', 'transit-lines', 'transit-region-points'], () => {
 			map.getCanvas().style.cursor = '';
 		});
-
 	});
 
 	// --- Filter/Tab UI Handlers ---
@@ -881,56 +893,48 @@
 						onValueChange={(value) => handleTabChange(value)}
 					>
 						<Tabs.List class="flex-wrap">
-							<Tabs.Trigger  class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="demographics"
-								>Demographics</Tabs.Trigger
+							<Tabs.Trigger
+								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
+								value="demographics">Demographics</Tabs.Trigger
 							>
-							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="housing">Housing</Tabs.Trigger>
-							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="built-form">Built Form</Tabs.Trigger
+							<Tabs.Trigger
+								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
+								value="housing">Housing</Tabs.Trigger
 							>
-							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="business">Business</Tabs.Trigger>
-							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="civic"
-								>Civic Infrastructure</Tabs.Trigger
+							<Tabs.Trigger
+								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
+								value="built-form">Built Form</Tabs.Trigger
 							>
-							<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="employment">Employment</Tabs.Trigger
+							<Tabs.Trigger
+								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
+								value="business">Business</Tabs.Trigger
+							>
+							<Tabs.Trigger
+								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
+								value="civic">Civic Infrastructure</Tabs.Trigger
+							>
+							<Tabs.Trigger
+								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
+								value="employment">Employment</Tabs.Trigger
 							>
 						</Tabs.List>
 						<Tabs.Content value="demographics" class="tab-button">
-							<DemographicsTab 
-								{selectedStation} 
-								{ageData}
-							/>
+							<DemographicsTab {selectedStation} {ageData} />
 						</Tabs.Content>
 						<Tabs.Content value="housing" class="tab-button">
-							<HousingTab 
-								{selectedStation}
-								{ownerData}
-								{dwellingData}
-								{housingData}
-							/>
+							<HousingTab {selectedStation} {ownerData} {dwellingData} {housingData} />
 						</Tabs.Content>
 						<Tabs.Content value="built-form" class="tab-button">
-							<BuiltFormTab
-								{selectedStation}
-								{stationBuiltForm}
-							/>
+							<BuiltFormTab {selectedStation} {stationBuiltForm} />
 						</Tabs.Content>
 						<Tabs.Content value="business" class="tab-button">
-							<BusinessTab
-								{selectedStation}
-								{businessData}
-							/>
+							<BusinessTab {selectedStation} {businessData} />
 						</Tabs.Content>
 						<Tabs.Content value="civic" class="tab-button">
-							<CivicTab
-								{selectedStation}
-								{civicData}
-							/>
+							<CivicTab {selectedStation} {civicData} />
 						</Tabs.Content>
 						<Tabs.Content value="employment" class="tab-button">
-							<EmploymentTab
-								{selectedStation}
-								{employmentData}
-							/>
+							<EmploymentTab {selectedStation} {employmentData} />
 						</Tabs.Content>
 					</Tabs.Root>
 				{:else if stationSelected}
