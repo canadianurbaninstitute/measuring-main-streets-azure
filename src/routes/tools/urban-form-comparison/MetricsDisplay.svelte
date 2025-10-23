@@ -5,7 +5,7 @@
 	export let station2Metrics;
 </script>
 
-{#if station1Data && station2Data}
+{#if station1Data && station2Data && station1Metrics && station2Metrics}
 	<table class="table-fixed w-full border-l border-r border-gray-200">
 		<thead class="text-sm sm:text-base text-gray-700 uppercase border-t border-gray-200">
 			<tr>
@@ -38,69 +38,69 @@
 			</tr>
 			<tr class="text-xs sm:text-sm border-b border-gray-200">
 				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.pct_green === undefined}
+					{#if station1Metrics.greenspace_pct === undefined}
 						N/A
 					{:else}
-						{station1Metrics.pct_green.toFixed(1)}%
+						{station1Metrics.greenspace_pct.toFixed(1)}%
 					{/if}
 				</td>
 				<td class="py-1 text-center px-1">Greenspace</td>
 				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.pct_green === undefined}
+					{#if station2Metrics.greenspace_pct === undefined}
 						N/A
 					{:else}
-						{station2Metrics.pct_green.toFixed(1)}%
+						{station2Metrics.greenspace_pct.toFixed(1)}%
 					{/if}
 				</td>
 			</tr>
 			<tr class="text-xs sm:text-sm border-b border-gray-200">
 				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.pct_water === undefined}
+					{#if station1Metrics.water_pct === undefined}
 						N/A
 					{:else}
-						{station1Metrics.pct_water.toFixed(1)}%
+						{station1Metrics.water_pct.toFixed(1)}%
 					{/if}
 				</td>
 				<td class="py-1 text-center px-1">Water</td>
 				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.pct_water === undefined}
+					{#if station2Metrics.water_pct === undefined}
 						N/A
 					{:else}
-						{station2Metrics.pct_water.toFixed(1)}%
+						{station2Metrics.water_pct.toFixed(1)}%
 					{/if}
 				</td>
 			</tr>
 			<tr class="text-xs sm:text-sm border-b border-gray-200">
 				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.pct_building === undefined}
+					{#if station1Metrics.building_pct === undefined}
 						N/A
 					{:else}
-						{station1Metrics.pct_building.toFixed(1)}%
+						{station1Metrics.building_pct.toFixed(1)}%
 					{/if}
 				</td>
 				<td class="py-1 text-center px-1">Buildings</td>
 				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.pct_building === undefined}
+					{#if station2Metrics.building_pct === undefined}
 						N/A
 					{:else}
-						{station2Metrics.pct_building.toFixed(1)}%
+						{station2Metrics.building_pct.toFixed(1)}%
 					{/if}
 				</td>
 			</tr>
 			<tr class="text-xs sm:text-sm border-b border-gray-200">
 				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.pct_parking === undefined}
+					{#if station1Metrics.parking_pct === undefined}
 						N/A
 					{:else}
-						{station1Metrics.pct_parking.toFixed(1)}%
+						{station1Metrics.parking_pct.toFixed(1)}%
 					{/if}
 				</td>
 				<td class="py-1 text-center px-1">Parking</td>
 				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.pct_parking === undefined}
+					{#if station2Metrics.parking_pct === undefined}
 						N/A
 					{:else}
-						{station2Metrics.pct_parking.toFixed(1)}%
+						{station2Metrics.parking_pct.toFixed(1)}%
 					{/if}
 				</td>
 			</tr>
