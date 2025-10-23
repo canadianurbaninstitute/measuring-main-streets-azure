@@ -15,9 +15,9 @@
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
 // --- Data Imports ---
-	import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
+	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
-// import stationRawData from '../lib/data/transitdata/stations.json';
+	// import stationRawData from '../lib/data/transitdata/stations.json';
 	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 
 	// --- Mapbox Access Token ---
@@ -46,8 +46,9 @@
 	let linesFuse;
 	let stopsFuse;
 
-  // load data from remote
-  let stationRawData
+	// load data from remote
+	let stationRawData;
+	let builtFormMetrics;
 
 	// --- Chart Data Templates ---
 	let ownerData = [
@@ -498,6 +499,13 @@
       console.error('Error fetching data:', error);
     }
 
+	try {
+      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json');
+      builtFormMetrics = await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
 		processedStationData = stationRawData.map((station) => ({
@@ -518,7 +526,7 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cmh3rnlxl00m001s5g7ldg940',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 15.5,
