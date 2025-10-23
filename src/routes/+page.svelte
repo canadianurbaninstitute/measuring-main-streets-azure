@@ -73,8 +73,8 @@
 
 <div class="section" id="why-main-streets">
 	<div class="hero">
-		<h2>Why Main Streets?</h2>
-		<h3>Main streets are the backbone of Canadian society.</h3>
+		<h4>Why Main Streets?</h4>
+		<h2>Main streets are the backbone of Canadian society.</h2>
 		<p class="text-white">
 			Vibrant main streets create thriving neighbourhoods, thriving neighbourhoods produce healthy
 			cities, and healthy cities underpin a prosperous country.
@@ -91,8 +91,8 @@
 
 <div class="section" id="why-now">
 	<div class="hero">
-		<h2>Why Now?</h2>
-		<h3>Main streets require urgent attention and investment.</h3>
+		<h4>Why Now?</h4>
+		<h2>Main streets require urgent attention and investment.</h2>
 		<p>
 			Across three key social themes, we found that main street scale investments offer high-impact
 			oppurtunities to effect change in Canadians' lives. When compared to the 'traditional' way of
@@ -109,7 +109,7 @@
 
 <div class="section" id="stronger-together">
 	<div class="hero">
-		<h1>Canada is Stronger Together</h1>
+		<h2>Canada is Stronger Together</h2>
 		<p>
 			The Measuring Main Streets platform was realized through the Research Knowledge Initiative
 			program from Housing, Infrastructure and Communities Canada. The Canadian Urban Institute
@@ -117,7 +117,7 @@
 			national-scale main street assessment platform in the face of urgent needs across the country.
 		</p>
 	</div>
-	<div class="logo-group">
+	<div class="logo-group my-6">
 		<img src={canada_logo} alt="Canadian Urban Institute" />
 		<a href="https://www.canurb.org"><img src={cui_logo} alt="Canadian Urban Institute" /></a>
 	</div>
@@ -128,15 +128,15 @@
 			<h1>Discover Canada's Main Streets</h1>
 		</div>
 		<div style="display: flex; flex-direction: column;">
-			<h2>Frequently Asked Questions</h2>
+			<h3>Frequently Asked Questions</h3>
 			<p>
 				Have questions or enquiries about the platform? Read the <a href="/about/faq">FAQ</a> or
 				learn more about the <a href="/about">Platform</a>.
 			</p>
-			<h2>Methodology and Data</h2>
+			<h3 class="mt-6">Methodology and Data</h3>
 			<p>Read our <a href="/about/data-methodology">Methodology & Data Sources</a>.</p>
-			<h2>Contact Us</h2>
-			<p>
+			<h3 class="mt-6">Contact Us</h3>
+			<p class="mb-6">
 				You can also reach out to us directly via the <a href="/about/contact">Contact</a> page.
 			</p>
 		</div>
@@ -179,7 +179,9 @@
 
 	#why-main-streets h1,
 	#why-main-streets h2,
-	#why-main-streets h3 {
+	#why-main-streets h3,
+	#why-main-streets h4,
+	#why-main-streets p {
 		color: white;
 		text-align: center;
 	}
@@ -199,6 +201,10 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
+	}
+
+	#why-now h4 {
+		color: #000;
 	}
 
 	#stronger-together {

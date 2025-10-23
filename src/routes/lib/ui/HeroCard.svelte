@@ -13,8 +13,8 @@
 		</div>
 		<div class="card-text-container">
 			<div>
-				<h3>{title}</h3>
-				<h5>{subtitle}</h5>
+				<h5>{title}</h5>
+				<p>{subtitle}</p>
 			</div>
 		</div>
 	</div>
@@ -59,10 +59,6 @@
 		height: 100%;
 		width: 100%;
 		object-fit: cover;
-	}
-
-	h5 {
-		font-weight: 400;
 	}
 
 	a {

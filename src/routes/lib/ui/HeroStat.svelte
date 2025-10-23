@@ -41,15 +41,17 @@
 	style="background-color: {color}"
 >
 	<div class="card-text-container">
-		<h3>{number}</h3>
-		<h5>{subtitle}</h5>
+		<h5>{number}</h5>
+		<p>{subtitle}</p>
 	</div>
 	<div class="card-hover"></div>
 </div>
 
 <style>
 	h3,
-	h5 {
+	h4,
+	h5,
+	p {
 		color: #fff;
 		text-align: center;
 	}
@@ -93,11 +95,5 @@
 			transparent 80%
 		);
 		border-radius: 1em;
-	}
-
-	h5 {
-		color: #fff;
-		font-weight: 400;
-		text-align: center;
 	}
 </style>

@@ -28,6 +28,7 @@
 	export let map;
 
 	// --- UI State Variables ---
+	// let builtFormMetrics;
 	let transitRegionsRawData = [];
 	let circleDrawn = false;
 	let statusFilters = [];
@@ -375,10 +376,11 @@
 
 		// if there is a line selected, zoom to it based on calculated bbox
 		if (selectedLine.length > 0) {
+			// Cast to any/GeoJSON-compatible type so TypeScript accepts the object for turf.bbox
 			const featureCollection = {
 				type: 'FeatureCollection',
 				features: selectedLine
-			};
+			} as any;
 
 			const combinedBBox = turf.bbox(featureCollection);
 
@@ -494,12 +496,21 @@
 	onMount(async () => {
 		try {
 			const response = await fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/map_stations.json'
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
 			);
 			stationRawData = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching station data:', error);
 		}
+
+		// try {
+		// 	const response = await fetch(
+		// 		'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
+		// 	);
+		// 	builtFormMetrics = await response.json();
+		// } catch (error) {
+		// 	console.error('Error fetching built form metrics:', error);
+		// }
 
 		try {
 			const response = await fetch(
@@ -793,7 +804,7 @@
 	</div>
 	<div id="filter-container">
 		<div class="filter-group">
-			<h4>Status:</h4>
+			<h6>Status:</h6>
 			<label
 				><input
 					type="checkbox"
@@ -821,7 +832,7 @@
 		</div>
 
 		<div class="filter-group">
-			<h4>Technology:</h4>
+			<h6>Technology:</h6>
 			<label
 				><input
 					type="checkbox"
@@ -848,9 +859,35 @@
 			>
 		</div>
 	</div>
+	<!-- <Tabs.Root value="demographics" onValueChange={(value) => handleTabChange(value)}>
+		<Tabs.List class="flex-wrap">
+			<Tabs.Trigger
+				class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
+				value="demographics">Demographics</Tabs.Trigger
+			>
+			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="housing"
+				>Housing</Tabs.Trigger
+			>
+			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="built-form"
+				>Built Form</Tabs.Trigger
+			>
+			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="business"
+				>Business</Tabs.Trigger
+			>
+			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="civic"
+				>Civic Infrastructure</Tabs.Trigger
+			>
+			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="employment"
+				>Employment</Tabs.Trigger
+			>
+		</Tabs.List>
+	</Tabs.Root> -->
 </div>
 <div id="content-container">
 	<div id="sidebar">
+		{#if stationSelected || activeLine || activeRegion}
+			<button on:click={handleSidebarBack} class="back-button">← Back</button>
+		{/if}
 		{#if stationSelected && !searchTerm}
 			<div class="station-details-scroll-container">
 				{#if selectedStation && selectedStation.id}
@@ -867,19 +904,19 @@
 									/>
 								{/each}
 							</div>
-							<h2>{selectedStation.stop_label}</h2>
+							<h3>{selectedStation.stop_label}</h3>
 						</div>
 						<h4>{selectedStation.line_display_name}</h4>
 
 						<div id="tag-container">
 							<div class="tag-list">
-								<h5>Status:</h5>
+								<h6>Status:</h6>
 								{#each selectedStation.status?.split(', ') || [] as status}
 									<div class="tag">{status}</div>
 								{/each}
 							</div>
 							<div class="tag-list">
-								<h5>Technology:</h5>
+								<h6>Technology:</h6>
 								{#each selectedStation.technology?.split(', ') || [] as technology}
 									<div class="tag">{technology}</div>
 								{/each}
@@ -996,9 +1033,6 @@
 				{/if}
 			</div>
 		{/if}
-		{#if stationSelected || activeLine || activeRegion}
-			<button on:click={handleSidebarBack} class="back-button">← Back</button>
-		{/if}
 	</div>
 
 	<div id="map-container">
@@ -1008,10 +1042,6 @@
 <Footer />
 
 <style>
-	p {
-		margin-top: 0;
-	}
-
 	#title {
 		display: flex;
 		flex-direction: row;
@@ -1086,21 +1116,14 @@
 	h5 {
 		margin: 0;
 		padding: 0.2em 0 0.2em 0;
+		overflow-wrap: break-word;
 	}
-
-	h2 {
-		font-weight: 600;
-		text-transform: uppercase;
-		font-family: 'Inter', sans-serif;
-	}
-
 	.tag {
 		display: flex;
 		justify-content: center;
 		padding: 0.5em;
 		border: 1px solid #ddd;
 		border-radius: 10em;
-		font-size: 0.8em;
 	}
 
 	.tag-list {
