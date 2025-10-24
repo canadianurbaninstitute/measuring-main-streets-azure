@@ -94,11 +94,10 @@
 		{ label: 'Education', value: 0, y: '⠀' }
 	];
 
-	// --- Static Chart Data (TODO: Add to stations file) ---
 	let employmentData = [
-		{ label: 'Civic Infrastructure', value: 20, y: '⠀' },
-		{ label: 'Business', value: 20, y: '⠀' },
-		{ label: 'Other', value: 60, y: '⠀' }
+		{ label: 'Civic Infrastructure', value: 0, y: '⠀' },
+		{ label: 'Main Street Business', value: 0, y: '⠀' },
+		{ label: 'Other', value: 0, y: '⠀' }
 	];
 
 	// --- Search Functions ---
@@ -271,6 +270,35 @@
 			{
 				label: 'Education',
 				value: totalCivicData ? (selectedStation['Education'] / totalCivicData) * 100 : 0,
+				y: '⠀'
+			}
+		];
+
+		const totalEmploymentData =
+			(selectedStation['Civic Infrastructure'] ?? 0) +
+			(selectedStation['Main Street Business'] ?? 0) +
+			(selectedStation['Other'] ?? 0);
+
+		employmentData = [
+			{
+				label: 'Civic Infrastructure',
+				value: totalEmploymentData
+					? (selectedStation['Civic Infrastructure'] / totalEmploymentData) * 100
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Main Street Business',
+				value: totalEmploymentData 
+					? (selectedStation['Main Street Business'] / totalEmploymentData) * 100 
+					: 0,
+				y: '⠀'
+			},
+			{
+				label: 'Other',
+				value: totalEmploymentData
+					? (selectedStation['Other'] / totalEmploymentData) * 100
+					: 0,
 				y: '⠀'
 			}
 		];
