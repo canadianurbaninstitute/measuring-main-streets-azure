@@ -1119,9 +1119,7 @@
 		margin: 0 0 1em 0;
 	}
 
-	h2,
-	h4,
-	h5 {
+	h4{
 		margin: 0;
 		padding: 0.2em 0 0.2em 0;
 		overflow-wrap: break-word;
@@ -1265,10 +1263,6 @@
 			flex-direction: row;
 			align-items: center;
 			gap: 1em;
-		}
-
-		.filter-group h4 {
-			white-space: nowrap;
 		}
 
 		:global [data-tabs-list] {

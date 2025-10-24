@@ -213,10 +213,6 @@
 		text-align: center;
 	}
 
-	#stronger-together h1 {
-		margin: 0 auto;
-	}
-
 	.logo-group {
 		position: relative;
 		display: flex;

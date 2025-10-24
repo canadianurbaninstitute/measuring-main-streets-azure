@@ -48,8 +48,6 @@
 </div>
 
 <style>
-	h3,
-	h4,
 	h5,
 	p {
 		color: #fff;
