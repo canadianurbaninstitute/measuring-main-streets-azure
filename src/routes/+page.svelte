@@ -177,9 +177,8 @@
 		padding: 8em 0 8em 0;
 	}
 
-	#why-main-streets h1,
+
 	#why-main-streets h2,
-	#why-main-streets h3,
 	#why-main-streets h4,
 	#why-main-streets p {
 		color: white;

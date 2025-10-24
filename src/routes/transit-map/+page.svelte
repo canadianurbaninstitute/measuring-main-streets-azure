@@ -18,7 +18,7 @@
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
-	import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
+	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -29,7 +29,6 @@
 
 	// --- UI State Variables ---
 	// let builtFormMetrics;
-	let transitRegionsRawData = [];
 	let circleDrawn = false;
 	let statusFilters = [];
 	let technologyFilters = [];
@@ -49,6 +48,7 @@
 	let stopsFuse;
 
 	// load data from remote
+	let transitRegionsRawData;
 	let stationRawData;
 	let builtFormMetrics;
 
