@@ -54,34 +54,67 @@ h1 {
 	font-family: 'Inter', sans-serif;
 	color: var(--brandDarkBlue);
 	font-weight: 600;
-	font-size: 2rem;
+	font-size: 3rem;
+	line-height: 100%;
 	letter-spacing: -0.01em;
-	margin: 0;
+	margin-bottom: 20px;
 }
 
 h2 {
 	font-family: 'Gelasio', serif;
-	font-weight: 400;
-	font-size: 2rem;
+	font-weight: 600;
+	font-size: 2.5rem;
 	color: var(--brandDarkBlue);
 	letter-spacing: -0.01em;
-	margin: 0;
+	max-width: 34rem;
+	line-height: 120%;
 }
 
-h3,
-h4,
+h3 {
+	font-family: 'Inter', sans-serif;
+	font-size: 1.75rem;
+	color: var(--brandDarkBlue);
+	letter-spacing: -0.01em;
+	line-height: 120%;
+	font-weight: 600;
+	max-width: 34rem;
+}
+
+h4 {
+	font-family: 'Inter', sans-serif;
+	font-size: 1.5rem;
+	color: var(--brandDarkBlue);
+	letter-spacing: -0.01em;
+	line-height: 120%;
+	font-weight: 300;
+	text-transform: uppercase;
+	max-width: 34rem;
+}
+
 h5 {
-	margin: 0;
+	font-size: 1.25rem;
 	font-family: 'Inter', sans-serif;
 	color: var(--brandDarkBlue);
 	letter-spacing: -0.01em;
-	font-weight: 500;
+	line-height: 120%;
+	font-weight: 600;
+	max-width: 34rem;
+}
+
+h6 {
+	font-size: 1rem;
+	font-family: 'Inter', sans-serif;
+	color: var(--brandDarkBlue);
+	letter-spacing: -0.01em;
+	line-height: 120%;
+	font-weight: 600;
+	max-width: 34rem;
 }
 
 p {
+	font-size: 1rem;
 	line-height: 150%;
-	margin: 0;
-  max-width: 34rem;
+	max-width: 34rem;
 }
 
 .hero {

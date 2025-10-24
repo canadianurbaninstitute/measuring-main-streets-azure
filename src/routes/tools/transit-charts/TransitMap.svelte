@@ -12,7 +12,7 @@
 	let { selectedLine = $bindable(), selectedStation = $bindable() } = $props();
 	let accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
-	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cm36ab0r5003q01qs48e25ng3?fresh=true';
+	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cmh3rnlxl00m001s5g7ldg940';
 
 	let containerClass = 'map-container';
 	let mapContainer;

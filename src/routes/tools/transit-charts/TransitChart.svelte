@@ -16,21 +16,23 @@
 
 	let chart; // Reference to the main chart container div
 	let tooltip; // D3 tooltip element for hover interactions
-  let transitLines = $state();
+	let transitLines = $state();
 	// Height reserved for the sticky X-axis that remains visible during scroll
 	const stickyXAxisHeight = 50;
 
 	// Color mapping for different transit lines - each line has a unique color base on id
 	const line_colors = lineColors;
 
-  onMount(async () => {
-    try {
-      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-lines-dropdown.json');
-      transitLines = await response.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  });
+	onMount(async () => {
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-lines-dropdown.json'
+			);
+			transitLines = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	});
 
 	// Handle selection from the new Select component
 	// function handleLineSelect(value) {
@@ -120,11 +122,11 @@
 		// Calculate chart dimensions and margins
 		const longestLabelLen = d3.max(filteredData, (d) => d.stop_label.length) || 10;
 
-    const chartHostDivWidth = chart.getBoundingClientRect().width;
+		const chartHostDivWidth = chart.getBoundingClientRect().width;
 		const margin = {
 			top: 50,
 			right: chartHostDivWidth < 500 ? 20 : 50,
-			bottom: 40,
+			bottom: 60,
 			left: estimateMargin(longestLabelLen, chartHostDivWidth)
 		};
 		const plotAreaWidth = chartHostDivWidth - margin.left - margin.right;
@@ -152,7 +154,7 @@
 
 		// Create main chart SVG for plot area, Y-axis, and grid
 		d3.select(chart).select('svg.main-chart-svg').remove();
-		const rootSvg = d3 
+		const rootSvg = d3
 			.select(chart)
 			.append('svg')
 			.attr('class', 'main-chart-svg')
@@ -230,8 +232,8 @@
 				d3.select(this).style('filter', 'none');
 				tooltip.transition().duration(500).style('opacity', 0);
 			})
-      .on('click', function (e, d) {
-        selectedStation = +d.id;
+			.on('click', function (e, d) {
+				selectedStation = +d.id;
 			});
 
 		// Animate bars to their final width
@@ -250,8 +252,8 @@
 			})
 			.selectAll('text')
 			.attr('dx', -25)
-      .attr('dy', -15)
-	    .attr('transform', 'rotate(-30)')
+			.attr('dy', -15)
+			.attr('transform', 'rotate(-30)')
 			.style('font-family', 'Inter, sans-serif')
 			.style('font-size', chartHostDivWidth < 500 ? '10px' : '12px')
 			.style('font-weight', '600')
@@ -290,11 +292,9 @@
 			.attr('class', 'x-axis-ticks-svg') // CSS class for sticky positioning
 			.attr('width', chartHostDivWidth)
 			.attr('height', stickyXAxisHeight)
-      .attr('transform', `translate(${0}, ${-30})`);;
+			.attr('transform', `translate(${0}, ${-50})`);
 
-		const xAxisG = xAxisTicksSvg
-			.append('g')
-			.attr('transform', `translate(${margin.left}, ${0})`);
+		const xAxisG = xAxisTicksSvg.append('g').attr('transform', `translate(${margin.left}, ${0})`);
 
 		// Style the X-axis with formatted numbers
 		xAxisG.call(d3.axisBottom(x).tickFormat(d3.format(','))).call((g) => {
@@ -305,10 +305,10 @@
 			g.select('.domain').attr('stroke-width', '2px');
 
 			g.selectAll('text')
-        .attr('transform', 'rotate(-45)')
-        .attr('dx', '-0.5em') // move left
-        .attr('dy', '0.5em')  // move down
-        .style('text-anchor', 'end') 
+				.attr('transform', 'rotate(-45)')
+				.attr('dx', '-0.5em') // move left
+				.attr('dy', '0.5em') // move down
+				.style('text-anchor', 'end')
 				.style('font-family', 'Inter, sans-serif')
 				.style('font-size', '12px')
 				.style('font-weight', '600')
@@ -365,20 +365,19 @@
 <style>
 	/* Main container styling */
 	.container {
-    min-width: 100%;
+		min-width: 100%;
 		box-sizing: border-box;
 		margin: 0;
 		font-family: 'Inter', sans-serif;
 	}
 	/* Chart container with relative positioning for sticky elements */
 	.chart {
-    background: transparent;
-    min-width: 100%;
+		background: transparent;
+		min-width: 100%;
 		position: relative; /* Required for sticky positioning context */
 		border: 1px solid #eee;
 		border-radius: 8px;
 	}
-
 
 	/* Sticky X-axis styling - remains visible during scroll */
 	:global(svg.x-axis-ticks-svg) {

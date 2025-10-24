@@ -3,33 +3,33 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import HundredAvenue from '../../../lib/assets/boundaries/edmontonboundaries/100Avenue.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/100avenue/greenspace';
-	import civicmix from '../../../lib/data/casestudydata/edmonton/100avenue/civicmix';
 	import businessmix from '../../../lib/data/casestudydata/edmonton/100avenue/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/100avenue/housingtype';
+	import civicmix from '../../../lib/data/casestudydata/edmonton/100avenue/civicmix';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/100avenue/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/100avenue/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/100avenue/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/100avenue/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/100avenue/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/100avenue/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/100avenue/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/100avenue/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/100avenue/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
 	import { timeFormat } from 'd3-time-format';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
 
