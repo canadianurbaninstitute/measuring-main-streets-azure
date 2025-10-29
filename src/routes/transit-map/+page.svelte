@@ -14,7 +14,7 @@
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
-// --- Data Imports ---
+	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
@@ -30,8 +30,8 @@
 	// --- UI State Variables ---
 	// let builtFormMetrics;
 	let circleDrawn = false;
-	let statusFilters = [];
-	let technologyFilters = [];
+	let statusFilters = ['Existing', 'Construction', 'Planned'];
+	let technologyFilters = ['Subway', 'LRT', 'Commuter'];
 	let selectedStation: Station = { id: null };
 	let stationSelected = false;
 	let regionsData = [];
@@ -289,16 +289,14 @@
 			},
 			{
 				label: 'Main Street Business',
-				value: totalEmploymentData 
-					? (selectedStation['Main Street Business'] / totalEmploymentData) * 100 
+				value: totalEmploymentData
+					? (selectedStation['Main Street Business'] / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
 				label: 'Other',
-				value: totalEmploymentData
-					? (selectedStation['Other'] / totalEmploymentData) * 100
-					: 0,
+				value: totalEmploymentData ? (selectedStation['Other'] / totalEmploymentData) * 100 : 0,
 				y: '⠀'
 			}
 		];
@@ -532,15 +530,6 @@
 			console.error('Error fetching station data:', error);
 		}
 
-		// try {
-		// 	const response = await fetch(
-		// 		'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
-		// 	);
-		// 	builtFormMetrics = await response.json();
-		// } catch (error) {
-		// 	console.error('Error fetching built form metrics:', error);
-		// }
-
 		try {
 			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit-regions.json'
@@ -550,12 +539,14 @@
 			console.error('Error fetching data:', error);
 		}
 
-	try {
-      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json');
-      builtFormMetrics = await response.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
+			);
+			builtFormMetrics = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
 
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -828,169 +819,67 @@
 		information associated with it in the panel on the left.
 	</p>
 </div>
-
-<div id="controls">
-	<div class="sidebar-top-controls">
-		<input
-			type="text"
-			bind:value={searchTerm}
-			placeholder="Search for a region, line, or station..."
-			class="search-input"
-		/>
-	</div>
-	<div id="filter-container">
-		<div class="filter-group">
-			<h6>Status:</h6>
-			<label
-				><input
-					type="checkbox"
-					bind:group={statusFilters}
-					value="Existing"
-					on:change={applyFilters}
-				/> Existing</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={statusFilters}
-					value="Construction"
-					on:change={applyFilters}
-				/> Construction</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={statusFilters}
-					value="Planned"
-					on:change={applyFilters}
-				/> Planned</label
-			>
-		</div>
-
-		<div class="filter-group">
-			<h6>Technology:</h6>
-			<label
-				><input
-					type="checkbox"
-					bind:group={technologyFilters}
-					value="Subway"
-					on:change={applyFilters}
-				/> Subway</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={technologyFilters}
-					value="LRT"
-					on:change={applyFilters}
-				/> LRT</label
-			>
-			<label
-				><input
-					type="checkbox"
-					bind:group={technologyFilters}
-					value="Commuter"
-					on:change={applyFilters}
-				/> Commuter</label
-			>
-		</div>
-	</div>
-	<!-- <Tabs.Root value="demographics" onValueChange={(value) => handleTabChange(value)}>
-		<Tabs.List class="flex-wrap">
-			<Tabs.Trigger
-				class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
-				value="demographics">Demographics</Tabs.Trigger
-			>
-			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="housing"
-				>Housing</Tabs.Trigger
-			>
-			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="built-form"
-				>Built Form</Tabs.Trigger
-			>
-			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="business"
-				>Business</Tabs.Trigger
-			>
-			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="civic"
-				>Civic Infrastructure</Tabs.Trigger
-			>
-			<Tabs.Trigger class="rounded-md shadow-sm data-[state=active]:bg-gray-200" value="employment"
-				>Employment</Tabs.Trigger
-			>
-		</Tabs.List>
-	</Tabs.Root> -->
-</div>
-<div id="content-container">
-	<div id="sidebar">
-		{#if stationSelected || activeLine || activeRegion}
-			<button on:click={handleSidebarBack} class="back-button">← Back</button>
-		{/if}
-		{#if stationSelected && !searchTerm}
-			<div class="station-details-scroll-container">
-				{#if selectedStation && selectedStation.id}
-					<div id="station-container">
-						<div>
-							<div id="transit-logos">
-								{#each selectedStation.line_id ? selectedStation.line_id
-											.split(',')
-											.map((s) => s.trim()) : [] as lineId}
-									<img
-										src={`/transit-logos/${lineId}.svg`}
-										alt="transit-logo"
-										class="transit-logo"
-									/>
-								{/each}
+<Tabs.Root value="demographics" onValueChange={(value) => handleTabChange(value)}>
+	<div id="content-container">
+		<div id="sidebar">
+			<input
+				type="text"
+				bind:value={searchTerm}
+				placeholder="Search for a region, line, or station..."
+				class="search-input"
+			/>
+			{#if stationSelected || activeLine || activeRegion}
+				<button on:click={handleSidebarBack} class="back-button bg-zinc-50">← Back</button>
+			{/if}
+			{#if stationSelected && !searchTerm}
+				<div class="station-details-scroll-container">
+					{#if selectedStation && selectedStation.id}
+						<div id="station-container">
+							<div>
+								<div id="transit-logos">
+									{#each selectedStation.line_id ? selectedStation.line_id
+												.split(',')
+												.map((s) => s.trim()) : [] as lineId}
+										<img
+											src={`/transit-logos/${lineId}.svg`}
+											alt="transit-logo"
+											class="transit-logo"
+										/>
+									{/each}
+								</div>
+								<h3>{selectedStation.stop_label}</h3>
 							</div>
-							<h3>{selectedStation.stop_label}</h3>
-						</div>
-						<h4>{selectedStation.line_display_name}</h4>
+							<h4>{selectedStation.line_display_name}</h4>
 
-						<div id="tag-container">
-							<div class="tag-list">
-								<h6>Status:</h6>
-								{#each selectedStation.status?.split(', ') || [] as status}
-									<div class="tag">{status}</div>
-								{/each}
-							</div>
-							<div class="tag-list">
-								<h6>Technology:</h6>
-								{#each selectedStation.technology?.split(', ') || [] as technology}
-									<div class="tag">{technology}</div>
-								{/each}
+							<div id="tag-container">
+								<div class="tag-list">
+									<h6>Status:</h6>
+									{#each selectedStation.status?.split(', ') || [] as status}
+										<div
+											class="tag"
+											class:bg-green-200={status === 'Existing'}
+											class:bg-pink-200={status === 'Planned'}
+											class:bg-yellow-200={status === 'Construction'}
+										>
+											{status}
+										</div>
+									{/each}
+								</div>
+								<div class="tag-list">
+									<h6>Technology:</h6>
+									{#each selectedStation.technology?.split(', ') || [] as technology}
+										<div
+											class="tag"
+											class:bg-blue-200={technology === 'Subway'}
+											class:bg-blue-300={technology === 'LRT'}
+											class:bg-blue-400={technology === 'Commuter'}
+										>
+											{technology}
+										</div>
+									{/each}
+								</div>
 							</div>
 						</div>
-					</div>
-
-					<Tabs.Root
-						orientation="vertical"
-						value="demographics"
-						onValueChange={(value) => handleTabChange(value)}
-					>
-						<Tabs.List class="flex-wrap">
-							<Tabs.Trigger
-								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
-								value="demographics">Demographics</Tabs.Trigger
-							>
-							<Tabs.Trigger
-								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
-								value="housing">Housing</Tabs.Trigger
-							>
-							<Tabs.Trigger
-								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
-								value="built-form">Built Form</Tabs.Trigger
-							>
-							<Tabs.Trigger
-								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
-								value="business">Business</Tabs.Trigger
-							>
-							<Tabs.Trigger
-								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
-								value="civic">Civic Infrastructure</Tabs.Trigger
-							>
-							<Tabs.Trigger
-								class="rounded-md shadow-sm data-[state=active]:bg-gray-200"
-								value="employment">Employment</Tabs.Trigger
-							>
-						</Tabs.List>
 						<Tabs.Content value="demographics" class="tab-button">
 							<DemographicsTab {selectedStation} {ageData} />
 						</Tabs.Content>
@@ -1009,72 +898,155 @@
 						<Tabs.Content value="employment" class="tab-button">
 							<EmploymentTab {selectedStation} {employmentData} />
 						</Tabs.Content>
-					</Tabs.Root>
-				{:else if stationSelected}
-					<p>Loading station details...</p>
-				{/if}
-			</div>
-		{:else}
-			<div class="navigation-scroll-container">
-				{#if searchTerm}
-					{#if searchResults.regions.length > 0}
-						<div class="nav-section-header">Regions</div>
+					{:else if stationSelected}
+						<p>Loading station details...</p>
+					{/if}
+				</div>
+			{:else}
+				<div class="navigation-scroll-container">
+					{#if searchTerm}
+						{#if searchResults.regions.length > 0}
+							<div class="nav-section-header">Regions</div>
+							<ul class="nav-list">
+								{#each searchResults.regions as item (item.id)}
+									<li on:click={() => selectRegionFromSearch(item)} class="nav-item region-item">
+										{item.name}
+									</li>
+								{/each}
+							</ul>
+						{/if}
+						{#if searchResults.lines.length > 0}
+							<div class="nav-section-header">Lines</div>
+							<ul class="nav-list">
+								{#each searchResults.lines as item (item.id)}
+									<li on:click={() => selectLineFromSearch(item)} class="nav-item line-item">
+										{item.name} <span class="context">({item.regionName})</span>
+									</li>
+								{/each}
+							</ul>
+						{/if}
+						{#if searchResults.stops.length > 0}
+							<div class="nav-section-header">Stops</div>
+							<ul class="nav-list">
+								{#each searchResults.stops as item (item.id)}
+									<li on:click={() => selectStopFromSearch(item)} class="nav-item stop-item">
+										{item.stop_label}
+										<span class="context">({item.line_display_name || 'N/A'})</span>
+									</li>
+								{/each}
+							</ul>
+						{/if}
+						{#if searchResults.regions.length === 0 && searchResults.lines.length === 0 && searchResults.stops.length === 0}
+							<p class="no-results">No results found.</p>
+						{/if}
+					{:else}
 						<ul class="nav-list">
-							{#each searchResults.regions as item (item.id)}
-								<li on:click={() => selectRegionFromSearch(item)} class="nav-item region-item">
-									{item.name}
-								</li>
+							{#each sidebarDisplayItems as item (item.id || item.stop_label)}
+								{#if item.type === 'region'}
+									<li on:click={() => selectRegion(item)} class="nav-item region-item">
+										{item.name}
+									</li>
+								{:else if item.type === 'line'}
+									<li on:click={() => selectLine(item)} class="nav-item line-item">{item.name}</li>
+								{:else if item.type === 'stop'}
+									<li on:click={() => selectStop(item)} class="nav-item stop-item">
+										{item.stop_label}
+									</li>
+								{/if}
 							{/each}
 						</ul>
 					{/if}
-					{#if searchResults.lines.length > 0}
-						<div class="nav-section-header">Lines</div>
-						<ul class="nav-list">
-							{#each searchResults.lines as item (item.id)}
-								<li on:click={() => selectLineFromSearch(item)} class="nav-item line-item">
-									{item.name} <span class="context">({item.regionName})</span>
-								</li>
-							{/each}
-						</ul>
-					{/if}
-					{#if searchResults.stops.length > 0}
-						<div class="nav-section-header">Stops</div>
-						<ul class="nav-list">
-							{#each searchResults.stops as item (item.id)}
-								<li on:click={() => selectStopFromSearch(item)} class="nav-item stop-item">
-									{item.stop_label} <span class="context">({item.line_display_name || 'N/A'})</span>
-								</li>
-							{/each}
-						</ul>
-					{/if}
-					{#if searchResults.regions.length === 0 && searchResults.lines.length === 0 && searchResults.stops.length === 0}
-						<p class="no-results">No results found.</p>
-					{/if}
-				{:else}
-					<ul class="nav-list">
-						{#each sidebarDisplayItems as item (item.id || item.stop_label)}
-							{#if item.type === 'region'}
-								<li on:click={() => selectRegion(item)} class="nav-item region-item">
-									{item.name}
-								</li>
-							{:else if item.type === 'line'}
-								<li on:click={() => selectLine(item)} class="nav-item line-item">{item.name}</li>
-							{:else if item.type === 'stop'}
-								<li on:click={() => selectStop(item)} class="nav-item stop-item">
-									{item.stop_label}
-								</li>
-							{/if}
-						{/each}
-					</ul>
-				{/if}
-			</div>
-		{/if}
-	</div>
+				</div>
+			{/if}
+		</div>
+		<div class="w-full">
+			<div class="flex flex-row w-full flex-wrap lg:flex-nowrap">
+				<div id="controls" class="flex flex-col w-full">
+					<div id="filter-container" class="flex-wrap">
+						<div class="filter-group">
+							<h6>Status:</h6>
+							<label
+								><input
+									type="checkbox"
+									bind:group={statusFilters}
+									value="Existing"
+									on:change={applyFilters}
+								/> Existing</label
+							>
+							<label
+								><input
+									type="checkbox"
+									bind:group={statusFilters}
+									value="Construction"
+									on:change={applyFilters}
+								/> Construction</label
+							>
+							<label
+								><input
+									type="checkbox"
+									bind:group={statusFilters}
+									value="Planned"
+									on:change={applyFilters}
+								/> Planned</label
+							>
+						</div>
 
-	<div id="map-container">
-		<div id="map"></div>
+						<div class="filter-group">
+							<h6>Technology:</h6>
+							<label
+								><input
+									type="checkbox"
+									bind:group={technologyFilters}
+									value="Subway"
+									on:change={applyFilters}
+								/> Subway</label
+							>
+							<label
+								><input
+									type="checkbox"
+									bind:group={technologyFilters}
+									value="LRT"
+									on:change={applyFilters}
+								/> LRT</label
+							>
+							<label
+								><input
+									type="checkbox"
+									bind:group={technologyFilters}
+									value="Commuter"
+									on:change={applyFilters}
+								/> Commuter</label
+							>
+						</div>
+					</div>
+					<Tabs.List class="w-full grid grid-cols-3 xl:grid-cols-6 gap-1">
+						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="demographics"
+							>Demographics</Tabs.Trigger
+						>
+						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="housing"
+							>Housing</Tabs.Trigger
+						>
+						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="built-form"
+							>Built Form</Tabs.Trigger
+						>
+						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="business"
+							>Business</Tabs.Trigger
+						>
+						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="civic"
+							>Civic Infrastructure</Tabs.Trigger
+						>
+						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="employment"
+							>Employment</Tabs.Trigger
+						>
+					</Tabs.List>
+				</div>
+			</div>
+			<div id="map-container" class="w-full">
+				<div id="map"></div>
+			</div>
+		</div>
 	</div>
-</div>
+</Tabs.Root>
 <Footer />
 
 <style>
@@ -1090,11 +1062,6 @@
 		width: 100%;
 		position: relative;
 		order: -1;
-	}
-
-	#controls {
-		display: flex;
-		flex-direction: column;
 	}
 
 	#content-container {
@@ -1115,13 +1082,6 @@
 		display: none;
 	}
 
-	.sidebar-top-controls {
-		padding: 1em;
-		width: 100%;
-		border: 1px solid #eee;
-		width: 35%;
-	}
-
 	.navigation-scroll-container,
 	.station-details-scroll-container {
 		flex-grow: 1;
@@ -1130,10 +1090,6 @@
 
 	.station-details-scroll-container > div {
 		padding: 1em;
-	}
-
-	#map-container {
-		width: 100%;
 	}
 
 	#map {
@@ -1147,7 +1103,7 @@
 		margin: 0 0 1em 0;
 	}
 
-	h4{
+	h4 {
 		margin: 0;
 		padding: 0.2em 0 0.2em 0;
 		overflow-wrap: break-word;
@@ -1155,7 +1111,7 @@
 	.tag {
 		display: flex;
 		justify-content: center;
-		padding: 0.5em;
+		padding: 0.25rem 1rem;
 		border: 1px solid #ddd;
 		border-radius: 10em;
 	}
@@ -1195,8 +1151,6 @@
 
 	.back-button {
 		padding: 8px 12px;
-		background-color: #f0f0f0;
-		border: 1px solid #ddd;
 		border-radius: 4px;
 		cursor: pointer;
 		font-size: 0.9em;
@@ -1204,7 +1158,7 @@
 	}
 
 	.back-button:hover {
-		background-color: #e0e0e0;
+		background-color: var(--color-zinc-100);
 	}
 
 	.nav-list {
@@ -1257,12 +1211,6 @@
 	}
 
 	@media only screen and (min-width: 768px) {
-		#controls {
-			display: flex;
-			flex-direction: row;
-			align-items: stretch;
-		}
-
 		#content-container {
 			flex-direction: row;
 			height: calc(100vh - 120px);
@@ -1277,7 +1225,6 @@
 		}
 
 		#map-container {
-			width: 65%;
 			height: 100%;
 		}
 
@@ -1291,14 +1238,6 @@
 			flex-direction: row;
 			align-items: center;
 			gap: 1em;
-		}
-
-		:global [data-tabs-list] {
-			padding: 0 1em 0 1em;
-			display: grid;
-			width: 100%;
-			grid-template-columns: 1fr 1fr 1fr;
-			grid-gap: 4px;
 		}
 	}
 
