@@ -38,7 +38,7 @@
 
 	// Map configuration
 	const mapConfig = {
-		style: 'mapbox://styles/canadianurbaninstitute/cmh3pmhrl009d01rwbtnc9eza',
+		style: 'mapbox://styles/canadianurbaninstitute/cmhcgvqbg007k01qw9zv4amso',
 		zoom: 13,
 		minZoom: 2,
 		scrollZoom: false,
