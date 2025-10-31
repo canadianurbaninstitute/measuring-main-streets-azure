@@ -532,15 +532,6 @@
 			console.error('Error fetching station data:', error);
 		}
 
-		// try {
-		// 	const response = await fetch(
-		// 		'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
-		// 	);
-		// 	builtFormMetrics = await response.json();
-		// } catch (error) {
-		// 	console.error('Error fetching built form metrics:', error);
-		// }
-
 		try {
 			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit-regions.json'
@@ -550,12 +541,13 @@
 			console.error('Error fetching data:', error);
 		}
 
-	try {
-      const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json');
-      builtFormMetrics = await response.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+	    try {
+            const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
+			);
+            builtFormMetrics = await response.json();
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
 
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -577,7 +569,7 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmh3rnlxl00m001s5g7ldg940',
+			style: 'mapbox://styles/canadianurbaninstitute/cmhdgqbg4000d01s2dahi493a',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 15.5,
