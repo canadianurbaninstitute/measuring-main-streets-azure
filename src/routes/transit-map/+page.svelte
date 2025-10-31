@@ -7,14 +7,14 @@
 	import { onMount } from 'svelte';
 	import Footer from '../lib/ui/Footer.svelte';
 	import '../styles.css';
-	// --- Import Tabs ---
+// --- Import Tabs ---
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import BusinessTab from './components/BusinessTab.svelte';
 	import CivicTab from './components/CivicTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
-	// --- Data Imports ---
+// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
@@ -595,6 +595,25 @@
 				}
 			});
 
+// map.on('load', () => {
+// 	// Get the existing transit-stations source data
+// 	const transitSource = map.getSource('transit-stations');
+// 	const stationGeoJSON = transitSource._data;
+
+// 	// Enrich the GeoJSON with demographic data
+// 	stationGeoJSON.features.forEach(feature => {
+// 		const stationId = feature.properties.id;
+// 		const demographicData = processedStationData.find(s => s.id === stationId);
+		
+// 		if (demographicData) {
+// 			feature?.properties?.TotalPopulation = demographicData?.TotalPopulation;
+// 		}
+// 	});
+
+	// // Update the source with enriched data
+	// transitSource.setData(stationGeoJSON);
+
+
 			map.addLayer(
 				{
 					id: 'circle-radius',
@@ -609,6 +628,21 @@
 				},
 				'transit-stations'
 			);
+
+			// map.addLayer(
+			// 	{
+			// 		id: 'station-population',
+			// 		type: 'heatmap',
+			// 		source: 'transit-stations',
+			// 		paint: {
+			// 			'line-color': '#222',
+			// 			'line-opacity': 1,
+			// 			'line-width': 3,
+			// 			'line-dasharray': [2, 2]
+			// 		}
+			// 	},
+			// 	'transit-stations'
+			// );
 
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
