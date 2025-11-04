@@ -7,14 +7,14 @@
 	import { onMount } from 'svelte';
 	import Footer from '../lib/ui/Footer.svelte';
 	import '../styles.css';
-// --- Import Tabs ---
+	// --- Import Tabs ---
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import BusinessTab from './components/BusinessTab.svelte';
 	import CivicTab from './components/CivicTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
-// --- Data Imports ---
+	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
@@ -521,6 +521,19 @@
 
 	// --- Svelte Lifecycle: onMount (Map Initialization) ---
 	onMount(async () => {
+		// add map
+
+		map = new mapboxgl.Map({
+			container: 'map',
+			style: 'mapbox://styles/canadianurbaninstitute/cmh3rnlxl00m001s5g7ldg940?optimize=true',
+			center: [-89, 58],
+			zoom: 3.3,
+			maxZoom: 15.5,
+			minZoom: 2,
+			scrollZoom: true,
+			attributionControl: false
+		});
+
 		try {
 			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
@@ -564,19 +577,6 @@
 
 		initializeSearchIndexes();
 
-		// add map
-
-		map = new mapboxgl.Map({
-			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmh3rnlxl00m001s5g7ldg940',
-			center: [-89, 58],
-			zoom: 3.3,
-			maxZoom: 15.5,
-			minZoom: 2,
-			scrollZoom: true,
-			attributionControl: false
-		});
-
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 		map.addControl(
@@ -595,25 +595,6 @@
 				}
 			});
 
-// map.on('load', () => {
-// 	// Get the existing transit-stations source data
-// 	const transitSource = map.getSource('transit-stations');
-// 	const stationGeoJSON = transitSource._data;
-
-// 	// Enrich the GeoJSON with demographic data
-// 	stationGeoJSON.features.forEach(feature => {
-// 		const stationId = feature.properties.id;
-// 		const demographicData = processedStationData.find(s => s.id === stationId);
-		
-// 		if (demographicData) {
-// 			feature?.properties?.TotalPopulation = demographicData?.TotalPopulation;
-// 		}
-// 	});
-
-	// // Update the source with enriched data
-	// transitSource.setData(stationGeoJSON);
-
-
 			map.addLayer(
 				{
 					id: 'circle-radius',
@@ -628,21 +609,6 @@
 				},
 				'transit-stations'
 			);
-
-			// map.addLayer(
-			// 	{
-			// 		id: 'station-population',
-			// 		type: 'heatmap',
-			// 		source: 'transit-stations',
-			// 		paint: {
-			// 			'line-color': '#222',
-			// 			'line-opacity': 1,
-			// 			'line-width': 3,
-			// 			'line-dasharray': [2, 2]
-			// 		}
-			// 	},
-			// 	'transit-stations'
-			// );
 
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
@@ -843,20 +809,23 @@
 	/>
 </svelte:head>
 
-<div class="hero">
-	<div id="title">
-		<h1>Transit Map</h1>
-	</div>
-	<p>
-		This is a map of all existing, under construction and planned transit lines in Canada. Search
-		for a place or navigate the map using the controls; and then click on a transit station to see
-		information associated with it in the panel on the left.
-	</p>
-</div>
+<!-- <div class="hero">
+</div> -->
 <Tabs.Root value="demographics" onValueChange={(value) => handleTabChange(value)}>
 	<div id="content-container">
 		<div id="sidebar">
+			<div class="p-4">
+				<div id="title">
+					<h1>Transit Map</h1>
+				</div>
+				<p>
+					This is a map of all existing, under construction and planned transit lines in Canada.
+					Search for a place or navigate the map using the controls; and then click on a transit
+					station to see information associated with it in the panel on the left.
+				</p>
+			</div>
 			<input
+				id="search"
 				type="text"
 				bind:value={searchTerm}
 				placeholder="Search for a region, line, or station..."
@@ -1054,23 +1023,29 @@
 						</div>
 					</div>
 					<Tabs.List class="w-full grid grid-cols-3 xl:grid-cols-6 gap-1">
-						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="demographics"
-							>Demographics</Tabs.Trigger
+						<Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							value="demographics">Demographics</Tabs.Trigger
 						>
-						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="housing"
-							>Housing</Tabs.Trigger
+						<Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							value="housing">Housing</Tabs.Trigger
 						>
-						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="built-form"
-							>Built Form</Tabs.Trigger
+						<Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							value="built-form">Built Form</Tabs.Trigger
 						>
-						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="business"
-							>Business</Tabs.Trigger
+						<Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							value="business">Business</Tabs.Trigger
 						>
-						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="civic"
-							>Civic Infrastructure</Tabs.Trigger
+						<Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							value="civic">Civic Infrastructure</Tabs.Trigger
 						>
-						<Tabs.Trigger class="rounded-md data-[state=active]:bg-blue-300" value="employment"
-							>Employment</Tabs.Trigger
+						<Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							value="employment">Employment</Tabs.Trigger
 						>
 					</Tabs.List>
 				</div>
@@ -1092,7 +1067,7 @@
 	}
 
 	#map {
-		height: 50vh;
+		height: 100%;
 		width: 100%;
 		position: relative;
 		order: -1;
@@ -1127,14 +1102,12 @@
 	}
 
 	#map {
-		height: 50vh;
+		height: 100%;
 		width: 100%;
 	}
 
 	#station-container {
-		border-bottom: 1px solid #eee;
-		padding: 1em;
-		margin: 0 0 1em 0;
+		padding: 1em 1em 0 1em;
 	}
 
 	h4 {
@@ -1164,8 +1137,6 @@
 		flex-direction: column;
 		gap: 1em;
 		padding: 1em;
-		border-bottom: 1px solid #eee;
-		border-top: 1px solid #eee;
 	}
 
 	.filter-group {
@@ -1176,7 +1147,7 @@
 	}
 
 	.search-input {
-		width: 100%;
+		margin: 1em;
 		padding: 1em;
 		border: 1px solid #ccc;
 		border-radius: 4px;
@@ -1186,9 +1157,10 @@
 	.back-button {
 		padding: 8px 12px;
 		border-radius: 4px;
+		border: 1px solid #ccc;
 		cursor: pointer;
 		font-size: 0.9em;
-		margin: 1em;
+		margin: 0 1em;
 	}
 
 	.back-button:hover {

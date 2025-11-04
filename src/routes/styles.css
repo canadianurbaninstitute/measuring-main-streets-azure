@@ -291,10 +291,6 @@ input[type='checkbox'] {
 	border: 1px solid #ddd;
 }
 
-[data-state='inactive'] {
-	background-color: #fff;
-}
-
 .select-trigger {
 	height: 3em;
 	border-radius: 0.5em;
