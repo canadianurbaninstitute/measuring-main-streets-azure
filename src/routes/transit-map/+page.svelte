@@ -552,14 +552,13 @@
 			console.error('Error fetching data:', error);
 		}
 
-		try {
-			const response = await fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
+	    try {
+            const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
 			);
-			builtFormMetrics = await response.json();
-		} catch (error) {
-			console.error('Error fetching data:', error);
-		}
+            builtFormMetrics = await response.json();
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
 
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 

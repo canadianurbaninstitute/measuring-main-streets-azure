@@ -7,12 +7,12 @@
 	import '../../styles.css';
 	// --- Data Imports ---
 	// import stationRawData from '../../lib/data/transitdata/stations.json';
-	import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
+	// import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
 
 	let { selectedLine = $bindable(), selectedStation = $bindable() } = $props();
 	let accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
-	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cmh3rnlxl00m001s5g7ldg940';
+	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cmhdgqbg4000d01s2dahi493a';
 
 	let containerClass = 'map-container';
 	let mapContainer;
@@ -22,6 +22,8 @@
 	let processedStationData = [];
 	let activeRegion = null;
 	let stationRawData;
+	let transitRegionsRawData = [];
+	let lineIndex = new Map();
 
 	function desaturate(hex: string, amount = 0.5): string {
 		// amount = 0 → original, 1 → fully grey
@@ -43,7 +45,7 @@
 		return index;
 	}
 
-	const lineIndex = buildLineIndex(transitRegionsRawData);
+	// const lineIndex = buildLineIndex(transitRegionsRawData);
 
 	function updateStationData(id) {
 		const station = processedStationData.find((s) => s.id === id);
@@ -145,10 +147,23 @@
 			return;
 		}
 
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit-regions.json'
+			);
+			transitRegionsRawData = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+			return;
+		}
+
 		if (!accessToken) {
 			console.error('Mapbox access token is required');
 			return;
 		}
+
+		lineIndex = buildLineIndex(transitRegionsRawData);
+		
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
 		processedStationData = stationRawData.map((station) => ({
