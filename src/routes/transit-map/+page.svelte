@@ -525,7 +525,7 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmh3rnlxl00m001s5g7ldg940?optimize=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cmhdgqbg4000d01s2dahi493a?optimize=true',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 15.5,
