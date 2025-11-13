@@ -3,18 +3,21 @@
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 	--brandDarkBlue: #002940;
+	--brandAltBlue: #2a5cac;
 	--brandLightBlue: #00adf2;
+	--brandDarkGreen: #43b171;
 	--brandGreen: #58e965;
-	--brandGrey: #dddddd;
 	--brandPink: #db3069;
+	--brandRed: #f13737;
 	--brandYellow: #f1c500;
+	--brandOrange: #f45d01;
+	--brandPurple: #8a4285;
 	--range-slider: #dadcdc;
-
-	--background: #ffffff;
-	--foreground: #222;
-	--foreground-alt: #555555;
+	--brandGrey: #dddddd;
 	--muted: #f4f4f5;
 	--muted-foreground: #999999;
+	--foreground-alt: #555555;
+	--foreground: #222;
 	--border-input: rgba(0, 0, 0, 0.15);
 	--shadow-popover: 0 4px 12px rgba(0, 0, 0, 0.1);
 
@@ -257,6 +260,10 @@ button:active {
 	transition: 0.3s;
 }
 
+input[type='checkbox'] {
+	accent-color: var(--brandPink);
+}
+
 /* SELECT ITEM */
 
 .sv-item--btn {
@@ -265,7 +272,16 @@ button:active {
 
 [data-tabs-list] {
 	border-radius: 0.5em;
-	display: flex;
+	/*display: flex;
+	 */
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	-ms-border-radius: 0.5em;
+	-o-border-radius: 0.5em;
+}
+
+[data-tabs-trigger]:hover {
+	background-color: var(--color-blue-50);
 }
 
 [data-tabs-trigger] {
@@ -273,10 +289,6 @@ button:active {
 	width: 100%;
 	overflow: clip;
 	border: 1px solid #ddd;
-}
-
-[data-state='inactive'] {
-	background-color: #fff;
 }
 
 .select-trigger {
