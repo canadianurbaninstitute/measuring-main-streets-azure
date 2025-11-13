@@ -12,7 +12,7 @@
 	let { selectedLine = $bindable(), selectedStation = $bindable() } = $props();
 	let accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
-	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cmhdgqbg4000d01s2dahi493a';
+	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cmhxgpbpr000801qp5pn3hygc';
 
 	let containerClass = 'map-container';
 	let mapContainer;
@@ -277,6 +277,68 @@
 			if (selectedLine) {
 				selectCurrentLine(selectedLine);
 			}
+			
+			// Add transit layer sources
+			map.addSource('transit-line-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.6yqic1i2'
+			});
+			map.addSource('transit-station-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.7o3jz8vr'
+			});
+			// Add transit layers
+			map.addLayer(
+				{
+					id: 'transit-lines',
+					type: 'line',
+					source: 'transit-line-data',
+					'source-layer': 'merged_map_lines',
+					paint: {
+						'line-width': [
+							'interpolate',
+							['linear'],
+							['zoom'],
+							3, 0, // Zoom level, width  
+							7, 3,    
+							10, 4,   
+							12, 8
+						],
+					}
+				}
+			);
+			map.addLayer(
+				{
+					id: 'transit-stations',
+					type: 'circle',
+					source: 'transit-station-data',
+					'source-layer': 'merged_map_stations-52vao4',
+					paint: {
+						'circle-color': '#fff',
+						'circle-radius':  [
+							'interpolate',
+							['linear'],
+							['zoom'],
+							6, 0, // Zoom level, radius  
+							7, 2,    
+							10, 3,   
+							12, 6,
+							14, 10    
+						],
+						'circle-stroke-color': '#000',
+						'circle-stroke-width': [
+							'interpolate',
+							['linear'],
+							['zoom'],
+							6, 0, // Zoom level, width  
+							7, 0.8,    
+							10, 1.5,   
+							13, 2
+						],
+					},
+					minzoom: 6
+				}
+			);
 		});
 	});
 

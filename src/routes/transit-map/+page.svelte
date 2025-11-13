@@ -525,7 +525,7 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmhdgqbg4000d01s2dahi493a?optimize=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cmhwey905006f01ql380pgrx4?optimize=true',
 			center: [-89, 58],
 			zoom: 3.3,
 			maxZoom: 15.5,
@@ -584,8 +584,14 @@
 			})
 		);
 
-		// add circle source and layer
+		// add map sources and layers
 		map.on('load', () => {
+
+			// Add sources
+			map.addSource('transit-station-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.7o3jz8vr'
+			});
 			map.addSource('circle', {
 				type: 'geojson',
 				data: {
@@ -593,7 +599,44 @@
 					features: []
 				}
 			});
+			map.addSource('transit-region-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.003rt68i'
+			});
 
+			// Add layers
+			map.addLayer(
+				{
+					id: 'transit-stations',
+					type: 'circle',
+					source: 'transit-station-data',
+					'source-layer': 'merged_map_stations-52vao4',
+					paint: {
+						'circle-color': '#fff',
+						'circle-radius':  [
+							'interpolate',
+							['linear'],
+							['zoom'],
+							6, 0, // Zoom level, radius  
+							7, 2,    
+							10, 3,   
+							12, 6,
+							14, 10    
+						],
+						'circle-stroke-color': '#000',
+						'circle-stroke-width': [
+							'interpolate',
+							['linear'],
+							['zoom'],
+							6, 0, // Zoom level, width  
+							7, 0.8,    
+							10, 1.5,   
+							13, 2
+						],
+					},
+					minzoom: 6
+				}
+			);
 			map.addLayer(
 				{
 					id: 'circle-radius',
@@ -608,6 +651,22 @@
 				},
 				'transit-stations'
 			);
+			map.addLayer(
+				{
+					id: 'transit-region-points',
+					type: 'circle',
+					source: 'transit-region-data',
+					'source-layer': 'transit-region-points-9m4y8g',
+					paint: {
+						'circle-color': '#34bef9',
+						'circle-radius': 8,
+						'circle-stroke-color': '#fff',
+						'circle-stroke-width': 1
+					},
+					maxzoom: 5
+				}
+			);
+
 
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
