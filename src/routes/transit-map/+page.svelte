@@ -41,6 +41,8 @@
 	let activeLine = null;
 	let sidebarDisplayItems = [];
 	let stationBuiltForm = {};
+	let mapCenter: [number, number] = [-92, 52];
+	let defaultZoom: number = 3.7;
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
@@ -434,7 +436,7 @@
 			// region case: reset map
 		} else if (activeRegion) {
 			activeRegion = null;
-			map.flyTo({ center: [-89, 58], zoom: 3.3, duration: 1000 });
+			map.flyTo({ center: mapCenter, zoom: defaultZoom, duration: 1000 });
 			// TODO: should resetStationSelection run here too
 		}
 	}
@@ -526,8 +528,8 @@
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/canadianurbaninstitute/cmhwey905006f01ql380pgrx4?optimize=true',
-			center: [-89, 58],
-			zoom: 3.3,
+			center: mapCenter,
+			zoom: defaultZoom,
 			maxZoom: 15.5,
 			minZoom: 2,
 			scrollZoom: true,
