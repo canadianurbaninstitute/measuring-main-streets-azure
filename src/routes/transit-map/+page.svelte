@@ -527,7 +527,7 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmhwey905006f01ql380pgrx4?optimize=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cmi9990h9007a01sb67qa4gej?optimize=true',
 			center: mapCenter,
 			zoom: defaultZoom,
 			maxZoom: 15.5,
@@ -813,6 +813,10 @@
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
 		map.setPaintProperty('greenspace', 'fill-opacity', 0);
+		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
+		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
+		// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
+		// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
 		map.setPaintProperty('bus-stops', 'circle-opacity', 0);
 		map.setPaintProperty('civic-infra', 'circle-opacity', 0);
 		map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 0);
@@ -837,6 +841,10 @@
 				});
 
 				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
+				map.setPaintProperty('parking-built-form', 'fill-opacity', 0.8);
+				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
+				// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
+				// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
 				map.setPaintProperty('bus-stops', 'circle-opacity', 1);
 
 				break;
