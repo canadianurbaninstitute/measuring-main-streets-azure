@@ -547,20 +547,21 @@
 
 		try {
 			const response = await fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit-regions.json'
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit_regions/transit-regions.json'
 			);
 			transitRegionsRawData = await response.json();
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
 
-	    try {
-            const response = await fetch('https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
 			);
-            builtFormMetrics = await response.json();
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+			builtFormMetrics = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
 
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -588,11 +589,10 @@
 
 		// add map sources and layers
 		map.on('load', () => {
-
 			// Add sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.7o3jz8vr'
+				url: 'mapbox://canadianurbaninstitute.btyr8w65'
 			});
 			map.addSource('circle', {
 				type: 'geojson',
@@ -607,38 +607,45 @@
 			});
 
 			// Add layers
-			map.addLayer(
-				{
-					id: 'transit-stations',
-					type: 'circle',
-					source: 'transit-station-data',
-					'source-layer': 'merged_map_stations-52vao4',
-					paint: {
-						'circle-color': '#fff',
-						'circle-radius':  [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							6, 0, // Zoom level, radius  
-							7, 2,    
-							10, 3,   
-							12, 6,
-							14, 10    
-						],
-						'circle-stroke-color': '#000',
-						'circle-stroke-width': [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							6, 0, // Zoom level, width  
-							7, 0.8,    
-							10, 1.5,   
-							13, 2
-						],
-					},
-					minzoom: 6
-				}
-			);
+			map.addLayer({
+				id: 'transit-stations',
+				type: 'circle',
+				source: 'transit-station-data',
+				'source-layer': 'merged_map_stations-bcc58j',
+				paint: {
+					'circle-color': '#fff',
+					'circle-radius': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						6,
+						0, // Zoom level, radius
+						7,
+						2,
+						10,
+						3,
+						12,
+						6,
+						14,
+						10
+					],
+					'circle-stroke-color': '#000',
+					'circle-stroke-width': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						6,
+						0, // Zoom level, width
+						7,
+						0.8,
+						10,
+						1.5,
+						13,
+						2
+					]
+				},
+				minzoom: 6
+			});
 			map.addLayer(
 				{
 					id: 'circle-radius',
@@ -653,22 +660,19 @@
 				},
 				'transit-stations'
 			);
-			map.addLayer(
-				{
-					id: 'transit-region-points',
-					type: 'circle',
-					source: 'transit-region-data',
-					'source-layer': 'transit-region-points-9m4y8g',
-					paint: {
-						'circle-color': '#34bef9',
-						'circle-radius': 8,
-						'circle-stroke-color': '#fff',
-						'circle-stroke-width': 1
-					},
-					maxzoom: 5
-				}
-			);
-
+			map.addLayer({
+				id: 'transit-region-points',
+				type: 'circle',
+				source: 'transit-region-data',
+				'source-layer': 'transit-region-points-9m4y8g',
+				paint: {
+					'circle-color': '#34bef9',
+					'circle-radius': 8,
+					'circle-stroke-color': '#fff',
+					'circle-stroke-width': 1
+				},
+				maxzoom: 5
+			});
 
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {

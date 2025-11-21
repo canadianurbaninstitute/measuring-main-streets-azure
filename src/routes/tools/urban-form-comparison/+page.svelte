@@ -38,7 +38,7 @@
 
 	// Map configuration
 	const mapConfig = {
-		style: 'mapbox://styles/canadianurbaninstitute/cmhcgvqbg007k01qw9zv4amso',
+		style: 'mapbox://styles/canadianurbaninstitute/cmi91fsub003q01qoewrv4s0r',
 		zoom: 13,
 		minZoom: 2,
 		scrollZoom: false,
@@ -301,7 +301,6 @@
 			);
 		});
 
-
 		// Handle water layers
 		const waterLayers = ['water', 'waterway'];
 		waterLayers.forEach((layer) => {
@@ -379,7 +378,6 @@
 		water: waterCheck
 	});
 
-	
 	// Validate initial stations
 	let initialStationsValidated = false;
 

@@ -163,7 +163,7 @@
 		}
 
 		lineIndex = buildLineIndex(transitRegionsRawData);
-		
+
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
 		processedStationData = stationRawData.map((station) => ({
@@ -277,68 +277,75 @@
 			if (selectedLine) {
 				selectCurrentLine(selectedLine);
 			}
-			
+
 			// Add transit layer sources
 			map.addSource('transit-line-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.6yqic1i2'
+				url: 'mapbox://canadianurbaninstitute.683e8euy'
 			});
 			map.addSource('transit-station-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.7o3jz8vr'
+				url: 'mapbox://canadianurbaninstitute.btyr8w65'
 			});
 			// Add transit layers
-			map.addLayer(
-				{
-					id: 'transit-lines',
-					type: 'line',
-					source: 'transit-line-data',
-					'source-layer': 'merged_map_lines',
-					paint: {
-						'line-width': [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							3, 0, // Zoom level, width  
-							7, 3,    
-							10, 4,   
-							12, 8
+			map.addLayer({
+				id: 'transit-lines',
+				type: 'line',
+				source: 'transit-line-data',
+				'source-layer': 'merged_map_lines',
+				paint: {
+					'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
+					'line-dasharray': [
+						'case',
+						[
+							'any',
+							['==', ['get', 'status'], 'Construction'],
+							['==', ['get', 'status'], 'Planned']
 						],
-					}
+						['literal', [1, 2]],
+						['literal', [1, 0]]
+					]
 				}
-			);
-			map.addLayer(
-				{
-					id: 'transit-stations',
-					type: 'circle',
-					source: 'transit-station-data',
-					'source-layer': 'merged_map_stations-52vao4',
-					paint: {
-						'circle-color': '#fff',
-						'circle-radius':  [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							6, 0, // Zoom level, radius  
-							7, 2,    
-							10, 3,   
-							12, 6,
-							14, 10    
-						],
-						'circle-stroke-color': '#000',
-						'circle-stroke-width': [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							6, 0, // Zoom level, width  
-							7, 0.8,    
-							10, 1.5,   
-							13, 2
-						],
-					},
-					minzoom: 6
-				}
-			);
+			});
+			map.addLayer({
+				id: 'transit-stations',
+				type: 'circle',
+				source: 'transit-station-data',
+				'source-layer': 'merged_map_stations-bcc58j',
+				paint: {
+					'circle-color': '#fff',
+					'circle-radius': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						6,
+						0, // Zoom level, radius
+						7,
+						2,
+						10,
+						3,
+						12,
+						6,
+						14,
+						10
+					],
+					'circle-stroke-color': '#000',
+					'circle-stroke-width': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						6,
+						0, // Zoom level, width
+						7,
+						0.8,
+						10,
+						1.5,
+						13,
+						2
+					]
+				},
+				minzoom: 6
+			});
 		});
 	});
 
