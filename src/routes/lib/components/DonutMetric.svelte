@@ -48,6 +48,10 @@
 	function toFraction(v) {
 		if (v == null || isNaN(v)) return 0;
 		const num = Number(v);
+		// If suffix is '%', treat values <= 100 as percentages (0-100 range)
+		if (suffix === '%') {
+			return Math.max(0, Math.min(1, num / 100));
+		}
 		return num <= 1 ? Math.max(0, Math.min(1, num)) : Math.max(0, Math.min(1, num / 100));
 	}
 
@@ -65,7 +69,8 @@
 			const t = Math.min(1, (now - start) / duration);
 			const ease = 1 - Math.pow(1 - t, 2);
 			fraction = interpF(ease);
-			displayed = Math.round(interpN(ease));
+			const rawValue = interpN(ease);
+			displayed = Math.round(rawValue * 10) / 10;
 			if (t < 1) rafId = requestAnimationFrame(tick);
 		}
 
@@ -111,7 +116,10 @@
 						{#if icon}
 							<div class="icon"><Icon {icon} color={iconcolor} /></div>
 						{/if}
-						<div class="number">{prefix}{displayed}{suffix}</div>
+						<div class="number">
+							<!-- If displayed is 0 but value is greater than 0, show <1 -->
+							{prefix}{displayed === 0 && value > 0 ? '<1' : displayed}{suffix}
+						</div>
 					</div>
 				</foreignObject>
 			</g>

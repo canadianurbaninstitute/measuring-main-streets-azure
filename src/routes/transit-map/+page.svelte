@@ -102,6 +102,13 @@
 		{ label: 'Other', value: 0, y: '⠀' }
 	];
 
+	let builtFormData = [
+		{ label: 'Green Space', value: 0 },
+		{ label: 'Water', value: 0 },
+		{ label: 'Buildings', value: 0 },
+		{ label: 'Parking', value: 0 }
+	];
+
 	// --- Search Functions ---
 	function initializeSearchIndexes() {
 		// Configure Fuse.js options for better search
@@ -302,6 +309,13 @@
 				y: '⠀'
 			}
 		];
+
+		builtFormData = [
+			{ label: 'Greenspace', value: stationBuiltForm['greenspace_pct'] },
+			{ label: 'Water', value: stationBuiltForm['water_pct'] },
+			{ label: 'Buildings', value: stationBuiltForm['building_pct'] },
+			{ label: 'Parking', value: stationBuiltForm['parking_pct'] }
+		];
 	}
 
 	// --- Map/Sidebar Navigation Functions ---
@@ -319,12 +333,36 @@
 			steps: 128,
 			units: 'kilometers'
 		});
-
+		// mask features outside circle
+		const maskFeature = {
+			geometry: {
+				type: 'Polygon',
+				coordinates: [
+					// Outer ring (world bounds)
+					[
+						[-180, -90],
+						[180, -90],
+						[180, 90],
+						[-180, 90],
+						[-180, -90]
+					],
+					// Inner ring (circle - reversed coordinates)
+					[...circleFeature.geometry.coordinates[0]].reverse()
+				]
+			}
+		};
 		// if the circle feature exists, update it and set variable to be true
 		if (map.getSource('circle')) {
 			map.getSource('circle').setData({
 				type: 'FeatureCollection',
 				features: [circleFeature]
+			});
+		}
+		// Update mask source
+		if (map.getSource('circle-mask')) {
+			map.getSource('circle-mask').setData({
+				type: 'FeatureCollection',
+				features: [maskFeature]
 			});
 		}
 
@@ -340,7 +378,13 @@
 		// filter layers to be only visible within the circle - could change to be colored inside circle grey outside but more complex
 
 		const circlePolygon = circleFeature.geometry;
-		const thematicLayers = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business'];
+		const thematicLayers = [
+			'msn-lowdensity',
+			'msn-highdensity',
+			'civic-infra',
+			'business',
+			'all-nar'
+		];
 
 		thematicLayers.forEach((layerId) => {
 			if (map.getLayer(layerId)) {
@@ -357,6 +401,13 @@
 				features: []
 			});
 		}
+		// remove mask
+		if (map && map.getSource('circle-mask')) {
+			map.getSource('circle-mask').setData({
+				type: 'FeatureCollection',
+				features: []
+			});
+		}
 		circleDrawn = false;
 
 		// reset station
@@ -369,7 +420,8 @@
 			'msn-highdensity',
 			'civic-infra',
 			'business',
-			'employment-size'
+			'employment-size',
+			'all-nar'
 		];
 		thematicLayersToReset.forEach((layerId) => {
 			if (map && map.getLayer(layerId)) {
@@ -589,21 +641,32 @@
 
 		// add map sources and layers
 		map.on('load', () => {
-			// Add sources
+			// TODO: figure out why circle stroke is visible in map on initial load
+			map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
+			// Add transit sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
 				url: 'mapbox://canadianurbaninstitute.btyr8w65'
 			});
-			map.addSource('circle', {
+			map.addSource('transit-region-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.003rt68i'
+			});
+			// Add mask source
+			map.addSource('circle-mask', {
 				type: 'geojson',
 				data: {
 					type: 'FeatureCollection',
 					features: []
 				}
 			});
-			map.addSource('transit-region-data', {
-				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.003rt68i'
+			// Add circle source
+			map.addSource('circle', {
+				type: 'geojson',
+				data: {
+					type: 'FeatureCollection',
+					features: []
+				}
 			});
 
 			// Add layers
@@ -645,6 +708,15 @@
 					]
 				},
 				minzoom: 6
+			});
+			map.addLayer({
+				id: 'circle-mask',
+				type: 'fill',
+				source: 'circle-mask',
+				paint: {
+					'fill-color': '#ffffff', // match your background color
+					'fill-opacity': 0.8
+				}
 			});
 			map.addLayer(
 				{
@@ -824,11 +896,15 @@
 		map.setPaintProperty('business', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('all-nar', 'circle-opacity', 0);
+		map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
 
 		switch (selectedTab) {
 			case 'demographics':
 				break;
 			case 'housing':
+				map.setPaintProperty('all-nar', 'circle-opacity', 0.8);
+				map.setPaintProperty('all-nar', 'circle-stroke-opacity', 1);
 				break;
 			case 'built-form':
 				map.flyTo({
@@ -845,7 +921,6 @@
 				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
 				// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
 				// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
-				map.setPaintProperty('bus-stops', 'circle-opacity', 1);
 
 				break;
 			case 'business':
@@ -962,7 +1037,7 @@
 							<HousingTab {selectedStation} {ownerData} {dwellingData} {housingData} />
 						</Tabs.Content>
 						<Tabs.Content value="built-form" class="tab-button">
-							<BuiltFormTab {selectedStation} {stationBuiltForm} />
+							<BuiltFormTab {selectedStation} {stationBuiltForm} {builtFormData} />
 						</Tabs.Content>
 						<Tabs.Content value="business" class="tab-button">
 							<BusinessTab {selectedStation} {businessData} />
