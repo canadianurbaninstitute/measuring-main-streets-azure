@@ -7,18 +7,29 @@
 	export let ownerData;
 	export let dwellingData;
 	export let housingData;
+	export let selectedVariable: string;
+	export let onSelectVariable: (v: string) => void;
 </script>
 
 <div class="tab-content">
 	<div class="metric-container">
-		<TransitMetric label={'Total Dwellings'} value={selectedStation.dwellings} icon={'mdi:house'} />
+		<TransitMetric
+			disabled
+			label={'Total Dwellings'}
+			value={selectedStation.dwellings}
+			icon={'mdi:house'}
+		/>
 		<TransitMetric
 			label={'Average Value'}
+			active={selectedVariable === 'HouseValue'}
+			on:click={() => onSelectVariable('HouseValue')}
 			value={Math.round(selectedStation.HouseValue).toLocaleString()}
 			icon={'mdi:dollar'}
 		/>
 		<TransitMetric
 			label={'Average Rent'}
+			active={selectedVariable === 'MonthlyRent'}
+			on:click={() => onSelectVariable('MonthlyRent')}
 			value={Math.round(selectedStation.MonthlyRent).toLocaleString()}
 			icon={'mdi:dollar'}
 		/>

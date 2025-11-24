@@ -11,6 +11,7 @@
 	export let prefix = '';
 	export let suffix = '';
 	export let accordion = false;
+	export let active = false;
 
 	// Visual props
 	export let size = 72; // SVG size (px)
@@ -77,7 +78,7 @@
 	onDestroy(() => cancelAnimationFrame(rafId));
 </script>
 
-<div class="metric donut-metric" role="group" aria-label={label}>
+<button class="metric donut-metric" aria-label={label} class:active on:click>
 	<div class="chart" style="width:{size}px; height:{size}px">
 		<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
 			<!-- background ring -->
@@ -124,7 +125,7 @@
 			<Icon icon="mdi:unfold-more-horizontal" />
 		{/if}
 	</div>
-</div>
+</button>
 
 <style>
 	.donut-metric {
@@ -138,6 +139,12 @@
 		border-radius: 0.5em;
 		box-sizing: border-box;
 		width: 100%;
+	}
+
+	.active {
+		background-color: var(--color-pink-50);
+		border-color: var(--color-pink-400);
+		border-width: 3px;
 	}
 
 	.chart {

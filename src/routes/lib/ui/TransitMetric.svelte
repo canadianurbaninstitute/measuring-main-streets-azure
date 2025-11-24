@@ -8,17 +8,19 @@
 	export let prefix = '';
 	export let suffix = '';
 	export let accordion = false;
+	export let active = false;
+	export let disabled = false;
 </script>
 
-<div class="metric">
+<button {disabled} class="metric" class:active on:click>
 	<div class="text">
 		<div class="value"><Icon {icon} color={iconcolor} />{prefix}{value}{suffix}</div>
 		<div class="label">{label}</div>
 	</div>
 	{#if accordion}
-	<Icon icon="mdi:unfold-more-horizontal" />
+		<Icon icon="mdi:unfold-more-horizontal" />
 	{/if}
-</div>
+</button>
 
 <style>
 	.metric {
@@ -32,8 +34,19 @@
 		box-sizing: border-box;
 		width: 100%;
 		justify-content: space-between;
+		cursor: pointer;
 	}
-	
+
+	.metric:disabled {
+		cursor: not-allowed;
+	}
+
+	.active {
+		background-color: var(--color-pink-50);
+		border-color: var(--color-pink-400);
+		border-width: 3px;
+	}
+
 	.text {
 		display: flex;
 		flex-direction: column;
