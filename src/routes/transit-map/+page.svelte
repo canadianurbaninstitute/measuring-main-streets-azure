@@ -19,6 +19,7 @@
 	import type { Station } from '../lib/data/transitdata/stations';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
+	import line_colors from '../lib/data/transitdata/line-colors.json';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -579,7 +580,9 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmi9990h9007a01sb67qa4gej?optimize=true',
+			// mapbox://styles/canadianurbaninstitute/cmi9990h9007a01sb67qa4gej - with lines
+			// mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te
+			style: 'mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te?optimize=true',
 			center: mapCenter,
 			zoom: defaultZoom,
 			maxZoom: 15.5,
@@ -648,6 +651,10 @@
 				type: 'vector',
 				url: 'mapbox://canadianurbaninstitute.btyr8w65'
 			});
+			map.addSource('transit-line-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.683e8euy'
+			});
 			map.addSource('transit-region-data', {
 				type: 'vector',
 				url: 'mapbox://canadianurbaninstitute.003rt68i'
@@ -670,6 +677,120 @@
 			});
 
 			// Add layers
+			map.addLayer({
+				id: 'transit-lines',
+				type: 'line',
+				source: 'transit-line-data',
+				'source-layer': 'merged_map_lines',
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'line_id'],
+						[7],
+						'#00923f',
+						[6],
+						'#f8c300',
+						[5],
+						'#a21a68',
+						[8],
+						'#00b0ef',
+						[113],
+						'#f58831',
+						[206],
+						'#005e9f',
+						[209],
+						'#00853d',
+						[210],
+						'#ee2e22',
+						[211],
+						'#8d0133',
+						[213],
+						'#dd6327',
+						[212],
+						'#02abe7',
+						[207],
+						'#7d4b0d',
+						[115],
+						'#8a999a',
+						[208],
+						'#2486c7',
+						[116],
+						'#b6d87b',
+						[117],
+						'#1cb4e3',
+						[118],
+						'#0c4c91',
+						[1],
+						'#008e4f',
+						[2],
+						'#ef8122',
+						[3],
+						'#ffe32a',
+						[4],
+						'#0183c9',
+						[200],
+						'#f06278',
+						[204],
+						'#ffdc7e',
+						[201],
+						'#9897c7',
+						[203],
+						'#55b6b1',
+						[205],
+						'#ca559a',
+						[106],
+						'#89bd40',
+						[112],
+						'#f9c322',
+						[102],
+						'#d51b32',
+						[100],
+						'#028ab1',
+						[101],
+						'#02aa1d',
+						[104],
+						'#ff0f00',
+						[103],
+						'#111e89',
+						[105],
+						'#1b8744',
+						[11],
+						'#019bc8',
+						[10],
+						'#005dab',
+						[9],
+						'#fed126',
+						[214],
+						'#77278d',
+						[108],
+						'#d30f1d',
+						[110],
+						'#8f7210',
+						[111],
+						'#0980a5',
+						[107],
+						'#0070ff',
+						[109],
+						'#65a233',
+						[114],
+						'#a6dca8',
+						[119],
+						'#115a82',
+						'#000000'
+					],
+					'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
+					'line-dasharray': [
+						'case',
+						[
+							'any',
+							['==', ['get', 'status'], 'Construction'],
+							['==', ['get', 'status'], 'Planned']
+						],
+						['literal', [1, 2]],
+						['literal', [1, 0]]
+					]
+				}
+			});
 			map.addLayer({
 				id: 'transit-stations',
 				type: 'circle',
@@ -889,7 +1010,6 @@
 		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
 		// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
 		// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
-		map.setPaintProperty('bus-stops', 'circle-opacity', 0);
 		map.setPaintProperty('civic-infra', 'circle-opacity', 0);
 		map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('business', 'circle-opacity', 0);
