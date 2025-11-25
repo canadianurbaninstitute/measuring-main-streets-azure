@@ -22,7 +22,7 @@
 	import { browser } from '$app/environment';
 	import { timeFormat } from 'd3-time-format';
 	import mapboxgl from 'mapbox-gl';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
+	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
 	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { BarChart } from '@onsvisual/svelte-charts';
-	import DonutMetric from '../../lib/components/DonutMetric.svelte';
+	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
@@ -8,14 +8,20 @@
 	export let ageData;
 	export let selectedVariable: string;
 	export let onSelectVariable: (v: string) => void;
+
+	console.log(
+		selectedStation.IndigenousIdentity,
+		selectedStation.VisibleMinorityTotal,
+		selectedStation.TotalImmigrant
+	);
 </script>
 
 <div class="tab-content gap-1">
 	<div class="metric-container gap-[0.3em]">
 		<TransitMetric
 			label={'Population'}
-			active={selectedVariable === 'PopulationDensity'}
-			on:click={() => onSelectVariable('PopulationDensity')}
+			active={selectedVariable === 'TotalPopulation'}
+			on:click={() => onSelectVariable('TotalPopulation')}
 			value={selectedStation.TotalPopulation.toLocaleString()}
 			icon={'fluent:people-20-filled'}
 		/>
@@ -55,7 +61,7 @@
 			active={selectedVariable === 'IndigenousIdentity'}
 			on:click={() => onSelectVariable('IndigenousIdentity')}
 			label={'Indigenous'}
-			value={Math.round(selectedStation.IndigenousIdentity)}
+			value={selectedStation.IndigenousIdentity}
 			icon={'mdi:people'}
 			suffix="%"
 		/>
@@ -64,7 +70,7 @@
 		label={'University Degree'}
 		active={selectedVariable === 'UniversityDegree'}
 		on:click={() => onSelectVariable('UniversityDegree')}
-		value={Math.round(selectedStation.UniversityDegree * 10) / 10}
+		value={Math.round(selectedStation.UniversityDegree)}
 		icon={'mdi:school'}
 		suffix="%"
 	/>

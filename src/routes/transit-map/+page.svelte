@@ -17,6 +17,7 @@
 	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
+	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 
@@ -43,7 +44,7 @@
 	let stationBuiltForm = {};
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
-	let selectedVariable = 'TotalPopulation';
+	let selectedVariable = null;
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
@@ -305,6 +306,9 @@
 		];
 	}
 
+	export let min = 0;
+	export let max = 0;
+
 	//helper function to interpolate colours for d3
 	function getD3InterpolateExpression(
 		features,
@@ -312,8 +316,8 @@
 		colors = ['#F5C8D7', '#E87CA0', '#DB3069', '#721433']
 	) {
 		const values = features.map((f) => f.properties[variable]).filter((v) => v != null);
-		const min = +d3.min(values);
-		const max = +d3.max(values);
+		min = +d3.min(values);
+		max = +d3.max(values);
 		const stops = colors
 			.map((color, i) => [min + (i * (max - min)) / (colors.length - 1), color])
 			.flat();
@@ -322,18 +326,42 @@
 	}
 
 	function updateLayerVariable(variable) {
-		console.log(variable);
+		if (variable === selectedVariable) {
+			selectedVariable = null;
+			if (map.getLayer('da')) map.removeLayer('da');
+			return;
+		}
 		selectedVariable = variable;
-		const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
-		const expression = getD3InterpolateExpression(features, variable);
-		map.setPaintProperty('da', 'fill-color', expression);
-	}
 
-	function handleVariableSelect(event) {
-		selectedVariable = event.detail.variable;
-		updateLayerVariable(selectedVariable);
+		// If layer exists, just update it
+		if (map.getLayer('da')) {
+			const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
+			const expression = getD3InterpolateExpression(features, variable);
+			map.setPaintProperty('da', 'fill-color', expression);
+		} else {
+			// Add the layer if not present
+			map.addLayer(
+				{
+					id: 'da',
+					type: 'fill',
+					source: 'da_map-bco47g',
+					'source-layer': 'da_map-bco47g',
+					paint: {
+						'fill-color': '#000',
+						'fill-opacity': 0
+					}
+				},
+				'greenspace'
+			);
+			map.once('idle', () => {
+				const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
+				const expression = getD3InterpolateExpression(features, variable);
+				map.setPaintProperty('da', 'fill-color', expression);
+				map.setPaintProperty('da', 'fill-opacity', 0.8);
+				console.log(map.getStyle().layers);
+			});
+		}
 	}
-
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
 		// run update function to fetch relevant station data
@@ -639,21 +667,6 @@
 				type: 'vector',
 				url: 'mapbox://canadianurbaninstitute.1cu02ydb'
 			});
-
-			// add DA choropleth layer
-			map.addLayer(
-				{
-					id: 'da',
-					type: 'fill',
-					source: 'da_map-bco47g',
-					'source-layer': 'da_map-bco47g',
-					paint: {
-						'fill-color': '#FCEBF1',
-						'fill-opacity': 0.8
-					}
-				},
-				'transit-lines'
-			);
 
 			// Add layers
 			map.addLayer({
@@ -1123,14 +1136,6 @@
 					<div id="filter-container" class="flex-wrap">
 						<div class="filter-group">
 							<h6>Status:</h6>
-							<select
-								bind:value={selectedVariable}
-								on:change={() => updateLayerVariable(selectedVariable)}
-							>
-								<option value="PopulationDensity">Population Density</option>
-								<option value="TotalPopulation">Total Population</option>
-								<option value="EmploymentDensity">Employment Density</option>
-							</select>
 							<label
 								><input
 									type="checkbox"
@@ -1214,6 +1219,14 @@
 				</div>
 			</div>
 			<div id="map-container" class="w-full">
+				{#if typeof min === 'number' && !isNaN(min) && typeof max === 'number' && !isNaN(max) && selectedVariable}
+					<LegendAbsolute
+						title={selectedVariable}
+						gradient="linear-gradient(to right, #F5C8D7, #E87CA0, #DB3069, #721433)"
+						items={[{ label: min.toString() }, { label: max.toString() }]}
+					/>
+				{/if}
+
 				<div id="map"></div>
 			</div>
 		</div>
@@ -1267,6 +1280,10 @@
 	#map {
 		height: 100%;
 		width: 100%;
+	}
+
+	#map-container {
+		position: relative;
 	}
 
 	#station-container {

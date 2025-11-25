@@ -1,17 +1,16 @@
 <script>
-	import { LayerCake, Svg, Html, groupLonger, flatten } from 'layercake';
+	import { Html, LayerCake, Svg, flatten, groupLonger } from 'layercake';
 	import '../../styles.css';
 
-	import { scaleOrdinal } from 'd3-scale';
-	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format } from 'd3-format';
+	import { scaleOrdinal } from 'd3-scale';
+	import { timeFormat, timeParse } from 'd3-time-format';
 
+	import AxisX from '../../lib/ui/chartcomponents/AxisX.svelte';
+	import AxisY from '../../lib/ui/chartcomponents/AxisY.svelte';
+	import MultiLine from '../../lib/ui/chartcomponents/MultiLine.svelte';
+	import SharedTooltip from '../../lib/ui/chartcomponents/SharedTooltip.html.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import MultiLine from '../../lib/chartcomponents/MultiLine.svelte';
-	import AxisX from '../../lib/chartcomponents/AxisX.svelte';
-	import AxisY from '../../lib/chartcomponents/AxisY.svelte';
-	import SharedTooltip from '../../lib/chartcomponents/SharedTooltip.html.svelte';
-
 	// Data
 
 	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
@@ -80,9 +79,9 @@
 			const col = matchCsvKey(o);
 			return {
 				label: `${o.text} (${g.label})`, // what user sees/searches (includes group)
-				value: col ?? o.value,            // chart lookup key (best effort)
-				group: g.label,                   // keep group metadata if needed elsewhere
-				shortLabel: o.text                // clean label for legend
+				value: col ?? o.value, // chart lookup key (best effort)
+				group: g.label, // keep group metadata if needed elsewhere
+				shortLabel: o.text // clean label for legend
 			};
 		})
 	);
@@ -91,9 +90,7 @@
 	let selectedOptions = [];
 
 	/* Derive the *data column* names to plot */
-	$: selectedValues = selectedOptions
-		.map((o) => o.value)
-		.filter((v) => v && v in data[0]); // ignore unmatched
+	$: selectedValues = selectedOptions.map((o) => o.value).filter((v) => v && v in data[0]); // ignore unmatched
 
 	/* Labels for legend (display only) */
 	$: selectedLabels = selectedOptions.map((o) => o.shortLabel ?? o.label);
@@ -126,7 +123,7 @@
 		}
 
 		// Show base series in grey; highlight selected in blue
-		
+
 		seriesColors = ['#ddd', '#ddd', '#ddd', '#ddd'];
 		newLineSeriesColors = ['#00ADF2'];
 
@@ -265,8 +262,7 @@
 		flex-wrap: wrap;
 	}
 
-	
 	:global(div.multiselect) {
-    --sms-remove-btn-hover-color: var(--brandDarkBlue);
-  }
+		--sms-remove-btn-hover-color: var(--brandDarkBlue);
+	}
 </style>

@@ -43,8 +43,9 @@
 
 	.active {
 		background-color: var(--color-pink-50);
-		border-color: var(--color-pink-400);
-		border-width: 3px;
+		outline: 3px solid var(--color-pink-400);
+		box-sizing: border-box;
+		outline-offset: -3px;
 	}
 
 	.text {

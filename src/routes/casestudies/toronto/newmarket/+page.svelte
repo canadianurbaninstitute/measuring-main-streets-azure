@@ -21,7 +21,7 @@
 
 	import { browser } from '$app/environment';
 	import { timeFormat } from 'd3-time-format';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
+	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
 	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';

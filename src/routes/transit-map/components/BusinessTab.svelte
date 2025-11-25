@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { BarChart } from '@onsvisual/svelte-charts';
-	import GaugeMetric from '../../lib/components/GaugeMetric.svelte';
+	import GaugeMetric from '../../lib/ui/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
