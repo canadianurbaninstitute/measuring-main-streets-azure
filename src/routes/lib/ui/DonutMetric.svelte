@@ -12,6 +12,7 @@
 	export let suffix = '';
 	export let accordion = false;
 	export let active = false;
+	export let disabled = false;
 
 	// Visual props
 	export let size = 72; // SVG size (px)
@@ -45,6 +46,16 @@
 	const circumference = 2 * Math.PI * radius;
 	const center = size / 2;
 
+	function toFraction(v) {
+		if (v == null || isNaN(v)) return 0;
+		const num = Number(v);
+		// If suffix is '%', treat values <= 100 as percentages (0-100 range)
+		if (suffix === '%') {
+			return Math.max(0, Math.min(1, num / 100));
+		}
+		return num <= 1 ? Math.max(0, Math.min(1, num)) : Math.max(0, Math.min(1, num / 100));
+	}
+
 	function animateTo(newValue: number) {
 		cancelAnimationFrame(rafId);
 		const start = performance.now();
@@ -59,11 +70,8 @@
 			const t = Math.min(1, (now - start) / duration);
 			const ease = 1 - Math.pow(1 - t, 2); // easing
 			fraction = interpF(ease);
-
-			// Calculate displayed value
-			const val = Math.round(interpN(ease) * 10) / 10; // 1 decimal
-			displayed = val < 1 && val > 0 ? '<1' : val; // show "<1" for small values
-
+			const rawValue = interpN(ease);
+			displayed = Math.round(rawValue * 10) / 10;
 			if (t < 1) rafId = requestAnimationFrame(tick);
 		}
 
@@ -75,7 +83,7 @@
 	onDestroy(() => cancelAnimationFrame(rafId));
 </script>
 
-<button class="metric donut-metric" aria-label={label} class:active on:click>
+<button class="metric donut-metric" aria-label={label} class:active on:click {disabled}>
 	<div class="chart" style="width:{size}px; height:{size}px">
 		<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
 			<!-- background ring -->
@@ -109,7 +117,10 @@
 						{#if icon}
 							<div class="icon"><Icon {icon} color={iconcolor} /></div>
 						{/if}
-						<div class="number">{prefix}{displayed}{suffix}</div>
+						<div class="number">
+							<!-- If displayed is 0 but value is greater than 0, show <1 -->
+							{prefix}{displayed === 0 && value > 0 ? '<1' : displayed}{suffix}
+						</div>
 					</div>
 				</foreignObject>
 			</g>

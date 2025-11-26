@@ -20,6 +20,7 @@
 	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
+	import line_colors from '../lib/data/transitdata/line-colors.json';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -45,6 +46,16 @@
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
 	let selectedVariable = null;
+	// Convert line colours to Mapbox expression
+	const lineColorExpression = [
+		'match',
+		['get', 'line_id'],
+		...Object.entries(line_colors).flatMap(([id, color]) => [
+			[Number(id)], // Wrap the number in an array
+			color
+		]),
+		'#000000' // Fallback color
+	];
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
@@ -76,6 +87,14 @@
 		{ label: 'Duplex', value: 0, y: '⠀' },
 		{ label: 'Apt >5', value: 0, y: '⠀' },
 		{ label: 'Apt <5', value: 0, y: '⠀' }
+	];
+
+	let bedData = [
+		{ label: 'Studio', value: 0, y: '⠀' },
+		{ label: '1 Bed', value: 0, y: '⠀' },
+		{ label: '2 Bed', value: 0, y: '⠀' },
+		{ label: '3 Bed', value: 0, y: '⠀' },
+		{ label: '≥ 4 Bed', value: 0, y: '⠀' }
 	];
 
 	let ageData = [
@@ -180,6 +199,7 @@
 		}
 
 		selectedStation = station;
+		// console.log('Selected Station:', selectedStation);
 
 		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
 
@@ -203,6 +223,41 @@
 			{ label: 'Duplex', value: selectedStation.DetachedDuplex, y: '⠀' },
 			{ label: 'Apt >5', value: selectedStation['Apartment,FiveOrMoreStory'], y: '⠀' },
 			{ label: 'Apt <5', value: selectedStation['Apartment,FewerThanFiveStory'], y: '⠀' }
+		];
+
+		const totalBedData =
+			(selectedStation['NoBed'] ?? 0) +
+			(selectedStation['OneBed'] ?? 0) +
+			(selectedStation['TwoBed'] ?? 0) +
+			(selectedStation['ThreeBed'] ?? 0) +
+			(selectedStation['FourOrMoreBed'] ?? 0);
+
+		bedData = [
+			{
+				label: 'Studio',
+				value: totalBedData ? (selectedStation['NoBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '1 Bed',
+				value: totalBedData ? (selectedStation['OneBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '2 Bed',
+				value: totalBedData ? (selectedStation['TwoBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '3 Bed',
+				value: totalBedData ? (selectedStation['ThreeBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '≥ 4 Bed',
+				value: totalBedData ? (selectedStation['FourOrMoreBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			}
 		];
 
 		ownerData = [
@@ -377,12 +432,36 @@
 			steps: 128,
 			units: 'kilometers'
 		});
-
+		// mask features outside circle
+		const maskFeature = {
+			geometry: {
+				type: 'Polygon',
+				coordinates: [
+					// Outer ring (world bounds)
+					[
+						[-180, -90],
+						[180, -90],
+						[180, 90],
+						[-180, 90],
+						[-180, -90]
+					],
+					// Inner ring (circle - reversed coordinates)
+					[...circleFeature.geometry.coordinates[0]].reverse()
+				]
+			}
+		};
 		// if the circle feature exists, update it and set variable to be true
 		if (map.getSource('circle')) {
 			map.getSource('circle').setData({
 				type: 'FeatureCollection',
 				features: [circleFeature]
+			});
+		}
+		// Update mask source
+		if (map.getSource('circle-mask')) {
+			map.getSource('circle-mask').setData({
+				type: 'FeatureCollection',
+				features: [maskFeature]
 			});
 		}
 
@@ -398,7 +477,14 @@
 		// filter layers to be only visible within the circle - could change to be colored inside circle grey outside but more complex
 
 		const circlePolygon = circleFeature.geometry;
-		const thematicLayers = ['msn-lowdensity', 'msn-highdensity', 'civic-infra', 'business'];
+		const thematicLayers = [
+			'msn-lowdensity',
+			'msn-highdensity',
+			'civic-infra',
+			'business',
+			'all-nar',
+			'da'
+		];
 
 		thematicLayers.forEach((layerId) => {
 			if (map.getLayer(layerId)) {
@@ -415,6 +501,13 @@
 				features: []
 			});
 		}
+		// remove mask
+		if (map && map.getSource('circle-mask')) {
+			map.getSource('circle-mask').setData({
+				type: 'FeatureCollection',
+				features: []
+			});
+		}
 		circleDrawn = false;
 
 		// reset station
@@ -427,7 +520,9 @@
 			'msn-highdensity',
 			'civic-infra',
 			'business',
-			'employment-size'
+			'employment-size',
+			'all-nar',
+			'da'
 		];
 		thematicLayersToReset.forEach((layerId) => {
 			if (map && map.getLayer(layerId)) {
@@ -585,7 +680,7 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmhwey905006f01ql380pgrx4?optimize=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te?optimize=true', // no transit lines
 			center: mapCenter,
 			zoom: defaultZoom,
 			maxZoom: 15.5,
@@ -647,11 +742,28 @@
 
 		// add map sources and layers
 		map.on('load', () => {
-			// Add sources
+			// Add transit sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
 				url: 'mapbox://canadianurbaninstitute.btyr8w65'
 			});
+			map.addSource('transit-line-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.683e8euy'
+			});
+			map.addSource('transit-region-data', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.003rt68i'
+			});
+			// Add mask source
+			map.addSource('circle-mask', {
+				type: 'geojson',
+				data: {
+					type: 'FeatureCollection',
+					features: []
+				}
+			});
+			// Add circle source
 			map.addSource('circle', {
 				type: 'geojson',
 				data: {
@@ -659,16 +771,32 @@
 					features: []
 				}
 			});
-			map.addSource('transit-region-data', {
-				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.003rt68i'
-			});
 			map.addSource('da_map-bco47g', {
 				type: 'vector',
 				url: 'mapbox://canadianurbaninstitute.1cu02ydb'
 			});
 
 			// Add layers
+			map.addLayer({
+				id: 'transit-lines',
+				type: 'line',
+				source: 'transit-line-data',
+				'source-layer': 'merged_map_lines',
+				paint: {
+					'line-color': lineColorExpression,
+					'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
+					'line-dasharray': [
+						'case',
+						[
+							'any',
+							['==', ['get', 'status'], 'Construction'],
+							['==', ['get', 'status'], 'Planned']
+						],
+						['literal', [1, 2]],
+						['literal', [1, 0]]
+					]
+				}
+			});
 			map.addLayer({
 				id: 'transit-stations',
 				type: 'circle',
@@ -707,6 +835,15 @@
 					]
 				},
 				minzoom: 6
+			});
+			map.addLayer({
+				id: 'circle-mask',
+				type: 'fill',
+				source: 'circle-mask',
+				paint: {
+					'fill-color': '#ffffff', // match your background color
+					'fill-opacity': 0.8
+				}
 			});
 			map.addLayer(
 				{
@@ -884,31 +1021,42 @@
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
 		map.setPaintProperty('greenspace', 'fill-opacity', 0);
-		map.setPaintProperty('bus-stops', 'circle-opacity', 0);
+		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
+		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
+		// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
+		// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
 		map.setPaintProperty('civic-infra', 'circle-opacity', 0);
 		map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('business', 'circle-opacity', 0);
 		map.setPaintProperty('business', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('all-nar', 'circle-opacity', 0);
+		map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
+		updateLayerVariable(null);
 
 		switch (selectedTab) {
 			case 'demographics':
 				break;
 			case 'housing':
+				map.setPaintProperty('all-nar', 'circle-opacity', 0.8);
+				map.setPaintProperty('all-nar', 'circle-stroke-opacity', 1);
 				break;
 			case 'built-form':
-				map.flyTo({
-					center:
-						selectedStation.longitude && selectedStation.latitude
-							? [selectedStation.longitude, selectedStation.latitude]
-							: map.getCenter(),
-					zoom: selectedStation.longitude && selectedStation.latitude ? 14.5 : map.getZoom(),
-					duration: 1000
-				});
+				// map.flyTo({
+				// 	center:
+				// 		selectedStation.longitude && selectedStation.latitude
+				// 			? [selectedStation.longitude, selectedStation.latitude]
+				// 			: map.getCenter(),
+				// 	zoom: selectedStation.longitude && selectedStation.latitude ? 14.5 : map.getZoom(),
+				// 	duration: 1000
+				// });
 
 				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
-				map.setPaintProperty('bus-stops', 'circle-opacity', 1);
+				map.setPaintProperty('parking-built-form', 'fill-opacity', 0.8);
+				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
+				// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
+				// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
 
 				break;
 			case 'business':
@@ -1032,6 +1180,7 @@
 								{ownerData}
 								{dwellingData}
 								{housingData}
+								{bedData}
 								{selectedVariable}
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>

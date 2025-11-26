@@ -9,6 +9,7 @@
 	export let housingData;
 	export let selectedVariable: string;
 	export let onSelectVariable: (v: string) => void;
+	export let bedData;
 </script>
 
 <div class="tab-content">
@@ -16,7 +17,7 @@
 		<TransitMetric
 			disabled
 			label={'Total Dwellings'}
-			value={selectedStation.dwellings}
+			value={selectedStation.HousingTotal.toLocaleString()}
 			icon={'mdi:house'}
 		/>
 		<TransitMetric
@@ -72,6 +73,18 @@
 				xKey="value"
 				yKey="label"
 				title="Housing Construction Year"
+				yMax="100"
+				xSuffix="%"
+				padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+			/>
+		</div>
+		<div class="chart">
+			<BarChart
+				colors={['#2a5cac']}
+				data={bedData}
+				xKey="value"
+				yKey="label"
+				title="Number of Bedrooms"
 				yMax="100"
 				xSuffix="%"
 				padding={{ top: 0, bottom: 20, left: 60, right: 20 }}

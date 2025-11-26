@@ -8,12 +8,6 @@
 	export let ageData;
 	export let selectedVariable: string;
 	export let onSelectVariable: (v: string) => void;
-
-	console.log(
-		selectedStation.IndigenousIdentity,
-		selectedStation.VisibleMinorityTotal,
-		selectedStation.TotalImmigrant
-	);
 </script>
 
 <div class="tab-content gap-1">

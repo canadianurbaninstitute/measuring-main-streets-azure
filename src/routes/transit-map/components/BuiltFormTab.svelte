@@ -1,7 +1,7 @@
 <script lang="ts">
+	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
-
 	export let selectedStation;
 	export let stationBuiltForm;
 	export let selectedVariable: string;
@@ -25,30 +25,38 @@
 			icon={'mdi:briefcase'}
 		/>
 	</div>
-	<div class="metric-container">
-		<TransitMetric
-			disabled
-			label={'Green Space'}
-			value={Math.round(stationBuiltForm.greenspace_area).toLocaleString() + ' sq. m'}
-			icon={'mdi:pine-tree-variant'}
-		/>
-		<TransitMetric
-			disabled
+	<div class="grid grid-cols-2 gap-[0.3em]">
+		<DonutMetric
 			label={'Water'}
-			value={Math.round(stationBuiltForm.water_area).toLocaleString() + ' sq. m'}
-			icon={'mdi:waves'}
-		/>
-		<TransitMetric
 			disabled
+			value={Math.round(stationBuiltForm['water_pct'] * 10) / 10}
+			icon={'mdi:people'}
+			suffix="%"
+			fillColor={'#002940'}
+		/>
+		<DonutMetric
+			label={'Greenspace'}
+			disabled
+			value={Math.round(stationBuiltForm['greenspace_pct'] * 10) / 10}
+			icon={'mdi:pine-tree-variant'}
+			suffix="%"
+			fillColor={'#43b171'}
+		/>
+		<DonutMetric
 			label={'Buildings'}
-			value={Math.round(stationBuiltForm.building_area).toLocaleString() + ' sq. m'}
-			icon={'mdi:office-building'}
-		/>
-		<TransitMetric
 			disabled
+			value={Math.round(stationBuiltForm['building_pct'] * 10) / 10}
+			icon={'mdi:office-building'}
+			suffix="%"
+			fillColor={'#555555'}
+		/>
+		<DonutMetric
 			label={'Parking'}
-			value={Math.round(stationBuiltForm.parking_area).toLocaleString() + ' sq. m'}
+			disabled
+			value={Math.round(stationBuiltForm['parking_pct'] * 10) / 10}
 			icon={'mdi:car'}
+			suffix="%"
+			fillColor={'#999999'}
 		/>
 	</div>
 </div>
