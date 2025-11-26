@@ -4,14 +4,12 @@
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
-	import BubbleChart from '../../lib/components/BubbleChart.svelte'
+	import BubbleChart from '../../lib/ui/BubbleChart.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
 
 	import '../../styles.css';
 	import { dataset } from '../../lib/data/reportdata/toronto/selectLabels.js';
 	import data from '../../lib/data/reportdata/toronto/bubble-toronto.csv';
-
-
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
@@ -26,11 +24,12 @@
 <div class="full-text">
 	<p>
 		Vibrant main streets are essential to building strong neighbourhoods. Strong neighbourhoods are
-		essential to healthy cities. And healthy cities are the foundation of a strong country.
-	Over six million people live in the Toronto region, and 98% of them reside within 1 km of a main street.
-	Toronto’s main streets host over 33,000 businesses that employ 290,000 people and generate over $41
-	billion in revenue per year. There are also over 13,000 sites of civic infrastructure on main streets.
-</p>
+		essential to healthy cities. And healthy cities are the foundation of a strong country. Over six
+		million people live in the Toronto region, and 98% of them reside within 1 km of a main street.
+		Toronto’s main streets host over 33,000 businesses that employ 290,000 people and generate over
+		$41 billion in revenue per year. There are also over 13,000 sites of civic infrastructure on
+		main streets.
+	</p>
 	<p>
 		Main street businesses and civic infrastructure play a crucial role in the day-to-day lives of
 		residents. But when main streets suffer, people suffer. The COVID-19 pandemic created
@@ -104,17 +103,23 @@
 			</p>
 			<p>
 				Among all 20 Toronto-region main streets, those in small towns were generally the most
-				resilient, with <a href="/casestudies/toronto/sutton">Sutton</a> and <a href="/casestudies/toronto/caledoneast">Caledon East</a> leading the way. The most resilient neighbourhood
-				main street was  <a href="/casestudies/toronto/thorncliffepark">Thorncliffe Park</a>, which had a high level of visitors (30%) coming from less
-				than 1 km away. More car-oriented main streets such as those in <a href="/casestudies/toronto/pickering">Pickering</a>,  <a href="/casestudies/toronto/markhamhwy7">Markham</a>,
-				<a href="/casestudies/toronto/goldenmile">Scarborough</a>, and <a href="/casestudies/toronto/mississaugadundas">Mississauga</a> were less resilient and only drew between 9%–12% of their
-				visitors from nearby.
+				resilient, with <a href="/casestudies/toronto/sutton">Sutton</a> and
+				<a href="/casestudies/toronto/caledoneast">Caledon East</a>
+				leading the way. The most resilient neighbourhood main street was
+				<a href="/casestudies/toronto/thorncliffepark">Thorncliffe Park</a>, which had a high level
+				of visitors (30%) coming from less than 1 km away. More car-oriented main streets such as
+				those in <a href="/casestudies/toronto/pickering">Pickering</a>,
+				<a href="/casestudies/toronto/markhamhwy7">Markham</a>,
+				<a href="/casestudies/toronto/goldenmile">Scarborough</a>, and
+				<a href="/casestudies/toronto/mississaugadundas">Mississauga</a> were less resilient and only
+				drew between 9%–12% of their visitors from nearby.
 			</p>
 			<p>
-				The least resilient main street was in Toronto’s <a href="/casestudies/toronto/libertyvillage">Liberty Village</a> neighbourhood. This
-				Business Improvement Area is to the west of the city’s central business district and
-				contains many high-tech employers. This industry continues to be at the forefront of the
-				work-from-home trend. Liberty Village is also a relatively new residential neighbourhood
+				The least resilient main street was in Toronto’s <a
+					href="/casestudies/toronto/libertyvillage">Liberty Village</a
+				> neighbourhood. This Business Improvement Area is to the west of the city’s central business
+				district and contains many high-tech employers. This industry continues to be at the forefront
+				of the work-from-home trend. Liberty Village is also a relatively new residential neighbourhood
 				that has lower levels of civic infrastructure (i.e., no school, library, recreation centre),
 				especially relative to other central parts of the city.
 			</p>
@@ -122,7 +127,7 @@
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<RecoveryMultiLineChart dataset={dataset}/>
+		<RecoveryMultiLineChart {dataset} />
 	</div>
 </div>
 
@@ -153,24 +158,27 @@
 			<p>
 				The five Toronto-region shopping malls clearly have a scarcity of both independent
 				businesses and civic infrastructure, ranking below all main streets on both scores. Of the
-				Toronto case studies, <a href="/casestudies/toronto/newmarket">Newmarket</a>, <a href="/casestudies/toronto/oakville">Oakville</a>, and <a href="/casestudies/toronto/weston">Weston</a> stand out as having higher shares of
-				both independent business and civic infrastructure. Each of these are examples of main
-				streets that originated in smaller towns that eventually became subsumed by urban sprawl.
-				Despite being in suburban locations, these main streets are dense and walkable. There are
-				multiple conditions present that are conducive to building strong local communities.
+				Toronto case studies, <a href="/casestudies/toronto/newmarket">Newmarket</a>,
+				<a href="/casestudies/toronto/oakville">Oakville</a>, and
+				<a href="/casestudies/toronto/weston">Weston</a> stand out as having higher shares of both independent
+				business and civic infrastructure. Each of these are examples of main streets that originated
+				in smaller towns that eventually became subsumed by urban sprawl. Despite being in suburban locations,
+				these main streets are dense and walkable. There are multiple conditions present that are conducive
+				to building strong local communities.
 			</p>
 			<p>
-				The <a href="/casestudies/toronto/goldenmile">Golden Mile (Scarborough)</a> and <a href="/casestudies/toronto/pickering">Kingston Road (Pickering)</a> are main streets at the other
-				end of the spectrum. These are places with less independent business and civic
-				infrastructure that are heavily car-oriented and characterized by big box retail and chain
-				restaurants. Such main streets do not possess a clear identity and are less likely to be
-				created for and by the local community.
+				The <a href="/casestudies/toronto/goldenmile">Golden Mile (Scarborough)</a> and
+				<a href="/casestudies/toronto/pickering">Kingston Road (Pickering)</a> are main streets at the
+				other end of the spectrum. These are places with less independent business and civic infrastructure
+				that are heavily car-oriented and characterized by big box retail and chain restaurants. Such
+				main streets do not possess a clear identity and are less likely to be created for and by the
+				local community.
 			</p>
 		</div>
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<BubbleChart data={data} />
+		<BubbleChart {data} />
 	</div>
 </div>
 
@@ -200,11 +208,16 @@
 			</p>
 			<p>
 				Downtown Toronto is at the other end of the spectrum, with much higher levels of civic
-				infrastructure, as it is home to many regionally significant assets. Fittingly, <a href="/casestudies/toronto/downtownyonge">Downtown
-				Yonge</a> and <a href="/casestudies/toronto/spadinachinatown">Spadina-Chinatown</a> are the case studies that score the highest on our Civic
-				Infrastructure Index. The centres of many suburban communities and satellite towns also
-				score well above the median. The main street case studies that are most exemplary in this
-				respect are <a href="/casestudies/toronto/oakville">Oakville</a>, <a href="/casestudies/toronto/newmarket">Newmarket</a>, and <a href="/casestudies/toronto/markhamhwy7">Markham</a>.
+				infrastructure, as it is home to many regionally significant assets. Fittingly, <a
+					href="/casestudies/toronto/downtownyonge">Downtown Yonge</a
+				>
+				and <a href="/casestudies/toronto/spadinachinatown">Spadina-Chinatown</a> are the case
+				studies that score the highest on our Civic Infrastructure Index. The centres of many
+				suburban communities and satellite towns also score well above the median. The main street
+				case studies that are most exemplary in this respect are
+				<a href="/casestudies/toronto/oakville">Oakville</a>,
+				<a href="/casestudies/toronto/newmarket">Newmarket</a>, and
+				<a href="/casestudies/toronto/markhamhwy7">Markham</a>.
 			</p>
 			<p>
 				The core issue not only about the overall amount of civic infrastructure, but how it is
@@ -293,11 +306,12 @@
 				The Toronto-region main streets that most consistently score the highest across the key
 				indicators tend to be long-established neighbourhood streets that primarily serve their
 				immediate local community with a range of independent businesses and civic infrastructure.
-				<a href="/casestudies/toronto/etobicokelakeshore">Etobicoke Lakeshore</a> and <a href="/casestudies/toronto/kingstonrd">Kingston Road (Scarborough)</a> are “inner” suburban locations that are
-				relatively walkable but also accommodate car use. They also offer a mix of housing types
-				that cater to a range of income levels. These main streets were originally built (pre-1960)
-				in conjunction with the surrounding housing stock and have co-evolved with physical and
-				demographic changes.
+				<a href="/casestudies/toronto/etobicokelakeshore">Etobicoke Lakeshore</a> and
+				<a href="/casestudies/toronto/kingstonrd">Kingston Road (Scarborough)</a> are “inner” suburban
+				locations that are relatively walkable but also accommodate car use. They also offer a mix of
+				housing types that cater to a range of income levels. These main streets were originally built
+				(pre-1960) in conjunction with the surrounding housing stock and have co-evolved with physical
+				and demographic changes.
 			</p>
 			<p>
 				Key to this is the original built form and how adaptable it is over time. In the current
@@ -307,11 +321,12 @@
 			<p>
 				At the lower end of the spectrum are main streets that are heavily car-dependent places with
 				large format (big box) retail and offer limited civic infrastructure. Such main streets tend
-				to serve a larger catchment area and possess fewer independent businesses. <a href="/casestudies/toronto/mississaugadundas">Dundas Street
-				(Mississauga)</a>, <a href="/casestudies/toronto/goldenmile">Golden Mile (Scarborough)</a>, and <a href="/casestudies/toronto/pickering">Kingston Road (Pickering)</a> are main streets
-				that are designed to accommodate cars and are dominated by large parking lots. These places
-				are among the least resilient main streets and draw a lower share of visitors from their
-				surrounding neighbourhoods.
+				to serve a larger catchment area and possess fewer independent businesses. <a
+					href="/casestudies/toronto/mississaugadundas">Dundas Street (Mississauga)</a
+				>, <a href="/casestudies/toronto/goldenmile">Golden Mile (Scarborough)</a>, and
+				<a href="/casestudies/toronto/pickering">Kingston Road (Pickering)</a> are main streets that
+				are designed to accommodate cars and are dominated by large parking lots. These places are among
+				the least resilient main streets and draw a lower share of visitors from their surrounding neighbourhoods.
 			</p>
 			<p>
 				While the form of these places is not conducive to adaptive reuse of existing buildings,

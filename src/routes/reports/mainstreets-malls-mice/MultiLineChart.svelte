@@ -1,16 +1,15 @@
 <script>
-	import { LayerCake, Svg, Html, groupLonger, flatten } from 'layercake';
+	import { Html, LayerCake, Svg, flatten, groupLonger } from 'layercake';
 
-	import { scaleOrdinal, scaleTime } from 'd3-scale';
-	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format } from 'd3-format';
+	import { scaleOrdinal, scaleTime } from 'd3-scale';
+	import { timeFormat, timeParse } from 'd3-time-format';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
-	import MultiLine from '../../lib/chartcomponents/MultiLine.svelte';
-	import AxisX from '../../lib/chartcomponents/AxisX.svelte';
-	import AxisY from '../../lib/chartcomponents/AxisY.svelte';
-	import SharedTooltip from '../../lib/chartcomponents/SharedTooltip.html.svelte';
-
+	import AxisX from '../../lib/ui/chartcomponents/AxisX.svelte';
+	import AxisY from '../../lib/ui/chartcomponents/AxisY.svelte';
+	import MultiLine from '../../lib/ui/chartcomponents/MultiLine.svelte';
+	import SharedTooltip from '../../lib/ui/chartcomponents/SharedTooltip.html.svelte';
 	// This example loads csv data as json using @rollup/plugin-dsv
 
 	import ecommerce from '../../lib/data/reportdata/mainstreets-malls-mice/ecommerce.csv';
@@ -23,11 +22,10 @@
 	let data;
 
 	if (chartDataset == 'ecommerce') {
-		data = ecommerce
+		data = ecommerce;
 	} else if (chartDataset == 'restaurant') {
-		data = restaurant
+		data = restaurant;
 	}
-
 
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series
@@ -40,7 +38,6 @@
 
 	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
 	const seriesColors = ['#002940', '#DB3069', '#00ADF2', '#58E965'];
-
 
 	/* --------------------------------------------
 	 * Cast values
@@ -63,62 +60,66 @@
 	});
 </script>
 
-<div class='chart-container'>
+<div class="chart-container">
+	<h4>{title}</h4>
 
-    <h4>{title}</h4>
+	<div class="chart">
+		<LayerCake
+			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+			x={xKey}
+			y={yKey}
+			z={zKey}
+			{yDomain}
+			zScale={scaleOrdinal()}
+			xScale={scaleTime()}
+			zRange={seriesColors}
+			flatData={flatten(groupedData, 'values')}
+			data={groupedData}
+		>
+			<Svg>
+				<AxisX
+					gridlines={false}
+					ticks={data.filter((_, i) => i % 10 === 0).map((d) => d[xKey])}
+					format={formatLabelX}
+					tickMarks
+				/>
+				<AxisY ticks={4} format={formatLabelY} />
+				<MultiLine />
+			</Svg>
 
-<div class="chart">
-	<LayerCake
-		padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-		x={xKey}
-		y={yKey}
-		z={zKey}
-		yDomain={yDomain}
-		zScale={scaleOrdinal()}
-		xScale={scaleTime()}
-		zRange={seriesColors}
-		flatData={flatten(groupedData, 'values')}
-		data={groupedData}
-	>
-		<Svg>
-			<AxisX
-				gridlines={false}
-				ticks={data.filter((_, i) => i % 10 === 0).map((d) => d[xKey])}
-				format={formatLabelX}
-				tickMarks
-			/>
-			<AxisY ticks={4} format={formatLabelY}/>
-			<MultiLine />
-		</Svg>
+			<Html>
+				<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue} />
+			</Html>
+		</LayerCake>
+	</div>
 
-		<Html>
-			<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue} />
-		</Html>
-	</LayerCake>
+	{#if chartDataset == 'ecommerce'}
+		<div class="controls">
+			<div class="legend-container">
+				<LegendItem
+					variant={'line'}
+					label={'E-Commerce Share of All Retail Sales'}
+					bordercolor={'#002940'}
+				/>
+				<LegendItem variant={'line'} label={'Pre-Pandemic Trendline'} bordercolor={'#DB3069'} />
+			</div>
+		</div>
+	{/if}
+
+	{#if chartDataset == 'restaurant'}
+		<div class="controls">
+			<div class="legend-container">
+				<LegendItem variant={'line'} label={'Drinking Places'} bordercolor={'#002940'} />
+				<LegendItem variant={'line'} label={'Full Service Restaurants'} bordercolor={'#DB3069'} />
+				<LegendItem
+					variant={'line'}
+					label={'Limited Service Eating Places'}
+					bordercolor={'#00adf2'}
+				/>
+			</div>
+		</div>
+	{/if}
 </div>
-
-{#if chartDataset == 'ecommerce'}
-<div class='controls'>
-    <div class="legend-container">
-        <LegendItem variant={'line'} label={'E-Commerce Share of All Retail Sales'} bordercolor={'#002940'} />
-        <LegendItem variant={'line'} label={'Pre-Pandemic Trendline'} bordercolor={'#DB3069'} />
-    </div>
-</div>
-{/if}
-
-{#if chartDataset == 'restaurant'}
-<div class='controls'>
-    <div class="legend-container">
-        <LegendItem variant={'line'} label={'Drinking Places'} bordercolor={'#002940'} />
-        <LegendItem variant={'line'} label={'Full Service Restaurants'} bordercolor={'#DB3069'} />
-		<LegendItem variant={'line'} label={'Limited Service Eating Places'} bordercolor={'#00adf2'} />
-
-    </div>
-</div>
-{/if}
-
-</div>
-
 
 <style>
 	/*
@@ -132,28 +133,26 @@
 		height: 500px;
 	}
 
-    .chart-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
+	.chart-container {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
+	}
 
-    }
+	.controls {
+		display: flex;
+		flex-direction: column;
+	}
 
-    .controls {
-        display:flex;
-        flex-direction: column;
-        }
-    
-    .legend-container {
-        display:flex;
-        flex-direction: row;
-        border-radius: 0.5em;
-        border: 1px solid var(--brandGrey);
-        margin: 1em 0 0 0;
-        padding: 0.5em;
-
-    }
+	.legend-container {
+		display: flex;
+		flex-direction: row;
+		border-radius: 0.5em;
+		border: 1px solid var(--brandGrey);
+		margin: 1em 0 0 0;
+		padding: 0.5em;
+	}
 </style>

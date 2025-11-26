@@ -20,7 +20,7 @@
 	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { timeFormat } from 'd3-time-format';
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
+	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
 	import IsochroneCheckboxFr from '../../../lib/ui/checkbox/IsochroneCheckboxFr.svelte';
 	import SatelliteCheckboxFr from '../../../lib/ui/checkbox/SatelliteCheckboxFr.svelte';

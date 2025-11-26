@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { interpolateNumber } from 'd3-interpolate';
 	import { onDestroy } from 'svelte';
@@ -11,6 +11,7 @@
 	export let prefix = '';
 	export let suffix = '';
 	export let accordion = false;
+	export let active = false;
 
 	// Visual props
 	export let size = 72; // SVG size (px)
@@ -36,48 +37,45 @@
 		fillColor = brandColors[Math.floor(Math.random() * brandColors.length)];
 	}
 
-	// internal
-	let fraction = 0; // 0..1 used for drawing
-	let displayed = 0; // displayed numeric value (0..100)
-	let rafId;
+	let fraction = 0; // 0..1 for drawing the circle
+	let displayed: number | string = 0; // 1..100 shown to user (string "<1" allowed)
+	let rafId = 0;
 
 	const radius = (size - thickness) / 2;
 	const circumference = 2 * Math.PI * radius;
 	const center = size / 2;
 
-	function toFraction(v) {
-		if (v == null || isNaN(v)) return 0;
-		const num = Number(v);
-		return num <= 1 ? Math.max(0, Math.min(1, num)) : Math.max(0, Math.min(1, num / 100));
-	}
-
-	function animateTo(newFraction) {
+	function animateTo(newValue: number) {
 		cancelAnimationFrame(rafId);
 		const start = performance.now();
 		const fromF = fraction;
-		const toF = newFraction;
+		const toF = newValue / 100; // convert 1–100 to 0–1 for SVG
+		const fromN = typeof displayed === 'number' ? displayed : 0;
+		const toN = newValue; // keep 1–100 for display
 		const interpF = interpolateNumber(fromF, toF);
-		const fromN = displayed;
-		const toN = Math.round(toF * 100);
 		const interpN = interpolateNumber(fromN, toN);
 
-		function tick(now) {
+		function tick(now: number) {
 			const t = Math.min(1, (now - start) / duration);
-			const ease = 1 - Math.pow(1 - t, 2);
+			const ease = 1 - Math.pow(1 - t, 2); // easing
 			fraction = interpF(ease);
-			displayed = Math.round(interpN(ease));
+
+			// Calculate displayed value
+			const val = Math.round(interpN(ease) * 10) / 10; // 1 decimal
+			displayed = val < 1 && val > 0 ? '<1' : val; // show "<1" for small values
+
 			if (t < 1) rafId = requestAnimationFrame(tick);
 		}
 
 		rafId = requestAnimationFrame(tick);
 	}
 
-	$: animateTo(toFraction(value));
+	$: animateTo(value);
 
 	onDestroy(() => cancelAnimationFrame(rafId));
 </script>
 
-<div class="metric donut-metric" role="group" aria-label={label}>
+<button class="metric donut-metric" aria-label={label} class:active on:click>
 	<div class="chart" style="width:{size}px; height:{size}px">
 		<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
 			<!-- background ring -->
@@ -124,7 +122,7 @@
 			<Icon icon="mdi:unfold-more-horizontal" />
 		{/if}
 	</div>
-</div>
+</button>
 
 <style>
 	.donut-metric {
@@ -138,6 +136,13 @@
 		border-radius: 0.5em;
 		box-sizing: border-box;
 		width: 100%;
+	}
+
+	.active {
+		background-color: var(--color-pink-50);
+		outline: 3px solid var(--color-pink-400);
+		box-sizing: border-box;
+		outline-offset: -3px;
 	}
 
 	.chart {

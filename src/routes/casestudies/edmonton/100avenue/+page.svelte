@@ -19,7 +19,7 @@
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/100avenue/visitortypes';
 	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import CaseStudyMap from '../../../lib/components/CaseStudyMap.svelte';
+	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
 	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';

@@ -4,15 +4,13 @@
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
-	import BubbleChart from '../../lib/components/BubbleChart.svelte'
+	import BubbleChart from '../../lib/ui/BubbleChart.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
 	import LanguageSelector from '../../lib/ui/LanguageSelector.svelte';
 
 	import '../../styles.css';
 	import { dataset } from '../../lib/data/reportdata/montreal/selectLabels.js';
 	import data from '../../lib/data/reportdata/montreal/bubble-montreal.csv';
-
-
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
@@ -24,18 +22,15 @@
 	bg={'https://i.imgur.com/2sGLoIh.jpeg'}
 />
 
-<LanguageSelector eng={'/reports/montreal'} fr={'/reports/montreal-fr'} selected='eng'/>
-
+<LanguageSelector eng={'/reports/montreal'} fr={'/reports/montreal-fr'} selected="eng" />
 
 <div class="full-text">
-
 	<p>
 		Vibrant main streets are essential to building strong neighbourhoods. Strong neighbourhoods are
-		essential to healthy cities. And healthy cities are the foundation of a strong country.
-
-		Over 4 million people live in the Montréal region, with 96% residing within 1 km of a main
-		street. Montréal’s main streets are home to over 23,000 businesses that employ 215,000 people
-		and generate over $30 billion in revenue per year. There are also nearly 8,000 sites of civic
+		essential to healthy cities. And healthy cities are the foundation of a strong country. Over 4
+		million people live in the Montréal region, with 96% residing within 1 km of a main street.
+		Montréal’s main streets are home to over 23,000 businesses that employ 215,000 people and
+		generate over $30 billion in revenue per year. There are also nearly 8,000 sites of civic
 		infrastructure on main streets.
 	</p>
 	<p>
@@ -112,24 +107,30 @@
 			<p>
 				Among all 20 Montréal-region main streets there were examples of small town, downtown, and
 				residential streets demonstrating higher levels of resiliency. The most resilient main
-				street case study was in <a href="/casestudies/montreal/ruestanne">Sainte Anne de Bellevue</a>, which had a high level of visitors (27%)
-				coming from less than 1 km away. <a href="/casestudies/montreal/ruestpaul">Rue St. Paul</a> in Old Montréal is a rare example of a
-				downtown main street that showed a higher degree of resilience. <a href="/casestudies/montreal/avedorval">Dorval</a> and <a href="/casestudies/montreal/boulevardmonk">Ville Emard
-				(Boulevard Monk)</a> were the most resilient neighbourhood main street case studies in the
-				Montréal region.
+				street case study was in <a href="/casestudies/montreal/ruestanne"
+					>Sainte Anne de Bellevue</a
+				>, which had a high level of visitors (27%) coming from less than 1 km away.
+				<a href="/casestudies/montreal/ruestpaul">Rue St. Paul</a>
+				in Old Montréal is a rare example of a downtown main street that showed a higher degree of
+				resilience. <a href="/casestudies/montreal/avedorval">Dorval</a> and
+				<a href="/casestudies/montreal/boulevardmonk">Ville Emard (Boulevard Monk)</a> were the most
+				resilient neighbourhood main street case studies in the Montréal region.
 			</p>
 			<p>
-				<a href="/casestudies/montreal/stdenis">Saint Denis</a> and <a href="/casestudies/montreal/notredame">Notre Dame (Saint Henri)</a> were among the least resilient main street case
-				studies in the Montréal region. Both tough the edges of the downtown core and rely on a
-				greater share of visitor from more than 1km away. The least resilient neighbourhood case
-				study main street was <a href="/casestudies/montreal/rueontario">Rue Ontario</a> in Hochelaga. It captured 20% of its visitors from with
-				1km in 2019, which is at the low end of the spectrum for neighbourhood type main streets.
+				<a href="/casestudies/montreal/stdenis">Saint Denis</a> and
+				<a href="/casestudies/montreal/notredame">Notre Dame (Saint Henri)</a>
+				were among the least resilient main street case studies in the Montréal region. Both tough
+				the edges of the downtown core and rely on a greater share of visitor from more than 1km
+				away. The least resilient neighbourhood case study main street was
+				<a href="/casestudies/montreal/rueontario">Rue Ontario</a> in Hochelaga. It captured 20% of its
+				visitors from with 1km in 2019, which is at the low end of the spectrum for neighbourhood type
+				main streets.
 			</p>
 		</div>
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<RecoveryMultiLineChart dataset={dataset} />
+		<RecoveryMultiLineChart {dataset} />
 	</div>
 </div>
 
@@ -160,28 +161,31 @@
 			<p>
 				The five Montréal-region shopping malls clearly have a scarcity of both independent
 				businesses and civic infrastructure, ranking below all main streets on both scores. Of the
-				Montréal case study main streets, <a href="/casestudies/montreal/boulevardmonk">Boulevard Monk (Ville Emard)
-				</a>, <a href="/casestudies/montreal/ruestcharles">Rue Saint Charles (Old
-				Longueil)</a>, and <a href="/casestudies/montreal/notredame">Rue Notre Dame (Saint Henri)</a> stand out as having higher shares of both
-				independent business and civic infrastructure. Each of these are examples of main streets
-				that are older well-established main streets that are dense and walkable. They possess a
-				variety of building types that are generally flexible and adaptable. Two of the small-town
-				main street case studies also scored in the top ten on both independent business and share
-				civic infrastructure. <a href="/casestudies/montreal/ruestgeorge">Rue St. George (Saint Jerome)</a> and <a href="/casestudies/montreal/steustache"> Rue St. Eustache (St. Eustache)</a> both
-				demonstrate assets that are conducive to centering strong local communities.
+				Montréal case study main streets, <a href="/casestudies/montreal/boulevardmonk"
+					>Boulevard Monk (Ville Emard)
+				</a>, <a href="/casestudies/montreal/ruestcharles">Rue Saint Charles (Old Longueil)</a>, and
+				<a href="/casestudies/montreal/notredame">Rue Notre Dame (Saint Henri)</a>
+				stand out as having higher shares of both independent business and civic infrastructure.
+				Each of these are examples of main streets that are older well-established main streets that
+				are dense and walkable. They possess a variety of building types that are generally flexible
+				and adaptable. Two of the small-town main street case studies also scored in the top ten on
+				both independent business and share civic infrastructure.
+				<a href="/casestudies/montreal/ruestgeorge">Rue St. George (Saint Jerome)</a>
+				and <a href="/casestudies/montreal/steustache"> Rue St. Eustache (St. Eustache)</a> both demonstrate
+				assets that are conducive to centering strong local communities.
 			</p>
 			<p>
-				<a href="/casestudies/montreal/avenuevictoria">Av. Victoria (St. Lambert)</a> and <a href="/casestudies/montreal/boulevardstmartin">Boul. St. Martin (Laval)</a> are main streets at the other end of
-				the spectrum. These are places with less independent business and civic infrastructure that
-				are heavily car-oriented and characterized by big box retail and chain restaurants. Such
-				main streets do not possess a clear identity and are less likely to be shaped by the local
-				community.
+				<a href="/casestudies/montreal/avenuevictoria">Av. Victoria (St. Lambert)</a> and
+				<a href="/casestudies/montreal/boulevardstmartin">Boul. St. Martin (Laval)</a> are main streets
+				at the other end of the spectrum. These are places with less independent business and civic infrastructure
+				that are heavily car-oriented and characterized by big box retail and chain restaurants. Such
+				main streets do not possess a clear identity and are less likely to be shaped by the local community.
 			</p>
 		</div>
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<BubbleChart data={data} />
+		<BubbleChart {data} />
 	</div>
 </div>
 
@@ -209,12 +213,16 @@
 			</p>
 			<p>
 				Downtown Montréal is at the other end of the spectrum, with much higher levels of civic
-				infrastructure, as it is home to many regionally significant assets. Fittingly, <a href="/casestudies/montreal/notredame">Notre Dame (Saint Henri)</a> and <a href="/casestudies/montreal/stdenis">St. Denis</a> are the case studies that score the highest on our Civic
-				Infrastructure Index. In the Montréal region, access to civic infrastructure tends to taper
-				from the centre and so the neighbourhood main streets that score the highest on the index
-				are relatively close to downtown. <a href="/casestudies/montreal/ruebeaubien">Rue Beaubien (Rosement-La-Petit-Patrie)</a> and <a href="/casestudies/montreal/rueontario">Rue Ontario
-				(Hochelaga)</a> are prime examples of neighbourhood main streets with high levels of civic
-				opportunity.
+				infrastructure, as it is home to many regionally significant assets. Fittingly, <a
+					href="/casestudies/montreal/notredame">Notre Dame (Saint Henri)</a
+				>
+				and <a href="/casestudies/montreal/stdenis">St. Denis</a> are the case studies that score
+				the highest on our Civic Infrastructure Index. In the Montréal region, access to civic
+				infrastructure tends to taper from the centre and so the neighbourhood main streets that
+				score the highest on the index are relatively close to downtown.
+				<a href="/casestudies/montreal/ruebeaubien">Rue Beaubien (Rosement-La-Petit-Patrie)</a>
+				and <a href="/casestudies/montreal/rueontario">Rue Ontario (Hochelaga)</a> are prime examples
+				of neighbourhood main streets with high levels of civic opportunity.
 			</p>
 			<p>
 				The core issue not only about the overall amount of civic infrastructure, but how it is
@@ -302,14 +310,17 @@
 			<p>
 				The Montréal-region main street case studies that most consistently score the highest across
 				the key indicators tend to be neighbourhood streets that are further from the city centre
-				with a range of independent businesses and civic infrastructure. <a href="/casestudies/montreal/avedorval">Avenue Dorval</a>, <a href="/casestudies/montreal/boulevardmonk">Ville Emard
-				(Boulevard Monk)</a>, <a href="/casestudies/montreal/boulevardstmartin">Boul. St. Martin (Laval)</a>, and <a href="/casestudies/montreal/jeantalon">Jean Talon (Parc-Extension)</a> are older
-				suburban main streets that primarily serve their local communities. They also tend to offer
-				a mix of housing types that cater to a range of income levels. These main streets were
-				originally built (pre-1960) in conjunction with the surrounding housing stock and have
-				co-evolved with physical and demographic changes. Key to this is the original built form and
-				how adaptable it is over time. In the current context, such main streets offer prime
-				opportunities for infill housing as they already provide ample supportive infrastructure.
+				with a range of independent businesses and civic infrastructure. <a
+					href="/casestudies/montreal/avedorval">Avenue Dorval</a
+				>, <a href="/casestudies/montreal/boulevardmonk">Ville Emard (Boulevard Monk)</a>,
+				<a href="/casestudies/montreal/boulevardstmartin">Boul. St. Martin (Laval)</a>, and
+				<a href="/casestudies/montreal/jeantalon">Jean Talon (Parc-Extension)</a> are older suburban
+				main streets that primarily serve their local communities. They also tend to offer a mix of housing
+				types that cater to a range of income levels. These main streets were originally built (pre-1960)
+				in conjunction with the surrounding housing stock and have co-evolved with physical and demographic
+				changes. Key to this is the original built form and how adaptable it is over time. In the current
+				context, such main streets offer prime opportunities for infill housing as they already provide
+				ample supportive infrastructure.
 			</p>
 			<p>
 				Montréal differs from the other case study regions of Toronto and Edmonton in overall urban

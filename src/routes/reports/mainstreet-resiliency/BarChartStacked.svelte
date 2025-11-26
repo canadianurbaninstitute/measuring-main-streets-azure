@@ -1,28 +1,26 @@
 <script>
-	import { LayerCake, Svg, flatten, stack } from 'layercake';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
+	import { LayerCake, Svg, flatten, stack } from 'layercake';
 
-	import BarStacked from '../../lib/chartcomponents/BarStacked.svelte';
-	import AxisX from '../../lib/chartcomponents/AxisX.svelte';
-	import AxisY from '../../lib/chartcomponents/AxisY.svelte';
+	import AxisX from '../../lib/ui/chartcomponents/AxisX.svelte';
+	import AxisY from '../../lib/ui/chartcomponents/AxisY.svelte';
+	import BarStacked from '../../lib/ui/chartcomponents/BarStacked.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../lib/data/reportdata/mainstreet-resiliency/visitors.csv';
 
-	export let title ='';
+	export let title = '';
 
-    const xKey = [0, 1];
+	const xKey = [0, 1];
 	const yKey = 'Name';
 	const zKey = 'key';
-    const formatLabelX = (d) => d + '%';
-
+	const formatLabelX = (d) => d + '%';
 
 	// data.forEach((d) => {
 	// 	d[xKey] = +d[xKey];
 	// });
 
-    const seriesNames = Object.keys(data[0]).filter(d => d !== yKey);
+	const seriesNames = Object.keys(data[0]).filter((d) => d !== yKey);
 	const seriesColors = ['#DB3069', '#002940', '#00ADF2'];
 
 	// function filterColumn(data, columnName) {
@@ -32,57 +30,47 @@
 	// 	}));
 	// }
 
-    data.forEach(d => {
-    seriesNames.forEach(name => {
-      d[name] = +d[name];
-    });
-  });
+	data.forEach((d) => {
+		seriesNames.forEach((name) => {
+			d[name] = +d[name];
+		});
+	});
 
-  const stackedData = stack(data, seriesNames);
-
-
-
+	const stackedData = stack(data, seriesNames);
 </script>
 
+<div class="chart-container">
+	<h4>{title}</h4>
 
-<div class='chart-container'>
+	<div class="controls">
+		<div class="legend-container">
+			<LegendItem variant={'polygon'} label={'Residents'} bgcolor={'#002940'} />
+			<LegendItem variant={'polygon'} label={'Frequent Visitors'} bgcolor={'#00adf2'} />
+			<LegendItem variant={'polygon'} label={'Infrequent Visitors'} bgcolor={'#DB3069'} />
+		</div>
+	</div>
 
-    <h4>{title}</h4>
-
-    <div class='controls'>
-        <div class="legend-container">
-            <LegendItem variant={'polygon'} label={'Residents'} bgcolor={'#002940'} />
-            <LegendItem variant={'polygon'} label={'Frequent Visitors'} bgcolor={'#00adf2'} />
-            <LegendItem variant={'polygon'} label={'Infrequent Visitors'} bgcolor={'#DB3069'} />
-        </div>
-    </div>
-
-<div class="chart">
-	<LayerCake
-		padding={{ bottom: 20, left: 35 }}
-        x={xKey}
-        y={d => d.data[yKey]}
-        z={zKey}
-        yScale={scaleBand().paddingInner(0.05)}
-        zScale={scaleOrdinal()}
-        zDomain={seriesNames}
-        zRange={seriesColors}
-        flatData={flatten(stackedData)}
-        data={stackedData}
-        yDomainSort={false}
-
-	>
-		<Svg>
-			<AxisX tickMarks baseline snapLabels format={formatLabelX}
-            />
-			<AxisY tickMarks gridlines={false} />
-			<BarStacked/>
-		</Svg>
-	</LayerCake>
-</div>
-
-
-
+	<div class="chart">
+		<LayerCake
+			padding={{ bottom: 20, left: 35 }}
+			x={xKey}
+			y={(d) => d.data[yKey]}
+			z={zKey}
+			yScale={scaleBand().paddingInner(0.05)}
+			zScale={scaleOrdinal()}
+			zDomain={seriesNames}
+			zRange={seriesColors}
+			flatData={flatten(stackedData)}
+			data={stackedData}
+			yDomainSort={false}
+		>
+			<Svg>
+				<AxisX tickMarks baseline snapLabels format={formatLabelX} />
+				<AxisY tickMarks gridlines={false} />
+				<BarStacked />
+			</Svg>
+		</LayerCake>
+	</div>
 </div>
 
 <style>
@@ -96,39 +84,34 @@
 		/* width: 100%; */
 		height: 800px;
 		position: relative;
-        padding-left: 8em;
+		padding-left: 8em;
 	}
 
 	.chart-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
-
-    }
+	}
 
 	.controls {
-        display:flex;
-        flex-direction: column;
-        }
-    
-    .legend-container {
-        display:flex;
-        flex-direction: column;
-        border-radius: 0.5em;
-        border: 1px solid var(--brandGrey);
-        padding: 0.5em;
+		display: flex;
+		flex-direction: column;
+	}
 
-    }
-
+	.legend-container {
+		display: flex;
+		flex-direction: column;
+		border-radius: 0.5em;
+		border: 1px solid var(--brandGrey);
+		padding: 0.5em;
+	}
 
 	@media only screen and (min-width: 768px) {
 		.legend-container {
 			flex-direction: row;
-
 		}
-		 
 	}
 </style>
