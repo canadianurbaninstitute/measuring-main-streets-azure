@@ -75,7 +75,10 @@
 		display how that metric varies across the stations. Each bar represents a stop, with taller bars
 		indicating higher values. This helps you quickly compare areas along the route and understand
 		patterns in the station areas of the transit system. Data is from 2024 unless otherwise
-		specified.
+		specified. Inspired by <a
+			href="https://schoolofcities.github.io/tod-toronto-1996-to-2021/"
+			target="_blank"><u>School of Cities</u></a
+		>.
 	</p>
 </div>
 <div class="chart-container grid grid-cols-1 md:grid-cols-3 gap-4">
