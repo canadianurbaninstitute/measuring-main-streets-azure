@@ -381,7 +381,8 @@
 	}
 
 	function updateLayerVariable(variable) {
-		if (variable === selectedVariable) {
+		console.log(variable, selectedVariable);
+		if (variable === null) {
 			selectedVariable = null;
 			if (map.getLayer('da')) map.removeLayer('da');
 			return;
@@ -413,7 +414,6 @@
 				const expression = getD3InterpolateExpression(features, variable);
 				map.setPaintProperty('da', 'fill-color', expression);
 				map.setPaintProperty('da', 'fill-opacity', 0.8);
-				console.log(map.getStyle().layers);
 			});
 		}
 	}
@@ -482,8 +482,7 @@
 			'msn-highdensity',
 			'civic-infra',
 			'business',
-			'all-nar',
-			'da'
+			'all-nar'
 		];
 
 		thematicLayers.forEach((layerId) => {
@@ -521,8 +520,7 @@
 			'civic-infra',
 			'business',
 			'employment-size',
-			'all-nar',
-			'da'
+			'all-nar'
 		];
 		thematicLayersToReset.forEach((layerId) => {
 			if (map && map.getLayer(layerId)) {
@@ -891,12 +889,9 @@
 			});
 
 			map.on('zoom', () => {
-				const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
-				map.setPaintProperty(
-					'da',
-					'fill-color',
-					getD3InterpolateExpression(features, selectedVariable)
-				);
+				if (map.getLayer('da')) {
+					updateLayerVariable(selectedVariable);
+				}
 			});
 		});
 
@@ -1368,7 +1363,7 @@
 				</div>
 			</div>
 			<div id="map-container" class="w-full">
-				{#if typeof min === 'number' && !isNaN(min) && typeof max === 'number' && !isNaN(max) && selectedVariable}
+				{#if typeof min === 'number' && !isNaN(min) && typeof max === 'number' && !isNaN(max) && min !== max && selectedVariable}
 					<LegendAbsolute
 						title={selectedVariable}
 						gradient="linear-gradient(to right, #F5C8D7, #E87CA0, #DB3069, #721433)"

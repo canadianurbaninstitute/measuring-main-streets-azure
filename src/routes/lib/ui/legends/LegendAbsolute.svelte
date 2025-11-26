@@ -4,6 +4,7 @@
 		label: string;
 		color?: string; // for discrete categories
 		value?: number | [number, number]; // for gradient stops
+		unit?: string;
 	}> = [];
 	export let gradient: string | null = null; // optional CSS gradient string
 </script>
@@ -18,7 +19,7 @@
 			<div class="w-32 h-4 rounded" style="background: {gradient};"></div>
 			<div class="flex justify-between w-32 text-xs">
 				{#each items as item}
-					<span>{item.label}</span>
+					<span>{item.label} {item.unit}</span>
 				{/each}
 			</div>
 		</div>
@@ -28,7 +29,7 @@
 		{#if item.color}
 			<div class="flex items-center gap-2 mb-1">
 				<div class="w-4 h-4 rounded" style="background-color: {item.color}"></div>
-				<span>{item.label}</span>
+				<span>{item.label} {item.unit}</span>
 			</div>
 		{/if}
 	{/each}
