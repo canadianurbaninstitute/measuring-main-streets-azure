@@ -44,6 +44,16 @@
 	let stationBuiltForm = {};
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
+	// Convert line colours to Mapbox expression
+	const lineColorExpression = [
+		'match',
+		['get', 'line_id'],
+		...Object.entries(line_colors).flatMap(([id, color]) => [
+			[Number(id)], // Wrap the number in an array
+			color
+		]),
+		'#000000' // Fallback color
+	];
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
@@ -683,101 +693,7 @@
 				source: 'transit-line-data',
 				'source-layer': 'merged_map_lines',
 				paint: {
-					'line-color': [
-						'match',
-						['get', 'line_id'],
-						[7],
-						'#00923f',
-						[6],
-						'#f8c300',
-						[5],
-						'#a21a68',
-						[8],
-						'#00b0ef',
-						[113],
-						'#f58831',
-						[206],
-						'#005e9f',
-						[209],
-						'#00853d',
-						[210],
-						'#ee2e22',
-						[211],
-						'#8d0133',
-						[213],
-						'#dd6327',
-						[212],
-						'#02abe7',
-						[207],
-						'#7d4b0d',
-						[115],
-						'#8a999a',
-						[208],
-						'#2486c7',
-						[116],
-						'#b6d87b',
-						[117],
-						'#1cb4e3',
-						[118],
-						'#0c4c91',
-						[1],
-						'#008e4f',
-						[2],
-						'#ef8122',
-						[3],
-						'#ffe32a',
-						[4],
-						'#0183c9',
-						[200],
-						'#f06278',
-						[204],
-						'#ffdc7e',
-						[201],
-						'#9897c7',
-						[203],
-						'#55b6b1',
-						[205],
-						'#ca559a',
-						[106],
-						'#89bd40',
-						[112],
-						'#f9c322',
-						[102],
-						'#d51b32',
-						[100],
-						'#028ab1',
-						[101],
-						'#02aa1d',
-						[104],
-						'#ff0f00',
-						[103],
-						'#111e89',
-						[105],
-						'#1b8744',
-						[11],
-						'#019bc8',
-						[10],
-						'#005dab',
-						[9],
-						'#fed126',
-						[214],
-						'#77278d',
-						[108],
-						'#d30f1d',
-						[110],
-						'#8f7210',
-						[111],
-						'#0980a5',
-						[107],
-						'#0070ff',
-						[109],
-						'#65a233',
-						[114],
-						'#a6dca8',
-						[119],
-						'#115a82',
-						'#000000'
-					],
+					'line-color': lineColorExpression,
 					'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
 					'line-dasharray': [
 						'case',
@@ -1027,14 +943,14 @@
 				map.setPaintProperty('all-nar', 'circle-stroke-opacity', 1);
 				break;
 			case 'built-form':
-				map.flyTo({
-					center:
-						selectedStation.longitude && selectedStation.latitude
-							? [selectedStation.longitude, selectedStation.latitude]
-							: map.getCenter(),
-					zoom: selectedStation.longitude && selectedStation.latitude ? 14.5 : map.getZoom(),
-					duration: 1000
-				});
+				// map.flyTo({
+				// 	center:
+				// 		selectedStation.longitude && selectedStation.latitude
+				// 			? [selectedStation.longitude, selectedStation.latitude]
+				// 			: map.getCenter(),
+				// 	zoom: selectedStation.longitude && selectedStation.latitude ? 14.5 : map.getZoom(),
+				// 	duration: 1000
+				// });
 
 				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
 				map.setPaintProperty('parking-built-form', 'fill-opacity', 0.8);
