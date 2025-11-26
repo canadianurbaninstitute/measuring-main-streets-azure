@@ -87,6 +87,14 @@
 		{ label: 'Apt <5', value: 0, y: '⠀' }
 	];
 
+	let bedData = [
+		{ label: 'Studio', value: 0, y: '⠀' },
+		{ label: '1 Bed', value: 0, y: '⠀' },
+		{ label: '2 Bed', value: 0, y: '⠀' },
+		{ label: '3 Bed', value: 0, y: '⠀' },
+		{ label: '≥ 4 Bed', value: 0, y: '⠀' }
+	];
+
 	let ageData = [
 		{ label: '0-19', value: 0, y: '⠀' },
 		{ label: '20-64', value: 0, y: '⠀' },
@@ -111,13 +119,6 @@
 		{ label: 'Civic Infrastructure', value: 0, y: '⠀' },
 		{ label: 'Main Street Business', value: 0, y: '⠀' },
 		{ label: 'Other', value: 0, y: '⠀' }
-	];
-
-	let builtFormData = [
-		{ label: 'Green Space', value: 0 },
-		{ label: 'Water', value: 0 },
-		{ label: 'Buildings', value: 0 },
-		{ label: 'Parking', value: 0 }
 	];
 
 	// --- Search Functions ---
@@ -196,6 +197,7 @@
 		}
 
 		selectedStation = station;
+		console.log('Selected Station:', selectedStation);
 
 		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
 
@@ -219,6 +221,41 @@
 			{ label: 'Duplex', value: selectedStation.DetachedDuplex, y: '⠀' },
 			{ label: 'Apt >5', value: selectedStation['Apartment,FiveOrMoreStory'], y: '⠀' },
 			{ label: 'Apt <5', value: selectedStation['Apartment,FewerThanFiveStory'], y: '⠀' }
+		];
+
+		const totalBedData =
+			(selectedStation['NoBed'] ?? 0) +
+			(selectedStation['OneBed'] ?? 0) +
+			(selectedStation['TwoBed'] ?? 0) +
+			(selectedStation['ThreeBed'] ?? 0) +
+			(selectedStation['FourOrMoreBed'] ?? 0);
+
+		bedData = [
+			{
+				label: 'Studio',
+				value: totalBedData ? (selectedStation['NoBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '1 Bed',
+				value: totalBedData ? (selectedStation['OneBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '2 Bed',
+				value: totalBedData ? (selectedStation['TwoBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '3 Bed',
+				value: totalBedData ? (selectedStation['ThreeBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			},
+			{
+				label: '≥ 4 Bed',
+				value: totalBedData ? (selectedStation['FourOrMoreBed'] / totalBedData) * 100 : 0,
+				y: '⠀'
+			}
 		];
 
 		ownerData = [
@@ -319,13 +356,6 @@
 				value: totalEmploymentData ? (selectedStation['Other'] / totalEmploymentData) * 100 : 0,
 				y: '⠀'
 			}
-		];
-
-		builtFormData = [
-			{ label: 'Greenspace', value: stationBuiltForm['greenspace_pct'] },
-			{ label: 'Water', value: stationBuiltForm['water_pct'] },
-			{ label: 'Buildings', value: stationBuiltForm['building_pct'] },
-			{ label: 'Parking', value: stationBuiltForm['parking_pct'] }
 		];
 	}
 
@@ -590,9 +620,7 @@
 
 		map = new mapboxgl.Map({
 			container: 'map',
-			// mapbox://styles/canadianurbaninstitute/cmi9990h9007a01sb67qa4gej - with lines
-			// mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te
-			style: 'mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te?optimize=true',
+			style: 'mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te?optimize=true', // no transit lines
 			center: mapCenter,
 			zoom: defaultZoom,
 			maxZoom: 15.5,
@@ -654,8 +682,6 @@
 
 		// add map sources and layers
 		map.on('load', () => {
-			// TODO: figure out why circle stroke is visible in map on initial load
-			map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
 			// Add transit sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
@@ -1070,10 +1096,10 @@
 							<DemographicsTab {selectedStation} {ageData} />
 						</Tabs.Content>
 						<Tabs.Content value="housing" class="tab-button">
-							<HousingTab {selectedStation} {ownerData} {dwellingData} {housingData} />
+							<HousingTab {selectedStation} {ownerData} {dwellingData} {housingData} {bedData} />
 						</Tabs.Content>
 						<Tabs.Content value="built-form" class="tab-button">
-							<BuiltFormTab {selectedStation} {stationBuiltForm} {builtFormData} />
+							<BuiltFormTab {selectedStation} {stationBuiltForm} />
 						</Tabs.Content>
 						<Tabs.Content value="business" class="tab-button">
 							<BusinessTab {selectedStation} {businessData} />

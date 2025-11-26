@@ -7,11 +7,16 @@
 	export let ownerData;
 	export let dwellingData;
 	export let housingData;
+	export let bedData;
 </script>
 
 <div class="tab-content">
 	<div class="metric-container">
-		<TransitMetric label={'Total Dwellings'} value={selectedStation.dwellings} icon={'mdi:house'} />
+		<TransitMetric
+			label={'Total Dwellings'}
+			value={selectedStation.HousingTotal.toLocaleString()}
+			icon={'mdi:house'}
+		/>
 		<TransitMetric
 			label={'Average Value'}
 			value={Math.round(selectedStation.HouseValue).toLocaleString()}
@@ -61,6 +66,18 @@
 				xKey="value"
 				yKey="label"
 				title="Housing Construction Year"
+				yMax="100"
+				xSuffix="%"
+				padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+			/>
+		</div>
+		<div class="chart">
+			<BarChart
+				colors={['#2a5cac']}
+				data={bedData}
+				xKey="value"
+				yKey="label"
+				title="Number of Bedrooms"
 				yMax="100"
 				xSuffix="%"
 				padding={{ top: 0, bottom: 20, left: 60, right: 20 }}

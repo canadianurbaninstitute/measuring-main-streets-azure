@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { BarChart } from '@onsvisual/svelte-charts';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
+	import DonutMetric from '../../lib/components/DonutMetric.svelte';
 	import './tabs.css';
 
 	export let selectedStation;
 	export let stationBuiltForm;
-	export let builtFormData;
 </script>
 
 <div class="tab-content">
@@ -21,16 +20,34 @@
 			icon={'mdi:briefcase'}
 		/>
 	</div>
-	<div class="chart">
-		<BarChart
-			colors={['#2a5cac']}
-			data={builtFormData}
-			xKey="value"
-			yKey="label"
-			title="Built Form Composition"
-			yMax="100"
-			xSuffix="%"
-			padding={{ top: 0, bottom: 20, left: 60, right: 0 }}
+	<div class="grid grid-cols-2 gap-[0.3em]">
+		<DonutMetric
+			label={'Water'}
+			value={Math.round(stationBuiltForm['water_pct'] * 10) / 10}
+			icon={'mdi:people'}
+			suffix="%"
+			fillColor={'#002940'}
+		/>
+		<DonutMetric
+			label={'Greenspace'}
+			value={Math.round(stationBuiltForm['greenspace_pct'] * 10) / 10}
+			icon={'mdi:pine-tree-variant'}
+			suffix="%"
+			fillColor={'#43b171'}
+		/>
+		<DonutMetric
+			label={'Buildings'}
+			value={Math.round(stationBuiltForm['building_pct'] * 10) / 10}
+			icon={'mdi:office-building'}
+			suffix="%"
+			fillColor={'#555555'}
+		/>
+		<DonutMetric
+			label={'Parking'}
+			value={Math.round(stationBuiltForm['parking_pct'] * 10) / 10}
+			icon={'mdi:car'}
+			suffix="%"
+			fillColor={'#999999'}
 		/>
 	</div>
 </div>
