@@ -2,6 +2,7 @@
 	// --- Imports ---
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
+	import * as d3 from 'd3';
 	import Fuse from 'fuse.js';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
@@ -10,13 +11,13 @@
 	// --- Import Tabs ---
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import BusinessTab from './components/BusinessTab.svelte';
-	import CivicTab from './components/CivicTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
 	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	import type { Station } from '../lib/data/transitdata/stations';
+	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 	import line_colors from '../lib/data/transitdata/line-colors.json';
@@ -44,6 +45,7 @@
 	let stationBuiltForm = {};
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
+	let selectedVariable = null;
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
 		'match',
@@ -197,7 +199,7 @@
 		}
 
 		selectedStation = station;
-		console.log('Selected Station:', selectedStation);
+		// console.log('Selected Station:', selectedStation);
 
 		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
 
@@ -359,6 +361,62 @@
 		];
 	}
 
+	export let min = 0;
+	export let max = 0;
+
+	//helper function to interpolate colours for d3
+	function getD3InterpolateExpression(
+		features,
+		variable,
+		colors = ['#F5C8D7', '#E87CA0', '#DB3069', '#721433']
+	) {
+		const values = features.map((f) => f.properties[variable]).filter((v) => v != null);
+		min = +d3.min(values);
+		max = +d3.max(values);
+		const stops = colors
+			.map((color, i) => [min + (i * (max - min)) / (colors.length - 1), color])
+			.flat();
+
+		return ['interpolate', ['linear'], ['get', variable], ...stops];
+	}
+
+	function updateLayerVariable(variable) {
+		if (variable === selectedVariable) {
+			selectedVariable = null;
+			if (map.getLayer('da')) map.removeLayer('da');
+			return;
+		}
+		selectedVariable = variable;
+
+		// If layer exists, just update it
+		if (map.getLayer('da')) {
+			const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
+			const expression = getD3InterpolateExpression(features, variable);
+			map.setPaintProperty('da', 'fill-color', expression);
+		} else {
+			// Add the layer if not present
+			map.addLayer(
+				{
+					id: 'da',
+					type: 'fill',
+					source: 'da_map-bco47g',
+					'source-layer': 'da_map-bco47g',
+					paint: {
+						'fill-color': '#000',
+						'fill-opacity': 0
+					}
+				},
+				'greenspace'
+			);
+			map.once('idle', () => {
+				const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
+				const expression = getD3InterpolateExpression(features, variable);
+				map.setPaintProperty('da', 'fill-color', expression);
+				map.setPaintProperty('da', 'fill-opacity', 0.8);
+				console.log(map.getStyle().layers);
+			});
+		}
+	}
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
 		// run update function to fetch relevant station data
@@ -424,7 +482,8 @@
 			'msn-highdensity',
 			'civic-infra',
 			'business',
-			'all-nar'
+			'all-nar',
+			'da'
 		];
 
 		thematicLayers.forEach((layerId) => {
@@ -462,7 +521,8 @@
 			'civic-infra',
 			'business',
 			'employment-size',
-			'all-nar'
+			'all-nar',
+			'da'
 		];
 		thematicLayersToReset.forEach((layerId) => {
 			if (map && map.getLayer(layerId)) {
@@ -711,6 +771,10 @@
 					features: []
 				}
 			});
+			map.addSource('da_map-bco47g', {
+				type: 'vector',
+				url: 'mapbox://canadianurbaninstitute.1cu02ydb'
+			});
 
 			// Add layers
 			map.addLayer({
@@ -824,6 +888,15 @@
 				const regionId = e.features[0].properties.id;
 				const regionClicked = regionsData.find((r) => r.id === regionId);
 				selectRegion(regionClicked);
+			});
+
+			map.on('zoom', () => {
+				const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
+				map.setPaintProperty(
+					'da',
+					'fill-color',
+					getD3InterpolateExpression(features, selectedVariable)
+				);
 			});
 		});
 
@@ -960,6 +1033,7 @@
 		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('all-nar', 'circle-opacity', 0);
 		map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
+		updateLayerVariable(null);
 
 		switch (selectedTab) {
 			case 'demographics':
@@ -1093,22 +1167,56 @@
 							</div>
 						</div>
 						<Tabs.Content value="demographics" class="tab-button">
-							<DemographicsTab {selectedStation} {ageData} />
+							<DemographicsTab
+								{selectedStation}
+								{ageData}
+								{selectedVariable}
+								onSelectVariable={(v) => updateLayerVariable(v)}
+							/>
 						</Tabs.Content>
 						<Tabs.Content value="housing" class="tab-button">
-							<HousingTab {selectedStation} {ownerData} {dwellingData} {housingData} {bedData} />
+							<HousingTab
+								{selectedStation}
+								{ownerData}
+								{dwellingData}
+								{housingData}
+								{bedData}
+								{selectedVariable}
+								onSelectVariable={(v) => updateLayerVariable(v)}
+							/>
 						</Tabs.Content>
 						<Tabs.Content value="built-form" class="tab-button">
-							<BuiltFormTab {selectedStation} {stationBuiltForm} />
+							<BuiltFormTab
+								{selectedStation}
+								{stationBuiltForm}
+								{selectedVariable}
+								onSelectVariable={(v) => updateLayerVariable(v)}
+							/>
 						</Tabs.Content>
 						<Tabs.Content value="business" class="tab-button">
-							<BusinessTab {selectedStation} {businessData} />
+							<BusinessTab
+								{selectedStation}
+								{businessData}
+								{civicData}
+								{selectedVariable}
+								onSelectVariable={(v) => updateLayerVariable(v)}
+							/>
 						</Tabs.Content>
-						<Tabs.Content value="civic" class="tab-button">
-							<CivicTab {selectedStation} {civicData} />
-						</Tabs.Content>
+						<!-- <Tabs.Content value="civic" class="tab-button">
+							<CivicTab
+								{selectedStation}
+								{civicData}
+								{selectedVariable}
+								onSelectVariable={(v) => updateLayerVariable(v)}
+							/>
+						</Tabs.Content> -->
 						<Tabs.Content value="employment" class="tab-button">
-							<EmploymentTab {selectedStation} {employmentData} />
+							<EmploymentTab
+								{selectedStation}
+								{employmentData}
+								{selectedVariable}
+								onSelectVariable={(v) => updateLayerVariable(v)}
+							/>
 						</Tabs.Content>
 					{:else if stationSelected}
 						<p>Loading station details...</p>
@@ -1246,12 +1354,12 @@
 						>
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="business">Business</Tabs.Trigger
+							value="business">Complete Communities</Tabs.Trigger
 						>
-						<Tabs.Trigger
+						<!-- <Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="civic">Civic Infrastructure</Tabs.Trigger
-						>
+						> -->
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="employment">Employment</Tabs.Trigger
@@ -1260,6 +1368,14 @@
 				</div>
 			</div>
 			<div id="map-container" class="w-full">
+				{#if typeof min === 'number' && !isNaN(min) && typeof max === 'number' && !isNaN(max) && selectedVariable}
+					<LegendAbsolute
+						title={selectedVariable}
+						gradient="linear-gradient(to right, #F5C8D7, #E87CA0, #DB3069, #721433)"
+						items={[{ label: min.toString() }, { label: max.toString() }]}
+					/>
+				{/if}
+
 				<div id="map"></div>
 			</div>
 		</div>
@@ -1313,6 +1429,10 @@
 	#map {
 		height: 100%;
 		width: 100%;
+	}
+
+	#map-container {
+		position: relative;
 	}
 
 	#station-container {
@@ -1453,6 +1573,18 @@
 			flex-direction: row;
 			align-items: center;
 			gap: 1em;
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+		#map-container {
+			height: 100vw;
+			min-height: 500px;
+		}
+
+		#map {
+			height: 100vw;
+			min-height: 500px;
 		}
 	}
 

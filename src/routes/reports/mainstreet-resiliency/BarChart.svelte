@@ -1,12 +1,11 @@
 <script>
-	import { LayerCake, Svg, groupLonger } from 'layercake';
-	import { scaleBand, scaleOrdinal } from 'd3-scale';
+	import { scaleBand } from 'd3-scale';
+	import { LayerCake, Svg } from 'layercake';
 
-	import Bar from '../../lib/chartcomponents/Bar.svelte';
-	import AxisX from '../../lib/chartcomponents/AxisX.svelte';
-	import AxisY from '../../lib/chartcomponents/AxisY.svelte';
+	import AxisX from '../../lib/ui/chartcomponents/AxisX.svelte';
+	import AxisY from '../../lib/ui/chartcomponents/AxisY.svelte';
+	import Bar from '../../lib/ui/chartcomponents/Bar.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../lib/data/reportdata/mainstreet-resiliency/resiliency.csv';
 

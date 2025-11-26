@@ -1,50 +1,64 @@
 <script>
-    import { LayerCake, Svg } from 'layercake';
-    import { timeParse, timeFormat } from 'd3-time-format';
+	import { timeFormat, timeParse } from 'd3-time-format';
+	import { LayerCake, Svg } from 'layercake';
 
-  
-    import Line from '../../lib/chartcomponents/Line.svelte';
-    import Area from '../../lib/chartcomponents/Area.svelte';
-    import AxisX from '../../lib/chartcomponents/AxisX.svelte';
-    import AxisY from '../../lib/chartcomponents/AxisY.svelte';
-  
-    // This example loads csv data as json using @rollup/plugin-dsv
-    import libertyvillage from '../../lib/data/casestudydata/toronto/libertyvillage/visitortraffic';
-    import uxbridge from '../../lib/data/casestudydata/toronto/uxbridge/visitortraffic'
+	import Area from '../../lib/ui/chartcomponents/Area.svelte';
+	import AxisX from '../../lib/ui/chartcomponents/AxisX.svelte';
+	import AxisY from '../../lib/ui/chartcomponents/AxisY.svelte';
+	import Line from '../../lib/ui/chartcomponents/Line.svelte';
+	// This example loads csv data as json using @rollup/plugin-dsv
+	import libertyvillage from '../../lib/data/casestudydata/toronto/libertyvillage/visitortraffic';
+	import uxbridge from '../../lib/data/casestudydata/toronto/uxbridge/visitortraffic';
 
-    export let chartDataset;
-    export let yDomain = [0, null];
-    export let title;
+	export let chartDataset;
+	export let yDomain = [0, null];
+	export let title;
 
-    let data;
+	let data;
 
-    if (chartDataset == 'libertyvillage') {
-		data = libertyvillage
+	if (chartDataset == 'libertyvillage') {
+		data = libertyvillage;
 	} else if (chartDataset == 'uxbridge') {
-		data = uxbridge
+		data = uxbridge;
 	}
 
-  
-    const xKey = 'date';
-    const yKey = 'Percentage';
+	const xKey = 'date';
+	const yKey = 'Percentage';
 
-    const xKeyCast = timeParse('%Y-%m-%d');
+	const xKeyCast = timeParse('%Y-%m-%d');
 
-  
-    data.forEach(d => {
-      d[yKey] = +d[yKey];
-      d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
-    });
+	data.forEach((d) => {
+		d[yKey] = +d[yKey];
+		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
+	});
 
-    const formatLabelX = timeFormat('%b %Y');
-    const formatLabelY = (d) => d + '%';
+	const formatLabelX = timeFormat('%b %Y');
+	const formatLabelY = (d) => d + '%';
+</script>
 
+<div class="chart-container">
+	<h4>{title}</h4>
 
+	<div class="chart">
+		<LayerCake
+			padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
+			x={xKey}
+			y={yKey}
+			{yDomain}
+			{data}
+		>
+			<Svg>
+				<AxisX format={formatLabelX} />
+				<AxisY ticks={4} format={formatLabelY} />
+				<Line stroke={'#00adf2'} />
+				<Area fill={'#00adf210'} />
+			</Svg>
+		</LayerCake>
+	</div>
+</div>
 
-  </script>
-  
-  <style>
-    /*
+<style>
+	/*
       The wrapper div needs to have an explicit width and height in CSS.
       It can also be a flexbox child or CSS grid element.
       The point being it needs dimensions since the <LayerCake> element will
@@ -55,42 +69,12 @@
 		height: 300px;
 	}
 
-    .chart-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
+	.chart-container {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
-
-    }
-  </style>
-
-<div class='chart-container'>
-
-  <h4>{title}</h4>
-  
-  <div class="chart">
-    <LayerCake
-      padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
-      x={xKey}
-      y={yKey}
-      yDomain={yDomain}
-      {data}
-    >
-      <Svg>
-        <AxisX
-        format={formatLabelX}
-        />
-        <AxisY
-          ticks={4}
-          format={formatLabelY}
-
-        />
-        <Line stroke={'#00adf2'}/>
-        <Area fill={'#00adf210'}/>
-      </Svg>
-    </LayerCake>
-  </div>
-
-  </div>
+	}
+</style>

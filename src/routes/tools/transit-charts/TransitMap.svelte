@@ -98,7 +98,7 @@
 	}
 
 	function selectCurrentLine(line: number) {
-		console.log(line);
+		// console.log(line);
 		if (!map || !line) return;
 		// Step 1: zoom to the region first
 		const bounds = lineIndex.get(line);
