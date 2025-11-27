@@ -16,8 +16,8 @@
 
 	{#if gradient}
 		<div class="flex flex-col items-center gap-2 mb-2">
-			<div class="w-32 h-4 rounded" style="background: {gradient};"></div>
-			<div class="flex justify-between w-32 text-xs">
+			<div class="w-full h-4 rounded" style="background: {gradient};"></div>
+			<div class="flex justify-between w-full text-xs">
 				{#each items as item}
 					<span>{item.label} {item.unit}</span>
 				{/each}

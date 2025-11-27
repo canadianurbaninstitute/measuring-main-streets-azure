@@ -16,7 +16,8 @@
 		<TransitMetric
 			label={'Main Street Businesses'}
 			active={selectedVariable === 'BusinessCount'}
-			on:click={() => onSelectVariable('BusinessCount')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'BusinessCount' ? 'BusinessCount' : null)}
 			value={Math.round(selectedStation.BusinessCount).toLocaleString()}
 			icon={'mdi:shop'}
 		/>
@@ -42,7 +43,7 @@
 	<TransitMetric
 		label={'Civic Infrastructure Locations'}
 		active={selectedVariable === 'CivicCount'}
-		on:click={() => onSelectVariable('CivicCount')}
+		on:click={() => onSelectVariable(selectedVariable !== 'CivicCount' ? 'CivicCount' : null)}
 		value={Math.round(selectedStation.CivicCount).toLocaleString()}
 		icon={'mdi:museum'}
 	/>

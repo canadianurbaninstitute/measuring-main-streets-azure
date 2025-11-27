@@ -15,21 +15,26 @@
 		<TransitMetric
 			label={'Population'}
 			active={selectedVariable === 'TotalPopulation'}
-			on:click={() => onSelectVariable('TotalPopulation')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'TotalPopulation' ? 'TotalPopulation' : null)}
 			value={selectedStation.TotalPopulation.toLocaleString()}
 			icon={'fluent:people-20-filled'}
 		/>
 		<TransitMetric
 			label={'Households'}
 			active={selectedVariable === 'TotalHouseholds'}
-			on:click={() => onSelectVariable('TotalHouseholds')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'TotalHouseholds' ? 'TotalHouseholds' : null)}
 			value={selectedStation.TotalHouseholds.toLocaleString()}
 			icon={'mdi:house'}
 		/>
 	</div>
 	<TransitMetric
 		active={selectedVariable === 'AverageEmploymentIncome'}
-		on:click={() => onSelectVariable('AverageEmploymentIncome')}
+		on:click={() =>
+			onSelectVariable(
+				selectedVariable !== 'AverageEmploymentIncome' ? 'AverageEmploymentIncome' : null
+			)}
 		label={'Average Employment Income'}
 		value={'$' + Math.round(selectedStation.AverageEmploymentIncome).toLocaleString()}
 		icon={'mdi:wallet'}
@@ -37,7 +42,10 @@
 	<div class="grid grid-cols-3 gap-[0.3em]">
 		<DonutMetric
 			active={selectedVariable === 'VisibleMinorityTotal'}
-			on:click={() => onSelectVariable('VisibleMinorityTotal')}
+			on:click={() =>
+				onSelectVariable(
+					selectedVariable !== 'VisibleMinorityTotal' ? 'VisibleMinorityTotal' : null
+				)}
 			label={'Visible Minority'}
 			value={Math.round(selectedStation.VisibleMinorityTotal)}
 			icon={'mdi:people'}
@@ -45,7 +53,8 @@
 		/>
 		<DonutMetric
 			active={selectedVariable === 'TotalImmigrant'}
-			on:click={() => onSelectVariable('TotalImmigrant')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'TotalImmigrant' ? 'TotalImmigrant' : null)}
 			label={'Immigrants'}
 			value={Math.round(selectedStation.TotalImmigrant)}
 			icon={'mdi:globe'}
@@ -53,7 +62,8 @@
 		/>
 		<DonutMetric
 			active={selectedVariable === 'IndigenousIdentity'}
-			on:click={() => onSelectVariable('IndigenousIdentity')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'IndigenousIdentity' ? 'IndigenousIdentity' : null)}
 			label={'Indigenous'}
 			value={selectedStation.IndigenousIdentity}
 			icon={'mdi:people'}
@@ -63,7 +73,8 @@
 	<DonutMetric
 		label={'University Degree'}
 		active={selectedVariable === 'UniversityDegree'}
-		on:click={() => onSelectVariable('UniversityDegree')}
+		on:click={() =>
+			onSelectVariable(selectedVariable !== 'UniversityDegree' ? 'UniversityDegree' : null)}
 		value={Math.round(selectedStation.UniversityDegree)}
 		icon={'mdi:school'}
 		suffix="%"

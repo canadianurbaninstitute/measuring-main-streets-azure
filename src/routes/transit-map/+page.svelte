@@ -1,11 +1,14 @@
 <script lang="ts">
 	// --- Imports ---
 	import * as turf from '@turf/turf';
-	import { Tabs } from 'bits-ui';
+	import { Accordion, Tabs } from 'bits-ui';
 	import * as d3 from 'd3';
 	import Fuse from 'fuse.js';
 	import mapboxgl from 'mapbox-gl';
+	import CaretDown from 'phosphor-svelte/lib/CaretDown';
 	import { onMount } from 'svelte';
+	import { cubicOut } from 'svelte/easing';
+	import { slide } from 'svelte/transition';
 	import Footer from '../lib/ui/Footer.svelte';
 	import '../styles.css';
 	// --- Import Tabs ---
@@ -21,6 +24,7 @@
 	// import stationRawData from '../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 	import line_colors from '../lib/data/transitdata/line-colors.json';
+	import AiDescription from './components/AiDescription.svelte';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -28,6 +32,7 @@
 
 	// --- Reactive/Exported Variables ---
 	export let map;
+	export let aiDescriptions = {};
 
 	// --- UI State Variables ---
 	// let builtFormMetrics;
@@ -46,6 +51,7 @@
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
 	let selectedVariable = null;
+	let isOpen = true;
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
 		'match',
@@ -714,6 +720,15 @@
 			console.error('Error fetching data:', error);
 		}
 
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/ai_descriptions.json'
+			);
+			aiDescriptions = await response.json();
+		} catch (error) {
+			console.error('Error fetching station data:', error);
+		}
+
 		regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
 		processedStationData = stationRawData.map((station) => ({
@@ -1073,6 +1088,13 @@
 				break;
 		}
 	}
+
+	let accordionValue: string | null = 'intro';
+
+	// Auto-close when a station is selected
+	$: if (selectedStation.id) {
+		accordionValue = null;
+	}
 </script>
 
 <svelte:head>
@@ -1093,14 +1115,52 @@
 	<div id="content-container">
 		<div id="sidebar">
 			<div class="p-4">
-				<div id="title">
-					<h1>Transit Map</h1>
-				</div>
-				<p>
-					This is a map of all existing, under construction and planned transit lines in Canada.
-					Search for a place or navigate the map using the controls; and then click on a transit
-					station to see information associated with it in the panel on the left.
-				</p>
+				<Accordion.Root
+					bind:value={accordionValue}
+					type="single"
+					onValueChange={(val) => (isOpen = val === 'intro')}
+				>
+					<Accordion.Item value="intro">
+						<Accordion.Content forceMount={true} class="overflow-hidden text-sm tracking-[-0.01em]">
+							{#if isOpen}
+								<div
+									transition:slide={{ duration: 300, easing: cubicOut }}
+									class="overflow-hidden text-sm tracking-[-0.01em]"
+								>
+									<Accordion.Header>
+										<div id="title">
+											<h1>Transit Map</h1>
+										</div>
+									</Accordion.Header>
+									<p>
+										This is a map of all existing, under construction and planned higher-order
+										transit lines in Canada. Search for a place or navigate the map using the
+										controls; and then click on a transit station to see information associated with
+										it in the panel on the left.
+									</p>
+									<p class="text-sm mt-4">
+										<em>This tool is in beta.</em>
+									</p>
+								</div>
+							{/if}
+						</Accordion.Content>
+						<Accordion.Trigger
+							class="rounded-lg flex w-full flex-1 select-none items-center py-2 justify-between text-[15px] font-medium transition-all
+						[&[data-state=open]_.closed]:hidden
+						[&[data-state=closed]_.open]:hidden
+						[&[data-state=open]>span>svg]:rotate-180"
+						>
+							<p class="open">Close description</p>
+							<p class="closed">Open description</p>
+
+							<span
+								class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"
+							>
+								<CaretDown class="size-[18px] transition-transform duration-200" />
+							</span>
+						</Accordion.Trigger>
+					</Accordion.Item>
+				</Accordion.Root>
 			</div>
 			<input
 				id="search"
@@ -1161,6 +1221,7 @@
 								</div>
 							</div>
 						</div>
+						<AiDescription {selectedStation} {aiDescriptions} />
 						<Tabs.Content value="demographics" class="tab-button">
 							<DemographicsTab
 								{selectedStation}
@@ -1345,6 +1406,10 @@
 						>
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							value="employment">Employment</Tabs.Trigger
+						>
+						<Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="built-form">Built Form</Tabs.Trigger
 						>
 						<Tabs.Trigger
@@ -1355,10 +1420,6 @@
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="civic">Civic Infrastructure</Tabs.Trigger
 						> -->
-						<Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="employment">Employment</Tabs.Trigger
-						>
 					</Tabs.List>
 				</div>
 			</div>
@@ -1442,7 +1503,7 @@
 	.tag {
 		display: flex;
 		justify-content: center;
-		padding: 0.25rem 1rem;
+		padding: 0.25em 1em;
 		border: 1px solid #ddd;
 		border-radius: 10em;
 	}
@@ -1471,7 +1532,7 @@
 	}
 
 	.search-input {
-		margin: 1em;
+		margin: 0 1em 0.5em 1em;
 		padding: 1em;
 		border: 1px solid #ccc;
 		border-radius: 4px;
