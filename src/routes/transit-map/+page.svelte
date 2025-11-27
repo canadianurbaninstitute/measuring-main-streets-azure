@@ -10,16 +10,16 @@
 	import '../styles.css';
 	// --- Import Tabs ---
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
-	import BusinessTab from './components/BusinessTab.svelte';
+	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
 	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
-	import type { Station } from '../lib/data/transitdata/stations';
-	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
+	import type { Station } from '../lib/data/transitdata/stations';
+	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
 	import line_colors from '../lib/data/transitdata/line-colors.json';
 
 	// --- Mapbox Access Token ---
@@ -56,6 +56,7 @@
 		]),
 		'#000000' // Fallback color
 	];
+	let savedFilter = null;
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
@@ -190,6 +191,12 @@
 
 	// --- Data/Map Update Functions ---
 	function updateStationData(id) {
+		// Save filter
+		if (map.getLayer('complete-community-amenities')) {
+			savedFilter = map.getFilter('complete-community-amenities');
+			console.log('Saved filter:', savedFilter);
+		}
+
 		const station = processedStationData.find((s) => s.id === id);
 
 		if (!station) {
@@ -480,8 +487,8 @@
 		const thematicLayers = [
 			'msn-lowdensity',
 			'msn-highdensity',
-			'civic-infra',
-			'business',
+			'complete-community-amenities',
+			'employment-size',
 			'all-nar'
 		];
 
@@ -517,8 +524,7 @@
 		const thematicLayersToReset = [
 			'msn-lowdensity',
 			'msn-highdensity',
-			'civic-infra',
-			'business',
+			// 'complete-community-amenities',
 			'employment-size',
 			'all-nar'
 		];
@@ -1015,15 +1021,13 @@
 	function handleTabChange(selectedTab) {
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
+		map.setPaintProperty('complete-community-amenities', 'circle-opacity', 0);
+		map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('greenspace', 'fill-opacity', 0);
 		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
-		// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
-		// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
-		map.setPaintProperty('civic-infra', 'circle-opacity', 0);
-		map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 0);
-		map.setPaintProperty('business', 'circle-opacity', 0);
-		map.setPaintProperty('business', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('water-built-form', 'fill-opacity', 0);
+		map.setPaintProperty('waterway-built-form', 'line-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('all-nar', 'circle-opacity', 0);
@@ -1050,19 +1054,13 @@
 				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
 				map.setPaintProperty('parking-built-form', 'fill-opacity', 0.8);
 				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
-				// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
-				// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
+				map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
+				map.setPaintProperty('waterway-built-form', 'line-opacity', 0.8);
 
 				break;
-			case 'business':
-				map.setPaintProperty('business', 'circle-opacity', 1);
-				map.setPaintProperty('business', 'circle-stroke-opacity', 1);
-				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
-				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-				break;
-			case 'civic':
-				map.setPaintProperty('civic-infra', 'circle-opacity', 1);
-				map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 1);
+			case 'complete-communities':
+				map.setPaintProperty('complete-community-amenities', 'circle-opacity', 1);
+				map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 1);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
@@ -1171,6 +1169,7 @@
 						</Tabs.Content>
 						<Tabs.Content value="housing" class="tab-button">
 							<HousingTab
+								{map}
 								{selectedStation}
 								{ownerData}
 								{dwellingData}
@@ -1188,8 +1187,9 @@
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>
 						</Tabs.Content>
-						<Tabs.Content value="business" class="tab-button">
-							<BusinessTab
+						<Tabs.Content value="complete-communities" class="tab-button">
+							<CompleteCommunityTab
+								{map}
 								{selectedStation}
 								{businessData}
 								{civicData}
@@ -1197,14 +1197,6 @@
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>
 						</Tabs.Content>
-						<!-- <Tabs.Content value="civic" class="tab-button">
-							<CivicTab
-								{selectedStation}
-								{civicData}
-								{selectedVariable}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
-						</Tabs.Content> -->
 						<Tabs.Content value="employment" class="tab-button">
 							<EmploymentTab
 								{selectedStation}
@@ -1349,12 +1341,8 @@
 						>
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="business">Complete Communities</Tabs.Trigger
+							value="complete-communities">Complete Communities</Tabs.Trigger
 						>
-						<!-- <Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="civic">Civic Infrastructure</Tabs.Trigger
-						> -->
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="employment">Employment</Tabs.Trigger

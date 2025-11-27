@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
+	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
+	import Accordion from '../../lib/ui/Accordion.svelte';
+	import Icon from '@iconify/svelte';
 	import './tabs.css';
 
+	export let map;
 	export let selectedStation;
 	export let ownerData;
 	export let dwellingData;
@@ -13,6 +17,42 @@
 </script>
 
 <div class="tab-content">
+	<div class="controls">
+		<Accordion>
+			<div class="inline-header" slot="header">
+				<h6 class="inline-header">
+					<Icon icon="mdi:map-legend" />Legend<Icon icon="iconoir:nav-arrow-down" />
+				</h6>
+			</div>
+			<div slot="body">
+				<div class="text-sm italic">Click on a layer to turn it on or off</div>
+				<LegendItem
+					{map}
+					variant={'circle'}
+					label={'Residential'}
+					bgcolor={'#db3069'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'all-nar'}
+					useFilter={true}
+					filterProperty="bu_use"
+					filterValue={'Residential'}
+				/>
+				<LegendItem
+					{map}
+					variant={'circle'}
+					label={'Mixed Use'}
+					bgcolor={'#00adf2'}
+					bordercolor={'#fff'}
+					button={true}
+					id={'all-nar'}
+					useFilter={true}
+					filterProperty="bu_use"
+					filterValue={'Partial Residential'}
+				/>
+			</div>
+		</Accordion>
+	</div>
 	<div class="metric-container">
 		<TransitMetric
 			disabled
