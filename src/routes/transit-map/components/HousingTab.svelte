@@ -17,6 +17,8 @@
 		<TransitMetric
 			disabled
 			label={'Total Dwellings'}
+			active={selectedVariable === 'HousingTotal'}
+			on:click={() => onSelectVariable('HousingTotal')}
 			value={selectedStation.HousingTotal.toLocaleString()}
 			icon={'mdi:house'}
 		/>

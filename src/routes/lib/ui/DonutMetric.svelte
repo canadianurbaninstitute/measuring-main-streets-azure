@@ -46,16 +46,6 @@
 	const circumference = 2 * Math.PI * radius;
 	const center = size / 2;
 
-	function toFraction(v) {
-		if (v == null || isNaN(v)) return 0;
-		const num = Number(v);
-		// If suffix is '%', treat values <= 100 as percentages (0-100 range)
-		if (suffix === '%') {
-			return Math.max(0, Math.min(1, num / 100));
-		}
-		return num <= 1 ? Math.max(0, Math.min(1, num)) : Math.max(0, Math.min(1, num / 100));
-	}
-
 	function animateTo(newValue: number) {
 		cancelAnimationFrame(rafId);
 		const start = performance.now();
@@ -83,7 +73,7 @@
 	onDestroy(() => cancelAnimationFrame(rafId));
 </script>
 
-<button class="metric donut-metric" aria-label={label} class:active on:click {disabled}>
+<button {disabled} class="metric donut-metric" aria-label={label} class:active on:click>
 	<div class="chart" style="width:{size}px; height:{size}px">
 		<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
 			<!-- background ring -->
@@ -154,6 +144,10 @@
 		outline: 3px solid var(--color-pink-400);
 		box-sizing: border-box;
 		outline-offset: -3px;
+	}
+
+	.metric:disabled {
+		cursor: not-allowed;
 	}
 
 	.chart {
