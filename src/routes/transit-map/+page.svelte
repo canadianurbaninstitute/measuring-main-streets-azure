@@ -30,7 +30,6 @@
 	export let map;
 
 	// --- UI State Variables ---
-	// let builtFormMetrics;
 	let circleDrawn = false;
 	let statusFilters = ['Existing', 'Construction', 'Planned'];
 	let technologyFilters = ['Subway', 'LRT', 'Commuter'];
@@ -43,9 +42,15 @@
 	let activeLine = null;
 	let sidebarDisplayItems = [];
 	let stationBuiltForm = {};
+	let stationCCcounts = {};
+	let stationCCpresence = {};
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
 	let selectedVariable = null;
+	let greenspaceVisible = true;
+	let waterVisible = true;
+	let buildingVisible = true;
+	let parkingVisible = true;
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
 		'match',
@@ -67,6 +72,8 @@
 	let transitRegionsRawData;
 	let stationRawData;
 	let builtFormMetrics;
+	let completeCommunityCounts;
+	let completeCommunityPresence;
 
 	// --- Chart Data Templates ---
 	let ownerData = [
@@ -119,8 +126,8 @@
 	];
 
 	let employmentData = [
-		{ label: 'Civic Infrastructure', value: 0, y: '⠀' },
-		{ label: 'Main Street Business', value: 0, y: '⠀' },
+		{ label: 'Tier 1', value: 0, y: '⠀' },
+		{ label: 'Tier 2', value: 0, y: '⠀' },
 		{ label: 'Other', value: 0, y: '⠀' }
 	];
 
@@ -191,12 +198,6 @@
 
 	// --- Data/Map Update Functions ---
 	function updateStationData(id) {
-		// Save filter
-		if (map.getLayer('complete-community-amenities')) {
-			savedFilter = map.getFilter('complete-community-amenities');
-			console.log('Saved filter:', savedFilter);
-		}
-
 		const station = processedStationData.find((s) => s.id === id);
 
 		if (!station) {
@@ -209,6 +210,10 @@
 		// console.log('Selected Station:', selectedStation);
 
 		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
+		stationCCcounts =
+			completeCommunityCounts.find((station) => station.id === selectedStation.id) || {};
+		stationCCpresence =
+			completeCommunityPresence.find((station) => station.id === selectedStation.id) || {};
 
 		ageData = [
 			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
@@ -340,29 +345,32 @@
 			}
 		];
 
-		const totalEmploymentData =
-			(selectedStation['Civic Infrastructure'] ?? 0) +
-			(selectedStation['Main Street Business'] ?? 0) +
-			(selectedStation['Other'] ?? 0);
+		const totalEmploymentData = selectedStation['EmployeeCount'] ?? 0;
 
 		employmentData = [
 			{
-				label: 'Civic Infrastructure',
+				label: 'Tier 1',
 				value: totalEmploymentData
-					? (selectedStation['Civic Infrastructure'] / totalEmploymentData) * 100
+					? (stationCCcounts['Tier 1 Employment'] / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
-				label: 'Main Street Business',
+				label: 'Tier 2',
 				value: totalEmploymentData
-					? (selectedStation['Main Street Business'] / totalEmploymentData) * 100
+					? (stationCCcounts['Tier 2 Employment'] / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
 				label: 'Other',
-				value: totalEmploymentData ? (selectedStation['Other'] / totalEmploymentData) * 100 : 0,
+				value: totalEmploymentData
+					? ((totalEmploymentData -
+							stationCCcounts['Tier 1 Employment'] -
+							stationCCcounts['Tier 2 Employment']) /
+							totalEmploymentData) *
+						100
+					: 0,
 				y: '⠀'
 			}
 		];
@@ -424,6 +432,21 @@
 			});
 		}
 	}
+
+	function toggleLayer(layerIds, currentState) {
+		// Handle both single layer (string) and multiple layers (array)
+		const layers = Array.isArray(layerIds) ? layerIds : [layerIds];
+
+		layers.forEach((layerId) => {
+			if (map.getLayer(layerId)) {
+				map.setLayoutProperty(layerId, 'visibility', currentState ? 'none' : 'visible');
+			} else {
+				console.warn(`Layer ${layerId} does not exist`);
+			}
+		});
+		return !currentState;
+	}
+
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
 		// run update function to fetch relevant station data
@@ -524,7 +547,7 @@
 		const thematicLayersToReset = [
 			'msn-lowdensity',
 			'msn-highdensity',
-			// 'complete-community-amenities',
+			'complete-community-amenities',
 			'employment-size',
 			'all-nar'
 		];
@@ -716,6 +739,22 @@
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
 			);
 			builtFormMetrics = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_counts.json'
+			);
+			completeCommunityCounts = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_presence.json'
+			);
+			completeCommunityPresence = await response.json();
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -1184,6 +1223,11 @@
 								{selectedStation}
 								{stationBuiltForm}
 								{selectedVariable}
+								bind:greenspaceVisible
+								bind:waterVisible
+								bind:buildingVisible
+								bind:parkingVisible
+								toggleLayer={(layerId, currentState) => toggleLayer(layerId, currentState)}
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>
 						</Tabs.Content>
@@ -1191,6 +1235,8 @@
 							<CompleteCommunityTab
 								{map}
 								{selectedStation}
+								{stationCCcounts}
+								{stationCCpresence}
 								{businessData}
 								{civicData}
 								{selectedVariable}
@@ -1199,6 +1245,7 @@
 						</Tabs.Content>
 						<Tabs.Content value="employment" class="tab-button">
 							<EmploymentTab
+								{map}
 								{selectedStation}
 								{employmentData}
 								{selectedVariable}

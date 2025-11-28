@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { BarChart } from '@onsvisual/svelte-charts';
+	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import GaugeMetric from '../../lib/ui/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
@@ -9,6 +10,8 @@
 
 	export let map;
 	export let selectedStation;
+	export let stationCCcounts;
+	export let stationCCpresence;
 	export let businessData;
 	export let civicData;
 	export let selectedVariable: string;
@@ -18,52 +21,18 @@
 </script>
 
 <div class="tab-content">
-	<div class="controls">
+	<div class="legend-container">
 		<Accordion>
 			<div class="inline-header" slot="header">
-				<h6 class="inline-header">
+				<div class="text-sm inline-header">
 					<Icon icon="mdi:map-legend" />Legend<Icon icon="iconoir:nav-arrow-down" />
-				</h6>
+				</div>
 			</div>
 			<div class="accordion-body" slot="body">
-				<p class="mb-4 italic">Complete Community Amenities</p>
-				<div class="text-sm my-1">
-					<strong>Tier 1</strong> amenities are essential for a complete community. <br /><br />
-					<strong>Tier 2</strong> amenities improve outcomes but are not essential.
-					<Accordion>
-						<div class="inline-header text-xs" slot="header">
-							<i>Click here for a full list of Tier 2 amenities</i><Icon
-								icon="iconoir:nav-arrow-down"
-							/>
-						</div>
-						<div class="text-xs ml-5" slot="body">
-							<li>Appliance TV and Electronics Retailers</li>
-							<li>Baked Goods</li>
-							<li>Barber Shop</li>
-							<li>Beauty Salon</li>
-							<li>Book Stores</li>
-							<li>Building Material and Lawn Garden Stores</li>
-							<li>Childcare</li>
-							<li>Community Centres</li>
-							<li>Community Health and Elderly Care Facilities</li>
-							<li>Cosmetics and Beauty Supply Retailers</li>
-							<li>Fish and Seafood Market</li>
-							<li>Fitness and recreational sports centres</li>
-							<li>Fruit and Vegetable Market</li>
-							<li>Libraries</li>
-							<li>Liquor Stores</li>
-							<li>Meat Market</li>
-							<li>Nursing Care Facilities</li>
-							<li>Office supplies</li>
-							<li>Other Personal Care</li>
-							<li>Pharmacy</li>
-							<li>Physicians Office</li>
-						</div>
-					</Accordion>
-				</div>
+				<h6 class="my-3">Complete Community Amenities</h6>
 				<div class="controls">
 					<div class="inline-header text-sm">
-						<Icon icon="mdi:map-legend" /><i>Click on a layer to turn it on or off</i>
+						<div class="text-sm italic">Click on a layer to turn it on or off</div>
 					</div>
 					<Accordion>
 						<div class="inline-header text-sm" slot="header">
@@ -212,6 +181,40 @@
 						</div>
 					</Accordion>
 				</div>
+				<div class="text-sm my-2">
+					<strong>Tier 1</strong> amenities are essential for a complete community. <br /><br />
+					<strong>Tier 2</strong> amenities improve outcomes but are not essential.
+					<Accordion>
+						<div class="inline-header text-xs" slot="header">
+							<i>Click here for a full list of Tier 2 amenities</i><Icon
+								icon="iconoir:nav-arrow-down"
+							/>
+						</div>
+						<div class="text-xs ml-5" slot="body">
+							<li>Appliance TV and Electronics Retailers</li>
+							<li>Baked Goods</li>
+							<li>Barber Shop</li>
+							<li>Beauty Salon</li>
+							<li>Book Stores</li>
+							<li>Building Material and Lawn Garden Stores</li>
+							<li>Childcare</li>
+							<li>Community Centres</li>
+							<li>Community Health and Elderly Care Facilities</li>
+							<li>Cosmetics and Beauty Supply Retailers</li>
+							<li>Fish and Seafood Market</li>
+							<li>Fitness and recreational sports centres</li>
+							<li>Fruit and Vegetable Market</li>
+							<li>Libraries</li>
+							<li>Liquor Stores</li>
+							<li>Meat Market</li>
+							<li>Nursing Care Facilities</li>
+							<li>Office supplies</li>
+							<li>Other Personal Care</li>
+							<li>Pharmacy</li>
+							<li>Physicians Office</li>
+						</div>
+					</Accordion>
+				</div>
 			</div>
 		</Accordion>
 	</div>
@@ -225,7 +228,23 @@
 		/>
 		<GaugeMetric label={'Independent Business Index'} value={selectedStation.bii} maxValue={1} />
 	</div>
-	<div class="chart-container">
+	<DonutMetric
+		label={'Tier 1 Presence'}
+		value={Math.round(stationCCpresence['Tier_1_presence'])}
+		icon={'mdi:store'}
+		suffix="%"
+		fillColor={'#db3069'}
+		disabled
+	/>
+	<DonutMetric
+		label={'Tier 2 Presence'}
+		value={Math.round(stationCCpresence['Tier_2_presence'])}
+		icon={'mdi:storefront'}
+		suffix="%"
+		fillColor={'#2a5cac'}
+		disabled
+	/>
+	<!-- <div class="chart-container">
 		<div class="chart">
 			<BarChart
 				colors={['#43b171', '#F13737', '#2a5cac']}
@@ -241,8 +260,8 @@
 				padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 			/>
 		</div>
-	</div>
-	<TransitMetric
+	</div> -->
+	<!-- <TransitMetric
 		label={'Civic Infrastructure Locations'}
 		active={selectedVariable === 'CivicCount'}
 		on:click={() => onSelectVariable('CivicCount')}
@@ -265,5 +284,5 @@
 				padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 			/>
 		</div>
-	</div>
+	</div> -->
 </div>

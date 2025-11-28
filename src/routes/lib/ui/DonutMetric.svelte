@@ -13,6 +13,7 @@
 	export let accordion = false;
 	export let active = false;
 	export let disabled = false;
+	export let toggle = false;
 
 	// Visual props
 	export let size = 72; // SVG size (px)
@@ -73,7 +74,14 @@
 	onDestroy(() => cancelAnimationFrame(rafId));
 </script>
 
-<button {disabled} class="metric donut-metric" aria-label={label} class:active on:click>
+<button
+	{disabled}
+	class="metric donut-metric"
+	aria-label={label}
+	class:active
+	data-toggle={toggle}
+	on:click
+>
 	<div class="chart" style="width:{size}px; height:{size}px">
 		<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
 			<!-- background ring -->
@@ -139,11 +147,16 @@
 		width: 100%;
 	}
 
-	.active {
+	.donut-metric[data-toggle='false'].active {
 		background-color: var(--color-pink-50);
 		outline: 3px solid var(--color-pink-400);
 		box-sizing: border-box;
 		outline-offset: -3px;
+	}
+
+	/* When toggle is true, grey out inactive state */
+	.donut-metric[data-toggle='true']:not(.active) {
+		opacity: 0.5;
 	}
 
 	.metric:disabled {

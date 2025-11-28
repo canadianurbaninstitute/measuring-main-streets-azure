@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { BarChart } from '@onsvisual/svelte-charts';
+	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import Accordion from '../../lib/ui/Accordion.svelte';
@@ -16,15 +17,16 @@
 	export let bedData;
 </script>
 
-<div class="tab-content">
-	<div class="controls">
+<div class="tab-content gap-1">
+	<div class="legend-container">
 		<Accordion>
 			<div class="inline-header" slot="header">
-				<h6 class="inline-header">
+				<div class="text-sm inline-header">
 					<Icon icon="mdi:map-legend" />Legend<Icon icon="iconoir:nav-arrow-down" />
-				</h6>
+				</div>
 			</div>
 			<div slot="body">
+				<h6 class="my-3">Housing Type</h6>
 				<div class="text-sm italic">Click on a layer to turn it on or off</div>
 				<LegendItem
 					{map}
@@ -50,10 +52,11 @@
 					filterProperty="bu_use"
 					filterValue={'Partial Residential'}
 				/>
+				<div class="text-sm italic">Size = Number of Units</div>
 			</div>
 		</Accordion>
 	</div>
-	<div class="metric-container">
+	<div class="grid grid-cols-3 gap-[0.3em]">
 		<TransitMetric
 			disabled
 			label={'Total Dwellings'}
@@ -77,6 +80,14 @@
 			icon={'mdi:dollar'}
 		/>
 	</div>
+	<DonutMetric
+		label={'Spending ≥30% of income shelter'}
+		value={Math.round(selectedStation['MoreThan30OnShelter'])}
+		icon={'mdi:home'}
+		suffix="%"
+		fillColor={'#002940'}
+		disabled
+	/>
 	<div class="chart-container">
 		<div class="chart">
 			<BarChart

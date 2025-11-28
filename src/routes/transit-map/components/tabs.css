@@ -19,6 +19,13 @@
 	padding: 1em;
 }
 
+.legend-container {
+	border: 2px solid #ddd;
+	border-radius: 0.5em;
+	padding: 0.5em 1em;
+	margin: 1em 0 0 0;
+}
+
 .controls {
 	border: 2px solid #ddd;
 	border-radius: 0.5em;

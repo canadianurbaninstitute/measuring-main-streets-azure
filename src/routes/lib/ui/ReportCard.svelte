@@ -14,7 +14,7 @@
 		<div class="card-text-container">
 			<div>
 				<h2>{title}</h2>
-				<h5>{subtitle}</h5>
+				<p class="italic">{subtitle}</p>
 			</div>
 		</div>
 	</div>
