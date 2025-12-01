@@ -49,7 +49,7 @@
 	let filteredData = $derived(
 		data && data.length
 			? data
-					.filter((d) => +d.line_id === +selectedLine)
+					// .filter((d) => +d.line_id === +selectedLine)
 					.sort((a, b) => a.stop_sequence - b.stop_sequence)
 			: []
 	);
@@ -365,6 +365,7 @@
 <style>
 	/* Main container styling */
 	.container {
+		position: relative;
 		min-width: 100%;
 		box-sizing: border-box;
 		margin: 0;

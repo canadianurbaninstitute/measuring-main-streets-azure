@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// TODO: Number of employees McCowan/Sheppard seems high
 	import { onMount } from 'svelte';
 	// import stationData from '../../lib/data/transitdata/chart-stations.json';
@@ -15,22 +15,39 @@
 		{ value: 'TotalPopulation', label: 'Population' },
 		{ value: 'TotalHouseholds', label: 'Households' },
 		{ value: 'GreenspaceArea', label: 'Greenspace (square metres)' },
-		{ value: 'AverageEmploymentIncome', label: 'Average Employment Income ($) (2021)' },
+		{
+			value: 'AverageEmploymentIncome',
+			label: 'Average Employment Income ($) (2021)'
+		},
 		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
 		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' },
 		{ value: 'EmployeeCount', label: 'Number of Employees' },
 		{ value: 'Main Street Business', label: 'Main Street Businesses' },
+		{ value: 'bii', label: 'Independent Business Index (out of 1)' },
 		{ value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations' },
 		{ value: 'TotalImmigrant', label: 'Total Immigrants (%)' },
-		{ value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)' }
+		{ value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)' },
+		{ value: 'UniversityDegree', label: 'Population with University Degree (%)' },
+		{ value: 'WorkingAge', label: 'Population that is Working Age (%)' },
+		{ value: 'Youth', label: 'Population that are Youth (%)' },
+		{ value: 'Daily_Visits', label: 'Daily Visitors' },
+		{ value: 'Unique_Visitors', label: 'Unique Visitors' },
+		{ value: 'Tier_1_presence', label: 'Tier 1 Complete Community Score' },
+		{ value: 'Tier_2_presence', label: 'Tier 2 Complete Community Score' },
+		{ value: 'Overall_score', label: 'Overall Complete Community Score' }
 	];
 
 	let variables = $state(variablesArray);
 	let selectedVariable = $state('TotalPopulation'); // Currently selected metric to display
-	let data = $state();
+	let dataSources = $state({
+		data: [],
+		visitorData: [],
+		completeCommunityData: []
+	});
 	let transitLines = $state();
 	let selectedLine = $state(0);
 	let selectedStation = $state(0);
+
 	// Auto-select first available line when component initializes
 	$effect(() => {
 		if (selectedLine === 0 && transitLines) {
@@ -42,25 +59,69 @@
 	});
 
 	let lineColor = $derived(lineColors[selectedLine]);
+	let mergedData = $derived.by(() => {
+		const { data, visitorData, completeCommunityData } = dataSources;
+
+		// If either dataset is empty, return empty array
+		if (!data.length || !visitorData.length) return [];
+
+		// Create a map of visitor data by station name for quick lookup
+		const visitorMap = new Map(visitorData.map((station) => [station.id, station]));
+		const ccMap = new Map(completeCommunityData.map((station) => [station.id, station]));
+
+		// Merge the datasets
+		return data.map((station) => {
+			const visitorInfo = visitorMap.get(station.id);
+			const ccInfo = ccMap.get(station.id);
+			const result = {
+				...station,
+				Daily_Visits: visitorInfo?.Daily_Visits || 0,
+				Unique_Visitors: visitorInfo?.Unique_Visitors || 0,
+				Tier_1_presence: ccInfo?.Tier_1_presence || 0,
+				Tier_2_presence: ccInfo?.Tier_2_presence || 0,
+				Overall_score: ccInfo?.Overall_score || 0
+			};
+			return result;
+		});
+	});
+
+	let currentData = $derived(
+		mergedData.filter((station) => station.line_id === selectedLine.toString())
+	);
 
 	onMount(async () => {
 		try {
-			//TODO change to chart_stations.json once transit-data script is working
 			const response = await fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/chart_stations_enriched.json'
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/chart_stations.json'
 			);
-			data = await response.json();
+			dataSources.data = await response.json();
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
-	});
 
-	onMount(async () => {
 		try {
 			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-lines-dropdown.json'
 			);
 			transitLines = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/visitor_data.json'
+			);
+			dataSources.visitorData = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_presence.json'
+			);
+			dataSources.completeCommunityData = await response.json();
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -116,11 +177,17 @@
 		</div> -->
 	</div>
 	<div class="col-span-1 md:col-span-1 w-[90%] md:w-full order-2 md:order-1">
-		<TransitMap bind:selectedLine bind:selectedStation />
+		<TransitMap bind:selectedLine bind:selectedStation {currentData} {selectedVariable} />
 	</div>
 	<div class="col-span-1 md:col-span-2 w-[90%] order-1 md:order-2">
-		{#if data?.length}
-			<TransitChart {data} bind:selectedLine {variables} bind:selectedStation {selectedVariable} />
+		{#if currentData}
+			<TransitChart
+				data={currentData}
+				bind:selectedLine
+				{variables}
+				bind:selectedStation
+				{selectedVariable}
+			/>
 			{#if typeof lineColor === 'string'}
 				<TransitLegend bind:lineColor />
 			{/if}
