@@ -13,17 +13,17 @@
 	import '../styles.css';
 	// --- Import Tabs ---
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
-	import BusinessTab from './components/BusinessTab.svelte';
+	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
 	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
-	import type { Station } from '../lib/data/transitdata/stations';
-	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
 	import line_colors from '../lib/data/transitdata/line-colors.json';
+	import type { Station } from '../lib/data/transitdata/stations';
+	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
 	import AiDescription from './components/AiDescription.svelte';
 
 	// --- Mapbox Access Token ---
@@ -35,7 +35,6 @@
 	export let aiDescriptions = {};
 
 	// --- UI State Variables ---
-	// let builtFormMetrics;
 	let circleDrawn = false;
 	let statusFilters = ['Existing', 'Construction', 'Planned'];
 	let technologyFilters = ['Subway', 'LRT', 'Commuter'];
@@ -48,9 +47,15 @@
 	let activeLine = null;
 	let sidebarDisplayItems = [];
 	let stationBuiltForm = {};
+	let stationCCcounts = {};
+	let stationCCpresence = {};
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
 	let selectedVariable = null;
+	let greenspaceVisible = true;
+	let waterVisible = true;
+	let buildingVisible = true;
+	let parkingVisible = true;
 	let isOpen = true;
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
@@ -62,6 +67,7 @@
 		]),
 		'#000000' // Fallback color
 	];
+	let savedFilter = null;
 
 	// --- Fuse.js Search Instances ---
 	let regionsFuse;
@@ -72,6 +78,8 @@
 	let transitRegionsRawData;
 	let stationRawData;
 	let builtFormMetrics;
+	let completeCommunityCounts;
+	let completeCommunityPresence;
 
 	// --- Chart Data Templates ---
 	let ownerData = [
@@ -124,8 +132,8 @@
 	];
 
 	let employmentData = [
-		{ label: 'Civic Infrastructure', value: 0, y: '⠀' },
-		{ label: 'Main Street Business', value: 0, y: '⠀' },
+		{ label: 'Tier 1', value: 0, y: '⠀' },
+		{ label: 'Tier 2', value: 0, y: '⠀' },
 		{ label: 'Other', value: 0, y: '⠀' }
 	];
 
@@ -208,6 +216,10 @@
 		// console.log('Selected Station:', selectedStation);
 
 		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
+		stationCCcounts =
+			completeCommunityCounts.find((station) => station.id === selectedStation.id) || {};
+		stationCCpresence =
+			completeCommunityPresence.find((station) => station.id === selectedStation.id) || {};
 
 		ageData = [
 			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
@@ -339,29 +351,32 @@
 			}
 		];
 
-		const totalEmploymentData =
-			(selectedStation['Civic Infrastructure'] ?? 0) +
-			(selectedStation['Main Street Business'] ?? 0) +
-			(selectedStation['Other'] ?? 0);
+		const totalEmploymentData = selectedStation['EmployeeCount'] ?? 0;
 
 		employmentData = [
 			{
-				label: 'Civic Infrastructure',
+				label: 'Tier 1',
 				value: totalEmploymentData
-					? (selectedStation['Civic Infrastructure'] / totalEmploymentData) * 100
+					? (stationCCcounts['Tier 1 Employment'] / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
-				label: 'Main Street Business',
+				label: 'Tier 2',
 				value: totalEmploymentData
-					? (selectedStation['Main Street Business'] / totalEmploymentData) * 100
+					? (stationCCcounts['Tier 2 Employment'] / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
 				label: 'Other',
-				value: totalEmploymentData ? (selectedStation['Other'] / totalEmploymentData) * 100 : 0,
+				value: totalEmploymentData
+					? ((totalEmploymentData -
+							stationCCcounts['Tier 1 Employment'] -
+							stationCCcounts['Tier 2 Employment']) /
+							totalEmploymentData) *
+						100
+					: 0,
 				y: '⠀'
 			}
 		];
@@ -423,6 +438,21 @@
 			});
 		}
 	}
+
+	function toggleLayer(layerIds, currentState) {
+		// Handle both single layer (string) and multiple layers (array)
+		const layers = Array.isArray(layerIds) ? layerIds : [layerIds];
+
+		layers.forEach((layerId) => {
+			if (map.getLayer(layerId)) {
+				map.setLayoutProperty(layerId, 'visibility', currentState ? 'none' : 'visible');
+			} else {
+				console.warn(`Layer ${layerId} does not exist`);
+			}
+		});
+		return !currentState;
+	}
+
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
 		// run update function to fetch relevant station data
@@ -486,8 +516,8 @@
 		const thematicLayers = [
 			'msn-lowdensity',
 			'msn-highdensity',
-			'civic-infra',
-			'business',
+			'complete-community-amenities',
+			'employment-size',
 			'all-nar'
 		];
 
@@ -523,8 +553,7 @@
 		const thematicLayersToReset = [
 			'msn-lowdensity',
 			'msn-highdensity',
-			'civic-infra',
-			'business',
+			'complete-community-amenities',
 			'employment-size',
 			'all-nar'
 		];
@@ -716,6 +745,22 @@
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
 			);
 			builtFormMetrics = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_counts.json'
+			);
+			completeCommunityCounts = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_presence.json'
+			);
+			completeCommunityPresence = await response.json();
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -1030,15 +1075,13 @@
 	function handleTabChange(selectedTab) {
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
+		map.setPaintProperty('complete-community-amenities', 'circle-opacity', 0);
+		map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('greenspace', 'fill-opacity', 0);
 		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
-		// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
-		// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
-		map.setPaintProperty('civic-infra', 'circle-opacity', 0);
-		map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 0);
-		map.setPaintProperty('business', 'circle-opacity', 0);
-		map.setPaintProperty('business', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('water-built-form', 'fill-opacity', 0);
+		map.setPaintProperty('waterway-built-form', 'line-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-opacity', 0);
 		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('all-nar', 'circle-opacity', 0);
@@ -1065,19 +1108,13 @@
 				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
 				map.setPaintProperty('parking-built-form', 'fill-opacity', 0.8);
 				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
-				// map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
-				// map.setPaintProperty('waterway-built-form', 'fill-opacity', 0.8);
+				map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
+				map.setPaintProperty('waterway-built-form', 'line-opacity', 0.8);
 
 				break;
-			case 'business':
-				map.setPaintProperty('business', 'circle-opacity', 1);
-				map.setPaintProperty('business', 'circle-stroke-opacity', 1);
-				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
-				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-				break;
-			case 'civic':
-				map.setPaintProperty('civic-infra', 'circle-opacity', 1);
-				map.setPaintProperty('civic-infra', 'circle-stroke-opacity', 1);
+			case 'complete-communities':
+				map.setPaintProperty('complete-community-amenities', 'circle-opacity', 1);
+				map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 1);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
@@ -1232,6 +1269,7 @@
 						</Tabs.Content>
 						<Tabs.Content value="housing" class="tab-button">
 							<HousingTab
+								{map}
 								{selectedStation}
 								{ownerData}
 								{dwellingData}
@@ -1246,28 +1284,29 @@
 								{selectedStation}
 								{stationBuiltForm}
 								{selectedVariable}
+								bind:greenspaceVisible
+								bind:waterVisible
+								bind:buildingVisible
+								bind:parkingVisible
+								toggleLayer={(layerId, currentState) => toggleLayer(layerId, currentState)}
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>
 						</Tabs.Content>
-						<Tabs.Content value="business" class="tab-button">
-							<BusinessTab
+						<Tabs.Content value="complete-communities" class="tab-button">
+							<CompleteCommunityTab
+								{map}
 								{selectedStation}
+								{stationCCcounts}
+								{stationCCpresence}
 								{businessData}
 								{civicData}
 								{selectedVariable}
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>
 						</Tabs.Content>
-						<!-- <Tabs.Content value="civic" class="tab-button">
-							<CivicTab
-								{selectedStation}
-								{civicData}
-								{selectedVariable}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
-						</Tabs.Content> -->
 						<Tabs.Content value="employment" class="tab-button">
 							<EmploymentTab
+								{map}
 								{selectedStation}
 								{employmentData}
 								{selectedVariable}
@@ -1414,12 +1453,12 @@
 						>
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="business">Complete Communities</Tabs.Trigger
+							value="complete-communities">Complete Communities</Tabs.Trigger
 						>
-						<!-- <Tabs.Trigger
+						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="civic">Civic Infrastructure</Tabs.Trigger
-						> -->
+							value="employment">Employment</Tabs.Trigger
+						>
 					</Tabs.List>
 				</div>
 			</div>

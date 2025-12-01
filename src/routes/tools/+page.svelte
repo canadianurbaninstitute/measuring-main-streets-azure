@@ -3,6 +3,7 @@
 	import ReportCard from '../lib/ui/ReportCard.svelte';
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
 	import civic from '../lib/assets/graphics/civic.svg';
+	import chart from '../lib/assets/graphics/chart.png';
 	import housing from '../lib/assets/graphics/housing.svg';
 	import demographic from '../lib/assets/graphics/demographic.svg';
 	import regional from '../lib/assets/graphics/regional.svg';
@@ -13,7 +14,11 @@
 <div class="hero">
 	<h1>Tools</h1>
 	<p>
-		The following set of tools emerged out of the national mapping tool construction, offering a package of resources aimed at supporting deeper understanding and analysis of critical components of main street health. These tools can be used by anyone to dive into their main street context, however the qualitative tool by Open North is specifically designed for practitioners making infrastructure decisions. More tools are coming soon!
+		The following set of tools emerged out of the national mapping tool construction, offering a
+		package of resources aimed at supporting deeper understanding and analysis of critical
+		components of main street health. These tools can be used by anyone to dive into their main
+		street context, however the qualitative tool by Open North is specifically designed for
+		practitioners making infrastructure decisions. More tools are coming soon!
 	</p>
 </div>
 
@@ -21,11 +26,9 @@
 	<div class="subtitle">
 		<h2>Mapping Tools</h2>
 	</div>
-
 </div>
 
 <div class="card-grid">
-
 	<ReportCard
 		link={'/tools/mainstreet-demographic-map'}
 		cardImage={demographic}
@@ -40,15 +43,19 @@
 		subtitle={''}
 	/>
 
-	<ReportCard link={'/tools/housing-density-map'} cardImage={housing} title={'Housing Dot Density Map'} subtitle={''} />
+	<ReportCard
+		link={'/tools/housing-density-map'}
+		cardImage={housing}
+		title={'Housing Dot Density Map'}
+		subtitle={''}
+	/>
 </div>
 
 <div class="hero">
 	<div class="subtitle">
 		<h2>Graphing Tools</h2>
 	</div>
-	<p>This tool is only applicable for main streets included in a case study.</p>
-
+	<p></p>
 </div>
 
 <div class="card-grid">
@@ -56,6 +63,12 @@
 		link={'/tools/mainstreet-visitor-recovery'}
 		cardImage={mainstreets}
 		title={'Main Street Visitor Recovery'}
+		subtitle={'This tool is only applicable for main streets included in a case study.'}
+	/>
+	<ReportCard
+		link={'/tools/transit-charts'}
+		cardImage={chart}
+		title={'Transit Charts'}
 		subtitle={''}
 	/>
 </div>
@@ -75,7 +88,7 @@
 	/>
 </div>
 
-<Footer/>
+<Footer />
 
 <style>
 	p {
@@ -97,24 +110,18 @@
 			grid-template-columns: repeat(1, 1fr);
 		}
 	}
-	
 
 	h1 {
 		margin-bottom: 0;
 	}
 
-
 	@media only screen and (min-width: 768px) {
+		.hero {
+			margin: 2em 15em 2em 15em;
+		}
 
-.hero {
-	margin: 2em 15em 2em 15em;
-}
-
-.card-grid {
-	margin: 2em 15em 2em 15em;
-}
-
-
-}
-
+		.card-grid {
+			margin: 2em 15em 2em 15em;
+		}
+	}
 </style>
