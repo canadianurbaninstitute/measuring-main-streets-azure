@@ -13,13 +13,15 @@
 		<TransitMetric
 			label={'Population Density'}
 			active={selectedVariable === 'PopulationDensity'}
-			on:click={() => onSelectVariable('PopulationDensity')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'PopulationDensity' ? 'PopulationDensity' : null)}
 			value={Math.round(selectedStation.PopulationDensity).toLocaleString() + ' / sq. km'}
 			icon={'mdi:people'}
 		/>
 		<TransitMetric
 			active={selectedVariable === 'EmploymentDensity'}
-			on:click={() => onSelectVariable('EmploymentDensity')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'EmploymentDensity' ? 'EmploymentDensity' : null)}
 			label={'Employment Density'}
 			value={Math.round(selectedStation.EmploymentDensity).toLocaleString() + ' / sq. km'}
 			icon={'mdi:briefcase'}

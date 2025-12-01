@@ -18,21 +18,21 @@
 			disabled
 			label={'Total Dwellings'}
 			active={selectedVariable === 'HousingTotal'}
-			on:click={() => onSelectVariable('HousingTotal')}
+			on:click={() => onSelectVariable(selectedVariable !== 'HousingTotal' ? 'HousingTotal' : null)}
 			value={selectedStation.HousingTotal.toLocaleString()}
 			icon={'mdi:house'}
 		/>
 		<TransitMetric
 			label={'Average Value'}
 			active={selectedVariable === 'HouseValue'}
-			on:click={() => onSelectVariable('HouseValue')}
+			on:click={() => onSelectVariable(selectedVariable !== 'HouseValue' ? 'HouseValue' : null)}
 			value={Math.round(selectedStation.HouseValue).toLocaleString()}
 			icon={'mdi:dollar'}
 		/>
 		<TransitMetric
 			label={'Average Rent'}
 			active={selectedVariable === 'MonthlyRent'}
-			on:click={() => onSelectVariable('MonthlyRent')}
+			on:click={() => onSelectVariable(selectedVariable !== 'MonthlyRent' ? 'MonthlyRent' : null)}
 			value={Math.round(selectedStation.MonthlyRent).toLocaleString()}
 			icon={'mdi:dollar'}
 		/>

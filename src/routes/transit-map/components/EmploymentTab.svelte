@@ -13,7 +13,7 @@
 	<TransitMetric
 		label={'Total Employment'}
 		active={selectedVariable === 'EmployeeCount'}
-		on:click={() => onSelectVariable('EmployeeCount')}
+		on:click={() => onSelectVariable(selectedVariable !== 'EmployeeCount' ? 'EmployeeCount' : null)}
 		value={Math.round(selectedStation.EmployeeCount).toLocaleString()}
 		icon={'mdi:briefcase'}
 	/>
