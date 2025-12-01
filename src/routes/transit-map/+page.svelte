@@ -1451,10 +1451,6 @@
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="complete-communities">Complete Communities</Tabs.Trigger
 						>
-						<Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="employment">Employment</Tabs.Trigger
-						>
 					</Tabs.List>
 				</div>
 			</div>
