@@ -47,6 +47,7 @@
 	let stationBuiltForm = {};
 	let stationCCcounts = {};
 	let stationCCpresence = {};
+	let stationVisitorData = {};
 	let mapCenter: [number, number] = [-92, 52];
 	let defaultZoom: number = 3.7;
 	let selectedVariable = null;
@@ -77,6 +78,7 @@
 	let stationRawData;
 	let builtFormMetrics;
 	let completeCommunityCounts;
+	let visitorData;
 	let completeCommunityPresence;
 
 	// --- Chart Data Templates ---
@@ -218,6 +220,8 @@
 			completeCommunityCounts.find((station) => station.id === selectedStation.id) || {};
 		stationCCpresence =
 			completeCommunityPresence.find((station) => station.id === selectedStation.id) || {};
+
+		stationVisitorData = visitorData.find((station) => station.id === selectedStation.id) || {};
 
 		ageData = [
 			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
@@ -764,6 +768,15 @@
 
 		try {
 			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/visitor_data.json'
+			);
+			visitorData = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+
+		try {
+			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/ai_descriptions.json'
 			);
 			aiDescriptions = await response.json();
@@ -1143,7 +1156,7 @@
 
 	// Auto-close when a station is selected
 	$: if (selectedStation.id) {
-		accordionValue = null;
+		isOpen = false;
 	}
 </script>
 
@@ -1192,8 +1205,7 @@
 						[&[data-state=closed]_.open]:hidden
 						[&[data-state=open]>span>svg]:rotate-180"
 						>
-							<p class="open">Close description</p>
-							<p class="closed">Open description</p>
+							<p>Page Description</p>
 
 							<span
 								class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"
@@ -1305,6 +1317,7 @@
 								{stationCCpresence}
 								{businessData}
 								{civicData}
+								{stationVisitorData}
 								{selectedVariable}
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>

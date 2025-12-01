@@ -11,38 +11,60 @@
 	import TransitMap from './TransitMap.svelte';
 
 	// Available metrics that can be displayed for each station add more as needed
-	const variablesArray = [
-		{ value: 'TotalPopulation', label: 'Population' },
-		{ value: 'TotalHouseholds', label: 'Households' },
-		{ value: 'GreenspaceArea', label: 'Greenspace (square metres)' },
-		{
-			value: 'AverageEmploymentIncome',
-			label: 'Average Employment Income ($) (2021)'
-		},
-		{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
-		{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' },
-		{ value: 'EmployeeCount', label: 'Number of Employees' },
-		{ value: 'Main Street Business', label: 'Main Street Businesses' },
-		{ value: 'bii', label: 'Independent Business Index (out of 1)' },
-		{ value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations' },
-		{ value: 'TotalImmigrant', label: 'Total Immigrants (%)' },
-		{ value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)' },
-		{ value: 'UniversityDegree', label: 'Population with University Degree (%)' },
-		{ value: 'WorkingAge', label: 'Population that is Working Age (%)' },
-		{ value: 'Youth', label: 'Population that are Youth (%)' },
-		{ value: 'Daily_Visits', label: 'Daily Visitors' },
-		{ value: 'Unique_Visitors', label: 'Unique Visitors' },
-		{ value: 'Tier_1_presence', label: 'Tier 1 Complete Community Score' },
-		{ value: 'Tier_2_presence', label: 'Tier 2 Complete Community Score' },
-		{ value: 'Overall_score', label: 'Overall Complete Community Score' }
-	];
+	const variablesArray = {
+		Demographics: [
+			{ value: 'TotalPopulation', label: 'Population' },
+			{ value: 'PopGrowth2020to2025', label: 'Population Growth 2020 to 2025' },
+			{ value: 'PopGrowth2025to2030', label: 'Projected Population Growth 2025 to 2030' },
+			{ value: 'TotalHouseholds', label: 'Households' },
+			{
+				value: 'AverageEmploymentIncome',
+				label: 'Average Employment Income ($) (2021)'
+			},
+			{ value: 'TotalImmigrant', label: 'Total Immigrants (%)' },
+			{ value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)' },
+			{ value: 'UniversityDegree', label: 'Population with University Degree (%)' },
+			{ value: 'WorkingAge', label: 'Population that is Working Age (%)' },
+			{ value: 'Youth', label: 'Population that are Youth (%)' }
+		],
+		Housing: [
+			{ value: 'HousingTotal', label: 'Total Dwellings' },
+			{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
+			{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' },
+			{
+				value: 'MoreThan30OnShelter',
+				label: 'Population spending ≥30% of income on shelter (%) (2021)'
+			}
+		],
+		Employment: [
+			{ value: 'EmployeeCount', label: 'Number of Employees' },
+			{
+				value: 'EmploymentDensity',
+				label: 'Employment Density (per sq. km)'
+			}
+		],
+		'Built Form': [{ value: 'PopulationDensity', label: 'Population Density (per sq. km)' }],
+		'Complete Communities': [
+			{ value: 'Main Street Business', label: 'Main Street Businesses' },
+			{ value: 'bii', label: 'Independent Business Index (out of 1)' },
+			{ value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations' },
+			{ value: 'Daily_Visits', label: 'Average Daily Visitors' },
+			{ value: 'Unique_Visitors', label: 'Average Unique Daily Visitors' },
+			{ value: 'Tier_1_presence', label: 'Tier 1 Complete Community Score' },
+			{ value: 'Tier_2_presence', label: 'Tier 2 Complete Community Score' },
+			{ value: 'Overall_score', label: 'Overall Complete Community Score' }
+		]
+	};
 
 	let variables = $state(variablesArray);
+	let flatVariables = $derived(Object.values(variables).flat());
+
 	let selectedVariable = $state('TotalPopulation'); // Currently selected metric to display
 	let dataSources = $state({
 		data: [],
 		visitorData: [],
-		completeCommunityData: []
+		completeCommunityData: [],
+		builtForm: []
 	});
 	let transitLines = $state();
 	let selectedLine = $state(0);
@@ -51,6 +73,7 @@
 	// Auto-select first available line when component initializes
 	$effect(() => {
 		if (selectedLine === 0 && transitLines) {
+			console.log(transitLines);
 			const firstRegion = Object.values(transitLines)[0];
 			if (firstRegion?.length) {
 				selectedLine = firstRegion[0].value;
@@ -60,7 +83,7 @@
 
 	let lineColor = $derived(lineColors[selectedLine]);
 	let mergedData = $derived.by(() => {
-		const { data, visitorData, completeCommunityData } = dataSources;
+		const { data, visitorData, completeCommunityData, builtForm } = dataSources;
 
 		// If either dataset is empty, return empty array
 		if (!data.length || !visitorData.length) return [];
@@ -68,13 +91,19 @@
 		// Create a map of visitor data by station name for quick lookup
 		const visitorMap = new Map(visitorData.map((station) => [station.id, station]));
 		const ccMap = new Map(completeCommunityData.map((station) => [station.id, station]));
+		const builtFormMap = new Map(builtForm.map((station) => [station.id, station]));
 
 		// Merge the datasets
 		return data.map((station) => {
 			const visitorInfo = visitorMap.get(station.id);
 			const ccInfo = ccMap.get(station.id);
+			const builtFormInfo = builtFormMap.get(station.id);
 			const result = {
 				...station,
+				water_pct: builtFormInfo?.water_pct || 0,
+				greenspace_pct: builtFormInfo?.greenspace_pct || 0,
+				building_pct: builtFormInfo?.building_pct || 0,
+				parking_pct: builtFormInfo?.parking_pct || 0,
 				Daily_Visits: visitorInfo?.Daily_Visits || 0,
 				Unique_Visitors: visitorInfo?.Unique_Visitors || 0,
 				Tier_1_presence: ccInfo?.Tier_1_presence || 0,
@@ -92,9 +121,18 @@
 	onMount(async () => {
 		try {
 			const response = await fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/chart_stations.json'
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/chart_stations_enriched.json'
 			);
 			dataSources.data = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
+			);
+			dataSources.builtForm = await response.json();
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -184,7 +222,7 @@
 			<TransitChart
 				data={currentData}
 				bind:selectedLine
-				{variables}
+				variables={flatVariables}
 				bind:selectedStation
 				{selectedVariable}
 			/>

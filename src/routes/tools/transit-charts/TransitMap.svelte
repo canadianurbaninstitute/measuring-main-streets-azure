@@ -115,6 +115,7 @@
 		const handleDataEvent = (e) => {
 			// Only proceed once tiles for 'transit-lines' layer are loaded
 			if (!e.isSourceLoaded) return;
+			if (!map.getLayer('transit-lines')) return;
 			const features = map.queryRenderedFeatures({
 				layers: ['transit-lines'],
 				filter: ['==', 'line_id', line]
@@ -435,6 +436,8 @@
 			14,
 			['*', radiusExpression, 1.5]
 		]);
+
+		map.setPaintProperty('transit-stations', 'circle-opacity', 0.8);
 	}
 
 	function normalizeValue(
