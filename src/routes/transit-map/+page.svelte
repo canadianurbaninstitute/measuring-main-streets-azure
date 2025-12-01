@@ -15,7 +15,6 @@
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
-	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
 	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
@@ -29,7 +28,6 @@
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
-
 	// --- Reactive/Exported Variables ---
 	export let map;
 	export let aiDescriptions = {};
@@ -402,7 +400,6 @@
 	}
 
 	function updateLayerVariable(variable) {
-		console.log(variable, selectedVariable);
 		if (variable === null) {
 			selectedVariable = null;
 			if (map.getLayer('da')) map.removeLayer('da');
@@ -416,6 +413,7 @@
 			const expression = getD3InterpolateExpression(features, variable);
 			map.setPaintProperty('da', 'fill-color', expression);
 		} else {
+			if (!map.getSource('da_map-bco47g')) return;
 			// Add the layer if not present
 			map.addLayer(
 				{
@@ -523,7 +521,7 @@
 
 		thematicLayers.forEach((layerId) => {
 			if (map.getLayer(layerId)) {
-				map.setFilter(layerId, ['within', circlePolygon]);
+				map.setFilter(layerId, ['in', circlePolygon]);
 			}
 		});
 	}
@@ -578,7 +576,7 @@
 	}
 
 	function selectLine(line) {
-		if (!map) return;
+		if (!map || !map.getLayer('transit-lines')) return;
 		resetStationSelection();
 
 		activeLine = line;
@@ -710,7 +708,6 @@
 	// --- Svelte Lifecycle: onMount (Map Initialization) ---
 	onMount(async () => {
 		// add map
-
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te?optimize=true', // no transit lines
@@ -797,9 +794,25 @@
 				customAttribution: 'Canadian Urban Institute'
 			})
 		);
+		map.on('style.import.load', () => {
+			console.log('Map style.import.load');
+		});
+
+		map.on('load', () => {
+			console.log('Map load');
+		});
+
+		map.on('style.load', () => {
+			console.log('Map style.load');
+		});
+
+		map.on('styledataloading', () => {
+			console.log('Map styledataloading');
+		});
 
 		// add map sources and layers
 		map.on('load', () => {
+			console.log('Map loaded');
 			// Add transit sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
@@ -1135,15 +1148,7 @@
 </script>
 
 <svelte:head>
-	<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
-	<script
-		src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"
-	></script>
-	<link
-		rel="stylesheet"
-		href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
-		type="text/css"
-	/>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet" />
 </svelte:head>
 
 <!-- <div class="hero">
@@ -1300,15 +1305,6 @@
 								{stationCCpresence}
 								{businessData}
 								{civicData}
-								{selectedVariable}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
-						</Tabs.Content>
-						<Tabs.Content value="employment" class="tab-button">
-							<EmploymentTab
-								{map}
-								{selectedStation}
-								{employmentData}
 								{selectedVariable}
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>
