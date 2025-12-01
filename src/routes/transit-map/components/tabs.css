@@ -1,10 +1,10 @@
-.chart {
+.tab-chart {
 	border: 1px solid #eee;
 	padding: 1em;
 	border-radius: 0.5em;
 }
 
-.chart-container {
+.tab-chart-container {
 	display: flex;
 	flex-direction: column;
 }
@@ -26,7 +26,7 @@
 	margin: 1em 0 0 0;
 }
 
-.controls {
+.tab-controls {
 	border: 2px solid #ddd;
 	border-radius: 0.5em;
 	padding: 1em;

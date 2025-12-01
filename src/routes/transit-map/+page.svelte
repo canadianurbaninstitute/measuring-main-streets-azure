@@ -16,6 +16,7 @@
 	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
+	import EmploymentTab from './components/EmploymentTab.svelte';
 	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
@@ -1292,6 +1293,15 @@
 								{dwellingData}
 								{housingData}
 								{bedData}
+								{selectedVariable}
+								onSelectVariable={(v) => updateLayerVariable(v)}
+							/>
+						</Tabs.Content>
+						<Tabs.Content value="employment" class="tab-button">
+							<EmploymentTab
+								{map}
+								{selectedStation}
+								{employmentData}
 								{selectedVariable}
 								onSelectVariable={(v) => updateLayerVariable(v)}
 							/>
