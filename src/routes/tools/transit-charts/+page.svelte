@@ -80,6 +80,9 @@
 			target="_blank"><u>School of Cities</u></a
 		>.
 	</p>
+	<p class="text-sm mt-4">
+		<em>This tool is in beta.</em>
+	</p>
 </div>
 <div class="chart-container grid grid-cols-1 md:grid-cols-3 gap-4">
 	<!-- Control panel for user selections -->
