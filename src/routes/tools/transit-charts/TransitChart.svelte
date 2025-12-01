@@ -49,7 +49,7 @@
 	let filteredData = $derived(
 		data && data.length
 			? data
-					.filter((d) => +d.line_id === +selectedLine)
+					// .filter((d) => +d.line_id === +selectedLine)
 					.sort((a, b) => a.stop_sequence - b.stop_sequence)
 			: []
 	);
@@ -218,7 +218,7 @@
 					.html(
 						`<div style="font-weight:600;margin-bottom:4px;">${d.stop_label}</div>` +
 							`<div style="font-weight:400;margin-bottom:4px;">${d.status || 'N/A'} Station</div>` +
-							`<div>${currentVarMeta.label}: ${d3.format(',')(d[selectedVariable])}</div>`
+							`<div>${currentVarMeta.label}: ${d3.format(',.2f')(d[selectedVariable])}</div>`
 					)
 					.style('left', event.pageX + 10 + 'px')
 					.style('top', event.pageY - 28 + 'px');
@@ -365,6 +365,7 @@
 <style>
 	/* Main container styling */
 	.container {
+		position: relative;
 		min-width: 100%;
 		box-sizing: border-box;
 		margin: 0;
