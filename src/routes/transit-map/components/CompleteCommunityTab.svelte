@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { BarChart } from '@onsvisual/svelte-charts';
+	import Icon from '@iconify/svelte';
+	import Accordion from '../../lib/ui/Accordion.svelte';
 	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import GaugeMetric from '../../lib/ui/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import Accordion from '../../lib/ui/Accordion.svelte';
-	import Icon from '@iconify/svelte';
 	import './tabs.css';
 
 	export let map;
 	export let selectedStation;
 	export let stationCCcounts;
+	export let stationVisitorData;
 	export let stationCCpresence;
 	export let businessData;
 	export let civicData;
@@ -220,6 +220,24 @@
 	</div>
 	<div class="metric-container">
 		<TransitMetric
+			disabled
+			label={'Average Daily Visitors'}
+			active={selectedVariable === 'Daily_Visits'}
+			on:click={() => onSelectVariable('Daily_Visits')}
+			value={Math.round(stationVisitorData.Daily_Visits).toLocaleString()}
+			icon={'mdi:shop'}
+		/>
+		<TransitMetric
+			disabled
+			label={'Average Unique Daily Visitors'}
+			active={selectedVariable === 'Unique_Visitors'}
+			on:click={() => onSelectVariable('Unique_Visitors')}
+			value={Math.round(stationVisitorData.Unique_Visitors).toLocaleString()}
+			icon={'mdi:shop'}
+		/>
+	</div>
+	<div class="metric-container">
+		<TransitMetric
 			label={'Main Street Businesses'}
 			active={selectedVariable === 'BusinessCount'}
 			on:click={() => onSelectVariable('BusinessCount')}
@@ -228,24 +246,34 @@
 		/>
 		<GaugeMetric label={'Independent Business Index'} value={selectedStation.bii} maxValue={1} />
 	</div>
-	<DonutMetric
-		label={'Tier 1 Presence'}
-		value={Math.round(stationCCpresence['Tier_1_presence'])}
-		icon={'mdi:store'}
-		suffix="%"
-		fillColor={'#db3069'}
-		disabled
-	/>
-	<DonutMetric
-		label={'Tier 2 Presence'}
-		value={Math.round(stationCCpresence['Tier_2_presence'])}
-		icon={'mdi:storefront'}
-		suffix="%"
-		fillColor={'#2a5cac'}
-		disabled
-	/>
-	<!-- <div class="tab-chart-container">
-		<div class="tab-chart">
+	<div class="metric-container">
+		<DonutMetric
+			label={'Tier 1 Presence'}
+			value={Math.round(stationCCpresence['Tier_1_presence'])}
+			icon={'mdi:store'}
+			suffix="%"
+			fillColor={'#db3069'}
+			disabled
+		/>
+		<DonutMetric
+			label={'Tier 2 Presence'}
+			value={Math.round(stationCCpresence['Tier_2_presence'])}
+			icon={'mdi:storefront'}
+			suffix="%"
+			fillColor={'#2a5cac'}
+			disabled
+		/>
+		<DonutMetric
+			label={'Overall Score'}
+			value={Math.round(stationCCpresence['Overall_score'])}
+			icon={'mdi:storefront'}
+			suffix="%"
+			fillColor={'#2a5cac'}
+			disabled
+		/>
+	</div>
+	<!-- <div class="chart-container">
+		<div class="chart">
 			<BarChart
 				colors={['#43b171', '#F13737', '#2a5cac']}
 				data={businessData}

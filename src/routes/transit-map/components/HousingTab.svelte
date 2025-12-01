@@ -81,7 +81,7 @@
 		/>
 	</div>
 	<DonutMetric
-		label={'Spending ≥30% of income shelter'}
+		label={'Spending ≥30% of income on shelter'}
 		value={Math.round(selectedStation['MoreThan30OnShelter'])}
 		icon={'mdi:home'}
 		suffix="%"

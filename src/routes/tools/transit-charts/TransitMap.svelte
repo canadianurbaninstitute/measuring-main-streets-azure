@@ -9,7 +9,12 @@
 	// import stationRawData from '../../lib/data/transitdata/stations.json';
 	// import transitRegionsRawData from '../../lib/data/transitdata/transit-regions.json';
 
-	let { selectedLine = $bindable(), selectedStation = $bindable() } = $props();
+	let {
+		selectedLine = $bindable(),
+		selectedStation = $bindable(),
+		currentData,
+		selectedVariable
+	} = $props();
 	let accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cmhxgpbpr000801qp5pn3hygc';
@@ -98,7 +103,6 @@
 	}
 
 	function selectCurrentLine(line: number) {
-		// console.log(line);
 		if (!map || !line) return;
 		// Step 1: zoom to the region first
 		const bounds = lineIndex.get(line);
@@ -111,6 +115,7 @@
 		const handleDataEvent = (e) => {
 			// Only proceed once tiles for 'transit-lines' layer are loaded
 			if (!e.isSourceLoaded) return;
+			if (!map.getLayer('transit-lines')) return;
 			const features = map.queryRenderedFeatures({
 				layers: ['transit-lines'],
 				filter: ['==', 'line_id', line]
@@ -346,6 +351,9 @@
 				},
 				minzoom: 6
 			});
+			if (currentData && selectedVariable) {
+				updateStationCircles();
+			}
 		});
 	});
 
@@ -362,6 +370,86 @@
 	$effect(() => {
 		highlightStation(selectedStation ?? null);
 	});
+
+	$effect(() => {
+		// Explicitly track these values
+		const data = currentData;
+		const variable = selectedVariable;
+		const layer = map?.getLayer('transit-stations');
+
+		if (layer && data && variable) {
+			updateStationCircles();
+		}
+	});
+
+	function updateStationCircles() {
+		if (!map || !map.getLayer('transit-stations')) return;
+
+		// Get the metric values to determine scale
+		const values = currentData
+			.map((station) => station[selectedVariable])
+			.filter((val) => val != null && !isNaN(val));
+
+		if (values.length === 0) return;
+
+		const maxValue = Math.max(...values);
+		const minValue = Math.min(...values);
+
+		// Create a lookup map: station ID -> normalized value
+		const valueMap = new Map();
+		currentData.forEach((station) => {
+			if (station.id && station[selectedVariable] != null) {
+				const normalizedSize = normalizeValue(
+					station[selectedVariable],
+					minValue,
+					maxValue,
+					3, // min circle radius
+					15 // max circle radius
+				);
+				valueMap.set(station.id.toString(), normalizedSize);
+			}
+		});
+
+		// Build a Mapbox expression to set circle radius based on station ID
+		const radiusExpression: any[] = ['case'];
+
+		valueMap.forEach((size, stationId) => {
+			radiusExpression.push(['==', ['get', 'id'], stationId], size);
+		});
+
+		// Fallback: default radius for stations not in currentData
+		radiusExpression.push(3);
+
+		// Update the circle-radius paint property
+		map.setPaintProperty('transit-stations', 'circle-radius', [
+			'interpolate',
+			['linear'],
+			['zoom'],
+			6,
+			0,
+			7,
+			['*', radiusExpression, 0.5],
+			10,
+			['*', radiusExpression, 0.8],
+			12,
+			radiusExpression,
+			14,
+			['*', radiusExpression, 1.5]
+		]);
+
+		map.setPaintProperty('transit-stations', 'circle-opacity', 0.8);
+	}
+
+	function normalizeValue(
+		value: number,
+		min: number,
+		max: number,
+		newMin: number,
+		newMax: number
+	): number {
+		if (max === min) return (newMin + newMax) / 2;
+		return ((value - min) / (max - min)) * (newMax - newMin) + newMin;
+	}
 </script>
 
 <svelte:head>
