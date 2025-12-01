@@ -223,7 +223,7 @@
 			disabled
 			label={'Average Daily Visitors'}
 			active={selectedVariable === 'Daily_Visits'}
-			on:click={() => onSelectVariable('Daily_Visits')}
+			on:click={() => onSelectVariable(selectedVariable !== 'Daily_Visits' ? 'Daily_Visits' : null)}
 			value={Math.round(stationVisitorData.Daily_Visits).toLocaleString()}
 			icon={'mdi:shop'}
 		/>
@@ -231,7 +231,8 @@
 			disabled
 			label={'Average Unique Daily Visitors'}
 			active={selectedVariable === 'Unique_Visitors'}
-			on:click={() => onSelectVariable('Unique_Visitors')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'Unique_Visitors' ? 'Unique_Visitors' : null)}
 			value={Math.round(stationVisitorData.Unique_Visitors).toLocaleString()}
 			icon={'mdi:shop'}
 		/>
@@ -240,7 +241,8 @@
 		<TransitMetric
 			label={'Main Street Businesses'}
 			active={selectedVariable === 'BusinessCount'}
-			on:click={() => onSelectVariable('BusinessCount')}
+			on:click={() =>
+				onSelectVariable(selectedVariable !== 'BusinessCount' ? 'BusinessCount' : null)}
 			value={Math.round(selectedStation.BusinessCount).toLocaleString()}
 			icon={'mdi:shop'}
 		/>

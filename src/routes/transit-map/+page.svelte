@@ -15,8 +15,8 @@
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
-	import HousingTab from './components/HousingTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
+	import HousingTab from './components/HousingTab.svelte';
 	// --- Data Imports ---
 	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
 	// import stationRawData from '../lib/data/transitdata/stations.json';
@@ -808,25 +808,8 @@
 				customAttribution: 'Canadian Urban Institute'
 			})
 		);
-		map.on('style.import.load', () => {
-			console.log('Map style.import.load');
-		});
-
-		map.on('load', () => {
-			console.log('Map load');
-		});
-
-		map.on('style.load', () => {
-			console.log('Map style.load');
-		});
-
-		map.on('styledataloading', () => {
-			console.log('Map styledataloading');
-		});
-
 		// add map sources and layers
 		map.on('load', () => {
-			console.log('Map loaded');
 			// Add transit sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
@@ -1098,7 +1081,6 @@
 			}
 		});
 	}
-
 	function handleTabChange(selectedTab) {
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
