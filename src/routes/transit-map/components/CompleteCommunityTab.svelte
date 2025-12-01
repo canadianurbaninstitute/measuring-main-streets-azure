@@ -30,7 +30,7 @@
 			</div>
 			<div class="accordion-body" slot="body">
 				<h6 class="my-3">Complete Community Amenities</h6>
-				<div class="controls">
+				<div class="tab-controls">
 					<div class="inline-header text-sm">
 						<div class="text-sm italic">Click on a layer to turn it on or off</div>
 					</div>
@@ -244,8 +244,8 @@
 		fillColor={'#2a5cac'}
 		disabled
 	/>
-	<!-- <div class="chart-container">
-		<div class="chart">
+	<!-- <div class="tab-chart-container">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#43b171', '#F13737', '#2a5cac']}
 				data={businessData}
@@ -268,8 +268,8 @@
 		value={Math.round(selectedStation.CivicCount).toLocaleString()}
 		icon={'mdi:museum'}
 	/>
-	<div class="chart-container">
-		<div class="chart">
+	<div class="tab-chart-container">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
 				data={civicData}

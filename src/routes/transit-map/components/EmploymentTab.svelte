@@ -64,8 +64,8 @@
 		value={Math.round(selectedStation.EmployeeCount).toLocaleString()}
 		icon={'mdi:briefcase'}
 	/>
-	<div class="chart-container">
-		<div class="chart">
+	<div class="tab-chart-container">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#db3069', '#2a5cac', '#ddd']}
 				data={employmentData}

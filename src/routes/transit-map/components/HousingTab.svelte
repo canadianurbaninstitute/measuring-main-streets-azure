@@ -88,7 +88,7 @@
 		fillColor={'#002940'}
 		disabled
 	/>
-	<div class="chart-container">
+	<div class="tab-chart-container">
 		<div class="chart">
 			<BarChart
 				colors={['#002a41', '#0098D6']}

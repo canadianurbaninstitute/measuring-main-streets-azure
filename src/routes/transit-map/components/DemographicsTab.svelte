@@ -79,8 +79,8 @@
 		icon={'mdi:school'}
 		suffix="%"
 	/>
-	<div class="chart-container">
-		<div class="chart">
+	<div class="tab-chart-container">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#002a41', '#0098D6', '#db3069']}
 				data={ageData}
