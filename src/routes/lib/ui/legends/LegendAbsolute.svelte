@@ -1,12 +1,18 @@
 <script lang="ts">
-	export let title = '';
-	export let items: Array<{
+	interface LegendItem {
 		label: string;
 		color?: string; // for discrete categories
 		value?: number | [number, number]; // for gradient stops
 		unit?: string;
-	}> = [];
-	export let gradient: string | null = null; // optional CSS gradient string
+	}
+
+	interface Props {
+		title?: string;
+		items?: LegendItem[];
+		gradient?: string | null;
+	}
+
+	let { title = '', items = [], gradient = null } = $props();
 </script>
 
 <div class="legend border p-2 rounded bg-white shadow-sm text-sm">

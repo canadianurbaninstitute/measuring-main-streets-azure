@@ -1,10 +1,10 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
 	import { BarChart } from '@onsvisual/svelte-charts';
+	import EmpSizeLegend from '../../lib/assets/employmentsizelegend.svg';
+	import Accordion from '../../lib/ui/Accordion.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import Accordion from '../../lib/ui/Accordion.svelte';
-	import Icon from '@iconify/svelte';
-	import EmpSizeLegend from '../../lib/assets/employmentsizelegend.svg';
 	import './tabs.css';
 
 	export let map;

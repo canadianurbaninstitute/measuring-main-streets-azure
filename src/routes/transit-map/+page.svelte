@@ -1,62 +1,69 @@
 <script lang="ts">
 	// --- Imports ---
+	import Icon from '@iconify/svelte';
 	import * as turf from '@turf/turf';
 	import { Accordion, Tabs } from 'bits-ui';
-	import * as d3 from 'd3';
 	import Fuse from 'fuse.js';
+	import type { Feature, Polygon } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
-	import CaretDown from 'phosphor-svelte/lib/CaretDown';
 	import { onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
+	import line_colors from '../lib/data/transitdata/line-colors.json';
+	import type { Station } from '../lib/data/transitdata/stations';
+	import getD3InterpolateExpression from '../lib/helpers/getD3InterpolateExpression';
 	import Footer from '../lib/ui/Footer.svelte';
 	import '../styles.css';
-	// --- Import Tabs ---
+	import AiDescription from './components/AiDescription.svelte';
 	import BuiltFormTab from './components/BuiltFormTab.svelte';
 	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
 	import HousingTab from './components/HousingTab.svelte';
-	// --- Data Imports ---
-	// import builtFormMetrics from '../lib/data/transitdata/station-metrics.json';
-	// import stationRawData from '../lib/data/transitdata/stations.json';
-	// import transitRegionsRawData from '../lib/data/transitdata/transit-regions.json';
-	import line_colors from '../lib/data/transitdata/line-colors.json';
-	import type { Station } from '../lib/data/transitdata/stations';
-	import LegendAbsolute from '../lib/ui/legends/LegendAbsolute.svelte';
-	import AiDescription from './components/AiDescription.svelte';
+	import MapContainer from './components/MapContainer.svelte';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 	// --- Reactive/Exported Variables ---
-	export let map;
-	export let aiDescriptions = {};
+	let map: mapboxgl.Map = $state();
+	let aiDescriptions = $state({});
 
 	// --- UI State Variables ---
-	let circleDrawn = false;
-	let statusFilters = ['Existing', 'Construction', 'Planned'];
-	let technologyFilters = ['Subway', 'LRT', 'Commuter'];
-	let selectedStation: Station = { id: null };
-	let stationSelected = false;
-	let regionsData = [];
-	let processedStationData = [];
-	let searchTerm = '';
-	let activeRegion = null;
-	let activeLine = null;
-	let sidebarDisplayItems = [];
-	let stationBuiltForm = {};
-	let stationCCcounts = {};
-	let stationCCpresence = {};
-	let stationVisitorData = {};
-	let mapCenter: [number, number] = [-92, 52];
-	let defaultZoom: number = 3.7;
-	let selectedVariable = null;
-	let greenspaceVisible = true;
-	let waterVisible = true;
-	let buildingVisible = true;
-	let parkingVisible = true;
-	let isOpen = true;
+	let statusFilters = $state(['Existing', 'Construction', 'Planned']);
+	let technologyFilters = $state(['Subway', 'LRT', 'Commuter']);
+	let selectedStation: Station = $state({ id: null });
+	let stationSelected = $state(false);
+	let regionsData = $state([]);
+	let processedStationData = $state([]);
+	let searchTerm = $state('');
+	let activeRegion = $state(null);
+	let activeLine = $state(null);
+	let stationBuiltForm = $state({});
+	let stationCCcounts = $state({});
+	let stationCCpresence = $state({});
+	let stationVisitorData = $state({});
+	let mapCenter: [number, number] = $state([-92, 52]);
+	const defaultZoom: number = 3.7;
+	let selectedVariable = $state(null);
+	let greenspaceVisible = $state(true);
+	let waterVisible = $state(true);
+	let buildingVisible = $state(true);
+	let parkingVisible = $state(true);
+	let min = $state(0);
+	let max = $state(0);
+	let circleDrawn = $state(false);
+	let isOpen = $state(true);
+	let activeTab = $state('demographics');
+	let accordionValue: string | null = $state('intro');
+
+	// Auto-close when a station is selected
+	$effect(() => {
+		const id = selectedStation.id;
+		if (id) {
+			isOpen = false;
+		}
+	});
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
 		'match',
@@ -83,60 +90,60 @@
 	let completeCommunityPresence;
 
 	// --- Chart Data Templates ---
-	let ownerData = [
+	let ownerData = $state([
 		{ label: 'Owner', value: 0, y: '⠀' },
 		{ label: 'Renter', value: 0, y: '⠀' }
-	];
+	]);
 
-	let housingData = [
+	let housingData = $state([
 		{ label: 'Pre-1960', value: 0 },
 		{ label: '1961-80', value: 0 },
 		{ label: '1981-00', value: 0 },
 		{ label: 'Post-2000', value: 0 }
-	];
+	]);
 
-	let dwellingData = [
+	let dwellingData = $state([
 		{ label: 'Detached', value: 0, y: '⠀' },
 		{ label: 'Semi-Detached', value: 0, y: '⠀' },
 		{ label: 'Row', value: 0, y: '⠀' },
 		{ label: 'Duplex', value: 0, y: '⠀' },
 		{ label: 'Apt >5', value: 0, y: '⠀' },
 		{ label: 'Apt <5', value: 0, y: '⠀' }
-	];
+	]);
 
-	let bedData = [
+	let bedData = $state([
 		{ label: 'Studio', value: 0, y: '⠀' },
 		{ label: '1 Bed', value: 0, y: '⠀' },
 		{ label: '2 Bed', value: 0, y: '⠀' },
 		{ label: '3 Bed', value: 0, y: '⠀' },
 		{ label: '≥ 4 Bed', value: 0, y: '⠀' }
-	];
+	]);
 
-	let ageData = [
+	let ageData = $state([
 		{ label: '0-19', value: 0, y: '⠀' },
 		{ label: '20-64', value: 0, y: '⠀' },
 		{ label: '65+', value: 0, y: '⠀' }
-	];
+	]);
 
-	let businessData = [
+	let businessData = $state([
 		{ label: 'Food and Drink', value: 0, y: '⠀' },
 		{ label: 'Retail', value: 0, y: '⠀' },
 		{ label: 'Local Services', value: 0, y: '⠀' }
-	];
+	]);
 
-	let civicData = [
+	let civicData = $state([
 		{ label: 'Arts and Culture', value: 0, y: '⠀' },
 		{ label: 'Government and Community Services', value: 0, y: '⠀' },
 		{ label: 'Recreation', value: 0, y: '⠀' },
 		{ label: 'Healthcare', value: 0, y: '⠀' },
 		{ label: 'Education', value: 0, y: '⠀' }
-	];
+	]);
 
-	let employmentData = [
+	let employmentData = $state([
 		{ label: 'Tier 1', value: 0, y: '⠀' },
 		{ label: 'Tier 2', value: 0, y: '⠀' },
 		{ label: 'Other', value: 0, y: '⠀' }
-	];
+	]);
 
 	// --- Search Functions ---
 	function initializeSearchIndexes() {
@@ -214,8 +221,6 @@
 		}
 
 		selectedStation = station;
-		// console.log('Selected Station:', selectedStation);
-
 		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
 		stationCCcounts =
 			completeCommunityCounts.find((station) => station.id === selectedStation.id) || {};
@@ -385,25 +390,6 @@
 		];
 	}
 
-	export let min = 0;
-	export let max = 0;
-
-	//helper function to interpolate colours for d3
-	function getD3InterpolateExpression(
-		features,
-		variable,
-		colors = ['#F5C8D7', '#E87CA0', '#DB3069', '#721433']
-	) {
-		const values = features.map((f) => f.properties[variable]).filter((v) => v != null);
-		min = +d3.min(values);
-		max = +d3.max(values);
-		const stops = colors
-			.map((color, i) => [min + (i * (max - min)) / (colors.length - 1), color])
-			.flat();
-
-		return ['interpolate', ['linear'], ['get', variable], ...stops];
-	}
-
 	function updateLayerVariable(variable) {
 		if (variable === null) {
 			selectedVariable = null;
@@ -416,7 +402,13 @@
 		if (map.getLayer('da')) {
 			const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
 			const expression = getD3InterpolateExpression(features, variable);
-			map.setPaintProperty('da', 'fill-color', expression);
+			min = expression.min;
+			max = expression.max;
+			map.setPaintProperty(
+				'da',
+				'fill-color',
+				expression.expression as mapboxgl.DataDrivenPropertyValueSpecification<string>
+			);
 		} else {
 			if (!map.getSource('da_map-bco47g')) return;
 			// Add the layer if not present
@@ -436,7 +428,13 @@
 			map.once('idle', () => {
 				const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
 				const expression = getD3InterpolateExpression(features, variable);
-				map.setPaintProperty('da', 'fill-color', expression);
+				min = expression.min;
+				max = expression.max;
+				map.setPaintProperty(
+					'da',
+					'fill-color',
+					expression.expression as mapboxgl.DataDrivenPropertyValueSpecification<string>
+				);
 				map.setPaintProperty('da', 'fill-opacity', 0.8);
 			});
 		}
@@ -491,16 +489,18 @@
 		};
 		// if the circle feature exists, update it and set variable to be true
 		if (map.getSource('circle')) {
-			map.getSource('circle').setData({
+			const circleSource = map.getSource('circle') as mapboxgl.GeoJSONSource;
+			circleSource.setData({
 				type: 'FeatureCollection',
 				features: [circleFeature]
 			});
 		}
 		// Update mask source
 		if (map.getSource('circle-mask')) {
-			map.getSource('circle-mask').setData({
+			const circleMask = map.getSource('circle-mask') as mapboxgl.GeoJSONSource;
+			circleMask.setData({
 				type: 'FeatureCollection',
-				features: [maskFeature]
+				features: [maskFeature as Feature<Polygon>]
 			});
 		}
 
@@ -526,7 +526,7 @@
 
 		thematicLayers.forEach((layerId) => {
 			if (map.getLayer(layerId)) {
-				map.setFilter(layerId, ['in', circlePolygon]);
+				map.setFilter(layerId, ['within', circlePolygon]);
 			}
 		});
 	}
@@ -534,14 +534,16 @@
 	function resetStationSelection() {
 		// remove circle
 		if (map && map.getSource('circle')) {
-			map.getSource('circle').setData({
+			const circleSource = map.getSource('circle') as mapboxgl.GeoJSONSource;
+			circleSource.setData({
 				type: 'FeatureCollection',
 				features: []
 			});
 		}
 		// remove mask
 		if (map && map.getSource('circle-mask')) {
-			map.getSource('circle-mask').setData({
+			const circleMaskSource = map.getSource('circle-mask') as mapboxgl.GeoJSONSource;
+			circleMaskSource.setData({
 				type: 'FeatureCollection',
 				features: []
 			});
@@ -600,9 +602,16 @@
 				features: selectedLine
 			} as any;
 
-			const combinedBBox = turf.bbox(featureCollection);
+			// turf.bbox returns [minX, minY, maxX, maxY]; convert to Mapbox's LngLatBoundsLike: [[minX, minY], [maxX, maxY]]
+			const [minX, minY, maxX, maxY] = turf.bbox(featureCollection);
 
-			map.fitBounds(combinedBBox, { padding: 50, duration: 1000 });
+			map.fitBounds(
+				[
+					[minX, minY],
+					[maxX, maxY]
+				],
+				{ padding: 50, duration: 1000 }
+			);
 		}
 	}
 
@@ -674,8 +683,14 @@
 						const stationPoints = turf.featureCollection(
 							lineStations.map((s) => turf.point([s.longitude, s.latitude]))
 						);
-						const lineBbox = turf.bbox(stationPoints);
-						map.fitBounds(lineBbox, { padding: 50, duration: 1000 });
+						const [minX, minY, maxX, maxY] = turf.bbox(stationPoints);
+						map.fitBounds(
+							[
+								[minX, minY],
+								[maxX, maxY]
+							],
+							{ padding: 50, duration: 1000 }
+						);
 					} else if (previouslyActiveRegion) {
 						map.fitBounds(previouslyActiveRegion.bbox, { padding: 50, duration: 1000 });
 					}
@@ -689,26 +704,28 @@
 	}
 
 	// --- Reactive Logic with Fuse.js search library ---
-	$: searchResults = searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] };
+	let searchResults = $derived(
+		searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] }
+	);
 
-	$: {
+	let sidebarDisplayItems = $derived.by(() => {
 		if (searchTerm) {
-			sidebarDisplayItems = [];
+			return [];
 		} else if (activeLine) {
-			sidebarDisplayItems = processedStationData
+			return processedStationData
 				.filter((s) => s.line_ids_array && s.line_ids_array.includes(activeLine.id))
 				.map((s) => ({ ...s, type: 'stop' }))
 				.sort((a, b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
 		} else if (activeRegion) {
-			sidebarDisplayItems = activeRegion.lines
+			return activeRegion.lines
 				.map((l) => ({ ...l, type: 'line' }))
 				.sort((a, b) => a.name.localeCompare(b.name));
 		} else {
-			sidebarDisplayItems = regionsData
+			return regionsData
 				.map((r) => ({ ...r, type: 'region' }))
 				.sort((a, b) => a.name.localeCompare(b.name));
 		}
-	}
+	});
 
 	// --- Svelte Lifecycle: onMount (Map Initialization) ---
 	onMount(async () => {
@@ -851,7 +868,8 @@
 				source: 'transit-line-data',
 				'source-layer': 'merged_map_lines',
 				paint: {
-					'line-color': lineColorExpression,
+					'line-color':
+						lineColorExpression as mapboxgl.DataDrivenPropertyValueSpecification<string>,
 					'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
 					'line-dasharray': [
 						'case',
@@ -1071,7 +1089,7 @@
 			]);
 		}
 
-		const combinedFilter = filterConditions.length ? ['all', ...filterConditions] : true;
+		const combinedFilter = filterConditions.length ? ['all', ...filterConditions] : null;
 
 		const layers = ['transit-stations', 'transit-lines'];
 
@@ -1105,15 +1123,6 @@
 				map.setPaintProperty('all-nar', 'circle-stroke-opacity', 1);
 				break;
 			case 'built-form':
-				// map.flyTo({
-				// 	center:
-				// 		selectedStation.longitude && selectedStation.latitude
-				// 			? [selectedStation.longitude, selectedStation.latitude]
-				// 			: map.getCenter(),
-				// 	zoom: selectedStation.longitude && selectedStation.latitude ? 14.5 : map.getZoom(),
-				// 	duration: 1000
-				// });
-
 				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
 				map.setPaintProperty('parking-built-form', 'fill-opacity', 0.8);
 				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
@@ -1134,13 +1143,6 @@
 				break;
 		}
 	}
-
-	let accordionValue: string | null = 'intro';
-
-	// Auto-close when a station is selected
-	$: if (selectedStation.id) {
-		isOpen = false;
-	}
 </script>
 
 <svelte:head>
@@ -1149,7 +1151,7 @@
 
 <!-- <div class="hero">
 </div> -->
-<Tabs.Root value="demographics" onValueChange={(value) => handleTabChange(value)}>
+<Tabs.Root bind:value={activeTab} onValueChange={(value) => handleTabChange(value)}>
 	<div id="content-container">
 		<div id="sidebar">
 			<div class="p-4">
@@ -1193,7 +1195,7 @@
 							<span
 								class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"
 							>
-								<CaretDown class="size-[18px] transition-transform duration-200" />
+								<Icon icon="mdi:caret" class="size-[18px] transition-transform duration-200" />
 							</span>
 						</Accordion.Trigger>
 					</Accordion.Item>
@@ -1207,7 +1209,7 @@
 				class="search-input"
 			/>
 			{#if stationSelected || activeLine || activeRegion}
-				<button on:click={handleSidebarBack} class="back-button bg-zinc-50">← Back</button>
+				<button onclick={handleSidebarBack} class="back-button bg-zinc-50">← Back</button>
 			{/if}
 			{#if stationSelected && !searchTerm}
 				<div class="station-details-scroll-container">
@@ -1260,59 +1262,70 @@
 						</div>
 						<AiDescription {selectedStation} {aiDescriptions} />
 						<Tabs.Content value="demographics" class="tab-button">
-							<DemographicsTab
-								{selectedStation}
-								{ageData}
-								{selectedVariable}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
+							<!-- needed to silence LayerCake warnings -->
+							{#if activeTab === 'demographics'}
+								<DemographicsTab
+									{selectedStation}
+									{ageData}
+									{selectedVariable}
+									onSelectVariable={(v) => updateLayerVariable(v)}
+								/>
+							{/if}
 						</Tabs.Content>
 						<Tabs.Content value="housing" class="tab-button">
-							<HousingTab
-								{map}
-								{selectedStation}
-								{ownerData}
-								{dwellingData}
-								{housingData}
-								{bedData}
-								{selectedVariable}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
+							{#if activeTab === 'housing'}
+								<HousingTab
+									{map}
+									{selectedStation}
+									{ownerData}
+									{dwellingData}
+									{housingData}
+									{bedData}
+									{selectedVariable}
+									onSelectVariable={(v) => updateLayerVariable(v)}
+								/>
+							{/if}
 						</Tabs.Content>
 						<Tabs.Content value="employment" class="tab-button">
-							<EmploymentTab
-								{map}
-								{selectedStation}
-								{employmentData}
-								{selectedVariable}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
+							{#if activeTab === 'employment'}
+								<EmploymentTab
+									{map}
+									{selectedStation}
+									{employmentData}
+									{selectedVariable}
+									onSelectVariable={(v) => updateLayerVariable(v)}
+								/>
+							{/if}
 						</Tabs.Content>
 						<Tabs.Content value="built-form" class="tab-button">
-							<BuiltFormTab
-								{selectedStation}
-								{stationBuiltForm}
-								{selectedVariable}
-								bind:greenspaceVisible
-								bind:waterVisible
-								bind:buildingVisible
-								bind:parkingVisible
-								toggleLayer={(layerId, currentState) => toggleLayer(layerId, currentState)}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
+							{#if activeTab === 'built-form'}
+								<BuiltFormTab
+									{selectedStation}
+									{stationBuiltForm}
+									{selectedVariable}
+									bind:greenspaceVisible
+									bind:waterVisible
+									bind:buildingVisible
+									bind:parkingVisible
+									toggleLayer={(layerId, currentState) => toggleLayer(layerId, currentState)}
+									onSelectVariable={(v) => updateLayerVariable(v)}
+								/>
+							{/if}
 						</Tabs.Content>
 						<Tabs.Content value="complete-communities" class="tab-button">
-							<CompleteCommunityTab
-								{map}
-								{selectedStation}
-								{stationCCcounts}
-								{stationCCpresence}
-								{businessData}
-								{civicData}
-								{stationVisitorData}
-								{selectedVariable}
-								onSelectVariable={(v) => updateLayerVariable(v)}
-							/>
+							{#if activeTab === 'complete-communities'}
+								<CompleteCommunityTab
+									{map}
+									{selectedStation}
+									{stationCCcounts}
+									{stationCCpresence}
+									{businessData}
+									{civicData}
+									{stationVisitorData}
+									{selectedVariable}
+									onSelectVariable={(v) => updateLayerVariable(v)}
+								/>
+							{/if}
 						</Tabs.Content>
 					{:else if stationSelected}
 						<p>Loading station details...</p>
@@ -1325,9 +1338,9 @@
 							<div class="nav-section-header">Regions</div>
 							<ul class="nav-list">
 								{#each searchResults.regions as item (item.id)}
-									<li on:click={() => selectRegionFromSearch(item)} class="nav-item region-item">
+									<button onclick={() => selectRegionFromSearch(item)} class="nav-item region-item">
 										{item.name}
-									</li>
+									</button>
 								{/each}
 							</ul>
 						{/if}
@@ -1335,9 +1348,9 @@
 							<div class="nav-section-header">Lines</div>
 							<ul class="nav-list">
 								{#each searchResults.lines as item (item.id)}
-									<li on:click={() => selectLineFromSearch(item)} class="nav-item line-item">
+									<button onclick={() => selectLineFromSearch(item)} class="nav-item line-item">
 										{item.name} <span class="context">({item.regionName})</span>
-									</li>
+									</button>
 								{/each}
 							</ul>
 						{/if}
@@ -1345,10 +1358,10 @@
 							<div class="nav-section-header">Stops</div>
 							<ul class="nav-list">
 								{#each searchResults.stops as item (item.id)}
-									<li on:click={() => selectStopFromSearch(item)} class="nav-item stop-item">
+									<button onclick={() => selectStopFromSearch(item)} class="nav-item stop-item">
 										{item.stop_label}
 										<span class="context">({item.line_display_name || 'N/A'})</span>
-									</li>
+									</button>
 								{/each}
 							</ul>
 						{/if}
@@ -1359,15 +1372,17 @@
 						<ul class="nav-list">
 							{#each sidebarDisplayItems as item (item.id || item.stop_label)}
 								{#if item.type === 'region'}
-									<li on:click={() => selectRegion(item)} class="nav-item region-item">
+									<button onclick={() => selectRegion(item)} class="nav-item region-item">
 										{item.name}
-									</li>
+									</button>
 								{:else if item.type === 'line'}
-									<li on:click={() => selectLine(item)} class="nav-item line-item">{item.name}</li>
+									<button onclick={() => selectLine(item)} class="nav-item line-item"
+										>{item.name}</button
+									>
 								{:else if item.type === 'stop'}
-									<li on:click={() => selectStop(item)} class="nav-item stop-item">
+									<button onclick={() => selectStop(item)} class="nav-item stop-item">
 										{item.stop_label}
-									</li>
+									</button>
 								{/if}
 							{/each}
 						</ul>
@@ -1386,7 +1401,7 @@
 									type="checkbox"
 									bind:group={statusFilters}
 									value="Existing"
-									on:change={applyFilters}
+									onchange={applyFilters}
 								/> Existing</label
 							>
 							<label
@@ -1394,7 +1409,7 @@
 									type="checkbox"
 									bind:group={statusFilters}
 									value="Construction"
-									on:change={applyFilters}
+									onchange={applyFilters}
 								/> Construction</label
 							>
 							<label
@@ -1402,7 +1417,7 @@
 									type="checkbox"
 									bind:group={statusFilters}
 									value="Planned"
-									on:change={applyFilters}
+									onchange={applyFilters}
 								/> Planned</label
 							>
 						</div>
@@ -1414,7 +1429,7 @@
 									type="checkbox"
 									bind:group={technologyFilters}
 									value="Subway"
-									on:change={applyFilters}
+									onchange={applyFilters}
 								/> Subway</label
 							>
 							<label
@@ -1422,7 +1437,7 @@
 									type="checkbox"
 									bind:group={technologyFilters}
 									value="LRT"
-									on:change={applyFilters}
+									onchange={applyFilters}
 								/> LRT</label
 							>
 							<label
@@ -1430,7 +1445,7 @@
 									type="checkbox"
 									bind:group={technologyFilters}
 									value="Commuter"
-									on:change={applyFilters}
+									onchange={applyFilters}
 								/> Commuter</label
 							>
 						</div>
@@ -1459,17 +1474,7 @@
 					</Tabs.List>
 				</div>
 			</div>
-			<div id="map-container" class="w-full">
-				{#if typeof min === 'number' && !isNaN(min) && typeof max === 'number' && !isNaN(max) && min !== max && selectedVariable}
-					<LegendAbsolute
-						title={selectedVariable}
-						gradient="linear-gradient(to right, #F5C8D7, #E87CA0, #DB3069, #721433)"
-						items={[{ label: min.toString() }, { label: max.toString() }]}
-					/>
-				{/if}
-
-				<div id="map"></div>
-			</div>
+			<MapContainer {min} {max} {selectedVariable} />
 		</div>
 	</div>
 </Tabs.Root>
@@ -1481,13 +1486,6 @@
 		flex-direction: row;
 		align-items: center;
 		gap: 1em;
-	}
-
-	#map {
-		height: 100%;
-		width: 100%;
-		position: relative;
-		order: -1;
 	}
 
 	#content-container {
@@ -1516,15 +1514,6 @@
 
 	.station-details-scroll-container > div {
 		padding: 1em;
-	}
-
-	#map {
-		height: 100%;
-		width: 100%;
-	}
-
-	#map-container {
-		position: relative;
 	}
 
 	#station-container {
@@ -1595,6 +1584,8 @@
 	}
 
 	.nav-item {
+		width: 100%;
+		text-align: left;
 		padding: 1em;
 		cursor: pointer;
 		border-bottom: 1px solid #f5f5f5;
@@ -1651,32 +1642,12 @@
 			border-right: 1px solid #eee;
 		}
 
-		#map-container {
-			height: 100%;
-		}
-
-		#map {
-			height: 100%;
-		}
-
 		#filter-container {
 			flex-grow: 1;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			gap: 1em;
-		}
-	}
-
-	@media only screen and (max-width: 768px) {
-		#map-container {
-			height: 100vw;
-			min-height: 500px;
-		}
-
-		#map {
-			height: 100vw;
-			min-height: 500px;
 		}
 	}
 
