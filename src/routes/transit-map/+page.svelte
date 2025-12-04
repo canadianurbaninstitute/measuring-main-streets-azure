@@ -1,14 +1,11 @@
 <script lang="ts">
 	// --- Imports ---
-	import Icon from '@iconify/svelte';
 	import * as turf from '@turf/turf';
-	import { Accordion, Tabs } from 'bits-ui';
+	import { Tabs } from 'bits-ui';
 	import Fuse from 'fuse.js';
 	import type { Feature, Polygon } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
-	import { cubicOut } from 'svelte/easing';
-	import { slide } from 'svelte/transition';
 	import line_colors from '../lib/data/transitdata/line-colors.json';
 	import type { Station } from '../lib/data/transitdata/stations';
 	import getD3InterpolateExpression from '../lib/helpers/getD3InterpolateExpression';
@@ -19,8 +16,11 @@
 	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
 	import DemographicsTab from './components/DemographicsTab.svelte';
 	import EmploymentTab from './components/EmploymentTab.svelte';
+	import Filters from './components/Filters.svelte';
+	import Header from './components/Header.svelte';
 	import HousingTab from './components/HousingTab.svelte';
 	import MapContainer from './components/MapContainer.svelte';
+	import SelectRegion from './components/SelectRegion.svelte';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
@@ -55,15 +55,39 @@
 	let circleDrawn = $state(false);
 	let isOpen = $state(true);
 	let activeTab = $state('demographics');
-	let accordionValue: string | null = $state('intro');
 
-	// Auto-close when a station is selected
+	// data
+	let transitRegionsRawData = $state([]);
+	let stationRawData = $state([]);
+	let builtFormMetrics = $state([]);
+	let completeCommunityCounts = $state([]);
+	let visitorData = $state([]);
+	let completeCommunityPresence = $state([]);
+	let ownerData = $state([]);
+	let housingData = $state([]);
+	let dwellingData = $state([]);
+	let bedData = $state([]);
+	let ageData = $state([]);
+	let businessData = $state([]);
+	let civicData = $state([]);
+	let employmentData = $state([]);
+
+	let regionsFuse = $state();
+	let linesFuse = $state();
+	let stopsFuse = $state();
+
+	// Side Effects
 	$effect(() => {
 		const id = selectedStation.id;
 		if (id) {
 			isOpen = false;
 		}
 	});
+
+	$effect(() => {
+		applyFilters();
+	});
+
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
 		'match',
@@ -74,76 +98,6 @@
 		]),
 		'#000000' // Fallback color
 	];
-	let savedFilter = null;
-
-	// --- Fuse.js Search Instances ---
-	let regionsFuse;
-	let linesFuse;
-	let stopsFuse;
-
-	// load data from remote
-	let transitRegionsRawData;
-	let stationRawData;
-	let builtFormMetrics;
-	let completeCommunityCounts;
-	let visitorData;
-	let completeCommunityPresence;
-
-	// --- Chart Data Templates ---
-	let ownerData = $state([
-		{ label: 'Owner', value: 0, y: '⠀' },
-		{ label: 'Renter', value: 0, y: '⠀' }
-	]);
-
-	let housingData = $state([
-		{ label: 'Pre-1960', value: 0 },
-		{ label: '1961-80', value: 0 },
-		{ label: '1981-00', value: 0 },
-		{ label: 'Post-2000', value: 0 }
-	]);
-
-	let dwellingData = $state([
-		{ label: 'Detached', value: 0, y: '⠀' },
-		{ label: 'Semi-Detached', value: 0, y: '⠀' },
-		{ label: 'Row', value: 0, y: '⠀' },
-		{ label: 'Duplex', value: 0, y: '⠀' },
-		{ label: 'Apt >5', value: 0, y: '⠀' },
-		{ label: 'Apt <5', value: 0, y: '⠀' }
-	]);
-
-	let bedData = $state([
-		{ label: 'Studio', value: 0, y: '⠀' },
-		{ label: '1 Bed', value: 0, y: '⠀' },
-		{ label: '2 Bed', value: 0, y: '⠀' },
-		{ label: '3 Bed', value: 0, y: '⠀' },
-		{ label: '≥ 4 Bed', value: 0, y: '⠀' }
-	]);
-
-	let ageData = $state([
-		{ label: '0-19', value: 0, y: '⠀' },
-		{ label: '20-64', value: 0, y: '⠀' },
-		{ label: '65+', value: 0, y: '⠀' }
-	]);
-
-	let businessData = $state([
-		{ label: 'Food and Drink', value: 0, y: '⠀' },
-		{ label: 'Retail', value: 0, y: '⠀' },
-		{ label: 'Local Services', value: 0, y: '⠀' }
-	]);
-
-	let civicData = $state([
-		{ label: 'Arts and Culture', value: 0, y: '⠀' },
-		{ label: 'Government and Community Services', value: 0, y: '⠀' },
-		{ label: 'Recreation', value: 0, y: '⠀' },
-		{ label: 'Healthcare', value: 0, y: '⠀' },
-		{ label: 'Education', value: 0, y: '⠀' }
-	]);
-
-	let employmentData = $state([
-		{ label: 'Tier 1', value: 0, y: '⠀' },
-		{ label: 'Tier 2', value: 0, y: '⠀' },
-		{ label: 'Other', value: 0, y: '⠀' }
-	]);
 
 	// --- Search Functions ---
 	function initializeSearchIndexes() {
@@ -181,33 +135,6 @@
 			...fuseOptions,
 			keys: ['stop_label', 'line_display_name']
 		});
-	}
-
-	function performSearch(query) {
-		if (!query.trim()) {
-			return {
-				regions: [],
-				lines: [],
-				stops: []
-			};
-		}
-
-		const regions = regionsFuse.search(query).map((result) => ({
-			...result.item,
-			type: 'region'
-		}));
-
-		const lines = linesFuse.search(query).map((result) => ({
-			...result.item,
-			type: 'line'
-		}));
-
-		const stops = stopsFuse.search(query).map((result) => ({
-			...result.item,
-			type: 'stop'
-		}));
-
-		return { regions, lines, stops };
 	}
 
 	// --- Data/Map Update Functions ---
@@ -569,8 +496,6 @@
 		});
 	}
 
-	// search helper functions
-
 	function selectRegion(region) {
 		if (!map) return;
 		resetStationSelection();
@@ -639,26 +564,6 @@
 		}
 	}
 
-	// --- Search/Sidebar Selection Functions ---
-	function selectRegionFromSearch(region) {
-		searchTerm = '';
-		selectRegion(region);
-	}
-
-	function selectLineFromSearch(line) {
-		searchTerm = '';
-		const parentRegion = regionsData.find((r) => r.id === line.regionId);
-		if (parentRegion) {
-			activeRegion = parentRegion;
-		}
-		selectLine(line);
-	}
-
-	function selectStopFromSearch(stop) {
-		searchTerm = '';
-		selectStop(stop);
-	}
-
 	function handleSidebarBack() {
 		if (stationSelected) {
 			const previouslyActiveLine = activeLine;
@@ -704,9 +609,6 @@
 	}
 
 	// --- Reactive Logic with Fuse.js search library ---
-	let searchResults = $derived(
-		searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] }
-	);
 
 	let sidebarDisplayItems = $derived.by(() => {
 		if (searchTerm) {
@@ -1149,58 +1051,10 @@
 	<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet" />
 </svelte:head>
 
-<!-- <div class="hero">
-</div> -->
 <Tabs.Root bind:value={activeTab} onValueChange={(value) => handleTabChange(value)}>
 	<div id="content-container">
 		<div id="sidebar">
-			<div class="p-4">
-				<Accordion.Root
-					bind:value={accordionValue}
-					type="single"
-					onValueChange={(val) => (isOpen = val === 'intro')}
-				>
-					<Accordion.Item value="intro">
-						<Accordion.Content forceMount={true} class="overflow-hidden text-sm tracking-[-0.01em]">
-							{#if isOpen}
-								<div
-									transition:slide={{ duration: 300, easing: cubicOut }}
-									class="overflow-hidden text-sm tracking-[-0.01em]"
-								>
-									<Accordion.Header>
-										<div id="title">
-											<h1>Transit Map</h1>
-										</div>
-									</Accordion.Header>
-									<p>
-										This is a map of all existing, under construction and planned higher-order
-										transit lines in Canada. Search for a place or navigate the map using the
-										controls; and then click on a transit station to see information associated with
-										it in the panel on the left.
-									</p>
-									<p class="text-sm mt-4">
-										<em>This tool is in beta.</em>
-									</p>
-								</div>
-							{/if}
-						</Accordion.Content>
-						<Accordion.Trigger
-							class="rounded-lg flex w-full flex-1 select-none items-center py-2 justify-between text-[15px] font-medium transition-all
-						[&[data-state=open]_.closed]:hidden
-						[&[data-state=closed]_.open]:hidden
-						[&[data-state=open]>span>svg]:rotate-180"
-						>
-							<p>Page Description</p>
-
-							<span
-								class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"
-							>
-								<Icon icon="mdi:caret" class="size-[18px] transition-transform duration-200" />
-							</span>
-						</Accordion.Trigger>
-					</Accordion.Item>
-				</Accordion.Root>
-			</div>
+			<Header {isOpen} />
 			<input
 				id="search"
 				type="text"
@@ -1332,124 +1186,24 @@
 					{/if}
 				</div>
 			{:else}
-				<div class="navigation-scroll-container">
-					{#if searchTerm}
-						{#if searchResults.regions.length > 0}
-							<div class="nav-section-header">Regions</div>
-							<ul class="nav-list">
-								{#each searchResults.regions as item (item.id)}
-									<button onclick={() => selectRegionFromSearch(item)} class="nav-item region-item">
-										{item.name}
-									</button>
-								{/each}
-							</ul>
-						{/if}
-						{#if searchResults.lines.length > 0}
-							<div class="nav-section-header">Lines</div>
-							<ul class="nav-list">
-								{#each searchResults.lines as item (item.id)}
-									<button onclick={() => selectLineFromSearch(item)} class="nav-item line-item">
-										{item.name} <span class="context">({item.regionName})</span>
-									</button>
-								{/each}
-							</ul>
-						{/if}
-						{#if searchResults.stops.length > 0}
-							<div class="nav-section-header">Stops</div>
-							<ul class="nav-list">
-								{#each searchResults.stops as item (item.id)}
-									<button onclick={() => selectStopFromSearch(item)} class="nav-item stop-item">
-										{item.stop_label}
-										<span class="context">({item.line_display_name || 'N/A'})</span>
-									</button>
-								{/each}
-							</ul>
-						{/if}
-						{#if searchResults.regions.length === 0 && searchResults.lines.length === 0 && searchResults.stops.length === 0}
-							<p class="no-results">No results found.</p>
-						{/if}
-					{:else}
-						<ul class="nav-list">
-							{#each sidebarDisplayItems as item (item.id || item.stop_label)}
-								{#if item.type === 'region'}
-									<button onclick={() => selectRegion(item)} class="nav-item region-item">
-										{item.name}
-									</button>
-								{:else if item.type === 'line'}
-									<button onclick={() => selectLine(item)} class="nav-item line-item"
-										>{item.name}</button
-									>
-								{:else if item.type === 'stop'}
-									<button onclick={() => selectStop(item)} class="nav-item stop-item">
-										{item.stop_label}
-									</button>
-								{/if}
-							{/each}
-						</ul>
-					{/if}
-				</div>
+				<SelectRegion
+					bind:searchTerm
+					{selectLine}
+					{selectRegion}
+					{selectStop}
+					{sidebarDisplayItems}
+					{stopsFuse}
+					{linesFuse}
+					{regionsFuse}
+					{regionsData}
+					bind:activeRegion
+				/>
 			{/if}
 		</div>
 		<div class="w-full">
 			<div class="flex flex-row w-full flex-wrap lg:flex-nowrap">
 				<div id="controls" class="flex flex-col w-full">
-					<div id="filter-container" class="flex-wrap">
-						<div class="filter-group">
-							<h6>Status:</h6>
-							<label
-								><input
-									type="checkbox"
-									bind:group={statusFilters}
-									value="Existing"
-									onchange={applyFilters}
-								/> Existing</label
-							>
-							<label
-								><input
-									type="checkbox"
-									bind:group={statusFilters}
-									value="Construction"
-									onchange={applyFilters}
-								/> Construction</label
-							>
-							<label
-								><input
-									type="checkbox"
-									bind:group={statusFilters}
-									value="Planned"
-									onchange={applyFilters}
-								/> Planned</label
-							>
-						</div>
-
-						<div class="filter-group">
-							<h6>Technology:</h6>
-							<label
-								><input
-									type="checkbox"
-									bind:group={technologyFilters}
-									value="Subway"
-									onchange={applyFilters}
-								/> Subway</label
-							>
-							<label
-								><input
-									type="checkbox"
-									bind:group={technologyFilters}
-									value="LRT"
-									onchange={applyFilters}
-								/> LRT</label
-							>
-							<label
-								><input
-									type="checkbox"
-									bind:group={technologyFilters}
-									value="Commuter"
-									onchange={applyFilters}
-								/> Commuter</label
-							>
-						</div>
-					</div>
+					<Filters bind:statusFilters bind:technologyFilters />
 					<Tabs.List class="w-full grid grid-cols-3 xl:grid-cols-6 gap-1">
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
@@ -1481,13 +1235,6 @@
 <Footer />
 
 <style>
-	#title {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 1em;
-	}
-
 	#content-container {
 		display: flex;
 		flex-direction: column;
@@ -1506,7 +1253,6 @@
 		display: none;
 	}
 
-	.navigation-scroll-container,
 	.station-details-scroll-container {
 		flex-grow: 1;
 		overflow-y: auto;
@@ -1542,20 +1288,6 @@
 		padding: 0.5em 0 0 0;
 	}
 
-	#filter-container {
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-		padding: 1em;
-	}
-
-	.filter-group {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 1em;
-	}
-
 	.search-input {
 		margin: 0 1em 0.5em 1em;
 		padding: 1em;
@@ -1577,57 +1309,6 @@
 		background-color: var(--color-zinc-100);
 	}
 
-	.nav-list {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	.nav-item {
-		width: 100%;
-		text-align: left;
-		padding: 1em;
-		cursor: pointer;
-		border-bottom: 1px solid #f5f5f5;
-		transition: background-color 0.1s;
-		font-size: 0.9em;
-	}
-	.nav-item:last-child {
-		border-bottom: none;
-	}
-
-	.nav-item:hover {
-		background-color: #f0f0f0;
-	}
-
-	.region-item {
-		font-weight: bold;
-		padding-left: 1em;
-	}
-	.line-item {
-		padding-left: 1em;
-	}
-	.stop-item {
-		padding-left: 1em;
-	}
-
-	.nav-section-header {
-		font-weight: bold;
-		margin: 0.8em;
-		color: #555;
-		font-size: 0.8em;
-		text-transform: uppercase;
-	}
-
-	.context {
-		font-size: 0.9em;
-		color: #777;
-	}
-	.no-results {
-		padding: 10px;
-		color: #777;
-	}
-
 	@media only screen and (min-width: 768px) {
 		#content-container {
 			flex-direction: row;
@@ -1640,14 +1321,6 @@
 			height: 100%;
 			border-top: none;
 			border-right: 1px solid #eee;
-		}
-
-		#filter-container {
-			flex-grow: 1;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			gap: 1em;
 		}
 	}
 
