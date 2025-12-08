@@ -1,84 +1,47 @@
 <script lang="ts">
 	import { BarChart } from '@onsvisual/svelte-charts';
+	import {
+		AverageEmploymentIncome,
+		IndigenousIdentity,
+		TotalHouseholds,
+		TotalImmigrant,
+		TotalPopulation,
+		UniversityDegree,
+		VisibleMinorityTotal
+	} from '../../lib/data/transitdata/config.json';
 	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
-	export let selectedStation;
-	export let ageData;
-	export let selectedVariable: string;
-	export let onSelectVariable: (v: string) => void;
+	let { selectedStation, ageData, selectedVariable = $bindable(), onSelectVariable } = $props();
 </script>
 
 <div class="tab-content gap-1">
-	<div class="metric-container gap-[0.3em]">
-		<TransitMetric
-			label={'Population'}
-			active={selectedVariable === 'TotalPopulation'}
-			on:click={() =>
-				onSelectVariable(selectedVariable !== 'TotalPopulation' ? 'TotalPopulation' : null)}
-			value={selectedStation.TotalPopulation.toLocaleString()}
-			icon={'fluent:people-20-filled'}
-		/>
-		<TransitMetric
-			label={'Households'}
-			active={selectedVariable === 'TotalHouseholds'}
-			on:click={() =>
-				onSelectVariable(selectedVariable !== 'TotalHouseholds' ? 'TotalHouseholds' : null)}
-			value={selectedStation.TotalHouseholds.toLocaleString()}
-			icon={'mdi:house'}
-		/>
+	<div class="metric-container">
+		{#each [TotalPopulation, TotalHouseholds, AverageEmploymentIncome] as metric}
+			<TransitMetric
+				label={metric.label}
+				active={selectedVariable === metric.key}
+				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+				value={metric.unit === '$'
+					? metric.unit + Math.round(selectedStation[metric.key]).toLocaleString()
+					: Math.round(selectedStation[metric.key]).toLocaleString()}
+				icon={metric.icon}
+			/>
+		{/each}
 	</div>
-	<TransitMetric
-		active={selectedVariable === 'AverageEmploymentIncome'}
-		on:click={() =>
-			onSelectVariable(
-				selectedVariable !== 'AverageEmploymentIncome' ? 'AverageEmploymentIncome' : null
-			)}
-		label={'Average Employment Income'}
-		value={'$' + Math.round(selectedStation.AverageEmploymentIncome).toLocaleString()}
-		icon={'mdi:wallet'}
-	/>
-	<div class="grid grid-cols-3 gap-[0.3em]">
-		<DonutMetric
-			active={selectedVariable === 'VisibleMinorityTotal'}
-			on:click={() =>
-				onSelectVariable(
-					selectedVariable !== 'VisibleMinorityTotal' ? 'VisibleMinorityTotal' : null
-				)}
-			label={'Visible Minority'}
-			value={Math.round(selectedStation.VisibleMinorityTotal)}
-			icon={'mdi:people'}
-			suffix="%"
-		/>
-		<DonutMetric
-			active={selectedVariable === 'TotalImmigrant'}
-			on:click={() =>
-				onSelectVariable(selectedVariable !== 'TotalImmigrant' ? 'TotalImmigrant' : null)}
-			label={'Immigrants'}
-			value={Math.round(selectedStation.TotalImmigrant)}
-			icon={'mdi:globe'}
-			suffix="%"
-		/>
-		<DonutMetric
-			active={selectedVariable === 'IndigenousIdentity'}
-			on:click={() =>
-				onSelectVariable(selectedVariable !== 'IndigenousIdentity' ? 'IndigenousIdentity' : null)}
-			label={'Indigenous'}
-			value={selectedStation.IndigenousIdentity}
-			icon={'mdi:people'}
-			suffix="%"
-		/>
+	<div class="metric-container">
+		{#each [VisibleMinorityTotal, TotalImmigrant, IndigenousIdentity, UniversityDegree] as metric}
+			<DonutMetric
+				label={metric.label}
+				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+				value={selectedStation[metric.key] < 5
+					? selectedStation[metric.key]
+					: Math.round(selectedStation[metric.key])}
+				icon={metric.icon}
+				suffix="%"
+			/>{/each}
 	</div>
-	<DonutMetric
-		label={'University Degree'}
-		active={selectedVariable === 'UniversityDegree'}
-		on:click={() =>
-			onSelectVariable(selectedVariable !== 'UniversityDegree' ? 'UniversityDegree' : null)}
-		value={Math.round(selectedStation.UniversityDegree)}
-		icon={'mdi:school'}
-		suffix="%"
-	/>
 	<div class="tab-chart-container">
 		<div class="tab-chart">
 			<BarChart

@@ -6,6 +6,15 @@
 	import type { Feature, Polygon } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
+	import {
+		age,
+		bed,
+		business,
+		civic,
+		dwelling,
+		housing,
+		owner
+	} from '../lib/data/transitdata/config.json';
 	import line_colors from '../lib/data/transitdata/line-colors.json';
 	import type { Station } from '../lib/data/transitdata/stations';
 	import getD3InterpolateExpression from '../lib/helpers/getD3InterpolateExpression';
@@ -85,6 +94,7 @@
 	});
 
 	$effect(() => {
+		if (!map) return;
 		applyFilters();
 	});
 
@@ -138,6 +148,26 @@
 	}
 
 	// --- Data/Map Update Functions ---
+
+	function buildData(config, selectedStation, total = false) {
+		// Compute the total once
+		if (total) {
+			const sum = config.reduce((sum, item) => sum + (selectedStation[item.key] ?? 0), 0);
+
+			return config.map((item) => ({
+				label: item.label,
+				value: ((selectedStation[item.key] ?? 0) / sum) * 100,
+				y: ' '
+			}));
+		}
+		// Map each item to its value
+		return config.map((item) => ({
+			label: item.label,
+			value: selectedStation[item.key] ?? 0,
+			y: ' '
+		}));
+	}
+
 	function updateStationData(id) {
 		const station = processedStationData.find((s) => s.id === id);
 
@@ -156,137 +186,16 @@
 
 		stationVisitorData = visitorData.find((station) => station.id === selectedStation.id) || {};
 
-		ageData = [
-			{ label: '0-19', value: selectedStation.Youth, y: '⠀' },
-			{ label: '20-64', value: selectedStation.WorkingAge, y: '⠀' },
-			{ label: '65+', value: selectedStation.Elderly, y: '⠀' }
-		];
+		ageData = buildData(age, selectedStation);
+		housingData = buildData(housing, selectedStation);
+		ownerData = buildData(owner, selectedStation);
+		dwellingData = buildData(dwelling, selectedStation);
+		bedData = buildData(bed, selectedStation, true);
+		civicData = buildData(civic, selectedStation, true);
+		businessData = buildData(business, selectedStation, true);
 
-		housingData = [
-			{ label: 'Pre-1960', value: selectedStation.BuiltBefore1961 },
-			{ label: '1961-80', value: selectedStation.BuiltBetween1961And1980 },
-			{ label: '1981-00', value: selectedStation.BuiltBetween1981And2000 },
-			{ label: '2000-2020', value: selectedStation.BuiltBetween2001And2021 }
-		];
-
-		dwellingData = [
-			{ label: 'Detached', value: selectedStation.SingleDetachedHouse, y: '⠀' },
-			{ label: 'Semi-Detached', value: selectedStation.RowHouse, y: '⠀' },
-			{ label: 'Row', value: selectedStation.SemiDetachedHouse, y: '⠀' },
-			{ label: 'Duplex', value: selectedStation.DetachedDuplex, y: '⠀' },
-			{ label: 'Apt >5', value: selectedStation['Apartment,FiveOrMoreStory'], y: '⠀' },
-			{ label: 'Apt <5', value: selectedStation['Apartment,FewerThanFiveStory'], y: '⠀' }
-		];
-
-		const totalBedData =
-			(selectedStation['NoBed'] ?? 0) +
-			(selectedStation['OneBed'] ?? 0) +
-			(selectedStation['TwoBed'] ?? 0) +
-			(selectedStation['ThreeBed'] ?? 0) +
-			(selectedStation['FourOrMoreBed'] ?? 0);
-
-		bedData = [
-			{
-				label: 'Studio',
-				value: totalBedData ? (selectedStation['NoBed'] / totalBedData) * 100 : 0,
-				y: '⠀'
-			},
-			{
-				label: '1 Bed',
-				value: totalBedData ? (selectedStation['OneBed'] / totalBedData) * 100 : 0,
-				y: '⠀'
-			},
-			{
-				label: '2 Bed',
-				value: totalBedData ? (selectedStation['TwoBed'] / totalBedData) * 100 : 0,
-				y: '⠀'
-			},
-			{
-				label: '3 Bed',
-				value: totalBedData ? (selectedStation['ThreeBed'] / totalBedData) * 100 : 0,
-				y: '⠀'
-			},
-			{
-				label: '≥ 4 Bed',
-				value: totalBedData ? (selectedStation['FourOrMoreBed'] / totalBedData) * 100 : 0,
-				y: '⠀'
-			}
-		];
-
-		ownerData = [
-			{ label: 'Owner', value: selectedStation.Owned, y: '⠀' },
-			{ label: 'Renter', value: selectedStation.Rented, y: '⠀' }
-		];
-
-		const totalBusinessData =
-			(selectedStation['Food and Drink'] ?? 0) +
-			(selectedStation['Retail'] ?? 0) +
-			(selectedStation['Services and Other'] ?? 0);
-
-		businessData = [
-			{
-				label: 'Food and Drink',
-				value: totalBusinessData
-					? (selectedStation['Food and Drink'] / totalBusinessData) * 100
-					: 0,
-				y: '⠀'
-			},
-			{
-				label: 'Retail',
-				value: totalBusinessData ? (selectedStation['Retail'] / totalBusinessData) * 100 : 0,
-				y: '⠀'
-			},
-			{
-				label: 'Local Services',
-				value: totalBusinessData
-					? (selectedStation['Services and Other'] / totalBusinessData) * 100
-					: 0,
-				y: '⠀'
-			}
-		];
-
-		const totalCivicData =
-			(selectedStation['Arts and Culture'] ?? 0) +
-			(selectedStation['Government and Community Services'] ?? 0) +
-			(selectedStation['Recreation Facilities'] ?? 0) +
-			(selectedStation['Health and Care Facilities'] ?? 0) +
-			(selectedStation['Education'] ?? 0);
-
-		civicData = [
-			{
-				label: 'Arts and Culture',
-				value: totalCivicData ? (selectedStation['Arts and Culture'] / totalCivicData) * 100 : 0,
-				y: '⠀'
-			},
-			{
-				label: 'Government and Community Services',
-				value: totalCivicData
-					? (selectedStation['Government and Community Services'] / totalCivicData) * 100
-					: 0,
-				y: '⠀'
-			},
-			{
-				label: 'Recreation',
-				value: totalCivicData
-					? (selectedStation['Recreation Facilities'] / totalCivicData) * 100
-					: 0,
-				y: '⠀'
-			},
-			{
-				label: 'Healthcare',
-				value: totalCivicData
-					? (selectedStation['Health and Care Facilities'] / totalCivicData) * 100
-					: 0,
-				y: '⠀'
-			},
-			{
-				label: 'Education',
-				value: totalCivicData ? (selectedStation['Education'] / totalCivicData) * 100 : 0,
-				y: '⠀'
-			}
-		];
-
-		const totalEmploymentData = selectedStation['EmployeeCount'] ?? 0;
+		//special case for employment data — TODO: include "Other" in preprocessed data
+		const totalEmploymentData = selectedStation.EmployeeCount ?? 0;
 
 		employmentData = [
 			{
@@ -965,6 +874,7 @@
 
 	// --- Filter/Tab UI Handlers ---
 	function applyFilters() {
+		if (!map) return; // <-- Prevents the crash
 		const filterConditions = [];
 
 		if (statusFilters.length) {
@@ -994,6 +904,7 @@
 		const combinedFilter = filterConditions.length ? ['all', ...filterConditions] : null;
 
 		const layers = ['transit-stations', 'transit-lines'];
+		if (!layers || layers.length === 0) return;
 
 		layers.forEach((layer) => {
 			if (map.getLayer(layer)) {
@@ -1001,6 +912,7 @@
 			}
 		});
 	}
+
 	function handleTabChange(selectedTab) {
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
@@ -1129,7 +1041,6 @@
 						<Tabs.Content value="housing" class="tab-button">
 							{#if activeTab === 'housing'}
 								<HousingTab
-									{map}
 									{selectedStation}
 									{ownerData}
 									{dwellingData}
@@ -1143,7 +1054,6 @@
 						<Tabs.Content value="employment" class="tab-button">
 							{#if activeTab === 'employment'}
 								<EmploymentTab
-									{map}
 									{selectedStation}
 									{employmentData}
 									{selectedVariable}
@@ -1169,12 +1079,8 @@
 						<Tabs.Content value="complete-communities" class="tab-button">
 							{#if activeTab === 'complete-communities'}
 								<CompleteCommunityTab
-									{map}
 									{selectedStation}
-									{stationCCcounts}
 									{stationCCpresence}
-									{businessData}
-									{civicData}
 									{stationVisitorData}
 									{selectedVariable}
 									onSelectVariable={(v) => updateLayerVariable(v)}
@@ -1228,7 +1134,7 @@
 					</Tabs.List>
 				</div>
 			</div>
-			<MapContainer {min} {max} {selectedVariable} />
+			<MapContainer {min} {max} {selectedVariable} {map} {activeTab} />
 		</div>
 	</div>
 </Tabs.Root>

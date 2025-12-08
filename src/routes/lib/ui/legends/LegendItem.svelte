@@ -45,27 +45,48 @@
 		}
 	});
 
+	function normalizeFilter(filter) {
+		// Case 1: layer has no filter at all
+		if (!filter) return [];
+
+		// Case 2: layer already using ["all", ...]
+		if (Array.isArray(filter) && filter[0] === 'all') {
+			return filter.slice(1); // drop "all"
+		}
+
+		// Case 3: layer has a simple filter like ["==", ...]
+		if (Array.isArray(filter) && typeof filter[0] === 'string') {
+			return [filter]; // wrap as single array
+		}
+
+		// Fallback: unknown structure → do not break, just return empty
+		return [];
+	}
+
 	/* Function to toggle layer visibility using filters */
 	function toggleLayerWithFilter() {
-		if (map && filterProperty && filterValue !== undefined) {
-			// Get the current filter
-			let currentFilter = map.getFilter(id) || ['all'];
+		if (!map || !id) return;
 
-			// Check if this value is currently filtered out
-			const isFiltered = isValueFiltered(currentFilter, filterProperty, filterValue);
+		let current = map.getFilter(id) ?? ['all']; // ensure always an array
+		current = Array.isArray(current) && current[0] !== 'all' ? ['all', current] : current;
 
-			if (isFiltered) {
-				// Remove the filter for this value
-				const newFilter = removeValueFromFilter(currentFilter, filterProperty, filterValue);
-				map.setFilter(id, newFilter);
-				layerActive = true;
-			} else {
-				// Add a filter to hide this value
-				const newFilter = addValueToFilter(currentFilter, filterProperty, filterValue);
-				map.setFilter(id, newFilter);
-				layerActive = false;
-			}
+		const isActive = current.some(
+			(f) => Array.isArray(f) && f[0] === '!=' && f[1] === filterProperty && f[2] === filterValue
+		);
+
+		let newFilter;
+
+		if (isActive) {
+			// remove this specific filter
+			newFilter = removeValueFromFilter(current, filterProperty, filterValue);
+			layerActive = true;
+		} else {
+			// add this specific filter
+			newFilter = addValueToFilter(current, filterProperty, filterValue);
+			layerActive = false;
 		}
+
+		map.setFilter(id, newFilter);
 	}
 
 	/* Helper function to check if a value is currently filtered out */
@@ -175,7 +196,7 @@
 			<span
 				class={variant}
 				style="background-color: {bgcolor}; box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
-			/>{label}
+			></span>{label}
 		</div>
 	</button>
 {:else}
@@ -183,7 +204,8 @@
 		<span
 			class={variant}
 			style="background-color: {bgcolor}; box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
-		/>{label}
+		></span>{label}
+		>
 	</div>
 {/if}
 

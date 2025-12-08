@@ -1,76 +1,81 @@
 <script lang="ts">
+	import {
+		EmploymentDensity,
+		PopulationDensity,
+		water_pct,
+		greenspace_pct,
+		parking_pct,
+		building_pct
+	} from '../../lib/data/transitdata/config.json';
 	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
-	export let selectedStation;
-	export let stationBuiltForm;
-	export let selectedVariable: string;
-	export let greenspaceVisible: boolean;
-	export let waterVisible: boolean;
-	export let buildingVisible: boolean;
-	export let parkingVisible: boolean;
-	export let toggleLayer: (layerId: string | string[], currentState: boolean) => boolean;
-	export let onSelectVariable: (v: string) => void;
+	let {
+		selectedStation,
+		stationBuiltForm,
+		greenspaceVisible = $bindable(),
+		waterVisible = $bindable(),
+		buildingVisible = $bindable(),
+		parkingVisible = $bindable(),
+		selectedVariable = $bindable(),
+		toggleLayer,
+		onSelectVariable
+	} = $props();
 </script>
 
 <div class="tab-content">
 	<div class="metric-container">
-		<TransitMetric
-			label={'Population Density'}
-			active={selectedVariable === 'PopulationDensity'}
-			on:click={() =>
-				onSelectVariable(selectedVariable !== 'PopulationDensity' ? 'PopulationDensity' : null)}
-			value={Math.round(selectedStation.PopulationDensity).toLocaleString() + ' / sq. km'}
-			icon={'mdi:people'}
-		/>
-		<TransitMetric
-			active={selectedVariable === 'EmploymentDensity'}
-			on:click={() =>
-				onSelectVariable(selectedVariable !== 'EmploymentDensity' ? 'EmploymentDensity' : null)}
-			label={'Employment Density'}
-			value={Math.round(selectedStation.EmploymentDensity).toLocaleString() + ' / sq. km'}
-			icon={'mdi:briefcase'}
-		/>
+		{#each [PopulationDensity, EmploymentDensity] as metric}
+			{#if selectedStation[metric.key] !== undefined}
+				<TransitMetric
+					label={metric.label + (metric.unit ? ' (' + metric.unit + ')' : '')}
+					active={selectedVariable === metric.key}
+					on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+					value={Math.round(selectedStation[metric.key]).toLocaleString()}
+					icon={metric.icon}
+				/>
+			{/if}
+		{/each}
 	</div>
 	<div class="grid grid-cols-2 gap-[0.3em]">
 		<DonutMetric
 			active={waterVisible}
 			on:click={() =>
 				(waterVisible = toggleLayer(['waterway-built-form', 'water-built-form'], waterVisible))}
-			label={'Water'}
-			value={Math.round(stationBuiltForm['water_pct'])}
-			icon={'mdi:people'}
-			suffix="%"
+			label={water_pct.label}
+			value={Math.round(stationBuiltForm[water_pct.key])}
+			icon={water_pct.icon}
+			suffix={water_pct.unit}
 			fillColor={'#002940'}
 			toggle={true}
 		/>
 		<DonutMetric
 			active={greenspaceVisible}
 			on:click={() => (greenspaceVisible = toggleLayer('greenspace', greenspaceVisible))}
-			label={'Greenspace'}
-			value={Math.round(stationBuiltForm['greenspace_pct'])}
-			icon={'mdi:pine-tree-variant'}
-			suffix="%"
+			label={greenspace_pct.label}
+			value={Math.round(stationBuiltForm[greenspace_pct.key])}
+			icon={greenspace_pct.icon}
+			suffix={greenspace_pct.unit}
 			fillColor={'#43b171'}
 			toggle={true}
 		/>
 		<DonutMetric
 			active={buildingVisible}
 			on:click={() => (buildingVisible = toggleLayer('all-buildings', buildingVisible))}
-			label={'Buildings'}
-			value={Math.round(stationBuiltForm['building_pct'])}
-			icon={'mdi:office-building'}
-			suffix="%"
+			label={building_pct.label}
+			value={Math.round(stationBuiltForm[building_pct.key])}
+			icon={building_pct.icon}
+			suffix={building_pct.unit}
 			fillColor={'#555555'}
 			toggle={true}
 		/>
 		<DonutMetric
 			active={parkingVisible}
 			on:click={() => (parkingVisible = toggleLayer('parking-built-form', parkingVisible))}
-			label={'Parking'}
-			value={Math.round(stationBuiltForm['parking_pct'])}
-			icon={'mdi:car'}
-			suffix="%"
+			label={parking_pct.label}
+			value={Math.round(stationBuiltForm[parking_pct.key])}
+			icon={parking_pct.icon}
+			suffix={parking_pct.unit}
 			fillColor={'#999999'}
 			toggle={true}
 		/>

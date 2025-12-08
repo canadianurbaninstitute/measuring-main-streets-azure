@@ -51,6 +51,7 @@
 	.text {
 		display: flex;
 		flex-direction: column;
+		text-align: left;
 	}
 
 	.label {

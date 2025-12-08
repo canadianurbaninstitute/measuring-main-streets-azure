@@ -1,21 +1,10 @@
 <script lang="ts">
-	interface LegendItem {
-		label: string;
-		color?: string; // for discrete categories
-		value?: number | [number, number]; // for gradient stops
-		unit?: string;
-	}
-
-	interface Props {
-		title?: string;
-		items?: LegendItem[];
-		gradient?: string | null;
-	}
-
-	let { title = '', items = [], gradient = null } = $props();
+	let { title = '', items = [], gradient = null, absolute = true, children = null } = $props();
 </script>
 
-<div class="legend border p-2 rounded bg-white shadow-sm text-sm">
+<div
+	class="legend border max-w-full md:max-w-[275px] px-8 py-10 md:px-2 md:py-2 rounded bg-white shadow-sm text-sm relative md:absolute md:top-2 md:right-2"
+>
 	{#if title}
 		<div class="font-semibold mb-1">{title}</div>
 	{/if}
@@ -39,15 +28,13 @@
 			</div>
 		{/if}
 	{/each}
+	{@render children?.()}
 </div>
 
 <style>
 	.legend {
-		position: absolute;
 		display: flex;
 		flex-direction: column;
-		top: 10px;
-		left: 10px;
 		z-index: 10;
 		padding: 0.6em;
 		border: 1px solid #ddd;
@@ -55,7 +42,8 @@
 		margin: 0.15em 0 0.15em 0;
 		box-sizing: border-box;
 		min-width: 150px;
-		justify-content: space-between;
+		justify-content: flex-start;
 		cursor: pointer;
+		height: min-content;
 	}
 </style>
