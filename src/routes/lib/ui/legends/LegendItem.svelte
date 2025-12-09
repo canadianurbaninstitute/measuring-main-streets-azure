@@ -1,31 +1,27 @@
 <script>
-	// essential props
-	export let label;
-	export let variant; // can be 'circle', 'polygon' or 'line'
-	export let bgcolor;
-
-	// optional props
-	export let bordercolor = 'rgba(0,0,0,0)';
-
-	// use if turning into a toggle
-	export let button = false;
-	export let id; // layer id to target
-	export let targetopacity = 0.9; // target opacity if the layer is switched back on
-	export let featuretype = 'circle'; // needs to be set to the feature type the mapbox layer is, 'circle', 'fill', or 'line'
-
-	// Filter-based toggling props
-	export let filterProperty; // the property name to filter on
-	export let filterValue; // the value to filter
-	export let useFilter = false; // set to true to use filter-based toggling instead of opacity
-
-	let layerActive = true;
+	let layerActive = $state(true);
 
 	// MMS case study relevant props and imports
-	export let section = undefined;
-	export let map;
+
 	import { onDestroy } from 'svelte';
 	import { mapStoreList } from '../../stores/mapStore';
 
+	let {
+		label,
+		variant,
+		bgcolor,
+		bordercolor = 'rgba(0,0,0,0)',
+		button = false,
+		id,
+		targetopacity = 0.9,
+		featuretype = 'circle',
+		filterProperty,
+		filterValue, // target opacity if the layer is switched back on
+		useFilter = false,
+		toggledValues = $bindable(), // needed to keep track of toggled values in the parent when using paint property toggling; necessary if a 'within' filter is already being used
+		section = undefined,
+		map
+	} = $props();
 	/* MMS CASE STUDIES */
 
 	// Subscribe to the map store only if section is provided
@@ -45,53 +41,84 @@
 		}
 	});
 
-	function normalizeFilter(filter) {
-		// Case 1: layer has no filter at all
-		if (!filter) return [];
-
-		// Case 2: layer already using ["all", ...]
-		if (Array.isArray(filter) && filter[0] === 'all') {
-			return filter.slice(1); // drop "all"
-		}
-
-		// Case 3: layer has a simple filter like ["==", ...]
-		if (Array.isArray(filter) && typeof filter[0] === 'string') {
-			return [filter]; // wrap as single array
-		}
-
-		// Fallback: unknown structure → do not break, just return empty
-		return [];
-	}
-
 	/* Function to toggle layer visibility using filters */
 	function toggleLayerWithFilter() {
-		if (!map || !id) return;
+		if (map && filterProperty && filterValue !== undefined) {
+			// Get the current filter
+			let currentFilter = map.getFilter(id);
+			// Check if there's a 'within' filter - we need special handling
+			const hasWithinFilter =
+				currentFilter && Array.isArray(currentFilter) && currentFilter[0] === 'within';
 
-		let current = map.getFilter(id) ?? ['all']; // ensure always an array
-		current = Array.isArray(current) && current[0] !== 'all' ? ['all', current] : current;
+			if (hasWithinFilter) {
+				// Use paint property to hide specific features instead of filters
+				toggleWithPaintProperty();
+				return;
+			}
 
-		const isActive = current.some(
-			(f) => Array.isArray(f) && f[0] === '!=' && f[1] === filterProperty && f[2] === filterValue
-		);
+			// Check if this value is currently filtered out
+			const isFiltered = isValueFiltered(currentFilter, filterProperty, filterValue);
 
-		let newFilter;
+			if (isFiltered) {
+				// Remove the filter for this value
+				const newFilter = removeValueFromFilter(currentFilter, filterProperty, filterValue);
+				map.setFilter(id, newFilter);
+				layerActive = true;
+			} else {
+				// Add a filter to hide this value
+				const newFilter = addValueToFilter(currentFilter, filterProperty, filterValue);
+				map.setFilter(id, newFilter);
+				layerActive = false;
+			}
+		}
+	}
 
-		if (isActive) {
-			// remove this specific filter
-			newFilter = removeValueFromFilter(current, filterProperty, filterValue);
+	function toggleWithPaintProperty() {
+		// Initialize the array for this property if missing
+		if (!toggledValues[filterProperty]) toggledValues[filterProperty] = [];
+
+		// Toggle the value
+		if (toggledValues[filterProperty].includes(filterValue)) {
+			toggledValues[filterProperty] = toggledValues[filterProperty].filter(
+				(v) => v !== filterValue
+			);
 			layerActive = true;
 		} else {
-			// add this specific filter
-			newFilter = addValueToFilter(current, filterProperty, filterValue);
+			toggledValues[filterProperty] = [...toggledValues[filterProperty], filterValue];
 			layerActive = false;
 		}
 
-		map.setFilter(id, newFilter);
+		updateOpacity();
+	}
+
+	function updateOpacity() {
+		const conditions = [];
+
+		for (const [prop, values] of Object.entries(toggledValues)) {
+			if (values.length > 0) {
+				conditions.push(['in', ['get', prop], ['literal', values]]);
+			}
+		}
+
+		let opacityExpr;
+
+		if (conditions.length === 0) {
+			opacityExpr = targetopacity;
+		} else {
+			const combined = conditions.length === 1 ? conditions[0] : ['any', ...conditions];
+			opacityExpr = ['case', combined, 0, targetopacity];
+		}
+
+		map.setPaintProperty(id, `${featuretype}-opacity`, opacityExpr);
+		if (featuretype === 'circle') {
+			map.setPaintProperty(id, `${featuretype}-stroke-opacity`, opacityExpr);
+		}
 	}
 
 	/* Helper function to check if a value is currently filtered out */
 	function isValueFiltered(filter, property, value) {
-		// Look for ['!=', property, value] in the filter
+		if (!filter) return false;
+
 		if (Array.isArray(filter)) {
 			for (let i = 0; i < filter.length; i++) {
 				const item = filter[i];
@@ -109,27 +136,41 @@
 
 	/* Helper function to remove a value filter */
 	function removeValueFromFilter(filter, property, value) {
+		if (!filter) return null;
 		if (!Array.isArray(filter)) return filter;
 
-		// Filter out the ['!=', property, value] expression
-		const filtered = filter
-			.filter((item) => {
-				if (Array.isArray(item) && item[0] === '!=' && item[1] === property && item[2] === value) {
-					return false;
-				}
-				return true;
-			})
-			.map((item) => {
-				// Recursively remove from nested filters
-				if (Array.isArray(item)) {
-					return removeValueFromFilter(item, property, value);
-				}
-				return item;
-			});
+		// If this is not an 'all' filter, we can't remove from it
+		if (filter[0] !== 'all') {
+			return filter;
+		}
 
-		// If we're left with just ['all'], return null to show everything
-		if (filtered.length === 1 && filtered[0] === 'all') {
+		// Filter out the ['!=', property, value] expression
+		const filtered = filter.filter((item, index) => {
+			// Keep the 'all' operator (index 0)
+			if (index === 0) return true;
+
+			// Remove our specific inequality condition
+			if (Array.isArray(item) && item[0] === '!=' && item[1] === property && item[2] === value) {
+				return false;
+			}
+			return true;
+		});
+
+		// Clean up the result
+		if (filtered.length === 1) {
+			// Only 'all' remains, return null to clear filter
 			return null;
+		}
+
+		if (filtered.length === 2) {
+			// 'all' with one condition - unwrap it and return that condition directly
+			// This handles cases like ['all', ['within', polygon]] -> ['within', polygon]
+			return filtered[1];
+		}
+
+		if (filtered.length === 3) {
+			// If we have ['all', condition1, condition2], keep the 'all' structure
+			return filtered;
 		}
 
 		return filtered;
@@ -137,18 +178,25 @@
 
 	/* Helper function to add a value filter */
 	function addValueToFilter(filter, property, value) {
-		// If filter is null or just ['all'], create a new filter structure
-		if (!filter || (Array.isArray(filter) && filter.length === 1 && filter[0] === 'all')) {
-			return ['all', ['!=', property, value]];
+		const newCondition = ['!=', property, value];
+
+		// If no existing filter, create a simple one
+		if (!filter) {
+			return newCondition;
 		}
 
-		// Add the new filter condition
-		if (Array.isArray(filter) && filter[0] === 'all') {
-			return [...filter, ['!=', property, value]];
+		// If filter is not an array, wrap it
+		if (!Array.isArray(filter)) {
+			return ['all', filter, newCondition];
 		}
 
-		// Wrap existing filter in 'all' if needed
-		return ['all', filter, ['!=', property, value]];
+		// If it's already an 'all' filter, append to it
+		if (filter[0] === 'all') {
+			return [...filter, newCondition];
+		}
+
+		// For any other filter type, wrap it with 'all'
+		return ['all', filter, newCondition];
 	}
 
 	/* Function to toggle layer visibility on and off by setting opacity */
@@ -191,7 +239,7 @@
 <!-- Legend Item HTML -->
 
 {#if button}
-	<button class={layerActive ? 'layerOn' : 'layerOff'} on:click={handleToggle}>
+	<button class={layerActive ? 'layerOn' : 'layerOff'} onclick={handleToggle}>
 		<div class="legend-item" {id}>
 			<span
 				class={variant}
@@ -205,7 +253,6 @@
 			class={variant}
 			style="background-color: {bgcolor}; box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
 		></span>{label}
-		>
 	</div>
 {/if}
 

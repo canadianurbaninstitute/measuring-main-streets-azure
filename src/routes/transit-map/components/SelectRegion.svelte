@@ -1,7 +1,6 @@
 <script lang="ts">
 	let {
 		searchTerm = $bindable(),
-		sidebarDisplayItems,
 		selectRegion,
 		selectLine,
 		selectStop,
@@ -9,7 +8,9 @@
 		linesFuse,
 		stopsFuse,
 		regionsData,
-		activeRegion = $bindable()
+		activeLine = $bindable(),
+		activeRegion = $bindable(),
+		processedStationData
 	} = $props();
 
 	// --- Search/Sidebar Selection Functions ---
@@ -62,6 +63,27 @@
 	let searchResults = $derived(
 		searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] }
 	);
+
+	// --- Reactive Logic with Fuse.js search library ---
+
+	let sidebarDisplayItems = $derived.by(() => {
+		if (searchTerm) {
+			return [];
+		} else if (activeLine) {
+			return processedStationData
+				.filter((s) => s.line_ids_array && s.line_ids_array.includes(activeLine.id))
+				.map((s) => ({ ...s, type: 'stop' }))
+				.sort((a, b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
+		} else if (activeRegion) {
+			return activeRegion.lines
+				.map((l) => ({ ...l, type: 'line' }))
+				.sort((a, b) => a.name.localeCompare(b.name));
+		} else {
+			return regionsData
+				.map((r) => ({ ...r, type: 'region' }))
+				.sort((a, b) => a.name.localeCompare(b.name));
+		}
+	});
 </script>
 
 <div class="navigation-scroll-container">
