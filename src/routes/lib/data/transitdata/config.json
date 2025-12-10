@@ -180,19 +180,22 @@
 		"label": "Tier 1 Presence",
 		"key": "Tier_1_presence",
 		"unit": "%",
-		"icon": "mdi:store"
+		"icon": "mdi:store",
+		"colour": "#db3069"
 	},
 	"Tier_2_presence": {
 		"label": "Tier 2 Presence",
 		"key": "Tier_2_presence",
 		"unit": "%",
-		"icon": "mdi:storefront"
+		"icon": "mdi:storefront",
+		"colour": "#2a5cac"
 	},
 	"Overall_score": {
 		"label": "Overall Score",
 		"key": "Overall_score",
 		"unit": "%",
-		"icon": "mdi:storefront"
+		"icon": "mdi:storefront",
+		"colour": "#8a4285"
 	},
 	"bii": {
 		"label": "Business Improvement Index",

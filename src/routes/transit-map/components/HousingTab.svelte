@@ -45,7 +45,7 @@
 		disabled
 	/>
 	<div class="tab-chart-container">
-		<div class="chart">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#002a41', '#0098D6']}
 				data={ownerData}
@@ -60,7 +60,7 @@
 				padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 			/>
 		</div>
-		<div class="chart">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#002a41', '#0098D6', '#F35D00', '#db3069', '#8A4285', '#43B171']}
 				data={dwellingData}
@@ -75,7 +75,7 @@
 				padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 			/>
 		</div>
-		<div class="chart">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#002a41']}
 				data={housingData}
@@ -87,7 +87,7 @@
 				padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
 			/>
 		</div>
-		<div class="chart">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#2a5cac']}
 				data={bedData}

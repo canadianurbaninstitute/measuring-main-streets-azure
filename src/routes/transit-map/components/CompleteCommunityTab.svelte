@@ -8,9 +8,11 @@
 		Tier_2_presence,
 		Unique_Visitors
 	} from '../../lib/data/transitdata/config.json';
+	import Icon from '@iconify/svelte';
 	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import GaugeMetric from '../../lib/ui/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
+	import Accordion from '../../lib/ui/Accordion.svelte';
 	import './tabs.css';
 
 	let {
@@ -54,8 +56,77 @@
 				icon={metric.icon}
 				suffix={metric.unit}
 				disabled
+				fillColor={metric.colour}
 			/>
 		{/each}
+	</div>
+	<div class="legend-container">
+		<Accordion>
+			<div class="inline-header text-sm italic" slot="header">
+				What are Complete Community Amenities?<Icon icon="iconoir:nav-arrow-down" />
+			</div>
+			<div class="text-sm my-2" slot="body">
+				Complete Community Amenities provide services that meet residents' basic needs.<br /><br />
+				<Icon icon="mdi:store" /><strong>Tier 1</strong> amenities are essential for a complete
+				community.
+				<Accordion>
+					<div class="inline-header text-xs" slot="header">
+						<i>Click here for a full list of Tier 1 amenities</i><Icon
+							icon="iconoir:nav-arrow-down"
+						/>
+					</div>
+					<div class="text-xs ml-5" slot="body">
+						<li>Childcare</li>
+						<li>Community Centres</li>
+						<li>Convenience Store</li>
+						<li>Libraries</li>
+						<li>Personal and Commercial Banking</li>
+						<li>Pharmacy</li>
+						<li>Physicians Office</li>
+						<li>Post Office</li>
+						<li>Primary and Secondary Schools</li>
+						<li>Supermarket</li>
+					</div>
+				</Accordion>
+				<br />
+				<Icon icon="mdi:storefront" /><strong>Tier 2</strong> amenities improve outcomes but are not
+				essential.
+				<Accordion>
+					<div class="inline-header text-xs" slot="header">
+						<i>Click here for a full list of Tier 2 amenities</i><Icon
+							icon="iconoir:nav-arrow-down"
+						/>
+					</div>
+					<div class="text-xs ml-5" slot="body">
+						<li>Appliance TV and Electronics Retailers</li>
+						<li>Baked Goods</li>
+						<li>Barber Shop</li>
+						<li>Beauty Salon</li>
+						<li>Book Stores</li>
+						<li>Building Material and Lawn Garden Stores</li>
+						<li>Clothing and Shoe Retailers</li>
+						<li>Coin Laundry</li>
+						<li>Community Health and Elderly Care Facilities</li>
+						<li>Cosmetics and Beauty Supply Retailers</li>
+						<li>Dentist Office</li>
+						<li>Dry Cleaners</li>
+						<li>Fish and Seafood Market</li>
+						<li>Fitness and recreational sports centres</li>
+						<li>Florists</li>
+						<li>Fruit and Vegetable Market</li>
+						<li>Liquor Stores</li>
+						<li>Meat Market</li>
+						<li>Museums and Art Galleries</li>
+						<li>Nursing Care Facilities</li>
+						<li>Office supplies</li>
+						<li>Other Personal Care</li>
+						<li>Religious Organizations</li>
+						<li>Restaurants</li>
+						<li>Sporting goods and Hobby Retailers</li>
+					</div>
+				</Accordion>
+			</div>
+		</Accordion>
 	</div>
 	<!-- <div class="chart-container">
 		<div class="chart">

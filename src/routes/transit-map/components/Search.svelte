@@ -48,7 +48,7 @@
 		});
 	}
 
-	onMount(() => {
+	$effect(() => {
 		if (!regionsData || !processedStationData) return;
 		initializeSearchIndexes();
 	});
