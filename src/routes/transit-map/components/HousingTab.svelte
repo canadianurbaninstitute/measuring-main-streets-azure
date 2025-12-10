@@ -1,90 +1,46 @@
 <script lang="ts">
 	import { BarChart } from '@onsvisual/svelte-charts';
+	import {
+		HouseValue,
+		HousingTotal,
+		MonthlyRent,
+		MoreThan30OnShelter
+	} from '../../lib/data/transitdata/config.json';
 	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
-	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import Accordion from '../../lib/ui/Accordion.svelte';
-	import Icon from '@iconify/svelte';
 	import './tabs.css';
 
-	export let map;
-	export let selectedStation;
-	export let ownerData;
-	export let dwellingData;
-	export let housingData;
-	export let selectedVariable: string;
-	export let onSelectVariable: (v: string) => void;
-	export let bedData;
+	let {
+		selectedStation,
+		ownerData,
+		dwellingData,
+		housingData,
+		bedData,
+		selectedVariable = $bindable(),
+		onSelectVariable
+	} = $props();
 </script>
 
 <div class="tab-content gap-1">
-	<div class="legend-container">
-		<Accordion>
-			<div class="inline-header" slot="header">
-				<div class="text-sm inline-header">
-					<Icon icon="mdi:map-legend" />Legend<Icon icon="iconoir:nav-arrow-down" />
-				</div>
-			</div>
-			<div slot="body">
-				<h6 class="my-3">Housing Type</h6>
-				<div class="text-sm italic">Click on a layer to turn it on or off</div>
-				<LegendItem
-					{map}
-					variant={'circle'}
-					label={'Residential'}
-					bgcolor={'#db3069'}
-					bordercolor={'#fff'}
-					button={true}
-					id={'all-nar'}
-					useFilter={true}
-					filterProperty="bu_use"
-					filterValue={'Residential'}
-				/>
-				<LegendItem
-					{map}
-					variant={'circle'}
-					label={'Mixed Use'}
-					bgcolor={'#00adf2'}
-					bordercolor={'#fff'}
-					button={true}
-					id={'all-nar'}
-					useFilter={true}
-					filterProperty="bu_use"
-					filterValue={'Partial Residential'}
-				/>
-				<div class="text-sm italic">Size = Number of Units</div>
-			</div>
-		</Accordion>
-	</div>
-	<div class="grid grid-cols-3 gap-[0.3em]">
-		<TransitMetric
-			disabled
-			label={'Total Dwellings'}
-			active={selectedVariable === 'HousingTotal'}
-			on:click={() => onSelectVariable(selectedVariable !== 'HousingTotal' ? 'HousingTotal' : null)}
-			value={selectedStation.HousingTotal.toLocaleString()}
-			icon={'mdi:house'}
-		/>
-		<TransitMetric
-			label={'Average Value'}
-			active={selectedVariable === 'HouseValue'}
-			on:click={() => onSelectVariable(selectedVariable !== 'HouseValue' ? 'HouseValue' : null)}
-			value={Math.round(selectedStation.HouseValue).toLocaleString()}
-			icon={'mdi:dollar'}
-		/>
-		<TransitMetric
-			label={'Average Rent'}
-			active={selectedVariable === 'MonthlyRent'}
-			on:click={() => onSelectVariable(selectedVariable !== 'MonthlyRent' ? 'MonthlyRent' : null)}
-			value={Math.round(selectedStation.MonthlyRent).toLocaleString()}
-			icon={'mdi:dollar'}
-		/>
+	<div class="metric-container">
+		{#each [HousingTotal, HouseValue, MonthlyRent] as metric}
+			<TransitMetric
+				label={metric.label}
+				active={selectedVariable === metric.key}
+				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+				value={metric.unit === '$'
+					? metric.unit + Math.round(selectedStation[metric.key]).toLocaleString()
+					: Math.round(selectedStation[metric.key]).toLocaleString()}
+				icon={metric.icon}
+				disabled={metric.key === 'HousingTotal'}
+			/>
+		{/each}
 	</div>
 	<DonutMetric
-		label={'Spending ≥30% of income on shelter'}
-		value={Math.round(selectedStation['MoreThan30OnShelter'])}
-		icon={'mdi:home'}
-		suffix="%"
+		label={MoreThan30OnShelter.label}
+		value={Math.round(selectedStation[MoreThan30OnShelter.key])}
+		icon={MoreThan30OnShelter.icon}
+		suffix={MoreThan30OnShelter.unit}
 		fillColor={'#002940'}
 		disabled
 	/>

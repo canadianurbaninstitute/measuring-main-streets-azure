@@ -5,7 +5,7 @@
 	import { slide } from 'svelte/transition';
 	let { selectedStation, aiDescriptions } = $props();
 	let description =
-		aiDescriptions?.find((desc) => desc?.id === selectedStation?.id).description ?? '';
+		aiDescriptions?.find((desc) => desc?.id === selectedStation?.id)?.description ?? '';
 	let isOpen = $state(true);
 </script>
 

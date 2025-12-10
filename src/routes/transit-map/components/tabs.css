@@ -1,12 +1,17 @@
-.tab-chart {
+.chart {
 	border: 1px solid #eee;
 	padding: 1em;
 	border-radius: 0.5em;
+	min-width: 1px;
+	min-height: 1px;
+	gap: 0.3em;
 }
-
 .tab-chart-container {
 	display: flex;
 	flex-direction: column;
+	min-width: 1px;
+	min-height: 1px;
+	gap: 0.3em;
 }
 
 .metric-container {

@@ -1,0 +1,203 @@
+{
+	"age": [
+		{ "label": "0-19", "key": "Youth", "unit": "years" },
+		{ "label": "20-64", "key": "WorkingAge", "unit": "years" },
+		{ "label": "65+", "key": "Elderly", "unit": "years" }
+	],
+	"housing": [
+		{ "label": "Pre-1960", "key": "BuiltBefore1961", "unit": "buildings" },
+		{ "label": "1961-80", "key": "BuiltBetween1961And1980", "unit": "buildings" },
+		{ "label": "1981-00", "key": "BuiltBetween1981And2000", "unit": "buildings" },
+		{ "label": "2000-2020", "key": "BuiltBetween2001And2021", "unit": "buildings" }
+	],
+	"dwelling": [
+		{ "label": "Detached", "key": "SingleDetachedHouse", "unit": "dwellings" },
+		{ "label": "Semi-Detached", "key": "RowHouse", "unit": "dwellings" },
+		{ "label": "Row", "key": "SemiDetachedHouse", "unit": "dwellings" },
+		{ "label": "Duplex", "key": "DetachedDuplex", "unit": "dwellings" },
+		{ "label": "Apt >5", "key": "Apartment,FiveOrMoreStory", "unit": "dwellings" },
+		{ "label": "Apt <5", "key": "Apartment,FewerThanFiveStory", "unit": "dwellings" }
+	],
+	"bed": [
+		{ "label": "Studio", "key": "NoBed", "unit": "apartments" },
+		{ "label": "1 Bed", "key": "OneBed", "unit": "apartments" },
+		{ "label": "2 Bed", "key": "TwoBed", "unit": "apartments" },
+		{ "label": "3 Bed", "key": "ThreeBed", "unit": "apartments" },
+		{ "label": "≥ 4 Bed", "key": "FourOrMoreBed", "unit": "apartments" }
+	],
+	"owner": [
+		{ "label": "Owner", "key": "Owned", "unit": "people" },
+		{ "label": "Renter", "key": "Rented", "unit": "people" }
+	],
+	"business": [
+		{ "label": "Food and Drink", "key": "Food and Drink", "unit": "businesses" },
+		{ "label": "Retail", "key": "Retail", "unit": "businesses" },
+		{ "label": "Local Services", "key": "Services and Other", "unit": "businesses" }
+	],
+	"civic": [
+		{ "label": "Healthcare", "key": "Health and Care Facilities", "unit": "facilities" },
+		{ "label": "Education", "key": "Education", "unit": "facilities" },
+		{
+			"label": "Government and Community Services",
+			"key": "Government and Community Services",
+			"unit": "facilities"
+		},
+		{ "label": "Education", "key": "Education", "unit": "facilities" },
+		{ "label": "Recreation", "key": "Recreation Facilities", "unit": "facilities" }
+	],
+	"employment": [
+		{ "label": "Tier 1", "key": "Tier 1 Employment", "unit": "jobs" },
+		{ "label": "Tier 2", "key": "Tier 2 Employment", "unit": "jobs" },
+		{ "label": "Total", "key": "EmployeeCount", "unit": "jobs" }
+	],
+	"TotalPopulation": {
+		"label": "Population",
+		"key": "TotalPopulation",
+		"unit": "people",
+		"icon": "fluent:people-20-filled"
+	},
+	"TotalHouseholds": {
+		"label": "Households",
+		"key": "TotalHouseholds",
+		"unit": "households",
+		"icon": "mdi:house"
+	},
+	"AverageEmploymentIncome": {
+		"label": "Average Employment Income",
+		"key": "AverageEmploymentIncome",
+		"unit": "$",
+		"icon": "mdi:wallet"
+	},
+	"VisibleMinorityTotal": {
+		"label": "Visible Minority",
+		"key": "VisibleMinorityTotal",
+		"unit": "people",
+		"icon": "mdi:people"
+	},
+	"TotalImmigrant": {
+		"label": "Immigrants",
+		"key": "TotalImmigrant",
+		"unit": "people",
+		"icon": "mdi:globe"
+	},
+	"IndigenousIdentity": {
+		"label": "Indigenous",
+		"key": "IndigenousIdentity",
+		"unit": "people",
+		"icon": "mdi:people"
+	},
+	"UniversityDegree": {
+		"label": "University Degree",
+		"key": "UniversityDegree",
+		"unit": "people",
+		"icon": "mdi:school"
+	},
+	"EmployeeCount": {
+		"label": "Total Employment",
+		"key": "EmployeeCount",
+		"unit": "employees",
+		"icon": "mdi:briefcase"
+	},
+	"HousingTotal": {
+		"label": "Total Dwellings",
+		"key": "HousingTotal",
+		"unit": "units",
+		"icon": "mdi:house"
+	},
+	"MonthlyRent": {
+		"label": "Average Monthly Rent",
+		"key": "MonthlyRent",
+		"unit": "$",
+		"icon": "mdi:dollar"
+	},
+	"HouseValue": {
+		"label": "Average house value",
+		"key": "HouseValue",
+		"unit": "$",
+		"icon": "mdi:dollar"
+	},
+	"MoreThan30OnShelter": {
+		"label": "Spending ≥30% of income on shelter",
+		"key": "MoreThan30OnShelter",
+		"unit": "%",
+		"icon": "mdi:home"
+	},
+	"PopulationDensity": {
+		"label": "Population Density",
+		"key": "PopulationDensity",
+		"unit": "people/km²",
+		"icon": "mdi:people"
+	},
+	"EmploymentDensity": {
+		"label": "Employment Density",
+		"key": "EmploymentDensity",
+		"unit": "employees/km²",
+		"icon": "mdi:briefcase"
+	},
+	"water_pct": {
+		"label": "Water",
+		"key": "water_pct",
+		"unit": "%",
+		"icon": "mdi:water"
+	},
+	"greenspace_pct": {
+		"label": "Green Space",
+		"key": "greenspace_pct",
+		"unit": "%",
+		"icon": "mdi:pine-tree-variant"
+	},
+	"building_pct": {
+		"label": "Buildings",
+		"key": "building_pct",
+		"unit": "%",
+		"icon": "mdi:office-building"
+	},
+	"parking_pct": {
+		"label": "Parking",
+		"key": "parking_pct",
+		"unit": "%",
+		"icon": "mdi:car"
+	},
+	"Daily_Visits": {
+		"label": "Daily Visits",
+		"key": "Daily_Visits",
+		"unit": "visits",
+		"icon": "mdi:shop"
+	},
+	"Unique_Visitors": {
+		"label": "Average Daily Unique Visitors",
+		"key": "Unique_Visitors",
+		"unit": "visitors",
+		"icon": "mdi:shop"
+	},
+	"BusinessCount": {
+		"label": "Main Street Businesses",
+		"key": "BusinessCount",
+		"unit": "businesses",
+		"icon": "mdi:store"
+	},
+	"Tier_1_presence": {
+		"label": "Tier 1 Presence",
+		"key": "Tier_1_presence",
+		"unit": "%",
+		"icon": "mdi:store"
+	},
+	"Tier_2_presence": {
+		"label": "Tier 2 Presence",
+		"key": "Tier_2_presence",
+		"unit": "%",
+		"icon": "mdi:storefront"
+	},
+	"Overall_score": {
+		"label": "Overall Score",
+		"key": "Overall_score",
+		"unit": "%",
+		"icon": "mdi:storefront"
+	},
+	"bii": {
+		"label": "Business Improvement Index",
+		"key": "bii",
+		"unit": "index",
+		"icon": "mdi:chart-line"
+	}
+}
