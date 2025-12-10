@@ -42,7 +42,7 @@
 			attributionControl: false
 		});
 
-		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
 		map.addControl(
 			new mapboxgl.AttributionControl({
