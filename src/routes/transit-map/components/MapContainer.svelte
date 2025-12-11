@@ -1,4 +1,11 @@
 <script lang="ts">
+	import {
+		transit_lines_source,
+		transit_stations_source,
+		transit_regions_source,
+		da_map_source,
+		transit_map_style
+	} from '../../lib/data/transitdata/config-mapbox.json';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
@@ -33,7 +40,7 @@
 		// add map
 		map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te?optimize=true', // no transit lines
+			style: transit_map_style.url,
 			center: mapCenter,
 			zoom: defaultZoom,
 			maxZoom: 15.5,
@@ -54,15 +61,15 @@
 			// Add transit sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.btyr8w65'
+				url: transit_stations_source.url
 			});
 			map.addSource('transit-line-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.683e8euy'
+				url: transit_lines_source.url
 			});
 			map.addSource('transit-region-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.003rt68i'
+				url: transit_regions_source.url
 			});
 			// Add mask source
 			map.addSource('circle-mask', {
@@ -80,9 +87,9 @@
 					features: []
 				}
 			});
-			map.addSource('da_map-bco47g', {
+			map.addSource('da_map', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.1cu02ydb'
+				url: da_map_source.url
 			});
 
 			// Add layers
@@ -90,7 +97,7 @@
 				id: 'transit-lines',
 				type: 'line',
 				source: 'transit-line-data',
-				'source-layer': 'merged_map_lines',
+				'source-layer': transit_lines_source.source_layer,
 				paint: {
 					'line-color':
 						lineColorExpression as mapboxgl.DataDrivenPropertyValueSpecification<string>,
@@ -111,7 +118,7 @@
 				id: 'transit-stations',
 				type: 'circle',
 				source: 'transit-station-data',
-				'source-layer': 'merged_map_stations-bcc58j',
+				'source-layer': transit_stations_source.source_layer,
 				paint: {
 					'circle-color': '#fff',
 					'circle-radius': [
@@ -173,7 +180,7 @@
 				id: 'transit-region-points',
 				type: 'circle',
 				source: 'transit-region-data',
-				'source-layer': 'transit-region-points-9m4y8g',
+				'source-layer': transit_regions_source.source_layer,
 				paint: {
 					'circle-color': '#34bef9',
 					'circle-radius': 8,

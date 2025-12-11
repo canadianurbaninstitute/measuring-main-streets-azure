@@ -1,5 +1,9 @@
 <script lang="ts">
 	// Imports
+	import {
+		transit_lines_source,
+		urban_form_comp_style
+	} from '../../lib/data/transitdata/config-mapbox.json';
 	import * as turf from '@turf/turf';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
@@ -9,6 +13,7 @@
 	import Footer from '../../lib/ui/Footer.svelte';
 	import Checkbox from './Checkbox.svelte';
 	import MetricsDisplay from './MetricsDisplay.svelte';
+	import line_colors from '../../lib/data/transitdata/line-colors.json';
 
 	import '../../styles.css';
 
@@ -23,11 +28,22 @@
 	let selectedStation1 = '573';
 	let selectedStation2 = '194';
 
-	let station1Metrics;
-	let station2Metrics;
+	let station1Metrics = [];
+	let station2Metrics = [];
 
-	let station1Data;
-	let station2Data;
+	let station1Data = [];
+	let station2Data = [];
+
+	// Convert line colours to Mapbox expression
+	const lineColorExpression = [
+		'match',
+		['get', 'line_id'],
+		...Object.entries(line_colors).flatMap(([id, color]) => [
+			[Number(id)], // Wrap the number in an array
+			color
+		]),
+		'#000000' // Fallback color
+	];
 
 	// Error messages for user display
 	let station1Error = '';
@@ -38,7 +54,7 @@
 
 	// Map configuration
 	const mapConfig = {
-		style: 'mapbox://styles/canadianurbaninstitute/cmi91fsub003q01qoewrv4s0r',
+		style: urban_form_comp_style.url,
 		zoom: 13,
 		minZoom: 2,
 		scrollZoom: false,
@@ -55,13 +71,13 @@
 	};
 
 	// For layer toggle
-	let greenspaceCheck;
-	let roadsCheck;
-	let transitCheck;
-	let stationCheck;
-	let parkingCheck;
-	let buildingsCheck;
-	let waterCheck;
+	let greenspaceCheck: boolean;
+	let roadsCheck: boolean;
+	let transitCheck: boolean;
+	let stationCheck: boolean;
+	let parkingCheck: boolean;
+	let buildingsCheck: boolean;
+	let waterCheck: boolean;
 
 	// Data variables. Initialize as empty arrays.
 	let transitStationsDropdown = [];
@@ -140,13 +156,33 @@
 
 	// Add layers to map (transit, etc.)
 	function addMapLayers(map, allStationData, selectedStationData) {
-		// Add transit station source
+		// Add transit data sources
+		map.addSource('transit-line-data', {
+			type: 'vector',
+			url: transit_lines_source.url
+		});
 		map.addSource('transit-station-data', {
 			type: 'geojson',
 			data: allStationData
 		});
 
-		// Add station points
+		// Add transit data layers
+		map.addLayer({
+			id: 'transit-lines',
+			type: 'line',
+			source: 'transit-line-data',
+			'source-layer': transit_lines_source.source_layer,
+			paint: {
+				'line-color': lineColorExpression as mapboxgl.DataDrivenPropertyValueSpecification<string>,
+				'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
+				'line-dasharray': [
+					'case',
+					['any', ['==', ['get', 'status'], 'Construction'], ['==', ['get', 'status'], 'Planned']],
+					['literal', [1, 2]],
+					['literal', [1, 0]]
+				]
+			}
+		});
 		map.addLayer({
 			id: 'transit-station-points',
 			type: 'circle',
@@ -493,12 +529,13 @@
 	<h2>Mapping Tool</h2>
 	<p id="description">
 		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns
-		to select transit stations to compare.
-
-		<br /> Inspired by
+		to select transit stations to compare. Inspired by
 		<a href="https://schoolofcities.github.io/rail-transit-and-population-density/" target="_blank"
 			><u>School of Cities</u></a
 		>.
+	</p>
+	<p class="text-sm mt-4">
+		<em>This tool is in beta.</em>
 	</p>
 </div>
 

@@ -1,5 +1,6 @@
 <script lang="ts">
 	// --- Imports ---
+	import { da_map_source } from '../lib/data/transitdata/config-mapbox.json';
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
 
@@ -167,7 +168,9 @@
 
 		// If layer exists, just update it
 		if (map.getLayer('da')) {
-			const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
+			const features = map.querySourceFeatures('da_map', {
+				sourceLayer: da_map_source.source_layer
+			});
 			const expression = getD3InterpolateExpression(features, variable);
 			if (expression === null) return;
 			min = expression.min;
@@ -178,23 +181,25 @@
 				expression.expression as mapboxgl.DataDrivenPropertyValueSpecification<string>
 			);
 		} else {
-			if (!map.getSource('da_map-bco47g')) return;
+			if (!map.getSource('da_map')) return;
 			// Add the layer if not present
 			map.addLayer(
 				{
 					id: 'da',
 					type: 'fill',
-					source: 'da_map-bco47g',
-					'source-layer': 'da_map-bco47g',
+					source: 'da_map',
+					'source-layer': da_map_source.source_layer,
 					paint: {
 						'fill-color': 'rgba(0,0,0,0)', // fully transparent
 						'fill-opacity': 0
 					}
 				},
-				'greenspace'
+				'greenspace-built-form'
 			);
 			map.once('idle', () => {
-				const features = map.querySourceFeatures('da_map-bco47g', { sourceLayer: 'da_map-bco47g' });
+				const features = map.querySourceFeatures('da_map', {
+					sourceLayer: da_map_source.source_layer
+				});
 				const expression = getD3InterpolateExpression(features, variable);
 				if (expression === null) return;
 				min = expression.min;
@@ -530,7 +535,7 @@
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
 		map.setPaintProperty('complete-community-amenities', 'circle-opacity', 0);
 		map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 0);
-		map.setPaintProperty('greenspace', 'fill-opacity', 0);
+		map.setPaintProperty('greenspace-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
 		map.setPaintProperty('water-built-form', 'fill-opacity', 0);
@@ -549,7 +554,7 @@
 				map.setPaintProperty('all-nar', 'circle-stroke-opacity', 1);
 				break;
 			case 'built-form':
-				map.setPaintProperty('greenspace', 'fill-opacity', 0.8);
+				map.setPaintProperty('greenspace-built-form', 'fill-opacity', 0.8);
 				map.setPaintProperty('parking-built-form', 'fill-opacity', 0.8);
 				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
 				map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
