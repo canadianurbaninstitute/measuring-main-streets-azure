@@ -1,0 +1,27 @@
+{
+	"transit_lines_source": {
+		"url": "mapbox://canadianurbaninstitute.5zd8s606",
+		"source_layer": "merged_map_lines"
+	},
+	"transit_stations_source": {
+		"url": "mapbox://canadianurbaninstitute.apgsxzvc",
+		"source_layer": "merged_map_stations-18zkfc"
+	},
+	"transit_regions_source": {
+		"url": "mapbox://canadianurbaninstitute.003rt68i",
+		"source_layer": "transit-region-points-9m4y8g"
+	},
+	"da_map_source": {
+		"url": "mapbox://canadianurbaninstitute.1cu02ydb",
+		"source_layer": "da_map-bco47g"
+	},
+	"transit_map_style": {
+		"url": "mapbox://styles/canadianurbaninstitute/cmif0wnev003201s3b0btg8te?optimize=true"
+	},
+	"transit_charts_style": {
+		"url": "mapbox://styles/canadianurbaninstitute/cmhxgpbpr000801qp5pn3hygc"
+	},
+	"urban_form_comp_style": {
+		"url": "mapbox://styles/canadianurbaninstitute/cmj1t0fkc001h01qkf62iaagh"
+	}
+}

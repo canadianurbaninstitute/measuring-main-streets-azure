@@ -51,7 +51,7 @@
 		/>
 		<DonutMetric
 			active={greenspaceVisible}
-			on:click={() => (greenspaceVisible = toggleLayer('greenspace', greenspaceVisible))}
+			on:click={() => (greenspaceVisible = toggleLayer('greenspace-built-form', greenspaceVisible))}
 			label={greenspace_pct.label}
 			value={Math.round(stationBuiltForm[greenspace_pct.key])}
 			icon={greenspace_pct.icon}

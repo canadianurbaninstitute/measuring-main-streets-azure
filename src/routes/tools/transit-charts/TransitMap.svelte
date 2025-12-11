@@ -1,4 +1,9 @@
 <script lang="ts">
+	import {
+		transit_lines_source,
+		transit_stations_source,
+		transit_charts_style
+	} from '../../lib/data/transitdata/config-mapbox.json';
 	import * as turf from '@turf/turf';
 	import type { FeatureCollection, Geometry } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
@@ -17,7 +22,7 @@
 	} = $props();
 	let accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
-	let mapStyle = 'mapbox://styles/canadianurbaninstitute/cmhxgpbpr000801qp5pn3hygc';
+	let mapStyle = transit_charts_style.url;
 
 	let containerClass = 'map-container';
 	let mapContainer;
@@ -286,18 +291,18 @@
 			// Add transit layer sources
 			map.addSource('transit-line-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.683e8euy'
+				url: transit_lines_source.url
 			});
 			map.addSource('transit-station-data', {
 				type: 'vector',
-				url: 'mapbox://canadianurbaninstitute.btyr8w65'
+				url: transit_stations_source.url
 			});
 			// Add transit layers
 			map.addLayer({
 				id: 'transit-lines',
 				type: 'line',
 				source: 'transit-line-data',
-				'source-layer': 'merged_map_lines',
+				'source-layer': transit_lines_source.source_layer,
 				paint: {
 					'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
 					'line-dasharray': [
@@ -316,7 +321,7 @@
 				id: 'transit-stations',
 				type: 'circle',
 				source: 'transit-station-data',
-				'source-layer': 'merged_map_stations-bcc58j',
+				'source-layer': transit_stations_source.source_layer,
 				paint: {
 					'circle-color': '#fff',
 					'circle-radius': [
