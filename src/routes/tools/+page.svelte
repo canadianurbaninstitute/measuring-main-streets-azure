@@ -5,6 +5,7 @@
 	import civic from '../lib/assets/graphics/civic.svg';
 	import chart from '../lib/assets/graphics/chart.png';
 	import housing from '../lib/assets/graphics/housing.svg';
+	import urbanform from '../lib/assets/graphics/urbanform.svg';
 	import demographic from '../lib/assets/graphics/demographic.svg';
 	import regional from '../lib/assets/graphics/regional.svg';
 	import opennorth from '../lib/assets/graphics/opennorth.svg';
@@ -47,6 +48,13 @@
 		link={'/tools/housing-density-map'}
 		cardImage={housing}
 		title={'Housing Dot Density Map'}
+		subtitle={''}
+	/>
+
+	<ReportCard
+		link={'/tools/urban-form-comparison'}
+		cardImage={urbanform}
+		title={'Urban Form Comparison'}
 		subtitle={''}
 	/>
 </div>
