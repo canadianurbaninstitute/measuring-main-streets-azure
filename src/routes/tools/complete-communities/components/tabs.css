@@ -1,0 +1,47 @@
+.tab-chart {
+	border: 1px solid #eee;
+	padding: 1em;
+	border-radius: 0.5em;
+	min-width: 1px;
+	min-height: 1px;
+	gap: 0.3em;
+}
+.tab-chart-container {
+	display: flex;
+	flex-direction: column;
+	min-width: 1px;
+	min-height: 1px;
+	gap: 0.3em;
+}
+
+.metric-container {
+	display: flex;
+	flex-direction: row;
+	gap: 0.3em;
+	width: 100%;
+	flex-wrap: nowrap;
+}
+
+.tab-content {
+	padding: 0 1em 1em 1em;
+}
+
+.legend-container {
+	border: 2px solid #ddd;
+	border-radius: 0.5em;
+	padding: 0.5em 1em;
+	margin: 1em 0 0 0;
+}
+
+.tab-controls {
+	border: 2px solid #ddd;
+	border-radius: 0.5em;
+	padding: 1em;
+	margin: 1em 0 0 0;
+}
+
+.inline-header {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+}

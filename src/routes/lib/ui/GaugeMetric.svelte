@@ -139,7 +139,7 @@
 	<svg id={gaugeId}></svg>
 	<div
 		class="center-contents"
-		style="position: absolute; top:0; left:0; width:{size}px; height:{size /
+		style="position: absolute; top:0; left:0; width:100%; height:{size /
 			2}px; display:flex; flex-direction: column; align-items:center; justify-content:center; pointer-events:none;"
 	>
 		{#if icon}
@@ -162,6 +162,7 @@
 		border-radius: 0.5em;
 		box-sizing: border-box;
 		width: 100%;
+		flex-grow: 1;
 	}
 
 	.number {
