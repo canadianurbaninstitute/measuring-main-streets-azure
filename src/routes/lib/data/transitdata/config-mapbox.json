@@ -16,12 +16,12 @@
 		"source_layer": "da_map-bco47g"
 	},
 	"transit_map_style": {
-		"url": "mapbox://styles/canadianurbaninstitute/cmj7iyt2l002a01s6ckxpcrbu?optimize=true"
+		"url": "mapbox://styles/canadianurbaninstitute/cmkbcc0x8002c01rxaq8z383a?optimize=true"
 	},
 	"transit_charts_style": {
 		"url": "mapbox://styles/canadianurbaninstitute/cmhxgpbpr000801qp5pn3hygc"
 	},
 	"urban_form_comp_style": {
-		"url": "mapbox://styles/canadianurbaninstitute/cmj1t0fkc001h01qkf62iaagh"
+		"url": "mapbox://styles/canadianurbaninstitute/cmkbbk8ve001501qn09v473hr"
 	}
 }
