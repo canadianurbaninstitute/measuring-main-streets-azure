@@ -1,8 +1,8 @@
 <script lang="ts">
 	// --- Imports ---
-	import { da_map_source } from '../lib/data/transitdata/config-mapbox.json';
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
+	import { da_map_source } from '../lib/data/transitdata/config-mapbox.json';
 
 	import type { Feature, Polygon } from 'geojson';
 
@@ -485,7 +485,7 @@
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_counts.json'
 			);
 			completeCommunityCounts = await response.json();
-			console.log(completeCommunityCounts);
+			// console.log(completeCommunityCounts);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}

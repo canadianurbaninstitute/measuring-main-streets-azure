@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
 	import {
 		bii,
 		BusinessCount,
@@ -8,11 +9,10 @@
 		Tier_2_presence,
 		Unique_Visitors
 	} from '../../lib/data/transitdata/config.json';
-	import Icon from '@iconify/svelte';
+	import Accordion from '../../lib/ui/Accordion.svelte';
 	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import GaugeMetric from '../../lib/ui/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
-	import Accordion from '../../lib/ui/Accordion.svelte';
 	import './tabs.css';
 
 	let {
@@ -128,6 +128,8 @@
 			</div>
 		</Accordion>
 	</div>
+	<h5 class="mt-3 mb-1">Want to dig deeper?</h5>
+	<button class="button-primary"> Go to the Complete Communities Tool </button>
 	<!-- <div class="chart-container">
 		<div class="chart">
 			<BarChart

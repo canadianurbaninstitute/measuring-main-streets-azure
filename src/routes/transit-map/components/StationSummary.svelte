@@ -118,7 +118,7 @@
 			</Accordion>
 		{/if}
 		{#if activeTab === 'complete-communities'}
-			<Accordion>
+			<Accordion open={true}>
 				<div class="inline-header" slot="header">
 					<div class="text-sm inline-header">
 						Complete Community Amenities<Icon icon="iconoir:nav-arrow-down" />

@@ -149,7 +149,7 @@
 	function handleMultiSelectChange(e) {
 		// e.detail.type: 'add' | 'remove' | 'removeAll' | ...
 		// e.detail.option / options
-		console.log('MultiSelect change:', e.detail);
+		// console.log('MultiSelect change:', e.detail);
 	}
 </script>
 

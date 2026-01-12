@@ -11,18 +11,23 @@
 	export let fill = '#00bbff';
 </script>
 
-<div class="wrapper">
-	<g class="bar-group">
-		{#each $data as d, i}
-			<rect
-				class="group-rect"
-				data-id={i}
-				x={$xScale.range()[0]}
-				y={$yGet(d)}
-				height={$yScale.bandwidth()}
-				width={$xGet(d)}
-				{fill}
-			></rect>
-		{/each}
-	</g>
-</div>
+<g class="bar-group">
+	{#each $data as d, i}
+		<rect
+			class="group-rect"
+			data-id={i}
+			x={Math.min($xScale(0), $xGet(d))}
+			y={$yGet(d)}
+			height={$yScale.bandwidth()}
+			width={Math.abs($xGet(d) - $xScale(0))}
+			{fill}
+		/>
+	{/each}
+</g>
+
+<style>
+	.bar-group {
+		width: 100%;
+		min-width: 1px;
+	}
+</style>

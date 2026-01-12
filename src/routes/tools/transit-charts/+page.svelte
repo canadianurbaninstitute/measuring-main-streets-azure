@@ -73,7 +73,6 @@
 	// Auto-select first available line when component initializes
 	$effect(() => {
 		if (selectedLine === 0 && transitLines) {
-			console.log(transitLines);
 			const firstRegion = Object.values(transitLines)[0];
 			if (firstRegion?.length) {
 				selectedLine = firstRegion[0].value;

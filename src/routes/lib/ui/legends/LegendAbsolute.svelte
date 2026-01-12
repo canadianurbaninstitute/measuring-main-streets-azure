@@ -35,7 +35,7 @@
 	.legend {
 		display: flex;
 		flex-direction: column;
-		z-index: 10;
+		z-index: 5;
 		padding: 0.6em;
 		border: 1px solid #ddd;
 		border-radius: 0.5em;
