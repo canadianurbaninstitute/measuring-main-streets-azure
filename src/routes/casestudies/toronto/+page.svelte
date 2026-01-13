@@ -195,7 +195,7 @@
 
 <div class="hero">
 	<p>
-		We conducted 10 full case studies in the Toronto region, which which combine data about the main
+		We conducted 10 full case studies in the Toronto region, which combine data about the main
 		streets with qualitative observation from site visits. The selection of main streets was
 		intended to provide a representative sample of types of streets within each regional context.
 		This included downtown (workplace-oriented), small town, and neighourhood (residential-oriented)

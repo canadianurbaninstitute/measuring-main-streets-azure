@@ -1,8 +1,7 @@
 <script>
-	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import "../../../../node_modules/mapbox-gl/dist/mapbox-gl.css";
-
+	import { onMount } from 'svelte';
+	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -11,13 +10,12 @@
 	export let section;
 	let center = [-73.617, 45.578];
 	export let zoom = 8;
-    export let maxZoom = 16;
-    export let minZoom = 6;
+	export let maxZoom = 16;
+	export let minZoom = 6;
 	export let bearing = -17.1;
 	export let pitch = 0;
 	export let style = 'mapbox://styles/canadianurbaninstitute/clua3x3qv002801qp39gdfc4x?fresh=true';
-	export let attribution = 'Canadian Urban Institute'
-
+	export let attribution = 'Canadian Urban Institute';
 
 	let map;
 
@@ -27,7 +25,6 @@
 	];
 
 	onMount(() => {
-
 		map = new mapboxgl.Map({
 			container: section,
 			style: style,
@@ -46,25 +43,23 @@
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
 		map.addControl(
-				new mapboxgl.AttributionControl({
-					customAttribution: attribution
-				})
-			);
-		
-			map.on('click', (e) => {
-				const coords = JSON.stringify(map.getCenter());
-				const pitch = map.getPitch().toFixed(0);
-				const bearing = map.getBearing().toFixed(0);
-				const coordsObject = JSON.parse(coords);
-				const coordsArray = [
-						parseFloat(coordsObject.lng.toFixed(4)),
-						parseFloat(coordsObject.lat.toFixed(4))
-						];
-				console.log(coordsArray, 'pitch:', pitch, 'bearing:', bearing)
-				});
+			new mapboxgl.AttributionControl({
+				customAttribution: attribution
+			})
+		);
 
+		map.on('click', (e) => {
+			const coords = JSON.stringify(map.getCenter());
+			const pitch = map.getPitch().toFixed(0);
+			const bearing = map.getBearing().toFixed(0);
+			const coordsObject = JSON.parse(coords);
+			const coordsArray = [
+				parseFloat(coordsObject.lng.toFixed(4)),
+				parseFloat(coordsObject.lat.toFixed(4))
+			];
+			// console.log(coordsArray, 'pitch:', pitch, 'bearing:', bearing)
+		});
 	});
-
 
 	// function navigateMap(event) {
 	// 		const selectedRegion = event.target.value;
@@ -91,8 +86,7 @@
 <div class="chart-container">
 	<h4>{title}</h4>
 
-<div id={section} class="map"/>
-
+	<div id={section} class="map" />
 </div>
 
 <style>

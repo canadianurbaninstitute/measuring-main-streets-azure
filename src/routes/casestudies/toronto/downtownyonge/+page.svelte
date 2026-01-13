@@ -941,10 +941,6 @@
 	/* DESKTOP TEXT LAYOUT (SIDE BY SIDE) */
 
 	@media only screen and (min-width: 768px) {
-		.content-container {
-			max-width: 25%;
-		}
-
 		.sticky-content {
 			position: -webkit-sticky; /* for Safari */
 			position: sticky;

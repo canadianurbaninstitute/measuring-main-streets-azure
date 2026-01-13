@@ -3,44 +3,36 @@
 	/*                                   Imports                                  */
 	/* -------------------------------------------------------------------------- */
 
-	import Title from '../../../lib/ui/Title.svelte';
 	import HundredFourStreetNW from '../../../lib/assets/boundaries/edmontonboundaries/104StreetNW.svg';
+	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
 
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import greenspace from '../../../lib/data/casestudydata/edmonton/104streetnw/greenspace';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/104streetnw/civicmix';
-	import businessmix from '../../../lib/data/casestudydata/edmonton/104streetnw/businessmix';
-	import housingtype from '../../../lib/data/casestudydata/edmonton/104streetnw/housingtype';
+	import greenspace from '../../../lib/data/casestudydata/edmonton/104streetnw/greenspace';
 	import housingconstruction from '../../../lib/data/casestudydata/edmonton/104streetnw/housingconstruction';
+	import housingtype from '../../../lib/data/casestudydata/edmonton/104streetnw/housingtype';
+	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/104streetnw/visitordayofweek';
+	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/104streetnw/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/104streetnw/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/104streetnw/visitortypes';
-	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/104streetnw/visitortimeofday';
-	import visitordayofweek from '../../../lib/data/casestudydata/edmonton/104streetnw/visitordayofweek';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
-	import Legend from '../../../lib/ui/legends/Legend.svelte';
-	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
-	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
+	import { timeFormat } from 'd3-time-format';
+	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
+	import IsochroneCheckbox from '../../../lib/ui/checkbox/IsochroneCheckbox.svelte';
 	import PhotosCheckbox from '../../../lib/ui/checkbox/PhotosCheckbox.svelte';
 	import SatelliteCheckbox from '../../../lib/ui/checkbox/SatelliteCheckbox.svelte';
 	import Dropdown from '../../../lib/ui/Dropdown.svelte';
-	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
-	import { timeFormat } from 'd3-time-format';
-	import { browser } from '$app/environment';
-	import mapboxgl from 'mapbox-gl';
+	import Legend from '../../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	import { ColumnChart, BarChart, LineChart } from '@onsvisual/svelte-charts';
+	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 
 	import RangeSlider from 'svelte-range-slider-pips';
-	import { sexagesimalToDecimal } from 'geolib';
-	import { buildImageUrl } from 'cloudinary-build-url';
-	import { setConfig } from 'cloudinary-build-url';
 
-	import { onMount } from 'svelte';
-
-	import { visitorMapStore, mapStoreList } from '../../../lib/stores/mapStore';
+	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
 
@@ -790,10 +782,6 @@
 	/* DESKTOP TEXT LAYOUT (SIDE BY SIDE) */
 
 	@media only screen and (min-width: 768px) {
-		.content-container {
-			max-width: 25%;
-		}
-
 		.sticky-content {
 			position: -webkit-sticky; /* for Safari */
 			position: sticky;
