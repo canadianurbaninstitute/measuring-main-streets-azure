@@ -24,11 +24,6 @@
 		onSelectVariable
 	} = $props();
 
-	// Identify missing amenities (Count == 0)
-	// We strictly look at Tier 1 for "Critical Gaps" usually, or all tracked ones.
-	// Based on user request "Add a list of missing resources to the presence tab".
-	// I'll list Tier 1 items that are missing.
-
 	const TIER_1_AMENITIES = [
 		'Childcare',
 		'Community Centres',

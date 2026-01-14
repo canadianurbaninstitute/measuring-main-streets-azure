@@ -1,5 +1,5 @@
 <script>
-	let layerActive = $state(true);
+	// let layerActive = $state(true);
 
 	// MMS case study relevant props and imports
 
@@ -22,6 +22,20 @@
 		section = undefined,
 		map
 	} = $props();
+	// NEW: Derived state. A button is "Active" if its value(s) are NOT in the hidden list.
+	let layerActive = $derived.by(() => {
+		if (!toggledValues[filterProperty]) return true;
+
+		if (Array.isArray(filterValue)) {
+			// Bulk toggle: Active if at least one of its values is NOT hidden
+			// (Or use .every if you want it to only highlight when ALL are visible)
+			return !filterValue.every((val) => toggledValues[filterProperty].includes(val));
+		}
+
+		// Individual toggle: Active if its specific value is NOT in the hidden list
+		return !toggledValues[filterProperty].includes(filterValue);
+	});
+
 	/* MMS CASE STUDIES */
 
 	// Subscribe to the map store only if section is provided
@@ -74,18 +88,23 @@
 	}
 
 	function toggleWithPaintProperty() {
-		// Initialize the array for this property if missing
+		if (!filterProperty) return;
+
+		// Initialize the hidden values list for this property (e.g., 'Group Name')
 		if (!toggledValues[filterProperty]) toggledValues[filterProperty] = [];
 
-		// Toggle the value
-		if (toggledValues[filterProperty].includes(filterValue)) {
-			toggledValues[filterProperty] = toggledValues[filterProperty].filter(
-				(v) => v !== filterValue
-			);
-			layerActive = true;
+		const valuesToToggle = Array.isArray(filterValue) ? filterValue : [filterValue];
+
+		if (layerActive) {
+			// It's currently visible -> We want to HIDE it (Add values to the hidden list)
+			const currentHidden = new Set(toggledValues[filterProperty]);
+			valuesToToggle.forEach((val) => currentHidden.add(val));
+			toggledValues[filterProperty] = Array.from(currentHidden);
 		} else {
-			toggledValues[filterProperty] = [...toggledValues[filterProperty], filterValue];
-			layerActive = false;
+			// It's currently hidden -> We want to SHOW it (Remove values from hidden list)
+			toggledValues[filterProperty] = toggledValues[filterProperty].filter(
+				(v) => !valuesToToggle.includes(v)
+			);
 		}
 
 		updateOpacity();
