@@ -2,6 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import {
 		AMENITY_ICONS,
+		AMENITY_SPRITES,
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
 	} from '../../../lib/data/transitdata/complete-communities-config';
@@ -10,7 +11,8 @@
 	import LegendAbsolute from '../../../lib/ui/legends/LegendAbsolute.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	let { activeTab, map, selectedVariable, min, max, missingTier1, missingTier2 } = $props();
+	let { activeTab, map, selectedStation, selectedVariable, min, max, missingTier1, missingTier2 } =
+		$props();
 	let toggledValues = $state({});
 	// Use an explicit string to track which tier is expanded
 	let expandedTier = $state('tier1');
@@ -24,51 +26,56 @@
 	const DEFAULT_T1_COLOR = '#003f5e';
 	const DEFAULT_T2_COLOR = '#2a5cac';
 	const OTHER_COLOR = 'rgba(0,0,0,0)'; // Hide businesses not in T1 or T2
-	$effect(() => {
-		// This tracksExpandedTier and the map state
-		const currentTier = expandedTier;
-		const mapInstance = map;
+	const spriteMatch = Object.entries(AMENITY_SPRITES).flatMap(([groupName, sprite]) => [
+		groupName,
+		sprite
+	]);
 
+	$effect(() => {
+		const mapInstance = map;
+		const currentTier = expandedTier;
 		if (!mapInstance) return;
 
-		// Use a recursive check or wait for the style to load/layer to exist
-		const updateMapColors = () => {
+		const updateMapIcons = () => {
 			if (!mapInstance.getLayer('complete-community-amenities')) return;
 
-			let colorExpression;
+			const fillColorExpression =
+				currentTier === 'tier1'
+					? [
+							'case',
+							['==', ['get', 'Tier'], 1],
+							[
+								'match',
+								['get', 'Group Name'],
+								...TIER_1_AMENITIES.flatMap((a) => [a.label, a.color]),
+								DEFAULT_T1_COLOR
+							],
+							DEFAULT_T2_COLOR
+						]
+					: [
+							'case',
+							['==', ['get', 'Tier'], 2],
+							[
+								'match',
+								['get', 'Group Name'],
+								...TIER_2_AMENITIES.flatMap((a) => [a.label, a.color]),
+								DEFAULT_T2_COLOR
+							],
+							DEFAULT_T1_COLOR
+						];
 
-			if (currentTier === 'tier1') {
-				const t1Matches = TIER_1_AMENITIES.flatMap((a) => [a.value, a.color]);
-				colorExpression = [
-					'case',
-					['==', ['get', 'Tier'], 1],
-					['match', ['get', 'Group Name'], ...t1Matches, DEFAULT_T1_COLOR],
-					['==', ['get', 'Tier'], 2],
-					DEFAULT_T2_COLOR,
-					OTHER_COLOR
-				];
-			} else {
-				const t2Matches = TIER_2_AMENITIES.flatMap((a) => [a.label, a.color]);
-				colorExpression = [
-					'case',
-					['==', ['get', 'Tier'], 2],
-					['match', ['get', 'Group Name'], ...t2Matches, DEFAULT_T2_COLOR],
-					['==', ['get', 'Tier'], 1],
-					DEFAULT_T1_COLOR,
-					OTHER_COLOR
-				];
-			}
-
-			mapInstance.setPaintProperty('complete-community-amenities', 'icon-color', colorExpression);
+			mapInstance.setLayoutProperty('complete-community-amenities', 'icon-image', [
+				'image',
+				['match', ['get', 'Group Name'], ...spriteMatch, 'default-icon'],
+				{ params: { fill_color: fillColorExpression } }
+			]);
 		};
 
-		// Run update immediately and also on map idle to catch late-added layers
-		updateMapColors();
-		mapInstance.on('idle', updateMapColors);
-
-		return () => {
-			mapInstance.off('idle', updateMapColors);
-		};
+		if (mapInstance.isStyleLoaded()) {
+			updateMapIcons();
+		} else {
+			mapInstance.once('styledata', updateMapIcons);
+		}
 	});
 </script>
 
@@ -137,7 +144,7 @@
 		</Accordion>
 	{/if}
 
-	<Accordion open={true}>
+	<Accordion open={selectedStation ? true : false}>
 		<div class="inline-header" slot="header">
 			<div class="text-sm inline-header">
 				Complete Community Amenities <Icon icon="iconoir:nav-arrow-down" />
@@ -167,7 +174,7 @@
 						button={true}
 						useFilter={true}
 						filterProperty="Group Name"
-						filterValue={TIER_1_AMENITIES.map((a) => a.value)}
+						filterValue={TIER_1_AMENITIES.map((a) => a.label)}
 					/>
 					{#each TIER_1_AMENITIES as amenity}
 						<LegendItem
@@ -177,13 +184,13 @@
 							featuretype="icon"
 							label={amenity.label}
 							bgcolor={amenity.color}
-							icon={AMENITY_ICONS[amenity.value]}
+							icon={AMENITY_ICONS[amenity.label]}
 							bordercolor="#fff"
 							button={true}
 							disabled={missingTier1.includes(amenity)}
 							useFilter={true}
 							filterProperty="Group Name"
-							filterValue={amenity.value}
+							filterValue={amenity.label}
 							id="complete-community-amenities"
 						/>
 					{/each}

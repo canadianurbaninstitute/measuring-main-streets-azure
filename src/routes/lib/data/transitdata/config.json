@@ -46,8 +46,8 @@
 		{ "label": "Recreation", "key": "Recreation Facilities", "unit": "facilities" }
 	],
 	"employment": [
-		{ "label": "Tier 1", "key": "Tier 1 Employment", "unit": "jobs" },
-		{ "label": "Tier 2", "key": "Tier 2 Employment", "unit": "jobs" },
+		{ "label": "Core Amenities", "key": "Tier 1 Employment", "unit": "jobs" },
+		{ "label": "Additional Amenities", "key": "Tier 2 Employment", "unit": "jobs" },
 		{ "label": "Total", "key": "EmployeeCount", "unit": "jobs" }
 	],
 	"TotalPopulation": {
@@ -177,14 +177,14 @@
 		"icon": "mdi:store"
 	},
 	"Tier_1_presence": {
-		"label": "Tier 1 Presence",
+		"label": "Core Amenities Presence",
 		"key": "Tier_1_presence",
 		"unit": "%",
 		"icon": "mdi:store",
 		"colour": "#db3069"
 	},
 	"Tier_2_presence": {
-		"label": "Tier 2 Presence",
+		"label": "Additional Amenities Presence",
 		"key": "Tier_2_presence",
 		"unit": "%",
 		"icon": "mdi:storefront",
@@ -198,7 +198,7 @@
 		"colour": "#8a4285"
 	},
 	"bii": {
-		"label": "Business Improvement Index",
+		"label": "Business Independence Index",
 		"key": "bii",
 		"unit": "index",
 		"icon": "mdi:chart-line"

@@ -12,6 +12,7 @@
 	import Legend from './Legend.svelte';
 	let {
 		selectedVariable,
+		selectedStation,
 		min,
 		max,
 		activeTab,
@@ -45,7 +46,7 @@
 			style: transit_map_style.url,
 			center: mapCenter,
 			zoom: defaultZoom,
-			maxZoom: 15.5,
+			maxZoom: 18,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -292,15 +293,19 @@
 			if (e.features.length > 0 && e.features[0].properties.Tier) {
 				map.getCanvas().style.cursor = 'pointer';
 				const coordinates = e.lngLat;
-				console.log(e.features[0].properties);
-				const name = e.features[0].properties['Business Name'];
+				const tier = e.features[0].properties.Tier;
 				const group = e.features[0].properties['Group Name'];
 				amenityPopup
 					.setLngLat(coordinates)
 					.setHTML(
 						`
-					<p class="label-name">${name}</p>
-          ${group ? `<p class="label-sub">${group}</p>` : ''}
+						${
+							group
+								? `<p class="label-name">${group}</p>
+						<p class="label-sub">${tier === 1 ? 'Core Amenity' : 'Additional Amenitiy'}</p>
+						`
+								: ''
+						}
           `
 					)
 					.addTo(map);
@@ -391,7 +396,16 @@
 
 <div id="map-container">
 	<div id="map"></div>
-	<Legend {map} {missingTier1} {missingTier2} {activeTab} {selectedVariable} {min} {max} />
+	<Legend
+		{map}
+		{selectedStation}
+		{missingTier1}
+		{missingTier2}
+		{activeTab}
+		{selectedVariable}
+		{min}
+		{max}
+	/>
 </div>
 
 <style>

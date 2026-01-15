@@ -7,6 +7,10 @@
 	import type { Feature, Polygon } from 'geojson';
 
 	import { onMount } from 'svelte';
+	import {
+		TIER_1_AMENITIES,
+		TIER_2_AMENITIES
+	} from '../lib/data/transitdata/complete-communities-config';
 	import { age, bed, dwelling, housing, owner } from '../lib/data/transitdata/config.json';
 	import type { Station } from '../lib/data/transitdata/stations';
 	import getD3InterpolateExpression from '../lib/helpers/getD3InterpolateExpression';
@@ -562,8 +566,7 @@
 
 				break;
 			case 'complete-communities':
-				map.setPaintProperty('complete-community-amenities', 'circle-opacity', 1);
-				map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 1);
+				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
@@ -574,6 +577,14 @@
 				break;
 		}
 	}
+
+	let missingTier1 = $derived(
+		stationCCcounts ? TIER_1_AMENITIES.filter((key) => (stationCCcounts[key.label] || 0) === 0) : []
+	);
+
+	let missingTier2 = $derived(
+		stationCCcounts ? TIER_2_AMENITIES.filter((key) => (stationCCcounts[key.label] || 0) === 0) : []
+	);
 </script>
 
 <svelte:head>
@@ -711,6 +722,8 @@
 			<MapContainer
 				{min}
 				{max}
+				{missingTier1}
+				{missingTier2}
 				bind:map
 				{mapCenter}
 				{defaultZoom}

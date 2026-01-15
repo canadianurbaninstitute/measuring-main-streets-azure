@@ -1,15 +1,15 @@
 <script lang="ts">
-	import {
-		transit_lines_source,
-		transit_stations_source,
-		transit_regions_source,
-		da_map_source,
-		transit_map_style
-	} from '../../lib/data/transitdata/config-mapbox.json';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
+	import {
+		da_map_source,
+		transit_lines_source,
+		transit_map_style,
+		transit_regions_source,
+		transit_stations_source
+	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
-	import Legend from './StationSummary.svelte';
+	import Legend from './Legend.svelte';
 	let {
 		selectedVariable,
 		min,
@@ -24,7 +24,9 @@
 		processedStationData,
 		selectStop,
 		selectRegion,
-		regionsData
+		regionsData,
+		missingTier1,
+		missingTier2
 	} = $props();
 
 	// --- Mapbox Access Token ---
@@ -190,6 +192,9 @@
 				maxzoom: 5
 			});
 
+			//hide complete community amenities layer initially
+			map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
+
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
 				if (e.features.length > 0) {
@@ -346,7 +351,7 @@
 
 <div id="map-container">
 	<div id="map"></div>
-	<Legend {map} {activeTab} {selectedVariable} {min} {max} />
+	<Legend {map} {missingTier1} {missingTier2} {activeTab} {selectedVariable} {min} {max} />
 </div>
 
 <style>

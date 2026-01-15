@@ -5,14 +5,11 @@
 		TIER_1_AMENITIES
 	} from '../../../lib/data/transitdata/complete-communities-config';
 	import {
-		bii,
-		BusinessCount,
 		Daily_Visits,
 		Overall_score,
 		Tier_1_presence,
 		Tier_2_presence,
-		TotalHouseholds,
-		Unique_Visitors
+		TotalHouseholds
 	} from '../../../lib/data/transitdata/config.json';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../../lib/ui/GaugeMetric.svelte';
@@ -53,7 +50,7 @@
 		{/each}
 	</div>
 	<div class="metric-container">
-		{#each [Daily_Visits, Unique_Visitors, TotalHouseholds] as metric}
+		{#each [Daily_Visits, TotalHouseholds] as metric}
 			<TransitMetric
 				disabled
 				label={metric.label}
@@ -68,24 +65,12 @@
 			/>
 		{/each}
 	</div>
-	<div class="metric-container">
-		<TransitMetric
-			label={BusinessCount.label}
-			active={selectedVariable === BusinessCount.key}
-			on:click={() =>
-				onSelectVariable(selectedVariable !== BusinessCount.key ? BusinessCount.key : null)}
-			value={Math.round(selectedStation[BusinessCount.key] || 0).toLocaleString()}
-			icon={BusinessCount.icon}
-		/>
-		<GaugeMetric label={bii.label} value={selectedStation[bii.key]} maxValue={1} />
-	</div>
-
 	<!-- Missing Resources Section -->
 	{#if missingTier1.length > 0}
 		<div class="bg-red-50 border border-red-100 rounded-lg p-3 mt-2">
 			<div class="flex items-center gap-2 mb-2 text-red-800 font-semibold text-sm">
 				<Icon icon="mdi:alert-circle-outline" />
-				<span>Missing Tier 1 Amenities</span>
+				<span>Missing Core Amenities</span>
 			</div>
 			<div class="flex flex-wrap gap-2">
 				{#each missingTier1 as amenity}
@@ -106,7 +91,7 @@
 		<div class="bg-orange-50 border border-orange-100 rounded-lg p-3 mt-2">
 			<div class="flex items-center gap-2 mb-2 text-orange-800 font-semibold text-sm">
 				<Icon icon="mdi:alert-circle-outline" />
-				<span>Missing Tier 2 Amenities</span>
+				<span>Missing Additional Amenities</span>
 			</div>
 			<div class="flex flex-wrap gap-2">
 				{#each missingTier2 as amenity}
@@ -130,11 +115,11 @@
 			</div>
 			<div class="text-sm my-2" slot="body">
 				Complete Community Amenities provide services that meet residents' basic needs.<br /><br />
-				<Icon icon="mdi:store" /><strong>Tier 1</strong> amenities are essential for a complete
+				<Icon icon="mdi:store" /><strong>Core</strong> amenities are essential for a complete
 				community.
 				<Accordion>
 					<div class="inline-header text-xs" slot="header">
-						<i>Click here for a full list of Tier 1 amenities</i><Icon
+						<i>Click here for a full list of core amenities</i><Icon
 							icon="iconoir:nav-arrow-down"
 						/>
 					</div>
@@ -145,12 +130,12 @@
 					</div>
 				</Accordion>
 				<br />
-				<Icon icon="mdi:storefront" /><strong>Tier 2</strong> amenities improve outcomes but are not
-				essential.
+				<Icon icon="mdi:storefront" /><strong>Additional</strong> amenities improve outcomes but are
+				not essential.
 				<!-- Keeping Tier 2 list static or could move to constant too -->
 				<Accordion>
 					<div class="inline-header text-xs" slot="header">
-						<i>Click here for a full list of Tier 2 amenities</i><Icon
+						<i>Click here for a full list of additional amenities</i><Icon
 							icon="iconoir:nav-arrow-down"
 						/>
 					</div>

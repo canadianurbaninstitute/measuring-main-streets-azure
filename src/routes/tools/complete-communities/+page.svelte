@@ -618,6 +618,7 @@
 			<MapContainer
 				{min}
 				{max}
+				{selectedStation}
 				bind:map
 				{mapCenter}
 				{missingTier1}

@@ -7,10 +7,9 @@
 		Overall_score,
 		Tier_1_presence,
 		Tier_2_presence,
-		Unique_Visitors
+		TotalHouseholds
 	} from '../../lib/data/transitdata/config.json';
 	import Accordion from '../../lib/ui/Accordion.svelte';
-	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
 	import GaugeMetric from '../../lib/ui/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
@@ -26,13 +25,37 @@
 
 <div class="tab-content">
 	<div class="metric-container">
-		{#each [Daily_Visits, Unique_Visitors] as metric}
+		<GaugeMetric
+			label={Overall_score.label}
+			value={Math.round(stationCCpresence[Overall_score.key])}
+			icon={Overall_score.icon}
+			suffix={Overall_score.unit}
+			fillColor="var(--color-zinc-400)"
+		/>
+	</div>
+	<div class="metric-container">
+		{#each [Tier_1_presence, Tier_2_presence] as metric}
+			<GaugeMetric
+				label={metric.label}
+				value={Math.round(stationCCpresence[metric.key])}
+				icon={metric.icon}
+				suffix={metric.unit}
+				fillColor="var(--color-zinc-400)"
+			/>
+		{/each}
+	</div>
+	<div class="metric-container">
+		{#each [Daily_Visits, TotalHouseholds] as metric}
 			<TransitMetric
 				disabled
 				label={metric.label}
 				active={selectedVariable === metric.key}
 				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
-				value={Math.round(stationVisitorData[metric.key]).toLocaleString()}
+				value={stationVisitorData && stationVisitorData[metric.key]
+					? Math.round(stationVisitorData[metric.key]).toLocaleString()
+					: selectedStation && selectedStation[metric.key]
+						? Math.round(selectedStation[metric.key]).toLocaleString()
+						: '0'}
 				icon={metric.icon}
 			/>
 		{/each}
@@ -48,18 +71,6 @@
 		/>
 		<GaugeMetric label={bii.label} value={selectedStation[bii.key]} maxValue={1} />
 	</div>
-	<div class="metric-container">
-		{#each [Tier_1_presence, Tier_2_presence, Overall_score] as metric}
-			<DonutMetric
-				label={metric.label}
-				value={Math.round(stationCCpresence[metric.key])}
-				icon={metric.icon}
-				suffix={metric.unit}
-				disabled
-				fillColor={metric.colour}
-			/>
-		{/each}
-	</div>
 	<div class="legend-container">
 		<Accordion>
 			<div class="inline-header text-sm italic" slot="header">
@@ -67,11 +78,11 @@
 			</div>
 			<div class="text-sm my-2" slot="body">
 				Complete Community Amenities provide services that meet residents' basic needs.<br /><br />
-				<Icon icon="mdi:store" /><strong>Tier 1</strong> amenities are essential for a complete
+				<Icon icon="mdi:store" /><strong>Core</strong> amenities are essential for a complete
 				community.
 				<Accordion>
 					<div class="inline-header text-xs" slot="header">
-						<i>Click here for a full list of Tier 1 amenities</i><Icon
+						<i>Click here for a full list of core amenities</i><Icon
 							icon="iconoir:nav-arrow-down"
 						/>
 					</div>
@@ -89,11 +100,11 @@
 					</div>
 				</Accordion>
 				<br />
-				<Icon icon="mdi:storefront" /><strong>Tier 2</strong> amenities improve outcomes but are not
-				essential.
+				<Icon icon="mdi:storefront" /><strong>Additional</strong> amenities improve outcomes but are
+				not essential.
 				<Accordion>
 					<div class="inline-header text-xs" slot="header">
-						<i>Click here for a full list of Tier 2 amenities</i><Icon
+						<i>Click here for a full list of additional amenities</i><Icon
 							icon="iconoir:nav-arrow-down"
 						/>
 					</div>
@@ -128,8 +139,8 @@
 			</div>
 		</Accordion>
 	</div>
-	<h5 class="mt-3 mb-1">Want to dig deeper?</h5>
-	<button class="button-primary"> Go to the Complete Communities Tool </button>
+	<!-- <h5 class="mt-3 mb-1">Want to dig deeper?</h5>
+	<button class="button-primary"> Go to the Complete Communities Tool </button> -->
 	<!-- <div class="chart-container">
 		<div class="chart">
 			<BarChart
