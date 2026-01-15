@@ -534,8 +534,7 @@
 	function handleTabChange(selectedTab) {
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
-		map.setPaintProperty('complete-community-amenities', 'circle-opacity', 0);
-		map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 		map.setPaintProperty('greenspace-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('all-buildings', 'fill-opacity', 0);

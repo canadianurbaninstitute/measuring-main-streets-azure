@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
 
+	// Props
 	export let label = '';
-	export let value = 0; // 0–100
+	export let value = 0; // current value (0–maxValue)
 	export let maxValue = 100;
 	export let icon = '';
 	export let iconcolor = '#002a41';
@@ -12,54 +13,41 @@
 	export let suffix = '';
 	export let size = 180;
 	export let thickness = 14;
-	export let fillColor = '';
+	export let fillColor = '#002940';
 	export let duration = 1000;
-	export let segmentColors = ['#58e965', '#eab308', '#f13737']; //note reverse order
+	export let segmentColors = ['#58e965', '#eab308', '#f13737']; // reversed order
 	export let pointerColor = '#002940';
 
 	let displayed = 0;
 	let gaugeId = `gauge-${Math.random().toString(36).substr(2, 9)}`;
 
-	$: fraction = value / maxValue;
+	const startAngle = Math.PI / 2; // left
+	const endAngle = -Math.PI / 2; // right
 
+	const radius = size / 2 - thickness / 2;
+	const needleWidth = 10; // base width of needle
+
+	let svg: d3.Selection<SVGGElement, unknown, null, undefined>;
+	let needle: d3.Selection<SVGPathElement, unknown, null, undefined>;
+
+	// Initialize SVG once on mount
 	onMount(() => {
-		if (!fillColor) fillColor = pointerColor;
-
-		const radius = size / 2 - thickness / 2;
 		const center = { x: size / 2, y: size / 2 };
-
-		const svg = d3
+		const svgEl = d3
 			.select(`#${gaugeId}`)
 			.attr('width', size)
-			.attr('height', size / 2)
-			.attr('viewBox', `0 0 ${size} ${size / 2 + 5}`) //leave extra room so arrow doesn't run out of room
-			.append('g')
-			.attr('transform', `translate(${center.x},${center.y})`);
+			.attr('height', size / 2 + 5)
+			.attr('viewBox', `0 0 ${size} ${size / 2 + 5}`);
 
-		const startAngle = Math.PI / 2; // left
-		const endAngle = -Math.PI / 2; // right
+		svg = svgEl.append('g').attr('transform', `translate(${center.x},${center.y})`);
 
-		// Background semicircle
-		// svg
-		// 	.append('path')
-		// 	.datum({ startAngle, endAngle })
-		// 	.attr(
-		// 		'd',
-		// 		d3.arc().innerRadius(radius).outerRadius(radius).startAngle(startAngle).endAngle(endAngle)()
-		// 	)
-		// 	.attr('fill', 'none')
-		// 	.attr('stroke', bgColor)
-		// 	.attr('stroke-width', thickness)
-		// 	.attr('stroke-linecap', 'round');
-
-		// Multi-colored background segments (red, yellow, green)
-		const segmentCount = segmentColors.length; // e.g., 3
+		// Draw segments
+		const segmentCount = segmentColors.length;
 		const anglePerSegment = (endAngle - startAngle) / segmentCount;
 
 		segmentColors.forEach((color, i) => {
 			const segStart = startAngle + i * anglePerSegment;
 			const segEnd = startAngle + (i + 1) * anglePerSegment;
-
 			svg
 				.append('path')
 				.attr(
@@ -74,65 +62,30 @@
 				.attr('fill', color);
 		});
 
-		// Foreground arc (animated)
-		// const fg = svg
-		// 	.append('path')
-		// 	.attr('fill', 'none')
-		// 	.attr('stroke', fillColor)
-		// 	.attr('stroke-width', thickness)
-		// 	.attr('stroke-linecap', 'round');
-
-		// const targetAngle = startAngle + (endAngle - startAngle) * fraction;
-
-		// fg.transition()
-		// 	.duration(duration)
-		// 	.attrTween('d', () => {
-		// 		const interpAngle = d3.interpolate(startAngle, targetAngle);
-		// 		return (t) => {
-		// 			return d3
-		// 				.arc()
-		// 				.innerRadius(radius)
-		// 				.outerRadius(radius)
-		// 				.startAngle(startAngle)
-		// 				.endAngle(interpAngle(t))();
-		// 		};
-		// 	});
-
-		// Needle
-		const needleOffset = 0; // Gap in the middle for text
-		const needleLength = radius + 5;
-		const needleWidth = 10; // Width at the base of the triangle
-
-		// Create a triangular needle path with a gap in the middle
-		const needlePath = svg
+		// Draw needle path (initially at -90deg)
+		needle = svg
 			.append('path')
-			.attr(
-				'd',
-				`
-	M ${-needleWidth / 2},${needleOffset}
-	L 0,${needleOffset - needleLength}
-	L ${needleWidth / 2},${needleOffset}
-	Z
-`
-			)
+			.attr('d', `M ${-needleWidth / 2},0 L 0,${-radius - 5} L ${needleWidth / 2},0 Z`)
 			.attr('fill', fillColor)
-			.attr('transform', `rotate(${-180})`);
+			.attr('transform', 'rotate(-90)');
+	});
 
-		// Animate needle
-		const needleStartDeg = -90; // bottom
-		const needleEndDeg = 90; // top
-		const needleTargetDeg = needleStartDeg + fraction * (needleEndDeg - needleStartDeg);
+	// Reactive: animate needle whenever `value` changes
+	$: if (needle) {
+		const fraction = Math.min(Math.max(value / maxValue, 0), 1);
+		const targetDeg = -90 + fraction * 180;
 
-		needlePath
+		needle
 			.transition()
 			.duration(duration)
 			.attrTween('transform', () => {
-				const needleInterp = d3.interpolate(needleStartDeg, needleTargetDeg);
-				return (t) => `rotate(${needleInterp(t)})`;
+				const current = needle.attr('transform').match(/-?\d+(\.\d+)?/)?.[0] ?? '-90';
+				const interp = d3.interpolate(Number(current), targetDeg);
+				return (t) => `rotate(${interp(t)})`;
 			});
 
 		displayed = value;
-	});
+	}
 </script>
 
 <div class="gauge-metric" style="position: relative; width:{size}px; height:{size / 2 + 30}px;">
@@ -152,7 +105,7 @@
 
 <style>
 	.gauge-metric {
-		margin: 0.15em 0 0.15em 0;
+		margin: 0.15em 0;
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;

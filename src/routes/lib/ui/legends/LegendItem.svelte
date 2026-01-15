@@ -3,6 +3,7 @@
 
 	// MMS case study relevant props and imports
 
+	import Icon from '@iconify/svelte';
 	import { onDestroy } from 'svelte';
 	import { mapStoreList } from '../../stores/mapStore';
 
@@ -12,7 +13,9 @@
 		bgcolor,
 		bordercolor = 'rgba(0,0,0,0)',
 		button = false,
+		disabled = false,
 		id,
+		icon = null,
 		targetopacity = 0.9,
 		featuretype = 'circle',
 		filterProperty,
@@ -258,12 +261,18 @@
 <!-- Legend Item HTML -->
 
 {#if button}
-	<button class={layerActive ? 'layerOn' : 'layerOff'} onclick={handleToggle}>
+	<button {disabled} class={layerActive ? 'layerOn' : 'layerOff'} onclick={handleToggle}>
 		<div class="legend-item" {id}>
-			<span
-				class={variant}
-				style="background-color: {bgcolor}; box-shadow:inset 0px 0px 0px 2px {bordercolor}; border-color: {bordercolor};"
-			></span>{label}
+			{#if icon}
+				<span class="legend-icon">
+					<Icon {icon} color={bgcolor} />
+				</span>
+			{:else}
+				<span
+					class={variant}
+					style="background-color: {bgcolor}; box-shadow: inset 0 0 0 2px {bordercolor};"
+				></span>
+			{/if}{label}
 		</div>
 	</button>
 {:else}
@@ -350,5 +359,20 @@
 	.layerOff {
 		opacity: 0.6;
 		border: 1px dashed rgba(27, 31, 35, 0.3);
+	}
+
+	.legend-icon {
+		width: 18px;
+		height: 18px;
+		margin-right: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	button:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+		box-shadow: none;
 	}
 </style>

@@ -158,44 +158,6 @@
 </script>
 
 <div class="access-tab">
-	<!-- Top Summary Section -->
-	<div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200">
-		<h2 class="text-xl font-bold mb-1">{selectedStation.stop_label || 'Station'} Summary</h2>
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
-			<div>
-				<div class="text-xs text-zinc-500 uppercase tracking-wider">Tier 1</div>
-				<div class="text-lg font-bold">
-					{presenceStats.Tier_1_presence || 0}/100
-					<span class="text-sm font-normal text-zinc-400"
-						>({presenceStats.Tier_1_presence || 0}%)</span
-					>
-				</div>
-			</div>
-			<div>
-				<div class="text-xs text-zinc-500 uppercase tracking-wider">Tier 2</div>
-				<div class="text-lg font-bold">
-					{presenceStats.Tier_2_presence || 0}/100
-					<span class="text-sm font-normal text-zinc-400"
-						>({presenceStats.Tier_2_presence || 0}%)</span
-					>
-				</div>
-			</div>
-			<div>
-				<div class="text-xs text-zinc-500 uppercase tracking-wider">Overall</div>
-				<div class="text-lg font-bold text-blue-600">
-					{presenceStats.Overall_score || 0}%
-				</div>
-			</div>
-			<div>
-				<div class="text-xs text-zinc-500 uppercase tracking-wider">Rank</div>
-				<div class="text-lg font-bold">
-					{presenceStats.cc_Rank || 'N/A'}<span class="align-top text-xs font-normal"></span>
-					<span class="text-xs font-normal text-zinc-400 block">of 735 MTSAs</span>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Table 1: Current Level of Access -->
 	<div class="section">
 		<h3 class="font-bold text-lg mb-3">Current Level of Access Relative to MTSA Average</h3>

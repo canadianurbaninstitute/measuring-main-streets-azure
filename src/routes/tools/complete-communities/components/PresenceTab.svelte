@@ -1,6 +1,10 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import {
+		AMENITY_ICONS,
+		TIER_1_AMENITIES
+	} from '../../../lib/data/transitdata/complete-communities-config';
+	import {
 		bii,
 		BusinessCount,
 		Daily_Visits,
@@ -20,98 +24,11 @@
 		stationVisitorData,
 		stationCCpresence,
 		stationCCcounts, // New prop
+		missingTier1,
+		missingTier2,
 		selectedVariable = $bindable(),
 		onSelectVariable
 	} = $props();
-
-	const TIER_1_AMENITIES = [
-		'Childcare',
-		'Community Centres',
-		'Convenience Store',
-		'Libraries',
-		'Personal and Commercial Banking',
-		'Pharmacy',
-		'Physicians Office',
-		'Post Office',
-		'Primary and Secondary Schools',
-		'Supermarket'
-	];
-
-	const TIER_2_AMENITIES = [
-		'Appliance TV and Electronics Retailers',
-		'Baked Goods',
-		'Barber Shop',
-		'Beauty Salon',
-		'Book Stores',
-		'Building Material and Lawn Garden Stores',
-		'Clothing and Shoe Retailers',
-		'Coin Laundry',
-		'Community Health and Elderly Care Facilities',
-		'Cosmetics and Beauty Supply Retailers',
-		'Dentist Office',
-		'Dry Cleaners',
-		'Fish and Seafood Market',
-		'Fitness and recreational sports centres',
-		'Florists',
-		'Fruit and Vegetable Market',
-		'Liquor Stores',
-		'Meat Market',
-		'Museums and Art Galleries',
-		'Nursing Care Facilities',
-		'Office supplies',
-		'Other Personal Care',
-		'Religious Organizations',
-		'Restaurants',
-		'Sporting goods and Hobby Retailers'
-	];
-
-	const AMENITY_ICONS: Record<string, string> = {
-		// Tier 1
-		Childcare: 'mdi:baby-carriage',
-		'Community Centres': 'mdi:account-group',
-		'Convenience Store': 'mdi:store',
-		Libraries: 'mdi:library',
-		'Personal and Commercial Banking': 'mdi:bank',
-		Pharmacy: 'mdi:pill',
-		'Physicians Office': 'mdi:doctor',
-		'Post Office': 'mdi:email',
-		'Primary and Secondary Schools': 'mdi:school',
-		Supermarket: 'mdi:cart',
-		// Tier 2
-		'Appliance TV and Electronics Retailers': 'mdi:television',
-		'Baked Goods': 'mdi:bread-slice',
-		'Barber Shop': 'mdi:content-cut',
-		'Beauty Salon': 'mdi:content-cut',
-		'Book Stores': 'mdi:book-open-page-variant',
-		'Building Material and Lawn Garden Stores': 'mdi:hammer',
-		'Clothing and Shoe Retailers': 'mdi:tshirt-crew',
-		'Coin Laundry': 'mdi:washing-machine',
-		'Community Health and Elderly Care Facilities': 'mdi:home-heart',
-		'Cosmetics and Beauty Supply Retailers': 'mdi:lipstick',
-		'Dentist Office': 'mdi:tooth',
-		'Dry Cleaners': 'mdi:hanger',
-		'Fish and Seafood Market': 'mdi:fish',
-		'Fitness and recreational sports centres': 'mdi:dumbbell',
-		Florists: 'mdi:flower',
-		'Fruit and Vegetable Market': 'mdi:fruit-cherries',
-		'Liquor Stores': 'mdi:bottle-wine',
-		'Meat Market': 'mdi:food-steak',
-		'Museums and Art Galleries': 'mdi:palette',
-		'Nursing Care Facilities': 'mdi:hospital-building',
-		'Office supplies': 'mdi:paperclip',
-		'Other Personal Care': 'mdi:account',
-		'Religious Organizations': 'mdi:church',
-		Restaurants: 'mdi:silverware-fork-knife',
-		'Sporting goods and Hobby Retailers': 'mdi:basketball'
-	};
-
-	let missingTier1 = $derived(
-		stationCCcounts ? TIER_1_AMENITIES.filter((key) => (stationCCcounts[key] || 0) === 0) : []
-	);
-
-	let missingTier2 = $derived(
-		stationCCcounts ? TIER_2_AMENITIES.filter((key) => (stationCCcounts[key] || 0) === 0) : []
-	);
 </script>
 
 <div class="tab-content">
@@ -175,10 +92,10 @@
 					<div
 						class="flex items-center gap-1.5 text-xs bg-white text-red-600 px-2 py-1 rounded border border-red-100 shadow-sm"
 					>
-						{#if AMENITY_ICONS[amenity]}
-							<Icon icon={AMENITY_ICONS[amenity]} class="text-sm opacity-80" />
+						{#if AMENITY_ICONS[amenity.label]}
+							<Icon icon={AMENITY_ICONS[amenity.label]} class="text-sm opacity-80" />
 						{/if}
-						<span>{amenity}</span>
+						<span>{amenity.label}</span>
 					</div>
 				{/each}
 			</div>
@@ -196,10 +113,10 @@
 					<div
 						class="flex items-center gap-1.5 text-xs bg-white text-orange-600 px-2 py-1 rounded border border-orange-100 shadow-sm"
 					>
-						{#if AMENITY_ICONS[amenity]}
-							<Icon icon={AMENITY_ICONS[amenity]} class="text-sm opacity-80" />
+						{#if AMENITY_ICONS[amenity.label]}
+							<Icon icon={AMENITY_ICONS[amenity.label]} class="text-sm opacity-80" />
 						{/if}
-						<span>{amenity}</span>
+						<span>{amenity.label}</span>
 					</div>
 				{/each}
 			</div>

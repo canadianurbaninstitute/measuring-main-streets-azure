@@ -16,6 +16,8 @@
 		max,
 		activeTab,
 		updateLayerVariable,
+		missingTier1,
+		missingTier2,
 		statusFilters,
 		technologyFilters,
 		map = $bindable(),
@@ -191,8 +193,7 @@
 			});
 
 			if (map.getLayer('complete-community-amenities')) {
-				map.setPaintProperty('complete-community-amenities', 'circle-opacity', 1);
-				map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 1);
+				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
 			}
 
 			// click function for transit layers
@@ -390,7 +391,7 @@
 
 <div id="map-container">
 	<div id="map"></div>
-	<Legend {map} {activeTab} {selectedVariable} {min} {max} />
+	<Legend {map} {missingTier1} {missingTier2} {activeTab} {selectedVariable} {min} {max} />
 </div>
 
 <style>

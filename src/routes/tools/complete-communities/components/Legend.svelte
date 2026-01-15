@@ -1,11 +1,16 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import {
+		AMENITY_ICONS,
+		TIER_1_AMENITIES,
+		TIER_2_AMENITIES
+	} from '../../../lib/data/transitdata/complete-communities-config';
 	import config from '../../../lib/data/transitdata/config.json';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import LegendAbsolute from '../../../lib/ui/legends/LegendAbsolute.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	let { activeTab, map, selectedVariable, min, max } = $props();
+	let { activeTab, map, selectedVariable, min, max, missingTier1, missingTier2 } = $props();
 	let toggledValues = $state({});
 	// Use an explicit string to track which tier is expanded
 	let expandedTier = $state('tier1');
@@ -15,61 +20,10 @@
 		expandedTier = tier;
 	}
 
-	// --- Constants moved into script ---
-	const TIER_1_AMENITIES = [
-		{ label: 'Childcare', value: 'Childcare', color: '#f13737' },
-		{ label: 'Community Centre', value: 'Community Centres', color: '#43b171' },
-		{ label: 'Convenience Store', value: 'Convenience Store', color: '#db3069' },
-		{ label: 'Library', value: 'Libraries', color: '#8a4285' },
-		{
-			label: 'Personal and Commercial Banking',
-			value: 'Personal and Commercial Banking',
-			color: '#f45d01'
-		},
-		{ label: 'Pharmacy', value: 'Pharmacy', color: '#f1c500' },
-		{ label: 'Physicians Office', value: 'Physicians Office', color: '#e37d9d' },
-		{ label: 'Post Office', value: 'Post Office', color: '#921111' },
-		{
-			label: 'Primary or Secondary School',
-			value: 'Primary and Secondary Schools',
-			color: '#58e965'
-		},
-		{ label: 'Supermarket', value: 'Supermarket', color: '#23c9ff' }
-	];
-
-	const TIER_2_AMENITIES = [
-		{ label: 'Appliance TV and Electronics Retailers', color: '#4a5568' },
-		{ label: 'Baked Goods', color: '#d97706' },
-		{ label: 'Barber Shop', color: '#0ea5e9' },
-		{ label: 'Beauty Salon', color: '#ec4899' },
-		{ label: 'Book Stores', color: '#8b5cf6' },
-		{ label: 'Building Material and Lawn Garden Stores', color: '#78350f' },
-		{ label: 'Clothing and Shoe Retailers', color: '#f43f5e' },
-		{ label: 'Coin Laundry', color: '#64748b' },
-		{ label: 'Community Health and Elderly Care Facilities', color: '#10b981' },
-		{ label: 'Cosmetics and Beauty Supply Retailers', color: '#f472b6' },
-		{ label: 'Dentist Office', color: '#2dd4bf' },
-		{ label: 'Dry Cleaners', color: '#94a3b8' },
-		{ label: 'Fish and Seafood Market', color: '#06b6d4' },
-		{ label: 'Fitness and recreational sports centres', color: '#6366f1' },
-		{ label: 'Florists', color: '#fb7185' },
-		{ label: 'Fruit and Vegetable Market', color: '#84cc16' },
-		{ label: 'Liquor Stores', color: '#dc2626' },
-		{ label: 'Meat Market', color: '#991b1b' },
-		{ label: 'Museums and Art Galleries', color: '#a855f7' },
-		{ label: 'Nursing Care Facilities', color: '#059669' },
-		{ label: 'Office supplies', color: '#475569' },
-		{ label: 'Other Personal Care', color: '#d946ef' },
-		{ label: 'Religious Organizations', color: '#f59e0b' },
-		{ label: 'Restaurants', color: '#ea580c' },
-		{ label: 'Sporting goods and Hobby Retailers', color: '#1d4ed8' }
-	];
-
 	// --- Dynamic Map Coloring Logic ---
 	const DEFAULT_T1_COLOR = '#003f5e';
 	const DEFAULT_T2_COLOR = '#2a5cac';
 	const OTHER_COLOR = 'rgba(0,0,0,0)'; // Hide businesses not in T1 or T2
-
 	$effect(() => {
 		// This tracksExpandedTier and the map state
 		const currentTier = expandedTier;
@@ -105,9 +59,7 @@
 				];
 			}
 
-			mapInstance.setPaintProperty('complete-community-amenities', 'circle-color', colorExpression);
-
-			// We remove the circle-stroke-opacity logic from here because it fights with LegendItem
+			mapInstance.setPaintProperty('complete-community-amenities', 'icon-color', colorExpression);
 		};
 
 		// Run update immediately and also on map idle to catch late-added layers
@@ -208,6 +160,7 @@
 						bind:toggledValues
 						id="complete-community-amenities"
 						variant="circle"
+						featuretype="icon"
 						label="Toggle All Tier 1"
 						bgcolor="#003f5e"
 						bordercolor="#fff"
@@ -221,10 +174,13 @@
 							{map}
 							bind:toggledValues
 							variant="circle"
+							featuretype="icon"
 							label={amenity.label}
 							bgcolor={amenity.color}
+							icon={AMENITY_ICONS[amenity.value]}
 							bordercolor="#fff"
 							button={true}
+							disabled={missingTier1.includes(amenity)}
 							useFilter={true}
 							filterProperty="Group Name"
 							filterValue={amenity.value}
@@ -249,6 +205,7 @@
 						bind:toggledValues
 						id="complete-community-amenities"
 						variant="circle"
+						featuretype="icon"
 						label="Toggle All Tier 2"
 						bgcolor="#2a5cac"
 						bordercolor="#fff"
@@ -263,10 +220,13 @@
 							bind:toggledValues
 							id="complete-community-amenities"
 							variant="circle"
+							featuretype="icon"
 							label={amenity.label}
 							bgcolor={amenity.color}
+							icon={AMENITY_ICONS[amenity.label]}
 							bordercolor="#fff"
 							button={true}
+							disabled={missingTier2.includes(amenity)}
 							useFilter={true}
 							filterProperty="Group Name"
 							filterValue={amenity.label}
