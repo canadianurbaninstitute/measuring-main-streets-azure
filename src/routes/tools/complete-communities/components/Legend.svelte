@@ -168,7 +168,7 @@
 						id="complete-community-amenities"
 						variant="circle"
 						featuretype="icon"
-						label="Toggle All Core AMenities"
+						label="Toggle All Core Amenities"
 						bgcolor="#003f5e"
 						bordercolor="#fff"
 						button={true}
