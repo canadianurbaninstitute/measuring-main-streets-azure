@@ -135,14 +135,14 @@
 
 		employmentData = [
 			{
-				label: 'Tier 1',
+				label: 'Core Amenities',
 				value: totalEmploymentData
 					? (stationCCcounts['Tier 1 Employment'] / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
-				label: 'Tier 2',
+				label: 'Additional Amenities',
 				value: totalEmploymentData
 					? (stationCCcounts['Tier 2 Employment'] / totalEmploymentData) * 100
 					: 0,
