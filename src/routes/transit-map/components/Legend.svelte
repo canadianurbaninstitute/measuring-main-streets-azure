@@ -100,7 +100,7 @@
 						{map}
 						bind:toggledValues
 						variant="circle"
-						label="Tier 1"
+						label="Core Amenity"
 						bgcolor="#db3069"
 						bordercolor="#fff"
 						button={true}
@@ -113,7 +113,7 @@
 						{map}
 						bind:toggledValues
 						variant="circle"
-						label="Tier 2"
+						label="Additional Amenity"
 						bgcolor="#2a5cac"
 						bordercolor="#fff"
 						button={true}
@@ -145,7 +145,7 @@
 							slot="header"
 							class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
 						>
-							Tier 1<Icon icon="iconoir:nav-arrow-down" />
+							Core Amenities<Icon icon="iconoir:nav-arrow-down" />
 						</div>
 						<div slot="body" class="p-1">
 							<LegendItem
@@ -154,7 +154,7 @@
 								id="complete-community-amenities"
 								variant="circle"
 								featuretype="icon"
-								label="Toggle All Tier 1"
+								label="Toggle All Core Amenities"
 								bgcolor="#003f5e"
 								bordercolor="#fff"
 								button={true}
@@ -189,7 +189,7 @@
 							slot="header"
 							class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
 						>
-							Tier 2<Icon icon="iconoir:nav-arrow-down" />
+							Additional Amenities<Icon icon="iconoir:nav-arrow-down" />
 						</div>
 						<div slot="body" class="p-1">
 							<!-- Bulk Toggle for all Tier 2 -->
@@ -199,7 +199,7 @@
 								id="complete-community-amenities"
 								variant="circle"
 								featuretype="icon"
-								label="Toggle All Tier 2"
+								label="Toggle All Additional Amenities"
 								bgcolor="#2a5cac"
 								bordercolor="#fff"
 								button={true}
