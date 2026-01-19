@@ -7,15 +7,18 @@
 		transit_map_style,
 		transit_regions_source,
 		transit_stations_source
-	} from '../../lib/data/transitdata/config-mapbox.json';
-	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	} from '../../../lib/data/transitdata/config-mapbox.json';
+	import line_colors from '../../../lib/data/transitdata/line-colors.json';
 	import Legend from './Legend.svelte';
 	let {
 		selectedVariable,
+		selectedStation,
 		min,
 		max,
 		activeTab,
 		updateLayerVariable,
+		missingTier1,
+		missingTier2,
 		statusFilters,
 		technologyFilters,
 		map = $bindable(),
@@ -24,9 +27,7 @@
 		processedStationData,
 		selectStop,
 		selectRegion,
-		regionsData,
-		missingTier1,
-		missingTier2
+		regionsData
 	} = $props();
 
 	// --- Mapbox Access Token ---
@@ -45,7 +46,7 @@
 			style: transit_map_style.url,
 			center: mapCenter,
 			zoom: defaultZoom,
-			maxZoom: 15.5,
+			maxZoom: 18,
 			minZoom: 2,
 			scrollZoom: true,
 			attributionControl: false
@@ -192,8 +193,9 @@
 				maxzoom: 5
 			});
 
-			//hide complete community amenities layer initially
-			map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
+			if (map.getLayer('complete-community-amenities')) {
+				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
+			}
 
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
@@ -241,6 +243,13 @@
 
 		popup3.addClassName('region-popup');
 
+		const amenityPopup = new mapboxgl.Popup({
+			closeButton: false,
+			closeOnClick: false
+		});
+
+		amenityPopup.addClassName('amenity-popup');
+
 		map.on('mouseenter', ['transit-stations', 'transit-lines', 'transit-region-points'], () => {
 			map.getCanvas().style.cursor = 'pointer';
 		});
@@ -280,6 +289,29 @@
 			}
 		});
 
+		map.on('mousemove', 'complete-community-amenities', (e) => {
+			if (e.features.length > 0 && e.features[0].properties.Tier) {
+				map.getCanvas().style.cursor = 'pointer';
+				const coordinates = e.lngLat;
+				const tier = e.features[0].properties.Tier;
+				const group = e.features[0].properties['Group Name'];
+				amenityPopup
+					.setLngLat(coordinates)
+					.setHTML(
+						`
+						${
+							group
+								? `<p class="label-name">${group}</p>
+						<p class="label-sub">${tier === 1 ? 'Core Amenity' : 'Additional Amenitiy'}</p>
+						`
+								: ''
+						}
+          `
+					)
+					.addTo(map);
+			}
+		});
+
 		map.on('mouseleave', 'transit-stations', () => {
 			popup.remove();
 		});
@@ -292,9 +324,22 @@
 			popup3.remove();
 		});
 
-		map.on('mouseleave', ['transit-stations', 'transit-lines', 'transit-region-points'], () => {
-			map.getCanvas().style.cursor = '';
+		map.on('mouseleave', 'complete-community-amenities', () => {
+			amenityPopup.remove();
 		});
+
+		map.on(
+			'mouseleave',
+			[
+				'transit-stations',
+				'transit-lines',
+				'transit-region-points',
+				'complete-community-amenities'
+			],
+			() => {
+				map.getCanvas().style.cursor = '';
+			}
+		);
 	});
 
 	// --- Filter/Tab UI Handlers ---
@@ -351,7 +396,16 @@
 
 <div id="map-container">
 	<div id="map"></div>
-	<Legend {map} {missingTier1} {missingTier2} {activeTab} {selectedVariable} {min} {max} />
+	<Legend
+		{map}
+		{selectedStation}
+		{missingTier1}
+		{missingTier2}
+		{activeTab}
+		{selectedVariable}
+		{min}
+		{max}
+	/>
 </div>
 
 <style>

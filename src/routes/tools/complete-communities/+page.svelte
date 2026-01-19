@@ -4,6 +4,10 @@
 	import { Tabs } from 'bits-ui';
 	import type { Feature, Polygon } from 'geojson';
 	import { onMount } from 'svelte';
+	import {
+		TIER_1_AMENITIES,
+		TIER_2_AMENITIES
+	} from '../../lib/data/transitdata/complete-communities-config';
 	import { da_map_source } from '../../lib/data/transitdata/config-mapbox.json';
 	// Config imports for metrics matching
 
@@ -12,14 +16,14 @@
 	import '../../styles.css';
 	// Components
 	import Filters from '../../transit-map/components/Filters.svelte';
-	import MapContainer from '../../transit-map/components/MapContainer.svelte';
 	import Search from '../../transit-map/components/Search.svelte';
 	import SelectRegion from '../../transit-map/components/SelectRegion.svelte';
 	import StationStatus from '../../transit-map/components/StationStatus.svelte';
 	import Header from './components/Header.svelte';
+	import MapContainer from './components/MapContainer.svelte';
 	// Custom Tabs
 	import AccessTab from './components/AccessTab.svelte';
-	import CompleteCommunityPresenceTab from './components/CompleteCommunityPresenceTab.svelte';
+	import CompleteCommunityPresenceTab from './components/PresenceTab.svelte';
 	// --- Data/Map Update Functions ---
 
 	// NEW: Access/Chart Logic State & Calculations lifted from AccessTab
@@ -112,6 +116,14 @@
 		'Convenience Store',
 		'Physicians Office'
 	];
+
+	let missingTier1 = $derived(
+		stationCCcounts ? TIER_1_AMENITIES.filter((key) => (stationCCcounts[key.label] || 0) === 0) : []
+	);
+
+	let missingTier2 = $derived(
+		stationCCcounts ? TIER_2_AMENITIES.filter((key) => (stationCCcounts[key.label] || 0) === 0) : []
+	);
 
 	// Helper for classification
 	function getClassification(ratio: number, status: string) {
@@ -488,8 +500,7 @@
 
 		switch (selectedTab) {
 			case 'overall-presence':
-				map.setPaintProperty('complete-community-amenities', 'circle-opacity', 1);
-				map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 1);
+				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
@@ -540,6 +551,8 @@
 						<Tabs.Content value="overall-presence" class="tab-button">
 							{#if activeTab === 'overall-presence'}
 								<CompleteCommunityPresenceTab
+									{missingTier1}
+									{missingTier2}
 									{selectedStation}
 									{stationCCpresence}
 									{stationVisitorData}
@@ -605,8 +618,11 @@
 			<MapContainer
 				{min}
 				{max}
+				{selectedStation}
 				bind:map
 				{mapCenter}
+				{missingTier1}
+				{missingTier2}
 				{defaultZoom}
 				{selectedVariable}
 				{activeTab}

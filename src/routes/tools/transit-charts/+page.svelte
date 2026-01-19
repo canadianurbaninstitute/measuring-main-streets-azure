@@ -49,9 +49,9 @@
 			{ value: 'bii', label: 'Independent Business Index (out of 1)' },
 			{ value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations' },
 			{ value: 'Daily_Visits', label: 'Average Daily Visitors' },
-			{ value: 'Unique_Visitors', label: 'Average Unique Daily Visitors' },
-			{ value: 'Tier_1_presence', label: 'Tier 1 Complete Community Score' },
-			{ value: 'Tier_2_presence', label: 'Tier 2 Complete Community Score' },
+			// { value: 'Unique_Visitors', label: 'Average Unique Daily Visitors' },
+			{ value: 'Tier_1_presence', label: 'Core Complete Community Score' },
+			{ value: 'Tier_2_presence', label: 'Additional Complete Community Score' },
 			{ value: 'Overall_score', label: 'Overall Complete Community Score' }
 		]
 	};

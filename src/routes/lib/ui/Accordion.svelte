@@ -5,9 +5,15 @@
 	export let open = false;
 	export let duration = 0.2;
 	export let easing = 'ease';
+	export let onToggle = null;
 
 	function handleToggle() {
-		open = !open;
+		// 2. Check if the custom function exists
+		if (onToggle) {
+			onToggle(); // Call the parent's function
+		} else {
+			open = !open; // Fallback to default behavior
+		}
 	}
 </script>
 
