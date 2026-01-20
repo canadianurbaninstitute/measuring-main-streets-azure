@@ -27,6 +27,7 @@
 	} = $props();
 	// NEW: Derived state. A button is "Active" if its value(s) are NOT in the hidden list.
 	let layerActive = $derived.by(() => {
+		if (!toggledValues || !filterProperty) return true;
 		if (!toggledValues[filterProperty]) return true;
 
 		if (Array.isArray(filterValue)) {
