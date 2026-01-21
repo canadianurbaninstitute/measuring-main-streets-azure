@@ -111,7 +111,7 @@
 		"icon": "mdi:dollar"
 	},
 	"HouseValue": {
-		"label": "Average house value",
+		"label": "Average Dwelling Value",
 		"key": "HouseValue",
 		"unit": "$",
 		"icon": "mdi:dollar"

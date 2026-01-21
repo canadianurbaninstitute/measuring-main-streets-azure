@@ -45,9 +45,9 @@
 		],
 		'Built Form': [{ value: 'PopulationDensity', label: 'Population Density (per sq. km)' }],
 		'Complete Communities': [
-			{ value: 'Main Street Business', label: 'Main Street Businesses' },
+			{ value: 'BusinessCount', label: 'Main Street Businesses' },
 			{ value: 'bii', label: 'Independent Business Index (out of 1)' },
-			{ value: 'Civic Infrastructure', label: 'Civic Infrastructure Locations' },
+			{ value: 'CivicCount', label: 'Civic Infrastructure Locations' },
 			{ value: 'Daily_Visits', label: 'Average Daily Visitors' },
 			// { value: 'Unique_Visitors', label: 'Average Unique Daily Visitors' },
 			{ value: 'Tier_1_presence', label: 'Core Complete Community Score' },
