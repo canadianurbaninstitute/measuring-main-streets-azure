@@ -12,11 +12,11 @@
 		"source_layer": "transit-region-points-9m4y8g"
 	},
 	"da_map_source": {
-		"url": "mapbox://canadianurbaninstitute.1cu02ydb",
-		"source_layer": "da_map-bco47g"
+		"url": "mapbox://canadianurbaninstitute.5ga9lu3b",
+		"source_layer": "da_map_260122-7oaxnv"
 	},
 	"transit_map_style": {
-		"url": "mapbox://styles/canadianurbaninstitute/cmkbcc0x8002c01rxaq8z383a?optimize=true"
+		"url": "mapbox://styles/canadianurbaninstitute/cmkocyvz9002q01s1c3wx23mf?optimize=true"
 	},
 	"transit_charts_style": {
 		"url": "mapbox://styles/canadianurbaninstitute/cmhxgpbpr000801qp5pn3hygc"
