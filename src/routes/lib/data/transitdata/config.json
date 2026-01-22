@@ -71,25 +71,25 @@
 	"VisibleMinorityTotal": {
 		"label": "Visible Minority",
 		"key": "VisibleMinorityTotal",
-		"unit": "people",
+		"unit": "%",
 		"icon": "mdi:people"
 	},
 	"TotalImmigrant": {
 		"label": "Immigrants",
 		"key": "TotalImmigrant",
-		"unit": "people",
+		"unit": "%",
 		"icon": "mdi:globe"
 	},
 	"IndigenousIdentity": {
 		"label": "Indigenous",
 		"key": "IndigenousIdentity",
-		"unit": "people",
+		"unit": "%",
 		"icon": "mdi:people"
 	},
 	"UniversityDegree": {
 		"label": "University Degree",
 		"key": "UniversityDegree",
-		"unit": "people",
+		"unit": "%",
 		"icon": "mdi:school"
 	},
 	"EmployeeCount": {
