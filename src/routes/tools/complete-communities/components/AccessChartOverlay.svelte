@@ -1,35 +1,30 @@
 <script lang="ts">
 	import * as d3 from 'd3';
-	import { onMount } from 'svelte';
-
-	interface Props {
-		futureDemandData: {
-			amenity: string;
-			status: string;
-			classification: string;
-			currentAccess: number;
-			desiredAccess: number;
-			currentDemand: number;
-			futureDemand: number;
-			additionalEmployees: number;
-			mtsaAvg: number;
-		}[];
-		visitorCount: number;
-		futureVisits: number;
-		sliderValues: number[];
-	}
-
+	import { onMount, untrack } from 'svelte';
+	import { cubicInOut } from 'svelte/easing';
+	import { slide } from 'svelte/transition';
+	import { AMENITY_PATHS } from '../../../lib/data/transitdata/complete-communities-config';
 	let {
+		currentAccessData,
 		futureDemandData,
-		visitorCount,
+		visitorCount = 0,
 		futureVisits,
-		sliderValues = $bindable()
-	}: Props = $props();
+		sliderValues = $bindable([0])
+	} = $props();
 
 	let isOpen = $state(true);
 	let chart = $state();
 	let tooltip = $state();
 	let width = $state(0);
+
+	// Define our range bounds
+	let min = $derived(visitorCount);
+	let max = $derived(Math.max(visitorCount + 50000, 5000));
+	let percent = $derived.by(() => {
+		if (max === min) return 0;
+		const p = ((sliderValues[0] - min) / (max - min)) * 100;
+		return Math.max(0, Math.min(100, p)); // Clamp between 0-100
+	});
 
 	// User Icon Path (mdi:account)
 	const userIconPath =
@@ -38,246 +33,189 @@
 	// Config
 	const ICON_SIZE = 14;
 	const EMPLOYEES_PER_ICON = 10;
-	// Scale pattern for density?
-	// TransitChart uses simple patterns. We'll use the person pattern.
-	// To match 1 icon = 10 employees visually, we need to ensure the BAR AREA
-	// roughly corresponds to that count.
-	// But since this is a continuous bar chart now, the exact "count of icons" might be handled by the fill
-	// repeating. We need to set the pattern size such that 1 unit of width (roughly) = 10 employees?
-	// If x-scale maps 10 employees to X pixels, we want the pattern width to be X pixels.
 
 	function updateChart() {
-		if (!chart || !width) return;
+		untrack(() => {
+			if (!chart || !width) return;
+			const data = futureDemandData;
+			const maxLabelCharCount = d3.max(data, (d) => d.amenity.length) || 0;
+			const calculatedLeftMargin = Math.min(width * 0.4, maxLabelCharCount * 7 + 20);
+			const margin = { top: 60, right: 40, bottom: 40, left: calculatedLeftMargin };
+			const chartWidth = width - margin.left - margin.right;
+			const barHeight = 35;
+			const height = data.length * barHeight + margin.top + margin.bottom;
+			const maxIconsInAnyRow =
+				d3.max(data, (d) => {
+					const currentCount = Math.round(d.currentAccess * (visitorCount / 100000));
+					const needed = Math.ceil(d.additionalResources);
+					return currentCount + needed;
+				}) || 1; // Avoid divide by zero
 
-		// Filter for relevant data (amenities with gaps?) or show all?
-		// User asked for "Access Chart", implying all.
-		// But "Employees Needed" is 0 for many.
-		// Let's show ALL amenities to provide a complete picture,
-		// bars will be 0 for those with sufficient capacity.
-		// OR better: Show all, differentiate status.
-		const data = futureDemandData; // Sort?
+			// Calculate a size that fits.
+			// chartWidth = (count * size) + ((count - 1) * spacing)
+			// Simplified: size = chartWidth / count
+			const spacing = 2;
+			const maxPossibleSize = 24; // Cap size so it doesn't look huge if only 1 icon
+			const dynamicIconSize = Math.min(maxPossibleSize, chartWidth / maxIconsInAnyRow - spacing);
+			const scaleFactor = dynamicIconSize / 24; // Based on standard 24px MDI paths
 
-		d3.select(chart).selectAll('*').remove();
+			// 1. Select or Create SVG
+			let svg = d3.select(chart).select('svg');
+			if (svg.empty()) {
+				svg = d3.select(chart).append('svg');
+			}
+			svg.attr('width', width).attr('height', height);
 
-		const margin = { top: 40, right: 30, bottom: 40, left: 140 }; // Increased left for labels
-		const chartWidth = width - margin.left - margin.right;
-		const barHeight = 30;
-		const height = data.length * (barHeight + 10) + margin.top + margin.bottom;
+			const y = d3
+				.scaleBand()
+				.range([margin.top, height - margin.bottom])
+				.domain(data.map((d) => d.amenity))
+				.padding(0.2);
 
-		const svg = d3
-			.select(chart)
-			.append('svg')
-			.attr('width', width)
-			.attr('height', height)
-			.style('display', 'block'); // Remove inline spacing issues
+			const rows = svg.selectAll('.amenity-row').data(data, (d: any) => d.amenity);
+			const rowsEnter = rows.enter().append('g').attr('class', 'amenity-row');
 
-		// 1. DEFINE PATTERN LOCALLY
-		const defs = svg.append('defs');
-		const patternId = 'person-pattern-overlay';
+			// 3. FIX: Add the label inside the Row Enter selection
+			// This ensures the label is created exactly once per row
+			rowsEnter
+				.append('text')
+				.attr('class', 'row-label')
+				.attr('x', -15) // Position to the left of the icons
+				.attr('y', 14) // Centered vertically with icon size
+				.attr('text-anchor', 'end')
+				.style('font-size', '12px')
+				.style('font-weight', '600')
+				.style('fill', '#374151');
 
-		// We want the pattern to repeat.
-		// Let's decide a fixed visual size for the icon, say 15px.
-		const pSize = 15;
-		const pattern = defs
-			.append('pattern')
-			.attr('id', patternId)
-			.attr('x', 0)
-			.attr('y', 0)
-			.attr('width', pSize)
-			.attr('height', pSize)
-			.attr('patternUnits', 'userSpaceOnUse');
+			const rowsMerged = rowsEnter
+				.merge(rows as any)
+				.attr('transform', (d: any) => `translate(${margin.left}, ${y(d.amenity)})`);
 
-		pattern
-			.append('path')
-			.attr('d', userIconPath)
-			.attr('fill', '#f97316')
-			.attr('transform', `scale(${pSize / 24})`); // 24 is viewbox
+			rowsMerged.select('.row-label').text((d: any) => d.amenity);
 
-		// 2. SCALES
-		const y = d3
-			.scaleBand()
-			.range([margin.top, height - margin.bottom])
-			.domain(data.map((d) => d.amenity))
-			.padding(0.2);
+			rowsMerged.each(function (d) {
+				const g = d3.select(this);
+				const spacing = 2;
 
-		// Map max employees needed for domain. detailed view
-		const maxVal = d3.max(data, (d) => d.additionalEmployees) || 100;
-		// Ensure we have some range if all are 0
-		const xDomain = maxVal > 0 ? maxVal : 100;
+				const currentCount = Math.round(d.currentAccess * (visitorCount / 100000));
+				const needed = Math.ceil(d.additionalResources);
+				const iconPath = AMENITY_PATHS[d.amenity] || userIconPath;
 
-		const x = d3.scaleLinear().domain([0, xDomain]).range([0, chartWidth]).nice();
+				const iconsArray = [
+					...Array(currentCount).fill({ type: 'existing' }),
+					...Array(needed).fill({ type: 'new' })
+				];
 
-		const g = svg.append('g').attr('transform', `translate(${margin.left},0)`);
+				const icons = g.selectAll('.amenity-icon').data(iconsArray, (d_icon, i) => i);
+				const popEase = d3.easeBackOut.overshoot(2.0);
+				icons
+					.enter()
+					.append('path')
+					.attr('class', 'amenity-icon')
+					.attr('d', iconPath)
+					.attr(
+						'transform',
+						(d_icon, i) =>
+							`translate(${i * (dynamicIconSize + spacing)}, ${dynamicIconSize / 2}) scale(0)`
+					)
+					.style('opacity', 0)
+					.merge(icons as any)
+					.transition()
+					.duration(450)
+					.delay((d_icon, i) => i * 15)
+					.ease(popEase)
+					.attr(
+						'transform',
+						(d_icon, i) =>
+							`translate(${i * (dynamicIconSize + spacing)}, 0) scale(${dynamicIconSize / 24})`
+					)
+					.attr('fill', (d_icon) => (d_icon.type === 'existing' ? '#00adf2' : '#db3069'))
+					.style('opacity', 1);
 
-		// 3. GRID
-		g.append('g')
-			.attr('class', 'grid')
-			.attr('transform', `translate(0,${margin.top})`)
-			.call(
-				d3
-					.axisTop(x)
-					.tickSize(-(height - margin.top - margin.bottom))
-					.tickFormat(() => '') // No labels here
-			)
-			.call((g) => {
-				g.select('.domain').remove();
-				g.selectAll('line').attr('stroke', '#eee').attr('stroke-dasharray', '2,2');
+				// EXIT: Shrink down smoothly
+				icons
+					.exit()
+					.transition()
+					.duration(200)
+					.attr(
+						'transform',
+						(d_icon, i) =>
+							`translate(${i * (dynamicIconSize + spacing)}, ${dynamicIconSize / 2}) scale(0)`
+					)
+					.style('opacity', 0)
+					.remove();
+
+				// --- NUMERIC BADGE (+3) ---
+				const badgeX = iconsArray.length * (dynamicIconSize + spacing) + 8;
+				const badgeData = needed > 0 ? [needed] : [];
+				const badge = g.selectAll('.need-badge').data(badgeData);
+
+				badge.exit().remove();
+
+				badge
+					.enter()
+					.append('text')
+					.attr('class', 'need-badge')
+					.attr('dy', dynamicIconSize / 1.4)
+					.style('font-weight', '800')
+					.style('font-size', '13px')
+					.style('fill', '#db3069')
+					.style('opacity', 0)
+					.merge(badge as any)
+					.transition()
+					.duration(450)
+					.attr('x', badgeX)
+					.text((n) => `+${n}`)
+					.style('opacity', 1);
 			});
 
-		// 4. BARS (Gap / Employees Needed)
-		g.selectAll('.bar')
-			.data(data)
-			.enter()
-			.append('rect')
-			.attr('class', 'bar')
-			.attr('x', 0)
-			.attr('y', (d) => y(d.amenity))
-			.attr('height', y.bandwidth())
-			.attr('width', 0) // animate
-			.attr('fill', `url(#${patternId})`)
-			.attr('stroke', '#f97316')
-			.attr('stroke-width', 1)
-			.attr('rx', 2)
-			// Tooltips
-			.on('mouseover', function (event, d) {
-				d3.select(this).style('opacity', 0.8);
-				if (!tooltip) return;
-				tooltip
-					.style('opacity', 1)
-					.html(
-						`
-                        <div class="font-bold text-sm mb-1">${d.amenity}</div>
-                        <div class="text-xs">Needed: <span class="font-semibold text-orange-600">${Math.ceil(d.additionalEmployees).toLocaleString()}</span></div>
-                        <div class="text-xs text-zinc-500">MTSA Avg: ${d.mtsaAvg}</div>
-                    `
-					)
-					.style('left', event.pageX + 10 + 'px')
-					.style('top', event.pageY - 10 + 'px');
-			})
-			.on('mousemove', function (event) {
-				if (tooltip) {
-					tooltip.style('left', event.pageX + 10 + 'px').style('top', event.pageY - 10 + 'px');
-				}
-			})
-			.on('mouseout', function () {
-				d3.select(this).style('opacity', 1);
-				if (tooltip) tooltip.style('opacity', 0);
-			})
-			.transition()
-			.duration(750)
-			.attr('width', (d) => x(d.additionalEmployees));
+			// 5. Static Legend (Only draw if it doesn't exist)
+			if (svg.select('.legend').empty()) {
+				const legend = svg
+					.append('g')
+					.attr('class', 'legend')
+					.attr('transform', `translate(${margin.left}, 30)`);
 
-		// 5. MTSA Marker (optional overlay?)
-		// User asked for "MTSA average overlay".
-		// If we map MTSA Avg (score) to Employees (count), we need a common unit.
-		// Assuming user implies: "Compare the Access Score of station vs MTSA".
-		// BUT we are showing Employees Chart.
-		// Let's add a small text label or indicator of Status next to the bar?
-		// Or maybe a secondary bar for Access Score?
-		// The implementation plan settled on "horizontal bar chart ... simple labels".
-		// Let's imply the MTSA comparison via the TOOLTIP and maybe a color-coded status indicator on the Y-axis label.
+				legend.append('circle').attr('r', 5).attr('fill', '#00adf2');
+				legend
+					.append('text')
+					.attr('x', 12)
+					.attr('y', 5)
+					.text('Current')
+					.style('font-size', '11px')
+					.attr('fill', '#6b7280');
 
-		// 6. Y-AXIS (Labels)
-		svg
-			.append('g')
-			.attr('transform', `translate(${margin.left},0)`)
-			.call(d3.axisLeft(y).tickSize(0))
-			.call((g) => g.select('.domain').remove())
-			.selectAll('text')
-			.attr('x', -10)
-			.style('text-anchor', 'end')
-			.style('font-family', 'Inter, sans-serif')
-			.style('font-size', '11px') // 12px might be big for long names
-			.style('font-weight', '600')
-			.style('fill', '#333')
-			.text((d) => d); // d is string
-
-		// Add Status Dots to Y-Axis Labels
-		const labelGroup = svg.append('g').attr('transform', `translate(${margin.left},0)`);
-
-		data.forEach((d) => {
-			const yPos = y(d.amenity) + y.bandwidth() / 2;
-			const statusColor = d.additionalEmployees > 0 ? '#ea580c' : '#10b981'; // Orange or Emerald
-
-			// Status Dot
-			labelGroup
-				.append('circle')
-				.attr('cx', -5) // Just right of text? No, left of text is better but hard with axis.
-				// Let's put it on the right side of the axis line (x=0)
-				.attr('cx', 0)
-				.attr('cy', yPos)
-				.attr('r', 3)
-				.attr('fill', statusColor);
+				legend.append('circle').attr('r', 5).attr('cx', 80).attr('fill', '#db3069');
+				legend
+					.append('text')
+					.attr('x', 92)
+					.attr('y', 5)
+					.text('Additional Need')
+					.style('font-size', '11px')
+					.attr('fill', '#6b7280');
+			}
 		});
-
-		// 7. STICKY X-AXIS (Bottom)
-		// We'll just render a standard axis at the bottom of the SVG.
-		// Sticky behavior requires CSS on a separate SVG or container logic.
-		// Given the container `overflow-y-auto`, we can place a separate SVG for the axis at the bottom?
-		// Or just let it scroll. `TransitChart.svelte` used sticky CSS.
-		// Since this overlay is `absolute`, let's just use standard axis for now to ensure alignment.
-		svg
-			.append('g')
-			.attr('transform', `translate(${margin.left},${height - margin.bottom})`)
-			.call(d3.axisBottom(x).ticks(5))
-			.call((g) => g.select('.domain').attr('stroke', '#ddd'));
-
-		// X-Axis Label
-		svg
-			.append('text')
-			.attr('x', margin.left + chartWidth / 2)
-			.attr('y', height - 5)
-			.style('text-anchor', 'middle')
-			.style('font-size', '10px')
-			.style('fill', '#666')
-			.text('Additional Employees Needed');
-
-		// Legend
-		const legend = svg.append('g').attr('transform', `translate(${margin.left}, 10)`);
-
-		legend
-			.append('rect')
-			.attr('width', pSize)
-			.attr('height', pSize)
-			.attr('fill', `url(#${patternId})`)
-			.attr('stroke', '#f97316');
-
-		legend
-			.append('text')
-			.attr('x', pSize + 5)
-			.attr('y', 12)
-			.style('font-size', '10px')
-			.style('fill', '#666')
-			.text(`= ~${EMPLOYEES_PER_ICON} Employees`);
 	}
 
-	// Resize observer or simplified reactive update
 	$effect(() => {
-		if (sliderValues || width) {
+		// Explicitly reference the changing value and the data array
+		const currentVal = sliderValues[0];
+		const data = futureDemandData;
+
+		if (width && data) {
 			updateChart();
 		}
 	});
 
 	onMount(() => {
-		tooltip = d3
-			.select('body')
-			.append('div')
-			.attr('class', 'tooltip')
-			.style('opacity', 0)
-			.style('position', 'absolute')
-			.style('background', 'white')
-			.style('padding', '8px')
-			.style('border', '1px solid #ddd')
-			.style('border-radius', '4px')
-			.style('pointer-events', 'none')
-			.style('z-index', 9999);
-
-		return () => tooltip.remove();
+		updateChart();
 	});
 </script>
 
 <div
-	class="absolute right-4 top-24 z-10 max-h-[80vh] w-[400px] overflow-y-auto rounded-lg bg-white p-4 shadow-lg flex flex-col font-sans border border-zinc-200"
+	class="absolute w-full z-10 bottom-0 transition-all duration-500 ease-in-out rounded-lg bg-white p-4 flex flex-col border border-zinc-200"
+	class:h-full={isOpen}
+	class:h-50={!isOpen}
 >
 	<div class="mb-4 flex items-center justify-between flex-shrink-0 border-b border-zinc-100 pb-2">
 		<h3 class="text-lg font-bold text-zinc-900">Access Analysis</h3>
@@ -290,8 +228,7 @@
 	</div>
 
 	{#if isOpen}
-		<div class="space-y-4 flex-grow">
-			<!-- Slider Section (Styled closer to TransitChart header inputs?) -->
+		<div transition:slide={{ duration: 600, easing: cubicInOut }} class="space-y-4 flex-grow">
 			<div class="bg-zinc-50 p-4 rounded-lg border border-zinc-100">
 				<label class="mb-2 block text-xs font-bold uppercase tracking-wider text-zinc-500">
 					Projected Daily Visits
@@ -301,23 +238,27 @@
 						<input
 							type="range"
 							class="w-full absolute z-10 opacity-0 cursor-pointer"
-							min="0"
-							max="50000"
+							{min}
+							{max}
 							step="100"
 							bind:value={sliderValues[0]}
 						/>
-						<div class="w-full h-1 bg-zinc-200 rounded-full absolute top-0.5"></div>
+
+						<div class="w-full h-1.5 bg-zinc-200 rounded-full absolute top-0.5"></div>
+
 						<div
-							class="h-1 bg-blue-600 rounded-full absolute top-0.5"
-							style="width: {(sliderValues[0] / 50000) * 100}%"
+							class="h-1.5 bg-blue-600 rounded-full absolute top-0.5"
+							style:width="{percent}%"
 						></div>
+
 						<div
-							class="w-4 h-4 bg-white border-2 border-blue-600 rounded-full absolute top-[-5px] shadow-sm pointer-events-none"
-							style="left: calc({(sliderValues[0] / 50000) * 100}% - 8px)"
+							class="w-5 h-5 bg-white border-2 border-blue-600 rounded-full absolute top-[-6px] shadow-md pointer-events-none"
+							style:left="calc({percent}% - 10px)"
 						></div>
 					</div>
-					<div class="text-lg font-bold text-blue-600 w-20 text-right">
-						{sliderValues[0].toLocaleString()}
+
+					<div class="text-lg font-mono font-bold text-blue-600 w-24 text-right">
+						{Math.round(sliderValues[0]).toLocaleString()}
 					</div>
 				</div>
 			</div>
@@ -327,3 +268,6 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+</style>

@@ -9,9 +9,11 @@
 		transit_stations_source
 	} from '../../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../../lib/data/transitdata/line-colors.json';
+	import AccessChartOverlay from './AccessChartOverlay.svelte';
 	import Legend from './Legend.svelte';
 	let {
 		selectedVariable,
+		currentAccessData,
 		selectedStation,
 		min,
 		max,
@@ -22,6 +24,10 @@
 		statusFilters,
 		technologyFilters,
 		map = $bindable(),
+		sliderValues = $bindable(),
+		futureDemandData,
+		visitorCount,
+		futureVisits,
 		mapCenter,
 		defaultZoom,
 		processedStationData,
@@ -392,9 +398,20 @@
 		]),
 		'#000000' // Fallback color
 	];
+	console.log(selectedStation);
 </script>
 
 <div id="map-container">
+	{#if activeTab === 'access' && selectedStation?.id !== null}
+		<!-- Overlay Chart -->
+		<AccessChartOverlay
+			{currentAccessData}
+			{futureDemandData}
+			{visitorCount}
+			{futureVisits}
+			bind:sliderValues
+		/>
+	{/if}
 	<div id="map"></div>
 	<Legend
 		{map}

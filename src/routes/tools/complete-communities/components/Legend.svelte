@@ -101,7 +101,7 @@
 		</div>
 	{/if}
 
-	{#if activeTab === 'access'}
+	<!-- {#if activeTab === 'access'}
 		<Accordion>
 			<div class="inline-header" slot="header">
 				<div class="text-sm inline-header">
@@ -142,7 +142,7 @@
 				</div>
 			</div>
 		</Accordion>
-	{/if}
+	{/if} -->
 
 	<Accordion open={selectedStation ? true : false}>
 		<div class="inline-header" slot="header">

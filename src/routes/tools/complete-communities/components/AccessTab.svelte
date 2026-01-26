@@ -1,12 +1,19 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import { Daily_Visits } from '../../../lib/data/transitdata/config.json';
 
-	let { selectedStation, stationVisitorData, stationCCcounts, stationCCpresence } = $props();
+	let {
+		selectedStation,
+		visitorCount,
+		futureDemandData,
+		currentAccessData,
+		stationVisitorData,
+		stationCCcounts,
+		stationCCpresence,
+		sliderValues = $bindable([0])
+	} = $props();
 
 	// -- State --
-	let sliderValues = $state([0]);
 	let futureVisits = $derived(sliderValues[0]);
 
 	// Initialize futureVisits with current visits when station changes
@@ -15,42 +22,6 @@
 			sliderValues = [Math.round(stationVisitorData[Daily_Visits.key])];
 		}
 	});
-
-	let visitorCount = $derived(
-		stationVisitorData ? Math.round(stationVisitorData[Daily_Visits.key] || 0) : 0
-	);
-
-	// Helper to safely get presence numbers
-	let presenceStats = $derived(stationCCpresence || {});
-
-	// -- Methodology Constants --
-	// Using user provided values where available, deriving others or using placeholders
-	// The user provided: Grocery (Supermarket) 5.20, Pharmacy 2.67, Restaurant 14.02, Comm Centre 1.5
-	// I will match the keys from stationCCcounts to these.
-	const MTSA_AVERAGES = {
-		Supermarket: 5.2,
-		Pharmacy: 2.67,
-		Restaurants: 14.02,
-		'Community Centres': 1.5,
-		Childcare: 3.0, // Placeholder
-		Libraries: 0.8, // Placeholder
-		'Convenience Store': 4.0,
-		'Physicians Office': 6.5,
-		'Dentist Office': 6.0,
-		'Personal and Commercial Banking': 4.5
-	};
-
-	// Tracked Amenities
-	const trackedAmenities = [
-		'Supermarket',
-		'Pharmacy',
-		'Restaurants',
-		'Community Centres',
-		'Childcare',
-		'Libraries',
-		'Convenience Store',
-		'Physicians Office'
-	];
 
 	// -- Derived Calculations --
 
@@ -61,106 +32,12 @@
 		if (ratio > 1.2) return 'Excellent';
 		return 'N/A';
 	}
-
-	// Prepare Table 1: Current Level of Access
-	let currentAccessData = $derived(
-		trackedAmenities.map((key) => {
-			// Access IS the value in stationCCcounts (Employees / 1000 Visits)
-			const accessStr = stationCCcounts[key];
-			const access = typeof accessStr === 'number' ? accessStr : parseFloat(accessStr || '0');
-			const status = access > 0 ? 'Present' : 'Absent';
-			const mtsaAvg = MTSA_AVERAGES[key] || 1.0;
-
-			let ratio = 0;
-			let ratioDisplay = 'N/A';
-
-			if (status === 'Present') {
-				ratio = access / mtsaAvg;
-				ratioDisplay = ratio.toFixed(2);
-			}
-
-			const classification = getClassification(ratio, status);
-
-			// Rank is not per-amenity in the source provided, so I will placeholder or omit "Rank" column if data is missing.
-			// The user example shows "518th", "12th". I'll format as N/A if not available.
-			const rank = 'N/A'; // Placeholder
-
-			return {
-				amenity: key,
-				status,
-				access,
-				mtsaAvg,
-				ratio,
-				ratioDisplay,
-				rank,
-				classification
-			};
-		})
-	);
-
-	// Prepare Table 2: Future Demand
-	let futureDemandData = $derived(
-		currentAccessData.map((item) => {
-			const { amenity, status, access, mtsaAvg, classification } = item;
-
-			// Scenario Logic
-			// "Catch up" if Below Avg (Current < MTSA)
-			// "Maintain" if Adequate or Excellent (Current >= MTSA)
-			// "Critical Gap" if Absent
-
-			let scenario = '';
-			let desiredAccess = 0;
-			let additionalEmployees = 0;
-
-			if (status === 'Absent') {
-				scenario = 'Critical Gap'; // Display as "Absent" or specific gap text? User example has "Critical Gap" as scenario in Table 2 for absent
-				desiredAccess = mtsaAvg;
-
-				// Formula: MTSA_Avg * (Future / 1000) - 0
-				additionalEmployees = mtsaAvg * (futureVisits / 1000);
-			} else if (access < mtsaAvg) {
-				scenario = 'Catch Up';
-				desiredAccess = mtsaAvg;
-
-				// Catch up means we want to reach the MTSA Average for the Future population
-				// Total Needed = Desired * (Future / 1000)
-				// Existing Capacity (approx) = CurrentAccess * (CurrentVisits / 1000)
-				// Gap = Total Needed - Existing Capacity
-				// Wait, logic check:
-				// User Ex: Grocery (Catch up). Current 3.9, Desired 5.20. Visits 20k -> 25k. Added = 52.
-				// My derivation: (5.20 * 25) - (3.9 * 20) = 130 - 78 = 52. Matches.
-				const totalNeeded = desiredAccess * (futureVisits / 1000);
-				const currentCapacity = access * (visitorCount / 1000);
-				additionalEmployees = totalNeeded - currentCapacity;
-			} else {
-				// Maintain or Excellent
-				scenario = 'Maintain';
-				desiredAccess = access; // Maintain current standard
-
-				// Formula: CurrentAccess * (Future - Current) / 1000
-				// User Ex: Pharmacy (Maintain). 2.8 -> 2.8. 20k->25k. Added 14.
-				// Derivation: 2.8 * (25-20) = 2.8 * 5 = 14. Matches.
-				const growth = futureVisits - visitorCount;
-				additionalEmployees = desiredAccess * (growth / 1000);
-			}
-
-			return {
-				amenity,
-				scenario,
-				currentAccess: access,
-				desiredAccess,
-				currentDemand: visitorCount,
-				futureDemand: futureVisits,
-				additionalEmployees: Math.max(0, additionalEmployees)
-			};
-		})
-	);
 </script>
 
 <div class="access-tab">
 	<!-- Table 1: Current Level of Access -->
 	<div class="section">
-		<h3 class="font-bold text-lg mb-3">Current Level of Access Relative to MTSA Average</h3>
+		<h3 class="font-bold text-lg mb-3">Current Level of Access</h3>
 		<div class="overflow-x-auto">
 			<table class="w-full text-sm text-left whitespace-nowrap">
 				<thead class="text-zinc-500 border-b bg-zinc-50">
@@ -211,7 +88,8 @@
 			</table>
 		</div>
 		<p class="text-xs text-zinc-400 mt-2 italic">
-			* Access metric represents employees per 1000 daily visits.
+			* Access metric represents number of amenities per 100,000 daily visits. MTSA average is based
+			on placeholder values.
 		</p>
 	</div>
 
@@ -231,7 +109,7 @@
 				<RangeSlider
 					bind:values={sliderValues}
 					min={visitorCount}
-					max={Math.max(visitorCount * 2, 5000)}
+					max={Math.max(visitorCount + 50000, 5000)}
 					step={100}
 					pips
 					first="label"
@@ -248,7 +126,7 @@
 		</div>
 
 		<!-- Table 2: Future Needs -->
-		<h4 class="font-bold text-md mb-2">Additional Employees Needed Analysis</h4>
+		<h4 class="font-bold text-md mb-2">Additional Amenities Needed</h4>
 		<div class="overflow-x-auto">
 			<table class="w-full text-sm text-left whitespace-nowrap">
 				<thead class="text-zinc-500 border-b bg-zinc-50">
@@ -259,7 +137,7 @@
 						<th class="py-2 px-2 text-right">Desired</th>
 						<!-- <th class="py-2 px-2 text-right">Curr. Demand</th>
                         <th class="py-2 px-2 text-right">Fut. Demand</th> -->
-						<th class="py-2 px-2 text-right">Add. Emp. Needed</th>
+						<th class="py-2 px-2 text-right">Additional</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -285,10 +163,7 @@
 							<!-- <td class="py-2 px-2 text-right text-zinc-400">{row.currentDemand.toLocaleString()}</td>
                             <td class="py-2 px-2 text-right text-zinc-400">{row.futureDemand.toLocaleString()}</td> -->
 							<td class="py-2 px-2 text-right font-bold text-zinc-800">
-								{Math.round(row.additionalEmployees).toLocaleString()}
-								{#if row.additionalEmployees > 0}
-									<Icon icon="mdi:user-add" inline class="text-xs text-zinc-400 ml-1" />
-								{/if}
+								+{Math.round(row.additionalResources).toLocaleString()}
 							</td>
 						</tr>
 					{/each}
