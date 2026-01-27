@@ -66,22 +66,22 @@
 						bordercolor="#fff"
 						button={true}
 						useFilter={true}
-						filterProperty="bu_use"
+						filterProperty="BU_USE"
 						filterValue="Residential"
 					/>
-					<LegendItem
+					<!-- <LegendItem
 						{map}
 						bind:toggledValues
 						id="all-nar"
 						variant="circle"
-						label="Mixed Use"
+						label="Non-Residential"
 						bgcolor="#00adf2"
 						bordercolor="#fff"
 						button={true}
 						useFilter={true}
-						filterProperty="bu_use"
-						filterValue="Partial Residential"
-					/>
+						filterProperty="BU_USE"
+						filterValue="Non-Residential"
+					/> -->
 					<div class="text-xs italic">Size = Number of Units</div>
 				</div>
 			</Accordion>
