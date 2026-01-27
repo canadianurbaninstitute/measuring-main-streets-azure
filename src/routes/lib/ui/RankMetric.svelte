@@ -5,16 +5,11 @@
 	export let total = ''; // Optional: out of X
 	export let icon = 'mdi:trophy-outline';
 	export let iconcolor = '#002a41';
-	export let active = false;
-	export let disabled = false;
 </script>
 
 <div class="rank-metric">
 	<div class="rank-container">
-		{#if icon}
-			<Icon {icon} color={iconcolor} width="3em" />
-		{/if}
-		<div class="flex items-baseline">
+		<div class="flex items-baseline gap-1">
 			<span class="hash">#</span>
 			<span class="value">{value}</span>
 			{#if total}
@@ -24,7 +19,11 @@
 	</div>
 
 	<div class="details">
-		<div class="label">{label}</div>
+		<div class="label">
+			{#if icon}
+				<Icon {icon} color={iconcolor} />
+			{/if}{label}
+		</div>
 	</div>
 </div>
 
@@ -62,7 +61,6 @@
 	.hash,
 	.total {
 		font-size: 1.5em;
-		margin-left: 0.4em;
 		opacity: 0.5;
 		font-weight: 400;
 	}
@@ -72,6 +70,10 @@
 	}
 
 	.label {
+		display: flex;
+		gap: 5px;
+		align-items: center;
+		justify-content: center;
 		text-align: center;
 		font-size: 0.8em;
 	}

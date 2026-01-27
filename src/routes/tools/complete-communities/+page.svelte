@@ -46,6 +46,7 @@
 	let searchTerm = $state('');
 	let activeRegion = $state(null);
 	let activeLine = $state(null);
+	let tier = $state('tier1');
 
 	// CC Specific Data
 	let stationCCcounts = $state({});
@@ -108,7 +109,7 @@
 
 	// Current Level of Access
 	let currentAccessData = $derived(
-		TIER_1_AMENITIES.map((key) => {
+		(tier === 'tier1' ? TIER_1_AMENITIES : TIER_2_AMENITIES).map((key) => {
 			const accessStr =
 				stationCCcounts[key.label] !== 0
 					? (stationCCcounts[key.label] / stationVisitorData[Daily_Visits.key]) * 100000
@@ -139,6 +140,8 @@
 			};
 		})
 	);
+
+	console.log(tier);
 
 	let futureDemandData = $derived(
 		currentAccessData.map((item) => {
@@ -591,6 +594,7 @@
 								<!-- Simplified Sidebar for Access: just presence stats -->
 								<AccessTab
 									bind:sliderValues
+									bind:tier
 									{currentAccessData}
 									{futureDemandData}
 									{visitorCount}
@@ -647,6 +651,7 @@
 				{visitorCount}
 				{futureVisits}
 				bind:map
+				bind:tier
 				{mapCenter}
 				{missingTier1}
 				{missingTier2}

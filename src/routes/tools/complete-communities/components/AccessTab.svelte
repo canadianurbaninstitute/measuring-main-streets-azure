@@ -1,5 +1,4 @@
 <script lang="ts">
-	import RangeSlider from 'svelte-range-slider-pips';
 	import { Daily_Visits } from '../../../lib/data/transitdata/config.json';
 
 	let {
@@ -10,6 +9,7 @@
 		stationVisitorData,
 		stationCCcounts,
 		stationCCpresence,
+		tier = $bindable('tier1'),
 		sliderValues = $bindable([0])
 	} = $props();
 
@@ -34,10 +34,10 @@
 	}
 </script>
 
-<div class="access-tab">
+<div class="access-tab mb-4">
 	<!-- Table 1: Current Level of Access -->
 	<div class="section">
-		<h3 class="font-bold text-lg mb-3">Current Level of Access</h3>
+		<h4 class="my-3">Current Level of Access</h4>
 		<div class="overflow-x-auto">
 			<table class="w-full text-sm text-left whitespace-nowrap">
 				<thead class="text-zinc-500 border-b bg-zinc-50">
@@ -97,35 +97,6 @@
 
 	<!-- Future Demand Section -->
 	<div class="section">
-		<h3 class="font-bold text-lg mb-2">Future Demand Projection</h3>
-
-		<!-- Slider Control -->
-		<div class="mb-6 bg-blue-50 p-4 rounded-md border border-blue-100">
-			<label class="text-sm font-semibold mb-2 block flex justify-between">
-				<span>Projected Daily Visits</span>
-				<span class="text-blue-700 font-bold text-lg">{futureVisits.toLocaleString()}</span>
-			</label>
-			<div class="px-2 py-2">
-				<RangeSlider
-					bind:values={sliderValues}
-					min={visitorCount}
-					max={Math.max(visitorCount + 50000, 5000)}
-					step={100}
-					pips
-					first="label"
-					last="label"
-				/>
-			</div>
-			<p class="text-xs text-blue-600 mt-1">
-				Current Visits: <span class="font-semibold">{visitorCount.toLocaleString()}</span>.
-				Projected Increase:
-				<span class="font-semibold"
-					>+{Math.max(0, futureVisits - visitorCount).toLocaleString()}</span
-				> visits.
-			</p>
-		</div>
-
-		<!-- Table 2: Future Needs -->
 		<h4 class="font-bold text-md mb-2">Additional Amenities Needed</h4>
 		<div class="overflow-x-auto">
 			<table class="w-full text-sm text-left whitespace-nowrap">
@@ -134,6 +105,7 @@
 						<th class="py-2 px-2">Amenity</th>
 						<th class="py-2 px-2">Scenario</th>
 						<th class="py-2 px-2 text-right">Curr. Access</th>
+						<th class="py-2 px-2 text-right">Curr. Count</th>
 						<th class="py-2 px-2 text-right">Desired</th>
 						<!-- <th class="py-2 px-2 text-right">Curr. Demand</th>
                         <th class="py-2 px-2 text-right">Fut. Demand</th> -->
@@ -159,6 +131,9 @@
 								</span>
 							</td>
 							<td class="py-2 px-2 text-right text-zinc-500">{row.currentAccess.toFixed(1)}</td>
+							<td class="py-2 px-2 text-right text-zinc-500"
+								>{stationCCcounts[row.amenity].toFixed(1)}</td
+							>
 							<td class="py-2 px-2 text-right font-medium">{row.desiredAccess.toFixed(2)}</td>
 							<!-- <td class="py-2 px-2 text-right text-zinc-400">{row.currentDemand.toLocaleString()}</td>
                             <td class="py-2 px-2 text-right text-zinc-400">{row.futureDemand.toLocaleString()}</td> -->

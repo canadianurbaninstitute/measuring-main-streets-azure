@@ -24,6 +24,7 @@
 		statusFilters,
 		technologyFilters,
 		map = $bindable(),
+		tier = $bindable(),
 		sliderValues = $bindable(),
 		futureDemandData,
 		visitorCount,
@@ -409,6 +410,7 @@
 			{futureDemandData}
 			{visitorCount}
 			{futureVisits}
+			bind:tier
 			bind:sliderValues
 		/>
 	{/if}
