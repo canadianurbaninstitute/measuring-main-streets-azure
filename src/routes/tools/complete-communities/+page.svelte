@@ -93,6 +93,13 @@
 		stationVisitorData ? Math.round(stationVisitorData[Daily_Visits.key] || 0) : 0
 	);
 
+	// Initialize futureVisits with current visits when station changes
+	$effect(() => {
+		if (stationVisitorData && stationVisitorData[Daily_Visits.key]) {
+			sliderValues = [Math.round(stationVisitorData[Daily_Visits.key])];
+		}
+	});
+
 	// placeholder data
 	const MTSA_AVERAGES = {
 		Supermarket: 5.2,
@@ -140,8 +147,6 @@
 			};
 		})
 	);
-
-	console.log(tier);
 
 	let futureDemandData = $derived(
 		currentAccessData.map((item) => {
@@ -285,17 +290,6 @@
 			});
 		}
 	}
-
-	function toggleLayer(layerIds, currentState) {
-		const layers = Array.isArray(layerIds) ? layerIds : [layerIds];
-		layers.forEach((layerId) => {
-			if (map.getLayer(layerId)) {
-				map.setLayoutProperty(layerId, 'visibility', currentState ? 'none' : 'visible');
-			}
-		});
-		return !currentState;
-	}
-
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
 		if (!map) return;
@@ -512,10 +506,9 @@
 
 	function handleTabChange(selectedTab) {
 		// Reset visuals first
-		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
-		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
-		map.setPaintProperty('complete-community-amenities', 'circle-opacity', 0);
-		map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
+		map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+		map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 		map.setPaintProperty('greenspace-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
 		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
@@ -534,15 +527,11 @@
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
 			case 'access':
-				// What layers for access? Maybe just same or employment?
-				// Let's show employment size if available or same as presence
-				map.setPaintProperty('employment-size', 'circle-opacity', 0.8);
+				map.setPaintProperty('employment-size', 'circle-opacity', 1);
 				map.setPaintProperty('employment-size', 'circle-stroke-opacity', 1);
-				map.setPaintProperty('complete-community-amenities', 'circle-opacity', 1);
-				map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 1);
+				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-				break;
 			default:
 				break;
 		}
@@ -557,7 +546,7 @@
 
 <Tabs.Root bind:value={activeTab} onValueChange={(value) => handleTabChange(value)}>
 	<div id="content-container">
-		<div id="sidebar" class:large={activeTab === 'access'}>
+		<div id="sidebar">
 			<Header {isOpen} />
 			<Search
 				bind:searchTerm
@@ -644,12 +633,11 @@
 			<MapContainer
 				{min}
 				{max}
+				{stationCCcounts}
 				{selectedStation}
 				bind:sliderValues
 				{currentAccessData}
 				{futureDemandData}
-				{visitorCount}
-				{futureVisits}
 				bind:map
 				bind:tier
 				{mapCenter}

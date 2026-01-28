@@ -11,11 +11,19 @@
 	import LegendAbsolute from '../../../lib/ui/legends/LegendAbsolute.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
 
-	let { activeTab, map, selectedStation, selectedVariable, min, max, missingTier1, missingTier2 } =
-		$props();
+	let {
+		activeTab,
+		map,
+		selectedStation,
+		selectedVariable,
+		min,
+		max,
+		missingTier1,
+		missingTier2,
+		expandedTier = $bindable('tier1')
+	} = $props();
 	let toggledValues = $state({});
 	// Use an explicit string to track which tier is expanded
-	let expandedTier = $state('tier1');
 
 	// Helper to handle accordion logic explicitly
 	function setExpandedTier(tier: 'tier1' | 'tier2') {
@@ -25,7 +33,7 @@
 	// --- Dynamic Map Coloring Logic ---
 	const DEFAULT_T1_COLOR = '#003f5e';
 	const DEFAULT_T2_COLOR = '#2a5cac';
-	const OTHER_COLOR = 'rgba(0,0,0,0)'; // Hide businesses not in T1 or T2
+
 	const spriteMatch = Object.entries(AMENITY_SPRITES).flatMap(([groupName, sprite]) => [
 		groupName,
 		sprite
