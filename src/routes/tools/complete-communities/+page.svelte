@@ -505,19 +505,6 @@
 	});
 
 	function handleTabChange(selectedTab) {
-		// Reset visuals first
-		map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
-		map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-		map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
-		map.setPaintProperty('greenspace-built-form', 'fill-opacity', 0);
-		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
-		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
-		map.setPaintProperty('water-built-form', 'fill-opacity', 0);
-		map.setPaintProperty('waterway-built-form', 'line-opacity', 0);
-		map.setPaintProperty('employment-size', 'circle-opacity', 0);
-		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
-		map.setPaintProperty('all-nar', 'circle-opacity', 0);
-		map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
 		updateLayerVariable(null);
 
 		switch (selectedTab) {
@@ -525,10 +512,10 @@
 				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+				map.setPaintProperty('employment-size', 'circle-opacity', 0);
+				map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 				break;
 			case 'access':
-				map.setPaintProperty('employment-size', 'circle-opacity', 1);
-				map.setPaintProperty('employment-size', 'circle-stroke-opacity', 1);
 				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);

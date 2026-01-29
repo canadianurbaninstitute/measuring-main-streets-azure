@@ -73,7 +73,7 @@
 
 	$effect(() => {
 		if (!map) return;
-		if (tier && map && map.getLayer('employment-size')) {
+		if (activeTab === 'access' && tier && map && map.getLayer('employment-size')) {
 			map.setPaintProperty('employment-size', 'circle-color', colorExpression);
 			map.setPaintProperty('employment-size', 'circle-opacity', visibilityExpression);
 			map.setPaintProperty('employment-size', 'circle-stroke-opacity', visibilityExpression);
@@ -243,12 +243,11 @@
 				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 			}
 
-			if (map.getLayer('employment-size')) {
+			if (activeTab === 'access' && map.getLayer('employment-size')) {
 				map.setPaintProperty('employment-size', 'circle-color', colorExpression);
+				map.setPaintProperty('employment-size', 'circle-opacity', visibilityExpression);
+				map.setPaintProperty('employment-size', 'circle-stroke-opacity', visibilityExpression);
 			}
-
-			map.setPaintProperty('employment-size', 'circle-opacity', visibilityExpression);
-			map.setPaintProperty('employment-size', 'circle-stroke-opacity', visibilityExpression);
 
 			map.on('click', 'employment-size', (e) => {
 				console.log('Feature properties:', e.features[0].properties);
