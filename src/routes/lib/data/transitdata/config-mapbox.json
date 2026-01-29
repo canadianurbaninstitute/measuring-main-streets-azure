@@ -23,5 +23,9 @@
 	},
 	"urban_form_comp_style": {
 		"url": "mapbox://styles/canadianurbaninstitute/cmkbbk8ve001501qn09v473hr"
+	},
+	"employment_source": {
+		"url": "mapbox://canadianurbaninstitute.ajo8pf6w",
+		"source_layer": "ea_business_data-3zmkw8"
 	}
 }

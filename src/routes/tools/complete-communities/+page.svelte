@@ -29,7 +29,6 @@
 	// NEW: Access/Chart Logic State & Calculations lifted from AccessTab
 	import { Daily_Visits } from '../../lib/data/transitdata/config.json';
 	import type { Station } from '../../lib/data/transitdata/stations';
-	import AccessChartOverlay from './components/AccessChartOverlay.svelte';
 
 	// --- Reactive/Exported Variables ---
 	let aiDescriptions = $state({});
@@ -47,6 +46,7 @@
 	let searchTerm = $state('');
 	let activeRegion = $state(null);
 	let activeLine = $state(null);
+	let tier = $state('tier1');
 
 	// CC Specific Data
 	let stationCCcounts = $state({});
@@ -93,6 +93,14 @@
 		stationVisitorData ? Math.round(stationVisitorData[Daily_Visits.key] || 0) : 0
 	);
 
+	// Initialize futureVisits with current visits when station changes
+	$effect(() => {
+		if (stationVisitorData && stationVisitorData[Daily_Visits.key]) {
+			sliderValues = [Math.round(stationVisitorData[Daily_Visits.key])];
+		}
+	});
+
+	// placeholder data
 	const MTSA_AVERAGES = {
 		Supermarket: 5.2,
 		Pharmacy: 2.67,
@@ -106,16 +114,91 @@
 		'Personal and Commercial Banking': 4.5
 	};
 
-	const accessTrackedAmenities = [
-		'Supermarket',
-		'Pharmacy',
-		'Restaurants',
-		'Community Centres',
-		'Childcare',
-		'Libraries',
-		'Convenience Store',
-		'Physicians Office'
-	];
+	// Current Level of Access
+	let currentAccessData = $derived(
+		(tier === 'tier1' ? TIER_1_AMENITIES : TIER_2_AMENITIES).map((key) => {
+			const accessStr =
+				stationCCcounts[key.label] !== 0
+					? (stationCCcounts[key.label] / stationVisitorData[Daily_Visits.key]) * 100000
+					: 0; // protect against division by zero
+			const access = typeof accessStr === 'number' ? accessStr : parseFloat(accessStr || '0');
+			const status = access > 0 ? 'Present' : 'Absent';
+			const mtsaAvg = MTSA_AVERAGES[key.label] || 1.0;
+			let ratio = 0;
+			let ratioDisplay = 'N/A';
+
+			if (status === 'Present') {
+				ratio = access / mtsaAvg;
+				ratioDisplay = ratio.toFixed(2);
+			}
+
+			const classification = getClassification(ratio, status);
+			const rank = 'N/A'; // Placeholder
+
+			return {
+				amenity: key.label,
+				status,
+				access,
+				mtsaAvg,
+				ratio,
+				ratioDisplay,
+				rank,
+				classification
+			};
+		})
+	);
+
+	let futureDemandData = $derived(
+		currentAccessData.map((item) => {
+			const { amenity, status, access, mtsaAvg, classification } = item;
+
+			// Scenario Logic
+			// "Catch up" if Below Avg (Current < MTSA)
+			// "Maintain" if Adequate or Excellent (Current >= MTSA)
+			// "Critical Gap" if Absent
+
+			let scenario = '';
+			let desiredAccess = 0;
+			let additionalResources = 0;
+
+			if (status === 'Absent') {
+				scenario = 'Critical Gap';
+				desiredAccess = mtsaAvg;
+				additionalResources = mtsaAvg * (futureVisits / 100000);
+			} else if (access < mtsaAvg) {
+				scenario = 'Catch Up';
+				desiredAccess = mtsaAvg;
+
+				// Catch up means we want to reach the MTSA Average for the Future population
+				// Total Needed = Desired * (Future / 1000)
+				// Existing Capacity (approx) = CurrentAccess * (CurrentVisits / 1000)
+				// Gap = Total Needed - Existing Capacity
+				// User Ex: Grocery (Catch up). Current 3.9, Desired 5.20. Visits 20k -> 25k. Added = 52.
+				const totalNeeded = desiredAccess * (futureVisits / 100000);
+				const currentCapacity = access * (visitorCount / 100000);
+				additionalResources = totalNeeded - currentCapacity;
+			} else {
+				// Maintain or Excellent
+				scenario = 'Maintain';
+				desiredAccess = access; // Maintain current standard
+
+				// Formula: CurrentAccess * (Future - Current) / 1000
+				// User Ex: Pharmacy (Maintain). 2.8 -> 2.8. 20k->25k. Added 14.
+				const growth = futureVisits - visitorCount;
+				additionalResources = desiredAccess * (growth / 100000);
+			}
+
+			return {
+				amenity,
+				scenario,
+				currentAccess: access,
+				desiredAccess,
+				currentDemand: visitorCount,
+				futureDemand: futureVisits,
+				additionalResources: Math.max(0, additionalResources)
+			};
+		})
+	);
 
 	let missingTier1 = $derived(
 		stationCCcounts ? TIER_1_AMENITIES.filter((key) => (stationCCcounts[key.label] || 0) === 0) : []
@@ -133,55 +216,6 @@
 		if (ratio > 1.2) return 'Excellent';
 		return 'N/A';
 	}
-
-	let futureDemandData = $derived(
-		accessTrackedAmenities.map((key) => {
-			const accessStr = stationCCcounts[key];
-			const access = typeof accessStr === 'number' ? accessStr : parseFloat(accessStr || '0');
-			const status = access > 0 ? 'Present' : 'Absent';
-			const mtsaAvg = MTSA_AVERAGES[key] || 1.0;
-
-			let ratio = 0;
-			if (status === 'Present') {
-				ratio = access / mtsaAvg;
-			}
-			const classification = getClassification(ratio, status);
-
-			// Calculations
-			let scenario = '';
-			let desiredAccess = 0;
-			let additionalEmployees = 0;
-
-			if (status === 'Absent') {
-				scenario = 'Critical Gap';
-				desiredAccess = mtsaAvg;
-				additionalEmployees = mtsaAvg * (futureVisits / 1000);
-			} else if (access < mtsaAvg) {
-				scenario = 'Catch Up';
-				desiredAccess = mtsaAvg;
-				const totalNeeded = desiredAccess * (futureVisits / 1000);
-				const currentCapacity = access * (visitorCount / 1000);
-				additionalEmployees = totalNeeded - currentCapacity;
-			} else {
-				scenario = 'Maintain';
-				desiredAccess = access;
-				const growth = futureVisits - visitorCount;
-				additionalEmployees = desiredAccess * (growth / 1000);
-			}
-
-			return {
-				amenity: key,
-				status,
-				classification,
-				currentAccess: access,
-				desiredAccess,
-				currentDemand: visitorCount,
-				futureDemand: futureVisits,
-				additionalEmployees: Math.max(0, additionalEmployees),
-				mtsaAvg
-			};
-		})
-	);
 
 	function updateStationData(id) {
 		const station = processedStationData.find((s) => s.id === id);
@@ -256,17 +290,6 @@
 			});
 		}
 	}
-
-	function toggleLayer(layerIds, currentState) {
-		const layers = Array.isArray(layerIds) ? layerIds : [layerIds];
-		layers.forEach((layerId) => {
-			if (map.getLayer(layerId)) {
-				map.setLayoutProperty(layerId, 'visibility', currentState ? 'none' : 'visible');
-			}
-		});
-		return !currentState;
-	}
-
 	// --- Map/Sidebar Navigation Functions ---
 	function handleStationSelection(stationId, stationCoordinates) {
 		if (!map) return;
@@ -482,20 +505,6 @@
 	});
 
 	function handleTabChange(selectedTab) {
-		// Reset visuals first
-		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
-		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
-		map.setPaintProperty('complete-community-amenities', 'circle-opacity', 0);
-		map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 0);
-		map.setPaintProperty('greenspace-built-form', 'fill-opacity', 0);
-		map.setPaintProperty('parking-built-form', 'fill-opacity', 0);
-		map.setPaintProperty('all-buildings', 'fill-opacity', 0);
-		map.setPaintProperty('water-built-form', 'fill-opacity', 0);
-		map.setPaintProperty('waterway-built-form', 'line-opacity', 0);
-		map.setPaintProperty('employment-size', 'circle-opacity', 0);
-		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
-		map.setPaintProperty('all-nar', 'circle-opacity', 0);
-		map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
 		updateLayerVariable(null);
 
 		switch (selectedTab) {
@@ -503,17 +512,13 @@
 				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+				map.setPaintProperty('employment-size', 'circle-opacity', 0);
+				map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 				break;
 			case 'access':
-				// What layers for access? Maybe just same or employment?
-				// Let's show employment size if available or same as presence
-				map.setPaintProperty('employment-size', 'circle-opacity', 0.8);
-				map.setPaintProperty('employment-size', 'circle-stroke-opacity', 1);
-				map.setPaintProperty('complete-community-amenities', 'circle-opacity', 1);
-				map.setPaintProperty('complete-community-amenities', 'circle-stroke-opacity', 1);
+				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-				break;
 			default:
 				break;
 		}
@@ -545,9 +550,6 @@
 				<div class="station-details-scroll-container">
 					{#if selectedStation && selectedStation.id}
 						<StationStatus {selectedStation} />
-						<!-- Removed AiDescription as requested per implementation plan update -->
-						<!-- <AiDescription {selectedStation} {aiDescriptions} /> -->
-
 						<Tabs.Content value="overall-presence" class="tab-button">
 							{#if activeTab === 'overall-presence'}
 								<CompleteCommunityPresenceTab
@@ -567,6 +569,11 @@
 							{#if activeTab === 'access'}
 								<!-- Simplified Sidebar for Access: just presence stats -->
 								<AccessTab
+									bind:sliderValues
+									bind:tier
+									{currentAccessData}
+									{futureDemandData}
+									{visitorCount}
 									{selectedStation}
 									{stationVisitorData}
 									{stationCCcounts}
@@ -595,11 +602,6 @@
 			{/if}
 		</div>
 		<div class="w-full relative">
-			{#if activeTab === 'access' && stationSelected}
-				<!-- Overlay Chart -->
-				<AccessChartOverlay {futureDemandData} {visitorCount} {futureVisits} bind:sliderValues />
-			{/if}
-
 			<div class="flex flex-row w-full flex-wrap lg:flex-nowrap">
 				<div id="controls" class="flex flex-col w-full">
 					<Filters bind:statusFilters bind:technologyFilters />
@@ -618,8 +620,13 @@
 			<MapContainer
 				{min}
 				{max}
+				{stationCCcounts}
 				{selectedStation}
+				bind:sliderValues
+				{currentAccessData}
+				{futureDemandData}
 				bind:map
+				bind:tier
 				{mapCenter}
 				{missingTier1}
 				{missingTier2}
@@ -688,6 +695,10 @@
 			height: 100%;
 			border-top: none;
 			border-right: 1px solid #eee;
+		}
+
+		#sidebar.large {
+			width: 100%;
 		}
 	}
 </style>

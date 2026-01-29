@@ -2,6 +2,10 @@
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import {
+		TIER_1_AMENITIES,
+		TIER_2_AMENITIES
+	} from '../../../lib/data/transitdata/complete-communities-config';
+	import {
 		da_map_source,
 		transit_lines_source,
 		transit_map_style,
@@ -9,9 +13,12 @@
 		transit_stations_source
 	} from '../../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../../lib/data/transitdata/line-colors.json';
+	import AccessChartOverlay from './AccessChartOverlay.svelte';
 	import Legend from './Legend.svelte';
 	let {
 		selectedVariable,
+		currentAccessData,
+		stationCCcounts,
 		selectedStation,
 		min,
 		max,
@@ -22,6 +29,9 @@
 		statusFilters,
 		technologyFilters,
 		map = $bindable(),
+		tier = $bindable(),
+		sliderValues = $bindable(),
+		futureDemandData,
 		mapCenter,
 		defaultZoom,
 		processedStationData,
@@ -33,6 +43,42 @@
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+
+	const DEFAULT_T1_COLOR = '#003f5e';
+	const DEFAULT_T2_COLOR = '#2a5cac';
+
+	let colorExpression = $derived.by(() => {
+		const isTier1 = tier === 'tier1';
+		const activeTierConfig = isTier1 ? TIER_1_AMENITIES : TIER_2_AMENITIES;
+
+		// This becomes the primary "theme" color for the active tier
+		const finalFallback = isTier1 ? '#2a5cac' : '#003f5e';
+
+		const pairs = activeTierConfig.flatMap((amt) => [amt.label, amt.color]);
+
+		return [
+			'match',
+			['get', 'Group Name'],
+			...pairs,
+			finalFallback // Anything in the active tier not explicitly named in config gets this
+		];
+	});
+
+	const visibilityExpression = [
+		'case',
+		['all', ['has', 'Tier'], ['in', ['get', 'Tier'], ['literal', [1, 2]]]],
+		0.8,
+		0
+	];
+
+	$effect(() => {
+		if (!map) return;
+		if (activeTab === 'access' && tier && map && map.getLayer('employment-size')) {
+			map.setPaintProperty('employment-size', 'circle-color', colorExpression);
+			map.setPaintProperty('employment-size', 'circle-opacity', visibilityExpression);
+			map.setPaintProperty('employment-size', 'circle-stroke-opacity', visibilityExpression);
+		}
+	});
 
 	$effect(() => {
 		if (!map) return;
@@ -193,9 +239,19 @@
 				maxzoom: 5
 			});
 
-			if (map.getLayer('complete-community-amenities')) {
-				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
+			if (activeTab === 'access' && map.getLayer('complete-community-amenities')) {
+				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 			}
+
+			if (activeTab === 'access' && map.getLayer('employment-size')) {
+				map.setPaintProperty('employment-size', 'circle-color', colorExpression);
+				map.setPaintProperty('employment-size', 'circle-opacity', visibilityExpression);
+				map.setPaintProperty('employment-size', 'circle-stroke-opacity', visibilityExpression);
+			}
+
+			map.on('click', 'employment-size', (e) => {
+				console.log('Feature properties:', e.features[0].properties);
+			});
 
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
@@ -395,6 +451,16 @@
 </script>
 
 <div id="map-container">
+	{#if activeTab === 'access' && selectedStation?.id !== null}
+		<!-- Overlay Chart -->
+		<AccessChartOverlay
+			{stationCCcounts}
+			{currentAccessData}
+			{futureDemandData}
+			bind:tier
+			bind:sliderValues
+		/>
+	{/if}
 	<div id="map"></div>
 	<Legend
 		{map}
@@ -405,6 +471,7 @@
 		{selectedVariable}
 		{min}
 		{max}
+		bind:expandedTier={tier}
 	/>
 </div>
 

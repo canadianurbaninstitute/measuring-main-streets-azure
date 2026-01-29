@@ -13,6 +13,7 @@
 	} from '../../../lib/data/transitdata/config.json';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../../lib/ui/GaugeMetric.svelte';
+	import RankMetric from '../../../lib/ui/RankMetric.svelte';
 	import TransitMetric from '../../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
@@ -29,6 +30,9 @@
 </script>
 
 <div class="tab-content">
+	<div class="metric-container mt-2">
+		<RankMetric label="Complete Communities Rank" value={stationCCpresence.cc_Rank} total="735" />
+	</div>
 	<div class="metric-container">
 		<GaugeMetric
 			label={Overall_score.label}
@@ -132,7 +136,6 @@
 				<br />
 				<Icon icon="mdi:storefront" /><strong>Additional</strong> amenities improve outcomes but are
 				not essential.
-				<!-- Keeping Tier 2 list static or could move to constant too -->
 				<Accordion>
 					<div class="inline-header text-xs" slot="header">
 						<i>Click here for a full list of additional amenities</i><Icon
