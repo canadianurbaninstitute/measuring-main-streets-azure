@@ -97,7 +97,7 @@ h4 {
 
 h5 {
 	font-size: 1.25rem;
-	font-family: 'Inter', sans-serif;
+	font-family: 'Gelasio', serif;
 	color: var(--brandDarkBlue);
 	letter-spacing: -0.01em;
 	line-height: 120%;
@@ -303,14 +303,12 @@ input[type='checkbox'] {
 }
 
 [data-tabs-trigger]:hover {
-	background-color: var(--color-blue-50);
+	background-color: var(--color-blue-300);
 }
 
 [data-tabs-trigger] {
 	padding: 0.5em;
-	width: 100%;
 	overflow: clip;
-	border: 1px solid #ddd;
 }
 
 .select-trigger {
