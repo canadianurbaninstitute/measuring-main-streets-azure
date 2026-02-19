@@ -58,6 +58,13 @@
 	let futureDemandMap = $state(new Map());
 
 	let p50current = $derived(selectedStation?.id ? p50map.get(selectedStation.id) : undefined);
+	let sortedAmenities = $derived(
+		[...(p50current ?? [])].sort((a, b) => {
+			const aVal = a.Access_Gap ?? 0;
+			const bVal = b.Access_Gap ?? 0;
+			return aVal - bVal;
+		})
+	);
 	let p75current = $derived(selectedStation?.id ? p75map.get(selectedStation.id) : undefined);
 	let p90current = $derived(selectedStation?.id ? p90map.get(selectedStation.id) : undefined);
 	let futureDemandCurrent = $derived(
@@ -500,7 +507,7 @@
 									{selectedStation}
 									{stationCCpresence}
 									{stationVisitorData}
-									{stationCCcounts}
+									futureDemand={futureDemandCurrent}
 									{selectedVariable}
 									onSelectVariable={(v) => updateLayerVariable(v)}
 								/>
@@ -510,14 +517,13 @@
 						<Tabs.Content value="access" class="tab-button">
 							{#if activeTab === 'access'}
 								<!-- Simplified Sidebar for Access: just presence stats -->
-								{futureDemandProjection()}
 								<AccessTab
 									bind:sliderValues
 									bind:tier
 									futureDemand={futureDemandCurrent}
 									{visitorCount}
 									{selectedStation}
-									p50={p50current}
+									p50={sortedAmenities}
 									{stationVisitorData}
 									{stationCCcounts}
 									{stationCCpresence}
@@ -566,7 +572,7 @@
 				{stationCCcounts}
 				{selectedStation}
 				bind:sliderValues
-				p50={p50current}
+				p50={sortedAmenities}
 				p75={p75current}
 				p90={p90current}
 				futureDemand={futureDemandCurrent}

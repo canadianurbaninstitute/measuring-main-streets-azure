@@ -14,7 +14,7 @@
 		selectedPercentile = $bindable('p50')
 	} = $props();
 
-	let isOpen = $state(false);
+	let isOpen = $state(true);
 
 	let accessTableData = $derived(p50.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
 
@@ -49,9 +49,9 @@
 						<tr>
 							<th class="py-2 px-2">Amenity</th>
 							<th class="py-2 px-2">Status</th>
-							<th class="py-2 px-2 text-right">Access</th>
-							<th class="py-2 px-2 text-right">MTSA Median</th>
-							<th class="py-2 px-2 text-right">Access Gap</th>
+							<th class="py-2 px-2 text-right">Access Score*</th>
+							<th class="py-2 px-2 text-right">Regional Score*</th>
+							<th class="py-2 px-2 text-right">Access Gap*</th>
 							<!-- <th class="py-2 px-2">Rank</th> -->
 							<th class="py-2 px-2">Classification</th>
 						</tr>
@@ -97,13 +97,14 @@
 				</table>
 			</div>
 			<p class="text-xs text-zinc-400 mt-2 italic">
-				* Access metric represents number of amenities per 1000 daily visits.
+				* The access metric represents number of available employees for the given amenity per 1000
+				daily visits. The higher the score, the more accessible the resource is relative to demand.
 			</p>
 
 			<div class="divider"></div>
 
 			<!-- Future Demand Section -->
-			<h4 class="font-bold text-md mt-10 mb-2">Additional Amenities Needed</h4>
+			<h4 class="font-bold text-md mt-10 mb-2">Future Investment Assessment</h4>
 			<div class="flex gap-1 mb-3">
 				{#each [['p50', '50th'], ['p75', '75th'], ['p90', '90th']] as [value, label]}
 					<button
@@ -124,13 +125,13 @@
 					<thead class="text-zinc-500 border-b bg-zinc-50">
 						<tr>
 							<th class="py-2 px-2">Amenity</th>
-							<th class="py-2 px-2">Scenario</th>
+							<th class="py-2 px-2">Priority</th>
 							<th class="py-2 px-2 text-right">Current <br />Count</th>
 							<!-- <th class="py-2 px-2 text-right">Curr. Demand</th>
                         <th class="py-2 px-2 text-right">Fut. Demand</th> -->
 							<th class="py-2 px-2 text-right">Additional <br /> Amenities</th>
 							<th class="py-2 px-2 text-right">Additional <br />Employees</th>
-							<th class="py-2 px-2 text-right">Additional <br />Visit Capacity</th>
+							<!-- <th class="py-2 px-2 text-right">Additional <br />Visit Capacity</th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -146,21 +147,25 @@
 																				: 'bg-green-100 text-green-700'
 																		}`}
 									>
-										{row.Access_Gap > 0 ? 'Maintain' : 'Catch Up'}
+										{row.Access_Gap > 0 ? 'Low' : 'High'}
 									</span>
 								</td>
 								<td class="py-2 px-2 text-right text-zinc-500"
 									>{stationCCcounts[row.Amenity].toFixed(0)}</td
 								>
 								<td class="py-2 px-2 text-right font-bold text-zinc-800">
-									+{Math.round(row.Amenities_Required).toLocaleString()}
+									{row.Amenities_Required === 0
+										? '-'
+										: `+${row.Amenities_Required.toFixed(1).toLocaleString()}`}
 								</td>
 								<td class="py-2 px-2 text-right font-bold text-zinc-800">
-									+{Math.round(row.Employees_Required).toLocaleString()}
+									{row.Employees_Required === 0
+										? '-'
+										: `+${row.Employees_Required.toFixed(1).toLocaleString()}`}
 								</td>
-								<td class="py-2 px-2 text-right font-bold text-zinc-800">
+								<!-- <td class="py-2 px-2 text-right font-bold text-zinc-800">
 									+{Math.round(row.Additional_Visits_Supported).toLocaleString()}
-								</td>
+								</td> -->
 							</tr>
 						{/each}
 					</tbody>

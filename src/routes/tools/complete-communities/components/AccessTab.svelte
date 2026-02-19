@@ -29,24 +29,23 @@
 		const p = ((sliderValues[0] - min) / (max - min)) * 100;
 		return Math.max(0, Math.min(100, p)); // Clamp between 0-100
 	});
-	let increase = $derived(sliderValues[0]);
-
-	let projectedVisits = $derived(() => {
-		let projectedVisits = futureVisits * futureDemand.Visits_per_Res;
-		return projectedVisits;
-	});
 
 	let filteredData = $derived(p50.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
+
+	let futureVisits = $derived(sliderValues[0]);
+
+	let projectedVisits = $derived.by(() => {
+		let projectedVisits = futureVisits * futureDemand.Visits_per_Res + futureDemand.Daily_Visits;
+		return projectedVisits;
+	});
+	console.log(projectedVisits);
+	console.log(p50);
 
 	// let baseData = $derived(
 	// 	selectedPercentile === 'p75' ? p75 : selectedPercentile === 'p90' ? p90 : p50
 	// );
 
 	// let demandTableData = $derived(baseData.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
-
-	// -- State --
-	let futureVisits = $derived(sliderValues[0]);
-	console.log(futureDemand);
 
 	// Fallback user Icon Path (mdi:account)
 	const userIconPath =
@@ -336,11 +335,11 @@
 					</div>
 				</div>
 
-				<!-- {#if increase > 0}
+				{#if projectedVisits > 0}
 					<div class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold mb-1">
-						+{Math.round(increase).toLocaleString()} increase
+						{Math.round(projectedVisits).toLocaleString()} total visitors
 					</div>
-				{/if} -->
+				{/if}
 			</div>
 
 			<div class="relative h-10 flex flex-col justify-center">
