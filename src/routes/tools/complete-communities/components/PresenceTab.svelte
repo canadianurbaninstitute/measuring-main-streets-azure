@@ -13,7 +13,6 @@
 	} from '../../../lib/data/transitdata/config.json';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../../lib/ui/GaugeMetric.svelte';
-	import RankMetric from '../../../lib/ui/RankMetric.svelte';
 	import TransitMetric from '../../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
@@ -30,9 +29,9 @@
 </script>
 
 <div class="tab-content">
-	<div class="metric-container mt-2">
+	<!-- <div class="metric-container mt-2">
 		<RankMetric label="Complete Communities Rank" value={stationCCpresence.cc_Rank} total="735" />
-	</div>
+	</div> -->
 	<div class="metric-container">
 		<GaugeMetric
 			label={Overall_score.label}

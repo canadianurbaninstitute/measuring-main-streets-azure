@@ -52,6 +52,17 @@
 	let stationCCcounts = $state({});
 	let stationCCpresence = $state({});
 	let stationVisitorData = $state({});
+	let p50map = $state(new Map());
+	let p75map = $state(new Map());
+	let p90map = $state(new Map());
+	let futureDemandMap = $state(new Map());
+
+	let p50current = $derived(selectedStation?.id ? p50map.get(selectedStation.id) : undefined);
+	let p75current = $derived(selectedStation?.id ? p75map.get(selectedStation.id) : undefined);
+	let p90current = $derived(selectedStation?.id ? p90map.get(selectedStation.id) : undefined);
+	let futureDemandCurrent = $derived(
+		selectedStation?.id ? futureDemandMap.get(selectedStation.id) : undefined
+	);
 
 	let selectedVariable = $state(null);
 	let min = $state(0);
@@ -82,122 +93,8 @@
 	let sliderValues = $state([0]);
 	let futureVisits = $derived(sliderValues[0]);
 
-	// Init slider when station changes
-	$effect(() => {
-		if (stationVisitorData && stationVisitorData[Daily_Visits.key]) {
-			sliderValues = [Math.round(stationVisitorData[Daily_Visits.key])];
-		}
-	});
-
 	let visitorCount = $derived(
 		stationVisitorData ? Math.round(stationVisitorData[Daily_Visits.key] || 0) : 0
-	);
-
-	// Initialize futureVisits with current visits when station changes
-	$effect(() => {
-		if (stationVisitorData && stationVisitorData[Daily_Visits.key]) {
-			sliderValues = [Math.round(stationVisitorData[Daily_Visits.key])];
-		}
-	});
-
-	// placeholder data
-	const MTSA_AVERAGES = {
-		Supermarket: 5.2,
-		Pharmacy: 2.67,
-		Restaurants: 14.02,
-		'Community Centres': 1.5,
-		Childcare: 3.0,
-		Libraries: 0.8,
-		'Convenience Store': 4.0,
-		'Physicians Office': 6.5,
-		'Dentist Office': 6.0,
-		'Personal and Commercial Banking': 4.5
-	};
-
-	// Current Level of Access
-	let currentAccessData = $derived(
-		(tier === 'tier1' ? TIER_1_AMENITIES : TIER_2_AMENITIES).map((key) => {
-			const accessStr =
-				stationCCcounts[key.label] !== 0
-					? (stationCCcounts[key.label] / stationVisitorData[Daily_Visits.key]) * 100000
-					: 0; // protect against division by zero
-			const access = typeof accessStr === 'number' ? accessStr : parseFloat(accessStr || '0');
-			const status = access > 0 ? 'Present' : 'Absent';
-			const mtsaAvg = MTSA_AVERAGES[key.label] || 1.0;
-			let ratio = 0;
-			let ratioDisplay = 'N/A';
-
-			if (status === 'Present') {
-				ratio = access / mtsaAvg;
-				ratioDisplay = ratio.toFixed(2);
-			}
-
-			const classification = getClassification(ratio, status);
-			const rank = 'N/A'; // Placeholder
-
-			return {
-				amenity: key.label,
-				status,
-				access,
-				mtsaAvg,
-				ratio,
-				ratioDisplay,
-				rank,
-				classification
-			};
-		})
-	);
-
-	let futureDemandData = $derived(
-		currentAccessData.map((item) => {
-			const { amenity, status, access, mtsaAvg, classification } = item;
-
-			// Scenario Logic
-			// "Catch up" if Below Avg (Current < MTSA)
-			// "Maintain" if Adequate or Excellent (Current >= MTSA)
-			// "Critical Gap" if Absent
-
-			let scenario = '';
-			let desiredAccess = 0;
-			let additionalResources = 0;
-
-			if (status === 'Absent') {
-				scenario = 'Critical Gap';
-				desiredAccess = mtsaAvg;
-				additionalResources = mtsaAvg * (futureVisits / 100000);
-			} else if (access < mtsaAvg) {
-				scenario = 'Catch Up';
-				desiredAccess = mtsaAvg;
-
-				// Catch up means we want to reach the MTSA Average for the Future population
-				// Total Needed = Desired * (Future / 1000)
-				// Existing Capacity (approx) = CurrentAccess * (CurrentVisits / 1000)
-				// Gap = Total Needed - Existing Capacity
-				// User Ex: Grocery (Catch up). Current 3.9, Desired 5.20. Visits 20k -> 25k. Added = 52.
-				const totalNeeded = desiredAccess * (futureVisits / 100000);
-				const currentCapacity = access * (visitorCount / 100000);
-				additionalResources = totalNeeded - currentCapacity;
-			} else {
-				// Maintain or Excellent
-				scenario = 'Maintain';
-				desiredAccess = access; // Maintain current standard
-
-				// Formula: CurrentAccess * (Future - Current) / 1000
-				// User Ex: Pharmacy (Maintain). 2.8 -> 2.8. 20k->25k. Added 14.
-				const growth = futureVisits - visitorCount;
-				additionalResources = desiredAccess * (growth / 100000);
-			}
-
-			return {
-				amenity,
-				scenario,
-				currentAccess: access,
-				desiredAccess,
-				currentDemand: visitorCount,
-				futureDemand: futureVisits,
-				additionalResources: Math.max(0, additionalResources)
-			};
-		})
 	);
 
 	let missingTier1 = $derived(
@@ -459,27 +356,49 @@
 	// --- Svelte Lifecycle: onMount (Map Initialization) ---
 	onMount(async () => {
 		try {
-			const [stationsRes, regionsRes, ccCountsRes, ccPresenceRes, visitorRes, aiRes] =
-				await Promise.all([
-					fetch(
-						'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
-					),
-					fetch(
-						'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit_regions/transit-regions.json'
-					),
-					fetch(
-						'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_counts.json'
-					),
-					fetch(
-						'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_presence.json'
-					),
-					fetch(
-						'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/visitor_data.json'
-					),
-					fetch(
-						'https://measuringmainstreets.blob.core.windows.net/public/transit-data/ai_descriptions.json'
-					)
-				]);
+			const [
+				stationsRes,
+				regionsRes,
+				ccCountsRes,
+				ccPresenceRes,
+				visitorRes,
+				aiRes,
+				futureDemandRes,
+				p50Res,
+				p75Res,
+				p90Res
+			] = await Promise.all([
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/transit_regions/transit-regions.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_counts.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_presence.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/visitor_data.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/ai_descriptions.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/future_demand_conversion.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/threshold_current_p50.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/threshold_current_p75.json'
+				),
+				fetch(
+					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/threshold_current_p90.json'
+				)
+			]);
 
 			stationRawData = await stationsRes.json();
 			transitRegionsRawData = await regionsRes.json();
@@ -487,6 +406,29 @@
 			completeCommunityPresence = await ccPresenceRes.json();
 			visitorData = await visitorRes.json();
 			aiDescriptions = await aiRes.json();
+			const futureDemand = await futureDemandRes.json();
+			const p50 = await p50Res.json();
+			const p75 = await p75Res.json();
+			const p90 = await p90Res.json();
+
+			// Index for faster lookup
+			p50map = p50.reduce((map, item) => {
+				if (!map.has(item.id)) map.set(item.id, []);
+				map.get(item.id)!.push(item);
+				return map;
+			}, new Map<string, any[]>());
+			p75map = p75.reduce((map, item) => {
+				if (!map.has(item.id)) map.set(item.id, []);
+				map.get(item.id)!.push(item);
+				return map;
+			}, new Map<string, any[]>());
+			p90map = p90.reduce((map, item) => {
+				if (!map.has(item.id)) map.set(item.id, []);
+				map.get(item.id)!.push(item);
+				return map;
+			}, new Map<string, any[]>());
+
+			futureDemandMap = new Map(futureDemand.map((d) => [d.id, d]));
 
 			regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -568,13 +510,14 @@
 						<Tabs.Content value="access" class="tab-button">
 							{#if activeTab === 'access'}
 								<!-- Simplified Sidebar for Access: just presence stats -->
+								{futureDemandProjection()}
 								<AccessTab
 									bind:sliderValues
 									bind:tier
-									{currentAccessData}
-									{futureDemandData}
+									futureDemand={futureDemandCurrent}
 									{visitorCount}
 									{selectedStation}
+									p50={p50current}
 									{stationVisitorData}
 									{stationCCcounts}
 									{stationCCpresence}
@@ -623,8 +566,10 @@
 				{stationCCcounts}
 				{selectedStation}
 				bind:sliderValues
-				{currentAccessData}
-				{futureDemandData}
+				p50={p50current}
+				p75={p75current}
+				p90={p90current}
+				futureDemand={futureDemandCurrent}
 				bind:map
 				bind:tier
 				{mapCenter}

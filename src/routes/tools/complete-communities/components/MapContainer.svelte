@@ -37,7 +37,10 @@
 		processedStationData,
 		selectStop,
 		selectRegion,
-		regionsData
+		regionsData,
+		p50,
+		p75,
+		p90
 	} = $props();
 
 	// --- Mapbox Access Token ---
@@ -46,6 +49,8 @@
 
 	const DEFAULT_T1_COLOR = '#003f5e';
 	const DEFAULT_T2_COLOR = '#2a5cac';
+
+	let selectedPercentile = $state('p50');
 
 	let colorExpression = $derived.by(() => {
 		const isTier1 = tier === 'tier1';
@@ -454,6 +459,10 @@
 	{#if activeTab === 'access' && selectedStation?.id !== null}
 		<!-- Overlay Chart -->
 		<AccessChartOverlay
+			{p50}
+			{p75}
+			{p90}
+			bind:selectedPercentile
 			{stationCCcounts}
 			{currentAccessData}
 			{futureDemandData}

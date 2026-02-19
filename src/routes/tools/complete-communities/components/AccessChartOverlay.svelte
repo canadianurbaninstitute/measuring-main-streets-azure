@@ -1,15 +1,28 @@
 <script lang="ts">
 	import { cubicInOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
+
 	let {
 		currentAccessData,
+		p50,
+		p75,
+		p90,
 		tier = $bindable('tier1'),
 		futureDemandData,
 		stationCCcounts,
-		sliderValues = $bindable([0])
+		sliderValues = $bindable([0]),
+		selectedPercentile = $bindable('p50')
 	} = $props();
 
 	let isOpen = $state(false);
+
+	let accessTableData = $derived(p50.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
+
+	let baseData = $derived(
+		selectedPercentile === 'p75' ? p75 : selectedPercentile === 'p90' ? p90 : p50
+	);
+
+	let demandTableData = $derived(baseData.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
 </script>
 
 <div
@@ -28,7 +41,7 @@
 	</div>
 
 	{#if isOpen}
-		<div transition:slide={{ duration: 600, easing: cubicInOut }} class="space-y-4">
+		<div transition:slide={{ duration: 600, easing: cubicInOut }} class="space-y-4 pb-30">
 			<h4 class="my-3">Current Level of Access</h4>
 			<div class="overflow-x-auto">
 				<table class="w-full text-sm text-left whitespace-nowrap">
@@ -37,41 +50,45 @@
 							<th class="py-2 px-2">Amenity</th>
 							<th class="py-2 px-2">Status</th>
 							<th class="py-2 px-2 text-right">Access</th>
-							<th class="py-2 px-2 text-right">MTSA Avg</th>
-							<th class="py-2 px-2 text-right">Ratio</th>
+							<th class="py-2 px-2 text-right">MTSA Median</th>
+							<th class="py-2 px-2 text-right">Access Gap</th>
 							<!-- <th class="py-2 px-2">Rank</th> -->
 							<th class="py-2 px-2">Classification</th>
 						</tr>
 					</thead>
 					<tbody>
-						{#each currentAccessData as row}
+						{#each accessTableData as row}
 							<tr class="border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
-								<td class="py-2 px-2 font-medium">{row.amenity}</td>
+								<td class="py-2 px-2 font-medium">{row.Amenity}</td>
 								<td class="py-2 px-2">
 									<span
 										class={`px-2 py-0.5 rounded-full text-xs font-medium 
-                                    ${row.status === 'Absent' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}
+                                    ${row.Amenity_Status === 'Absent' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}
 									>
-										{row.status}
+										{row.Amenity_Status}
 									</span>
 								</td>
-								<td class="py-2 px-2 text-right">{row.access.toFixed(1)}</td>
-								<td class="py-2 px-2 text-right text-zinc-500">{row.mtsaAvg.toFixed(2)}</td>
-								<td class="py-2 px-2 text-right">{row.ratioDisplay}</td>
+								<td class="py-2 px-2 text-right">{row.Access_per_1000.toFixed(1)}</td>
+								<td class="py-2 px-2 text-right text-zinc-500">{row.MTSA_med.toFixed(1)}</td>
+								<td class="py-2 px-2 text-right">{row.Access_Gap.toFixed(1)}</td>
 								<!-- <td class="py-2 px-2 text-zinc-400">{row.rank}</td> -->
 								<td class="py-2 px-2">
 									<span
-										class={`font-medium ${
-											row.classification === 'Critical Gap'
-												? 'text-red-600'
-												: row.classification === 'Excellent'
-													? 'text-green-600'
-													: row.classification === 'Below Avg'
-														? 'text-orange-600'
-														: 'text-zinc-700'
+										class={`px-2 py-0.5 rounded-full text-xs text-right font-medium ${
+											row.Amenity_Status === 'Absent'
+												? 'text-red-600 bg-red-100'
+												: row.Access_Gap > 0
+													? 'text-green-600 bg-green-100'
+													: row.Access_Gap < 0
+														? 'text-orange-600 bg-orange-100'
+														: 'text-zinc-700 bg-zinc-100'
 										}`}
 									>
-										{row.classification}
+										{#if row.Amenity_Status === 'Absent'}
+											{'Critical Gap'}
+										{:else}
+											{row.Access_Gap > 0 ? 'Above Average' : 'Below Average'}
+										{/if}
 									</span>
 								</td>
 							</tr>
@@ -80,61 +97,75 @@
 				</table>
 			</div>
 			<p class="text-xs text-zinc-400 mt-2 italic">
-				* Access metric represents number of amenities per 100,000 daily visits. MTSA average is
-				based on placeholder values.
+				* Access metric represents number of amenities per 1000 daily visits.
 			</p>
-		</div>
 
-		<div class="divider"></div>
+			<div class="divider"></div>
 
-		<!-- Future Demand Section -->
-		<h4 class="font-bold text-md mt-10 mb-2">Additional Amenities Needed</h4>
-		<div class="overflow-x-auto">
-			<table class="w-full text-sm text-left whitespace-nowrap">
-				<thead class="text-zinc-500 border-b bg-zinc-50">
-					<tr>
-						<th class="py-2 px-2">Amenity</th>
-						<th class="py-2 px-2">Scenario</th>
-						<th class="py-2 px-2 text-right">Curr. Access</th>
-						<th class="py-2 px-2 text-right">Desired Access</th>
-						<th class="py-2 px-2 text-right">Curr. Count</th>
-						<!-- <th class="py-2 px-2 text-right">Curr. Demand</th>
+			<!-- Future Demand Section -->
+			<h4 class="font-bold text-md mt-10 mb-2">Additional Amenities Needed</h4>
+			<div class="flex gap-1 mb-3">
+				{#each [['p50', '50th'], ['p75', '75th'], ['p90', '90th']] as [value, label]}
+					<button
+						onclick={() => (selectedPercentile = value)}
+						class={`px-3 py-1 rounded-full text-xs font-medium border transition-colors
+										${
+											selectedPercentile === value
+												? 'bg-blue-500 text-white border-blue-500'
+												: 'bg-white text-zinc-600 border-zinc-300 hover:border-zinc-400'
+										}`}
+					>
+						{label} Percentile
+					</button>
+				{/each}
+			</div>
+			<div class="overflow-x-auto">
+				<table class="w-full text-sm text-left whitespace-nowrap">
+					<thead class="text-zinc-500 border-b bg-zinc-50">
+						<tr>
+							<th class="py-2 px-2">Amenity</th>
+							<th class="py-2 px-2">Scenario</th>
+							<th class="py-2 px-2 text-right">Current <br />Count</th>
+							<!-- <th class="py-2 px-2 text-right">Curr. Demand</th>
                         <th class="py-2 px-2 text-right">Fut. Demand</th> -->
-						<th class="py-2 px-2 text-right">Additional</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each futureDemandData as row}
-						<tr class="border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
-							<td class="py-2 px-2 font-medium">{row.amenity}</td>
-							<td class="py-2 px-2">
-								<span
-									class={`px-2 py-0.5 rounded-full text-xs 
-                                    ${
-																			row.scenario === 'Critical Gap'
-																				? 'bg-red-100 text-red-700'
-																				: row.scenario === 'Catch Up'
-																					? 'bg-orange-100 text-orange-700'
-																					: 'bg-blue-100 text-blue-700'
-																		}`}
-								>
-									{row.scenario}
-								</span>
-							</td>
-							<td class="py-2 px-2 text-right text-zinc-500">{row.currentAccess.toFixed(1)}</td>
-							<td class="py-2 px-2 text-right font-medium">{row.desiredAccess.toFixed(2)}</td>
-							<!-- <td class="py-2 px-2 text-right text-zinc-400">{row.currentDemand.toLocaleString()}</td>
-								<td class="py-2 px-2 text-right text-zinc-400">{row.futureDemand.toLocaleString()}</td> -->
-							<td class="py-2 px-2 text-right text-zinc-500"
-								>{stationCCcounts[row.amenity].toFixed(1)}</td
-							>
-							<td class="py-2 px-2 text-right font-bold text-zinc-800">
-								+{Math.round(row.additionalResources).toLocaleString()}
-							</td>
+							<th class="py-2 px-2 text-right">Additional <br /> Amenities</th>
+							<th class="py-2 px-2 text-right">Additional <br />Employees</th>
+							<th class="py-2 px-2 text-right">Additional <br />Visit Capacity</th>
 						</tr>
-					{/each}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{#each demandTableData as row}
+							<tr class="border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
+								<td class="py-2 px-2 font-medium">{row.Amenity}</td>
+								<td class="py-2 px-2">
+									<span
+										class={`px-2 py-0.5 rounded-full text-xs 
+                                    ${
+																			row.Access_Gap < 0
+																				? 'bg-red-100 text-red-700'
+																				: 'bg-green-100 text-green-700'
+																		}`}
+									>
+										{row.Access_Gap > 0 ? 'Maintain' : 'Catch Up'}
+									</span>
+								</td>
+								<td class="py-2 px-2 text-right text-zinc-500"
+									>{stationCCcounts[row.Amenity].toFixed(0)}</td
+								>
+								<td class="py-2 px-2 text-right font-bold text-zinc-800">
+									+{Math.round(row.Amenities_Required).toLocaleString()}
+								</td>
+								<td class="py-2 px-2 text-right font-bold text-zinc-800">
+									+{Math.round(row.Employees_Required).toLocaleString()}
+								</td>
+								<td class="py-2 px-2 text-right font-bold text-zinc-800">
+									+{Math.round(row.Additional_Visits_Supported).toLocaleString()}
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	{/if}
 </div>

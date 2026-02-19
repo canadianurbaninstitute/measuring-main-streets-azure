@@ -11,6 +11,8 @@
 		stationVisitorData,
 		stationCCcounts,
 		stationCCpresence,
+		futureDemand,
+		p50,
 		tier = $bindable('tier1'),
 		sliderValues = $bindable([0])
 	} = $props();
@@ -20,17 +22,31 @@
 	let tooltip = $state();
 	let width = $state(0);
 
-	let min = $derived(visitorCount);
-	let max = $derived(Math.max(visitorCount + 50000, 5000));
+	let min = 0;
+	let max = 10000;
 	let percent = $derived.by(() => {
 		if (max === min) return 0;
 		const p = ((sliderValues[0] - min) / (max - min)) * 100;
 		return Math.max(0, Math.min(100, p)); // Clamp between 0-100
 	});
-	let increase = $derived(sliderValues[0] - visitorCount);
+	let increase = $derived(sliderValues[0]);
+
+	let projectedVisits = $derived(() => {
+		let projectedVisits = futureVisits * futureDemand.Visits_per_Res;
+		return projectedVisits;
+	});
+
+	let filteredData = $derived(p50.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
+
+	// let baseData = $derived(
+	// 	selectedPercentile === 'p75' ? p75 : selectedPercentile === 'p90' ? p90 : p50
+	// );
+
+	// let demandTableData = $derived(baseData.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
 
 	// -- State --
 	let futureVisits = $derived(sliderValues[0]);
+	console.log(futureDemand);
 
 	// Fallback user Icon Path (mdi:account)
 	const userIconPath =
@@ -39,12 +55,12 @@
 	function updateChart() {
 		untrack(() => {
 			if (!chart || !width) return;
-			const data = futureDemandData;
+			const data = filteredData;
 
 			// --- 1. DYNAMIC WIDTH CALCULATION ---
-			const maxLabelCharCount = d3.max(data, (d) => d.amenity.length) || 0;
-			const calculatedLeftMargin = Math.min(width * 0.4, maxLabelCharCount * 7 + 20);
-			const margin = { top: 60, right: 60, bottom: 40, left: calculatedLeftMargin };
+			const maxLabelCharCount = d3.max(data, (d) => d.Amenity.length) || 0;
+			const calculatedLeftMargin = Math.min(width * 0.5, maxLabelCharCount * 4);
+			const margin = { top: 80, right: -10, bottom: 40, left: calculatedLeftMargin };
 			const chartWidth = width - margin.left - margin.right;
 
 			// How many icons can we fit? (Assuming ~18px per icon + spacing)
@@ -55,8 +71,8 @@
 			// Find the row with the absolute highest number of resources
 			const absoluteMaxVal =
 				d3.max(data, (d) => {
-					const current = Math.round(d.currentAccess * (visitorCount / 100000));
-					const needed = Math.ceil(d.additionalResources);
+					const current = stationCCcounts[d.Amenity];
+					const needed = d.Amenities_Required;
 					return current + needed;
 				}) || 1;
 
@@ -79,11 +95,11 @@
 			const y = d3
 				.scaleBand()
 				.range([margin.top, height - margin.bottom])
-				.domain(data.map((d) => d.amenity))
+				.domain(data.map((d) => d.Amenity))
 				.padding(0.2);
 
 			// --- 4. DRAW ROWS ---
-			const rows = svg.selectAll('.amenity-row').data(data, (d: any) => d.amenity);
+			const rows = svg.selectAll('.amenity-row').data(data, (d: any) => d.Amenity);
 			const rowsEnter = rows.enter().append('g').attr('class', 'amenity-row');
 
 			rowsEnter
@@ -98,13 +114,13 @@
 
 			const rowsMerged = rowsEnter
 				.merge(rows as any)
-				.attr('transform', (d: any) => `translate(${margin.left}, ${y(d.amenity)})`);
+				.attr('transform', (d: any) => `translate(${margin.left}, ${y(d.Amenity)})`);
 
 			const CHAR_LIMIT = 20; // Adjust this based on your sidebar width
 
 			rowsMerged.select('.row-label').each(function (d) {
 				const el = d3.select(this);
-				const fullText = d.amenity;
+				const fullText = d.Amenity;
 
 				// Truncate logic
 				const displayedText =
@@ -119,11 +135,11 @@
 
 			rowsMerged.each(function (d, rowIndex) {
 				const g = d3.select(this);
-				const iconPath = AMENITY_PATHS[d.amenity] || userIconPath;
+				const iconPath = AMENITY_PATHS[d.Amenity] || userIconPath;
 
 				// 1. Math - Calculate icon counts as decimals
-				const iconsCurrent = (d.currentAccess * (visitorCount / 100000)) / globalUnitsPerIcon;
-				const iconsTotal = iconsCurrent + d.additionalResources / globalUnitsPerIcon;
+				const iconsCurrent = (stationCCcounts[d.Amenity] || 0) / globalUnitsPerIcon;
+				const iconsTotal = iconsCurrent + d.Amenities_Required / globalUnitsPerIcon;
 				const totalDisplayCount = Math.ceil(iconsTotal);
 
 				// 2. Setup Defs for unique clipping
@@ -196,7 +212,7 @@
 
 				const badge = g
 					.selectAll('.need-badge')
-					.data(d.additionalResources > 0 ? [Math.round(d.additionalResources)] : []);
+					.data(d.Amenities_Required > 0 ? [Math.ceil(d.Amenities_Required)] : []);
 				badge.exit().remove();
 				badge
 					.enter()
@@ -224,12 +240,12 @@
 
 			// Legend Data - defining offsets relative to the center
 			const legendItems = [
-				{ label: 'Current', color: '#00adf2', x: -110 },
-				{ label: 'Additional Need', color: '#db3069', x: -20 },
+				{ label: 'Current', color: '#00adf2', y: 0 },
+				{ label: 'Additional Need', color: '#db3069', y: 20 },
 				{
 					label: globalUnitsPerIcon > 1 ? `(1 icon = ${globalUnitsPerIcon} amenities)` : '',
 					color: '#9ca3af',
-					x: 90,
+					y: 40,
 					isNote: true
 				}
 			];
@@ -250,7 +266,11 @@
 			const itemsMerged = itemsEnter.merge(items as any);
 
 			// Update positions and values
-			itemsMerged.attr('transform', (d) => `translate(${d.x}, 0)`);
+			// Position legend at top-left of chart area
+			legend.attr('transform', `translate(${margin.left}, 20)`);
+
+			// Use y offset for stacking
+			itemsMerged.attr('transform', (d) => `translate(0, ${d.y})`);
 
 			itemsMerged
 				.select('circle')
@@ -270,7 +290,7 @@
 
 	$effect(() => {
 		const currentTier = tier;
-		const data = futureDemandData;
+		const data = p50;
 		const currentVal = sliderValues[0];
 		const isOpened = isOpen;
 
@@ -309,18 +329,18 @@
 			<div class="mb-6 flex items-end justify-between">
 				<div>
 					<label class="block text-xs font-bold uppercase tracking-wider text-zinc-500">
-						Projected Daily Visits
+						Additional Residents
 					</label>
 					<div class="text-2xl font-mono font-black text-blue-600">
 						{Math.round(sliderValues[0]).toLocaleString()}
 					</div>
 				</div>
 
-				{#if increase > 0}
+				<!-- {#if increase > 0}
 					<div class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold mb-1">
 						+{Math.round(increase).toLocaleString()} increase
 					</div>
-				{/if}
+				{/if} -->
 			</div>
 
 			<div class="relative h-10 flex flex-col justify-center">
