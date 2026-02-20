@@ -17,7 +17,7 @@
 	import Legend from './Legend.svelte';
 	let {
 		selectedVariable,
-		currentAccessData,
+		computedAmenities,
 		stationCCcounts,
 		selectedStation,
 		min,
@@ -31,16 +31,12 @@
 		map = $bindable(),
 		tier = $bindable(),
 		sliderValues = $bindable(),
-		futureDemandData,
 		mapCenter,
 		defaultZoom,
 		processedStationData,
 		selectStop,
 		selectRegion,
-		regionsData,
-		p50,
-		p75,
-		p90
+		regionsData
 	} = $props();
 
 	// --- Mapbox Access Token ---
@@ -51,6 +47,7 @@
 	const DEFAULT_T2_COLOR = '#2a5cac';
 
 	let selectedPercentile = $state('p50');
+	let legendHeight = $state(0);
 
 	let colorExpression = $derived.by(() => {
 		const isTier1 = tier === 'tier1';
@@ -456,20 +453,6 @@
 </script>
 
 <div id="map-container">
-	{#if activeTab === 'access' && selectedStation?.id !== null}
-		<!-- Overlay Chart -->
-		<AccessChartOverlay
-			{p50}
-			{p75}
-			{p90}
-			bind:selectedPercentile
-			{stationCCcounts}
-			{currentAccessData}
-			{futureDemandData}
-			bind:tier
-			bind:sliderValues
-		/>
-	{/if}
 	<div id="map"></div>
 	<Legend
 		{map}
@@ -482,6 +465,17 @@
 		{max}
 		bind:expandedTier={tier}
 	/>
+	{#if activeTab === 'access' && selectedStation?.id !== null}
+		<!-- Overlay Chart -->
+		<AccessChartOverlay
+			{legendHeight}
+			{computedAmenities}
+			bind:selectedPercentile
+			{stationCCcounts}
+			bind:tier
+			bind:sliderValues
+		/>
+	{/if}
 </div>
 
 <style>

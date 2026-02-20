@@ -4,15 +4,9 @@
 	import { AMENITY_PATHS } from '../../../lib/data/transitdata/complete-communities-config';
 
 	let {
-		selectedStation,
-		visitorCount,
-		futureDemandData,
-		currentAccessData,
-		stationVisitorData,
 		stationCCcounts,
-		stationCCpresence,
-		futureDemand,
-		p50,
+		computedAmenities,
+		projectedVisits,
 		tier = $bindable('tier1'),
 		sliderValues = $bindable([0])
 	} = $props();
@@ -23,23 +17,12 @@
 	let width = $state(0);
 
 	let min = 0;
-	let max = 10000;
+	let max = 50000;
 	let percent = $derived.by(() => {
 		if (max === min) return 0;
 		const p = ((sliderValues[0] - min) / (max - min)) * 100;
 		return Math.max(0, Math.min(100, p)); // Clamp between 0-100
 	});
-
-	let filteredData = $derived(p50.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
-
-	let futureVisits = $derived(sliderValues[0]);
-
-	let projectedVisits = $derived.by(() => {
-		let projectedVisits = futureVisits * futureDemand.Visits_per_Res + futureDemand.Daily_Visits;
-		return projectedVisits;
-	});
-	console.log(projectedVisits);
-	console.log(p50);
 
 	// let baseData = $derived(
 	// 	selectedPercentile === 'p75' ? p75 : selectedPercentile === 'p90' ? p90 : p50
@@ -54,11 +37,11 @@
 	function updateChart() {
 		untrack(() => {
 			if (!chart || !width) return;
-			const data = filteredData;
+			const data = computedAmenities;
 
 			// --- 1. DYNAMIC WIDTH CALCULATION ---
 			const maxLabelCharCount = d3.max(data, (d) => d.Amenity.length) || 0;
-			const calculatedLeftMargin = Math.min(width * 0.5, maxLabelCharCount * 4);
+			const calculatedLeftMargin = Math.min(width * 0.5, maxLabelCharCount * 5.25);
 			const margin = { top: 80, right: -10, bottom: 40, left: calculatedLeftMargin };
 			const chartWidth = width - margin.left - margin.right;
 
@@ -71,7 +54,7 @@
 			const absoluteMaxVal =
 				d3.max(data, (d) => {
 					const current = stationCCcounts[d.Amenity];
-					const needed = d.Amenities_Required;
+					const needed = d.newAmenitiesRequired;
 					return current + needed;
 				}) || 1;
 
@@ -138,7 +121,7 @@
 
 				// 1. Math - Calculate icon counts as decimals
 				const iconsCurrent = (stationCCcounts[d.Amenity] || 0) / globalUnitsPerIcon;
-				const iconsTotal = iconsCurrent + d.Amenities_Required / globalUnitsPerIcon;
+				const iconsTotal = iconsCurrent + d.newAmenitiesRequired / globalUnitsPerIcon;
 				const totalDisplayCount = Math.ceil(iconsTotal);
 
 				// 2. Setup Defs for unique clipping
@@ -211,7 +194,7 @@
 
 				const badge = g
 					.selectAll('.need-badge')
-					.data(d.Amenities_Required > 0 ? [Math.ceil(d.Amenities_Required)] : []);
+					.data(d.newAmenitiesRequired > 0 ? [Math.ceil(d.newAmenitiesRequired)] : []);
 				badge.exit().remove();
 				badge
 					.enter()
@@ -242,7 +225,7 @@
 				{ label: 'Current', color: '#00adf2', y: 0 },
 				{ label: 'Additional Need', color: '#db3069', y: 20 },
 				{
-					label: globalUnitsPerIcon > 1 ? `(1 icon = ${globalUnitsPerIcon} amenities)` : '',
+					label: globalUnitsPerIcon > 0 ? `(1 icon = ${globalUnitsPerIcon} amenities)` : '',
 					color: '#9ca3af',
 					y: 40,
 					isNote: true
@@ -289,7 +272,7 @@
 
 	$effect(() => {
 		const currentTier = tier;
-		const data = p50;
+		const data = computedAmenities;
 		const currentVal = sliderValues[0];
 		const isOpened = isOpen;
 
@@ -405,11 +388,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-	}
-	.divider {
-		height: 1px;
-		background-color: #eee;
-		width: 100%;
 	}
 	.section {
 		width: 100%;

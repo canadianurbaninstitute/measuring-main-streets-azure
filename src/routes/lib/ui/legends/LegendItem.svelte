@@ -20,6 +20,7 @@
 		featuretype = 'circle',
 		filterProperty,
 		filterValue, // target opacity if the layer is switched back on
+		baseFilter = null, //used if there are default layers that need to be hidden
 		useFilter = false,
 		toggledValues = $bindable(), // needed to keep track of toggled values in the parent when using paint property toggling; necessary if a 'within' filter is already being used
 		section = undefined,
@@ -116,6 +117,7 @@
 
 	function updateOpacity() {
 		const conditions = [];
+		if (baseFilter) conditions.push(baseFilter);
 
 		for (const [prop, values] of Object.entries(toggledValues)) {
 			if (values.length > 0) {

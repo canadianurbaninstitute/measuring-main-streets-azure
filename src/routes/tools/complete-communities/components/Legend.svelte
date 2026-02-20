@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import {
-		AMENITY_ICONS,
 		AMENITY_SPRITES,
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
@@ -109,148 +108,205 @@
 		</div>
 	{/if}
 
-	<!-- {#if activeTab === 'access'}
-		<Accordion>
+	{#if activeTab !== 'access'}
+		<Accordion open={selectedStation ? true : false}>
 			<div class="inline-header" slot="header">
 				<div class="text-sm inline-header">
-					Employer Type<Icon icon="iconoir:nav-arrow-down" />
+					Complete Community Amenities <Icon icon="iconoir:nav-arrow-down" />
 				</div>
 			</div>
 			<div class="accordion-body" slot="body">
-				<div class="text-xs mb-3 italic">by Complete Community Tier</div>
-				<LegendItem
-					{map}
-					bind:toggledValues
-					variant="circle"
-					label="Core Amenity"
-					bgcolor="#db3069"
-					bordercolor="#fff"
-					button={true}
-					useFilter={true}
-					filterProperty="Tier"
-					filterValue={1}
-					id="employment-size"
-				/>
-				<LegendItem
-					{map}
-					bind:toggledValues
-					variant="circle"
-					label="Additional Amenity"
-					bgcolor="#2a5cac"
-					bordercolor="#fff"
-					button={true}
-					useFilter={true}
-					filterProperty="Tier"
-					filterValue={2}
-					id="employment-size"
-				/>
+				<div class="text-xs mb-2"><i>Click on a layer to turn it on or off</i></div>
+
+				<Accordion open={expandedTier === 'tier1'} onToggle={() => setExpandedTier('tier1')}>
+					<div
+						slot="header"
+						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
+					>
+						Core Amenities<Icon icon="iconoir:nav-arrow-down" />
+					</div>
+					<div slot="body" class="p-1">
+						<LegendItem
+							{map}
+							bind:toggledValues
+							id="complete-community-amenities"
+							variant="circle"
+							featuretype="icon"
+							label="Toggle All Core Amenities"
+							bgcolor="#003f5e"
+							bordercolor="#fff"
+							button={true}
+							useFilter={true}
+							filterProperty="Group Name"
+							filterValue={TIER_1_AMENITIES.map((a) => a.label)}
+						/>
+						{#each TIER_1_AMENITIES as amenity}
+							<LegendItem
+								{map}
+								bind:toggledValues
+								variant="circle"
+								featuretype="icon"
+								label={amenity.label}
+								bgcolor={amenity.color}
+								bordercolor="#fff"
+								button={true}
+								disabled={missingTier1.includes(amenity)}
+								useFilter={true}
+								baseFilter={['!', ['in', ['get', 'Tier'], ['literal', [1, 2]]]]}
+								filterProperty="Group Name"
+								filterValue={amenity.label}
+								id="complete-community-amenities"
+							/>
+						{/each}
+					</div>
+				</Accordion>
+				<Accordion open={expandedTier === 'tier2'} onToggle={() => setExpandedTier('tier2')}>
+					<div
+						slot="header"
+						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
+					>
+						Additional Amenities<Icon icon="iconoir:nav-arrow-down" />
+					</div>
+					<div slot="body" class="p-1">
+						<LegendItem
+							{map}
+							bind:toggledValues
+							id="complete-community-amenities"
+							variant="circle"
+							featuretype="icon"
+							label="Toggle All Additional Amenities"
+							bgcolor="#2a5cac"
+							bordercolor="#fff"
+							button={true}
+							useFilter={true}
+							filterProperty="Group Name"
+							filterValue={TIER_2_AMENITIES.map((a) => a.label)}
+						/>
+						{#each TIER_2_AMENITIES as amenity}
+							<LegendItem
+								{map}
+								bind:toggledValues
+								variant="circle"
+								featuretype="icon"
+								label={amenity.label}
+								bgcolor={amenity.color}
+								bordercolor="#fff"
+								button={true}
+								disabled={missingTier2.includes(amenity)}
+								useFilter={true}
+								filterProperty="Group Name"
+								filterValue={amenity.label}
+								id="complete-community-amenities"
+							/>
+						{/each}
+					</div></Accordion
+				>
 				<div class="text-sm italic mt-3">Number of Employees</div>
 				<div class="mx-1">
 					<img src="/employmentsizelegend.svg" alt="Employment size legend" />
 				</div>
 			</div>
 		</Accordion>
-	{/if} -->
-
-	<Accordion open={selectedStation ? true : false}>
-		<div class="inline-header" slot="header">
-			<div class="text-sm inline-header">
-				Complete Community Amenities <Icon icon="iconoir:nav-arrow-down" />
+	{/if}
+	{#if activeTab === 'access'}
+		<Accordion open={selectedStation ? true : false}>
+			<div class="inline-header" slot="header">
+				<div class="text-sm inline-header">
+					Complete Community Amenities <Icon icon="iconoir:nav-arrow-down" />
+				</div>
 			</div>
-		</div>
-		<div class="accordion-body" slot="body">
-			<div class="text-xs mb-2"><i>Click on a layer to turn it on or off</i></div>
+			<div class="accordion-body" slot="body">
+				<div class="text-xs mb-2"><i>Click on a layer to turn it on or off</i></div>
 
-			<!-- Tier 1 Section -->
-			<Accordion open={expandedTier === 'tier1'} onToggle={() => setExpandedTier('tier1')}>
-				<div
-					slot="header"
-					class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
-				>
-					Core Amenities<Icon icon="iconoir:nav-arrow-down" />
-				</div>
-				<div slot="body" class="p-1">
-					<LegendItem
-						{map}
-						bind:toggledValues
-						id="complete-community-amenities"
-						variant="circle"
-						featuretype="icon"
-						label="Toggle All Core Amenities"
-						bgcolor="#003f5e"
-						bordercolor="#fff"
-						button={true}
-						useFilter={true}
-						filterProperty="Group Name"
-						filterValue={TIER_1_AMENITIES.map((a) => a.label)}
-					/>
-					{#each TIER_1_AMENITIES as amenity}
+				<Accordion open={expandedTier === 'tier1'} onToggle={() => setExpandedTier('tier1')}>
+					<div
+						slot="header"
+						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
+					>
+						Core Amenities<Icon icon="iconoir:nav-arrow-down" />
+					</div>
+					<div slot="body" class="p-1">
 						<LegendItem
 							{map}
 							bind:toggledValues
+							id="employment-size"
 							variant="circle"
-							featuretype="icon"
-							label={amenity.label}
-							bgcolor={amenity.color}
-							icon={AMENITY_ICONS[amenity.label]}
+							label="Toggle All Core Amenities"
+							bgcolor="#003f5e"
 							bordercolor="#fff"
 							button={true}
-							disabled={missingTier1.includes(amenity)}
 							useFilter={true}
 							filterProperty="Group Name"
-							filterValue={amenity.label}
-							id="complete-community-amenities"
+							baseFilter={['!', ['in', ['get', 'Tier'], ['literal', [1, 2]]]]}
+							filterValue={TIER_1_AMENITIES.map((a) => a.label)}
 						/>
-					{/each}
-				</div>
-			</Accordion>
-
-			<!-- Tier 2 Section -->
-			<Accordion open={expandedTier === 'tier2'} onToggle={() => setExpandedTier('tier2')}>
-				<div
-					slot="header"
-					class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
-				>
-					Additional Amenities<Icon icon="iconoir:nav-arrow-down" />
-				</div>
-				<div slot="body" class="p-1">
-					<!-- Bulk Toggle for all Tier 2 -->
-					<LegendItem
-						{map}
-						bind:toggledValues
-						id="complete-community-amenities"
-						variant="circle"
-						featuretype="icon"
-						label="Toggle All Additional Amenities"
-						bgcolor="#2a5cac"
-						bordercolor="#fff"
-						button={true}
-						useFilter={true}
-						filterProperty="Group Name"
-						filterValue={TIER_2_AMENITIES.map((a) => a.label)}
-					/>
-					{#each TIER_2_AMENITIES as amenity}
+						{#each TIER_1_AMENITIES as amenity}
+							<LegendItem
+								{map}
+								bind:toggledValues
+								variant="circle"
+								label={amenity.label}
+								bgcolor={amenity.color}
+								bordercolor="#fff"
+								button={true}
+								disabled={missingTier1.includes(amenity)}
+								useFilter={true}
+								baseFilter={['!', ['in', ['get', 'Tier'], ['literal', [1, 2]]]]}
+								filterProperty="Group Name"
+								filterValue={amenity.label}
+								id="employment-size"
+							/>
+						{/each}
+					</div>
+				</Accordion>
+				<Accordion open={expandedTier === 'tier2'} onToggle={() => setExpandedTier('tier2')}>
+					<div
+						slot="header"
+						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
+					>
+						Additional Amenities<Icon icon="iconoir:nav-arrow-down" />
+					</div>
+					<div slot="body" class="p-1">
 						<LegendItem
 							{map}
 							bind:toggledValues
-							id="complete-community-amenities"
+							id="employment-size"
 							variant="circle"
-							featuretype="icon"
-							label={amenity.label}
-							bgcolor={amenity.color}
-							icon={AMENITY_ICONS[amenity.label]}
+							label="Toggle All Additional Amenities"
+							bgcolor="#2a5cac"
 							bordercolor="#fff"
 							button={true}
-							disabled={missingTier2.includes(amenity)}
 							useFilter={true}
+							baseFilter={['!', ['in', ['get', 'Tier'], ['literal', [1, 2]]]]}
 							filterProperty="Group Name"
-							filterValue={amenity.label}
+							filterValue={TIER_2_AMENITIES.map((a) => a.label)}
 						/>
-					{/each}
+						{#each TIER_2_AMENITIES as amenity}
+							<LegendItem
+								{map}
+								bind:toggledValues
+								variant="circle"
+								label={amenity.label}
+								bgcolor={amenity.color}
+								bordercolor="#fff"
+								button={true}
+								disabled={missingTier2.includes(amenity)}
+								useFilter={true}
+								baseFilter={['!', ['in', ['get', 'Tier'], ['literal', [1, 2]]]]}
+								filterProperty="Group Name"
+								filterValue={amenity.label}
+								id="employment-size"
+							/>
+						{/each}
+					</div></Accordion
+				>
+				<div class="text-sm italic mt-3">Number of Employees</div>
+				<div class="mx-1">
+					<img src="/employmentsizelegend.svg" alt="Employment size legend" />
 				</div>
-			</Accordion>
-		</div>
-	</Accordion>
+			</div>
+		</Accordion>
+	{/if}
 </LegendAbsolute>
 
 <style>

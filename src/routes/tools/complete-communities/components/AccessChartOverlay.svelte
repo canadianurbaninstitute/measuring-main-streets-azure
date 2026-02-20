@@ -3,32 +3,20 @@
 	import { slide } from 'svelte/transition';
 
 	let {
-		currentAccessData,
-		p50,
-		p75,
-		p90,
+		legendHeight,
+		computedAmenities,
 		tier = $bindable('tier1'),
-		futureDemandData,
 		stationCCcounts,
 		sliderValues = $bindable([0]),
 		selectedPercentile = $bindable('p50')
 	} = $props();
 
 	let isOpen = $state(true);
-
-	let accessTableData = $derived(p50.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
-
-	let baseData = $derived(
-		selectedPercentile === 'p75' ? p75 : selectedPercentile === 'p90' ? p90 : p50
-	);
-
-	let demandTableData = $derived(baseData.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
 </script>
 
 <div
-	class="absolute w-full z-10 bottom-0 transition-all duration-500 ease-in-out rounded-lg bg-white p-4 flex flex-col border border-zinc-200 overflow-y-auto"
-	class:h-full={isOpen}
-	class:h-50={!isOpen}
+	class="w-full z-10 transition-all duration-500 ease-in-out rounded-lg bg-white p-4 flex flex-col border border-zinc-200 overflow-y-auto
+    {isOpen ? 'absolute bottom-0 h-full' : 'relative h-28'}"
 >
 	<div class="mb-4 flex items-center justify-between flex-shrink-0 border-b border-zinc-100 pb-2">
 		<h3 class="text-lg font-bold text-zinc-900">Access Analysis</h3>
@@ -41,7 +29,7 @@
 	</div>
 
 	{#if isOpen}
-		<div transition:slide={{ duration: 600, easing: cubicInOut }} class="space-y-4 pb-30">
+		<div transition:slide={{ duration: 600, easing: cubicInOut }}>
 			<h4 class="my-3">Current Level of Access</h4>
 			<div class="overflow-x-auto">
 				<table class="w-full text-sm text-left whitespace-nowrap">
@@ -57,7 +45,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each accessTableData as row}
+						{#each computedAmenities as row}
 							<tr class="border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
 								<td class="py-2 px-2 font-medium">{row.Amenity}</td>
 								<td class="py-2 px-2">
@@ -97,15 +85,15 @@
 				</table>
 			</div>
 			<p class="text-xs text-zinc-400 mt-2 italic">
-				* The access metric represents number of available employees for the given amenity per 1000
-				daily visits. The higher the score, the more accessible the resource is relative to demand.
+				* The access metric represents the relative access to employees for each amenity type per
+				1000 daily visits. The higher the number, the more accessible the resource is.
 			</p>
 
 			<div class="divider"></div>
 
 			<!-- Future Demand Section -->
 			<h4 class="font-bold text-md mt-10 mb-2">Future Investment Assessment</h4>
-			<div class="flex gap-1 mb-3">
+			<!-- <div class="flex gap-1 mb-3">
 				{#each [['p50', '50th'], ['p75', '75th'], ['p90', '90th']] as [value, label]}
 					<button
 						onclick={() => (selectedPercentile = value)}
@@ -119,7 +107,7 @@
 						{label} Percentile
 					</button>
 				{/each}
-			</div>
+			</div> -->
 			<div class="overflow-x-auto">
 				<table class="w-full text-sm text-left whitespace-nowrap">
 					<thead class="text-zinc-500 border-b bg-zinc-50">
@@ -135,33 +123,33 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each demandTableData as row}
+						{#each computedAmenities as row}
 							<tr class="border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
 								<td class="py-2 px-2 font-medium">{row.Amenity}</td>
 								<td class="py-2 px-2">
 									<span
 										class={`px-2 py-0.5 rounded-full text-xs 
                                     ${
-																			row.Access_Gap < 0
+																			row.accessGap < 0
 																				? 'bg-red-100 text-red-700'
 																				: 'bg-green-100 text-green-700'
 																		}`}
 									>
-										{row.Access_Gap > 0 ? 'Low' : 'High'}
+										{row.accessGap > 0 ? 'Low' : 'High'}
 									</span>
 								</td>
 								<td class="py-2 px-2 text-right text-zinc-500"
 									>{stationCCcounts[row.Amenity].toFixed(0)}</td
 								>
 								<td class="py-2 px-2 text-right font-bold text-zinc-800">
-									{row.Amenities_Required === 0
+									{row.newAmenitiesRequired === 0
 										? '-'
-										: `+${row.Amenities_Required.toFixed(1).toLocaleString()}`}
+										: `+${row.newAmenitiesRequired.toFixed(1).toLocaleString()}`}
 								</td>
 								<td class="py-2 px-2 text-right font-bold text-zinc-800">
-									{row.Employees_Required === 0
+									{row.newEmployeesRequired === 0
 										? '-'
-										: `+${row.Employees_Required.toFixed(1).toLocaleString()}`}
+										: `+${row.newEmployeesRequired.toFixed(1).toLocaleString()}`}
 								</td>
 								<!-- <td class="py-2 px-2 text-right font-bold text-zinc-800">
 									+{Math.round(row.Additional_Visits_Supported).toLocaleString()}

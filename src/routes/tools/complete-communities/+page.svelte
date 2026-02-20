@@ -15,7 +15,6 @@
 	import Footer from '../../lib/ui/Footer.svelte';
 	import '../../styles.css';
 	// Components
-	import Filters from '../../transit-map/components/Filters.svelte';
 	import Search from '../../transit-map/components/Search.svelte';
 	import SelectRegion from '../../transit-map/components/SelectRegion.svelte';
 	import StationStatus from '../../transit-map/components/StationStatus.svelte';
@@ -47,6 +46,8 @@
 	let activeRegion = $state(null);
 	let activeLine = $state(null);
 	let tier = $state('tier1');
+	let sliderValues = $state([0]);
+	let futureVisits = $derived(sliderValues[0]);
 
 	// CC Specific Data
 	let stationCCcounts = $state({});
@@ -69,6 +70,39 @@
 	let p90current = $derived(selectedStation?.id ? p90map.get(selectedStation.id) : undefined);
 	let futureDemandCurrent = $derived(
 		selectedStation?.id ? futureDemandMap.get(selectedStation.id) : undefined
+	);
+
+	let filteredData = $derived(
+		sortedAmenities.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2))
+	);
+
+	let projectedVisits = $derived.by(() => {
+		let projectedVisits =
+			futureVisits * (futureDemandCurrent?.Visits_per_Res ?? 0) + futureDemandCurrent?.Daily_Visits;
+		return projectedVisits;
+	});
+
+	let computedAmenities = $derived(
+		filteredData.map((amenity) => {
+			const adjustedAccess = amenity.Access_per_1000 * (amenity.Daily_Visits / projectedVisits);
+			const accessGap = adjustedAccess - amenity.MTSA_med;
+			const newEmployeesRequired =
+				accessGap < 0 ? Math.abs(accessGap / amenity.MTSA_med) * amenity.typical_emp_med : 0;
+			const newAdditionalVisitsSupported =
+				accessGap > 0
+					? (adjustedAccess / amenity.MTSA_med - 1) * amenity.Daily_Visits +
+						futureVisits * futureDemandCurrent.Visits_per_Res
+					: 0;
+			const newAmenitiesRequired =
+				Math.round((newEmployeesRequired / amenity.typical_emp_med) * 10) / 10;
+			return {
+				...amenity,
+				accessGap,
+				newEmployeesRequired,
+				newAmenitiesRequired,
+				newAdditionalVisitsSupported
+			};
+		})
 	);
 
 	let selectedVariable = $state(null);
@@ -96,9 +130,6 @@
 			isOpen = false;
 		}
 	});
-
-	let sliderValues = $state([0]);
-	let futureVisits = $derived(sliderValues[0]);
 
 	let visitorCount = $derived(
 		stationVisitorData ? Math.round(stationVisitorData[Daily_Visits.key] || 0) : 0
@@ -520,13 +551,9 @@
 								<AccessTab
 									bind:sliderValues
 									bind:tier
-									futureDemand={futureDemandCurrent}
-									{visitorCount}
-									{selectedStation}
-									p50={sortedAmenities}
-									{stationVisitorData}
+									{computedAmenities}
+									{projectedVisits}
 									{stationCCcounts}
-									{stationCCpresence}
 								/>
 							{/if}
 						</Tabs.Content>
@@ -553,7 +580,7 @@
 		<div class="w-full relative">
 			<div class="flex flex-row w-full flex-wrap lg:flex-nowrap">
 				<div id="controls" class="flex flex-col w-full">
-					<Filters bind:statusFilters bind:technologyFilters />
+					<!-- <Filters bind:statusFilters bind:technologyFilters /> -->
 					<Tabs.List class="w-full grid grid-cols-2 gap-1">
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
@@ -571,11 +598,8 @@
 				{max}
 				{stationCCcounts}
 				{selectedStation}
+				{computedAmenities}
 				bind:sliderValues
-				p50={sortedAmenities}
-				p75={p75current}
-				p90={p90current}
-				futureDemand={futureDemandCurrent}
 				bind:map
 				bind:tier
 				{mapCenter}
