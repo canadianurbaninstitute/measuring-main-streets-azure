@@ -17,7 +17,7 @@
 	import Legend from './Legend.svelte';
 	let {
 		selectedVariable,
-		currentAccessData,
+		computedAmenities,
 		stationCCcounts,
 		selectedStation,
 		min,
@@ -31,7 +31,6 @@
 		map = $bindable(),
 		tier = $bindable(),
 		sliderValues = $bindable(),
-		futureDemandData,
 		mapCenter,
 		defaultZoom,
 		processedStationData,
@@ -46,6 +45,9 @@
 
 	const DEFAULT_T1_COLOR = '#003f5e';
 	const DEFAULT_T2_COLOR = '#2a5cac';
+
+	let selectedPercentile = $state('p50');
+	let legendHeight = $state(0);
 
 	let colorExpression = $derived.by(() => {
 		const isTier1 = tier === 'tier1';
@@ -451,16 +453,6 @@
 </script>
 
 <div id="map-container">
-	{#if activeTab === 'access' && selectedStation?.id !== null}
-		<!-- Overlay Chart -->
-		<AccessChartOverlay
-			{stationCCcounts}
-			{currentAccessData}
-			{futureDemandData}
-			bind:tier
-			bind:sliderValues
-		/>
-	{/if}
 	<div id="map"></div>
 	<Legend
 		{map}
@@ -473,6 +465,17 @@
 		{max}
 		bind:expandedTier={tier}
 	/>
+	{#if activeTab === 'access' && selectedStation?.id !== null}
+		<!-- Overlay Chart -->
+		<AccessChartOverlay
+			{legendHeight}
+			{computedAmenities}
+			bind:selectedPercentile
+			{stationCCcounts}
+			bind:tier
+			bind:sliderValues
+		/>
+	{/if}
 </div>
 
 <style>

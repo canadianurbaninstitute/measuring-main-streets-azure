@@ -5,7 +5,7 @@
 		TIER_1_AMENITIES
 	} from '../../../lib/data/transitdata/complete-communities-config';
 	import {
-		Daily_Visits,
+		EmployeeCount,
 		Overall_score,
 		Tier_1_presence,
 		Tier_2_presence,
@@ -13,7 +13,6 @@
 	} from '../../../lib/data/transitdata/config.json';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../../lib/ui/GaugeMetric.svelte';
-	import RankMetric from '../../../lib/ui/RankMetric.svelte';
 	import TransitMetric from '../../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
@@ -21,18 +20,22 @@
 		selectedStation,
 		stationVisitorData,
 		stationCCpresence,
-		stationCCcounts, // New prop
+		futureDemand,
 		missingTier1,
 		missingTier2,
 		selectedVariable = $bindable(),
 		onSelectVariable
 	} = $props();
+
+	console.log(stationCCpresence);
+	console.log(futureDemand);
+	console.log(selectedStation);
 </script>
 
 <div class="tab-content">
-	<div class="metric-container mt-2">
+	<!-- <div class="metric-container mt-2">
 		<RankMetric label="Complete Communities Rank" value={stationCCpresence.cc_Rank} total="735" />
-	</div>
+	</div> -->
 	<div class="metric-container">
 		<GaugeMetric
 			label={Overall_score.label}
@@ -54,13 +57,29 @@
 		{/each}
 	</div>
 	<div class="metric-container">
-		{#each [Daily_Visits, TotalHouseholds] as metric}
+		<TransitMetric
+			disabled
+			label="Daily Visits"
+			value={Math.round(futureDemand.Daily_Visits).toLocaleString() ?? 0}
+			icon="mdi:shop"
+		/>
+		<TransitMetric
+			disabled
+			label="Local Visits"
+			value={`${((futureDemand.Daily_Visits_Residents / futureDemand.Daily_Visits) * 100)
+				.toFixed(1)
+				.toLocaleString()}%`}
+			icon="mdi:shop"
+		/>
+	</div>
+	<div class="metric-container">
+		{#each [TotalHouseholds, EmployeeCount] as metric}
 			<TransitMetric
 				disabled
 				label={metric.label}
 				active={selectedVariable === metric.key}
 				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
-				value={stationVisitorData && stationVisitorData[metric.key]
+				value={stationCCpresence && stationVisitorData[metric.key]
 					? Math.round(stationVisitorData[metric.key]).toLocaleString()
 					: selectedStation && selectedStation[metric.key]
 						? Math.round(selectedStation[metric.key]).toLocaleString()
@@ -69,6 +88,7 @@
 			/>
 		{/each}
 	</div>
+
 	<!-- Missing Resources Section -->
 	{#if missingTier1.length > 0}
 		<div class="bg-red-50 border border-red-100 rounded-lg p-3 mt-2">
