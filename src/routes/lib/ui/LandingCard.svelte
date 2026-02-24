@@ -19,8 +19,9 @@
 		if (text.includes('resilience')) return 'var(--brandBlue)';
 		if (text.includes('transit')) return 'var(--brandDarkGreen)';
 		if (text.includes('graphing')) return 'var(--brandOrange)';
-		if (text.includes('case study')) return 'var(--brandYellow)';
+		if (text.includes('case study')) return 'var(--brandGreen)';
 		if (text.includes('qualitative')) return 'var(--brandPurple)';
+		if (text.includes('tool')) return 'var(--color-yellow-200)';
 
 		return 'var(--brandLightBlue)';
 	};
@@ -34,20 +35,22 @@
 			<img src={image} alt={title} />
 		</div>
 		<div class="card-content">
-			{#if tags && tags.length > 0}
-				<div class="card-tags">
-					{#each tags as tag}
-						<span class="tag" style="background-color: {getTagColor(tag)}">
-							{getTagText(tag)}
-						</span>
-					{/each}
-				</div>
-			{/if}
 			<h5 class="card-title">{title}</h5>
 			<p class="card-description">{description}</p>
-			<span class="card-footer">
-				Go now <Icon icon="ph:arrow-right-bold" />
-			</span>
+			<div class="card-footer flex flex-row justify-between items-baseline w-full">
+				{#if tags && tags.length > 0}
+					<div class="card-tags">
+						{#each tags as tag}
+							<span class="tag" style="background-color: {getTagColor(tag)}">
+								{getTagText(tag)}
+							</span>
+						{/each}
+					</div>
+				{/if}
+				<span class="cta">
+					Go now <Icon icon="ph:arrow-right-bold" />
+				</span>
+			</div>
 		</div>
 	</article>
 </a>
@@ -62,8 +65,8 @@
 
 	.landing-card {
 		background-color: white;
-		min-width: 320px;
-		min-height: 420px;
+		width: 450px;
+		min-height: 300px;
 		border-radius: 0.75rem;
 		overflow: hidden;
 		display: flex;
@@ -94,7 +97,7 @@
 
 	.card-image-container img {
 		width: 100%;
-		height: 100%;
+		height: 70%;
 		object-fit: cover;
 	}
 
@@ -106,14 +109,21 @@
 		margin-top: auto;
 		display: flex;
 		flex-direction: column;
-		background: linear-gradient(to top, white 0%, white 60%, transparent 100%);
+		background: linear-gradient(
+			to top,
+			rgba(255, 255, 255, 1) 0%,
+			rgba(255, 255, 255, 1) 50%,
+			rgba(255, 255, 255, 0.9) 60%,
+			rgba(255, 255, 255, 0.75) 70%,
+			rgba(255, 255, 255, 0.5) 80%,
+			transparent 100%
+		);
 	}
 
 	.card-tags {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		margin-bottom: 1rem;
 	}
 
 	.tag {
@@ -142,7 +152,7 @@
 		max-width: 100%;
 	}
 
-	.card-footer {
+	.cta {
 		display: flex;
 		width: fit-content;
 		align-items: center;

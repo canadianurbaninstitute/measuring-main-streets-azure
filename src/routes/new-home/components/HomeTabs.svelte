@@ -2,11 +2,17 @@
 	import { Tabs } from 'bits-ui';
 	import LandingCard from '../../lib/ui/LandingCard.svelte';
 	// Import local assets
-	import chart from '../../lib/assets/graphics/chart.png';
-	import civic from '../../lib/assets/graphics/civic.svg';
-	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
-	import resiliency from '../../lib/assets/graphics/resiliency.svg';
-	import urbanform from '../../lib/assets/graphics/urbanform.svg';
+	import casestudy from '../../lib/assets/screenshots/case-study-main-street.png';
+	import civic from '../../lib/assets/screenshots/civic-infrastructure.png';
+	import completecommunities from '../../lib/assets/screenshots/complete-communities.png';
+	import housing from '../../lib/assets/screenshots/housing-dot-density.png';
+	import reports from '../../lib/assets/screenshots/key-findings.png';
+	import mainstreetmap from '../../lib/assets/screenshots/main-street-map.png';
+	import recovery from '../../lib/assets/screenshots/main-street-recovery.png';
+	import transitchart from '../../lib/assets/screenshots/transit-chart.png';
+	import transitmap from '../../lib/assets/screenshots/transit-map.png';
+	import urbanform from '../../lib/assets/screenshots/urban-form.png';
+	import walkability from '../../lib/assets/screenshots/walkability.png';
 
 	let activeTab = 'tod';
 
@@ -15,62 +21,97 @@
 			title: 'Transit Map',
 			description:
 				'Explore the major transit station areas and their relationship to main streets.',
-			image: 'https://i.imgur.com/c9WT7dM.png',
-			link: '/transit-map'
+			image: transitmap,
+			link: '/transit-map',
+			tags: ['mapping', 'tool']
 		},
 		{
 			title: 'Transit Charts',
-			description: 'Key data for each stop along a selected transit line.',
-			image: chart,
-			link: '/tools/transit-charts'
+			description: 'Compare key data for each stop along a selected transit line.',
+			image: transitchart,
+			link: '/tools/transit-charts',
+			tags: ['tool']
+		},
+		{
+			title: 'Complete Communities',
+			description: 'Explore presence of and access to key amenities.',
+			image: completecommunities,
+			link: '/tools/complete-communities',
+			tags: ['mapping', 'tool']
 		},
 		{
 			title: 'Urban Form Comparison',
-			description:
-				'Compare the urban form characteristics of areas within 800m of transit stations.',
+			description: 'Compare urban form characteristics between transit station areas.',
 			image: urbanform,
-			link: '/tools/urban-form-comparison'
+			link: '/tools/urban-form-comparison',
+			tags: ['tool']
 		},
 		{
-			title: 'Infrastructure Equity',
-			description: 'Identifying equity gaps in main street civic infrastructure.',
-			image: civic,
-			link: '/reports/mainstreets-infrastructure-equity'
+			title: 'Case Studies',
+			description: 'In depth place-based studies.',
+			image: walkability,
+			link: '/case-studies/tod',
+			tags: ['Case Study']
+		},
+		{
+			title: 'Reports',
+			description: 'In depth reports on transit oriented development.',
+			image: reports,
+			link: '/reports/tod',
+			tags: ['Report']
 		}
 	];
 
 	const resilienceCards = [
 		{
-			title: 'Resilience Map',
-			description: 'Analyzing neighbourhood scale data for better city building.',
-			image: 'https://i.imgur.com/XtcX0Gn.jpeg',
-			link: '/map'
+			title: 'Main Street Map',
+			description: 'Analyzing neighbourhood-scale data for better city building.',
+			image: mainstreetmap,
+			link: '/map',
+			tags: ['mapping', 'tool']
 		},
 		{
 			title: 'Visitor Recovery',
 			description: 'This graphing tool highlights the visitor recovery patterns from 2020 to 2022.',
-			image: mainstreets,
-			link: '/tools/mainstreet-visitor-recovery'
+			image: recovery,
+			link: '/tools/mainstreet-visitor-recovery',
+			tags: ['tool']
 		},
 		{
-			title: 'Main Street Resiliency',
-			description: 'Analysing main street resiliency through visitor levels over the pandemic.',
-			image: resiliency,
-			link: '/reports/mainstreet-resiliency'
+			title: 'Civic Infrastructure Provision',
+			description: 'Relative provision of civic infrastructure by neighbourhood.',
+			image: civic,
+			link: '/tools/civic-infrastructure-provision-map',
+			tags: ['mapping', 'tool']
+		},
+		{
+			title: 'Housing Dot Density',
+			description:
+				'Choropleth dot mapping tool highlights housing built in Canada over the course of the past 60 years',
+			image: housing,
+			link: '/tools/housing-density-map',
+			tags: ['mapping', 'tool']
 		},
 		{
 			title: 'Case Studies',
-			description:
-				'Investigating the resilience of Canadian main streets through 60 detailed studies.',
-			image: 'https://i.imgur.com/89GpAIS.png',
-			link: '/casestudies'
+			description: 'In depth place-based studies.',
+			image: casestudy,
+			link: '/case-studies/tod',
+			tags: ['Case Study']
+		},
+		{
+			title: 'Reports',
+			description: 'In depth reports on transit oriented development.',
+			image: reports,
+			link: '/reports/tod',
+			tags: ['Report']
 		}
 	];
 </script>
 
 <Tabs.Root bind:value={activeTab} class="tabs-root">
 	<Tabs.List class="tabs-list">
-		<Tabs.Trigger value="tod" class="tab-trigger tod-trigger">
+		<Tabs.Trigger value="tod" class="tab-trigger tod-trigger shadow-md">
 			Transit Oriented Development
 		</Tabs.Trigger>
 		<Tabs.Trigger value="resilience" class="tab-trigger resilience-trigger">
@@ -109,7 +150,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		width: 100vw;
+		width: 100%;
 	}
 
 	:global(.tab-trigger) {

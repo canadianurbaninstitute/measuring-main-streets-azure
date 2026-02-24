@@ -1,6 +1,5 @@
 <script>
 	import Icon from '@iconify/svelte';
-	import torontoMap from '../../lib/assets/boundaries/Toronto.svg';
 	const buttons = [
 		{ text: 'Learn more about us', href: '/about' },
 		{ text: 'Frequently Asked Questions', href: '/about/faq' },
@@ -10,6 +9,7 @@
 </script>
 
 <section class="about-section">
+	<!-- <div class="map-bg"></div> -->
 	<div class="about-content">
 		<h2 class="about-title">About Measuring Main Streets and CUI</h2>
 		<h3 class="about-subtitle">
@@ -35,24 +35,29 @@
 			{/each}
 		</div>
 	</div>
-	<div class="about-image">
-		<img src={torontoMap} alt="Toronto Map" class="map-bg" />
-	</div>
 </section>
 
 <style>
 	.about-section {
-		display: grid;
-		grid-template-columns: 1.2fr 0.8fr;
-		background-color: white;
+		background-image: url('../../lib/assets/graphics/vancouver-bg.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		display: flex;
+		justify-content: center;
 		padding: 6rem 2rem;
-		max-width: 1400px;
 		margin: 0 auto;
 		overflow: hidden;
+		position: relative;
+		width: 100%;
+		background-attachment: fixed;
 	}
 
 	.about-content {
 		z-index: 2;
+		background: white;
+		padding: 4rem;
+		border-radius: 2rem;
 	}
 
 	.about-title {
@@ -106,34 +111,5 @@
 
 	.about-button:hover {
 		background-color: var(--brandLightBlue);
-	}
-
-	.about-image {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.map-bg {
-		width: 150%;
-		opacity: 0.4;
-		transform: rotate(-10deg) translateX(10%);
-		pointer-events: none;
-	}
-
-	@media (max-width: 1024px) {
-		.about-section {
-			grid-template-columns: 1fr;
-		}
-		.about-image {
-			display: none;
-		}
-	}
-
-	@media (max-width: 600px) {
-		.about-buttons {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>
