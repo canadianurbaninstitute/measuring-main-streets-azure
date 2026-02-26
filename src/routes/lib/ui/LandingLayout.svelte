@@ -27,15 +27,15 @@
 	});
 </script>
 
-<div class="landing-container">
+<div class="landing-container container">
 	<header class="landing-header">
-		<h1 class="landing-title">{title}</h1>
-		<p class="landing-intro">{description}</p>
+		<h1>{title}</h1>
+		<p>{description}</p>
 	</header>
 
 	<div class="controls">
 		<div class="search-box">
-			<Icon icon="ph:magnifying-glass" class="search-icon" />
+			<Icon icon="ph:magnifying-glass" height="2rem" color="#555" />
 			<input type="text" placeholder="Search..." bind:value={searchTerm} />
 		</div>
 
@@ -70,7 +70,6 @@
 
 <style>
 	.landing-container {
-		max-width: 1400px;
 		margin: 0 auto;
 		padding: 4rem 2rem;
 	}
@@ -95,12 +94,12 @@
 
 	.controls {
 		margin-bottom: 3rem;
-		display: flex;
-		flex-direction: column;
 		gap: 1.5rem;
 	}
 
 	.search-box {
+		display: flex;
+		align-items: center;
 		position: relative;
 		max-width: 400px;
 	}
@@ -114,18 +113,11 @@
 		font-size: 0.9rem;
 	}
 
-	.search-icon {
-		position: absolute;
-		left: 1rem;
-		top: 50%;
-		transform: translateY(-50%);
-		color: #888;
-	}
-
 	.filter-pills {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem;
+		margin-top: 0.5rem;
+		gap: 0.5rem;
 	}
 
 	.pill {
@@ -153,9 +145,9 @@
 	}
 
 	.card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		display: flex;
 		gap: 2rem;
+		flex-wrap: wrap;
 	}
 
 	@media (max-width: 768px) {

@@ -139,7 +139,6 @@
 	.card-title {
 		font-size: 1.5rem;
 		color: var(--brandDarkBlue);
-		margin: 0 0 0.75rem 0;
 		max-width: 100%;
 	}
 

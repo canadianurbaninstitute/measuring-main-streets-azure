@@ -1,4 +1,3 @@
-<!-- Footer used across various pages.-->
 <script>
 	import canada from '../assets/logos/canada_logo.svg';
 	import cui from '../assets/logos/cui_logo_white.svg';
@@ -8,82 +7,104 @@
 	import SocialLinks from './SocialLinks.svelte';
 </script>
 
-<div id="bar">
-	<div class="footer-content">
-		<a href="/"><img src={mms} alt="Measuring Main Street" /></a>
-		<div id="social"></div>
+<footer class="modern-footer">
+	<div class="footer-top">
+		<div class="main-logos">
+			<img src={mms} alt="Measuring Main Streets" class="mms-logo" />
+			<img src={cui} alt="Canadian Urban Institute" class="cui-logo" />
+		</div>
 	</div>
-	<div id="logo-content">
-		<p class="mb-6">
+
+	<div class="footer-middle">
+		<p class="footer-text">
 			The Measuring Main Streets platform (part of the Research Knowledge Initiative program from
 			Housing, Infrastructure and Communities Canada) was developed by the Canadian Urban Institute
 			in partnership with Environics Analytics and Open North.
 		</p>
-		<div class="logo-group">
-			<img src={canada} alt="Canadian Urban Institute" />
-			<a href="https://www.canurb.org"><img src={cui} alt="Canadian Urban Institute" /></a>
-			<a href="https://environicsanalytics.com/en-ca/home"
-				><img src={environics} alt="Environics Analytics" /></a
-			>
-			<a href="https://opennorth.ca/"><img src={opennorth} alt="Open North" /></a>
+	</div>
+
+	<div class="footer-bottom">
+		<div class="partner-logos">
+			<img src={canada} alt="Canada" />
+			<img src={environics} alt="Environics Analytics" />
+			<img src={opennorth} alt="Open North" />
+		</div>
+
+		<div class="social-links-container">
+			<SocialLinks />
 		</div>
 	</div>
-	<SocialLinks />
-</div>
+</footer>
 
 <style>
-	a {
-		text-decoration: none;
-	}
-
-	img {
-		height: 60px;
-		padding: 0.5em;
-	}
-
-	a:hover {
-		opacity: 0.5;
-		cursor: pointer;
-	}
-
-	p {
+	.modern-footer {
+		background-color: var(--brandDarkBlue);
+		padding: 4rem 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		color: white;
+		gap: 3rem;
 	}
 
-	#logo-content {
-		margin: 1em;
+	.main-logos {
 		display: flex;
-		flex-direction: column;
 		align-items: center;
+		gap: 2rem;
+	}
+
+	.mms-logo {
+		height: 80px;
+	}
+
+	.cui-logo {
+		height: 40px;
+	}
+
+	.footer-text {
 		text-align: center;
-		max-width: 80%;
+		max-width: 800px;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: #ccc;
+		margin: 0;
 	}
 
-	#bar {
+	.footer-bottom {
+		width: 100%;
+		max-width: 1200px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 100%;
-		justify-content: space-between;
-		background-color: var(--brandDarkBlue);
+		gap: 2rem;
 	}
 
-	.logo-group {
-		position: relative;
-		background-color: var(--brandDarkBlue);
+	.partner-logos {
 		display: flex;
-		align-items: center;
-		flex-direction: row;
-	}
-
-	.footer-content {
-		display: flex;
-		flex-direction: row;
 		justify-content: center;
-		padding: 1em;
+		align-items: center;
+		gap: 3rem;
+		flex-wrap: wrap;
 	}
 
-	.footer-content img {
-		height: 100px;
+	.partner-logos img {
+		height: 40px;
+		filter: brightness(0) invert(1);
+		opacity: 0.8;
+	}
+
+	.social-links-container {
+		display: flex;
+		gap: 1rem;
+	}
+
+	@media (max-width: 768px) {
+		.main-logos {
+			flex-direction: column;
+			gap: 1rem;
+		}
+		.partner-logos {
+			gap: 2rem;
+		}
 	}
 </style>

@@ -119,7 +119,7 @@
 			<h2 class="section-title">The Projects</h2>
 
 			<!-- First project -->
-			<div class="project-entry">
+			<div class="project-entry pb-10">
 				<div class="project-content">
 					<div class="track-stop"></div>
 					<span class="phase-tag">{projects[0].phase}</span>
@@ -174,7 +174,7 @@
 			</div>
 
 			<!-- Second project -->
-			<div class="project-entry">
+			<div class="project-entry pt-10">
 				<div class="project-content">
 					<div class="track-stop"></div>
 					<span class="phase-tag">{projects[1].phase}</span>
@@ -205,15 +205,26 @@
 		</div>
 	</div>
 </section>
+<div class="skyline-border" aria-hidden="true"></div>
 
 <style>
 	.timeline-section {
-		padding: 4rem 2rem;
+		padding: 6rem 2rem;
 		width: 100%;
 		margin: 0 auto;
 		display: flex;
 		justify-content: center;
 		overflow: hidden;
+	}
+
+	.skyline-border {
+		width: 100%;
+		height: 38px;
+		background-image: url("data:image/svg+xml,%3Csvg width='80' height='38' viewBox='0 0 57 38' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M22.6976 27.1592H27.5099V22.3231H22.6976V27.1592ZM22.6976 13.4056H27.5099V8.56943H22.6976V13.4056ZM29.3351 20.2824H34.1474V15.4463H29.3351V20.2824ZM20.0894 37.0536H36.6072V0H20.0894V37.0536Z' fill='%23002940'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M40.1787 8.25879V37.0534H46.1401V28.9052H50.9524V37.0534H56.6966V8.25879H40.1787Z' fill='%23002940'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2.61166 27.1905H7.42393V22.3696H2.61166V27.1905ZM9.24918 27.1905H14.0614V22.3696H9.24918V27.1905ZM0 37.0536H16.5179V15.625H0V37.0536Z' fill='%23002940'/%3E%3C/svg%3E");
+		background-repeat: repeat-x;
+		background-color: var(--color-slate-50);
+		background-position: bottom left;
+		background-size: 60px 38px;
 	}
 
 	.section-title {
@@ -280,7 +291,7 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		gap: 6rem;
+		gap: 2rem;
 	}
 
 	.project-entry {
@@ -498,6 +509,7 @@
 		}
 
 		.big-stat {
+			width: 100%;
 			align-items: flex-start;
 			text-align: left;
 		}

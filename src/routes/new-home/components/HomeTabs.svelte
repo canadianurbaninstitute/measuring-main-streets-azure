@@ -121,7 +121,7 @@
 
 	<div class="tabs-container">
 		<Tabs.Content value="tod" class="tab-content">
-			<div class="flex flex-nowrap gap-4">
+			<div class="flex flex-nowrap gap-6">
 				{#each todCards as card}
 					<LandingCard {...card} />
 				{/each}
@@ -129,7 +129,7 @@
 		</Tabs.Content>
 
 		<Tabs.Content value="resilience" class="tab-content">
-			<div class="flex flex-nowrap gap-4">
+			<div class="flex flex-nowrap gap-6">
 				{#each resilienceCards as card}
 					<LandingCard {...card} />
 				{/each}
@@ -183,7 +183,7 @@
 	}
 
 	.tabs-container :global(.tab-content) {
-		padding: 4rem 2rem;
+		padding: 2.5rem 2rem;
 		background-color: var(--brandDarkBlue);
 	}
 </style>
