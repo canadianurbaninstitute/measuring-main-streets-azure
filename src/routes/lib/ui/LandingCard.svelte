@@ -123,6 +123,7 @@
 	.card-tags {
 		display: flex;
 		flex-wrap: wrap;
+		max-width: 70%;
 		gap: 0.5rem;
 	}
 

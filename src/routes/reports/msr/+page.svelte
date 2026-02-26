@@ -9,6 +9,7 @@
 	import Toronto from '../../lib/assets/graphics/toronto.jpg';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
+	import '../../styles.css';
 
 	const title = 'Measuring Main Streets Reports';
 	const description =

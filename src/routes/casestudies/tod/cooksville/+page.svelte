@@ -1,5 +1,6 @@
 <script>
 	import Footer from '../../../lib/ui/Footer.svelte';
+	import '../../../styles.css';
 </script>
 
 <div class="flex flex-col" style="height: 100vh">

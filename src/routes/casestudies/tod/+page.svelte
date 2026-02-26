@@ -6,6 +6,7 @@
 	import Vancouver from '../../lib/assets/graphics/vancouver-bg.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
+	import '../../styles.css';
 
 	const title = 'Case Studies';
 	const description = 'Insert School of Cities blurb here.';

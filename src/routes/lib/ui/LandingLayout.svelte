@@ -70,26 +70,11 @@
 
 <style>
 	.landing-container {
-		margin: 0 auto;
 		padding: 4rem 2rem;
 	}
 
 	.landing-header {
 		margin-bottom: 3rem;
-	}
-
-	.landing-title {
-		font-family: 'Gelasio', serif;
-		font-size: 3.5rem;
-		color: var(--brandDarkBlue);
-		margin-bottom: 1.5rem;
-	}
-
-	.landing-intro {
-		font-size: 1.1rem;
-		line-height: 1.6;
-		color: #555;
-		max-width: 900px;
 	}
 
 	.controls {
