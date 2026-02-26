@@ -1,14 +1,15 @@
 <script>
 	import '../styles.css';
-	import chart from '../lib/assets/graphics/chart.png';
-	import civic from '../lib/assets/graphics/civic.svg';
-	import demographic from '../lib/assets/graphics/demographic.svg';
-	import housing from '../lib/assets/graphics/housing.svg';
-	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
-	import opennorth from '../lib/assets/graphics/opennorth.svg';
-	import urbanform from '../lib/assets/graphics/urbanform.svg';
-	import Footer from '../lib/ui/Footer.svelte';
 	import ReportCard from '../lib/ui/ReportCard.svelte';
+	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
+	import civic from '../lib/assets/graphics/civic.svg';
+	import chart from '../lib/assets/graphics/chart.png';
+	import housing from '../lib/assets/graphics/housing.svg';
+	import urbanform from '../lib/assets/graphics/urbanform.svg';
+	import demographic from '../lib/assets/graphics/demographic.svg';
+	import regional from '../lib/assets/graphics/regional.svg';
+	import opennorth from '../lib/assets/graphics/opennorth.svg';
+	import Footer from '../lib/ui/Footer.svelte';
 </script>
 
 <div class="hero">

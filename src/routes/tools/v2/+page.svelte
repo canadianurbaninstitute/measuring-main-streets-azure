@@ -8,6 +8,7 @@
 	import urbanform from '../../lib/assets/graphics/urbanform.svg';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
+	import '../../styles.css';
 
 	const title = 'Research Tools';
 	const description =
