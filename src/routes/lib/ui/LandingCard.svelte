@@ -65,7 +65,8 @@
 
 	.landing-card {
 		background-color: white;
-		width: 450px;
+		min-width: 200px;
+		max-width: 400px;
 		min-height: 300px;
 		border-radius: 0.75rem;
 		overflow: hidden;

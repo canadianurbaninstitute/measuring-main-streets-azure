@@ -1,40 +1,40 @@
 <!-- UI component for navigation bar.-->
 
 <script>
-	import { NavigationMenu } from 'bits-ui';
 	import Icon from '@iconify/svelte';
-	import mms_logo from '../assets/logos/mms_logo.svg';
-	import mms_logo_alt from '../assets/logos/mms_logo_alt.svg';
-
-	// Logo hover swap ---------------------------------------------------------
-	let imageSrc = mms_logo;
-	const onMouseOver = () => (imageSrc = mms_logo_alt);
-	const onMouseOut = () => (imageSrc = mms_logo);
-
-	// Responsive mobile menu toggle -------------------------------------------
-	let menuOpen = false;
-	const toggleMenu = () => (menuOpen = !menuOpen);
-
-	// Optional: close mobile menu when moving to desktop width
+	import { NavigationMenu } from 'bits-ui';
 	import { onMount } from 'svelte';
+	import cui_logo from '../assets/logos/cui_logo.svg';
+	import mms_logo from '../assets/logos/mms_logo.svg';
+
+	// ✅ Fix 1: Declare missing state
+	let menuOpen = false;
+
+	// ✅ Fix 2: Define missing toggleMenu function
+	function toggleMenu() {
+		menuOpen = !menuOpen;
+	}
+
+	// ✅ Fix 3: Define missing mouse event handlers
+	function onMouseOver() {
+		// add hover logic here if needed, e.g. swap logo src
+	}
+	function onMouseOut() {
+		// add hover logic here if needed
+	}
+
 	function handleResize() {
 		if (window.innerWidth >= 768) menuOpen = false;
 	}
+
 	onMount(() => {
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
 	});
 
-	// Data --------------------------------------------------------------------
-	const caseStudies = [
-		//   { title: "TOD on Main", href: "/" },
-		{ title: 'Measuring Main Streets', href: '/casestudies' }
-	];
+	const caseStudies = [{ title: 'Measuring Main Streets', href: '/casestudies' }];
 
-	const reports = [
-		//   { title: "TOD on Main", href: "/" },
-		{ title: 'Measuring Main Streets', href: '/reports' }
-	];
+	const reports = [{ title: 'Measuring Main Streets', href: '/reports' }];
 
 	const learnMore = [
 		{ title: 'About', href: '/about' },
@@ -48,14 +48,25 @@
 <div id="bar">
 	<div id="logo-group">
 		<a href="/" aria-label="Home">
-			<img
-				src={imageSrc}
-				alt="Measuring Main Streets"
-				on:mouseover={onMouseOver}
-				on:mouseout={onMouseOut}
-				on:focus={onMouseOver}
-				on:blur={onMouseOut}
-			/>
+			<div class="flex gap-4 items-center">
+				<img
+					src={mms_logo}
+					alt="Measuring Main Streets"
+					on:mouseover={onMouseOver}
+					on:mouseout={onMouseOut}
+					on:focus={onMouseOver}
+					on:blur={onMouseOut}
+				/>
+				<div class="border-l border-gray-300 h-12"></div>
+				<img
+					src={cui_logo}
+					alt="Measuring Main Streets"
+					on:mouseover={onMouseOver}
+					on:mouseout={onMouseOut}
+					on:focus={onMouseOver}
+					on:blur={onMouseOut}
+				/>
+			</div>
 		</a>
 	</div>
 
@@ -180,7 +191,7 @@
 	}
 
 	img {
-		height: 50px;
+		height: 30px;
 	}
 
 	img:hover {

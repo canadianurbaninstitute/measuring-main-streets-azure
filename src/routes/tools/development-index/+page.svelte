@@ -1,19 +1,23 @@
 <script lang="ts">
 	// Imports
-	import {
-		transit_lines_source,
-		urban_form_comp_style
-	} from '../../lib/data/transitdata/config-mapbox.json';
 	import * as turf from '@turf/turf';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import {
+		transit_lines_source,
+		urban_form_comp_style
+	} from '../../lib/data/transitdata/config-mapbox.json';
 	// import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
+	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
-	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
-	import MetricsDisplay from './MetricsDisplay.svelte';
-	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	// Remove MetricsDisplay since we are integrating into sidebar now
+	// import MetricsDisplay from './MetricsDisplay.svelte';
+	import { Tabs } from 'bits-ui';
+	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
+	import RadarChart from './RadarChart.svelte';
 
 	import '../../styles.css';
 
@@ -28,11 +32,11 @@
 	let selectedStation1 = '573';
 	let selectedStation2 = '194';
 
-	let station1Metrics = [];
-	let station2Metrics = [];
+	let station1Metrics: any = {};
+	let station2Metrics: any = {};
 
-	let station1Data = [];
-	let station2Data = [];
+	let station1Data: any;
+	let station2Data: any;
 
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
@@ -80,9 +84,45 @@
 	let waterCheck: boolean;
 
 	// Data variables. Initialize as empty arrays.
-	let transitStationsDropdown = [];
-	let stationRawData = [];
-	let stationMetrics = [];
+	let transitStationsDropdown: any[] = [];
+	let stationRawData: any[] = [];
+	let stationMetrics: any[] = [];
+
+	// Bits UI tabs mapping to our mock radar categories
+	const radarCategories = [
+		{ value: 'land', label: 'Land Availability' },
+		{ value: 'growth', label: 'Growth Pressure' },
+		{ value: 'permits', label: 'Building Permits' }
+	];
+
+	let activeRadarCategory1 = 'land';
+	let activeRadarCategory2 = 'land';
+
+	// Mock Data Generator for Radar and Isometric graphics
+	function generateMockData(stationId, category = 'land') {
+		// Use the integer ID as a stable seed to generate pseudo-random looking data
+		const seed = parseInt(stationId) || 123;
+
+		// Shift seed based on category to make tabs look different
+		const catShift = category === 'land' ? 1 : category === 'growth' ? 2 : 3;
+		const baseValue = ((seed * catShift * 17) % 50) + 20; // range 20-70
+
+		return {
+			potentialScore: ((seed * 7) % 10) + 1, // 1-10
+			radarPoints: [
+				{ label: 'Single Unit Dwellings', value: (baseValue + ((seed * 3) % 40)) % 100 },
+				{ label: 'Total Developable Land', value: (baseValue + ((seed * 11) % 40)) % 100 },
+				{ label: 'High Opportunity Sites', value: (baseValue + ((seed * 19) % 40)) % 100 },
+				{ label: 'Employment Density', value: (baseValue + ((seed * 23) % 40)) % 100 },
+				{ label: 'Population Density', value: (baseValue + ((seed * 31) % 40)) % 100 }
+			]
+		};
+	}
+
+	$: mock1 = generateMockData(selectedStation1, activeRadarCategory1);
+	$: baseMock1 = generateMockData(selectedStation1, 'land');
+	$: mock2 = generateMockData(selectedStation2, activeRadarCategory2);
+	$: baseMock2 = generateMockData(selectedStation2, 'land');
 
 	// Create reactive station data from stationRawData.
 	$: stationsProcessed = stationRawData || [];
@@ -534,16 +574,19 @@
 			><u>School of Cities</u></a
 		>.
 	</p>
-	<p class="text-sm mt-4">
+	<p class="text-sm mt-4 text-gray-500">
 		<em>This tool is in beta.</em>
 	</p>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-fit mx-auto">
-	<!-- Display first map -->
-	<div class="flex flex-col items-center">
-		<div class="w-80 py-2 mx-auto my-auto">
-			<!-- Station dropdown selection -->
+<!-- Main Layout Wrapper -->
+<div class="flex flex-col lg:flex-row max-w-7xl mx-auto gap-8 px-4 pb-20">
+	<!-- LEFT SIDEBAR -->
+	<div class="w-full lg:w-[350px] flex-shrink-0 border-r border-gray-200 pr-4 flex flex-col gap-6">
+		<h3 class="font-bold text-gray-700 italic">Select stations:</h3>
+
+		<!-- Station 1 Selector -->
+		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
 			<Combobox
 				handleSelect={handleStation1Select}
 				data={transitStationsDropdown}
@@ -551,19 +594,59 @@
 				placeholder={'Search for a station'}
 				selected={selectedStation1}
 			></Combobox>
-			<div class="h-4 text-center">
-				{#if station1Error}
-					<div class="error-message">{station1Error}</div>
-				{/if}
-			</div>
-		</div>
-		<div id="map1"></div>
-	</div>
+			{#if station1Error}
+				<div class="error-message text-center mt-2">{station1Error}</div>
+			{/if}
 
-	<!-- Display second map -->
-	<div class="flex flex-col items-center">
-		<div class="w-80 py-2 mx-auto my-auto">
-			<!-- Station dropdown selection -->
+			{#if station1Data}
+				<div class="mt-4 text-center text-sm text-gray-700">
+					<div class="font-bold uppercase text-[#1B6CA8] tracking-wider mb-1">
+						{station1Data.stop_label}
+					</div>
+					<div class="text-xs text-gray-500 mb-2">
+						Line {station1Data.line_display_name}<br />{station1Data.region}<br
+						/>{station1Data.status}
+					</div>
+
+					<div class="flex flex-col items-start w-fit mx-auto mt-4 gap-1 text-left">
+						<div>
+							Greenspace: <span class="font-semibold"
+								>{station1Metrics?.greenspace_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+						<div>
+							Water: <span class="font-semibold"
+								>{station1Metrics?.water_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+						<div>
+							Buildings: <span class="font-semibold"
+								>{station1Metrics?.building_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+						<div>
+							Parking: <span class="font-semibold"
+								>{station1Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+
+						<div class="mt-2 text-[#006A8E] font-medium">
+							Development Potential:
+							{#if generateMockData(selectedStation1).potentialScore > 6}
+								High
+							{:else if generateMockData(selectedStation1).potentialScore > 3}
+								Med
+							{:else}
+								Low
+							{/if}
+						</div>
+					</div>
+				</div>
+			{/if}
+		</div>
+
+		<!-- Station 2 Selector -->
+		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
 			<Combobox
 				handleSelect={handleStation2Select}
 				data={transitStationsDropdown}
@@ -571,46 +654,196 @@
 				placeholder={'Search for a station'}
 				selected={selectedStation2}
 			></Combobox>
-			<div class="h-4 text-center">
-				{#if station2Error}
-					<div class="error-message">{station2Error}</div>
-				{/if}
+			{#if station2Error}
+				<div class="error-message text-center mt-2">{station2Error}</div>
+			{/if}
+
+			{#if station2Data}
+				<div class="mt-4 text-center text-sm text-gray-700">
+					<div class="font-bold uppercase text-[#1B6CA8] tracking-wider mb-1">
+						{station2Data.stop_label}
+					</div>
+					<div class="text-xs text-gray-500 mb-2">
+						Line {station2Data.line_display_name}<br />{station2Data.region}<br
+						/>{station2Data.status}
+					</div>
+
+					<div class="flex flex-col items-start w-fit mx-auto mt-4 gap-1 text-left">
+						<div>
+							Greenspace: <span class="font-semibold"
+								>{station2Metrics?.greenspace_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+						<div>
+							Water: <span class="font-semibold"
+								>{station2Metrics?.water_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+						<div>
+							Buildings: <span class="font-semibold"
+								>{station2Metrics?.building_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+						<div>
+							Parking: <span class="font-semibold"
+								>{station2Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
+							>
+						</div>
+
+						<div class="mt-2 text-[#006A8E] font-medium">
+							Development Potential:
+							{#if generateMockData(selectedStation2).potentialScore > 6}
+								High
+							{:else if generateMockData(selectedStation2).potentialScore > 3}
+								Med
+							{:else}
+								Low
+							{/if}
+						</div>
+					</div>
+				</div>
+			{/if}
+		</div>
+
+		<!-- Map Layer Toggles -->
+		<div class="mt-4">
+			<div class="grid grid-cols-2 gap-x-2 gap-y-4 text-xs">
+				<div class="flex flex-col gap-2 border-r border-gray-200 pr-2">
+					<div class="font-bold text-gray-500 mb-1">Transit & Roads</div>
+					<Checkbox
+						bind:checked={transitCheck}
+						label="Transit Lines"
+						icon="mdi:transit-connection-variant"
+					/>
+					<Checkbox bind:checked={stationCheck} label="Transit Stations" icon="mdi:train" />
+					<Checkbox bind:checked={roadsCheck} label="Road Network" icon="mdi:road" />
+				</div>
+				<div class="flex flex-col gap-2 pl-2">
+					<div class="font-bold text-gray-500 mb-1">Built Form</div>
+					<Checkbox
+						bind:checked={greenspaceCheck}
+						label="Greenspace"
+						icon="mdi:pine-tree-variant"
+					/>
+					<Checkbox bind:checked={waterCheck} label="Water" icon="mdi:waves" />
+					<Checkbox bind:checked={buildingsCheck} label="Buildings" icon="mdi:office-building" />
+					<Checkbox bind:checked={parkingCheck} label="Parking" icon="mdi:car" />
+				</div>
 			</div>
 		</div>
-		<div id="map2"></div>
 	</div>
-</div>
 
-<div class="flex justify-center text-sm px-2 py-4 gap-2 flex-wrap">
-	<Checkbox bind:checked={roadsCheck} label="Road Network" icon="mdi:road" />
-	<Checkbox
-		bind:checked={transitCheck}
-		label="Transit Lines"
-		icon="mdi:transit-connection-variant"
-	/>
-	<Checkbox bind:checked={stationCheck} label="Transit Stations" icon="mdi:train" />
-	<Checkbox bind:checked={greenspaceCheck} label="Greenspace" icon="mdi:pine-tree-variant" />
-	<Checkbox bind:checked={waterCheck} label="Water" icon="mdi:waves" />
-	<Checkbox bind:checked={buildingsCheck} label="Buildings" icon="mdi:office-building" />
-	<Checkbox bind:checked={parkingCheck} label="Parking" icon="mdi:car" />
-</div>
+	<!-- RIGHT MAIN CONTENT (The Data Viz Grid) -->
+	<div class="flex-grow flex flex-col gap-12 pt-4">
+		<!-- Column Headers -->
+		<div
+			class="hidden md:grid grid-cols-3 gap-6 text-center text-[#4B7992] uppercase tracking-wider font-semibold text-sm"
+		>
+			<div>Built Form</div>
+			<div class="flex flex-col items-center">
+				<span>Station Ranking</span>
+			</div>
+			<div>Development Potential</div>
+		</div>
 
-<div class="container mx-auto flex justify-center px-4 sm:px-6 pb-10 max-w-4xl">
-	<MetricsDisplay {station1Data} {station2Data} {station1Metrics} {station2Metrics} />
+		<!-- ROW 1: STATION 1 -->
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+			<!-- Map 1 -->
+			<div class="flex justify-center relative">
+				<!-- In mobile view, show label -->
+				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
+					Built Form
+				</div>
+				<div id="map1" class="map-circle drop-shadow-lg"></div>
+			</div>
+
+			<!-- Radar 1 -->
+			<div class="flex flex-col items-center relative">
+				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
+					Station Ranking
+				</div>
+
+				<Tabs.Root
+					bind:value={activeRadarCategory1}
+					class="w-full flex justify-center mb-4 text-xs"
+				>
+					<Tabs.List
+						class="flex bg-gray-50 rounded-md border border-gray-200 overflow-hidden shadow-sm"
+					>
+						{#each radarCategories as cat}
+							<Tabs.Trigger
+								value={cat.value}
+								class="px-3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+							>
+								{cat.label}
+							</Tabs.Trigger>
+						{/each}
+					</Tabs.List>
+				</Tabs.Root>
+
+				<RadarChart data={mock1.radarPoints} size={250} max={100} color="#ff007f" />
+			</div>
+
+			<!-- Dev Potential 1 -->
+			<div class="flex justify-center relative">
+				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
+					Development Potential
+				</div>
+				<DevelopmentPotentialGraphic score={baseMock1.potentialScore} maxScore={10} />
+			</div>
+		</div>
+
+		<!-- Divider -->
+		<div class="w-full h-px bg-gray-200 hidden md:block"></div>
+
+		<!-- ROW 2: STATION 2 -->
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+			<!-- Map 2 -->
+			<div class="flex justify-center">
+				<div id="map2" class="map-circle drop-shadow-lg"></div>
+			</div>
+
+			<!-- Radar 2 -->
+			<div class="flex flex-col items-center">
+				<Tabs.Root
+					bind:value={activeRadarCategory2}
+					class="w-full flex justify-center mb-4 text-xs"
+				>
+					<Tabs.List
+						class="flex bg-gray-50 rounded-md border border-gray-200 overflow-hidden shadow-sm"
+					>
+						{#each radarCategories as cat}
+							<Tabs.Trigger
+								value={cat.value}
+								class="px-3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+							>
+								{cat.label}
+							</Tabs.Trigger>
+						{/each}
+					</Tabs.List>
+				</Tabs.Root>
+
+				<RadarChart data={mock2.radarPoints} size={250} max={100} color="#ff007f" />
+			</div>
+
+			<!-- Dev Potential 2 -->
+			<div class="flex justify-center">
+				<DevelopmentPotentialGraphic score={baseMock2.potentialScore} maxScore={10} />
+			</div>
+		</div>
+	</div>
 </div>
 
 <Footer />
 
 <style>
-	#map1,
-	#map2 {
-		width: 450px;
-		height: 100%;
-		min-height: 450px;
+	.map-circle {
+		width: 300px;
+		height: 300px;
+		min-height: 300px;
 		border-radius: 50%; /* Circular frame */
 		overflow: hidden; /* Clip map to circle */
-		border: 2px solid #d3d3d3;
-		padding: 20px;
+		border: 1px solid #e5e7eb;
 	}
 
 	.error-message {
