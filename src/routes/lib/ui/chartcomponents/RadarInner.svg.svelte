@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { curveCardinalClosed, line } from 'd3-shape';
 	import { getContext } from 'svelte';
-	import { line, curveCardinalClosed } from 'd3-shape';
 
-	const { data, width, height } = getContext('LayerCake');
+	const { data, width, height } = getContext<any>('LayerCake');
 
 	let {
 		fill = '#ff007f',
@@ -88,13 +88,16 @@
 		<text
 			x={axis.lx}
 			y={axis.ly}
-			font-size="10"
+			font-size="14"
 			font-family="Inter, sans-serif"
 			fill="#6b7280"
 			text-anchor={axis.anchor}
-			dominant-baseline="middle"
 		>
-			{axis.key}
+			{#each axis.key.split(' ') as word, i}
+				<tspan x={axis.lx} dy={i === 0 ? '-0.5em' : '1.1em'}>
+					{word}
+				</tspan>
+			{/each}
 		</text>
 	{/each}
 </g>

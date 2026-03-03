@@ -18,30 +18,35 @@
 	const isLowPotential = $derived(normalizedTargetScore <= 0.3);
 
 	const topColor = $derived(
-		isHighPotential ? '#ff4d4d' : isMediumPotential ? '#ffb347' : '#a8d6b0'
+		isHighPotential ? '#efa4bd' : isMediumPotential ? '#ffefa9' : '#b4eaff'
 	);
 	const leftColor = $derived(
-		isHighPotential ? '#cc0000' : isMediumPotential ? '#e68a00' : '#7bb385'
+		isHighPotential ? '#db3069' : isMediumPotential ? '#deb500' : '#00adf2'
 	);
 	const rightColor = $derived(
-		isHighPotential ? '#990000' : isMediumPotential ? '#b36b00' : '#51855a'
+		isHighPotential ? '#721433' : isMediumPotential ? '#8e7400' : '#003f5e'
 	);
 
 	const getBuildingPoints = (x: number, y: number, h: number, s: number) => {
-		const height = h * (10 + 25 * s);
+		// Dramatic height difference using squared power
+		const height = h * (100 + 700 * Math.pow(s, 2));
+		// Base width 40 (w=20 per side), depth 20 (d=10 per side)
+		const w = 20;
+		const d = 10;
 		return {
-			top: `${x},${y - height - 10} ${x + 20},${y - height - 20} ${x + 40},${y - height - 10} ${x + 20},${y - height}`,
-			left: `${x},${y - height - 10} ${x + 20},${y - height} ${x + 20},${y + 30} ${x},${y + 20}`,
-			right: `${x + 20},${y - height} ${x + 40},${y - height - 10} ${x + 40},${y + 20} ${x + 20},${y + 30}`
+			top: `${x},${y - height} ${x + w},${y - d - height} ${x},${y - 2 * d - height} ${x - w},${y - d - height}`,
+			left: `${x},${y} ${x},${y - height} ${x - w},${y - d - height} ${x - w},${y - d}`,
+			right: `${x},${y} ${x},${y - height} ${x + w},${y - d - height} ${x + w},${y - d}`
 		};
 	};
 
 	const buildings = $derived([
-		getBuildingPoints(80, 80, 2, normalizedAnimatedScore),
-		getBuildingPoints(50, 60, 1.5, normalizedAnimatedScore),
-		getBuildingPoints(110, 60, 1.8, normalizedAnimatedScore),
-		getBuildingPoints(60, 100, 1.2, normalizedAnimatedScore),
-		getBuildingPoints(100, 90, 1.4, normalizedAnimatedScore)
+		// Sorted back-to-front
+		getBuildingPoints(80, 105, 0.12, normalizedAnimatedScore),
+		getBuildingPoints(120, 110, 0.14, normalizedAnimatedScore),
+		getBuildingPoints(70, 120, 0.15, normalizedAnimatedScore),
+		getBuildingPoints(130, 125, 0.12, normalizedAnimatedScore),
+		getBuildingPoints(105, 140, 0.1, normalizedAnimatedScore)
 	]);
 </script>
 
@@ -62,24 +67,17 @@
 	</div>
 
 	<div class="w-full flex justify-between text-xs text-gray-600 mb-6 italic">
-		<span>Low</span>
-		<span>High</span>
+		<span>Low Potential</span>
+		<span>High Potential</span>
 	</div>
 
-	<svg viewBox="0 0 200 150" class="w-full h-auto drop-shadow-xl" opacity={0.9}>
+	<svg viewBox="0 0 200 200" class="w-full h-auto drop-shadow-xl" opacity={0.9}>
 		<polygon
-			points="100,10 190,55 100,100 10,55"
-			fill="#f0fdf4"
+			points="100,60 190,105 100,150 10,105"
+			fill="#cdd5d9"
 			stroke="#d1d5db"
 			stroke-width="1"
 		/>
-
-		{#if isLowPotential}
-			<ellipse cx="40" cy="50" rx="8" ry="4" fill="#6ee7b7" />
-			<ellipse cx="60" cy="40" rx="6" ry="3" fill="#6ee7b7" />
-			<ellipse cx="140" cy="60" rx="8" ry="4" fill="#6ee7b7" />
-			<ellipse cx="160" cy="50" rx="6" ry="3" fill="#6ee7b7" />
-		{/if}
 
 		{#each buildings as b}
 			<polygon points={b.left} fill={leftColor} style="transition: fill 0.4s ease;" />
@@ -87,22 +85,20 @@
 			<polygon points={b.top} fill={topColor} style="transition: fill 0.4s ease;" />
 		{/each}
 
+		<!-- Ground decals aligned with bottom diamond corner (100,150) -->
 		<polyline
-			points="20,65 10,60 90,110 100,105"
+			points="30,115 10,105 100,150 120,140"
 			fill="none"
 			stroke="#9ca3af"
 			stroke-width="1"
 			stroke-dasharray="2,2"
 		/>
-		<text x="30" y="95" font-size="8" fill="#6b7280" transform="rotate(30 30,95)">150 m</text>
-
 		<polyline
-			points="180,65 190,60 110,110 100,105"
+			points="170,115 190,105 100,150 80,140"
 			fill="none"
 			stroke="#9ca3af"
 			stroke-width="1"
 			stroke-dasharray="2,2"
 		/>
-		<text x="140" y="85" font-size="8" fill="#6b7280" transform="rotate(-30 140,85)">150 m</text>
 	</svg>
 </div>

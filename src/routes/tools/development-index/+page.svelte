@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
+	import * as d3 from 'd3';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
@@ -31,6 +32,7 @@
 	let station2Metrics: any = $state({});
 	let station1Data: any = $state();
 	let station2Data: any = $state();
+	let stationDpiData: any[] = $state([]);
 
 	// Error messages
 	let station1Error = $state('');
@@ -44,6 +46,7 @@
 	let parkingCheck = $state(true);
 	let buildingsCheck = $state(true);
 	let waterCheck = $state(true);
+	let buildingpermitsCheck = $state(true);
 
 	// Data
 	let transitStationsDropdown: any[] = $state([]);
@@ -94,10 +97,11 @@
 
 	const stationsProcessed = $derived(stationRawData ?? []);
 
-	const mock1 = $derived(generateMockData(selectedStation1, activeRadarCategory1));
-	const baseMock1 = $derived(generateMockData(selectedStation1, 'land'));
-	const mock2 = $derived(generateMockData(selectedStation2, activeRadarCategory2));
-	const baseMock2 = $derived(generateMockData(selectedStation2, 'land'));
+	const devData1 = $derived(getStationDevelopmentData(selectedStation1, activeRadarCategory1));
+	const devData2 = $derived(getStationDevelopmentData(selectedStation2, activeRadarCategory2));
+
+	const baseDevData1 = $derived(getStationDevelopmentData(selectedStation1, 'potential'));
+	const baseDevData2 = $derived(getStationDevelopmentData(selectedStation2, 'potential'));
 
 	// ─── Effects ──────────────────────────────────────────────────────────────
 
@@ -155,7 +159,8 @@
 			stations: stationCheck,
 			roads: roadsCheck,
 			buildings: buildingsCheck,
-			water: waterCheck
+			water: waterCheck,
+			buildingpermits: buildingpermitsCheck
 		});
 	});
 
@@ -168,25 +173,55 @@
 			stations: stationCheck,
 			roads: roadsCheck,
 			buildings: buildingsCheck,
-			water: waterCheck
+			water: waterCheck,
+			buildingpermits: buildingpermitsCheck
 		});
 	});
 
 	// ─── Helpers ──────────────────────────────────────────────────────────────
 
-	function generateMockData(stationId: string, category = 'land') {
-		const seed = parseInt(stationId) || 123;
-		const catShift = category === 'land' ? 1 : category === 'growth' ? 2 : 3;
-		const baseValue = ((seed * catShift * 17) % 50) + 20;
+	function getStationDevelopmentData(stationId: string, category = 'land') {
+		const data = stationDpiData.find((d) => d.id === stationId);
+		if (!data) {
+			return {
+				potentialScore: 0,
+				radarPoints: []
+			};
+		}
+
+		const potentialMap: Record<string, number> = {
+			High: 7.5,
+			Moderate: 5,
+			Low: 2.5
+		};
+
+		const radarPoints = [];
+
+		if (category === 'land') {
+			radarPoints.push(
+				{ label: 'Single Unit Dwellings', value: (data.single_units || 0) * 100 },
+				{ label: 'Total Developable Land', value: (data.DevelopableArea || 0) * 100 },
+				{ label: 'High Opportunity Sites', value: (data.HighOpportunityArea || 0) * 100 },
+				{ label: 'Employment Density', value: (data.EmploymentDensity || 0) * 100 },
+				{ label: 'Population Density', value: (data.PopulationDensity || 0) * 100 }
+			);
+		} else if (category === 'growth') {
+			radarPoints.push(
+				{ label: 'Pop Change 2020-25', value: (data.PopChange2020to2025 || 0) * 100 },
+				{ label: 'Pop Change 2025-30', value: (data.PopChange2025to2030 || 0) * 100 },
+				{ label: 'Muni Pop Change 20-25', value: (data.MunicipalPopChange2020to2025 || 0) * 100 }
+			);
+		} else if (category === 'permits') {
+			radarPoints.push(
+				{ label: 'Units Created', value: (data.UnitsCreated || 0) * 100 },
+				{ label: 'Overall CC Score', value: (data.OverallCCScore || 0) * 100 },
+				{ label: 'Daily Visits', value: (data.DailyVisits || 0) * 100 }
+			);
+		}
+
 		return {
-			potentialScore: ((seed * 7) % 10) + 1,
-			radarPoints: [
-				{ label: 'Single Unit Dwellings', value: (baseValue + ((seed * 3) % 40)) % 100 },
-				{ label: 'Total Developable Land', value: (baseValue + ((seed * 11) % 40)) % 100 },
-				{ label: 'High Opportunity Sites', value: (baseValue + ((seed * 19) % 40)) % 100 },
-				{ label: 'Employment Density', value: (baseValue + ((seed * 23) % 40)) % 100 },
-				{ label: 'Population Density', value: (baseValue + ((seed * 31) % 40)) % 100 }
-			]
+			potentialScore: potentialMap[data.potential] || 0,
+			radarPoints
 		};
 	}
 
@@ -316,11 +351,17 @@
 			'parking',
 			'transit-station-points',
 			'all-buildings',
+			'building-permits',
 			'water'
 		];
 		if (!required.every((id) => map.getLayer(id))) return false;
 
 		map.setLayoutProperty('greenspace', 'visibility', cfg.greenspace ? 'visible' : 'none');
+		map.setLayoutProperty(
+			'building-permits',
+			'visibility',
+			cfg.buildingpermits ? 'visible' : 'none'
+		);
 		map.setLayoutProperty('transit-lines', 'visibility', cfg.transit ? 'visible' : 'none');
 		map.setLayoutProperty('parking', 'visibility', cfg.parking ? 'visible' : 'none');
 		map.setLayoutProperty(
@@ -364,7 +405,28 @@
 			)
 				.then((r) => r.json())
 				.then((d) => (stationMetrics = d))
-				.catch((e) => console.error('Metrics fetch error:', e))
+				.catch((e) => console.error('Metrics fetch error:', e)),
+
+			fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/station_dpi.csv'
+			)
+				.then((r) => r.text())
+				.then((csvText) => {
+					stationDpiData = d3.csvParse(csvText, (d: any) => {
+						const row: any = {};
+						for (const key in d) {
+							if (key === 'id') {
+								row[key] = d[key];
+							} else if (key === 'potential') {
+								row[key] = d[key];
+							} else {
+								row[key] = d[key] === 'NA' ? 0 : +d[key];
+							}
+						}
+						return row;
+					});
+				})
+				.catch((e) => console.error('DPI CSV fetch error:', e))
 		];
 
 		await Promise.all(fetches);
@@ -399,6 +461,15 @@
 				map2!.fitBounds(mapData[2].bbox, { padding: 0 });
 			}
 		});
+
+		// Force visibility of building-permits on initial load
+		[map1, map2].forEach((m) => {
+			m?.on('styledata', () => {
+				if (m.getLayer('building-permits')) {
+					m.setLayoutProperty('building-permits', 'visibility', 'visible');
+				}
+			});
+		});
 	});
 </script>
 
@@ -412,13 +483,13 @@
 			><u>School of Cities</u></a
 		>.
 	</p>
-	<p class="text-sm mt-4 text-gray-500"><em>This tool is in beta.</em></p>
+	<p class="text-sm text-gray-500"><em>This tool is in beta.</em></p>
 </div>
 
 <div id="content-container">
 	<!-- LEFT SIDEBAR -->
 	<div id="sidebar">
-		<h3 class="font-bold text-gray-700 italic">Select stations:</h3>
+		<h3 class="mb-4">Select stations:</h3>
 
 		<!-- Station 1 -->
 		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
@@ -464,11 +535,13 @@
 						</div>
 						<div class="mt-2 text-[#006A8E] font-medium">
 							Development Potential:
-							{generateMockData(selectedStation1).potentialScore > 6
+							{getStationDevelopmentData(selectedStation1).potentialScore >= 7
 								? 'High'
-								: generateMockData(selectedStation1).potentialScore > 3
-									? 'Med'
-									: 'Low'}
+								: getStationDevelopmentData(selectedStation1).potentialScore >= 5
+									? 'Moderate'
+									: getStationDevelopmentData(selectedStation1).potentialScore >= 2
+										? 'Low'
+										: 'N/A'}
 						</div>
 					</div>
 				</div>
@@ -519,11 +592,13 @@
 						</div>
 						<div class="mt-2 text-[#006A8E] font-medium">
 							Development Potential:
-							{generateMockData(selectedStation2).potentialScore > 6
+							{getStationDevelopmentData(selectedStation2).potentialScore >= 7
 								? 'High'
-								: generateMockData(selectedStation2).potentialScore > 3
-									? 'Med'
-									: 'Low'}
+								: getStationDevelopmentData(selectedStation2).potentialScore >= 5
+									? 'Moderate'
+									: getStationDevelopmentData(selectedStation2).potentialScore >= 2
+										? 'Low'
+										: 'N/A'}
 						</div>
 					</div>
 				</div>
@@ -531,9 +606,11 @@
 		</div>
 
 		<!-- Layer Toggles -->
-		<div class="mt-4">
-			<div class="grid grid-cols-2 gap-x-2 gap-y-4 text-xs">
-				<div class="flex flex-col gap-2 border-r border-gray-200 pr-2">
+		<div class="mt-6">
+			<h6>Legend</h6>
+			<p>Click to toggle layers</p>
+			<div class="mt-4 grid grid-cols-2 gap-x-2 gap-y-4 text-xs">
+				<div class="flex flex-col gap-2">
 					<div class="font-bold text-gray-500 mb-1">Transit & Roads</div>
 					<Checkbox
 						bind:checked={transitCheck}
@@ -545,14 +622,11 @@
 				</div>
 				<div class="flex flex-col gap-2 pl-2">
 					<div class="font-bold text-gray-500 mb-1">Built Form</div>
-					<Checkbox
-						bind:checked={greenspaceCheck}
-						label="Greenspace"
-						icon="mdi:pine-tree-variant"
-					/>
-					<Checkbox bind:checked={waterCheck} label="Water" icon="mdi:waves" />
-					<Checkbox bind:checked={buildingsCheck} label="Buildings" icon="mdi:office-building" />
-					<Checkbox bind:checked={parkingCheck} label="Parking" icon="mdi:car" />
+					<Checkbox bind:checked={greenspaceCheck} label="Greenspace" color="#475249" />
+					<Checkbox bind:checked={waterCheck} label="Water" color="#253841" />
+					<Checkbox bind:checked={buildingsCheck} label="Buildings" color="#6A6A6A" />
+					<Checkbox bind:checked={parkingCheck} label="Parking" color="#B2B2B2" />
+					<Checkbox bind:checked={buildingpermitsCheck} label="Building Permits" color="#DA3068" />
 				</div>
 			</div>
 		</div>
@@ -560,32 +634,25 @@
 
 	<!-- RIGHT CONTENT -->
 	<div class="flex-grow flex flex-col gap-12 pt-4">
-		<div
-			class="hidden md:grid grid-cols-3 gap-6 text-center text-[#4B7992] uppercase tracking-wider font-semibold text-sm"
-		>
-			<div>Built Form</div>
-			<div>Station Ranking</div>
-			<div>Development Potential</div>
+		<div class="hidden lg:grid grid-cols-3 gap-6 text-center">
+			<h4>Built Form</h4>
+			<h4>Station Ranking</h4>
+			<h4>Development Potential</h4>
 		</div>
 
 		<!-- Row 1 -->
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
 			<div class="flex justify-center relative">
-				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
+				<div class="lg:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
 					Built Form
 				</div>
 				<div id="map1" class="map-circle drop-shadow-lg"></div>
 			</div>
-			<div class="flex flex-col items-center relative">
-				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
-					Station Ranking
-				</div>
-				<Tabs.Root
-					bind:value={activeRadarCategory1}
-					class="w-full flex justify-center mb-4 text-xs"
-				>
+			<div class="flex flex-col h-full w-full items-center gap-10 relative">
+				<div class="lg:hidden">Station Ranking</div>
+				<Tabs.Root bind:value={activeRadarCategory1} class="w-full flex justify-center mb-4">
 					<Tabs.List
-						class="flex bg-gray-50 rounded-md border border-gray-200 overflow-hidden shadow-sm"
+						class="flex flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
 					>
 						{#each radarCategories as cat}
 							<Tabs.Trigger
@@ -597,31 +664,26 @@
 						{/each}
 					</Tabs.List>
 				</Tabs.Root>
-				<RadarChart data={mock1.radarPoints} size={250} max={100} color="#ff007f" />
+				<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
 			</div>
 			<div class="flex justify-center relative">
-				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
+				<div class="lg:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
 					Development Potential
 				</div>
-				<DevelopmentPotentialGraphic score={baseMock1.potentialScore} maxScore={10} />
+				<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
 			</div>
 		</div>
 
-		<div class="w-full h-px bg-gray-200 hidden md:block"></div>
+		<div class="w-full h-px bg-gray-200 hidden lg:block"></div>
 
 		<!-- Row 2 -->
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
 			<div class="flex justify-center">
 				<div id="map2" class="map-circle drop-shadow-lg"></div>
 			</div>
-			<div class="flex flex-col items-center">
-				<Tabs.Root
-					bind:value={activeRadarCategory2}
-					class="w-full flex justify-center mb-4 text-xs"
-				>
-					<Tabs.List
-						class="flex bg-gray-50 rounded-md border border-gray-200 overflow-hidden shadow-sm"
-					>
+			<div class="flex flex-col items-center gap-4 h-full">
+				<Tabs.Root bind:value={activeRadarCategory2} class="w-full flex justify-center mb-4">
+					<Tabs.List class="flex bg-gray-50 rounded-md border border-gray-200 overflow-hidden">
 						{#each radarCategories as cat}
 							<Tabs.Trigger
 								value={cat.value}
@@ -632,10 +694,10 @@
 						{/each}
 					</Tabs.List>
 				</Tabs.Root>
-				<RadarChart data={mock2.radarPoints} size={250} max={100} color="#ff007f" />
+				<RadarChart data={devData2.radarPoints} max={100} color="#ff007f" />
 			</div>
 			<div class="flex justify-center">
-				<DevelopmentPotentialGraphic score={baseMock2.potentialScore} maxScore={10} />
+				<DevelopmentPotentialGraphic score={baseDevData2.potentialScore} maxScore={10} />
 			</div>
 		</div>
 	</div>
@@ -666,7 +728,9 @@
 	#content-container {
 		display: flex;
 		flex-direction: column;
-		overflow: hidden;
+		height: auto;
+		min-height: 100%;
+		padding-bottom: 4rem;
 	}
 
 	#sidebar {
@@ -681,11 +745,11 @@
 	@media only screen and (min-width: 1024px) {
 		#content-container {
 			flex-direction: row;
-			height: calc(100vh - 120px);
+			min-height: calc(100vh - 120px);
 		}
 
 		#sidebar {
-			width: 35%;
+			width: 25%;
 			min-width: 400px;
 			height: 100%;
 			border-top: none;

@@ -21,7 +21,7 @@
 	const xKeys = $derived(data.map((d) => d.label));
 </script>
 
-<div class="chart-container" style="width:{size}px; height:{size}px;">
+<div class="chart-container" style="width:100%; height:100%;">
 	<LayerCake data={lcData} x={xKeys}>
 		<Svg>
 			<RadarInner fill={color} stroke={color} />
