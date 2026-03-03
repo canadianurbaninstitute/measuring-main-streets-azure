@@ -1,6 +1,6 @@
 <script lang="ts">
-	// Imports
 	import * as turf from '@turf/turf';
+	import { Tabs } from 'bits-ui';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
@@ -8,55 +8,65 @@
 		transit_lines_source,
 		urban_form_comp_style
 	} from '../../lib/data/transitdata/config-mapbox.json';
-	// import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
-	// Remove MetricsDisplay since we are integrating into sidebar now
-	// import MetricsDisplay from './MetricsDisplay.svelte';
-	import { Tabs } from 'bits-ui';
+	import '../../styles.css';
 	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
 	import RadarChart from './RadarChart.svelte';
-
-	import '../../styles.css';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
-	// Initialize maps
-	let map1;
-	let map2;
+	// Maps
+	let map1: mapboxgl.Map | undefined = $state();
+	let map2: mapboxgl.Map | undefined = $state();
 
-	// Initial stations
-	let selectedStation1 = '573';
-	let selectedStation2 = '194';
+	// Selected stations
+	let selectedStation1 = $state('573');
+	let selectedStation2 = $state('194');
 
-	let station1Metrics: any = {};
-	let station2Metrics: any = {};
+	let station1Metrics: any = $state({});
+	let station2Metrics: any = $state({});
+	let station1Data: any = $state();
+	let station2Data: any = $state();
 
-	let station1Data: any;
-	let station2Data: any;
+	// Error messages
+	let station1Error = $state('');
+	let station2Error = $state('');
 
-	// Convert line colours to Mapbox expression
-	const lineColorExpression = [
-		'match',
-		['get', 'line_id'],
-		...Object.entries(line_colors).flatMap(([id, color]) => [
-			[Number(id)], // Wrap the number in an array
-			color
-		]),
-		'#000000' // Fallback color
+	// Layer toggles
+	let greenspaceCheck = $state(true);
+	let roadsCheck = $state(true);
+	let transitCheck = $state(true);
+	let stationCheck = $state(true);
+	let parkingCheck = $state(true);
+	let buildingsCheck = $state(true);
+	let waterCheck = $state(true);
+
+	// Data
+	let transitStationsDropdown: any[] = $state([]);
+	let stationRawData: any[] = $state([]);
+	let stationMetrics: any[] = $state([]);
+
+	// Radar tabs
+	const radarCategories = [
+		{ value: 'land', label: 'Land Availability' },
+		{ value: 'growth', label: 'Growth Pressure' },
+		{ value: 'permits', label: 'Building Permits' }
 	];
 
-	// Error messages for user display
-	let station1Error = '';
-	let station2Error = '';
+	let activeRadarCategory1 = $state('land');
+	let activeRadarCategory2 = $state('land');
 
-	// Station area radius in km
+	// Validation flag
+	let initialStationsValidated = $state(false);
+
+	// ─── Constants ────────────────────────────────────────────────────────────
+
 	const radiusInKilometers = 0.8;
 
-	// Map configuration
 	const mapConfig = {
 		style: urban_form_comp_style.url,
 		zoom: 13,
@@ -68,47 +78,108 @@
 		projection: 'mercator'
 	};
 
-	// Map data storage
-	const mapData = {
+	const lineColorExpression = [
+		'match',
+		['get', 'line_id'],
+		...Object.entries(line_colors).flatMap(([id, color]) => [[Number(id)], color]),
+		'#000000'
+	];
+
+	const mapData: Record<number, { data: any; coords: any[]; circle: any; bbox: any }> = {
 		1: { data: {}, coords: [], circle: null, bbox: null },
 		2: { data: {}, coords: [], circle: null, bbox: null }
 	};
 
-	// For layer toggle
-	let greenspaceCheck: boolean;
-	let roadsCheck: boolean;
-	let transitCheck: boolean;
-	let stationCheck: boolean;
-	let parkingCheck: boolean;
-	let buildingsCheck: boolean;
-	let waterCheck: boolean;
+	// ─── Derived ──────────────────────────────────────────────────────────────
 
-	// Data variables. Initialize as empty arrays.
-	let transitStationsDropdown: any[] = [];
-	let stationRawData: any[] = [];
-	let stationMetrics: any[] = [];
+	const stationsProcessed = $derived(stationRawData ?? []);
 
-	// Bits UI tabs mapping to our mock radar categories
-	const radarCategories = [
-		{ value: 'land', label: 'Land Availability' },
-		{ value: 'growth', label: 'Growth Pressure' },
-		{ value: 'permits', label: 'Building Permits' }
-	];
+	const mock1 = $derived(generateMockData(selectedStation1, activeRadarCategory1));
+	const baseMock1 = $derived(generateMockData(selectedStation1, 'land'));
+	const mock2 = $derived(generateMockData(selectedStation2, activeRadarCategory2));
+	const baseMock2 = $derived(generateMockData(selectedStation2, 'land'));
 
-	let activeRadarCategory1 = 'land';
-	let activeRadarCategory2 = 'land';
+	// ─── Effects ──────────────────────────────────────────────────────────────
 
-	// Mock Data Generator for Radar and Isometric graphics
-	function generateMockData(stationId, category = 'land') {
-		// Use the integer ID as a stable seed to generate pseudo-random looking data
+	// Validate initial stations once data loads
+	$effect(() => {
+		if (initialStationsValidated || stationsProcessed.length === 0) return;
+
+		if (!stationsProcessed.find((s) => s.id.toString() === selectedStation1)) {
+			console.error(`Initial station "${selectedStation1}" not found. Using first available.`);
+			selectedStation1 = stationsProcessed[0]?.id.toString() || '1';
+		}
+		if (!stationsProcessed.find((s) => s.id.toString() === selectedStation2)) {
+			console.error(`Initial station "${selectedStation2}" not found. Using second available.`);
+			selectedStation2 = stationsProcessed[1]?.id.toString() || '2';
+		}
+		initialStationsValidated = true;
+	});
+
+	// Map 1 — react to station selection
+	$effect(() => {
+		if (!selectedStation1 || stationsProcessed.length === 0) return;
+		const ok = updateStationData(1, selectedStation1);
+		if (ok) {
+			station1Error = '';
+			updateMapWithStationData(map1, mapData[1], { updateStylingCallback: updateStationStyling });
+			station1Metrics = stationMetrics.find((s) => s.id.toString() === selectedStation1);
+			station1Data = stationsProcessed.find((s) => s.id.toString() === selectedStation1);
+			if (!station1Metrics) console.warn(`Metrics not found for station "${selectedStation1}"`);
+		} else {
+			station1Error = 'Station data not available';
+		}
+	});
+
+	// Map 2 — react to station selection
+	$effect(() => {
+		if (!selectedStation2 || stationsProcessed.length === 0) return;
+		const ok = updateStationData(2, selectedStation2);
+		if (ok) {
+			station2Error = '';
+			updateMapWithStationData(map2, mapData[2], { updateStylingCallback: updateStationStyling });
+			station2Metrics = stationMetrics.find((s) => s.id.toString() === selectedStation2);
+			station2Data = stationsProcessed.find((s) => s.id.toString() === selectedStation2);
+			if (!station2Metrics) console.warn(`Metrics not found for station "${selectedStation2}"`);
+		} else {
+			station2Error = 'Station data not available';
+		}
+	});
+
+	// Layer toggles — map 1
+	$effect(() => {
+		mapLayerToggle(map1, {
+			greenspace: greenspaceCheck,
+			transit: transitCheck,
+			parking: parkingCheck,
+			stations: stationCheck,
+			roads: roadsCheck,
+			buildings: buildingsCheck,
+			water: waterCheck
+		});
+	});
+
+	// Layer toggles — map 2
+	$effect(() => {
+		mapLayerToggle(map2, {
+			greenspace: greenspaceCheck,
+			transit: transitCheck,
+			parking: parkingCheck,
+			stations: stationCheck,
+			roads: roadsCheck,
+			buildings: buildingsCheck,
+			water: waterCheck
+		});
+	});
+
+	// ─── Helpers ──────────────────────────────────────────────────────────────
+
+	function generateMockData(stationId: string, category = 'land') {
 		const seed = parseInt(stationId) || 123;
-
-		// Shift seed based on category to make tabs look different
 		const catShift = category === 'land' ? 1 : category === 'growth' ? 2 : 3;
-		const baseValue = ((seed * catShift * 17) % 50) + 20; // range 20-70
-
+		const baseValue = ((seed * catShift * 17) % 50) + 20;
 		return {
-			potentialScore: ((seed * 7) % 10) + 1, // 1-10
+			potentialScore: ((seed * 7) % 10) + 1,
 			radarPoints: [
 				{ label: 'Single Unit Dwellings', value: (baseValue + ((seed * 3) % 40)) % 100 },
 				{ label: 'Total Developable Land', value: (baseValue + ((seed * 11) % 40)) % 100 },
@@ -119,101 +190,58 @@
 		};
 	}
 
-	$: mock1 = generateMockData(selectedStation1, activeRadarCategory1);
-	$: baseMock1 = generateMockData(selectedStation1, 'land');
-	$: mock2 = generateMockData(selectedStation2, activeRadarCategory2);
-	$: baseMock2 = generateMockData(selectedStation2, 'land');
-
-	// Create reactive station data from stationRawData.
-	$: stationsProcessed = stationRawData || [];
-
-	// Create circle and bounding box for station
-	function updateStationData(mapIndex, selectedStationId) {
-		const stationData = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStationId
-		);
+	function updateStationData(mapIndex: number, selectedStationId: string) {
+		const stationData = stationsProcessed.find((s) => s.id.toString() === selectedStationId);
 		if (!stationData) {
-			console.warn(
-				`Station with ID "${selectedStationId}" not found in station data for map ${mapIndex}`
-			);
-			// Set a default empty fallback so that the page does not break
+			console.warn(`Station "${selectedStationId}" not found for map ${mapIndex}`);
 			mapData[mapIndex] = { data: null, coords: [], circle: null, bbox: null };
 			return false;
 		}
 		const coords = [stationData.longitude, stationData.latitude];
-		const circle = turf.circle(coords, radiusInKilometers, {
-			steps: 128,
-			units: 'kilometers'
-		});
+		const circle = turf.circle(coords, radiusInKilometers, { steps: 128, units: 'kilometers' });
 		const bbox = turf.bbox(circle);
 		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
 		return true;
 	}
 
-	// Handle station selection from combobox
-	function handleStation1Select(value) {
-		const newStationId = value.toString();
-
-		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
-
-		if (!stationExists) {
-			console.error(`Cannot select station "${newStationId}" for Map 1: Station not found in data`);
+	function handleStation1Select(value: any) {
+		const id = value.toString();
+		if (!stationsProcessed.find((s) => s.id === id)) {
 			station1Error = 'Station data not available';
-			return; // Keep previous valid state
+			return;
 		}
-
-		station1Error = ''; // Clear error on successful selection
-		selectedStation1 = newStationId;
+		station1Error = '';
+		selectedStation1 = id;
 	}
 
-	function handleStation2Select(value) {
-		const newStationId = value.toString();
-		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
-
-		if (!stationExists) {
-			console.error(`Cannot select station "${newStationId}" for Map 2: Station not found in data`);
+	function handleStation2Select(value: any) {
+		const id = value.toString();
+		if (!stationsProcessed.find((s) => s.id === id)) {
 			station2Error = 'Station data not available';
-			return; // Keep previous valid state
+			return;
 		}
-
-		station2Error = ''; // Clear error on successful selection
-		selectedStation2 = newStationId;
+		station2Error = '';
+		selectedStation2 = id;
 	}
 
-	// Create map instances
-	function createMap(containerId) {
-		// Ensure the projection value matches the Mapbox typings by casting it to the expected type.
-		const cfg = {
-			...mapConfig,
-			projection: mapConfig.projection as unknown as mapboxgl.Projection
-		};
-
+	function createMap(containerId: string) {
 		return new mapboxgl.Map({
 			container: containerId,
-			...cfg
+			...(mapConfig as any)
 		});
 	}
 
-	// Add layers to map (transit, etc.)
-	function addMapLayers(map, allStationData, selectedStationData) {
-		// Add transit data sources
-		map.addSource('transit-line-data', {
-			type: 'vector',
-			url: transit_lines_source.url
-		});
-		map.addSource('transit-station-data', {
-			type: 'geojson',
-			data: allStationData
-		});
+	function addMapLayers(map: mapboxgl.Map, allStationData: any, _selectedStationData: any) {
+		map.addSource('transit-line-data', { type: 'vector', url: transit_lines_source.url });
+		map.addSource('transit-station-data', { type: 'geojson', data: allStationData });
 
-		// Add transit data layers
 		map.addLayer({
 			id: 'transit-lines',
 			type: 'line',
 			source: 'transit-line-data',
 			'source-layer': transit_lines_source.source_layer,
 			paint: {
-				'line-color': lineColorExpression as mapboxgl.DataDrivenPropertyValueSpecification<string>,
+				'line-color': lineColorExpression as any,
 				'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
 				'line-dasharray': [
 					'case',
@@ -223,6 +251,7 @@
 				]
 			}
 		});
+
 		map.addLayer({
 			id: 'transit-station-points',
 			type: 'circle',
@@ -234,47 +263,29 @@
 				'circle-stroke-width': 2
 			}
 		});
-
-		// Add station radius source
-		// map.addSource('station-radius', {
-		// 	type: 'geojson',
-		// 	data: selectedStationData.circle
-		// });
-
-		// // Add station radius layer
-		// map.addLayer({
-		// 	id: 'station-radius',
-		// 	type: 'fill',
-		// 	source: 'station-radius',
-		// 	paint: {
-		// 		'fill-color': 'transparent',
-		// 		'fill-opacity': 1.0,
-		// 		'fill-outline-color': 'red'
-		// 	}
-		// });
 	}
 
-	// Update station styling for selected station
-	function updateStationStyling(map, selectedStationFilter) {
-		const styleUpdates = [
+	function updateStationStyling(map: mapboxgl.Map, selectedStationFilter: any) {
+		[
 			['circle-color', ['case', selectedStationFilter, '#FFFFFF', '#B8B8B8']],
 			['circle-stroke-color', ['case', selectedStationFilter, '#000000', '#949292']],
 			['circle-stroke-width', ['case', selectedStationFilter, 2, 1]]
-		];
-
-		styleUpdates.forEach(([property, value]) => {
-			map.setPaintProperty('transit-station-points', property, value);
-		});
+		].forEach(([prop, val]) =>
+			map.setPaintProperty(
+				'transit-station-points',
+				prop as 'circle-color' | 'circle-stroke-color' | 'circle-stroke-width',
+				val as string
+			)
+		);
 	}
 
-	// Update map for selected station
 	function updateMapWithStationData(
 		map: mapboxgl.Map | undefined,
 		stationData: any,
 		options: {
 			radiusSourceId?: string;
 			stationLayerId?: string;
-			updateStylingCallback?: ((map: mapboxgl.Map, selectedStationFilter: any) => void) | null;
+			updateStylingCallback?: ((map: mapboxgl.Map, filter: any) => void) | null;
 		} = {}
 	) {
 		const {
@@ -282,45 +293,23 @@
 			stationLayerId = 'transit-station-points',
 			updateStylingCallback = null
 		} = options;
-
-		// Validate inputs
-		if (!map || !stationData) {
-			return;
-		}
-
+		if (!map || !stationData) return;
 		const { data, circle, bbox, coords } = stationData;
+		if (!map.isStyleLoaded() || !data || !circle || !map.getLayer(stationLayerId)) return;
 
-		// Check if map is loaded and has required data
-		if (!map.isStyleLoaded() || !data || !circle || !map.getLayer(stationLayerId)) {
-			return;
-		}
-
-		// Create filter for selected station
 		const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
-
-		// Update the radius circle data if source exists
 		const source = map.getSource(radiusSourceId) as mapboxgl.GeoJSONSource | undefined;
-		if (source) {
-			// GeoJSONSource doesn't have perfect typings here, so cast to any for setData
-			(source as any).setData(circle);
-		}
-
-		// Update map bounds and center
+		if (source) (source as any).setData(circle);
 		if (bbox && coords) {
-			// set bounds AFTER setting center, otherwise the bounds may be off
 			map.setCenter(coords);
 			map.fitBounds(bbox, { padding: 0 });
 		}
-		// Update station styling if callback is provided
-		if (updateStylingCallback && typeof updateStylingCallback === 'function') {
-			updateStylingCallback(map, selectedStationFilter);
-		}
+		if (updateStylingCallback) updateStylingCallback(map, selectedStationFilter);
 	}
 
-	// Handle layer toggles
-	function mapLayerToggle(map, layerVisibilityConfig) {
-		// Check if map is ready and all required layers exist
-		const requiredLayers = [
+	function mapLayerToggle(map: mapboxgl.Map | undefined, cfg: Record<string, boolean>) {
+		if (!map || !map.isStyleLoaded()) return false;
+		const required = [
 			'greenspace',
 			'transit-lines',
 			'road',
@@ -329,236 +318,85 @@
 			'all-buildings',
 			'water'
 		];
+		if (!required.every((id) => map.getLayer(id))) return false;
 
-		if (!map || !map.isStyleLoaded()) {
-			return false; // Map not ready
-		}
-
-		// Check if all required layers exist
-		const allLayersExist = requiredLayers.every((layerId) => map.getLayer(layerId));
-		if (!allLayersExist) {
-			return false; // Not all layers are loaded yet
-		}
-
-		// Update individual layer visibility
-		map.setLayoutProperty(
-			'greenspace',
-			'visibility',
-			layerVisibilityConfig.greenspace ? 'visible' : 'none'
-		);
-		map.setLayoutProperty(
-			'transit-lines',
-			'visibility',
-			layerVisibilityConfig.transit ? 'visible' : 'none'
-		);
-		map.setLayoutProperty(
-			'parking',
-			'visibility',
-			layerVisibilityConfig.parking ? 'visible' : 'none'
-		);
+		map.setLayoutProperty('greenspace', 'visibility', cfg.greenspace ? 'visible' : 'none');
+		map.setLayoutProperty('transit-lines', 'visibility', cfg.transit ? 'visible' : 'none');
+		map.setLayoutProperty('parking', 'visibility', cfg.parking ? 'visible' : 'none');
 		map.setLayoutProperty(
 			'transit-station-points',
 			'visibility',
-			layerVisibilityConfig.stations ? 'visible' : 'none'
+			cfg.stations ? 'visible' : 'none'
 		);
-		map.setLayoutProperty(
-			'all-buildings',
-			'visibility',
-			layerVisibilityConfig.buildings ? 'visible' : 'none'
+		map.setLayoutProperty('all-buildings', 'visibility', cfg.buildings ? 'visible' : 'none');
+
+		map
+			.getStyle()
+			.layers.filter((l) => l['source-layer'] === 'road')
+			.forEach((l) => map.setLayoutProperty(l.id, 'visibility', cfg.roads ? 'visible' : 'none'));
+
+		['water', 'waterway'].forEach((id) =>
+			map.setLayoutProperty(id, 'visibility', cfg.water ? 'visible' : 'none')
 		);
-
-		// Handle road layers (multiple layers with source-layer = 'road')
-		const roadLayers = map.getStyle().layers.filter((layer) => layer['source-layer'] === 'road'); // Get all layers with source-layer = road
-		roadLayers.forEach((layer) => {
-			map.setLayoutProperty(
-				layer.id,
-				'visibility',
-				layerVisibilityConfig.roads ? 'visible' : 'none'
-			);
-		});
-
-		// Handle water layers
-		const waterLayers = ['water', 'waterway'];
-		waterLayers.forEach((layer) => {
-			map.setLayoutProperty(layer, 'visibility', layerVisibilityConfig.water ? 'visible' : 'none');
-		});
-
-		return true; // Successfully updated
+		return true;
 	}
 
-	// Station data will be that already loaded
-	// const stationsProcessed = stationRawData; // Now handled reactively
-
-	// Map 1
-	$: if (selectedStation1 && mapData[1] && stationsProcessed.length > 0) {
-		const updateSuccess = updateStationData(1, selectedStation1);
-		if (updateSuccess) {
-			station1Error = '';
-			updateMapWithStationData(map1, mapData[1], {
-				updateStylingCallback: updateStationStyling
-			});
-			station1Metrics = stationMetrics.find(
-				(station) => station.id.toString() === selectedStation1
-			);
-			station1Data = stationsProcessed.find(
-				(station) => station.id.toString() === selectedStation1
-			);
-			if (!station1Metrics) {
-				console.warn(`Metrics not found for station "${selectedStation1}" (Map 1)`);
-			}
-		} else {
-			station1Error = 'Station data not available';
-		}
-	}
-
-	// Map 2
-	$: if (selectedStation2 && mapData[2] && stationsProcessed.length > 0) {
-		const updateSuccess = updateStationData(2, selectedStation2);
-		if (updateSuccess) {
-			station2Error = '';
-			updateMapWithStationData(map2, mapData[2], {
-				updateStylingCallback: updateStationStyling
-			});
-			station2Metrics = stationMetrics.find(
-				(station) => station.id.toString() === selectedStation2
-			);
-			station2Data = stationsProcessed.find(
-				(station) => station.id.toString() === selectedStation2
-			);
-			if (!station2Metrics) {
-				console.warn(`Metrics not found for station "${selectedStation2}" (Map 2)`);
-			}
-		} else {
-			station2Error = 'Station data not available';
-		}
-	}
-	// Add layer toggles
-	// Map 1
-	$: mapLayerToggle(map1, {
-		greenspace: greenspaceCheck,
-		transit: transitCheck,
-		parking: parkingCheck,
-		stations: stationCheck,
-		roads: roadsCheck,
-		buildings: buildingsCheck,
-		water: waterCheck
-	});
-	// Map 2
-	$: mapLayerToggle(map2, {
-		greenspace: greenspaceCheck,
-		transit: transitCheck,
-		parking: parkingCheck,
-		stations: stationCheck,
-		roads: roadsCheck,
-		buildings: buildingsCheck,
-		water: waterCheck
-	});
-
-	// Validate initial stations
-	let initialStationsValidated = false;
-
-	$: if (!initialStationsValidated && stationsProcessed.length > 0) {
-		const station1Exists = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStation1
-		);
-		const station2Exists = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStation2
-		);
-
-		if (!station1Exists) {
-			console.error(
-				`Initial station "${selectedStation1}" for Map 1 not found in data. Using first available station.`
-			);
-			selectedStation1 = stationsProcessed[0]?.id.toString() || '1';
-		}
-
-		if (!station2Exists) {
-			console.error(
-				`Initial station "${selectedStation2}" for Map 2 not found in data. Using second available station.`
-			);
-			selectedStation2 = stationsProcessed[1]?.id.toString() || '2';
-		}
-
-		initialStationsValidated = true;
-	}
+	// ─── Mount ────────────────────────────────────────────────────────────────
 
 	onMount(async () => {
-		try {
-			const response = await fetch(
+		const fetches = [
+			fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/dropdowns/transit-stations-dropdown.json'
-			);
-			transitStationsDropdown = await response.json();
-		} catch (error) {
-			console.error('Error fetching station dropdown data:', error);
-		}
+			)
+				.then((r) => r.json())
+				.then((d) => (transitStationsDropdown = d))
+				.catch((e) => console.error('Dropdown fetch error:', e)),
 
-		try {
-			const response = await fetch(
+			fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
-			);
-			stationRawData = await response.json();
-		} catch (error) {
-			console.error('Error fetching map station data:', error);
-		}
+			)
+				.then((r) => r.json())
+				.then((d) => (stationRawData = d))
+				.catch((e) => console.error('Station data fetch error:', e)),
 
-		try {
-			const response = await fetch(
+			fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/built_form/station-metrics.json'
-			);
-			stationMetrics = await response.json();
-		} catch (error) {
-			console.error('Error fetching built form metric data:', error);
-		}
+			)
+				.then((r) => r.json())
+				.then((d) => (stationMetrics = d))
+				.catch((e) => console.error('Metrics fetch error:', e))
+		];
 
-		// Initialize data
+		await Promise.all(fetches);
+
 		updateStationData(1, selectedStation1);
 		updateStationData(2, selectedStation2);
 
-		greenspaceCheck = true;
-		roadsCheck = true;
-		transitCheck = true;
-		stationCheck = true;
-		parkingCheck = true;
-		buildingsCheck = true;
-		waterCheck = true;
-
-		// Convert station data to geojson
 		const stationGeojson = {
 			type: 'FeatureCollection',
 			features: stationRawData.map((point) => ({
 				type: 'Feature',
-				geometry: {
-					type: 'Point',
-					coordinates: [point.longitude, point.latitude]
-				},
-				properties: {
-					name: point?.stop_label ?? null,
-					station_id: point?.id ?? null
-				}
+				geometry: { type: 'Point', coordinates: [point.longitude, point.latitude] },
+				properties: { name: point?.stop_label ?? null, station_id: point?.id ?? null }
 			}))
 		};
 
-		// Create maps
 		map1 = createMap('map1');
 		map2 = createMap('map2');
 
-		// Load first map
 		map1.on('load', () => {
-			// Add layers
-			addMapLayers(map1, stationGeojson, mapData[1]);
+			addMapLayers(map1!, stationGeojson, mapData[1]);
 			if (mapData[1].coords && mapData[1].bbox) {
-				map1.setCenter(mapData[1].coords);
-				map1.fitBounds(mapData[1].bbox, { padding: 0 });
+				map1!.setCenter(mapData[1].coords as [number, number]);
+				map1!.fitBounds(mapData[1].bbox, { padding: 0 });
 			}
 		});
 
-		// Load second map
 		map2.on('load', () => {
-			// Add layers
-			addMapLayers(map2, stationGeojson, mapData[2]);
+			addMapLayers(map2!, stationGeojson, mapData[2]);
 			if (mapData[2].coords && mapData[2].bbox) {
-				map2.setCenter(mapData[2].coords);
-				map2.fitBounds(mapData[2].bbox, { padding: 0 });
+				map2!.setCenter(mapData[2].coords as [number, number]);
+				map2!.fitBounds(mapData[2].bbox, { padding: 0 });
 			}
 		});
 	});
@@ -574,30 +412,26 @@
 			><u>School of Cities</u></a
 		>.
 	</p>
-	<p class="text-sm mt-4 text-gray-500">
-		<em>This tool is in beta.</em>
-	</p>
+	<p class="text-sm mt-4 text-gray-500"><em>This tool is in beta.</em></p>
 </div>
 
-<!-- Main Layout Wrapper -->
-<div class="flex flex-col lg:flex-row max-w-7xl mx-auto gap-8 px-4 pb-20">
+<div id="content-container">
 	<!-- LEFT SIDEBAR -->
-	<div class="w-full lg:w-[350px] flex-shrink-0 border-r border-gray-200 pr-4 flex flex-col gap-6">
+	<div id="sidebar">
 		<h3 class="font-bold text-gray-700 italic">Select stations:</h3>
 
-		<!-- Station 1 Selector -->
+		<!-- Station 1 -->
 		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
 			<Combobox
 				handleSelect={handleStation1Select}
 				data={transitStationsDropdown}
 				icon="mdi:train"
-				placeholder={'Search for a station'}
+				placeholder="Search for a station"
 				selected={selectedStation1}
-			></Combobox>
+			/>
 			{#if station1Error}
 				<div class="error-message text-center mt-2">{station1Error}</div>
 			{/if}
-
 			{#if station1Data}
 				<div class="mt-4 text-center text-sm text-gray-700">
 					<div class="font-bold uppercase text-[#1B6CA8] tracking-wider mb-1">
@@ -607,7 +441,6 @@
 						Line {station1Data.line_display_name}<br />{station1Data.region}<br
 						/>{station1Data.status}
 					</div>
-
 					<div class="flex flex-col items-start w-fit mx-auto mt-4 gap-1 text-left">
 						<div>
 							Greenspace: <span class="font-semibold"
@@ -629,35 +462,31 @@
 								>{station1Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
 							>
 						</div>
-
 						<div class="mt-2 text-[#006A8E] font-medium">
 							Development Potential:
-							{#if generateMockData(selectedStation1).potentialScore > 6}
-								High
-							{:else if generateMockData(selectedStation1).potentialScore > 3}
-								Med
-							{:else}
-								Low
-							{/if}
+							{generateMockData(selectedStation1).potentialScore > 6
+								? 'High'
+								: generateMockData(selectedStation1).potentialScore > 3
+									? 'Med'
+									: 'Low'}
 						</div>
 					</div>
 				</div>
 			{/if}
 		</div>
 
-		<!-- Station 2 Selector -->
+		<!-- Station 2 -->
 		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
 			<Combobox
 				handleSelect={handleStation2Select}
 				data={transitStationsDropdown}
 				icon="mdi:train"
-				placeholder={'Search for a station'}
+				placeholder="Search for a station"
 				selected={selectedStation2}
-			></Combobox>
+			/>
 			{#if station2Error}
 				<div class="error-message text-center mt-2">{station2Error}</div>
 			{/if}
-
 			{#if station2Data}
 				<div class="mt-4 text-center text-sm text-gray-700">
 					<div class="font-bold uppercase text-[#1B6CA8] tracking-wider mb-1">
@@ -667,7 +496,6 @@
 						Line {station2Data.line_display_name}<br />{station2Data.region}<br
 						/>{station2Data.status}
 					</div>
-
 					<div class="flex flex-col items-start w-fit mx-auto mt-4 gap-1 text-left">
 						<div>
 							Greenspace: <span class="font-semibold"
@@ -689,23 +517,20 @@
 								>{station2Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
 							>
 						</div>
-
 						<div class="mt-2 text-[#006A8E] font-medium">
 							Development Potential:
-							{#if generateMockData(selectedStation2).potentialScore > 6}
-								High
-							{:else if generateMockData(selectedStation2).potentialScore > 3}
-								Med
-							{:else}
-								Low
-							{/if}
+							{generateMockData(selectedStation2).potentialScore > 6
+								? 'High'
+								: generateMockData(selectedStation2).potentialScore > 3
+									? 'Med'
+									: 'Low'}
 						</div>
 					</div>
 				</div>
 			{/if}
 		</div>
 
-		<!-- Map Layer Toggles -->
+		<!-- Layer Toggles -->
 		<div class="mt-4">
 			<div class="grid grid-cols-2 gap-x-2 gap-y-4 text-xs">
 				<div class="flex flex-col gap-2 border-r border-gray-200 pr-2">
@@ -733,36 +558,28 @@
 		</div>
 	</div>
 
-	<!-- RIGHT MAIN CONTENT (The Data Viz Grid) -->
+	<!-- RIGHT CONTENT -->
 	<div class="flex-grow flex flex-col gap-12 pt-4">
-		<!-- Column Headers -->
 		<div
 			class="hidden md:grid grid-cols-3 gap-6 text-center text-[#4B7992] uppercase tracking-wider font-semibold text-sm"
 		>
 			<div>Built Form</div>
-			<div class="flex flex-col items-center">
-				<span>Station Ranking</span>
-			</div>
+			<div>Station Ranking</div>
 			<div>Development Potential</div>
 		</div>
 
-		<!-- ROW 1: STATION 1 -->
+		<!-- Row 1 -->
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-			<!-- Map 1 -->
 			<div class="flex justify-center relative">
-				<!-- In mobile view, show label -->
 				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
 					Built Form
 				</div>
 				<div id="map1" class="map-circle drop-shadow-lg"></div>
 			</div>
-
-			<!-- Radar 1 -->
 			<div class="flex flex-col items-center relative">
 				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
 					Station Ranking
 				</div>
-
 				<Tabs.Root
 					bind:value={activeRadarCategory1}
 					class="w-full flex justify-center mb-4 text-xs"
@@ -780,11 +597,8 @@
 						{/each}
 					</Tabs.List>
 				</Tabs.Root>
-
 				<RadarChart data={mock1.radarPoints} size={250} max={100} color="#ff007f" />
 			</div>
-
-			<!-- Dev Potential 1 -->
 			<div class="flex justify-center relative">
 				<div class="md:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
 					Development Potential
@@ -793,17 +607,13 @@
 			</div>
 		</div>
 
-		<!-- Divider -->
 		<div class="w-full h-px bg-gray-200 hidden md:block"></div>
 
-		<!-- ROW 2: STATION 2 -->
+		<!-- Row 2 -->
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-			<!-- Map 2 -->
 			<div class="flex justify-center">
 				<div id="map2" class="map-circle drop-shadow-lg"></div>
 			</div>
-
-			<!-- Radar 2 -->
 			<div class="flex flex-col items-center">
 				<Tabs.Root
 					bind:value={activeRadarCategory2}
@@ -822,11 +632,8 @@
 						{/each}
 					</Tabs.List>
 				</Tabs.Root>
-
 				<RadarChart data={mock2.radarPoints} size={250} max={100} color="#ff007f" />
 			</div>
-
-			<!-- Dev Potential 2 -->
 			<div class="flex justify-center">
 				<DevelopmentPotentialGraphic score={baseMock2.potentialScore} maxScore={10} />
 			</div>
@@ -837,17 +644,52 @@
 <Footer />
 
 <style>
-	.map-circle {
-		width: 300px;
-		height: 300px;
-		min-height: 300px;
+	#map1,
+	#map2 {
+		min-width: 200px;
+		min-height: 200px;
+		max-width: 450px;
+		max-height: 450px;
+		aspect-ratio: 1;
+		flex-grow: 1;
 		border-radius: 50%; /* Circular frame */
 		overflow: hidden; /* Clip map to circle */
-		border: 1px solid #e5e7eb;
+		border: 2px solid #d3d3d3;
+		padding: 20px;
 	}
 
 	.error-message {
 		color: #dc2626;
 		font-size: 0.875rem;
+	}
+
+	#content-container {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	#sidebar {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		border-top: 1px solid #eee;
+		scrollbar-width: none;
+		padding: 2rem;
+	}
+
+	@media only screen and (min-width: 1024px) {
+		#content-container {
+			flex-direction: row;
+			height: calc(100vh - 120px);
+		}
+
+		#sidebar {
+			width: 35%;
+			min-width: 400px;
+			height: 100%;
+			border-top: none;
+			border-right: 1px solid #eee;
+		}
 	}
 </style>
