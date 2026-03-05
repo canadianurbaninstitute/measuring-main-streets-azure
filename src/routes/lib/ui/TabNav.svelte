@@ -54,9 +54,20 @@
 		{/each}
 	</Tabs.List>
 
-	<div class="tabs-container bg-{bg}">
+	<div
+		class="tabs-container"
+		style="background-color: {bg.startsWith('#') || bg.startsWith('hsl') || bg.startsWith('rgb')
+			? bg
+			: `var(--color-${bg})`};"
+	>
 		{#each tabs as tab}
-			<Tabs.Content value={tab.value} class="tab-content bg-{bg}">
+			<Tabs.Content
+				value={tab.value}
+				class="tab-content"
+				style="background-color: {bg.startsWith('#') || bg.startsWith('hsl') || bg.startsWith('rgb')
+					? bg
+					: `var(--color-${bg})`};"
+			>
 				{@render children?.({ activeTab: tab.value })}
 			</Tabs.Content>
 		{/each}
@@ -67,8 +78,32 @@
 	.tabs-container {
 		width: 100%;
 		display: flex;
-		justify-content: center;
-		overflow-x: scroll;
+		justify-content: flex-start;
+		overflow-x: auto;
+	}
+
+	/* Custom Scrollbar Styling */
+	.tabs-container::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.tabs-container::-webkit-scrollbar-track {
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 10px;
+	}
+
+	.tabs-container::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.3);
+		border-radius: 10px;
+	}
+
+	.tabs-container::-webkit-scrollbar-thumb:hover {
+		background: rgba(255, 255, 255, 0.5);
+	}
+
+	.tabs-container {
+		scrollbar-width: thin;
+		scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 	}
 
 	:global(.tabs-list) {

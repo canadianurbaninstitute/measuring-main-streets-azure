@@ -30,6 +30,20 @@
 			tags: ['mapping', 'tool']
 		},
 		{
+			title: 'Case Studies',
+			description: 'In depth place-based studies.',
+			image: walkability,
+			link: '/case-studies/tod',
+			tags: ['Case Study']
+		},
+		{
+			title: 'Reports',
+			description: 'In depth reports on transit oriented development.',
+			image: reports,
+			link: '/reports/tod',
+			tags: ['Report']
+		},
+		{
 			title: 'Transit Charts',
 			description: 'Compare key data for each stop along a selected transit line.',
 			image: transitchart,
@@ -49,20 +63,6 @@
 			image: urbanform,
 			link: '/tools/urban-form-comparison',
 			tags: ['tool']
-		},
-		{
-			title: 'Case Studies',
-			description: 'In depth place-based studies.',
-			image: walkability,
-			link: '/case-studies/tod',
-			tags: ['Case Study']
-		},
-		{
-			title: 'Reports',
-			description: 'In depth reports on transit oriented development.',
-			image: reports,
-			link: '/reports/tod',
-			tags: ['Report']
 		}
 	];
 
@@ -113,7 +113,7 @@
 	];
 </script>
 
-<TabNav {tabs} bind:activeTab>
+<TabNav {tabs} bind:activeTab bg="blue-800">
 	{#snippet children({ activeTab: tab })}
 		<div class="flex flex-nowrap gap-6">
 			{#each tab === 'tod' ? todCards : resilienceCards as card}

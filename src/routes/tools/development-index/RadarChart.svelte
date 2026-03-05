@@ -32,5 +32,7 @@
 <style>
 	.chart-container {
 		margin: 0 auto;
+		aspect-ratio: 1;
+		padding: 4rem;
 	}
 </style>

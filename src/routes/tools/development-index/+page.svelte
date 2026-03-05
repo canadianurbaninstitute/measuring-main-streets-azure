@@ -56,12 +56,10 @@
 	// Radar tabs
 	const radarCategories = [
 		{ value: 'land', label: 'Land Availability' },
-		{ value: 'growth', label: 'Growth Pressure' },
-		{ value: 'permits', label: 'Building Permits' }
+		{ value: 'growth', label: 'Growth Pressure' }
 	];
 
-	let activeRadarCategory1 = $state('land');
-	let activeRadarCategory2 = $state('land');
+	let activeRadarCategory = $state('land');
 
 	// Validation flag
 	let initialStationsValidated = $state(false);
@@ -97,11 +95,18 @@
 
 	const stationsProcessed = $derived(stationRawData ?? []);
 
-	const devData1 = $derived(getStationDevelopmentData(selectedStation1, activeRadarCategory1));
-	const devData2 = $derived(getStationDevelopmentData(selectedStation2, activeRadarCategory2));
+	const devData1 = $derived(getStationDevelopmentData(selectedStation1, activeRadarCategory));
+	const devData2 = $derived(getStationDevelopmentData(selectedStation2, activeRadarCategory));
 
 	const baseDevData1 = $derived(getStationDevelopmentData(selectedStation1, 'potential'));
 	const baseDevData2 = $derived(getStationDevelopmentData(selectedStation2, 'potential'));
+
+	const unitsCreated1 = $derived(
+		(stationDpiData.find((d) => d.id === selectedStation1)?.UnitsCreated || 0) * 100
+	);
+	const unitsCreated2 = $derived(
+		(stationDpiData.find((d) => d.id === selectedStation2)?.UnitsCreated || 0) * 100
+	);
 
 	// ─── Effects ──────────────────────────────────────────────────────────────
 
@@ -209,14 +214,15 @@
 			radarPoints.push(
 				{ label: 'Pop Change 2020-25', value: (data.PopChange2020to2025 || 0) * 100 },
 				{ label: 'Pop Change 2025-30', value: (data.PopChange2025to2030 || 0) * 100 },
-				{ label: 'Muni Pop Change 20-25', value: (data.MunicipalPopChange2020to2025 || 0) * 100 }
-			);
-		} else if (category === 'permits') {
-			radarPoints.push(
-				{ label: 'Units Created', value: (data.UnitsCreated || 0) * 100 },
-				{ label: 'Overall CC Score', value: (data.OverallCCScore || 0) * 100 },
+				{
+					label: 'Municipal Pop Change 20-25',
+					value: (data.MunicipalPopChange2020to2025 || 0) * 100
+				},
+				{ label: 'Complete Community Score', value: (data.OverallCCScore || 0) * 100 },
 				{ label: 'Daily Visits', value: (data.DailyVisits || 0) * 100 }
 			);
+		} else if (category === 'permits') {
+			radarPoints.push({ label: 'Units Created', value: (data.UnitsCreated || 0) * 100 });
 		}
 
 		return {
@@ -642,22 +648,33 @@
 
 		<!-- Row 1 -->
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-			<div class="flex justify-center relative">
-				<div class="lg:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
-					Built Form
-				</div>
+			<div class="flex flex-col items-center justify-center relative">
+				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
 				<div id="map1" class="map-circle drop-shadow-lg"></div>
+
+				{#if unitsCreated1 > 0}
+					<div class="mt-8 flex flex-col items-center">
+						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
+							>Units Created</span
+						>
+						<div class="flex items-baseline gap-1">
+							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
+								>{unitsCreated1.toFixed(0)}</span
+							>
+						</div>
+					</div>
+				{/if}
 			</div>
-			<div class="flex flex-col h-full w-full items-center gap-10 relative">
-				<div class="lg:hidden">Station Ranking</div>
-				<Tabs.Root bind:value={activeRadarCategory1} class="w-full flex justify-center mb-4">
+			<div class="flex flex-col h-full w-full items-center gap-4 relative">
+				<h4 class="lg:hidden text-center mb-4">Station Ranking</h4>
+				<Tabs.Root bind:value={activeRadarCategory} class="w-full flex justify-center mb-4">
 					<Tabs.List
-						class="flex flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
+						class="flex w-full justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
 					>
 						{#each radarCategories as cat}
 							<Tabs.Trigger
 								value={cat.value}
-								class="px-3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+								class="px-3 w-full py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
 							>
 								{cat.label}
 							</Tabs.Trigger>
@@ -666,10 +683,8 @@
 				</Tabs.Root>
 				<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
 			</div>
-			<div class="flex justify-center relative">
-				<div class="lg:hidden absolute -top-8 text-[#4B7992] font-semibold text-sm uppercase">
-					Development Potential
-				</div>
+			<div class="flex flex-col items-center justify-center relative">
+				<h4 class="lg:hidden text-center mb-4">Development Potential</h4>
 				<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
 			</div>
 		</div>
@@ -678,16 +693,33 @@
 
 		<!-- Row 2 -->
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-			<div class="flex justify-center">
+			<div class="flex flex-col items-center justify-center relative">
+				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
 				<div id="map2" class="map-circle drop-shadow-lg"></div>
+
+				{#if unitsCreated2 > 0}
+					<div class="mt-8 flex flex-col items-center">
+						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
+							>Units Created</span
+						>
+						<div class="flex items-baseline gap-1">
+							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
+								>{unitsCreated2.toFixed(0)}</span
+							>
+						</div>
+					</div>
+				{/if}
 			</div>
-			<div class="flex flex-col items-center gap-4 h-full">
-				<Tabs.Root bind:value={activeRadarCategory2} class="w-full flex justify-center mb-4">
-					<Tabs.List class="flex bg-gray-50 rounded-md border border-gray-200 overflow-hidden">
+			<div class="flex flex-col h-full w-full items-center gap-4 relative">
+				<h4 class="lg:hidden text-center mb-4">Station Ranking</h4>
+				<Tabs.Root bind:value={activeRadarCategory} class="w-full flex justify-center mb-4">
+					<Tabs.List
+						class="flex w-full justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
+					>
 						{#each radarCategories as cat}
 							<Tabs.Trigger
 								value={cat.value}
-								class="px-3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+								class="px-3 w-full py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
 							>
 								{cat.label}
 							</Tabs.Trigger>
@@ -696,7 +728,8 @@
 				</Tabs.Root>
 				<RadarChart data={devData2.radarPoints} max={100} color="#ff007f" />
 			</div>
-			<div class="flex justify-center">
+			<div class="flex flex-col items-center justify-center relative">
+				<h4 class="lg:hidden text-center mb-4">Development Potential</h4>
 				<DevelopmentPotentialGraphic score={baseDevData2.potentialScore} maxScore={10} />
 			</div>
 		</div>
@@ -746,6 +779,7 @@
 		#content-container {
 			flex-direction: row;
 			min-height: calc(100vh - 120px);
+			padding-right: 2rem;
 		}
 
 		#sidebar {
