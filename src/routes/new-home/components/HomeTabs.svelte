@@ -1,5 +1,4 @@
 <script>
-	import { Tabs } from 'bits-ui';
 	import LandingCard from '../../lib/ui/LandingCard.svelte';
 	// Import local assets
 	import casestudy from '../../lib/assets/screenshots/case-study-main-street.png';
@@ -13,8 +12,13 @@
 	import transitmap from '../../lib/assets/screenshots/transit-map.png';
 	import urbanform from '../../lib/assets/screenshots/urban-form.png';
 	import walkability from '../../lib/assets/screenshots/walkability.png';
+	import TabNav from '../../lib/ui/TabNav.svelte';
 
-	let activeTab = 'tod';
+	let activeTab = $state('tod');
+	const tabs = [
+		{ label: 'Transit Oriented Development', value: 'tod' },
+		{ label: 'Main Street Resilience', value: 'resilience' }
+	];
 
 	const todCards = [
 		{
@@ -24,6 +28,20 @@
 			image: transitmap,
 			link: '/transit-map',
 			tags: ['mapping', 'tool']
+		},
+		{
+			title: 'Case Studies',
+			description: 'In depth place-based studies.',
+			image: walkability,
+			link: '/case-studies/tod',
+			tags: ['Case Study']
+		},
+		{
+			title: 'Reports',
+			description: 'In depth reports on transit oriented development.',
+			image: reports,
+			link: '/reports/tod',
+			tags: ['Report']
 		},
 		{
 			title: 'Transit Charts',
@@ -45,20 +63,6 @@
 			image: urbanform,
 			link: '/tools/urban-form-comparison',
 			tags: ['tool']
-		},
-		{
-			title: 'Case Studies',
-			description: 'In depth place-based studies.',
-			image: walkability,
-			link: '/case-studies/tod',
-			tags: ['Case Study']
-		},
-		{
-			title: 'Reports',
-			description: 'In depth reports on transit oriented development.',
-			image: reports,
-			link: '/reports/tod',
-			tags: ['Report']
 		}
 	];
 
@@ -109,43 +113,17 @@
 	];
 </script>
 
-<Tabs.Root bind:value={activeTab} class="tabs-root">
-	<Tabs.List class="tabs-list">
-		<Tabs.Trigger value="tod" class="tab-trigger tod-trigger shadow-md">
-			Transit Oriented Development
-		</Tabs.Trigger>
-		<Tabs.Trigger value="resilience" class="tab-trigger resilience-trigger">
-			Main Street Resilience
-		</Tabs.Trigger>
-	</Tabs.List>
-
-	<div class="tabs-container">
-		<Tabs.Content value="tod" class="tab-content">
-			<div class="flex flex-nowrap gap-6">
-				{#each todCards as card}
-					<LandingCard {...card} />
-				{/each}
-			</div>
-		</Tabs.Content>
-
-		<Tabs.Content value="resilience" class="tab-content">
-			<div class="flex flex-nowrap gap-6">
-				{#each resilienceCards as card}
-					<LandingCard {...card} />
-				{/each}
-			</div>
-		</Tabs.Content>
-	</div>
-</Tabs.Root>
+<TabNav {tabs} bind:activeTab bg="blue-800">
+	{#snippet children({ activeTab: tab })}
+		<div class="flex flex-nowrap gap-6">
+			{#each tab === 'tod' ? todCards : resilienceCards as card}
+				<LandingCard {...card} />
+			{/each}
+		</div>
+	{/snippet}
+</TabNav>
 
 <style>
-	.tabs-container {
-		width: 100%;
-		background-color: var(--brandDarkBlue);
-		display: flex;
-		overflow-x: scroll;
-	}
-
 	:global(.tabs-list) {
 		display: flex;
 		flex-direction: row;

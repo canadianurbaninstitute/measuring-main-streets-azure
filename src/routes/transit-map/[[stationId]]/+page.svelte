@@ -2,32 +2,34 @@
 	// --- Imports ---
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
-	import { da_map_source } from '../lib/data/transitdata/config-mapbox.json';
+	import { da_map_source } from '../../lib/data/transitdata/config-mapbox.json';
 
 	import type { Feature, Polygon } from 'geojson';
 
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import {
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
-	} from '../lib/data/transitdata/complete-communities-config';
-	import { age, bed, dwelling, housing, owner } from '../lib/data/transitdata/config.json';
-	import type { Station } from '../lib/data/transitdata/stations';
-	import getD3InterpolateExpression from '../lib/helpers/getD3InterpolateExpression';
-	import Footer from '../lib/ui/Footer.svelte';
-	import '../styles.css';
-	import AiDescription from './components/AiDescription.svelte';
-	import BuiltFormTab from './components/BuiltFormTab.svelte';
-	import CompleteCommunityTab from './components/CompleteCommunityTab.svelte';
-	import DemographicsTab from './components/DemographicsTab.svelte';
-	import EmploymentTab from './components/EmploymentTab.svelte';
-	import Filters from './components/Filters.svelte';
-	import Header from './components/Header.svelte';
-	import HousingTab from './components/HousingTab.svelte';
-	import MapContainer from './components/MapContainer.svelte';
-	import Search from './components/Search.svelte';
-	import SelectRegion from './components/SelectRegion.svelte';
-	import StationStatus from './components/StationStatus.svelte';
+	} from '../../lib/data/transitdata/complete-communities-config';
+	import { age, bed, dwelling, housing, owner } from '../../lib/data/transitdata/config.json';
+	import type { Station } from '../../lib/data/transitdata/stations';
+	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
+	import Footer from '../../lib/ui/Footer.svelte';
+	import '../../styles.css';
+	import AiDescription from '../components/AiDescription.svelte';
+	import BuiltFormTab from '../components/BuiltFormTab.svelte';
+	import CompleteCommunityTab from '../components/CompleteCommunityTab.svelte';
+	import DemographicsTab from '../components/DemographicsTab.svelte';
+	import EmploymentTab from '../components/EmploymentTab.svelte';
+	import Filters from '../components/Filters.svelte';
+	import Header from '../components/Header.svelte';
+	import HousingTab from '../components/HousingTab.svelte';
+	import MapContainer from '../components/MapContainer.svelte';
+	import Search from '../components/Search.svelte';
+	import SelectRegion from '../components/SelectRegion.svelte';
+	import StationStatus from '../components/StationStatus.svelte';
 
 	// --- Reactive/Exported Variables ---
 	let aiDescriptions = $state({});
@@ -57,7 +59,7 @@
 	let min = $state(0);
 	let max = $state(0);
 	let isOpen = $state(true);
-	let activeTab = $state('demographics');
+	let activeTab = $state(page.url.searchParams.get('tab') || 'demographics');
 
 	// data
 	let transitRegionsRawData = $state([]);
@@ -82,6 +84,53 @@
 		const id = selectedStation.id;
 		if (id) {
 			isOpen = false;
+		}
+	});
+
+	$effect(() => {
+		// We need both the map initialized and the data loaded
+		if (map && processedStationData.length > 0) {
+			const stationIdParam = page.params.stationId;
+
+			// Only select if we haven't already selected it (to avoid loops)
+			if (stationIdParam && String(selectedStation.id) !== stationIdParam) {
+				const station = processedStationData.find((s) => String(s.id) === stationIdParam);
+				if (station) {
+					// Ensure map is style-loaded before setting features
+					if (map.isStyleLoaded()) {
+						handleStationSelection(station.id, [station.longitude, station.latitude]);
+					} else {
+						map.once('idle', () => {
+							handleStationSelection(station.id, [station.longitude, station.latitude]);
+						});
+					}
+				}
+			}
+		}
+	});
+
+	let mapInitializedForTabs = false;
+	$effect(() => {
+		if (map && !mapInitializedForTabs) {
+			if (map.isStyleLoaded()) {
+				handleTabChange(activeTab);
+				mapInitializedForTabs = true;
+			} else {
+				map.once('idle', () => {
+					handleTabChange(activeTab);
+					mapInitializedForTabs = true;
+				});
+			}
+		}
+	});
+
+	$effect(() => {
+		const tabParam = page.url.searchParams.get('tab');
+		if (tabParam && tabParam !== activeTab) {
+			activeTab = tabParam;
+			if (mapInitializedForTabs) {
+				handleTabChange(tabParam);
+			}
 		}
 	});
 
@@ -328,6 +377,8 @@
 		stationSelected = false;
 		selectedStation = { id: null };
 
+		goto(`/transit-map?tab=${activeTab}`, { replaceState: false, keepFocus: true, noScroll: true });
+
 		//reset layer filters
 		const thematicLayersToReset = [
 			'msn-lowdensity',
@@ -388,6 +439,11 @@
 	}
 
 	function selectStop(station) {
+		goto(`/transit-map/${station.id}?tab=${activeTab}`, {
+			replaceState: false,
+			keepFocus: true,
+			noScroll: true
+		});
 		handleStationSelection(station.id, [station.longitude, station.latitude]);
 	}
 
@@ -536,6 +592,14 @@
 	});
 
 	function handleTabChange(selectedTab) {
+		const newUrl = new URL(page.url);
+		if (newUrl.searchParams.get('tab') !== selectedTab) {
+			newUrl.searchParams.set('tab', selectedTab);
+			goto(newUrl, { replaceState: true, keepFocus: true, noScroll: true });
+		}
+
+		if (!map || !map.isStyleLoaded()) return;
+
 		map.setPaintProperty('msn-lowdensity', 'line-opacity', 0);
 		map.setPaintProperty('msn-highdensity', 'line-opacity', 0);
 		map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);

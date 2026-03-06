@@ -61,11 +61,14 @@
 		color: inherit;
 		display: block;
 		height: 100%;
+		flex-shrink: 0;
+		min-width: 320px;
 	}
 
 	.landing-card {
 		background-color: white;
-		width: 450px;
+		min-width: 320px;
+		max-width: 400px;
 		min-height: 300px;
 		border-radius: 0.75rem;
 		overflow: hidden;

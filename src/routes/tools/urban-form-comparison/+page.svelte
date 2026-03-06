@@ -11,7 +11,7 @@
 	// import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
-	import Checkbox from './Checkbox.svelte';
+	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import MetricsDisplay from './MetricsDisplay.svelte';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
 
