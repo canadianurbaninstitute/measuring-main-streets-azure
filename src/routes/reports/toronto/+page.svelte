@@ -43,7 +43,7 @@
 			community</a
 		>. Opportunities for independent business and neighbourhood scale civic infrastructure are key
 		building blocks for pushing back against longer-term threats to main streets, such as
-		<a href="reports/mainstreets-malls-mice">ecommerce and regional shopping centres.</a>
+		<a href="/reports/mainstreets-malls-mice">ecommerce and regional shopping centres.</a>
 	</p>
 	<p>
 		Unfortunately, <a href="/reports/mainstreets-infrastructure-equity">
@@ -307,7 +307,7 @@
 				indicators tend to be long-established neighbourhood streets that primarily serve their
 				immediate local community with a range of independent businesses and civic infrastructure.
 				<a href="/casestudies/toronto/etobicokelakeshore">Etobicoke Lakeshore</a> and
-				<a href="/casestudies/toronto/kingstonrd">Kingston Road (Scarborough)</a> are “inner” suburban
+				<a href="/casestudies/toronto/kingstonroad">Kingston Road (Scarborough)</a> are “inner” suburban
 				locations that are relatively walkable but also accommodate car use. They also offer a mix of
 				housing types that cater to a range of income levels. These main streets were originally built
 				(pre-1960) in conjunction with the surrounding housing stock and have co-evolved with physical
