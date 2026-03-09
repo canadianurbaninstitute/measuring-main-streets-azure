@@ -444,7 +444,6 @@
 			keepFocus: true,
 			noScroll: true
 		});
-		handleStationSelection(station.id, [station.longitude, station.latitude]);
 	}
 
 	function navigateBack() {
