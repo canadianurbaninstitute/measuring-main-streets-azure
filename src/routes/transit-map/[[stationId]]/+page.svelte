@@ -59,7 +59,7 @@
 	let min = $state(0);
 	let max = $state(0);
 	let isOpen = $state(true);
-	let activeTab = $state(page.url.searchParams.get('tab') || 'demographics');
+	let activeTab = $state('demographics');
 
 	// data
 	let transitRegionsRawData = $state([]);
@@ -590,6 +590,9 @@
 
 		// Initialize search indexes after data is loaded
 	});
+
+	// set active tab from url
+	activeTab = page.url.searchParams.get('tab') || 'demographics';
 
 	function handleTabChange(selectedTab) {
 		const newUrl = new URL(page.url);
