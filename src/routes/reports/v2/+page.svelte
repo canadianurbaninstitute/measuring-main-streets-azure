@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 	import civic from '../../lib/assets/graphics/civic.svg';
 	import Edmonton from '../../lib/assets/graphics/edmonton.jpg';
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
@@ -11,7 +12,6 @@
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
 	import '../../styles.css';
-	import { browser } from '$app/environment';
 
 	const title = 'Measuring Main Streets Reports';
 
@@ -99,7 +99,11 @@
 		}
 	];
 
-	let activeTab = $state(browser ? page.url.searchParams.get('tab') || 'msr' : 'msr');
+	let activeTab = $state('msr');
+
+	onMount(() => {
+		activeTab = page.url.searchParams.get('tab') || 'msr';
+	});
 </script>
 
 <main>
