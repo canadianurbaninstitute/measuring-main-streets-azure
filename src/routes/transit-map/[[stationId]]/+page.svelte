@@ -59,7 +59,7 @@
 	let min = $state(0);
 	let max = $state(0);
 	let isOpen = $state(true);
-	let activeTab = $state(page.url.searchParams.get('tab') || 'demographics');
+	let activeTab = $state('demographics');
 
 	// data
 	let transitRegionsRawData = $state([]);
@@ -377,7 +377,11 @@
 		stationSelected = false;
 		selectedStation = { id: null };
 
-		goto(`/transit-map?tab=${activeTab}`, { replaceState: false, keepFocus: true, noScroll: true });
+		goto(`/transit-map/?tab=${activeTab}`, {
+			replaceState: false,
+			keepFocus: true,
+			noScroll: true
+		});
 
 		//reset layer filters
 		const thematicLayersToReset = [
@@ -439,12 +443,11 @@
 	}
 
 	function selectStop(station) {
-		goto(`/transit-map/${station.id}?tab=${activeTab}`, {
+		goto(`/transit-map/${station.id}/?tab=${activeTab}`, {
 			replaceState: false,
 			keepFocus: true,
 			noScroll: true
 		});
-		handleStationSelection(station.id, [station.longitude, station.latitude]);
 	}
 
 	function navigateBack() {
@@ -590,6 +593,9 @@
 
 		// Initialize search indexes after data is loaded
 	});
+
+	// set active tab from url
+	activeTab = page.url.searchParams.get('tab') || 'demographics';
 
 	function handleTabChange(selectedTab) {
 		const newUrl = new URL(page.url);
