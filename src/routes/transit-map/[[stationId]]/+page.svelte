@@ -8,7 +8,7 @@
 
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import {
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
@@ -92,22 +92,62 @@
 		if (map && processedStationData.length > 0) {
 			const stationIdParam = page.params.stationId;
 
-			// Only select if we haven't already selected it (to avoid loops)
-			if (stationIdParam && String(selectedStation.id) !== stationIdParam) {
-				const station = processedStationData.find((s) => String(s.id) === stationIdParam);
-				if (station) {
-					// Ensure map is style-loaded before setting features
-					if (map.isStyleLoaded()) {
-						handleStationSelection(station.id, [station.longitude, station.latitude]);
-					} else {
-						map.once('idle', () => {
+			untrack(() => {
+				// Only select if we haven't already selected it (to avoid loops)
+				if (stationIdParam && String(selectedStation.id) !== stationIdParam) {
+					const station = processedStationData.find((s) => String(s.id) === stationIdParam);
+					if (station) {
+						// Ensure map is style-loaded before setting features
+						if (map.isStyleLoaded()) {
 							handleStationSelection(station.id, [station.longitude, station.latitude]);
-						});
+						} else {
+							map.once('idle', () => {
+								handleStationSelection(station.id, [station.longitude, station.latitude]);
+							});
+						}
 					}
+				} else if (!stationIdParam && stationSelected) {
+					resetStationSelection(true);
+					zoomToActiveContext();
 				}
-			}
+			});
 		}
 	});
+
+	function zoomToActiveContext() {
+		if (map) {
+			if (activeLine) {
+				const lineStations = processedStationData.filter(
+					(s) => s.line_ids_array && s.line_ids_array.includes(activeLine.id)
+				);
+				if (
+					lineStations.length > 0 &&
+					typeof turf !== 'undefined' &&
+					turf.featureCollection &&
+					turf.point &&
+					turf.bbox
+				) {
+					const stationPoints = turf.featureCollection(
+						lineStations.map((s) => turf.point([s.longitude, s.latitude]))
+					);
+					const [minX, minY, maxX, maxY] = turf.bbox(stationPoints);
+					map.fitBounds(
+						[
+							[minX, minY],
+							[maxX, maxY]
+						],
+						{ padding: 50, duration: 1000 }
+					);
+				} else if (activeRegion) {
+					map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
+				}
+			} else if (activeRegion) {
+				map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
+			} else {
+				map.flyTo({ center: mapCenter, zoom: defaultZoom, duration: 1000 });
+			}
+		}
+	}
 
 	let mapInitializedForTabs = false;
 	$effect(() => {
@@ -355,7 +395,7 @@
 		});
 	}
 
-	function resetStationSelection() {
+	function resetStationSelection(skipGoto = false) {
 		// remove circle
 		if (map && map.getSource('circle')) {
 			const circleSource = map.getSource('circle') as mapboxgl.GeoJSONSource;
@@ -377,7 +417,13 @@
 		stationSelected = false;
 		selectedStation = { id: null };
 
-		goto(`/transit-map?tab=${activeTab}`, { replaceState: false, keepFocus: true, noScroll: true });
+		if (!skipGoto) {
+			goto(`/transit-map/?tab=${activeTab}`, {
+				replaceState: false,
+				keepFocus: true,
+				noScroll: true
+			});
+		}
 
 		//reset layer filters
 		const thematicLayersToReset = [
@@ -439,12 +485,11 @@
 	}
 
 	function selectStop(station) {
-		goto(`/transit-map/${station.id}?tab=${activeTab}`, {
+		goto(`/transit-map/${station.id}/?tab=${activeTab}`, {
 			replaceState: false,
 			keepFocus: true,
 			noScroll: true
 		});
-		handleStationSelection(station.id, [station.longitude, station.latitude]);
 	}
 
 	function navigateBack() {
@@ -469,43 +514,8 @@
 
 	function handleSidebarBack() {
 		if (stationSelected) {
-			const previouslyActiveLine = activeLine;
-			const previouslyActiveRegion = activeRegion;
-
 			resetStationSelection();
-
-			stationSelected = false;
-
-			if (map) {
-				if (previouslyActiveLine) {
-					const lineStations = processedStationData.filter(
-						(s) => s.line_ids_array && s.line_ids_array.includes(previouslyActiveLine.id)
-					);
-					if (
-						lineStations.length > 0 &&
-						typeof turf !== 'undefined' &&
-						turf.featureCollection &&
-						turf.point &&
-						turf.bbox
-					) {
-						const stationPoints = turf.featureCollection(
-							lineStations.map((s) => turf.point([s.longitude, s.latitude]))
-						);
-						const [minX, minY, maxX, maxY] = turf.bbox(stationPoints);
-						map.fitBounds(
-							[
-								[minX, minY],
-								[maxX, maxY]
-							],
-							{ padding: 50, duration: 1000 }
-						);
-					} else if (previouslyActiveRegion) {
-						map.fitBounds(previouslyActiveRegion.bbox, { padding: 50, duration: 1000 });
-					}
-				} else if (previouslyActiveRegion) {
-					map.fitBounds(previouslyActiveRegion.bbox, { padding: 50, duration: 1000 });
-				}
-			}
+			zoomToActiveContext();
 		} else {
 			navigateBack();
 		}
