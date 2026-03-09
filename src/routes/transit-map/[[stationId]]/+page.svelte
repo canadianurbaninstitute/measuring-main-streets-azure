@@ -377,7 +377,11 @@
 		stationSelected = false;
 		selectedStation = { id: null };
 
-		goto(`/transit-map?tab=${activeTab}`, { replaceState: false, keepFocus: true, noScroll: true });
+		goto(`/transit-map/?tab=${activeTab}`, {
+			replaceState: false,
+			keepFocus: true,
+			noScroll: true
+		});
 
 		//reset layer filters
 		const thematicLayersToReset = [
@@ -439,7 +443,7 @@
 	}
 
 	function selectStop(station) {
-		goto(`/transit-map/${station.id}?tab=${activeTab}`, {
+		goto(`/transit-map/${station.id}/?tab=${activeTab}`, {
 			replaceState: false,
 			keepFocus: true,
 			noScroll: true
