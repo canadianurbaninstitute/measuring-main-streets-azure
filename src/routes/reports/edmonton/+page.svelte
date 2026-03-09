@@ -46,7 +46,7 @@
 			community</a
 		>. Opportunities for independent business and neighbourhood scale civic infrastructure are key
 		building blocks for pushing back against longer-term threats to main streets, such as
-		<a href="reports/mainstreets-malls-mice">ecommerce and regional shopping centres.</a>
+		<a href="/reports/mainstreets-malls-mice">ecommerce and regional shopping centres.</a>
 	</p>
 	<p>
 		Unfortunately, <a href="/reports/mainstreets-infrastructure-equity">
@@ -107,23 +107,25 @@
 			<p>
 				Among all 20 Edmonton-region main streets, those in small towns were generally the most
 				resilient sub-type, with Beaumont leading the way. The most resilient neighbourhood main
-				streets were found in <a href="casestudies/edmonton/149stnw"
+				streets were found in <a href="/casestudies/edmonton/149stnw"
 					>West Edmonton (149th Street NW)</a
 				>
-				and <a href="casestudies/edmonton/118beverly">Beverly (118 Avenue NW)</a> which typically
+				and <a href="/casestudies/edmonton/118beverly">Beverly (118 Avenue NW)</a> which typically
 				had higher levels (28%-33%) of visitors coming from less than 1 km away. More car-oriented
-				main streets such as <a href="casestudies/edmonton/104streetnw">Calgary Trail</a> and
-				<a href="casestudies/edmonton/sherwooddrive">Sherwood Drive</a> were less resilient and only
+				main streets such as
+				<a href="/casestudies/edmonton/104streetnw">Calgary Trail</a>
+				and
+				<a href="/casestudies/edmonton/sherwooddrive">Sherwood Drive</a> were less resilient and only
 				drew between 5%–13% of their visitors from nearby.
 			</p>
 			<p>
 				The least resilient Edmonton case study main streets <a
-					href="casestudies/edmonton/97streetnw">97 Street (Chinatown)</a
-				>, <a href="casestudies/edmonton/104streetdowntown">4th Street Promenade</a>, and
-				<a href="casestudies/edmonton/jasperavenue">Jasper Avenue</a>. Each of these three are
+					href="/casestudies/edmonton/97streetnw">97 Street (Chinatown)</a
+				>, <a href="/casestudies/edmonton/104streetdowntown">4th Street Promenade</a>, and
+				<a href="/casestudies/edmonton/jasperavenue">Jasper Avenue</a>. Each of these three are
 				examples of downtown main streets that traditionally depend on the presence of office
 				workers and related central city activity.
-				<a href="casestudies/edmonton/107avenuenw">107th Avenue W (Central McDougall)</a> was the fourth
+				<a href="/casestudies/edmonton/107avenuenw">107th Avenue W (Central McDougall)</a> was the fourth
 				downtown Edmonton case study main street, which was not as adversely affected by the pandemic
 				as the other three as it sits outside the central business district and serves more of a residential
 				population.
@@ -163,19 +165,20 @@
 			<p>
 				The five Edmonton-region shopping malls clearly have a scarcity of both independent
 				businesses and civic infrastructure, ranking below all main streets on both scores. Of the
-				Edmonton case studies, <a href="casestudies/edmonton/124streetnw">124th Street</a> and
-				<a href="casestudies/edmonton/104streetnw">Calgary Trail</a> stand out as having higher shares
+				Edmonton case studies, <a href="/casestudies/edmonton/124streetnw">124th Street</a> and
+				<a href="/casestudies/edmonton/104streetnw">Calgary Trail</a> stand out as having higher shares
 				of both independent business and civic infrastructure. Despite being located outside the city
 				centre, these main streets are denser and more walkable than many other suburban streets. There
 				are multiple conditions present that are conducive to building strong local communities.
 			</p>
 			<p>
-				The <a href="casestudies/edmonton/137avenuenw">137th Avenue NW (North Edmonton)</a> and
-				<a href="casestudies/edmonton/parsonsroadsw">Parsons Road</a> are main streets at the other end
-				of the spectrum. These are places with less independent business and civic infrastructure that
-				are heavily car-oriented and characterized by big box retail and chain restaurants. Such main
-				streets do not possess a clear identity and are less likely to be created for and by the local
-				community.
+				The <a href="/casestudies/edmonton/137avenuenw">137th Avenue NW (North Edmonton)</a>
+				and
+				<a href="/casestudies/edmonton/parsonsroadsw">Parsons Road</a> are main streets at the other
+				end of the spectrum. These are places with less independent business and civic infrastructure
+				that are heavily car-oriented and characterized by big box retail and chain restaurants. Such
+				main streets do not possess a clear identity and are less likely to be created for and by the
+				local community.
 			</p>
 		</div>
 	</div>
@@ -298,9 +301,9 @@
 				The Edmonton-region main streets that most consistently score the highest across the key
 				indicators tend to be long-established neighbourhood streets that primarily serve their
 				immediate local community with a range of independent businesses and civic infrastructure.
-				<a href="casestudies/edmonton/124streetnw">124th Street</a>,
-				<a href="casestudies/edmonton/118albertaave">Alberta Avenue</a>, and
-				<a href="casestudies/edmonton/50streetstonyplain">50 Street in Stony Plain</a> are locations
+				<a href="/casestudies/edmonton/124streetnw">124th Street</a>,
+				<a href="/casestudies/edmonton/118albertaave">Alberta Avenue</a>, and
+				<a href="/casestudies/edmonton/50streetstonyplain">50 Street in Stony Plain</a> are locations
 				that are relatively walkable but also accommodate car use. These main streets were originally
 				built (mostly pre-1960) in conjunction with the surrounding housing stock and have co-evolved
 				with physical and demographic changes. Key to this is the original built form and how adaptable
@@ -311,11 +314,11 @@
 				At the lower end of the spectrum are main streets that are heavily car-dependent places with
 				large format (big box) retail and offer limited civic infrastructure. Such main streets tend
 				to serve a larger catchment area and possess fewer independent businesses. <a
-					href="casestudies/edmonton/sherwooddrive">Sherwood Drive</a
+					href="/casestudies/edmonton/sherwooddrive">Sherwood Drive</a
 				>,
-				<a href="casestudies/edmonton/parsonsroadsw">Parsons Road (South Edmonton Common)</a>,
-				<a href="casestudies/edmonton/104streetnw"> 104 Street NW (Calgary Trail)</a>, and
-				<a href="casestudies/edmonton/50ave">50 Avenue (Leduc)</a>
+				<a href="/casestudies/edmonton/parsonsroadsw">Parsons Road (South Edmonton Common)</a>,
+				<a href="/casestudies/edmonton/104streetnw"> 104 Street NW (Calgary Trail)</a>, and
+				<a href="/casestudies/edmonton/50ave">50 Avenue (Leduc)</a>
 				are examples of main streets that are designed to accommodate cars and are dominated by large
 				parking lots. These places are among the least resilient main streets and draw a lower share
 				of visitors from their surrounding neighbourhoods.

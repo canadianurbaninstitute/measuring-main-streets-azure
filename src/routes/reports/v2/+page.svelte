@@ -11,6 +11,7 @@
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
 	import '../../styles.css';
+	import { browser } from '$app/environment';
 
 	const title = 'Measuring Main Streets Reports';
 
@@ -98,7 +99,7 @@
 		}
 	];
 
-	let activeTab = $state(page.url.searchParams.get('tab') || 'msr');
+	let activeTab = $state(browser ? page.url.searchParams.get('tab') || 'msr' : 'msr');
 </script>
 
 <main>

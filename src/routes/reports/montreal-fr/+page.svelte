@@ -50,7 +50,7 @@
 		>. Les perspectives pour les entreprises indépendantes et les infrastructures municipales à
 		l’échelle du quartier sont des éléments clés pour lutter contre les menaces à plus long terme
 		qui pèsent sur les rues principales, telles que
-		<a href="reports/mainstreets-malls-mice"
+		<a href="/reports/mainstreets-malls-mice"
 			>le commerce électronique et les centres commerciaux régionaux</a
 		>.
 	</p>
@@ -132,10 +132,10 @@
 			<p>
 				Les rues <a href="/casestudies/montreal/stdenis">Saint-Denis</a> et
 				<a href="/casestudies/montreal/notredame">Notre-Dame (Saint-Henri)</a>
-				figurent parmi les études de cas de rues principales les moins résilientes de la région de
-				Montréal. Toutes deux sont situées à la périphérie du centre-ville et comptent sur une plus
-				grande proportion de visiteurs provenant de plus d’un kilomètre. La rue principale la moins
-				résiliente de l’étude de cas de quartier est
+				figurent parmi les études de cas de rues principales les moins résilientes de la région de Montréal.
+				Toutes deux sont situées à la périphérie du centre-ville et comptent sur une plus grande proportion
+				de visiteurs provenant de plus d’un kilomètre. La rue principale la moins résiliente de l’étude
+				de cas de quartier est
 				<a href="/casestudies/montreal/rueontario">la rue Ontario</a> à Hochelaga. Elle a capté 20 %
 				de ses visiteurs à moins de 1 km en 2019, ce qui se situe au bas de l’échelle des rues principales
 				de type quartier.
