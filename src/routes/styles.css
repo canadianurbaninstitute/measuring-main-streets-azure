@@ -150,7 +150,7 @@ p {
 
 /* Popup content */
 .mapboxgl-popup-content {
-	background: #000 !important;
+	background: #000;
 	color: white;
 	border-radius: 0.5em;
 	padding: 1em !important;
