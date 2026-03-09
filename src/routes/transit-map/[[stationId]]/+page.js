@@ -1,4 +1,4 @@
-export const prerender = true;
+export const prerender = false;
 
 /** @type {import('./$types').EntryGenerator} */
 export async function entries() {
