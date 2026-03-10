@@ -29,12 +29,12 @@
 			stations = stations.map((s) => {
 				const match = allStations.find((station) => station.id === s.id);
 				if (match) {
-					console.log(match);
 					return {
 						id: s.id,
 						lng: match.longitude,
 						lat: match.latitude,
-						name: match.stop_label || match.platform_name || s.name
+						name: match.stop_label || match.platform_name || s.name,
+						region: match.region
 					};
 				}
 				return s;
@@ -48,6 +48,16 @@
 	let activeStationId = $state(null);
 	let activePopup = null;
 
+	let innerWidth = $state(0);
+	let isMobile = $derived(innerWidth > 0 && innerWidth < 1024);
+
+	let activeStation = $derived(stations.find((s) => s.id === activeStationId));
+	let activeCoords = $derived(
+		activeStation && activeStation.lng && activeStation.lat
+			? [activeStation.lng, activeStation.lat]
+			: null
+	);
+
 	// Handle intersection events to move map
 	function handleSectionIntersect(node) {
 		const stationId = node.dataset.stationId;
@@ -57,10 +67,8 @@
 	// Reactively trigger map movements when the active section OR the loaded coordinates change
 	$effect(() => {
 		if (map && activeStationId) {
-			console.log(activeStationId);
 			const station = stations.find((s) => s.id === activeStationId);
 			if (station) {
-				console.log(station);
 				map.flyTo({
 					center: [station.lng, station.lat],
 					zoom: 14,
@@ -72,7 +80,7 @@
 	});
 
 	// Handle Map Point Clicks
-	function handlePointClick({ lng, lat, properties }) {
+	function handlePointClick({ lng, lat, properties, mapInstance }) {
 		if (activePopup) {
 			activePopup.remove();
 		}
@@ -97,7 +105,7 @@
 		})
 			.setLngLat([lng, lat])
 			.setDOMContent(container)
-			.addTo(map);
+			.addTo(mapInstance || map);
 
 		// Clean up the Svelte component when the Mapbox popup is destroyed
 		activePopup.on('close', () => {
@@ -117,13 +125,17 @@
 	<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet" />
 </svelte:head>
 
+<svelte:window bind:innerWidth />
+
 <div class="header-section">
-	<h1 class="mb-4 uppercase">Transit Walkability Report</h1>
-	<p class="text-lg text-zinc-600 mb-8">
-		Exploring the immediate surroundings, built form, and localized pedestrian experiences around
-		key transit hubs using Mapbox scroll-telling and native Google Streetview integration. Scroll
-		down to travel between stations.
-	</p>
+	<div class="header-content">
+		<h1 class="mb-4 uppercase">Transit Walkability Report</h1>
+		<p class="text-lg text-zinc-600 mb-8">
+			Exploring the immediate surroundings, built form, and localized pedestrian experiences around
+			key transit hubs using Mapbox scroll-telling and native Google Streetview integration. Scroll
+			down to travel between stations.
+		</p>
+	</div>
 </div>
 <div class="page-layout">
 	<!-- Left Side: Scrolling Content Blocks -->
@@ -134,7 +146,8 @@
 				data-station-id={station.id}
 				use:intersect={handleSectionIntersect}
 			>
-				<h2 class="mb-4">{station.name}</h2>
+				<h2>{station.name}</h2>
+				<h4 class="mb-4">{station.region}</h4>
 				<div class="prose prose-zinc lg:prose-lg max-w-none">
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus
@@ -153,22 +166,34 @@
 					</p>
 					<p>
 						<strong
-							>Click the blue dots on the map to explore the immediate surroundings via Google Maps
-							Streetview!</strong
+							>Click the dots on the map to explore the immediate surroundings via Google Maps
+							Streetview.</strong
 						>
 					</p>
 				</div>
+
+				{#if isMobile && station.lng && station.lat}
+					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
+						<WalkabilityMap
+							center={[station.lng, station.lat]}
+							zoom={14}
+							onStationClick={handlePointClick}
+						/>
+					</div>
+				{/if}
 			</section>
 		{/each}
 
 		<div class="spacer"></div>
 	</div>
 
-	<!-- Right Side: Sticky Map -->
-	<div class="map-column">
-		<!-- Bind to the child map instance so we can call map.flyTo() -->
-		<WalkabilityMap bind:map onStationClick={handlePointClick} />
-	</div>
+	<!-- Right Side: Sticky Map (Hidden on mobile) -->
+	{#if !isMobile}
+		<div class="map-column">
+			<!-- Bind to the child map instance so we can call map.flyTo() -->
+			<WalkabilityMap bind:map onStationClick={handlePointClick} {activeCoords} />
+		</div>
+	{/if}
 </div>
 <Footer />
 
@@ -197,12 +222,19 @@
 	}
 
 	.header-section {
-		padding: 15vh 10% 5vh 10%;
+		padding: 5vh 10%;
 		background-image: url('../../../lib/assets/graphics/montreal-bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
 		background-attachment: fixed;
+	}
+
+	.header-content {
+		background: rgba(255, 255, 255, 0.4);
+		backdrop-filter: blur(4px);
+		padding: 4rem;
+		border-radius: 2rem;
 	}
 
 	/* Each section is heavily padded to force scrolling */

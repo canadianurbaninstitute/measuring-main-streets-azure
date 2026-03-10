@@ -4,6 +4,7 @@
 	export let link = '#';
 	export let image = '';
 	export let title = '';
+	export let featured = false;
 	export let description = '';
 	export let tags = []; // Array of objects { text: '', color: '' } or just strings
 
@@ -27,10 +28,12 @@
 	};
 
 	const getTagText = (tag) => (typeof tag === 'object' ? tag.text : tag);
+
+	console.log(featured);
 </script>
 
 <a href={link} class="card-link">
-	<article class="landing-card">
+	<article class="landing-card" class:featured>
 		<div class="card-image-container">
 			<img src={image} alt={title} />
 		</div>
@@ -40,6 +43,11 @@
 			<div class="card-footer flex flex-row justify-between items-baseline w-full">
 				{#if tags && tags.length > 0}
 					<div class="card-tags">
+						{#if featured}
+							<span class="tag" style="background-color: {getTagColor('Featured')}">
+								{getTagText('Featured')}
+							</span>
+						{/if}
 						{#each tags as tag}
 							<span class="tag" style="background-color: {getTagColor(tag)}">
 								{getTagText(tag)}
@@ -75,12 +83,15 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		border: 1px solid #eee;
 		position: relative;
 		transition:
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	}
+
+	.featured {
+		outline: 6px solid var(--brandLightBlue);
 	}
 
 	.landing-card:hover {
@@ -100,7 +111,7 @@
 
 	.card-image-container img {
 		width: 100%;
-		height: 70%;
+		height: 100%;
 		object-fit: cover;
 	}
 
@@ -108,19 +119,22 @@
 		position: relative;
 		z-index: 1;
 		padding: 2rem;
-		padding-top: 6rem;
+		padding-top: 1.5rem;
 		margin-top: auto;
 		display: flex;
 		flex-direction: column;
+		/* Gradient background for tint */
 		background: linear-gradient(
 			to top,
 			rgba(255, 255, 255, 1) 0%,
-			rgba(255, 255, 255, 1) 50%,
+			rgba(255, 255, 255, 0.95) 20%,
 			rgba(255, 255, 255, 0.9) 60%,
-			rgba(255, 255, 255, 0.75) 70%,
-			rgba(255, 255, 255, 0.5) 80%,
-			transparent 100%
+			rgba(255, 255, 255, 0.9) 70%,
+			rgba(255, 255, 255, 0.8) 80%,
+			rgba(255, 255, 255, 0.7) 90%
 		);
+		/* The Blur */
+		backdrop-filter: blur(4px);
 	}
 
 	.card-tags {
@@ -133,7 +147,7 @@
 	.tag {
 		padding: 0.2rem 0.6rem;
 		border-radius: 1rem;
-		color: white;
+		color: #fff;
 		font-size: 0.7rem;
 		font-weight: 700;
 		text-transform: uppercase;

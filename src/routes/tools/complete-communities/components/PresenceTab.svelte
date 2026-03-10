@@ -26,10 +26,6 @@
 		selectedVariable = $bindable(),
 		onSelectVariable
 	} = $props();
-
-	console.log(stationCCpresence);
-	console.log(futureDemand);
-	console.log(selectedStation);
 </script>
 
 <div class="tab-content">

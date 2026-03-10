@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { Spring } from 'svelte/motion';
 	import car from '../../lib/assets/graphics/car.png';
-	import train from '../../lib/assets/graphics/train.png';
+	import train from '../../lib/assets/graphics/dark-train.svg';
 
 	let timelineElement = null;
 	let crossingElement = null;
@@ -110,7 +110,7 @@
 	<div class="projects-container">
 		<div class="timeline-lane">
 			<div class="transit-car" style="top: {trainOffset.current}px;">
-				<img src={train} alt="Train" style="width: 100%; height: auto;" />
+				<img src={train} alt="Train" style="width: 60%; height: auto;" />
 			</div>
 			<div class="dashed-vertical-line"></div>
 		</div>

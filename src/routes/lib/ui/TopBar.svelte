@@ -8,22 +8,15 @@
 	import cui_logo from '../assets/logos/cui_logo.svg';
 	import mms_logo from '../assets/logos/mms_logo.svg';
 
-	// ✅ Fix 1: Declare missing state using Svelte 5 Runes
 	let menuOpen = $state(false);
 	let isHovered = $state(false);
 
-	// Check if the route is a TOD case study or walkability report to trigger auto-hide navbar
-	let isHiddenRoute = $derived(
-		page.url?.pathname.includes('/casestudies/tod/') ||
-			page.url?.pathname.includes('/reports/tod/walkability')
-	);
+	let isHiddenRoute = $derived(page.url?.pathname.includes('/casestudies/tod/'));
 
-	// ✅ Fix 2: Define missing toggleMenu function
 	function toggleMenu() {
 		menuOpen = !menuOpen;
 	}
 
-	// ✅ Fix 3: Define missing mouse event handlers
 	function onMouseOver() {
 		// add hover logic here if needed, e.g. swap logo src
 	}
@@ -57,8 +50,8 @@
 	id="bar-wrapper"
 	class:hideable={isHiddenRoute}
 	class:hovered={isHovered}
-	on:mouseenter={() => (isHovered = true)}
-	on:mouseleave={() => (isHovered = false)}
+	onmouseenter={() => (isHovered = true)}
+	onmouseleave={() => (isHovered = false)}
 	role="navigation"
 >
 	<div id="bar">
@@ -68,19 +61,19 @@
 					<img
 						src={mms_logo}
 						alt="Measuring Main Streets"
-						on:mouseover={onMouseOver}
-						on:mouseout={onMouseOut}
-						on:focus={onMouseOver}
-						on:blur={onMouseOut}
+						onmouseover={onMouseOver}
+						onmouseout={onMouseOut}
+						onfocus={onMouseOver}
+						onblur={onMouseOut}
 					/>
 					<div class="border-l border-gray-300 h-12"></div>
 					<img
 						src={cui_logo}
 						alt="Measuring Main Streets"
-						on:mouseover={onMouseOver}
-						on:mouseout={onMouseOut}
-						on:focus={onMouseOver}
-						on:blur={onMouseOut}
+						onmouseover={onMouseOver}
+						onmouseout={onMouseOut}
+						onfocus={onMouseOver}
+						onblur={onMouseOut}
 					/>
 				</div>
 			</a>
@@ -92,7 +85,7 @@
 			type="button"
 			aria-expanded={menuOpen}
 			aria-controls="primary-nav"
-			on:click={toggleMenu}
+			onclick={toggleMenu}
 		>
 			Menu
 		</button>
@@ -220,6 +213,7 @@
 	@media (min-width: 768px) {
 		#bar {
 			flex-direction: row;
+			justify-content: flex-end;
 		}
 	}
 
@@ -282,6 +276,9 @@
 		justify-content: end;
 	}
 
+	:global(#bits-9) {
+		width: 100%;
+	}
 	/* Top-level list */
 	:global(.nav-menu-list) {
 		display: none; /* hidden by default on mobile */
@@ -304,9 +301,9 @@
 			display: flex !important;
 			flex-direction: row;
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-end;
 			padding: 0 2em 0 0;
-			gap: 2em;
+			gap: 0;
 			width: auto;
 		}
 	}

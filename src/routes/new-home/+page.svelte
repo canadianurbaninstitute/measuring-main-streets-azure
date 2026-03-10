@@ -4,7 +4,6 @@
 	import HomeAbout from './components/HomeAbout.svelte';
 	import HomeHero from './components/HomeHero.svelte';
 	import HomeProjectTimeline from './components/HomeProjectTimeline.svelte';
-	import HomeTabs from './components/HomeTabs.svelte';
 </script>
 
 <svelte:head>
@@ -17,7 +16,7 @@
 
 <main class="new-homepage">
 	<HomeHero />
-	<HomeTabs />
+	<!-- <HomeTabs /> -->
 	<HomeProjectTimeline />
 	<HomeAbout />
 </main>

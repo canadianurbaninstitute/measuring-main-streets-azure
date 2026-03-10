@@ -27,6 +27,7 @@
 				'Explore the major transit station areas and their relationship to main streets.',
 			image: transitmap,
 			link: '/transit-map',
+			featured: true,
 			tags: ['mapping', 'tool']
 		},
 		{
@@ -115,7 +116,7 @@
 
 <TabNav {tabs} bind:activeTab bg="blue-800">
 	{#snippet children({ activeTab: tab })}
-		<div class="flex flex-nowrap gap-6">
+		<div class="flex flex-nowrap gap-6 mr-100">
 			{#each tab === 'tod' ? todCards : resilienceCards as card}
 				<LandingCard {...card} />
 			{/each}
@@ -124,44 +125,4 @@
 </TabNav>
 
 <style>
-	:global(.tabs-list) {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		width: 100%;
-	}
-
-	:global(.tab-trigger) {
-		flex: 1;
-		font-weight: 600;
-		border: none;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		border-radius: 0.5rem 0.5rem 0 0;
-	}
-
-	:global(.tab-trigger:not(:first-child)) {
-		margin-left: -1rem;
-	}
-
-	:global(.tab-trigger[data-state='inactive']) {
-		background-color: var(--color-slate-100);
-		color: var(--color-slate-900);
-	}
-
-	:global(.tab-trigger[data-state='active']) {
-		background-color: var(--color-blue-800);
-		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-		color: #fff;
-		z-index: 10;
-	}
-
-	:global(.tab-trigger:hover) {
-		background-color: var(--color-blue-400);
-	}
-
-	.tabs-container :global(.tab-content) {
-		padding: 2.5rem 2rem;
-		background-color: var(--brandDarkBlue);
-	}
 </style>
