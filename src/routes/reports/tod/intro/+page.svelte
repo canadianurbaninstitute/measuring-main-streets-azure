@@ -1,65 +1,66 @@
 <script>
+	// Components
 	import ReportHeader from '../../components/ReportHeader.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
-	import ScrollSection from '../../components/ScrollSection.svelte';
+	import Scroller from '../../components/Scroller.svelte';
 	import TextBlock from '../../components/TextBlock.svelte';
-	import ImagePanel from '../../components/ImagePanel.svelte';
-	import Step from '../../components/Step.svelte';
-	import introImage from '../../../lib/assets/screenshots/intro-header.png';
+	import VisContainer from '../../components/VisContainer.svelte';
+	import VisImage from '../../components/VisImage.svelte';
+	import VisPanel from '../../components/VisPanel.svelte';
+	import ProgressBar from '../../components/ProgressBar.svelte';
+	import { sections } from './article.js';
 	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
 	import '../../../styles.css';
+	// Assets
+	import introImage from './assets/IntroHeader.png';
+	import urbanPopGrowth from './assets/UrbanPopGrowth.png';
+	import ProgressTrain from '../../assets/progress_train.svg';
+	// Charts
+	import UrbanPop from './charts/UrbanPop.svelte';
+	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
 
-	const urbanPop = [
-		{
-			Region: 'Greater Golden Horseshoe',
-			PercentPop: 24.3
-		},
-		{
-			Region: 'Montreal',
-			PercentPop: 11
-		},
-		{
-			Region: 'BC Lower Mainland',
-			PercentPop: 8
-		},
-		{
-			Region: 'Calgary',
-			PercentPop: 4.4
-		},
-		{
-			Region: 'Edmonton',
-			PercentPop: 4.1
-		},
-		{
-			Region: 'Ottawa-Gatineau',
-			PercentPop: 4.1
-		},
-		{
-			Region: 'Non-urban',
-			PercentPop: 15.3
-		},
-		{
-			Region: 'Urban regions 10,000 to 100,000',
-			PercentPop: 9.9
-		},
-		{
-			Region: 'All other urban regions >100,000',
-			PercentPop: 19
+	const visComponents = {
+		'urban-pop': UrbanPop
+	};
+
+	const visImages = {
+		urbanpopgrowth: {
+			src: urbanPopGrowth,
+			alt: 'test img',
+			fit: 'cover'
 		}
-	];
-	const section1Charts = [
-		{ component: ImagePanel, props: { src: introImage, alt: '...' } },
-		{
-			label: 'Annual output — early years',
-			component: BarChart,
-			props: { data: urbanPop, title: '2019–2020 baseline' }
-		}
-	];
+	};
+	/**
+	 * Flatten sections → steps so Scroller works with a single index.
+	 *
+	 * Each step carries:
+	 *   { visId, eyebrow, heading, body }
+	 */
+	const steps = sections.flatMap((section) =>
+		section.blocks.map((block) => ({ visId: section.visId, ...block }))
+	);
+
+	/** Unique ordered list of visIds (preserves first appearance order) */
+	const visIds = [...new Map(sections.map((s) => [s.visId, s.visId])).values()];
+
+	// ── Reactive state ───────────────────────────────────────────────────────
+	let activeIndex = 0;
+
+	$: activeVisId = steps[activeIndex]?.visId ?? visIds[0];
+
+	const navSections = sections.map((section) => {
+		// Find the global step index where this section starts
+		const firstStepIndex = steps.findIndex((s) => s.visId === section.visId);
+		const label = section.blocks.find((b) => b.heading)?.heading ?? section.visId;
+		return { firstStepIndex, label };
+	});
 </script>
 
 <main>
+	<ProgressBar {activeIndex} totalSteps={steps.length} sections={navSections} />
 	<ReportHeader
-		title="THE CASE FOR TRANSIT-ORIENTED COMPLETE COMMUNITIES"
+		eyebrow="THE CASE FOR"
+		title="TRANSIT-ORIENTED COMPLETE COMMUNITIES"
 		subtitle="With rapidly-growing populations, Canada’s largest metropolitan regions face an acute need for housing. How can transit-oriented development create complete communities that fulfill this need?"
 		backgroundImage={introImage}
 	/>
@@ -72,42 +73,50 @@
 		finding3="Not all transit projects"
 		description3="deliver the same return."
 	/>
-	<ScrollSection sectionNumber={1} charts={section1Charts}>
-		<svelte:fragment slot="steps" let:activeChartIndex>
-			<Step chartIndex={0} {activeChartIndex}>
-				<TextBlock eyebrow="Context" heading="Where we started">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-				</TextBlock>
-			</Step>
-
-			<!-- Same chart (0), second text block -->
-			<Step chartIndex={0} {activeChartIndex}>
-				<TextBlock eyebrow="2020" heading="The disruption year">
-					<p>
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-						commodo consequat.
-					</p>
-				</TextBlock>
-			</Step>
-
-			<Step chartIndex={1} {activeChartIndex}>
-				<TextBlock eyebrow="Turning point" heading="The 2021 inflection">
-					<p>
-						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-						nulla pariatur.
-					</p>
-				</TextBlock>
-			</Step>
-
-			<!-- Same chart (1), second text block -->
-			<Step chartIndex={1} {activeChartIndex}>
-				<TextBlock eyebrow="Now" heading="The 2024 peak">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-						voluptatum.
-					</p>
-				</TextBlock>
-			</Step>
+	<div class="chart"></div>
+	<Scroller bind:activeIndex threshold={0.5}>
+		<svelte:fragment slot="text">
+			{#each steps as step, i}
+				<TextBlock
+					index={i}
+					active={activeIndex === i}
+					eyebrow={step.eyebrow}
+					heading={step.heading}
+					body={step.body}
+				/>
+			{/each}
 		</svelte:fragment>
-	</ScrollSection>
+
+		<svelte:fragment slot="visual">
+			<VisContainer>
+				{#each visIds as visId}
+					<VisPanel visible={activeVisId === visId} label={visId}>
+						{#if visImages[visId]}
+							<!-- Image panel -->
+							<VisImage
+								src={visImages[visId].src}
+								alt={visImages[visId].alt}
+								caption={visImages[visId].caption ?? ''}
+								fit={visImages[visId].fit ?? 'contain'}
+							/>
+						{:else if visComponents[visId]}
+							<!-- Svelte component panel -->
+							<svelte:component this={visComponents[visId]} />
+						{/if}
+					</VisPanel>
+				{/each}
+			</VisContainer>
+		</svelte:fragment>
+	</Scroller>
 </main>
+
+<style>
+	.chart {
+		border: 1px solid #eee;
+		padding: 1em;
+		border-radius: 0.5em;
+		min-width: 1px;
+		min-height: 1px;
+		gap: 0.3em;
+	}
+</style>

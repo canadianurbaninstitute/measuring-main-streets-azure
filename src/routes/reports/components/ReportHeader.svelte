@@ -1,4 +1,5 @@
 <script>
+	export let eyebrow = '';
 	export let title = 'Report Title';
 	export let subtitle = '';
 	export let backgroundImage = '';
@@ -13,12 +14,17 @@
 	`}
 >
 	<div class="header-body">
-		<h1 class="title">{title}</h1>
+		<div class="headline">
+			<h1 class="eyebrow">{eyebrow}</h1>
+			<h1 class="title">{title}</h1>
+		</div>
 
-		<p class="subtitle">
-			{subtitle} <br /><br />
-			LEARN MORE
-		</p>
+		<div class="description">
+			<div class="subtitle">
+				{subtitle} <br /><br />
+			</div>
+			<p class="scroll-hint">LEARN MORE ↓</p>
+		</div>
 	</div>
 </header>
 
@@ -61,15 +67,47 @@
 			flex-wrap: wrap;
 		}
 	}
+	.headline {
+		width: 100%;
+		max-width: 1000px;
+	}
+	.eyebrow {
+		font-size: clamp(1rem, 7vw, 3rem);
+		margin: 0;
+		color: var(--brandLightBlue);
+	}
 
 	.title {
 		font-size: clamp(2.8rem, 7vw, 6rem);
 		margin: 0;
 	}
 
+	.description {
+		display: flex;
+		flex-direction: column;
+		align-items: left;
+		width: 100%;
+		max-width: 400px;
+	}
+
 	.subtitle {
 		font-size: clamp(1rem, 2vw, 1.2rem);
 		margin: 0;
 		opacity: 0.8;
+	}
+	.scroll-hint {
+		font-size: 1rem;
+		letter-spacing: 0.1em;
+		color: var(--foreground-alt);
+		animation: nudge 2s ease-in-out infinite;
+	}
+	@keyframes nudge {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(5px);
+		}
 	}
 </style>

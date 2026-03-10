@@ -1,0 +1,63 @@
+<script>
+  /**
+   * VisPanel.svelte
+   *
+   * Wraps a single visualization (chart, illustration, image, etc.).
+   * The parent cycles through an array of VisPanels; only the one
+   * whose `visible` prop is true is shown. Crossfades between panels.
+   *
+   * Props:
+   *   visible  {boolean}  — whether this panel should be shown
+   *   label    {string}   — accessible label / caption (optional)
+   */
+
+  export let visible = false;
+  export let label = '';
+</script>
+
+<div
+  class="vis-panel"
+  class:visible
+  role="img"
+  aria-label={label}
+>
+  <slot />
+
+  {#if label}
+    <p class="caption">{label}</p>
+  {/if}
+</div>
+
+<style>
+  .vis-panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+
+    opacity: 0;
+    transform: scale(0.97) translateY(6px);
+    pointer-events: none;
+    transition:
+      opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .vis-panel.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+  }
+
+  .caption {
+    margin: 1.25rem 0 0;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: #999;
+    text-align: center;
+  }
+</style>
