@@ -1,22 +1,30 @@
 /**
  * article.js
  *
- * Defines the article's narrative structure.
+ * Data shape
+ * ──────────
+ * Each section has:
+ *   panels   {Panel[]}  — one or more visualization panels for this section.
+ *                         Each panel has a unique `id` scoped to the section,
+ *                         plus either a `component` key or an `image` key
+ *                         (resolved in +page.svelte).
+ *   blocks   {Block[]}  — text steps. Each block may set `panelId` to switch
+ *                         to a specific panel mid-section. If omitted, the
+ *                         first panel in the section is shown.
  *
- * Each "section" has:
- *   visId   {string}   — which visualization panel to show (matches panels[].id)
- *   blocks  {Block[]}  — one or more text blocks tied to this visualization
+ * Panel shape:
+ *   id        {string}  — unique within the section (e.g. 'chart', 'map-2')
+ *   label     {string}  — accessible caption shown below the panel (optional)
  *
- * Each "block" has:
- *   eyebrow  {string}  — optional small label
- *   heading  {string}  — optional section heading
- *   body     {string}  — HTML string rendered via {@html}
- *                        Supports: <p> <strong> <em> <a> <ul> <ol> <li>
- *                                  <blockquote> <small> <hr>
+ *   One of:
+ *   component {string}  — key into the visComponents map in +page.svelte
+ *   image     {object}  — { src, alt, caption?, fit? } — rendered by VisImage
  *
- * Alternatively, omit `body` and pass children via the default slot in
- * +page.svelte for full Svelte component flexibility.
- *
+ * Block shape:
+ *   panelId   {string}  — which panel to show (defaults to panels[0].id)
+ *   eyebrow   {string}  — optional small label
+ *   heading   {string}  — optional heading
+ *   body      {string}  — HTML string (supports <p> <strong> <em> etc.)
  */
 
 export const sections = [
@@ -37,7 +45,7 @@ export const sections = [
 	},
 	{
 		panels: [
-			{ id: 'urban-pop-growth', label: 'Urboan Population Growth' },
+			{ id: 'urban-pop-growth', label: 'Urban Population Growth' },
 			{ id: 'test-image', label: 'Test Image' }
 		],
 		blocks: [
@@ -57,6 +65,15 @@ export const sections = [
 			{
 				panelId: 'test-image',
 				body: `Test image panel 2.`
+			}
+		]
+	},
+	{
+		panels: [{ id: 'test-panel', label: 'Test Panel' }],
+		blocks: [
+			{
+				panelId: 'test-panel',
+				body: `Does this show up`
 			}
 		]
 	},
