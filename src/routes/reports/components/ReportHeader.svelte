@@ -1,4 +1,5 @@
 <script>
+	export let id = '';
 	export let eyebrow = '';
 	export let title = 'Report Title';
 	export let subtitle = '';
@@ -6,27 +7,29 @@
 	export let backgroundOpacity = 0.1;
 </script>
 
-<header
-	class="report-header"
-	style={`
+<section {id}>
+	<header
+		class="report-header"
+		style={`
 		${backgroundImage ? `--bg-image: url(${backgroundImage});` : ''}
 		--bg-opacity: ${backgroundOpacity};
 	`}
->
-	<div class="header-body">
-		<div class="headline">
-			<h1 class="eyebrow">{eyebrow}</h1>
-			<h1 class="title">{title}</h1>
-		</div>
-
-		<div class="description">
-			<div class="subtitle">
-				{subtitle} <br /><br />
+	>
+		<div class="header-body">
+			<div class="headline">
+				<h1 class="eyebrow">{eyebrow}</h1>
+				<h1 class="title">{title}</h1>
 			</div>
-			<p class="scroll-hint">LEARN MORE ↓</p>
+
+			<div class="description">
+				<div class="subtitle">
+					{subtitle} <br /><br />
+				</div>
+				<p class="scroll-hint">LEARN MORE ↓</p>
+			</div>
 		</div>
-	</div>
-</header>
+	</header>
+</section>
 
 <style>
 	.report-header {

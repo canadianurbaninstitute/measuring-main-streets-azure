@@ -2,65 +2,201 @@
 	/**
 	 * ProgressBar.svelte
 	 *
-	 * A sticky progress bar fixed to the top of the page.
+	 * A unified sticky progress bar that tracks both pre-scroller page sections
+	 * (e.g. <ReportHeader>, <ReportFindings>) and scrollytelling steps.
 	 *
-	 * Props:
-	 *   activeIndex  {number}    — the currently active step (bind from Scroller)
-	 *   totalSteps   {number}    — total number of TextBlock steps
-	 *   sections     {Section[]} — article sections, each with:
-	 *                                firstStepIndex {number} — index of the section's first step
-	 *                                label          {string} — display name shown on hover
+	 * ── Props ────────────────────────────────────────────────────────────────
 	 *
-	 * The blue fill line grows from 0 → 100% as activeIndex increases.
-	 * A circle marker is placed at each section's proportional position along
-	 * the bar. Clicking a circle scrolls that [data-step] element into view.
+	 *   items  {Item[]}  — ordered list of ALL navigable sections on the page.
+	 *
+	 *     Each item is one of two types:
+	 *
+	 *     Anchor item  — a standalone page section (header, findings, etc.)
+	 *       {
+	 *         type:      'anchor'
+	 *         id:        string   — must match the `id` attribute on the DOM element
+	 *         label:     string   — tooltip text
+	 *       }
+	 *
+	 *     Step item  — one step inside the Scroller
+	 *       {
+	 *         type:          'step'
+	 *         stepIndex:     number   — index used on [data-step] attributes
+	 *         label:         string   — tooltip text
+	 *         isFirstInSection: boolean — true for the first step of each section
+	 *                                     (renders a larger circle)
+	 *       }
+	 *
+	 *   activeStepIndex  {number}  — bind from Scroller; drives fill & active state
+	 *   totalSteps       {number}  — total TextBlock steps
+	 *   icon             {'flame'|'arrow'|'dot'|'custom'}
+	 *
+	 * ── How progress works ───────────────────────────────────────────────────
+	 *
+	 *   Items are spread evenly across the 0–100% track by their index.
+	 *   Progress fills to the position of the currently active item.
+	 *   Anchor items become active when their element enters the viewport
+	 *   (tracked via IntersectionObserver). Step items become active via
+	 *   activeStepIndex.
+	 *
+	 * ── Usage in +page.svelte ────────────────────────────────────────────────
+	 *
+	 *   <ReportHeader id="report-header" />
+	 *   <ReportFindings id="report-findings" />
+	 *   <Scroller bind:activeIndex> ... </Scroller>
+	 *
+	 *   <ProgressBar
+	 *     activeStepIndex={activeIndex}
+	 *     totalSteps={steps.length}
+	 *     items={[
+	 *       { type: 'anchor', id: 'report-header',   label: 'Introduction' },
+	 *       { type: 'anchor', id: 'report-findings', label: 'Key Findings' },
+	 *       ...navSections.map((s, i) => ({
+	 *         type: 'step',
+	 *         stepIndex: s.firstStepIndex,
+	 *         label: s.label,
+	 *         isFirstInSection: true,
+	 *       })),
+	 *     ]}
+	 *   />
 	 */
 
-	export let activeIndex = 0;
+	import { onMount } from 'svelte';
+
+	export let items = [];
+	export let activeStepIndex = 0;
 	export let totalSteps = 1;
-	export let sections = []; // [{ firstStepIndex, label }]
+	export let icon = 'flame';
 
-	/**
-	 * icon  — 'arrow' | 'dot' | 'custom'
-	 * Pass icon="custom" and use the `icon` slot for your own SVG/HTML.
-	 */
-	export let icon = 'arrow';
+	// ── Continuous scroll tracking ────────────────────────────────────────────
+	// For smooth fill we measure the real scroll position of every item's DOM
+	// element (anchors by id, steps by [data-step]) and interpolate progress
+	// between them as the user scrolls. This avoids the fill snapping between
+	// discrete circle positions.
 
-	// Progress as a 0–100 percentage
-	$: progress = totalSteps > 1 ? (activeIndex / (totalSteps - 1)) * 100 : 0;
+	// scrollY updated on every scroll/resize event
+	let scrollY = 0;
+	// pageHeight = scrollable distance (document height - viewport height)
+	let pageHeight = 1;
+	// Map from item index → element top offset (px from document top)
+	let itemTops = [];
 
-	// Which section is currently active (for styling circles)
-	$: activeSectionIndex = (() => {
+	function measureItems() {
+		pageHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+		itemTops = items.map((item) => {
+			let el = null;
+			if (item.type === 'anchor') {
+				el = document.getElementById(item.id);
+			} else {
+				el = document.querySelector(`[data-step="${item.stepIndex}"]`);
+			}
+			if (!el) return null;
+			return el.getBoundingClientRect().top + window.scrollY;
+		});
+	}
+
+	onMount(() => {
+		measureItems();
+
+		const onScroll = () => {
+			scrollY = window.scrollY;
+		};
+		const onResize = () => {
+			measureItems();
+			scrollY = window.scrollY;
+		};
+
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onResize, { passive: true });
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+			window.removeEventListener('resize', onResize);
+		};
+	});
+
+	// ── Interpolated progress ─────────────────────────────────────────────────
+	// Find which two adjacent item tops the current scrollY falls between,
+	// then linearly interpolate between their circle positions on the track.
+	$: progress = (() => {
+		if (!itemTops.length || items.length < 2) return 0;
+
+		const n = items.length;
+		// Circle positions as 0–100 percentages, evenly spaced
+		const circlePcts = items.map((_, i) => (i / (n - 1)) * 100);
+
+		// Trigger re-computation when activeStepIndex changes (keeps it reactive
+		// for the scroller portion even if scrollY doesn't update fast enough)
+		void activeStepIndex;
+
+		const scroll = scrollY;
+
+		// Before the first item
+		const firstTop = itemTops[0];
+		if (firstTop !== null && scroll <= firstTop) return circlePcts[0];
+
+		// After the last item
+		const lastTop = itemTops[n - 1];
+		if (lastTop !== null && scroll >= lastTop) return circlePcts[n - 1];
+
+		// Find the segment [i, i+1] that straddles the current scroll position
+		for (let i = 0; i < n - 1; i++) {
+			const topA = itemTops[i];
+			const topB = itemTops[i + 1];
+			if (topA === null || topB === null) continue;
+			if (scroll >= topA && scroll < topB) {
+				const t = (scroll - topA) / Math.max(1, topB - topA);
+				return circlePcts[i] + t * (circlePcts[i + 1] - circlePcts[i]);
+			}
+		}
+
+		return circlePcts[n - 1];
+	})();
+
+	// ── Active item index (for circle fill colouring) ─────────────────────────
+	$: activeItemIndex = (() => {
+		// Find the last item whose element top is at or above current scroll
 		let idx = 0;
-		for (let i = 0; i < sections.length; i++) {
-			if (activeIndex >= sections[i].firstStepIndex) idx = i;
+		for (let i = 0; i < itemTops.length; i++) {
+			const top = itemTops[i];
+			if (top !== null && scrollY >= top - window.innerHeight * 0.55) idx = i;
 		}
 		return idx;
 	})();
 
-	let hoveredSection = null;
+	// ── Track position helpers ────────────────────────────────────────────────
+	function pctOf(itemIndex) {
+		return items.length > 1 ? (itemIndex / (items.length - 1)) * 100 : 0;
+	}
 
-	function scrollToSection(firstStepIndex) {
-		const el = document.querySelector(`[data-step="${firstStepIndex}"]`);
-		if (el) {
-			el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	// ── Navigation ───────────────────────────────────────────────────────────
+	function navigateTo(item) {
+		if (item.type === 'anchor') {
+			document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		} else {
+			document
+				.querySelector(`[data-step="${item.stepIndex}"]`)
+				?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 		}
 	}
 
-	function circlePercent(firstStepIndex) {
-		return totalSteps > 1 ? (firstStepIndex / (totalSteps - 1)) * 100 : 0;
-	}
+	let hoveredIndex = null;
 </script>
 
 <nav class="progress-bar" aria-label="Article progress">
-	<!-- Track -->
 	<div class="track" role="presentation">
-		<!-- Blue fill + travelling icon -->
+		<!-- Fill + icon -->
 		<div class="fill" style="width: {progress}%" aria-hidden="true">
 			<div class="icon-wrap">
-				{#if icon === 'arrow'}
-					<!-- Simple right-pointing chevron -->
-					<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				{#if icon === 'flame'}
+					<svg viewBox="0 0 24 24" fill="none">
+						<path
+							d="M12 2C12 2 7 7.5 7 13a5 5 0 0 0 10 0c0-2.5-1.5-4.5-2.5-5.5 0 2-1 3-1 3S12 9 12 2Z"
+							fill="#2563eb"
+						/>
+						<path d="M12 14c0 1.1-.9 2-2 2s-2-.9-2-2c0-1.5 2-4 2-4s2 2.5 2 4Z" fill="#93c5fd" />
+					</svg>
+				{:else if icon === 'arrow'}
+					<svg viewBox="0 0 24 24" fill="none">
 						<circle cx="12" cy="12" r="10" fill="#2563eb" />
 						<path
 							d="M10 8l4 4-4 4"
@@ -71,8 +207,7 @@
 						/>
 					</svg>
 				{:else if icon === 'dot'}
-					<!-- Pulsing filled circle -->
-					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<svg viewBox="0 0 24 24">
 						<circle cx="12" cy="12" r="7" fill="#2563eb" />
 						<circle cx="12" cy="12" r="10" fill="#2563eb" opacity="0.25" class="pulse" />
 					</svg>
@@ -82,31 +217,28 @@
 			</div>
 		</div>
 
-		<!-- Section circles -->
-		{#each sections as section, i}
-			{@const pct = circlePercent(section.firstStepIndex)}
-			{@const isActive = i <= activeSectionIndex}
-			{@const isHovered = hoveredSection === i}
+		<!-- Markers -->
+		{#each items as item, i}
+			{@const isActive = i <= activeItemIndex}
+			{@const isLarge = item.type === 'anchor' || item.isFirstInSection}
+			{@const isHovered = hoveredIndex === i}
 
 			<button
 				class="circle"
 				class:active={isActive}
-				class:hovered={isHovered}
-				style="left: {pct}%"
-				aria-label="Jump to: {section.label}"
-				on:click={() => scrollToSection(section.firstStepIndex)}
-				on:mouseenter={() => (hoveredSection = i)}
-				on:mouseleave={() => (hoveredSection = null)}
-				on:focusin={() => (hoveredSection = i)}
-				on:focusout={() => (hoveredSection = null)}
+				class:large={isLarge}
+				style="left: {pctOf(i)}%"
+				aria-label="Jump to: {item.label}"
+				on:click={() => navigateTo(item)}
+				on:mouseenter={() => (hoveredIndex = i)}
+				on:mouseleave={() => (hoveredIndex = null)}
+				on:focusin={() => (hoveredIndex = i)}
+				on:focusout={() => (hoveredIndex = null)}
 			>
-				<!-- Tooltip -->
 				{#if isHovered}
 					<span class="tooltip" role="tooltip">
-						<span class="tooltip-index">
-							{String(i + 1).padStart(2, '0')}
-						</span>
-						{section.label}
+						<span class="tooltip-index">{String(i + 1).padStart(2, '0')}</span>
+						{item.label}
 					</span>
 				{/if}
 			</button>
@@ -143,7 +275,7 @@
 		top: 0;
 		left: 0;
 		height: 100%;
-		background: #2563eb;
+		background: var(--brandLightBlue);
 		transition: width 0.3s ease;
 		border-radius: 0 1px 1px 0;
 		/* overflow visible so the icon can poke above the 2px track */
@@ -156,8 +288,8 @@
 		right: 0;
 		top: 50%;
 		transform: translate(50%, -50%) translateY(-10px); /* float above the track */
-		width: 22px;
 		height: 22px;
+		width: auto;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -228,8 +360,8 @@
 
 	/* Visited / active sections: filled blue */
 	.circle.active {
-		background: #2563eb;
-		border-color: #2563eb;
+		background: var(--brandLightBlue);
+		border-color: var(--brandLightBlue);
 	}
 
 	/* ── Tooltip ─────────────────────────────────────────────── */
@@ -244,11 +376,9 @@
 		align-items: center;
 		gap: 0.5em;
 
-		background: #111;
-		color: #fff;
-		font-family: 'DM Mono', 'Courier New', monospace;
+		background: var(--range-slider);
+		color: #000;
 		font-size: 0.68rem;
-		letter-spacing: 0.04em;
 		padding: 0.35em 0.7em;
 		border-radius: 3px;
 		pointer-events: none;
@@ -261,7 +391,7 @@
 			left: 50%;
 			transform: translateX(-50%);
 			border: 5px solid transparent;
-			border-top-color: #111;
+			border-top-color: var(--range-slider);
 		}
 	}
 

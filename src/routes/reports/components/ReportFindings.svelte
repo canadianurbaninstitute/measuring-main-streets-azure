@@ -1,4 +1,5 @@
 <script>
+	export let id = '';
 	export let title = 'Key Findings';
 	export let finding1 = '';
 	export let description1 = '';
@@ -8,7 +9,7 @@
 	export let description3 = '';
 </script>
 
-<section class="findings">
+<section {id} class="findings">
 	<div class="inner">
 		<h1 class="title">{title}</h1>
 		<div class="cards">
