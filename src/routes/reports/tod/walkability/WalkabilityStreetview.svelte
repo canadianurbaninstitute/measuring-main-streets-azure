@@ -13,7 +13,9 @@
 
 	// Scale from user requirement: 0 (green) -> 50 (yellow) -> 100 (red)
 	// Mapbox scores seem to be 0-5 scale based on the data, let's normalize or use fixed domains
-	const colorScale = chroma.scale(['#ef4444', '#f59e0b', '#10b981']).domain([1, 3, 5]);
+	const colorScale = chroma
+		.scale(['#8b1b1d', '#ff9c2c', '#eeee00', '#74c800', '#13612c'])
+		.domain([0.5, 1.375, 2.25, 3.125, 4]);
 
 	const getScoreColor = (score) => colorScale(score || 0).hex();
 
@@ -81,9 +83,9 @@
 </script>
 
 <div class="streetview-container bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col">
-	<div class="relative w-full h-48 bg-zinc-900 overflow-hidden">
+	<div class="relative w-full h-40 sm:h-48 overflow-hidden">
 		<button
-			class="absolute top-3 right-3 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white rounded-full w-8 h-8 flex items-center justify-center font-bold z-50 transition-all border border-white/20"
+			class="absolute top-3 left-3 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white rounded-full w-8 h-8 flex items-center justify-center font-bold z-50 transition-all border border-white/20"
 			onclick={onClose}
 			aria-label="Close"
 		>
@@ -96,42 +98,23 @@
 				Loading Streetview...
 			</div>
 		</div>
-
-		<div
-			class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"
-		>
-			<div class="flex justify-between items-end text-white">
-				<div>
-					<h3 class="text-xs uppercase tracking-wider font-bold opacity-80 decoration-zinc-400">
-						Overall Score
-					</h3>
-					<div
-						class="text-3xl font-black"
-						style="color: {getScoreColor(properties?.overall_score)}"
-					>
-						{properties?.overall_score?.toFixed(1) || 'N/A'}
-					</div>
-				</div>
-				<Icon icon="mdi:information-outline" class="text-xl opacity-60" />
-			</div>
-		</div>
 	</div>
 
-	<div class="flex-grow p-4 overflow-y-auto">
-		<div class="grid grid-cols-2 gap-3">
+	<div class="flex-grow p-3 overflow-y-auto custom-scrollbar">
+		<div class="grid grid-cols-2 gap-2">
 			{#each metrics as metric}
-				<div class="flex items-center gap-2 p-2 bg-zinc-50 rounded-lg border border-zinc-100">
+				<div class="flex items-center gap-2 p-1.5 bg-zinc-50 rounded-lg border border-zinc-100">
 					<div
-						class="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow-sm border border-zinc-200"
+						class="w-7 h-7 rounded-full flex items-center justify-center bg-white shadow-sm border border-zinc-200 shrink-0"
 						style="color: {getScoreColor(properties?.[metric.key])}"
 					>
-						<Icon icon={metric.icon} class="text-lg" />
+						<Icon icon={metric.icon} class="text-base" />
 					</div>
 					<div class="flex-grow min-w-0">
-						<div class="text-[10px] text-zinc-500 font-semibold uppercase truncate">
+						<div class="text-[9px] text-zinc-400 font-bold uppercase truncate leading-tight">
 							{metric.label}
 						</div>
-						<div class="text-sm font-bold text-zinc-800">
+						<div class="text-xs font-black text-zinc-800">
 							{properties?.[metric.key]?.toFixed(1) || '—'}
 						</div>
 					</div>
@@ -141,18 +124,50 @@
 
 		{#if properties?.overall_assessment_explanation}
 			<div
-				class="mt-4 p-3 bg-zinc-50 rounded-lg border border-zinc-100 text-[11px] text-zinc-600 leading-relaxed italic"
+				class="mt-3 p-3 bg-zinc-50 rounded-lg border border-zinc-100 text-[11px] text-zinc-600 leading-relaxed italic"
 			>
 				"{properties.overall_assessment_explanation}"
 			</div>
 		{/if}
+
+		<div class="mt-4 pt-3 pb-2 border-t border-zinc-100 flex items-center justify-between">
+			<div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+				Overall Walkability
+			</div>
+			<div
+				class="w-12 h-12 rounded-full flex items-center justify-center text-lg font-black tabular-nums shadow-inner border border-white/20"
+				style="background-color: {getScoreColor(
+					properties?.overall_score
+				)}; color: {chroma.contrast(getScoreColor(properties?.overall_score), 'white') > 2
+					? 'white'
+					: '#18181b'}"
+			>
+				{properties?.overall_score?.toFixed(1) || 'N/A'}
+			</div>
+		</div>
 	</div>
 </div>
 
 <style>
 	.streetview-container {
-		width: 350px;
+		width: 320px;
 		max-width: 90vw;
+		max-height: 80vh;
+	}
+
+	.custom-scrollbar::-webkit-scrollbar {
+		width: 4px;
+	}
+	.custom-scrollbar::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	.custom-scrollbar::-webkit-scrollbar-thumb {
+		background: #e4e4e7;
+		border-radius: 10px;
+	}
+
+	:global(.mapboxgl-popup) {
+		z-index: 1000;
 	}
 
 	:global(.mapboxgl-popup-content) {

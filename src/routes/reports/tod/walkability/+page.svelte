@@ -80,10 +80,28 @@
 	});
 
 	// Handle Map Point Clicks
-	function handlePointClick({ lng, lat, properties, mapInstance }) {
+	function handlePointClick({ lng, lat, properties, mapInstance, point }) {
 		if (activePopup) {
 			activePopup.remove();
 		}
+
+		// Calculate dynamic anchor based on click position
+		const mapCanvas = mapInstance.getCanvas();
+		const w = mapCanvas.clientWidth;
+		const h = mapCanvas.clientHeight;
+
+		// Thresholds for flipping
+		const vThreshold = h * 0.5;
+		const hThreshold = w * 0.25;
+
+		let vAnchor = point && point.y < vThreshold ? 'top' : 'bottom';
+		let hAnchor = '';
+		if (point) {
+			if (point.x < hThreshold) hAnchor = '-left';
+			else if (point.x > w - hThreshold) hAnchor = '-right';
+		}
+
+		const anchor = vAnchor + hAnchor || 'bottom';
 
 		const container = document.createElement('div');
 
@@ -101,7 +119,18 @@
 		activePopup = new mapboxgl.Popup({
 			closeButton: false, // WalkabilityStreetview handles the close button rendering
 			closeOnClick: true,
-			maxWidth: '350px' // ensure it fits the new streetview container width
+			maxWidth: '350px', // ensure it fits the new streetview container width
+			anchor: anchor,
+			offset: {
+				top: [0, 10],
+				'top-left': [10, 10],
+				'top-right': [-10, 10],
+				bottom: [0, -20],
+				'bottom-left': [10, -10],
+				'bottom-right': [-10, -10],
+				left: [15, 0],
+				right: [-15, 0]
+			}
 		})
 			.setLngLat([lng, lat])
 			.setDOMContent(container)

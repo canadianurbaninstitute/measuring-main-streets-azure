@@ -141,7 +141,8 @@
 							lng: coordinates[0],
 							lat: coordinates[1],
 							properties,
-							mapInstance: map
+							mapInstance: map,
+							point: e.point
 						});
 					}
 				}
@@ -154,9 +155,9 @@
 		async function applyLineGradient() {
 			if (!map) return;
 
-			const layerId = 'station-analyses-overall-scor-6g4jt9';
+			const layerId = 'station-analyses-overall-scor-2o1m63';
 			const sourceId = 'composite';
-			const sourceLayer = 'station_analyses_overall_scor-6g4jt9';
+			const sourceLayer = 'station_analyses_overall_scor-2o1m63';
 
 			// 1. Extract features from the vector source layers
 			const lineFeatures = map.querySourceFeatures(sourceId, {
@@ -168,162 +169,127 @@
 				return;
 			}
 
-			// 2. Stitch Line Segments
+			// 2. Process and Stitch segments for continuous gradient
 			const uniqueLinesMap = new Map();
 			lineFeatures.forEach((f) => {
 				if (f.geometry.type === 'LineString') {
-					const key =
-						JSON.stringify(f.geometry.coordinates[0]) +
-						JSON.stringify(f.geometry.coordinates.at(-1));
-					uniqueLinesMap.set(key, f);
+					const key = JSON.stringify(f.geometry.coordinates);
+					if (!uniqueLinesMap.has(key)) {
+						uniqueLinesMap.set(key, f);
+					}
 				}
 			});
 
-			const segments = Array.from(uniqueLinesMap.values());
+			const segments = Array.from(uniqueLinesMap.values()).map((f) => {
+				const props = f.properties;
+				let sa = props.endpoint_a_overall_score;
+				let sb = props.endpoint_b_overall_score;
+
+				// Handle nulls: fallback logic
+				if (sa === null || sa === undefined) sa = sb;
+				if (sb === null || sb === undefined) sb = sa;
+				if (sa === null || sa === undefined) {
+					sa = props.overall_score ?? 2.25;
+					sb = props.overall_score ?? 2.25;
+				}
+
+				return {
+					coords: f.geometry.coordinates,
+					sa: Number(sa),
+					sb: Number(sb),
+					length: turf.length(f)
+				};
+			});
+
 			if (segments.length === 0) return;
 
-			const TOLERANCE = 0.05; // 50 meters
+			// Stitching: Join adjacent segments into ordered sequences
 			let remaining = [...segments];
-			let chains = [];
+			let orderedSegments = [];
+			const TOLERANCE = 0.001; // ~1 meter
 
 			while (remaining.length > 0) {
-				let current = remaining.splice(0, 1)[0];
-				let chain = {
-					coords: [...current.geometry.coordinates],
-					scores: [current.properties.overall_score || 0]
-				};
-
-				let foundMatch = true;
-				while (foundMatch) {
-					foundMatch = false;
+				let chain = [remaining.shift()];
+				let found = true;
+				while (found) {
+					found = false;
+					const tail = chain[chain.length - 1].coords.at(-1);
 					for (let i = 0; i < remaining.length; i++) {
 						const s = remaining[i];
-						const coords = s.geometry.coordinates;
-						const score = s.properties.overall_score || 0;
-						const head = chain.coords[0];
-						const tail = chain.coords.at(-1);
-
-						if (turf.distance(tail, coords[0]) < TOLERANCE) {
-							chain.coords.push(...coords.slice(1));
-							chain.scores.push(score);
-							remaining.splice(i, 1);
-							foundMatch = true;
+						if (turf.distance(tail, s.coords[0]) < TOLERANCE) {
+							chain.push(remaining.splice(i, 1)[0]);
+							found = true;
 							break;
-						}
-						if (turf.distance(tail, coords.at(-1)) < TOLERANCE) {
-							chain.coords.push(...[...coords].reverse().slice(1));
-							chain.scores.push(score);
-							remaining.splice(i, 1);
-							foundMatch = true;
-							break;
-						}
-						if (turf.distance(head, coords[0]) < TOLERANCE) {
-							chain.coords = [...coords].reverse().concat(chain.coords.slice(1));
-							chain.scores.unshift(score);
-							remaining.splice(i, 1);
-							foundMatch = true;
-							break;
-						}
-						if (turf.distance(head, coords.at(-1)) < TOLERANCE) {
-							chain.coords = coords.concat(chain.coords.slice(1));
-							chain.scores.unshift(score);
-							remaining.splice(i, 1);
-							foundMatch = true;
+						} else if (turf.distance(tail, s.coords.at(-1)) < TOLERANCE) {
+							const flipped = remaining.splice(i, 1)[0];
+							[flipped.sa, flipped.sb] = [flipped.sb, flipped.sa];
+							flipped.coords.reverse();
+							chain.push(flipped);
+							found = true;
 							break;
 						}
 					}
 				}
-				chains.push(chain);
+				orderedSegments.push(...chain);
 			}
 
-			// Join disparate chains if they are within tolerance
-			chains.sort((a, b) => b.coords.length - a.coords.length);
-			let primaryChain = chains[0];
-			let standaloneChains = chains.slice(1);
+			// 3. Calculate Global Score Stops (N+1 stops for N segments)
+			const totalLength = orderedSegments.reduce((sum, s) => sum + s.length, 0);
+			const colorScale = chroma
+				.scale(['#8b1b1d', '#ff9c2c', '#eeee00', '#74c800', '#13612c'])
+				.domain([0.5, 1.375, 2.25, 3.125, 4]);
 
-			let joined = true;
-			while (joined && standaloneChains.length > 0) {
-				joined = false;
-				for (let i = 0; i < standaloneChains.length; i++) {
-					const other = standaloneChains[i];
-					const pHead = primaryChain.coords[0];
-					const pTail = primaryChain.coords.at(-1);
-					const oHead = other.coords[0];
-					const oTail = other.coords.at(-1);
-
-					if (turf.distance(pTail, oHead) < TOLERANCE) {
-						primaryChain.coords.push(...other.coords.slice(1));
-						primaryChain.scores.push(...other.scores);
-						standaloneChains.splice(i, 1);
-						joined = true;
-						break;
-					} else if (turf.distance(pTail, oTail) < TOLERANCE) {
-						primaryChain.coords.push(...[...other.coords].reverse().slice(1));
-						primaryChain.scores.push(...[...other.scores].reverse());
-						standaloneChains.splice(i, 1);
-						joined = true;
-						break;
-					} else if (turf.distance(pHead, oHead) < TOLERANCE) {
-						primaryChain.coords = [...other.coords].reverse().concat(primaryChain.coords.slice(1));
-						primaryChain.scores = [...other.scores].reverse().concat(primaryChain.scores);
-						standaloneChains.splice(i, 1);
-						joined = true;
-						break;
-					} else if (turf.distance(pHead, oTail) < TOLERANCE) {
-						primaryChain.coords = other.coords.concat(primaryChain.coords.slice(1));
-						primaryChain.scores = other.scores.concat(primaryChain.scores);
-						standaloneChains.splice(i, 1);
-						joined = true;
-						break;
-					}
-				}
-			}
-
-			// Create FeatureCollection of all road pieces so we don't lose anything
-			const featureCollection = turf.featureCollection(
-				[primaryChain, ...standaloneChains].map((c) => turf.lineString(c.coords))
-			);
-
-			// 3. Generate Progress Stops based on the primary chain
-			const colorScale = chroma.scale(['#2ecc71', '#f1c40f', '#e74c3c']).domain([1, 2.5, 4]);
 			const stops = [];
+			let currentOffset = 0;
 
-			primaryChain.scores.forEach((score, idx) => {
-				const progress = idx / (primaryChain.scores.length - 1);
-				stops.push({
-					progress: Math.min(Math.max(progress, 0), 1),
-					color: colorScale(score).hex()
-				});
+			orderedSegments.forEach((s, idx) => {
+				const startP = totalLength > 0 ? currentOffset / totalLength : 0;
+				const endP = totalLength > 0 ? (currentOffset + s.length) / totalLength : 1;
+
+				if (idx === 0) {
+					// First point ever
+					stops.push({ progress: 0, color: colorScale(s.sa).hex() });
+				} else {
+					// Junction: Average previous end and current start for smoothness
+					const lastStop = stops[stops.length - 1];
+					const prevScore = orderedSegments[idx - 1].sb;
+					const avgScore = (prevScore + s.sa) / 2;
+					lastStop.color = colorScale(avgScore).hex();
+				}
+
+				// End of this segment
+				stops.push({ progress: Math.min(endP, 1), color: colorScale(s.sb).hex() });
+				currentOffset += s.length;
 			});
 
-			// Strictly ascending stops for Mapbox
+			// Final deduplication for strictly ascending progress
 			const uniqueStops = [];
 			stops.forEach((s) => {
-				if (uniqueStops.length === 0 || s.progress > uniqueStops[uniqueStops.length - 1].progress) {
+				if (
+					uniqueStops.length === 0 ||
+					s.progress > uniqueStops[uniqueStops.length - 1].progress + 0.00001
+				) {
 					uniqueStops.push(s);
 				}
 			});
 
-			if (uniqueStops.length > 0) {
-				if (uniqueStops[0].progress > 0)
-					uniqueStops.unshift({ progress: 0, color: uniqueStops[0].color });
-				if (uniqueStops[uniqueStops.length - 1].progress < 1)
-					uniqueStops.push({ progress: 1, color: uniqueStops[uniqueStops.length - 1].color });
-			} else {
-				return;
-			}
+			if (uniqueStops.length === 0) return;
 
-			const finalStops = [];
-			uniqueStops.forEach((s) => {
-				if (finalStops.length === 0 || s.progress > finalStops[finalStops.length - 1].progress) {
-					finalStops.push(s);
-				}
-			});
+			// Mapbox requires 0 and 1
+			if (uniqueStops[0].progress > 0)
+				uniqueStops.unshift({ progress: 0, color: uniqueStops[0].color });
+			if (uniqueStops[uniqueStops.length - 1].progress < 1)
+				uniqueStops.push({ progress: 1, color: uniqueStops[uniqueStops.length - 1].color });
 
 			const gradientDefinition = ['interpolate', ['linear'], ['line-progress']];
-			finalStops.forEach((s) => {
+			uniqueStops.forEach((s) => {
 				gradientDefinition.push(s.progress, s.color);
 			});
+
+			// 4. Update Source and Layer
+			const featureCollection = turf.featureCollection([
+				turf.multiLineString(orderedSegments.map((s) => s.coords))
+			]);
 
 			// 4. Update Source and Layer
 			if (map.getSource('gradient-route')) {
@@ -349,7 +315,8 @@
 					paint: {
 						'line-width': 8,
 						'line-gradient': gradientDefinition as any,
-						'line-opacity': 1
+						'line-opacity': 1,
+						'line-emissive-strength': 1
 					}
 				},
 				'station-analysis-points-4cu7xs'
@@ -374,9 +341,13 @@
 		height: 100%;
 		min-height: 400px;
 		border-radius: 12px;
-		overflow: hidden;
+		overflow: visible;
 		box-shadow:
 			0 10px 15px -3px rgba(0, 0, 0, 0.1),
 			0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	}
+
+	:global(.mapboxgl-canvas) {
+		border-radius: 12px;
 	}
 </style>
