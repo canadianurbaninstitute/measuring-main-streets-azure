@@ -1,21 +1,22 @@
 <!-- UI component for navigation bar.-->
 
 <script>
+	import { page } from '$app/state';
 	import Icon from '@iconify/svelte';
 	import { NavigationMenu } from 'bits-ui';
 	import { onMount } from 'svelte';
 	import cui_logo from '../assets/logos/cui_logo.svg';
 	import mms_logo from '../assets/logos/mms_logo.svg';
 
-	// ✅ Fix 1: Declare missing state
-	let menuOpen = false;
+	let menuOpen = $state(false);
+	let isHovered = $state(false);
 
-	// ✅ Fix 2: Define missing toggleMenu function
+	let isHiddenRoute = $derived(page.url?.pathname.includes('/casestudies/tod/'));
+
 	function toggleMenu() {
 		menuOpen = !menuOpen;
 	}
 
-	// ✅ Fix 3: Define missing mouse event handlers
 	function onMouseOver() {
 		// add hover logic here if needed, e.g. swap logo src
 	}
@@ -45,128 +46,161 @@
 	];
 </script>
 
-<div id="bar">
-	<div id="logo-group">
-		<a href="/" aria-label="Home">
-			<div class="flex gap-4 items-center">
-				<img
-					src={mms_logo}
-					alt="Measuring Main Streets"
-					on:mouseover={onMouseOver}
-					on:mouseout={onMouseOut}
-					on:focus={onMouseOver}
-					on:blur={onMouseOut}
-				/>
-				<div class="border-l border-gray-300 h-12"></div>
-				<img
-					src={cui_logo}
-					alt="Measuring Main Streets"
-					on:mouseover={onMouseOver}
-					on:mouseout={onMouseOut}
-					on:focus={onMouseOver}
-					on:blur={onMouseOut}
-				/>
-			</div>
-		</a>
+<div
+	id="bar-wrapper"
+	class:hideable={isHiddenRoute}
+	class:hovered={isHovered}
+	onmouseenter={() => (isHovered = true)}
+	onmouseleave={() => (isHovered = false)}
+	role="navigation"
+>
+	<div id="bar">
+		<div id="logo-group">
+			<a href="/" aria-label="Home">
+				<div class="flex gap-4 items-center">
+					<img
+						src={mms_logo}
+						alt="Measuring Main Streets"
+						onmouseover={onMouseOver}
+						onmouseout={onMouseOut}
+						onfocus={onMouseOver}
+						onblur={onMouseOut}
+					/>
+					<div class="border-l border-gray-300 h-12"></div>
+					<img
+						src={cui_logo}
+						alt="Measuring Main Streets"
+						onmouseover={onMouseOver}
+						onmouseout={onMouseOut}
+						onfocus={onMouseOver}
+						onblur={onMouseOut}
+					/>
+				</div>
+			</a>
+		</div>
+
+		<button
+			id="mobile-toggle"
+			class="mobile-toggle"
+			type="button"
+			aria-expanded={menuOpen}
+			aria-controls="primary-nav"
+			onclick={toggleMenu}
+		>
+			Menu
+		</button>
+
+		<nav id="menu" aria-label="Primary">
+			<NavigationMenu.Root class="nav-root">
+				<NavigationMenu.List id="primary-nav" class="nav-menu-list" data-open={menuOpen}>
+					<!-- Direct Links -->
+					<NavigationMenu.Item class="nav-menu-item">
+						<NavigationMenu.Link href="/map" class="nav-link">Main Street Map</NavigationMenu.Link>
+					</NavigationMenu.Item>
+
+					<!-- Uncomment when ready to publish -->
+					<NavigationMenu.Item class="nav-menu-item">
+						<NavigationMenu.Link href="/transit-map" class="nav-link"
+							>Transit Map</NavigationMenu.Link
+						>
+					</NavigationMenu.Item>
+
+					<!-- Case Studies Dropdown -->
+					<NavigationMenu.Item value="case-studies" class="nav-menu-item">
+						<NavigationMenu.Trigger class="nav-trigger">
+							Case Studies
+							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
+						</NavigationMenu.Trigger>
+						<NavigationMenu.Content class="nav-content-pop">
+							<ul class="nav-dropdown">
+								{#each caseStudies as item}
+									<li>
+										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
+											>{item.title}</NavigationMenu.Link
+										>
+									</li>
+								{/each}
+							</ul>
+						</NavigationMenu.Content>
+					</NavigationMenu.Item>
+
+					<!-- Reports Dropdown -->
+					<NavigationMenu.Item value="reports" class="nav-menu-item">
+						<NavigationMenu.Trigger class="nav-trigger">
+							Reports
+							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
+						</NavigationMenu.Trigger>
+						<NavigationMenu.Content class="nav-content-pop">
+							<ul class="nav-dropdown">
+								{#each reports as item}
+									<li>
+										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
+											>{item.title}</NavigationMenu.Link
+										>
+									</li>
+								{/each}
+							</ul>
+						</NavigationMenu.Content>
+					</NavigationMenu.Item>
+
+					<!-- Tools link -->
+					<NavigationMenu.Item class="nav-menu-item">
+						<NavigationMenu.Link href="/tools" class="nav-link">Tools</NavigationMenu.Link>
+					</NavigationMenu.Item>
+
+					<!-- Learn More Dropdown -->
+					<NavigationMenu.Item value="learn-more" class="nav-menu-item">
+						<NavigationMenu.Trigger class="nav-trigger">
+							Learn More
+							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
+						</NavigationMenu.Trigger>
+						<NavigationMenu.Content class="nav-content-pop nav-content--right">
+							<ul class="nav-dropdown">
+								{#each learnMore as item}
+									<li>
+										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
+											>{item.title}</NavigationMenu.Link
+										>
+									</li>
+								{/each}
+							</ul>
+						</NavigationMenu.Content>
+					</NavigationMenu.Item>
+
+					<!-- Optional indicator (arrow under active trigger) -->
+					<NavigationMenu.Indicator class="nav-indicator">
+						<div class="nav-indicator-arrow"></div>
+					</NavigationMenu.Indicator>
+				</NavigationMenu.List>
+			</NavigationMenu.Root>
+		</nav>
 	</div>
-
-	<button
-		id="mobile-toggle"
-		class="mobile-toggle"
-		type="button"
-		aria-expanded={menuOpen}
-		aria-controls="primary-nav"
-		on:click={toggleMenu}
-	>
-		Menu
-	</button>
-
-	<nav id="menu" aria-label="Primary">
-		<NavigationMenu.Root class="nav-root">
-			<NavigationMenu.List id="primary-nav" class="nav-menu-list" data-open={menuOpen}>
-				<!-- Direct Links -->
-				<NavigationMenu.Item class="nav-menu-item">
-					<NavigationMenu.Link href="/map" class="nav-link">Main Street Map</NavigationMenu.Link>
-				</NavigationMenu.Item>
-
-				<!-- Uncomment when ready to publish -->
-				<NavigationMenu.Item class="nav-menu-item">
-					<NavigationMenu.Link href="/transit-map" class="nav-link">Transit Map</NavigationMenu.Link
-					>
-				</NavigationMenu.Item>
-
-				<!-- Case Studies Dropdown -->
-				<NavigationMenu.Item value="case-studies" class="nav-menu-item">
-					<NavigationMenu.Trigger class="nav-trigger">
-						Case Studies
-						<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
-					</NavigationMenu.Trigger>
-					<NavigationMenu.Content class="nav-content-pop">
-						<ul class="nav-dropdown">
-							{#each caseStudies as item}
-								<li>
-									<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
-										>{item.title}</NavigationMenu.Link
-									>
-								</li>
-							{/each}
-						</ul>
-					</NavigationMenu.Content>
-				</NavigationMenu.Item>
-
-				<!-- Reports Dropdown -->
-				<NavigationMenu.Item value="reports" class="nav-menu-item">
-					<NavigationMenu.Trigger class="nav-trigger">
-						Reports
-						<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
-					</NavigationMenu.Trigger>
-					<NavigationMenu.Content class="nav-content-pop">
-						<ul class="nav-dropdown">
-							{#each reports as item}
-								<li>
-									<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
-										>{item.title}</NavigationMenu.Link
-									>
-								</li>
-							{/each}
-						</ul>
-					</NavigationMenu.Content>
-				</NavigationMenu.Item>
-
-				<!-- Tools link -->
-				<NavigationMenu.Item class="nav-menu-item">
-					<NavigationMenu.Link href="/tools" class="nav-link">Tools</NavigationMenu.Link>
-				</NavigationMenu.Item>
-
-				<!-- Learn More Dropdown -->
-				<NavigationMenu.Item value="learn-more" class="nav-menu-item">
-					<NavigationMenu.Trigger class="nav-trigger">
-						Learn More
-						<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
-					</NavigationMenu.Trigger>
-					<NavigationMenu.Content class="nav-content-pop nav-content--right">
-						<ul class="nav-dropdown">
-							{#each learnMore as item}
-								<li>
-									<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
-										>{item.title}</NavigationMenu.Link
-									>
-								</li>
-							{/each}
-						</ul>
-					</NavigationMenu.Content>
-				</NavigationMenu.Item>
-
-				<!-- Optional indicator (arrow under active trigger) -->
-				<NavigationMenu.Indicator class="nav-indicator">
-					<div class="nav-indicator-arrow"></div>
-				</NavigationMenu.Indicator>
-			</NavigationMenu.List>
-		</NavigationMenu.Root>
-	</nav>
 </div>
 
 <style>
+	/* Wrapper for the auto-hide mechanic */
+	#bar-wrapper {
+		width: 100%;
+		position: relative;
+		z-index: 50;
+		transition: transform 0.3s ease;
+	}
+
+	#bar-wrapper.hideable {
+		position: fixed;
+		top: 0;
+		/* Truncate everything but the lowest 15px so users have a hover target */
+		transform: translateY(calc(-100% + 15px));
+		background: transparent;
+	}
+
+	/* Show it again when hovered OR when interacting inside it (focus) */
+	#bar-wrapper.hideable.hovered,
+	#bar-wrapper.hideable:focus-within {
+		transform: translateY(0);
+		background: #fff;
+	}
+
 	#bar {
 		display: flex;
 		flex-direction: column;
@@ -179,6 +213,7 @@
 	@media (min-width: 768px) {
 		#bar {
 			flex-direction: row;
+			justify-content: flex-end;
 		}
 	}
 
@@ -241,6 +276,9 @@
 		justify-content: end;
 	}
 
+	:global(#bits-9) {
+		width: 100%;
+	}
 	/* Top-level list */
 	:global(.nav-menu-list) {
 		display: none; /* hidden by default on mobile */
@@ -263,9 +301,9 @@
 			display: flex !important;
 			flex-direction: row;
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-end;
 			padding: 0 2em 0 0;
-			gap: 2em;
+			gap: 0;
 			width: auto;
 		}
 	}

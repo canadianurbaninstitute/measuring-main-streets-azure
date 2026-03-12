@@ -49,7 +49,7 @@
 	<Tabs.List class="tabs-list">
 		{#each tabs as tab}
 			<Tabs.Trigger value={tab.value} class="tab-trigger shadow-md">
-				{tab.label}
+				<h4>{tab.label}</h4>
 			</Tabs.Trigger>
 		{/each}
 	</Tabs.List>
@@ -80,6 +80,7 @@
 		display: flex;
 		justify-content: flex-start;
 		overflow-x: auto;
+		backdrop-filter: blur(16px);
 	}
 
 	/* Custom Scrollbar Styling */
@@ -122,18 +123,25 @@
 		border-radius: 0.5rem 0.5rem 0 0;
 	}
 
+	:global(.tab-trigger[data-state='active'] h4) {
+		color: #fff;
+	}
+
 	:global(.tab-trigger:not(:first-child)) {
-		margin-left: -1rem;
+		margin-left: 0.25rem;
 	}
 
 	:global(.tab-trigger[data-state='inactive']) {
+		backdrop-filter: blur(16px);
+		opacity: 0.8;
 		background-color: var(--color-slate-100);
-		color: var(--color-slate-900);
+		color: #000;
 	}
 
 	:global(.tab-trigger[data-state='active']) {
 		background-color: var(--color-blue-800);
-		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+		backdrop-filter: blur(16px);
+		box-shadow: 3px 1px 2px 3px rgba(0, 0, 0, 0.05);
 		color: #fff;
 		z-index: 10;
 	}

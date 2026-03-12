@@ -55,7 +55,8 @@
 
 	.about-content {
 		z-index: 2;
-		background: white;
+		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(10px);
 		padding: 4rem;
 		border-radius: 2rem;
 	}
