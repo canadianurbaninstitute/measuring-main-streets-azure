@@ -168,10 +168,11 @@
 
 	:global(.mapboxgl-popup) {
 		z-index: 1000;
+		background-color: transparent !important;
 	}
 
 	:global(.mapboxgl-popup-content) {
-		background: transparent !important;
+		background-color: transparent !important;
 		padding: 0 !important;
 		box-shadow: none !important;
 	}
