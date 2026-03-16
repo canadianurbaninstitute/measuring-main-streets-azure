@@ -7,7 +7,7 @@
 	<iframe
 		class="grow border-0 w-full"
 		title="Cooksville Case Study"
-		src="https://schoolofcities.github.io/tod-on-main/case-study/cooksville"
+		src="https://schoolofcities.github.io/tod-canada/case-study/cooksville"
 	/>
 </div>
 <Footer />

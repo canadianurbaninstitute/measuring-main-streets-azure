@@ -1,24 +1,35 @@
 <script>
 	import hero from '../../lib/assets/graphics/measuring-main-streets-hero.png';
+	import HomeTabs from './HomeTabs.svelte';
 </script>
 
-<section class="hero-container">
+<div class="hero-wrapper">
 	<div class="background"></div>
-	<div class="content">
-		<img class="hero-image" src={hero} alt="Measuring Main Streets" />
+	<section class="hero-container">
+		<div class="content">
+			<img class="hero-image" src={hero} alt="Measuring Main Streets" />
+		</div>
+	</section>
+	<div class="tabs-overlay">
+		<HomeTabs />
 	</div>
-</section>
+</div>
 
 <style>
+	.hero-wrapper {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	}
+
 	.hero-container {
 		position: relative;
 		width: 100%;
-		height: clamp(300px, 60vh, 500px);
+		height: clamp(300px, 50vh, 500px);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		overflow: hidden;
-		background-color: #fff;
+		z-index: 1;
 	}
 
 	.background {
@@ -32,6 +43,7 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-attachment: fixed;
+		z-index: 0;
 	}
 
 	.content {
@@ -43,7 +55,6 @@
 		text-align: center;
 		padding: clamp(1rem, 4vw, 3rem);
 		width: 100%;
-		max-width: 100%;
 	}
 
 	.hero-image {
@@ -56,25 +67,11 @@
 	/* Mobile (< 640px) */
 	@media (max-width: 640px) {
 		.hero-container {
-			height: clamp(280px, 50vh, 400px);
+			height: clamp(250px, 45vh, 350px);
 		}
 
 		.background {
 			background-attachment: scroll;
-		}
-	}
-
-	/* Tablet (640px - 1024px) */
-	@media (min-width: 641px) and (max-width: 1024px) {
-		.hero-container {
-			height: clamp(350px, 55vh, 450px);
-		}
-	}
-
-	/* Large screens (> 1024px) */
-	@media (min-width: 1025px) {
-		.hero-container {
-			height: clamp(400px, 60vh, 500px);
 		}
 	}
 </style>
