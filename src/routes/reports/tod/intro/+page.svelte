@@ -14,14 +14,19 @@
 	// Assets
 	import introImage from './assets/IntroHeader.png';
 	import urbanPopGrowth from './assets/UrbanPopGrowth.png';
-	import ProgressTrain from '../../assets/progress_train.svg';
+	import progressTrain from '../../assets/progress_train.svg';
 	// Charts
 	import UrbanPop from './charts/UrbanPop.svelte';
 	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
+	import JobGrowthSector from './charts/JobGrowthSector.svelte';
+	import { onMount } from 'svelte';
+
+	// Data
+	let JobGrowthSectorData = null;
 
 	const visConfig = {
 		'urban-pop': { type: 'component', component: UrbanPop },
-		'urban-pop-growth': { type: 'image', src: urbanPopGrowth, alt: 'Urban Population Growth' },
+		'urban-pop-growth': { type: 'component', component: UrbanPopLineChart },
 		'test-image': { type: 'image', src: introImage, alt: 'Test Image' },
 		'urban-pop-growth1': { type: 'image', src: urbanPopGrowth, alt: 'Urban Population Growth' },
 		'test-image1': { type: 'image', src: introImage, alt: 'Test Image' }
@@ -63,13 +68,7 @@
 			section.panels[0]?.label ??
 			`Section ${si + 1}`
 	}));
-	// `items` is a flat ordered list of everything on the page that should get
-	// a marker. Pre-scroller sections use type:'anchor' with an id that matches
-	// the `id` attribute on the DOM element. Scroller sections use type:'step'.
-	//
-	// Add or remove anchor items here to match whatever components sit above
-	// the Scroller. The bar tracks anchor visibility via IntersectionObserver
-	// and step visibility via activeIndex — no extra wiring needed.
+
 	$: items = [
 		{ type: 'anchor', id: 'report-header', label: 'Introduction' },
 		{ type: 'anchor', id: 'report-findings', label: 'Key Findings' },
@@ -80,9 +79,25 @@
 			isFirstInSection: true
 		}))
 	];
+
+	onMount(async () => {
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/reports/intro/03_jobsectorgrowth.json'
+			);
+			JobGrowthSectorData = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+
+		console.log(JobGrowthSectorData);
+	});
 </script>
 
 <main>
+	{#if JobGrowthSectorData}
+		<JobGrowthSector data={JobGrowthSectorData} />
+	{/if}
 	<ProgressBar icon="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		<svg
 			slot="icon"

@@ -32,7 +32,7 @@ export const sections = [
 		panels: [
 			{
 				id: 'urban-pop',
-				label: 'The growth of Canada’s largest cities, continued?'
+				label: 'Urban Population by Region Type'
 			}
 		],
 		blocks: [
