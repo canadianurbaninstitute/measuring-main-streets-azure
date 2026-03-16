@@ -51,9 +51,6 @@
 		});
 	});
 
-	/** Unique ordered list of visIds (preserves first appearance order) */
-	// const visIds = [...new Map(sections.map((s) => [s.visId, s.visId])).values()];
-
 	// ── Reactive state ───────────────────────────────────────────────────────
 	let activeIndex = 0;
 	$: activePanelUid = steps[activeIndex]?.panelUid ?? allPanels[0]?.uid;

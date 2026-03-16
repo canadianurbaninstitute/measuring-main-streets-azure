@@ -92,7 +92,7 @@
 
 	.visual-sticky {
 		position: sticky;
-		top: 48px; /* clear the fixed progress bar */
+		top: 48px;
 		height: calc(100vh - 48px);
 		display: flex;
 		align-items: center;
