@@ -101,7 +101,7 @@
 	</div>
 
 	<div class="flex-grow p-3 overflow-y-auto custom-scrollbar">
-		<div class="grid grid-cols-2 gap-2">
+		<!-- <div class="grid grid-cols-2 gap-2">
 			{#each metrics as metric}
 				<div class="flex items-center gap-2 p-1.5 bg-zinc-50 rounded-lg border border-zinc-100">
 					<div
@@ -120,7 +120,7 @@
 					</div>
 				</div>
 			{/each}
-		</div>
+		</div> -->
 
 		{#if properties?.overall_assessment_explanation}
 			<div
@@ -130,7 +130,7 @@
 			</div>
 		{/if}
 
-		<div class="mt-4 pt-3 pb-2 border-t border-zinc-100 flex items-center justify-between">
+		<div class="pt-2 pb-2 flex items-center justify-between">
 			<div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
 				Overall Walkability
 			</div>

@@ -167,17 +167,24 @@
 	</div>
 </div>
 <div class="page-layout">
-	<!-- Left Side: Scrolling Content Blocks -->
-	<div class="content-column bg-zinc-50">
+	<!-- Background Map -->
+	{#if !isMobile}
+		<div class="map-background">
+			<WalkabilityMap bind:map onStationClick={handlePointClick} {activeCoords} fullScreen={true} />
+		</div>
+	{/if}
+
+	<!-- Foreground: Scrolling Content Blocks -->
+	<div class="content-foreground">
 		{#each stations as station}
 			<section
 				class="scroll-section"
 				data-station-id={station.id}
 				use:intersect={handleSectionIntersect}
 			>
-				<h2>{station.name}</h2>
-				<h4 class="mb-4">{station.region}</h4>
-				<div class="prose prose-zinc lg:prose-lg max-w-none">
+				<h2 class="station-title">{station.name}</h2>
+				<h4 class="mb-4 station-region">{station.region}</h4>
+				<div class="prose prose-zinc prose-invert lg:prose-lg max-w-none">
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus
 						hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut
@@ -212,45 +219,51 @@
 				{/if}
 			</section>
 		{/each}
-
-		<div class="spacer"></div>
 	</div>
 
 	<!-- Right Side: Sticky Map (Hidden on mobile) -->
-	{#if !isMobile}
-		<div class="map-column">
-			<!-- Bind to the child map instance so we can call map.flyTo() -->
-			<WalkabilityMap bind:map onStationClick={handlePointClick} {activeCoords} />
-		</div>
-	{/if}
 </div>
 <Footer />
 
 <style>
 	.page-layout {
-		display: flex;
-		min-height: 100vh;
 		position: relative;
+		min-height: 100vh;
+		display: grid;
+		grid-template-columns: 1fr;
 	}
 
-	.map-column {
-		width: 50%;
-		position: relative;
-		display: flex;
-		align-items: center; /* Centers the rectangle map vertically in the viewport if needed */
-		justify-content: center;
-		padding: 2rem;
+	.station-title {
+		color: var(--color-blue-100);
+	}
+
+	.station-region {
+		color: var(--color-blue-50);
+	}
+
+	.map-background {
+		grid-column: 1;
+		grid-row: 1;
 		position: sticky;
 		top: 0;
+		width: 100%;
 		height: 100vh;
+		z-index: 0;
 	}
 
-	.content-column {
-		width: 50%;
-		border-right: 1px solid #e5e7eb;
+	.content-foreground {
+		grid-column: 1;
+		grid-row: 1;
+		width: 40%;
+		max-width: 600px;
+		position: relative;
+		z-index: 10;
+		pointer-events: none;
 	}
 
 	.header-section {
+		position: relative;
+		z-index: 10;
 		padding: 5vh 10%;
 		background-image: url('../../../lib/assets/graphics/montreal-bg.png');
 		background-size: cover;
@@ -268,18 +281,18 @@
 
 	/* Each section is heavily padded to force scrolling */
 	.scroll-section {
-		padding: 20vh 10%;
-		border-top: 1px solid #e5e7eb;
-		min-height: 80vh;
-	}
-
-	/* Adding a spacer at the bottom so the final section can comfortably scroll to the middle of the screen */
-	.spacer {
-		height: 50vh;
-	}
-
-	.spacer {
-		height: 50vh;
+		pointer-events: auto;
+		margin: 20vh 0 20vh 10%;
+		padding: 3rem;
+		background: rgba(24, 24, 27, 0.85); /* zinc-900 with transparency */
+		color: #f4f4f5; /* zinc-50 */
+		backdrop-filter: blur(12px);
+		border-radius: 1.5rem;
+		box-shadow:
+			0 20px 25px -5px rgba(0, 0, 0, 0.5),
+			0 10px 10px -5px rgba(0, 0, 0, 0.3);
+		min-height: 40vh;
+		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	/* Mapbox Popup Overrides to ensure content fits */
@@ -290,34 +303,21 @@
 	}
 
 	@media (max-width: 1024px) {
-		.page-layout {
-			flex-direction: column;
-		}
-
-		.map-column {
+		.content-foreground {
 			width: 100%;
-			height: 50vh;
-			position: sticky;
-			top: 0;
-			z-index: 10;
-			padding: 0;
-			border-left: none;
-			border-bottom: 2px solid #e5e7eb;
-		}
-
-		.map-column :global(.map-wrapper) {
-			height: 50vh;
-		}
-
-		.content-column {
-			width: 100%;
-			z-index: 20;
-			background: white;
+			max-width: none;
+			pointer-events: auto;
 		}
 
 		.scroll-section {
+			margin: 0;
 			padding: 10vh 5%;
 			min-height: 60vh;
+			border-radius: 0;
+			background: #18181b; /* zinc-900 solid on mobile */
+			box-shadow: none;
+			border: none;
+			border-top: 1px solid #3f3f46; /* zinc-700 */
 		}
 	}
 </style>
