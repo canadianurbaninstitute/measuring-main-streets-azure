@@ -1,4 +1,5 @@
 <script>
+	import methodologyImg from '../../../lib/assets/graphics/methodology.svg';
 	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
 	import { intersect } from './intersect.js';
@@ -39,6 +40,7 @@
 				}
 				return s;
 			});
+			console.log(stations);
 		} catch (e) {
 			console.error('Failed to load station coordinate mappings:', e);
 		}
@@ -140,6 +142,13 @@
 		activePopup.on('close', () => {
 			unmount(comp);
 			activePopup = null;
+			const targetMap = mapInstance || map;
+			if (targetMap && targetMap.getSource('selected-station')) {
+				targetMap.getSource('selected-station').setData({
+					type: 'FeatureCollection',
+					features: []
+				});
+			}
 		});
 	}
 
@@ -158,12 +167,10 @@
 
 <div class="header-section">
 	<div class="header-content">
-		<h1 class="mb-4 uppercase">Transit Walkability Report</h1>
-		<p class="text-lg text-zinc-600 mb-8">
-			Exploring the immediate surroundings, built form, and localized pedestrian experiences around
-			key transit hubs using Mapbox scroll-telling and native Google Streetview integration. Scroll
-			down to travel between stations.
-		</p>
+		<h1 class="mb-4 uppercase">
+			Complete Communities and <span class="text-blue-300">Walkability</span>
+		</h1>
+		<h3><span class="text-slate-500">A Forgotten Facet of Transit Oriented Development</span></h3>
 	</div>
 </div>
 <div class="page-layout">
@@ -223,6 +230,23 @@
 
 	<!-- Right Side: Sticky Map (Hidden on mobile) -->
 </div>
+<section class="container p-20">
+	<h2 class="mb-4 w-full">Methodology</h2>
+	<div class="border-b border-slate-100 w-full"></div>
+	<img class="my-4" src={methodologyImg} alt="Methodology" />
+	<p class="mb-4">
+		The public realm analysis leverages the Google Maps and OpenAI APIs to quantitatively assess
+		walkability from a pedestrian-centred point of view. Images are sampled along 500m intervals on
+		the road network surrounding a transit station area. At each coordinate, images are captured at
+		60 degree intervals to capture the entire 360 degree landscape at that coordinate.
+	</p>
+	<p>
+		Each image is then individually passed into the GPT-4o model in the OpenAI API. The multimodal
+		vision model is primed with a prompt to analyse photos across 22 separate metrics and output a
+		dataset capturing this analysis. The score for each metric is accompanied by a short
+		justification, allowing for granular analysis at scale. The dataset is organised as follows:
+	</p>
+</section>
 <Footer />
 
 <style>
@@ -239,6 +263,7 @@
 
 	.station-region {
 		color: var(--color-blue-50);
+		font-size: 1.25rem;
 	}
 
 	.map-background {
@@ -263,9 +288,10 @@
 
 	.header-section {
 		position: relative;
+		width: 100%;
 		z-index: 10;
-		padding: 5vh 10%;
-		background-image: url('../../../lib/assets/graphics/montreal-bg.png');
+		/* padding: 5vh 10%; */
+		background-image: url('../../../lib/assets/screenshots/walkability-arbutus.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -273,10 +299,10 @@
 	}
 
 	.header-content {
-		background: rgba(255, 255, 255, 0.4);
+		background: rgba(255, 255, 255, 0.9);
 		backdrop-filter: blur(4px);
-		padding: 4rem;
-		border-radius: 2rem;
+		padding: 10% 10%;
+		/* border-radius: 2rem; */
 	}
 
 	/* Each section is heavily padded to force scrolling */
@@ -284,7 +310,6 @@
 		pointer-events: auto;
 		margin: 20vh 0 20vh 10%;
 		padding: 3rem;
-		background: rgba(24, 24, 27, 0.85); /* zinc-900 with transparency */
 		color: #f4f4f5; /* zinc-50 */
 		backdrop-filter: blur(12px);
 		border-radius: 1.5rem;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as turf from '@turf/turf';
+	import circle from '@turf/circle';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	// You might want to get the token via environment variables or a config file later
@@ -21,7 +21,7 @@
 		if (!map || !map.getSource('circle') || !map.getSource('circle-mask') || !coords) return;
 
 		const radiusInKm = 0.8;
-		const circleFeature = turf.circle(coords, radiusInKm, {
+		const circleFeature = circle(coords, radiusInKm, {
 			steps: 128,
 			units: 'kilometers'
 		});
@@ -82,8 +82,8 @@
 	onMount(() => {
 		map = new mapboxgl.Map({
 			container: mapContainer,
-			style: 'mapbox://styles/canadianurbaninstitute/cmmtb64tg00c901s149605jdv',
-			center: center || [-79.3832, 43.6532], // Defaulting to Toronto
+			style: 'mapbox://styles/canadianurbaninstitute/cmmtb64tg00c901s149605jdv?optimize=true',
+			center: center || [-123.1522, 49.2638], // Defaulting to Arbutus
 			zoom: zoom || 11,
 			scrollZoom: false, // Recommended false for scroll-telling to prevent trapping the scroll wheel
 			attributionControl: false
@@ -132,14 +132,32 @@
 					type: 'line',
 					source: 'circle',
 					paint: {
-						'line-color': '#000',
-						'line-opacity': 0.3,
-						'line-width': 1.5,
+						'line-color': '#ffffff',
+						'line-opacity': 1,
+						'line-width': 2,
 						'line-dasharray': [2, 2]
 					}
 				},
 				'station-analysis-points-4cu7xs'
 			);
+
+			map.addSource('selected-station', {
+				type: 'geojson',
+				data: { type: 'FeatureCollection', features: [] }
+			});
+
+			map.addLayer({
+				id: 'selected-station-highlight',
+				type: 'circle',
+				source: 'selected-station',
+				paint: {
+					'circle-radius': 5,
+					'circle-stroke-width': 3,
+					'circle-stroke-color': '#ffffff',
+					'circle-emissive-strength': 1,
+					'circle-color': 'transparent'
+				}
+			});
 
 			// Initial mask update
 			const targetCoords = activeCoords || center;
@@ -157,6 +175,13 @@
 				// Ensure appropriate zoom levels when handling clusters vs single points
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+				}
+
+				if (map.getSource('selected-station')) {
+					map.getSource('selected-station').setData({
+						type: 'FeatureCollection',
+						features: [e.features[0]]
+					});
 				}
 
 				if (onStationClick) {
