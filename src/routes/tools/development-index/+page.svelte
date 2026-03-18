@@ -650,12 +650,12 @@
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
 			<div class="flex flex-col items-center justify-center relative">
 				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
-				<div id="map1" class="map-circle drop-shadow-lg"></div>
+				<div id="map1" class="map-circle drop-shadow-lg w-[90%]"></div>
 
 				{#if unitsCreated1 > 0}
 					<div class="mt-8 flex flex-col items-center">
 						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Units Created</span
+							>Approved building permits</span
 						>
 						<div class="flex items-baseline gap-1">
 							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
@@ -695,12 +695,12 @@
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
 			<div class="flex flex-col items-center justify-center relative">
 				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
-				<div id="map2" class="map-circle drop-shadow-lg"></div>
+				<div id="map2" class="map-circle drop-shadow-lg w-[90%]"></div>
 
 				{#if unitsCreated2 > 0}
 					<div class="mt-8 flex flex-col items-center">
 						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Units Created</span
+							>Approved building permits</span
 						>
 						<div class="flex items-baseline gap-1">
 							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
