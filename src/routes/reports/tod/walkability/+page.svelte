@@ -1,12 +1,16 @@
 <script>
+	import methodologyImg from '../../../lib/assets/graphics/methodology.svg';
+	import dataImg from '../../../lib/assets/graphics/walkability-data.svg';
 	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
 	import { intersect } from './intersect.js';
 	import WalkabilityMap from './WalkabilityMap.svelte';
 	import WalkabilityStreetview from './WalkabilityStreetview.svelte';
 
+	import Icon from '@iconify/svelte';
 	import mapboxgl from 'mapbox-gl';
 	import { mount, onMount, unmount } from 'svelte';
+	import Accordion from '../../../lib/ui/Accordion.svelte';
 
 	// Hardcoded station target list from requirements
 	let stations = $state([
@@ -39,6 +43,7 @@
 				}
 				return s;
 			});
+			console.log(stations);
 		} catch (e) {
 			console.error('Failed to load station coordinate mappings:', e);
 		}
@@ -47,6 +52,9 @@
 	let map = $state(null);
 	let activeStationId = $state(null);
 	let activePopup = null;
+
+	let methodologyOpen = $state(true);
+	let citationsOpen = $state(false);
 
 	let innerWidth = $state(0);
 	let isMobile = $derived(innerWidth > 0 && innerWidth < 1024);
@@ -140,6 +148,13 @@
 		activePopup.on('close', () => {
 			unmount(comp);
 			activePopup = null;
+			const targetMap = mapInstance || map;
+			if (targetMap && targetMap.getSource('selected-station')) {
+				targetMap.getSource('selected-station').setData({
+					type: 'FeatureCollection',
+					features: []
+				});
+			}
 		});
 	}
 
@@ -158,26 +173,31 @@
 
 <div class="header-section">
 	<div class="header-content">
-		<h1 class="mb-4 uppercase">Transit Walkability Report</h1>
-		<p class="text-lg text-zinc-600 mb-8">
-			Exploring the immediate surroundings, built form, and localized pedestrian experiences around
-			key transit hubs using Mapbox scroll-telling and native Google Streetview integration. Scroll
-			down to travel between stations.
-		</p>
+		<h1 class="mb-4 uppercase">
+			Complete Communities and <span class="text-blue-300">Walkability</span>
+		</h1>
+		<h3><span class="text-slate-500">A Forgotten Facet of Transit Oriented Development</span></h3>
 	</div>
 </div>
 <div class="page-layout">
-	<!-- Left Side: Scrolling Content Blocks -->
-	<div class="content-column bg-zinc-50">
+	<!-- Background Map -->
+	{#if !isMobile}
+		<div class="map-background">
+			<WalkabilityMap bind:map onStationClick={handlePointClick} {activeCoords} fullScreen={true} />
+		</div>
+	{/if}
+
+	<!-- Foreground: Scrolling Content Blocks -->
+	<div class="content-foreground">
 		{#each stations as station}
 			<section
 				class="scroll-section"
 				data-station-id={station.id}
 				use:intersect={handleSectionIntersect}
 			>
-				<h2>{station.name}</h2>
-				<h4 class="mb-4">{station.region}</h4>
-				<div class="prose prose-zinc lg:prose-lg max-w-none">
+				<h2 class="station-title">{station.name}</h2>
+				<h4 class="mb-4 station-region">{station.region}</h4>
+				<div class="prose prose-zinc prose-invert lg:prose-lg max-w-none">
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus
 						hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut
@@ -212,47 +232,231 @@
 				{/if}
 			</section>
 		{/each}
-
-		<div class="spacer"></div>
 	</div>
 
 	<!-- Right Side: Sticky Map (Hidden on mobile) -->
-	{#if !isMobile}
-		<div class="map-column">
-			<!-- Bind to the child map instance so we can call map.flyTo() -->
-			<WalkabilityMap bind:map onStationClick={handlePointClick} {activeCoords} />
-		</div>
-	{/if}
 </div>
+<section class="container p-20">
+	<Accordion bind:open={methodologyOpen}>
+		<div slot="header" class="flex flex-col font-medium w-full outline-none">
+			<div class="flex justify-between items-center gap-4">
+				<h2 class="mb-0">Methodology</h2>
+				<span class="transition-transform text-zinc-400" class:rotate-180={methodologyOpen}>
+					<Icon icon="mdi:chevron-down" class="text-3xl" />
+				</span>
+			</div>
+			<div class="border-b border-slate-100 w-full mt-4 mb-4"></div>
+		</div>
+		<div slot="body" class="w-full">
+			<div class="mt-4">
+				<img class="my-4 m-auto" src={methodologyImg} alt="Methodology" />
+				<p class="mb-4">
+					The public realm analysis leverages the Google Maps and OpenAI APIs to quantitatively
+					assess walkability from a pedestrian-centred point of view. Images are sampled along 500m
+					intervals on the road network surrounding a transit station area. At each coordinate,
+					images are captured at 60 degree intervals to capture the entire 360 degree landscape at
+					that coordinate.
+				</p>
+				<p>
+					Each image is then individually passed into the GPT-4o model in the OpenAI API. The
+					multimodal vision model is primed with a prompt to analyse photos across 22 separate
+					metrics and output a dataset capturing this analysis. The score for each metric is
+					accompanied by a short justification, allowing for granular analysis at scale. The dataset
+					is organised as follows:
+				</p>
+				<img class="my-4 m-auto" src={dataImg} alt="Scoring breakdown" />
+				<p>
+					After each image is scored, the 6 datasets for each angle are aggregated together to a
+					coordinate-level score. This is done for each coordinate captured from the road network
+					until a dataset of scores for the entire area around a transit station is captured.
+					Finally, the data is coloured with a gradient interpolation to show how walkability likely
+					evolves between individual points to get a quantitatively modelled visualisation of the
+					qualitative walkability in a given area.
+				</p>
+			</div>
+		</div>
+	</Accordion>
+</section>
+<section class="container px-20 pb-10">
+	<Accordion bind:open={citationsOpen}>
+		<div slot="header" class="flex flex-col font-medium w-full outline-none">
+			<div class="flex justify-between items-center gap-4">
+				<h2 class="mb-0">Citations</h2>
+				<span class="transition-transform text-zinc-400" class:rotate-180={citationsOpen}>
+					<Icon icon="mdi:chevron-down" class="text-3xl" />
+				</span>
+			</div>
+			<div class="border-b border-slate-100 w-full mt-4 mb-6"></div>
+		</div>
+		<div slot="body" class="w-full">
+			<div class="mt-4">
+				<ul class="space-y-4 text-sm text-zinc-600">
+					<li>
+						Adkins, Arlie, Jennifer Dill, Gwenn Luhr, and Margot Neal. 2012. "Unpacking Walkability:
+						Testing the Influence of Urban Design Features on Perceptions of Walking Environment
+						Attractiveness." Journal of Urban Design 17 (4): 499–510. <a
+							href="https://doi.org/10.1080/13574809.2012.706365"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://doi.org/10.1080/13574809.2012.706365</a
+						>.
+					</li>
+					<li>
+						Bader, Michael D. M., Sean J. Mooney, Brian Bennett, and Andrew G. Rundle. 2017. "The
+						Promise, Practicalities, and Perils of Virtually Auditing Neighborhoods Using Google
+						Street View." The ANNALS of the American Academy of Political and Social Science 669
+						(1): 18–40. <a
+							href="https://doi.org/10.1177/0002716216681488"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://doi.org/10.1177/0002716216681488</a
+						>.
+					</li>
+					<li>
+						Chen, Yinglei. 2017. "How Is Built Environment Associated with the Perception of
+						Vibrancy, Beauty, and Safety?" Paper presented at the Annual Conference of the
+						Association of Collegiate Schools of Planning, Denver, CO.
+					</li>
+					<li>
+						Clarke, Philippa, Jennifer Ailshire, Robert Melendez, Michael Bader, and Jeffrey
+						Morenoff. 2010. "Using Google Earth to Conduct a Neighborhood Audit: Reliability of a
+						Virtual Audit Instrument." Health & Place 16 (6): 1224–1229. <a
+							href="https://doi.org/10.1016/j.healthplace.2010.08.007"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline"
+							>https://doi.org/10.1016/j.healthplace.2010.08.007</a
+						>.
+					</li>
+					<li>
+						Dubey, Abhimanyu, Nikhil Naik, Devi Parikh, Ramesh Raskar, and César A. Hidalgo. 2016.
+						"Deep Learning the City: Quantifying Urban Perception at a Global Scale." In Computer
+						Vision – ECCV 2016, edited by Bastian Leibe, Jiri Matas, Nicu Sebe, and Max Welling,
+						196–212. Lecture Notes in Computer Science 9905. Cham: Springer. <a
+							href="https://doi.org/10.1007/978-3-319-46448-0_12"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://doi.org/10.1007/978-3-319-46448-0_12</a
+						>.
+					</li>
+					<li>
+						Duncan, Dustin T., Jarvis Aldstadt, John Whalen, Steven J. Melly, and Steven L.
+						Gortmaker. 2011. "Validation of Walk Score® for Estimating Neighborhood Walkability: An
+						Analysis of Four US Metropolitan Areas." International Journal of Environmental Research
+						and Public Health 8 (11): 4160–4179. <a
+							href="https://doi.org/10.3390/ijerph8114160"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://doi.org/10.3390/ijerph8114160</a
+						>.
+					</li>
+					<li>
+						Ewing, Reid, and Otto Clemente. 2013. Measuring Urban Design: Metrics for Livable
+						Places. Washington, DC: Island Press.
+					</li>
+					<li>
+						Ewing, Reid, and Susan Handy. 2009. "Measuring the Unmeasurable: Urban Design Qualities
+						Related to Walkability." Journal of Urban Design 14 (1): 65–84. <a
+							href="https://doi.org/10.1080/13574800802451155"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://doi.org/10.1080/13574800802451155</a
+						>.
+					</li>
+					<li>
+						Griew, Paul, Melvyn Hillsdon, Charlie Foster, Emma Coombes, Andy Jones, and Paul
+						Wilkinson. 2013. "Developing and Testing a Street Audit Tool Using Google Street View to
+						Measure Environmental Supportiveness for Physical Activity." International Journal of
+						Behavioral Nutrition and Physical Activity 10 (1): 103.
+						<a
+							href="https://doi.org/10.1186/1479-5868-10-103"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://doi.org/10.1186/1479-5868-10-103</a
+						>.
+					</li>
+					<li>
+						Koo, Bon Woo, Subhrajit Guhathakurta, and Nisha Botchwey. 2022a. "Development and
+						Validation of Automated Microscale Walkability Audit Method." Health and Place 73:
+						Article 102733. <a
+							href="https://doi.org/10.1016/j.healthplace.2021.102733"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline"
+							>https://doi.org/10.1016/j.healthplace.2021.102733</a
+						>.
+					</li>
+					<li>
+						Koo, Bon Woo, Subhrajit Guhathakurta, and Nisha Botchwey. 2022b. "How Are Neighborhood
+						and Street-Level Walkability Factors Associated with Walking Behaviors? A Big Data
+						Approach Using Street View Images." Environment and Behavior 54 (1): 211–241. <a
+							href="https://doi.org/10.1177/00139165211014609"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://doi.org/10.1177/00139165211014609</a
+						>.
+					</li>
+					<li>
+						Walk Score. n.d. "Walk Score Methodology." Accessed May 8, 2025. <a
+							href="https://www.walkscore.com/methodology.html"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-blue-500 hover:underline">https://www.walkscore.com/methodology.html</a
+						>
+					</li>
+				</ul>
+				<p class="m-auto w-full mt-10">
+					Special thanks to Bon Woo Koo for his assistance with this project.
+				</p>
+			</div>
+		</div>
+	</Accordion>
+</section>
 <Footer />
 
 <style>
 	.page-layout {
-		display: flex;
-		min-height: 100vh;
 		position: relative;
+		min-height: 100vh;
+		display: grid;
+		grid-template-columns: 1fr;
 	}
 
-	.map-column {
-		width: 50%;
-		position: relative;
-		display: flex;
-		align-items: center; /* Centers the rectangle map vertically in the viewport if needed */
-		justify-content: center;
-		padding: 2rem;
+	.station-title {
+		color: var(--color-blue-100);
+	}
+
+	.station-region {
+		color: var(--color-blue-50);
+		font-size: 1.25rem;
+	}
+
+	.map-background {
+		grid-column: 1;
+		grid-row: 1;
 		position: sticky;
 		top: 0;
+		width: 100%;
 		height: 100vh;
+		z-index: 0;
 	}
 
-	.content-column {
-		width: 50%;
-		border-right: 1px solid #e5e7eb;
+	.content-foreground {
+		grid-column: 1;
+		grid-row: 1;
+		width: 40%;
+		max-width: 600px;
+		position: relative;
+		z-index: 10;
+		pointer-events: none;
 	}
 
 	.header-section {
-		padding: 5vh 10%;
-		background-image: url('../../../lib/assets/graphics/montreal-bg.png');
+		position: relative;
+		width: 100%;
+		z-index: 10;
+		/* padding: 5vh 10%; */
+		background-image: url('../../../lib/assets/screenshots/walkability-arbutus.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -260,26 +464,25 @@
 	}
 
 	.header-content {
-		background: rgba(255, 255, 255, 0.4);
+		background: rgba(255, 255, 255, 0.9);
 		backdrop-filter: blur(4px);
-		padding: 4rem;
-		border-radius: 2rem;
+		padding: 10% 10%;
+		/* border-radius: 2rem; */
 	}
 
 	/* Each section is heavily padded to force scrolling */
 	.scroll-section {
-		padding: 20vh 10%;
-		border-top: 1px solid #e5e7eb;
-		min-height: 80vh;
-	}
-
-	/* Adding a spacer at the bottom so the final section can comfortably scroll to the middle of the screen */
-	.spacer {
-		height: 50vh;
-	}
-
-	.spacer {
-		height: 50vh;
+		pointer-events: auto;
+		margin: 20vh 0 20vh 10%;
+		padding: 3rem;
+		color: #f4f4f5; /* zinc-50 */
+		backdrop-filter: blur(12px);
+		border-radius: 1.5rem;
+		box-shadow:
+			0 20px 25px -5px rgba(0, 0, 0, 0.5),
+			0 10px 10px -5px rgba(0, 0, 0, 0.3);
+		min-height: 40vh;
+		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	/* Mapbox Popup Overrides to ensure content fits */
@@ -290,34 +493,21 @@
 	}
 
 	@media (max-width: 1024px) {
-		.page-layout {
-			flex-direction: column;
-		}
-
-		.map-column {
+		.content-foreground {
 			width: 100%;
-			height: 50vh;
-			position: sticky;
-			top: 0;
-			z-index: 10;
-			padding: 0;
-			border-left: none;
-			border-bottom: 2px solid #e5e7eb;
-		}
-
-		.map-column :global(.map-wrapper) {
-			height: 50vh;
-		}
-
-		.content-column {
-			width: 100%;
-			z-index: 20;
-			background: white;
+			max-width: none;
+			pointer-events: auto;
 		}
 
 		.scroll-section {
+			margin: 0;
 			padding: 10vh 5%;
 			min-height: 60vh;
+			border-radius: 0;
+			background: #18181b; /* zinc-900 solid on mobile */
+			box-shadow: none;
+			border: none;
+			border-top: 1px solid #3f3f46; /* zinc-700 */
 		}
 	}
 </style>
