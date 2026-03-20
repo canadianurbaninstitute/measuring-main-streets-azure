@@ -63,13 +63,7 @@
 
 	import { onMount } from 'svelte';
 
-	let { 
-		items = [], 
-		activeStepIndex = 0, 
-		totalSteps = 1, 
-		iconType = 'flame', 
-		icon 
-	} = $props();
+	let { items = [], activeStepIndex = 0, totalSteps = 1, iconType = 'flame', icon } = $props();
 
 	// scrollY updated on every scroll/resize event
 	let scrollY = $state(0);
@@ -239,7 +233,7 @@
 		top: 30px;
 		left: 0;
 		right: 0;
-		z-index: 100;
+		z-index: 10;
 		height: 48px;
 		box-shadow: 0 1px 0 #e8e8e8;
 		display: flex;

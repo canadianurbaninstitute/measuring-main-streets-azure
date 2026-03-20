@@ -1,12 +1,6 @@
 <script>
-	import { scaleBand } from 'd3-scale';
-	import { LayerCake, Svg } from 'layercake';
+	import BarChart from '../../lib/ui/charts/BarChart.svelte';
 
-	import AxisX from '../../lib/ui/chartcomponents/AxisX.svelte';
-	import AxisY from '../../lib/ui/chartcomponents/AxisY.svelte';
-	import Bar from '../../lib/ui/chartcomponents/Bar.svelte';
-	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	// This example loads csv data as json using @rollup/plugin-dsv
 	import civic from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies-civic.csv';
 	import distance from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies-distance.csv';
 	import independence from '../../lib/data/reportdata/mainstreets-malls-mice/casestudies-independence.csv';
@@ -15,139 +9,25 @@
 	export let title = '';
 	export let xDomain = [0, null];
 
-	let data;
+	$: data = xKey === 'civic' ? civic : (xKey === 'independence' ? independence : distance);
 
-	const yKey = 'name';
-	const zKey = 'ms_type';
-
-	if (xKey == 'civic') {
-		data = civic;
-	} else if (xKey == 'independence') {
-		data = independence;
-	} else if (xKey == 'distance') {
-		data = distance;
-	}
+	const groupConfig = [
+		{ value: 'Downtown and CBD', label: 'Downtown Main Streets', color: '#58e965' },
+		{ value: 'Small Town', label: 'Small Town Main Streets', color: '#00adf2' },
+		{ value: 'Regional Mall', label: 'Malls', color: '#DB3069' },
+		{
+			value: 'Urban and Suburban Main Street',
+			label: 'Neighbourhood Main Streets',
+			color: '#002940'
+		}
+	];
 </script>
 
-<div class="chart-container">
-	<h4>{title}</h4>
-
-	<div class="controls">
-		<div class="legend-container">
-			<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-			<LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-			<LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-			<LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} />
-		</div>
-	</div>
-
-	<div class="chart">
-		<LayerCake
-			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
-			x={xKey}
-			y={yKey}
-			yDomainSort={false}
-			yScale={scaleBand().paddingInner(0.1)}
-			{xDomain}
-			data={data.filter((d) => d.ms_type == 'Downtown and CBD')}
-			flatData={data}
-		>
-			<Svg>
-				<AxisX tickMarks baseline snapLabels />
-				<AxisY tickMarks gridlines={false} />
-				<Bar fill="#58e965" />
-			</Svg>
-		</LayerCake>
-
-		<LayerCake
-			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
-			x={xKey}
-			y={yKey}
-			yDomainSort={false}
-			yScale={scaleBand().paddingInner(0.1)}
-			{xDomain}
-			data={data.filter((d) => d.ms_type == 'Small Town')}
-			flatData={data}
-		>
-			<Svg>
-				<Bar fill={'#00adf2'} />
-			</Svg>
-		</LayerCake>
-
-		<LayerCake
-			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
-			x={xKey}
-			y={yKey}
-			yDomainSort={false}
-			yScale={scaleBand().paddingInner(0.1)}
-			{xDomain}
-			data={data.filter((d) => d.ms_type == 'Regional Mall')}
-			flatData={data}
-		>
-			<Svg>
-				<Bar fill={'#DB3069'} />
-			</Svg>
-		</LayerCake>
-
-		<LayerCake
-			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
-			x={xKey}
-			y={yKey}
-			yDomainSort={false}
-			yScale={scaleBand().paddingInner(0.1)}
-			{xDomain}
-			data={data.filter((d) => d.ms_type == 'Urban and Suburban Main Street')}
-			flatData={data}
-		>
-			<Svg>
-				<Bar fill={'#002940'} />
-			</Svg>
-		</LayerCake>
-	</div>
-</div>
-
-<style>
-	/*
-      The wrapper div needs to have an explicit width and height in CSS.
-      It can also be a flexbox child or CSS grid element.
-      The point being it needs dimensions since the <LayerCake> element will
-      expand to fill it.
-    */
-	.chart {
-		width: 100%;
-		height: 800px;
-		position: relative;
-	}
-
-	.chart-container {
-		display: flex;
-		flex-direction: column;
-		gap: 2em;
-		border: 1px solid #eee;
-		padding: 1em;
-		border-radius: 1em;
-	}
-
-	.controls {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.legend-container {
-		display: flex;
-		flex-direction: column;
-		border-radius: 0.5em;
-		border: 1px solid var(--brandGrey);
-		padding: 0.5em;
-	}
-
-	@media only screen and (min-width: 768px) {
-		.legend-container {
-			flex-direction: row;
-		}
-	}
-</style>
+<BarChart
+	{...$$restProps}
+	{data}
+	{xKey}
+	{title}
+	{xDomain}
+	{groupConfig}
+/>

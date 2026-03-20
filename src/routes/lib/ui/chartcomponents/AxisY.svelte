@@ -40,6 +40,9 @@
   /** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
   export let charPixelWidth = 7.25;
 
+  /** @type {Boolean} [wrap=false] - Whether to wrap the labels based on spaces. */
+  export let wrap = false;
+
   $: isBandwidth = typeof $yScale.bandwidth === 'function';
 
   $: tickVals = Array.isArray(ticks) ? ticks :
@@ -60,7 +63,14 @@
       : tickMarkLength ?? 6
     : 0;
 
-  $: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
+  $: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => {
+    const formatted = format(d).toString();
+    if (wrap) {
+      // If wrapping, the widest length is the widest individual word
+      return Math.max(...formatted.split(' ').map(word => word.split('').reduce(calcStringLength, 0)));
+    }
+    return formatted.split('').reduce(calcStringLength, 0);
+  })));
 
   $: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
   $: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
@@ -96,7 +106,16 @@
         dx={dx + (labelPosition === 'even' ? -3 : 0)}
         text-anchor={labelPosition === 'above' ? 'start' : 'end'}
         dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
-      >{format(tick)}</text>
+      >
+        {#if wrap}
+          {@const words = format(tick).toString().split(' ')}
+          {#each words as word, i}
+             <tspan x={x1} dy={i === 0 ? `${-((words.length - 1) * 0.5)}em` : '1.1em'}>{word}</tspan>
+          {/each}
+        {:else}
+          {format(tick)}
+        {/if}
+      </text>
     </g>
   {/each}
 </g>
