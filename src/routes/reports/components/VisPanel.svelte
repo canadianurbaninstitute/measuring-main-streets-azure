@@ -1,22 +1,9 @@
 <script>
-	/**
-	 * VisPanel.svelte
-	 *
-	 * Wraps a single visualization (chart, illustration, image, etc.).
-	 * The parent cycles through an array of VisPanels; only the one
-	 * whose `visible` prop is true is shown. Crossfades between panels.
-	 *
-	 * Props:
-	 *   visible  {boolean}  — whether this panel should be shown
-	 *   label    {string}   — accessible label / caption (optional)
-	 */
-
-	export let visible = false;
-	export let label = '';
+	let { visible = false, label = '', children } = $props();
 </script>
 
 <div class="vis-panel" class:visible role="img" aria-label={label}>
-	<slot />
+	{@render children?.()}
 
 	{#if label}
 		<p class="caption">{label}</p>

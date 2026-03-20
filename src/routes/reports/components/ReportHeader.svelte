@@ -1,10 +1,12 @@
 <script>
-	export let id = '';
-	export let eyebrow = '';
-	export let title = 'Report Title';
-	export let subtitle = '';
-	export let backgroundImage = '';
-	export let backgroundOpacity = 0.1;
+	let { 
+		id = '', 
+		eyebrow = '', 
+		title = 'Report Title', 
+		subtitle = '', 
+		backgroundImage = '', 
+		backgroundOpacity = 0.1 
+	} = $props();
 </script>
 
 <section {id}>

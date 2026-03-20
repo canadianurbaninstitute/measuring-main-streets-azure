@@ -1,5 +1,5 @@
 <script>
-	import MultiLineChart from '../../../mainstreets-malls-mice/MultiLineChart.svelte';
+	import MultiLineChart from '../../../../lib/ui/charts/MultiLineChart.svelte';
 
 	const data = [
 		{

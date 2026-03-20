@@ -13,10 +13,12 @@
 	 *   fit     {string}  — CSS object-fit value: 'contain' | 'cover' (default: 'contain')
 	 */
 
-	export let src = '';
-	export let alt = '';
-	export let caption = '';
-	export let fit = 'contain';
+	let { 
+		src = '', 
+		alt = '', 
+		caption = '', 
+		fit = 'contain' 
+	} = $props();
 </script>
 
 <figure class="vis-image">

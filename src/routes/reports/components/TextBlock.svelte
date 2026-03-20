@@ -27,11 +27,14 @@
 	 *     XSS-safe for arbitrary user input.
 	 */
 
-	export let index = 0;
-	export let active = false;
-	export let eyebrow = '';
-	export let heading = '';
-	export let body = '';
+	let { 
+		index = 0, 
+		active = false, 
+		eyebrow = '', 
+		heading = '', 
+		body = '', 
+		children 
+	} = $props();
 </script>
 
 <div class="text-block" class:active data-step={index}>
@@ -45,11 +48,11 @@
 
 	<!-- Slot takes priority; fall back to the `body` HTML string -->
 	<div class="prose">
-		<slot>
-			{#if body}
-				{@html body}
-			{/if}
-		</slot>
+		{#if children}
+			{@render children()}
+		{:else if body}
+			{@html body}
+		{/if}
 	</div>
 </div>
 

@@ -1,6 +1,6 @@
 <script>
-	import MultiLineChart from '../../../mainstreets-malls-mice/MultiLineChart.svelte';
 	import { format } from 'd3-format';
+	import MultiLineChart from '../../../../lib/ui/charts/MultiLineChart.svelte';
 
 	export let data = [];
 </script>

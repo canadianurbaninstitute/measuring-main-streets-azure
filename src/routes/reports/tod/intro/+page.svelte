@@ -1,28 +1,26 @@
 <script>
 	// Components
-	import ReportHeader from '../../components/ReportHeader.svelte';
+	import '../../../styles.css';
+	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
+	import ReportHeader from '../../components/ReportHeader.svelte';
 	import Scroller from '../../components/Scroller.svelte';
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import ProgressBar from '../../components/ProgressBar.svelte';
 	import { sections } from './article.js';
-	import { BarChart, ColumnChart, LineChart } from '@onsvisual/svelte-charts';
-	import '../../../styles.css';
 	// Assets
-	import introImage from './assets/IntroHeader.png';
-	import urbanPopGrowth from './assets/UrbanPopGrowth.png';
-	import progressTrain from '../../assets/progress_train.svg';
+	import introImage from '../../../lib/assets/screenshots/IntroHeader.png';
+	import urbanPopGrowth from '../../../lib/assets/screenshots/UrbanPopGrowth.png';
 	// Charts
+	import { onMount } from 'svelte';
+	import train from '../../../lib/assets/graphics/train-long.svg';
 	import UrbanPop from './charts/UrbanPop.svelte';
 	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
-	import JobGrowthSector from './charts/JobGrowthSector.svelte';
-	import { onMount } from 'svelte';
 
 	// Data
-	let JobGrowthSectorData = null;
+	let JobGrowthSectorData = $state(null);
 
 	const visConfig = {
 		'urban-pop': { type: 'component', component: UrbanPop },
@@ -57,8 +55,8 @@
 	});
 
 	// ── Reactive state ───────────────────────────────────────────────────────
-	let activeIndex = 0;
-	$: activePanelUid = steps[activeIndex]?.panelUid ?? allPanels[0]?.uid;
+	let activeIndex = $state(0);
+	let activePanelUid = $derived(steps[activeIndex]?.panelUid ?? allPanels[0]?.uid);
 
 	// ── Progress bar ──────────────────────────────────────────────────────────
 	const navSections = sections.map((section, si) => ({
@@ -69,7 +67,7 @@
 			`Section ${si + 1}`
 	}));
 
-	$: items = [
+	const items = [
 		{ type: 'anchor', id: 'report-header', label: 'Introduction' },
 		{ type: 'anchor', id: 'report-findings', label: 'Key Findings' },
 		...navSections.map((s) => ({
@@ -95,38 +93,13 @@
 </script>
 
 <main>
-	{#if JobGrowthSectorData}
+	<!-- {#if JobGrowthSectorData}
 		<JobGrowthSector data={JobGrowthSectorData} />
-	{/if}
-	<ProgressBar icon="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
-		<svg
-			slot="icon"
-			width="76"
-			height="18"
-			viewBox="0 0 76 18"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				d="M0 5C0 2.23858 2.23858 0 5 0H25C27.7614 0 30 2.23858 30 5V13C30 15.7614 27.7614 18 25 18H15H5C2.23858 18 0 15.7614 0 13V5Z"
-				fill="#002940"
-			/>
-			<path
-				d="M0 4.5C0 2.01472 1.03319 0 2.30769 0H27.6923C28.9668 0 30 2.01472 30 4.5V13.5C30 15.9853 28.9668 18 27.6923 18H2.30769C1.03319 18 0 15.9853 0 13.5V4.5Z"
-				fill="#002940"
-			/>
-			<path
-				d="M33 5C33 2.23858 35.2386 0 38 0H59.5086C61.0484 0 62.5023 0.709493 63.4498 1.92327L69.695 9.92327C72.2578 13.2063 69.9186 18 65.7537 18H38C35.2386 18 33 15.7614 33 13V5Z"
-				fill="#002940"
-			/>
-			<path d="M3.5 3H8.5V8H3.5V3Z" fill="white" />
-			<path d="M11.5 3H16.5V8H11.5V3Z" fill="white" />
-			<path d="M3.5 3H8.5V8H3.5V3Z" fill="white" />
-			<path d="M46 3H51V8H46V3Z" fill="white" />
-			<path d="M54 3H59V8H54V3Z" fill="white" />
-			<path d="M46 3H51V8H46V3Z" fill="white" />
-			<path d="M19 3H24V8H19V3Z" fill="white" />
-		</svg>
+	{/if} -->
+	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
+		{#snippet icon()}
+			<img src={train} width="100%" height="100%" alt="Progress icon" />
+		{/snippet}
 	</ProgressBar>
 
 	<ReportHeader
@@ -148,7 +121,7 @@
 	/>
 	<div class="chart"></div>
 	<Scroller bind:activeIndex threshold={0.5}>
-		<svelte:fragment slot="text">
+		{#snippet text()}
 			{#each steps as step, i}
 				<TextBlock
 					index={i}
@@ -158,9 +131,9 @@
 					body={step.body}
 				/>
 			{/each}
-		</svelte:fragment>
+		{/snippet}
 
-		<svelte:fragment slot="visual">
+		{#snippet visual()}
 			<VisContainer>
 				{#each allPanels as panel (panel.uid)}
 					<VisPanel visible={activePanelUid === panel.uid} label={panel.label ?? ''}>
@@ -172,12 +145,13 @@
 								fit={panel.config.fit ?? 'contain'}
 							/>
 						{:else if panel.config?.type === 'component'}
-							<svelte:component this={panel.config.component} />
+							{@const Component = panel.config.component}
+							<Component />
 						{/if}
 					</VisPanel>
 				{/each}
 			</VisContainer>
-		</svelte:fragment>
+		{/snippet}
 	</Scroller>
 </main>
 

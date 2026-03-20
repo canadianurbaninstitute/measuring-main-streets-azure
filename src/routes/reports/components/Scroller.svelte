@@ -14,14 +14,15 @@
 
 	import { onMount } from 'svelte';
 
-	/** The index of the currently-visible text block */
-	export let activeIndex = 0;
+	let { 
+		activeIndex = $bindable(0), 
+		threshold = 0.5, 
+		text, 
+		visual 
+	} = $props();
 
-	/** How far down the viewport (0–1) a block must reach to become "active" */
-	export let threshold = 0.5;
-
-	let steps = [];
-	let container;
+	let steps = $state([]);
+	let container = $state();
 
 	onMount(() => {
 		steps = Array.from(container.querySelectorAll('[data-step]'));
@@ -57,13 +58,13 @@
 <div class="scroller-layout">
 	<!-- ── Scrolling text column ── -->
 	<div class="text-column" bind:this={container}>
-		<slot name="text" />
+		{@render text?.()}
 	</div>
 
 	<!-- ── Sticky visual column ── -->
 	<div class="visual-column">
 		<div class="visual-sticky">
-			<slot name="visual" />
+			{@render visual?.()}
 		</div>
 	</div>
 </div>

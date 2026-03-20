@@ -1,12 +1,14 @@
 <script>
-	export let id = '';
-	export let title = 'Key Findings';
-	export let finding1 = '';
-	export let description1 = '';
-	export let finding2 = '';
-	export let description2 = '';
-	export let finding3 = '';
-	export let description3 = '';
+	let { 
+		id = '', 
+		title = 'Key Findings', 
+		finding1 = '', 
+		description1 = '', 
+		finding2 = '', 
+		description2 = '', 
+		finding3 = '', 
+		description3 = '' 
+	} = $props();
 </script>
 
 <section {id} class="findings">

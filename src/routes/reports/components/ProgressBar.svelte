@@ -63,23 +63,20 @@
 
 	import { onMount } from 'svelte';
 
-	export let items = [];
-	export let activeStepIndex = 0;
-	export let totalSteps = 1;
-	export let icon = 'flame';
-
-	// ── Continuous scroll tracking ────────────────────────────────────────────
-	// For smooth fill we measure the real scroll position of every item's DOM
-	// element (anchors by id, steps by [data-step]) and interpolate progress
-	// between them as the user scrolls. This avoids the fill snapping between
-	// discrete circle positions.
+	let { 
+		items = [], 
+		activeStepIndex = 0, 
+		totalSteps = 1, 
+		iconType = 'flame', 
+		icon 
+	} = $props();
 
 	// scrollY updated on every scroll/resize event
-	let scrollY = 0;
+	let scrollY = $state(0);
 	// pageHeight = scrollable distance (document height - viewport height)
-	let pageHeight = 1;
+	let pageHeight = $state(1);
 	// Map from item index → element top offset (px from document top)
-	let itemTops = [];
+	let itemTops = $state([]);
 
 	function measureItems() {
 		pageHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
@@ -115,30 +112,22 @@
 	});
 
 	// ── Interpolated progress ─────────────────────────────────────────────────
-	// Find which two adjacent item tops the current scrollY falls between,
-	// then linearly interpolate between their circle positions on the track.
-	$: progress = (() => {
+	const progress = $derived.by(() => {
 		if (!itemTops.length || items.length < 2) return 0;
 
 		const n = items.length;
-		// Circle positions as 0–100 percentages, evenly spaced
 		const circlePcts = items.map((_, i) => (i / (n - 1)) * 100);
 
-		// Trigger re-computation when activeStepIndex changes (keeps it reactive
-		// for the scroller portion even if scrollY doesn't update fast enough)
-		void activeStepIndex;
+		// Dependency
+		activeStepIndex;
 
 		const scroll = scrollY;
-
-		// Before the first item
 		const firstTop = itemTops[0];
 		if (firstTop !== null && scroll <= firstTop) return circlePcts[0];
 
-		// After the last item
 		const lastTop = itemTops[n - 1];
 		if (lastTop !== null && scroll >= lastTop) return circlePcts[n - 1];
 
-		// Find the segment [i, i+1] that straddles the current scroll position
 		for (let i = 0; i < n - 1; i++) {
 			const topA = itemTops[i];
 			const topB = itemTops[i + 1];
@@ -150,25 +139,22 @@
 		}
 
 		return circlePcts[n - 1];
-	})();
+	});
 
-	// ── Active item index (for circle fill colouring) ─────────────────────────
-	$: activeItemIndex = (() => {
-		// Find the last item whose element top is at or above current scroll
+	// ── Active item index ─────────────────────────
+	const activeItemIndex = $derived.by(() => {
 		let idx = 0;
 		for (let i = 0; i < itemTops.length; i++) {
 			const top = itemTops[i];
 			if (top !== null && scrollY >= top - window.innerHeight * 0.55) idx = i;
 		}
 		return idx;
-	})();
+	});
 
-	// ── Track position helpers ────────────────────────────────────────────────
 	function pctOf(itemIndex) {
 		return items.length > 1 ? (itemIndex / (items.length - 1)) * 100 : 0;
 	}
 
-	// ── Navigation ───────────────────────────────────────────────────────────
 	function navigateTo(item) {
 		if (item.type === 'anchor') {
 			document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -179,7 +165,7 @@
 		}
 	}
 
-	let hoveredIndex = null;
+	let hoveredIndex = $state(null);
 </script>
 
 <nav class="progress-bar" aria-label="Article progress">
@@ -187,7 +173,7 @@
 		<!-- Fill + icon -->
 		<div class="fill" style="width: {progress}%" aria-hidden="true">
 			<div class="icon-wrap">
-				{#if icon === 'flame'}
+				{#if iconType === 'flame'}
 					<svg viewBox="0 0 24 24" fill="none">
 						<path
 							d="M12 2C12 2 7 7.5 7 13a5 5 0 0 0 10 0c0-2.5-1.5-4.5-2.5-5.5 0 2-1 3-1 3S12 9 12 2Z"
@@ -195,7 +181,7 @@
 						/>
 						<path d="M12 14c0 1.1-.9 2-2 2s-2-.9-2-2c0-1.5 2-4 2-4s2 2.5 2 4Z" fill="#93c5fd" />
 					</svg>
-				{:else if icon === 'arrow'}
+				{:else if iconType === 'arrow'}
 					<svg viewBox="0 0 24 24" fill="none">
 						<circle cx="12" cy="12" r="10" fill="#2563eb" />
 						<path
@@ -206,13 +192,13 @@
 							stroke-linejoin="round"
 						/>
 					</svg>
-				{:else if icon === 'dot'}
+				{:else if iconType === 'dot'}
 					<svg viewBox="0 0 24 24">
 						<circle cx="12" cy="12" r="7" fill="#2563eb" />
 						<circle cx="12" cy="12" r="10" fill="#2563eb" opacity="0.25" class="pulse" />
 					</svg>
-				{:else if icon === 'custom'}
-					<slot name="icon" />
+				{:else if iconType === 'custom'}
+					{@render icon?.()}
 				{/if}
 			</div>
 		</div>
@@ -229,11 +215,11 @@
 				class:large={isLarge}
 				style="left: {pctOf(i)}%"
 				aria-label="Jump to: {item.label}"
-				on:click={() => navigateTo(item)}
-				on:mouseenter={() => (hoveredIndex = i)}
-				on:mouseleave={() => (hoveredIndex = null)}
-				on:focusin={() => (hoveredIndex = i)}
-				on:focusout={() => (hoveredIndex = null)}
+				onclick={() => navigateTo(item)}
+				onmouseenter={() => (hoveredIndex = i)}
+				onmouseleave={() => (hoveredIndex = null)}
+				onfocusin={() => (hoveredIndex = i)}
+				onfocusout={() => (hoveredIndex = null)}
 			>
 				{#if isHovered}
 					<span class="tooltip" role="tooltip">
@@ -250,12 +236,11 @@
 	/* ── Bar shell ───────────────────────────────────────────── */
 	.progress-bar {
 		position: fixed;
-		top: 0;
+		top: 30px;
 		left: 0;
 		right: 0;
 		z-index: 100;
 		height: 48px;
-		background: #ffffff;
 		box-shadow: 0 1px 0 #e8e8e8;
 		display: flex;
 		align-items: flex-end; /* pin track to bottom of bar */
@@ -282,7 +267,6 @@
 		overflow: visible;
 	}
 
-	/* ── Travelling icon ─────────────────────────────────────── */
 	.icon-wrap {
 		position: absolute;
 		right: 0;
@@ -297,8 +281,9 @@
 		filter: drop-shadow(0 1px 3px rgba(37, 99, 235, 0.35));
 	}
 
-	.icon-wrap svg {
-		width: 100%;
+	.icon-wrap :global(svg),
+	.icon-wrap :global(img) {
+		width: auto;
 		height: 100%;
 		display: block;
 	}

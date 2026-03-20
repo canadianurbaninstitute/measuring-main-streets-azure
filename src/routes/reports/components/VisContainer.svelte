@@ -1,20 +1,9 @@
 <script>
-	/**
-	 * VisContainer.svelte
-	 *
-	 * A simple wrapper that stacks all VisPanel children on top of
-	 * each other (position: relative / absolute) so they can crossfade.
-	 *
-	 * Usage:
-	 *   <VisContainer>
-	 *     <VisPanel visible={activeVis === 0}>...</VisPanel>
-	 *     <VisPanel visible={activeVis === 1}>...</VisPanel>
-	 *   </VisContainer>
-	 */
+	let { children } = $props();
 </script>
 
 <div class="vis-container">
-	<slot />
+	{@render children?.()}
 </div>
 
 <style>
