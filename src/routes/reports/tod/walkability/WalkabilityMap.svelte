@@ -92,11 +92,11 @@
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
 		// Change cursor to pointer over stations
-		map.on('mouseenter', 'station-analysis-points-4cu7xs', () => {
+		map.on('mouseenter', 'station-analysis-points-expla-c0bvk5', () => {
 			map.getCanvas().style.cursor = 'pointer';
 		});
 
-		map.on('mouseleave', 'station-analysis-points-4cu7xs', () => {
+		map.on('mouseleave', 'station-analysis-points-expla-c0bvk5', () => {
 			map.getCanvas().style.cursor = '';
 		});
 
@@ -123,7 +123,7 @@
 						'fill-opacity': 0.7
 					}
 				},
-				'station-analysis-points-4cu7xs'
+				'station-analysis-points-expla-c0bvk5'
 			);
 
 			map.addLayer(
@@ -138,7 +138,7 @@
 						'line-dasharray': [2, 2]
 					}
 				},
-				'station-analysis-points-4cu7xs'
+				'station-analysis-points-expla-c0bvk5'
 			);
 
 			map.addSource('selected-station', {
@@ -167,10 +167,11 @@
 		});
 
 		// Handle clicks on the specified station layer
-		map.on('click', 'station-analysis-points-4cu7xs', (e) => {
+		map.on('click', 'station-analysis-points-expla-c0bvk5', (e) => {
 			if (e.features.length > 0) {
 				const coordinates = e.features[0].geometry.coordinates.slice();
 				const properties = e.features[0].properties;
+				const id = e.features[0].id;
 
 				// Ensure appropriate zoom levels when handling clusters vs single points
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -188,6 +189,7 @@
 					onStationClick({
 						lng: coordinates[0],
 						lat: coordinates[1],
+						id,
 						properties,
 						mapInstance: map,
 						point: e.point

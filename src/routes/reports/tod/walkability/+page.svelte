@@ -43,7 +43,6 @@
 				}
 				return s;
 			});
-			console.log(stations);
 		} catch (e) {
 			console.error('Failed to load station coordinate mappings:', e);
 		}
@@ -88,7 +87,7 @@
 	});
 
 	// Handle Map Point Clicks
-	function handlePointClick({ lng, lat, properties, mapInstance, point }) {
+	function handlePointClick({ lng, lat, properties, mapInstance, point, id }) {
 		if (activePopup) {
 			activePopup.remove();
 		}
@@ -118,6 +117,7 @@
 			props: {
 				coords: { lng, lat },
 				properties: properties,
+				id: id,
 				onClose: () => {
 					if (activePopup) activePopup.remove();
 				}
