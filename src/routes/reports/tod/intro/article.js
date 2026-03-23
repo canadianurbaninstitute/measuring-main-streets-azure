@@ -73,7 +73,7 @@ export const sections = [
 	},
 	{
 		panels: [
-			{ id: 'gateway', label: 'Figure 4 – Share of immigration by geography 2001-2025' },
+			{ id: 'gateway', label: 'Figure 4 – Share of immigration by geography 2001-2025', source: 'Statistics Canada. Table 17-10-0149-01  Components of population change by census metropolitan area and census agglomeration, 2021 boundaries' },
 		],
 		blocks: [
 			{

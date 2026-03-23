@@ -26,7 +26,7 @@
 
 	// ── Internal constants ───────────────────────────────────────────────────────
 	const yKey = 'value'; // LayerCake's yKey after groupLonger
-	const zKey = 'color'; // LayerCake's zKey for line colors
+	const zKey = 'key'; // LayerCake's zKey for line colors
 
 	$: seriesNames = seriesConfig.map((s) => s.key);
 	$: seriesColors = seriesConfig.map((s) => s.color);
@@ -56,6 +56,7 @@
 			y={yKey}
 			z={zKey}
 			{yDomain}
+			zDomain={seriesNames}
 			zScale={scaleOrdinal()}
 			xScale={scaleTime()}
 			zRange={seriesColors}

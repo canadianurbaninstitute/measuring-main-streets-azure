@@ -28,15 +28,7 @@
 	{visible}
 	xKey="label"
 	yKey="value"
-	title="Six ‘transit regions’ share of Canadian population"
+	title="Share of immigration by geography"
 	showTooltip={true}
-	explode={[
-		'Greater Golden Horseshoe',
-		'Montreal',
-		'BC Lower Mainland',
-		'Calgary',
-		'Edmonton',
-		'Ottawa-Gatineau'
-	]}
-	seriesConfig={urbanPop}
+	explode={['Transit Regions']}
 />

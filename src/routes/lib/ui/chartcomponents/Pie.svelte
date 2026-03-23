@@ -16,7 +16,8 @@
 		explode = [], // array of xKey values to offset e.g. ['Calgary', 'Montreal']
 		explodeDistance = 20,
 		visible = false,
-		onSliceClick = null
+		onSliceClick = null,
+		drillableKeys = []
 	} = $props();
 
 	const radius = $derived(Math.min($width || 450, $height || 450) / 2);
@@ -107,7 +108,7 @@
 			{stroke}
 			stroke-width="1"
 			onclick={() => onSliceClick?.(d.data)}
-			style="cursor:pointer'"
+			style="cursor: {drillableKeys.includes($x(d.data)) ? 'pointer' : 'default'}"
 			opacity={$reveal}
 			onmousemove={(ev) => {
 				found = d.data;

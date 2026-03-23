@@ -16,6 +16,7 @@
 	import { onMount } from 'svelte';
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import GatewayCities from './charts/GatewayCities.svelte';
+	import HousingNeed from './charts/HousingNeed.svelte';
 	import JobGrowthSector from './charts/JobGrowthSector.svelte';
 	import UrbanPop from './charts/UrbanPop.svelte';
 	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
@@ -28,7 +29,7 @@
 		'urban-pop-growth': { type: 'component', component: UrbanPopLineChart },
 		'urban-economy': { type: 'component', component: JobGrowthSector },
 		gateway: { type: 'component', component: GatewayCities },
-		'test-image1': { type: 'image', src: introImage, alt: 'Test Image' }
+		housing: { type: 'component', component: HousingNeed }
 	};
 	/**
 	 * Flatten all panels, tagging each with a globally-unique uid

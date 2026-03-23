@@ -32,11 +32,21 @@
 
 	function handleClick(slice) {
 		const key = slice[xKey];
-		if (drilldownData[key]) drillKey = key;
+		if (drilldownData[key]) {
+			drillKey = key;
+			visible = false;
+			setTimeout(() => {
+				visible = true;
+			}, 100);
+		}
 	}
 
 	function reset() {
 		drillKey = null;
+		visible = false;
+		setTimeout(() => {
+			visible = true;
+		}, 100);
 	}
 
 	const isDrilled = $derived(drillKey !== null);
@@ -47,7 +57,7 @@
 
 	// Format data for the chart (ensure numeric values)
 	const chartData = $derived(
-		data.map((d) => ({
+		activeData.map((d) => ({
 			...d,
 			[yKey]: typeof d[yKey] === 'string' ? +d[yKey] : d[yKey]
 		}))
@@ -59,7 +69,7 @@
 
 <div class="chart-container">
 	{#if title}
-		<h4 class="chart-title">{title}</h4>
+		<h4 class="chart-title">{isDrilled ? `${title} › ${drillKey}` : title}</h4>
 	{/if}
 
 	{#if isDrilled}
@@ -87,6 +97,7 @@
 					{explodeDistance}
 					{visible}
 					onSliceClick={handleClick}
+					drillableKeys={Object.keys(drilldownData)}
 				/>
 			</Svg>
 
@@ -106,10 +117,10 @@
 		</LayerCake>
 	</div>
 
-	{#if seriesConfig.length > 0}
+	{#if activeData.length > 0}
 		<div class="controls">
 			<div class="legend-container">
-				{#each seriesConfig as { label, color }}
+				{#each activeData as { label, color }}
 					<LegendItem variant="polygon" {label} bgcolor={color} />
 				{/each}
 			</div>
