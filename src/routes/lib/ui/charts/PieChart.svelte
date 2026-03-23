@@ -9,6 +9,7 @@
 
 	let {
 		data = [],
+		drilldownData = {},
 		xKey = 'label',
 		yKey = 'value',
 		title = '',
@@ -26,6 +27,19 @@
 	 * Reactive / Derived State
 	 * ─────────────────────────────────── */
 
+	let drillKey = $state(null);
+	const activeData = $derived(drillKey ? (drilldownData[drillKey] ?? data) : data);
+
+	function handleClick(slice) {
+		const key = slice[xKey];
+		if (drilldownData[key]) drillKey = key;
+	}
+
+	function reset() {
+		drillKey = null;
+	}
+
+	const isDrilled = $derived(drillKey !== null);
 	const seriesNames = $derived(seriesConfig.map((s) => s.key));
 	const seriesColors = $derived(seriesConfig.map((s) => s.color));
 
@@ -48,6 +62,10 @@
 		<h4 class="chart-title">{title}</h4>
 	{/if}
 
+	{#if isDrilled}
+		<button class="back-btn" onclick={reset}>← Back</button>
+	{/if}
+
 	<div class="chart" style="height: {height}; min-height: 200px; position: relative;">
 		<LayerCake
 			data={chartData}
@@ -59,7 +77,17 @@
 			zRange={seriesColors.length > 0 ? seriesColors : defaultColors}
 		>
 			<Svg overflow="visible">
-				<Pie {innerRadius} {xKey} {yKey} bind:found bind:e {explode} {explodeDistance} {visible} />
+				<Pie
+					{innerRadius}
+					{xKey}
+					{yKey}
+					bind:found
+					bind:e
+					{explode}
+					{explodeDistance}
+					{visible}
+					onSliceClick={handleClick}
+				/>
 			</Svg>
 
 			{#if showTooltip}
@@ -118,5 +146,20 @@
 		border: 1px solid var(--brandGrey);
 		margin: 1em 0 0 0;
 		padding: 0.5em;
+	}
+
+	.back-btn {
+		align-self: flex-start;
+		background: none;
+		border: 1px solid #ccc;
+		border-radius: 0.4em;
+		padding: 0.3em 0.8em;
+		cursor: pointer;
+		font-size: 0.85em;
+		color: #444;
+	}
+
+	.back-btn:hover {
+		background: #f5f5f5;
 	}
 </style>

@@ -12,10 +12,11 @@
 	import { sections } from './article.js';
 	// Assets
 	import introImage from '../../../lib/assets/screenshots/IntroHeader.png';
-	import urbanPopGrowth from '../../../lib/assets/screenshots/UrbanPopGrowth.png';
 	// Charts
 	import { onMount } from 'svelte';
 	import train from '../../../lib/assets/graphics/train-long.svg';
+	import GatewayCities from './charts/GatewayCities.svelte';
+	import JobGrowthSector from './charts/JobGrowthSector.svelte';
 	import UrbanPop from './charts/UrbanPop.svelte';
 	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
 
@@ -25,8 +26,8 @@
 	const visConfig = {
 		'urban-pop': { type: 'component', component: UrbanPop },
 		'urban-pop-growth': { type: 'component', component: UrbanPopLineChart },
-		'test-image': { type: 'image', src: introImage, alt: 'Test Image' },
-		'urban-pop-growth1': { type: 'image', src: urbanPopGrowth, alt: 'Urban Population Growth' },
+		'urban-economy': { type: 'component', component: JobGrowthSector },
+		gateway: { type: 'component', component: GatewayCities },
 		'test-image1': { type: 'image', src: introImage, alt: 'Test Image' }
 	};
 	/**
@@ -138,7 +139,11 @@
 		{#snippet visual()}
 			<VisContainer>
 				{#each allPanels as panel (panel.uid)}
-					<VisPanel visible={activePanelUid === panel.uid} label={panel.label ?? ''}>
+					<VisPanel
+						visible={activePanelUid === panel.uid}
+						label={panel.label ?? ''}
+						source={panel.source ?? ''}
+					>
 						{#if panel.config?.type === 'image'}
 							<VisImage
 								src={panel.config.src}

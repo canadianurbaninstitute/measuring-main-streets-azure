@@ -15,7 +15,8 @@
 		e = $bindable(null),
 		explode = [], // array of xKey values to offset e.g. ['Calgary', 'Montreal']
 		explodeDistance = 20,
-		visible = false
+		visible = false,
+		onSliceClick = null
 	} = $props();
 
 	const radius = $derived(Math.min($width || 450, $height || 450) / 2);
@@ -105,6 +106,8 @@
 			transform={explodeTransform(d)}
 			{stroke}
 			stroke-width="1"
+			onclick={() => onSliceClick?.(d.data)}
+			style="cursor:pointer'"
 			opacity={$reveal}
 			onmousemove={(ev) => {
 				found = d.data;

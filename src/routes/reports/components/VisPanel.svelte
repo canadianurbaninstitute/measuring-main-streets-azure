@@ -1,14 +1,19 @@
 <script>
-	let { visible = false, label = '', children } = $props();
+	let { visible = false, label = '', source = '', children } = $props();
 </script>
 
-<div class="vis-panel" class:visible role="img" aria-label={label}>
+<figure class="vis-panel" class:visible role="img" aria-label={label}>
 	{@render children?.()}
 
-	{#if label}
-		<p class="caption">{label}</p>
-	{/if}
-</div>
+	<figcaption>
+		{#if label}
+			<p class="caption">{label}</p>
+		{/if}
+		{#if source}
+			<p class="source">Source:{' '}{@html source}</p>
+		{/if}
+	</figcaption>
+</figure>
 
 <style>
 	.vis-panel {
@@ -38,7 +43,16 @@
 		margin: 1.25rem 0 0;
 		font-size: 0.72rem;
 		letter-spacing: 0.08em;
-		color: #999;
-		text-align: center;
+		color: var(--color-slate-400);
+		text-align: left;
+		width: 100%;
+	}
+
+	.source {
+		margin: 1.25rem 0 0;
+		font-size: 0.72rem;
+		letter-spacing: 0.08em;
+		color: var(--color-slate-400);
+		text-align: left;
 	}
 </style>

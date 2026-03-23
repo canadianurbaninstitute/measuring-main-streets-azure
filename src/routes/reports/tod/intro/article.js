@@ -32,7 +32,8 @@ export const sections = [
 		panels: [
 			{
 				id: 'urban-pop',
-				label: 'Urban Population by Region Type'
+				label: 'Figure 1 – Six ‘transit regions’ share of Canadian population',
+				source: 'Statistics Canada. Table 17-10-0148-01  Population estimates, July 1, by census metropolitan area and census agglomeration, 2021 boundaries'
 			}
 		],
 		blocks: [
@@ -45,7 +46,7 @@ export const sections = [
 	},
 	{
 		panels: [
-			{ id: 'urban-pop-growth', label: 'Urban Population Growth' },
+			{ id: 'urban-pop-growth', label: 'Figure 2 – Population growth by region size', source: 'Statistics Canada. Table 17-10-0148-01  Population estimates, July 1, by census metropolitan area and census agglomeration, 2021 boundaries' },
 			{ id: 'test-image', label: 'Test Image' }
 		],
 		blocks: [
@@ -57,91 +58,56 @@ export const sections = [
 				policies and making infrastructure investments. Building higher order public transit is one of the most impactful measures governments are making 
 				that directly addresses the housing shortages in Canada’s largest cities. Investments in public transit are about much more than transportation,
 				 they are foundational investments in city building.`
-			},
-			{
-				panelId: 'test-image',
-				body: `Test image panel.`
-			},
-			{
-				panelId: 'test-image',
-				body: `Test image panel 2.`
 			}
 		]
 	},
 	{
-		panels: [{ id: 'test-panel', label: 'Test Panel' }],
+		panels: [{ id: 'urban-economy', label: 'Figure 3 – Growth in goods producing and servicing producing sectors.', source: 'Statistics Canada. Table 14-10-0355-01  Employment by industry, monthly, seasonally adjusted and unadjusted, and trend-cycle, last 5 months (x 1,000)' }],
 		blocks: [
 			{
-				panelId: 'test-panel',
-				heading: 'Test Panel',
-				body: `<b>Does this show up</b><br><br>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer consequat consectetur hendrerit. Morbi dui odio, 
-				mattis et tortor non, interdum dapibus leo. Cras eu neque velit. Sed sagittis mauris ex, finibus sagittis ex elementum ut.
-				Pellentesque at magna eget nibh lobortis aliquam. Sed eu ligula gravida, vulputate nulla nec, tincidunt purus. Nulla a bibendum mauris. 
-				Donec facilisis, sapien sed pretium consequat, ante turpis blandit massa, id mollis est metus sed lorem. Quisque et nisl ac eros dignissim pharetra.
-				 Sed tincidunt tincidunt fermentum. Nunc interdum a felis ut euismod. Morbi pellentesque, tellus ut congue rutrum, dolor lorem dapibus ipsum, 
-				 quis gravida elit ex ut risus.`
+				panelId: 'urban-economy',
+				heading: 'Canada’s urban economy',
+				body: `Job growth has been one of the main drivers of population growth in Canada’s urban regions. The six transit regions have added 2.6 million jobs since 2011 representing 2 out of every 3 net new jobs in the country. This runs counter to the long-standing popular narrative that Canada’s economic engine is driven by the natural resource sector.  While goods production (i.e. agriculture, natural resources, manufacturing) do account for a much larger share of exports, they account for far fewer direct jobs. Over the past 50 years job creation in goods producing sectors has been largely flat, adding only 900 thousand positions. That is in stark contrast with service producing sectors which have added over 10 million jobs over the same time-period. Service industries are mainly dependent not only on people, but on the relationships between them. Despite advances in digital communications technologies, operating in close physical proximity still offers significant advantages. The key point is that service sector job growth skews towards the largest urban areas, and even more specifically, towards the downtowns of big cities.`
 			}
 		]
 	},
 	{
 		panels: [
-			{ id: 'urban-pop-growth1', label: 'Next Section' },
-			{ id: 'test-image1', label: 'Another Section' }
+			{ id: 'gateway', label: 'Figure 4 – Share of immigration by geography 2001-2025' },
 		],
 		blocks: [
 			{
-				panelId: 'urban-pop-growth1',
-				heading: 'Test section',
-				body: `Test section`
-			},
-			{
-				panelId: 'test-image1',
-				body: `Test image panel 3.`
-			},
-			{
-				panelId: 'test-image1',
-				body: `Test image panel 4.`
-			},
-			{
-				panelId: 'test-image1',
-				body: `Test image panel 5.`
+				panelId: 'gateway',
+				heading: 'Gateway cities',
+				body: `The other main driver of population growth is immigration. The six largest urban regions are home to three quarters of all immigrants in Canada. While people tend to be drawn to economic opportunities, newcomers also seek out communities that provide social and cultural supports. Over the past few decades, there has been a self-reinforcing cycle of more jobs, attracting more people, which in turn attract more jobs, resulting in the largest Canadian cities  growing at a faster rate than the rest of the country.`
 			}
 		]
 	},
 	{
 		panels: [
-			{ id: 'urban-pop-growth1', label: 'Next Section' },
-			{ id: 'test-image1', label: 'Another Section' }
+			{ id: 'housing', label: 'Figure 5 – Housing affordability in the largest CMAs', source: `<a href="https://www.cmhc-schl.gc.ca/observer/2026/beyond-toronto-vancouver-affordability-challenges-spread-across-canadian-cities" target="_blank">https://www.cmhc-schl.gc.ca/observer/2026/beyond-toronto-vancouver-affordability-challenges-spread-across-canadian-cities</a>` }
 		],
 		blocks: [
 			{
-				panelId: 'urban-pop-growth1',
-				heading: 'Another test section',
-				body: `Nullam nisi magna, efficitur eu auctor ac, semper sit amet nulla. Curabitur viverra, mi ac porttitor semper, 
-				odio ex imperdiet mi, suscipit ornare erat ligula sit amet dolor. Sed quis libero non odio viverra luctus. 
-				Aenean nec enim lacinia metus blandit efficitur. Vivamus condimentum est est, ac auctor nibh ultrices et. 
-				Duis et tincidunt magna. Phasellus ac nisl massa. Mauris volutpat bibendum enim ut facilisis. Nunc ac mi rutrum, 
-				ornare massa sed, sagittis lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-				 Nullam eu mauris interdum, tristique turpis in, sagittis neque. Integer nec nulla porttitor, rutrum quam egestas, 
-				 dapibus quam.`
+				panelId: 'housing',
+				heading: 'The need for housing in Canada’s largest urban regions',
+				body: `To meet the needs of a growing population, the Canada Housing and Mortgage Corporation projects that Canada needs to almost double its annual housing production to 480,000 new homes per year over the next decade to make housing affordable for Canadians.  The need is experienced most acutely in Canada’s largest cities and regions. For example, to meet these national targets, Toronto  needs to increase annual housing starts by 71%, Montreal by over 200%, Calgary by 45% and Ottawa/Gatineau by 155%.  In total, just over 50% of the required housing is in Canada’s largest six metropolitan areas.  The CMHC predicts that demand for housing and housing prices will continue to increase at a higher rate in those places for the foreseeable future. `
+			}
+		]
+	},
+	{
+		panels: [
+			{ id: 'transit', label: 'Figure 6 – Commute times in the largest urban regions' }
+		],
+		blocks: [
+			{
+				panelId: 'transit',
+				heading: 'The need for higher order public transit in Canada’s largest urban regions',
+				body: `Investments in public transit are vital to maintaining growth in the largest urban regions. As demand rises for land it becomes more valuable, putting upward pressures on costs. In this scenario, housing projects can quickly become unviable. Building at higher densities can help overcome this obstacle, but as large cities grow in this manner, they become harder to move through. Friction of movement simultaneously reduces cities’ economic advantage and diminishes quality of life. The Toronto Region Board of Trade  estimates that congestion in the Greater Toronto and Hamilton Region is costing the economy $44B per year. Investments in public transit infrastructure is the most effective solution to these problems. They improve mobility and quality of life which are reflected in associated land values which in turn attracts further private sector investment in housing construction. If it becomes too difficult to move through cities, people tend to start moving out of them.`
 			},
 			{
-				panelId: 'test-image1',
-				body: `Quisque odio libero, ullamcorper nec magna vel, ornare efficitur odio. 
-				Sed facilisis aliquam ullamcorper. Vivamus vel ipsum non tortor ullamcorper 
-				facilisis ac ac arcu. In hac habitasse platea dictumst. Sed sed mi rhoncus, 
-				tristique magna vel, gravida velit. Nulla vestibulum lacinia enim et suscipit. 
-				Morbi in enim semper, pellentesque erat ac, finibus est.`
-			},
-			{
-				panelId: 'test-image1',
-				body: `Etiam fringilla nisl lectus. Ut id purus risus. 
-				Vivamus pulvinar interdum neque. Morbi quis sapien tincidunt, condimentum est quis, 
-				tempus arcu. Aliquam sit amet molestie arcu. Nunc bibendum purus eget sem viverra convallis. 
-				Donec commodo dictum faucibus. Fusce ac quam consequat, cursus purus quis, hendrerit mauris.
-				 Sed et mi quis lorem lacinia molestie. Fusce ultrices felis ex, sed porttitor ipsum tempus a.
-				  Integer lectus eros, sodales at odio eget, malesuada laoreet velit.`
+				panelId: 'transit',
+				body: 'There are six regions with higher order public transit infrastructure with a seventh in planning stages (Quebec). In these six regions there are xx LRT lines, xx subway/metro lines, and xx commuter rail lines. There are xx LRT lines under construction with an additional xx in the planning stages. There is one subway line under construction as well as a range of additions and upgrades to commuter rail. In total there are xx higher order transit stations with an additional xx under construction or in the planning stages. Xx million people currently live with 800m of a higher order transit station. '
 			}
 		]
 	}
