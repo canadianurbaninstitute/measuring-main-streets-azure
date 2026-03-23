@@ -10,33 +10,32 @@
 		urban_form_comp_style
 	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
+
+	// Components
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
 	import '../../styles.css';
 	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
 	import RadarChart from './RadarChart.svelte';
+	import ScoreBar from './ScoreBar.svelte';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
 	// Maps
 	let map1: mapboxgl.Map | undefined = $state();
-	let map2: mapboxgl.Map | undefined = $state();
 
 	// Selected stations
-	let selectedStation1 = $state('573');
-	let selectedStation2 = $state('194');
+	let selectedStation1 = $state('31');
 
 	let station1Metrics: any = $state({});
-	let station2Metrics: any = $state({});
+	let allDevData: any = $state({});
 	let station1Data: any = $state();
-	let station2Data: any = $state();
 	let stationDpiData: any[] = $state([]);
 
 	// Error messages
 	let station1Error = $state('');
-	let station2Error = $state('');
 
 	// Layer toggles
 	let greenspaceCheck = $state(true);
@@ -56,13 +55,15 @@
 	// Radar tabs
 	const radarCategories = [
 		{ value: 'land', label: 'Land Availability' },
-		{ value: 'growth', label: 'Growth Pressure' }
+		{ value: 'growth', label: 'Growth Pressure' },
+		{ value: 'displacement', label: 'Displacement Risk' }
 	];
 
 	let activeRadarCategory = $state('land');
 
 	// Validation flag
 	let initialStationsValidated = $state(false);
+	let mapStyleLoaded = $state(false);
 
 	// ─── Constants ────────────────────────────────────────────────────────────
 
@@ -96,16 +97,11 @@
 	const stationsProcessed = $derived(stationRawData ?? []);
 
 	const devData1 = $derived(getStationDevelopmentData(selectedStation1, activeRadarCategory));
-	const devData2 = $derived(getStationDevelopmentData(selectedStation2, activeRadarCategory));
 
 	const baseDevData1 = $derived(getStationDevelopmentData(selectedStation1, 'potential'));
-	const baseDevData2 = $derived(getStationDevelopmentData(selectedStation2, 'potential'));
 
 	const unitsCreated1 = $derived(
 		(stationDpiData.find((d) => d.id === selectedStation1)?.UnitsCreated || 0) * 100
-	);
-	const unitsCreated2 = $derived(
-		(stationDpiData.find((d) => d.id === selectedStation2)?.UnitsCreated || 0) * 100
 	);
 
 	// ─── Effects ──────────────────────────────────────────────────────────────
@@ -117,10 +113,6 @@
 		if (!stationsProcessed.find((s) => s.id.toString() === selectedStation1)) {
 			console.error(`Initial station "${selectedStation1}" not found. Using first available.`);
 			selectedStation1 = stationsProcessed[0]?.id.toString() || '1';
-		}
-		if (!stationsProcessed.find((s) => s.id.toString() === selectedStation2)) {
-			console.error(`Initial station "${selectedStation2}" not found. Using second available.`);
-			selectedStation2 = stationsProcessed[1]?.id.toString() || '2';
 		}
 		initialStationsValidated = true;
 	});
@@ -134,24 +126,10 @@
 			updateMapWithStationData(map1, mapData[1], { updateStylingCallback: updateStationStyling });
 			station1Metrics = stationMetrics.find((s) => s.id.toString() === selectedStation1);
 			station1Data = stationsProcessed.find((s) => s.id.toString() === selectedStation1);
+			allDevData = stationDpiData.find((d) => d.id === selectedStation1);
 			if (!station1Metrics) console.warn(`Metrics not found for station "${selectedStation1}"`);
 		} else {
 			station1Error = 'Station data not available';
-		}
-	});
-
-	// Map 2 — react to station selection
-	$effect(() => {
-		if (!selectedStation2 || stationsProcessed.length === 0) return;
-		const ok = updateStationData(2, selectedStation2);
-		if (ok) {
-			station2Error = '';
-			updateMapWithStationData(map2, mapData[2], { updateStylingCallback: updateStationStyling });
-			station2Metrics = stationMetrics.find((s) => s.id.toString() === selectedStation2);
-			station2Data = stationsProcessed.find((s) => s.id.toString() === selectedStation2);
-			if (!station2Metrics) console.warn(`Metrics not found for station "${selectedStation2}"`);
-		} else {
-			station2Error = 'Station data not available';
 		}
 	});
 
@@ -169,40 +147,33 @@
 		});
 	});
 
-	// Layer toggles — map 2
-	$effect(() => {
-		mapLayerToggle(map2, {
-			greenspace: greenspaceCheck,
-			transit: transitCheck,
-			parking: parkingCheck,
-			stations: stationCheck,
-			roads: roadsCheck,
-			buildings: buildingsCheck,
-			water: waterCheck,
-			buildingpermits: buildingpermitsCheck
-		});
-	});
-
 	// ─── Helpers ──────────────────────────────────────────────────────────────
 
 	function getStationDevelopmentData(stationId: string, category = 'land') {
 		const data = stationDpiData.find((d) => d.id === stationId);
+
 		if (!data) {
 			return {
 				potentialScore: 0,
+				subcategoryScore: 0,
 				radarPoints: []
 			};
 		}
 
 		const potentialMap: Record<string, number> = {
+			'Very High': 10,
 			High: 7.5,
 			Moderate: 5,
-			Low: 2.5
+			Low: 2.5,
+			'Very Low': 0.25
 		};
 
 		const radarPoints = [];
+		let subcategoryScore = 0;
 
 		if (category === 'land') {
+			subcategoryScore = potentialMap[data.LALevel] || 0;
+
 			radarPoints.push(
 				{ label: 'Single Unit Dwellings', value: (data.single_units || 0) * 100 },
 				{ label: 'Total Developable Land', value: (data.DevelopableArea || 0) * 100 },
@@ -211,6 +182,8 @@
 				{ label: 'Population Density', value: (data.PopulationDensity || 0) * 100 }
 			);
 		} else if (category === 'growth') {
+			subcategoryScore = potentialMap[data.GPLevel] || 0;
+
 			radarPoints.push(
 				{ label: 'Pop Change 2020-25', value: (data.PopChange2020to2025 || 0) * 100 },
 				{ label: 'Pop Change 2025-30', value: (data.PopChange2025to2030 || 0) * 100 },
@@ -221,12 +194,27 @@
 				{ label: 'Complete Community Score', value: (data.OverallCCScore || 0) * 100 },
 				{ label: 'Daily Visits', value: (data.DailyVisits || 0) * 100 }
 			);
-		} else if (category === 'permits') {
-			radarPoints.push({ label: 'Units Created', value: (data.UnitsCreated || 0) * 100 });
+		} else if (category === 'displacement') {
+			subcategoryScore = potentialMap[data.DRLevel] || 0;
+
+			radarPoints.push(
+				{
+					label: '>30% of income spent on shelter',
+					value: (data.MoreThan30OnShelter || 0) * 100
+				},
+				{ label: 'Total Immigrants', value: (data.TotalImmigrant || 0) * 100 },
+				{
+					label: 'Total Visible Minorities',
+					value: (data.VisibleMinorityTotal || 0) * 100
+				},
+				{ label: 'Pop Under 19 or Over 65', value: (data.YouthElderly || 0) * 100 },
+				{ label: 'Low Income Population', value: (data.LowIncome || 0) * 100 }
+			);
 		}
 
 		return {
 			potentialScore: potentialMap[data.potential] || 0,
+			subcategoryScore,
 			radarPoints
 		};
 	}
@@ -253,16 +241,6 @@
 		}
 		station1Error = '';
 		selectedStation1 = id;
-	}
-
-	function handleStation2Select(value: any) {
-		const id = value.toString();
-		if (!stationsProcessed.find((s) => s.id === id)) {
-			station2Error = 'Station data not available';
-			return;
-		}
-		station2Error = '';
-		selectedStation2 = id;
 	}
 
 	function createMap(containerId: string) {
@@ -414,7 +392,7 @@
 				.catch((e) => console.error('Metrics fetch error:', e)),
 
 			fetch(
-				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/station_dpi.csv'
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/DevelopmentPotential_Subindex.csv'
 			)
 				.then((r) => r.text())
 				.then((csvText) => {
@@ -423,7 +401,7 @@
 						for (const key in d) {
 							if (key === 'id') {
 								row[key] = d[key];
-							} else if (key === 'potential') {
+							} else if (['potential', 'LALevel', 'DRLevel', 'GPLevel'].includes(key)) {
 								row[key] = d[key];
 							} else {
 								row[key] = d[key] === 'NA' ? 0 : +d[key];
@@ -438,7 +416,6 @@
 		await Promise.all(fetches);
 
 		updateStationData(1, selectedStation1);
-		updateStationData(2, selectedStation2);
 
 		const stationGeojson = {
 			type: 'FeatureCollection',
@@ -450,44 +427,42 @@
 		};
 
 		map1 = createMap('map1');
-		map2 = createMap('map2');
 
 		map1.on('load', () => {
 			addMapLayers(map1!, stationGeojson, mapData[1]);
 			if (mapData[1].coords && mapData[1].bbox) {
 				map1!.setCenter(mapData[1].coords as [number, number]);
 				map1!.fitBounds(mapData[1].bbox, { padding: 0 });
-			}
-		});
 
-		map2.on('load', () => {
-			addMapLayers(map2!, stationGeojson, mapData[2]);
-			if (mapData[2].coords && mapData[2].bbox) {
-				map2!.setCenter(mapData[2].coords as [number, number]);
-				map2!.fitBounds(mapData[2].bbox, { padding: 0 });
-			}
-		});
-
-		// Force visibility of building-permits on initial load
-		[map1, map2].forEach((m) => {
-			m?.on('styledata', () => {
-				if (m.getLayer('building-permits')) {
-					m.setLayoutProperty('building-permits', 'visibility', 'visible');
+				if (map1!.getLayer('building-permits')) {
+					map1!.setLayoutProperty('building-permits', 'visibility', 'visible');
 				}
+				mapStyleLoaded = true;
+			}
+		});
+
+		$effect(() => {
+			if (!mapStyleLoaded) return; // wait for style
+			mapLayerToggle(map1, {
+				greenspace: greenspaceCheck,
+				transit: transitCheck,
+				parking: parkingCheck,
+				stations: stationCheck,
+				roads: roadsCheck,
+				buildings: buildingsCheck,
+				water: waterCheck,
+				buildingpermits: buildingpermitsCheck
 			});
 		});
 	});
 </script>
 
 <div class="hero">
-	<h1>Urban Form Comparison</h1>
+	<h1>Development Potential Index</h1>
 	<h2>Mapping Tool</h2>
 	<p id="description">
-		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns
-		to select transit stations to compare. Inspired by
-		<a href="https://schoolofcities.github.io/rail-transit-and-population-density/" target="_blank"
-			><u>School of Cities</u></a
-		>.
+		This tool breaks down the housing development potential of areas within 800m of a transit
+		station. Use the dropdown to select a transit station.
 	</p>
 	<p class="text-sm text-gray-500"><em>This tool is in beta.</em></p>
 </div>
@@ -495,7 +470,7 @@
 <div id="content-container">
 	<!-- LEFT SIDEBAR -->
 	<div id="sidebar">
-		<h3 class="mb-4">Select stations:</h3>
+		<h3 class="mb-4">Select a station:</h3>
 
 		<!-- Station 1 -->
 		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
@@ -511,14 +486,28 @@
 			{/if}
 			{#if station1Data}
 				<div class="mt-4 text-center text-sm text-gray-700">
-					<div class="font-bold uppercase text-[#1B6CA8] tracking-wider mb-1">
+					<div class="font-bold uppercase text-[#1B6CA8] text-xl tracking-wider mb-1">
 						{station1Data.stop_label}
 					</div>
 					<div class="text-xs text-gray-500 mb-2">
 						Line {station1Data.line_display_name}<br />{station1Data.region}<br
 						/>{station1Data.status}
 					</div>
+					<div class="mt-2 text-[#006A8E] text-lg font-medium">
+						Development Potential:
+						{allDevData?.potential ?? 'N/A'}
+					</div>
 					<div class="flex flex-col items-start w-fit mx-auto mt-4 gap-1 text-left">
+						<div>
+							Land Availability: <span class="font-semibold">{allDevData?.LALevel ?? 'N/A'}</span>
+						</div>
+						<div>
+							Growth Pressure: <span class="font-semibold">{allDevData?.GPLevel ?? 'N/A'}</span>
+						</div>
+						<div>
+							Displacement Risk: <span class="font-semibold">{allDevData?.DRLevel ?? 'N/A'}</span>
+						</div>
+						<br />
 						<div>
 							Greenspace: <span class="font-semibold"
 								>{station1Metrics?.greenspace_pct?.toFixed(1) ?? 'N/A'}%</span
@@ -538,73 +527,6 @@
 							Parking: <span class="font-semibold"
 								>{station1Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
 							>
-						</div>
-						<div class="mt-2 text-[#006A8E] font-medium">
-							Development Potential:
-							{getStationDevelopmentData(selectedStation1).potentialScore >= 7
-								? 'High'
-								: getStationDevelopmentData(selectedStation1).potentialScore >= 5
-									? 'Moderate'
-									: getStationDevelopmentData(selectedStation1).potentialScore >= 2
-										? 'Low'
-										: 'N/A'}
-						</div>
-					</div>
-				</div>
-			{/if}
-		</div>
-
-		<!-- Station 2 -->
-		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
-			<Combobox
-				handleSelect={handleStation2Select}
-				data={transitStationsDropdown}
-				icon="mdi:train"
-				placeholder="Search for a station"
-				selected={selectedStation2}
-			/>
-			{#if station2Error}
-				<div class="error-message text-center mt-2">{station2Error}</div>
-			{/if}
-			{#if station2Data}
-				<div class="mt-4 text-center text-sm text-gray-700">
-					<div class="font-bold uppercase text-[#1B6CA8] tracking-wider mb-1">
-						{station2Data.stop_label}
-					</div>
-					<div class="text-xs text-gray-500 mb-2">
-						Line {station2Data.line_display_name}<br />{station2Data.region}<br
-						/>{station2Data.status}
-					</div>
-					<div class="flex flex-col items-start w-fit mx-auto mt-4 gap-1 text-left">
-						<div>
-							Greenspace: <span class="font-semibold"
-								>{station2Metrics?.greenspace_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-						<div>
-							Water: <span class="font-semibold"
-								>{station2Metrics?.water_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-						<div>
-							Buildings: <span class="font-semibold"
-								>{station2Metrics?.building_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-						<div>
-							Parking: <span class="font-semibold"
-								>{station2Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-						<div class="mt-2 text-[#006A8E] font-medium">
-							Development Potential:
-							{getStationDevelopmentData(selectedStation2).potentialScore >= 7
-								? 'High'
-								: getStationDevelopmentData(selectedStation2).potentialScore >= 5
-									? 'Moderate'
-									: getStationDevelopmentData(selectedStation2).potentialScore >= 2
-										? 'Low'
-										: 'N/A'}
 						</div>
 					</div>
 				</div>
@@ -674,13 +596,14 @@
 						{#each radarCategories as cat}
 							<Tabs.Trigger
 								value={cat.value}
-								class="px-3 w-full py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+								class="px-3 w-1/3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:text-[#ff007f]"
 							>
 								{cat.label}
 							</Tabs.Trigger>
 						{/each}
 					</Tabs.List>
 				</Tabs.Root>
+				<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#db3069', '#00adf2']} />
 				<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
 			</div>
 			<div class="flex flex-col items-center justify-center relative">
@@ -695,42 +618,6 @@
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
 			<div class="flex flex-col items-center justify-center relative">
 				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
-				<div id="map2" class="map-circle drop-shadow-lg w-[90%]"></div>
-
-				{#if unitsCreated2 > 0}
-					<div class="mt-8 flex flex-col items-center">
-						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Approved building permits</span
-						>
-						<div class="flex items-baseline gap-1">
-							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
-								>{unitsCreated2.toFixed(0)}</span
-							>
-						</div>
-					</div>
-				{/if}
-			</div>
-			<div class="flex flex-col h-full w-full items-center gap-4 relative">
-				<h4 class="lg:hidden text-center mb-4">Station Ranking</h4>
-				<Tabs.Root bind:value={activeRadarCategory} class="w-full flex justify-center mb-4">
-					<Tabs.List
-						class="flex w-full justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
-					>
-						{#each radarCategories as cat}
-							<Tabs.Trigger
-								value={cat.value}
-								class="px-3 w-full py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
-							>
-								{cat.label}
-							</Tabs.Trigger>
-						{/each}
-					</Tabs.List>
-				</Tabs.Root>
-				<RadarChart data={devData2.radarPoints} max={100} color="#ff007f" />
-			</div>
-			<div class="flex flex-col items-center justify-center relative">
-				<h4 class="lg:hidden text-center mb-4">Development Potential</h4>
-				<DevelopmentPotentialGraphic score={baseDevData2.potentialScore} maxScore={10} />
 			</div>
 		</div>
 	</div>
@@ -739,8 +626,7 @@
 <Footer />
 
 <style>
-	#map1,
-	#map2 {
+	#map1 {
 		min-width: 200px;
 		min-height: 200px;
 		max-width: 450px;
