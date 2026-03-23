@@ -1,6 +1,7 @@
-<!-- UI component that displays a key metric used on National Transit Map sidebar.-->
 <script>
 	import Icon from '@iconify/svelte';
+	import { backOut } from 'svelte/easing';
+	import { fly } from 'svelte/transition';
 	export let label = '';
 	export let value;
 	export let icon = '';
@@ -10,19 +11,51 @@
 	export let accordion = false;
 	export let active = false;
 	export let disabled = false;
+
+	let container;
+	let visible = true; // set to false and uncomment below if you want to enable the fade in
+
+	// onMount(() => {
+	// 	const observer = new IntersectionObserver(
+	// 		(entries) => {
+	// 			entries.forEach((entry) => {
+	// 				visible = entry.isIntersecting;
+	// 			});
+	// 		},
+	// 		{ threshold: 0.1 }
+	// 	);
+
+	// 	if (container) observer.observe(container);
+
+	// 	return () => observer.disconnect();
+	// });
 </script>
 
-<button {disabled} class="metric" class:active on:click>
-	<div class="text">
-		<div class="value"><Icon {icon} color={iconcolor} />{prefix}{value}{suffix}</div>
-		<div class="label">{label}</div>
-	</div>
-	{#if accordion}
-		<Icon icon="mdi:unfold-more-horizontal" />
+<div class="metric-wrapper" bind:this={container}>
+	{#if visible}
+		<button
+			{disabled}
+			class="metric"
+			class:active
+			on:click
+			in:fly={{ y: 20, duration: 800, easing: backOut }}
+		>
+			<div class="text">
+				<div class="value"><Icon {icon} color={iconcolor} />{prefix}{value}{suffix}</div>
+				<div class="label">{label}</div>
+			</div>
+			{#if accordion}
+				<Icon icon="mdi:unfold-more-horizontal" />
+			{/if}
+		</button>
 	{/if}
-</button>
+</div>
 
 <style>
+	.metric-wrapper {
+		width: 100%;
+		min-height: 50px;
+	}
 	.metric {
 		padding: 0.35em;
 		border: 1px solid #ddd;

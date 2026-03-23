@@ -1,11 +1,10 @@
 <script>
-	import { scaleOrdinal } from 'd3-scale';
 	import { format as d3Format } from 'd3-format';
+	import { scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
-	import Pie from '../chartcomponents/Pie.svelte';
-	import QuadTree from '../chartcomponents/QuadTree.html.svelte';
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
+	import Pie from '../chartcomponents/Pie.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
 	let {
@@ -17,7 +16,10 @@
 		height = '450px',
 		innerRadius = 0,
 		showTooltip = false,
-		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%')
+		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%'),
+		explode = [], // array of xKey values to offset e.g. ['Calgary', 'Montreal']
+		explodeDistance = 20,
+		visible = false
 	} = $props();
 
 	/* ───────────────────────────────────
@@ -37,37 +39,40 @@
 		}))
 	);
 
-	$inspect(chartData).with(console.log);
+	let found = $state(null);
+	let e = $state(null);
 </script>
 
-	<div class="chart-container">
+<div class="chart-container">
 	{#if title}
 		<h4 class="chart-title">{title}</h4>
 	{/if}
 
-	<div 
-		class="chart" 
-		style="height: {height}; min-height: 200px; background: #fafafa; border: 1px dashed #ddd; position: relative;"
-	>
+	<div class="chart" style="height: {height}; min-height: 200px; position: relative;">
 		<LayerCake
 			data={chartData}
 			x={xKey}
 			y={yKey}
 			z={xKey}
 			zScale={scaleOrdinal()}
+			zDomain={chartData.map((d) => d[xKey])}
 			zRange={seriesColors.length > 0 ? seriesColors : defaultColors}
 		>
 			<Svg overflow="visible">
-				<Pie {innerRadius} />
+				<Pie {innerRadius} {xKey} {yKey} bind:found bind:e {explode} {explodeDistance} {visible} />
 			</Svg>
 
 			{#if showTooltip}
 				<Html pointerEvents={false}>
-					<QuadTree let:found let:visible let:e>
-						{#if visible && found && e}
-							<ChartTooltip {found} {e} titleKey={xKey} valueKey={yKey} formatValue={formatTooltipValue} />
-						{/if}
-					</QuadTree>
+					{#if found && e}
+						<ChartTooltip
+							{found}
+							{e}
+							titleKey={xKey}
+							valueKey={yKey}
+							formatValue={formatTooltipValue}
+						/>
+					{/if}
 				</Html>
 			{/if}
 		</LayerCake>

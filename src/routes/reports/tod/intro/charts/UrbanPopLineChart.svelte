@@ -1,5 +1,6 @@
 <script>
 	import MultiLineChart from '../../../../lib/ui/charts/MultiLineChart.svelte';
+	let { visible } = $props();
 
 	const data = [
 		{
@@ -182,6 +183,7 @@
 
 <MultiLineChart
 	{data}
+	{visible}
 	title="Urban Population Growth, 2001-2025"
 	yDomain={[-5, 60]}
 	seriesConfig={[

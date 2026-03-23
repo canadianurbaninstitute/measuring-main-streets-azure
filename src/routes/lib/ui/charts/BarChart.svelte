@@ -1,13 +1,13 @@
 <script>
-	import { scaleBand } from 'd3-scale';
 	import { format as d3Format } from 'd3-format';
+	import { scaleBand } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
 	import AxisX from '../chartcomponents/AxisX.svelte';
 	import AxisY from '../chartcomponents/AxisY.svelte';
 	import Bar from '../chartcomponents/Bar.svelte';
-	import QuadTree from '../chartcomponents/QuadTree.html.svelte';
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
+	import QuadTree from '../chartcomponents/QuadTree.html.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
 	// ── Props ────────────────────────────────────────────────────────────────────
@@ -24,8 +24,9 @@
 	export let wrapLabels = false;
 	export let showTooltip = false;
 	export let formatTooltipValue = (d) => d3Format(',.1f')(d) + '%';
+	export let visible = false;
 
-	/** 
+	/**
 	 * Configuration for groups, including their data value, legend label, and bar color.
 	 */
 	export let groupConfig = [];
@@ -72,7 +73,13 @@
 						<Html>
 							<QuadTree x="y" y="y" dataset={data} let:found let:visible let:e>
 								{#if visible && found && e}
-									<ChartTooltip {found} {e} titleKey={yKey} valueKey={xKey} formatValue={formatTooltipValue} />
+									<ChartTooltip
+										{found}
+										{e}
+										titleKey={yKey}
+										valueKey={xKey}
+										formatValue={formatTooltipValue}
+									/>
 								{/if}
 							</QuadTree>
 						</Html>
@@ -99,7 +106,13 @@
 					<Html>
 						<QuadTree x="y" y="y" let:found let:visible let:e>
 							{#if visible && found && e}
-								<ChartTooltip {found} {e} titleKey={yKey} valueKey={xKey} formatValue={formatTooltipValue} />
+								<ChartTooltip
+									{found}
+									{e}
+									titleKey={yKey}
+									valueKey={xKey}
+									formatValue={formatTooltipValue}
+								/>
 							{/if}
 						</QuadTree>
 					</Html>

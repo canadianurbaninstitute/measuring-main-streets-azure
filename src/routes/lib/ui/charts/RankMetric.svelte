@@ -1,33 +1,61 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { backOut } from 'svelte/easing';
+	import { fly } from 'svelte/transition';
 	export let label = 'National Rank';
 	export let value; // The rank number
 	export let total = ''; // Optional: out of X
 	export let icon = 'mdi:trophy-outline';
 	export let iconcolor = '#002a41';
+
+	let container;
+	let visible = true; // set to false and uncomment belowif you want to enable the fade in
+
+	// onMount(() => {
+	// 	const observer = new IntersectionObserver(
+	// 		(entries) => {
+	// 			entries.forEach((entry) => {
+	// 				visible = entry.isIntersecting;
+	// 			});
+	// 		},
+	// 		{ threshold: 0.1 }
+	// 	);
+
+	// 	if (container) observer.observe(container);
+
+	// 	return () => observer.disconnect();
+	// });
 </script>
 
-<div class="rank-metric">
-	<div class="rank-container">
-		<div class="flex items-baseline gap-1">
-			<span class="hash">#</span>
-			<span class="value">{value}</span>
-			{#if total}
-				<span class="total">/ {total}</span>
-			{/if}
-		</div>
-	</div>
+<div class="rank-metric-wrapper" bind:this={container}>
+	{#if visible}
+		<div class="rank-metric" in:fly={{ y: 20, duration: 800, easing: backOut }}>
+			<div class="rank-container">
+				<div class="flex items-baseline gap-1">
+					<span class="hash">#</span>
+					<span class="value">{value}</span>
+					{#if total}
+						<span class="total">/ {total}</span>
+					{/if}
+				</div>
+			</div>
 
-	<div class="details">
-		<div class="label">
-			{#if icon}
-				<Icon {icon} color={iconcolor} />
-			{/if}{label}
+			<div class="details">
+				<div class="label">
+					{#if icon}
+						<Icon {icon} color={iconcolor} />
+					{/if}{label}
+				</div>
+			</div>
 		</div>
-	</div>
+	{/if}
 </div>
 
 <style>
+	.rank-metric-wrapper {
+		width: 100%;
+		min-height: 120px;
+	}
 	.rank-metric {
 		padding: 0.75em;
 		border: 1px solid #ddd;

@@ -22,6 +22,7 @@
 	export let yDomain = [0, null];
 	export let xTickInterval = 10;
 	export let height = '500px';
+	export let visible = false;
 
 	// ── Internal constants ───────────────────────────────────────────────────────
 	const yKey = 'value'; // LayerCake's yKey after groupLonger
@@ -64,7 +65,7 @@
 			<Svg>
 				<AxisX gridlines={false} ticks={xTicks} format={formatLabelX} tickMarks />
 				<AxisY ticks={4} format={formatLabelY} />
-				<MultiLine />
+				<MultiLine {visible} />
 			</Svg>
 			<Html>
 				<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue} />

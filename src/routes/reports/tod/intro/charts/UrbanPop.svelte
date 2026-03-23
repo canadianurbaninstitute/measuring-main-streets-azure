@@ -1,59 +1,75 @@
 <script>
 	import PieChart from '../../../../lib/ui/charts/PieChart.svelte';
 
+	let { visible = $bindable() } = $props();
+
+	$effect(() => {
+		console.log(visible);
+	});
+
 	const urbanPop = [
 		{
-			region: 'Greater Golden Horseshoe',
+			label: 'Greater Golden Horseshoe',
 			value: 24.3,
-			color: '#00adf2'
-		},
-		{
-			region: 'Montreal',
-			value: 11,
 			color: '#58e965'
 		},
 		{
-			region: 'BC Lower Mainland',
+			label: 'Montreal',
+			value: 11,
+			color: '#a4f3ab'
+		},
+		{
+			label: 'BC Lower Mainland',
 			value: 8,
-			color: '#DB3069'
+			color: '#86efac'
 		},
 		{
-			region: 'Calgary',
+			label: 'Calgary',
 			value: 4.4,
-			color: '#002940'
+			color: '#34d09f'
 		},
 		{
-			region: 'Edmonton',
+			label: 'Edmonton',
 			value: 4.1,
-			color: '#ff007f'
+			color: '#2b8751'
 		},
 		{
-			region: 'Ottawa-Gatineau',
+			label: 'Ottawa-Gatineau',
 			value: 4.1,
-			color: '#f59e0b'
+			color: '#226a40'
 		},
 		{
-			region: 'Non-urban',
+			label: 'Non-urban',
 			value: 15.3,
-			color: '#7c3aed'
+			color: '#446273'
 		},
 		{
-			region: 'Urban regions 10,000 to 100,000',
+			label: 'Urban regions 10,000 to 100,000',
 			value: 9.9,
-			color: '#10b981'
+			color: '#617a89'
 		},
 		{
-			region: 'All other urban regions >100,000',
+			label: 'All other urban regions >100,000',
 			value: 19,
-			color: '#f43f5e'
+			color: '#8ea1ab'
 		}
 	];
 </script>
 
 <PieChart
 	data={urbanPop}
-	xKey="region"
+	{visible}
+	xKey="label"
 	yKey="value"
 	title="Six ‘transit regions’ share of Canadian population"
 	showTooltip={true}
+	explode={[
+		'Greater Golden Horseshoe',
+		'Montreal',
+		'BC Lower Mainland',
+		'Calgary',
+		'Edmonton',
+		'Ottawa-Gatineau'
+	]}
+	seriesConfig={urbanPop}
 />

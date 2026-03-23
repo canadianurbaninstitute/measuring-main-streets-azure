@@ -1,13 +1,13 @@
 <script>
-	let { 
-		id = '', 
-		title = 'Key Findings', 
-		finding1 = '', 
-		description1 = '', 
-		finding2 = '', 
-		description2 = '', 
-		finding3 = '', 
-		description3 = '' 
+	let {
+		id = '',
+		title = 'Key Findings',
+		finding1 = '',
+		description1 = '',
+		finding2 = '',
+		description2 = '',
+		finding3 = '',
+		description3 = ''
 	} = $props();
 </script>
 
@@ -23,7 +23,7 @@
 			<div class="flip-card">
 				<div class="flip-card-inner">
 					<div class="flip-card-front">
-						<h2 style="color: white;">{finding2}</h2>
+						<h2 style="color: white; 	margin-bottom: 20px;">{finding2}</h2>
 						<h3 style="color: white;">{description2}</h3>
 					</div>
 					<div class="flip-card-back">
@@ -37,7 +37,7 @@
 			</div>
 
 			<div class="card">
-				<h2>{finding3}</h2>
+				<h2 style="margin-bottom: 20px;">{finding3}</h2>
 				<h3 style="color: white;">{description3}</h3>
 			</div>
 		</div>
@@ -64,11 +64,6 @@
 		width: 100%;
 		max-width: 1200px;
 	}
-
-	.title {
-		margin: 0;
-	}
-
 	.cards {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -88,6 +83,18 @@
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	}
+
+	.card h3,
+	.flip-card-front h3 {
+		font-size: 1.3rem;
+		font-weight: 400;
+	}
+
+	.card h2,
+	.flip-card-front h2 {
+		line-height: 1;
+		font-size: 2rem;
 	}
 	.flip-card {
 		background-color: transparent;

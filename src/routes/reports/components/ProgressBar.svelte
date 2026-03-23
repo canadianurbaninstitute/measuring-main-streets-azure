@@ -328,12 +328,12 @@
 	.circle.hovered {
 		transform: translate(-50%, -50%) scale(1.5);
 		box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-		border-color: #2563eb;
+		border-color: var(--brandLightBlue);
 		outline: none;
 	}
 
 	.circle:focus-visible {
-		outline: 2px solid #2563eb;
+		outline: 2px solid var(--brandLightBlue);
 		outline-offset: 3px;
 	}
 
@@ -355,7 +355,7 @@
 		align-items: center;
 		gap: 0.5em;
 
-		background: var(--range-slider);
+		background: var(--color-slate-50);
 		color: #000;
 		font-size: 0.68rem;
 		padding: 0.35em 0.7em;
@@ -370,12 +370,12 @@
 			left: 50%;
 			transform: translateX(-50%);
 			border: 5px solid transparent;
-			border-top-color: var(--range-slider);
+			border-top-color: var(--color-slate-50);
 		}
 	}
 
 	.tooltip-index {
-		color: #2563eb;
+		color: var(--brandLightBlue);
 		font-weight: 700;
 	}
 </style>

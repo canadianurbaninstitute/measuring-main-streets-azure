@@ -87,8 +87,10 @@
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
+	});
 
-		console.log(JobGrowthSectorData);
+	$effect(() => {
+		console.log(activePanelUid);
 	});
 </script>
 
@@ -146,7 +148,7 @@
 							/>
 						{:else if panel.config?.type === 'component'}
 							{@const Component = panel.config.component}
-							<Component />
+							<Component visible={activePanelUid === panel.uid} />
 						{/if}
 					</VisPanel>
 				{/each}
