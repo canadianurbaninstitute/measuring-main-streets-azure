@@ -577,7 +577,7 @@
 				{#if unitsCreated1 > 0}
 					<div class="mt-8 flex flex-col items-center">
 						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Approved building permits</span
+							>Approved Units</span
 						>
 						<div class="flex items-baseline gap-1">
 							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
