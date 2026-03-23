@@ -171,6 +171,7 @@
 			if (e.features.length > 0) {
 				const coordinates = e.features[0].geometry.coordinates.slice();
 				const properties = e.features[0].properties;
+				const id = e.features[0].id;
 
 				// Ensure appropriate zoom levels when handling clusters vs single points
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -188,6 +189,7 @@
 					onStationClick({
 						lng: coordinates[0],
 						lat: coordinates[1],
+						id,
 						properties,
 						mapInstance: map,
 						point: e.point

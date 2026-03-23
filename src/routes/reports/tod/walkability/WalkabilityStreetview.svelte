@@ -5,7 +5,7 @@
 	import Icon from '@iconify/svelte';
 	import chroma from 'chroma-js';
 
-	let { coords, properties, onClose } = $props();
+	let { coords, properties, onClose, id } = $props();
 
 	let panoContainer;
 	let panorama;
@@ -129,11 +129,11 @@
 				"{properties?.best_explanation}"
 			</div>
 		{/if}
-		{#if properties?.id}
+		{#if id}
 			<div
 				class="mt-3 p-3 bg-zinc-50 rounded-lg border border-zinc-100 text-[11px] text-zinc-600 leading-relaxed italic"
 			>
-				"{properties?.id}"
+				ID: {id}
 			</div>
 		{/if}
 
