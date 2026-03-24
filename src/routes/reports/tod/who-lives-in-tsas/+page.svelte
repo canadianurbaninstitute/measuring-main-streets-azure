@@ -13,38 +13,32 @@
 	import data from './data/TSA_all_demos.csv';
 
 	// Components
-	import HeroCard from '../../../lib/ui/HeroCard.svelte';
+	import CardSelector from './components/CardSelector.svelte';
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import StatChart from './components/StatBarChart.svelte';
 	import '../../../styles.css';
+	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import Icon from '@iconify/svelte';
 
 	let selectedRegion = 'Canada';
 
-	const images = {
-		Canada,
-		Vancouver: Vancouver,
-		Calgary: Calgary,
-		Edmonton: Edmonton,
-		'Kitchener - Cambridge - Waterloo': KWC,
-		Montreal: Montreal,
-		'Ottawa - Gatineau': Ottawa,
-		Toronto: Toronto,
-		Canada: Canada
-	};
 	const regions = [
-		{ value: 'Canada', name: 'Canada' },
-		{ value: 'Calgary', name: 'Calgary' },
-		{ value: 'Edmonton', name: 'Edmonton' },
-		{ value: 'Kitchener - Cambridge - Waterloo', name: 'Kitchener - Cambridge - Waterloo' },
-		{ value: 'Montreal', name: 'Montreal' },
-		{ value: 'Ottawa - Gatineau', name: 'Ottawa - Gatineau' },
-		{ value: 'Toronto', name: 'Toronto' },
-		{ value: 'Vancouver', name: 'Vancouver' }
+		{ value: 'Canada', name: 'Canada', image: Canada },
+		{ value: 'Calgary', name: 'Calgary', image: Vancouver },
+		{ value: 'Edmonton', name: 'Edmonton', image: Edmonton },
+		{
+			value: 'Kitchener - Cambridge - Waterloo',
+			name: 'Kitchener - Cambridge - Waterloo',
+			image: KWC
+		},
+		{ value: 'Montreal', name: 'Montreal', image: Montreal },
+		{ value: 'Ottawa - Gatineau', name: 'Ottawa - Gatineau', image: Ottawa },
+		{ value: 'Toronto', name: 'Toronto', image: Toronto },
+		{ value: 'Vancouver', name: 'Vancouver', image: Vancouver }
 	];
 
-	$: currentImage = images[selectedRegion] ?? null;
+	$: currentImage = regions.find((region) => region.value === selectedRegion)?.image ?? null;
 
 	$: selectedRow = data.find((d) => d.Region === selectedRegion) ?? data[0];
 
@@ -56,14 +50,15 @@
 	}
 
 	// Overall
+	// TODO: force sum to 100
 	$: areaData = [
 		{
-			label: 'Area (%)',
+			label: 'TSA Area (%)',
 			value: 100 - selectedRow.area_pct,
 			group: 'Region'
 		},
 		{
-			label: 'Area (%)',
+			label: 'TSA Area (%)',
 			value: selectedRow.area_pct,
 			group: 'TSAs'
 		}
@@ -89,6 +84,10 @@
 	<h1 class="infographic-title p-10" style="text-align: center;">
 		Who Lives in {selectedRow.Region}'s Transit Station Areas?
 	</h1>
+	<div class="center font-semibold" style="color: var(--brandDarkBlue);">Select a Region:</div>
+	<div class="center p-4 sticky">
+		<CardSelector options={regions} bind:selected={selectedRegion} />
+	</div>
 
 	<div class="region-description grid grid-cols-1 md:grid-cols-2 gap-4 p-10">
 		<div class="image-container flex items-center justify-center">
@@ -96,19 +95,16 @@
 				<img src={currentImage} alt={selectedRegion} class="region-image" />
 			{/if}
 		</div>
-		<div>
-			<div class="region-selector pb-8">
-				<label for="region-select" class="selector-label">Select a region:</label>
-				<select id="region-select" bind:value={selectedRegion} class="selector">
-					{#each regions as region}
-						<option value={region.value}>{region.name}</option>
-					{/each}
-				</select>
+		<div class="pt-10">
+			<div class="flex items-end gap-2">
+				<div class="chart-stat shrink-0 leading-none mt-1">{Math.round(selectedRow.area_pct)}%</div>
+				<div class="w-60 mb-1">
+					<span style="color: var(--brandDarkBlue);">
+						<b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b>
+					</span>
+				</div>
 			</div>
-			<div class="chart-stat">{Math.round(selectedRow.area_pct)}%</div>
-			<span style="color: var(--brandDarkBlue);"
-				><b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b></span
-			>
+
 			<div class="w-120 pb-8">
 				<BarChart
 					colors={['#d9d9d9', '#f1c500']}
@@ -117,7 +113,6 @@
 					yKey="label"
 					zKey="group"
 					mode="default"
-					legend="true"
 					xSuffix="%"
 					padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
 				/>
@@ -311,6 +306,7 @@
 		</div>
 	</div>
 </main>
+<Footer />
 
 <style>
 	.infographic-title {
@@ -331,39 +327,14 @@
 		max-width: 800px;
 	} */
 	.chart-stat {
-		font-size: 60px;
+		font-size: 70px;
 		font-weight: 600;
 		color: var(--brandYellow);
-	}
-	.region-selector {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		margin-bottom: 8px;
 	}
 	.section-description {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-	}
-	.selector-label {
-		font-size: 16px;
-		font-weight: 600;
-		color: var(--brandDarkBlue);
-	}
-	.selector {
-		font-size: 16px;
-		padding: 8px 12px;
-		border: 2px solid var(--brandDarkBlue);
-		border-radius: 6px;
-		color: var(--brandDarkBlue);
-		background: white;
-		cursor: pointer;
-		min-width: 280px;
-	}
-	.selector:focus {
-		outline: none;
-		border-color: var(--brandPink);
 	}
 	.region-image {
 		width: 100%;
@@ -371,5 +342,21 @@
 		height: auto;
 		margin-bottom: 20px;
 		border-radius: 8px;
+	}
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.sticky {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		background-color: #ffffff;
+	}
+	@media (max-width: 1024px) {
+		.sticky {
+			position: static;
+		}
 	}
 </style>
