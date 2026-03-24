@@ -56,6 +56,18 @@
 	}
 
 	// Overall
+	$: areaData = [
+		{
+			label: 'Area (%)',
+			value: 100 - selectedRow.area_pct,
+			group: 'Region'
+		},
+		{
+			label: 'Area (%)',
+			value: selectedRow.area_pct,
+			group: 'TSAs'
+		}
+	];
 	$: popData = buildData(selectedRow, 'Population_In', 'Population_Out');
 	$: dwellingsData = buildData(selectedRow, 'Dwellings_In', 'Dwellings_Out');
 	$: employmentData = buildData(selectedRow, 'Employment_In', 'Employment_Out');
@@ -93,11 +105,30 @@
 					{/each}
 				</select>
 			</div>
+			<div class="chart-stat">{Math.round(selectedRow.area_pct)}%</div>
+			<span style="color: var(--brandDarkBlue);"
+				><b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b></span
+			>
+			<div class="w-120 pb-8">
+				<BarChart
+					colors={['#d9d9d9', '#f1c500']}
+					data={areaData}
+					xKey="value"
+					yKey="label"
+					zKey="group"
+					mode="default"
+					legend="true"
+					xSuffix="%"
+					padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
+				/>
+			</div>
+
 			<p>
 				<b style="color: var(--brandDarkBlue);">Transit Station Areas (TSAs)</b> refer to the area
 				within an 800m radius of a transit station.<br /><br />
 
-				The following data compares the population within TSAs to the population outside of TSAs in
+				The following data compares the population within Transit Station Areas to the population
+				outside of Transit Station Areas in
 				<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME}</b>.
 			</p>
 		</div>
@@ -110,9 +141,9 @@
 				At a Glance
 			</span>
 		</div>
-		<div class="section-description text-center text-wrap pb-8">
-			TSAs generally make up a very small portion of the land area in their regions. However, they
-			are extremely efficient when it comes to population and dwelling density.
+		<div class="section-description text-center pb-8">
+			Transit Station Areas make up a very small portion of the land area in their regions. However,
+			they are extremely efficient when it comes to population and dwelling density.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 			{#key selectedRegion}
@@ -123,18 +154,14 @@
 					statLabelInside="people"
 					statLabelOutside="people"
 					color="#00adf2"
-				/>
-
-				<StatChart
+				/><StatChart
 					title="Dwellings"
 					data={dwellingsData}
 					{selectedRow}
 					statLabelInside="dwellings"
 					statLabelOutside="dwellings"
 					color="#00adf2"
-				/>
-
-				<StatChart
+				/><StatChart
 					title="Employment"
 					data={employmentData}
 					{selectedRow}
@@ -155,8 +182,9 @@
 		</div>
 		<div class="section-description text-center text-wrap pb-8">
 			In order to be so efficient in such a small area, the urban form must go vertical rather than
-			spreading horizontally. This is the case in the TSA housing stock. A higher percentage of
-			residents in TSAs spend over 30% of their income on shelter costs.
+			spreading horizontally. This is the case in the Transit Station Area housing stock. A higher
+			percentage of residents in Transit Station Areas spend over 30% of their income on shelter
+			costs.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 			{#key selectedRegion}
@@ -202,7 +230,8 @@
 		</div>
 		<div class="section-description text-center text-wrap pb-8">
 			On average, have a higher percentage of residents who use active and public transportation.
-			Residents of TSAs also spend less on transportation on average compared to their region.
+			Residents of Transit Station Areas also spend less on transportation on average compared to
+			their region.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 			{#key selectedRegion}
@@ -244,7 +273,7 @@
 			</span>
 		</div>
 		<div class="section-description text-center text-wrap pb-8">
-			So who lives in Transit Station Areas? TSA communities are usually oriented towards young,
+			So who lives in Transit Station Areas? These communities are usually oriented towards young,
 			highly-educated renters.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -301,11 +330,21 @@
 		text-wrap: balance;
 		max-width: 800px;
 	} */
+	.chart-stat {
+		font-size: 60px;
+		font-weight: 600;
+		color: var(--brandYellow);
+	}
 	.region-selector {
 		display: flex;
 		align-items: center;
 		gap: 12px;
 		margin-bottom: 8px;
+	}
+	.section-description {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	.selector-label {
 		font-size: 16px;
