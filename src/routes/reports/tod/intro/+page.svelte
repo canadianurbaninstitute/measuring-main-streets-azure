@@ -15,9 +15,17 @@
 	// Charts
 	import { onMount } from 'svelte';
 	import train from '../../../lib/assets/graphics/train-long.svg';
+	import mississauga from '../../assets/mississauga.png';
+	import montreal from '../../assets/montreal.png';
+	import renfrew from '../../assets/renfrew.png';
+
+	import CommuteTime from './charts/CommuteTime.svelte';
 	import GatewayCities from './charts/GatewayCities.svelte';
 	import HousingNeed from './charts/HousingNeed.svelte';
 	import JobGrowthSector from './charts/JobGrowthSector.svelte';
+	import Line5 from './charts/Line5.svelte';
+	import Line5Line6 from './charts/Line5Line6.svelte';
+	import TOD from './charts/TOD.svelte';
 	import UrbanPop from './charts/UrbanPop.svelte';
 	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
 
@@ -29,7 +37,26 @@
 		'urban-pop-growth': { type: 'component', component: UrbanPopLineChart },
 		'urban-economy': { type: 'component', component: JobGrowthSector },
 		gateway: { type: 'component', component: GatewayCities },
-		housing: { type: 'component', component: HousingNeed }
+		housing: { type: 'component', component: HousingNeed },
+		commute: { type: 'component', component: CommuteTime },
+		development: { type: 'component', component: TOD },
+		line5: { type: 'component', component: Line5Line6 },
+		pipeline: { type: 'component', component: Line5 },
+		forces: {
+			type: 'image',
+			src: renfrew,
+			alt: 'Catchment area map example for Renfrew Station'
+		},
+		forces2: {
+			type: 'image',
+			src: mississauga,
+			alt: 'Major Transit Station Area Map Mississauga'
+		},
+		forces3: {
+			type: 'image',
+			src: montreal,
+			alt: 'Les aires TOD de Montréal'
+		}
 	};
 	/**
 	 * Flatten all panels, tagging each with a globally-unique uid
@@ -63,10 +90,7 @@
 	// ── Progress bar ──────────────────────────────────────────────────────────
 	const navSections = sections.map((section, si) => ({
 		firstStepIndex: steps.findIndex((s) => s.panelUid.startsWith(`${si}:`)),
-		label:
-			section.blocks.find((b) => b.heading)?.heading ??
-			section.panels[0]?.label ??
-			`Section ${si + 1}`
+		label: section.blocks.find((b) => b.heading)?.heading ?? `Section ${si + 1}`
 	}));
 
 	const items = [

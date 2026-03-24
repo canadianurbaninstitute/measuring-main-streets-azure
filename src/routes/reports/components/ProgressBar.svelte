@@ -160,6 +160,42 @@
 	}
 
 	let hoveredIndex = $state(null);
+
+	/**
+	 * Svelte action: clamps the tooltip horizontally within the usable viewport.
+	 *
+	 * Rather than measuring the tooltip's own (transform-adjusted) rect, we derive
+	 * the circle center from the stable parent button rect and compute where the
+	 * centered tooltip WOULD land — then shift only if needed. The tooltip is hidden
+	 * for one frame so there's no visible flicker before the correction is applied.
+	 */
+	function clampTooltip(node) {
+		node.style.visibility = 'hidden';
+		requestAnimationFrame(() => {
+			const vw = document.documentElement.clientWidth; // excludes scrollbar
+			const pad = 4;
+			const tW = node.offsetWidth;
+
+			// The circle button is the direct parent
+			const btn = node.parentElement;
+			const btnRect = btn.getBoundingClientRect();
+			const cx = btnRect.left + btnRect.width / 2; // circle center in screen px
+
+			// Where the tooltip's left/right edges would naturally land (centred on cx)
+			const naturalLeft = cx - tW / 2;
+			const naturalRight = cx + tW / 2;
+
+			if (naturalLeft < pad) {
+				// Too far left — push right
+				node.style.transform = `translateX(calc(-50% + ${pad - naturalLeft}px))`;
+			} else if (naturalRight > vw - pad) {
+				// Too far right — push left
+				node.style.transform = `translateX(calc(-50% - ${naturalRight - cx}px))`;
+			}
+
+			node.style.visibility = '';
+		});
+	}
 </script>
 
 <nav class="progress-bar" aria-label="Article progress">
@@ -216,9 +252,9 @@
 				onfocusout={() => (hoveredIndex = null)}
 			>
 				{#if isHovered}
-					<span class="tooltip" role="tooltip">
+					<span class="tooltip" role="tooltip" use:clampTooltip>
 						<span class="tooltip-index">{String(i + 1).padStart(2, '0')}</span>
-						{item.label}
+						<span class="tooltip-label">{item.label}</span>
 					</span>
 				{/if}
 			</button>
@@ -356,26 +392,23 @@
 		gap: 0.5em;
 
 		background: var(--color-slate-50);
-		color: #000;
-		font-size: 0.68rem;
+		color: var(--color-blue-900);
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 0.6rem;
 		padding: 0.35em 0.7em;
 		border-radius: 3px;
 		pointer-events: none;
-
-		/* Tail */
-		&::after {
-			content: '';
-			position: absolute;
-			top: 100%;
-			left: 50%;
-			transform: translateX(-50%);
-			border: 5px solid transparent;
-			border-top-color: var(--color-slate-50);
-		}
 	}
 
 	.tooltip-index {
 		color: var(--brandLightBlue);
 		font-weight: 700;
+		flex-shrink: 0;
+	}
+
+	.tooltip-label {
+		font-size: inherit;
+		font-weight: 400;
 	}
 </style>

@@ -25,6 +25,10 @@
 	export let showTooltip = false;
 	export let formatTooltipValue = (d) => d3Format(',.1f')(d) + '%';
 	export let visible = false;
+	export let xLabel = '';
+	export let yLabel = '';
+	export let xTicks = undefined;
+	export let yTicks = undefined;
 
 	/**
 	 * Configuration for groups, including their data value, legend label, and bar color.
@@ -63,8 +67,8 @@
 				>
 					<Svg>
 						{#if i === 0}
-							<AxisX tickMarks baseline snapLabels />
-							<AxisY tickMarks gridlines={false} wrap={wrapLabels} />
+							<AxisX tickMarks baseline snapLabels label={xLabel} ticks={xTicks} />
+							<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
 						{/if}
 						<Bar fill={color} />
 					</Svg>
@@ -97,8 +101,8 @@
 				{data}
 			>
 				<Svg>
-					<AxisX tickMarks baseline snapLabels />
-					<AxisY tickMarks gridlines={false} wrap={wrapLabels} />
+					<AxisX tickMarks baseline snapLabels label={xLabel} ticks={xTicks} />
+					<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
 					<Bar fill={barColor} />
 				</Svg>
 

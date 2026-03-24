@@ -54,5 +54,6 @@
 		letter-spacing: 0.08em;
 		color: var(--color-slate-400);
 		text-align: left;
+		word-break: break-all;
 	}
 </style>

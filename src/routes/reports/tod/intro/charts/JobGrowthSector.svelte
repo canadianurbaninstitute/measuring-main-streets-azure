@@ -26,6 +26,7 @@
 		xTickInterval={90}
 		title="Job Growth by Sector, 1976-2025"
 		yDomain={[0, 18000]}
+		yLabel="Jobs"
 		seriesConfig={[
 			{
 				key: 'Services-producing sectors',

@@ -34,22 +34,15 @@ export const sections = [
 				id: 'urban-pop',
 				label: 'Figure 1 – Six ‘transit regions’ share of Canadian population',
 				source: 'Statistics Canada. Table 17-10-0148-01  Population estimates, July 1, by census metropolitan area and census agglomeration, 2021 boundaries'
-			}
+			},
+			{ id: 'urban-pop-growth', label: 'Figure 2 – Population growth by region size', source: 'Statistics Canada. Table 17-10-0148-01  Population estimates, July 1, by census metropolitan area and census agglomeration, 2021 boundaries' },
 		],
 		blocks: [
 			{
 				eyebrow: '',
 				heading: 'The growth of Canada’s largest cities, continued?',
 				body: `Canada’s largest metropolitan Regions (Toronto, Montreal, Vancouver, Calgary, Edmonton, and Ottawa) account for xx% of the Canadian population.`
-			}
-		]
-	},
-	{
-		panels: [
-			{ id: 'urban-pop-growth', label: 'Figure 2 – Population growth by region size', source: 'Statistics Canada. Table 17-10-0148-01  Population estimates, July 1, by census metropolitan area and census agglomeration, 2021 boundaries' },
-			{ id: 'test-image', label: 'Test Image' }
-		],
-		blocks: [
+			},
 			{
 				panelId: 'urban-pop-growth',
 				body: `<b>These regions are also growing at a faster rate with xx households on average added each year between 2001 and 2025.</b> 
@@ -97,17 +90,54 @@ export const sections = [
 	},
 	{
 		panels: [
-			{ id: 'transit', label: 'Figure 6 – Commute times in the largest urban regions' }
+			{ id: 'commute', label: 'Figure 6 – Commute times in the largest urban regions', source: 'Statistics Canada. Table 98-10-0465-01  Main mode of commuting by commuting duration, time leaving for work, industry sectors, occupation broad category and gender: Canada, provinces and territories, census metropolitan areas and census agglomerations with parts' }
 		],
 		blocks: [
 			{
-				panelId: 'transit',
+				panelId: 'commute',
 				heading: 'The need for higher order public transit in Canada’s largest urban regions',
 				body: `Investments in public transit are vital to maintaining growth in the largest urban regions. As demand rises for land it becomes more valuable, putting upward pressures on costs. In this scenario, housing projects can quickly become unviable. Building at higher densities can help overcome this obstacle, but as large cities grow in this manner, they become harder to move through. Friction of movement simultaneously reduces cities’ economic advantage and diminishes quality of life. The Toronto Region Board of Trade  estimates that congestion in the Greater Toronto and Hamilton Region is costing the economy $44B per year. Investments in public transit infrastructure is the most effective solution to these problems. They improve mobility and quality of life which are reflected in associated land values which in turn attracts further private sector investment in housing construction. If it becomes too difficult to move through cities, people tend to start moving out of them.`
 			},
 			{
-				panelId: 'transit',
+				panelId: 'commute',
 				body: 'There are six regions with higher order public transit infrastructure with a seventh in planning stages (Quebec). In these six regions there are xx LRT lines, xx subway/metro lines, and xx commuter rail lines. There are xx LRT lines under construction with an additional xx in the planning stages. There is one subway line under construction as well as a range of additions and upgrades to commuter rail. In total there are xx higher order transit stations with an additional xx under construction or in the planning stages. Xx million people currently live with 800m of a higher order transit station. '
+			}
+		]
+	},
+	{
+		panels: [
+			{ id: 'development', label: 'Figure 7 – Transit-Oriented Development by Select Municipalities ', source: 'Statistics Canada. Table 98-10-0002-01  Population and dwelling counts: Canada and census subdivisions (municipalities)' },
+			{ id: 'line5', label: 'Figure 8 – Housing development trajectories of Line 5 and Line 6 in Toronto ', source: '' },
+			{ id: 'pipeline', label: 'Figure 9 – Housing pipeline for Line 5 in Toronto', source: '' },
+			{ id: 'forces', label: 'Figure 10a – Examples of Transit Station Zoning Policies', source: '<a href="https://www2.gov.bc.ca/assets/gov/housing-and-tenancy/tools-for-government/local-governments-and-housing/toa_provincial_policy_manual.pdf" target="_blank">https://www2.gov.bc.ca/assets/gov/housing-and-tenancy/tools-for-government/local-governments-and-housing/toa_provincial_policy_manual.pdf</a>' },
+			{ id: 'forces2', label: 'Figure 10b – Examples of Transit Station Zoning Policies', source: '<a href="https://www.mississauga.ca/wp-content/uploads/2022/11/City-wide-MTSA_Virtual_Information_Session_Presentation_April_26_2022.pdf" target="_blank">https://www.mississauga.ca/wp-content/uploads/2022/11/City-wide-MTSA_Virtual_Information_Session_Presentation_April_26_2022.pdf</a>' },
+			{ id: 'forces3', label: 'Figure 10c – Examples of Transit Station Zoning Policies', source: '<a href="https://cmm.qc.ca/wp-content/uploads/2019/03/pmad_plan_metropolitain_amenagement_developpement.pdf" target="_blank">https://cmm.qc.ca/wp-content/uploads/2019/03/pmad_plan_metropolitain_amenagement_developpement.pdf </a>' },
+		],
+		blocks: [
+			{
+				panelId: 'development',
+				heading: 'Maximizing the impacts of transit investments on new home development ',
+				body: `Not all transit projects deliver the same return however, in terms of spurring home building. Market demand for transit-oriented development is not equal between cities, transit lines within cities, or even transit stations across lines. Each location possesses unique characteristics that provide varying appeal to future residents. Relative demand versus land supply also plays a significant factor, with the core municipalities of the three largest urban regions (Toronto, Montreal, Vancouver) seeing most new home construction close to major transit stations, while the next three largest (Calgary, Edmonton, Ottawa) still experience more building outside of transit station areas.`
+			},
+			{
+				panelId: 'line5',
+				body: `Two recently opened LRT lines in Toronto (Line 5 and Line 6) offer an example of divergent housing construction trajectories within the same municipal context with 140,844 new homes currently under construction or proposed for the Line 5 corridor and 23,430 units in the pipeline for Line 6.`
+			},
+			{
+				panelId: 'pipeline',
+				body: `Line 5 further demonstrates the variance of housing construction along its length with some stations seeing modest levels of home building in contrast to a handful that each have 25,000 or more units proposed to be built within 800m.  `
+			},
+			{
+				panelId: 'forces',
+				body: `Market forces are not the only consideration that shapes what gets built where. To maximize the home building return on higher order transit investments, provinces and municipalities can work together to align planning regulations. In making fiscal contributions to transit infrastructure projects, the federal government may also attach conditions to the funding so that planning policies work to support the investment by encouraging nearby housing construction.`
+			},
+			{
+				panelId: 'forces2',
+				body: `In some contexts, policies that permit higher densities may not be enough to spur significant home building. Calgary, Edmonton, and Ottawa continue to experience more development outside of transit station areas than inside. Much of this occurs in greenfield contexts as land is still relatively plentiful and transportation congestion issues have not reached the problematic levels found in the largest urban regions. However, car- centric greenfield developments often act to undercut the support for transit investments, making it more difficult for cities to make the case for transit as a foundation for how and where the city grows.`
+			},
+			{
+				panelId: 'forces3',
+				body: `There are a number of policy options to steer more development to transit station areas. One, would be to increase land use restrictions in greenfield areas. Additionally, provinces and municipalities can create incentives to build near transit through reduced municipal fees, including development charges. A third option is to further invest in building amenities within transit station areas so to make them more attractive to prospective residents — to create Transit-Oriented Developments.`
 			}
 		]
 	}

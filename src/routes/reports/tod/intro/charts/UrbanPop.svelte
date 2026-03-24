@@ -3,10 +3,6 @@
 
 	let { visible = $bindable() } = $props();
 
-	$effect(() => {
-		console.log(visible);
-	});
-
 	const urbanPop = [
 		{
 			label: 'Greater Golden Horseshoe',
