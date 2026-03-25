@@ -4,7 +4,7 @@
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
-	import BubbleChart from '../../lib/ui/BubbleChart.svelte';
+	import BubbleChart from '../../lib/ui/charts/BubbleChart.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
 
 	import '../../styles.css';

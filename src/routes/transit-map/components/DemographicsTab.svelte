@@ -9,8 +9,8 @@
 		UniversityDegree,
 		VisibleMinorityTotal
 	} from '../../lib/data/transitdata/config.json';
-	import DonutMetric from '../../lib/ui/DonutMetric.svelte';
-	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
+	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
+	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
 	import './tabs.css';
 
 	let { selectedStation, ageData, selectedVariable = $bindable(), onSelectVariable } = $props();

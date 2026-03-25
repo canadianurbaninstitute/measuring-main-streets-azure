@@ -1,0 +1,144 @@
+/**
+ * article.js
+ *
+ * Data shape
+ * ──────────
+ * Each section has:
+ *   panels   {Panel[]}  — one or more visualization panels for this section.
+ *                         Each panel has a unique `id` scoped to the section,
+ *                         plus either a `component` key or an `image` key
+ *                         (resolved in +page.svelte).
+ *   blocks   {Block[]}  — text steps. Each block may set `panelId` to switch
+ *                         to a specific panel mid-section. If omitted, the
+ *                         first panel in the section is shown.
+ *
+ * Panel shape:
+ *   id        {string}  — unique within the section (e.g. 'chart', 'map-2')
+ *   label     {string}  — accessible caption shown below the panel (optional)
+ *
+ *   One of:
+ *   component {string}  — key into the visComponents map in +page.svelte
+ *   image     {object}  — { src, alt, caption?, fit? } — rendered by VisImage
+ *
+ * Block shape:
+ *   panelId   {string}  — which panel to show (defaults to panels[0].id)
+ *   eyebrow   {string}  — optional small label
+ *   heading   {string}  — optional heading
+ *   body      {string}  — HTML string (supports <p> <strong> <em> etc.)
+ */
+
+export const sections = [
+	{
+		panels: [
+			{
+				id: 'urban-pop',
+				label: 'Figure 1 – Six ‘transit regions’ share of Canadian population',
+				source: 'Statistics Canada. Table 17-10-0148-01  Population estimates, July 1, by census metropolitan area and census agglomeration, 2021 boundaries'
+			},
+			{ id: 'urban-pop-growth', label: 'Figure 2 – Population growth by region size', source: 'Statistics Canada. Table 17-10-0148-01  Population estimates, July 1, by census metropolitan area and census agglomeration, 2021 boundaries' },
+		],
+		blocks: [
+			{
+				eyebrow: '',
+				heading: 'The growth of Canada’s largest cities, continued?',
+				body: `Canada’s largest metropolitan Regions (Toronto, Montreal, Vancouver, Calgary, Edmonton, and Ottawa) account for xx% of the Canadian population.`
+			},
+			{
+				panelId: 'urban-pop-growth',
+				body: `<b>These regions are also growing at a faster rate with xx households on average added each year between 2001 and 2025.</b> 
+				This is due primarily to job growth and immigration. The housing crisis in Canada by many measures is most acute in the largest cities.
+				 Polices at the federal, provincial, and municipal levels need to be sensitive to the structural differences between localities when crafting 
+				policies and making infrastructure investments. Building higher order public transit is one of the most impactful measures governments are making 
+				that directly addresses the housing shortages in Canada’s largest cities. Investments in public transit are about much more than transportation,
+				 they are foundational investments in city building.`
+			}
+		]
+	},
+	{
+		panels: [{ id: 'urban-economy', label: 'Figure 3 – Growth in goods producing and servicing producing sectors.', source: 'Statistics Canada. Table 14-10-0355-01  Employment by industry, monthly, seasonally adjusted and unadjusted, and trend-cycle, last 5 months (x 1,000)' }],
+		blocks: [
+			{
+				panelId: 'urban-economy',
+				heading: 'Canada’s urban economy',
+				body: `Job growth has been one of the main drivers of population growth in Canada’s urban regions. The six transit regions have added 2.6 million jobs since 2011 representing 2 out of every 3 net new jobs in the country. This runs counter to the long-standing popular narrative that Canada’s economic engine is driven by the natural resource sector.  While goods production (i.e. agriculture, natural resources, manufacturing) do account for a much larger share of exports, they account for far fewer direct jobs. Over the past 50 years job creation in goods producing sectors has been largely flat, adding only 900 thousand positions. That is in stark contrast with service producing sectors which have added over 10 million jobs over the same time-period. Service industries are mainly dependent not only on people, but on the relationships between them. Despite advances in digital communications technologies, operating in close physical proximity still offers significant advantages. The key point is that service sector job growth skews towards the largest urban areas, and even more specifically, towards the downtowns of big cities.`
+			}
+		]
+	},
+	{
+		panels: [
+			{ id: 'gateway', label: 'Figure 4 – Share of immigration by geography 2001-2025', source: 'Statistics Canada. Table 17-10-0149-01  Components of population change by census metropolitan area and census agglomeration, 2021 boundaries' },
+		],
+		blocks: [
+			{
+				panelId: 'gateway',
+				heading: 'Gateway cities',
+				body: `The other main driver of population growth is immigration. The six largest urban regions are home to three quarters of all immigrants in Canada. While people tend to be drawn to economic opportunities, newcomers also seek out communities that provide social and cultural supports. Over the past few decades, there has been a self-reinforcing cycle of more jobs, attracting more people, which in turn attract more jobs, resulting in the largest Canadian cities  growing at a faster rate than the rest of the country.`
+			}
+		]
+	},
+	{
+		panels: [
+			{ id: 'housing', label: 'Figure 5 – Housing affordability in the largest CMAs', source: `<a href="https://www.cmhc-schl.gc.ca/observer/2026/beyond-toronto-vancouver-affordability-challenges-spread-across-canadian-cities" target="_blank">https://www.cmhc-schl.gc.ca/observer/2026/beyond-toronto-vancouver-affordability-challenges-spread-across-canadian-cities</a>` }
+		],
+		blocks: [
+			{
+				panelId: 'housing',
+				heading: 'The need for housing in Canada’s largest urban regions',
+				body: `To meet the needs of a growing population, the Canada Housing and Mortgage Corporation projects that Canada needs to almost double its annual housing production to 480,000 new homes per year over the next decade to make housing affordable for Canadians.  The need is experienced most acutely in Canada’s largest cities and regions. For example, to meet these national targets, Toronto  needs to increase annual housing starts by 71%, Montreal by over 200%, Calgary by 45% and Ottawa/Gatineau by 155%.  In total, just over 50% of the required housing is in Canada’s largest six metropolitan areas.  The CMHC predicts that demand for housing and housing prices will continue to increase at a higher rate in those places for the foreseeable future. `
+			}
+		]
+	},
+	{
+		panels: [
+			{ id: 'commute', label: 'Figure 6 – Commute times in the largest urban regions', source: 'Statistics Canada. Table 98-10-0465-01  Main mode of commuting by commuting duration, time leaving for work, industry sectors, occupation broad category and gender: Canada, provinces and territories, census metropolitan areas and census agglomerations with parts' }
+		],
+		blocks: [
+			{
+				panelId: 'commute',
+				heading: 'The need for higher order public transit in Canada’s largest urban regions',
+				body: `Investments in public transit are vital to maintaining growth in the largest urban regions. As demand rises for land it becomes more valuable, putting upward pressures on costs. In this scenario, housing projects can quickly become unviable. Building at higher densities can help overcome this obstacle, but as large cities grow in this manner, they become harder to move through. Friction of movement simultaneously reduces cities’ economic advantage and diminishes quality of life. The Toronto Region Board of Trade  estimates that congestion in the Greater Toronto and Hamilton Region is costing the economy $44B per year. Investments in public transit infrastructure is the most effective solution to these problems. They improve mobility and quality of life which are reflected in associated land values which in turn attracts further private sector investment in housing construction. If it becomes too difficult to move through cities, people tend to start moving out of them.`
+			},
+			{
+				panelId: 'commute',
+				body: 'There are six regions with higher order public transit infrastructure with a seventh in planning stages (Quebec). In these six regions there are xx LRT lines, xx subway/metro lines, and xx commuter rail lines. There are xx LRT lines under construction with an additional xx in the planning stages. There is one subway line under construction as well as a range of additions and upgrades to commuter rail. In total there are xx higher order transit stations with an additional xx under construction or in the planning stages. Xx million people currently live with 800m of a higher order transit station. '
+			}
+		]
+	},
+	{
+		panels: [
+			{ id: 'development', label: 'Figure 7 – Transit-Oriented Development by Select Municipalities ', source: 'Statistics Canada. Table 98-10-0002-01  Population and dwelling counts: Canada and census subdivisions (municipalities)' },
+			{ id: 'line5', label: 'Figure 8 – Housing development trajectories of Line 5 and Line 6 in Toronto ', source: '' },
+			{ id: 'pipeline', label: 'Figure 9 – Housing pipeline for Line 5 in Toronto', source: '' },
+			{ id: 'forces', label: 'Figure 10a – Examples of Transit Station Zoning Policies', source: '<a href="https://www2.gov.bc.ca/assets/gov/housing-and-tenancy/tools-for-government/local-governments-and-housing/toa_provincial_policy_manual.pdf" target="_blank">https://www2.gov.bc.ca/assets/gov/housing-and-tenancy/tools-for-government/local-governments-and-housing/toa_provincial_policy_manual.pdf</a>' },
+			{ id: 'forces2', label: 'Figure 10b – Examples of Transit Station Zoning Policies', source: '<a href="https://www.mississauga.ca/wp-content/uploads/2022/11/City-wide-MTSA_Virtual_Information_Session_Presentation_April_26_2022.pdf" target="_blank">https://www.mississauga.ca/wp-content/uploads/2022/11/City-wide-MTSA_Virtual_Information_Session_Presentation_April_26_2022.pdf</a>' },
+			{ id: 'forces3', label: 'Figure 10c – Examples of Transit Station Zoning Policies', source: '<a href="https://cmm.qc.ca/wp-content/uploads/2019/03/pmad_plan_metropolitain_amenagement_developpement.pdf" target="_blank">https://cmm.qc.ca/wp-content/uploads/2019/03/pmad_plan_metropolitain_amenagement_developpement.pdf </a>' },
+		],
+		blocks: [
+			{
+				panelId: 'development',
+				heading: 'Maximizing the impacts of transit investments on new home development ',
+				body: `Not all transit projects deliver the same return however, in terms of spurring home building. Market demand for transit-oriented development is not equal between cities, transit lines within cities, or even transit stations across lines. Each location possesses unique characteristics that provide varying appeal to future residents. Relative demand versus land supply also plays a significant factor, with the core municipalities of the three largest urban regions (Toronto, Montreal, Vancouver) seeing most new home construction close to major transit stations, while the next three largest (Calgary, Edmonton, Ottawa) still experience more building outside of transit station areas.`
+			},
+			{
+				panelId: 'line5',
+				body: `Two recently opened LRT lines in Toronto (Line 5 and Line 6) offer an example of divergent housing construction trajectories within the same municipal context with 140,844 new homes currently under construction or proposed for the Line 5 corridor and 23,430 units in the pipeline for Line 6.`
+			},
+			{
+				panelId: 'pipeline',
+				body: `Line 5 further demonstrates the variance of housing construction along its length with some stations seeing modest levels of home building in contrast to a handful that each have 25,000 or more units proposed to be built within 800m.  `
+			},
+			{
+				panelId: 'forces',
+				body: `Market forces are not the only consideration that shapes what gets built where. To maximize the home building return on higher order transit investments, provinces and municipalities can work together to align planning regulations. In making fiscal contributions to transit infrastructure projects, the federal government may also attach conditions to the funding so that planning policies work to support the investment by encouraging nearby housing construction.`
+			},
+			{
+				panelId: 'forces2',
+				body: `In some contexts, policies that permit higher densities may not be enough to spur significant home building. Calgary, Edmonton, and Ottawa continue to experience more development outside of transit station areas than inside. Much of this occurs in greenfield contexts as land is still relatively plentiful and transportation congestion issues have not reached the problematic levels found in the largest urban regions. However, car- centric greenfield developments often act to undercut the support for transit investments, making it more difficult for cities to make the case for transit as a foundation for how and where the city grows.`
+			},
+			{
+				panelId: 'forces3',
+				body: `There are a number of policy options to steer more development to transit station areas. One, would be to increase land use restrictions in greenfield areas. Additionally, provinces and municipalities can create incentives to build near transit through reduced municipal fees, including development charges. A third option is to further invest in building amenities within transit station areas so to make them more attractive to prospective residents — to create Transit-Oriented Developments.`
+			}
+		]
+	}
+];

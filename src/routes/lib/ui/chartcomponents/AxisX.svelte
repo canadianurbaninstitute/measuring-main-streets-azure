@@ -37,6 +37,9 @@
   /** @type {Number} [dy=12] - Any optional value passed to the `dy` attribute on the text label. */
   export let dy = 12;
 
+  /** @type {String} [label=''] - An optional label for the axis. */
+  export let label = '';
+
   function textAnchor(i, sl) {
     if (sl === true) {
       if (i === 0) {
@@ -105,6 +108,17 @@
       >
     </g>
   {/each}
+
+  {#if label}
+    <text
+      class="axis-label"
+      x="{$width / 2}"
+      y="{$height + (tickGutter + tickLen + dy + 15)}"
+      text-anchor="middle"
+    >
+      {label}
+    </text>
+  {/if}
 </g>
 
 <style>
@@ -120,6 +134,12 @@
 
   .tick text {
     fill: #666;
+  }
+
+  .axis-label {
+    fill: #444;
+    font-size: 13px;
+    font-weight: 500;
   }
 
   .tick .tick-mark,

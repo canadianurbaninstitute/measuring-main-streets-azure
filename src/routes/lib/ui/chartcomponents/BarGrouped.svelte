@@ -1,18 +1,27 @@
 <script>
 	import { getContext, onMount } from 'svelte';
+	import { scaleBand } from 'd3-scale';
 	import { cubicOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
 
-	const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');
+	const { data, xGet, yGet, xScale, yScale, zGet, zScale, zDomain } = getContext('LayerCake');
+
+	let { visible, found = $bindable(null), e = $bindable(null) } = $props();
 
 	const reveal = tweened(0, {
 		duration: 1200,
 		easing: cubicOut
 	});
 
-	let { visible, found = $bindable(null), e = $bindable(null) } = $props();
-
 	let group = $state();
+
+	// Create a sub-scale for grouped bars within the category band
+	const ySubScale = $derived(
+		scaleBand()
+			.domain($zDomain)
+			.range([0, $yScale.bandwidth()])
+			.paddingInner(0.05)
+	);
 
 	onMount(() => {
 		if (visible) return;
@@ -30,11 +39,9 @@
 		);
 
 		if (group) observer.observe(group);
-
 		return () => observer.disconnect();
 	});
 
-	// Re-trigger animation when 'visible' becomes true (scrollytelling)
 	$effect(() => {
 		if (visible) {
 			reveal.set(1);
@@ -42,27 +49,21 @@
 			reveal.set(0, { duration: 0 });
 		}
 	});
-
-	const columnWidth = $derived((d) => {
-		const xVals = $xGet(d);
-		return (xVals[1] - xVals[0]) * $reveal;
-	});
 </script>
 
 <g bind:this={group} class="bar-group">
-	{#each $data as series}
-		{#each series as d, i}
+	{#each $data as d, i}
+		{#each $zDomain as key}
 			<rect
 				class="group-rect"
 				data-id={i}
-				x={$xGet(d)[0]}
-				y={$yGet(d)}
-				height={$yScale.bandwidth()}
-				width={columnWidth(d)}
-				fill={$zGet(series)}
-				opacity={1}
+				x={Math.min($xScale(0), $xScale(d[key]))}
+				y={$yGet(d) + ySubScale(key)}
+				height={ySubScale.bandwidth()}
+				width={Math.abs($xScale(d[key]) - $xScale(0)) * $reveal}
+				fill={$zScale(key)}
 				onmousemove={(ev) => {
-					found = d.data;
+					found = { ...d, _key: key, _value: d[key] };
 					e = ev;
 				}}
 				onmouseleave={() => {
@@ -73,3 +74,12 @@
 		{/each}
 	{/each}
 </g>
+
+<style>
+	.group-rect {
+		transition: opacity 0.2s;
+	}
+	.group-rect:hover {
+		opacity: 0.8;
+	}
+</style>

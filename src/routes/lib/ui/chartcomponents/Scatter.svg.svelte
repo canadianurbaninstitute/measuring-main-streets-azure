@@ -1,34 +1,94 @@
-<!--
-  @component
-  Generates an SVG scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.
- -->
- <script>
-    import { getContext } from 'svelte';
-  
-    const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
-  
-    /** @type {Number} [r=5] – The circle's radius. */
-    export let r = 5;
-  
-    /** @type {String} [fill='#0cf'] – The circle's fill color. */
-    export let fill = '#0cf';
-  
-    /** @type {String} [stroke='#000'] – The circle's stroke color. */
-    export let stroke = '#000';
-  
-    /** @type {Number} [strokeWidth=0] – The circle's stroke width. */
-    export let strokeWidth = 0;
-  </script>
-  
-  <g class="scatter-group">
-    {#each $data as d}
-      <circle
-        cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}
-        cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}
-        {r}
-        {fill}
-        {stroke}
-        stroke-width={strokeWidth}
-      />
-    {/each}
-  </g>
+<script>
+	import { getContext, onMount } from 'svelte';
+	import { backOut } from 'svelte/easing';
+	import { tweened } from 'svelte/motion';
+
+	const context = getContext('LayerCake');
+	const { data, xGet, yGet, xScale, yScale } = context;
+
+	// Use runes to hold the values of optional stores.
+	// We avoid the '$' syntax here because subscribing to an undefined store crashes.
+	let zGet_fn = $state(null);
+	let rGet_fn = $state(null);
+
+	if (context.zGet) context.zGet.subscribe((v) => (zGet_fn = v));
+	if (context.rGet) context.rGet.subscribe((v) => (rGet_fn = v));
+
+	let {
+		r = 5,
+		fill = '#0cf',
+		stroke = '#000',
+		strokeWidth = 0,
+		visible = true,
+		found = $bindable(null),
+		e = $bindable(null)
+	} = $props();
+
+	const reveal = tweened(0, {
+		duration: 800,
+		easing: backOut
+	});
+
+	let group = $state();
+
+	onMount(() => {
+		if (visible) return;
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						reveal.set(1);
+					}
+				});
+			},
+			{ threshold: 0.1 }
+		);
+
+		if (group) observer.observe(group);
+
+		return () => observer.disconnect();
+	});
+
+	$effect(() => {
+		if (visible) {
+			reveal.set(1);
+		} else {
+			reveal.set(0, { duration: 0 });
+		}
+	});
+</script>
+
+<g bind:this={group} class="scatter-group">
+	{#each $data as d, i}
+		<circle
+			cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}
+			cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}
+			r={(typeof r === 'number' ? r : rGet_fn(d)) * $reveal || 5}
+			fill={typeof zGet_fn === 'function' ? zGet_fn(d) : fill}
+			{stroke}
+			stroke-width={strokeWidth}
+			opacity={$reveal}
+			class="scatter-point"
+			style="transition: cx 0.4s, cy 0.4s; transition-delay: {i * 2}ms;"
+			onmousemove={(ev) => {
+				found = d;
+				e = ev;
+			}}
+			onmouseleave={() => {
+				found = null;
+				e = null;
+			}}
+		/>
+	{/each}
+</g>
+
+<style>
+	.scatter-point {
+		pointer-events: all;
+		cursor: pointer;
+	}
+	.scatter-point:hover {
+		stroke: #000;
+		stroke-width: 2px;
+	}
+</style>

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { curveCardinalClosed, line } from 'd3-shape';
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	import { cubicOut } from 'svelte/easing';
+	import { tweened } from 'svelte/motion';
 
 	const { data, width, height } = getContext<any>('LayerCake');
 
@@ -13,12 +15,38 @@
 		levels = 4
 	} = $props();
 
+	const reveal = tweened(0, {
+		duration: 1000,
+		easing: cubicOut
+	});
+
+	let group;
+
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						reveal.set(1);
+					} else {
+						reveal.set(0);
+					}
+				});
+			},
+			{ threshold: 0.1 }
+		);
+
+		if (group) observer.observe(group);
+
+		return () => observer.disconnect();
+	});
+
 	const cx = $derived($width / 2);
 	const cy = $derived($height / 2);
 	const radius = $derived(Math.min($width, $height) / 2 - 40);
 	const keys = $derived(Object.keys($data[0]));
 	const angleSlice = $derived((Math.PI * 2) / keys.length);
-	const rScale = $derived((v) => (v / 100) * radius);
+	const rScale = $derived((v) => (v / 100) * radius * $reveal);
 
 	const radarLine = $derived(
 		line()
@@ -60,7 +88,7 @@
 	);
 </script>
 
-<g>
+<g bind:this={group}>
 	{#each rings as rr}
 		<circle {cx} {cy} r={rr} fill="none" stroke="#e5e7eb" stroke-width="1.5" />
 	{/each}

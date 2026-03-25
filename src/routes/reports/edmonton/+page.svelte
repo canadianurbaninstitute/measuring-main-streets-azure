@@ -1,18 +1,18 @@
 <script>
-	import Title from '../../lib/ui/Title.svelte';
 	import blank from '../../lib/assets/graphics/blank.svg';
+	import Title from '../../lib/ui/Title.svelte';
 
 	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
 
+	import BubbleChart from '../../lib/ui/charts/BubbleChart.svelte';
 	import Footer from '../../lib/ui/Footer.svelte';
 	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
-	import BubbleChart from '../../lib/ui/BubbleChart.svelte';
 
 	import '../../styles.css';
 
-	import { dataset } from '../../lib/data/reportdata/edmonton/selectLabels.js';
 	import data from '../../lib/data/reportdata/edmonton/bubble-edmonton.csv';
+	import { dataset } from '../../lib/data/reportdata/edmonton/selectLabels.js';
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
