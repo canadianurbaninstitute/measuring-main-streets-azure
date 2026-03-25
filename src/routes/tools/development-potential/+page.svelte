@@ -33,6 +33,7 @@
 	let allDevData: any = $state({});
 	let station1Data: any = $state();
 	let stationDpiData: any[] = $state([]);
+	let stationDpiRawData: any[] = $state([]);
 
 	// Error messages
 	let station1Error = $state('');
@@ -101,7 +102,7 @@
 	const baseDevData1 = $derived(getStationDevelopmentData(selectedStation1, 'potential'));
 
 	const unitsCreated1 = $derived(
-		(stationDpiData.find((d) => d.id === selectedStation1)?.UnitsCreated || 0) * 100
+		stationDpiRawData.find((d) => d.id === selectedStation1)?.UnitsCreated || 0
 	);
 
 	// ─── Effects ──────────────────────────────────────────────────────────────
@@ -390,7 +391,24 @@
 				.then((r) => r.json())
 				.then((d) => (stationMetrics = d))
 				.catch((e) => console.error('Metrics fetch error:', e)),
-
+			fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/AllIndicators_Raw.csv'
+			)
+				.then((r) => r.text())
+				.then((csvText) => {
+					stationDpiRawData = d3.csvParse(csvText, (d: any) => {
+						const row: any = {};
+						for (const key in d) {
+							if (key === 'id') {
+								row[key] = d[key];
+							} else {
+								row[key] = d[key] === 'NA' ? 0 : +d[key];
+							}
+						}
+						return row;
+					});
+				})
+				.catch((e) => console.error('DPI CSV fetch error:', e)),
 			fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/DevelopmentPotential_Subindex.csv'
 			)

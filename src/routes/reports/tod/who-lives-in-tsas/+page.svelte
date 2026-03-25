@@ -20,10 +20,10 @@
 	import Footer from '../../../lib/ui/Footer.svelte';
 	import Icon from '@iconify/svelte';
 
-	let selectedRegion = $state('Canada');
+	let selectedRegion = $state('All Regions');
 
 	const regions = [
-		{ value: 'Canada', name: 'Canada', image: Canada },
+		{ value: 'All Regions', name: 'All Regions', image: Canada },
 		{ value: 'Calgary', name: 'Calgary', image: Vancouver },
 		{ value: 'Edmonton', name: 'Edmonton', image: Edmonton },
 		{
@@ -83,7 +83,13 @@
 
 <main class="p-10 md:p-50">
 	<h1 class="infographic-title p-10" style="text-align: center;">
-		Who Lives in {selectedRow.Region}'s Transit Station Areas?
+		Who Lives in
+		{#if selectedRegion == 'All Regions'}
+			Canada's
+		{:else}
+			{selectedRow.Region}'s
+		{/if}
+		Transit Station Areas?
 	</h1>
 	<div class="center font-semibold" style="color: var(--brandDarkBlue);">Select a Region:</div>
 	<div class="center p-4 sticky">
@@ -101,7 +107,11 @@
 				<div class="chart-stat shrink-0 leading-none mt-1">{Math.round(selectedRow.area_pct)}%</div>
 				<div class="w-full max-w-[16rem] mb-1">
 					<span style="color: var(--brandDarkBlue);">
-						<b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b>
+						{#if selectedRegion == 'All Regions'}
+							<b>of All Regions' areas are made up of Transit Station Areas.</b>
+						{:else}
+							<b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b>
+						{/if}
 					</span>
 				</div>
 			</div>
