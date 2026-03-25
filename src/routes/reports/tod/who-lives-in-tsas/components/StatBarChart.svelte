@@ -2,6 +2,7 @@
 	import { BarChart } from '@onsvisual/svelte-charts';
 
 	export let title = '';
+	export let description = '';
 	export let data = [];
 	export let selectedRow = null;
 	export let xSuffix = '';
@@ -19,6 +20,7 @@
 
 <div class="single-chart">
 	<h4 class="chart-title p-2">{title}</h4>
+	<div class="p-2">{description}</div>
 	<BarChart
 		colors={[color]}
 		{data}

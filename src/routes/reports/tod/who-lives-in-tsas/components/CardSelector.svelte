@@ -119,8 +119,9 @@
 
 	/* Label */
 	.card-label {
-		font-size: 12px;
+		font-size: 14px;
 		font-weight: 500;
+		text-align: center;
 		color: #3c3c52;
 		line-height: 1.3;
 		letter-spacing: 0.01em;

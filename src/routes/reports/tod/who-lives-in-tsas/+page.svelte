@@ -18,10 +18,9 @@
 	import StatChart from './components/StatBarChart.svelte';
 	import '../../../styles.css';
 	import Footer from '../../../lib/ui/Footer.svelte';
-
 	import Icon from '@iconify/svelte';
 
-	let selectedRegion = 'Canada';
+	let selectedRegion = $state('Canada');
 
 	const regions = [
 		{ value: 'Canada', name: 'Canada', image: Canada },
@@ -38,9 +37,11 @@
 		{ value: 'Vancouver', name: 'Vancouver', image: Vancouver }
 	];
 
-	$: currentImage = regions.find((region) => region.value === selectedRegion)?.image ?? null;
+	const currentImage = $derived(
+		regions.find((region) => region.value === selectedRegion)?.image ?? null
+	);
 
-	$: selectedRow = data.find((d) => d.Region === selectedRegion) ?? data[0];
+	const selectedRow = $derived(data.find((d) => d.Region === selectedRegion) ?? data[0]);
 
 	function buildData(row, inKey, outKey) {
 		return [
@@ -51,33 +52,33 @@
 
 	// Overall
 	// TODO: force sum to 100
-	$: areaData = [
-		{
-			label: 'TSA Area (%)',
-			value: 100 - selectedRow.area_pct,
-			group: 'Region'
-		},
-		{
-			label: 'TSA Area (%)',
-			value: selectedRow.area_pct,
-			group: 'TSAs'
-		}
-	];
-	$: popData = buildData(selectedRow, 'Population_In', 'Population_Out');
-	$: dwellingsData = buildData(selectedRow, 'Dwellings_In', 'Dwellings_Out');
-	$: employmentData = buildData(selectedRow, 'Employment_In', 'Employment_Out');
+	const areaData = $derived([
+		{ label: 'TSA Area (%)', value: 100 - selectedRow.area_pct, group: 'Region' },
+		{ label: 'TSA Area (%)', value: selectedRow.area_pct, group: 'TSAs' }
+	]);
+	const popData = $derived(buildData(selectedRow, 'Population_In', 'Population_Out'));
+	const dwellingsData = $derived(buildData(selectedRow, 'Dwellings_In', 'Dwellings_Out'));
+	const employmentData = $derived(buildData(selectedRow, 'Employment_In', 'Employment_Out'));
 	// Housing
-	$: apartmentData = buildData(selectedRow, 'Apartment_In', 'Apartment_Out');
-	$: renterData = buildData(selectedRow, 'Rented_In', 'Rented_Out');
-	$: spendingOver30Data = buildData(selectedRow, 'Shelter_over30_In', 'Shelter_over30_Out');
+	const apartmentData = $derived(buildData(selectedRow, 'Apartment_In', 'Apartment_Out'));
+	const renterData = $derived(buildData(selectedRow, 'Rented_In', 'Rented_Out'));
+	const spendingOver30Data = $derived(
+		buildData(selectedRow, 'Shelter_over30_In', 'Shelter_over30_Out')
+	);
 	// Transportation
-	$: activeData = buildData(selectedRow, 'Active_In', 'Active_Out');
-	$: transitData = buildData(selectedRow, 'Public_Transit_In', 'Public_Transit_Out');
-	$: transportCostData = buildData(selectedRow, 'Transport_Cost_In', 'Transport_Cost_Out');
+	const activeData = $derived(buildData(selectedRow, 'Active_In', 'Active_Out'));
+	const transitData = $derived(buildData(selectedRow, 'Public_Transit_In', 'Public_Transit_Out'));
+	const transportCostData = $derived(
+		buildData(selectedRow, 'Transport_Cost_In', 'Transport_Cost_Out')
+	);
 	// Demos
-	$: maintainerAgeData = buildData(selectedRow, 'Maintaier_Age_u35_In', 'Maintaier_Age_u35_Out');
-	$: singleHHData = buildData(selectedRow, 'Single_person_hh_In', 'Single_person_hh_Out');
-	$: uniDegreeData = buildData(selectedRow, 'Uni_Degree_In', 'Uni_Degree_Out');
+	const maintainerAgeData = $derived(
+		buildData(selectedRow, 'Maintaier_Age_u35_In', 'Maintaier_Age_u35_Out')
+	);
+	const singleHHData = $derived(
+		buildData(selectedRow, 'Single_person_hh_In', 'Single_person_hh_Out')
+	);
+	const uniDegreeData = $derived(buildData(selectedRow, 'Uni_Degree_In', 'Uni_Degree_Out'));
 </script>
 
 <main class="p-10 md:p-50">
@@ -136,7 +137,7 @@
 				At a Glance
 			</span>
 		</div>
-		<div class="section-description text-center pb-8">
+		<div class="section-description pb-8">
 			Transit Station Areas make up a very small portion of the land area in their regions. However,
 			they are extremely efficient when it comes to population and dwelling density.
 		</div>
@@ -175,7 +176,7 @@
 				Building Up, Not Out
 			</span>
 		</div>
-		<div class="section-description text-center text-wrap pb-8">
+		<div class="section-description pb-8">
 			In order to be so efficient in such a small area, the urban form must go vertical rather than
 			spreading horizontally. This is the case in the Transit Station Area housing stock. A higher
 			percentage of residents in Transit Station Areas spend over 30% of their income on shelter
@@ -223,7 +224,7 @@
 				On the Move
 			</span>
 		</div>
-		<div class="section-description text-center text-wrap pb-8">
+		<div class="section-description pb-8">
 			On average, have a higher percentage of residents who use active and public transportation.
 			Residents of Transit Station Areas also spend less on transportation on average compared to
 			their region.
@@ -267,7 +268,7 @@
 				Transit-Oriented Development For Who?
 			</span>
 		</div>
-		<div class="section-description text-center text-wrap pb-8">
+		<div class="section-description pb-8">
 			So who lives in Transit Station Areas? These communities are usually oriented towards young,
 			highly-educated renters.
 		</div>
@@ -318,16 +319,8 @@
 		color: var(--brandDarkBlue);
 		/* text-transform: uppercase; */
 	}
-	/* .section-description {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-		text-wrap: balance;
-		max-width: 800px;
-	} */
 	.chart-stat {
-		font-size: 70px;
+		font-size: 76px;
 		font-weight: 600;
 		color: var(--brandYellow);
 	}
@@ -335,6 +328,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		margin: 0 auto;
+		max-width: 40em;
+		text-align: center;
 	}
 	.region-image {
 		width: 100%;
