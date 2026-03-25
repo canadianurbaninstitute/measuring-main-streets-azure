@@ -37,7 +37,7 @@
 
 <style>
 	.score-bar-wrapper {
-		width: 100%;
+		width: 85%;
 	}
 
 	.bar {
@@ -45,7 +45,7 @@
 		height: 1rem;
 		background-color: #e4e4e7;
 		border: 1px solid #d4d4d8;
-		border-radius: 2px;
+		border-radius: 4px;
 		overflow: hidden;
 		position: relative;
 		margin-bottom: 0.5rem;

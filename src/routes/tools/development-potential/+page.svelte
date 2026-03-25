@@ -613,13 +613,6 @@
 		</div>
 
 		<div class="w-full h-px bg-gray-200 hidden lg:block"></div>
-
-		<!-- Row 2 -->
-		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-			<div class="flex flex-col items-center justify-center relative">
-				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
-			</div>
-		</div>
 	</div>
 </div>
 
