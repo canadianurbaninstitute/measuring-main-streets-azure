@@ -7,7 +7,7 @@
 	}
 </script>
 
-<div class="card-selector">
+<div class="card-selector mx-auto">
 	{#each options as option}
 		<button
 			class="card"

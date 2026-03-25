@@ -99,14 +99,14 @@
 		<div class="pt-10">
 			<div class="flex items-end gap-2">
 				<div class="chart-stat shrink-0 leading-none mt-1">{Math.round(selectedRow.area_pct)}%</div>
-				<div class="w-60 mb-1">
+				<div class="w-full max-w-[16rem] mb-1">
 					<span style="color: var(--brandDarkBlue);">
 						<b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b>
 					</span>
 				</div>
 			</div>
 
-			<div class="w-120 pb-8">
+			<div class="w-full max-w-[30rem] overflow-hidden pb-8">
 				<BarChart
 					colors={['#d9d9d9', '#f1c500']}
 					data={areaData}
@@ -132,7 +132,7 @@
 
 	<div class="infographic-section pb-20">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center justify-center gap-2">
+			<span class="flex items-center gap-2 justify-center flex-wrap">
 				<Icon icon="mdi:map" style="color: var(--brandLightBlue)" />
 				At a Glance
 			</span>
@@ -171,7 +171,7 @@
 
 	<div class="infographic-section pb-20">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center justify-center gap-2">
+			<span class="flex items-center gap-2 justify-center flex-wrap">
 				<Icon icon="mdi:domain" style="color: var(--brandOrange)" />
 				Building Up, Not Out
 			</span>
@@ -219,7 +219,7 @@
 
 	<div class="infographic-section pb-20">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center justify-center gap-2">
+			<span class="flex items-center gap-2 justify-center flex-wrap">
 				<Icon icon="mdi:map-marker-path" style="color: var(--brandPink)" />
 				On the Move
 			</span>
@@ -263,8 +263,8 @@
 
 	<div class="infographic-section pb-20">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center justify-center gap-2">
-				<Icon icon="mdi:train" style="color: var(--brandPurple)" />
+			<span class="flex items-center gap-2 justify-center flex-wrap">
+				<Icon icon="mdi:train" style="color: var(--brandPurple); display: inline;" />
 				Transit-Oriented Development For Who?
 			</span>
 		</div>
