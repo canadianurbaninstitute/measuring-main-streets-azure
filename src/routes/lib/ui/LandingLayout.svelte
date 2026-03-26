@@ -1,4 +1,6 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import Icon from '@iconify/svelte';
 	import Collapsible from './Collapsible.svelte';
 	import LandingCard from './LandingCard.svelte';
@@ -18,6 +20,12 @@
 
 	let searchTerm = $state('');
 	let activeCategory = $state('All');
+
+	// Initial load from URL
+	if (syncUrl) {
+		const urlTag = page.url.searchParams.get('tag');
+		if (urlTag) activeCategory = urlTag;
+	}
 
 	// In tab mode, derive content from the active tab object
 	let activeTabData = $derived(tabs.find((t) => t.value === activeTab) ?? null);
@@ -43,11 +51,37 @@
 		})
 	);
 
-	// Reset search and category filter when tab changes
+	// Sync activeCategory → URL
 	$effect(() => {
-		activeTab;
-		searchTerm = '';
-		activeCategory = 'All';
+		if (!syncUrl || !goto || !page) return;
+		const current = page.url.searchParams.get('tag') || 'All';
+		if (activeCategory !== current) {
+			const newUrl = new URL(page.url.href);
+			if (activeCategory === 'All') {
+				newUrl.searchParams.delete('tag');
+			} else {
+				newUrl.searchParams.set('tag', activeCategory);
+			}
+			goto(newUrl.toString(), { replaceState: true, keepFocus: true, noScroll: true });
+		}
+	});
+
+	// Reset search and category filter when tab changes
+	// We use a flag and check if the tab changed to avoid resetting on mount
+	let lastTab = $state(activeTab);
+	let isFirstRun = true;
+	$effect(() => {
+		const currentTab = activeTab;
+		if (isFirstRun) {
+			lastTab = currentTab;
+			isFirstRun = false;
+			return;
+		}
+		if (currentTab !== lastTab) {
+			searchTerm = '';
+			activeCategory = 'All';
+			lastTab = currentTab;
+		}
 	});
 </script>
 
@@ -59,11 +93,11 @@
 	{#if tabs && tabs.length > 0}
 		<TabNav {tabs} bind:activeTab {syncUrl} bg="slate-50">
 			{#snippet children()}
-				<div class="flex w-full md:gap-20 md:flex-row flex-col">
-					<div class="w-fit">
+				<div class="flex w-full md:gap-14 md:flex-row flex-col">
+					<div class="md:w-1/4">
 						<Collapsible paragraphs={activeTabData.description} defaultOpen={false} />
 					</div>
-					<div class="w-fit">
+					<div class="flex-1">
 						<div class="controls">
 							<div class="search-box">
 								<Icon icon="ph:magnifying-glass" height="2rem" color="#555" />
@@ -212,9 +246,9 @@
 	}
 
 	.card-grid {
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		gap: 2rem;
-		flex-wrap: wrap;
 	}
 
 	@media (max-width: 768px) {

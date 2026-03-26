@@ -266,7 +266,7 @@
 	/* ── Bar shell ───────────────────────────────────────────── */
 	.progress-bar {
 		position: fixed;
-		top: 30px;
+		top: 10px;
 		left: 0;
 		right: 0;
 		z-index: 10;
@@ -382,7 +382,7 @@
 	/* ── Tooltip ─────────────────────────────────────────────── */
 	.tooltip {
 		position: absolute;
-		bottom: calc(100% + 14px);
+		bottom: calc(100% + 8px);
 		left: 50%;
 		transform: translateX(-50%);
 		white-space: nowrap;

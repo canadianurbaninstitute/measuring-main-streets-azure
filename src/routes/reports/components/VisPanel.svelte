@@ -25,7 +25,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: 2rem;
-
+		overflow: visible;
 		opacity: 0;
 		transform: scale(0.97) translateY(6px);
 		pointer-events: none;
@@ -55,7 +55,7 @@
 		letter-spacing: 0.08em;
 		color: var(--color-slate-400);
 		text-align: left;
-		word-break: break-all;
+		word-break: break-word;
 	}
 
 	@media (max-width: 768px) {
