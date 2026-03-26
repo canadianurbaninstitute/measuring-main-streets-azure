@@ -92,7 +92,7 @@
 	]);
 </script>
 
-<div class="flex flex-col items-center w-full max-w-[400px] mt-12">
+<div class="flex flex-col items-center w-full max-w-[400px] mt-2">
 	<!-- Top Bar -->
 	<div
 		class="w-full h-4 bg-zinc-200 flex mb-2 relative rounded-sm overflow-hidden border border-zinc-300"

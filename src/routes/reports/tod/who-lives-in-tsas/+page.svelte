@@ -1,4 +1,6 @@
 <script>
+	import Icon from '@iconify/svelte';
+
 	// Images
 	import Vancouver from './assets/Vancouver.png';
 	import Calgary from './assets/Calgary.png';
@@ -16,9 +18,10 @@
 	import CardSelector from './components/CardSelector.svelte';
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import StatChart from './components/StatBarChart.svelte';
-	import '../../../styles.css';
+
 	import Footer from '../../../lib/ui/Footer.svelte';
-	import Icon from '@iconify/svelte';
+	import DotPlot from './components/DotPlot.svelte';
+	import '../../../styles.css';
 
 	let selectedRegion = $state('All Regions');
 
@@ -79,6 +82,84 @@
 		buildData(selectedRow, 'Single_person_hh_In', 'Single_person_hh_Out')
 	);
 	const uniDegreeData = $derived(buildData(selectedRow, 'Uni_Degree_In', 'Uni_Degree_Out'));
+
+	const popDotData = $derived([
+		{
+			label: 'Employment',
+			tsa: selectedRow['Employment_In'],
+			cma: selectedRow['Employment_Out']
+		},
+
+		{
+			label: 'Dwellings',
+			tsa: selectedRow['Dwellings_In'],
+			cma: selectedRow['Dwellings_Out']
+		},
+		{
+			label: 'Population',
+			tsa: selectedRow['Population_In'],
+			cma: selectedRow['Population_Out']
+		}
+	]);
+
+	const housingData = $derived([
+		{
+			label: 'Spending >30% of income on shelter',
+			tsa: selectedRow['Shelter_over30_In'],
+			cma: selectedRow['Shelter_over30_Out']
+		},
+
+		{
+			label: 'Renters',
+			tsa: selectedRow['Rented_In'],
+			cma: selectedRow['Rented_Out']
+		},
+		{
+			label: 'Apartments',
+			tsa: selectedRow['Apartment_In'],
+			cma: selectedRow['Apartment_Out']
+		}
+	]);
+
+	const transportData = $derived([
+		{
+			label: 'Public Transit',
+			tsa: selectedRow['Public_Transit_In'],
+			cma: selectedRow['Public_Transit_Out']
+		},
+		{
+			label: 'Active Transportation',
+			tsa: selectedRow['Active_In'],
+			cma: selectedRow['Active_Out']
+		}
+	]);
+
+	const demoData = $derived([
+		{
+			label: 'University Degree',
+			tsa: selectedRow['Uni_Degree_In'],
+			cma: selectedRow['Uni_Degree_Out']
+		},
+		{
+			label: 'Single Households',
+			tsa: selectedRow['Single_person_hh_In'],
+			cma: selectedRow['Single_person_hh_Out']
+		},
+		{
+			label: 'Maintainer Age',
+			tsa: selectedRow['Maintaier_Age_u35_In'],
+			cma: selectedRow['Maintaier_Age_u35_Out']
+		}
+	]);
+
+	const minValue = $derived(Math.min(...popDotData.flatMap((d) => [d.tsa, d.cma])));
+	const maxValue = $derived(Math.max(...popDotData.flatMap((d) => [d.tsa, d.cma])));
+	const domain = $derived([minValue, maxValue]);
+
+	$effect(() => {
+		console.log(popDotData);
+		console.log(domain);
+	});
 </script>
 
 <main class="p-10 md:p-50">
@@ -108,7 +189,7 @@
 				<div class="w-full max-w-[16rem] mb-1">
 					<span style="color: var(--brandDarkBlue);">
 						{#if selectedRegion == 'All Regions'}
-							<b>of All Regions' areas are made up of Transit Station Areas.</b>
+							<b>of area in All Regions is made up of Transit Station Areas.</b>
 						{:else}
 							<b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b>
 						{/if}
@@ -116,7 +197,7 @@
 				</div>
 			</div>
 
-			<div class="w-full max-w-[30rem] overflow-hidden pb-8">
+			<div class="w-full max-w-[30rem] pb-8">
 				<BarChart
 					colors={['#d9d9d9', '#f1c500']}
 					data={areaData}
@@ -152,6 +233,7 @@
 			they are extremely efficient when it comes to population and dwelling density.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+			<!-- <DotPlot data={popDotData} yKey="label" xDomain={domain} /> -->
 			{#key selectedRegion}
 				<StatChart
 					title="Population"
@@ -160,7 +242,8 @@
 					statLabelInside="people"
 					statLabelOutside="people"
 					color="#00adf2"
-				/><StatChart
+				/>
+				<StatChart
 					title="Dwellings"
 					data={dwellingsData}
 					{selectedRow}
@@ -193,6 +276,9 @@
 			costs.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+			<div class="w-120">
+				<DotPlot data={housingData} yKey="label" xDomain={[0, 100]} />
+			</div>
 			{#key selectedRegion}
 				<StatChart
 					title="Apartments"
@@ -240,6 +326,9 @@
 			their region.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+			<div class="w-120">
+				<DotPlot data={transportData} yKey="label" xDomain={[0, 30]} />
+			</div>
 			{#key selectedRegion}
 				<StatChart
 					title="Active Transportation"
@@ -283,6 +372,7 @@
 			highly-educated renters.
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+			<DotPlot data={demoData} yKey="label" xDomain={[0, 70]} />
 			{#key selectedRegion}
 				<StatChart
 					title="Maintainer Age"
