@@ -19,7 +19,7 @@
 		fill = '#0cf',
 		stroke = '#000',
 		strokeWidth = 0,
-		visible = true,
+		visible = undefined,
 		found = $bindable(null),
 		e = $bindable(null),
 		showLabels = false,
@@ -34,7 +34,7 @@
 	let group = $state();
 
 	onMount(() => {
-		if (visible) return;
+		if (typeof visible !== 'undefined') return;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -52,10 +52,12 @@
 	});
 
 	$effect(() => {
-		if (visible) {
-			reveal.set(1);
-		} else {
-			reveal.set(0, { duration: 0 });
+		if (typeof visible !== 'undefined') {
+			if (visible) {
+				reveal.set(1);
+			} else {
+				reveal.set(0, { duration: 0 });
+			}
 		}
 	});
 </script>

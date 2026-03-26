@@ -22,7 +22,8 @@
 	export let yDomain = [0, null];
 	export let xTickInterval = 10;
 	export let height = '500px';
-	export let visible = false;
+	export let visible = undefined;
+	export let showLegend = true;
 	export let xLabel = '';
 	export let yLabel = '';
 
@@ -46,10 +47,12 @@
 	$: xTicks = data.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]);
 
 	let innerWidth = 1000;
+	let innerHeight = 800;
 	$: computedHeight = innerWidth < 768 ? '100%' : height;
+	$: computedShowLegend = innerHeight < 900 ? false : showLegend;
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
 	{#if title}
@@ -81,7 +84,7 @@
 		</LayerCake>
 	</div>
 
-	{#if seriesConfig.length > 0}
+	{#if computedShowLegend && seriesConfig.length > 0}
 		<div class="controls">
 			<div class="legend-container">
 				{#each seriesConfig as { label, color }}

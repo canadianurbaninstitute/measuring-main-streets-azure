@@ -18,23 +18,26 @@
 		padding = { bottom: 20, left: 35 },
 		seriesConfig = [], // Array of { label, color, key }
 		formatLabelX = (d) => d,
-		visible,
+		visible = undefined,
 		showTooltip = false,
 		wrapLabels = false,
 		xLabel = '',
 		yLabel = '',
 		xTicks = undefined,
 		yTicks = undefined,
+		showLegend = true,
 		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%')
 	} = $props();
 	let found = $state(null);
 	let e = $state(null);
 	let innerWidth = $state(1000);
+	let innerHeight = $state(800);
 	const computedPadding = $derived(
 		innerWidth < 768 ? { ...padding, left: Math.min(padding.left, 100) } : padding
 	);
 	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
 	const computedWrapLabels = $derived(innerWidth < 768 ? true : wrapLabels);
+	const computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
 
 	const xKey = [0, 1];
 
@@ -54,7 +57,7 @@
 	const stackedData = $derived(stack(processedData, seriesNames));
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
 	{#if title}
@@ -102,7 +105,7 @@
 			{/if}
 		</LayerCake>
 	</div>
-	{#if seriesConfig.length > 0}
+	{#if computedShowLegend && seriesConfig.length > 0}
 		<div class="controls">
 			<div class="legend-container">
 				{#each seriesConfig as { label, color }}
@@ -123,6 +126,7 @@
 
 	.chart-container {
 		display: flex;
+		min-height: 250px;
 		flex-direction: column;
 		justify-content: center;
 		gap: 1em;

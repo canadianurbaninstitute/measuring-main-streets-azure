@@ -12,59 +12,33 @@
 	let { href = '', label = 'Learn More', target = '_blank' } = $props();
 </script>
 
-<div class="vis-link-container">
-	<a {href} {target} class="vis-link">
-		{label}
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="18"
-			height="18"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2.5"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<path d="M5 12h14" />
-			<path d="m12 5 7 7-7 7" />
-		</svg>
-	</a>
-</div>
+<a {href} {target} class="vis-link button-primary" aria-label={label}>
+	{label}
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="18"
+		height="18"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2.5"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		<path d="M5 12h14" />
+		<path d="m12 5 7 7-7 7" />
+	</svg>
+</a>
 
 <style>
-	.vis-link-container {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: 2rem;
-		min-height: 250px;
-	}
-
 	.vis-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
-		background-color: var(--brandLightBlue);
-		color: white;
-		padding: 1.1rem 2.2rem;
-		border-radius: 0.6rem;
-		text-decoration: none;
-		font-weight: 700;
-		font-size: 1.15rem;
-		transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-		box-shadow: 0 4px 14px rgba(0, 173, 242, 0.25);
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		width: fit-content;
+		margin: 0 auto;
 	}
-
 	.vis-link:hover {
 		background-color: var(--brandDarkBlue);
 		transform: translateY(-3px) scale(1.02);
-		box-shadow: 0 8px 20px rgba(0, 41, 64, 0.3);
+		box-shadow: 0 8px 20px rgba(0, 41, 64, 0.1);
 	}
 
 	.vis-link:active {

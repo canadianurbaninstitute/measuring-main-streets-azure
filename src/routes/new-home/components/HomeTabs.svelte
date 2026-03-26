@@ -118,7 +118,7 @@
 	{#snippet children({ activeTab: tab })}
 		<div class="flex flex-nowrap gap-6 mr-100">
 			{#each tab === 'tod' ? todCards : resilienceCards as card}
-				<LandingCard {...card} />
+				<LandingCard {...card} minWidth={300} />
 			{/each}
 		</div>
 	{/snippet}

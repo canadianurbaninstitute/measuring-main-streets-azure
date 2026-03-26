@@ -20,7 +20,8 @@
 		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%'),
 		explode = [], // array of xKey values to offset e.g. ['Calgary', 'Montreal']
 		explodeDistance = 20,
-		visible = false
+		showLegend = true,
+		visible = undefined
 	} = $props();
 
 	/* ───────────────────────────────────
@@ -66,10 +67,12 @@
 	let found = $state(null);
 	let e = $state(null);
 	let innerWidth = $state(1000);
+	let innerHeight = $state(800);
 	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
+	const computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
 	{#if title}
@@ -121,7 +124,7 @@
 		</LayerCake>
 	</div>
 
-	{#if activeData.length > 0}
+	{#if computedShowLegend && activeData.length > 0}
 		<div class="controls">
 			<div class="legend-container">
 				{#each activeData as { label, color }}

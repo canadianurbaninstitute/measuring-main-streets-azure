@@ -5,7 +5,7 @@
 
 	const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
-	let { visible = false } = $props();
+	let { visible = undefined } = $props();
 
 	const reveal = tweened(0, {
 		duration: 60000,
@@ -15,7 +15,7 @@
 	let group;
 
 	onMount(() => {
-		if (visible) return; //avoid conflicting animation
+		if (typeof visible !== 'undefined') return;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -26,7 +26,7 @@
 					}
 				});
 			},
-			{ threshold: [0.1] }
+			{ threshold: [0.5] }
 		);
 
 		if (group) observer.observe(group);
@@ -36,10 +36,12 @@
 
 	// Re-trigger animation when 'visible' becomes true (scrollytelling)
 	$effect(() => {
-		if (visible) {
-			reveal.set(1);
-		} else {
-			reveal.set(0, { duration: 0 });
+		if (typeof visible !== 'undefined') {
+			if (visible) {
+				reveal.set(1);
+			} else {
+				reveal.set(0, { duration: 0 });
+			}
 		}
 	});
 

@@ -30,8 +30,8 @@
 		transform: scale(0.97) translateY(6px);
 		pointer-events: none;
 		transition:
-			opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
-			transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+			/* opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), */ transform 0.55s
+			cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.vis-panel.visible {
@@ -50,8 +50,7 @@
 	}
 
 	.source {
-		margin: 1.25rem 0 0;
-		font-size: 0.72rem;
+		font-size: 0.5rem;
 		letter-spacing: 0.08em;
 		color: var(--color-slate-400);
 		text-align: left;

@@ -1,5 +1,5 @@
 <script>
-	import { scaleOrdinal } from 'd3-scale';
+	import { scaleOrdinal, scaleLinear, scaleLog } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
 	import { format as d3Format } from 'd3-format';
@@ -21,6 +21,8 @@
 		seriesConfig = [],
 		xDomain = [null, null],
 		yDomain = [null, null],
+		xScale = scaleLinear,
+		yScale = scaleLinear,
 		pointColor = '#00adf2',
 		pointRadius = 5, // Fixed radius instead
 		referenceLine = null, // { x1, y1, x2, y2, stroke, strokeWidth, strokeDasharray }
@@ -30,7 +32,7 @@
 		yLabel = 'Y',
 		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d)),
 		showTooltip = false,
-		visible = true,
+		visible = undefined,
 		xTicks = undefined,
 		yTicks = undefined,
 		showLabels = false,
@@ -61,6 +63,9 @@
 	);
 
 	const useZScale = $derived(zKey && seriesNames.length > 0);
+
+	const computedXScale = $derived(typeof xScale.copy === 'function' ? xScale : xScale());
+	const computedYScale = $derived(typeof yScale.copy === 'function' ? yScale : yScale());
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -78,6 +83,8 @@
 			z={useZScale ? zKey : null}
 			{xDomain}
 			{yDomain}
+			xScale={computedXScale}
+			yScale={computedYScale}
 			zDomain={useZScale ? seriesNames : null}
 			zRange={useZScale ? seriesColors : null}
 			zScale={scaleOrdinal()}

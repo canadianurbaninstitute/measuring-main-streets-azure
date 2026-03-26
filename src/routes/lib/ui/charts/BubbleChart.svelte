@@ -4,6 +4,7 @@
 	import LegendItem from '../legends/LegendItem.svelte';
 
 	export let data;
+	export let showLegend = true;
 
 	const doHoverScatter = (e) => (hoveredScatter = e.detail.id);
 	const doSelectScatter = (e) => (selectedScatter = e.detail.id);
@@ -12,7 +13,12 @@
 	let hoveredScatter = null;
 	let select = true;
 	let selectedScatter = null;
+
+	let innerHeight = 800;
+	$: computedShowLegend = innerHeight < 900 ? false : showLegend;
 </script>
+
+<svelte:window bind:innerHeight />
 
 <div class="chart-container">
 	<h4>Independent Business Rank (x-axis) vs. Civic Infrastructure % Rank (y-axis)</h4>
@@ -36,6 +42,7 @@
 		labels
 	/>
 
+	{#if computedShowLegend}
 	<div class="controls">
 		<div class="legend-container">
 			<LegendItem variant={'circle'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
@@ -44,6 +51,7 @@
 			<LegendItem variant={'circle'} label={'Malls'} bgcolor={'#DB3069'} />
 		</div>
 	</div>
+	{/if}
 </div>
 
 <style>

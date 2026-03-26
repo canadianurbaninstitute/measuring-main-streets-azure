@@ -1,12 +1,15 @@
 <script>
 	import Icon from '@iconify/svelte';
 
-	export let link = '#';
-	export let image = '';
-	export let title = '';
-	export let featured = false;
-	export let description = '';
-	export let tags = []; // Array of objects { text: '', color: '' } or just strings
+	let {
+		link = '#',
+		image = '',
+		title = '',
+		featured = false,
+		description = '',
+		tags = [],
+		minWidth = 0
+	} = $props();
 
 	/**
 	 * Map tag text to predefined colors if color is not provided
@@ -28,12 +31,14 @@
 	};
 
 	const getTagText = (tag) => (typeof tag === 'object' ? tag.text : tag);
-
-	console.log(featured);
 </script>
 
 <a href={link} class="card-link">
-	<article class="landing-card" class:featured>
+	<article
+		class="landing-card"
+		style:min-width={minWidth ? minWidth + 'px' : 'auto'}
+		class:featured
+	>
 		<div class="card-image-container">
 			<img src={image} alt={title} />
 		</div>

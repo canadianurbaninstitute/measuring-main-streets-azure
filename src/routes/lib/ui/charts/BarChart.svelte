@@ -24,11 +24,12 @@
 	export let wrapLabels = false;
 	export let showTooltip = false;
 	export let formatTooltipValue = (d) => d3Format(',.1f')(d) + '%';
-	export let visible = false;
+	export let visible = undefined;
 	export let xLabel = '';
 	export let yLabel = '';
 	export let xTicks = undefined;
 	export let yTicks = undefined;
+	export let showLegend = true;
 
 	/**
 	 * Configuration for groups, including their data value, legend label, and bar color.
@@ -36,19 +37,21 @@
 	export let groupConfig = [];
 
 	let innerWidth = 1000;
+	let innerHeight = 800;
 	$: computedPaddingLeft = innerWidth < 768 ? Math.min(paddingLeft, 100) : paddingLeft;
 	$: computedHeight = innerWidth < 768 ? '100%' : height;
 	$: computedWrapLabels = innerWidth < 768 ? true : wrapLabels;
+	$: computedShowLegend = innerHeight < 900 ? false : showLegend;
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	{#if groupConfig && groupConfig.length > 0}
+	{#if computedShowLegend && groupConfig && groupConfig.length > 0}
 		<div class="controls">
 			<div class="legend-container">
 				{#each groupConfig as { label, color }}
@@ -83,7 +86,7 @@
 								ticks={yTicks}
 							/>
 						{/if}
-						<Bar fill={color} />
+						<Bar fill={color} {visible} />
 					</Svg>
 
 					{#if i === groupConfig.length - 1 && showTooltip}
@@ -122,7 +125,7 @@
 						label={yLabel}
 						ticks={yTicks}
 					/>
-					<Bar fill={barColor} />
+					<Bar fill={barColor} {visible} />
 				</Svg>
 
 				{#if showTooltip}

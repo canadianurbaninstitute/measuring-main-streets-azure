@@ -10,7 +10,8 @@
 	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
 
 	/** @type {String} [fill='#00bbff'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
-	export let fill = '#00bbff';
+
+	let { fill = '#00bbff', visible = undefined } = $props();
 
 	const reveal = tweened(0, {
 		duration: 1500,
@@ -20,6 +21,7 @@
 	let group;
 
 	onMount(() => {
+		if (typeof visible !== 'undefined') return;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -36,6 +38,16 @@
 		if (group) observer.observe(group);
 
 		return () => observer.disconnect();
+	});
+
+	$effect(() => {
+		if (typeof visible !== 'undefined') {
+			if (visible) {
+				reveal.set(1);
+			} else {
+				reveal.set(0, { duration: 0 });
+			}
+		}
 	});
 </script>
 
