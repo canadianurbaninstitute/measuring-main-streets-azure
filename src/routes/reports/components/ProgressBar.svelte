@@ -299,11 +299,11 @@
 
 	.icon-wrap {
 		position: absolute;
-		right: 0;
+		right: 100px;
 		top: 50%;
 		transform: translate(50%, -50%) translateY(-10px); /* float above the track */
 		height: 22px;
-		width: auto;
+		width: 213px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -330,10 +330,10 @@
 		}
 	}
 
-	.icon-wrap :global(.pulse) {
+	/* .icon-wrap :global(.pulse) {
 		transform-origin: center;
 		animation: pulse 1.8s ease-in-out infinite;
-	}
+	} */
 
 	/* ── Section circles ─────────────────────────────────────── */
 	.circle {

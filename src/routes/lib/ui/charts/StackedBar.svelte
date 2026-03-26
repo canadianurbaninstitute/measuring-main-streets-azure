@@ -29,6 +29,12 @@
 	} = $props();
 	let found = $state(null);
 	let e = $state(null);
+	let innerWidth = $state(1000);
+	const computedPadding = $derived(
+		innerWidth < 768 ? { ...padding, left: Math.min(padding.left, 100) } : padding
+	);
+	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
+	const computedWrapLabels = $derived(innerWidth < 768 ? true : wrapLabels);
 
 	const xKey = [0, 1];
 
@@ -48,14 +54,16 @@
 	const stackedData = $derived(stack(processedData, seriesNames));
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style:height>
+	<div class="chart" style:height={computedHeight}>
 		<LayerCake
-			{padding}
+			padding={computedPadding}
 			x={xKey}
 			y={(d) => d.data[yKey]}
 			z={zKey}
@@ -69,7 +77,13 @@
 		>
 			<Svg>
 				<AxisX tickMarks baseline snapLabels format={formatLabelX} label={xLabel} ticks={xTicks} />
-				<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
+				<AxisY
+					tickMarks
+					gridlines={false}
+					wrap={computedWrapLabels}
+					label={yLabel}
+					ticks={yTicks}
+				/>
 				<BarStacked bind:found bind:e {visible} />
 			</Svg>
 
@@ -104,15 +118,25 @@
 		width: 100%;
 		position: relative;
 		overflow: visible;
+		flex: 1;
 	}
 
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		justify-content: center;
+		gap: 1em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
+		height: 100%;
+		box-sizing: border-box;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 	}
 
 	.controls {

@@ -18,6 +18,7 @@
 <style>
 	.vis-panel {
 		position: absolute;
+		height: 100%;
 		inset: 0;
 		display: flex;
 		flex-direction: column;
@@ -55,5 +56,18 @@
 		color: var(--color-slate-400);
 		text-align: left;
 		word-break: break-all;
+	}
+
+	@media (max-width: 768px) {
+		.vis-panel {
+			padding: 0.75rem;
+		}
+
+		.caption,
+		.source {
+			font-size: 0.62rem;
+			margin: 0.75rem 0 0;
+			line-height: 1.3;
+		}
 	}
 </style>

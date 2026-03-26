@@ -112,21 +112,25 @@
 <ScatterChart
 	{data}
 	{seriesConfig}
-	xKey="within_800m"
-	yKey="beyond_800m"
+	xKey="beyond_800m"
+	yKey="within_800m"
 	zKey="city"
-	title="Transit-Oriented Development by Select Municipalities"
+	showLabels={true}
+	labelKey="city"
+	showLegend={true}
+	padding={{ left: 70, bottom: 40 }}
+	title="Transit-Oriented Development by Select Municipalities 2001-2021"
 	showTooltip={true}
-	xTicks={8}
-	xDomain={[0, 125000]}
-	yDomain={[0, 125000]}
-	xLabel="Within 800m"
-	yLabel="Beyond 800m"
+	xTicks={4}
+	xDomain={[0, 150000]}
+	yDomain={[0, 250000]}
+	xLabel="Net new housing units more than 800m from transit station"
+	yLabel="Net new housing units within 800m of transit station"
 	referenceLine={{
 		x1: 0,
 		y1: 0,
-		x2: 125000,
-		y2: 125000,
+		x2: 150000,
+		y2: 150000,
 		stroke: '#00ADF2',
 		strokeDasharray: '4 4'
 	}}

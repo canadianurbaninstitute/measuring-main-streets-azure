@@ -1,6 +1,6 @@
 <script>
-	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format as d3Format } from 'd3-format';
+	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
 	import AxisX from '../chartcomponents/AxisX.svelte';
@@ -29,6 +29,12 @@
 
 	let found = $state(null);
 	let e = $state(null);
+	let innerWidth = $state(1000);
+	const computedPadding = $derived(
+		innerWidth < 768 ? { ...padding, left: Math.min(padding.left, 100) } : padding
+	);
+	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
+	const computedWrapLabels = $derived(innerWidth < 768 ? true : wrapLabels);
 
 	const seriesNames = $derived(seriesConfig.map((d) => d.key));
 	const seriesColors = $derived(seriesConfig.map((d) => d.color));
@@ -42,27 +48,35 @@
 	});
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style:height>
+	<div class="chart" style:height={computedHeight}>
 		<LayerCake
-			{padding}
+			padding={computedPadding}
 			x={seriesNames}
 			y={yKey}
 			zScale={scaleOrdinal()}
 			zDomain={seriesNames}
 			zRange={seriesColors}
-			xDomain={xDomain}
+			{xDomain}
 			yScale={scaleBand().paddingInner(0.2).paddingOuter(0.1)}
 			yDomainSort={false}
 			{data}
 		>
 			<Svg>
 				<AxisX tickMarks baseline snapLabels format={formatLabelX} label={xLabel} ticks={xTicks} />
-				<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
+				<AxisY
+					tickMarks
+					gridlines={false}
+					wrap={computedWrapLabels}
+					label={yLabel}
+					ticks={yTicks}
+				/>
 				<BarGrouped bind:found bind:e {visible} />
 			</Svg>
 
@@ -98,15 +112,26 @@
 		width: 100%;
 		position: relative;
 		overflow: visible;
+		flex: 1;
+		min-height: 250px;
 	}
 
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		justify-content: center;
+		gap: 1em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
+		height: 100%;
+		box-sizing: border-box;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 	}
 
 	.controls {

@@ -8,6 +8,7 @@
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
+	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
 	import { sections } from './article.js';
 	// Assets
@@ -19,6 +20,12 @@
 	import montreal from '../../assets/montreal.png';
 	import renfrew from '../../assets/renfrew.png';
 
+	import arbutus from '../../../lib/assets/screenshots/arbutus.png';
+	import casestudypanama from '../../../lib/assets/screenshots/case-study-arbutus.png';
+	import cc from '../../../lib/assets/screenshots/cc.png';
+	import dpscooksville from '../../../lib/assets/screenshots/dps-cooksville.png';
+	import panama from '../../../lib/assets/screenshots/panama.png';
+	import wholivesintsas from '../../../lib/assets/screenshots/who-lives-in-tsas.png';
 	import CommuteTime from './charts/CommuteTime.svelte';
 	import GatewayCities from './charts/GatewayCities.svelte';
 	import HousingNeed from './charts/HousingNeed.svelte';
@@ -56,6 +63,36 @@
 			type: 'image',
 			src: montreal,
 			alt: 'Les aires TOD de Montréal'
+		},
+		cc: {
+			type: 'image',
+			src: cc,
+			alt: 'Screenshot of complete communities tool showing 95% overall score for 1 Street SW in Calgary.'
+		},
+		walkability: {
+			type: 'image',
+			src: arbutus,
+			alt: 'Walkability map of Arbutus Station area.'
+		},
+		walkability2: {
+			type: 'image',
+			src: panama,
+			alt: 'Walkability map of Panama Station area.'
+		},
+		benefits: {
+			type: 'image',
+			src: casestudypanama,
+			alt: 'Screenshot of case study for Arbutus Station by School of Cities'
+		},
+		displacement: {
+			type: 'image',
+			src: wholivesintsas,
+			alt: 'Screenshot of Who Lives in TSAs infographic report'
+		},
+		dps: {
+			type: 'image',
+			src: dpscooksville,
+			alt: 'Screenshot of community poll for Cooksville by Digital Public Square'
 		}
 	};
 	/**
@@ -114,16 +151,9 @@
 			console.error('Error fetching data:', error);
 		}
 	});
-
-	$effect(() => {
-		console.log(activePanelUid);
-	});
 </script>
 
 <main>
-	<!-- {#if JobGrowthSectorData}
-		<JobGrowthSector data={JobGrowthSectorData} />
-	{/if} -->
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
 			<img src={train} width="100%" height="100%" alt="Progress icon" />
@@ -147,7 +177,31 @@
 		finding3="Not all transit projects"
 		description3="deliver the same return."
 	/>
-	<div class="chart"></div>
+	{#snippet renderPanel(uid, isVisible)}
+		{@const panel = allPanels.find((p) => p.uid === uid)}
+		{#if panel}
+			<VisPanel visible={isVisible} label={panel.label ?? ''} source={panel.source ?? ''}>
+				{#if panel.config?.type === 'image'}
+					<VisImage
+						src={panel.config.src}
+						alt={panel.config.alt}
+						caption={panel.config.caption ?? ''}
+						fit={panel.config.fit ?? 'contain'}
+					/>
+				{:else if panel.config?.type === 'component'}
+					{@const Component = panel.config.component}
+					<Component visible={isVisible} />
+				{:else if panel.config?.type === 'link'}
+					<VisLink
+						href={panel.config.href}
+						label={panel.config.btnLabel ?? 'Learn More'}
+						target={panel.config.target}
+					/>
+				{/if}
+			</VisPanel>
+		{/if}
+	{/snippet}
+
 	<Scroller bind:activeIndex threshold={0.5}>
 		{#snippet text()}
 			{#each steps as step, i}
@@ -157,30 +211,21 @@
 					eyebrow={step.eyebrow}
 					heading={step.heading}
 					body={step.body}
-				/>
+					cta={step.cta}
+				>
+					{#snippet inlineVisual()}
+						{#if i === 0 || steps[i].panelUid !== steps[i - 1].panelUid}
+							{@render renderPanel(step.panelUid, true)}
+						{/if}
+					{/snippet}
+				</TextBlock>
 			{/each}
 		{/snippet}
 
 		{#snippet visual()}
 			<VisContainer>
 				{#each allPanels as panel (panel.uid)}
-					<VisPanel
-						visible={activePanelUid === panel.uid}
-						label={panel.label ?? ''}
-						source={panel.source ?? ''}
-					>
-						{#if panel.config?.type === 'image'}
-							<VisImage
-								src={panel.config.src}
-								alt={panel.config.alt}
-								caption={panel.config.caption ?? ''}
-								fit={panel.config.fit ?? 'contain'}
-							/>
-						{:else if panel.config?.type === 'component'}
-							{@const Component = panel.config.component}
-							<Component visible={activePanelUid === panel.uid} />
-						{/if}
-					</VisPanel>
+					{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
 				{/each}
 			</VisContainer>
 		{/snippet}
@@ -194,6 +239,7 @@
 		border-radius: 0.5em;
 		min-width: 1px;
 		min-height: 1px;
+		height: 100%;
 		gap: 0.3em;
 	}
 </style>

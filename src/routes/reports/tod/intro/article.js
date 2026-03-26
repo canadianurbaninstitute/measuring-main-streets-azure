@@ -140,5 +140,83 @@ export const sections = [
 				body: `There are a number of policy options to steer more development to transit station areas. One, would be to increase land use restrictions in greenfield areas. Additionally, provinces and municipalities can create incentives to build near transit through reduced municipal fees, including development charges. A third option is to further invest in building amenities within transit station areas so to make them more attractive to prospective residents — to create Transit-Oriented Developments.`
 			}
 		]
+	},
+	{
+		panels: [
+			{ id: 'cc', label: 'Figure 11' }
+		],
+		blocks: [
+			{
+				panelId: 'cc',
+				heading: 'Transit-Oriented Complete Communities',
+				body: `People’s choice on where to live is based on a number of factors including- proximity to employment, transit and housing prices but also to what makes a neighbourhood inviting and vibrant, including access to good schools, parks and greenspace and local stores and restaurants  To be successful in this regard, transit-oriented developments require a wide range of additional infrastructure. The concept of ‘complete communities’ is that people should be able to access the things they need in their day-to-day lives within a short walk from home. Grocery stores, schools, and doctors’ offices are examples of core assets of complete communities. Focusing civic infrastructure and local businesses close to stations will improve access and efficiency for both providers and users of the amenities. If transit-oriented communities are to be successful in the longer term, a clear accounting of the future needs of communities is required. Integrating the planning of neighbourhood services in conjunction with planning of new higher order transit infrastructure should lead to better results overall.`,
+				cta: {
+					href: '/tools/complete-communities',
+label: 'Explore Complete Communities Tool'
+				}
+			}
+		]
+	},
+	{
+		panels: [{ id: 'walkability', label: 'Figure 12a' },
+			{ id: 'walkability2', label: 'Figure 12b' }
+		],
+		blocks: [
+			{
+				panelId: 'walkability',
+				heading: 'Communities are only complete if they are walkable',
+				body: `Complete communities may offer people local options for fulfilling their basic day-to-day needs, but the extent to which people make the local choice largely depends on how walkable the community is. Creating dense clusters of amenities, including transit stations is important, but the quality of the public realm that connects them together as well as connects them to where people live is an essential ingredient of a truly functional complete community.`
+			},
+			{
+				panelId: 'walkability2',
+				body: `Vibrant main streets are a pillar of walkable neighbourhoods. Crucially, the pedestrian journey to the main street and transit station needs to be safe, pleasant, and accessible for those with personal mobility challenges. Many of the more recent higher order transit investments in Canada are extending outside of downtowns and into suburban environments that were originally built to maximize car travel. It is in these cases where walkability is most often at its lowest. As new transit stations come on stream and new development follows, these neighbourhoods are becoming denser, but they may not become truly urban if the public realm is hostile to active modes of transportation. Planning to retrofit the public realm to work with the additional residents and amenities will be one of the toughest, yet most important challenges associated with transit-oriented developments. `,
+				cta: {
+					href: '/reports/tod/walkability',
+					label: 'Read more in the walkability report',
+				}
+			}
+		]
+	},
+	{
+		panels: [{ id: 'benefits', label: 'Figure 13 — Screenshot of Panama Station case study produced by School of Cities' }],
+		blocks: [
+			{
+				panelId: 'benefits',
+				heading: 'Realizing the benefits of Transit-Oriented Complete Communities ',
+				body: `When people have ample amenities in their communities, and the amenities are accessible using active modes of transportation, people are going to experience better outcomes. Dense, walkable, amenity-rich environments can improve residents’ physical and mental health, increase social connection and community, and provide critical mass that support independent main street businesses. Transit-oriented communities improve access to employment opportunities, improve air quality, reduce overall carbon intensity, and can be more fiscally sustainable for local governments. When all these benefits are added together, the case for transit-oriented complete communities is undeniably strong. In addition to transportation gains, careful and thoughtful due diligence on the housing, economic, health, and fiscal improvements resulting from new higher order transit investments should lead to more business cases receiving passing grades.`,
+				cta: {
+					href: '/casestudies',
+					label: 'Read the case studies'
+				}
+			}
+		]
+	},
+	{
+		panels: [{ id: 'displacement', label: 'Figure 14' }],
+		blocks: [
+			{
+				panelId: 'displacement',
+				heading: 'Affordability and displacement',
+				body: `Not all impacts of new higher order transit infrastructure projects are positive. New LRT, subway, and commuter rail lines bring significant change to existing communities. Property values typically rise, land is often used for different purposes, and new buildings are constructed in the pace of older ones. When these things happen, residents and businesses can be displaced. Those that experience displacement are most frequently the most vulnerable. It is not just a matter of subtracting individuals from a neighbourhood, but crucially it can strain and sever relationships between people and their connection to a place. Relationships are the foundation of community, and community is the foundation of local resiliency. Transit-oriented development needs to be inclusive. Policies and models of development should limit and mitigate displace impacts as well as provide affordable opportunities for residents from all income levels.  `,
+				cta: {
+					href: '/reports/tod/who-lives-in-tsas',
+					label: 'Read the report — Who lives in transit station areas?'
+				}
+			},
+		]
+	},
+	{panels: [{id: 'dps', label: 'Figure 15' }],
+	blocks: [
+		{
+			panelId: 'dps',
+			heading: 'Building transit-oriented communities from the ground up',
+			body: `Higher order transit infrastructure does a lot more than simply get people from point A to point B. It is foundational to city-building itself. Where public transit investments go, private investments tend to follow. These investments add up over time to create the densest urban environments in the country and are essential to regional economies. While transit lines stich cities together, every station area is a neighbourhood community itself. When planning and building new transit infrastructure a complete community approach for each stop should lead to more housing and a higher quality of life. New higher order transit infrastructure costs billions of dollars. It is complex work that requires a great deal of expertise and coordination. What cannot be overlooked in the process are the views of the public. What kinds of communities do people want to live in? What kinds of amenities are most important to them? Where do they want to be? Real efforts need to be made to ask these questions so that infrastructure projects ultimately deliver what people want and expect. If we can evolve our thinking from transportation planning to city-building to community building, future residents should be well-served.`,
+			cta: {
+				href: '/tools',
+				label: 'Explore the tools'
+			}
+		}
+	]
 	}
+	
 ];

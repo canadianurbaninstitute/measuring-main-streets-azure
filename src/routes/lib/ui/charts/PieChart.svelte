@@ -65,7 +65,11 @@
 
 	let found = $state(null);
 	let e = $state(null);
+	let innerWidth = $state(1000);
+	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div class="chart-container">
 	{#if title}
@@ -76,7 +80,7 @@
 		<button class="back-btn" onclick={reset}>← Back</button>
 	{/if}
 
-	<div class="chart" style="height: {height}; min-height: 200px; position: relative;">
+	<div class="chart">
 		<LayerCake
 			data={chartData}
 			x={xKey}
@@ -131,17 +135,29 @@
 <style>
 	.chart {
 		width: 100%;
-		display: block;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		flex: 1;
+		min-height: 200px;
 	}
 
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		gap: 1em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
 		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 	}
 
 	.controls {

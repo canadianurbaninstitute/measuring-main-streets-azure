@@ -34,7 +34,14 @@
 	 * Configuration for groups, including their data value, legend label, and bar color.
 	 */
 	export let groupConfig = [];
+
+	let innerWidth = 1000;
+	$: computedPaddingLeft = innerWidth < 768 ? Math.min(paddingLeft, 100) : paddingLeft;
+	$: computedHeight = innerWidth < 768 ? '100%' : height;
+	$: computedWrapLabels = innerWidth < 768 ? true : wrapLabels;
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div class="chart-container">
 	{#if title}
@@ -51,16 +58,16 @@
 		</div>
 	{/if}
 
-	<div class="chart" style:height>
+	<div class="chart">
 		{#if groupConfig && groupConfig.length > 0}
 			{#each groupConfig as { value, color }, i}
 				<LayerCake
 					position="absolute"
-					padding={{ top: paddingTop, bottom: 20, left: paddingLeft }}
 					x={xKey}
 					y={yKey}
 					yDomainSort={false}
 					yScale={scaleBand().paddingInner(0.1)}
+					padding={{ top: paddingTop, bottom: 20, left: computedPaddingLeft }}
 					{xDomain}
 					data={data.filter((d) => d[groupKey] === value)}
 					flatData={data}
@@ -68,7 +75,13 @@
 					<Svg>
 						{#if i === 0}
 							<AxisX tickMarks baseline snapLabels label={xLabel} ticks={xTicks} />
-							<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
+							<AxisY
+								tickMarks
+								gridlines={false}
+								wrap={computedWrapLabels}
+								label={yLabel}
+								ticks={yTicks}
+							/>
 						{/if}
 						<Bar fill={color} />
 					</Svg>
@@ -92,17 +105,23 @@
 			{/each}
 		{:else}
 			<LayerCake
-				padding={{ top: paddingTop, bottom: 20, left: paddingLeft }}
 				x={xKey}
 				y={yKey}
 				yDomainSort={false}
 				yScale={scaleBand().paddingInner(0.1)}
+				padding={{ top: paddingTop, bottom: 20, left: computedPaddingLeft }}
 				{xDomain}
 				{data}
 			>
 				<Svg>
 					<AxisX tickMarks baseline snapLabels label={xLabel} ticks={xTicks} />
-					<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
+					<AxisY
+						tickMarks
+						gridlines={false}
+						wrap={computedWrapLabels}
+						label={yLabel}
+						ticks={yTicks}
+					/>
 					<Bar fill={barColor} />
 				</Svg>
 
@@ -130,15 +149,26 @@
 	.chart {
 		width: 100%;
 		position: relative;
+		flex: 1;
+		min-height: 250px;
 	}
 
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		justify-content: center;
+		gap: 1em;
 		border: 1px solid #eee;
-		padding: 1em;
+		padding: 2em;
 		border-radius: 1em;
+		box-sizing: border-box;
+		height: 100%;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 	}
 
 	.controls {
