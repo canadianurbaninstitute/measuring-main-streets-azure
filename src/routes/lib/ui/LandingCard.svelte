@@ -26,6 +26,10 @@
 		if (text.includes('case study')) return 'var(--brandGreen)';
 		if (text.includes('qualitative')) return 'var(--brandPurple)';
 		if (text.includes('tool')) return 'var(--color-yellow-200)';
+		if (text.includes('regional')) return 'var(--color-blue-800)';
+		if (text.includes('partner')) return 'var(--brandPink)';
+		if (text.includes('executive summary')) return 'var(--brandLightBlue)';
+		if (text.includes('research brief')) return 'var(--color-green-500)';
 
 		return 'var(--brandLightBlue)';
 	};
@@ -175,6 +179,8 @@
 		display: flex;
 		width: fit-content;
 		align-items: center;
+		flex-wrap: nowrap;
+		white-space: nowrap;
 		gap: 0.5rem;
 		color: var(--brandDarkBlue);
 		font-weight: 700;
