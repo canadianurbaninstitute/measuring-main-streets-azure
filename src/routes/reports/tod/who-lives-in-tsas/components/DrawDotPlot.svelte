@@ -13,7 +13,7 @@
 	 */
 
 	/** @type {Props} */
-	let { r = 5 } = $props();
+	let { r = 6 } = $props();
 
 	let midHeight = $derived($yScale.bandwidth() / 2);
 </script>
@@ -40,10 +40,10 @@
 <style>
 	line {
 		stroke-width: 1px;
-		stroke: #000;
+		stroke: #002940;
 	}
 	circle {
-		stroke: #000;
+		stroke: #002940;
 		stroke-width: 1px;
 	}
 </style>

@@ -29,7 +29,7 @@
 	let map1: mapboxgl.Map | undefined = $state();
 
 	// Selected stations
-	let selectedStation1 = $state('172');
+	let selectedStation1 = $state('8');
 
 	let station1Metrics: any = $state({});
 	let allDevData: any = $state({});
