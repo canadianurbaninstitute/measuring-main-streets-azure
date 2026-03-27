@@ -22,7 +22,8 @@
 	export let yDomain = [0, null];
 	export let xTickInterval = 10;
 	export let height = '500px';
-	export let visible = false;
+	export let visible = undefined;
+	export let showLegend = true;
 	export let xLabel = '';
 	export let yLabel = '';
 
@@ -44,14 +45,21 @@
 
 	$: groupedData = groupLonger(data, seriesNames, { groupTo: zKey, valueTo: yKey });
 	$: xTicks = data.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]);
+
+	let innerWidth = 1000;
+	let innerHeight = 800;
+	$: computedHeight = innerWidth < 768 ? '100%' : height;
+	$: computedShowLegend = innerHeight < 900 ? false : showLegend;
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style:height>
+	<div class="chart" style:height={computedHeight}>
 		<LayerCake
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
 			x={xKey}
@@ -76,7 +84,7 @@
 		</LayerCake>
 	</div>
 
-	{#if seriesConfig.length > 0}
+	{#if computedShowLegend && seriesConfig.length > 0}
 		<div class="controls">
 			<div class="legend-container">
 				{#each seriesConfig as { label, color }}
@@ -90,15 +98,26 @@
 <style>
 	.chart {
 		width: 100%;
+		flex: 1;
+		min-height: 250px;
 	}
 
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		justify-content: center;
+		gap: 1em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
+		height: 100%;
+		box-sizing: border-box;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 	}
 
 	.controls {

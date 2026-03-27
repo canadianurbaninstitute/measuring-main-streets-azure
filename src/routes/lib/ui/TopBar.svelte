@@ -11,7 +11,9 @@
 	let menuOpen = $state(false);
 	let isHovered = $state(false);
 
-	let isHiddenRoute = $derived(page.url?.pathname.includes('/casestudies/tod/'));
+	let isHiddenRoute = $derived(
+		page.url?.pathname.includes('/casestudies/tod/') || page.url?.pathname.includes('/reports/tod/')
+	);
 
 	function toggleMenu() {
 		menuOpen = !menuOpen;

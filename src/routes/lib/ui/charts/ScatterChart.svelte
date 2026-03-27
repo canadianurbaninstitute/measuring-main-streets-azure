@@ -1,5 +1,5 @@
 <script>
-	import { scaleOrdinal } from 'd3-scale';
+	import { scaleOrdinal, scaleLinear, scaleLog } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
 	import { format as d3Format } from 'd3-format';
@@ -21,6 +21,8 @@
 		seriesConfig = [],
 		xDomain = [null, null],
 		yDomain = [null, null],
+		xScale = scaleLinear,
+		yScale = scaleLinear,
 		pointColor = '#00adf2',
 		pointRadius = 5, // Fixed radius instead
 		referenceLine = null, // { x1, y1, x2, y2, stroke, strokeWidth, strokeDasharray }
@@ -30,13 +32,23 @@
 		yLabel = 'Y',
 		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d)),
 		showTooltip = false,
-		visible = true,
+		visible = undefined,
 		xTicks = undefined,
-		yTicks = undefined
+		yTicks = undefined,
+		showLabels = false,
+		labelKey = null,
+		showLegend = true
 	} = $props();
 
 	let found = $state(null);
 	let e = $state(null);
+	let innerWidth = $state(1000);
+	let innerHeight = $state(800);
+	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
+	const computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
+	const computedPadding = $derived(
+		innerWidth < 768 ? { ...padding, left: Math.min(padding.left, 45) } : padding
+	);
 
 	const seriesNames = $derived(seriesConfig.map((d) => d.key));
 	const seriesColors = $derived(seriesConfig.map((d) => d.color));
@@ -51,21 +63,28 @@
 	);
 
 	const useZScale = $derived(zKey && seriesNames.length > 0);
+
+	const computedXScale = $derived(typeof xScale.copy === 'function' ? xScale : xScale());
+	const computedYScale = $derived(typeof yScale.copy === 'function' ? yScale : yScale());
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style:height>
+	<div class="chart" style:height={computedHeight}>
 		<LayerCake
-			{padding}
+			padding={computedPadding}
 			x={xKey}
 			y={yKey}
 			z={useZScale ? zKey : null}
 			{xDomain}
 			{yDomain}
+			xScale={computedXScale}
+			yScale={computedYScale}
 			zDomain={useZScale ? seriesNames : null}
 			zRange={useZScale ? seriesColors : null}
 			zScale={scaleOrdinal()}
@@ -77,7 +96,15 @@
 				{#if referenceLine}
 					<ReferenceLine {...referenceLine} />
 				{/if}
-				<Scatter {visible} bind:found bind:e fill={pointColor} r={pointRadius} />
+				<Scatter
+					{visible}
+					bind:found
+					bind:e
+					fill={pointColor}
+					r={pointRadius}
+					{showLabels}
+					{labelKey}
+				/>
 			</Svg>
 
 			{#if showTooltip}
@@ -99,7 +126,7 @@
 		</LayerCake>
 	</div>
 
-	{#if seriesConfig.length > 0}
+	{#if computedShowLegend && seriesConfig.length > 0}
 		<div class="controls">
 			<div class="legend-container">
 				{#each seriesConfig as { label, color }}
@@ -115,15 +142,26 @@
 		width: 100%;
 		position: relative;
 		overflow: visible;
+		flex: 1;
+		min-height: 250px;
 	}
 
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		justify-content: center;
+		gap: 1em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
+		height: 100%;
+		box-sizing: border-box;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 	}
 
 	.controls {

@@ -19,9 +19,11 @@
 		fill = '#0cf',
 		stroke = '#000',
 		strokeWidth = 0,
-		visible = true,
+		visible = undefined,
 		found = $bindable(null),
-		e = $bindable(null)
+		e = $bindable(null),
+		showLabels = false,
+		labelKey = null
 	} = $props();
 
 	const reveal = tweened(0, {
@@ -32,7 +34,7 @@
 	let group = $state();
 
 	onMount(() => {
-		if (visible) return;
+		if (typeof visible !== 'undefined') return;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -50,10 +52,12 @@
 	});
 
 	$effect(() => {
-		if (visible) {
-			reveal.set(1);
-		} else {
-			reveal.set(0, { duration: 0 });
+		if (typeof visible !== 'undefined') {
+			if (visible) {
+				reveal.set(1);
+			} else {
+				reveal.set(0, { duration: 0 });
+			}
 		}
 	});
 </script>
@@ -69,7 +73,7 @@
 			stroke-width={strokeWidth}
 			opacity={$reveal}
 			class="scatter-point"
-			style="transition: cx 0.4s, cy 0.4s; transition-delay: {i * 2}ms;"
+			style="z-index: 1; transition: cx 0.4s, cy 0.4s; transition-delay: {i * 2}ms;"
 			onmousemove={(ev) => {
 				found = d;
 				e = ev;
@@ -79,6 +83,19 @@
 				e = null;
 			}}
 		/>
+		{#if showLabels && labelKey && d[labelKey]}
+			<text
+				x={$xGet(d) + 8}
+				y={$yGet(d) + 4}
+				font-size="10px"
+				fill="#333"
+				font-weight="normal"
+				style="user-select: none; z-index: -10; transition: x 0.4s, y 0.4s; transition-delay: {i *
+					2}ms;"
+			>
+				{d[labelKey]}
+			</text>
+		{/if}
 	{/each}
 </g>
 

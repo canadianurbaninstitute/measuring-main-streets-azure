@@ -28,7 +28,13 @@
 			[columnName]: item[columnName]
 		}));
 	}
+
+	let innerWidth = 1000;
+	$: computedPaddingLeft = innerWidth < 768 ? 100 : 160;
+	$: computedWrapLabels = innerWidth < 768 ? true : false;
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div class="chart-container">
 	<h4>{title}</h4>
@@ -45,7 +51,7 @@
 	<div class="chart">
 		<LayerCake
 			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
+			padding={{ bottom: 20, left: computedPaddingLeft }}
 			x={xKey}
 			y={yKey}
 			yDomainSort={false}
@@ -56,14 +62,14 @@
 		>
 			<Svg>
 				<AxisX tickMarks baseline snapLabels />
-				<AxisY tickMarks gridlines={false} />
+				<AxisY tickMarks gridlines={false} wrap={computedWrapLabels} />
 				<Bar fill={'#58e965'} />
 			</Svg>
 		</LayerCake>
 
 		<LayerCake
 			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
+			padding={{ bottom: 20, left: computedPaddingLeft }}
 			x={xKey}
 			y={yKey}
 			yDomainSort={false}
@@ -79,7 +85,7 @@
 
 		<LayerCake
 			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
+			padding={{ bottom: 20, left: computedPaddingLeft }}
 			x={xKey}
 			y={yKey}
 			yDomainSort={false}
@@ -95,7 +101,7 @@
 
 		<LayerCake
 			position="absolute"
-			padding={{ bottom: 20, left: 160 }}
+			padding={{ bottom: 20, left: computedPaddingLeft }}
 			x={xKey}
 			y={yKey}
 			yDomainSort={false}
@@ -128,10 +134,11 @@
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		gap: 1em;
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
+		box-sizing: border-box;
 	}
 
 	.controls {
@@ -147,7 +154,16 @@
 		padding: 0.5em;
 	}
 
+	@media only screen and (max-width: 768px) {
+		.chart {
+			height: clamp(300px, 60vh, 600px);
+		}
+	}
+
 	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 		.legend-container {
 			flex-direction: row;
 		}

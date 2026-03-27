@@ -13,17 +13,16 @@
 	 *   fit     {string}  — CSS object-fit value: 'contain' | 'cover' (default: 'contain')
 	 */
 
-	let { 
-		src = '', 
-		alt = '', 
-		caption = '', 
-		fit = 'contain' 
-	} = $props();
+	let { src = '', alt = '', caption = '', fit = 'contain', aspect = null } = $props();
 </script>
 
 <figure class="vis-image">
-	<div class="img-wrap">
-		<img {src} {alt} style="object-fit: {fit};" />
+	<div class="img-wrap" style="">
+		<img
+			{src}
+			{alt}
+			style="object-fit: {fit}; aspect-ratio: {aspect ? aspect.replace(':', '/') : 'auto'};"
+		/>
 	</div>
 
 	{#if caption}
@@ -40,13 +39,11 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.75rem;
-		padding: 1.5rem;
 	}
 
 	.img-wrap {
-		flex: 1;
 		width: 100%;
-		min-height: 0; /* allows flex child to shrink */
+		max-height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;

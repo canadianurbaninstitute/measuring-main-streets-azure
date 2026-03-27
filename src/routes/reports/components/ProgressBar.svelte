@@ -266,7 +266,7 @@
 	/* ── Bar shell ───────────────────────────────────────────── */
 	.progress-bar {
 		position: fixed;
-		top: 30px;
+		top: 10px;
 		left: 0;
 		right: 0;
 		z-index: 10;
@@ -299,11 +299,11 @@
 
 	.icon-wrap {
 		position: absolute;
-		right: 0;
+		right: 100px;
 		top: 50%;
 		transform: translate(50%, -50%) translateY(-10px); /* float above the track */
 		height: 22px;
-		width: auto;
+		width: 213px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -330,10 +330,10 @@
 		}
 	}
 
-	.icon-wrap :global(.pulse) {
+	/* .icon-wrap :global(.pulse) {
 		transform-origin: center;
 		animation: pulse 1.8s ease-in-out infinite;
-	}
+	} */
 
 	/* ── Section circles ─────────────────────────────────────── */
 	.circle {
@@ -382,7 +382,7 @@
 	/* ── Tooltip ─────────────────────────────────────────────── */
 	.tooltip {
 		position: absolute;
-		bottom: calc(100% + 14px);
+		bottom: calc(100% + 8px);
 		left: 50%;
 		transform: translateX(-50%);
 		white-space: nowrap;
