@@ -123,13 +123,6 @@
 			tags: ['Mapping', 'Main Street Resilience']
 		},
 		{
-			title: 'Urban Form Comparison',
-			description: 'This tool highlights the urban form of areas within 800m of a transit station.',
-			image: urbanform,
-			link: '/tools/urban-form-comparison',
-			tags: ['Mapping', 'Transit Oriented Development']
-		},
-		{
 			title: 'Main Street Visitor Recovery',
 			description: 'This graphing tool highlights the visitor recovery patterns from 2020 to 2022.',
 			image: mainstreets,

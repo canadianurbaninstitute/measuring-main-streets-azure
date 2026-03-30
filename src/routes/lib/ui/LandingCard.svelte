@@ -21,9 +21,10 @@
 
 		if (text.includes('mapping')) return 'var(--brandPink)';
 		if (text.includes('resilience')) return 'var(--brandBlue)';
+		if (text.includes('report')) return 'var(--color-blue-800)';
 		if (text.includes('transit')) return 'var(--brandDarkGreen)';
 		if (text.includes('graphing')) return 'var(--brandOrange)';
-		if (text.includes('case study')) return 'var(--brandGreen)';
+		if (text.includes('case study')) return 'var(--color-green-500)';
 		if (text.includes('qualitative')) return 'var(--brandPurple)';
 		if (text.includes('tool')) return 'var(--color-yellow-200)';
 		if (text.includes('regional')) return 'var(--color-blue-800)';
