@@ -34,10 +34,12 @@
 		heading = '',
 		body = '',
 		inlineVisual,
+		showInlineVisual = true,
 		cta, // { href, label, target }
 		children
 	} = $props();
 </script>
+
 
 <div class="text-block" class:active data-step={index}>
 	{#if eyebrow}
@@ -48,7 +50,7 @@
 		<h2 class="heading">{heading}</h2>
 	{/if}
 
-	{#if inlineVisual}
+	{#if inlineVisual && showInlineVisual}
 		<div class="inline-visual-wrapper">
 			{@render inlineVisual()}
 		</div>
@@ -206,35 +208,6 @@
 		margin-top: 2rem;
 		display: flex;
 	}
-	.cta-button {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.6rem;
-		background-color: var(--brandLightBlue);
-		color: white;
-		padding: 0.8rem 1.5rem;
-		border-radius: 0.4rem;
-		text-decoration: none;
-		font-weight: 700;
-		font-size: 0.95rem;
-		transition: all 0.2s ease;
-		box-shadow: 0 4px 12px rgba(0, 173, 242, 0.15);
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-	}
-	.cta-button:hover {
-		background-color: var(--brandDarkBlue);
-		transform: translateY(-2px);
-		box-shadow: 0 6px 16px rgba(0, 41, 64, 0.2);
-		color: white;
-		text-decoration: none;
-	}
-	.cta-button svg {
-		transition: transform 0.2s ease;
-	}
-	.cta-button:hover svg {
-		transform: translateX(3px);
-	}
 
 	.inline-visual-wrapper {
 		display: none;
@@ -244,7 +217,8 @@
 		.inline-visual-wrapper {
 			display: block;
 			width: 100%;
-			height: clamp(350px, 50vh, 500px);
+			height: fit-content;
+			min-height: 80vh;
 			margin: 2rem 0;
 			background: #ffffff;
 			border: 1px solid #eee;
@@ -257,11 +231,19 @@
 			opacity: 1 !important; /* On mobile with inline visuals, don't fade out text as much */
 			transform: none !important;
 			min-height: auto;
-			padding: 4rem 0;
+			padding: 0rem 0;
 		}
 
 		.text-block:first-child {
 			padding-top: 2rem;
+		}
+
+		.heading {
+			padding-top: 2rem;
+		}
+
+		.text-block:last-child {
+			padding-bottom: 2rem;
 		}
 	}
 </style>

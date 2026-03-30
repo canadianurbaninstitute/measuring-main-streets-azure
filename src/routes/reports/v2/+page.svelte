@@ -10,8 +10,12 @@
 	import resiliency from '../../lib/assets/graphics/resiliency.svg';
 	import Toronto from '../../lib/assets/graphics/toronto.jpg';
 	import arbutus from '../../lib/assets/screenshots/arbutus.png';
-	import displacement from '../../lib/assets/screenshots/displacement.png';
+	import displacement from '../../lib/assets/screenshots/displacement2.png';
+	import embodiedcarbon from '../../lib/assets/screenshots/emissions.png';
+	import intensification from '../../lib/assets/screenshots/intensification.png';
 	import intro from '../../lib/assets/screenshots/IntroHeader.png';
+	import transportation from '../../lib/assets/screenshots/transportation.png';
+	import whotsas from '../../lib/assets/screenshots/who-tsas.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
 	import '../../styles.css';
@@ -26,9 +30,9 @@
 				'With rapidly-growing populations, Canada’s largest metropolitan regions face an acute need for housing. How can transit-oriented development create complete communities that fulfill this need?'
 			],
 			categories: [
-				'Complete Communities',
-				'Walkability',
-				'Displacement',
+				'Mobility',
+				'Equity',
+				'GHG Emissions',
 				'Infographic',
 				'Regional Report',
 				'Partner Report'
@@ -36,24 +40,53 @@
 			items: [
 				{
 					title: 'Introductory Report',
-					description: 'An overview of the findings.',
+					description: '',
 					image: intro,
 					link: '/reports/tod/intro',
 					tags: ['Executive Summary']
+				},
+				{
+					title: "Who Lives in Canada's Transit Station Areas?",
+					description: '',
+					image: whotsas,
+					link: '/reports/tod/who-lives-in-tsas',
+					tags: ['Infographic', 'Regional Report']
 				},
 				{
 					title: 'Walkability Report',
 					description: 'Communities are only complete if they are walkable.',
 					image: arbutus,
 					link: '/reports/tod/walkability',
-					tags: ['Walkability', 'Regional Report']
+					tags: ['Mobility', 'Regional Report']
 				},
 				{
 					title: 'Past and Projected Transit-Induced Displacement in Canada',
-					description: 'A report on displacement by School of Cities.',
+					description: '',
 					image: displacement,
 					link: '/reports/tod/displacement',
-					tags: ['Displacement', 'Partner Report']
+					tags: ['Equity', 'Partner Report']
+				},
+				{
+					title: 'Embodied Greenhouse Gas Emissions in Transit-Oriented Development Scenarios',
+					description: '',
+					image: embodiedcarbon,
+					link: '/reports/tod/embodied-carbon',
+					tags: ['GHG Emissions', 'Partner Report']
+				},
+				{
+					title: 'Transportation equity and sustainable mobility from mixed-use development',
+					description: '',
+					image: transportation,
+					link: '/reports/tod/transportation-equity',
+					tags: ['Equity', 'Mobility', 'Partner Report']
+				},
+				{
+					title:
+						'Building intensification and neighbourhood change in transit-oriented development zones',
+					description: '',
+					image: intensification,
+					link: '/reports/tod/intensification-equity',
+					tags: ['Equity', 'Partner Report']
 				}
 			]
 		},

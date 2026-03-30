@@ -131,8 +131,8 @@
 	yDomain={[1000, 1000000]}
 	xScale={scaleLog}
 	yScale={scaleLog}
-	xLabel="Net new housing units more than 800m from transit station"
-	yLabel="Net new housing units within 800m of transit station"
+	xLabel="Net new housing units >800m"
+	yLabel="Net new housing units <800m"
 	referenceLine={{
 		x1: 1000,
 		y1: 1000,

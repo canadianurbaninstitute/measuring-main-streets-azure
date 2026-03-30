@@ -30,6 +30,14 @@
 		if (text.includes('partner')) return 'var(--brandPink)';
 		if (text.includes('executive summary')) return 'var(--brandLightBlue)';
 		if (text.includes('research brief')) return 'var(--color-green-500)';
+		if (text.includes('ghg emissions')) return 'var(--color-green-500)';
+		if (text.includes('equity')) return 'var(--color-orange-500)';
+		if (text.includes('mobility')) return 'var(--color-yellow-300)';
+		if (text.includes('infographic')) return 'var(--color-purple-500)';
+		if (text.includes('ontario')) return 'var(--color-purple-500)';
+		if (text.includes('quebec')) return 'var(--color-yellow-300)';
+		if (text.includes('alberta')) return 'var(--color-green-500)';
+		if (text.includes('british columbia')) return 'var(--color-blue-400)';
 
 		return 'var(--brandLightBlue)';
 	};
