@@ -10,6 +10,7 @@
 	import Ottawa from './assets/Ottawa-Gatineau.png';
 	import Toronto from './assets/Toronto.png';
 	import Canada from './assets/Canada.png';
+	import introImage from './assets/HeaderImage.png';
 
 	// Data
 	import data from './data/TSA_all_demos.csv';
@@ -21,6 +22,7 @@
 	import Footer from '../../../lib/ui/Footer.svelte';
 	import DotPlot from './components/StatDotPlot.svelte';
 	import DotPlotLegend from './components/DotPlotLegend.svelte';
+	import ReportHeader from '../../components/ReportHeader.svelte';
 	import '../../../styles.css';
 
 	let selectedRegion = $state('All Regions');
@@ -47,10 +49,9 @@
 	const selectedRow = $derived(data.find((d) => d.Region === selectedRegion) ?? data[0]);
 
 	// Overall
-	// TODO: force sum to 100
 	const areaData = $derived([
-		{ label: 'TSA Area (%)', value: 100 - selectedRow.area_pct, group: 'Region' },
-		{ label: 'TSA Area (%)', value: selectedRow.area_pct, group: 'TSAs' }
+		{ label: 'TSA Area (%)', value: 100 - Math.round(selectedRow.area_pct), group: 'Region' },
+		{ label: 'TSA Area (%)', value: Math.round(selectedRow.area_pct), group: 'TSAs' }
 	]);
 	const popData = $derived([
 		{
@@ -155,15 +156,20 @@
 	const domain = $derived([minValue * 0.5, maxValue * 1.2]);
 
 	$effect(() => {
-		console.log(popDotData);
-		console.log(domain);
+		console.log(areaData);
 	});
 
 	const tsaColour = '#db3069';
 	const cmaColour = '#00adf2';
 </script>
 
-<main class="p-10 md:p-50">
+<ReportHeader
+	id="report-header"
+	title="Who lives in Transit Station Areas?"
+	subtitle="What kinds of communities does transit-oriented development attract? Compare transit station areas to their regions to learn more."
+	backgroundImage={introImage}
+/>
+<main class="p-10 md:px-50">
 	<h1 class="infographic-title p-10" style="text-align: center;">
 		Who Lives in
 		{#if selectedRegion == 'All Regions'}
@@ -190,9 +196,9 @@
 				<div class="w-full max-w-[16rem] mb-1">
 					<span style="color: var(--brandDarkBlue);">
 						{#if selectedRegion == 'All Regions'}
-							<b>of area in All Regions is made up of Transit Station Areas.</b>
+							<b>of area in All Regions is made up of transit station areas.</b>
 						{:else}
-							<b>of {selectedRow.Region}'s area is made up of Transit Station Areas.</b>
+							<b>of {selectedRow.Region}'s area is made up of transit station areas.</b>
 						{/if}
 					</span>
 				</div>
@@ -215,8 +221,8 @@
 				<b style="color: var(--brandDarkBlue);">Transit Station Areas (TSAs)</b> refer to the area
 				within an 800m radius of a transit station.<br /><br />
 
-				The following data compares the population within Transit Station Areas to the population
-				outside of Transit Station Areas in
+				The following data compares the population within transit station areas to the population
+				outside of transit station areas in
 				<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME}</b>.
 			</p>
 		</div>
@@ -230,7 +236,7 @@
 			</span>
 		</div>
 		<div class="section-description pb-8">
-			Transit Station Areas make up a very small portion of the land area in their regions. However,
+			Transit station areas make up a very small portion of the land area in their regions. However,
 			they are extremely efficient when it comes to population and dwelling density.
 		</div>
 		<div style="display: flex; justify-content: center;">
@@ -251,7 +257,7 @@
 					/>
 				</div>
 			</div>
-			<div class="pl-10">
+			<div class="section-stats pl-10 pb-10 w-auto">
 				<h4 class="pb-2">Population</h4>
 				<span class="stat" style="color: {cmaColour};"
 					>{Math.round(popData[0].cma).toLocaleString()}</span
@@ -276,7 +282,7 @@
 					zRange={[cmaColour, tsaColour]}
 				/>
 			</div>
-			<div class="pl-10">
+			<div class="section-stats pl-10 pb-10 w-auto">
 				<h4 class="pb-2">Dwellings</h4>
 				<span class="stat" style="color: {cmaColour};"
 					>{Math.round(dwellingsData[0].cma).toLocaleString()}</span
@@ -317,6 +323,82 @@
 		</div>
 	</div>
 
+	<div class="infographic-section pb-20 md:pb-20 pt-16 md:pt-0">
+		<div class="section-title pb-6 text-center">
+			<span class="flex items-center gap-2 justify-center flex-wrap">
+				<Icon icon="mdi:train" style="color: var(--brandPurple); display: inline;" />
+				Transit-Oriented Development For Who?
+			</span>
+		</div>
+		<div class="section-description pb-8">
+			Communities around transit station areas are usually oriented towards young, single-household
+			renters. TSA communities are also generally highly-educated, with higher percentages of
+			residents holding university degrees inside TSAs than outside.
+		</div>
+		<div style="display: flex; justify-content: center;">
+			<DotPlotLegend data={selectedRow} />
+		</div>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			<div class="md:pl-40 w-auto h-100 md:h-auto">
+				<DotPlot
+					data={demoData}
+					yKey="label"
+					xDomain={[0, 80]}
+					seriesColors={[tsaColour, cmaColour]}
+					zDomain={['cma', 'tsa']}
+					zRange={[cmaColour, tsaColour]}
+				/>
+				<div class="pl-12 text-xs text-gray-500 center uppercase font-semibold">Percentage (%)</div>
+			</div>
+			<div class="section-stats md:pt-4 pl-10 w-auto">
+				<div class="py-8">
+					<h4 class="pb-2">Maintainer Age</h4>
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'Maintainers Under 35')?.cma)}%</span
+					>
+					of household maintainers in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> are under
+					35<br />
+					<span class="stat" style="color: {tsaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'Maintainers Under 35')?.tsa)}%</span
+					>
+					of household maintainers in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are under 35
+				</div>
+
+				<div class="py-8">
+					<h4 class="pb-2">Single Households</h4>
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'Single Households')?.cma)}%</span
+					>
+					of households in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> are
+					single-person<br />
+					<span class="stat" style="color: {tsaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'Single Households')?.tsa)}%</span
+					>
+					of households in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are single-person
+				</div>
+
+				<div class="py-8">
+					<h4 class="pb-2">University Degree</h4>
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'University Degree')?.cma)}%</span
+					>
+					of residents in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> hold a
+					university degree<br />
+					<span class="stat" style="color: {tsaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'University Degree')?.tsa)}%</span
+					>
+					of residents in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> hold a university degree
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="infographic-section pb-20 mt-16 md:mt-0">
 		<div class="section-title pb-6 text-center">
 			<span class="flex items-center gap-2 justify-center flex-wrap">
@@ -325,9 +407,10 @@
 			</span>
 		</div>
 		<div class="section-description pb-8">
-			In order to be so efficient in such a small area, the urban form must go vertical rather than
-			spreading horizontally. This is the case in the Transit Station Area housing stock. A higher
-			percentage of residents in Transit Station Areas spend over 30% of their income on shelter
+			In order to be so efficient in such a small area, the urban form in transit station areas must
+			go vertical rather than spreading horizontally. Transit station areas have a higher percentage
+			of residential apartment buildings than their surrounding areas. Additionally, a higher
+			percentage of residents in transit station areas spend over 30% of their income on shelter
 			costs.
 		</div>
 		<div style="display: flex; justify-content: center;">
@@ -348,7 +431,7 @@
 
 				<div class="pl-12 text-xs text-gray-500 center uppercase font-semibold">Percentage (%)</div>
 			</div>
-			<div class="md:pt-4 pl-10 w-auto">
+			<div class="section-stats md:pt-4 pl-10 w-auto">
 				<div class="py-8">
 					<h4 class="pb-2">Apartments</h4>
 					<span class="stat" style="color: {cmaColour};"
@@ -406,13 +489,13 @@
 		</div>
 		<div class="section-description pb-8">
 			On average, have a higher percentage of residents who use active and public transportation.
-			Residents of Transit Station Areas also spend less on transportation on average compared to
+			Residents of transit station areas also spend less on transportation on average compared to
 			their region.
 		</div>
 		<div style="display: flex; justify-content: center;">
 			<DotPlotLegend data={selectedRow} />
 		</div>
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-20">
 			<div class="md:pl-40 w-auto h-100">
 				<DotPlot
 					data={transportData}
@@ -424,23 +507,9 @@
 					zRange={[cmaColour, tsaColour]}
 				/>
 				<div class="pl-12 text-xs text-gray-500 center uppercase font-semibold">Percentage (%)</div>
-				<div class="h-auto w-auto">
-					<DotPlot
-						data={transportCostData}
-						yKey="label"
-						xDomain={[
-							Math.min(...transportCostData.flatMap((d) => [d.tsa, d.cma])) * 0.8,
-							Math.max(...transportCostData.flatMap((d) => [d.tsa, d.cma])) * 1.2
-						]}
-						seriesColors={[tsaColour, cmaColour]}
-						height="100px"
-						zDomain={['cma', 'tsa']}
-						zRange={[cmaColour, tsaColour]}
-					/>
-				</div>
 			</div>
 			<!-- TODO: fix mobile -->
-			<div class="md:pt-4 pl-10 w-auto">
+			<div class="section-stats md:pt-4 pl-10 w-auto">
 				<div class="py-8">
 					<h4 class="pb-2">Active Transportation</h4>
 					<span class="stat" style="color: {cmaColour};"
@@ -473,7 +542,28 @@
 					of residents inside
 					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> use public transit
 				</div>
-				<div class="py-8">
+			</div>
+		</div>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			<div class="md:pl-40 w-auto h-25">
+				<DotPlot
+					data={transportCostData}
+					yKey="label"
+					xDomain={[
+						Math.min(...transportCostData.flatMap((d) => [d.tsa, d.cma])) * 0.8,
+						Math.max(...transportCostData.flatMap((d) => [d.tsa, d.cma])) * 1.2
+					]}
+					seriesColors={[tsaColour, cmaColour]}
+					height="100%"
+					zDomain={['cma', 'tsa']}
+					zRange={[cmaColour, tsaColour]}
+				/>
+				<div class="pl-12 text-xs text-gray-500 center uppercase font-semibold">
+					Amount spent by household, yearly ($)
+				</div>
+			</div>
+			<div class="section-stats md:pl-10 w-auto">
+				<div class="pb-8">
 					<h4 class="pb-2">Average Transportation Cost</h4>
 					<span class="stat" style="color: {cmaColour};"
 						>${Math.round(
@@ -489,81 +579,6 @@
 					>
 					spent on transportation by the average household in a year inside
 					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="infographic-section pb-20 md:pb-20 pt-16 md:pt-0">
-		<div class="section-title pb-6 text-center">
-			<span class="flex items-center gap-2 justify-center flex-wrap">
-				<Icon icon="mdi:train" style="color: var(--brandPurple); display: inline;" />
-				Transit-Oriented Development For Who?
-			</span>
-		</div>
-		<div class="section-description pb-8">
-			So who lives in Transit Station Areas? These communities are usually oriented towards young,
-			highly-educated renters.
-		</div>
-		<div style="display: flex; justify-content: center;">
-			<DotPlotLegend data={selectedRow} />
-		</div>
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			<div class="md:pl-40 w-auto h-100 md:h-auto">
-				<DotPlot
-					data={demoData}
-					yKey="label"
-					xDomain={[0, 80]}
-					seriesColors={[tsaColour, cmaColour]}
-					zDomain={['cma', 'tsa']}
-					zRange={[cmaColour, tsaColour]}
-				/>
-				<div class="pl-12 text-xs text-gray-500 center uppercase font-semibold">Percentage (%)</div>
-			</div>
-			<div class="md:pt-4 pl-10 w-auto">
-				<div class="py-8">
-					<h4 class="pb-2">Maintainer Age</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'Maintainers Under 35')?.cma)}%</span
-					>
-					of household maintainers in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> are under
-					35<br />
-					<span class="stat" style="color: {tsaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'Maintainers Under 35')?.tsa)}%</span
-					>
-					of household maintainers in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are under 35
-				</div>
-
-				<div class="py-8">
-					<h4 class="pb-2">Single Households</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'Single Households')?.cma)}%</span
-					>
-					of households in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> are
-					single-person<br />
-					<span class="stat" style="color: {tsaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'Single Households')?.tsa)}%</span
-					>
-					of households in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are single-person
-				</div>
-
-				<div class="py-8">
-					<h4 class="pb-2">University Degree</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'University Degree')?.cma)}%</span
-					>
-					of residents in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> hold a
-					university degree<br />
-					<span class="stat" style="color: {tsaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'University Degree')?.tsa)}%</span
-					>
-					of residents in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> hold a university degree
 				</div>
 			</div>
 		</div>
@@ -597,6 +612,9 @@
 		margin: 0 auto;
 		max-width: 40em;
 		text-align: center;
+	}
+	.section-stats {
+		max-width: 40em;
 	}
 	.region-image {
 		width: 100%;
