@@ -77,8 +77,7 @@
 		},
 		{ label: 'Street Quality', key: 'street_quality_score', icon: 'mdi:road-variant' },
 		{ label: 'Building', key: 'building_analysis_score', icon: 'mdi:office-building-outline' },
-		{ label: 'Placemaking', key: 'place_making_analysis_score', icon: 'mdi:bench' },
-		{ label: 'Bicycle', key: 'bicycle_infrastructure_score', icon: 'mdi:bike' }
+		{ label: 'Placemaking', key: 'place_making_analysis_score', icon: 'mdi:bench' }
 	]);
 </script>
 
@@ -101,7 +100,7 @@
 	</div>
 
 	<div class="flex-grow p-3 overflow-y-auto custom-scrollbar">
-		<!-- <div class="grid grid-cols-2 gap-2">
+		<div class="grid grid-cols-2 gap-2">
 			{#each metrics as metric}
 				<div class="flex items-center gap-2 p-1.5 bg-zinc-50 rounded-lg border border-zinc-100">
 					<div
@@ -120,7 +119,7 @@
 					</div>
 				</div>
 			{/each}
-		</div> -->
+		</div>
 
 		{#if properties?.best_explanation}
 			<div

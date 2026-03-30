@@ -12,14 +12,11 @@
 	import { mount, onMount, unmount } from 'svelte';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 
+	import { stations as initialStations } from './stations.js';
+	import { steps } from './steps.js';
+
 	// Hardcoded station target list from requirements
-	let stations = $state([
-		{ id: '653', name: 'Main Street Station', lng: null, lat: null },
-		{ id: '106', name: 'Keele Station', lng: null, lat: null },
-		{ id: '426', name: 'Islington Station', lng: null, lat: null },
-		{ id: '172', name: 'Sheppard-Yonge Station', lng: null, lat: null },
-		{ id: '567', name: 'Kennedy Station', lng: null, lat: null }
-	]);
+	let stations = $state([...initialStations]);
 
 	// Fetch station locations on mount to populate coordinates
 	onMount(async () => {
@@ -65,17 +62,26 @@
 			: null
 	);
 
-	// Handle intersection events to move map
+	// Handle intersection events to move map and trigger popups
 	function handleSectionIntersect(node) {
 		const stationId = node.dataset.stationId;
+		const popupId = node.dataset.popupId;
+
+		// Always update active station to trigger flyTo if changed
 		activeStationId = stationId;
+
+		if (popupId) {
+			openPopupById(popupId);
+		} else {
+			closePopup();
+		}
 	}
 
 	// Reactively trigger map movements when the active section OR the loaded coordinates change
 	$effect(() => {
 		if (map && activeStationId) {
 			const station = stations.find((s) => s.id === activeStationId);
-			if (station) {
+			if (station && station.lng && station.lat) {
 				map.flyTo({
 					center: [station.lng, station.lat],
 					zoom: 14,
@@ -90,6 +96,25 @@
 	function handlePointClick({ lng, lat, properties, mapInstance, point, id }) {
 		if (activePopup) {
 			activePopup.remove();
+		}
+
+		// Highlight the point
+		const targetMap = mapInstance || map;
+		if (targetMap && targetMap.getSource('selected-station')) {
+			targetMap.getSource('selected-station').setData({
+				type: 'FeatureCollection',
+				features: [
+					{
+						type: 'Feature',
+						id: id,
+						geometry: {
+							type: 'Point',
+							coordinates: [lng, lat]
+						},
+						properties: properties
+					}
+				]
+			});
 		}
 
 		// Calculate dynamic anchor based on click position
@@ -163,6 +188,41 @@
 			activePopup.remove();
 		}
 	}
+
+	function openPopupById(id) {
+		if (!map || !id) return;
+
+		const tryOpen = () => {
+			// Search for the feature by ID in the specific layer
+			const features = map.queryRenderedFeatures({
+				layers: ['station-analysis-points-expla-c0bvk5'],
+				filter: ['==', ['id'], parseInt(id)]
+			});
+
+			if (features.length > 0) {
+				const feature = features[0];
+				const coordinates = feature.geometry.coordinates.slice();
+				const point = map.project(coordinates);
+
+				handlePointClick({
+					lng: coordinates[0],
+					lat: coordinates[1],
+					properties: feature.properties,
+					mapInstance: map,
+					id: feature.id,
+					point: point
+				});
+			}
+		};
+
+		if (map.isMoving()) {
+			map.once('idle', tryOpen);
+		} else {
+			tryOpen();
+			// Backup attempt in case the layer was still rendering
+			map.once('idle', tryOpen);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -177,6 +237,35 @@
 			Complete Communities and <span class="text-blue-300">Walkability</span>
 		</h1>
 		<h3><span class="text-slate-500">A Forgotten Facet of Transit Oriented Development</span></h3>
+		<p>
+			A complete community is a place that provides the goods and services people need in their
+			daily lives. It is typically defined by the proximity of amenities to where people live.
+			Clustering amenities around a central node—such as a transit station or main street—adds
+			convenience and efficiency, and supports higher housing densities. A central premise of this
+			model is that people can access daily necessities on foot rather than by car. This, in turn,
+			leads to health benefits for individuals and enhances the vitality and sustainability of
+			neighbourhoods.
+		</p>
+		<p>
+			However, most complete community models overlook an important detail: the choice to walk
+			depends not only on distance, but also on the quality of the journey. Pedestrians need to feel
+			comfortable and safe, and walking routes should be engaging. The psychological distance of a
+			trip is influenced by the visual experience along the way.
+		</p>
+		<p>
+			Over the past 18 months, the Canadian Urban Institute has developed a methodology to assess
+			the quality of the public realm from a pedestrian perspective. This approach uses Google
+			Street View images analyzed by a large language model (OpenAI) to evaluate intersections and
+			midblock segments across a range of themes. Detailed prompts assess elements such as sidewalk
+			quality, placemaking, accessibility, and the built environment. A more detailed explanation is
+			provided at the end of this report.
+		</p>
+		<p>
+			This model was applied to five case study station areas. The results are presented in order
+			from most to least walkable. An interactive map of walkability scores for each intersection
+			and street is included below; users can click on any point to view a Street View panorama
+			along with its corresponding assessment.
+		</p>
 	</div>
 </div>
 <div class="page-layout">
@@ -189,39 +278,27 @@
 
 	<!-- Foreground: Scrolling Content Blocks -->
 	<div class="content-foreground">
-		{#each stations as station}
+		{#each steps as step}
+			{@const station = stations.find((s) => s.id === step.stationId)}
 			<section
 				class="scroll-section"
-				data-station-id={station.id}
+				data-station-id={step.stationId}
+				data-popup-id={step.triggerPopupId}
 				use:intersect={handleSectionIntersect}
 			>
-				<h2 class="station-title">{station.name}</h2>
-				<h4 class="mb-4 station-region">{station.region}</h4>
+				{#if step.title}
+					<h2 class="station-title">{step.title}</h2>
+				{/if}
+				{#if step.region}
+					<h4 class="mb-4 station-region">{station.region}</h4>
+				{/if}
 				<div class="prose prose-zinc prose-invert lg:prose-lg max-w-none">
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus
-						hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut
-						eleifend nibh porttitor. Ut in nulla enim.
-					</p>
-					<p>
-						Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum
-						feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut
-						blandit odio. Proin quis tortor orci.
-					</p>
-					<p>
-						Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus
-						condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum
-						faucibus eget in metus. In pellentesque faucibus vestibulum.
-					</p>
-					<p>
-						<strong
-							>Click the dots on the map to explore the immediate surroundings via Google Maps
-							Streetview.</strong
-						>
-					</p>
+					{#each step.paragraphs as paragraph}
+						<p class="mb-4">{@html paragraph}</p>
+					{/each}
 				</div>
 
-				{#if isMobile && station.lng && station.lat}
+				{#if isMobile && station?.lng && station?.lat}
 					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
 						<WalkabilityMap
 							center={[station.lng, station.lat]}
@@ -474,14 +551,13 @@
 	.scroll-section {
 		pointer-events: auto;
 		margin: 20vh 0 20vh 10%;
-		padding: 3rem;
+		padding: 3rem 3rem 2.5rem 3rem;
 		color: #f4f4f5; /* zinc-50 */
 		backdrop-filter: blur(12px);
 		border-radius: 1.5rem;
 		box-shadow:
 			0 20px 25px -5px rgba(0, 0, 0, 0.5),
 			0 10px 10px -5px rgba(0, 0, 0, 0.3);
-		min-height: 40vh;
 		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
@@ -490,6 +566,7 @@
 		padding: 0;
 		border-radius: 12px;
 		overflow: hidden;
+		background-color: transparent;
 	}
 
 	@media (max-width: 1024px) {
