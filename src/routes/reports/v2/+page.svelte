@@ -166,10 +166,10 @@
 		}
 	];
 
-	let activeTab = $state('msr');
+	let activeTab = $state('tod');
 
 	onMount(() => {
-		activeTab = page.url.searchParams.get('tab') || 'msr';
+		activeTab = page.url.searchParams.get('tab') || 'tod';
 	});
 </script>
 
