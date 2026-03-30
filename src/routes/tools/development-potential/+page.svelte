@@ -525,8 +525,7 @@
 						{station1Data.stop_label}
 					</div>
 					<div class="text-xs text-gray-500 mb-2">
-						Line {station1Data.line_display_name}<br />{station1Data.region}<br
-						/>{station1Data.status}
+						{station1Data.line_display_name}<br />{station1Data.region}<br />{station1Data.status}
 					</div>
 					<div class="mt-2 text-[#006A8E] text-lg font-medium">
 						Development Potential:
