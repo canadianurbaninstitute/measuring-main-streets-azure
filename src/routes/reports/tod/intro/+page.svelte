@@ -245,11 +245,11 @@
 					heading={step.heading}
 					body={step.body}
 					cta={step.cta}
+					showInlineVisual={!!step.panelId &&
+						(i === 0 || steps[i].panelUid !== steps[i - 1].panelUid)}
 				>
 					{#snippet inlineVisual()}
-						{#if i === 0 || steps[i].panelUid !== steps[i - 1].panelUid}
-							{@render renderPanel(step.panelUid, true)}
-						{/if}
+						{@render renderPanel(step.panelUid, true)}
 					{/snippet}
 				</TextBlock>
 			{/each}
@@ -335,17 +335,11 @@
 	}
 
 	.inline-heading {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: var(--brandDarkBlue);
 		margin-bottom: 0.5rem;
 	}
 
 	.inline-body {
-		font-size: 1.125rem;
-		line-height: 1.6;
-		color: #333;
-		margin-bottom: 1.5rem;
+		margin-bottom: 2rem;
 	}
 
 	.inline-cta {
@@ -391,5 +385,30 @@
 		pointer-events: auto !important;
 		width: 100%;
 		height: 100%;
+	}
+
+	@media (max-width: 768px) {
+		.inline-vis-container {
+			padding: 2rem 0;
+			min-height: auto;
+		}
+
+		.inline-vis-container.multi-vis {
+			flex-direction: column;
+			/* gap: 4rem; */
+		}
+
+		.inline-vis-item {
+			flex: 0 0 auto;
+			width: 100%;
+			max-width: none;
+			display: flex;
+		}
+
+		.inline-vis-container :global(.vis-panel) {
+			padding: 1rem;
+			height: auto;
+			min-height: 100%;
+		}
 	}
 </style>
