@@ -10,7 +10,7 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 
-	import ClevelandDotPlot from './DrawDotPlot.svelte';
+	import ClevelandDotPlot from './DotPlotInner.svg.svelte';
 	import AxisX from '../../../../lib/ui/chartcomponents/AxisX.svelte';
 	import AxisY from '../../../../lib/ui/chartcomponents/AxisY.svelte';
 

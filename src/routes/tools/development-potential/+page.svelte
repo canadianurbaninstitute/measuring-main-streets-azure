@@ -58,10 +58,11 @@
 	// Radar tabs
 	const radarCategories = [
 		{ value: 'land', label: 'Land Availability' },
-		{ value: 'growth', label: 'Growth Pressure' }
+		{ value: 'growth', label: 'Growth Pressure' },
+		{ value: 'potential', label: 'Development Potential' }
 	];
 
-	let activeRadarCategory = $state('land');
+	let activeRadarCategory = $state('potential');
 
 	// Validation flag
 	let initialStationsValidated = $state(false);
@@ -210,22 +211,8 @@
 				{ label: 'Complete Community Score', value: (data.OverallCCScore || 0) * 100 },
 				{ label: 'Daily Visits', value: (data.DailyVisits || 0) * 100 }
 			);
-		} else if (category === 'displacement') {
-			subcategoryScore = potentialMap[data.DRLevel] || 0;
-
-			radarPoints.push(
-				{
-					label: '>30% of income spent on shelter',
-					value: (data.MoreThan30OnShelter || 0) * 100
-				},
-				{ label: 'Total Immigrants', value: (data.TotalImmigrant || 0) * 100 },
-				{
-					label: 'Total Visible Minorities',
-					value: (data.VisibleMinorityTotal || 0) * 100
-				},
-				{ label: 'Pop Under 19 or Over 65', value: (data.YouthElderly || 0) * 100 },
-				{ label: 'Low Income Population', value: (data.LowIncome || 0) * 100 }
-			);
+		} else if (category == 'potential') {
+			subcategoryScore = potentialMap[data.potential] || 0;
 		}
 
 		return {
@@ -599,7 +586,7 @@
 		<div class="hidden lg:grid grid-cols-3 gap-6 text-center">
 			<h4>Built Form</h4>
 			<h4>Station Ranking</h4>
-			<h4>Development Potential</h4>
+			<h4>Displacement Risk</h4>
 		</div>
 
 		<!-- Row 1 -->
@@ -610,8 +597,9 @@
 
 				{#if unitsCreated1 > 0}
 					<div class="mt-8 flex flex-col items-center">
-						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Approved Units</span
+						<span
+							class="text-xs font-bold text-center text-gray-500 uppercase tracking-[0.2em] mb-2"
+							>Active building permits (2025) <br /> Number of units</span
 						>
 						<div class="flex items-baseline gap-1">
 							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
@@ -623,14 +611,17 @@
 			</div>
 			<div class="flex flex-col w-full items-center gap-4 relative">
 				<h4 class="lg:hidden text-center mb-4">Station Ranking</h4>
-				<Tabs.Root bind:value={activeRadarCategory} class="w-full flex justify-center mb-4">
+				<Tabs.Root
+					bind:value={activeRadarCategory}
+					class="w-full flex justify-center mb-4 px-4 sm:px-0"
+				>
 					<Tabs.List
 						class="flex w-full justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
 					>
 						{#each radarCategories as cat}
 							<Tabs.Trigger
 								value={cat.value}
-								class="px-3 w-1/2 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+								class="px-4 w-1/3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
 							>
 								{cat.label}
 							</Tabs.Trigger>
@@ -638,36 +629,26 @@
 					</Tabs.List>
 				</Tabs.Root>
 				<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#00adf2', '#db3069']} />
-				<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
-				{#if activeRadarCategory == 'land'}
-					<div class="text-sm italic text-gray-500 text-center">
-						Low Population Density is highly ranked<br />
-						Low Employment Density is highly ranked
-					</div>
+				{#if activeRadarCategory == 'land' || activeRadarCategory == 'growth'}
+					<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
+					{#if activeRadarCategory == 'land'}
+						<div class="text-sm italic text-gray-500 text-center">
+							Low Population Density is highly ranked<br />
+							Low Employment Density is highly ranked
+						</div>
+					{/if}
+				{:else if activeRadarCategory == 'potential'}
+					<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
 				{/if}
 			</div>
 			<div class="flex flex-col items-center justify-center relative">
-				<h4 class="lg:hidden text-center mb-4">Development Potential</h4>
-				<div class="w-full">
-					<Accordion>
-						<div class="w-full flex flex-col items-center inline-icon pb-2" slot="header">
-							<div class="pt-10 pb-3 flex justify-center uppercase text-sm font-bold text-gray-500">
-								Displacement Risk<Icon icon="iconoir:nav-arrow-down" />
-							</div>
-							<ScoreBar
-								score={devData1.displacementScore}
-								maxScore={10}
-								colors={['#00adf2', '#f45d01']}
-							/>
-						</div>
-						<div slot="body">
-							<RadarChart data={devData1.displacementRadar} max={100} color="#f45d01" />
-						</div>
-					</Accordion>
-				</div>
-
-				<div class="pb-2 uppercase text-sm font-bold text-gray-500">Development Potential</div>
-				<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
+				<h4 class="lg:hidden text-center mb-4">Displacement Risk</h4>
+				<ScoreBar
+					score={devData1.displacementScore}
+					maxScore={10}
+					colors={['#00adf2', '#f45d01']}
+				/>
+				<RadarChart data={devData1.displacementRadar} max={100} color="#f45d01" />
 			</div>
 		</div>
 	</div>

@@ -94,7 +94,7 @@
 
 <div class="flex flex-col items-center w-full max-w-[400px] mt-2">
 	<!-- Top Bar -->
-	<div
+	<!-- <div
 		class="w-full h-4 bg-zinc-200 flex mb-2 relative rounded-sm overflow-hidden border border-zinc-300"
 	>
 		<div
@@ -108,17 +108,17 @@
 			<div class="flex-1 border-r border-white/40"></div>
 			<div class="flex-1"></div>
 		</div>
-	</div>
+	</div> -->
 
-	<div
+	<!-- <div
 		class="w-full flex justify-between text-[11px] uppercase tracking-wider font-bold text-zinc-500 mb-6"
 	>
 		<span>Very Low</span>
 		<span>Very High</span>
-	</div>
+	</div> -->
 
 	<!-- Realistic Isometric Visualisation -->
-	<svg viewBox="-10 -40 220 220" class="mt-10 w-full h-auto drop-shadow-2xl overflow-visible">
+	<svg viewBox="-10 -40 220 220" class="mt-4 w-full h-auto drop-shadow-2xl overflow-visible">
 		<defs>
 			<clipPath id="surface-clip">
 				<polygon points={block.top} />
