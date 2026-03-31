@@ -34,8 +34,7 @@
 						id: s.id,
 						lng: match.longitude,
 						lat: match.latitude,
-						name: match.stop_label || match.platform_name || s.name,
-						region: match.region
+						name: match.stop_label || match.platform_name || s.name
 					};
 				}
 				return s;
@@ -51,6 +50,20 @@
 
 	let methodologyOpen = $state(true);
 	let citationsOpen = $state(false);
+
+	const navItems = steps
+		.filter((step) => step.title)
+		.map((step) => ({
+			id: step.stationId,
+			title: step.title.replace(' Station Area', '')
+		}));
+
+	const scrollToStation = (id) => {
+		const section = document.querySelector(`section[data-station-id="${id}"]`);
+		if (section) {
+			section.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
 
 	let innerWidth = $state(0);
 	let isMobile = $derived(innerWidth > 0 && innerWidth < 1024);
@@ -232,40 +245,57 @@
 <svelte:window bind:innerWidth />
 
 <div class="header-section">
-	<div class="header-content">
-		<h1 class="mb-4 uppercase">
-			Complete Communities and <span class="text-blue-300">Walkability</span>
-		</h1>
-		<h3><span class="text-slate-500">A Forgotten Facet of Transit Oriented Development</span></h3>
-		<p>
-			A complete community is a place that provides the goods and services people need in their
-			daily lives. It is typically defined by the proximity of amenities to where people live.
-			Clustering amenities around a central node—such as a transit station or main street—adds
-			convenience and efficiency, and supports higher housing densities. A central premise of this
-			model is that people can access daily necessities on foot rather than by car. This, in turn,
-			leads to health benefits for individuals and enhances the vitality and sustainability of
-			neighbourhoods.
-		</p>
-		<p>
-			However, most complete community models overlook an important detail: the choice to walk
-			depends not only on distance, but also on the quality of the journey. Pedestrians need to feel
-			comfortable and safe, and walking routes should be engaging. The psychological distance of a
-			trip is influenced by the visual experience along the way.
-		</p>
-		<p>
-			Over the past 18 months, the Canadian Urban Institute has developed a methodology to assess
-			the quality of the public realm from a pedestrian perspective. This approach uses Google
-			Street View images analyzed by a large language model (OpenAI) to evaluate intersections and
-			midblock segments across a range of themes. Detailed prompts assess elements such as sidewalk
-			quality, placemaking, accessibility, and the built environment. A more detailed explanation is
-			provided at the end of this report.
-		</p>
-		<p>
-			This model was applied to five case study station areas. The results are presented in order
-			from most to least walkable. An interactive map of walkability scores for each intersection
-			and street is included below; users can click on any point to view a Street View panorama
-			along with its corresponding assessment.
-		</p>
+	<div class="header-wrapper">
+		<div class="header-content">
+			<h1 class="mb-4 uppercase text-slate-800">
+				Complete Communities and <span class="text-blue-400">Walkability</span>
+			</h1>
+			<h3 class="mb-8">
+				<span class="text-slate-500">A Forgotten Facet of Transit Oriented Development</span>
+			</h3>
+			<p>
+				A complete community is a place that provides the goods and services people need in their
+				daily lives. It is typically defined by the proximity of amenities to where people live.
+				Clustering amenities around a central node—such as a transit station or main street—adds
+				convenience and efficiency, and supports higher housing densities. A central premise of this
+				model is that people can access daily necessities on foot rather than by car. This, in turn,
+				leads to health benefits for individuals and enhances the vitality and sustainability of
+				neighbourhoods.
+			</p>
+			<p>
+				However, most complete community models overlook an important detail: the choice to walk
+				depends not only on distance, but also on the quality of the journey. Pedestrians need to
+				feel comfortable and safe, and walking routes should be engaging. The psychological distance
+				of a trip is influenced by the visual experience along the way.
+			</p>
+			<p>
+				Over the past 18 months, the Canadian Urban Institute has developed a methodology to assess
+				the quality of the public realm from a pedestrian perspective. This approach uses Google
+				Street View images analyzed by a large language model (OpenAI) to evaluate intersections and
+				midblock segments across a range of themes. Detailed prompts assess elements such as
+				sidewalk quality, placemaking, accessibility, and the built environment. A more detailed
+				explanation is provided at the end of this report.
+			</p>
+			<p>
+				This model was applied to five case study station areas. The results are presented in order
+				from most to least walkable. An interactive map of walkability scores for each intersection
+				and street is included below; users can click on any point to view a Street View panorama
+				along with its corresponding assessment.
+			</p>
+		</div>
+		<nav class="header-nav">
+			<div class="nav-group">
+				<h4>STATIONS</h4>
+				<div class="nav-line"></div>
+				<ul>
+					{#each navItems as item}
+						<li>
+							<button onclick={() => scrollToStation(item.id)}>{item.title}</button>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		</nav>
 	</div>
 </div>
 <div class="page-layout">
@@ -278,7 +308,7 @@
 
 	<!-- Foreground: Scrolling Content Blocks -->
 	<div class="content-foreground">
-		{#each steps as step}
+		{#each steps as step, i}
 			{@const station = stations.find((s) => s.id === step.stationId)}
 			<section
 				class="scroll-section"
@@ -290,7 +320,7 @@
 					<h2 class="station-title">{step.title}</h2>
 				{/if}
 				{#if step.region}
-					<h4 class="mb-4 station-region">{station.region}</h4>
+					<h4 class="mb-4 station-region">{step.region}</h4>
 				{/if}
 				<div class="prose prose-zinc prose-invert lg:prose-lg max-w-none">
 					{#each step.paragraphs as paragraph}
@@ -298,7 +328,7 @@
 					{/each}
 				</div>
 
-				{#if isMobile && station?.lng && station?.lat}
+				{#if isMobile && station?.lng && station?.lat && (i === steps.length - 1 || steps[i + 1]?.stationId !== step.stationId)}
 					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
 						<WalkabilityMap
 							center={[station.lng, station.lat]}
@@ -540,11 +570,64 @@
 		background-attachment: fixed;
 	}
 
+	.header-wrapper {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 4rem;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(8px);
+		padding: 8% 10%;
+	}
+
+	.header-nav {
+		padding-top: 1rem;
+	}
+
+	.nav-group h4 {
+		letter-spacing: 0.1em;
+		color: #1a1a1a;
+		margin-bottom: 0.5rem;
+		font-size: 1rem;
+		font-weight: 800;
+	}
+
+	.nav-line {
+		width: 100%;
+		height: 3px;
+		background-color: var(--color-blue-300); /* blue-500 */
+		margin-bottom: 1.5rem;
+	}
+
+	.nav-group ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.nav-group li {
+		margin-bottom: 1rem;
+	}
+
+	.nav-group button {
+		background: none;
+		border: none;
+		padding: 0;
+		text-align: left;
+		cursor: pointer;
+		font-size: 1.15rem;
+		font-weight: 500;
+		color: #1a1a1a;
+		transition: transform 0.2s;
+	}
+
+	.nav-group button:hover {
+		transform: translateX(4px);
+		color: var(--color-blue-300);
+	}
+
 	.header-content {
-		background: rgba(255, 255, 255, 0.9);
-		backdrop-filter: blur(4px);
-		padding: 10% 10%;
-		/* border-radius: 2rem; */
+		padding: 0;
 	}
 
 	/* Each section is heavily padded to force scrolling */
@@ -576,10 +659,29 @@
 			pointer-events: auto;
 		}
 
+		.header-wrapper {
+			grid-template-columns: 1fr;
+			padding: 10% 5%;
+			gap: 2rem;
+		}
+
+		.header-nav {
+			padding-top: 0;
+		}
+
+		.nav-group li {
+			display: block;
+			margin-right: 1.5rem;
+		}
+
+		.mb-8 {
+			margin-bottom: 1.5rem !important;
+		}
+
 		.scroll-section {
 			margin: 0;
 			padding: 10vh 5%;
-			min-height: 60vh;
+			/* min-height: 60vh; */
 			border-radius: 0;
 			background: #18181b; /* zinc-900 solid on mobile */
 			box-shadow: none;
