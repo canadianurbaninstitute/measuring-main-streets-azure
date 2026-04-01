@@ -9,6 +9,13 @@
 	import opennorth from '../../lib/assets/graphics/opennorth.svg';
 	import resiliency from '../../lib/assets/graphics/resiliency.svg';
 	import Toronto from '../../lib/assets/graphics/toronto.jpg';
+	import arbutus from '../../lib/assets/screenshots/arbutus.png';
+	import displacement from '../../lib/assets/screenshots/displacement2.png';
+	import embodiedcarbon from '../../lib/assets/screenshots/emissions.png';
+	import intensification from '../../lib/assets/screenshots/intensification.png';
+	import intro from '../../lib/assets/screenshots/IntroHeader.png';
+	import transportation from '../../lib/assets/screenshots/transportation.png';
+	import whotsas from '../../lib/assets/screenshots/who-tsas.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
 	import '../../styles.css';
@@ -16,6 +23,73 @@
 	const title = 'Measuring Main Streets Reports';
 
 	const tabs = [
+		{
+			label: 'Transit Oriented Development',
+			value: 'tod',
+			description: [
+				'With rapidly-growing populations, Canada’s largest metropolitan regions face an acute need for housing. How can transit-oriented development create complete communities that fulfill this need?'
+			],
+			categories: [
+				'Mobility',
+				'Equity',
+				'GHG Emissions',
+				'Infographic',
+				'Regional Report',
+				'Partner Report'
+			],
+			items: [
+				{
+					title: 'Introductory Report',
+					description: '',
+					image: intro,
+					link: '/reports/tod/intro',
+					tags: ['Executive Summary']
+				},
+				{
+					title: "Who Lives in Canada's Transit Station Areas?",
+					description: '',
+					image: whotsas,
+					link: '/reports/tod/who-lives-in-tsas',
+					tags: ['Infographic', 'Regional Report']
+				},
+				{
+					title: 'Walkability Report',
+					description: 'Communities are only complete if they are walkable.',
+					image: arbutus,
+					link: '/reports/tod/walkability',
+					tags: ['Mobility', 'Regional Report']
+				},
+				{
+					title: 'Past and Projected Transit-Induced Displacement in Canada',
+					description: '',
+					image: displacement,
+					link: '/reports/tod/displacement',
+					tags: ['Equity', 'Partner Report']
+				},
+				{
+					title: 'Embodied Greenhouse Gas Emissions in Transit-Oriented Development Scenarios',
+					description: '',
+					image: embodiedcarbon,
+					link: '/reports/tod/embodied-carbon',
+					tags: ['GHG Emissions', 'Partner Report']
+				},
+				{
+					title: 'Transportation equity and sustainable mobility from mixed-use development',
+					description: '',
+					image: transportation,
+					link: '/reports/tod/transportation-equity',
+					tags: ['Equity', 'Mobility', 'Partner Report']
+				},
+				{
+					title:
+						'Building intensification and neighbourhood change in transit-oriented development zones',
+					description: '',
+					image: intensification,
+					link: '/reports/tod/intensification-equity',
+					tags: ['Equity', 'Partner Report']
+				}
+			]
+		},
 		{
 			label: 'Main Street Resiliency',
 			value: 'msr',
@@ -29,7 +103,7 @@
 				'While there is no singular model of an ideal main street, our research does highlight some common principles of places that demonstrate relative successes across the themes of resiliency, community, and equity. By examining the themes together from a geographic approach in each of three regions some types of streets become evident. The well-performing main streets tended to be places that served well-established walkable residential neighbourhoods. These main streets possessed buildings that are flexible and have been adapted as local populations shifted. The most resilient main streets also tend to offer a range of housing options. By contrast, in a suburban context where main streets are built around car use, single use buildings, low housing density, and less civic infrastructure the ability of this environment to serve the purposes of a main street is more difficult and the lack of vibrancy reflects this.',
 				'The Measuring Main Street project began in June of 2022 and formally launched in June 2024. The platform can be found at www.measuringmainstreets.ca. It is comprised of four primary components, an interactive map of all main streets in Canada, thematic and regional research briefs, detailed main street case studies, and a set of data and visualization tools. The Measuring Main Streets Platform will be publicly available and serve as a hub of main street research going forward.'
 			],
-			categories: ['Research Brief', 'Regional Report', 'Executive Summary'],
+			categories: ['Research Brief', 'Regional Report', 'Executive Summary', 'Partner Report'],
 			items: [
 				{
 					title: 'Executive Summary: Measuring Main Streets',
@@ -65,7 +139,7 @@
 						'Planning data and technology projects to support smart civic infrastructure investments.',
 					image: opennorth,
 					link: 'https://canurb.org/wp-content/uploads/Data-Driven-Approaches-to-Main-Street-Challenges.pdf',
-					tags: ['Research Brief']
+					tags: ['Partner Report']
 				},
 				{
 					title: 'Toronto Regional Report',
@@ -89,20 +163,13 @@
 					tags: ['Regional Report']
 				}
 			]
-		},
-		{
-			label: 'Transit Oriented Development',
-			value: 'tod',
-			description: 'Reports and documentation produced in partnership with external organisations.',
-			categories: [],
-			items: []
 		}
 	];
 
-	let activeTab = $state('msr');
+	let activeTab = $state('tod');
 
 	onMount(() => {
-		activeTab = page.url.searchParams.get('tab') || 'msr';
+		activeTab = page.url.searchParams.get('tab') || 'tod';
 	});
 </script>
 

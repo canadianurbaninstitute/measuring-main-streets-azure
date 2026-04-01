@@ -127,7 +127,7 @@
 			class="axis-label"
 			transform="rotate(-90)"
 			x={-$yScale.range()[0] / 2}
-			y={-widestTickLen - (labelPosition === 'even' ? tickLen + 15 : 15)}
+			y={-widestTickLen - (labelPosition === 'even' ? tickLen + 0 : 15)}
 			text-anchor="middle"
 		>
 			{label}

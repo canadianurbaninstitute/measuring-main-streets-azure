@@ -21,11 +21,24 @@
 
 		if (text.includes('mapping')) return 'var(--brandPink)';
 		if (text.includes('resilience')) return 'var(--brandBlue)';
+		if (text.includes('report')) return 'var(--color-blue-800)';
 		if (text.includes('transit')) return 'var(--brandDarkGreen)';
 		if (text.includes('graphing')) return 'var(--brandOrange)';
-		if (text.includes('case study')) return 'var(--brandGreen)';
+		if (text.includes('case study')) return 'var(--color-green-500)';
 		if (text.includes('qualitative')) return 'var(--brandPurple)';
 		if (text.includes('tool')) return 'var(--color-yellow-200)';
+		if (text.includes('regional')) return 'var(--color-blue-800)';
+		if (text.includes('partner')) return 'var(--brandPink)';
+		if (text.includes('executive summary')) return 'var(--brandLightBlue)';
+		if (text.includes('research brief')) return 'var(--color-green-500)';
+		if (text.includes('ghg emissions')) return 'var(--color-green-500)';
+		if (text.includes('equity')) return 'var(--color-orange-500)';
+		if (text.includes('mobility')) return 'var(--color-yellow-300)';
+		if (text.includes('infographic')) return 'var(--color-purple-500)';
+		if (text.includes('ontario')) return 'var(--color-purple-500)';
+		if (text.includes('quebec')) return 'var(--color-yellow-300)';
+		if (text.includes('alberta')) return 'var(--color-green-500)';
+		if (text.includes('british columbia')) return 'var(--color-blue-400)';
 
 		return 'var(--brandLightBlue)';
 	};
@@ -175,6 +188,8 @@
 		display: flex;
 		width: fit-content;
 		align-items: center;
+		flex-wrap: nowrap;
+		white-space: nowrap;
 		gap: 0.5rem;
 		color: var(--brandDarkBlue);
 		font-weight: 700;

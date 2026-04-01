@@ -1,17 +1,14 @@
 <script>
 	import LandingCard from '../../lib/ui/LandingCard.svelte';
 	// Import local assets
-	import casestudy from '../../lib/assets/screenshots/case-study-main-street.png';
-	import civic from '../../lib/assets/screenshots/civic-infrastructure.png';
-	import completecommunities from '../../lib/assets/screenshots/complete-communities.png';
-	import housing from '../../lib/assets/screenshots/housing-dot-density.png';
+	import casestudy from '../../lib/assets/screenshots/case-study-arbutus.png';
+	import casestudy2 from '../../lib/assets/screenshots/case-study.png';
+	import dot from '../../lib/assets/screenshots/dot.png';
 	import reports from '../../lib/assets/screenshots/key-findings.png';
 	import mainstreetmap from '../../lib/assets/screenshots/main-street-map.png';
-	import recovery from '../../lib/assets/screenshots/main-street-recovery.png';
-	import transitchart from '../../lib/assets/screenshots/transit-chart.png';
 	import transitmap from '../../lib/assets/screenshots/transit-map.png';
 	import urbanform from '../../lib/assets/screenshots/urban-form.png';
-	import walkability from '../../lib/assets/screenshots/walkability.png';
+	import reportstsa from '../../lib/assets/screenshots/who-tsas.png';
 	import TabNav from '../../lib/ui/TabNav.svelte';
 
 	let activeTab = $state('tod');
@@ -33,37 +30,23 @@
 		{
 			title: 'Case Studies',
 			description: 'In depth place-based studies.',
-			image: walkability,
-			link: '/case-studies/tod',
+			image: casestudy,
+			link: '/casestudies/v2/?tab=tod',
 			tags: ['Case Study']
 		},
 		{
 			title: 'Reports',
 			description: 'In depth reports on transit oriented development.',
-			image: reports,
+			image: reportstsa,
 			link: '/reports/tod',
-			tags: ['Report']
+			tags: ['Reports']
 		},
 		{
-			title: 'Transit Charts',
-			description: 'Compare key data for each stop along a selected transit line.',
-			image: transitchart,
-			link: '/tools/transit-charts',
-			tags: ['tool']
-		},
-		{
-			title: 'Complete Communities',
-			description: 'Explore presence of and access to key amenities.',
-			image: completecommunities,
-			link: '/tools/complete-communities',
-			tags: ['mapping', 'tool']
-		},
-		{
-			title: 'Urban Form Comparison',
-			description: 'Compare urban form characteristics between transit station areas.',
+			title: 'Tools',
+			description: 'In depth reports on transit oriented development.',
 			image: urbanform,
-			link: '/tools/urban-form-comparison',
-			tags: ['tool']
+			link: '/reports/tod',
+			tags: ['Tools']
 		}
 	];
 
@@ -73,52 +56,38 @@
 			description: 'Analyzing neighbourhood-scale data for better city building.',
 			image: mainstreetmap,
 			link: '/map',
-			tags: ['mapping', 'tool']
-		},
-		{
-			title: 'Visitor Recovery',
-			description: 'This graphing tool highlights the visitor recovery patterns from 2020 to 2022.',
-			image: recovery,
-			link: '/tools/mainstreet-visitor-recovery',
-			tags: ['tool']
-		},
-		{
-			title: 'Civic Infrastructure Provision',
-			description: 'Relative provision of civic infrastructure by neighbourhood.',
-			image: civic,
-			link: '/tools/civic-infrastructure-provision-map',
-			tags: ['mapping', 'tool']
-		},
-		{
-			title: 'Housing Dot Density',
-			description:
-				'Choropleth dot mapping tool highlights housing built in Canada over the course of the past 60 years',
-			image: housing,
-			link: '/tools/housing-density-map',
+			featured: true,
 			tags: ['mapping', 'tool']
 		},
 		{
 			title: 'Case Studies',
 			description: 'In depth place-based studies.',
-			image: casestudy,
-			link: '/case-studies/tod',
+			image: casestudy2,
+			link: '/casestudies/v2/?tab=msr',
 			tags: ['Case Study']
 		},
 		{
 			title: 'Reports',
-			description: 'In depth reports on transit oriented development.',
+			description: 'In depth reports on main street resilience.',
 			image: reports,
-			link: '/reports/tod',
-			tags: ['Report']
+			link: '/reports/v2/?tab=msr',
+			tags: ['Reports']
+		},
+		{
+			title: 'Tools',
+			description: 'Research and analysis tools.',
+			image: dot,
+			link: '/tools/v2/',
+			tags: ['Tools']
 		}
 	];
 </script>
 
 <TabNav {tabs} bind:activeTab bg="blue-800">
 	{#snippet children({ activeTab: tab })}
-		<div class="flex flex-nowrap gap-6 mr-100">
+		<div class="flex flex-nowrap gap-6">
 			{#each tab === 'tod' ? todCards : resilienceCards as card}
-				<LandingCard {...card} minWidth={300} />
+				<LandingCard {...card} minWidth={400} />
 			{/each}
 		</div>
 	{/snippet}
