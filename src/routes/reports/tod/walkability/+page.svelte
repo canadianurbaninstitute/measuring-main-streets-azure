@@ -336,7 +336,7 @@
 				{/if}
 				<div class="max-w-none">
 					{#each step.paragraphs as paragraph}
-						<p class="mb-4">{@html paragraph}</p>
+						<p class="mb-4" style="color: #ffffff;">{@html paragraph}</p>
 					{/each}
 				</div>
 
