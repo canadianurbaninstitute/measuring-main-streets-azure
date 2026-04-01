@@ -141,29 +141,18 @@ p {
 	min-height: 1px;
 }
 
-/* MAPBOX STYLING */
-
-/* Main popup container */
+/* MAPBOX STYLING - Base resets */
 .mapboxgl-popup {
 	background: transparent;
+	z-index: 1000;
 }
 
-/* Popup content */
 .mapboxgl-popup-content {
-	background: #000 !important;
-	color: white;
-	border-radius: 0.5em;
-	padding: 1em !important;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	padding: 0;
 }
 
-/* Popup tip (arrow) */
 .mapboxgl-popup-tip {
 	display: none;
-}
-
-.mapboxgl-popup-content {
-	width: 100%;
 }
 
 /* Style for the popup text */

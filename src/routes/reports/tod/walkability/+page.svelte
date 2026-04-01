@@ -46,6 +46,7 @@
 
 	let map = $state(null);
 	let activeStationId = $state(null);
+	let activePopupId = $state(null);
 	let activePopup = null;
 
 	let methodologyOpen = $state(true);
@@ -98,6 +99,12 @@
 				map.flyTo({
 					center: [station.lng, station.lat],
 					zoom: 14,
+					padding: {
+						left:
+							typeof window !== 'undefined' && window.innerWidth > 1024
+								? window.innerWidth * 0.4
+								: 0
+					},
 					duration: 2000,
 					essential: true
 				});
@@ -130,23 +137,19 @@
 			});
 		}
 
-		// Calculate dynamic anchor based on click position
-		const mapCanvas = mapInstance.getCanvas();
-		const w = mapCanvas.clientWidth;
-		const h = mapCanvas.clientHeight;
-
-		// Thresholds for flipping
-		const vThreshold = h * 0.5;
-		const hThreshold = w * 0.25;
-
-		let vAnchor = point && point.y < vThreshold ? 'top' : 'bottom';
-		let hAnchor = '';
-		if (point) {
-			if (point.x < hThreshold) hAnchor = '-left';
-			else if (point.x > w - hThreshold) hAnchor = '-right';
+		// Center the clicked point so the popup has maximum room to display.
+		// Mapbox padding (from WalkabilityMap) will ensure it's centered in the visible area.
+		if (targetMap) {
+			targetMap.easeTo({
+				center: [lng, lat],
+				padding: {
+					bottom: 400,
+					left:
+						typeof window !== 'undefined' && window.innerWidth > 1024 ? window.innerWidth * 0.4 : 0
+				},
+				duration: 800
+			});
 		}
-
-		const anchor = vAnchor + hAnchor || 'bottom';
 
 		const container = document.createElement('div');
 
@@ -166,16 +169,15 @@
 			closeButton: false, // WalkabilityStreetview handles the close button rendering
 			closeOnClick: true,
 			maxWidth: '350px', // ensure it fits the new streetview container width
-			anchor: anchor,
 			offset: {
 				top: [0, 10],
 				'top-left': [10, 10],
 				'top-right': [-10, 10],
-				bottom: [0, -20],
+				bottom: [0, -15],
 				'bottom-left': [10, -10],
 				'bottom-right': [-10, -10],
-				left: [15, 0],
-				right: [-15, 0]
+				left: [12, 0],
+				right: [-12, 0]
 			}
 		})
 			.setLngLat([lng, lat])
@@ -186,6 +188,7 @@
 		activePopup.on('close', () => {
 			unmount(comp);
 			activePopup = null;
+			activePopupId = null;
 			const targetMap = mapInstance || map;
 			if (targetMap && targetMap.getSource('selected-station')) {
 				targetMap.getSource('selected-station').setData({
@@ -202,14 +205,23 @@
 		}
 	}
 
+	let lastRequestedPopupId = null;
 	function openPopupById(id) {
 		if (!map || !id) return;
+		const parsedId = parseInt(id);
+		lastRequestedPopupId = parsedId;
+
+		// Skip if this popup is already the active one
+		if (activePopupId === parsedId) return;
 
 		const tryOpen = () => {
+			// Only proceed if this is still the most recent request
+			if (lastRequestedPopupId !== parsedId) return;
+
 			// Search for the feature by ID in the specific layer
 			const features = map.queryRenderedFeatures({
 				layers: ['station-analysis-points-expla-c0bvk5'],
-				filter: ['==', ['id'], parseInt(id)]
+				filter: ['==', ['id'], parsedId]
 			});
 
 			if (features.length > 0) {
@@ -225,15 +237,15 @@
 					id: feature.id,
 					point: point
 				});
+
+				activePopupId = feature.id;
 			}
 		};
 
-		if (map.isMoving()) {
+		if (map.isMoving() || !map.isStyleLoaded()) {
 			map.once('idle', tryOpen);
 		} else {
 			tryOpen();
-			// Backup attempt in case the layer was still rendering
-			map.once('idle', tryOpen);
 		}
 	}
 </script>
@@ -322,7 +334,7 @@
 				{#if step.region}
 					<h4 class="mb-4 station-region">{step.region}</h4>
 				{/if}
-				<div class="prose prose-zinc prose-invert lg:prose-lg max-w-none">
+				<div class="max-w-none">
 					{#each step.paragraphs as paragraph}
 						<p class="mb-4">{@html paragraph}</p>
 					{/each}
@@ -523,6 +535,7 @@
 
 <style>
 	.page-layout {
+		background-color: var(--color-slate-800);
 		position: relative;
 		min-height: 100vh;
 		display: grid;
@@ -539,6 +552,7 @@
 	}
 
 	.map-background {
+		background-color: var(--color-slate-800);
 		grid-column: 1;
 		grid-row: 1;
 		position: sticky;

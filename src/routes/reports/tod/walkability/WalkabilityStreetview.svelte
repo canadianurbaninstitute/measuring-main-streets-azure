@@ -156,9 +156,27 @@
 
 <style>
 	.streetview-container {
-		width: 320px;
-		max-width: 90vw;
-		max-height: 80vh;
+		width: 300px;
+		max-width: 85vw;
+		max-height: 75vh; /* Reduced from 85vh to prevent overflow */
+	}
+
+	/* Force Streetview container to be more compact on very short screens */
+	@media (max-height: 700px) {
+		:global(.streetview-container div.h-40),
+		:global(.streetview-container div.sm\:h-48) {
+			height: 4rem !important; /* ~64px */
+		}
+		.streetview-container {
+			width: 280px;
+		}
+	}
+
+	@media (max-height: 500px) {
+		:global(.streetview-container div.h-40),
+		:global(.streetview-container div.sm\:h-48) {
+			display: none !important; /* Hide panorama entirely on critically short screens */
+		}
 	}
 
 	.custom-scrollbar::-webkit-scrollbar {
