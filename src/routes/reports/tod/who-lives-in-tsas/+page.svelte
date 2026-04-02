@@ -29,7 +29,7 @@
 
 	const regions = [
 		{ value: 'All Regions', name: 'All Regions', image: Canada },
-		{ value: 'Calgary', name: 'Calgary', image: Vancouver },
+		{ value: 'Calgary', name: 'Calgary', image: Calgary },
 		{ value: 'Edmonton', name: 'Edmonton', image: Edmonton },
 		{
 			value: 'Kitchener - Cambridge - Waterloo',
