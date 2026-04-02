@@ -1,12 +1,12 @@
 <script>
-	import { getContext, onMount } from 'svelte';
 	import { scaleBand } from 'd3-scale';
+	import { getContext, onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
 
 	const { data, xGet, yGet, xScale, yScale, zGet, zScale, zDomain } = getContext('LayerCake');
 
-	let { visible, found = $bindable(null), e = $bindable(null) } = $props();
+	let { visible = undefined, found = $bindable(null), e = $bindable(null) } = $props();
 
 	const reveal = tweened(0, {
 		duration: 1200,
@@ -17,14 +17,11 @@
 
 	// Create a sub-scale for grouped bars within the category band
 	const ySubScale = $derived(
-		scaleBand()
-			.domain($zDomain)
-			.range([0, $yScale.bandwidth()])
-			.paddingInner(0.05)
+		scaleBand().domain($zDomain).range([0, $yScale.bandwidth()]).paddingInner(0.05)
 	);
 
 	onMount(() => {
-		if (visible) return;
+		if (typeof visible !== 'undefined') return;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -35,7 +32,7 @@
 					}
 				});
 			},
-			{ threshold: 0.1 }
+			{ threshold: 0.5 }
 		);
 
 		if (group) observer.observe(group);
@@ -43,10 +40,12 @@
 	});
 
 	$effect(() => {
-		if (visible) {
-			reveal.set(1);
-		} else {
-			reveal.set(0, { duration: 0 });
+		if (typeof visible !== 'undefined') {
+			if (visible) {
+				reveal.set(1);
+			} else {
+				reveal.set(0, { duration: 0 });
+			}
 		}
 	});
 </script>

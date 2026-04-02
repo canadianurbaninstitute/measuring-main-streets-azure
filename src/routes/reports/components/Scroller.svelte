@@ -14,12 +14,7 @@
 
 	import { onMount } from 'svelte';
 
-	let { 
-		activeIndex = $bindable(0), 
-		threshold = 0.5, 
-		text, 
-		visual 
-	} = $props();
+	let { activeIndex = $bindable(0), threshold = 0.5, text, visual } = $props();
 
 	let steps = $state([]);
 	let container = $state();
@@ -103,11 +98,11 @@
 
 	@media (max-width: 768px) {
 		.scroller-layout {
-			grid-template-columns: 1fr;
+			display: block;
 		}
 
 		.visual-column {
-			display: none; /* hide on small screens; TextBlock renders inline visuals instead */
+			display: none;
 		}
 
 		.text-column {

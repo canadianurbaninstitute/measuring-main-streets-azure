@@ -1,4 +1,5 @@
 <script>
+	import { scaleLog } from 'd3-scale';
 	import ScatterChart from '../../../../lib/ui/charts/ScatterChart.svelte';
 
 	const data = [
@@ -107,26 +108,36 @@
 		label: d.city,
 		color: colors[i % colors.length]
 	}));
+
+	let { visible = undefined } = $props();
 </script>
 
 <ScatterChart
+	{visible}
 	{data}
 	{seriesConfig}
-	xKey="within_800m"
-	yKey="beyond_800m"
+	xKey="beyond_800m"
+	yKey="within_800m"
 	zKey="city"
-	title="Transit-Oriented Development by Select Municipalities"
+	showLabels={true}
+	labelKey="city"
+	showLegend={true}
+	padding={{ left: 70, bottom: 40 }}
+	title="Transit-Oriented Development by Select Municipalities 2001-2021"
 	showTooltip={true}
-	xTicks={8}
-	xDomain={[0, 125000]}
-	yDomain={[0, 125000]}
-	xLabel="Within 800m"
-	yLabel="Beyond 800m"
+	xTicks={[1000, 10000, 100000, 1000000]}
+	yTicks={[1000, 10000, 100000, 1000000]}
+	xDomain={[1000, 1000000]}
+	yDomain={[1000, 1000000]}
+	xScale={scaleLog}
+	yScale={scaleLog}
+	xLabel="Net new housing units >800m"
+	yLabel="Net new housing units <800m"
 	referenceLine={{
-		x1: 0,
-		y1: 0,
-		x2: 125000,
-		y2: 125000,
+		x1: 1000,
+		y1: 1000,
+		x2: 1000000,
+		y2: 1000000,
 		stroke: '#00ADF2',
 		strokeDasharray: '4 4'
 	}}

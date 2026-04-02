@@ -14,6 +14,6 @@
 		/* Subtle card surface */
 		background: #ffffff;
 		border-radius: 4px;
-		overflow: hidden;
+		overflow: visible;
 	}
 </style>

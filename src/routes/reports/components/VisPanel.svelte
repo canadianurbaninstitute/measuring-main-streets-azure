@@ -18,19 +18,20 @@
 <style>
 	.vis-panel {
 		position: absolute;
+		height: 100%;
 		inset: 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		padding: 2rem;
-
+		overflow: visible;
 		opacity: 0;
 		transform: scale(0.97) translateY(6px);
 		pointer-events: none;
 		transition:
-			opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
-			transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+			/* opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), */ transform 0.55s
+			cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.vis-panel.visible {
@@ -49,11 +50,23 @@
 	}
 
 	.source {
-		margin: 1.25rem 0 0;
-		font-size: 0.72rem;
+		font-size: 0.5rem;
 		letter-spacing: 0.08em;
 		color: var(--color-slate-400);
 		text-align: left;
-		word-break: break-all;
+		word-break: break-word;
+	}
+
+	@media (max-width: 768px) {
+		.vis-panel {
+			padding: 0.75rem;
+		}
+
+		.caption,
+		.source {
+			font-size: 0.62rem;
+			margin: 0.75rem 0 0;
+			line-height: 1.3;
+		}
 	}
 </style>

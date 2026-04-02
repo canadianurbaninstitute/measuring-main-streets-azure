@@ -79,7 +79,7 @@
 </script>
 
 <main>
-	<LandingLayout {title} {description} {items} {categories} />
+	<LandingLayout {title} {description} {items} {categories} syncUrl />
 </main>
 
 <ModernFooter />

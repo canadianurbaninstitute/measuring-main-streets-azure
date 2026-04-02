@@ -24,24 +24,34 @@
 	export let wrapLabels = false;
 	export let showTooltip = false;
 	export let formatTooltipValue = (d) => d3Format(',.1f')(d) + '%';
-	export let visible = false;
+	export let visible = undefined;
 	export let xLabel = '';
 	export let yLabel = '';
 	export let xTicks = undefined;
 	export let yTicks = undefined;
+	export let showLegend = true;
 
 	/**
 	 * Configuration for groups, including their data value, legend label, and bar color.
 	 */
 	export let groupConfig = [];
+
+	let innerWidth = 1000;
+	let innerHeight = 800;
+	$: computedPaddingLeft = innerWidth < 768 ? Math.min(paddingLeft, 100) : paddingLeft;
+	$: computedHeight = innerWidth < 768 ? '100%' : height;
+	$: computedWrapLabels = innerWidth < 768 ? true : wrapLabels;
+	$: computedShowLegend = innerHeight < 900 ? false : showLegend;
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	{#if groupConfig && groupConfig.length > 0}
+	{#if computedShowLegend && groupConfig && groupConfig.length > 0}
 		<div class="controls">
 			<div class="legend-container">
 				{#each groupConfig as { label, color }}
@@ -51,16 +61,16 @@
 		</div>
 	{/if}
 
-	<div class="chart" style:height>
+	<div class="chart">
 		{#if groupConfig && groupConfig.length > 0}
 			{#each groupConfig as { value, color }, i}
 				<LayerCake
 					position="absolute"
-					padding={{ top: paddingTop, bottom: 20, left: paddingLeft }}
 					x={xKey}
 					y={yKey}
 					yDomainSort={false}
 					yScale={scaleBand().paddingInner(0.1)}
+					padding={{ top: paddingTop, bottom: 20, left: computedPaddingLeft }}
 					{xDomain}
 					data={data.filter((d) => d[groupKey] === value)}
 					flatData={data}
@@ -68,9 +78,15 @@
 					<Svg>
 						{#if i === 0}
 							<AxisX tickMarks baseline snapLabels label={xLabel} ticks={xTicks} />
-							<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
+							<AxisY
+								tickMarks
+								gridlines={false}
+								wrap={computedWrapLabels}
+								label={yLabel}
+								ticks={yTicks}
+							/>
 						{/if}
-						<Bar fill={color} />
+						<Bar fill={color} {visible} />
 					</Svg>
 
 					{#if i === groupConfig.length - 1 && showTooltip}
@@ -92,18 +108,24 @@
 			{/each}
 		{:else}
 			<LayerCake
-				padding={{ top: paddingTop, bottom: 20, left: paddingLeft }}
 				x={xKey}
 				y={yKey}
 				yDomainSort={false}
 				yScale={scaleBand().paddingInner(0.1)}
+				padding={{ top: paddingTop, bottom: 20, left: computedPaddingLeft }}
 				{xDomain}
 				{data}
 			>
 				<Svg>
 					<AxisX tickMarks baseline snapLabels label={xLabel} ticks={xTicks} />
-					<AxisY tickMarks gridlines={false} wrap={wrapLabels} label={yLabel} ticks={yTicks} />
-					<Bar fill={barColor} />
+					<AxisY
+						tickMarks
+						gridlines={false}
+						wrap={computedWrapLabels}
+						label={yLabel}
+						ticks={yTicks}
+					/>
+					<Bar fill={barColor} {visible} />
 				</Svg>
 
 				{#if showTooltip}
@@ -130,15 +152,26 @@
 	.chart {
 		width: 100%;
 		position: relative;
+		flex: 1;
+		min-height: 250px;
 	}
 
 	.chart-container {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
+		justify-content: center;
+		gap: 1em;
 		border: 1px solid #eee;
-		padding: 1em;
+		padding: 2em;
 		border-radius: 1em;
+		box-sizing: border-box;
+		height: 100%;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.chart-container {
+			gap: 2em;
+		}
 	}
 
 	.controls {

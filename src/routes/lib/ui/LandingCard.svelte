@@ -1,12 +1,15 @@
 <script>
 	import Icon from '@iconify/svelte';
 
-	export let link = '#';
-	export let image = '';
-	export let title = '';
-	export let featured = false;
-	export let description = '';
-	export let tags = []; // Array of objects { text: '', color: '' } or just strings
+	let {
+		link = '#',
+		image = '',
+		title = '',
+		featured = false,
+		description = '',
+		tags = [],
+		minWidth = 0
+	} = $props();
 
 	/**
 	 * Map tag text to predefined colors if color is not provided
@@ -18,22 +21,37 @@
 
 		if (text.includes('mapping')) return 'var(--brandPink)';
 		if (text.includes('resilience')) return 'var(--brandBlue)';
+		if (text.includes('report')) return 'var(--color-blue-800)';
 		if (text.includes('transit')) return 'var(--brandDarkGreen)';
 		if (text.includes('graphing')) return 'var(--brandOrange)';
-		if (text.includes('case study')) return 'var(--brandGreen)';
+		if (text.includes('case study')) return 'var(--color-green-500)';
 		if (text.includes('qualitative')) return 'var(--brandPurple)';
 		if (text.includes('tool')) return 'var(--color-yellow-200)';
+		if (text.includes('regional')) return 'var(--color-blue-800)';
+		if (text.includes('partner')) return 'var(--brandPink)';
+		if (text.includes('executive summary')) return 'var(--brandLightBlue)';
+		if (text.includes('research brief')) return 'var(--color-green-500)';
+		if (text.includes('ghg emissions')) return 'var(--color-green-500)';
+		if (text.includes('equity')) return 'var(--color-orange-500)';
+		if (text.includes('mobility')) return 'var(--color-yellow-300)';
+		if (text.includes('infographic')) return 'var(--color-purple-500)';
+		if (text.includes('ontario')) return 'var(--color-purple-500)';
+		if (text.includes('quebec')) return 'var(--color-yellow-300)';
+		if (text.includes('alberta')) return 'var(--color-green-500)';
+		if (text.includes('british columbia')) return 'var(--color-blue-400)';
 
 		return 'var(--brandLightBlue)';
 	};
 
 	const getTagText = (tag) => (typeof tag === 'object' ? tag.text : tag);
-
-	console.log(featured);
 </script>
 
 <a href={link} class="card-link">
-	<article class="landing-card" class:featured>
+	<article
+		class="landing-card"
+		style:min-width={minWidth ? minWidth + 'px' : 'auto'}
+		class:featured
+	>
 		<div class="card-image-container">
 			<img src={image} alt={title} />
 		</div>
@@ -69,14 +87,11 @@
 		color: inherit;
 		display: block;
 		height: 100%;
-		flex-shrink: 0;
-		min-width: 320px;
 	}
 
 	.landing-card {
 		background-color: white;
-		min-width: 320px;
-		max-width: 400px;
+		width: 100%;
 		min-height: 300px;
 		border-radius: 0.75rem;
 		overflow: hidden;
@@ -173,6 +188,8 @@
 		display: flex;
 		width: fit-content;
 		align-items: center;
+		flex-wrap: nowrap;
+		white-space: nowrap;
 		gap: 0.5rem;
 		color: var(--brandDarkBlue);
 		font-weight: 700;

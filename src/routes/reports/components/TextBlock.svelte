@@ -27,15 +27,19 @@
 	 *     XSS-safe for arbitrary user input.
 	 */
 
-	let { 
-		index = 0, 
-		active = false, 
-		eyebrow = '', 
-		heading = '', 
-		body = '', 
-		children 
+	let {
+		index = 0,
+		active = false,
+		eyebrow = '',
+		heading = '',
+		body = '',
+		inlineVisual,
+		showInlineVisual = true,
+		cta, // { href, label, target }
+		children
 	} = $props();
 </script>
+
 
 <div class="text-block" class:active data-step={index}>
 	{#if eyebrow}
@@ -46,12 +50,40 @@
 		<h2 class="heading">{heading}</h2>
 	{/if}
 
+	{#if inlineVisual && showInlineVisual}
+		<div class="inline-visual-wrapper">
+			{@render inlineVisual()}
+		</div>
+	{/if}
+
 	<!-- Slot takes priority; fall back to the `body` HTML string -->
 	<div class="prose">
 		{#if children}
 			{@render children()}
 		{:else if body}
 			{@html body}
+		{/if}
+
+		{#if cta}
+			<a href={cta.href} target={cta.target ?? '_blank'} class="cta-wrap">
+				<button class="button-primary flex gap-2 flex-row items-center">
+					{cta.label ?? 'Learn More'}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="3"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M5 12h14" />
+						<path d="m12 5 7 7-7 7" />
+					</svg>
+				</button>
+			</a>
 		{/if}
 	</div>
 </div>
@@ -169,5 +201,49 @@
 		border: none;
 		border-top: 1px solid #e8e8e8;
 		margin: 1.5em 0;
+	}
+
+	/* ── CTA Button ──────────────────────────────────────────── */
+	.cta-wrap {
+		margin-top: 2rem;
+		display: flex;
+	}
+
+	.inline-visual-wrapper {
+		display: none;
+	}
+
+	@media (max-width: 768px) {
+		.inline-visual-wrapper {
+			display: block;
+			width: 100%;
+			height: fit-content;
+			min-height: 80vh;
+			margin: 2rem 0;
+			background: #ffffff;
+			border: 1px solid #eee;
+			border-radius: 8px;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.text-block {
+			opacity: 1 !important; /* On mobile with inline visuals, don't fade out text as much */
+			transform: none !important;
+			min-height: auto;
+			padding: 0rem 0;
+		}
+
+		.text-block:first-child {
+			padding-top: 2rem;
+		}
+
+		.heading {
+			padding-top: 2rem;
+		}
+
+		.text-block:last-child {
+			padding-bottom: 2rem;
+		}
 	}
 </style>
