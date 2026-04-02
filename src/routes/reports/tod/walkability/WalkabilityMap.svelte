@@ -63,19 +63,11 @@
 		}
 	});
 
+	// Removed global padding effect as navigation padding is now handled in the parent component
+	// to avoid affecting UI elements like zoom controls permanently.
 	$effect(() => {
 		if (map && fullScreen) {
-			// When full screen, add left padding so the map's visual center
-			// isn't obscured by the 40% text overlay on the left.
-			map.setPadding({
-				left:
-					typeof window !== 'undefined' && window.innerWidth > 1024 ? window.innerWidth * 0.4 : 0,
-				right: 0,
-				top: 0,
-				bottom: 0
-			});
-		} else if (map) {
-			map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 });
+			// No longer setting permanent padding here.
 		}
 	});
 
@@ -206,7 +198,7 @@
 	.map-wrapper {
 		width: 100%;
 		height: 100%;
-		min-height: 400px;
+		min-height: 300px;
 		border-radius: 12px;
 		overflow: visible;
 		box-shadow:
@@ -217,7 +209,8 @@
 	.map-wrapper.full-screen {
 		border-radius: 0;
 		box-shadow: none;
-		min-height: 100vh;
+		min-height: auto;
+		height: 100vh;
 	}
 
 	:global(.mapboxgl-canvas) {
