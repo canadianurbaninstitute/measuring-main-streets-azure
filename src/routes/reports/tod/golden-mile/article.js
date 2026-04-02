@@ -37,7 +37,9 @@ export const sections = [
 			},
 			{
 				body: `<p>While the plan establishes ambitious growth targets, it
-                offers limited direction on how ground floors will be designed, programmed, and governed. <b>This creates both a risk and a rare opportunity:</b> to shape the 
+                offers limited direction on how ground floors will be designed, programmed, and governed. 
+				<br><br>
+				<b>This creates both a risk and a rare opportunity:</b> to shape the 
                 everyday life of a neighbourhood before it fully exists.</p>`
 			}
 		]
@@ -46,13 +48,12 @@ export const sections = [
 		panels: [
 			{
 				id: 'reimagining',
-				label:
-					'Figure 3a — Arbutus Station, Vancouver, is an example of a highly-walkable transit station.'
+				label: 'Figure 3a — Key assets to Golden Mile redesign.'
 			},
 			{
 				id: 'macro',
 				label:
-					'Figure 3b — Panama Station, Montreal, is an example of a transit station with low walkability.'
+					'Figure 3b — Possible locations and walkable distances for new community assets in the Golden Mile.'
 			}
 		],
 		blocks: [
@@ -75,7 +76,7 @@ export const sections = [
                 and ongoing engagement with CUI. We examined local and international precedents; from Toronto's high-density neighbourhoods to cities such
                 as New York, London, Amsterdam, and Barcelona, to identify transferable strategies and avoid well-documented pitfalls.
                 <br><br>
-                This Guidebook is a practical decision-support tool for planners, developers, policymakers, and community organizations involved in the Golden Mile's
+                <b>This Guidebook is a practical decision-support tool</b> for planners, developers, policymakers, and community organizations involved in the Golden Mile's
                 redevelopment, and a broader framework for other rapidly densifying GTA corridors. Its core argument is simple: getting the ground floor right is essential to getting the community right. The Golden Mile represents a rare,
                 time-sensitive opportunity to align density with livability and a chance to set a new standard for transit-oriented, complete-community development.</p>`,
 				cta: {

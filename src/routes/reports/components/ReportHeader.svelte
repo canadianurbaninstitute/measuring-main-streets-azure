@@ -1,12 +1,17 @@
 <script>
-	let { 
-		id = '', 
-		eyebrow = '', 
-		title = 'Report Title', 
-		subtitle = '', 
-		backgroundImage = '', 
-		backgroundOpacity = 0.1 
+	let {
+		id = '',
+		reporttype = '',
+		logo = '',
+		eyebrow = '',
+		title = 'Report Title',
+		subtitle = '',
+		backgroundImage = '',
+		backgroundOpacity = 0.1
 	} = $props();
+
+	import SoC from '../assets/SoC.svg';
+	import UofT from '../assets/UofT.svg';
 </script>
 
 <section {id}>
@@ -19,8 +24,24 @@
 	>
 		<div class="header-body">
 			<div class="headline">
-				<h1 class="eyebrow">{eyebrow}</h1>
-				<h1 class="title">{title}</h1>
+				{#if logo == 'soc'}
+					<div class="logo-row">
+						<a href="https://schoolofcities.utoronto.ca/">
+							<img src={UofT} alt="University of Toronto logo" width="120" />
+						</a>
+						<a href="https://schoolofcities.utoronto.ca/">
+							<span class="text-3xl font-thin" style="color: var(--brandDarkBlue)">|</span>
+						</a>
+						<a href="https://schoolofcities.utoronto.ca/">
+							<img src={SoC} alt="School of Cities logo" width="120" />
+						</a>
+					</div>
+				{/if}
+				<div class="title-group">
+					<div class="reporttype">{reporttype}</div>
+					<h1 class="eyebrow">{eyebrow}</h1>
+					<h1 class="title">{title}</h1>
+				</div>
 			</div>
 
 			<div class="description">
@@ -59,11 +80,9 @@
 	.header-body {
 		position: relative;
 		z-index: 1;
-
 		display: flex;
-		align-items: baseline; /* same text baseline */
+		align-items: flex-end; /* align to bottom = aligns to title */
 		justify-content: center;
-
 		gap: clamp(1rem, 3vw, 2rem);
 	}
 
@@ -75,6 +94,30 @@
 	.headline {
 		width: 100%;
 		max-width: 1000px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 40vh;
+	}
+	.logo-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin: 0 0 6rem 0;
+	}
+
+	.title-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.reporttype {
+		font-size: clamp(1rem, 4vw, 1.75rem);
+		margin: 0 0 6rem 0;
+		color: var(--brandDarkBlue);
+		text-transform: uppercase;
+		font-weight: 800;
 	}
 	.eyebrow {
 		font-size: clamp(1rem, 7vw, 3rem);

@@ -51,6 +51,8 @@
 
 <ReportHeader
 	id="report-header"
+	logo={'soc'}
+	reporttype="Student Project"
 	eyebrow="GROUND FLOOR:"
 	title="A Case Study of the Scarborough Golden Mile"
 	subtitle="The Scarborough Golden Mile is at the centre of one of Toronto's most significant urban transformations. 
