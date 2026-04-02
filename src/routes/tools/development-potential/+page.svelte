@@ -10,6 +10,7 @@
 		urban_form_comp_style
 	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	import Icon from '@iconify/svelte';
 
 	// Components
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
@@ -19,6 +20,7 @@
 	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
 	import RadarChart from './RadarChart.svelte';
 	import ScoreBar from './ScoreBar.svelte';
+	import Accordion from '../../lib/ui/Accordion.svelte';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -27,7 +29,7 @@
 	let map1: mapboxgl.Map | undefined = $state();
 
 	// Selected stations
-	let selectedStation1 = $state('31');
+	let selectedStation1 = $state('8');
 
 	let station1Metrics: any = $state({});
 	let allDevData: any = $state({});
@@ -57,10 +59,10 @@
 	const radarCategories = [
 		{ value: 'land', label: 'Land Availability' },
 		{ value: 'growth', label: 'Growth Pressure' },
-		{ value: 'displacement', label: 'Displacement Risk' }
+		{ value: 'potential', label: 'Development Potential' }
 	];
 
-	let activeRadarCategory = $state('land');
+	let activeRadarCategory = $state('potential');
 
 	// Validation flag
 	let initialStationsValidated = $state(false);
@@ -170,7 +172,21 @@
 		};
 
 		const radarPoints = [];
+		const displacementRadar = [
+			{
+				label: '>30% of income spent on shelter',
+				value: (data.MoreThan30OnShelter || 0) * 100
+			},
+			{ label: 'Total Immigrants', value: (data.TotalImmigrant || 0) * 100 },
+			{
+				label: 'Total Visible Minorities',
+				value: (data.VisibleMinorityTotal || 0) * 100
+			},
+			{ label: 'Pop Under 19 or Over 65', value: (data.YouthElderly || 0) * 100 },
+			{ label: 'Low Income Population', value: (data.LowIncome || 0) * 100 }
+		];
 		let subcategoryScore = 0;
+		const displacementScore = potentialMap[data.DRLevel] || 0;
 
 		if (category === 'land') {
 			subcategoryScore = potentialMap[data.LALevel] || 0;
@@ -195,27 +211,15 @@
 				{ label: 'Complete Community Score', value: (data.OverallCCScore || 0) * 100 },
 				{ label: 'Daily Visits', value: (data.DailyVisits || 0) * 100 }
 			);
-		} else if (category === 'displacement') {
-			subcategoryScore = potentialMap[data.DRLevel] || 0;
-
-			radarPoints.push(
-				{
-					label: '>30% of income spent on shelter',
-					value: (data.MoreThan30OnShelter || 0) * 100
-				},
-				{ label: 'Total Immigrants', value: (data.TotalImmigrant || 0) * 100 },
-				{
-					label: 'Total Visible Minorities',
-					value: (data.VisibleMinorityTotal || 0) * 100
-				},
-				{ label: 'Pop Under 19 or Over 65', value: (data.YouthElderly || 0) * 100 },
-				{ label: 'Low Income Population', value: (data.LowIncome || 0) * 100 }
-			);
+		} else if (category == 'potential') {
+			subcategoryScore = potentialMap[data.potential] || 0;
 		}
 
 		return {
 			potentialScore: potentialMap[data.potential] || 0,
 			subcategoryScore,
+			displacementScore,
+			displacementRadar,
 			radarPoints
 		};
 	}
@@ -508,8 +512,7 @@
 						{station1Data.stop_label}
 					</div>
 					<div class="text-xs text-gray-500 mb-2">
-						Line {station1Data.line_display_name}<br />{station1Data.region}<br
-						/>{station1Data.status}
+						{station1Data.line_display_name}<br />{station1Data.region}<br />{station1Data.status}
 					</div>
 					<div class="mt-2 text-[#006A8E] text-lg font-medium">
 						Development Potential:
@@ -583,54 +586,71 @@
 		<div class="hidden lg:grid grid-cols-3 gap-6 text-center">
 			<h4>Built Form</h4>
 			<h4>Station Ranking</h4>
-			<h4>Development Potential</h4>
+			<h4>Displacement Risk</h4>
 		</div>
 
 		<!-- Row 1 -->
-		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 			<div class="flex flex-col items-center justify-center relative">
 				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
 				<div id="map1" class="map-circle drop-shadow-lg w-[90%]"></div>
 
 				{#if unitsCreated1 > 0}
 					<div class="mt-8 flex flex-col items-center">
-						<span class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Approved Units</span
+						<span
+							class="text-xs font-bold text-center text-gray-500 uppercase tracking-[0.2em] mb-2"
+							>Active building permits (2025) <br /> Number of units</span
 						>
 						<div class="flex items-baseline gap-1">
 							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
-								>{unitsCreated1.toFixed(0)}</span
+								>{unitsCreated1.toLocaleString()}</span
 							>
 						</div>
 					</div>
 				{/if}
 			</div>
-			<div class="flex flex-col h-full w-full items-center gap-4 relative">
+			<div class="flex flex-col w-full items-center gap-4 relative">
 				<h4 class="lg:hidden text-center mb-4">Station Ranking</h4>
-				<Tabs.Root bind:value={activeRadarCategory} class="w-full flex justify-center mb-4">
+				<Tabs.Root
+					bind:value={activeRadarCategory}
+					class="w-full flex justify-center mb-4 px-4 sm:px-0"
+				>
 					<Tabs.List
 						class="flex w-full justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
 					>
 						{#each radarCategories as cat}
 							<Tabs.Trigger
 								value={cat.value}
-								class="px-3 w-1/3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:text-[#ff007f]"
+								class="px-4 w-1/3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
 							>
 								{cat.label}
 							</Tabs.Trigger>
 						{/each}
 					</Tabs.List>
 				</Tabs.Root>
-				<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#db3069', '#00adf2']} />
-				<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
+				<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#00adf2', '#db3069']} />
+				{#if activeRadarCategory == 'land' || activeRadarCategory == 'growth'}
+					<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
+					{#if activeRadarCategory == 'land'}
+						<div class="text-sm italic text-gray-500 text-center">
+							Low Population Density is highly ranked<br />
+							Low Employment Density is highly ranked
+						</div>
+					{/if}
+				{:else if activeRadarCategory == 'potential'}
+					<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
+				{/if}
 			</div>
 			<div class="flex flex-col items-center justify-center relative">
-				<h4 class="lg:hidden text-center mb-4">Development Potential</h4>
-				<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
+				<h4 class="lg:hidden text-center mb-4">Displacement Risk</h4>
+				<ScoreBar
+					score={devData1.displacementScore}
+					maxScore={10}
+					colors={['#00adf2', '#f45d01']}
+				/>
+				<RadarChart data={devData1.displacementRadar} max={100} color="#f45d01" />
 			</div>
 		</div>
-
-		<div class="w-full h-px bg-gray-200 hidden lg:block"></div>
 	</div>
 </div>
 
@@ -665,11 +685,17 @@
 
 	#sidebar {
 		width: 100%;
+		max-width: 400px;
 		display: flex;
 		flex-direction: column;
 		border-top: 1px solid #eee;
 		scrollbar-width: none;
 		padding: 2rem;
+	}
+	.inline-icon {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
 	}
 
 	@media only screen and (min-width: 1024px) {
