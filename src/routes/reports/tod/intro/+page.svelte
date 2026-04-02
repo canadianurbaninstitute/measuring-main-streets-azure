@@ -206,6 +206,8 @@
 		description1="are vital to maintaining growth in Canada’s largest urban regions."
 		finding2="Communities are only complete"
 		description2="if they are walkable."
+		flip2={true}
+		back2="Complete communities may offer people local options for fulfilling their basic day-to-day needs, but the extent to which people make the local choice largely depends on how walkable the community is."
 		finding3="Not all transit projects"
 		description3="deliver the same return."
 	/>
