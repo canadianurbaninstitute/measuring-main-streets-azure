@@ -197,7 +197,7 @@
 
 					<div class="inline-block">
 						{#if block.eyebrow}
-							<div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">
+							<div class="uppercase tracking-widest text-blue-400 mb-1 text-large">
 								{block.eyebrow}
 							</div>
 						{/if}
@@ -235,11 +235,15 @@
 	}
 
 	.inline-heading {
-		margin-bottom: 0.5rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.inline-body {
 		margin-bottom: 2rem;
+	}
+
+	:global(.inline-body > h6) {
+		margin-bottom: 0.5rem;
 	}
 
 	.inline-cta {

@@ -57,16 +57,10 @@ export const sections = [
 		blocks: [
 			{
 				heading: 'The public option',
-				body: `<p>Government-owned, low-cost grocery stores are being pitched across Canada to increase competition and reduce prices. The City of Toronto just approved a pilot to open four municipally owned grocery stores, prioritizing neighbourhoods with lower average household incomes and with limited access to full-service grocery stores.</p>
-				<p>According to grocery industry experts, successful public grocers already exist—as urban supermarkets and rural stores in Mexico and as commissaries on American military bases—selling lower-cost products versus corporate grocers.</p>`
-			},
-			{
-				body: `<p>The secret to success is building them at scale. For <b>$350 million</b>, the federal government could develop:</p>
-				<ul>
-					<li><b>50 government-owned grocery stores</b> (40 in urban areas, 10 in rural Northern communities)</li>
-					<li><b>6 regional distribution hubs</b></li>
-				</ul>
-				<p>This model estimates a <b>25-30% reduction</b> in consumer prices in urban areas, saving families between <b>$2,500 to $10,000 annually</b>.</p>`
+				body: `<p>Government-owned, low-cost grocery stores are being pitched across Canada to increase competition and reduce prices. The City of Toronto just <a href="https://secure.toronto.ca/council/agenda-item.do?item=2026.MM39.27" target="_blank"> approved a pilot</a> to open four municipally owned grocery stores, prioritizing neighbourhoods with lower average household incomes and with limited access to full-service grocery stores.</p>
+				<p>According to grocery industry experts, successful public grocers already exist—as urban supermarkets and rural stores in Mexico and as commissaries on American military bases—selling lower-cost products versus corporate grocers.</p>
+				<p>The secret to success is <a href="https://www.policyalternatives.ca/news-research/how-public-grocery-stores-could-work-in-canada/" target="_blank">building them at scale</a>. Based on initial modeling, <strong>the federal investment would be well worth the cost</strong>.</p>
+				<p>Imagine if a portion of those 40 urban grocery stores were located to better leverage strategic provincial and municipal transit investments.</p>`
 			}
 		]
 	},
@@ -75,25 +69,16 @@ export const sections = [
 			{
 				id: 'coop-option',
 				label: 'Figure 4 – The Promise of Food Co-ops',
-				source: 'Grocery Story (2019)'
+				source: 'Grocery Story: The Promise of Food Co-ops in the Age of Grocery Giants (2019)'
 			}
 		],
 		blocks: [
 			{
 				heading: 'The co-operative option',
-				body: `<p>Co-operative grocery stores, known as food co-ops, are businesses owned by the people who directly benefit from their products. Co-ops won’t price gouge their customers because they are governed by them.</p>
-				<p>Food co-ops have been created to meet communities’ needs for healthy, affordable food access in both urban and rural places. They are often formed to plug food access gaps where local options are too expensive or corporate stores have closed.</p>`
-			},
-			{
-				body: `<p>As many are democratically run and mission-driven, food co-ops provide additional community benefits:</p>
-				<ul>
-					<li>Dedicated community rooms/space</li>
-					<li>Inexpensive community meals</li>
-					<li>Educational and youth programming</li>
-					<li>Kitchen skills training</li>
-					<li>Education partnerships with schools</li>
-					<li>Support for other non-profits and local businesses</li>
-				</ul>`
+				body: `<p>Co-operative grocery stores, known as food co-ops, aren’t new in Canada. Many formed during the <a href="https://www.cbc.ca/news/canada/british-columbia/grocery-coops-alternative-supermarkets-1.7192944" target="_blank" /> late 1960s and early 1970s</a>. While they come in many forms, co-ops are defined by John Steinman as businesses or organizations founded and owned by the people who directly benefit from their products or services. Co-ops won’t price gouge their customers, because they are governed by its customers.</p>
+				<p>Food co-ops have been created to meet communities’ needs for healthy, affordable food access, in both urban and rural places where this has become a challenge. They are often formed to plug food access gaps, in urban neighbourhoods where local options are too expensive and in rural towns where the last corporate-run supermarket has closed.</p>
+				<p>Food co-ops are driven to bring grocery costs down and pass on savings to its membership.</p>
+				<p>Imagine if transit hubs included grocery stores run and operated by community members helping to feed each other and build connections between neighbours.</p>`
 			}
 		]
 	},
@@ -108,8 +93,9 @@ export const sections = [
 		blocks: [
 			{
 				heading: 'Grocery stores are civic infrastructure',
-				body: `<p>As we work to make the most of transit investment, enabling the creation of lively urban, mixed-use neighbourhoods requires intentional consideration of residents’ access to food. Just as affordable housing initiatives work to achieve housing security, affordable grocery options would do the same for food security.</p>
-				<p>Both the public and co-operative options represent different but complementary approaches to increasing competition. The provision of food shouldn’t be solely left to market forces driven by maximizing profit.</p>`
+				body: `<p>As all levels of government work to make the most of transit investment, enabling the creation of lively urban, mixed-use neighbourhoods around subway and train stations needs intentional consideration of residents’ access to food. Just as affordable housing initiatives work to achieve housing security, affordable grocery options would do the same for food security.</p>
+				<p>Both the public option and the co-operative option represent two approaches to increasing competition in the grocery industry. While they represent different approaches to addressing the same problem—runaway grocery prices—both are driven to financially benefit Canadians and can be combined for the great benefit of ## millions of transit neighbourhood residents.</p>
+				<p>The provision of food shouldn’t be solely left to market forces driven by maximizing profit. </p>`
 			}
 		]
 	},
@@ -118,31 +104,47 @@ export const sections = [
 		blocks: [
 			{
 				heading: 'Scaling a national network of local affordable grocers',
-				body: `<p>Canada’s grocery industry needs competition to reduce prices, and neighbourhoods undergoing transit investment require intentional approaches to ensure access to groceries.</p>
-				<p>The role of governments should be to enable communities’ ability to help themselves by reducing financial, policy, and regulatory barriers. Whether in support of public grocers, food co-ops, or independent grocers, each level of government has levers to pull.</p>`
+				body: `<p>Canada’s grocery industry needs competition to reduce prices, and neighbourhoods undergoing transit investment-induced change require intentional approaches to ensure access to healthy and affordable groceries.</p>
+				<p>The development of transit neighbourhoods should benefit the communities that will inhabit them. The type of grocery stores we encourage and incentivize should responds to the needs left unmet by grocery oligopoly.</p>
+				<p>Communities, when given the tools, will self-organize and implement initiatives to improve their quality of life. The role of governments should be to enable communities’ ability to help themselves by reducing financial, policy, and regulatory barriers. Whether in support of public grocers, food co-ops, or independent grocers, each level of government has levers to pull. </p>`
 			},
 			{
 				eyebrow: 'Federal Government',
 				heading: 'Wield the power of the purse',
-				body: `<p>Establish multi-jurisdictional agreements and transfer funding to develop nation-building grocery infrastructure. Developing the distribution infrastructure and sites for public grocers would require an up-front investment of $350 million—a modest cost compared to the $51-billion Build Communities Strong Fund.</p>`
+				body: `<h6>Establish multi-jurisdictional agreements and transfer funding to develop nation building grocery infrastructure.</h6>
+				<p>Developing the distribution infrastructure and sites for public grocers would require an up-front investment of $350 million. This is a modest cost considering the federal government’s intention to launch the Build Communities Strong Fund, a $51-billion, 10-year program.</p>
+				<p>The distribution hubs—key regional economic development projects—could be leveraged by networks of public grocers, food co-ops, small stores, and independents, spread across transit neighbourhoods, and broader urban and rural areas, to combine buying power for high volume, accommodate space for stock, and compete with the grocery giants on price with suppliers. Savings will be passed on to consumers.</p>
+				<p>Economies of scale and consistent demand, with a Buy Canada policy, would be a boon to Canadian businesses across local and national food industries of importance. </p>
+				<p>The federal government has already demonstrated the ability to quickly navigate multi-jurisdictional agreements and budget transfers, such as the National School Food Program agreements with all provinces and territories. </p>`
 			},
 			{
 				eyebrow: 'Provincial Governments',
-				heading: 'Enable local competition',
-				body: `<p>Eliminate property controls—restrictive covenants or exclusivity clauses—that make it difficult for competitors to operate nearby. Manitoba led the way by passing the Property Controls for Grocery Stores and Supermarkets Act in June 2025.</p>`
+				heading: 'Enable local competition in the grocery industry',
+				body: `<h6>Eliminate property controls for grocery stores.</h6>
+				<p>Property controls—restrictive covenants or exclusivity clauses—are deals made between landowners and retailers, in leases and property titles, to restrict the ability of competitors to operate or sell specific products on the same, adjacent, or nearby properties. </p>
+				<p>This is a major barrier to opening new grocery stores operated by non-giant competitors. </p>
+				<p>Leading the way on eliminating property controls in Canada, the Manitoba Government recently passed the Property Controls for Grocery Stores and Supermarkets Act in June 2025. By December 2025, <a href="https://news.gov.mb.ca/news/?item=71917" target="_blank"> 23 property controls were submitted for removal</a>.</p>`
 			},
 			{
 				eyebrow: 'Transit Agencies',
 				heading: 'Leverage site-specific opportunities',
-				body: `<p>Utilize joint development on transit agency lands. Agencies can contribute underutilized land at below-market cost and require public-benefit outcomes, such as space for food co-ops or public grocers, as part of development agreements.</p>`
+				body: `<h6>Utilize joint development on transit agency lands.</h6>
+				<p>Joint development, according to CATCH, is a policy and real estate strategy in which transit agencies partner with public, private, or non-profit developers to build housing and mixed-use projects on land they own or control. This can include stations, yards, parking lots, and air rights.</p>
+				<p>Transit agencies can contribute underutilized land at below-market cost and require public-benefit outcomes as part of the development agreement. Public benefits, in addition affordable housing priorities, can include space for supportive, key amenities, such as food co-ops or public grocers. </p>`
 			},
 			{
 				eyebrow: 'Municipalities',
-				heading: 'Enable local development',
-				body: `<p>Prioritize public grocer placement in neighbourhoods that need them most. Reduce financial barriers through property tax waivers and development charge exemptions. Implement Community Improvement Plans to provide direct financial support to eligible food co-ops.</p>`
+				heading: 'Enable the development of affordable grocers in priority neighbourhoods and transit station areas ',
+				body: `<h6>For public grocers, prioritize their initial placement in neighbourhoods that need them the most.</h6>
+				<p>While the introduction of affordable grocery alternatives over time will benefit all communities, as municipalities begin to pilot public grocery stores, they must be prioritized in areas with the lowest food access. These neighbourhoods will have lower-than-average household incomes and likely higher rates of racialized populations. These are also the same groups likely to be transit-dependent, and who would benefit the most from transit investment.</p>
+				<h6>Reduce financial barriers for public grocers and food co-ops.</h6>
+				<p>This can include waivers of property tax, development charges, and permitting fees to reduce development and operating costs. </p>
+				<h6>Implement Community Improvement Plans to provide direct-to-business financial support to eligible food co-ops </h6>
+				<p>Community Improvement Plans are a planning tool used by municipalities to provide direct-to-business financial supports, such as pre-development and development grants. These grants can be used for feasibility and market studies, construction, and renovation. The delineation of Community Improvement Plan areas can be drawn to include the overlap between transit station areas and underserved neighbourhoods.</p>`
 			},
 			{
-				body: `<p>Facilitating the creation of public grocers and food co-ops isn’t about replacing corporate grocers. It’s about introducing more choice to the benefit of Canadians, addressing market failures, reducing grocery prices, and getting our communities closer to securing their right to food.</p>`
+				heading: 'Facilitating the creation of public grocers and food co-ops isn’t about replacing corporate grocers.',
+				body: '<p>It’s about introducing more choice to the benefit of Canadians, addressing market failures, reducing grocery prices, and getting our communities closer to securing their right to food. </p>'
 			}
 		]
 	}
