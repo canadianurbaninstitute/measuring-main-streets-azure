@@ -2,15 +2,9 @@
 	import circle from '@turf/circle';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
-  import {
-		da_map_source,
-		transit_lines_source,
-		transit_map_style,
-		transit_regions_source,
-		transit_stations_source
-	} from '../../../lib/data/transitdata/config-mapbox.json';
+	import { transit_lines_source } from '../../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../../lib/data/transitdata/line-colors.json';
-	// You might want to get the token via environment variables or a config file later
+
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
@@ -53,8 +47,6 @@
 			}
 		};
 
-    
-
 		map.getSource('circle').setData({
 			type: 'FeatureCollection',
 			features: [circleFeature]
@@ -68,16 +60,8 @@
 
 	$effect(() => {
 		const targetCoords = activeCoords || center;
-		if (targetCoords) {
+		if (targetCoords && map && map.getSource('circle')) {
 			updateMask(targetCoords);
-		}
-	});
-
-	// Removed global padding effect as navigation padding is now handled in the parent component
-	// to avoid affecting UI elements like zoom controls permanently.
-	$effect(() => {
-		if (map && fullScreen) {
-			// No longer setting permanent padding here.
 		}
 	});
 
@@ -85,23 +69,31 @@
 		map = new mapboxgl.Map({
 			container: mapContainer,
 			style: 'mapbox://styles/canadianurbaninstitute/cmn7wup2g001n01s6hree42l7?optimize=true',
-			center: center || [-123.1522, 49.2638], // Defaulting to Arbutus
+			center: center || [-79.3832, 43.6532], // Defaulting to Toronto
 			zoom: zoom || 11,
-			scrollZoom: false, // Recommended false for scroll-telling to prevent trapping the scroll wheel
+			scrollZoom: false,
 			attributionControl: false
 		});
 
-    			map.addSource('transit-line-data', {
-				type: 'vector',
-				url: transit_lines_source.url
-			});
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
+		// Change cursor to pointer over interactive layers
+		const interactiveLayers = ['station-analysis-points-expla-c0bvk5', 'grocery-stores'];
+		interactiveLayers.forEach((layer) => {
+			map.on('mouseenter', layer, () => {
+				map.getCanvas().style.cursor = 'pointer';
+			});
+			map.on('mouseleave', layer, () => {
+				map.getCanvas().style.cursor = '';
+			});
+		});
+
 		map.on('load', () => {
-      map.addSource('transit-line-data', {
+			map.addSource('transit-line-data', {
 				type: 'vector',
 				url: transit_lines_source.url
 			});
+
 			// Add mask sources
 			map.addSource('circle-mask', {
 				type: 'geojson',
@@ -114,53 +106,46 @@
 			});
 
 			// Add mask layers
-			map.addLayer(
-				{
-					id: 'circle-mask',
-					type: 'fill',
-					source: 'circle-mask',
-					paint: {
-						'fill-color': '#fff',
-						'fill-opacity': 0.7
-					}
-				},
-				'merged-map-lines'
-			);
+			map.addLayer({
+				id: 'circle-mask',
+				type: 'fill',
+				source: 'circle-mask',
+				paint: {
+					'fill-color': '#fff',
+					'fill-opacity': 0.7
+				}
+			});
 
-			map.addLayer(
-				{
-					id: 'circle-radius',
-					type: 'line',
-					source: 'circle',
-					paint: {
-						'line-color': '#ffffff',
-						'line-opacity': 1,
-						'line-width': 2,
-						'line-dasharray': [2, 2]
-					}
-				},
-				'merged-map-lines'
-			);
+			map.addLayer({
+				id: 'circle-radius',
+				type: 'line',
+				source: 'circle',
+				paint: {
+					'line-color': '#ffffff',
+					'line-opacity': 1,
+					'line-width': 2,
+					'line-dasharray': [2, 2]
+				}
+			});
 
-      // Convert line colours to Mapbox expression
-	const lineColorExpression = [
-		'match',
-		['get', 'line_id'],
-		...Object.entries(line_colors).flatMap(([id, color]) => [
-			[Number(id)], // Wrap the number in an array
-			color
-		]),
-		'#000000' // Fallback color
-	];
+			// Convert line colours to Mapbox expression
+			const lineColorExpression = [
+				'match',
+				['get', 'line_id'],
+				...Object.entries(line_colors).flatMap(([id, color]) => [
+					[Number(id)], // Wrap the number in an array
+					color
+				]),
+				'#000000' // Fallback color
+			];
 
-      map.addLayer({
+			map.addLayer({
 				id: 'transit-lines',
 				type: 'line',
 				source: 'transit-line-data',
 				'source-layer': transit_lines_source.source_layer,
 				paint: {
-					'line-color':
-						lineColorExpression as mapboxgl.DataDrivenPropertyValueSpecification<string>,
+					'line-color': lineColorExpression as mapboxgl.DataDrivenPropertyValueSpecification<string>,
 					'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0, 7, 4, 12, 8],
 					'line-dasharray': [
 						'case',
@@ -175,6 +160,23 @@
 				}
 			});
 
+			map.addSource('selected-station', {
+				type: 'geojson',
+				data: { type: 'FeatureCollection', features: [] }
+			});
+
+			map.addLayer({
+				id: 'selected-station-highlight',
+				type: 'circle',
+				source: 'selected-station',
+				paint: {
+					'circle-radius': 5,
+					'circle-stroke-width': 3,
+					'circle-stroke-color': '#ffffff',
+					'circle-emissive-strength': 1,
+					'circle-color': 'transparent'
+				}
+			});
 
 			// Initial mask update
 			const targetCoords = activeCoords || center;
@@ -182,7 +184,7 @@
 				updateMask(targetCoords);
 			}
 		});
-
+	});
 </script>
 
 <div class="map-wrapper {fullScreen ? 'full-screen' : ''}" bind:this={mapContainer}></div>
@@ -210,3 +212,4 @@
 		border-radius: inherit;
 	}
 </style>
+

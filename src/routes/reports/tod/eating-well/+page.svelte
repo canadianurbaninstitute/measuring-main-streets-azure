@@ -1,6 +1,9 @@
 <script>
 	// Components
+	import headerImage from '../../../lib/assets/screenshots/eating-well-header.png';
+	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
+	import marketConcentrationImg from '../../assets/grocery.jpg';
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
@@ -11,13 +14,10 @@
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
 	import { sections } from './article.js';
-	// Assets
-	import civicInfraImg from '../../../lib/assets/screenshots/civic-infrastructure-diagram.png';
-	import headerImage from '../../../lib/assets/screenshots/eating-well-header.png';
-	import foodCoopImg from '../../../lib/assets/screenshots/food-coop-benefits.png';
-	import publicGrocerImg from '../../../lib/assets/screenshots/public-grocer-model.png';
-	import transitMapImg from '../../../lib/assets/screenshots/transit-map.png';
-	import marketConcentrationImg from '../../assets/grocery.jpg';
+	import CivicInfrastructureComparison from './CivicInfrastructureComparison.svelte';
+	import FoodCoopBenefits from './FoodCoopBenefits.svelte';
+	import GroceryMap from './GroceryMap.svelte';
+	import PublicGrocerStats from './PublicGrocerStats.svelte';
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 
@@ -28,24 +28,24 @@
 			alt: 'Infographic showing Canadian grocery market concentration: 80% controlled by 5 giants.'
 		},
 		'transit-food-access': {
-			type: 'image',
-			src: transitMapImg,
-			alt: 'Map showing transit networks and potential food access zones.'
+			type: 'component',
+			component: GroceryMap,
+			props: {}
 		},
 		'public-option': {
-			type: 'image',
-			src: publicGrocerImg,
-			alt: 'Proposed model for a national network of 50 public grocery stores.'
+			type: 'component',
+			component: PublicGrocerStats,
+			props: {}
 		},
 		'coop-option': {
-			type: 'image',
-			src: foodCoopImg,
-			alt: 'Illustration of community benefits provided by food co-operatives.'
+			type: 'component',
+			component: FoodCoopBenefits,
+			props: {}
 		},
 		'civic-infrastructure': {
-			type: 'image',
-			src: civicInfraImg,
-			alt: 'Diagram comparing top-down public grocers with bottom-up food co-ops.'
+			type: 'component',
+			component: CivicInfrastructureComparison,
+			props: {}
 		}
 	};
 
@@ -109,6 +109,10 @@
 	];
 </script>
 
+<svelte:head>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet" />
+</svelte:head>
+
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
@@ -149,6 +153,9 @@
 						fit={panel.config.fit}
 						aspect={panel.config.aspect}
 					/>
+				{:else if panel.config?.type === 'component'}
+					{@const Component = panel.config.component}
+					<Component {...panel.config.props} visible={isVisible} />
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
@@ -217,6 +224,7 @@
 		{/each}
 	</div>
 </main>
+<Footer />
 
 <style>
 	.inline-article {

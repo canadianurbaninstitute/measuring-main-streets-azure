@@ -41,8 +41,7 @@ export const sections = [
 		blocks: [
 			{
 				heading: 'Food access is distributed unevenly across our transit networks',
-				body: `<p>New spatial analysis of urban transit networks reveals significant gaps in food access by station. There are two viable non-profit alternatives to corporate grocery giants, both focused on achieving low costs for shoppers.</p>
-				<p>Are transit station areas experiencing no- to low-food access generally found in lower-income neighbourhoods? Evidence shows concentrations of food insecurity in transit-dependent populations, particularly among racialized and low-income communities.</p>`
+				body: `<p>There are <strong>two viable non-profit alternatives</strong> to corporate grocery giants, both focused on achieving low costs for shoppers. </p>`
 			}
 		]
 	},

@@ -118,7 +118,7 @@
 		font-size: clamp(0.8rem, 2.5vw, 1rem);
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
-		color: var(--color-slate-500);
+		color: var(--color-blue-400);
 		margin: 0 0 0.6rem;
 	}
 

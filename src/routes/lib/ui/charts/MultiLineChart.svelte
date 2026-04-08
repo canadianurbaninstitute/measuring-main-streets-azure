@@ -54,13 +54,14 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="chart-container">
+<div class="chart-container" style="min-height: {computedHeight}">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style:height={computedHeight}>
+	<div class="chart" style="min-height: {computedHeight}">
 		<LayerCake
+			position="absolute"
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
 			x={xKey}
 			y={yKey}
@@ -99,6 +100,7 @@
 	.chart {
 		width: 100%;
 		flex: 1;
+		position: relative;
 		min-height: 250px;
 	}
 
@@ -110,7 +112,7 @@
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
-		height: 100%;
+		border-radius: 1em;
 		box-sizing: border-box;
 	}
 

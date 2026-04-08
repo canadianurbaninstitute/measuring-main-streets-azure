@@ -29,7 +29,7 @@
 					if (entry.isIntersecting) {
 						reveal.set(1);
 					} else {
-						reveal.set(0);
+						reveal.set(0, { duration: 0 });
 					}
 				});
 			},
@@ -105,10 +105,9 @@
 			fill-opacity={fillOpacity}
 			{stroke}
 			stroke-width={strokeWidth}
-			style="transition: d 0.5s ease-in-out;"
 		/>
 		{#each points as [px, py]}
-			<circle cx={px} cy={py} {r} fill={stroke} style="transition: all 0.5s ease-in-out;" />
+			<circle cx={px} cy={py} {r} fill={stroke} />
 		{/each}
 	{/each}
 
