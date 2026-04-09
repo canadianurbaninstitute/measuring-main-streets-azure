@@ -1,17 +1,28 @@
 <script>
 	let {
 		id = '',
-		reporttype = '',
-		logo = '',
 		eyebrow = '',
+		subEyebrow = '',
+		author = '',
+		date = '',
 		title = 'Report Title',
 		subtitle = '',
 		backgroundImage = '',
-		backgroundOpacity = 0.1
+		backgroundOpacity = 0.1,
+		scrollTargetId = 'report-findings',
+		reporttype = '',
+		logo = ''
 	} = $props();
 
 	import SoC from '../assets/SoC.svg';
 	import UofT from '../assets/UofT.svg';
+
+	function handleScroll() {
+		const target = document.getElementById(scrollTargetId);
+		if (target) {
+			target.scrollIntoView({ behavior: 'smooth' });
+		}
+	}
 </script>
 
 <section {id}>
@@ -37,24 +48,38 @@
 						</a>
 					</div>
 				{/if}
-				<div class="title-group">
-					<div class="reporttype">{reporttype}</div>
-					<h1 class="eyebrow">{eyebrow}</h1>
-					<h1 class="title">{title}</h1>
-				</div>
+				<div class="reporttype">{reporttype}</div>
+				<h4 class="eyebrow">{eyebrow}</h4>
+				<h1 class="title">{title}</h1>
+				<h4 class="eyebrow">{subEyebrow}</h4>
+				<p class="extra">{author}</p>
+				<p class="extra">{date}</p>
 			</div>
 
 			<div class="description">
 				<div class="subtitle">
 					{subtitle} <br /><br />
 				</div>
-				<p class="scroll-hint">LEARN MORE ↓</p>
+				<button class="scroll-hint" onclick={handleScroll}>LEARN MORE ↓</button>
 			</div>
 		</div>
 	</header>
 </section>
 
 <style>
+	.scroll-hint {
+		background: none;
+		border: none;
+		padding: 0;
+		text-align: left;
+		cursor: pointer;
+		font-family: inherit;
+		width: fit-content;
+		font-size: 1rem;
+		letter-spacing: 0.1em;
+		color: var(--color-slate-700);
+		animation: nudge 2s ease-in-out infinite;
+	}
 	.report-header {
 		position: relative;
 		min-height: 100svh;
@@ -105,13 +130,6 @@
 		gap: 0.5rem;
 		margin: 0 0 6rem 0;
 	}
-
-	.title-group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-	}
-
 	.reporttype {
 		font-size: clamp(1rem, 4vw, 1.75rem);
 		margin: 0 0 6rem 0;
@@ -120,7 +138,7 @@
 		font-weight: 800;
 	}
 	.eyebrow {
-		font-size: clamp(1rem, 7vw, 3rem);
+		font-size: clamp(1rem, 7vw, 2rem);
 		margin: 0;
 		color: var(--brandLightBlue);
 	}
@@ -138,16 +156,22 @@
 		max-width: 400px;
 	}
 
+	.extra {
+		font-size: clamp(0.8rem, 2.5vw, 1rem);
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--color-slate-700);
+		margin-bottom: 0;
+	}
+
+	.extra:first-of-type {
+		margin-top: 1rem;
+	}
+
 	.subtitle {
 		font-size: clamp(1rem, 2vw, 1.2rem);
 		margin: 0;
 		opacity: 0.8;
-	}
-	.scroll-hint {
-		font-size: 1rem;
-		letter-spacing: 0.1em;
-		color: var(--foreground-alt);
-		animation: nudge 2s ease-in-out infinite;
 	}
 	@keyframes nudge {
 		0%,

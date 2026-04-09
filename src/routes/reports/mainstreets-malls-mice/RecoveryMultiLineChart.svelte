@@ -17,6 +17,7 @@
 
 	export let dataset;
 	export let title = 'Visitor Levels (%) relative to the same month in 2019';
+	export let height = '500px';
 
 	import MultiSelect from 'svelte-multiselect';
 
@@ -177,7 +178,7 @@
 		</div>
 	</div>
 
-	<div class="chart">
+	<div class="chart" style="min-height: {height}">
 		<!-- Background: always show 4 base categories in faded grey -->
 		<LayerCake
 			position="absolute"
@@ -231,7 +232,6 @@
 <style>
 	.chart {
 		width: 100%;
-		height: 500px;
 		position: relative;
 	}
 
@@ -242,6 +242,7 @@
 		border: 1px solid #eee;
 		padding: 1em;
 		border-radius: 1em;
+		box-sizing: border-box;
 	}
 
 	.controls {

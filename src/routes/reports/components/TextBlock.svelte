@@ -40,7 +40,6 @@
 	} = $props();
 </script>
 
-
 <div class="text-block" class:active data-step={index}>
 	{#if eyebrow}
 		<p class="eyebrow">{eyebrow}</p>
@@ -116,10 +115,10 @@
 
 	/* ── Meta labels ─────────────────────────────────────────── */
 	.eyebrow {
-		font-size: 0.7rem;
+		font-size: clamp(0.8rem, 2.5vw, 1rem);
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
-		color: #888;
+		color: var(--color-blue-400);
 		margin: 0 0 0.6rem;
 	}
 

@@ -9,7 +9,7 @@
 	export let title = '';
 	export let xDomain = [0, null];
 
-	$: data = xKey === 'civic' ? civic : (xKey === 'independence' ? independence : distance);
+	$: data = xKey === 'civic' ? civic : xKey === 'independence' ? independence : distance;
 
 	const groupConfig = [
 		{ value: 'Downtown and CBD', label: 'Downtown Main Streets', color: '#58e965' },
@@ -23,11 +23,4 @@
 	];
 </script>
 
-<BarChart
-	{...$$restProps}
-	{data}
-	{xKey}
-	{title}
-	{xDomain}
-	{groupConfig}
-/>
+<BarChart {...$$restProps} {data} {xKey} {title} {xDomain} {groupConfig} height="800px" />
