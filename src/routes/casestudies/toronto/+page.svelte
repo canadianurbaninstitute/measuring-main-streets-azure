@@ -1,9 +1,8 @@
 <script>
-	import '../../styles.css';
-	import Card from '../../lib/ui/Card.svelte';
-	import { writable } from 'svelte/store';
 	import Icon from '@iconify/svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
+	import { writable } from 'svelte/store';
+	import Card from '../../lib/ui/Card.svelte';
+	import '../../styles.css';
 
 	import Brampton from '../../lib/assets/boundaries/torontoboundaries/Brampton.svg';
 	import CaledonEast from '../../lib/assets/boundaries/torontoboundaries/CaledonEast.svg';
@@ -256,8 +255,6 @@
 		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
-
-<Footer />
 
 <style>
 	button {

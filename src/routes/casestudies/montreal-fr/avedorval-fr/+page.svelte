@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/avedorval/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/avedorval/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/avedorval/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
 	import EmploymentSizeCheckboxFr from '../../../lib/ui/checkbox/EmploymentSizeCheckboxFr.svelte';
@@ -697,7 +696,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

@@ -93,44 +93,42 @@
 	{#if tabs && tabs.length > 0}
 		<TabNav {tabs} bind:activeTab {syncUrl} bg="slate-50">
 			{#snippet children()}
-				<div class="flex w-full md:gap-14 md:flex-row flex-col">
-					<div class="md:w-1/4">
-						<Collapsible paragraphs={activeTabData.description} defaultOpen={false} />
-					</div>
-					<div class="flex-1">
-						<div class="controls">
-							<div class="search-box">
-								<Icon icon="ph:magnifying-glass" height="2rem" color="#555" />
-								<input type="text" placeholder="Search..." bind:value={searchTerm} />
-							</div>
+				<div class="w-full">
+					<Collapsible paragraphs={activeTabData.description} defaultOpen={false} />
+				</div>
+				<div class="flex-1">
+					<div class="controls">
+						<div class="search-box">
+							<Icon icon="ph:magnifying-glass" height="2rem" color="#555" />
+							<input type="text" placeholder="Search..." bind:value={searchTerm} />
+						</div>
 
-							{#if activeCategories && activeCategories.length > 0}
-								<div class="filter-pills">
+						{#if activeCategories && activeCategories.length > 0}
+							<div class="filter-pills">
+								<button
+									class="pill"
+									class:active={activeCategory === 'All'}
+									onclick={() => (activeCategory = 'All')}
+								>
+									All
+								</button>
+								{#each activeCategories as category}
 									<button
 										class="pill"
-										class:active={activeCategory === 'All'}
-										onclick={() => (activeCategory = 'All')}
+										class:active={activeCategory === category}
+										onclick={() => (activeCategory = category)}
 									>
-										All
+										{category}
 									</button>
-									{#each activeCategories as category}
-										<button
-											class="pill"
-											class:active={activeCategory === category}
-											onclick={() => (activeCategory = category)}
-										>
-											{category}
-										</button>
-									{/each}
-								</div>
-							{/if}
-						</div>
+								{/each}
+							</div>
+						{/if}
+					</div>
 
-						<div class="card-grid">
-							{#each filteredItems as item}
-								<LandingCard {...item} />
-							{/each}
-						</div>
+					<div class="card-grid">
+						{#each filteredItems as item}
+							<LandingCard {...item} />
+						{/each}
 					</div>
 				</div>
 			{/snippet}

@@ -1,5 +1,4 @@
 <script>
-	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
 </script>
 
@@ -11,4 +10,3 @@
 	>
 	</iframe>
 </div>
-<Footer />

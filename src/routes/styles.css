@@ -118,7 +118,7 @@ h6 {
 
 p {
 	font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-	color: #333;
+	color: var(--color-zinc-700);
 	line-height: 1.75;
 	max-width: 80ch;
 	margin-bottom: 1em;
@@ -126,6 +126,21 @@ p {
 
 
 li::marker {
+	color: var(--brandLightBlue);
+}
+
+a {
+	color: var(--color-zinc-900);
+	text-decoration: underline;
+	text-decoration-color: var(--brandLightBlue);
+	text-decoration-thickness: 3px;
+	text-underline-offset: 0.25em;
+	text-decoration-style: solid;
+	transition: all 0.3s ease;
+	
+}
+
+a:hover {
 	color: var(--brandLightBlue);
 }
 

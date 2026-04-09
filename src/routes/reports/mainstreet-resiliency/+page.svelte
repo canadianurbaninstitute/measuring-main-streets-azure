@@ -1,14 +1,13 @@
 <script>
-	import Title from '../../lib/ui/Title.svelte';
-	import resiliency from '../../lib/assets/graphics/resiliency.svg';
 	import correlation from '../../lib/assets/graphics/correlation-plot.png';
-	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
-	import LineAreaChart from './LineAreaChart.svelte';
+	import resiliency from '../../lib/assets/graphics/resiliency.svg';
+	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
+	import Title from '../../lib/ui/Title.svelte';
 	import BarChart from './BarChart.svelte';
 	import BarChartStacked from './BarChartStacked.svelte';
+	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
 	import CivicBarChart from './CivicBarChart.svelte';
-	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
+	import LineAreaChart from './LineAreaChart.svelte';
 
 	import '../../styles.css';
 
@@ -261,8 +260,6 @@
 		message3={'Cluster civic infrastructure on main streets and create focal points for local communities.'}
 	/>
 </div>
-
-<Footer />
 
 <style>
 	img {

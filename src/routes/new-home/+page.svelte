@@ -1,5 +1,4 @@
 <script>
-	import ModernFooter from '../lib/ui/ModernFooter.svelte';
 	import '../styles.css';
 	import HomeAbout from './components/HomeAbout.svelte';
 	import HomeHero from './components/HomeHero.svelte';
@@ -20,8 +19,6 @@
 	<HomeProjectTimeline />
 	<HomeAbout />
 </main>
-
-<ModernFooter />
 
 <style>
 	:global(body) {

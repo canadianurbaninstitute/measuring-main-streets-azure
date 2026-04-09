@@ -3,7 +3,6 @@
 	import Card from '../../lib/ui/Card.svelte';
 	import { writable } from 'svelte/store';
 	import Icon from '@iconify/svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
 
 	import FiftyAvenue from '../../lib/assets/boundaries/edmontonboundaries/50Avenue.svg';
 	import FiftyStreetBeaumont from '../../lib/assets/boundaries/edmontonboundaries/50StreetBeaumont.svg';
@@ -263,8 +262,6 @@
 		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
-
-<Footer />
 
 <style>
 	button {

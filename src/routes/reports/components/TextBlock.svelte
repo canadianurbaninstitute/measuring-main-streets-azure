@@ -27,6 +27,8 @@
 	 *     XSS-safe for arbitrary user input.
 	 */
 
+	import '../../styles.css';
+
 	let {
 		index = 0,
 		active = false,
@@ -152,18 +154,6 @@
 	}
 	.prose :global(em) {
 		font-style: italic;
-	}
-
-	/* Links */
-	.prose :global(a) {
-		color: #111;
-		text-decoration: underline;
-		text-underline-offset: 3px;
-		text-decoration-thickness: 1px;
-		transition: color 0.2s;
-	}
-	.prose :global(a:hover) {
-		color: #555;
 	}
 
 	/* Lists */

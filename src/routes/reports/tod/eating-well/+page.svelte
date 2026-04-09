@@ -1,9 +1,8 @@
 <script>
 	// Components
+	import marketConcentrationImg from '../../../lib/assets/graphics/grocery.jpg';
 	import headerImage from '../../../lib/assets/screenshots/eating-well-header.png';
-	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
-	import marketConcentrationImg from '../../assets/grocery.jpg';
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
@@ -224,7 +223,6 @@
 		{/each}
 	</div>
 </main>
-<Footer />
 
 <style>
 	.inline-article {

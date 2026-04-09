@@ -671,7 +671,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

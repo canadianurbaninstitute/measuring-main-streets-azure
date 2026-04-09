@@ -1,6 +1,5 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/ui/Footer.svelte';
 </script>
 
 <div class="hero">
@@ -84,8 +83,6 @@
 		<h3>Universe Design Studio</h3>
 	</div>
 </div>
-
-<Footer />
 
 <style>
 	.card-grid {

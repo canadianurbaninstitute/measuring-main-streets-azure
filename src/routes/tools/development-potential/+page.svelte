@@ -10,17 +10,13 @@
 		urban_form_comp_style
 	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
-	import Icon from '@iconify/svelte';
-
 	// Components
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import '../../styles.css';
 	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
 	import RadarChart from './RadarChart.svelte';
 	import ScoreBar from './ScoreBar.svelte';
-	import Accordion from '../../lib/ui/Accordion.svelte';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -653,8 +649,6 @@
 		</div>
 	</div>
 </div>
-
-<Footer />
 
 <style>
 	#map1 {

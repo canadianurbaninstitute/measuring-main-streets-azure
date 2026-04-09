@@ -1,6 +1,5 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/ui/Footer.svelte';
 
 	let mainStreetCollapsed = true;
 	let civicInfrastructureCollapsed = true;
@@ -792,11 +791,11 @@
 <div class="hero">
 	<h1>Have more questions?</h1>
 	<p>
-		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry">cui@canurb.org</a>.
+		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry"
+			>cui@canurb.org</a
+		>.
 	</p>
 </div>
-
-<Footer />
 
 <style>
 	table,
