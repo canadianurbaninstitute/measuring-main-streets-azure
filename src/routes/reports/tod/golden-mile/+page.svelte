@@ -58,6 +58,7 @@
 	subtitle="The Scarborough Golden Mile is at the centre of one of Toronto's most significant urban transformations. 
     How can this rapidly densifying community be designed to support a vibrant, inclusive, and resilient neighbourhood?"
 	backgroundImage={introImage}
+	scrollTargetId="main"
 />
 {#snippet renderPanel(uid, isVisible)}
 	{@const panel = allPanels.find((p) => p.uid === uid)}
@@ -85,7 +86,7 @@
 	{/if}
 {/snippet}
 <main>
-	<div class="center">
+	<div class="center" id="main">
 		<div class="card italic text-center mt-20 mx-8">
 			This report was prepared by fourth-year undergraduate students at the University of Toronto as
 			part of the Multidisciplinary Urban Capstone Project, in collaboration with the Canadian Urban

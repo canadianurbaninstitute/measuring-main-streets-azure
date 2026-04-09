@@ -18,7 +18,6 @@
 	// Components
 	import CardSelector from './components/CardSelector.svelte';
 	import { BarChart } from '@onsvisual/svelte-charts';
-	import StatChart from './components/StatBarChart.svelte';
 	import Footer from '../../../lib/ui/Footer.svelte';
 	import DotPlot from './components/StatDotPlot.svelte';
 	import DotPlotLegend from './components/DotPlotLegend.svelte';
@@ -29,7 +28,7 @@
 
 	const regions = [
 		{ value: 'All Regions', name: 'All Regions', image: Canada },
-		{ value: 'Calgary', name: 'Calgary', image: Vancouver },
+		{ value: 'Calgary', name: 'Calgary', image: Calgary },
 		{ value: 'Edmonton', name: 'Edmonton', image: Edmonton },
 		{
 			value: 'Kitchener - Cambridge - Waterloo',
@@ -168,8 +167,9 @@
 	title="Who lives in Transit Station Areas?"
 	subtitle="What kinds of communities does transit-oriented development attract? Compare transit station areas to their regions to learn more."
 	backgroundImage={introImage}
+	scrollTargetId="main"
 />
-<main class="p-10 md:px-50">
+<main class="p-10 md:px-50" id="main">
 	<h1 class="infographic-title p-10" style="text-align: center;">
 		Who Lives in
 		{#if selectedRegion == 'All Regions'}
