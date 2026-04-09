@@ -4,42 +4,45 @@
 		title = 'Key Findings',
 		finding1 = '',
 		description1 = '',
+		flip1 = false,
+		back1 = '',
 		finding2 = '',
 		description2 = '',
+		flip2 = false,
+		back2 = '',
 		finding3 = '',
-		description3 = ''
+		description3 = '',
+		flip3 = false,
+		back3 = ''
 	} = $props();
 </script>
+
+{#snippet Card(finding, description, flip, backText)}
+	<div class={flip ? 'flip-card' : 'card'}>
+		{#if flip}
+			<div class="flip-card-inner">
+				<div class="flip-card-front">
+					<h2 style="color: white; margin-bottom: 20px;">{finding}</h2>
+					<h3 style="color: white;">{description}</h3>
+				</div>
+				<div class="flip-card-back">
+					<p>{backText}</p>
+				</div>
+			</div>
+		{:else}
+			<h2 style="margin-bottom: 20px;">{finding}</h2>
+			<h3 style="color: white;">{description}</h3>
+		{/if}
+	</div>
+{/snippet}
 
 <section {id} class="findings">
 	<div class="inner">
 		<h1 class="title">{title}</h1>
 		<div class="cards">
-			<div class="card">
-				<h2>{finding1}</h2>
-				<h3 style="color: white;">{description1}</h3>
-			</div>
-
-			<div class="flip-card">
-				<div class="flip-card-inner">
-					<div class="flip-card-front">
-						<h2 style="color: white; 	margin-bottom: 20px;">{finding2}</h2>
-						<h3 style="color: white;">{description2}</h3>
-					</div>
-					<div class="flip-card-back">
-						<p>
-							Complete communities may offer people local options for fulfilling their basic
-							day-to-day needs, but the extent to which people make the local choice largely depends
-							on how walkable the community is.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="card">
-				<h2 style="margin-bottom: 20px;">{finding3}</h2>
-				<h3 style="color: white;">{description3}</h3>
-			</div>
+			{@render Card(finding1, description1, flip1, back1)}
+			{@render Card(finding2, description2, flip2, back2)}
+			{@render Card(finding3, description3, flip3, back3)}
 		</div>
 	</div>
 </section>
@@ -160,7 +163,7 @@
 		color: #fff;
 	}
 
-	.card p {
+	.flip-card-back p {
 		margin: 0;
 		color: #fff;
 	}

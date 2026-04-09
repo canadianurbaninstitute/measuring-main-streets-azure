@@ -205,7 +205,8 @@
 		</div>
 	</div>
 </section>
-<div class="skyline-border" aria-hidden="true"></div>
+
+<!-- <div class="skyline-border" aria-hidden="true"></div> -->
 
 <style>
 	.timeline-section {

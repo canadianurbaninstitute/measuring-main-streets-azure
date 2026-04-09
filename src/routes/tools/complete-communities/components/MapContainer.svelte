@@ -479,6 +479,13 @@
 </div>
 
 <style>
+
+	:global(.mapboxgl-popup-content) {
+		background: var(--color-slate-900) !important;
+		padding: 6px !important;
+		border-radius: 6px !important;
+	}
+
 	#map {
 		height: 100%;
 		width: 100%;

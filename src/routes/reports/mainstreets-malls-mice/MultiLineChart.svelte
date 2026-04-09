@@ -43,10 +43,4 @@
 	}
 </script>
 
-<MultiLineChart
-	{...$$restProps}
-	{data}
-	{seriesConfig}
-	{title}
-	{yDomain}
-/>
+<MultiLineChart {...$$restProps} {data} {seriesConfig} {title} {yDomain} height="800px" />
