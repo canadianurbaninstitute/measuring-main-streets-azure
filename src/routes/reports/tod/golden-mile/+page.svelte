@@ -3,10 +3,10 @@
 	import '../../../styles.css';
 	import ReportHeader from '../../components/ReportHeader.svelte';
 	import Footer from '../../../lib/ui/Footer.svelte';
-	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
+	import ContactCard from '../../../lib/ui/ContactCard.svelte';
 
 	// Assets
 	import introImage from './assets/HeaderImage.png';
@@ -135,7 +135,17 @@
 			</div>
 		{/each}
 	</div>
-	<div class="inline-article"><h2>Project Team</h2></div>
+	<div class="inline-article">
+		<h2>Project Team</h2>
+		<ContactCard title="Fouad Agha" disabled={true} />
+		<ContactCard title="Luke Lee" link="https://www.linkedin.com/in/luke-lee10/" />
+		<ContactCard
+			title="Nathan Saunders-DeGuire"
+			link="https://www.linkedin.com/in/nathan-deguire-195224198"
+		/>
+		<ContactCard title="Arjun Yanglem" link="https://www.linkedin.com/in/arjun-singh-yanglem/" />
+		<ContactCard title="Avila Zhang" link=" https://www.linkedin.com/in/youjia-zhang-3aa989263" />
+	</div>
 </main>
 
 <Footer />
