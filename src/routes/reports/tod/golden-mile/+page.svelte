@@ -283,7 +283,7 @@
 	}
 	.team {
 		display: flex;
-		margin: 0 auto;
+		margin: 0 auto 2rem;
 		width: fit-content;
 	}
 	.team-header {

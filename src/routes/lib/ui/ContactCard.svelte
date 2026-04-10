@@ -8,7 +8,7 @@
 		<span class="description uppercase font-medium text-xs text-gray-400">{description}</span>
 	</div>
 {:else}
-	<a href={link} target="_blank">
+	<a href={link} target="_blank" class="no-underline text-inherit">
 		<div class="contact-card">
 			<h3 class="title">{title}</h3>
 			<span class="description uppercase font-medium text-xs text-gray-400">{description}</span>
@@ -17,6 +17,13 @@
 {/if}
 
 <style>
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+	a:hover {
+		color: inherit;
+	}
 	.contact-card {
 		border: 1px solid var(--brandDarkBlue);
 		padding: 1.5rem;
@@ -39,8 +46,10 @@
 	}
 	.contact-card:hover .description {
 		font-weight: 600;
+		color: var(--brandDarkBlue);
 	}
 	.description {
 		transition: font-weight 0.3s ease;
+		transition: color 0.3s ease;
 	}
 </style>
