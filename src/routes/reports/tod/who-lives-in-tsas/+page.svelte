@@ -165,8 +165,9 @@
 	title="Who lives in Transit Station Areas?"
 	subtitle="What kinds of communities does transit-oriented development attract? Compare transit station areas to their regions to learn more."
 	backgroundImage={introImage}
+	scrollTargetId="main"
 />
-<main class="p-10 md:px-50">
+<main class="p-10 md:px-50" id="main">
 	<h1 class="infographic-title p-10" style="text-align: center;">
 		Who Lives in
 		{#if selectedRegion == 'All Regions'}
