@@ -2,7 +2,6 @@
 	// Components
 	import '../../../styles.css';
 	import ReportHeader from '../../components/ReportHeader.svelte';
-	import Footer from '../../../lib/ui/Footer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
@@ -135,20 +134,41 @@
 			</div>
 		{/each}
 	</div>
-	<div class="inline-article">
+	<div class="team-header">
 		<h2>Project Team</h2>
-		<ContactCard title="Fouad Agha" disabled={true} />
-		<ContactCard title="Luke Lee" link="https://www.linkedin.com/in/luke-lee10/" />
-		<ContactCard
-			title="Nathan Saunders-DeGuire"
-			link="https://www.linkedin.com/in/nathan-deguire-195224198"
-		/>
-		<ContactCard title="Arjun Yanglem" link="https://www.linkedin.com/in/arjun-singh-yanglem/" />
-		<ContactCard title="Avila Zhang" link=" https://www.linkedin.com/in/youjia-zhang-3aa989263" />
+	</div>
+	<div class="team">
+		<div class="column">
+			<ContactCard
+				title="Fouad Agha"
+				disabled={true}
+				description="Student | University of Toronto"
+			/>
+			<ContactCard
+				title="Luke Lee"
+				link="https://www.linkedin.com/in/luke-lee10/"
+				description="Student | University of Toronto"
+			/>
+			<ContactCard
+				title="Nathan Saunders-DeGuire"
+				link="https://www.linkedin.com/in/nathan-deguire-195224198"
+				description="Student | University of Toronto"
+			/>
+		</div>
+		<div class="column">
+			<ContactCard
+				title="Arjun Yanglem"
+				link="https://www.linkedin.com/in/arjun-singh-yanglem/"
+				description="Student | University of Toronto"
+			/>
+			<ContactCard
+				title="Avila Zhang"
+				link=" https://www.linkedin.com/in/youjia-zhang-3aa989263"
+				description="Student | University of Toronto"
+			/>
+		</div>
 	</div>
 </main>
-
-<Footer />
 
 <style>
 	.card {
@@ -260,5 +280,20 @@
 			height: auto;
 			min-height: 100%;
 		}
+	}
+	.team {
+		display: flex;
+		margin: 0 auto;
+		width: fit-content;
+	}
+	.team-header {
+		display: flex;
+		margin: 0 auto 2rem;
+		width: fit-content;
+	}
+	.column {
+		display: flex;
+		flex-direction: column;
+		width: 22rem;
 	}
 </style>

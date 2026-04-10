@@ -18,7 +18,6 @@
 	// Components
 	import CardSelector from './components/CardSelector.svelte';
 	import { BarChart } from '@onsvisual/svelte-charts';
-	import Footer from '../../../lib/ui/Footer.svelte';
 	import DotPlot from './components/StatDotPlot.svelte';
 	import DotPlotLegend from './components/DotPlotLegend.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
@@ -584,7 +583,6 @@
 		</div>
 	</div>
 </main>
-<Footer />
 
 <style>
 	.infographic-title {
