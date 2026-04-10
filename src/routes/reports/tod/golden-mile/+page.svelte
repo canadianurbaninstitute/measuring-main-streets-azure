@@ -141,7 +141,7 @@
 		<div class="column">
 			<ContactCard
 				title="Fouad Agha"
-				disabled={true}
+				link="https://www.linkedin.com/in/fouad-agha-60478b1a8"
 				description="Student | University of Toronto"
 			/>
 			<ContactCard
@@ -163,7 +163,7 @@
 			/>
 			<ContactCard
 				title="Avila Zhang"
-				link=" https://www.linkedin.com/in/youjia-zhang-3aa989263"
+				link="https://www.linkedin.com/in/youjia-zhang-3aa989263"
 				description="Student | University of Toronto"
 			/>
 		</div>
@@ -285,15 +285,22 @@
 		display: flex;
 		margin: 0 auto 2rem;
 		width: fit-content;
+		flex-direction: column;
 	}
 	.team-header {
 		display: flex;
 		margin: 0 auto 2rem;
 		width: fit-content;
+		flex-direction: column;
 	}
 	.column {
 		display: flex;
 		flex-direction: column;
 		width: 22rem;
+	}
+	@media (min-width: 640px) {
+		.team {
+			flex-direction: row;
+		}
 	}
 </style>
