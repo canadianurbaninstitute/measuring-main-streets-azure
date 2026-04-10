@@ -11,17 +11,16 @@
 	import northfield from '../../lib/assets/screenshots/case-study-northfield.png';
 	import panama from '../../lib/assets/screenshots/case-study-panama.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
-	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
 	import '../../styles.css';
 
 	const title = 'Measuring Main Streets Case Studies';
 
 	const tabs = [
 		{
-			label: 'Transit Oriented Development',
+			label: 'TOD on Main',
 			value: 'tod',
 			description: [
-				'Discover how transit-oriented development create complete communities through five detailed case studies in Canada’s largest urban regions. Explore the infrastructure, policy, and development patterns that shape transit-oriented communities at the neighbourhood scale.'
+				'Transit-Oriented Development (TOD) can be a catalyst for growth – but not all growth is created equal. Through five detailed case studies based on real TOD in Canada’s largest urban regions, discover how policy levers, pre-existing infrastructure, and other factors can determine the kind of communities and neighborhoods that can be created by TOD. These case studies were created by the Infrastructure Institute at the School of Cities based out of the University of Toronto.'
 			],
 			categories: ['Ontario', 'Quebec', 'Alberta', 'British Columbia'],
 			items: [
@@ -63,10 +62,10 @@
 			]
 		},
 		{
-			label: 'Main Street Resiliency',
+			label: 'Resilience on Main',
 			value: 'msr',
 			description: [
-				'Discover how infrastructure paints a picture of a community through sixty main streets case studies across three Canadian cities. Explore the built form, civic infrastructure, business profile, employment profile, housing, local characteristics, and visitor patterns to get a unique snapshot of how these factors interplay at the neighbourhood scale to influence community outcomes.'
+				"How much can data alone tell us about a community and its future? Through sixty main street case studies across three Canadian cities, see first-hand how data from the National Main Street Map can come together to generate a snapshot of a neighborhood's defining characteristics, vulnerabilities, and key advantages. And for 1/3 of data case studies, see how the story changed through on-the-ground analysis in each community."
 			],
 			categories: ['Ontario', 'Quebec', 'Alberta'],
 			items: [
@@ -108,5 +107,3 @@
 <main>
 	<LandingLayout {title} {tabs} bind:activeTab syncUrl />
 </main>
-
-<ModernFooter />

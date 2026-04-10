@@ -4,6 +4,17 @@
 	import { Spring } from 'svelte/motion';
 	import car from '../../lib/assets/graphics/car.png';
 	import train from '../../lib/assets/graphics/dark-train.svg';
+	import LandingCard from '../../lib/ui/LandingCard.svelte';
+	// Card assets
+	import casestudy from '../../lib/assets/screenshots/case-study-arbutus.png';
+	import casestudy2 from '../../lib/assets/screenshots/case-study.png';
+	import dot from '../../lib/assets/screenshots/dot.png';
+	import reports from '../../lib/assets/screenshots/key-findings.png';
+	import mainstreetmap from '../../lib/assets/screenshots/main-street-map.png';
+	import transitmap from '../../lib/assets/screenshots/transit-map.png';
+	import urbanform from '../../lib/assets/screenshots/urban-form.png';
+	import reportstsa from '../../lib/assets/screenshots/who-tsas.png';
+	import '../../styles.css';
 
 	let timelineElement = null;
 	let crossingElement = null;
@@ -80,28 +91,87 @@
 
 	const projects = [
 		{
-			phase: 'PHASE TWO',
-			title: 'Transit Oriented Development',
-			description: "Mapping major transit station areas on Canada's main streets.",
+			phase: 'PHASE TWO | 2025-2026 ',
+			title: 'TOD on Main ',
+			description:
+				'Leveraging Transit-Oriented Development (TOD) to advance housing and community outcomes  ',
 			details:
-				"Canada's seven rapid transit systems are mapped at main street scale, adding further depth and dimension to understanding Canada's main streets at the local station level.",
-			links: [{ text: 'Explore the Map', href: '/transit-map', primary: true }],
-			stat: '300 billion',
-			subtext: 'made up facts!!!!'
+				"Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD. <a href='/about#phase-two'> About Phase Two →</a>",
+			stat: 'xxx million homes',
+			subtext: "could be built in Canada's transit station areas",
+			cards: [
+				{
+					title: 'Transit Map',
+					description:
+						'Explore the major transit station areas and their relationship to main streets.',
+					image: transitmap,
+					link: '/transit-map',
+					featured: true,
+					tags: ['mapping', 'tool']
+				},
+				{
+					title: 'Case Studies',
+					description: 'In depth place-based studies.',
+					image: casestudy,
+					link: '/casestudies/v2/?tab=tod',
+					tags: ['Case Study']
+				},
+				{
+					title: 'Reports',
+					description: 'In depth reports on transit oriented development.',
+					image: reportstsa,
+					link: '/reports/tod',
+					tags: ['Reports']
+				},
+				{
+					title: 'Tools',
+					description: 'In depth reports on transit oriented development.',
+					image: urbanform,
+					link: '/reports/tod',
+					tags: ['Tools']
+				}
+			]
 		},
 		{
-			phase: 'PHASE ONE',
-			title: 'Main Street Resilience',
-			description: 'Orienting data analysis around main streets for the first time.',
+			phase: 'PHASE ONE | 2023-2024',
+			title: 'Resilience on Main ',
+			description:
+				'Equipping communities to make smarter investments in main streets and downtowns ',
 			details:
-				'Visit local community data is reimagined at the scale of the main street, creating a first-of-its-kind methodology to understand Canadian main streets and empower practitioners with the findings.\n\nGive some background on how the project started, what the goals were, and any major findings.',
-			links: [
-				{ text: 'Explore the Map', href: '/map', primary: true, color: 'var(--brandLightBlue)' },
-				{ text: 'About the project', href: '/about' },
-				{ text: 'Reports and Case Studies', href: '/reports' }
-			],
+				'Coming out of the pandemic, many main streets and downtowns faced a convergence of economic, social, and operational challenges and were poorly positioned for recovery. Resilience on Main responded by delivering first-of-its-kind tools, case studies, and research that re‑scaled critical data to the main street level—equipping leaders and practitioners across Canada with the insights needed to restore activity, support recovery, champion equity, and strengthen long‑term resilience.<a href="/about#phase-1"> About Phase One →</a>',
 			stat: '85%',
-			subtext: 'of Canadians live within 1 kilometre from a main street'
+			subtext: 'of Canadians live within 1 kilometre from a main street',
+			cards: [
+				{
+					title: 'Main Street Map',
+					description: 'Analyzing neighbourhood-scale data for better city building.',
+					image: mainstreetmap,
+					link: '/map',
+					featured: true,
+					tags: ['mapping', 'tool']
+				},
+				{
+					title: 'Case Studies',
+					description: 'In depth place-based studies.',
+					image: casestudy2,
+					link: '/casestudies/v2/?tab=msr',
+					tags: ['Case Study']
+				},
+				{
+					title: 'Reports',
+					description: 'In depth reports on main street resilience.',
+					image: reports,
+					link: '/reports/v2/?tab=msr',
+					tags: ['Reports']
+				},
+				{
+					title: 'Tools',
+					description: 'Research and analysis tools.',
+					image: dot,
+					link: '/tools/v2/',
+					tags: ['Tools']
+				}
+			]
 		}
 	];
 </script>
@@ -125,7 +195,7 @@
 					<span class="phase-tag">{projects[0].phase}</span>
 					<h3 class="project-title">{projects[0].title}</h3>
 					<p class="project-desc">{projects[0].description}</p>
-					<p class="project-details">{projects[0].details}</p>
+					<p class="project-details">{@html projects[0].details}</p>
 					<div class="links-group">
 						{#each projects[0].links as link}
 							<a
@@ -142,8 +212,15 @@
 				</div>
 				<div class="project-stat-container">
 					<div class="big-stat">
-						<span class="stat-number">{projects[0].stat}</span>
+						<span class="stat-number-smaller">{projects[0].stat}</span>
 						<span class="stat-subtext">{projects[0].subtext}</span>
+					</div>
+				</div>
+				<div class="project-cards-container">
+					<div class="cards-scroll">
+						{#each projects[0].cards as card}
+							<LandingCard {...card} minWidth={350} />
+						{/each}
 					</div>
 				</div>
 			</div>
@@ -180,7 +257,7 @@
 					<span class="phase-tag">{projects[1].phase}</span>
 					<h3 class="project-title">{projects[1].title}</h3>
 					<p class="project-desc">{projects[1].description}</p>
-					<p class="project-details">{projects[1].details}</p>
+					<p class="project-details">{@html projects[1].details}</p>
 					<div class="links-group">
 						{#each projects[1].links as link}
 							<a
@@ -201,6 +278,13 @@
 						<span class="stat-subtext">{projects[1].subtext}</span>
 					</div>
 				</div>
+				<div class="project-cards-container">
+					<div class="cards-scroll">
+						{#each projects[1].cards as card}
+							<LandingCard {...card} minWidth={350} maxWidth={400} />
+						{/each}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -216,16 +300,6 @@
 		display: flex;
 		justify-content: center;
 		overflow: hidden;
-	}
-
-	.skyline-border {
-		width: 100%;
-		height: 38px;
-		background-image: url("data:image/svg+xml,%3Csvg width='80' height='38' viewBox='0 0 57 38' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M22.6976 27.1592H27.5099V22.3231H22.6976V27.1592ZM22.6976 13.4056H27.5099V8.56943H22.6976V13.4056ZM29.3351 20.2824H34.1474V15.4463H29.3351V20.2824ZM20.0894 37.0536H36.6072V0H20.0894V37.0536Z' fill='%23002940'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M40.1787 8.25879V37.0534H46.1401V28.9052H50.9524V37.0534H56.6966V8.25879H40.1787Z' fill='%23002940'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2.61166 27.1905H7.42393V22.3696H2.61166V27.1905ZM9.24918 27.1905H14.0614V22.3696H9.24918V27.1905ZM0 37.0536H16.5179V15.625H0V37.0536Z' fill='%23002940'/%3E%3C/svg%3E");
-		background-repeat: repeat-x;
-		background-color: var(--color-slate-50);
-		background-position: bottom left;
-		background-size: 60px 38px;
 	}
 
 	.section-title {
@@ -297,9 +371,67 @@
 
 	.project-entry {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 4rem;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: 2rem;
 		align-items: flex-start;
+		/* margin-bottom: 4rem; */
+	}
+
+	.project-cards-container {
+		grid-column: 1 / -1;
+		width: 100%;
+		padding: 1rem 0 0 0;
+		position: relative;
+		border-radius: 40px / 50%;
+		overflow: hidden;
+		/* background-color: var(--color-zinc-100); */
+	}
+
+	/* Tunnel Effect Overlays */
+	.project-cards-container::before,
+	.project-cards-container::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100px;
+		z-index: 2;
+		pointer-events: none;
+		transition: opacity 0.3s ease;
+	}
+
+	.project-cards-container::before {
+		left: 0;
+		width: 80px;
+		border-radius: 50%;
+		background: radial-gradient(ellipse at 140% 50%, transparent 70%, var(--color-zinc-300) 100%);
+	}
+
+	.project-cards-container::after {
+		right: 0;
+		width: 80px;
+		border-radius: 50%;
+		background: radial-gradient(ellipse at -10% 50%, transparent 70%, var(--color-zinc-300) 100%);
+	}
+
+	.cards-scroll {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+		padding: 1rem 40px 2rem 40px; /* matched to tunnel width */
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
+
+		/* Hide scrollbar but keep functionality */
+		/* -ms-overflow-style: none; */
+		/* scrollbar-width: none; */
+	}
+
+	.cards-scroll > :global(*) {
+		scroll-snap-align: center;
+		flex-shrink: 0;
 	}
 
 	/* ── Railroad crossing band ── */
@@ -436,14 +568,6 @@
 		margin-bottom: 1rem;
 	}
 
-	.project-details {
-		font-size: 1rem;
-		line-height: 1.6;
-		color: #666;
-		margin-bottom: 2rem;
-		white-space: pre-line;
-	}
-
 	.links-group {
 		display: flex;
 		flex-wrap: wrap;
@@ -491,6 +615,14 @@
 		font-family: 'Inter', sans-serif;
 		font-weight: 800;
 		font-size: 7rem;
+		line-height: 1;
+		color: var(--brandDarkBlue);
+	}
+
+	.stat-number-smaller {
+		font-family: 'Inter', sans-serif;
+		font-weight: 800;
+		font-size: 5rem;
 		line-height: 1;
 		color: var(--brandDarkBlue);
 	}

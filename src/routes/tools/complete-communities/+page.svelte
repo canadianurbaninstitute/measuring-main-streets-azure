@@ -12,7 +12,6 @@
 	// Config imports for metrics matching
 
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import '../../styles.css';
 	// Components
 	import Search from '../../transit-map/components/Search.svelte';
@@ -619,7 +618,6 @@
 		</div>
 	</div>
 </Tabs.Root>
-<Footer />
 
 <style>
 	#content-container {

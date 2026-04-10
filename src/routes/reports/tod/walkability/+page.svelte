@@ -1,7 +1,6 @@
 <script>
 	import methodologyImg from '../../../lib/assets/graphics/methodology.svg';
 	import dataImg from '../../../lib/assets/graphics/walkability-data.svg';
-	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
 	import { intersect } from './intersect.js';
 	import WalkabilityMap from './WalkabilityMap.svelte';
@@ -531,7 +530,6 @@
 		</div>
 	</Accordion>
 </section>
-<Footer />
 
 <style>
 	.page-layout {

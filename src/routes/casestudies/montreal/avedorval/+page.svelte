@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/montreal/avedorval/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/avedorval/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/avedorval/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { timeFormat } from 'd3-time-format';
 	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
@@ -678,7 +677,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

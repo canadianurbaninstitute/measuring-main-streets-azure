@@ -1,9 +1,8 @@
 <script>
-	import '../../styles.css';
-	import Card from '../../lib/ui/Card.svelte';
-	import { writable } from 'svelte/store';
 	import Icon from '@iconify/svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
+	import { writable } from 'svelte/store';
+	import Card from '../../lib/ui/Card.svelte';
+	import '../../styles.css';
 
 	import AveDorval from '../../lib/assets/boundaries/montrealboundaries/AveDorval.svg';
 	import AveVictoria from '../../lib/assets/boundaries/montrealboundaries/AveVictoria.svg';
@@ -261,8 +260,6 @@
 		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
 	{/each}
 </div>
-
-<Footer />
 
 <style>
 	button {

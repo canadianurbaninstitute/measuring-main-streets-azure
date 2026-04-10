@@ -2,28 +2,25 @@
 	import Icon from '@iconify/svelte';
 
 	// Images
-	import Vancouver from './assets/Vancouver.png';
 	import Calgary from './assets/Calgary.png';
+	import Canada from './assets/Canada.png';
 	import Edmonton from './assets/Edmonton.png';
+	import introImage from './assets/HeaderImage.png';
 	import KWC from './assets/KWC.png';
 	import Montreal from './assets/Montreal.png';
 	import Ottawa from './assets/Ottawa-Gatineau.png';
 	import Toronto from './assets/Toronto.png';
-	import Canada from './assets/Canada.png';
-	import introImage from './assets/HeaderImage.png';
-
+	import Vancouver from './assets/Vancouver.png';
 	// Data
 	import data from './data/TSA_all_demos.csv';
 
 	// Components
-	import CardSelector from './components/CardSelector.svelte';
 	import { BarChart } from '@onsvisual/svelte-charts';
-	import StatChart from './components/StatBarChart.svelte';
-	import Footer from '../../../lib/ui/Footer.svelte';
-	import DotPlot from './components/StatDotPlot.svelte';
-	import DotPlotLegend from './components/DotPlotLegend.svelte';
-	import ReportHeader from '../../components/ReportHeader.svelte';
 	import '../../../styles.css';
+	import ReportHeader from '../../components/ReportHeader.svelte';
+	import CardSelector from './components/CardSelector.svelte';
+	import DotPlotLegend from './components/DotPlotLegend.svelte';
+	import DotPlot from './components/StatDotPlot.svelte';
 
 	let selectedRegion = $state('All Regions');
 
@@ -584,7 +581,6 @@
 		</div>
 	</div>
 </main>
-<Footer />
 
 <style>
 	.infographic-title {

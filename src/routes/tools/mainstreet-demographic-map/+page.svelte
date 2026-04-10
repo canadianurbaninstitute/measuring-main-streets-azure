@@ -1,21 +1,20 @@
 <script>
-	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';
 
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import '../../styles.css'
+	import '../../styles.css';
 
-	import cmaSummary from './cma-summary.json';
 	import cmaSummaryGrouped from './cma-summary-grouped.json';
-	import variableNames from './variable-names.json';
+	import cmaSummary from './cma-summary.json';
 	import variableNamesGrouped from './variable-names-grouped.json';
+	import variableNames from './variable-names.json';
 
 	import Select from '../../lib/ui/Select.svelte';
 
-	import Footer from '../../lib/ui/Footer.svelte';
-	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import Icon from '@iconify/svelte';
+	import Legend from '../../lib/ui/legends/Legend.svelte';
+	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -167,7 +166,7 @@
 
 	function handleSelectVariable(e) {
 		variableSelected = e;
-		const selected = variableNames.find(item => item.variable === variableSelected);
+		const selected = variableNames.find((item) => item.variable === variableSelected);
 		variableSelectedLabel = selected ? selected.name : '';
 
 		// filter variable data to just the variable we selected
@@ -195,13 +194,12 @@
 	}
 
 	function resetMap() {
-
 		cmaSelected = '';
-		variableSelected = ''
+		variableSelected = '';
 
 		map.flyTo({
 			center: [-90, 55],
-			zoom: 3.5,
+			zoom: 3.5
 		});
 
 		map.setPaintProperty('cma-fill', 'fill-opacity', 0);
@@ -231,9 +229,10 @@
 	<h1>Main Street Demographic Map</h1>
 	<h2>Mapping Tool</h2>
 	<p>
-		This mapping tool highlights demographic variables mapped to all arterial streets across
-		Census Metropolitan Areas and Census Agglomerations within Canada. First, select a demographic variable from the dropdown
-		below, and then, navigate the map by clicking on a point or by using the dropdown to select a region.
+		This mapping tool highlights demographic variables mapped to all arterial streets across Census
+		Metropolitan Areas and Census Agglomerations within Canada. First, select a demographic variable
+		from the dropdown below, and then, navigate the map by clicking on a point or by using the
+		dropdown to select a region.
 	</p>
 </div>
 
@@ -241,14 +240,24 @@
 	<div class="controls">
 		<div class="select-wrapper">
 			<h4>Select a variable:</h4>
-			<Select handleSelect={handleSelectVariable} data={variableNamesGrouped} icon="mdi:chart-bar" placeholder={"Select a variable"}></Select>
+			<Select
+				handleSelect={handleSelectVariable}
+				data={variableNamesGrouped}
+				icon="mdi:chart-bar"
+				placeholder={'Select a variable'}
+			></Select>
 		</div>
 
 		<div class="select-wrapper">
 			<h4>Select a region:</h4>
-			<Select handleSelect={handleSelect} data={cmaSummaryGrouped} icon="mdi:map-marker-outline" selected={'Population'} placeholder={"Select a region"}></Select>
+			<Select
+				{handleSelect}
+				data={cmaSummaryGrouped}
+				icon="mdi:map-marker-outline"
+				selected={'Population'}
+				placeholder={'Select a region'}
+			></Select>
 		</div>
-
 
 		<div class="legend">
 			<h4>Legend</h4>
@@ -265,13 +274,10 @@
 			</div>
 
 			<div id="mainstreet-legend">
-				
-			<LegendItem variant={'polygon'} label={'High Density Main Streets'} bgcolor={'#eee'} />
+				<LegendItem variant={'polygon'} label={'High Density Main Streets'} bgcolor={'#eee'} />
 
-			<LegendItem variant={'polygon'} label={'Low Density Main Streets'} bgcolor={'#dddd'} />
-			
+				<LegendItem variant={'polygon'} label={'Low Density Main Streets'} bgcolor={'#dddd'} />
 			</div>
-			
 		</div>
 		<button id="resetButton" on:click={resetMap}>
 			<Icon icon="mi:undo" /> Reset Map
@@ -280,8 +286,6 @@
 
 	<div id="map" />
 </div>
-
-<Footer />
 
 <style>
 	#map {
@@ -322,8 +326,11 @@
 		gap: 1em;
 	}
 
-	#legend, #mainstreet-legend {
-		transition: opacity 0.3s, visibility 0.3s;
+	#legend,
+	#mainstreet-legend {
+		transition:
+			opacity 0.3s,
+			visibility 0.3s;
 		opacity: 0;
 		visibility: hidden;
 		display: flex;
@@ -341,7 +348,8 @@
 		border: 1px solid rgba(28, 32, 36, 0.302);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		width: 100%;
@@ -353,18 +361,17 @@
 
 	#resetButton:hover {
 		cursor: pointer;
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
 
 	@media only screen and (min-width: 768px) {
-
 		#map {
 			height: 80vh;
 			order: 1;
-
 		}
 
 		.map-container {
@@ -375,6 +382,5 @@
 			width: 30vw;
 			min-width: 25vw;
 		}
-
 	}
 </style>

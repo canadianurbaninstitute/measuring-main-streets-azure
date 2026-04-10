@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/toronto/mississaugadundas/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { browser } from '$app/environment';
 	import { timeFormat } from 'd3-time-format';
@@ -840,7 +839,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

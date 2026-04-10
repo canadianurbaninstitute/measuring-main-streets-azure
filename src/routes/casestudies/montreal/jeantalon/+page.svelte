@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/montreal/jeantalon/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/jeantalon/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/jeantalon/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { timeFormat } from 'd3-time-format';
 	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
@@ -678,7 +677,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

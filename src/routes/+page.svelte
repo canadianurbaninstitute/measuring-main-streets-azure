@@ -3,7 +3,6 @@
 	import collage from './lib/assets/graphics/MMS-collage.jpg';
 	import canada_logo from './lib/assets/logos/canada_logo.svg';
 	import cui_logo from './lib/assets/logos/cui_logo_white.svg';
-	import Footer from './lib/ui/Footer.svelte';
 	import HeroCard from './lib/ui/HeroCard.svelte';
 	import HeroStat from './lib/ui/HeroStat.svelte';
 	import './styles.css';
@@ -142,8 +141,6 @@
 		</div>
 	</div>
 </div>
-
-<Footer />
 
 <style>
 	a {

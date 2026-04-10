@@ -14,12 +14,11 @@
 	import transitmap from '../../lib/assets/screenshots/transit-map.png';
 	import urbanform from '../../lib/assets/screenshots/urban-form.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
-	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
 	import '../../styles.css';
 
 	const title = 'Research Tools';
 	const description =
-		'Our in-depth main street research tools are a package of resources designed to support deeper analysis and understanding of main street health, down to the variable level. Quantitative tools allow you to dive into the context of your own main street, while the Open North qualitative tool is designed to assist practitioners in making crucial infrastructure decisions. We regularly update this selection with new tools, so check back often to discover new ways of measuring your main street!';
+		'Measuring Main Streets research tools are designed for practitioners to support better decision making through a more thorough understanding of any main street. We regularly update this selection with new tools, so check back often to discover new ways of measuring your main street!';
 
 	const categories = [
 		'Mapping',
@@ -142,5 +141,3 @@
 <main>
 	<LandingLayout {title} {description} {items} {categories} syncUrl />
 </main>
-
-<ModernFooter />

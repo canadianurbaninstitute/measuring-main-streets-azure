@@ -16,7 +16,6 @@
 	import { age, bed, dwelling, housing, owner } from '../../lib/data/transitdata/config.json';
 	import type { Station } from '../../lib/data/transitdata/stations';
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import '../../styles.css';
 	import AiDescription from '../components/AiDescription.svelte';
 	import BuiltFormTab from '../components/BuiltFormTab.svelte';
@@ -817,7 +816,6 @@
 		</div>
 	</div>
 </Tabs.Root>
-<Footer />
 
 <style>
 	#content-container {
