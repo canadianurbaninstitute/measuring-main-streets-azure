@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/100avenue/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/100avenue/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/100avenue/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
 	import EmploymentSizeCheckbox from '../../../lib/ui/checkbox/EmploymentSizeCheckbox.svelte';
@@ -676,7 +675,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

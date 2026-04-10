@@ -8,7 +8,8 @@
 		featured = false,
 		description = '',
 		tags = [],
-		minWidth = 0
+		minWidth = 0,
+		maxWidth = 500
 	} = $props();
 
 	/**
@@ -50,6 +51,7 @@
 	<article
 		class="landing-card"
 		style:min-width={minWidth ? minWidth + 'px' : 'auto'}
+		style:max-width={maxWidth ? maxWidth + 'px' : 'auto'}
 		class:featured
 	>
 		<div class="card-image-container">

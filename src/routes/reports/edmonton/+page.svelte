@@ -6,7 +6,6 @@
 	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
 
 	import BubbleChart from '../../lib/ui/charts/BubbleChart.svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
 
 	import '../../styles.css';
@@ -348,5 +347,3 @@
 		</div>
 	</div>
 </div>
-
-<Footer />

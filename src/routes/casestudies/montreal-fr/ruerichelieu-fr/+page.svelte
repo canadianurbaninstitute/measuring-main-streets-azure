@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/montreal-fr/ruerichelieu/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal-fr/ruerichelieu/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal-fr/ruerichelieu/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { timeFormat } from 'd3-time-format';
 	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
@@ -701,7 +700,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

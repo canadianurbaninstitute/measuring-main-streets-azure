@@ -1,6 +1,5 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import SocialLinks from '../../lib/ui/SocialLinks.svelte';
 </script>
 
@@ -13,7 +12,9 @@
 		<h2>Inquiries?</h2>
 	</div>
 	<p>
-		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry">cui@canurb.org</a>.
+		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry"
+			>cui@canurb.org</a
+		>.
 	</p>
 </div>
 
@@ -30,6 +31,4 @@
 	<SocialLinks />
 </div>
 
-<br/><br/>
-
-<Footer />
+<br /><br />

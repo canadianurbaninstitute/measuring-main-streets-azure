@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/edmonton/parsonsroadsw/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/edmonton/parsonsroadsw/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/edmonton/parsonsroadsw/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { timeFormat } from 'd3-time-format';
 	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
@@ -675,7 +674,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

@@ -1,15 +1,14 @@
 <script>
-	import Title from '../../lib/ui/Title.svelte';
 	import blank from '../../lib/assets/graphics/blank.svg';
-	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
-	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
-	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
 	import BubbleChart from '../../lib/ui/charts/BubbleChart.svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import LanguageSelector from '../../lib/ui/LanguageSelector.svelte';
+	import Title from '../../lib/ui/Title.svelte';
+	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
+	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
+	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
 
-	import { dataset } from '../../lib/data/reportdata/montreal/selectLabels.js';
 	import data from '../../lib/data/reportdata/montreal/bubble-montreal.csv';
+	import { dataset } from '../../lib/data/reportdata/montreal/selectLabels.js';
 
 	import '../../styles.css';
 
@@ -393,5 +392,3 @@
 		</div>
 	</div>
 </div>
-
-<Footer />

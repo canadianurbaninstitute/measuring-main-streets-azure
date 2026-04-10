@@ -2,6 +2,7 @@
 	import canada from '../assets/logos/canada_logo.svg';
 	import CATCH from '../assets/logos/CATCH_logo_white.webp';
 	import cui from '../assets/logos/cui_logo_white.svg';
+	import dps from '../assets/logos/DPS-logo-white.png';
 	import environics from '../assets/logos/environics_logo.svg';
 	import mms from '../assets/logos/mms_logo_white.svg';
 	import opennorth from '../assets/logos/opennorth_logo.svg';
@@ -27,10 +28,23 @@
 	<div class="footer-bottom">
 		<div class="partner-logos">
 			<img src={canada} alt="Funded by Government of Canada" />
-			<img src={environics} alt="Environics Analytics" />
-			<img src={soc} alt="School of Cities" />
-			<img src={CATCH} alt="Canadian Alliance for Transit-Connected Housing (CATCH)" />
-			<img src={opennorth} alt="Open North" />
+			<a href="https://environicsanalytics.com/en-ca/home" target="blank">
+				<img src={environics} alt="Environics Analytics" />
+			</a>
+			<a href="https://schoolofcities.utoronto.ca/" target="blank">
+				<img src={soc} alt="School of Cities" />
+			</a>
+		</div>
+		<div class="partner-logos">
+			<a href="https://digitalpublicsquare.org/" target="_blank">
+				<img src={dps} alt="Digital Public Square" />
+			</a>
+			<a href="https://catch-rehac.ca/" target="_blank">
+				<img src={CATCH} alt="Canadian Alliance for Transit-Connected Housing (CATCH)" />
+			</a>
+			<a href="https://opennorth.ca/" target="_blank">
+				<img src={opennorth} alt="Open North" />
+			</a>
 		</div>
 
 		<div class="social-links-container">

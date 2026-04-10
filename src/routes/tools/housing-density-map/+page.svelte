@@ -1,14 +1,12 @@
 <script>
-	import { onMount } from 'svelte';
-	import mapboxgl from 'mapbox-gl';
-	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import Footer from '../../lib/ui/Footer.svelte';
-	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import Icon from '@iconify/svelte';
+	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';
+	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
-
 
 	let map;
 
@@ -24,7 +22,6 @@
 			attributionControl: false
 		});
 
-
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 		const scale = new mapboxgl.ScaleControl({
@@ -33,13 +30,9 @@
 		});
 
 		map.addControl(scale, 'bottom-right');
-
-
 	});
 
-
 	function resetMap() {
-
 		map.flyTo({
 			center: [-90, 55],
 			zoom: 3.5
@@ -52,12 +45,11 @@
 	<h2>Mapping Tool</h2>
 	<p>
 		This choropleth dot mapping tool highlights housing built in Canada over the course of the past
-		60 years, divided into 4 periods: pre 1960, 1961 to 1980, 1981 to 2000, and 2001 to 2023. 
-		Each
-		dot represents 50 houses. It is important to note that in a dot density map, while the dots are used to
-		represent data points, they don't directly indicate the <i>exact</i> locations of the data points themselves, rather,
-		they are spread out randomly within an area, in order to give a visual impression of the density or distribution
-		of the data across a geographic region.
+		60 years, divided into 4 periods: pre 1960, 1961 to 1980, 1981 to 2000, and 2001 to 2023. Each
+		dot represents 50 houses. It is important to note that in a dot density map, while the dots are
+		used to represent data points, they don't directly indicate the <i>exact</i> locations of the data
+		points themselves, rather, they are spread out randomly within an area, in order to give a visual
+		impression of the density or distribution of the data across a geographic region.
 	</p>
 </div>
 
@@ -108,8 +100,6 @@
 	<div id="map" />
 </div>
 
-<Footer />
-
 <style>
 	#map {
 		height: 50vh;
@@ -119,8 +109,8 @@
 		border-bottom: 1px solid #eee;
 	}
 
-
-	h4, h5 {
+	h4,
+	h5 {
 		margin: 0.4em 0 0.4em 0;
 	}
 
@@ -157,7 +147,8 @@
 		border: 1px solid rgba(28, 32, 36, 0.302);
 		background-color: rgb(250, 251, 252);
 		border-radius: 0.5em;
-		box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+		box-shadow:
+			rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
 			rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
 		opacity: 1;
 		width: 100%;
@@ -169,28 +160,26 @@
 
 	#resetButton:hover {
 		cursor: pointer;
-		box-shadow: 0px 1px 0px 0px rgba(27, 31, 35, 0.04),
+		box-shadow:
+			0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 			inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
 		background-color: #f3f4f6;
 		transition: 0.3s;
 	}
 
 	@media only screen and (min-width: 768px) {
+		#map {
+			height: 80vh;
+			order: 1;
+		}
 
-#map {
-	height: 80vh;
-	order: 1;
+		.map-container {
+			flex-direction: row;
+		}
 
-}
-
-.map-container {
-	flex-direction: row;
-}
-
-.controls {
-	width: 30vw;
-	min-width: 25vw;
-}
-
-}
+		.controls {
+			width: 30vw;
+			min-width: 25vw;
+		}
+	}
 </style>

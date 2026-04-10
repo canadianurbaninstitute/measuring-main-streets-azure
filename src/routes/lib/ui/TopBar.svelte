@@ -15,6 +15,13 @@
 		page.url?.pathname.includes('/casestudies/tod/') || page.url?.pathname.includes('/reports/tod/')
 	);
 
+	//remove once new home page is switched over
+	let isLandingNav = $derived(
+		page.url?.pathname.includes('/new-home') ||
+			page.url?.pathname.includes('/v2') ||
+			page.url?.pathname.includes('/tod')
+	);
+
 	function toggleMenu() {
 		menuOpen = !menuOpen;
 	}
@@ -37,7 +44,17 @@
 
 	const caseStudies = [{ title: 'Measuring Main Streets', href: '/casestudies' }];
 
+	const newCaseStudies = [
+		{ title: 'Resilience on Main', href: '/casestudies/v2/?tab=msr' },
+		{ title: 'TOD on Main', href: '/casestudies/v2/?tab=tod' }
+	];
+
 	const reports = [{ title: 'Measuring Main Streets', href: '/reports' }];
+
+	const newReports = [
+		{ title: 'Resilience on Main', href: '/reports/v2/?tab=msr' },
+		{ title: 'TOD on Main', href: '/reports/v2/?tab=tod' }
+	];
 
 	const learnMore = [
 		{ title: 'About', href: '/about' },
@@ -52,13 +69,14 @@
 	id="bar-wrapper"
 	class:hideable={isHiddenRoute}
 	class:hovered={isHovered}
+	class:landing-nav={isLandingNav}
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}
 	role="navigation"
 >
 	<div id="bar">
 		<div id="logo-group">
-			<a href="/" aria-label="Home">
+			<a href={isLandingNav ? '/new-home' : '/'} aria-label="Home">
 				<div class="flex gap-4 items-center">
 					<img
 						src={mms_logo}
@@ -71,7 +89,7 @@
 					<div class="border-l border-gray-300 h-12"></div>
 					<img
 						src={cui_logo}
-						alt="Measuring Main Streets"
+						alt="Canadian Urban Institute"
 						onmouseover={onMouseOver}
 						onmouseout={onMouseOut}
 						onfocus={onMouseOver}
@@ -107,15 +125,15 @@
 						>
 					</NavigationMenu.Item>
 
-					<!-- Case Studies Dropdown -->
-					<NavigationMenu.Item value="case-studies" class="nav-menu-item">
+					<!-- Reports Dropdown -->
+					<NavigationMenu.Item value="reports" class="nav-menu-item">
 						<NavigationMenu.Trigger class="nav-trigger">
-							Case Studies
+							Reports
 							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop">
 							<ul class="nav-dropdown">
-								{#each caseStudies as item}
+								{#each isLandingNav ? newReports : reports as item}
 									<li>
 										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
 											>{item.title}</NavigationMenu.Link
@@ -126,15 +144,15 @@
 						</NavigationMenu.Content>
 					</NavigationMenu.Item>
 
-					<!-- Reports Dropdown -->
-					<NavigationMenu.Item value="reports" class="nav-menu-item">
+					<!-- Case Studies Dropdown -->
+					<NavigationMenu.Item value="case-studies" class="nav-menu-item">
 						<NavigationMenu.Trigger class="nav-trigger">
-							Reports
+							Case Studies
 							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop">
 							<ul class="nav-dropdown">
-								{#each reports as item}
+								{#each isLandingNav ? newCaseStudies : caseStudies as item}
 									<li>
 										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
 											>{item.title}</NavigationMenu.Link
@@ -147,7 +165,9 @@
 
 					<!-- Tools link -->
 					<NavigationMenu.Item class="nav-menu-item">
-						<NavigationMenu.Link href="/tools" class="nav-link">Tools</NavigationMenu.Link>
+						<NavigationMenu.Link href={isLandingNav ? '/tools/v2' : '/tools'} class="nav-link"
+							>Tools</NavigationMenu.Link
+						>
 					</NavigationMenu.Item>
 
 					<!-- Learn More Dropdown -->
@@ -196,11 +216,25 @@
 		background: transparent;
 	}
 
-	/* Show it again when hovered OR when interacting inside it (focus) */
 	#bar-wrapper.hideable.hovered,
 	#bar-wrapper.hideable:focus-within {
 		transform: translateY(0);
 		background: #fff;
+	}
+
+	/* Landing Nav Overrides */
+	#bar-wrapper.landing-nav #bar {
+		background-color: #fff;
+		border-bottom: 2px solid var(--brandLightBlue);
+		padding: 0.5rem 0;
+	}
+
+	#bar-wrapper.landing-nav :global(.nav-link),
+	#bar-wrapper.landing-nav :global(.nav-trigger) {
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-size: 0.8rem;
 	}
 
 	#bar {

@@ -16,7 +16,6 @@
 
 	// Custom Svelte components for UI
 	import Accordion from '../lib/ui/Accordion.svelte';
-	import Footer from '../lib/ui/Footer.svelte';
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
 
@@ -862,7 +861,6 @@
 		</div>
 	</div>
 </div>
-<Footer />
 
 <style>
 	p {

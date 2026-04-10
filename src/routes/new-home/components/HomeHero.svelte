@@ -1,6 +1,5 @@
 <script>
 	import hero from '../../lib/assets/graphics/measuring-main-streets-hero.png';
-	import HomeTabs from './HomeTabs.svelte';
 </script>
 
 <div class="hero-wrapper">
@@ -11,7 +10,7 @@
 		</div>
 	</section>
 	<div class="tabs-overlay">
-		<HomeTabs />
+		<!-- <HomeTabs /> -->
 	</div>
 </div>
 

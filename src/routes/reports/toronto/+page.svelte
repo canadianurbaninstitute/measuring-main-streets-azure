@@ -1,15 +1,14 @@
 <script>
-	import Title from '../../lib/ui/Title.svelte';
 	import blank from '../../lib/assets/graphics/blank.svg';
-	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
-	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
-	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
 	import BubbleChart from '../../lib/ui/charts/BubbleChart.svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
+	import Title from '../../lib/ui/Title.svelte';
+	import RecoveryMultiLineChart from '../mainstreets-malls-mice/RecoveryMultiLineChart.svelte';
+	import CaseStudyLocationsMap from './CaseStudyLocationsMap.svelte';
+	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
 
-	import '../../styles.css';
-	import { dataset } from '../../lib/data/reportdata/toronto/selectLabels.js';
 	import data from '../../lib/data/reportdata/toronto/bubble-toronto.csv';
+	import { dataset } from '../../lib/data/reportdata/toronto/selectLabels.js';
+	import '../../styles.css';
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
@@ -359,5 +358,3 @@
 		</div>
 	</div>
 </div>
-
-<Footer />

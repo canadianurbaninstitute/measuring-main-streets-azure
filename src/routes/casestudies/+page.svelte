@@ -5,7 +5,6 @@
 	import Toronto from '../lib/assets/boundaries/Toronto.svg';
 	import Montreal from '../lib/assets/boundaries/Montreal.svg';
 	import Edmonton from '../lib/assets/boundaries/Edmonton.svg';
-	import Footer from '../lib/ui/Footer.svelte';
 </script>
 
 <div class="hero">
@@ -38,7 +37,6 @@
 <div class="collage-image-container">
 	<img src="https://i.imgur.com/0xWjVS8.png" alt="region-collage" />
 </div>
-<Footer />
 
 <style>
 	.card-grid {

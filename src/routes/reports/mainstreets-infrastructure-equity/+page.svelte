@@ -1,12 +1,11 @@
 <script>
-	import Title from '../../lib/ui/Title.svelte';
 	import civic from '../../lib/assets/graphics/civic.svg';
-	import CivicInfraIndexMap from './CivicInfraIndexMap.svelte';
-	import CIIHousingMap from './CIIHousingMap.svelte';
-	import CIIRecentImmigrantsMap from './CIIRecentImmigrantsMap.svelte';
-	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
 	import KeyFindings from '../../lib/ui/KeyFindings.svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
+	import Title from '../../lib/ui/Title.svelte';
+	import CIIHousingMap from './CIIHousingMap.svelte';
+	import CIIMainStreetMap from './CIIMainStreetMap.svelte';
+	import CIIRecentImmigrantsMap from './CIIRecentImmigrantsMap.svelte';
+	import CivicInfraIndexMap from './CivicInfraIndexMap.svelte';
 
 	import '../../styles.css';
 
@@ -178,5 +177,3 @@
 		message3={'Align provision and programming of civic infrastructure to specific neighbourhood needs.'}
 	/>
 </div>
-
-<Footer />

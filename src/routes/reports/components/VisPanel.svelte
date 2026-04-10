@@ -16,6 +16,15 @@
 </figure>
 
 <style>
+	:global(.source > a) {
+		color: var(--color-slate-400);
+		text-decoration-color: var(--color-slate-400);
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.25em;
+		text-decoration-style: solid;
+		transition: all 0.3s ease;
+	}
+
 	.vis-panel {
 		position: absolute;
 		height: 100%;
@@ -44,7 +53,7 @@
 		margin: 1.25rem 0 0;
 		font-size: 0.72rem;
 		letter-spacing: 0.08em;
-		color: var(--color-slate-400);
+		color: var(--color-slate-600);
 		text-align: left;
 		width: 100%;
 	}
@@ -52,7 +61,7 @@
 	.source {
 		font-size: 0.5rem;
 		letter-spacing: 0.08em;
-		color: var(--color-slate-400);
+		color: var(--color-slate-600);
 		text-align: left;
 		word-break: break-word;
 	}

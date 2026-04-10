@@ -3,7 +3,6 @@
 	import Montreal from '../../lib/assets/boundaries/Montreal.svg';
 	import Toronto from '../../lib/assets/boundaries/Toronto.svg';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
-	import ModernFooter from '../../lib/ui/ModernFooter.svelte';
 	import '../../styles.css';
 
 	const title = 'Case Studies';
@@ -43,8 +42,6 @@
 <main>
 	<LandingLayout {title} {description} {items} {categories} />
 </main>
-
-<ModernFooter />
 
 <style>
 	.collage-section {

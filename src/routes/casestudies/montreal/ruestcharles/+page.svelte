@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/ruestcharles/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { browser } from '$app/environment';
 	import { timeFormat } from 'd3-time-format';
@@ -883,7 +882,6 @@
 			</div>
 		</section>
 	</div>
-	<Footer />
 </main>
 
 <style>

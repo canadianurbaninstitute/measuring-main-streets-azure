@@ -1,6 +1,5 @@
 <script>
 	// Components
-	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
@@ -308,7 +307,6 @@
 		{/each}
 	</div>
 </main>
-<Footer />
 
 <style>
 	.chart {

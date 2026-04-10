@@ -1,33 +1,39 @@
 <script>
 	import Icon from '@iconify/svelte';
 	const buttons = [
-		{ text: 'Learn more about us', href: '/about' },
-		{ text: 'Frequently Asked Questions', href: '/about/faq' },
-		{ text: 'Methodology', href: '/about/data-methodology' },
-		{ text: 'Contact Us', href: '/about/contact' }
+		{ text: 'About the Platform', href: '/about' },
+		{ text: 'About the Project Phases', href: '/about' },
+		{ text: 'Canadian Urban Institute', href: 'https://canurb.org/', target: '_blank' }
 	];
 </script>
 
 <section class="about-section">
 	<!-- <div class="map-bg"></div> -->
 	<div class="about-content">
-		<h2 class="about-title">About Measuring Main Streets and CUI</h2>
+		<h2 class="about-title">About Measuring Main Streets</h2>
 		<h3 class="about-subtitle">
-			Creating a data-driven understanding of Canada's local communities at the scale of the main
-			street.
+			Empowering communities with accessible data to make better decisions, stronger investments,
+			and measure local outcomes.
 		</h3>
 		<p class="about-text">
-			The Measuring Main Streets platform is a part of the Research Knowledge Initiative program
-			from Housing, Infrastructure and Communities Canada.
+			Canada is a country of Main Streets; they are where small businesses grow, neighbours connect,
+			and communities express who they are. But Main Streets serve a challenging dual role as the
+			places where pressing challenges—affordability, homelessness, public safety, and more—are
+			experienced and addressed, while simultaneously driving economic, social, and civic life for
+			entire communities.
 		</p>
 		<p class="about-text">
-			Planners, developers, and municipal leaders often consider investment decisions based on
-			individual assets rather than the inter-relationship of civic assets, housing and other uses
-			that can be anchored to a main street as the spine of a community. This narrow approach risks
-			compromising the liveability of communities by neglecting the scale at which residents and
-			visitors understand and experience a neighbourhood.
+			Building on the long-standing work of the <a href="https://canurb.org/" target="_blank"
+				>Canadian Urban Institute</a
+			> strengthening Main Streets and downtowns in Canada, Measuring Main Streets is a first-of-its-kind
+			platform that makes high‑quality data more accessible for community champions, practitioners, and
+			decision‑makers to advocate effectively for the main streets they know and serve—grounded in evidence
+			that reflects local realities.
 		</p>
-		<p class="about-text">Talk about this from the CUI POV. Why is CUI doing this overall?</p>
+		<p class="about-text">
+			The Measuring Main Streets platform is funded by the Research Knowledge Initiative of Housing,
+			Infrastructure and Communities Canada.
+		</p>
 
 		<div class="about-buttons">
 			{#each buttons as btn}
@@ -78,10 +84,6 @@
 	}
 
 	.about-text {
-		font-size: 1rem;
-		line-height: 1.6;
-		color: #666;
-		margin-bottom: 1.5rem;
 		max-width: 700px;
 	}
 

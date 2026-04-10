@@ -1,5 +1,4 @@
 <script>
-	import Footer from '../../../lib/ui/Footer.svelte';
 	import '../../../styles.css';
 </script>
 
@@ -10,4 +9,3 @@
 		src="https://schoolofcities.github.io/tod-canada/research/displacement"
 	></iframe>
 </div>
-<Footer />

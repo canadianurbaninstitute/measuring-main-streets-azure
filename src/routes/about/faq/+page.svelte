@@ -1,6 +1,5 @@
 <script>
 	import '../../styles.css';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import Accordion from '../../lib/ui/Accordion.svelte';
 	import Icon from '@iconify/svelte';
 </script>
@@ -175,8 +174,6 @@
 		</div>
 	</Accordion>
 </div>
-
-<Footer />
 
 <style>
 	.faq {
