@@ -24,12 +24,6 @@
 		return Math.max(0, Math.min(100, p)); // Clamp between 0-100
 	});
 
-	// let baseData = $derived(
-	// 	selectedPercentile === 'p75' ? p75 : selectedPercentile === 'p90' ? p90 : p50
-	// );
-
-	// let demandTableData = $derived(baseData.filter((row) => row.Tier === (tier === 'tier1' ? 1 : 2)));
-
 	// Fallback user Icon Path (mdi:account)
 	const userIconPath =
 		'M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4';
@@ -42,7 +36,7 @@
 			// --- 1. DYNAMIC WIDTH CALCULATION ---
 			const maxLabelCharCount = d3.max(data, (d) => d.Amenity.length) || 0;
 			const calculatedLeftMargin = Math.min(width * 0.5, maxLabelCharCount * 5.25);
-			const margin = { top: 80, right: -10, bottom: 40, left: calculatedLeftMargin };
+			const margin = { top: 100, right: -10, bottom: 40, left: calculatedLeftMargin };
 			const chartWidth = width - margin.left - margin.right;
 
 			// How many icons can we fit? (Assuming ~18px per icon + spacing)
@@ -54,7 +48,7 @@
 			const absoluteMaxVal =
 				d3.max(data, (d) => {
 					const current = stationCCcounts[d.Amenity];
-					const needed = d.newAmenitiesRequired;
+					const needed = d.amenitiesNeeded_p75;
 					return current + needed;
 				}) || 1;
 
@@ -121,8 +115,9 @@
 
 				// 1. Math - Calculate icon counts as decimals
 				const iconsCurrent = (stationCCcounts[d.Amenity] || 0) / globalUnitsPerIcon;
-				const iconsTotal = iconsCurrent + d.newAmenitiesRequired / globalUnitsPerIcon;
-				const totalDisplayCount = Math.ceil(iconsTotal);
+				const iconsMedThreshold = iconsCurrent + d.amenitiesNeeded_med / globalUnitsPerIcon;
+				const iconsP75Threshold = iconsCurrent + d.amenitiesNeeded_p75 / globalUnitsPerIcon;
+				const totalDisplayCount = Math.ceil(iconsP75Threshold);
 
 				// 2. Setup Defs for unique clipping
 				let defs = g.select('defs');
@@ -146,21 +141,33 @@
 						const slotGroup = d3.select(this);
 
 						// IDs for this specific icon slot
-						const clipTotalId = `clip-total-${rowIndex}-${i}`;
 						const clipExistId = `clip-exist-${rowIndex}-${i}`;
+						const clipMedId = `clip-med-${rowIndex}-${i}`;
+						const clipP75Id = `clip-p75-${rowIndex}-${i}`;
 
-						// A. CLIP FOR TOTAL (Pink) - How much of this icon exists at all?
-						let clipTotal = defs.select(`#${clipTotalId}`);
-						if (clipTotal.empty())
-							clipTotal = defs
+						// A. CLIP FOR P75 (Light Pink) - The full range up to Above Average
+						let clipP75 = defs.select(`#${clipP75Id}`);
+						if (clipP75.empty())
+							clipP75 = defs
 								.append('clipPath')
-								.attr('id', clipTotalId)
+								.attr('id', clipP75Id)
 								.append('rect')
 								.attr('height', 24);
-						const totalFill = Math.max(0, Math.min(1, iconsTotal - i));
-						clipTotal.attr('width', 24 * totalFill);
+						const p75Fill = Math.max(0, Math.min(1, iconsP75Threshold - i));
+						clipP75.attr('width', 24 * p75Fill);
 
-						// B. CLIP FOR EXISTING (Blue) - How much of this icon is "Current"?
+						// B. CLIP FOR MED (Darker Pink) - Part of the range up to Typical
+						let clipMed = defs.select(`#${clipMedId}`);
+						if (clipMed.empty())
+							clipMed = defs
+								.append('clipPath')
+								.attr('id', clipMedId)
+								.append('rect')
+								.attr('height', 24);
+						const medFill = Math.max(0, Math.min(1, iconsMedThreshold - i));
+						clipMed.attr('width', 24 * medFill);
+
+						// C. CLIP FOR EXISTING (Blue) - How much of this icon is "Current"?
 						let clipExist = defs.select(`#${clipExistId}`);
 						if (clipExist.empty())
 							clipExist = defs
@@ -171,13 +178,21 @@
 						const existFill = Math.max(0, Math.min(1, iconsCurrent - i));
 						clipExist.attr('width', 24 * existFill);
 
-						// Render Pink Path (Total)
-						let pinkPath = slotGroup.select('.path-total');
-						if (pinkPath.empty()) pinkPath = slotGroup.append('path').attr('class', 'path-total');
-						pinkPath
+						// Render P75 Path (Light Pink) - The background of the "need" range
+						let p75Path = slotGroup.select('.path-p75');
+						if (p75Path.empty()) p75Path = slotGroup.append('path').attr('class', 'path-p75');
+						p75Path
+							.attr('d', iconPath)
+							.attr('fill', '#fcc5d6') // Light Pink
+							.attr('clip-path', `url(#${clipP75Id})`);
+
+						// Render Med Path (Pink) - Typical Need
+						let medPath = slotGroup.select('.path-med');
+						if (medPath.empty()) medPath = slotGroup.append('path').attr('class', 'path-med');
+						medPath
 							.attr('d', iconPath)
 							.attr('fill', '#db3069')
-							.attr('clip-path', `url(#${clipTotalId})`);
+							.attr('clip-path', `url(#${clipMedId})`);
 
 						// Render Blue Path (Existing) - This sits on top of pink
 						let bluePath = slotGroup.select('.path-exist');
@@ -189,12 +204,10 @@
 					});
 
 				// 4. Position Badge
-				// Position is precisely based on the decimal iconsTotal
-				const finalX = iconsTotal * (dynamicIconSize + spacing);
+				// Position is precisely based on the decimal iconsP75Threshold
+				const finalX = iconsP75Threshold * (dynamicIconSize + spacing);
 
-				const badge = g
-					.selectAll('.need-badge')
-					.data(d.newAmenitiesRequired > 0 ? [Math.ceil(d.newAmenitiesRequired)] : []);
+				const badge = g.selectAll('.need-badge').data(d.amenitiesNeeded_p75 > 0 ? [d] : []);
 				badge.exit().remove();
 				badge
 					.enter()
@@ -206,7 +219,11 @@
 					.style('fill', '#db3069')
 					.style('font-weight', 'bold')
 					.style('font-size', '12px')
-					.text((n) => `+${n}`); // Showing 1 decimal place for precision
+					.text((d) => {
+						const min = Math.floor(d.amenitiesNeeded_med);
+						const max = Math.floor(d.amenitiesNeeded_p75);
+						return min === max ? `+${min}` : `+${min}-${max}`;
+					});
 			});
 			// --- 5. LEGEND & MULTIPLIER (CENTERED) ---
 			let legend = svg.select('.legend');
@@ -223,11 +240,12 @@
 			// Legend Data - defining offsets relative to the center
 			const legendItems = [
 				{ label: 'Current', color: '#00adf2', y: 0 },
-				{ label: 'Additional Need', color: '#db3069', y: 20 },
+				{ label: 'Need for Regional Typical Access', color: '#db3069', y: 20 },
+				{ label: 'Need for Above Average Access', color: '#fcc5d6', y: 40 },
 				{
 					label: globalUnitsPerIcon > 0 ? `(1 icon = ${globalUnitsPerIcon} amenities)` : '',
 					color: '#9ca3af',
-					y: 40,
+					y: 60,
 					isNote: true
 				}
 			];
@@ -249,7 +267,7 @@
 
 			// Update positions and values
 			// Position legend at top-left of chart area
-			legend.attr('transform', `translate(${margin.left}, 20)`);
+			legend.attr('transform', `translate(${margin.left - 50}, 20)`);
 
 			// Use y offset for stacking
 			itemsMerged.attr('transform', (d) => `translate(0, ${d.y})`);
@@ -273,7 +291,6 @@
 	$effect(() => {
 		const currentTier = tier;
 		const data = computedAmenities;
-		const currentVal = sliderValues[0];
 		const isOpened = isOpen;
 
 		if (data && isOpen) {
@@ -292,16 +309,6 @@
 	onMount(() => {
 		updateChart();
 	});
-
-	// -- Derived Calculations --
-
-	function getClassification(ratio: number, status: string) {
-		if (status === 'Absent') return 'Critical Gap';
-		if (ratio < 0.8) return 'Below Avg';
-		if (ratio >= 0.8 && ratio <= 1.2) return 'Adequate';
-		if (ratio > 1.2) return 'Excellent';
-		return 'N/A';
-	}
 </script>
 
 <div class="access-tab mb-4">
@@ -348,32 +355,39 @@
 
 				<div class="flex justify-between mt-2">
 					<div class="text-[10px] font-bold text-zinc-400">
-						<!-- <span class="block text-zinc-300 uppercase">Min (Current)</span> -->
 						{min.toLocaleString()}
 					</div>
 					<div class="text-[10px] font-bold text-zinc-400 text-right">
-						<!-- <span class="block text-zinc-300 uppercase">Max Range</span> -->
 						{max.toLocaleString()}
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="flex items-center justify-center pt-2">
+		<div class="flex flex-col items-center justify-center pt-2 gap-4">
 			<div class="inline-flex p-1 bg-zinc-100 rounded-lg border border-zinc-200">
-				{#each ['tier1', 'tier2'] as filter}
-					<button
-						onclick={() => (tier = filter)}
-						class="px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all duration-200 rounded-md"
-						class:bg-white={tier === filter}
-						class:text-blue-600={tier === filter}
-						class:shadow-sm={tier === filter}
-						class:text-zinc-500={tier !== filter}
-						class:hover:text-zinc-700={tier !== filter}
-					>
-						{filter}
-					</button>
-				{/each}
+				<button
+					onclick={() => (tier = 'tier1')}
+					class="px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all duration-200 rounded-md"
+					class:bg-white={tier === 'tier1'}
+					class:text-blue-600={tier === 'tier1'}
+					class:shadow-sm={tier === 'tier1'}
+					class:text-zinc-500={tier !== 'tier1'}
+					class:hover:text-zinc-700={tier !== 'tier1'}
+				>
+					Core Amenities
+				</button>
+				<button
+					onclick={() => (tier = 'tier2')}
+					class="px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all duration-200 rounded-md"
+					class:bg-white={tier === 'tier2'}
+					class:text-blue-600={tier === 'tier2'}
+					class:shadow-sm={tier === 'tier2'}
+					class:text-zinc-500={tier !== 'tier2'}
+					class:hover:text-zinc-700={tier !== 'tier2'}
+				>
+					Additional Amenities
+				</button>
 			</div>
 		</div>
 

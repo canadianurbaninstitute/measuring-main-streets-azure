@@ -530,7 +530,7 @@
 		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns
 		to select transit stations to compare. Inspired by
 		<a href="https://schoolofcities.github.io/rail-transit-and-population-density/" target="_blank"
-			><u>School of Cities</u></a
+			>School of Cities</a
 		>.
 	</p>
 	<p class="text-sm mt-4">
