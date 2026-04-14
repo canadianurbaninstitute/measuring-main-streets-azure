@@ -17,6 +17,7 @@
 	export let groupKey = 'ms_type';
 	export let title = '';
 	export let xDomain = [0, null];
+	export let minHeight = '100%';
 	export let height = '250px';
 	export let paddingLeft = 160;
 	export let paddingTop = 10;
@@ -46,7 +47,7 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="chart-container" style="min-height: {computedHeight}">
+<div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
@@ -61,7 +62,7 @@
 		</div>
 	{/if}
 
-	<div class="chart" style="min-height: {computedHeight}">
+	<div class="chart" style:min-height={minHeight}>
 		{#if groupConfig && groupConfig.length > 0}
 			{#each groupConfig as { value, color }, i}
 				<LayerCake
@@ -78,13 +79,7 @@
 					<Svg>
 						{#if i === 0}
 							<AxisX tickMarks baseline snapLabels label={xLabel} ticks={xTicks} />
-							<AxisY
-								tickMarks
-								gridlines={false}
-								wrap={computedWrapLabels}
-								label={yLabel}
-								ticks={yTicks}
-							/>
+							<AxisY tickMarks gridlines={false} wrap={false} label={yLabel} ticks={yTicks} />
 						{/if}
 						<Bar fill={color} {visible} />
 					</Svg>
@@ -108,6 +103,7 @@
 			{/each}
 		{:else}
 			<LayerCake
+				position="absolute"
 				x={xKey}
 				y={yKey}
 				yDomainSort={false}

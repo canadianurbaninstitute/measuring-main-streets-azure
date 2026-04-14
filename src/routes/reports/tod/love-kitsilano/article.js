@@ -12,6 +12,7 @@ export const sections = [
 		],
 		blocks: [
 			{
+				panelId: 'welcome',
 				heading: 'What does it mean to Love Your Neighbourhood?',
 				body: `<p><em>Love Your Neighbourhood</em> is a digital engagement initiative developed by Digital Public Square for the Research and Knowledge Initiative (RKI) project led by the Canadian Urban Institute and funded by Housing, Infrastructure and Communities Canada. The digital platform was designed to give community members a voice in shaping neighbourhood priorities while educating them about residential intensification, transit-oriented development, and complete communities. </p>
 				<p>The project was undertaken through the lenses of raising awareness of what complete communities can offer, gathering resident opinions on local priorities, and empowering people to advocate for the changes they want to see.</p>`
@@ -27,6 +28,7 @@ export const sections = [
 		],
 		blocks: [
 			{
+				panelId: 'kitsilano',
 				heading: 'Love Kitsilano',
 				body: `<p>The Kitsilano platform invited residents of this established Vancouver neighbourhood to share their perspectives on community priorities and neighbourhood change. As a dense, amenity-rich area, Kitsilano offered a unique context for exploring how residents understand and value the principles of complete communities, and what residential intensification and transit-oriented development could mean for a neighbourhood already navigating growth pressures.</p>
 				<p>To analyse the neighbourhood, we used natural language processing in combination with Environics Analytics Opticks Numeris data and posts queried from Reddit related to Kitsilano and development. This allowed Digital Public Square to get an aggregate picture of people’s opinions around development intensification in Kitsilano.</p>`
@@ -53,6 +55,7 @@ export const sections = [
 		],
 		blocks: [
 			{
+				panelId: 'engagement',
 				heading: 'Takeaway #1: High Engagement',
 				body: `<p>Kitsilano saw the highest numbers across six key engagement metrics, including total of number of
 				questions answered, respondents answering at least one question, link clicks to follow-on services, and those who opted in to share their postal codes. It also saw the highest community poll engagement.</p>`

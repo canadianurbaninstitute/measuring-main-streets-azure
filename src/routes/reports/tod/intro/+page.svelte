@@ -132,11 +132,14 @@
 	 * Flatten stations up to section 6 into steps for Scroller
 	 */
 	const steps = scrollySections.flatMap((section, si) => {
-		const defaultId = section.panels[0].id;
+		const defaultId = section.panels?.[0]?.id;
 		return section.blocks.map((block) => {
-			const pid = block.panelId ?? defaultId;
-			const valid = section.panels.some((p) => p.id === pid);
-			return { ...block, panelUid: `${si}:${valid ? pid : defaultId}` };
+			const pids = block.panelIds ?? (block.panelId ? [block.panelId] : [defaultId]);
+			const uids = pids.map((pid) => {
+				const valid = section.panels.some((p) => p.id === pid);
+				return `${si}:${valid ? pid : defaultId}`;
+			});
+			return { ...block, panelUids: uids, panelUid: uids[0] };
 		});
 	});
 
@@ -245,11 +248,17 @@
 					heading={step.heading}
 					body={step.body}
 					cta={step.cta}
-					showInlineVisual={!!step.panelId &&
+					showInlineVisual={step.panelUid &&
 						(i === 0 || steps[i].panelUid !== steps[i - 1].panelUid)}
 				>
 					{#snippet inlineVisual()}
-						{@render renderPanel(step.panelUid, true)}
+						<div class="scrolly-inline-vis-grid" class:multi={step.panelUids.length > 1}>
+							{#each step.panelUids as uid}
+								<div class="vis-grid-item">
+									{@render renderPanel(uid, true)}
+								</div>
+							{/each}
+						</div>
 					{/snippet}
 				</TextBlock>
 			{/each}
@@ -319,6 +328,27 @@
 		gap: 0.3em;
 	}
 
+	.scrolly-inline-vis-grid {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.scrolly-inline-vis-grid.multi {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1rem;
+		padding: 1rem;
+	}
+
+	.vis-grid-item {
+		width: 100%;
+		height: 100%;
+		min-height: 400px;
+		position: relative;
+	}
+
 	.inline-article {
 		max-width: 65ch;
 		margin: 4em auto;
@@ -344,6 +374,20 @@
 
 	.inline-cta {
 		margin-bottom: 2rem;
+	}
+
+	.inline-visual-wrapper {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: fit-content;
+		min-height: 450px;
+		margin: 2rem 0;
+		background: #ffffff;
+		border: 1px solid #eee;
+		border-radius: 8px;
+		overflow: hidden;
+		position: relative;
 	}
 
 	.inline-vis-container {
@@ -378,13 +422,16 @@
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */
-	.inline-vis-container :global(.vis-panel) {
+	.inline-vis-container :global(.vis-panel),
+	:global(.text-column .vis-panel) {
 		position: relative;
 		opacity: 1 !important;
+		visibility: visible !important;
 		transform: none !important;
 		pointer-events: auto !important;
 		width: 100%;
 		height: 100%;
+		min-height: 400px;
 	}
 
 	@media (max-width: 768px) {
@@ -395,7 +442,6 @@
 
 		.inline-vis-container.multi-vis {
 			flex-direction: column;
-			/* gap: 4rem; */
 		}
 
 		.inline-vis-item {
@@ -405,10 +451,11 @@
 			display: flex;
 		}
 
-		.inline-vis-container :global(.vis-panel) {
+		.inline-vis-container :global(.vis-panel),
+		:global(.text-column .vis-panel) {
 			padding: 1rem;
 			height: auto;
-			min-height: 100%;
+			min-height: 400px;
 		}
 	}
 </style>

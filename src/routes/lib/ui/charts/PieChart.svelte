@@ -83,8 +83,9 @@
 		<button class="back-btn" onclick={reset}>← Back</button>
 	{/if}
 
-	<div class="chart">
+	<div class="chart" style:height={computedHeight}>
 		<LayerCake
+			position="absolute"
 			data={chartData}
 			x={xKey}
 			y={yKey}

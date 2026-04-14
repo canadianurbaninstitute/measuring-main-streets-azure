@@ -19,7 +19,7 @@
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import kitsilano from '../../assets/dps-kitsilano.png';
 	import welcome from '../../assets/dps-welcome.png';
-
+	import Engagement from './Engagement.svelte';
 	import QuoteChart from './QuoteChart.svelte';
 
 	const visConfig = {
@@ -36,19 +36,18 @@
 			type: 'component',
 			component: QuoteChart
 		},
-		'public-option': {
-			type: 'image',
-			component: marketConcentrationImg,
-			props: {}
+		engagement: {
+			type: 'component',
+			component: Engagement
 		},
 		'coop-option': {
 			type: 'image',
-			component: marketConcentrationImg,
+			src: marketConcentrationImg, // Use 'src' for imported image URLs
 			props: {}
 		},
 		'civic-infrastructure': {
 			type: 'image',
-			component: marketConcentrationImg,
+			src: marketConcentrationImg,
 			props: {}
 		}
 	};
@@ -81,6 +80,8 @@
 		});
 	});
 
+	console.log(steps);
+
 	/**
 	 * Group adjacent sections by layout and tag blocks with their global step index
 	 */
@@ -91,12 +92,14 @@
 		sections.forEach((section, si) => {
 			const layout = section.layout || (section.panels?.length > 0 ? 'scrolly' : 'inline');
 
-			// Tag blocks with global indices
+			// Tag blocks with global indices and pull panelUid from steps
 			const blockOffset = steps.findIndex((s) => s.sectionIndex === si);
 			const sectionWithIndices = {
 				...section,
 				si,
-				blocks: section.blocks.map((b, bi) => ({ ...b, globalStepIndex: blockOffset + bi }))
+				blocks: steps
+					.filter((s) => s.sectionIndex === si)
+					.map((b, bi) => ({ ...b, globalStepIndex: blockOffset + bi }))
 			};
 
 			if (currentGroup && currentGroup.layout === layout) {
@@ -108,6 +111,8 @@
 		});
 		return groups;
 	});
+
+	console.log(layoutGroups);
 
 	// Reactive state
 	let activeIndex = $state(0);
@@ -224,6 +229,7 @@
 	{/snippet}
 
 	{#each layoutGroups as group}
+		{console.log(group)}
 		{#if group.layout === 'scrolly'}
 			<Scroller bind:activeIndex threshold={0.5}>
 				{#snippet text()}
@@ -253,8 +259,9 @@
 
 				{#snippet visual()}
 					<VisContainer>
-						{#each allPanels.filter((p) => group.sections.some((s) => s.si === p.sectionIndex)) as panel (panel.uid)}
+						{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
 							{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+							{console.log(panel)}
 						{/each}
 					</VisContainer>
 				{/snippet}
@@ -360,13 +367,16 @@
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */
-	.inline-vis-container :global(.vis-panel) {
+	.inline-vis-container :global(.vis-panel),
+	:global(.text-column .vis-panel) {
 		position: relative;
 		opacity: 1 !important;
+		visibility: visible !important;
 		transform: none !important;
 		pointer-events: auto !important;
 		width: 100%;
 		height: 100%;
+		min-height: 400px;
 	}
 
 	:global(.vis-panel) {
@@ -378,6 +388,29 @@
 	@media (max-width: 768px) {
 		.inline-article {
 			margin: 2em auto;
+		}
+
+		.inline-vis-container {
+			padding: 2rem 0;
+			min-height: auto;
+		}
+
+		.inline-vis-container.multi-vis {
+			flex-direction: column;
+		}
+
+		.inline-vis-item {
+			flex: 0 0 auto;
+			width: 100%;
+			max-width: none;
+			display: flex;
+		}
+
+		.inline-vis-container :global(.vis-panel),
+		:global(.text-column .vis-panel) {
+			padding: 1rem;
+			height: auto;
+			min-height: 400px;
 		}
 	}
 </style>

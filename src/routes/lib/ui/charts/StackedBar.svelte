@@ -14,6 +14,7 @@
 		yKey = 'name',
 		zKey = 'key',
 		title = '',
+		minHeight = '100%',
 		height = '400px',
 		padding = { bottom: 20, left: 35 },
 		seriesConfig = [], // Array of { label, color, key }
@@ -64,8 +65,9 @@
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style:height={computedHeight}>
+	<div class="chart" style="min-height: {minHeight}">
 		<LayerCake
+			position="absolute"
 			padding={computedPadding}
 			x={xKey}
 			y={(d) => d.data[yKey]}

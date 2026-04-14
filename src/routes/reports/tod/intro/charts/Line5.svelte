@@ -37,12 +37,12 @@
 	xKey="value"
 	yKey="station"
 	title="Proposed & Under Construction Units by Line 5 Station"
-	height="800px"
-	paddingLeft={140}
+	paddingLeft={160}
 	barColor="#f45d01"
 	showTooltip={true}
 	formatTooltipValue={(d) => Math.round(d).toLocaleString()}
 	{visible}
 	xTicks={4}
 	xLabel="Units"
+	minHeight="600px"
 />

@@ -93,7 +93,7 @@ h4 {
 	line-height: 120%;
 	font-weight: 300;
 	text-transform: uppercase;
-	max-width: 34rem; 
+	max-width: 34rem;
 }
 
 h5 {
@@ -124,7 +124,6 @@ p {
 	margin-bottom: 1em;
 }
 
-
 li::marker {
 	color: var(--brandLightBlue);
 }
@@ -137,7 +136,6 @@ a {
 	text-underline-offset: 0.25em;
 	text-decoration-style: solid;
 	transition: all 0.3s ease;
-	
 }
 
 a:hover {
@@ -446,6 +444,7 @@ input[type='checkbox'] {
 	padding: 0;
 	border-radius: 1em;
 	width: 100%;
+	flex-grow: 1;
 }
 
 .image-container {
