@@ -359,8 +359,8 @@
 						`
 						${
 							group
-								? `<p class="label-name">${group}</p>
-						<p class="label-sub">${tier === 1 ? 'Core Amenity' : 'Additional Amenitiy'}</p>
+								? `<span class="label-name">${group}</span><br/>
+						<span class="label-sub">${tier === 1 ? 'Core Amenity' : 'Additional Amenitiy'}</span>
 						`
 								: ''
 						}
@@ -479,7 +479,6 @@
 </div>
 
 <style>
-
 	:global(.mapboxgl-popup-content) {
 		background: var(--color-slate-900) !important;
 		padding: 6px !important;
