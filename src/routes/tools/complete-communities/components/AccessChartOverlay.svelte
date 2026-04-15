@@ -110,7 +110,7 @@
 					</button>
 				{/each}
 			</div> -->
-			<div class="overflow-x-auto">
+			<div class="overflow-x-auto pb-10">
 				<table class="w-full text-sm text-left whitespace-nowrap">
 					<thead class="text-zinc-500 border-b bg-zinc-50">
 						<tr>

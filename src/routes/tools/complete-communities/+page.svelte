@@ -61,8 +61,6 @@
 	let p75current = $derived(selectedStation?.id ? p75map.get(selectedStation.id) : undefined);
 	let p90current = $derived(selectedStation?.id ? p90map.get(selectedStation.id) : undefined);
 
-	console.log(p50current, p75current);
-
 	let sortedAmenities = $derived.by(() => {
 		return [...(p50current ?? [])].sort((a, b) => {
 			const aVal = a.Access_Gap ?? 0;
@@ -85,7 +83,7 @@
 
 	let computedAmenities = $derived(
 		filteredData.map((amenity) => {
-			const adjDailyVisits = Math.log1p(amenity.Daily_Visits);
+			const adjDailyVisits = futureDemandCurrent?.adj_Daily_Visits;
 			const newVisits = futureVisits * 2;
 			const newVisitsAdj = Math.log1p(newVisits);
 
@@ -94,10 +92,10 @@
 
 			// 1. Median (p50) Calculation
 			const threshold_med = amenity.MTSA_med;
-			const emp_med_ref = amenity.typical_emp_med;
+			const emp_med_ref = amenity.mtsa_emp_med;
 			const gap_med = adjustedAccess - threshold_med;
 			const empNeeded_med = gap_med < 0 ? Math.abs(gap_med / threshold_med) * emp_med_ref : 0;
-			const amenitiesNeeded_med = Math.round((empNeeded_med / amenity.typical_emp_med) * 100) / 100;
+			const amenitiesNeeded_med = Math.round(empNeeded_med / amenity.avg_emp);
 
 			// 2. Above Average (p75) Calculation
 			let gap_p75 = 0;
@@ -108,15 +106,14 @@
 				const p75Amenity = p75current.find((a) => a.Amenity === amenity.Amenity);
 				if (p75Amenity) {
 					const threshold_p75 = p75Amenity.MTSA_p75;
-					const emp_p75_ref = p75Amenity.typical_emp_p75;
+					const emp_p75_ref = p75Amenity.mtsa_emp_p75;
 					gap_p75 = adjustedAccess - threshold_p75;
 					empNeeded_p75 = gap_p75 < 0 ? Math.abs(gap_p75 / threshold_p75) * emp_p75_ref : 0;
-					amenitiesNeeded_p75 =
-						Math.round((empNeeded_p75 / amenity.typical_emp_med) * 100) / 100;
+					amenitiesNeeded_p75 = Math.round(empNeeded_p75 / amenity.avg_emp);
 				}
 			}
 
-			return {
+			const output = {
 				...amenity,
 				accessGap: gap_med, // Default to med for baseline compat
 				gap_med,
@@ -128,6 +125,7 @@
 				// Fallback for current chart compatibility
 				newAmenitiesRequired: amenitiesNeeded_med
 			};
+			return output;
 		})
 	);
 
@@ -429,8 +427,7 @@
 				aiRes,
 				futureDemandRes,
 				p50Res,
-				p75Res,
-				p90Res
+				p75Res
 			] = await Promise.all([
 				fetch(
 					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
@@ -458,9 +455,6 @@
 				),
 				fetch(
 					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/threshold_current_p75.json'
-				),
-				fetch(
-					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/threshold_current_p90.json'
 				)
 			]);
 
@@ -473,7 +467,6 @@
 			const futureDemand = await futureDemandRes.json();
 			const p50 = await p50Res.json();
 			const p75 = await p75Res.json();
-			const p90 = await p90Res.json();
 
 			// Index for faster lookup
 			p50map = p50.reduce((map, item) => {
@@ -482,11 +475,6 @@
 				return map;
 			}, new Map<string, any[]>());
 			p75map = p75.reduce((map, item) => {
-				if (!map.has(item.id)) map.set(item.id, []);
-				map.get(item.id)!.push(item);
-				return map;
-			}, new Map<string, any[]>());
-			p90map = p90.reduce((map, item) => {
 				if (!map.has(item.id)) map.set(item.id, []);
 				map.get(item.id)!.push(item);
 				return map;
