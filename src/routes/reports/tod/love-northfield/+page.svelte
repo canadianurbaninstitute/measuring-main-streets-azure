@@ -16,12 +16,12 @@
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import everyone from '../../assets/dps-heart.png';
-	import kitsilano from '../../assets/dps-kitsilano.png';
+	import northfield from '../../assets/dps-northfield.png';
 	import welcome from '../../assets/dps-welcome.png';
-	import Engagement from './Engagement.svelte';
+	import QuoteGroup from '../../components/QuoteGroup.svelte';
 	import Polis from './Polis.svelte';
-	import Privacy from './Privacy.svelte';
 	import QuoteChart from './QuoteChart.svelte';
+	import Tradeoffs from './TradeOffs.svelte';
 	import Walking from './Walking.svelte';
 
 	const visConfig = {
@@ -29,26 +29,47 @@
 			type: 'image',
 			src: welcome
 		},
-		kitsilano: {
+		northfield: {
 			type: 'image',
-			src: kitsilano,
-			alt: 'Graphic of 3 people behind a log that says "Welcome to Kitsilano"'
+			src: northfield,
+			alt: 'Graphic of 3 people behind a train track that says "Waterloo"'
 		},
 		'engagement-summary': {
 			type: 'component',
 			component: QuoteChart
 		},
-		engagement: {
+		tradeoffs: {
 			type: 'component',
-			component: Engagement
+			component: Tradeoffs
 		},
-		walking: {
+		cars: {
 			type: 'component',
 			component: Walking
 		},
-		privacy: {
+		functionality: {
 			type: 'component',
-			component: Privacy
+			component: QuoteGroup,
+			props: {
+				columns: 1,
+				quotes: [
+					{
+						text: 'We need to stack amenities like in Europe. More small businesses at ground level, with residences above. More stimulating and shorter walks.',
+						colorFam: 'blue'
+					},
+					{
+						text: 'Varied rental/high density housing options for people/families with varied incomes that are big/comfortable enough to live in long term.',
+						colorFam: 'green'
+					},
+					{
+						text: 'Would love more areas like Belmont Village, walkable commercial districts surrounded and topped by housing.',
+						colorFam: 'pink'
+					},
+					{
+						text: 'Stop turning car lanes into bicycle lanes. And stop elimiting parking in Uptown.',
+						isDivisive: true
+					}
+				]
+			}
 		},
 		everyone: {
 			type: 'image',
@@ -83,11 +104,11 @@
 			return {
 				...block,
 				sectionIndex: si,
-				panelUid: pid ? `${si}:${valid ? pid : defaultId}` : null
+				panelUid: pid ? `${si}:${valid ? pid : defaultId}` : null,
+				panelProps: block.panelProps ?? {}
 			};
 		});
 	});
-
 	/**
 	 * Group adjacent sections by layout and tag blocks with their global step index
 	 */
@@ -183,9 +204,9 @@
 	<ReportHeader
 		id="report-header"
 		subEyebrow="A Love Your Neighbourhood Report"
-		title="KITSILANO"
+		title="NORTHFIELD"
 		subtitle="Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas"
-		backgroundImage={kitsilano}
+		backgroundImage={northfield}
 		customLogos={[
 			{ src: dps, alt: 'DPS Logo', width: '120' },
 			{ src: cui, alt: 'CUI Logo', width: '200' }
@@ -195,18 +216,18 @@
 	<ReportFindings
 		id="report-findings"
 		title="KEY TAKEAWAYS"
-		finding1="High Engagement"
-		description1="Kitsilano saw the highest numbers across six key engagement metrics."
-		link1="#engagement"
-		finding2="High Walking Preferences"
-		description2="Kitsilano was the only neighbourhood where a preference for walking was high across the board for all activities. "
-		link2="#walking"
-		finding3="Privacy as Paramount"
-		description3="There was a strong preference towards prioritizing fewer neighbours and more privacy."
-		link3="#privacy"
+		finding1="Trade‑offs Unclear"
+		description1="Future engagement may need to focus on raising awareness about the tradeoffs that come with TOD."
+		link1="#tradeoffs"
+		finding2="Cars Still Dominate Daily Travel"
+		description2="Cars are the most used method to commute. "
+		link2="#cars"
+		finding3="Density Without Losing Functionality"
+		description3="Strong emphasis on walkability, mixed-use environments, and transit improvements."
+		link3="#functionality"
 	/>
 
-	{#snippet renderPanel(uid, isVisible, id)}
+	{#snippet renderPanel(uid, isVisible, id, extraProps)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{#if panel}
 			<VisPanel
@@ -225,7 +246,7 @@
 					/>
 				{:else if panel.config?.type === 'component'}
 					{@const Component = panel.config.component}
-					<Component {...panel.config.props} visible={isVisible} />
+					<Component {...panel.config.props} {...extraProps} visible={isVisible} />
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
@@ -258,7 +279,7 @@
 												steps[block.globalStepIndex - 1].panelUid)}
 								>
 									{#snippet inlineVisual()}
-										{@render renderPanel(block.panelUid, true)}
+										{@render renderPanel(block.panelUid, true, undefined, block.panelProps)}
 									{/snippet}
 								</TextBlock>
 							{/each}
@@ -269,7 +290,12 @@
 				{#snippet visual()}
 					<VisContainer>
 						{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
-							{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+							{@render renderPanel(
+								panel.uid,
+								activePanelUid === panel.uid,
+								undefined,
+								steps[activeIndex]?.panelProps
+							)}
 						{/each}
 					</VisContainer>
 				{/snippet}

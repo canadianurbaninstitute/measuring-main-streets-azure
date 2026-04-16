@@ -62,12 +62,14 @@
 						{/each}
 					</div>
 				{/if}
-				<div class="reporttype">{reporttype}</div>
-				<h4 class="eyebrow">{eyebrow}</h4>
-				<h1 class="title">{title}</h1>
-				<h4 class="eyebrow">{subEyebrow}</h4>
-				<p class="extra">{author}</p>
-				<p class="extra">{date}</p>
+				{#if reporttype}<div class="reporttype">{reporttype}</div>{/if}
+				<div>
+					{#if eyebrow}<h4 class="eyebrow">{eyebrow}</h4>{/if}
+					<h1 class="title">{title}</h1>
+					{#if subEyebrow}<h4 class="eyebrow">{subEyebrow}</h4>{/if}
+					{#if author}<p class="extra">{author}</p>{/if}
+					{#if date}<p class="extra">{date}</p>{/if}
+				</div>
 			</div>
 
 			<div class="description">
@@ -120,7 +122,8 @@
 		position: relative;
 		z-index: 1;
 		display: flex;
-		align-items: flex-end; /* align to bottom = aligns to title */
+		align-items: flex-end;
+		height: 100%;
 		justify-content: center;
 		gap: clamp(1rem, 3vw, 2rem);
 	}

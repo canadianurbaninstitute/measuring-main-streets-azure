@@ -14,6 +14,7 @@
 		yKey = 'name',
 		zKey = 'key',
 		title = '',
+		titleFontSize = '1.1rem',
 		minHeight = '100%',
 		height = '400px',
 		padding = { bottom: 20, left: 35 },
@@ -62,7 +63,7 @@
 
 <div class="chart-container">
 	{#if title}
-		<h4>{title}</h4>
+		<h4 style:font-size={titleFontSize}>{title}</h4>
 	{/if}
 
 	<div class="chart" style="min-height: {minHeight}">
@@ -82,13 +83,7 @@
 		>
 			<Svg>
 				<AxisX tickMarks baseline snapLabels format={formatLabelX} label={xLabel} ticks={xTicks} />
-				<AxisY
-					tickMarks
-					gridlines={false}
-					wrap={computedWrapLabels}
-					label={yLabel}
-					ticks={yTicks}
-				/>
+				<AxisY tickMarks gridlines={false} wrap={computedWrapLabels} label={yLabel} ticks={yTicks} />
 				<BarStacked bind:found bind:e {visible} />
 			</Svg>
 
@@ -128,22 +123,35 @@
 
 	.chart-container {
 		display: flex;
-		min-height: 250px;
 		flex-direction: column;
-		justify-content: center;
-		gap: 1em;
+		justify-content: flex-start;
+		gap: 0.5em;
 		border: 1px solid #eee;
 		padding: 1em;
-		border-radius: 1em;
-		height: 100%;
+		border-radius: 0.5em;
 		box-sizing: border-box;
+		background: white;
+		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+		height: 100%;
+	}
+
+	h4 {
+		margin: 0;
+		font-weight: 600;
+		color: #333;
+		line-height: 1.2;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+		width: 100%;
 	}
 
 	@media only screen and (min-width: 768px) {
 		.chart-container {
-			gap: 2em;
+			gap: 1em;
+			padding: 1.5em;
 		}
 	}
+
 
 	.controls {
 		display: flex;

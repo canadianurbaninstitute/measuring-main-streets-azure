@@ -9,9 +9,15 @@
 
 	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
 
-	/** @type {String} [fill='#00bbff'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
+	/** @type {String} [fill='#00bbff'] - The shape's fill color. */
 
-	let { fill = '#00bbff', visible = undefined } = $props();
+	let {
+		fill = '#00bbff',
+		visible = undefined,
+		highlightValue = '',
+		highlightKey = 'name',
+		highlightColor = '#f45d01'
+	} = $props();
 
 	const reveal = tweened(0, {
 		duration: 1500,
@@ -49,6 +55,13 @@
 			}
 		}
 	});
+
+	function getFill(d) {
+		if (highlightValue && d[highlightKey] && d[highlightKey].toLowerCase() === highlightValue.toLowerCase()) {
+			return highlightColor;
+		}
+		return d.color || fill;
+	}
 </script>
 
 <g bind:this={group} class="bar-group">
@@ -60,7 +73,7 @@
 			y={$yGet(d)}
 			height={$yScale.bandwidth()}
 			width={Math.abs($xGet(d) - $xScale(0)) * $reveal}
-			{fill}
+			fill={getFill(d)}
 			opacity={1}
 		/>
 	{/each}

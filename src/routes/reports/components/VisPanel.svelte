@@ -1,8 +1,8 @@
 <script>
-	let { visible = false, label = '', source = '', children } = $props();
+	let { id = '', visible = false, label = '', source = '', children } = $props();
 </script>
 
-<figure class="vis-panel" class:visible role="img" aria-label={label}>
+<figure {id} class="vis-panel" class:visible role="img" aria-label={label}>
 	{@render children?.()}
 
 	<figcaption>

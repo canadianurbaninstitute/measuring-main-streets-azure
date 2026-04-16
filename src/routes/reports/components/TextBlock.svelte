@@ -30,6 +30,7 @@
 	import '../../styles.css';
 
 	let {
+		id = '',
 		index = 0,
 		active = false,
 		eyebrow = '',
@@ -42,7 +43,7 @@
 	} = $props();
 </script>
 
-<div class="text-block" class:active data-step={index}>
+<div {id} class="text-block" class:active data-step={index}>
 	{#if eyebrow}
 		<p class="eyebrow">{eyebrow}</p>
 	{/if}

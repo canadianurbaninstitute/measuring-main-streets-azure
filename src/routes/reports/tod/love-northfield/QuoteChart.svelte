@@ -8,11 +8,11 @@
 			color: '#db3069',
 			colorFam: 'pink',
 			items: [
-				'Housing development & density',
-				'Expansion of public transit',
-				'Homelessness & harm reduction policies',
-				'Drivers vs. cyclists & transit',
-				'Economic & cultural differences'
+				'Northfield Station impact on neighbourhood',
+				'Rules of the road',
+				'State of crime in Sunnydale',
+				'Marginalized community inclusion',
+				'Mural graffiti artwork'
 			]
 		},
 		{
@@ -21,8 +21,8 @@
 			color: '#f45d01',
 			colorFam: 'orange',
 			items: [
-				'Failure to engage with concerns on social issues',
-				'Conversations dominated by privileged groups'
+				'Failure to engage with major concerns including acceptance, affordability, and safety',
+				'Expectations of neglect and prioritization of developers over community'
 			]
 		},
 		{
@@ -31,10 +31,10 @@
 			color: '#43b171',
 			colorFam: 'green',
 			items: [
-				'Appreciation for TransLink',
-				'Desire for European / Asian urban models',
-				"Vancouver's culture, aesthetic, outdoors",
-				'Concern about social issues'
+				'Local artworks as beneficial to the community',
+				'Need for increased housing supply',
+				'Local events for awareness raising',
+				'Desire for safe roads for cyclists and drivers'
 			]
 		},
 		{
@@ -43,9 +43,9 @@
 			color: '#00adf2',
 			colorFam: 'blue',
 			items: [
-				'Provide a vision for a better development future',
-				"Celebrate Vancouver's landscape and culture",
-				'Acknowledge desires for solutions to density issues'
+				'Highlight positive outcomes: housing, culture, and safety',
+				'Acknowledge challenges: planning mis-steps, cultural clashes, and growing pains',
+				'Engage people on what is needed next'
 			]
 		}
 	];
