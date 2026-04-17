@@ -15,6 +15,7 @@
 	export let seriesConfig = [];
 	export let title = '';
 	export let xKey = 'date';
+	export let minHeight = '100%';
 	export let xParseFn = timeParse('%Y-%m-%d');
 	export let formatLabelX = timeFormat('%b %Y');
 	export let formatLabelY = (d) => format('~s')(d) + '%';
@@ -54,12 +55,12 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="chart-container" style="min-height: {computedHeight}">
+<div class="chart-container">
 	{#if title}
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style="min-height: {computedHeight}">
+	<div class="chart" style="min-height: {minHeight}">
 		<LayerCake
 			position="absolute"
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}

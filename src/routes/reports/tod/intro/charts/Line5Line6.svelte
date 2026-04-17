@@ -23,7 +23,7 @@
 	{seriesConfig}
 	yKey="period"
 	title="Building & Development by Transit Line"
-	height="500px"
+	minHeight="300px"
 	{visible}
 	xTicks={6}
 	xLabel="Units"

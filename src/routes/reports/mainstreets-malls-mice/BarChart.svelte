@@ -23,4 +23,4 @@
 	];
 </script>
 
-<BarChart {...$$restProps} {data} {xKey} {title} {xDomain} {groupConfig} height="800px" />
+<BarChart {...$$restProps} {data} {xKey} {title} {xDomain} {groupConfig} minHeight="800px" />

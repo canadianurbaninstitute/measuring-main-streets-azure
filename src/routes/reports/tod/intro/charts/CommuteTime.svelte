@@ -75,7 +75,7 @@
 	yKey="city"
 	{seriesConfig}
 	title="Commute times in the largest urban regions"
-	height="500px"
+	minHeight="400px"
 	formatLabelX={(d) => d + '%'}
 	{visible}
 	showTooltip={true}
