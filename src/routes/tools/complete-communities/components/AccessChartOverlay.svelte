@@ -12,6 +12,8 @@
 	} = $props();
 
 	let isOpen = $state(true);
+
+	console.log(computedAmenities);
 </script>
 
 <div
@@ -108,7 +110,7 @@
 					</button>
 				{/each}
 			</div> -->
-			<div class="overflow-x-auto">
+			<div class="overflow-x-auto pb-10">
 				<table class="w-full text-sm text-left whitespace-nowrap">
 					<thead class="text-zinc-500 border-b bg-zinc-50">
 						<tr>
@@ -117,8 +119,8 @@
 							<th class="py-2 px-2 text-right">Current <br />Count</th>
 							<!-- <th class="py-2 px-2 text-right">Curr. Demand</th>
                         <th class="py-2 px-2 text-right">Fut. Demand</th> -->
-							<th class="py-2 px-2 text-right">Additional <br /> Amenities</th>
 							<th class="py-2 px-2 text-right">Additional <br />Employees</th>
+							<th class="py-2 px-2 text-right">Additional <br /> Amenities</th>
 							<!-- <th class="py-2 px-2 text-right">Additional <br />Visit Capacity</th> -->
 						</tr>
 					</thead>
@@ -139,17 +141,17 @@
 									</span>
 								</td>
 								<td class="py-2 px-2 text-right text-zinc-500"
-									>{stationCCcounts[row.Amenity].toFixed(0)}</td
+									>{stationCCcounts[row?.Amenity]?.toFixed(0)}</td
 								>
 								<td class="py-2 px-2 text-right font-bold text-zinc-800">
-									{row.newAmenitiesRequired === 0
+									{Math.floor(row.empNeeded_p75) === 0
 										? '-'
-										: `+${row.newAmenitiesRequired.toFixed(1).toLocaleString()}`}
+										: `+${Math.floor(row?.empNeeded_med)}${row?.empNeeded_p75 > row?.empNeeded_med ? `-${Math.floor(row?.empNeeded_p75)}` : ''}`}
 								</td>
 								<td class="py-2 px-2 text-right font-bold text-zinc-800">
-									{row.newEmployeesRequired === 0
+									{Math.floor(row.amenitiesNeeded_p75) === 0
 										? '-'
-										: `+${row.newEmployeesRequired.toFixed(1).toLocaleString()}`}
+										: `+${Math.floor(row?.amenitiesNeeded_med)}${row?.amenitiesNeeded_p75 > row?.amenitiesNeeded_med ? `-${Math.floor(row?.amenitiesNeeded_p75)}` : ''}`}
 								</td>
 								<!-- <td class="py-2 px-2 text-right font-bold text-zinc-800">
 									+{Math.round(row.Additional_Visits_Supported).toLocaleString()}

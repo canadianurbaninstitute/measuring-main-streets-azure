@@ -17,6 +17,7 @@
 
 	import SoC from '../assets/SoC.svg';
 	import UofT from '../assets/UofT.svg';
+	import CATCH from '../assets/catch.webp';
 
 	function handleScroll() {
 		const target = document.getElementById(scrollTargetId);
@@ -60,6 +61,12 @@
 								<img src={l.src} alt={l.alt || ''} width={l.width || '120'} />
 							{/if}
 						{/each}
+					</div>
+				{:else if logo == 'catch'}
+					<div class="logo-row">
+						<a href="https://catch-rehac.ca/" target="_blank">
+							<img src={CATCH} alt="CATCH logo" width="180" />
+						</a>
 					</div>
 				{/if}
 				{#if reporttype}<div class="reporttype">{reporttype}</div>{/if}

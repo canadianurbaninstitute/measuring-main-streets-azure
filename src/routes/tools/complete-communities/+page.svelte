@@ -58,15 +58,16 @@
 	let futureDemandMap = $state(new Map());
 
 	let p50current = $derived(selectedStation?.id ? p50map.get(selectedStation.id) : undefined);
-	let sortedAmenities = $derived(
-		[...(p50current ?? [])].sort((a, b) => {
+	let p75current = $derived(selectedStation?.id ? p75map.get(selectedStation.id) : undefined);
+	let p90current = $derived(selectedStation?.id ? p90map.get(selectedStation.id) : undefined);
+
+	let sortedAmenities = $derived.by(() => {
+		return [...(p50current ?? [])].sort((a, b) => {
 			const aVal = a.Access_Gap ?? 0;
 			const bVal = b.Access_Gap ?? 0;
 			return aVal - bVal;
-		})
-	);
-	let p75current = $derived(selectedStation?.id ? p75map.get(selectedStation.id) : undefined);
-	let p90current = $derived(selectedStation?.id ? p90map.get(selectedStation.id) : undefined);
+		});
+	});
 	let futureDemandCurrent = $derived(
 		selectedStation?.id ? futureDemandMap.get(selectedStation.id) : undefined
 	);
@@ -76,31 +77,55 @@
 	);
 
 	let projectedVisits = $derived.by(() => {
-		let projectedVisits =
-			futureVisits * (futureDemandCurrent?.Visits_per_Res ?? 0) + futureDemandCurrent?.Daily_Visits;
-		return projectedVisits;
+		const newVisits = futureVisits * 2;
+		return (futureDemandCurrent?.Daily_Visits ?? 0) + newVisits;
 	});
 
 	let computedAmenities = $derived(
 		filteredData.map((amenity) => {
-			const adjustedAccess = amenity.Access_per_1000 * (amenity.Daily_Visits / projectedVisits);
-			const accessGap = adjustedAccess - amenity.MTSA_med;
-			const newEmployeesRequired =
-				accessGap < 0 ? Math.abs(accessGap / amenity.MTSA_med) * amenity.typical_emp_med : 0;
-			const newAdditionalVisitsSupported =
-				accessGap > 0
-					? (adjustedAccess / amenity.MTSA_med - 1) * amenity.Daily_Visits +
-						futureVisits * futureDemandCurrent.Visits_per_Res
-					: 0;
-			const newAmenitiesRequired =
-				Math.round((newEmployeesRequired / amenity.typical_emp_med) * 10) / 10;
-			return {
+			const adjDailyVisits = futureDemandCurrent?.adj_Daily_Visits;
+			const newVisits = futureVisits * 2;
+			const newVisitsAdj = Math.log1p(newVisits);
+
+			const adjustedAccess =
+				amenity.Access_per_1000 * (adjDailyVisits / (adjDailyVisits + newVisitsAdj));
+
+			// 1. Median (p50) Calculation
+			const threshold_med = amenity.MTSA_med;
+			const emp_med_ref = amenity.mtsa_emp_med;
+			const gap_med = adjustedAccess - threshold_med;
+			const empNeeded_med = gap_med < 0 ? Math.abs(gap_med / threshold_med) * emp_med_ref : 0;
+			const amenitiesNeeded_med = Math.round(empNeeded_med / amenity.avg_emp);
+
+			// 2. Above Average (p75) Calculation
+			let gap_p75 = 0;
+			let empNeeded_p75 = 0;
+			let amenitiesNeeded_p75 = 0;
+
+			if (p75current) {
+				const p75Amenity = p75current.find((a) => a.Amenity === amenity.Amenity);
+				if (p75Amenity) {
+					const threshold_p75 = p75Amenity.MTSA_p75;
+					const emp_p75_ref = p75Amenity.mtsa_emp_p75;
+					gap_p75 = adjustedAccess - threshold_p75;
+					empNeeded_p75 = gap_p75 < 0 ? Math.abs(gap_p75 / threshold_p75) * emp_p75_ref : 0;
+					amenitiesNeeded_p75 = Math.round(empNeeded_p75 / amenity.avg_emp);
+				}
+			}
+
+			const output = {
 				...amenity,
-				accessGap,
-				newEmployeesRequired,
-				newAmenitiesRequired,
-				newAdditionalVisitsSupported
+				accessGap: gap_med, // Default to med for baseline compat
+				gap_med,
+				gap_p75,
+				empNeeded_med,
+				empNeeded_p75,
+				amenitiesNeeded_med,
+				amenitiesNeeded_p75,
+				// Fallback for current chart compatibility
+				newAmenitiesRequired: amenitiesNeeded_med
 			};
+			return output;
 		})
 	);
 
@@ -402,8 +427,7 @@
 				aiRes,
 				futureDemandRes,
 				p50Res,
-				p75Res,
-				p90Res
+				p75Res
 			] = await Promise.all([
 				fetch(
 					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/enriched/map_stations_enriched.json'
@@ -431,9 +455,6 @@
 				),
 				fetch(
 					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/threshold_current_p75.json'
-				),
-				fetch(
-					'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/threshold_current_p90.json'
 				)
 			]);
 
@@ -446,7 +467,6 @@
 			const futureDemand = await futureDemandRes.json();
 			const p50 = await p50Res.json();
 			const p75 = await p75Res.json();
-			const p90 = await p90Res.json();
 
 			// Index for faster lookup
 			p50map = p50.reduce((map, item) => {
@@ -455,11 +475,6 @@
 				return map;
 			}, new Map<string, any[]>());
 			p75map = p75.reduce((map, item) => {
-				if (!map.has(item.id)) map.set(item.id, []);
-				map.get(item.id)!.push(item);
-				return map;
-			}, new Map<string, any[]>());
-			p90map = p90.reduce((map, item) => {
 				if (!map.has(item.id)) map.set(item.id, []);
 				map.get(item.id)!.push(item);
 				return map;

@@ -175,7 +175,7 @@
 		patterns in the station areas of the transit system. Data is from 2024 unless otherwise
 		specified. Inspired by <a
 			href="https://schoolofcities.github.io/tod-toronto-1996-to-2021/"
-			target="_blank"><u>School of Cities</u></a
+			target="_blank">School of Cities</a
 		>.
 	</p>
 	<p class="text-sm mt-4">

@@ -80,7 +80,7 @@ export const sections = [
                 redevelopment, and a broader framework for other rapidly densifying GTA corridors. Its core argument is simple: getting the ground floor right is essential to getting the community right. The Golden Mile represents a rare,
                 time-sensitive opportunity to align density with livability and a chance to set a new standard for transit-oriented, complete-community development.</p>`,
 				cta: {
-					href: '', // TODO: add link
+					href: 'https://canurb.org/wp-content/uploads/MUCP-x-CUI-Guidebook.pdf',
 					label: 'Read the full Guidebook'
 				}
 			}

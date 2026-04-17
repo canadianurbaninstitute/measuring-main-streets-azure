@@ -257,16 +257,17 @@
 			</div>
 			<div class="section-stats pl-10 pb-10 w-auto">
 				<h4 class="pb-2">Population</h4>
-				<span class="stat" style="color: {cmaColour};"
-					>{Math.round(popData[0].cma).toLocaleString()}</span
-				>
-				people in {selectedRow.CMANAME}
-				<b style="color: var(--brandDarkBlue);">live outside TSAs</b><br />
+
 				<span class="stat" style="color: {tsaColour};"
 					>{Math.round(popData[0].tsa).toLocaleString()}</span
 				>
 				people in {selectedRow.CMANAME}
-				<b style="color: var(--brandDarkBlue);">live inside TSAs</b>
+				<b style="color: var(--brandDarkBlue);">live inside TSAs</b><br />
+				<span class="stat" style="color: {cmaColour};"
+					>{Math.round(popData[0].cma).toLocaleString()}</span
+				>
+				people in {selectedRow.CMANAME}
+				<b style="color: var(--brandDarkBlue);">live outside TSAs</b>
 			</div>
 			<div class="md:pl-40 w-auto h-25">
 				<DotPlot
@@ -282,16 +283,16 @@
 			</div>
 			<div class="section-stats pl-10 pb-10 w-auto">
 				<h4 class="pb-2">Dwellings</h4>
-				<span class="stat" style="color: {cmaColour};"
-					>{Math.round(dwellingsData[0].cma).toLocaleString()}</span
-				>
-				dwellings in
-				{selectedRow.CMANAME} are <b style="color: var(--brandDarkBlue);">outside TSAs</b><br />
 				<span class="stat" style="color: {tsaColour};"
 					>{Math.round(dwellingsData[0].tsa).toLocaleString()}</span
 				>
 				dwellings in {selectedRow.CMANAME} are
-				<b style="color: var(--brandDarkBlue);">inside TSAs</b>
+				<b style="color: var(--brandDarkBlue);">inside TSAs</b><br />
+				<span class="stat" style="color: {cmaColour};"
+					>{Math.round(dwellingsData[0].cma).toLocaleString()}</span
+				>
+				dwellings in
+				{selectedRow.CMANAME} are <b style="color: var(--brandDarkBlue);">outside TSAs</b>
 			</div>
 			<div class="md:pl-40 w-auto h-25">
 				<DotPlot
@@ -307,16 +308,16 @@
 			</div>
 			<div class="pl-10">
 				<h4 class="pb-2">Employment</h4>
-				<span class="stat" style="color: {cmaColour};"
-					>{Math.round(employmentData[0].cma).toLocaleString()}</span
-				>
-				jobs in {selectedRow.CMANAME} are
-				<b style="color: var(--brandDarkBlue);">outside TSAs</b><br />
 				<span class="stat" style="color: {tsaColour};"
 					>{Math.round(employmentData[0].tsa).toLocaleString()}</span
 				>
 				jobs in {selectedRow.CMANAME} are
-				<b style="color: var(--brandDarkBlue);">inside TSAs</b>
+				<b style="color: var(--brandDarkBlue);">inside TSAs</b><br />
+				<span class="stat" style="color: {cmaColour};"
+					>{Math.round(employmentData[0].cma).toLocaleString()}</span
+				>
+				jobs in {selectedRow.CMANAME} are
+				<b style="color: var(--brandDarkBlue);">outside TSAs</b>
 			</div>
 		</div>
 	</div>
@@ -351,47 +352,48 @@
 			<div class="section-stats md:pt-4 pl-10 w-auto">
 				<div class="py-8">
 					<h4 class="pb-2">Maintainer Age</h4>
+					<span class="stat" style="color: {tsaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'Maintainers Under 35')?.tsa)}%</span
+					>
+					of household maintainers in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are under 35<br />
 					<span class="stat" style="color: {cmaColour};"
 						>{Math.round(demoData.find((d) => d.label === 'Maintainers Under 35')?.cma)}%</span
 					>
 					of household maintainers in
 					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> are under
-					35<br />
-					<span class="stat" style="color: {tsaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'Maintainers Under 35')?.tsa)}%</span
-					>
-					of household maintainers in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are under 35
+					35
 				</div>
 
 				<div class="py-8">
 					<h4 class="pb-2">Single Households</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'Single Households')?.cma)}%</span
-					>
-					of households in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> are
-					single-person<br />
+
 					<span class="stat" style="color: {tsaColour};"
 						>{Math.round(demoData.find((d) => d.label === 'Single Households')?.tsa)}%</span
 					>
 					of households in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are single-person
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> are single-person<br />
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'Single Households')?.cma)}%</span
+					>
+					of households in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> are single-person
 				</div>
 
 				<div class="py-8">
 					<h4 class="pb-2">University Degree</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(demoData.find((d) => d.label === 'University Degree')?.cma)}%</span
-					>
-					of residents in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> hold a
-					university degree<br />
 					<span class="stat" style="color: {tsaColour};"
 						>{Math.round(demoData.find((d) => d.label === 'University Degree')?.tsa)}%</span
 					>
 					of residents in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> hold a university degree
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> hold a university degree<br
+					/>
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(demoData.find((d) => d.label === 'University Degree')?.cma)}%</span
+					>
+					of residents in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> hold a university
+					degree
 				</div>
 			</div>
 		</div>
@@ -432,47 +434,47 @@
 			<div class="section-stats md:pt-4 pl-10 w-auto">
 				<div class="py-8">
 					<h4 class="pb-2">Apartments</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(housingData.find((d) => d.label === 'Apartments')?.cma)}%</span
-					>
-					of dwellings are apartments in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b><br />
 					<span class="stat" style="color: {tsaColour};"
 						>{Math.round(housingData.find((d) => d.label === 'Apartments')?.tsa)}%</span
 					>
 					of dwellings are apartments inside
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b>
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b><br />
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(housingData.find((d) => d.label === 'Apartments')?.cma)}%</span
+					>
+					of dwellings are apartments in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b>
 				</div>
 				<div class="py-8">
 					<h4 class="pb-2">Renters</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(housingData.find((d) => d.label === 'Renters')?.cma)}%</span
-					>
-					of households are renting in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b><br />
+
 					<span class="stat" style="color: {tsaColour};"
 						>{Math.round(housingData.find((d) => d.label === 'Renters')?.tsa)}%</span
 					>
 					of households are renting inside
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b>
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b><br />
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(housingData.find((d) => d.label === 'Renters')?.cma)}%</span
+					>
+					of households are renting in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b>
 				</div>
 				<div class="py-8">
 					<h4 class="pb-2">Spending more than 30% of income on shelter</h4>
-
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(
-							housingData.find((d) => d.label === 'Spending >30% on shelter')?.cma
-						)}%</span
-					>
-					of households are spending more than 30% on shelter in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b><br />
 					<span class="stat" style="color: {tsaColour};"
 						>{Math.round(
 							housingData.find((d) => d.label === 'Spending >30% on shelter')?.tsa
 						)}%</span
 					>
 					of households are spending more than 30% on shelter inside
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b>
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b><br />
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(
+							housingData.find((d) => d.label === 'Spending >30% on shelter')?.cma
+						)}%</span
+					>
+					of households are spending more than 30% on shelter in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b>
 				</div>
 			</div>
 		</div>
@@ -510,35 +512,36 @@
 			<div class="section-stats md:pt-4 pl-10 w-auto">
 				<div class="py-8">
 					<h4 class="pb-2">Active Transportation</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(
-							transportData.find((d) => d.label === 'Active Transportation')?.cma
-						)}%</span
-					>
-					of residents in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> use
-					active transportation<br />
 					<span class="stat" style="color: {tsaColour};"
 						>{Math.round(
 							transportData.find((d) => d.label === 'Active Transportation')?.tsa
 						)}%</span
 					>
 					of residents inside
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> use active transportation
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> use active
+					transportation<br />
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(
+							transportData.find((d) => d.label === 'Active Transportation')?.cma
+						)}%</span
+					>
+					of residents in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> use active
+					transportation
 				</div>
 				<div class="py-8">
 					<h4 class="pb-2">Public Transit</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>{Math.round(transportData.find((d) => d.label === 'Public Transit')?.cma)}%</span
-					>
-					of residents in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> use
-					public transit<br />
 					<span class="stat" style="color: {tsaColour};"
 						>{Math.round(transportData.find((d) => d.label === 'Public Transit')?.tsa)}%</span
 					>
 					of residents inside
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> use public transit
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b> use public transit<br />
+					<span class="stat" style="color: {cmaColour};"
+						>{Math.round(transportData.find((d) => d.label === 'Public Transit')?.cma)}%</span
+					>
+					of residents in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b> use public
+					transit
 				</div>
 			</div>
 		</div>
@@ -563,20 +566,21 @@
 			<div class="section-stats md:pl-10 w-auto">
 				<div class="pb-8">
 					<h4 class="pb-2">Average Transportation Cost</h4>
-					<span class="stat" style="color: {cmaColour};"
-						>${Math.round(
-							transportCostData.find((d) => d.label === 'Average Transportation Cost')?.cma
-						).toLocaleString()}</span
-					>
-					spent on transportation by the average household in a year in
-					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b><br />
+
 					<span class="stat" style="color: {tsaColour};"
 						>${Math.round(
 							transportCostData.find((d) => d.label === 'Average Transportation Cost')?.tsa
 						).toLocaleString()}</span
 					>
 					spent on transportation by the average household in a year inside
-					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b>
+					<b style="color: var(--brandDarkBlue);">{selectedRow.TSANAME}</b><br />
+					<span class="stat" style="color: {cmaColour};"
+						>${Math.round(
+							transportCostData.find((d) => d.label === 'Average Transportation Cost')?.cma
+						).toLocaleString()}</span
+					>
+					spent on transportation by the average household in a year in
+					<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME} (outside TSAs)</b>
 				</div>
 			</div>
 		</div>
