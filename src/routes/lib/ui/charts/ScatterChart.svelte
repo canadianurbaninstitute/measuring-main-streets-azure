@@ -6,131 +6,144 @@
 	import AxisX from '../chartcomponents/AxisX.svelte';
 	import AxisY from '../chartcomponents/AxisY.svelte';
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
+	import Quadrants from '../chartcomponents/Quadrants.svelte';
 	import ReferenceLine from '../chartcomponents/ReferenceLine.svg.svelte';
 	import Scatter from '../chartcomponents/Scatter.svg.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
-	let {
-		data = [],
-		xKey = 'x',
-		yKey = 'y',
-		zKey = null,
-		title = '',
-		height = '500px',
-		padding = { top: 10, right: 10, bottom: 20, left: 35 },
-		seriesConfig = [],
-		xDomain = [null, null],
-		yDomain = [null, null],
-		xScale = scaleLinear,
-		yScale = scaleLinear,
-		pointColor = '#00adf2',
-		pointRadius = 5, // Fixed radius instead
-		referenceLine = null, // { x1, y1, x2, y2, stroke, strokeWidth, strokeDasharray }
-		formatLabelX = (d) => d,
-		formatLabelY = (d) => d,
-		xLabel = 'X',
-		yLabel = 'Y',
-		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d)),
-		showTooltip = false,
-		visible = undefined,
-		xTicks = undefined,
-		yTicks = undefined,
-		showLabels = false,
-		labelKey = null,
-		showLegend = true
-	} = $props();
+	let props = $props();
 
 	let found = $state(null);
 	let e = $state(null);
 	let innerWidth = $state(1000);
 	let innerHeight = $state(800);
-	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
-	const computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
+
+	const computedHeight = $derived(innerWidth < 768 ? '100%' : props.height || '500px');
+	const computedShowLegend = $derived(innerHeight < 900 ? false : (props.showLegend ?? true));
 	const computedPadding = $derived(
-		innerWidth < 768 ? { ...padding, left: Math.min(padding.left, 45) } : padding
+		innerWidth < 768 
+			? { ...(props.padding || {}), left: Math.min((props.padding?.left || 35), 45) } 
+			: (props.padding || { top: 10, right: 10, bottom: 20, left: 35 })
 	);
 
-	const seriesNames = $derived(seriesConfig.map((d) => d.key));
-	const seriesColors = $derived(seriesConfig.map((d) => d.color));
+	const seriesNames = $derived((props.seriesConfig || []).map((d) => d.key));
+	const seriesColors = $derived((props.seriesConfig || []).map((d) => d.color));
 
 	const processedData = $derived(
-		data.map((d) => {
+		(props.data || []).map((d) => {
 			const obj = { ...d };
+			const xKey = props.xKey || 'x';
+			const yKey = props.yKey || 'y';
 			obj[xKey] = +d[xKey];
 			obj[yKey] = +d[yKey];
 			return obj;
 		})
 	);
 
-	const useZScale = $derived(zKey && seriesNames.length > 0);
+	const useZScale = $derived(props.zKey && seriesNames.length > 0);
 
-	const computedXScale = $derived(typeof xScale.copy === 'function' ? xScale : xScale());
-	const computedYScale = $derived(typeof yScale.copy === 'function' ? yScale : yScale());
+	const computedXScale = $derived(
+		typeof (props.xScale || scaleLinear).copy === 'function' ? (props.xScale || scaleLinear) : (props.xScale || scaleLinear)()
+	);
+	const computedYScale = $derived(
+		typeof (props.yScale || scaleLinear).copy === 'function' ? (props.yScale || scaleLinear) : (props.yScale || scaleLinear)()
+	);
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="chart-container">
-	{#if title}
-		<h4>{title}</h4>
+	{#if props.title}
+		<h4>{props.title}</h4>
 	{/if}
 
 	<div class="chart" style:height={computedHeight}>
-		<LayerCake
-			position="absolute"
-			padding={computedPadding}
-			x={xKey}
-			y={yKey}
-			z={useZScale ? zKey : null}
-			{xDomain}
-			{yDomain}
-			xScale={computedXScale}
-			yScale={computedYScale}
-			zDomain={useZScale ? seriesNames : null}
-			zRange={useZScale ? seriesColors : null}
-			zScale={scaleOrdinal()}
-			data={processedData}
-		>
-			<Svg>
-				<AxisX tickMarks baseline snapLabels format={formatLabelX} label={xLabel} ticks={xTicks} />
-				<AxisY tickMarks gridlines={false} format={formatLabelY} label={yLabel} ticks={yTicks} />
-				{#if referenceLine}
-					<ReferenceLine {...referenceLine} />
-				{/if}
-				<Scatter
-					{visible}
-					bind:found
-					bind:e
-					fill={pointColor}
-					r={pointRadius}
-					{showLabels}
-					{labelKey}
-				/>
-			</Svg>
-
-			{#if showTooltip}
-				<Html pointerEvents={false}>
-					{#if found && e}
-						<ChartTooltip
-							{found}
-							{e}
-							titleKey={zKey || xKey}
-							{xKey}
-							{yKey}
-							{xLabel}
-							{yLabel}
-							formatValue={formatTooltipValue}
+		{#if innerWidth > 0 && processedData.length > 0}
+			<LayerCake
+				position="absolute"
+				padding={computedPadding}
+				x={props.xKey || 'x'}
+				y={props.yKey || 'y'}
+				z={useZScale ? props.zKey : undefined}
+				xDomain={props.xDomain || [null, null]}
+				yDomain={props.yDomain || [null, null]}
+				xScale={computedXScale}
+				yScale={computedYScale}
+				zDomain={useZScale ? seriesNames : undefined}
+				zRange={useZScale ? seriesColors : undefined}
+				zScale={useZScale ? scaleOrdinal() : undefined}
+				data={$state.snapshot(processedData)}
+			>
+				<Svg>
+					<AxisX
+						tickMarks
+						baseline
+						snapLabels
+						format={props.formatLabelX}
+						label={props.xLabel}
+						ticks={props.xTicks}
+						gridlines={!props.showQuadrants}
+					/>
+					<AxisY
+						tickMarks
+						gridlines={!props.showQuadrants}
+						format={props.formatLabelY}
+						label={props.yLabel}
+						ticks={props.yTicks}
+					/>
+					{#if props.showQuadrants}
+						<Quadrants 
+							xMid={props.quadrantConfig?.xMid} 
+							yMid={props.quadrantConfig?.yMid} 
+							labels={props.quadrantConfig?.labels} 
+							colors={props.quadrantConfig?.colors}
+							stroke={props.quadrantConfig?.stroke}
+							strokeDasharray={props.quadrantConfig?.strokeDasharray}
 						/>
 					{/if}
-				</Html>
-			{/if}
-		</LayerCake>
+					{#if props.referenceLine}
+						<ReferenceLine {...props.referenceLine} />
+					{/if}
+					<Scatter
+						visible={props.visible}
+						bind:found
+						bind:e
+						fill={props.pointColor || '#00adf2'}
+						r={props.pointRadius || 5}
+						showLabels={props.showLabels}
+						labelKey={props.labelKey}
+						highlightIds={props.highlightIds}
+						idKey={props.idKey}
+						filterRegion={props.filterRegion}
+						regionKey={props.regionKey}
+					/>
+				</Svg>
+
+				{#if props.showTooltip}
+					<Html pointerEvents={false}>
+						{#if found && e}
+							<ChartTooltip
+								{found}
+								{e}
+								titleKey={props.titleKey || props.zKey || props.xKey || 'x'}
+								xKey={props.xKey || 'x'}
+								yKey={props.yKey || 'y'}
+								xLabel={props.xLabel || 'X'}
+								yLabel={props.yLabel || 'Y'}
+								formatValue={props.formatTooltipValue}
+								tooltipRows={props.tooltipRows}
+							/>
+						{/if}
+					</Html>
+				{/if}
+			</LayerCake>
+		{/if}
 	</div>
 
-	{#if computedShowLegend && seriesConfig.length > 0}
+	{#if computedShowLegend && (props.seriesConfig || []).length > 0}
 		<div class="controls">
 			<div class="legend-container">
-				{#each seriesConfig as { label, color }}
+				{#each props.seriesConfig as { label, color }}
 					<LegendItem variant={'circle'} {label} bgcolor={color} />
 				{/each}
 			</div>
