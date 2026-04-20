@@ -8,11 +8,10 @@
 			color: '#db3069',
 			colorFam: 'pink',
 			items: [
-				'Housing development & density',
-				'Expansion of public transit',
-				'Homelessness & harm reduction policies',
-				'Drivers vs. cyclists & transit',
-				'Economic & cultural differences'
+				'Bike lanes & urban planning',
+				"Housing affordability vs. landlords' rights",
+				"Mississauga's development vs. nostalgia for the past",
+				'Provincial and municipal policies'
 			]
 		},
 		{
@@ -21,8 +20,8 @@
 			color: '#f45d01',
 			colorFam: 'orange',
 			items: [
-				'Failure to engage with concerns on social issues',
-				'Conversations dominated by privileged groups'
+				'Failure to engage with major concerns including safety, affordability, and dignity',
+				'Less informed on the realities of the coming developments'
 			]
 		},
 		{
@@ -31,10 +30,10 @@
 			color: '#43b171',
 			colorFam: 'green',
 			items: [
-				'Appreciation for TransLink',
-				'Desire for European / Asian urban models',
-				"Vancouver's culture, aesthetic, outdoors",
-				'Concern about social issues'
+				'Want what is best for the community',
+				'Support the local food scene and diversity',
+				'Want safe and uncongested roads',
+				'Want reliable transportation service'
 			]
 		},
 		{
@@ -43,9 +42,9 @@
 			color: '#00adf2',
 			colorFam: 'blue',
 			items: [
-				'Provide a vision for a better development future',
-				"Celebrate Vancouver's landscape and culture",
-				'Acknowledge desires for solutions to density issues'
+				'Highlight positive outcomes: business, family, and entertainment',
+				'Acknowledge challenges: delays, poor communication, and trade-offs',
+				'Equip people with what is coming'
 			]
 		}
 	];

@@ -16,28 +16,35 @@
 		back3 = '',
 		link1 = '',
 		link2 = '',
-		link3 = ''
+		link3 = '',
+		newTab1 = false,
+		newTab2 = false,
+		newTab3 = false,
+		image1 = '',
+		image2 = '',
+		image3 = ''
 	} = $props();
 </script>
 
-{#snippet Card(finding, description, flip, backText, link)}
+{#snippet Card(finding, description, flip, backText, link, newTab, image)}
 	{#if link}
-		<a href={link} class="card-wrapper">
-			{@render CardInner(finding, description, flip, backText, link)}
+		<a href={link} target={newTab ? '_blank' : '_self'} class="card-wrapper">
+			{@render CardInner(finding, description, flip, backText, link, image)}
 		</a>
 	{:else}
 		<div class="card-wrapper">
-			{@render CardInner(finding, description, flip, backText)}
+			{@render CardInner(finding, description, flip, backText, image)}
 		</div>
 	{/if}
 {/snippet}
 
-{#snippet CardInner(finding, description, flip, backText, link)}
+{#snippet CardInner(finding, description, flip, backText, link, image)}
 	<div class={flip ? 'flip-card' : 'card'}>
 		{#if flip}
 			<div class="flip-card-inner">
 				<div class="flip-card-front">
 					<h2 style="color: white; margin-bottom: 20px;">{finding}</h2>
+					{#if image}<img src={image} alt="" class="card-image" />{/if}
 					<h3 style="color: white;">{description}</h3>
 				</div>
 				<div class="flip-card-back">
@@ -46,6 +53,7 @@
 			</div>
 		{:else}
 			<h2 style="margin-bottom: 20px;">{finding}</h2>
+			{#if image}<img src={image} alt="" class="card-image" />{/if}
 			<h3 style="color: white;">{description}</h3>
 			{#if link}<p style="color: var(--color-blue-50);" class="learn-more">Learn More →</p>{/if}
 		{/if}
@@ -56,9 +64,9 @@
 	<div class="inner">
 		<h1 class="title">{title}</h1>
 		<div class="cards">
-			{@render Card(finding1, description1, flip1, back1, link1)}
-			{@render Card(finding2, description2, flip2, back2, link2)}
-			{@render Card(finding3, description3, flip3, back3, link3)}
+			{@render Card(finding1, description1, flip1, back1, link1, newTab1, image1)}
+			{@render Card(finding2, description2, flip2, back2, link2, newTab2, image2)}
+			{@render Card(finding3, description3, flip3, back3, link3, newTab3, image3)}
 		</div>
 	</div>
 </section>
@@ -112,7 +120,12 @@
 			box-shadow 0.2s ease;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 	}
-
+	.card-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		margin-bottom: 1rem;
+	}
 	.card h3,
 	.flip-card-front h3 {
 		font-size: 1.3rem;

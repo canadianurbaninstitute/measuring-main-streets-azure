@@ -126,7 +126,12 @@ export const sections = [
 				body: `Investments in public transit are vital to maintaining growth in the largest urban regions. As demand rises for land it becomes more valuable, putting upward pressures on costs. In this scenario, housing projects can quickly become unviable. Building at higher densities can help overcome this obstacle, but as large cities grow in this manner, they become harder to move through. Friction of movement simultaneously reduces cities’ economic advantage and diminishes quality of life. The Toronto Region Board of Trade  estimates that congestion in the Greater Toronto and Hamilton Region is costing the economy $44B per year. Investments in public transit infrastructure is the most effective solution to these problems. They improve mobility and quality of life which are reflected in associated land values which in turn attracts further private sector investment in housing construction. If it becomes too difficult to move through cities, people tend to start moving out of them.`
 			},
 			{
-				body: 'There are six regions with higher order public transit infrastructure with a seventh in planning stages (Quebec). In these six regions there are xx LRT lines, xx subway/metro lines, and xx commuter rail lines. There are xx LRT lines under construction with an additional xx in the planning stages. There is one subway line under construction as well as a range of additions and upgrades to commuter rail. In total there are xx higher order transit stations with an additional xx under construction or in the planning stages. Xx million people currently live with 800m of a higher order transit station. '
+				body: `<p>There are six regions with higher order public transit infrastructure with a seventh in planning stages (Quebec).</p>
+				<p>In these six regions there are 12 LRT lines, 10 subway/metro lines, and 14 commuter rail lines.
+				There are 4 LRT lines under construction with an additional 4 in the planning stages.
+				There is one subway line under construction as well as a range of additions and upgrades to commuter rail.</p>
+				<p>In total there are 465 higher order transit stations with an additional 298 under construction or in the planning stages.
+				5.87 million people currently live with 800m of a higher order transit station.</p>`
 			}
 		]
 	},
