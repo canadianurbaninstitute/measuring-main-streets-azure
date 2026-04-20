@@ -9,6 +9,7 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
+	import ProgressBar from '../../components/ProgressBar.svelte';
 	import { sections } from './article.js';
 
 	// Assets
@@ -89,11 +90,11 @@
 </script>
 
 <main>
-	<!-- <ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
+	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
 			<img src={train} width="100%" height="100%" alt="Progress icon" />
 		{/snippet}
-	</ProgressBar> -->
+	</ProgressBar>
 
 	<ReportHeader
 		id="report-header"
