@@ -11,7 +11,8 @@
 		backgroundOpacity = 0.1,
 		scrollTargetId = 'report-findings',
 		reporttype = '',
-		logo = ''
+		logo = '',
+		customLogos = []
 	} = $props();
 
 	import SoC from '../assets/SoC.svg';
@@ -36,17 +37,30 @@
 	>
 		<div class="header-body">
 			<div class="headline">
-				{#if logo == 'soc'}
+				{#if logo === 'soc' || customLogos.length > 0}
 					<div class="logo-row">
-						<a href="https://schoolofcities.utoronto.ca/" target="_blank">
-							<img src={UofT} alt="University of Toronto logo" width="120" />
-						</a>
-						<a href="https://schoolofcities.utoronto.ca/" target="_blank">
+						{#if logo === 'soc'}
+							<a href="https://schoolofcities.utoronto.ca/">
+								<img src={UofT} alt="University of Toronto logo" width="120" />
+							</a>
 							<span class="text-3xl font-thin" style="color: var(--brandDarkBlue)">|</span>
-						</a>
-						<a href="https://schoolofcities.utoronto.ca/" target="_blank">
-							<img src={SoC} alt="School of Cities logo" width="120" />
-						</a>
+							<a href="https://schoolofcities.utoronto.ca/">
+								<img src={SoC} alt="School of Cities logo" width="120" />
+							</a>
+						{/if}
+
+						{#each customLogos as l, i}
+							{#if i > 0 || logo === 'soc'}
+								<span class="text-3xl font-thin" style="color: var(--brandDarkBlue)">|</span>
+							{/if}
+							{#if l.href}
+								<a href={l.href} target={l.target || '_blank'} rel="noopener noreferrer">
+									<img src={l.src} alt={l.alt || ''} width={l.width || '120'} />
+								</a>
+							{:else}
+								<img src={l.src} alt={l.alt || ''} width={l.width || '120'} />
+							{/if}
+						{/each}
 					</div>
 				{:else if logo == 'catch'}
 					<div class="logo-row">
@@ -55,12 +69,14 @@
 						</a>
 					</div>
 				{/if}
-				<div class="reporttype">{reporttype}</div>
-				<h4 class="eyebrow">{eyebrow}</h4>
-				<h1 class="title">{title}</h1>
-				<h4 class="eyebrow">{subEyebrow}</h4>
-				<p class="extra">{author}</p>
-				<p class="extra">{date}</p>
+				{#if reporttype}<div class="reporttype">{reporttype}</div>{/if}
+				<div>
+					{#if eyebrow}<h4 class="eyebrow">{eyebrow}</h4>{/if}
+					<h1 class="title">{title}</h1>
+					{#if subEyebrow}<h4 class="eyebrow">{subEyebrow}</h4>{/if}
+					{#if author}<p class="extra">{author}</p>{/if}
+					{#if date}<p class="extra">{date}</p>{/if}
+				</div>
 			</div>
 
 			<div class="description">
@@ -113,7 +129,8 @@
 		position: relative;
 		z-index: 1;
 		display: flex;
-		align-items: flex-end; /* align to bottom = aligns to title */
+		align-items: flex-end;
+		height: 100%;
 		justify-content: center;
 		gap: clamp(1rem, 3vw, 2rem);
 	}

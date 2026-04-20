@@ -1,5 +1,5 @@
 <script>
-	import { scaleOrdinal, scaleLinear, scaleLog } from 'd3-scale';
+	import { scaleLinear, scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
 	import { format as d3Format } from 'd3-format';
@@ -77,6 +77,7 @@
 
 	<div class="chart" style:height={computedHeight}>
 		<LayerCake
+			position="absolute"
 			padding={computedPadding}
 			x={xKey}
 			y={yKey}

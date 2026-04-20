@@ -30,6 +30,7 @@
 	import '../../styles.css';
 
 	let {
+		id = '',
 		index = 0,
 		active = false,
 		eyebrow = '',
@@ -42,7 +43,7 @@
 	} = $props();
 </script>
 
-<div class="text-block" class:active data-step={index}>
+<div {id} class="text-block" class:active data-step={index}>
 	{#if eyebrow}
 		<p class="eyebrow">{eyebrow}</p>
 	{/if}
@@ -134,7 +135,7 @@
 	/* ── Prose container ─────────────────────────────────────── */
 	.prose {
 		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-		color: #333;
+		color: var(--color-slate-900);
 		line-height: 1.75;
 		max-width: 46ch;
 	}
@@ -204,10 +205,11 @@
 
 	@media (max-width: 768px) {
 		.inline-visual-wrapper {
-			display: block;
+			display: flex;
+			flex-direction: column;
 			width: 100%;
 			height: fit-content;
-			min-height: 80vh;
+			/* min-height: 450px; */
 			margin: 2rem 0;
 			background: #ffffff;
 			border: 1px solid #eee;

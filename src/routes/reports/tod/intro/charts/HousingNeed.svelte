@@ -1563,6 +1563,7 @@
 	{seriesConfig}
 	xTickInterval={20}
 	yDomain={[-30, 15]}
+	minHeight="300px"
 	yLabel="Homeownership Affordability Index score"
 	formatLabelY={(d) => d}
 	formatValue={(d) => d.toFixed(2)}

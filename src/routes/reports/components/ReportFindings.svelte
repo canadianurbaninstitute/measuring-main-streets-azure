@@ -13,11 +13,26 @@
 		finding3 = '',
 		description3 = '',
 		flip3 = false,
-		back3 = ''
+		back3 = '',
+		link1 = '',
+		link2 = '',
+		link3 = ''
 	} = $props();
 </script>
 
-{#snippet Card(finding, description, flip, backText)}
+{#snippet Card(finding, description, flip, backText, link)}
+	{#if link}
+		<a href={link} class="card-wrapper">
+			{@render CardInner(finding, description, flip, backText, link)}
+		</a>
+	{:else}
+		<div class="card-wrapper">
+			{@render CardInner(finding, description, flip, backText)}
+		</div>
+	{/if}
+{/snippet}
+
+{#snippet CardInner(finding, description, flip, backText, link)}
 	<div class={flip ? 'flip-card' : 'card'}>
 		{#if flip}
 			<div class="flip-card-inner">
@@ -32,6 +47,7 @@
 		{:else}
 			<h2 style="margin-bottom: 20px;">{finding}</h2>
 			<h3 style="color: white;">{description}</h3>
+			{#if link}<p style="color: var(--color-blue-50);" class="learn-more">Learn More →</p>{/if}
 		{/if}
 	</div>
 {/snippet}
@@ -40,9 +56,9 @@
 	<div class="inner">
 		<h1 class="title">{title}</h1>
 		<div class="cards">
-			{@render Card(finding1, description1, flip1, back1)}
-			{@render Card(finding2, description2, flip2, back2)}
-			{@render Card(finding3, description3, flip3, back3)}
+			{@render Card(finding1, description1, flip1, back1, link1)}
+			{@render Card(finding2, description2, flip2, back2, link2)}
+			{@render Card(finding3, description3, flip3, back3, link3)}
 		</div>
 	</div>
 </section>
@@ -75,9 +91,18 @@
 		align-items: stretch;
 	}
 
+	.card-wrapper {
+		text-decoration: none;
+		display: block;
+		height: 100%;
+	}
+
 	.card {
 		background-color: #0a1f44;
 		color: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 		border-radius: 0.5rem;
 		padding: 2rem 1.5rem;
 		height: 100%;
@@ -171,5 +196,15 @@
 		.cards {
 			grid-template-columns: 1fr;
 		}
+	}
+
+	.learn-more {
+		margin-top: 1rem;
+		/* text-decoration: underline; */
+		text-underline-offset: 4px;
+		font-size: clamp(0.8rem, 2.5vw, 1rem);
+		letter-spacing: 0.18em;
+		font-weight: 600;
+		text-transform: uppercase;
 	}
 </style>

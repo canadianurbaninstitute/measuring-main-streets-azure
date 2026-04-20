@@ -14,6 +14,7 @@
 		yKey = 'category',
 		title = '',
 		height = '400px',
+		minHeight = '100%',
 		padding = { top: 10, right: 10, bottom: 20, left: 160 },
 		seriesConfig = [], // Array of { label, color, key }
 		formatLabelX = (d) => d,
@@ -58,8 +59,9 @@
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style:height={computedHeight}>
+	<div class="chart" style:min-height={minHeight}>
 		<LayerCake
+			position="absolute"
 			padding={computedPadding}
 			x={seriesNames}
 			y={yKey}

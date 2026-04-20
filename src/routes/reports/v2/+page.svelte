@@ -21,6 +21,7 @@
 	import transportation from '../../lib/assets/screenshots/transportation.png';
 	import whotsas from '../../lib/assets/screenshots/who-tsas.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
+	import northfield from '../../reports/assets/dps-northfield.png';
 	import '../../styles.css';
 
 	const title = 'Measuring Main Streets Reports';
@@ -118,6 +119,22 @@
 					description: 'A Case Study of the Scarborough Golden Mile',
 					image: goldenmile,
 					link: '/reports/tod/golden-mile',
+					tags: ['Partner Report']
+				},
+				{
+					title: 'Love Northfield',
+					description:
+						'The Northfield Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
+					image: northfield,
+					link: '/reports/tod/love-northfield',
+					tags: ['Partner Report']
+				},
+				{
+					title: 'Love Kitsilano',
+					description:
+						'The Kitsilano Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
+					image: northfield,
+					link: '/reports/tod/love-kitsilano',
 					tags: ['Partner Report']
 				}
 			]

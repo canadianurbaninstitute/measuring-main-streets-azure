@@ -68,4 +68,5 @@
 		'Ottawa-Gatineau'
 	]}
 	seriesConfig={urbanPop}
+	height={900}
 />

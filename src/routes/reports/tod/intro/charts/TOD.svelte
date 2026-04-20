@@ -120,6 +120,7 @@
 	yKey="within_800m"
 	zKey="city"
 	showLabels={true}
+	height={800}
 	labelKey="city"
 	showLegend={true}
 	padding={{ left: 70, bottom: 40 }}
