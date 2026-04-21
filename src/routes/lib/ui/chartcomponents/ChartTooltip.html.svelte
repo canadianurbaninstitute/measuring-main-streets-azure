@@ -20,6 +20,7 @@
 	 * to render a multi-row stacked tooltip instead of a single key/value pair.
 	 */
 	export let seriesConfig = null;
+	export let tooltipRows = null; // Array of { key, label, format }
 
 	let tooltipEl;
 	let adjustedStyle = '';
@@ -28,6 +29,7 @@
 	$: if (tooltipEl && e) {
 		// Use rAF so the element has been painted and has a measurable size
 		requestAnimationFrame(() => {
+			if (!tooltipEl) return;
 			const container = tooltipEl.offsetParent;
 			if (!container) return;
 
@@ -57,7 +59,14 @@
 	<div class="tooltip" bind:this={tooltipEl} style={adjustedStyle}>
 		<div class="tooltip-title">{found[titleKey]}</div>
 
-		{#if seriesConfig}
+		{#if tooltipRows}
+			{#each tooltipRows as { key, label, format }}
+				<div class="tooltip-row">
+					<span class="tooltip-key">{label || key}:</span>
+					<span>{format ? format(found[key]) : formatValue(found[key])}</span>
+				</div>
+			{/each}
+		{:else if seriesConfig}
 			{#each seriesConfig as { key, label, color }}
 				<div class="tooltip-row">
 					<span class="swatch" style="background:{color}"></span>

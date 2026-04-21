@@ -119,6 +119,7 @@
 	xKey="beyond_800m"
 	yKey="within_800m"
 	zKey="city"
+	idKey="city"
 	showLabels={true}
 	height={800}
 	labelKey="city"
