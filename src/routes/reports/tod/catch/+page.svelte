@@ -18,6 +18,17 @@
 	import ETOAHComponents1 from './ETOAHComponents1.svelte';
 	import ETOAHComponents2 from './ETOAHComponents2.svelte';
 	import ETOAHComponents3 from './ETOAHComponents3.svelte';
+	import intro from './assets/intro.png';
+	import intro2 from './assets/elevated-train.png';
+	import intro3 from './assets/train-passing.png';
+	import intro4 from './assets/ttc-subway.png';
+	import intro5 from './assets/gobus.png';
+	import boarding from './assets/boarding.png';
+	import buildings from './assets/buildings.png';
+	import interior from './assets/bus-interior.png';
+	import octranspo from './assets/octranspo.png';
+	import skytrain from './assets/skytrain.png';
+	import conclusion from './assets/conclusion.png';
 
 	const visConfig = {
 		'etoah-components': {
@@ -35,6 +46,61 @@
 		'etoah-components3': {
 			type: 'component',
 			component: ETOAHComponents3
+		},
+		intro: {
+			type: 'image',
+			src: intro,
+			alt: 'Exterior view of apartment building balconies'
+		},
+		intro2: {
+			type: 'image',
+			src: intro2,
+			alt: 'Elevated train passing on bridge'
+		},
+		intro3: {
+			type: 'image',
+			src: intro3,
+			alt: 'Train passing platform'
+		},
+		intro4: {
+			type: 'image',
+			src: intro4,
+			alt: 'TTC Subway car on elevated track'
+		},
+		intro5: {
+			type: 'image',
+			src: intro5,
+			alt: 'Train passing platform'
+		},
+		etoah: {
+			type: 'image',
+			src: boarding,
+			alt: 'Several people boarding a bus'
+		},
+		etoah2: {
+			type: 'image',
+			src: buildings,
+			alt: 'Exterior of a building'
+		},
+		action: {
+			type: 'image',
+			src: interior,
+			alt: 'People sitting in a public bus interior'
+		},
+		action2: {
+			type: 'image',
+			src: octranspo,
+			alt: 'An elevated OC Transpo train passing'
+		},
+		community: {
+			type: 'image',
+			src: skytrain,
+			alt: 'An elevated Skytrain passing'
+		},
+		community2: {
+			type: 'image',
+			src: conclusion,
+			alt: 'Exterior of a subway station with a large glass facade'
 		}
 	};
 
@@ -163,8 +229,6 @@
 		description3="is a mosaic of local shortages that demands coordinated, place-based solutions."
 	/>
 
-	<!-- TODO: embed video https://drive.google.com/file/d/1hWSsfO6U0Qvi86UwUD7UIc9ePB-BIqSh/view -->
-
 	{#snippet renderPanel(uid, isVisible, id)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{#if panel}
@@ -272,13 +336,22 @@
 			</div>
 		{/if}
 	{/each}
+	<div class="center">
+		<iframe
+			width="1250"
+			height="700"
+			title="Transit Without Displacement | CATCH"
+			src="https://drive.google.com/file/d/1hWSsfO6U0Qvi86UwUD7UIc9ePB-BIqSh/preview"
+		>
+		</iframe>
+	</div>
 	<div class="inline-article text-center uppercase font-light text-lg" id="contact">
 		Learn more about CATCH and access the ETOAH toolkit:
 		<div class="inline-cta">
 			<VisLink href="https://catch-rehac.ca/" label="Learn More" />
 		</div>
 		Cities, investors, policymakers, and partners interested in joining local collaboratives can contact
-		CATCH:
+		info@catch-rehac.ca:
 		<div class="inline-cta">
 			<VisLink href="mailto:info@catch-rehac.ca" label="Contact CATCH" />
 		</div>
@@ -440,5 +513,10 @@
 			height: auto;
 			min-height: 400px;
 		}
+	}
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>

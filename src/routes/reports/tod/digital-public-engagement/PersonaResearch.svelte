@@ -42,19 +42,19 @@
 	}
 	.img1 {
 		width: 55%;
-		top: -5rem;
+		top: -6rem;
 		left: 0;
 		z-index: 1;
 	}
 	.img2 {
 		width: 50%;
-		top: 20rem;
+		top: 25rem;
 		right: 0;
 		z-index: 2;
 	}
 	.img3 {
 		width: 40%;
-		top: 30rem;
+		top: 35rem;
 		right: 40%;
 		z-index: 3;
 	}

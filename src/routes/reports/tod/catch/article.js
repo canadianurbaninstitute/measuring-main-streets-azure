@@ -4,6 +4,18 @@ export const sections = [
 		panels: [
 			{
 				id: 'intro'
+			},
+			{
+				id: 'intro2'
+			},
+			{
+				id: 'intro3'
+			},
+			{
+				id: 'intro4'
+			},
+			{
+				id: 'intro5'
 			}
 		],
 		blocks: [
@@ -17,36 +29,33 @@ export const sections = [
                 they frequently become engines of displacement for the very communities they are meant to serve.</p>`
 			},
 			{
-				panelId: 'intro',
+				panelId: 'intro2',
 				body: `<p>This is a common trajectory for communities undergoing TOD, but it is not inevitable. 
                 Transit doesn’t automatically cause displacement<sup><a href="#references">[4]</a></sup>; rather, it creates conditions that, without intervention, 
                 frequently lead to the erosion of affordability near transit lines. These conditions are variable. 
-                The same transit investment can produce different outcomes in different neighborhoods<sup><a href="#references">[5]</a></sup>. And while some cities 
+                The same transit investment can produce different outcomes in different neighborhoods<sup><a href="#references">[5]</a></sup>.</p>`
+			},
+			{
+				panelId: 'intro3',
+				body: `<p>While some cities 
                 have a strong track record of growing housing supply near transit, the benefits are often unevenly shared. 
                 When land costs soar, community housing providers face intensified financing barriers, and the growing trend 
                 of investors treating housing as a financial asset compounds the problem.<sup><a href="#references">[1,3]</a></sup> Without affordable options, 
                 vulnerable residents — often racialized and members of equity-deserving groups — are pushed out, and those 
-                who can afford the premium of living near transit move in.
-</p>`
-			}
-		]
-	},
-	{
-		layout: 'scrolly',
-		panels: [
+                who can afford the premium of living near transit move in.</p>`
+			},
 			{
-				id: 'intro2'
-			}
-		],
-		blocks: [
-			{
-				panelId: 'intro2',
+				panelId: 'intro4',
 				body: `<p>This unevenness points to what the evidence shows clearly: local policy choices and context matter<sup><a href="#references">[6]</a></sup>. 
                 And this wide-ranging variability in local policy approaches is itself a reflection of gaps between the larger 
                 systems that shape TOD. Despite affordability and inclusion being stated goals of transit funding, no federal 
                 or provincial incentives, policies, or programs exist to align transit and housing plans. Municipal governments 
                 see property values spike near new transit infrastructure<sup><a href="#references">[7]</a></sup>, but sometimes lack the tools, funding, or coordinated 
-                plans needed to act before displacement begins. Far from fixed realities, these are “system glitches” that can 
+                plans needed to act before displacement begins.</p>`
+			},
+			{
+				panelId: 'intro5',
+				body: `<p>Far from fixed realities, these are “system glitches” that can 
                 be addressed through closer policy alignment and coordinated implementation. There are concrete points in the
                 planning and development process where targeted efforts can steer TOD towards more affordable, equitable, and 
                 sustainable communities — and communities in Canada and beyond are demonstrating how.</p>`
@@ -57,7 +66,19 @@ export const sections = [
 		layout: 'scrolly',
 		panels: [
 			{
+				id: 'intro2'
+			}
+		],
+		blocks: []
+	},
+	{
+		layout: 'scrolly',
+		panels: [
+			{
 				id: 'etoah'
+			},
+			{
+				id: 'etoah2'
 			},
 			{
 				id: 'etoah-components',
@@ -87,7 +108,11 @@ export const sections = [
                 In 2023, <a href="https://sicanada.org/program/transit-oriented-affordable-housing/" target="_blank">Social Innovation Canada brought together 
                 stakeholders across the housing and transit ecosystem</a> — CMHC, the City of Hamilton, 
                 the Hamilton Community Foundation, non-profit housing providers, resident groups, planners, developers, and financial institutions — 
-                to develop and pilot tangible strategies for cities to preserve and create affordable housing near transit. Through the Lab process, 
+                to develop and pilot tangible strategies for cities to preserve and create affordable housing near transit.</p>`
+			},
+			{
+				panelId: 'etoah2',
+				body: `<p>Through the Lab process, 
                 these partners were able to identify new opportunities to add both density and affordability near Hamilton’s incoming LRT line. 
                 The Lab also revealed that Hamilton’s challenges weren’t unique — 
                 cities across Canada were grappling with similar barriers, spurring the creation of a national initiative to scale these solutions. </p>`
@@ -131,6 +156,9 @@ export const sections = [
 		panels: [
 			{
 				id: 'action'
+			},
+			{
+				id: 'action2'
 			}
 		],
 		blocks: [
@@ -143,7 +171,7 @@ export const sections = [
                 identified by Hamilton East Kiwanis Non-Profit Homes with the requisite enablers, including the City of Hamilton’s move to allow fourplexes as-of-right.</p>`
 			},
 			{
-				panelId: 'action',
+				panelId: 'action2',
 				body: `<p>Hamilton is just one example of how equitable outcomes can be achieved when local 
                 actors come together early to align transit investment with affordable housing goals. Calgary 
                 demonstrated the power of proactive public land use when it converted a former hospital site near 
@@ -160,6 +188,9 @@ export const sections = [
 		panels: [
 			{
 				id: 'community'
+			},
+			{
+				id: 'community2'
 			}
 		],
 		blocks: [
@@ -172,7 +203,7 @@ export const sections = [
                 knowing how to unlock this potential is key.</p>`
 			},
 			{
-				panelId: 'community',
+				panelId: 'community2',
 				body: `<p>Affordable housing near transit should not be an optional add-on, but infrastructure that underpins both equity and the 
                 viability of new transit infrastructure itself. When public investments in transit align with public investments in affordability, 
                 we can create complete communities where access and inclusion aren’t competing goals, but mutually reinforcing outcomes. And when 
