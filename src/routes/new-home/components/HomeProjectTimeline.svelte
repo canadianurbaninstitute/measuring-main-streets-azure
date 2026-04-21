@@ -97,7 +97,7 @@
 				'Leveraging Transit-Oriented Development (TOD) to advance housing and community outcomes  ',
 			details:
 				"Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD. <a href='/about#phase-two'> About Phase Two →</a>",
-			stat: 'xxx million homes',
+			stat: '4.4 million homes',
 			subtext: "could be built in Canada's transit station areas",
 			cards: [
 				{
