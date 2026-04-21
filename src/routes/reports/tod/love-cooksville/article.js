@@ -23,15 +23,18 @@ export const sections = [
 		layout: 'scrolly',
 		panels: [
 			{
-				id: 'kitsilano'
+				id: 'cooksville'
 			}
 		],
 		blocks: [
 			{
-				panelId: 'kitsilano',
-				heading: 'Love Kitsilano',
-				body: `<p>The Kitsilano platform invited residents of this established Vancouver neighbourhood to share their perspectives on community priorities and neighbourhood change. As a dense, amenity-rich area, Kitsilano offered a unique context for exploring how residents understand and value the principles of complete communities, and what residential intensification and transit-oriented development could mean for a neighbourhood already navigating growth pressures.</p>
-				<p>To analyse the neighbourhood, we used natural language processing in combination with Environics Analytics Opticks Numeris data and posts queried from Reddit related to Kitsilano and development. This allowed Digital Public Square to get an aggregate picture of people’s opinions around development intensification in Kitsilano.</p>`
+				panelId: 'cooksville',
+				heading: 'Love Cooksville',
+				body: `<p>The Cooksville platform invited residents of this established Mississauga neighbourhood to share their perspectives on community priorities and 
+				neighbourhood change. As a mixed-density area with growing commercial corridors, Cooksville offered a unique context for exploring how residents understand 
+				and value the principles of complete communities, and what residential intensification 
+				and transit-oriented development could mean for a neighbourhood already navigating growth pressures.</p>
+				<p>To analyse the neighbourhood, we used natural language processing in combination with Environics Analytics Opticks Numeris data and posts queried from Reddit related to Cooksville and development. This allowed Digital Public Square to get an aggregate picture of people’s opinions around development intensification in Cooksville.</p>`
 			}
 		]
 	},
@@ -50,16 +53,19 @@ export const sections = [
 		layout: 'scrolly',
 		panels: [
 			{
-				id: 'engagement',
-				label: 'Figure 1 – Engagement metrics by neighbourhood'
+				id: 'safety',
+				label: 'Figure 1 – Safety and welcome metrics by neighbourhood'
 			}
 		],
 		blocks: [
 			{
-				panelId: 'engagement',
-				heading: 'Key Takeaway #1: High Engagement',
-				body: `<p>Kitsilano saw the highest numbers across six key engagement metrics, including total of number of
-				questions answered, respondents answering at least one question, link clicks to follow-on services, and those who opted in to share their postal codes. It also saw the highest community poll engagement.</p>`
+				panelId: 'safety',
+				heading: 'Key Takeaway #1: Safety Issues',
+				body: `<p>Respondents from Cooksville feel notably less safe and welcome than the
+				other two neighbourhoods, with a near 25% difference in respondents who
+				generally feel safe. Just over a quarter of respondents only sometimes feel safe, 2.5x
+				higher than the other two neighbourhoods. Kitsilano and Northfield are
+				comparable, with Kitsilano feeling slightly safer than Northfield.</p>`
 			}
 		]
 	},
@@ -67,20 +73,17 @@ export const sections = [
 		layout: 'scrolly',
 		panels: [
 			{
-				id: 'walking',
-				label: 'Figure 2 – Commute prefences'
+				id: 'cleanliness'
 			}
 		],
 		blocks: [
 			{
-				panelId: 'walking',
-				heading: 'Key Takeaway #2: High Walking Preferences',
-				body: `<p>Kitsilano was the only neighbourhood where a preference for
-				walking was high across the board for all activities.</p>
-				<p>
-				However, cars are still strongly favoured, with 33.8% of respondents using their car for commutes.
-				People are most likely to take the bus when going to work or school, most likely to be biking to get to
-				their favourite activity, and most likely to be walking when going to the grocery store.</p>`
+				panelId: 'cleanliness',
+				heading: 'Key Takeaway #2: Cleanliness is a priority',
+				body: `<p>Safety, cleanliness, and aesthetics— like greenery, parks, and cleanup— were all tightly linked in how
+				residents evaluated their neighbourhood and were widely agreed upon. Conversely, discussions around transportation
+				modes and infrastructure—i.e. cycling versus transit, density and development, and the perception of unhoused people were more
+				polarizing topics.</p>`
 			}
 		]
 	},
@@ -95,17 +98,16 @@ export const sections = [
 		blocks: [
 			{
 				panelId: 'privacy',
-				heading: 'Key Takeaway #3: Privacy as Paramount',
-				body: `<p>Though four out of seven tradeoff categories had a
-				higher proportion of responses that favoured
-				densification, such as home size, vibrant main
-				streets, sidewalks, crossings and bike lanes, there
-				was a strong preference towards prioritizing fewer
-				neighbours and more privacy.
-				This aligns with qualitative insights collected by the
-				community poll and persona research, further
-				underscoring the tension with building more homes
-				in Kitsilano.</p>`
+				heading: 'Key Takeaway #3: Development, but only if it helps',
+				body: `<p>Sentiments towards the benefits of densification were mixed both in
+				the qualitative insights, and through quantitative insights. Respondents
+				tend to express cautioned openness to densification or development if
+				key issues were addressed first, such as infrastructure (public transit vs.
+				roads vs. bike lanes), safety and cleanliness.</p>
+				
+				<p>Future work should explore trust-building to increase community
+				confidence in the benefits that can come with transit oriented
+				development (TOD).</p>`
 			}
 		]
 	},
@@ -124,7 +126,7 @@ export const sections = [
 				<p>Moving forward, larger quantities of high-quality public engagement can be reached with a longer timespan of collection, more effective use of targeted ads across additional social media platforms, and coordinating digital engagement with traditional engagement methods like in-person consultations. These can all serve to further close the gap between the public's voice and collective action on the issues that matter most to local residents.</p>`,
 				cta: {
 					label: 'Explore the tool',
-					href: 'https://lovekitsilano.ca/',
+					href: 'https://lovecooksville.ca/',
 					target: '_blank'
 				}
 			}
@@ -141,8 +143,8 @@ export const sections = [
 			{
 				panelId: 'polis',
 				eyebrow: 'Appendix',
-				heading: 'What has Kitsilano been saying about Kitsilano?',
-				body: `<p>Digital Public Square utilized an open source tool called pol.is, allowing for quick analysis of how people have been talking about development in Kitsilano. Check out what people have been talking about:</p>`
+				heading: 'What has Cooksville been saying about Cooksville?',
+				body: `<p>Digital Public Square utilized an open source tool called pol.is, allowing for quick analysis of how people have been talking about development in Cooksville. Check out what people have been talking about:</p>`
 			}
 		]
 	}

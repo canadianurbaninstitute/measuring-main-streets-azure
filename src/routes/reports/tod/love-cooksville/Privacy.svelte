@@ -4,13 +4,13 @@
 	let { visible } = $props();
 
 	const data = [
-		{ activity: 'Leisure', densification: 47.8, individuality: 52.3 },
-		{ activity: 'Accessibility', densification: 45, individuality: 55 },
-		{ activity: 'Neighbours', densification: 31.5, individuality: 68.5 },
-		{ activity: 'Home size', densification: 76.4, individuality: 23.6 },
-		{ activity: 'Shopping', densification: 83.3, individuality: 16.7 },
-		{ activity: 'Road usage', densification: 83.2, individuality: 16.8 },
-		{ activity: 'Road space', densification: 63.2, individuality: 36.8 }
+		{ activity: 'Leisure', densification: 36.3, individuality: 63.7 },
+		{ activity: 'Accessibility', densification: 45.9, individuality: 54.1 },
+		{ activity: 'Neighbours', densification: 64.9, individuality: 35.1 },
+		{ activity: 'Home size', densification: 63.0, individuality: 37.0 },
+		{ activity: 'Shopping', densification: 59.3, individuality: 40.1 },
+		{ activity: 'Road usage', densification: 74.5, individuality: 25.5 },
+		{ activity: 'Road space', densification: 52.8, individuality: 47.3 }
 	];
 
 	const seriesConfig = [
