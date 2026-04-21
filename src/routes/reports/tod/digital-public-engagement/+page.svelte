@@ -15,69 +15,31 @@
 	import { sections } from './article.js';
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
-	import everyone from '../../assets/dps-heart.png';
 	import cooksville from '../../assets/dps-cooksville.png';
+	import northfield from '../../assets/dps-northfield.png';
+	import kitsilano from '../../assets/dps-kitsilano.png';
 	import welcome from '../../assets/dps-welcome.png';
-	import Safety from './Safety.svelte';
-	import Polis from './Polis.svelte';
-	import Privacy from './Privacy.svelte';
-	import QuoteChart from './QuoteChart.svelte';
-	import QuoteGroup from '../../components/QuoteGroup.svelte';
+	import header from '../../assets/dps-header.png';
+	import PersonaResearch from './PersonaResearch.svelte';
+	import SocialMedia from './SocialMedia.svelte';
+	import Design from './Design.svelte';
 
 	const visConfig = {
 		welcome: {
 			type: 'image',
 			src: welcome
 		},
-		cooksville: {
-			type: 'image',
-			src: cooksville,
-			alt: 'Graphic of 3 people in front of a sign that says "Cooksville"'
-		},
-		'engagement-summary': {
+		persona: {
 			type: 'component',
-			component: QuoteChart
+			component: PersonaResearch
 		},
-		safety: {
+		creatingpersonas: {
 			type: 'component',
-			component: Safety
+			component: SocialMedia
 		},
-		cleanliness: {
+		design: {
 			type: 'component',
-			component: QuoteGroup,
-			props: {
-				columns: 1,
-				quotes: [
-					{
-						text: 'Clean up all the old small businesses in Dundas near Hurontario. Dirty riff raff and is it promoting a safe neighborhood?',
-						colorFam: 'blue'
-					},
-					{
-						text: 'Make it more neighbourhood friendly',
-						colorFam: 'green'
-					},
-					{
-						text: 'A cohesive neighborhood, everything easy to get to. More green spaces, interesting stores not so many cannabis and vape places.',
-						colorFam: 'pink'
-					},
-					{
-						text: 'The homeless population in cooksville is a deterrent to having people shop and walk around.',
-						colorFam: 'orange'
-					}
-				]
-			}
-		},
-		privacy: {
-			type: 'component',
-			component: Privacy
-		},
-		everyone: {
-			type: 'image',
-			src: everyone
-		},
-		polis: {
-			type: 'component',
-			component: Polis
+			component: Design
 		}
 	};
 
@@ -204,9 +166,9 @@
 	<ReportHeader
 		id="report-header"
 		subEyebrow="A Love Your Neighbourhood Report"
-		title="COOKSVILLE"
-		subtitle="Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas"
-		backgroundImage={cooksville}
+		title="DIGITAL PUBLIC ENGAGEMENT"
+		subtitle="Exploring the potential of digital initiatives for public engagement"
+		backgroundImage={header}
 		customLogos={[
 			{ src: dps, alt: 'DPS Logo', width: '120' },
 			{ src: cui, alt: 'CUI Logo', width: '200' }
@@ -215,18 +177,17 @@
 
 	<ReportFindings
 		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="Safety Issues"
-		description1="Respondents from Cooksville feel notably less safe and welcome than the other two neighbourhoods."
-		link1="#safety"
-		finding2="Cleanliness is a priority"
-		description2="Safety, cleanliness, and aesthetics were all tightly linked in how
-				residents evaluated their neighbourhood and were widely agreed upon."
-		link2="#cleanliness"
-		finding3="Development, but only if it helps"
-		description3="Sentiments towards the benefits of densification were mixed both in
-				the qualitative and quantitative insights."
-		link3="#privacy"
+		title="About Digital Public Square"
+		finding1="Digital Engagement is a new frontier"
+		description1="of understanding and educating residents about community development."
+		link1="https://digitalpublicsquare.org/"
+		newTab1={true}
+		finding2="Persona Research and Natural Language Processing"
+		description2="were used to design a tool residents could engage with to learn about transit-oriented development and complete communities"
+		link2="#persona"
+		finding3="Tool design"
+		description3="With this tool, residents were able to be educated about the benefits and tradeoffs of transit-oriented development in their area."
+		link3="#design"
 	/>
 
 	{#snippet renderPanel(uid, isVisible, id)}
@@ -336,6 +297,22 @@
 			</div>
 		{/if}
 	{/each}
+	<ReportFindings
+		id="report-findings"
+		title="See what communities have been talking about"
+		finding1="Cooksville"
+		image1={cooksville}
+		link1="/reports/tod/love-cooksville"
+		newTab1={true}
+		finding2="Northfield"
+		image2={northfield}
+		link2="/reports/tod/love-northfield"
+		newTab2={true}
+		finding3="Kitsilano"
+		image3={kitsilano}
+		link3="/reports/tod/love-kitsilano"
+		newTab3={true}
+	/>
 </main>
 
 <style>
