@@ -28,24 +28,6 @@
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import introImage from '../../../lib/assets/screenshots/cc.png';
 
-	const BASE_URL = 'https://measuringmainstreets.blob.core.windows.net/public/reports/complete/';
-
-	let reportData = $state({
-		coreAmenitiesList: [],
-		additionalAmenitiesList: [],
-		coreAccessByPop: [],
-		additionalAccessByPop: [],
-		missingAmenitiesCore: [],
-		civicInfrastructureDensity: [],
-		stationsAmenityStatus: null,
-		librariesMap: null,
-		communityCentresMap: null,
-		futureEmployeesAll: [],
-		futureEmployeesExample: [],
-		futureEmployeesExampleAmenities: []
-	});
-
-	let isLoading = $state(true);
 	let activeIndex = $state(0);
 
 	onMount(async () => {
