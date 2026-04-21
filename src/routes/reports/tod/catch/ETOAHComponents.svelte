@@ -5,7 +5,7 @@
 <div class="infra-card">
 	<div class="infra-section public">
 		<div class="infra-label">
-			<Icon icon="mdi:toolbox" class="icon" />
+			<span class="text-lg"><Icon icon="mdi:toolbox" class="icon" /></span>
 			<span>A National Inventory of Tools and Best Practices</span>
 		</div>
 		<div class="infra-meta">
@@ -21,7 +21,7 @@
 
 	<div class="infra-section local">
 		<div class="infra-label">
-			<Icon icon="mdi:account-group" class="icon" />
+			<span class="text-lg"><Icon icon="mdi:account-group" class="icon" /></span>
 			<span>Structured Support for Local Collaboratives</span>
 		</div>
 		<div class="infra-meta">
@@ -32,7 +32,7 @@
 
 	<div class="infra-section coop">
 		<div class="infra-label">
-			<Icon icon="mdi:home" class="icon" />
+			<span class="text-lg"><Icon icon="mdi:home" class="icon" /></span>
 			<span>Blended Capital Funds for Community Housing</span>
 		</div>
 		<div class="infra-meta">

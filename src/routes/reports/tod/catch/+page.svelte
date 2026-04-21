@@ -228,7 +228,18 @@
 		finding3="Canada’s housing crisis"
 		description3="is a mosaic of local shortages that demands coordinated, place-based solutions."
 	/>
-
+	<div class="center mt-12">
+		<iframe
+			width="840"
+			height="473"
+			src="https://www.youtube.com/embed/-TLSM14PnTQ?si=Lf4ROdgCjBfmE4j3"
+			title="YouTube video player"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin"
+			allowfullscreen
+		></iframe>
+	</div>
 	{#snippet renderPanel(uid, isVisible, id)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{#if panel}
@@ -336,15 +347,7 @@
 			</div>
 		{/if}
 	{/each}
-	<div class="center">
-		<iframe
-			width="1250"
-			height="700"
-			title="Transit Without Displacement | CATCH"
-			src="https://drive.google.com/file/d/1hWSsfO6U0Qvi86UwUD7UIc9ePB-BIqSh/preview"
-		>
-		</iframe>
-	</div>
+
 	<div class="inline-article text-center uppercase font-light text-lg" id="contact">
 		Learn more about CATCH and access the ETOAH toolkit:
 		<div class="inline-cta">
