@@ -12,7 +12,10 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
+	import AmenityNeeds from './charts/AmenityNeeds.svelte';
 	import CivicInfrastructure from './charts/CivicInfrastructure.svelte';
+	import DevelopmentPotential from './charts/DevelopmentPotential.svelte';
+	import FutureStations from './charts/FutureStations.svelte';
 	import LibraryMap from './charts/LibraryMap.svelte';
 	import MissingAmenities from './charts/MissingAmenities.svelte';
 
@@ -94,19 +97,19 @@
 		'library-map': {
 			type: 'component',
 			component: LibraryMap
+		},
+		'future-stations': {
+			type: 'component',
+			component: FutureStations
+		},
+		'development-potential': {
+			type: 'component',
+			component: DevelopmentPotential
+		},
+		'amenity-needs-summary': {
+			type: 'component',
+			component: AmenityNeeds
 		}
-		// 'future-stations': {
-		// 	type: 'component',
-		// 	component: FutureStations
-		// },
-		// 'development-potential': {
-		// 	type: 'component',
-		// 	component: DevelopmentPotential
-		// },
-		// 'amenity-needs-summary': {
-		// 	type: 'component',
-		// 	component: AmenityNeeds
-		// }
 	});
 
 	/**

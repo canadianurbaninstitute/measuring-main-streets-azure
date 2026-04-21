@@ -7,13 +7,6 @@
 	} from '../../../../lib/data/transitdata/complete-communities-config';
 
 	let { visible } = $props();
-
-	// Helper to get color for an amenity
-	function getAmenityColor(name, tier) {
-		const list = tier === 1 ? TIER_1_AMENITIES : TIER_2_AMENITIES;
-		const found = list.find((a) => a.label === name);
-		return found ? found.color : '#94a3b8';
-	}
 </script>
 
 <div class="amenity-tiers {visible ? 'visible' : ''}">
@@ -23,7 +16,7 @@
 				<Icon icon="mdi:store" />
 			</div>
 			<div>
-				<h3>Core Amenities</h3>
+				<h4>Core Amenities</h4>
 				<!-- <p>Essential services for daily needs within an 800m walk.</p> -->
 			</div>
 		</div>
@@ -45,7 +38,7 @@
 				<Icon icon="mdi:storefront" />
 			</div>
 			<div>
-				<h3>Additional Amenities</h3>
+				<h4>Additional Amenities</h4>
 				<!-- <p>Supportive services that enhance community livability.</p> -->
 			</div>
 		</div>

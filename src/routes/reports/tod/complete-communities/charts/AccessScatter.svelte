@@ -105,7 +105,6 @@
 			xKey="x"
 			yKey="y"
 			zKey="group"
-			title="{tier} Amenity Access vs Population"
 			xLabel="Population (relative to regional median)"
 			yLabel="Amenity Access (relative to regional median)"
 			showQuadrants={true}

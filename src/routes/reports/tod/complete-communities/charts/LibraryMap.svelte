@@ -1,4 +1,5 @@
 <script>
+	import Icon from '@iconify/svelte';
 	import mapboxgl from 'mapbox-gl';
 	import 'mapbox-gl/dist/mapbox-gl.css';
 	import { onMount } from 'svelte';
@@ -13,7 +14,7 @@
 	let mapContainer;
 
 	const regions = [
-		{ name: 'Greater Golden Horseshoe', center: [-79.3832, 43.6532], zoom: 9 },
+		{ name: 'Greater Golden Horseshoe', center: [-79.3832, 43.6532], zoom: 10 },
 		{ name: 'Montreal', center: [-73.5673, 45.5017], zoom: 10 },
 		{ name: 'Vancouver', center: [-123.1207, 49.2827], zoom: 10 },
 		{ name: 'Calgary', center: [-114.0719, 51.0447], zoom: 10 },
@@ -61,7 +62,7 @@
 				offset: 15
 			});
 
-			const stationLayers = ['core-access-by-pop-map-5dguw5'];
+			const stationLayers = ['map-stations-with-amenity-sta-4hoz3b'];
 
 			stationLayers.forEach((layer) => {
 				if (!map.getLayer(layer)) return;
@@ -82,7 +83,7 @@
 
 						// Try different property names commonly found in your datasets
 						const name = props.stop_label || props.name || props.Station || 'Unknown Station';
-						const score = props.overall_score || props.score || props.access_score || 'N/A';
+						const score = props.lib_cc_status || props.score || props.access_score || 'N/A';
 
 						const content = `
 							<div class="popup-inner">
@@ -114,11 +115,20 @@
 	</div>
 	<div bind:this={mapContainer} class="map-container"></div>
 	<div class="legend">
-		<div class="legend-title">Core Amenity Availability vs Population</div>
-		<div class="legend-item"><span class="dot high-high"></span>High access, High population</div>
-		<div class="legend-item"><span class="dot high-low"></span>High access, Low population</div>
-		<div class="legend-item"><span class="dot low-high"></span>Low access, High population</div>
-		<div class="legend-item"><span class="dot low-low"></span>Low access, Low population</div>
+		<!-- <div class="legend-title">Core Amenity Availability vs Population</div> -->
+		<div class="legend-item"><span class="dot both"></span>Both library and community center</div>
+		<div class="legend-item"><span class="dot one"></span>Either library or community center</div>
+		<div class="legend-item">
+			<span class="dot none"></span>Neither library nor community center
+		</div>
+		<div class="legend-item">
+			<Icon icon="mdi:library" width="12" height="12" color="#8a4285" />
+			Library
+		</div>
+		<div class="legend-item">
+			<Icon icon="mdi:account-group" width="12" height="12" color="#23c9ff" />
+			Community Center
+		</div>
 	</div>
 </div>
 
@@ -216,14 +226,14 @@
 		border-radius: 2px;
 	}
 
-	.swatch.both {
-		background: #10b981;
+	.dot.both {
+		background: #58e965;
 	}
-	.swatch.one {
-		background: #3b82f6;
+	.dot.one {
+		background: #f1c500;
 	}
-	.swatch.none {
-		background: #ef4444;
+	.dot.none {
+		background: #db3069;
 	}
 
 	.dot {

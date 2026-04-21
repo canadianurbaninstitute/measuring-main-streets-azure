@@ -1,6 +1,6 @@
 export const TIER_1_AMENITIES = [
 	{ label: 'Childcare', color: '#f13737' },
-	{ label: 'Community Centres', color: '#43b171' },
+	{ label: 'Community Centres', color: '#23c9ff' },
 	{ label: 'Convenience Store', color: '#db3069' },
 	{ label: 'Libraries', color: '#8a4285' },
 	{
@@ -13,7 +13,7 @@ export const TIER_1_AMENITIES = [
 		label: 'Primary and Secondary Schools',
 		color: '#58e965'
 	},
-	{ label: 'Supermarket', color: '#23c9ff' }
+	{ label: 'Supermarket', color: '#43B171' }
 ];
 
 export const TIER_2_AMENITIES = [

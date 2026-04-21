@@ -1,7 +1,20 @@
 <script>
-	import BarChart from '../../../../lib/ui/charts/BarChart.svelte';
+	import { onMount } from 'svelte';
 
-	let { visible, data = [] } = $props();
+	let { visible } = $props();
+	let data = $state([]);
+
+	onMount(async () => {
+		let url =
+			'https://measuringmainstreets.blob.core.windows.net/public/reports/complete/future_employees_needed_all.json';
+		try {
+			const response = await fetch(url);
+
+			data = await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	});
 
 	const processedData = $derived(
 		data
@@ -15,16 +28,31 @@
 	);
 </script>
 
-<BarChart
-	data={processedData}
-	xKey="perStation"
-	yKey="region"
-	title="Core Service Jobs Needed per Future Station"
-	xLabel="Average Service Jobs per Station Area"
-	formatLabelX={(d) => d.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-	showTooltip={true}
-	{visible}
-	minHeight="400px"
-	height="500px"
-	barColor="#f97316"
-/>
+<div class="overflow-x-auto">
+	<table class="w-full text-sm text-left whitespace-nowrap">
+		<thead class="text-zinc-500 border-b bg-zinc-50">
+			<tr>
+				<th class="py-2 px-2">Region</th>
+				<th class="py-2 px-2">Future Stations</th>
+				<th class="py-2 px-2 text-right">Total Employees Needed</th>
+				<th class="py-2 px-2 text-right">Core Amenity Employees per Station</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each processedData as row}
+				<tr class="border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
+					<td class="py-2 px-2 font-medium">{row?.region}</td>
+					<td class="py-2 px-2 text-right">{row?.stations}</td>
+					<td class="py-2 px-2 text-right">{row?.needed.toFixed(0).toLocaleString()}</td>
+					<td class="py-2 px-2 text-right">{row?.perStation.toFixed(0).toLocaleString()}</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+</div>
+
+<style>
+	th {
+		white-space: wrap;
+	}
+</style>

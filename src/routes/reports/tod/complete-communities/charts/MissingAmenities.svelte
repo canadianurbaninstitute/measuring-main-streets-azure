@@ -1,12 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
-	import { TIER_1_AMENITIES } from '../../../../lib/data/transitdata/complete-communities-config';
 	import StackedBar from '../../../../lib/ui/charts/StackedBar.svelte';
 
 	let { visible } = $props();
 	let data = $state([]);
-
-	const civicAmenities = ['Libraries', 'Community Centres'];
 
 	onMount(async () => {
 		let url =
@@ -36,8 +33,6 @@
 			})
 			.sort((a, b) => b.Absent - a.Absent);
 	});
-
-	console.log($inspect(data));
 
 	const seriesConfig = [
 		{ key: 'Absent', label: 'Absent in TSA', color: '#00adf2' },

@@ -13,9 +13,9 @@
 	let mapContainer;
 
 	const regions = [
-		{ name: 'Greater Golden Horseshoe', center: [-79.3832, 43.6532], zoom: 9 },
+		{ name: 'Greater Golden Horseshoe', center: [-79.3832, 43.6532], zoom: 10 },
 		{ name: 'Montreal', center: [-73.5673, 45.5017], zoom: 10 },
-		{ name: 'Vancouver', center: [-123.1207, 49.2827], zoom: 10 },
+		{ name: 'Greater Vancouver/Lower Mainland', center: [-123.1207, 49.2827], zoom: 10 },
 		{ name: 'Calgary', center: [-114.0719, 51.0447], zoom: 10 },
 		{ name: 'Edmonton', center: [-113.4909, 53.5461], zoom: 10 },
 		{ name: 'Ottawa-Gatineau', center: [-75.6972, 45.4215], zoom: 10 }
@@ -51,11 +51,9 @@
 		});
 
 		map.on('load', () => {
-			map.setPaintProperty('map-libraries-7supfh', 'circle-opacity', 0);
-			map.setPaintProperty('map-libraries-7supfh', 'circle-stroke-opacity', 0);
-			map.setPaintProperty('map-community-centres-2h0bby', 'circle-opacity', 0);
-			map.setPaintProperty('map-community-centres-2h0bby', 'circle-stroke-opacity', 0);
 			map.setPaintProperty('map-stations-with-amenity-sta-4hoz3b', 'fill-opacity', 0);
+			map.setPaintProperty('map-libraries-7supfh', 'icon-opacity', 0);
+			map.setPaintProperty('map-community-centres-2h0bby', 'icon-opacity', 0);
 
 			const popup = new mapboxgl.Popup({
 				closeButton: false,

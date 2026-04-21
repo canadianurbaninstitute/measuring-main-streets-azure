@@ -17,8 +17,6 @@
 		}
 	});
 
-	console.log($inspect(data));
-
 	const processedData = $derived.by(() => {
 		const statuses = ['Neither', 'One', 'Both'];
 		return statuses.map((status) => {
@@ -47,7 +45,6 @@
 	data={processedData}
 	{seriesConfig}
 	yKey="status"
-	title="Library & Community Centre Status comparison by Region"
 	minHeight="500px"
 	{visible}
 	xTicks={6}

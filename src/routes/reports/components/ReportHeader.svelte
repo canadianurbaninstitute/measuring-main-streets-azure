@@ -107,8 +107,8 @@
 		position: relative;
 		min-height: 100svh;
 		display: flex;
-		align-items: center; /* vertical center */
-		justify-content: center; /* horizontal center */
+		align-items: center;
+		justify-content: center;
 		padding: 4rem clamp(1.5rem, 6vw, 6rem);
 		background-color: white;
 		overflow: hidden;
@@ -129,7 +129,7 @@
 		position: relative;
 		z-index: 1;
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
 		height: 100%;
 		justify-content: center;
 		gap: clamp(1rem, 3vw, 2rem);
@@ -145,8 +145,9 @@
 		max-width: 1000px;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: center;
 		min-height: 40vh;
+		height: 100%;
 	}
 	.logo-row {
 		display: flex;
@@ -175,7 +176,6 @@
 	.description {
 		display: flex;
 		flex-direction: column;
-		align-items: left;
 		width: 100%;
 		max-width: 400px;
 	}

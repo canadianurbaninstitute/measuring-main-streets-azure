@@ -30,7 +30,7 @@
 export const sections = [
 	{
 		layout: 'inline',
-		panels: [{ id: 'amenity-tiers' }],
+		panels: [{ id: 'amenity-tiers', label: 'Figure 1 — List of core and additional amenities' }],
 		blocks: [
 			{
 				heading: 'Identifying Community Amenities',
@@ -49,7 +49,6 @@ export const sections = [
 			{
 				id: 'access-scatter',
 				label: 'Figure 2 — Core Amenity Access vs Population Density',
-				source: 'Canadian Urban Institute, 2024'
       },
       {id: 'amenity-map'}
 		],
@@ -80,7 +79,8 @@ export const sections = [
     layout: 'inline',
     panels: [
       {
-        id: 'amenity-map',
+				id: 'amenity-map',
+				label: 'Figure 3 — Amenity Access vs Population Density by Transit Region'
       }
     ],
     blocks: [
@@ -93,7 +93,7 @@ export const sections = [
 		panels: [
 			{
 				id: 'access-scatter-additional',
-				label: 'Figure 3 — Additional Amenity Access vs Population Density'
+				label: 'Figure 4 — Additional Amenity Access vs Population Density'
 			}
 		],
 		blocks: [
@@ -107,7 +107,7 @@ export const sections = [
 		panels: [
 			{
 				id: 'missing-infrastructure',
-				label: 'Core Amenity Status is TSAs by Type'
+				label: 'Figure 5 — Core Amenity Status in TSAs by Type'
 			}
 		],
 		blocks: [
@@ -122,7 +122,7 @@ export const sections = [
 		panels: [
 			{
 				id: 'civic-infrastructure',
-				label: 'Library and Community Center Status compared to TSA Population'
+				label: 'Figure 6 — Library and Community Center Status compared to TSA Population'
 			}
 		],
 		blocks: [
@@ -136,6 +136,7 @@ export const sections = [
 		panels: [
 			{
 				id: 'library-map',
+				label: 'Figure 7 — Library and Community Center Status by Transit Station Area'
 			}
 		],
 		blocks: [
@@ -146,15 +147,17 @@ export const sections = [
 		]
 	},
 	{
+		layout: 'inline',
 		panels: [
 			{
 				id: 'future-stations',
-				label: 'Figure 7 — Future Transit Stations Amenity Needs'
+				label:  'Figure 8 — Future Development Potential by Transit Station Area'
 			}
 		],
 		blocks: [
 			{
-				heading: 'Future Growth and Planning',
+				panelId: 'future-stations',
+				heading: 'How can Transit Agencies and Municipalities do this going forward?',
 				body: `<p>Transit Oriented Development can be the great equalizer against transport inequality by giving a larger number of residents access to fast and reliable dedicated transit. Intensification around existing transit station is already happening and will continue with 277 future higher-order transit stations being planned or under construction making these regions more connected than ever before. However, if our land use policies around these transit stations do not change, transit station areas will get busier, but not better.</p>`
 			},
 			{
@@ -163,29 +166,31 @@ export const sections = [
 		]
 	},
 	{
+		layout: 'inline',
 		panels: [
 			{
 				id: 'development-potential',
-				label: 'Figure 8 — Development Potential Case Studies'
-			}
-		],
-		blocks: [
-			{
-				heading: 'Realizing Development Potential',
-				body: `<p>Of course the demands of growth will not be same everywhere, but stations, existing and planned, that fill a unique set of characteristics where intensification around stations can make the most impact should be focused on. Using the <a href="/reports/tod/intro">Canadian Urban Institute development potential index</a>, we look at five stations that have been identified as excellent candidates for future development based on their local growth pressures and land availability.</p>`
-			}
-		]
-	},
-	{
-		panels: [
+label: 'Figure 9 — Future Development Potential Case Studies'
+			},
 			{
 				id: 'amenity-needs-summary',
-				label: 'Figure 9 — Overall Investment Needed by Amenity Type'
+				label: 'Figure 10 — Overall Employee Needs by Amenity Type'
 			}
 		],
 		blocks: [
 			{
-				heading: 'Priority Amenity Investments',
+				panelId: 'development-potential',
+				body: `<p>Of course the demands of growth will not be same everywhere, but stations, existing and planned, that fill a unique set of characteristics where intensification around stations can make the most impact should be focused on. Using the <a href="/tools/development-potential">Canadian Urban Institute development potential index</a>, we look at five stations that have been identified as excellent candidates for future development based on their local growth pressures and land availability:</p>
+				<ul>
+				<li>Mount Pleast GO (Greater Golden Horseshoe)</li>
+<li>Chinook (Calgary)</li>
+<li>Tunneys Pasture (Ottawa)</li>
+<li>Willowbrook (Greater Vancounver / Lower Mainland)</li>
+<li>NAIT Blatchford Market (Edmonton)</li></ul><br/>
+<p>Using the <a href="/tools/complete-community">Complete Community Tool</a>, we took the current outlook of access and added an additional 10,000 residents to each TSA to gauge a hypothetical scenario of residential intensification. While the count of core employees needed varied investment was needed across all station areas. Tunney’s Pasture and Chinook were the best performing as Tunney’s Pastures had all core amenities except for a Community Centre, while for Chinook investments in Childcare and Grocery Stores, as well as a new Library would create the greatest impact. Willowbrook had 6 of 9 core amenities, missing a Physicians Office, Community Centre and Library, with needed investment in Childcare, and Schools. Mount Pleasant GO and NAIT Blatchford Market were the worst performing needing between 338 - 795 and 631 - 1256 core amenity employees respectfully. For Mount Pleasant 8 of 9 amenities (except for a Library) would be significantly below the regional median, and 9 of 9 would be below for NAIT Blatchford Market with the biggest needs in Libraries, Schools, Banking, Physicians Offices and Grocery Stores.</p>
+`},  
+			{
+				panelId: 'amenity-needs-summary',
 				body: `<p>On an amenity basis the three core amenities where the most investment would be needed across all stations would be Libraries, Primary and Secondary Schools, and Grocery Stores.</p>`
 			}
 		]
@@ -199,16 +204,13 @@ export const sections = [
 				body: `<p>In conclusion, Canada’s largest regions face a number of challenges related to housing and affordability. The combination of higher ordered transit investment in combination with residential intensification can address these challenges by increasing supply while lower transportation costs through the promotion of public and active transportation. However, if these places do not have the core amenities people utilize on a daily basis, we will reinforce old patterns of separated land uses and reliance of other modes of transport increase costs and transit inequality. It is why an overall shift from Transit Oriented Development to Transit Oriented Complete Communities is vital fully realize the economic, environmental and equity benefits of these new communities.</p>`
 			},
 			{
-				heading: 'Coordinated Planning',
-				body: `<p>Long before a transit station is being constructed, coordination between the agency responsible for the transit infrastructure, often the provincial government, and municipal planning staff is vital. This coordination is relevant in two stages. First is land acquisition which should be done as early as possible to keep land speculation low. Additional tools should be given to municipalities to acquire land in TSAs for the purpose of housing and community infrastructure such as bigger civic amenities such as libraries, community centers, grocery stores, etc. In suburban stations, underutilized areas such as underdeveloped or station parking lots should also be a point of intensification within the TSA. Secondly, is a coordinated zoning strategy to make sure enough land is left for core and additional amenities to match future residential population.</p>`
+				body: `<h3>Coordinated Planning</h3><br/><p>Long before a transit station is being constructed, coordination between the agency responsible for the transit infrastructure, often the provincial government, and municipal planning staff is vital. This coordination is relevant in two stages. First is land acquisition which should be done as early as possible to keep land speculation low. Additional tools should be given to municipalities to acquire land in TSAs for the purpose of housing and community infrastructure such as bigger civic amenities such as libraries, community centers, grocery stores, etc. In suburban stations, underutilized areas such as underdeveloped or station parking lots should also be a point of intensification within the TSA. Secondly, is a coordinated zoning strategy to make sure enough land is left for core and additional amenities to match future residential population.</p>`
 			},
 			{
-				heading: 'Establishing Good First-Last Mile Connections',
-				body: `<p>Complete Communities around Transit Station Areas will not be achieved if the first-last mile connection to these amenities are not safe and/or pleasant for active mode of transport and for residents of all ages and ability. What can be is dependant of the exisiting built environment, however elements such as sidewalk widths and quality, street furniture, accessibility infrastructure and more can improve these connections. <a href="/reports/tod/walkability">Explore our walkability report for more information</a>.</p>`
+				body: `<h3>Establishing Good First-Last Mile Connections</h3><br/><p>Complete Communities around Transit Station Areas will not be achieved if the first-last mile connection to these amenities are not safe and/or pleasant for active mode of transport and for residents of all ages and ability. What can be is dependant of the exisiting built environment, however elements such as sidewalk widths and quality, street furniture, accessibility infrastructure and more can improve these connections. <a href="/reports/tod/walkability">Explore our walkability report for more information</a>.</p>`
 			},
 			{
-				heading: 'Proper Communication of Complete Community Benefits',
-				body: `<p>For existing stations NIMBYism can be the driving force against new infrastructure and residential intensification. This study showed that greater population densities lead to better access to core and additional amenities within the Transit Station Area. With this in mind the benefits of density should be properly communicated to existing and new residents throughout the planning and public engagement process, with the discourse being more focused around what residents can look forward to with Transit Oriented Complete Communities rather than debating whether the development should take place at all.</p>`
+				body: `<h3>Proper Communication of Complete Community Benefits</h3><br/><p>For existing stations NIMBYism can be the driving force against new infrastructure and residential intensification. This study showed that greater population densities lead to better access to core and additional amenities within the Transit Station Area. With this in mind the benefits of density should be properly communicated to existing and new residents throughout the planning and public engagement process, with the discourse being more focused around what residents can look forward to with Transit Oriented Complete Communities rather than debating whether the development should take place at all.</p>`
 			}
 		]
 	}
