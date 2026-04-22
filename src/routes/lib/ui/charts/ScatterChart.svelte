@@ -21,9 +21,9 @@
 	const computedHeight = $derived(innerWidth < 768 ? '100%' : props.height || '500px');
 	const computedShowLegend = $derived(innerHeight < 900 ? false : (props.showLegend ?? true));
 	const computedPadding = $derived(
-		innerWidth < 768 
-			? { ...(props.padding || {}), left: Math.min((props.padding?.left || 35), 45) } 
-			: (props.padding || { top: 10, right: 10, bottom: 20, left: 35 })
+		innerWidth < 768
+			? { ...(props.padding || {}), left: Math.min(props.padding?.left || 35, 45) }
+			: props.padding || { top: 10, right: 10, bottom: 20, left: 35 }
 	);
 
 	const seriesNames = $derived((props.seriesConfig || []).map((d) => d.key));
@@ -43,10 +43,14 @@
 	const useZScale = $derived(props.zKey && seriesNames.length > 0);
 
 	const computedXScale = $derived(
-		typeof (props.xScale || scaleLinear).copy === 'function' ? (props.xScale || scaleLinear) : (props.xScale || scaleLinear)()
+		typeof (props.xScale || scaleLinear).copy === 'function'
+			? props.xScale || scaleLinear
+			: (props.xScale || scaleLinear)()
 	);
 	const computedYScale = $derived(
-		typeof (props.yScale || scaleLinear).copy === 'function' ? (props.yScale || scaleLinear) : (props.yScale || scaleLinear)()
+		typeof (props.yScale || scaleLinear).copy === 'function'
+			? props.yScale || scaleLinear
+			: (props.yScale || scaleLinear)()
 	);
 </script>
 
@@ -92,10 +96,10 @@
 						ticks={props.yTicks}
 					/>
 					{#if props.showQuadrants}
-						<Quadrants 
-							xMid={props.quadrantConfig?.xMid} 
-							yMid={props.quadrantConfig?.yMid} 
-							labels={props.quadrantConfig?.labels} 
+						<Quadrants
+							xMid={props.quadrantConfig?.xMid}
+							yMid={props.quadrantConfig?.yMid}
+							labels={props.quadrantConfig?.labels}
 							colors={props.quadrantConfig?.colors}
 							stroke={props.quadrantConfig?.stroke}
 							strokeDasharray={props.quadrantConfig?.strokeDasharray}

@@ -19,7 +19,7 @@
 
 	onMount(async () => {
 		let url =
-			'https://measuringmainstreets.blob.core.windows.net/public/reports/development/station_quadrants.csv';
+			'https://measuringmainstreets.blob.core.windows.net/public/reports/development/tech_scatter.csv';
 		try {
 			const response = await fetch(url);
 			const text = await response.text();
@@ -30,32 +30,30 @@
 	});
 
 	const processedData = $derived(
-		initialData.map((d) => ({
+		initialData.map((d, i) => ({
 			...d,
+			id: `${d.id}_${d.technology}_${i}`,
 			x: d.LandAvailability,
 			y: d.GrowthPressure,
 			label: d.stop_label,
-			group: d.region
+			group: d.technology
 		}))
 	);
 
-	console.log($inspect(processedData));
-	const colors = [
-		'#000000',
-		'#002940',
-		'#2a5cac',
-		'#43b171',
-		'#f13737',
-		'#f45d01',
-		'#8a4285',
-		'#deb500'
-	];
+	// $effect(() => {
+	// 	console.log('Tech scatter:', processedData);
+	// });
 
-	const regions = $derived(['All', ...new Set(initialData.map((d) => d.region))]);
+	const colors = ['#000000', '#2a5cac', '#f1c500', '#43b171'];
+
+	const regions = $derived(['All', ...new Set(initialData.map((d) => d.technology))]);
+
+	const xMedian = $derived(median(processedData, (d) => d.x));
+	const yMedian = $derived(median(processedData, (d) => d.y));
 
 	const xDomainFixed = $derived.by(() => {
 		if (initialData.length === 0) return [0, 1];
-		return [0, Math.max(...initialData.map((d) => d.LandAvailability)) * 1.05];
+		return [0, xMedian * 2];
 	});
 	const yDomainFixed = $derived.by(() => {
 		if (initialData.length === 0) return [0, 1];
@@ -69,9 +67,6 @@
 			color: colors[i % colors.length]
 		}))
 	);
-
-	const xMedian = $derived(median(processedData, (d) => d.x));
-	const yMedian = $derived(median(processedData, (d) => d.y));
 
 	const quadrantConfig = $derived({
 		xMid: xMedian,
@@ -90,7 +85,7 @@
 	<div class="controls">
 		<div class="filter-wrap">
 			<Icon icon="mdi:filter-variant" />
-			<span class="label">Region:</span>
+			<span class="label">Technology:</span>
 			<select
 				bind:value={selectedRegion}
 				onchange={() => {
@@ -120,7 +115,7 @@
 			idKey="id"
 			titleKey="label"
 			filterRegion={selectedRegion}
-			regionKey="region"
+			regionKey="technology"
 			tooltipRows={[
 				{ key: 'LAQuadrant', label: 'Land Availability' },
 				{ key: 'GPQuadrant', label: 'Growth Pressure' },

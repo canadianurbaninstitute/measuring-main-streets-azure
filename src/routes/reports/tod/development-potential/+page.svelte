@@ -20,6 +20,7 @@
 	import HeaderImage from './assets/HeaderImage.png';
 	import stncomp from './assets/stncomp.png';
 	import PotentialScatter from './charts/PotentialScatter.svelte';
+	import TechScatter from './charts/TechScatter.svelte';
 
 	const visConfig = {
 		intro: {
@@ -43,8 +44,15 @@
 		'potential-map': {
 			type: 'component',
 			component: PotentialMap
+		},
+		'tech-scatter': {
+			type: 'component',
+			component: TechScatter
 		}
 	};
+
+	let innerWidth = $state(0);
+	let isMobile = $derived(innerWidth > 0 && innerWidth < 1024);
 
 	let activeIndex = $state(0);
 
@@ -228,13 +236,23 @@
 			</Scroller>
 		{:else if group.layout === 'overlay'}
 			<div class="page-layout-overlay">
-				<div class="map-background">
-					<VisContainer>
-						{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
-							{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
-						{/each}
-					</VisContainer>
-				</div>
+				{#if !isMobile}
+					<div class="map-background">
+						<VisContainer>
+							{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
+								{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+							{/each}
+						</VisContainer>
+					</div>
+				{:else if isMobile}
+					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
+						<VisContainer>
+							{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
+								{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+							{/each}
+						</VisContainer>
+					</div>
+				{/if}
 				<div class="content-foreground">
 					{#each group.sections as section}
 						<div class="scrolly-section overlay" id="section-{section.si}">
@@ -462,5 +480,14 @@
 			height: auto;
 			min-height: 400px;
 		}
+	}
+	:global(.scroll-section a) {
+		color: #fff;
+	}
+	:global(.scroll-section a:hover) {
+		color: var(--brandLightBlue);
+	}
+	:global(.scroll-section h4) {
+		color: #b4eaff;
 	}
 </style>

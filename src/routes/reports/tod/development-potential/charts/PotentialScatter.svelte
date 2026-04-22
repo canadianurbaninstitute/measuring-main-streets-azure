@@ -13,8 +13,8 @@
 		if (region) {
 			selectedRegion = region;
 		} else {
-            selectedRegion = 'All';
-        }
+			selectedRegion = 'All';
+		}
 	});
 
 	onMount(async () => {
@@ -39,7 +39,10 @@
 		}))
 	);
 
-	console.log($inspect(processedData));
+	// $effect(() => {
+	// 	console.log('Potential scatter:', processedData);
+	// });
+
 	const colors = [
 		'#000000',
 		'#002940',
@@ -53,9 +56,12 @@
 
 	const regions = $derived(['All', ...new Set(initialData.map((d) => d.region))]);
 
+	const xMedian = $derived(median(processedData, (d) => d.x));
+	const yMedian = $derived(median(processedData, (d) => d.y));
+
 	const xDomainFixed = $derived.by(() => {
 		if (initialData.length === 0) return [0, 1];
-		return [0, Math.max(...initialData.map((d) => d.LandAvailability)) * 1.05];
+		return [0, xMedian * 2];
 	});
 	const yDomainFixed = $derived.by(() => {
 		if (initialData.length === 0) return [0, 1];
@@ -69,9 +75,6 @@
 			color: colors[i % colors.length]
 		}))
 	);
-
-	const xMedian = $derived(median(processedData, (d) => d.x));
-	const yMedian = $derived(median(processedData, (d) => d.y));
 
 	const quadrantConfig = $derived({
 		xMid: xMedian,

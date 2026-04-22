@@ -15,6 +15,7 @@
 	let innerWidth = $state(0);
 
 	const regions = [
+		{ name: 'Canada', center: [-110, 54.912], zoom: 4 },
 		{ name: 'Greater Golden Horseshoe', center: [-79.3832, 43.6532], zoom: 10 },
 		{ name: 'Montreal', center: [-73.5673, 45.5017], zoom: 10 },
 		{ name: 'Greater Vancouver', center: [-123.1207, 49.2827], zoom: 10 },
@@ -73,7 +74,7 @@
 			if (station) {
 				map.flyTo({
 					center: [station.longitude, station.latitude],
-					zoom: 14.5,
+					zoom: 16,
 					duration: 2000,
 					essential: true
 				});
@@ -160,7 +161,12 @@
 			attributionControl: false
 		});
 
-		map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+		// map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+		map.dragPan.disable();
+		map.keyboard.disable();
+		map.touchZoomRotate.disable();
+		map.dragRotate.disable();
 
 		map.on('load', () => {
 			if (highlightIds && highlightIds.length > 0) updateHighlightLayer();
@@ -190,7 +196,12 @@
 						feature.properties.label ||
 						feature.properties.name ||
 						'Station';
-					const content = `<div class="popup-inner"><div class="popup-title">${name}${feature.properties.id}</div></div>`;
+					const content = `<div class="popup-inner">
+						<div class="popup-title">${name}</div>
+						<div class="popup-line">${feature.properties.line_display_name}</div>
+						Status: ${feature.properties.status} <br/>
+						Overall Potential: ${feature.properties.potential}
+						</div>`;
 					popup.setLngLat(e.lngLat).setHTML(content).addTo(map);
 				}
 			});
@@ -203,6 +214,33 @@
 <svelte:window bind:innerWidth />
 <div class="map-wrapper {visible ? 'visible' : ''}">
 	<div bind:this={mapContainer} class="map-container"></div>
+	<div class="map-legend">
+		<div class="legend-header text-xs">Land Availability</div>
+		<div class="legend-grid">
+			<div class="legend-header"></div>
+			<!-- empty top-left corner -->
+			<div class="legend-header"></div>
+			<div class="legend-label">Low</div>
+			<div class="legend-label">High</div>
+
+			<div class="legend-side-label text-xs" style="grid-row: 2 / 4">Growth Pressure</div>
+			<div class="legend-label">Low</div>
+			<div class="legend-cell">
+				<span class="legend-dot" style="background: #00adf2"></span>
+			</div>
+			<div class="legend-cell">
+				<span class="legend-dot" style="background: #db3069"></span>
+			</div>
+
+			<div class="legend-label">High</div>
+			<div class="legend-cell">
+				<span class="legend-dot" style="background: #58e965"></span>
+			</div>
+			<div class="legend-cell">
+				<span class="legend-dot" style="background: #f1c500"></span>
+			</div>
+		</div>
+	</div>
 </div>
 
 <style>
@@ -234,6 +272,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.2rem;
+		color: #1e293b;
 	}
 
 	:global(.popup-title) {
@@ -241,5 +280,70 @@
 		font-size: 0.85rem;
 		color: #1e293b;
 		line-height: 1.2;
+	}
+	:global(.popup-line) {
+		font-weight: 400;
+		font-size: 0.7rem;
+		color: #1e293b;
+		line-height: 1.2;
+		text-transform: uppercase;
+	}
+	.map-legend {
+		position: absolute;
+		bottom: 15px;
+		right: 25px;
+		background: rgba(70, 70, 70, 0.75);
+		backdrop-filter: blur(4px);
+		border: 1px solid #e2e8f0;
+		border-radius: 8px;
+		padding: 0.5rem 0.65rem;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+	}
+
+	.legend-grid {
+		display: grid;
+		grid-template-columns: auto auto 1fr 1fr; /* added a column for side label */
+		gap: 0.3rem 0.6rem;
+		align-items: center;
+	}
+
+	.legend-side-label {
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+		font-weight: 500;
+		color: #ffffff;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		text-align: center;
+		padding-right: 0.25rem;
+		margin-right: 0.25rem;
+	}
+
+	.legend-header {
+		font-weight: 500;
+		color: #ffffff;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		text-align: right;
+	}
+
+	.legend-label {
+		font-weight: 400;
+		color: #ffffff;
+		padding-right: 0.25rem;
+		font-size: 0.75rem;
+	}
+
+	.legend-cell {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.legend-dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
 	}
 </style>
