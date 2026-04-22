@@ -41,7 +41,7 @@
 	}
 	.img1 {
 		width: 75%;
-		top: -15rem;
+		top: -18rem;
 		left: 20%;
 		z-index: 3;
 	}
@@ -53,7 +53,7 @@
 	}
 	.img3 {
 		width: 75%;
-		top: 35rem;
+		top: 40rem;
 		left: 40%;
 		z-index: 1;
 	}
