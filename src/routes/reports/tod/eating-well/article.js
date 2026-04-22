@@ -23,7 +23,7 @@ export const sections = [
 			{
 				body: `<p>The Bureau found that independent grocers face significant barriers to expansion:</p>
 				<ul>
-					<li><b>Mergers and Capital Wealth:</b> Today’s giants are amalgamations of multiple mergers and use theircombined capital wealth to absorb smaller competitors.</li>
+					<li><b>Mergers and Capital Wealth:</b> Today’s giants are amalgamations of multiple mergers and use their combined capital wealth to absorb smaller competitors.</li>
 					<li><b>Wholesale and Supply Chain:</b> Many independents aren’t large enough to own their own warehouse or buy directly from suppliers. The giants leverage their established wholesale businesses to out-compete independents on price.</li>
 					<li><b>Property Controls:</b> Property controls are leveraged by the giants to make it difficult, or even impossible, for competitors to open new grocery stores close by.</li>
 				</ul>`
@@ -93,8 +93,8 @@ export const sections = [
 			{
 				heading: 'Grocery stores are civic infrastructure',
 				body: `<p>As all levels of government work to make the most of transit investment, enabling the creation of lively urban, mixed-use neighbourhoods around subway and train stations needs intentional consideration of residents’ access to food. Just as affordable housing initiatives work to achieve housing security, affordable grocery options would do the same for food security.</p>
-				<p>Both the public option and the co-operative option represent two approaches to increasing competition in the grocery industry. While they represent different approaches to addressing the same problem—runaway grocery prices—both are driven to financially benefit Canadians and can be combined for the great benefit of ## millions of transit neighbourhood residents.</p>
-				<p>The provision of food shouldn’t be solely left to market forces driven by maximizing profit. </p>`
+				<p>Both the public option and the co-operative option represent two approaches to increasing competition in the grocery industry. While they represent different approaches to addressing the same problem—runaway grocery prices—both are driven to financially benefit Canadians and can be combined for the great benefit of millions of transit neighbourhood residents.</p>
+				<p>The provision of food shouldn’t be solely left to market forces driven to maximize profit. </p>`
 			}
 		]
 	},
@@ -113,7 +113,7 @@ export const sections = [
 				body: `<h6>Establish multi-jurisdictional agreements and transfer funding to develop nation building grocery infrastructure.</h6>
 				<p>Developing the distribution infrastructure and sites for public grocers would require an up-front investment of $350 million. This is a modest cost considering the federal government’s intention to launch the Build Communities Strong Fund, a $51-billion, 10-year program.</p>
 				<p>The distribution hubs—key regional economic development projects—could be leveraged by networks of public grocers, food co-ops, small stores, and independents, spread across transit neighbourhoods, and broader urban and rural areas, to combine buying power for high volume, accommodate space for stock, and compete with the grocery giants on price with suppliers. Savings will be passed on to consumers.</p>
-				<p>Economies of scale and consistent demand, with a Buy Canada policy, would be a boon to Canadian businesses across local and national food industries of importance. </p>
+				<p>Economies of scale and consistent demand, with a Buy Canadian policy, would be a boon to Canadian businesses across local and national food industries of importance. </p>
 				<p>The federal government has already demonstrated the ability to quickly navigate multi-jurisdictional agreements and budget transfers, such as the National School Food Program agreements with all provinces and territories. </p>`
 			},
 			{
@@ -135,7 +135,7 @@ export const sections = [
 				eyebrow: 'Municipalities',
 				heading: 'Enable the development of affordable grocers in priority neighbourhoods and transit station areas ',
 				body: `<h6>For public grocers, prioritize their initial placement in neighbourhoods that need them the most.</h6>
-				<p>While the introduction of affordable grocery alternatives over time will benefit all communities, as municipalities begin to pilot public grocery stores, they must be prioritized in areas with the lowest food access. These neighbourhoods will have lower-than-average household incomes and likely higher rates of racialized populations. These are also the same groups likely to be transit-dependent, and who would benefit the most from transit investment.</p>
+				<p>While the introduction of affordable grocery alternatives over time will benefit all communities, as municipalities begin to pilot public grocery stores they must be prioritized in areas with the lowest food access. These neighbourhoods will have lower-than-average household incomes and likely higher rates of racialized populations. These are also the same groups likely to be transit-dependent, and who would benefit the most from transit investment.</p>
 				<h6>Reduce financial barriers for public grocers and food co-ops.</h6>
 				<p>This can include waivers of property tax, development charges, and permitting fees to reduce development and operating costs. </p>
 				<h6>Implement Community Improvement Plans to provide direct-to-business financial support to eligible food co-ops </h6>

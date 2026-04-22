@@ -1,8 +1,8 @@
 <script>
 	// Components
 	import marketConcentrationImg from '../../../lib/assets/graphics/grocery.jpg';
-	import headerImage from '../../../lib/assets/screenshots/eating-well-header.png';
 	import '../../../styles.css';
+	import headerImage from '../../assets/transit-grocery.png';
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';

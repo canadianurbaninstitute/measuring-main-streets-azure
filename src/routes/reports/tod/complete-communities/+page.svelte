@@ -196,13 +196,13 @@
 
 	<ReportFindings
 		id="report-findings"
-		title="REPORT HIGHLIGHTS"
-		finding1="Amenity richness"
-		description1="is strongly correlated with residential density in transit areas."
-		finding2="Civic infrastructure"
-		description2="like libraries and community centres are missing in over 50% of TSAs."
-		finding3="Future expansions"
-		description3="face significant amenity 'debt' that must be addressed by planning."
+		title="KEY TAKEAWAYS"
+		finding1="Amenity Access and Density"
+		description1="Access to core and additional amenities was positively correlated with residential density in Transit Station Areas."
+		finding2="Large Civic Infrastructure Missing"
+		description2="Libraries and Community centres are absent in over 50 percent of existing Transit Station Areas."
+		finding3="TOD TO TOCC"
+		description3="Future and existing stations face significant amenity debt around Transit Station Areas that need to be addressed in order to meet sustainable development goals."
 	/>
 
 	{#snippet renderPanel(uid, isVisible)}
