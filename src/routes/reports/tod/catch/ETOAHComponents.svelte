@@ -1,9 +1,16 @@
 <script>
 	import Icon from '@iconify/svelte';
+
+	let { highlight = 'none' } = $props();
+
+	function getOpacity(section) {
+		if (highlight === 'none') return 1;
+		return highlight === section ? 1 : 0.3;
+	}
 </script>
 
 <div class="infra-card">
-	<div class="infra-section public">
+	<div class="infra-section public" style="opacity: {getOpacity(1)}">
 		<div class="infra-label">
 			<span class="text-lg"><Icon icon="mdi:toolbox" class="icon" /></span>
 			<span>A National Inventory of Tools and Best Practices</span>
@@ -19,7 +26,7 @@
 		</div>
 	</div>
 
-	<div class="infra-section local">
+	<div class="infra-section local" style="opacity: {getOpacity(2)}">
 		<div class="infra-label">
 			<span class="text-lg"><Icon icon="mdi:account-group" class="icon" /></span>
 			<span>Structured Support for Local Collaboratives</span>
@@ -30,7 +37,7 @@
 		</div>
 	</div>
 
-	<div class="infra-section coop">
+	<div class="infra-section coop" style="opacity: {getOpacity(3)}">
 		<div class="infra-label">
 			<span class="text-lg"><Icon icon="mdi:home" class="icon" /></span>
 			<span>Blended Capital Funds for Community Housing</span>

@@ -40,7 +40,7 @@
 		if (!highlightIds) return false;
 		const hIds = Array.isArray(highlightIds) ? highlightIds : [highlightIds];
 		if (hIds.length === 0) return false;
-		
+
 		const currentId = String(d[idKey]).trim();
 		return hIds.some((h) => String(h).trim() === currentId);
 	};
@@ -124,7 +124,8 @@
 				aria-label={d[labelKey] || 'Data point'}
 				cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}
 				cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}
-				r={(highlighted ? 1.5 : 1) * (typeof r === 'number' ? r : $rKey && typeof rGet_fn === 'function' ? rGet_fn(d) : 5) *
+				r={(highlighted ? 1.5 : 1) *
+					(typeof r === 'number' ? r : $rKey && typeof rGet_fn === 'function' ? rGet_fn(d) : 5) *
 					reveal.current || 5}
 				fill={dim ? '#555' : $z && typeof zGet_fn === 'function' ? zGet_fn(d) : fill}
 				stroke={highlighted ? '#fff' : dim ? '#cbd5e1' : stroke}

@@ -1,8 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
+	// Components
 	import '../../../styles.css';
-	import AmenityMap from './charts/AmenityMap.svelte';
-	// Report Components
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
@@ -12,98 +10,64 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import AmenityNeeds from './charts/AmenityNeeds.svelte';
-	import CivicInfrastructure from './charts/CivicInfrastructure.svelte';
-	import DevelopmentPotential from './charts/DevelopmentPotential.svelte';
-	import FutureStations from './charts/FutureStations.svelte';
-	import LibraryMap from './charts/LibraryMap.svelte';
-	import MissingAmenities from './charts/MissingAmenities.svelte';
-
+	import { intersect } from '../walkability/intersect.js';
 	import { sections } from './article.js';
-
-	// Charts
-	import AccessScatter from './charts/AccessScatter.svelte';
-	import AmenityTiers from './charts/AmenityTiers.svelte';
+	import ExampleRadar from './charts/ExampleRadar.svelte';
+	import PotentialMap from './charts/PotentialMap.svelte';
 	// Assets
 	import train from '../../../lib/assets/graphics/train-long.svg';
-	import introImage from '../../../lib/assets/screenshots/cc.png';
+	import buildings from './assets/buildings.png';
+	import HeaderImage from './assets/HeaderImage.png';
+	import stncomp from './assets/stncomp.png';
+	import PotentialScatter from './charts/PotentialScatter.svelte';
+	import TechScatter from './charts/TechScatter.svelte';
+
+	const visConfig = {
+		intro: {
+			type: 'image',
+			src: buildings,
+			alt: 'Graphics of building forms'
+		},
+		intro2: {
+			type: 'image',
+			src: stncomp,
+			alt: 'Urban form maps of station areas'
+		},
+		intro3: {
+			type: 'component',
+			component: ExampleRadar
+		},
+		'potential-scatter': {
+			type: 'component',
+			component: PotentialScatter
+		},
+		'potential-map': {
+			type: 'component',
+			component: PotentialMap
+		},
+		'tech-scatter': {
+			type: 'component',
+			component: TechScatter
+		}
+	};
+
+	let innerWidth = $state(0);
+	let isMobile = $derived(innerWidth > 0 && innerWidth < 1024);
 
 	let activeIndex = $state(0);
-
-	onMount(async () => {
-		// Scrolly observer
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						activeIndex = Number(entry.target.dataset.step);
-					}
-				});
-			},
-			{
-				rootMargin: '-40% 0px -40% 0px',
-				threshold: 0
-			}
-		);
-
-		document.querySelectorAll('[data-step]').forEach((step) => observer.observe(step));
-		return () => observer.disconnect();
-	});
-
-	const visConfig = $derived({
-		'amenity-tiers': {
-			type: 'component',
-			component: AmenityTiers
-		},
-		'access-scatter': {
-			type: 'component',
-			component: AccessScatter
-		},
-		'access-scatter-additional': {
-			type: 'component',
-			component: AccessScatter,
-			props: { tier: 'Additional' }
-		},
-		'amenity-map': {
-			type: 'component',
-			component: AmenityMap
-		},
-		'missing-infrastructure': {
-			type: 'component',
-			component: MissingAmenities
-		},
-		'civic-infrastructure': {
-			type: 'component',
-			component: CivicInfrastructure
-		},
-		'library-map': {
-			type: 'component',
-			component: LibraryMap
-		},
-		'future-stations': {
-			type: 'component',
-			component: FutureStations
-		},
-		'development-potential': {
-			type: 'component',
-			component: DevelopmentPotential
-		},
-		'amenity-needs-summary': {
-			type: 'component',
-			component: AmenityNeeds
-		}
-	});
 
 	/**
 	 * Flatten all panels, tagging each with a globally-unique uid
 	 */
 	const allPanels = sections.flatMap((section, si) =>
-		section.panels.map((panel) => ({
-			...panel,
-			uid: `${si}:${panel.id}`,
-			sectionIndex: si,
-			config: visConfig[panel.id] ?? null
-		}))
+		section.panels
+			? section.panels.map((panel) => ({
+					...panel,
+					uid: `${si}:${panel.id}`,
+					sectionIndex: si,
+					config: visConfig[panel.id] ?? null
+				}))
+			: []
 	);
 
 	/**
@@ -188,29 +152,27 @@
 
 	<ReportHeader
 		id="report-header"
-		eyebrow="TOWARDS COMPLETE COMMUNITIES"
-		title="FROM TOD TO TOCC"
-		subtitle="Transit Oriented Development and Complete Communities in a Canadian Context."
-		backgroundImage={introImage}
+		title="HIGH POTENTIAL"
+		subEyebrow="Exploring Housing Development Potential in Transit Station Areas"
+		subtitle="By considering transit investments as housing investments, and ultimately as community-building investments, city-builders are well-positioned to design the vibrant, sustainable neighbourhoods enabled by the high potential of transit station areas."
+		backgroundImage={HeaderImage}
 	/>
-
 	<ReportFindings
 		id="report-findings"
-		title="REPORT HIGHLIGHTS"
-		finding1="Amenity richness"
-		description1="is strongly correlated with residential density in transit areas."
-		finding2="Civic infrastructure"
-		description2="like libraries and community centres are missing in over 50% of TSAs."
-		finding3="Future expansions"
-		description3="face significant amenity 'debt' that must be addressed by planning."
+		title="KEY TAKEAWAYS"
+		finding1="Transit investments spark housing construction,"
+		description1="but not all the same way in all the same places."
+		finding2="Growth pressure and land availability are negatively correlated"
+		description2="Stations with high growth pressure generally have low land availability, and vice versa."
+		finding3="When planning for new transit stations,"
+		description3="areas with high land availability and high growth pressure are key areas with high potential for housing development."
 	/>
 
 	{#snippet renderPanel(uid, isVisible)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{@const activeStep = steps[activeIndex]}
-		<!-- Merge default panel props with any props defined on the specific active text step -->
 		{@const stepProps = activePanelUid === uid ? activeStep?.props || {} : {}}
-		{@const mergedProps = { ...panel.config?.props, ...stepProps }}
+		{@const mergedProps = { ...panel?.config?.props, ...stepProps }}
 
 		{#if panel}
 			<VisPanel visible={isVisible} label={panel.label ?? ''} source={panel.source ?? ''}>
@@ -219,12 +181,18 @@
 						src={panel.config.src}
 						alt={panel.config.alt}
 						caption={panel.config.caption ?? ''}
+						fit={panel.config.fit}
+						aspect={panel.config.aspect}
 					/>
 				{:else if panel.config?.type === 'component'}
 					{@const Component = panel.config.component}
 					<Component visible={isVisible} {...mergedProps} />
 				{:else if panel.config?.type === 'link'}
-					<VisLink href={panel.config.href} label={panel.config.btnLabel ?? 'Learn More'} />
+					<VisLink
+						href={panel.config.href}
+						label={panel.config.btnLabel ?? 'Learn More'}
+						target={panel.config.target}
+					/>
 				{/if}
 			</VisPanel>
 		{/if}
@@ -266,6 +234,48 @@
 					</VisContainer>
 				{/snippet}
 			</Scroller>
+		{:else if group.layout === 'overlay'}
+			<div class="page-layout-overlay">
+				{#if !isMobile}
+					<div class="map-background">
+						<VisContainer>
+							{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
+								{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+							{/each}
+						</VisContainer>
+					</div>
+				{:else if isMobile}
+					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
+						<VisContainer>
+							{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
+								{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+							{/each}
+						</VisContainer>
+					</div>
+				{/if}
+				<div class="content-foreground">
+					{#each group.sections as section}
+						<div class="scrolly-section overlay" id="section-{section.si}">
+							{#each section.blocks as block}
+								<section
+									class="scroll-section"
+									data-step={block.globalStepIndex}
+									use:intersect={(node) => {
+										activeIndex = Number(node.dataset.step);
+									}}
+								>
+									{#if block.heading}
+										<h2 class="station-title">{block.heading}</h2>
+									{/if}
+									<div class="max-w-none">
+										{@html block.body}
+									</div>
+								</section>
+							{/each}
+						</div>
+					{/each}
+				</div>
+			</div>
 		{:else}
 			<div class="inline-article shadow-highlight">
 				{#each group.sections as section}
@@ -302,14 +312,81 @@
 	{/each}
 </main>
 
-<!-- {#if isLoading}
-	<div class="loading-overlay">
-		<div class="spinner"></div>
-		<p>Loading report data...</p>
-	</div>
-{/if} -->
-
 <style>
+	.page-layout-overlay {
+		background-color: var(--color-slate-800);
+		position: relative;
+		min-height: 100vh;
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	.page-layout-overlay .map-background {
+		background-color: var(--color-slate-800);
+		grid-column: 1;
+		grid-row: 1;
+		position: sticky;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		z-index: 0;
+	}
+
+	.page-layout-overlay .map-background :global(.vis-container) {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+	}
+
+	.page-layout-overlay .content-foreground {
+		grid-column: 1;
+		grid-row: 1;
+		width: 40%;
+		max-width: 600px;
+		position: relative;
+		z-index: 10;
+		pointer-events: none;
+	}
+
+	.page-layout-overlay .scroll-section {
+		pointer-events: auto;
+		margin: 20vh 0 20vh 10%;
+		padding: 3rem 3rem 2.5rem 3rem;
+		backdrop-filter: blur(12px);
+		border-radius: 1.5rem;
+		background: rgba(24, 24, 27, 0.85); /* zinc-900 */
+		box-shadow:
+			0 20px 25px -5px rgba(0, 0, 0, 0.5),
+			0 10px 10px -5px rgba(0, 0, 0, 0.3);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+	:global(.page-layout-overlay .scroll-section p) {
+		color: #f4f4f5 !important; /* zinc-50 */
+	}
+
+	.page-layout-overlay .station-title {
+		color: var(--color-blue-100);
+		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 1024px) {
+		.page-layout-overlay .content-foreground {
+			width: 100%;
+			max-width: none;
+			pointer-events: auto;
+		}
+
+		.page-layout-overlay .scroll-section {
+			margin: 0;
+			padding: 10vh 5%;
+			border-radius: 0;
+			background: #18181b;
+			box-shadow: none;
+			border: none;
+			border-top: 1px solid #3f3f46;
+		}
+	}
+
 	.inline-article {
 		max-width: 65ch;
 		margin: 4em auto;
@@ -381,39 +458,6 @@
 		min-height: 400px;
 	}
 
-	.loading-overlay {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(255, 255, 255, 0.9);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		z-index: 1000;
-	}
-
-	.spinner {
-		width: 40px;
-		height: 40px;
-		border: 4px solid #f3f3f3;
-		border-top: 4px solid #3b82f6;
-		border-radius: 50%;
-		animation: spin 1s linear infinite;
-		margin-bottom: 1rem;
-	}
-
-	@keyframes spin {
-		0% {
-			transform: rotate(0deg);
-		}
-		100% {
-			transform: rotate(360deg);
-		}
-	}
-
 	@media (max-width: 768px) {
 		.inline-vis-container {
 			padding: 2rem 0;
@@ -436,5 +480,14 @@
 			height: auto;
 			min-height: 400px;
 		}
+	}
+	:global(.scroll-section a) {
+		color: #fff;
+	}
+	:global(.scroll-section a:hover) {
+		color: var(--brandLightBlue);
+	}
+	:global(.scroll-section h4) {
+		color: #b4eaff;
 	}
 </style>

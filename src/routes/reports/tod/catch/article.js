@@ -81,13 +81,16 @@ export const sections = [
 				label: 'Three interconnected components of CATCH’s new model for advancing ETOAH'
 			},
 			{
-				id: 'etoah-components1'
+				id: 'etoah-components1',
+				label: 'Three interconnected components of CATCH’s new model for advancing ETOAH'
 			},
 			{
-				id: 'etoah-components2'
+				id: 'etoah-components2',
+				label: 'Three interconnected components of CATCH’s new model for advancing ETOAH'
 			},
 			{
-				id: 'etoah-components3'
+				id: 'etoah-components3',
+				label: 'Three interconnected components of CATCH’s new model for advancing ETOAH'
 			}
 		],
 		blocks: [

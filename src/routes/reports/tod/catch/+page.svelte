@@ -15,9 +15,6 @@
 	import HeaderImage from './assets/HeaderImage.png';
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import ETOAHComponents from './ETOAHComponents.svelte';
-	import ETOAHComponents1 from './ETOAHComponents1.svelte';
-	import ETOAHComponents2 from './ETOAHComponents2.svelte';
-	import ETOAHComponents3 from './ETOAHComponents3.svelte';
 	import intro from './assets/intro.png';
 	import intro2 from './assets/elevated-train.png';
 	import intro3 from './assets/train-passing.png';
@@ -37,15 +34,18 @@
 		},
 		'etoah-components1': {
 			type: 'component',
-			component: ETOAHComponents1
+			component: ETOAHComponents,
+			props: { highlight: 1 }
 		},
 		'etoah-components2': {
 			type: 'component',
-			component: ETOAHComponents2
+			component: ETOAHComponents,
+			props: { highlight: 2 }
 		},
 		'etoah-components3': {
 			type: 'component',
-			component: ETOAHComponents3
+			component: ETOAHComponents,
+			props: { highlight: 3 }
 		},
 		intro: {
 			type: 'image',
@@ -406,10 +406,10 @@
 			<a href="https://journals.sagepub.com/doi/10.1177/1078087404273341" target="_blank"
 				>Freeman, 2005
 			</a>;
-			<a href="https://www.nber.org/system/files/working_papers/w14036/w14036.pdf">
+			<a href="https://www.nber.org/system/files/working_papers/w14036/w14036.pdf" target="_blank">
 				McKinnish, Walsh & White, 2008
 			</a>;
-			<a href="https://www.tandfonline.com/doi/abs/10.1080/02723638.2017.1360041"
+			<a href="https://www.tandfonline.com/doi/abs/10.1080/02723638.2017.1360041" target="_blank"
 				>Immergluck & Balan, 2017</a
 			>
 		</p>
