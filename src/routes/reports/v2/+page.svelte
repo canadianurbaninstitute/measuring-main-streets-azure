@@ -22,6 +22,8 @@
 	import whotsas from '../../lib/assets/screenshots/who-tsas.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import northfield from '../../reports/assets/dps-northfield.png';
+	import ccreport from '../../lib/assets/graphics/ccreport.png';
+	import devreport from '../../lib/assets/graphics/devpotentialreport.png';
 	import '../../styles.css';
 
 	const title = 'Measuring Main Streets Reports';
@@ -40,7 +42,8 @@
 				'Infographic',
 				'Regional Report',
 				'Partner Report',
-				'Complete Communities'
+				'Complete Communities',
+				'Development Potential'
 			],
 			items: [
 				{
@@ -136,6 +139,21 @@
 					image: northfield,
 					link: '/reports/tod/love-kitsilano',
 					tags: ['Partner Report']
+				},
+				{
+					title: 'From TOD to TOCC',
+					description:
+						'Transit Oriented Development and Complete Communities in a Canadian Context.',
+					image: ccreport,
+					link: '/reports/tod/complete-communities',
+					tags: ['Complete Communities']
+				},
+				{
+					title: 'Development Potential',
+					description: 'Exploring Housing Development Potential in Transit Station Areas.',
+					image: devreport,
+					link: '/reports/tod/development-potential',
+					tags: ['Development Potential']
 				}
 			]
 		},

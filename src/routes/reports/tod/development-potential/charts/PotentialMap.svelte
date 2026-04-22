@@ -198,9 +198,11 @@
 						'Station';
 					const content = `<div class="popup-inner">
 						<div class="popup-title">${name}</div>
-						<div class="popup-line">${feature.properties.line_display_name}</div>
-						Status: ${feature.properties.status} <br/>
-						Overall Potential: ${feature.properties.potential}
+						<div class="line-label">${feature.properties.line_display_name}<br/>
+							${feature.properties.status}
+						</div>
+						Overall Development Potential: 
+						${feature.properties.potential} 
 						</div>`;
 					popup.setLngLat(e.lngLat).setHTML(content).addTo(map);
 				}
@@ -260,19 +262,19 @@
 
 	/* Mapbox Popup Styling */
 	:global(.mapbox-custom-popup .mapboxgl-popup-content) {
-		padding: 0.5rem 0.75rem;
+		padding: 0.75rem;
 		border-radius: 8px;
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 		border: 1px solid #e2e8f0;
 		background: rgba(255, 255, 255, 0.95);
 		backdrop-filter: blur(4px);
+		min-width: 180px;
 	}
 
 	:global(.popup-inner) {
 		display: flex;
 		flex-direction: column;
-		gap: 0.2rem;
-		color: #1e293b;
+		gap: 0.4rem;
 	}
 
 	:global(.popup-title) {
@@ -281,12 +283,12 @@
 		color: #1e293b;
 		line-height: 1.2;
 	}
-	:global(.popup-line) {
-		font-weight: 400;
-		font-size: 0.7rem;
-		color: #1e293b;
-		line-height: 1.2;
+	:global(.line-label) {
+		font-size: 0.65rem;
 		text-transform: uppercase;
+		font-weight: 700;
+		color: #64748b;
+		letter-spacing: 0.025em;
 	}
 	.map-legend {
 		position: absolute;
