@@ -48,25 +48,25 @@
 	}
 	.img1 {
 		width: 80%;
-		top: -12rem;
+		top: -15rem;
 		left: 20%;
 		z-index: 1;
 	}
 	.img2 {
 		width: 30%;
-		top: 10rem;
+		top: 8rem;
 		right: 0;
 		z-index: 2;
 	}
 	.img3 {
 		width: 30%;
-		top: 34rem;
+		top: 38rem;
 		right: 22%;
 		z-index: 5;
 	}
 	.img4 {
 		width: 35%;
-		top: 40rem;
+		top: 46rem;
 		left: 15%;
 		z-index: 4;
 	}
