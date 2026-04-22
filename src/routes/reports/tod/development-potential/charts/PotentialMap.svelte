@@ -25,7 +25,7 @@
 		{ name: 'Ville de Québec', center: [-71.2082, 46.8131], zoom: 10 }
 	];
 
-	let activeRegion = $state(regions[3]);
+	let activeRegion = $state(regions[0]);
 
 	function zoomToRegion(regionObj) {
 		activeRegion = regionObj;
@@ -163,7 +163,6 @@
 
 		// map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-		map.dragPan.disable();
 		map.keyboard.disable();
 		map.touchZoomRotate.disable();
 		map.dragRotate.disable();

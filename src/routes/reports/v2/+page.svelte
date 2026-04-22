@@ -24,6 +24,9 @@
 	import northfield from '../../reports/assets/dps-northfield.png';
 	import ccreport from '../../lib/assets/graphics/ccreport.png';
 	import devreport from '../../lib/assets/graphics/devpotentialreport.png';
+	import cooksville from '../../reports/assets/dps-cooksville.png';
+	import dpsmethod from '../../reports/assets/dps-welcome.png';
+	import catchreport from '../../reports/tod/catch/assets/elevated-train.png';
 	import '../../styles.css';
 
 	const title = 'Measuring Main Streets Reports';
@@ -74,6 +77,22 @@
 					link: '/reports/tod/eating-well',
 					tags: ['Complete Communities']
 				},
+				{
+					title: 'From TOD to TOCC',
+					description:
+						'Transit Oriented Development and Complete Communities in a Canadian Context.',
+					image: ccreport,
+					link: '/reports/tod/complete-communities',
+					tags: ['Complete Communities']
+				},
+				{
+					title: 'Development Potential',
+					description: 'Exploring Housing Development Potential in Transit Station Areas.',
+					image: devreport,
+					link: '/reports/tod/development-potential',
+					tags: ['Development Potential']
+				},
+
 				{
 					title: 'Past and Projected Transit-Induced Displacement in Canada',
 					description: '',
@@ -141,19 +160,27 @@
 					tags: ['Partner Report']
 				},
 				{
-					title: 'From TOD to TOCC',
+					title: 'Love Cooksville',
 					description:
-						'Transit Oriented Development and Complete Communities in a Canadian Context.',
-					image: ccreport,
-					link: '/reports/tod/complete-communities',
-					tags: ['Complete Communities']
+						'The Cooksville Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
+					image: cooksville,
+					link: '/reports/tod/love-cooksville',
+					tags: ['Partner Report']
 				},
 				{
-					title: 'Development Potential',
-					description: 'Exploring Housing Development Potential in Transit Station Areas.',
-					image: devreport,
-					link: '/reports/tod/development-potential',
-					tags: ['Development Potential']
+					title: 'Digital Public Engagement',
+					description: 'Exploring the potential of digital initiatives for public engagement',
+					image: dpsmethod,
+					link: '/reports/tod/digital-public-engagement',
+					tags: ['Partner Report']
+				},
+				{
+					title: 'Transit Without Displacement',
+					description:
+						'How Communities Can Ensure Transit-Oriented Development Works for Everyone.',
+					image: catchreport,
+					link: '/reports/tod/catch',
+					tags: ['Partner Report']
 				}
 			]
 		},
