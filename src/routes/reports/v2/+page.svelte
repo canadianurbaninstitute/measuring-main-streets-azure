@@ -80,7 +80,7 @@
 				{
 					title: 'From TOD to TOCC',
 					description:
-						'Transit Oriented Development and Complete Communities in a Canadian Context.',
+						'Transit-oriented development and complete communities in a Canadian Context.',
 					image: ccreport,
 					link: '/reports/tod/complete-communities',
 					tags: ['Complete Communities']

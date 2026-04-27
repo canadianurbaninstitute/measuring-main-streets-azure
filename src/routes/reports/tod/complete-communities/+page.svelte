@@ -190,7 +190,7 @@
 		id="report-header"
 		eyebrow="TOWARDS COMPLETE COMMUNITIES"
 		title="FROM TOD TO TOCC"
-		subtitle="Transit Oriented Development and Complete Communities in a Canadian Context."
+		subtitle="Transit-oriented development and complete communities in a Canadian context."
 		backgroundImage={introImage}
 	/>
 

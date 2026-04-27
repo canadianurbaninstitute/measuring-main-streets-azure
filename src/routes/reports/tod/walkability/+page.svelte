@@ -262,7 +262,7 @@
 				Complete Communities and <span class="text-blue-400">Walkability</span>
 			</h1>
 			<h3 class="mb-8">
-				<span class="text-slate-500">A Forgotten Facet of Transit Oriented Development</span>
+				<span class="text-slate-500">A Forgotten Facet of Transit-Oriented Development</span>
 			</h3>
 			<p>
 				A complete community is a place that provides the goods and services people need in their
