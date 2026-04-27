@@ -29,7 +29,7 @@ export const sections = [
 				id: 'intro2',
 				label:
 					'Urban form maps. The built form of a transit station influences its development potential.',
-				source: '<a href="tools/urban-form-maps" target="_blank">Urban Form Tool</a>'
+				source: '<a href="/tools/urban-form-comparison" target="_blank">Urban Form Tool</a>'
 			}
 		],
 		blocks: [
