@@ -13,7 +13,7 @@
 
 	let activeTab = $state('tod');
 	const tabs = [
-		{ label: 'Transit Oriented Development', value: 'tod' },
+		{ label: 'Transit-Oriented Development', value: 'tod' },
 		{ label: 'Main Street Resilience', value: 'resilience' }
 	];
 
@@ -36,14 +36,14 @@
 		},
 		{
 			title: 'Reports',
-			description: 'In depth reports on transit oriented development.',
+			description: 'In depth reports on transit-oriented development.',
 			image: reportstsa,
 			link: '/reports/tod',
 			tags: ['Reports']
 		},
 		{
 			title: 'Tools',
-			description: 'In depth reports on transit oriented development.',
+			description: 'In depth reports on transit-oriented development.',
 			image: urbanform,
 			link: '/reports/tod',
 			tags: ['Tools']

@@ -25,7 +25,7 @@
 		'Graphing',
 		'Qualitative',
 		'Main Street Resilience',
-		'Transit Oriented Development',
+		'Transit-Oriented Development',
 		'Partner Tools'
 	];
 
@@ -36,14 +36,14 @@
 				'A map of all existing, under construction and planned higher-order transit lines in Canada with key data points.',
 			image: transitmap,
 			link: '/transit-maps',
-			tags: ['Mapping', 'Transit Oriented Development']
+			tags: ['Mapping', 'Transit-oriented development']
 		},
 		{
 			title: 'Transit Charts',
 			description: 'Key data for each stop along a selected transit line.',
 			image: chart,
 			link: '/tools/transit-charts',
-			tags: ['Graphing', 'Transit Oriented Development']
+			tags: ['Graphing', 'Transit-oriented development']
 		},
 		{
 			title: 'Complete Communities',
@@ -51,7 +51,7 @@
 				'This tool examines the presence and access of key community amenities to assess current completeness and future needs.',
 			image: cc,
 			link: '/tools/complete-communities',
-			tags: ['Mapping', 'Transit Oriented Development']
+			tags: ['Mapping', 'Transit-oriented development']
 		},
 		{
 			title: 'Development Potential Index',
@@ -59,14 +59,14 @@
 				'This tool breaks down the housing development potential of areas within 800m of a transit station',
 			image: development,
 			link: '/tools/development-potential',
-			tags: ['Graphing', 'Transit Oriented Development']
+			tags: ['Graphing', 'Transit-oriented development']
 		},
 		{
 			title: 'Urban Form Comparison',
 			description: 'This tool highlights the urban form of areas within 800m of a transit station.',
 			image: urbanform,
 			link: '/tools/urban-form-comparison',
-			tags: ['Mapping', 'Transit Oriented Development']
+			tags: ['Mapping', 'Transit-oriented development']
 		},
 		{
 			title: 'Love Your Neighbourhood Cooksville',
@@ -74,14 +74,14 @@
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpscooksville,
 			link: 'https://lovecooksville.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'Transit Oriented Development']
+			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
 		},
 		{
 			title: 'Open Space Sandbox Cooksville',
 			description: 'A community-design interface to help residents design their own open spaces.',
 			image: oss,
 			link: 'https://app.openspacesandbox.com/survey/70240673-ab25-4bae-b766-03ecd923098f',
-			tags: ['Partner Tools', 'Qualitative', 'Transit Oriented Development']
+			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
 		},
 		{
 			title: 'Love Your Neighbourhood Northfield',
@@ -89,7 +89,7 @@
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpsnorthfield,
 			link: 'https://lovenorthfield.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'Transit Oriented Development']
+			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
 		},
 		{
 			title: 'Love Your Neighbourhood Kitsilano',
@@ -97,7 +97,7 @@
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpskitsilano,
 			link: 'https://lovekitsilano.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'Transit Oriented Development']
+			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
 		},
 		{
 			title: 'Main Street Demographics',

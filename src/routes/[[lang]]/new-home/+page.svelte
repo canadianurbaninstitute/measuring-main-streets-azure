@@ -1,5 +1,5 @@
 <script>
-	import '../styles.css';
+	import '../../styles.css';
 	import HomeAbout from './components/HomeAbout.svelte';
 	import HomeHero from './components/HomeHero.svelte';
 	import HomeProjectTimeline from './components/HomeProjectTimeline.svelte';

@@ -106,7 +106,7 @@
 			<p>
 				Among all 20 Edmonton-region main streets, those in small towns were generally the most
 				resilient sub-type, with Beaumont leading the way. The most resilient neighbourhood main
-				streets were found in <a href="/casestudies/edmonton/149stnw"
+				streets were found in <a href="/casestudies/edmonton/149streetnw"
 					>West Edmonton (149th Street NW)</a
 				>
 				and <a href="/casestudies/edmonton/118beverly">Beverly (118 Avenue NW)</a> which typically
@@ -317,7 +317,7 @@
 				>,
 				<a href="/casestudies/edmonton/parsonsroadsw">Parsons Road (South Edmonton Common)</a>,
 				<a href="/casestudies/edmonton/104streetnw"> 104 Street NW (Calgary Trail)</a>, and
-				<a href="/casestudies/edmonton/50ave">50 Avenue (Leduc)</a>
+				<a href="/casestudies/edmonton/50avenue">50 Avenue (Leduc)</a>
 				are examples of main streets that are designed to accommodate cars and are dominated by large
 				parking lots. These places are among the least resilient main streets and draw a lower share
 				of visitors from their surrounding neighbourhoods.

@@ -106,7 +106,7 @@ export const sections = [
 				roads vs. bike lanes), safety and cleanliness.</p>
 				
 				<p>Future work should explore trust-building to increase community
-				confidence in the benefits that can come with transit oriented
+				confidence in the benefits that can come with transit-oriented
 				development (TOD).</p>`
 			}
 		]

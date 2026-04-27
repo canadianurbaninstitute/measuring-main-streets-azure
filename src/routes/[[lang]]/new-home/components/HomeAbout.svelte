@@ -45,7 +45,7 @@
 
 <style>
 	.about-section {
-		background-image: url('../../lib/assets/graphics/vancouver-bg.png');
+		background-image: url('../../../lib/assets/graphics/vancouver-bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
