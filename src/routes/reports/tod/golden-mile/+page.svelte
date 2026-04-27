@@ -88,8 +88,8 @@
 	<div class="center" id="main">
 		<div class="card italic text-center mt-20 mx-8">
 			This report was prepared by fourth-year undergraduate students at the University of Toronto as
-			part of the Multidisciplinary Urban Capstone Project, in collaboration with the Canadian Urban
-			Institute.
+			part of the School of Cities' Multidisciplinary Urban Capstone Project, in collaboration with
+			the Canadian Urban Institute.
 		</div>
 	</div>
 	<div class="inline-article">
@@ -137,6 +137,7 @@
 	<div class="team-header">
 		<h2>Project Team</h2>
 	</div>
+
 	<div class="team">
 		<div class="column">
 			<ContactCard

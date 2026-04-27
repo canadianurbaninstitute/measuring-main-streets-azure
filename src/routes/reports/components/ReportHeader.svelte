@@ -40,11 +40,11 @@
 				{#if logo === 'soc' || customLogos.length > 0}
 					<div class="logo-row">
 						{#if logo === 'soc'}
-							<a href="https://schoolofcities.utoronto.ca/">
+							<a href="https://schoolofcities.utoronto.ca/" target="_blank">
 								<img src={UofT} alt="University of Toronto logo" width="120" />
 							</a>
 							<span class="text-3xl font-thin" style="color: var(--brandDarkBlue)">|</span>
-							<a href="https://schoolofcities.utoronto.ca/">
+							<a href="https://schoolofcities.utoronto.ca/" target="_blank">
 								<img src={SoC} alt="School of Cities logo" width="120" />
 							</a>
 						{/if}
