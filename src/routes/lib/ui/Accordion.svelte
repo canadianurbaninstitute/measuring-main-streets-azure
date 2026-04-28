@@ -6,6 +6,7 @@
 	export let duration = 0.2;
 	export let easing = 'ease';
 	export let onToggle = null;
+	export let id = '';
 
 	function handleToggle() {
 		// 2. Check if the custom function exists
@@ -17,7 +18,7 @@
 	}
 </script>
 
-<div class="card" class:open aria-expanded={open}>
+<div {id} class="card" class:open aria-expanded={open}>
 	<div
 		class="card-header"
 		role="button"

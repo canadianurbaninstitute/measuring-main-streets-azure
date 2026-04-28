@@ -1,23 +1,31 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { tick } from 'svelte';
 	import Accordion from '../../lib/ui/Accordion.svelte';
-	import Footer from '../../lib/ui/Footer.svelte';
 	import '../../styles.css';
 	// Logos
-	import canada_logo from '../../lib/assets/logos/canada_logo.svg';
+	import canada_logo from '../../lib/assets/logos/canada_color.png';
+	import catch_logo from '../../lib/assets/logos/catch_color.png';
+	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
+	import environics_logo from '../../lib/assets/logos/environics_color.png';
+	import opennorth_logo from '../../lib/assets/logos/opennorth_color.png';
+	import soc_logo from '../../lib/assets/logos/uotsoc_color.png';
 	// Assets
+	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
 	import montreal_bg from '../../lib/assets/graphics/montreal-bg.png';
 	import vancouver_bg from '../../lib/assets/graphics/vancouver-bg.png';
+	import ContactCard from '../../lib/ui/ContactCard.svelte';
 
 	let activeSection = $state('about');
 	let activeSubSection = $state('resilience');
 
-	let aboutResilienceOpen = $state(true);
+	let aboutResilienceOpen = $state(false);
 	let aboutTodOpen = $state(false);
 	let teamResilienceOpen = $state(false);
 	let teamTodOpen = $state(false);
 
-	function scrollTo(id) {
+	async function scrollTo(id) {
+		await tick();
 		const element = document.getElementById(id);
 		if (element) {
 			element.scrollIntoView({ behavior: 'smooth' });
@@ -49,7 +57,7 @@
 									scrollTo('about-resilience');
 								}}
 							>
-								Main Street Resilience
+								Resilience on Main
 							</button>
 						</li>
 						<li>
@@ -62,14 +70,14 @@
 									scrollTo('about-tod');
 								}}
 							>
-								Transit-Oriented Development
+								TOD on Main
 							</button>
 						</li>
 					</ul>
 				</div>
 
 				<div class="nav-group">
-					<h3>TEAM</h3>
+					<h3>TEAM AND PARTNERS</h3>
 					<ul>
 						<li>
 							<button
@@ -81,7 +89,7 @@
 									scrollTo('team-resilience');
 								}}
 							>
-								Main Street Resilience
+								Resilience on Main
 							</button>
 						</li>
 						<li>
@@ -94,7 +102,7 @@
 									scrollTo('team-tod');
 								}}
 							>
-								Transit-Oriented Development
+								TOD on Main
 							</button>
 						</li>
 					</ul>
@@ -103,12 +111,7 @@
 
 			<div class="callout-box">
 				<div class="callout-logos">
-					<Icon
-						icon="mdi:office-building"
-						width="60"
-						height="60"
-						style="color: var(--brandDarkBlue);"
-					/>
+					<img src={mainstreets} />
 					<img src={canada_logo} alt="Canada" />
 				</div>
 				<p>
@@ -123,130 +126,165 @@
 				<div class="section-header">
 					<h2>ABOUT</h2>
 				</div>
+				<div class="highlight-box">
+					<h4>
+						The Measuring Main Streets platform is a part of the Research Knowledge Initiative
+						program from Housing, Infrastructure and Communities Canada.
+					</h4>
+				</div>
+
+				<div class="stats-grid">
+					<div class="stats-text">
+						<p>
+							Main streets are the backbone of Canadian society, with <strong
+								>85% of Canadians</strong
+							>
+							living within one kilometer of a main street. These streets are home to
+							<strong>280,000 businesses</strong>, providing
+							<strong>1.9 million jobs</strong>
+							and generating <strong>$300 billion</strong> in annual revenue. They also house over
+							<strong>98,000</strong> community and civic infrastructure assets.
+						</p>
+					</div>
+					<div class="stats-image">
+						<img src={montreal_bg} alt="Map graphic" />
+					</div>
+				</div>
+				<div class="text-content">
+					<p>
+						However, despite their outsized social and economic role, planning and investment
+						decisions affecting main streets are often made without access to consistent,
+						place-based data at a meaningful scale. Without a clear picture of the people, assets,
+						and activities that anchor these streets, planners, developers, and municipal leaders
+						are forced to rely on partial or fragmented information—limiting their ability to make
+						informed decisions and assess long-term impacts on community livability.
+					</p>
+					<p>
+						In response, The Canadian Urban Institute (CUI) has developed a groundbreaking toolkit
+						on the newly released Measuring Main Streets platform. These resources, backed by two
+						years of research funded by Housing, Infrastructure and Communities Canada, offer city
+						builders the means to make informed investments at the main street scale to enhance
+						community, resilience, and equity outcomes.
+					</p>
+
+					<blockquote class="quote">
+						<p>
+							“Without a thorough understanding of our neighbourhoods, it’s nearly impossible to
+							assess the broader health and vitality of our communities, but until now, there hasn’t
+							been a way to analyze or understand these important places quantitatively—the data has
+							been too large, inaccessible, or fragmented.”
+						</p>
+						<cite>Gregory Spencer, Director of Research at CUI</cite>
+					</blockquote>
+
+					<p>
+						In response, the Canadian Urban Institute (CUI) developed the Measuring Main Streets
+						platform: a suite of tools and resources that brings together robust,
+						neighbourhood-scale data at the main street level. The platform equips community
+						decision-makers with a clearer understanding of local conditions, enabling better
+						planning, more targeted investment, and the ability to track outcomes that advance
+						housing, community vitality, resilience, and equity goals.
+					</p>
+
+					<p>
+						Measuring Main Streets has completed two projects, releasing tools, research, and case
+						studies that expanded the platform's depth and national reach. Each project built on the
+						previous, growing the data-driven evidence base for communities and decision-makers.
+						Learn more about each round of funding here.
+					</p>
+					<p>
+						The <a
+							href="https://housing-infrastructure.canada.ca/rki-irc/index-eng.html"
+							target="_blank">Research and Knowledge Initiative</a
+						>
+						(RKI) that makes Measuring Main Streets possible is a national merit-based contributions
+						funding program from
+						<a href="https://housing-infrastructure.canada.ca/index-eng.html" target="_blank"
+							>Housing, Infrastructure and Communities Canada</a
+						>. The RKI funds projects focused on key Government of Canada research and data
+						priorities related to housing, infrastructure and communities.
+					</p>
+					<p>
+						Measuring Main Streets is the latest contribution to the Canadian Urban Institute’s
+						long-term commitment to supporting the resilience and vitality of Canada’s main streets.
+						Through research, policy leadership, and place-based tools, CUI has spent decades
+						advancing approaches that recognize main streets as critical social, economic, and civic
+						infrastructure. <a href="https://mainstreetcanada.ca/" target="_blank"
+							>Discover CUI’s Main Street work here.</a
+						>
+					</p>
+					<p>
+						Using a data-driven approach, <strong>Measuring Main Streets</strong> examines what’s working,
+						what’s not, and what’s next for Canada’s main streets: empowering city builders at every
+						scale, from local neighbourhoods to national systems. By making complex data accessible and
+						actionable, the platform supports better decisions, clearer accountability, and more effective
+						outcomes for communities across the country. Explore the tools today.
+					</p>
+				</div>
 
 				<div class="accordion-group">
 					<Accordion bind:open={aboutResilienceOpen} id="about-resilience">
 						<div slot="header" class="accordion-header">
 							<div>
-								<span class="eyebrow">PHASE ONE</span>
-								<h3>MAIN STREET RESILIENCE</h3>
+								<span class="eyebrow">Round One</span>
+								<h3>Resilience on Main</h3>
 							</div>
 							<Icon icon={aboutResilienceOpen ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
-							<div class="highlight-box">
-								<h4>MAIN STREETS ARE THE BACKBONE OF CANADIAN SOCIETY.</h4>
-							</div>
-
-							<div class="stats-grid">
-								<div class="stats-text">
-									<p>
-										<strong>85% of Canadians</strong> living within one kilometer of a main street.
-										These streets are home to <strong>280,000 businesses</strong>, providing
-										<strong>1.9 million jobs</strong>
-										and generating <strong>$300 billion</strong> in annual revenue. They also house
-										over <strong>98,000</strong> community and civic infrastructure assets.
-									</p>
-								</div>
-								<div class="stats-image">
-									<img src={montreal_bg} alt="Map graphic" />
-								</div>
-							</div>
-
 							<div class="text-content">
 								<p>
-									However, planners, developers, and municipal leaders often consider investment
-									decisions based on individual assets rather than the inter-relationship of civic
-									assets, housing and other uses that can be anchored to a main street as the spine
-									of a community. This narrow approach risks compromising the livability of
-									communities by neglecting the scale at which residents and visitors understand and
-									experience a neighbourhood/place.
+									In round one of funding, CUI's partners included Environics Analytics and Open
+									North.
 								</p>
-								<p>
-									In response, The Canadian Urban Institute (CUI) has developed a groundbreaking
-									toolkit on the newly released Measuring Main Streets platform. These resources,
-									backed by two years of research funded by Housing, Infrastructure and Communities
-									Canada, offer city builders the means to make informed investments at the main
-									street scale to enhance community, resilience, and equity outcomes.
-								</p>
-
-								<blockquote class="quote">
-									<p>
-										“Without the wider lens of neighborhoods and communities, it’s nearly impossible
-										to assess the health and vitality of our most important places,” says Jennifer
-										Barrett, Managing Director of Programs at CUI. “But up until now, there hasn’t
-										been a way to capture the state of a whole community – the data is often
-										inaccessible or fragmented.”
-									</p>
-									<cite>Jennifer Barrett, Managing Director of Programs at CUI</cite>
-								</blockquote>
-
-								<p>
-									The Measuring Main Streets tool aims to include every main street across Canada,
-									allowing users to evaluate housing, services, civic infrastructure, and more all
-									in one place. This is the first research tool to use main streets as the primary
-									unit of analysis, allowing any user to make the case for their main street.
-								</p>
-
-								<blockquote class="quote">
-									<p>
-										“Main streets are the cornerstone of ‘complete communities’, where Canadians can
-										live, work, and play all within their local neighbourhood,” adds Mary W. Rowe,
-										CEO of CUI. “They are our economic powerhouses and social connective tissue.
-										Decision-makers should invest in solutions to issues like housing, public
-										safety, and sustainability at the scale of the main street, and now there’s a
-										way to do it.”
-									</p>
-									<cite>Mary W. Rowe, CEO of CUI</cite>
-								</blockquote>
-
-								<p>
-									The Canadian Urban Institute has demonstrated a long-time commitment to Canada’s
-									main streets. From Bring Back Main Street in 2018, a nationally coordinated
-									research and action campaign for pandemic recovery, to two rounds of My Main
-									Street, a $15-million program empowering main street businesses and community
-									activations. Since the pandemic, CUI has engaged with diverse stakeholders
-									including the Main Street Action Network to bolster Canada’s main streets, making
-									Measuring Main Streets the latest effort in a push to place main streets at the
-									forefront of thought and action in urbanism.
-								</p>
-								<p>
-									Using a data-driven approach, Measuring Main Streets explores what’s working,
-									what’s not, and what’s next for Canada’s main streets, empowering city builders
-									from the neighborhood to the national scale.
-								</p>
+								<div class="partner-logos-grid">
+									<a
+										href="https://housing-infrastructure.canada.ca/rki-irc/index-eng.html"
+										target="_blank"
+									>
+										<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
+									</a>
+									<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
+										<img src={environics_logo} alt="Environics Analytics" />
+									</a>
+									<a href="https://opennorth.ca/" target="_blank">
+										<img src={opennorth_logo} alt="Open North" />
+									</a>
+								</div>
 							</div>
 						</div>
 					</Accordion>
 
 					<Accordion bind:open={aboutTodOpen} id="about-tod">
 						<div slot="header" class="accordion-header">
-							<h3>TRANSIT-ORIENTED DEVELOPMENT</h3>
+							<div>
+								<span class="eyebrow">Round Two</span>
+								<h3>Transit-Oriented Development on Main</h3>
+							</div>
 							<Icon icon={aboutTodOpen ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
 							<div class="text-content">
 								<p>
-									Canada’s housing system is failing to meet the needs of Canadians, and we need
-									solutions to increase production and expand available options to make housing
-									accessible and affordable everyone from communities of all sizes. How can
-									Transit-Oriented Development (TOD) be catalyzed to meet Canada’s ambitious housing
-									goals, while contributing to the creation of equitable, vibrant, complete
-									communities?
+									In round two of funding, CUI's partners included Environics Analytics, the School
+									of Cities at the University of Toronto, Digital Public Square, and the Canadian
+									Alliance for Transit-Connected Housing.
 								</p>
-								<p>
-									Transit-Oriented Development (TOD) refers to the creation of compact, mixed-use,
-									walkable communities centered around high-quality transit systems. This approach
-									to urban planning aims to reduce reliance on private vehicles, lower greenhouse
-									gas emissions, and create more livable, sustainable communities.
-								</p>
-								<p>
-									Our research explores how TOD can be implemented effectively across Canada,
-									considering the unique challenges and opportunities in different regions. We focus
-									on identifying best practices for zoning, infrastructure investment, and community
-									engagement to ensure that TOD projects deliver on their promise of creating
-									equitable and vibrant complete communities.
-								</p>
+								<div class="partner-logos-grid">
+									<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
+									<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
+										<img src={environics_logo} alt="Environics Analytics" />
+									</a>
+									<a href="https://schoolofcities.utoronto.ca/" target="_blank">
+										<img src={soc_logo} alt="School of Cities" />
+									</a>
+									<a href="https://digitalpublicsquare.org/" target="_blank">
+										<img src={dps_logo} alt="Digital Public Square" />
+									</a>
+									<a href="https://catch-rehac.ca/" target="_blank">
+										<img src={catch_logo} alt="CATCH" />
+									</a>
+								</div>
 							</div>
 						</div>
 					</Accordion>
@@ -255,47 +293,191 @@
 
 			<section id="team-section">
 				<div class="section-header">
-					<h2>TEAM</h2>
+					<h2>TEAM AND PARTNERS</h2>
 				</div>
 
 				<div class="accordion-group">
 					<Accordion bind:open={teamResilienceOpen} id="team-resilience">
 						<div slot="header" class="accordion-header">
-							<h3>MAIN STREET RESILIENCE</h3>
+							<h3>Resilience on Main</h3>
 							<Icon icon={teamResilienceOpen ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
-							<div class="text-content">
-								<p>
-									The Main Street Resilience team is composed of dedicated researchers, urban
-									planners, and data analysts committed to understanding and supporting the backbone
-									of Canadian communities.
-								</p>
-								<ul>
-									<li><strong>Jennifer Barrett</strong> - Managing Director of Programs at CUI</li>
-									<li><strong>Mary W. Rowe</strong> - CEO of CUI</li>
-									<li>...and many other contributors from across Canada.</li>
-								</ul>
+							<h4 class="mb-6">Team Members</h4>
+							<div class="card-grid">
+								<ContactCard
+									link="https://canurb.org/team/gregory-spencer/"
+									title="Gregory Spencer"
+									description="Director, Research"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/jennifer-barrett/"
+									title="Jennifer Barrett"
+									description="Managing Director, Programs, Planning and Policy"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/ananmay-sharan"
+									title="Ananmay Sharan"
+									description="Web Developer"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/alex-tabascio/"
+									title="Alex Tabascio"
+									description="Data Analyst"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/emily-wassmansdorf/"
+									title="Emily Wassmansdorf"
+									description="Communications Manager"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/leandro-santos/"
+									title="Leandro G. Santos"
+									description="Senior Planner"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/toma-beit-arie/"
+									title="Toma Beit-Arie"
+									description="Research Planner"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/david-scrivener-toronto/"
+									title="David Scrivener"
+									description="Field Researcher"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/ever-hughes-93ga64/"
+									title="Ever Hughes"
+									description="Data Intern"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/amanda-ng-2323591a6/"
+									title="Amanda Ng"
+									description="Data Intern"
+								/>
+							</div>
+
+							<h4 class="mt-12 mb-6">Partners & Consultants</h4>
+
+							<div class="card-grid">
+								<ContactCard
+									link="https://www.linkedin.com/in/steve-coutts"
+									title="Steve Coutts"
+									description="Open North"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/sanjida-rabbi/"
+									title="Sanjida Rabbi"
+									description="Open North"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/neufeldb/"
+									title="Bronwyn Neufeld"
+									description="Field Researcher"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/elainestam/"
+									title="Elaine Stam"
+									description="Universe Design Studio"
+								/>
+							</div>
+							<div class="partner-logos-grid">
+								<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
+								<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
+									<img src={environics_logo} alt="Environics Analytics" />
+								</a>
+								<a href="https://opennorth.ca/" target="_blank">
+									<img src={opennorth_logo} alt="Open North" />
+								</a>
 							</div>
 						</div>
 					</Accordion>
 
 					<Accordion bind:open={teamTodOpen} id="team-tod">
 						<div slot="header" class="accordion-header">
-							<h3>TRANSIT-ORIENTED DEVELOPMENT</h3>
+							<h3>Transit-Oriented Development on Main</h3>
 							<Icon icon={teamTodOpen ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
-							<div class="text-content">
-								<p>
-									Our Transit-Oriented Development team works at the intersection of mobility,
-									housing, and sustainability to create complete communities.
-								</p>
-								<ul>
-									<li><strong>Team Member A</strong> - Urban Planner</li>
-									<li><strong>Team Member B</strong> - Data Scientist</li>
-									<li><strong>Team Member C</strong> - Policy Analyst</li>
-								</ul>
+							<h4 class="mb-6">Team Members</h4>
+							<div class="card-grid">
+								<ContactCard
+									link="https://canurb.org/team/gregory-spencer/"
+									title="Gregory Spencer"
+									description="Director, Research"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/jennifer-barrett/"
+									title="Jennifer Barrett"
+									description="Managing Director, Programs, Planning and Policy"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/genna-weber-4168a1225/"
+									title="Genna Weber"
+									description="Senior Software Engineer"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/iris-wu-6090151b7/"
+									title="Iris Wu"
+									description="GIS Data Analyst / Web Developer"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/lucacarnegie/"
+									title="Luca Carnegie"
+									description="Data Analyst & UX Designer"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/alex-tabascio/"
+									title="Alex Tabascio"
+									description="Data Analyst"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/emily-wassmansdorf/"
+									title="Emily Wassmansdorf"
+									description="Communications Manager"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/leandro-santos/"
+									title="Leandro G. Santos"
+									description="Senior Planner"
+								/>
+								<ContactCard
+									link="https://canurb.org/team/toma-beit-arie/"
+									title="Toma Beit-Arie"
+									description="Research Planner"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/zhaoyi-wang-econ/"
+									title="Zhaoyi Wang"
+									description="Intern"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/samuel-levi-abramsky/"
+									title="Samuel Levi-Abramsky"
+									description="Intern"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/elizabeth-wakileh/"
+									title="Elizabeth Wakileh"
+									description="Intern"
+								/>
+								<h4 class="mt-12 mb-6">Partners & Consultants</h4>
+
+								<div class="partner-logos-grid">
+									<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
+									<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
+										<img src={environics_logo} alt="Environics Analytics" />
+									</a>
+									<a href="https://schoolofcities.utoronto.ca/" target="_blank">
+										<img src={soc_logo} alt="School of Cities" />
+									</a>
+									<a href="https://digitalpublicsquare.org/" target="_blank">
+										<img src={dps_logo} alt="Digital Public Square" />
+									</a>
+									<a href="https://catch-rehac.ca/" target="_blank">
+										<img src={catch_logo} alt="CATCH" />
+									</a>
+								</div>
 							</div>
 						</div>
 					</Accordion>
@@ -307,14 +489,14 @@
 	<!-- CUI Section -->
 	<div class="cui-section" style="background-image: url({vancouver_bg})">
 		<div class="container cui-flex">
-			<div class="cui-about">
+			<!-- <div class="cui-about">
 				<h3>ABOUT THE CANADIAN URBAN INSTITUTE</h3>
 				<p>
 					Helping communities thrive since 1990, CUI is a national charity driving place-based
 					solutions. With over 35 years of experience in place-based planning, CUI brings together
 					data, policy, and local insight to help communities be resilient, vibrant, and prosperous.
 				</p>
-			</div>
+			</div> -->
 			<div class="cui-contact">
 				<h3>CONTACT US</h3>
 
@@ -338,9 +520,7 @@
 						<span class="label">CONNECT</span>
 						<div class="social-icons">
 							<Icon icon="fa6-brands:linkedin" />
-							<Icon icon="fa6-brands:x-twitter" />
 							<Icon icon="fa6-brands:instagram" />
-							<Icon icon="fa6-brands:facebook" />
 						</div>
 					</div>
 				</div>
@@ -348,8 +528,6 @@
 		</div>
 	</div>
 </main>
-
-<Footer />
 
 <style>
 	main {
@@ -396,11 +574,8 @@
 
 	.hero-content h1 {
 		font-size: 5rem;
-		line-height: 0.9;
 		margin: 0;
 		color: var(--brandDarkBlue);
-		font-weight: 800;
-		letter-spacing: -0.02em;
 	}
 
 	.text-blue {
@@ -543,11 +718,41 @@
 		color: var(--brandLightBlue);
 		font-weight: 700;
 		margin-bottom: 0.25rem;
+		text-transform: uppercase;
 		display: block;
 	}
 
 	.accordion-body {
 		padding: 2rem 0;
+	}
+
+	.card-grid {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		align-items: stretch;
+	}
+
+	.partner-logos-grid {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		margin-top: 2rem;
+		gap: 3rem;
+		background: #f9f9f9;
+		padding: 2rem;
+		border-radius: 8px;
+	}
+
+	.partner-logos-grid img {
+		height: 50px;
+		max-width: 250px;
+		object-fit: contain;
+		transition: all 0.3s;
+	}
+	.partner-logos-grid img:hover {
+		transform: scale(1.05);
 	}
 
 	/* Highlight Box */
@@ -561,8 +766,8 @@
 	.highlight-box h4 {
 		color: white;
 		margin: 0;
-		font-size: 1.5rem;
-		font-weight: 700;
+		/* font-size: 1.5rem; */
+		/* font-weight: 700; */
 		text-transform: none;
 	}
 
@@ -620,31 +825,35 @@
 
 	/* CUI Section */
 	.cui-section {
+		background-image: url('../../lib/assets/graphics/vancouver-bg.png');
 		background-size: cover;
 		background-position: center;
-		padding: 6rem 0;
+		background-repeat: no-repeat;
+		display: flex;
+		justify-content: center;
+		padding: 6rem 2rem;
+		margin: 0 auto;
+		overflow: hidden;
 		position: relative;
-	}
-
-	.cui-section::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(255, 255, 255, 0.9);
+		width: 100%;
+		background-attachment: fixed;
 	}
 
 	.cui-flex {
 		position: relative;
 		z-index: 1;
+		justify-content: center;
 		display: flex;
 		gap: 4rem;
 	}
 
-	.cui-about,
 	.cui-contact {
+		z-index: 2;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(10px);
+		padding: 4rem;
+		border-radius: 2rem;
 		flex: 1;
 	}
 
