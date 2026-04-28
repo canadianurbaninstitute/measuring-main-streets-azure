@@ -4,7 +4,7 @@
 	import { Spring } from 'svelte/motion';
 	import car from '../../../lib/assets/graphics/car.png';
 	import train from '../../../lib/assets/graphics/dark-train.svg';
-	import LandingCard from '../../../lib/ui/LandingCard.svelte';
+	import LandingCard from '../../lib/ui/LandingCard.svelte';
 	// Card assets
 	import casestudy from '../../../lib/assets/screenshots/case-study-arbutus.png';
 	import casestudy2 from '../../../lib/assets/screenshots/case-study.png';
