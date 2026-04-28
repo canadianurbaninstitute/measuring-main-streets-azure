@@ -1,5 +1,5 @@
 <script>
-	import hero from '../../../lib/assets/graphics/measuring-main-streets-hero.png';
+	import hero from '../../lib/assets/graphics/measuring-main-streets-hero.png';
 </script>
 
 <div class="hero-wrapper">
@@ -37,7 +37,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-image: url('../../../lib/assets/graphics/montreal-bg.png');
+		background-image: url('../../lib/assets/graphics/montreal-bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
