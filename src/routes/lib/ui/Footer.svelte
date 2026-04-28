@@ -6,7 +6,7 @@
 	import environics from '../assets/logos/environics_logo.svg';
 	import mms from '../assets/logos/mms_logo_white.svg';
 	import opennorth from '../assets/logos/opennorth_logo.svg';
-	import soc from '../assets/logos/soc_logo.svg';
+	import soc from '../assets/logos/uotsoc.png';
 	import SocialLinks from './SocialLinks.svelte';
 </script>
 

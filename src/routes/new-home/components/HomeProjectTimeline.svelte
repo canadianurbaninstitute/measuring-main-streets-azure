@@ -2,19 +2,19 @@
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { Spring } from 'svelte/motion';
-	import car from '../../../lib/assets/graphics/car.png';
-	import train from '../../../lib/assets/graphics/dark-train.svg';
+	import car from '../../lib/assets/graphics/car.png';
+	import train from '../../lib/assets/graphics/dark-train.svg';
 	import LandingCard from '../../lib/ui/LandingCard.svelte';
 	// Card assets
-	import casestudy from '../../../lib/assets/screenshots/case-study-arbutus.png';
-	import casestudy2 from '../../../lib/assets/screenshots/case-study.png';
-	import dot from '../../../lib/assets/screenshots/dot.png';
-	import reports from '../../../lib/assets/screenshots/key-findings.png';
-	import mainstreetmap from '../../../lib/assets/screenshots/main-street-map.png';
-	import transitmap from '../../../lib/assets/screenshots/transit-map.png';
-	import urbanform from '../../../lib/assets/screenshots/urban-form.png';
-	import reportstsa from '../../../lib/assets/screenshots/who-tsas.png';
-	import '../../../styles.css';
+	import casestudy from '../../lib/assets/screenshots/case-study-arbutus.png';
+	import casestudy2 from '../../lib/assets/screenshots/case-study.png';
+	import dot from '../../lib/assets/screenshots/dot.png';
+	import reports from '../../lib/assets/screenshots/key-findings.png';
+	import mainstreetmap from '../../lib/assets/screenshots/main-street-map.png';
+	import transitmap from '../../lib/assets/screenshots/transit-map.png';
+	import urbanform from '../../lib/assets/screenshots/urban-form.png';
+	import reportstsa from '../../lib/assets/screenshots/who-tsas.png';
+	import '../../styles.css';
 
 	let timelineElement = null;
 	let crossingElement = null;
@@ -186,8 +186,7 @@
 		</div>
 
 		<div class="projects-list">
-			<h2 class="section-title">The Projects</h2>
-
+			<h2 class="section-title">Making Data More Accessible for Main Street & Downtown Vibrancy</h2>
 			<!-- First project -->
 			<div class="project-entry pb-10">
 				<div class="project-content">
@@ -303,7 +302,7 @@
 	}
 
 	.section-title {
-		font-family: 'Gelasio', serif;
+		font-family: 'Inter', sans-serif;
 		font-size: 3.5rem;
 		color: var(--brandDarkBlue);
 	}
