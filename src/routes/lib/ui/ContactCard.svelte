@@ -27,17 +27,18 @@
 	.contact-card {
 		border: 1px solid var(--brandDarkBlue);
 		padding: 1.5rem;
-		margin: 0.75rem;
 		border-radius: 10px;
+		min-width: 20rem;
 		max-width: 20rem;
+		height: 100%;
 		transition:
 			transform 0.3s ease,
 			box-shadow 0.3s ease;
 	}
-	.contact-card:hover {
+	/* .contact-card:hover {
 		transform: translateY(-8px);
 		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-	}
+	} */
 	.contact-card:hover .title {
 		color: var(--brandLightBlue);
 	}
