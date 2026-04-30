@@ -1,7 +1,9 @@
 <script>
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
+	import ccreport from '../../lib/assets/graphics/ccreport.png';
 	import civic from '../../lib/assets/graphics/civic.svg';
+	import devreport from '../../lib/assets/graphics/devpotentialreport.png';
 	import Edmonton from '../../lib/assets/graphics/edmonton.jpg';
 	import goldenmile from '../../lib/assets/graphics/golden-mile.png';
 	import grocery from '../../lib/assets/graphics/grocery.jpg';
@@ -11,6 +13,9 @@
 	import opennorth from '../../lib/assets/graphics/opennorth.svg';
 	import resiliency from '../../lib/assets/graphics/resiliency.svg';
 	import Toronto from '../../lib/assets/graphics/toronto.jpg';
+	import catch_logo from '../../lib/assets/logos/catch_color.png';
+	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
+	import soc from '../../lib/assets/logos/uotsoc_color.png';
 	import arbutus from '../../lib/assets/screenshots/arbutus.png';
 	import decarbonizing from '../../lib/assets/screenshots/decarbonizing.png';
 	import displacement from '../../lib/assets/screenshots/displacement2.png';
@@ -21,10 +26,8 @@
 	import transportation from '../../lib/assets/screenshots/transportation.png';
 	import whotsas from '../../lib/assets/screenshots/who-tsas.png';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
-	import northfield from '../../reports/assets/dps-northfield.png';
-	import ccreport from '../../lib/assets/graphics/ccreport.png';
-	import devreport from '../../lib/assets/graphics/devpotentialreport.png';
 	import cooksville from '../../reports/assets/dps-cooksville.png';
+	import northfield from '../../reports/assets/dps-northfield.png';
 	import dpsmethod from '../../reports/assets/dps-welcome.png';
 	import catchreport from '../../reports/tod/catch/assets/elevated-train.png';
 	import '../../styles.css';
@@ -45,20 +48,23 @@
 				'Infographic',
 				'Regional Report',
 				'Partner Report',
+				'School of Cities',
 				'Complete Communities',
 				'Development Potential'
 			],
 			items: [
 				{
 					title: 'Introductory Report',
-					description: '',
+					description:
+						'Why is transit-oriented development worth investing in, and what is needed to make it successful?',
 					image: intro,
 					link: '/reports/tod/intro',
 					tags: ['Executive Summary']
 				},
 				{
 					title: "Who Lives in Canada's Transit Station Areas?",
-					description: '',
+					description:
+						'A visual summary of the demographic makeup of transit station areas across Canada.',
 					image: whotsas,
 					link: '/reports/tod/who-lives-in-tsas',
 					tags: ['Infographic', 'Regional Report']
@@ -72,7 +78,7 @@
 				},
 				{
 					title: 'Eating Well',
-					description: 'Communities are only complete if they are walkable.',
+					description: 'Enabling affordable grocery options in and around transit stations.',
 					image: grocery,
 					link: '/reports/tod/eating-well',
 					tags: ['Complete Communities']
@@ -80,71 +86,85 @@
 				{
 					title: 'From TOD to TOCC',
 					description:
-						'Transit-oriented development and complete communities in a Canadian Context.',
+						'Transit-oriented development and complete communities in a Canadian context.',
 					image: ccreport,
 					link: '/reports/tod/complete-communities',
 					tags: ['Complete Communities']
 				},
 				{
 					title: 'Development Potential',
-					description: 'Exploring Housing Development Potential in Transit Station Areas.',
+					description: 'Exploring housing development potential in transit station areas.',
 					image: devreport,
 					link: '/reports/tod/development-potential',
 					tags: ['Development Potential']
 				},
 
 				{
-					title: 'Past and Projected Transit-Induced Displacement in Canada',
-					description: '',
+					title: 'Transit-Induced Displacement',
+					description:
+						'How opening new transit stations affects low-income residents, with research into patterns of residential displacement and exclusion. ',
 					image: displacement,
+					logo: soc,
 					link: '/reports/tod/displacement',
-					tags: ['Equity', 'Partner Report']
+					tags: ['Equity', 'School of Cities']
 				},
 				{
-					title: 'Embodied Greenhouse Gas Emissions in Transit-Oriented Development Scenarios',
-					description: '',
+					title: 'Embodied GHG Emissions',
+					description:
+						'Research quantifying how planning decisions shape embodied GHG emissions from proposed development in five Canadian case study scenarios. ',
 					image: embodiedcarbon,
+					logo: soc,
 					link: '/reports/tod/embodied-carbon',
-					tags: ['GHG Emissions', 'Partner Report']
+					tags: ['GHG Emissions', 'School of Cities']
 				},
 				{
-					title: 'Decarbonizing Transport through Land Use and Policy Change',
-					description: '',
+					title: 'Decarbonizing Transport',
+					description:
+						'Explores whether directing growth to transit-rich areas meaningfully reduces vehicle travel and emissions. ',
+					logo: soc,
 					image: decarbonizing,
 					link: '/reports/tod/decarbonizing',
-					tags: ['GHG Emissions', 'Partner Report']
+					tags: ['GHG Emissions', 'School of Cities']
 				},
 				{
-					title: 'Transportation equity and sustainable mobility from mixed-use development',
-					description: '',
+					title: 'Transportation Equity',
+					description:
+						'Research into how TOD affects two key metrics: transportation equity and sustainable mode shift. ',
+					logo: soc,
 					image: transportation,
 					link: '/reports/tod/transportation-equity',
-					tags: ['Equity', 'Mobility', 'Partner Report']
+					tags: ['Equity', 'Mobility', 'School of Cities']
 				},
 				{
-					title:
-						'Building intensification and neighbourhood change in transit-oriented development zones',
-					description: '',
+					title: 'Tracking Neighbourhood Changes',
+					description:
+						'Explores whether TOD areas promote affordability through increased building unit construction. ',
+					logo: soc,
 					image: intensification,
 					link: '/reports/tod/intensification-equity',
-					tags: ['Equity', 'Partner Report']
+					tags: ['Equity', 'School of Cities']
 				},
 				{
-					title: 'Fiscal Impacts of Transit-Oriented Development',
-					description: '',
+					title: 'Fiscal Impacts of TOD',
+					description:
+						'Examines whether TOD generates net revenues or costs for municipal governments. ',
+					logo: soc,
 					image: fiscalimpacts,
 					link: '/reports/tod/fiscal-impacts',
-					tags: ['Partner Report']
+					tags: ['School of Cities']
 				},
 				{
 					title: 'Ground Floor',
-					description: 'A Case Study of the Scarborough Golden Mile',
+					description:
+						'A case study of the Scarborough Golden Mile prepared by fourth-year undergraduate students at the University of Toronto.',
 					image: goldenmile,
+					logo: soc,
 					link: '/reports/tod/golden-mile',
-					tags: ['Partner Report']
+					tags: ['School of Cities']
 				},
 				{
 					title: 'Love Northfield',
+					logo: dps_logo,
 					description:
 						'The Northfield Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
 					image: northfield,
@@ -153,6 +173,7 @@
 				},
 				{
 					title: 'Love Kitsilano',
+					logo: dps_logo,
 					description:
 						'The Kitsilano Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
 					image: northfield,
@@ -161,6 +182,7 @@
 				},
 				{
 					title: 'Love Cooksville',
+					logo: dps_logo,
 					description:
 						'The Cooksville Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
 					image: cooksville,
@@ -169,6 +191,7 @@
 				},
 				{
 					title: 'Digital Public Engagement',
+					logo: dps_logo,
 					description: 'Exploring the potential of digital initiatives for public engagement',
 					image: dpsmethod,
 					link: '/reports/tod/digital-public-engagement',
@@ -176,8 +199,9 @@
 				},
 				{
 					title: 'Transit Without Displacement',
+					logo: catch_logo,
 					description:
-						'How Communities Can Ensure Transit-Oriented Development Works for Everyone.',
+						'How communities can ensure transit-oriented development works for everyone.',
 					image: catchreport,
 					link: '/reports/tod/catch',
 					tags: ['Partner Report']

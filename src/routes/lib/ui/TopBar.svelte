@@ -63,6 +63,12 @@
 		{ title: 'Team', href: '/about/team' },
 		{ title: 'Contact', href: '/about/contact' }
 	];
+
+	const newLearnMore = [
+		{ title: 'About', href: '/about/v2' },
+		{ title: 'FAQ', href: '/about/faq/v2' },
+		{ title: 'Data & Methodology', href: '/about/data-methodology/v2' }
+	];
 </script>
 
 <div
@@ -178,7 +184,7 @@
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop nav-content--right">
 							<ul class="nav-dropdown">
-								{#each learnMore as item}
+								{#each isLandingNav ? newLearnMore : learnMore as item}
 									<li>
 										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
 											>{item.title}</NavigationMenu.Link

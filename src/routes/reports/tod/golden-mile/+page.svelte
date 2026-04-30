@@ -1,18 +1,17 @@
 <script>
 	// Components
+	import ContactCard from '../../../lib/ui/ContactCard.svelte';
 	import '../../../styles.css';
 	import ReportHeader from '../../components/ReportHeader.svelte';
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import ContactCard from '../../../lib/ui/ContactCard.svelte';
-
 	// Assets
-	import introImage from './assets/HeaderImage.png';
 	import goldenMileStudyArea from './assets/GoldenMileStudyArea.png';
-	import goldenMileBuildings from './assets/test.png';
-	import reimaginingGoldenMile from './assets/ReimaginingGoldenMile.png';
+	import introImage from './assets/HeaderImage.png';
 	import macroScale from './assets/MacroScaleInterventions.png';
+	import reimaginingGoldenMile from './assets/ReimaginingGoldenMile.png';
+	import goldenMileBuildings from './assets/test.png';
 
 	import { sections } from './article.js';
 
@@ -88,8 +87,8 @@
 	<div class="center" id="main">
 		<div class="card italic text-center mt-20 mx-8">
 			This report was prepared by fourth-year undergraduate students at the University of Toronto as
-			part of the Multidisciplinary Urban Capstone Project, in collaboration with the Canadian Urban
-			Institute.
+			part of the School of Cities' Multidisciplinary Urban Capstone Project, in collaboration with
+			the Canadian Urban Institute.
 		</div>
 	</div>
 	<div class="inline-article">

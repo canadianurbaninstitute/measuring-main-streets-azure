@@ -1,12 +1,16 @@
 <script>
-	import hero from '../../lib/assets/graphics/measuring-main-streets-hero.png';
+	import { page } from '$app/stores';
+	import heroFr from '../../lib/assets/graphics/measuring-main-streets-hero-fr.png';
+	import heroEn from '../../lib/assets/graphics/measuring-main-streets-hero.png';
+	$: isFrench = $page.url.pathname.startsWith('/fr');
+	$: currentHero = isFrench ? heroFr : heroEn;
 </script>
 
 <div class="hero-wrapper">
 	<div class="background"></div>
 	<section class="hero-container">
 		<div class="content">
-			<img class="hero-image" src={hero} alt="Measuring Main Streets" />
+			<img class="hero-image" src={currentHero} alt="Measuring Main Streets" />
 		</div>
 	</section>
 	<div class="tabs-overlay">

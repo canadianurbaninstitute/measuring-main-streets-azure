@@ -6,11 +6,13 @@
 
 	import AxisX from '../chartcomponents/AxisX.svelte';
 	import AxisY from '../chartcomponents/AxisY.svelte';
+	import MultiArea from '../chartcomponents/MultiArea.svelte';
 	import MultiLine from '../chartcomponents/MultiLine.svelte';
+	import TotalLine from '../chartcomponents/TotalLine.svelte';
 	import SharedTooltip from '../chartcomponents/SharedTooltip.html.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
-	// ── New generalized props ────────────────────────────────────────────────────
+	// ── Props ──────────────────────────────────────────────────────────────────
 	export let data = [];
 	export let seriesConfig = [];
 	export let title = '';
@@ -27,6 +29,13 @@
 	export let showLegend = true;
 	export let xLabel = '';
 	export let yLabel = '';
+	export let cumulative = false;
+	export let stacked = false;
+	export let showArea = false;
+	export let showLines = true;
+	export let showTotalLine = false;
+	export let totalLineColor = '#000000';
+	export let totalLineLabel = 'Net Total';
 
 	// ── Internal constants ───────────────────────────────────────────────────────
 	const yKey = 'value'; // LayerCake's yKey after groupLonger
@@ -35,17 +44,85 @@
 	$: seriesNames = seriesConfig.map((s) => s.key);
 	$: seriesColors = seriesConfig.map((s) => s.color);
 
-	$: {
-		data.forEach((d) => {
-			if (xParseFn && typeof d[xKey] === 'string') d[xKey] = xParseFn(d[xKey]);
+	// 1. Process data: parse dates and ensure all series values are numbers
+	$: processedData = data
+		.map((d) => {
+			const newD = { ...d };
+			if (xParseFn && typeof newD[xKey] === 'string') {
+				newD[xKey] = xParseFn(newD[xKey]);
+			}
 			seriesNames.forEach((name) => {
-				if (typeof d[name] === 'string') d[name] = +d[name];
+				const val = parseFloat(newD[name]);
+				newD[name] = isNaN(val) ? 0 : val;
 			});
-		});
-	}
+			return newD;
+		})
+		.sort((a, b) => a[xKey] - b[xKey]);
 
-	$: groupedData = groupLonger(data, seriesNames, { groupTo: zKey, valueTo: yKey });
-	$: xTicks = data.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]);
+	// 2. Apply Stacking and Cumulative logic
+	$: finalData = (() => {
+		// Create a fresh copy to avoid mutating processedData
+		let result = processedData.map((d) => ({ ...d }));
+
+		// Apply stacking
+		if (stacked) {
+			let posSums = new Array(result.length).fill(0);
+			let negSums = new Array(result.length).fill(0);
+
+			result.forEach((row, i) => {
+				row._stack = {};
+				row._original = {};
+				seriesNames.forEach((name) => {
+					const val = row[name] || 0;
+					row._original[name] = val;
+
+					if (val >= 0) {
+						row._stack[name] = { y0: posSums[i], y1: posSums[i] + val };
+						posSums[i] += val;
+					} else {
+						row._stack[name] = { y0: negSums[i], y1: negSums[i] + val };
+						negSums[i] += val;
+					}
+					// Use y1 as the point value for line drawing and scaling
+					row[name] = row._stack[name].y1;
+				});
+				row._total = posSums[i] + negSums[i];
+			});
+		} else {
+			// If not stacked, still calculate total for the line if needed
+			result.forEach((row) => {
+				let sum = 0;
+				seriesNames.forEach((name) => {
+					sum += row[name] || 0;
+				});
+				row._total = sum;
+			});
+		}
+
+		// Apply cumulative
+		if (cumulative) {
+			let runningSums = {};
+			seriesNames.forEach((name) => (runningSums[name] = 0));
+
+			result.forEach((row) => {
+				seriesNames.forEach((name) => {
+					runningSums[name] += row[name] || 0;
+					row[name] = runningSums[name];
+				});
+				// Update total for cumulative view as well
+				let sum = 0;
+				seriesNames.forEach((name) => {
+					sum += row[name] || 0;
+				});
+				row._total = sum;
+			});
+		}
+
+		return result;
+	})();
+
+	$: groupedData = groupLonger(finalData, seriesNames, { groupTo: zKey, valueTo: yKey });
+	$: xTicks = finalData.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]);
 
 	let innerWidth = 1000;
 	let innerHeight = 800;
@@ -78,20 +155,41 @@
 			<Svg>
 				<AxisX gridlines={false} ticks={xTicks} format={formatLabelX} tickMarks label={xLabel} />
 				<AxisY ticks={4} format={formatLabelY} label={yLabel} />
-				<MultiLine {visible} />
+				{#if showArea}
+					<MultiArea {visible} opacity={0.3} />
+				{/if}
+				{#if showLines}
+					<MultiLine {visible} />
+				{/if}
+
+				{#if showTotalLine}
+					<TotalLine
+						dataset={finalData}
+						yKey="_total"
+						stroke={totalLineColor}
+						strokeWidth={4}
+						dashed={true}
+						{visible}
+					/>
+				{/if}
 			</Svg>
+
 			<Html>
-				<SharedTooltip formatTitle={formatLabelX} dataset={data} {formatValue} />
+				<SharedTooltip formatTitle={formatLabelX} dataset={finalData} {formatValue} />
 			</Html>
 		</LayerCake>
 	</div>
 
-	{#if computedShowLegend && seriesConfig.length > 0}
+	{#if computedShowLegend && (seriesConfig.length > 0 || showTotalLine)}
 		<div class="controls">
 			<div class="legend-container">
 				{#each seriesConfig as { label, color }}
-					<LegendItem variant="line" {label} bordercolor={color} />
+					<!-- Use 'polygon' for areas and 'line' for lines -->
+					<LegendItem variant={showArea ? 'polygon' : 'line'} {label} bgcolor={color} />
 				{/each}
+				{#if showTotalLine}
+					<LegendItem variant="line" label={totalLineLabel} bordercolor={totalLineColor} dotted />
+				{/if}
 			</div>
 		</div>
 	{/if}
@@ -112,7 +210,6 @@
 		gap: 1em;
 		border: 1px solid #eee;
 		padding: 1em;
-		border-radius: 1em;
 		border-radius: 1em;
 		box-sizing: border-box;
 	}

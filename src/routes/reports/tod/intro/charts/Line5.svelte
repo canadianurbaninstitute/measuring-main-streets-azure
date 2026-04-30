@@ -44,5 +44,5 @@
 	{visible}
 	xTicks={4}
 	xLabel="Units"
-	minHeight="600px"
+	minHeight="400px"
 />

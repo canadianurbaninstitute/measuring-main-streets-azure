@@ -23,7 +23,7 @@
 	<MultiLineChart
 		{data}
 		{visible}
-		height={400}
+		minHeight="300px"
 		xTickInterval={90}
 		title="Job Growth by Sector, 1976-2025"
 		yDomain={[0, 18000]}

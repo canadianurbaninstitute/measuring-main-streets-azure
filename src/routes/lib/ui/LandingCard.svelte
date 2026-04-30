@@ -9,7 +9,8 @@
 		description = '',
 		tags = [],
 		minWidth = 0,
-		maxWidth = 500
+		maxWidth = 500,
+		logo = null
 	} = $props();
 
 	/**
@@ -27,8 +28,10 @@
 		if (text.includes('graphing')) return 'var(--brandOrange)';
 		if (text.includes('case study')) return 'var(--color-green-500)';
 		if (text.includes('qualitative')) return 'var(--brandPurple)';
+		if (text.includes('school of cities')) return 'var(--color-pink-500)';
 		if (text.includes('tool')) return 'var(--color-yellow-200)';
 		if (text.includes('regional')) return 'var(--color-blue-800)';
+		if (text.includes('complete communities')) return 'var(--color-green-400)';
 		if (text.includes('partner')) return 'var(--brandPink)';
 		if (text.includes('executive summary')) return 'var(--brandLightBlue)';
 		if (text.includes('research brief')) return 'var(--color-green-500)';
@@ -50,12 +53,16 @@
 <a href={link} class="card-link">
 	<article
 		class="landing-card"
-		style:min-width={minWidth ? minWidth + 'px' : 'auto'}
-		style:max-width={maxWidth ? maxWidth + 'px' : 'auto'}
+		style="--min-w: {minWidth}px; --max-w: {maxWidth}px;"
 		class:featured
 	>
 		<div class="card-image-container">
 			<img src={image} alt={title} />
+			{#if logo}
+				<div class="card-logo-overlay">
+					<img src={logo} alt="Partner logo" />
+				</div>
+			{/if}
 		</div>
 		<div class="card-content">
 			<h5 class="card-title">{title}</h5>
@@ -105,6 +112,18 @@
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+		/* Desktop sizes from props */
+		min-width: var(--min-w);
+		max-width: var(--max-w);
+	}
+
+	/* Mobile adjustment */
+	@media (max-width: 640px) {
+		.landing-card {
+			min-width: 200px; /* Reduced for mobile */
+			max-width: 280px; /* Cap width to prevent scroll overflow */
+		}
 	}
 
 	.featured {
@@ -130,6 +149,26 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	.card-logo-overlay {
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		z-index: 2;
+		background-color: rgba(255, 255, 255, 0.9);
+		padding: 0.5rem 0.75rem;
+		border-radius: 0.5rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		display: flex;
+		align-items: center;
+		backdrop-filter: blur(4px);
+	}
+
+	.card-logo-overlay img {
+		max-height: 30px;
+		max-width: 150px;
+		object-fit: contain;
 	}
 
 	.card-content {

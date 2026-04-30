@@ -8,6 +8,7 @@
 	import catch_logo from '../../lib/assets/logos/catch_color.png';
 	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
 	import environics_logo from '../../lib/assets/logos/environics_color.png';
+	import ii_logo from '../../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../../lib/assets/logos/uotsoc_color.png';
 	// Assets
@@ -42,7 +43,7 @@
 	</div>
 
 	<div class="container main-content">
-		<div class="sidebar">
+		<div class="sidebar md:sticky md:top-10 h-full">
 			<nav>
 				<div class="nav-group">
 					<h3>ABOUT</h3>
@@ -106,6 +107,11 @@
 							</button>
 						</li>
 					</ul>
+				</div>
+				<div class="nav-group">
+					<button onclick={() => scrollTo('contact')}>
+						<h3>CONTACT US</h3>
+					</button>
 				</div>
 			</nav>
 
@@ -233,6 +239,23 @@
 						</div>
 						<div slot="body" class="accordion-body">
 							<div class="text-content">
+								<h6 class="mb-6">
+									Equipping communities to make smarter investments in main streets and downtowns.
+								</h6>
+								<p>
+									Coming out of the pandemic, many main streets and downtowns faced a convergence of
+									economic, social, and operational challenges and were poorly positioned for
+									recovery. Resilience on Main responded by delivering first-of-its-kind tools, case
+									studies, and research that re‑scaled critical data to the main street
+									level—equipping leaders and practitioners across Canada with the insights needed
+									to restore activity, support recovery, champion equity, and strengthen long‑term
+									resilience.
+								</p>
+								<div class="flex mb-4">
+									<a href="/reports/executive-summary" class="button-primary"
+										>Read the executive summary</a
+									>
+								</div>
 								<p>
 									In round one of funding, CUI's partners included Environics Analytics and Open
 									North.
@@ -265,6 +288,23 @@
 						</div>
 						<div slot="body" class="accordion-body">
 							<div class="text-content">
+								<h6 class="mb-6">
+									Leveraging transit-oriented development (TOD) to advance housing and community
+									outcomes.
+								</h6>
+								<p>
+									Canada has seven rapid transit systems, and the expansion of these networks
+									continues to shape how communities, cities, and regions grow and change. Built on
+									the foundation of the Measuring Main Streets Platform TOD on Main provides tools,
+									case studies, and research to help decision‑makers leverage transit‑driven growth
+									to advance housing goals, support vibrant and complete communities, and challenge
+									the displacement trends often driven by TOD.
+								</p>
+								<div class="flex mb-4">
+									<a href="/reports/tod/intro" class="button-primary"
+										>Read the introductory report</a
+									>
+								</div>
 								<p>
 									In round two of funding, CUI's partners included Environics Analytics, the School
 									of Cities at the University of Toronto, Digital Public Square, and the Canadian
@@ -461,23 +501,192 @@
 									title="Elizabeth Wakileh"
 									description="Intern"
 								/>
-								<h4 class="mt-12 mb-6">Partners & Consultants</h4>
+							</div>
 
-								<div class="partner-logos-grid">
-									<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
-									<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
-										<img src={environics_logo} alt="Environics Analytics" />
-									</a>
-									<a href="https://schoolofcities.utoronto.ca/" target="_blank">
-										<img src={soc_logo} alt="School of Cities" />
-									</a>
-									<a href="https://digitalpublicsquare.org/" target="_blank">
-										<img src={dps_logo} alt="Digital Public Square" />
-									</a>
-									<a href="https://catch-rehac.ca/" target="_blank">
-										<img src={catch_logo} alt="CATCH" />
-									</a>
-								</div>
+							<h4 class="mt-12 mb-6">School of Cities</h4>
+							<div class="card-grid">
+								<ContactCard
+									link="https://schoolofcities.utoronto.ca/people/karen-chapple/"
+									title="Karen Chapple"
+									description="Director"
+								/>
+								<ContactCard
+									link="https://schoolofcities.utoronto.ca/people/kathryn-exon-smith/"
+									title="Kathryn Exon Smith"
+									description="Senior Research Officer"
+								/>
+								<ContactCard
+									link="https://schoolofcities.utoronto.ca/people/jeff-allen/"
+									title="Jeff Allen"
+									description="Lead, Data Visualization"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/anika-taboy/"
+									title="Anika Taboy"
+									description="Research Assistant"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/miekoyao/"
+									title="Mieko Yao"
+									description="Web Developer"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/xinyue-wang-72209a26a/"
+									title="Mia Wang"
+									description="Research Assistant"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/an-pham-boston/"
+									title="An Pham"
+									description="Research Assistant"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/polina-gorn-b2a1b8284/"
+									title="Polina Gorn"
+									description="Research Assistant"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/isabeaux-graham/"
+									title="Isabeaux Graham"
+									description="Research Assistant"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/carrie-zeng-591644227/"
+									title="Carrie Zeng"
+									description="Research Assistant"
+								/>
+								<ContactCard
+									link="https://schoolofcities.utoronto.ca/people/felicity-heyworth/"
+									title="Felicity Heyworth"
+									description="Senior Communications Officer"
+								/>
+							</div>
+
+							<h4 class="mt-12 mb-6">Infrastructure Institute</h4>
+							<div class="card-grid">
+								<ContactCard
+									link="https://infrastructureinstitute.ca/matti-siemiatycki/"
+									title="Matti Siemiatycki"
+									description="Director"
+								/>
+								<ContactCard
+									link="https://infrastructureinstitute.ca/sarah-chan/"
+									title="Sarah Chan"
+									description="Planning and Design Lead"
+								/>
+								<ContactCard
+									link="https://infrastructureinstitute.ca/phat-le/"
+									title="Phat Le"
+									description="Architectural Designer"
+								/>
+								<ContactCard
+									link="https://infrastructureinstitute.ca/daniel-lam/"
+									title="Daniel Lam"
+									description="Architectural Designer"
+								/>
+								<ContactCard
+									link="https://infrastructureinstitute.ca/alexandra-lambropoulos/"
+									title="Alexandra Lambropoulos"
+									description="Urban Planner"
+								/>
+								<ContactCard
+									link="https://infrastructureinstitute.ca/eva-hellreich/"
+									title="Eva Hellreich"
+									description="Communications Officer"
+								/>
+							</div>
+
+							<h4 class="mt-12 mb-6">University of Toronto</h4>
+							<div class="card-grid">
+								<ContactCard
+									link="https://www.sociology.utoronto.ca/people/directories/all-faculty/prentiss-dantzler"
+									title="Prentiss Dantzler"
+									description="Associate Professor, Department of Sociology"
+								/>
+								<ContactCard
+									link="https://www.utsc.utoronto.ca/geography/steven-farber"
+									title="Steven Farber"
+									description="Professor, Department of Geography"
+								/>
+								<ContactCard
+									link="https://civmin.utoronto.ca/home/about-us/directory/professors/marianne-hatzopoulou/"
+									title="Marianne Hatzopoulou"
+									description="Professor, Department of Civil & Mineral Engineering"
+								/>
+								<ContactCard
+									link="https://civmin.utoronto.ca/home/about-us/directory/professors/shoshanna-saxe/"
+									title="Shoshanna Saxe"
+									description="Associate Professor, Department of Civil & Mineral Engineering"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/alexanderhempel/"
+									title="Alexander Hempel"
+									description="Postdoctoral Fellow"
+								/>
+								<ContactCard
+									link="https://schoolofcities.utoronto.ca/people/amir-forouhar/"
+									title="Amir Forouhar"
+									description="Postdoctoral Fellow"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/brenn-anderson-gregson/"
+									title="Brenn Anderson-Gregson"
+									description="Doctoral Researcher, Department of Geography and Planning"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/emily-farrar-gt/"
+									title="Emily Farrar"
+									description="Doctoral Researcher, Department of Civil & Mineral Engineering"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/khaliljmartin/"
+									title="Khalil Martin"
+									description="Research Assistant, Housing Justice Lab"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/abigail-meza-a1b4b121b/"
+									title="Abigail Meza"
+									description="Research Assistant, Housing Justice Lab"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/keaganrankin/"
+									title="Keagan H. Rankin"
+									description="Doctoral Researcher, Department of Civil & Mineral Engineering"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/letzai-ruiz-valero/"
+									title="Letzai Ruiz"
+									description="Research Associate, Centre for the Sustainable Built Environment"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/hoda-touma/"
+									title="Hoda Touma"
+									description="Research Project Manager, Department of Civil & Mineral Engineering"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/santiago-zuluaga-a9b085116/"
+									title="Santiago Zuluaga Mayorga"
+									description="Postdoctoral Fellow"
+								/>
+							</div>
+
+							<div class="partner-logos-grid">
+								<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
+								<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
+									<img src={environics_logo} alt="Environics Analytics" />
+								</a>
+								<a href="https://schoolofcities.utoronto.ca/" target="_blank">
+									<img src={soc_logo} alt="School of Cities" />
+								</a>
+								<a href="https://infrastructureinstitute.ca/" target="_blank">
+									<img src={ii_logo} alt="Infrastructure Institute" />
+								</a>
+								<a href="https://digitalpublicsquare.org/" target="_blank">
+									<img src={dps_logo} alt="Digital Public Square" />
+								</a>
+								<a href="https://catch-rehac.ca/" target="_blank">
+									<img src={catch_logo} alt="CATCH" />
+								</a>
 							</div>
 						</div>
 					</Accordion>
@@ -497,7 +706,7 @@
 					data, policy, and local insight to help communities be resilient, vibrant, and prosperous.
 				</p>
 			</div> -->
-			<div class="cui-contact">
+			<div id="contact" class="cui-contact">
 				<h3>CONTACT US</h3>
 
 				<div class="contact-grid">
@@ -530,11 +739,6 @@
 </main>
 
 <style>
-	main {
-		width: 100%;
-		overflow-x: hidden;
-	}
-
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -606,7 +810,7 @@
 
 	.nav-group h3 {
 		font-size: 1.4rem;
-		border-bottom: 3px solid var(--brandLightBlue);
+		border-bottom: 4px solid var(--brandLightBlue);
 		padding-bottom: 0.75rem;
 		margin-bottom: 1.5rem;
 		color: var(--brandDarkBlue);
@@ -680,7 +884,7 @@
 	/* Content Area */
 	.section-header h2 {
 		font-size: 2rem;
-		border-bottom: 2px solid var(--brandLightBlue);
+		border-bottom: 4px solid var(--brandLightBlue);
 		padding-bottom: 0.5rem;
 		margin-bottom: 2rem;
 	}
@@ -854,12 +1058,10 @@
 		backdrop-filter: blur(10px);
 		padding: 4rem;
 		border-radius: 2rem;
-		flex: 1;
 	}
 
 	.cui-about h3,
 	.cui-contact h3 {
-		font-size: 2rem;
 		margin-bottom: 2rem;
 		color: var(--brandDarkBlue);
 		font-family: 'Gelasio', serif;
