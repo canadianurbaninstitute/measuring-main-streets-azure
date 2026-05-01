@@ -8,7 +8,7 @@
 	let { visible = undefined } = $props();
 
 	const reveal = tweened(0, {
-		duration: 60000,
+		duration: 1500,
 		easing: cubicOut
 	});
 

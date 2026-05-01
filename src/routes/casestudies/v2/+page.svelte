@@ -5,11 +5,13 @@
 	import Montreal from '../../lib/assets/boundaries/Montreal.svg';
 	import Toronto from '../../lib/assets/boundaries/Toronto.svg';
 	// Assets
+	import soc from '../../lib/assets/logos/uotsoc_color.png';
 	import arbutus from '../../lib/assets/screenshots/case-study-arbutus.png';
 	import cooksville from '../../lib/assets/screenshots/case-study-cooksville.png';
 	import mckernan from '../../lib/assets/screenshots/case-study-mckernan.png';
 	import northfield from '../../lib/assets/screenshots/case-study-northfield.png';
 	import panama from '../../lib/assets/screenshots/case-study-panama.png';
+	import vancouver from '../../lib/assets/screenshots/vancouver-skyline.jpg';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import '../../styles.css';
 
@@ -18,46 +20,61 @@
 	const tabs = [
 		{
 			label: 'TOD on Main',
+
 			value: 'tod',
 			description: [
-				'Transit-Oriented Development (TOD) can be a catalyst for growth – but not all growth is created equal. Through five detailed case studies based on real TOD in Canada’s largest urban regions, discover how policy levers, pre-existing infrastructure, and other factors can determine the kind of communities and neighborhoods that can be created by TOD. These case studies were created by the Infrastructure Institute at the School of Cities based out of the University of Toronto.'
+				'Transit-oriented development (TOD) can be a catalyst for growth — but not all growth is created equal. Through five detailed case studies based on real TOD in Canada’s largest urban regions, discover how policy levers, pre-existing infrastructure, and other factors can determine the kind of communities and neighbourhoods that can be created by TOD. These case studies were created by the Infrastructure Institute at the School of Cities based out of the University of Toronto.'
 			],
-			categories: ['Ontario', 'Quebec', 'Alberta', 'British Columbia'],
+			categories: ['Ontario', 'Quebec', 'Alberta', 'British Columbia', 'School of Cities'],
 			items: [
 				{
+					title: 'Overview',
+					logo: soc,
+					description:
+						'Background and context on the case studies by the Infrastructure Institute and the School of Cities.',
+					image: vancouver,
+					link: '/casestudies/tod/overview',
+					tags: ['School of Cities']
+				},
+				{
 					title: 'Cooksville Station',
-					description: 'Case study by School of Cities.',
+					logo: soc,
+					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: cooksville,
 					link: '/casestudies/tod/cooksville',
-					tags: ['Ontario', 'Partner Study']
+					tags: ['Ontario', 'School of Cities']
 				},
 				{
 					title: 'Panama Station',
-					description: 'Case study by School of Cities.',
+					logo: soc,
+					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: panama,
 					link: '/casestudies/tod/panama',
-					tags: ['Quebec', 'Partner Study']
+					tags: ['Quebec', 'School of Cities']
 				},
 				{
-					title: 'McKernan/Belgravia Station',
-					description: 'Case study by School of Cities.',
+					title: 'McKernan-Belgravia Station',
+					logo: soc,
+					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: mckernan,
 					link: '/casestudies/tod/mckernan-belgravia',
-					tags: ['Alberta', 'Partner Study']
+					tags: ['Alberta', 'School of Cities']
 				},
 				{
 					title: 'Northfield Station',
-					description: 'Case study by School of Cities.',
+					logo: soc,
+					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: northfield,
 					link: '/casestudies/tod/northfield',
-					tags: ['Ontario', 'Partner Study']
+					tags: ['Ontario', 'School of Cities']
 				},
 				{
 					title: 'Arbutus Station',
-					description: 'Case study by School of Cities.',
+					logo: soc,
+					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: arbutus,
 					link: '/casestudies/tod/arbutus',
-					tags: ['British Columbia', 'Partner Study']
+					tags: ['British Columbia', 'School of Cities']
 				}
 			]
 		},

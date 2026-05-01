@@ -51,6 +51,37 @@
 		})
 	);
 
+	/**
+	 * Map tag text to predefined colors (sync with LandingCard.svelte)
+	 */
+	const getTagColor = (tag) => {
+		const text = tag.toLowerCase();
+		if (text.includes('mapping')) return 'var(--brandPink)';
+		if (text.includes('resilience')) return 'var(--brandBlue)';
+		if (text.includes('report')) return 'var(--color-blue-800)';
+		if (text.includes('transit')) return 'var(--brandDarkGreen)';
+		if (text.includes('graphing')) return 'var(--brandOrange)';
+		if (text.includes('case study')) return 'var(--color-green-500)';
+		if (text.includes('qualitative')) return 'var(--brandPurple)';
+		if (text.includes('school of cities')) return 'var(--color-pink-500)';
+		if (text.includes('tool')) return 'var(--color-yellow-200)';
+		if (text.includes('regional')) return 'var(--color-blue-800)';
+		if (text.includes('complete communities')) return 'var(--color-green-400)';
+		if (text.includes('partner')) return 'var(--brandPink)';
+		if (text.includes('executive summary')) return 'var(--brandLightBlue)';
+		if (text.includes('research brief')) return 'var(--color-green-500)';
+		if (text.includes('ghg emissions')) return 'var(--color-green-500)';
+		if (text.includes('equity')) return 'var(--color-orange-500)';
+		if (text.includes('mobility')) return 'var(--color-yellow-300)';
+		if (text.includes('infographic')) return 'var(--color-purple-500)';
+		if (text.includes('ontario')) return 'var(--color-purple-500)';
+		if (text.includes('quebec')) return 'var(--color-yellow-300)';
+		if (text.includes('alberta')) return 'var(--color-green-500)';
+		if (text.includes('british columbia')) return 'var(--color-blue-400)';
+
+		return 'var(--brandLightBlue)';
+	};
+
 	// Sync activeCategory → URL
 	$effect(() => {
 		if (!syncUrl || !goto || !page) return;
@@ -108,6 +139,9 @@
 								<button
 									class="pill"
 									class:active={activeCategory === 'All'}
+									style={activeCategory === 'All'
+										? 'background-color: var(--brandDarkBlue); border-color: var(--brandDarkBlue); color: white;'
+										: ''}
 									onclick={() => (activeCategory = 'All')}
 								>
 									All
@@ -116,6 +150,18 @@
 									<button
 										class="pill"
 										class:active={activeCategory === category}
+										style="
+                                            --tag-color: {getTagColor(category)};
+                                            background-color: {activeCategory === category
+											? 'var(--tag-color)'
+											: 'color-mix(in srgb, var(--tag-color), white 90%)'};
+                                            border-color: {activeCategory === category
+											? 'var(--tag-color)'
+											: 'color-mix(in srgb, var(--tag-color), white 70%)'};
+                                            color: {activeCategory === category
+											? 'white'
+											: 'color-mix(in srgb, var(--tag-color), black 20%)'};
+                                        "
 										onclick={() => (activeCategory = category)}
 									>
 										{category}
@@ -148,6 +194,9 @@
 					<button
 						class="pill"
 						class:active={activeCategory === 'All'}
+						style={activeCategory === 'All'
+							? 'background-color: var(--brandDarkBlue); border-color: var(--brandDarkBlue); color: white;'
+							: ''}
 						onclick={() => (activeCategory = 'All')}
 					>
 						All
@@ -156,6 +205,18 @@
 						<button
 							class="pill"
 							class:active={activeCategory === category}
+							style="
+                                --tag-color: {getTagColor(category)};
+                                background-color: {activeCategory === category
+								? 'var(--tag-color)'
+								: 'color-mix(in srgb, var(--tag-color), white 90%)'};
+                                border-color: {activeCategory === category
+								? 'var(--tag-color)'
+								: 'color-mix(in srgb, var(--tag-color), white 70%)'};
+                                color: {activeCategory === category
+								? 'white'
+								: 'color-mix(in srgb, var(--tag-color), black 20%)'};
+                            "
 							onclick={() => (activeCategory = category)}
 						>
 							{category}
@@ -238,8 +299,7 @@
 	}
 
 	.pill.active {
-		background-color: var(--brandDarkBlue);
-		border-color: var(--brandDarkBlue);
+		/* Base active styles are now handled by inline styles for dynamic colors */
 		color: white;
 	}
 

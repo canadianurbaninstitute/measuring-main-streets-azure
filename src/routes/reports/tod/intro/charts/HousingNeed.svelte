@@ -1546,13 +1546,14 @@
 	];
 
 	const seriesConfig = [
-		{ key: 'Calgary', label: 'Calgary', color: '#00adf2' },
-		{ key: 'Edmonton', label: 'Edmonton', color: '#58e965' },
-		{ key: 'Montreal', label: 'Montréal', color: '#002940' },
-		{ key: 'Ottawa', label: 'Ottawa', color: '#ff007f' },
 		{ key: 'Toronto', label: 'Toronto', color: '#f59e0b' },
+		{ key: 'Calgary', label: 'Calgary', color: '#00adf2' },
 		{ key: 'Vancouver', label: 'Vancouver', color: '#10b981' },
-		{ key: 'Total', label: 'Total', color: '#7c3aed' }
+		{ key: 'Edmonton', label: 'Edmonton', color: '#58e965' },
+		{ key: 'Halifax', label: 'Halifax', color: '#f1c500' },
+		{ key: 'Ottawa', label: 'Ottawa', color: '#ff007f' },
+		{ key: 'Montreal', label: 'Montréal', color: '#7c3aed' }
+		// { key: 'Total', label: 'Total', color: '#7c3aed' }
 	];
 </script>
 
@@ -1561,6 +1562,12 @@
 	{visible}
 	title="Housing affordability in the largest CMAs"
 	{seriesConfig}
+	stacked={true}
+	showArea={true}
+	showLines={false}
+	showTotalLine={true}
+	totalLineLabel="Total"
+	totalLineColor="#002940"
 	xTickInterval={20}
 	yDomain={[-30, 15]}
 	minHeight="300px"
