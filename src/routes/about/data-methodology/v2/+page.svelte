@@ -1377,7 +1377,15 @@
 		gap: 1rem;
 		margin-top: 0.5rem;
 	}
+	.social-icons :global(svg) {
+		cursor: pointer;
+		transition: transform 0.2s;
+	}
 
+	.social-icons :global(svg:hover) {
+		transform: scale(1.2);
+		color: var(--brandDarkBlue);
+	}
 	.mb-12 {
 		margin-bottom: 3rem;
 	}
