@@ -40,10 +40,6 @@
 		}))
 	);
 
-	// $effect(() => {
-	// 	console.log('Tech scatter:', processedData);
-	// });
-
 	const colors = ['#000000', '#2a5cac', '#f1c500', '#43b171'];
 
 	const regions = $derived(['All', ...new Set(initialData.map((d) => d.technology))]);

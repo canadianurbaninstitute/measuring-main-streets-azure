@@ -89,9 +89,9 @@
 		<!-- <h3>
 			{stationName}
 		</h3> -->
-		<div class="flex flex-col md:flex-row gap-4 w-full max-w-5xl justify-center items-center">
+		<div class="flex flex-col md:flex-row gap-4 w-full justify-center items-center">
 			<div
-				class="flex flex-col items-center w-full max-w-[320px] bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
+				class="flex-1 flex flex-col items-center w-full bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
 			>
 				<h4 class="text-lg font-bold text-center text-[#ff007f] uppercase tracking-wide">
 					Land Availability
@@ -99,13 +99,13 @@
 				<span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2"
 					>Low</span
 				>
-				<div class="w-full aspect-square p-5">
+				<div class="w-full aspect-square p-12">
 					<RadarChart data={landRadar} max={100} color="#ff007f" />
 				</div>
 			</div>
 
 			<div
-				class="flex flex-col items-center w-full bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
+				class="flex-1 flex flex-col items-center w-full bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
 			>
 				<h4 class="text-lg font-bold text-center text-[#00adf2] uppercase tracking-wide">
 					Growth Pressure
@@ -113,7 +113,7 @@
 				<span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2"
 					>High</span
 				>
-				<div class="w-full aspect-square p-5">
+				<div class="w-full aspect-square p-12">
 					<RadarChart data={growthRadar} max={100} color="#00adf2" />
 				</div>
 			</div>

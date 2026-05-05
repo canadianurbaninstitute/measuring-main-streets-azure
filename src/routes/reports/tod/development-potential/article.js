@@ -76,6 +76,7 @@ export const sections = [
                 <li>Population Density</li>
                 <li>Employment Density</li>
                 </ul>
+								<br />
                 <b>Growth Pressure</b>
                 <ul style="list-style-type: square;">
                 <li>Station Area Population Change, 2020-2025</li>

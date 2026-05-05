@@ -145,13 +145,6 @@
 			return obj;
 		});
 	}
-
-	/* Optional: inspect event payloads from MultiSelect */
-	function handleMultiSelectChange(e) {
-		// e.detail.type: 'add' | 'remove' | 'removeAll' | ...
-		// e.detail.option / options
-		// console.log('MultiSelect change:', e.detail);
-	}
 </script>
 
 <div class="chart-container">

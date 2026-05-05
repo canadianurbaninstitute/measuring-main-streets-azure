@@ -98,42 +98,41 @@
 			</select>
 		</div>
 	</div>
-	<div class="chart-box">
-		<ScatterChart
-			padding={{
-				top: 20,
-				right: 20,
-				bottom: 60,
-				left: 60
-			}}
-			data={processedData}
-			{seriesConfig}
-			xKey="x"
-			yKey="y"
-			zKey="group"
-			xLabel="Population (relative to regional median)"
-			yLabel="Amenity Access (relative to regional median)"
-			showQuadrants={true}
-			showTooltip={true}
-			{quadrantConfig}
-			{visible}
-			{highlightIds}
-			idKey="id"
-			titleKey="label"
-			filterRegion={selectedRegion}
-			regionKey="region"
-			tooltipRows={[
-				{ key: 'w_access_tag', label: 'Access Score' },
-				{ key: 'w_population_tag', label: 'Population Score' },
-				{ key: 'id', label: 'ID' }
-			]}
-			xDomain={xDomainFixed}
-			yDomain={yDomainFixed}
-			formatX={(d) => d}
-			formatY={(d) => d}
-			pointRadius={3}
-		/>
-	</div>
+	<ScatterChart
+		padding={{
+			top: 20,
+			right: 20,
+			bottom: 60,
+			left: 60
+		}}
+		minHeight={500}
+		data={processedData}
+		{seriesConfig}
+		xKey="x"
+		yKey="y"
+		zKey="group"
+		xLabel="Population (relative to regional median)"
+		yLabel="Amenity Access (relative to regional median)"
+		showQuadrants={true}
+		showTooltip={true}
+		{quadrantConfig}
+		{visible}
+		{highlightIds}
+		idKey="id"
+		titleKey="label"
+		filterRegion={selectedRegion}
+		regionKey="region"
+		tooltipRows={[
+			{ key: 'w_access_tag', label: 'Access Score' },
+			{ key: 'w_population_tag', label: 'Population Score' },
+			{ key: 'id', label: 'ID' }
+		]}
+		xDomain={xDomainFixed}
+		yDomain={yDomainFixed}
+		formatX={(d) => d}
+		formatY={(d) => d}
+		pointRadius={3}
+	/>
 </div>
 
 <style>
@@ -191,16 +190,5 @@
 
 	select:hover {
 		background: rgba(0, 0, 0, 0.05);
-	}
-
-	.chart-box {
-		flex: 1;
-		min-height: 500px;
-	}
-
-	@media (max-width: 640px) {
-		.chart-box {
-			min-height: 400px;
-		}
 	}
 </style>

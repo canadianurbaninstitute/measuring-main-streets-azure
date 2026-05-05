@@ -6,13 +6,15 @@
 	export let height = '100%';
 	export let zDomain = null;
 	export let zRange = null;
+	export let padding = { top: 10, right: 10, bottom: 20, left: 100 };
+	export let wrapLabels = false;
 
-	import { LayerCake, Svg } from 'layercake';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
+	import { LayerCake, Svg } from 'layercake';
 
-	import ClevelandDotPlot from './DotPlotInner.svg.svelte';
 	import AxisX from '../../../../lib/ui/chartcomponents/AxisX.svelte';
 	import AxisY from '../../../../lib/ui/chartcomponents/AxisY.svelte';
+	import ClevelandDotPlot from './DotPlotInner.svg.svelte';
 
 	const xKey = Object.keys(data[0]).filter((d) => d !== yKey);
 
@@ -22,7 +24,7 @@
 
 <div class="chart-container" style="height: {height}">
 	<LayerCake
-		padding={{ right: 10, bottom: 20, left: 30 }}
+		padding={{ right: 10, bottom: 20, left: 50 }}
 		x={xKey}
 		y={yKey}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
@@ -36,7 +38,7 @@
 	>
 		<Svg>
 			<AxisX ticks={4} />
-			<AxisY gridlines={false} />
+			<AxisY gridlines={false} wrap={true} />
 			<ClevelandDotPlot />
 		</Svg>
 	</LayerCake>

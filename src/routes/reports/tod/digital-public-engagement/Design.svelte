@@ -31,6 +31,7 @@
 
 <style>
 	.collage {
+		overflow: hidden;
 		position: relative;
 		width: 100%;
 		height: 80vh;
@@ -56,5 +57,26 @@
 		top: 40rem;
 		left: 40%;
 		z-index: 1;
+	}
+
+	@media (max-width: 768px) {
+		.img1 {
+			width: 75%;
+			top: -1rem;
+			left: -5%;
+			z-index: 3;
+		}
+		.img2 {
+			width: 75%;
+			top: -10rem;
+			right: 20%;
+			z-index: 2;
+		}
+		.img3 {
+			width: 75%;
+			top: 22rem;
+			left: 0%;
+			z-index: 1;
+		}
 	}
 </style>

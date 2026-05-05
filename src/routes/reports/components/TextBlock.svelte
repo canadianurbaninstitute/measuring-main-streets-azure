@@ -116,6 +116,10 @@
 		padding-bottom: 40vh;
 	}
 
+	:global(.text-block h3) {
+		padding-top: 1.5rem;
+	}
+
 	/* ── Meta labels ─────────────────────────────────────────── */
 	.eyebrow {
 		font-size: clamp(0.8rem, 2.5vw, 1rem);
@@ -133,12 +137,12 @@
 	}
 
 	/* ── Prose container ─────────────────────────────────────── */
-	.prose {
+	/* .prose {
 		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
 		color: var(--color-slate-900);
 		line-height: 1.75;
 		max-width: 46ch;
-	}
+	} */
 
 	/* Paragraphs */
 	/* .prose :global(p) {
@@ -209,8 +213,7 @@
 			flex-direction: column;
 			width: 100%;
 			height: fit-content;
-			/* min-height: 450px; */
-			margin: 0;
+			margin-bottom: 2rem;
 			background: #ffffff;
 			/* border: 1px solid #eee; */
 			border-radius: 8px;
@@ -226,7 +229,6 @@
 			pointer-events: auto !important;
 			width: 100%;
 			height: auto;
-			min-height: 400px;
 		}
 
 		.text-block {
@@ -237,7 +239,7 @@
 		}
 
 		.text-block:first-child {
-			padding-top: 2rem;
+			padding-top: 0rem;
 		}
 
 		.heading {
@@ -245,7 +247,7 @@
 		}
 
 		.text-block:last-child {
-			padding-bottom: 2rem;
+			padding-bottom: 0rem;
 		}
 	}
 </style>

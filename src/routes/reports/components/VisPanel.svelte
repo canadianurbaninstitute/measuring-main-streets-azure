@@ -34,7 +34,7 @@
 		align-items: center;
 		justify-content: center;
 		/* padding: 2rem; */
-		overflow-x: scroll;
+		overflow-x: auto;
 		opacity: 0;
 		transform: scale(0.97) translateY(6px);
 		pointer-events: none;

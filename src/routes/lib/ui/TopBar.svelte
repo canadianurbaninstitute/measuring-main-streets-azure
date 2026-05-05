@@ -116,12 +116,14 @@
 			Menu
 		</button>
 
-		<nav id="menu" aria-label="Primary">
+		<nav id="menu" class="w-full" aria-label="Primary">
 			<NavigationMenu.Root class="nav-root">
 				<NavigationMenu.List id="primary-nav" class="nav-menu-list" data-open={menuOpen}>
 					<!-- Direct Links -->
 					<NavigationMenu.Item class="nav-menu-item">
-						<NavigationMenu.Link href="/map" class="nav-link">Main Street Map</NavigationMenu.Link>
+						<NavigationMenu.Link href="/map" class="nav-link w-full"
+							>Main Street Map</NavigationMenu.Link
+						>
 					</NavigationMenu.Item>
 
 					<!-- Uncomment when ready to publish -->
@@ -287,20 +289,32 @@
 		width: 100%;
 	}
 
+	:global(nav div) {
+		width: 100%;
+	}
+
 	/* Mobile toggle  */
 
 	.mobile-toggle {
-		display: inline-flex;
+		padding: 0.5rem 0.1rem;
+		margin: 0 auto 1rem auto;
+		width: 90%;
+		border-radius: 2rem;
+		text-decoration: none;
+		font-family: 'Inter', sans-serif;
+		font-weight: 600;
+		font-size: 0.9rem;
+		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-right: 1rem;
-		margin-bottom: 0.5rem;
-		padding: 0.25rem 0.75rem;
-		border: 1px solid #ccc;
-		border-radius: 0.375rem;
-		background: #f8f8f8;
-		font-size: 0.875rem;
-		line-height: 1.25;
+		gap: 0.5rem;
+		background-color: var(--brandLightBlue);
+		color: white;
+		transition: transform 0.2s ease;
+	}
+
+	.mobile-toggle:hover {
+		background-color: var(--brandDarkBlue);
 	}
 
 	@media (min-width: 768px) {
@@ -316,10 +330,6 @@
 		display: flex;
 		width: 100%;
 		justify-content: end;
-	}
-
-	:global(#bits-9) {
-		width: 100%;
 	}
 	/* Top-level list */
 	:global(.nav-menu-list) {
@@ -346,7 +356,7 @@
 			justify-content: flex-end;
 			padding: 0 2em 0 0;
 			gap: 0;
-			width: auto;
+			width: 100%;
 		}
 	}
 

@@ -308,8 +308,6 @@ button:active {
 
 .button-primary:hover {
 	background-color: var(--brandDarkBlue);
-	transform: translateY(-3px) scale(1.02);
-	box-shadow: 0 8px 20px rgba(0, 41, 64, 0.1);
 }
 
 .button-primary:active {

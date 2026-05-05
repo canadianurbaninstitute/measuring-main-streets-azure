@@ -161,7 +161,8 @@
 			attributionControl: false
 		});
 
-		// map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+		const nav = new mapboxgl.NavigationControl();
+		map.addControl(nav, 'bottom-left');
 
 		map.keyboard.disable();
 		map.touchZoomRotate.disable();

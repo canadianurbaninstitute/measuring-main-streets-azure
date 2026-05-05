@@ -39,10 +39,6 @@
 		}))
 	);
 
-	// $effect(() => {
-	// 	console.log('Potential scatter:', processedData);
-	// });
-
 	const colors = [
 		'#000000',
 		'#002940',
@@ -111,7 +107,7 @@
 			top: 20,
 			right: 20,
 			bottom: 60,
-			left: 60
+			left: 40
 		}}
 		data={processedData}
 		{seriesConfig}

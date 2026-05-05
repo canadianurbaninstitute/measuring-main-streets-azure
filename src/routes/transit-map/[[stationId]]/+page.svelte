@@ -554,7 +554,6 @@
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/complete_communities/stations_cc_counts.json'
 			);
 			completeCommunityCounts = await response.json();
-			// console.log(completeCommunityCounts);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}

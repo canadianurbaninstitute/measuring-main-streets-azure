@@ -9,9 +9,9 @@
 	import Icon from '@iconify/svelte';
 	import mapboxgl from 'mapbox-gl';
 	import { mount, onMount, unmount } from 'svelte';
+	import trainIcon from '../../../lib/assets/graphics/train-long.svg';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import ProgressBar from '../../components/ProgressBar.svelte';
-	import trainIcon from '../../../lib/assets/graphics/train-long.svg';
 
 	import { stations as initialStations } from './stations.js';
 	import { steps } from './steps.js';
@@ -330,12 +330,7 @@
 
 <svelte:window bind:innerWidth />
 
-<ProgressBar
-	iconType="custom"
-	activeStepIndex={activeStepIndex}
-	totalSteps={steps.length}
-	items={progressBarItems}
->
+<ProgressBar iconType="custom" {activeStepIndex} totalSteps={steps.length} items={progressBarItems}>
 	{#snippet icon()}
 		<img src={trainIcon} width="100%" height="100%" alt="Progress icon" />
 	{/snippet}
@@ -428,7 +423,9 @@
 				</div>
 
 				{#if isMobile && station?.lng && station?.lat && (i === steps.length - 1 || steps[i + 1]?.stationId !== step.stationId)}
-					<div class="mt-8 w-full min-h-[500px] h-auto rounded-xl overflow-hidden shadow-lg border border-zinc-700 bg-white">
+					<div
+						class="mt-8 w-full min-h-[500px] h-auto rounded-xl overflow-hidden shadow-lg border border-zinc-700 bg-white"
+					>
 						<WalkabilityMap
 							center={[station.lng, station.lat]}
 							zoom={14}
@@ -776,12 +773,8 @@
 
 		.header-wrapper {
 			grid-template-columns: 1fr;
-			padding: 10% 5%;
+			padding: 20% 5%;
 			gap: 2rem;
-		}
-
-		.header-nav {
-			padding-top: 0;
 		}
 
 		.nav-group li {
