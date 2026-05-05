@@ -94,7 +94,7 @@
 								class:active={activeSection === 'tod' && faqs['tod-meth']}
 								onclick={() => openAndScroll('tod-meth', 'tod')}
 							>
-								Expanding to TOD
+								Transit Data
 							</button>
 						</li>
 					</ul>
@@ -383,22 +383,233 @@
 				<div class="accordion-group">
 					<Accordion bind:open={faqs['tod-meth']} id="tod-meth">
 						<div slot="header" class="accordion-header">
-							<h3 class="uppercase">Expanding to Transit-Oriented Development</h3>
+							<h3 class="uppercase">Transit Data</h3>
 							<Icon icon={faqs['tod-meth'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
 							<div class="text-content">
+								<h4 class="uppercase">Expanding to Transit-Oriented Development</h4>
 								<p>
 									TOD on Main leverages the foundation of the Measuring Main Streets Platform to
 									provide tools, case studies, and research focused on transit-driven growth.
 								</p>
-								<div class="quote">
-									<p>
-										The methodology involves identifying transit station areas and evaluating their
-										potential for housing and complete community development.
-									</p>
+
+								<p>
+									The methodology involves identifying transit station areas (TSAs) and evaluating
+									their potential for housing and complete community development.
+								</p>
+								<h4 class="uppercase">Transit Station Area Data</h4>
+								<p>
+									The data for transit station areas (TSAs) found on the <a
+										href="/transit-map"
+										target="_blank">Transit Map</a
+									> comes from the following sources:
+								</p>
+								<div class="table-container mt-8">
+									<table style="font-size: 0.9rem;">
+										<thead>
+											<tr>
+												<th>Data</th>
+												<th>Definition</th>
+												<th>Source</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Transit data</td>
+												<td
+													>Higher order transit stations and transit lines (subway, LRT, and
+													commuter).</td
+												>
+												<td>Local open data, various. Collected in 2025.</td>
+											</tr>
+											<tr>
+												<td>Population</td>
+												<td
+													>TSA-level population; derived from dissemination area-level data using
+													areal weighting with National Address Register points.</td
+												>
+												<td
+													>Environics Analytics (2025), Statistics Canada (National Address
+													Register, December 2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Households</td>
+												<td>Number of households in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Average Employment Income</td>
+												<td>Average Employment Income in TSA</td>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Visible Minorities</td>
+												<td>Proportion of TSA population who are visible minorities</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Immigrants</td>
+												<td>Proportion of TSA population who are immigrants</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Indigenous</td>
+												<td>Proportion of TSA population who are indigenous</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>University Degree</td>
+												<td>Proportion of TSA population who hold a university degree</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Age</td>
+												<td
+													>Proportion of TSA population who are youth (under 19), working age
+													(20-64), and elderly (65 and over)</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Total Dwellings</td>
+												<td>Number of dwellings in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Average Dwelling Value</td>
+												<td>Average dwelling value in TSA</td>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Average Monthly Rent</td>
+												<td>Average monthly rent in TSA</td>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Spending more than 30% of income on shelter</td>
+												<td
+													>Proportion of TSA population spending more than 30% of their income on
+													shelter</td
+												>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Owners/Renters</td>
+												<td>Proportion of TSA population who own vs. rent</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Dwelling Type</td>
+												<td
+													>Proportion of dwellings in TSA that are detached, semi-detached, row,
+													duplex, apartments less than 5 stories, or apartments with five or more
+													stories.</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Dwelling Type</td>
+												<td
+													>Proportion of dwellings in TSA that were constructed before 1960, between
+													1961 to 1980, between 1981 to 2000, or between 2000-2020</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Number of Bedrooms</td>
+												<td
+													>Proportion of dwellings in TSA that are studios or have 1, 2, 3, or 4 or
+													more bedrooms.</td
+												>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Total Employment</td>
+												<td>Total number of jobs in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Employment Mix</td>
+												<td
+													>Proportion of jobs that are at core amenities, additional amenities, or
+													other employers.</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Population Density</td>
+												<td>Number of people per square kilometre in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Employment Density</td>
+												<td>Number of employees per square kilometre in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Water</td>
+												<td>Proportion of TSA area that is water</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Greenspace</td>
+												<td>Proportion of TSA area that is greenspace</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Buildings</td>
+												<td>Proportion of TSA area that is building footprint</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Parking</td>
+												<td>Proportion of TSA area that is surface parking</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Overall Score</td>
+												<td>Overall score of complete community amenity presence in TSA</td>
+												<td
+													>Complete Community Index (2025); based on Environics Analytics (2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Core Amenities Presence</td>
+												<td>Proportion of core amenities present in TSA</td>
+												<td
+													>Complete Community Index (2025); based on Environics Analytics (2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Additional Amenities Presence</td>
+												<td>Proportion of additional amenities present in TSA</td>
+												<td
+													>Complete Community Index (2025); based on Environics Analytics (2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Daily Visits</td>
+												<td>Average daily visits to TSA in 2025</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Main Street Businesses</td>
+												<td>Number of main street businesses in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Business Independence Index</td>
+												<td
+													>Measure of business independence in TSA, from 0 (less independent) to 1
+													(more independent)</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-								<p>Further technical methodology for Phase Two is coming soon.</p>
 							</div>
 						</div>
 					</Accordion>
