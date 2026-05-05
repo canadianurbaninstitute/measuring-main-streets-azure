@@ -114,7 +114,7 @@
 								class:active={activeSection === 'tod' && faqs['tod-dpi']}
 								onclick={() => openAndScroll('tod-dpi', 'tod')}
 							>
-								Development Potential Index
+								Housing Development Potential
 							</button>
 						</li>
 					</ul>
@@ -971,264 +971,287 @@
 						</div></Accordion
 					>
 
-					<Accordion bind:open={faqs['tod-dpi']} id="tod-dpi">
-						<div slot="header" class="accordion-header">
-							<h3 class="uppercase">Development Potential Index</h3>
-							<Icon icon={faqs['tod-dpi'] ? 'mdi:minus' : 'mdi:plus'} />
-						</div>
-						<div slot="body" class="accordion-body">
-							<div class="text-content">
-								<div>
-									<p>
-										The Development Potential Index provides an indication of the potential for new
-										housing construction in a transit station area.
-									</p>
-									<Accordion bind:open={faqs['dpi-data']} id="dpi-data">
-										<div slot="header" class="accordion-header">
-											<h4>Data</h4>
-
-											<Icon icon={faqs['dpi-data'] ? 'mdi:minus' : 'mdi:plus'} />
-										</div>
-										<div slot="body" class="accordion-body">
-											<h6 style="margin-top: 2rem;">Land Availability</h6>
-											<div class="table-container mt-8">
-												<table style="font-size: 0.9rem;">
-													<thead>
-														<tr>
-															<th>Indicator</th>
-															<th>Definition</th>
-															<th>Data Source</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Total developable area</td>
-															<td>Total station area, excluding water and greenspace</td>
-															<td>OpenStreetMap (2025)</td>
-														</tr>
-														<tr>
-															<td>High opportunity sites</td>
-															<td>Surface parking area</td>
-															<td>OpenStreetMap (2025)</td>
-														</tr>
-														<tr>
-															<td>Single unit dwellings</td>
-															<td>Count of single unit addresses</td>
-															<td>Statistics Canada (National Address Register, December 2025)</td>
-														</tr>
-														<tr>
-															<td>Population density</td>
-															<td>Population / (total station area, excluding water)</td>
-															<td>Environics Analytics (2025)</td>
-														</tr>
-														<tr>
-															<td>Employment density</td>
-															<td>Number of employees / (total station area, excluding water)</td>
-															<td>Environics Analytics (2025)</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-
-											<h6 style="margin-top: 2rem;">Growth Pressure</h6>
-											<div class="table-container mt-8">
-												<table style="font-size: 0.9rem;">
-													<thead>
-														<tr>
-															<th>Indicator</th>
-															<th>Definition</th>
-															<th>Data Source</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Municipal population change</td>
-															<td>CMA-level population change, 2020-2025</td>
-															<td>Environics Analytics (2025)</td>
-														</tr>
-														<tr>
-															<td>Population change</td>
-															<td>Transit station area population change, 2020-2025</td>
-															<td>Environics Analytics (2025)</td>
-														</tr>
-														<tr>
-															<td>Projected population change</td>
-															<td>Projected transit station area population change, 2025-2030</td>
-															<td>Environics Analytics (2025)</td>
-														</tr>
-														<tr>
-															<td>Amenity presence</td>
-															<td
-																>Overall complete community score, measuring availability of
-																amenities within station area.</td
-															>
-															<td>Complete Community Index; Environics Analytics (2025)</td>
-														</tr>
-														<tr>
-															<td>Daily visits</td>
-															<td>Average number of visitors within station area.</td>
-															<td>Complete Community Index; Environics Analytics (2026)</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-
-											<h6 style="margin-top: 2rem;">Displacement Risk</h6>
-											<div class="table-container mt-8">
-												<table style="font-size: 0.9rem;">
-													<thead>
-														<tr>
-															<th>Indicator</th>
-															<th>Definition</th>
-															<th>Data Source</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Low income</td>
-															<td>Population who are low-income (Low-income measure, after tax)</td>
-															<td>Statistics Canada (Census, 2021)</td>
-														</tr>
-														<tr>
-															<td>More than 30% of income spent on shelter</td>
-															<td>Population spending more than 30% of income on shelter.</td>
-															<td>Statistics Canada (Census, 2021)</td>
-														</tr>
-														<tr>
-															<td>Immigrants</td>
-															<td>Population who are immigrants.</td>
-															<td>Environics Analytics (2025)</td>
-														</tr>
-														<tr>
-															<td>Visible minorities</td>
-															<td>Population who are visible minorities.</td>
-															<td>Environics Analytics (2025)</td>
-														</tr>
-														<tr>
-															<td>Youth and elderly</td>
-															<td>Population who are under 19 or over 65.</td>
-															<td>Environics Analytics (2026)</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-
-											<h6 style="margin-top: 2rem;">Additional Data</h6>
-											<div class="table-container mt-8">
-												<table style="font-size: 0.9rem;">
-													<thead>
-														<tr>
-															<th>Indicator</th>
-															<th>Definition</th>
-															<th>Data Source</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Building permits</td>
-															<td>Number of approved units.</td>
-															<td
-																>Local open data, various (2025). <br />
-																Only available for some stations</td
-															>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div></Accordion
-									>
-								</div>
-								<div class="mb-12">
-									<Accordion bind:open={faqs['dpi-meth']} id="dpi-meth">
-										<div slot="header" class="accordion-header">
-											<h4>Methodology</h4>
-
-											<Icon icon={faqs['dpi-meth'] ? 'mdi:minus' : 'mdi:plus'} />
-										</div>
-										<div slot="body" class="accordion-body">
-											<div class="my-8">
-												<h4 class="my-8">Subscore Calculation</h4>
-												<p>
-													A station's percentile rank relative to other stations is calculated for
-													each Land Availability, Growth Pressure, and Displacement Risk indicator.
-													The direction of population and employment density rankings are inverted;
-													a higher population density leads to a lower population density percentile
-													rank.
-												</p>
-
-												<p>
-													A station's Land Availability and Growth Pressure subscores are calculated
-													as the mean of the indicator percentile ranks.
-												</p>
-												<h4 class="my-8">Development Potential Score</h4>
-												<p>
-													The Development Potential Score is calculated as a sum of the Land
-													Availability and Growth Pressure subscores.
-												</p>
-
-												<p>
-													For stations on multiple transit lines, the Growth Pressure subscore is
-													multiplied by an Intersection Multiplier. The Intersection Multiplier is
-													calculated as the average population of transit stations on multiple lines
-													divided by the average population of transit stations on a single line.
-												</p>
-
-												<p>
-													The Development Potential Level is based on the quantiles of Development
-													Potential Score (lowest fifth of Development Potential Score &rarr; Very
-													Low, second-lowest fifth of Development Potential Score &rarr; Low, etc.).
-												</p>
-											</div>
-
-											<div>
-												<h4>Calculating Housing Estimate</h4>
-
-												<p class="mb-8">
-													The estimate for new housing construction in transit station areas is
-													based on the current population of existing transit station areas.
-												</p>
-
-												<h6>1. Setting Target Population</h6>
-												<p>
-													Calculate average population of existing stations for each region. For
-													Quebec City, the average population of the planned line is used.
-												</p>
-												<p>
-													For each station, the target population is set as the average population
-													of existing stations in that region.
-												</p>
-												<p>
-													For stations on multiple transit lines, the target population is
-													multiplied by the Intersection Multiplier.
-												</p>
-
-												<h6>2. Calculating Additional Population</h6>
-												<p>
-													For each station, the additional population is calculated as the
-													difference between the current and target population. If the station’s
-													current population is greater than or equal to the target population, the
-													additional population is set to 0.
-												</p>
-
-												<h6>3. Calculating Additional Households</h6>
-												<p>
-													A station's additional population is divided by the station’s average
-													household size to get additional number of households. The additional
-													number of households is summed for all stations to get the housing
-													estimate.
-												</p>
-												<p>
-													To obtain the mid-range housing estimate, the target population is set to
-													1.5 times the regional average. To obtain the high-end housing estimate,
-													the target population is set as double the regional average.
-												</p>
-											</div>
-										</div></Accordion
-									>
-								</div>
+					<div id="housing-dev">
+						<Accordion bind:open={faqs['tod-dpi']} id="tod-dpi">
+							<div slot="header" class="accordion-header">
+								<h3 class="uppercase">Housing Development Potential</h3>
+								<Icon icon={faqs['tod-dpi'] ? 'mdi:minus' : 'mdi:plus'} />
 							</div>
-						</div></Accordion
-					>
+							<div slot="body" class="accordion-body">
+								<div class="text-content">
+									<div>
+										<p>
+											The Development Potential Index provides an indication of the potential for
+											new housing construction in a transit station area.
+										</p>
+										<Accordion bind:open={faqs['dpi-data']} id="dpi-data">
+											<div slot="header" class="accordion-header">
+												<h4>Data</h4>
+
+												<Icon icon={faqs['dpi-data'] ? 'mdi:minus' : 'mdi:plus'} />
+											</div>
+											<div slot="body" class="accordion-body">
+												<p>
+													The Development Potential Index splits indicators into three categories:
+													Land Availability to measure capacity for new housing, Growth Pressure to
+													measure demand for new housing, and Displacement Risk to measure the risk
+													of displacing existing residents when building new housing.
+												</p>
+												<p>
+													Number of approved building permits is provided as supplementary
+													information where available.
+												</p>
+												<h6 style="margin-top: 2rem;">Land Availability</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Total developable area</td>
+																<td>Total station area, excluding water and greenspace</td>
+																<td>OpenStreetMap (2025)</td>
+															</tr>
+															<tr>
+																<td>High opportunity sites</td>
+																<td>Surface parking area</td>
+																<td>OpenStreetMap (2025)</td>
+															</tr>
+															<tr>
+																<td>Single unit dwellings</td>
+																<td>Count of single unit addresses</td>
+																<td>Statistics Canada (National Address Register, December 2025)</td
+																>
+															</tr>
+															<tr>
+																<td>Population density</td>
+																<td>Population / (total station area, excluding water)</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Employment density</td>
+																<td>Number of employees / (total station area, excluding water)</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Growth Pressure</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Municipal population change</td>
+																<td>CMA-level population change, 2020-2025</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Population change</td>
+																<td>Transit station area population change, 2020-2025</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Projected population change</td>
+																<td>Projected transit station area population change, 2025-2030</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Amenity presence</td>
+																<td
+																	>Overall complete community score, measuring availability of
+																	amenities within station area.</td
+																>
+																<td>Complete Community Index; Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Daily visits</td>
+																<td>Average number of visitors within station area.</td>
+																<td>Complete Community Index; Environics Analytics (2026)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Displacement Risk</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Low income</td>
+																<td
+																	>Population who are low-income (Low-income measure, after tax)</td
+																>
+																<td>Statistics Canada (Census, 2021)</td>
+															</tr>
+															<tr>
+																<td>More than 30% of income spent on shelter</td>
+																<td>Population spending more than 30% of income on shelter.</td>
+																<td>Statistics Canada (Census, 2021)</td>
+															</tr>
+															<tr>
+																<td>Immigrants</td>
+																<td>Population who are immigrants.</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Visible minorities</td>
+																<td>Population who are visible minorities.</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Youth and elderly</td>
+																<td>Population who are under 19 or over 65.</td>
+																<td>Environics Analytics (2026)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Additional Data</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Building permits</td>
+																<td>Number of approved units.</td>
+																<td
+																	>Local open data, various (2025). <br />
+																	Only available for some stations</td
+																>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div></Accordion
+										>
+									</div>
+									<div class="mb-12">
+										<Accordion bind:open={faqs['dpi-meth']} id="dpi-meth">
+											<div slot="header" class="accordion-header">
+												<h4>Methodology</h4>
+
+												<Icon icon={faqs['dpi-meth'] ? 'mdi:minus' : 'mdi:plus'} />
+											</div>
+											<div slot="body" class="accordion-body">
+												<div class="my-8">
+													<h4 class="my-8">Subscore Calculation</h4>
+													<p>
+														A station's percentile rank relative to other stations is calculated for
+														each Land Availability, Growth Pressure, and Displacement Risk
+														indicator. The direction of population and employment density rankings
+														are inverted; a higher population density leads to a lower population
+														density percentile rank.
+													</p>
+
+													<p>
+														A station's Land Availability and Growth Pressure subscores are
+														calculated as the mean of the indicator percentile ranks.
+													</p>
+
+													<p>
+														Land Availability, Growth Pressure, and Displacement Risk levels (Very
+														Low, Low, Moderate, etc.) are determined using their subscore quantiles.
+													</p>
+													<h4 class="my-8">Development Potential Score</h4>
+													<p>
+														The Development Potential Score is calculated as a sum of the Land
+														Availability and Growth Pressure subscores.
+													</p>
+
+													<p>
+														For stations on multiple transit lines, the Growth Pressure subscore is
+														multiplied by an Intersection Multiplier. The Intersection Multiplier is
+														calculated as the average population of transit stations on multiple
+														lines divided by the average population of transit stations on a single
+														line.
+													</p>
+
+													<p>
+														The Development Potential Level is based on the quantiles of Development
+														Potential Score (lowest fifth of Development Potential Score &rarr; Very
+														Low, second-lowest fifth of Development Potential Score &rarr; Low,
+														etc.).
+													</p>
+												</div>
+
+												<div id="housing-est">
+													<h4>Calculating Housing Estimate</h4>
+
+													<p class="mb-8">
+														The estimate for new housing construction in transit station areas is
+														based on the current population of existing transit station areas.
+													</p>
+
+													<h6>1. Setting Target Population</h6>
+													<p>
+														Calculate average population of existing stations for each region. For
+														Quebec City, the average population of the planned line is used.
+													</p>
+													<p>
+														For each station, the target population is set as the average population
+														of existing stations in that region.
+													</p>
+													<p>
+														For stations on multiple transit lines, the target population is
+														multiplied by the Intersection Multiplier.
+													</p>
+
+													<h6>2. Calculating Additional Population</h6>
+													<p>
+														For each station, the additional population is calculated as the
+														difference between the current and target population. If the station’s
+														current population is greater than or equal to the target population,
+														the additional population is set to 0.
+													</p>
+
+													<h6>3. Calculating Additional Households</h6>
+													<p>
+														A station's additional population is divided by the station’s average
+														household size to get additional number of households. The additional
+														number of households is summed for all stations to get the housing
+														estimate. This gives us the low-end housing estimate (1.2 million).
+													</p>
+													<p>
+														To obtain the mid-range housing estimate (2.7 million), the target
+														population is set to 1.5 times the regional average. To obtain the
+														high-end housing estimate (4.4 million), the target population is set as
+														double the regional average.
+													</p>
+												</div>
+											</div></Accordion
+										>
+									</div>
+								</div>
+							</div></Accordion
+						>
+					</div>
 				</div>
 			</section>
 		</div>

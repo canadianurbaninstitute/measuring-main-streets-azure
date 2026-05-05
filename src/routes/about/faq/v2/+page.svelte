@@ -371,6 +371,72 @@
 							</div>
 						</div>
 					</Accordion>
+					<Accordion bind:open={faqs['tod-brt']} id="tod-brt">
+						<div slot="header" class="accordion-header">
+							<h3>Why isn't bus or ferry rapid transit included?</h3>
+							<Icon icon={faqs['tod-brt'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<p>doesn't spur housing, stops can move</p>
+							</div>
+						</div>
+					</Accordion>
+					<Accordion bind:open={faqs['housing-est']} id="housing-est">
+						<div slot="header" class="accordion-header">
+							<h3>
+								How did you calculate the number of homes that could be built in transit station
+								areas?
+							</h3>
+							<Icon icon={faqs['housing-est'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<p>
+									The estimate for new housing construction in transit station areas is based on
+									each transit station area meeting double the average population of existing
+									transit station areas in their region. To calculate the estimate of 4.4 million
+									new homes, the following steps were used:
+								</p>
+								<h6>1. Setting Target Population</h6>
+								<p>
+									Calculate average population of existing stations for each region. For Quebec
+									City, the average population of the planned line is used.
+								</p>
+								<p>
+									For each station, the target population is set as the double the average
+									population of existing stations in that region.
+								</p>
+								<p>
+									For stations on multiple transit lines, the target population is multiplied by the
+									Intersection Multiplier (more information in <a href="/about/data-methodology/v2"
+										>Data and Methodology</a
+									>).
+								</p>
+
+								<h6>2. Calculating Additional Population</h6>
+								<p>
+									For each station, the additional population is calculated as the difference
+									between the current and target population. If the station’s current population is
+									greater than or equal to the target population, the additional population is set
+									to 0.
+								</p>
+
+								<h6>3. Calculating Additional Households</h6>
+								<p>
+									A station's additional population is divided by the station’s average household
+									size to get additional number of households. The additional number of households
+									is summed for all stations to get the housing estimate. This gives us the high-end
+									housing estimate (4.4 million).
+								</p>
+								<p>
+									For more information, visit <a href="/about/data-methodology"
+										>Data and Methodology</a
+									>.
+								</p>
+							</div>
+						</div>
+					</Accordion>
 				</div>
 			</section>
 		</div>
