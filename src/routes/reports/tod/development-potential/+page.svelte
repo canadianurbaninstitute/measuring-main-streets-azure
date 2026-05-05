@@ -168,10 +168,10 @@
 		description3="areas with high land availability and high growth pressure are key areas with high potential for housing development."
 	/>
 
-	{#snippet renderPanel(uid, isVisible)}
+	{#snippet renderPanel(uid, isVisible, overrideProps = null)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{@const activeStep = steps[activeIndex]}
-		{@const stepProps = activePanelUid === uid ? activeStep?.props || {} : {}}
+		{@const stepProps = overrideProps ? overrideProps : (activePanelUid === uid ? activeStep?.props || {} : {})}
 		{@const mergedProps = { ...panel?.config?.props, ...stepProps }}
 
 		{#if panel}
@@ -244,19 +244,11 @@
 							{/each}
 						</VisContainer>
 					</div>
-				{:else if isMobile}
-					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
-						<VisContainer>
-							{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
-								{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
-							{/each}
-						</VisContainer>
-					</div>
 				{/if}
 				<div class="content-foreground">
 					{#each group.sections as section}
 						<div class="scrolly-section overlay" id="section-{section.si}">
-							{#each section.blocks as block}
+							{#each section.blocks as block, bIndex}
 								<section
 									class="scroll-section"
 									data-step={block.globalStepIndex}
@@ -270,6 +262,14 @@
 									<div class="max-w-none">
 										{@html block.body}
 									</div>
+									
+									{#if isMobile && block.panelUid && (bIndex === section.blocks.length - 1 || section.blocks[bIndex + 1].heading)}
+										<div class="mt-8 relative w-full h-[400px] rounded-xl overflow-hidden shadow-md bg-slate-100">
+											<VisContainer>
+												{@render renderPanel(block.panelUid, true, block.props || {})}
+											</VisContainer>
+										</div>
+									{/if}
 								</section>
 							{/each}
 						</div>
@@ -447,7 +447,8 @@
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */
-	.inline-vis-container :global(.vis-panel) {
+	.inline-vis-container :global(.vis-panel),
+	.scroll-section :global(.vis-panel) {
 		position: relative;
 		opacity: 1 !important;
 		visibility: visible !important;

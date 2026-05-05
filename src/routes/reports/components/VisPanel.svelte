@@ -33,8 +33,8 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: 2rem;
-		overflow: visible;
+		/* padding: 2rem; */
+		overflow-x: scroll;
 		opacity: 0;
 		transform: scale(0.97) translateY(6px);
 		pointer-events: none;
@@ -68,7 +68,8 @@
 
 	@media (max-width: 768px) {
 		.vis-panel {
-			padding: 0.75rem;
+			padding: 0rem;
+			border: none;
 		}
 
 		.caption,

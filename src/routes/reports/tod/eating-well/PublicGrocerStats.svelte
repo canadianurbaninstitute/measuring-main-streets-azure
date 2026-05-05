@@ -4,13 +4,15 @@
 
 <div class="stats-aside">
 	<div class="stats-header">
-		<p class="stats-lead">For <strong>$350 million</strong>, the federal government could develop:</p>
+		<p class="stats-lead">
+			For <strong>$350 million</strong>, the federal government could develop:
+		</p>
 	</div>
 
 	<div class="stats-grid">
 		<div class="stats-item">
 			<div class="icon-wrap">
-				<Icon icon="mdi:store-24-hour" class="icon" />
+				<Icon icon="mdi:cart" class="icon" />
 			</div>
 			<div class="stats-content">
 				<p class="stats-value">50</p>
@@ -47,8 +49,8 @@
 			<li>
 				<span class="dot"></span>
 				<p>
-					<strong>200,000 urban families</strong> and <strong>10,000 Northern families</strong> could save
-					a total <strong>$600 million</strong> annually
+					<strong>200,000 urban families</strong> and <strong>10,000 Northern families</strong>
+					could save a total <strong>$600 million</strong> annually
 				</p>
 			</li>
 			<li>
@@ -63,7 +65,7 @@
 
 <style>
 	.stats-aside {
-		padding: 2.5rem;
+		padding: 2rem;
 		background: linear-gradient(135deg, var(--color-blue-50) 0%, #ffffff 100%);
 		border-left: 4px solid var(--color-blue-500);
 		border-radius: 0 1.5rem 1.5rem 0;
@@ -77,15 +79,15 @@
 	.stats-lead {
 		font-size: 1.1rem;
 		color: var(--color-slate-700);
-		margin-bottom: 2rem;
-		line-height: 1.4;
+		margin-bottom: 1.5rem;
+		line-height: 1;
 	}
 
 	.stats-grid {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 2fr 1fr;
 		gap: 2rem;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 	}
 
 	.stats-item {
@@ -130,8 +132,8 @@
 	.stats-sub {
 		font-size: 0.75rem;
 		color: var(--color-slate-500);
-		margin: 0.25rem 0 0;
-		line-height: 1.4;
+		margin: 0.1 rem 0 0;
+		line-height: 1;
 	}
 
 	.stats-list {

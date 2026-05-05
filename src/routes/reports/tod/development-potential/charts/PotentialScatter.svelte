@@ -106,57 +106,59 @@
 			</select>
 		</div>
 	</div>
-	<div class="chart-box">
-		<ScatterChart
-			data={processedData}
-			{seriesConfig}
-			xKey="x"
-			yKey="y"
-			zKey="group"
-			xLabel="Land Availability"
-			yLabel="Growth Pressure"
-			showQuadrants={true}
-			showTooltip={true}
-			{quadrantConfig}
-			{visible}
-			{highlightIds}
-			idKey="id"
-			titleKey="label"
-			filterRegion={selectedRegion}
-			regionKey="region"
-			tooltipRows={[
-				{ key: 'LAQuadrant', label: 'Land Availability' },
-				{ key: 'GPQuadrant', label: 'Growth Pressure' },
-				{ key: 'potential', label: 'Overall Potential' }
-			]}
-			xDomain={xDomainFixed}
-			yDomain={yDomainFixed}
-			formatX={(d) => d}
-			formatY={(d) => d}
-		/>
-	</div>
+	<ScatterChart
+		padding={{
+			top: 20,
+			right: 20,
+			bottom: 60,
+			left: 60
+		}}
+		data={processedData}
+		{seriesConfig}
+		xKey="x"
+		yKey="y"
+		zKey="group"
+		xLabel="Land Availability"
+		yLabel="Growth Pressure"
+		showQuadrants={true}
+		showTooltip={true}
+		{quadrantConfig}
+		{visible}
+		{highlightIds}
+		idKey="id"
+		titleKey="label"
+		filterRegion={selectedRegion}
+		regionKey="region"
+		tooltipRows={[
+			{ key: 'LAQuadrant', label: 'Land Availability' },
+			{ key: 'GPQuadrant', label: 'Growth Pressure' },
+			{ key: 'potential', label: 'Overall Potential' }
+		]}
+		xDomain={xDomainFixed}
+		yDomain={yDomainFixed}
+		formatX={(d) => d}
+		formatY={(d) => d}
+		pointRadius={3}
+	/>
 </div>
 
 <style>
 	.scatter-container {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
 		width: 100%;
-		background: white;
-		border-radius: 12px;
-		border: 1px solid #e2e8f0;
-		padding: 1.5rem;
+		height: 100%;
 	}
 
 	.controls {
-		margin-bottom: 1.5rem;
+		padding: 0.5rem 0;
 		display: flex;
-		justify-content: flex-start;
+		align-items: center;
 	}
 
 	.filter-wrap {
 		display: flex;
+		width: 100%;
 		align-items: center;
 		gap: 0.5rem;
 		background: #f8fafc;
@@ -178,6 +180,7 @@
 	}
 
 	select {
+		width: 100%;
 		padding: 0.25rem 0.5rem;
 		border-radius: 4px;
 		border: 1px solid transparent;
@@ -192,16 +195,5 @@
 
 	select:hover {
 		background: rgba(0, 0, 0, 0.05);
-	}
-
-	.chart-box {
-		flex: 1;
-		min-height: 500px;
-	}
-
-	@media (max-width: 640px) {
-		.chart-box {
-			min-height: 400px;
-		}
 	}
 </style>

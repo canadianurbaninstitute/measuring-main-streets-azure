@@ -140,6 +140,7 @@ a {
 	text-decoration-thickness: 3px;
 	text-underline-offset: 0.25em;
 	text-decoration-style: solid;
+	word-break: break-word;
 	transition: all 0.3s ease;
 }
 

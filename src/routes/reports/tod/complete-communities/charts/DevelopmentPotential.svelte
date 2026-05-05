@@ -60,8 +60,8 @@
 	{/each}
 </div>
 
-<div class="overflow-x-auto">
-	<table class="w-full text-sm text-left whitespace-nowrap">
+<div class="w-full">
+	<table class="w-full text-sm text-left">
 		<thead class="text-zinc-500 border-b bg-zinc-50">
 			<tr>
 				<th class="py-2 px-2">Amenity</th>

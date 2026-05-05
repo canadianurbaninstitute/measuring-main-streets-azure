@@ -43,7 +43,7 @@
 
 	const cx = $derived($width / 2);
 	const cy = $derived($height / 2);
-	const radius = $derived(Math.min($width, $height) / 2 - 40);
+	const radius = $derived(Math.min($width, $height) / 2 - 20);
 	const keys = $derived(Object.keys($data[0]));
 	const angleSlice = $derived((Math.PI * 2) / keys.length);
 	const rScale = $derived((v) => (v / 100) * radius * $reveal);
