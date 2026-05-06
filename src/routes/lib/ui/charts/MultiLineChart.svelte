@@ -24,6 +24,7 @@
 	export let formatValue = (d) => d.toFixed(0) + '%';
 	export let yDomain = [0, null];
 	export let xTickInterval = 10;
+	export let ticks = undefined;
 	export let height = '500px';
 	export let visible = undefined;
 	export let showLegend = true;
@@ -36,6 +37,7 @@
 	export let showTotalLine = false;
 	export let totalLineColor = '#000000';
 	export let totalLineLabel = 'Net Total';
+	export let showTooltipTotal = true;
 
 	// ── Internal constants ───────────────────────────────────────────────────────
 	const yKey = 'value'; // LayerCake's yKey after groupLonger
@@ -153,7 +155,13 @@
 			data={groupedData}
 		>
 			<Svg>
-				<AxisX gridlines={false} ticks={xTicks} format={formatLabelX} tickMarks label={xLabel} />
+				<AxisX
+					gridlines={false}
+					ticks={ticks || xTicks}
+					format={formatLabelX}
+					tickMarks
+					label={xLabel}
+				/>
 				<AxisY ticks={4} format={formatLabelY} label={yLabel} />
 				{#if showArea}
 					<MultiArea {visible} opacity={0.3} />
@@ -175,7 +183,12 @@
 			</Svg>
 
 			<Html>
-				<SharedTooltip formatTitle={formatLabelX} dataset={finalData} {formatValue} />
+				<SharedTooltip
+					formatTitle={formatLabelX}
+					dataset={finalData}
+					{formatValue}
+					showTotal={showTooltipTotal}
+				/>
 			</Html>
 		</LayerCake>
 	</div>

@@ -57,6 +57,7 @@
 		min-height: 50px;
 	}
 	.metric {
+		height: 100%;
 		padding: 0.35em;
 		border: 1px solid #ddd;
 		border-radius: 0.5em;

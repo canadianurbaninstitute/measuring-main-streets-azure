@@ -12,6 +12,7 @@
 	import Accordion from '../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import './tabs.css';
 
 	let {
@@ -38,7 +39,6 @@
 			<GaugeMetric
 				label={metric.label}
 				value={Math.round(stationCCpresence[metric.key])}
-				icon={metric.icon}
 				suffix={metric.unit}
 				fillColor="var(--color-zinc-400)"
 			/>
@@ -69,7 +69,11 @@
 			value={Math.round(selectedStation[BusinessCount.key]).toLocaleString()}
 			icon={BusinessCount.icon}
 		/>
-		<GaugeMetric label={bii.label} value={selectedStation[bii.key]} maxValue={1} />
+		<GaugeMetric
+			label={bii.label}
+			value={Math.round(selectedStation[bii.key] * 100)}
+			maxValue={100}
+		/>
 	</div>
 	<div class="legend-container">
 		<Accordion>
@@ -182,4 +186,17 @@
 			/>
 		</div>
 	</div> -->
+	<CustomButton
+		href="/reports/tod/complete-communities"
+		label="Read the Complete Communities report"
+		className="mt-2 w-full"
+		color="pink"
+	/>
+	<CustomButton
+		href="/tools/complete-communities"
+		label="Try the Complete Communities Tool"
+		className="mt-2 w-full"
+		variant="secondary"
+		color="pink"
+	/>
 </div>

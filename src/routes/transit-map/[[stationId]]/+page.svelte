@@ -2,6 +2,7 @@
 	// --- Imports ---
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
+	import * as d3 from 'd3';
 	import { da_map_source } from '../../lib/data/transitdata/config-mapbox.json';
 
 	import type { Feature, Polygon } from 'geojson';
@@ -73,6 +74,8 @@
 	let bedData = $state([]);
 	let ageData = $state([]);
 	let employmentData = $state([]);
+	let stationDpiData = $state([]);
+	let stationDpiRawData = $state([]);
 
 	let regionsFuse = $state();
 	let linesFuse = $state();
@@ -577,6 +580,48 @@
 
 		try {
 			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/DevelopmentPotential_Subindex.csv'
+			);
+			const csvText = await response.text();
+			stationDpiData = d3.csvParse(csvText, (d: any) => {
+				const row: any = {};
+				for (const key in d) {
+					if (key === 'id') {
+						row[key] = d[key];
+					} else if (['potential', 'LALevel', 'DRLevel', 'GPLevel'].includes(key)) {
+						row[key] = d[key];
+					} else {
+						row[key] = d[key] === 'NA' ? 0 : +d[key];
+					}
+				}
+				return row;
+			});
+		} catch (error) {
+			console.error('Error fetching DPI data:', error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/AllIndicators_Raw.csv'
+			);
+			const csvText = await response.text();
+			stationDpiRawData = d3.csvParse(csvText, (d: any) => {
+				const row: any = {};
+				for (const key in d) {
+					if (key === 'id') {
+						row[key] = d[key];
+					} else {
+						row[key] = d[key] === 'NA' ? 0 : +d[key];
+					}
+				}
+				return row;
+			});
+		} catch (error) {
+			console.error('Error fetching DPI raw data:', error);
+		}
+
+		try {
+			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/ai_descriptions.json'
 			);
 			aiDescriptions = await response.json();
@@ -645,6 +690,9 @@
 				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 				break;
+			case 'development-potential':
+				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
+				break;
 			case 'employment':
 				map.setPaintProperty('employment-size', 'circle-opacity', 0.8);
 				map.setPaintProperty('employment-size', 'circle-stroke-opacity', 1);
@@ -685,7 +733,7 @@
 				<div class="station-details-scroll-container">
 					{#if selectedStation && selectedStation.id}
 						<StationStatus {selectedStation} />
-						<AiDescription {selectedStation} {aiDescriptions} />
+						<AiDescription {selectedStation} {aiDescriptions} {activeTab} />
 						<Tabs.Content value="demographics" class="tab-button">
 							<!-- needed to silence LayerCake warnings -->
 							{#if activeTab === 'demographics'}
@@ -725,6 +773,7 @@
 								<BuiltFormTab
 									{selectedStation}
 									{stationBuiltForm}
+									{stationDpiData}
 									{selectedVariable}
 									bind:greenspaceVisible
 									bind:waterVisible
@@ -746,6 +795,11 @@
 								/>
 							{/if}
 						</Tabs.Content>
+						<!-- <Tabs.Content value="development-potential" class="tab-button">
+							{#if activeTab === 'development-potential'}
+								<DevelopmentPotentialTab {selectedStation} {stationDpiData} />
+							{/if}
+						</Tabs.Content> -->
 					{:else if stationSelected}
 						<p>Loading station details...</p>
 					{/if}
@@ -785,12 +839,16 @@
 						>
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="built-form">Built Form</Tabs.Trigger
+							value="built-form">Built Form & Development Potential</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="complete-communities">Complete Communities</Tabs.Trigger
 						>
+						<!-- <Tabs.Trigger
+							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300 text-xs"
+							value="development-potential">Development Potential</Tabs.Trigger
+						> -->
 					</Tabs.List>
 				</div>
 			</div>

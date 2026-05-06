@@ -10,10 +10,31 @@
 		VisibleMinorityTotal
 	} from '../../lib/data/transitdata/config.json';
 	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
+	import MultiLineChart from '../../lib/ui/charts/MultiLineChart.svelte';
 	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
 	import './tabs.css';
 
 	let { selectedStation, ageData, selectedVariable = $bindable(), onSelectVariable } = $props();
+
+	console.log({ selectedStation });
+
+	const popGrowthData = $derived([
+		{
+			date: new Date(2025, 0, 1),
+			period: '2020-2025',
+			growth: selectedStation?.PopGrowth2020to2025
+		},
+		{
+			date: new Date(2030, 0, 1),
+			period: '2025-2030',
+			growth: selectedStation?.PopGrowth2025to2030
+		},
+		{
+			date: new Date(2035, 0, 1),
+			period: '2030-2035',
+			growth: selectedStation?.PopGrowth2030to2035
+		}
+	]);
 </script>
 
 <div class="tab-content gap-1">
@@ -44,6 +65,26 @@
 	</div>
 	<div class="tab-chart-container">
 		<div class="tab-chart">
+			<h6 class="chart-title">Projected Population Growth</h6>
+			<MultiLineChart
+				data={popGrowthData}
+				minHeight="150px"
+				xKey="date"
+				seriesConfig={[{ key: 'growth', label: 'Growth Rate', color: 'var(--color-green-400)' }]}
+				formatLabelX={(d: Date) => d.getFullYear()}
+				formatLabelY={(d: number) => d.toFixed(0) + '%'}
+				formatValue={(d: any, key: string) =>
+					key === 'growth' ? d.toFixed(2) + '%' : key === 'period' ? d : d}
+				yDomain={[0, 40]}
+				ticks={popGrowthData.map((d) => new Date(d.date))}
+				showLegend={false}
+				showTooltip={true}
+				showTooltipTotal={false}
+			/>
+		</div>
+	</div>
+	<div class="tab-chart-container">
+		<div class="tab-chart">
 			<BarChart
 				colors={['#002a41', '#0098D6', '#db3069']}
 				data={ageData}
@@ -55,6 +96,7 @@
 				mode="stacked"
 				legend="true"
 				xSuffix="%"
+				showTooltip={true}
 				padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 			/>
 		</div>
