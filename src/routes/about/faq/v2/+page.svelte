@@ -373,12 +373,18 @@
 					</Accordion>
 					<Accordion bind:open={faqs['tod-brt']} id="tod-brt">
 						<div slot="header" class="accordion-header">
-							<h3>Why isn't bus or ferry rapid transit included?</h3>
+							<h3>Why isn't bus rapid transit included?</h3>
 							<Icon icon={faqs['tod-brt'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
 							<div class="text-content">
-								<p>doesn't spur housing, stops can move</p>
+								<p>
+									For the purposes of our research, we found that new bus rapid transit does not
+									spur the same increase in housing construction that higher-order transit does.
+									While the fixed infrastructure of subway, commuter, and LRT lines is conducive to
+									potential for new housing development, bus stops and routes are flexible in their
+									locations, and so do not generate the same potential for new housing.
+								</p>
 							</div>
 						</div>
 					</Accordion>
