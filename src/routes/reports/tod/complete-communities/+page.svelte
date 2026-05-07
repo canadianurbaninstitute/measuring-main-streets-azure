@@ -10,7 +10,6 @@
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
-	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
 	import AmenityNeeds from './charts/AmenityNeeds.svelte';
 	import CivicInfrastructure from './charts/CivicInfrastructure.svelte';
@@ -27,6 +26,7 @@
 	// Assets
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import introImage from '../../../lib/assets/screenshots/cc.png';
+	import VisLink from '../../components/VisLink.svelte';
 
 	let activeIndex = $state(0);
 
@@ -224,7 +224,7 @@
 					{@const Component = panel.config.component}
 					<Component visible={isVisible} {...mergedProps} />
 				{:else if panel.config?.type === 'link'}
-					<VisLink href={panel.config.href} label={panel.config.btnLabel ?? 'Learn More'} />
+					<VisLink href={panel.config.href}>{panel.config.btnLabel}</VisLink>
 				{/if}
 			</VisPanel>
 		{/if}
@@ -280,7 +280,7 @@
 
 								{#if block.cta}
 									<div class="inline-cta">
-										<VisLink href={block.cta.href} label={block.cta.label} />
+										<VisLink href={block.cta.href}>{block.cta.label}</VisLink>
 									</div>
 								{/if}
 
@@ -312,20 +312,19 @@
 <style>
 	.inline-article {
 		max-width: 65ch;
-		margin: 4em auto;
 		padding: 0 1rem;
 		display: flex;
 		flex-direction: column;
-		gap: 3rem;
+		margin: auto;
 	}
 
 	.inline-section {
 		display: flex;
 		flex-direction: column;
-		gap: 2rem;
 	}
 
 	.inline-heading {
+		margin-top: 3rem;
 		margin-bottom: 1.5rem;
 		font-size: 2.2rem;
 		color: #1e293b;
@@ -366,7 +365,6 @@
 		flex: 1 1;
 		display: flex;
 		flex-direction: column;
-		max-width: 1200px;
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */

@@ -120,14 +120,14 @@
 					title: 'Reports',
 					description: 'In depth reports on transit-oriented development.',
 					image: reportstsa,
-					link: '/reports/tod',
+					link: '/reports/v2/?tab=tod',
 					tags: ['Reports']
 				},
 				{
 					title: 'Tools',
 					description: 'In depth reports on transit-oriented development.',
 					image: urbanform,
-					link: '/reports/tod',
+					link: '/tools/v2',
 					tags: ['Tools']
 				}
 			]

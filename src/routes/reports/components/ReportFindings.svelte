@@ -62,7 +62,7 @@
 
 <section {id} class="findings">
 	<div class="inner">
-		<h1 class="title">{title}</h1>
+		<h1 class="title uppercase">{title}</h1>
 		<div class="cards">
 			{@render Card(finding1, description1, flip1, back1, link1, newTab1, image1)}
 			{@render Card(finding2, description2, flip2, back2, link2, newTab2, image2)}

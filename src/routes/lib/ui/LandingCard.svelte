@@ -122,7 +122,6 @@
 	@media (max-width: 640px) {
 		.landing-card {
 			min-width: 200px; /* Reduced for mobile */
-			max-width: 280px; /* Cap width to prevent scroll overflow */
 		}
 	}
 
@@ -202,6 +201,7 @@
 
 	.tag {
 		padding: 0.2rem 0.6rem;
+		margin-right: 1rem;
 		border-radius: 1rem;
 		color: #fff;
 		font-size: 0.7rem;

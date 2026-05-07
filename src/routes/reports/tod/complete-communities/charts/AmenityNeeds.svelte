@@ -36,7 +36,7 @@
 		yKey="amenity"
 		xKey={['low', 'high']}
 		zRange={['#00adf2', '#db3069']}
-		padding={{ top: 10, right: 20, bottom: 20, left: 160 }}
+		padding={{ top: 10, right: 20, bottom: 20, left: 180 }}
 		showLegend={true}
 		legendLabels={['Low Employee Estimate', 'High Employee Estimate']}
 	/>

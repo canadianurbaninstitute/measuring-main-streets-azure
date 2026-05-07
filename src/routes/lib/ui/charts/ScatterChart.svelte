@@ -2,7 +2,6 @@
 	import { scaleLinear, scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
-	import { format as d3Format } from 'd3-format';
 	import AxisX from '../chartcomponents/AxisX.svelte';
 	import AxisY from '../chartcomponents/AxisY.svelte';
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
@@ -161,7 +160,7 @@
 		position: relative;
 		overflow: visible;
 		flex: 1;
-		min-height: 250px;
+		min-height: 350px;
 	}
 
 	.chart-container {

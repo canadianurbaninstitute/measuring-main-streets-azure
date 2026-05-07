@@ -27,7 +27,7 @@
 		height: 100%;
 		margin: 0 auto;
 		padding: 1rem;
-		overflow: hidden; /* No scrolling */
+		overflow-y: auto;
 	}
 
 	.quote-group :global(.quote-container) {

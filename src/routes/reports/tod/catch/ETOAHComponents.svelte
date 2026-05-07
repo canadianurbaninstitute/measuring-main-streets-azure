@@ -50,7 +50,7 @@
 
 <style>
 	.infra-card {
-		padding: 2.5rem;
+		padding: 2rem;
 		background: #ffffff;
 		border-radius: 1.5rem;
 		/* box-shadow:
@@ -61,13 +61,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 1rem;
 	}
 
 	.infra-section {
 		width: 100%;
 		padding: 1.5rem;
-		margin-bottom: 1.5rem;
 		border-radius: 1rem;
 		display: flex;
 		flex-direction: column;

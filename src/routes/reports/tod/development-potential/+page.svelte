@@ -8,7 +8,6 @@
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
-	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
 	import { intersect } from '../walkability/intersect.js';
 	import { sections } from './article.js';
@@ -16,6 +15,7 @@
 	import PotentialMap from './charts/PotentialMap.svelte';
 	// Assets
 	import train from '../../../lib/assets/graphics/train-long.svg';
+	import VisLink from '../../components/VisLink.svelte';
 	import buildings from './assets/buildings.png';
 	import HeaderImage from './assets/HeaderImage.png';
 	import stncomp from './assets/stncomp.png';
@@ -50,9 +50,6 @@
 			component: TechScatter
 		}
 	};
-
-	let innerWidth = $state(0);
-	let isMobile = $derived(innerWidth > 0 && innerWidth < 1024);
 
 	let activeIndex = $state(0);
 
@@ -168,10 +165,14 @@
 		description3="areas with high land availability and high growth pressure are key areas with high potential for housing development."
 	/>
 
-	{#snippet renderPanel(uid, isVisible)}
+	{#snippet renderPanel(uid, isVisible, overrideProps = null)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{@const activeStep = steps[activeIndex]}
-		{@const stepProps = activePanelUid === uid ? activeStep?.props || {} : {}}
+		{@const stepProps = overrideProps
+			? overrideProps
+			: activePanelUid === uid
+				? activeStep?.props || {}
+				: {}}
 		{@const mergedProps = { ...panel?.config?.props, ...stepProps }}
 
 		{#if panel}
@@ -188,11 +189,9 @@
 					{@const Component = panel.config.component}
 					<Component visible={isVisible} {...mergedProps} />
 				{:else if panel.config?.type === 'link'}
-					<VisLink
-						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
-						target={panel.config.target}
-					/>
+					<VisLink href={panel.config.href} target={panel.config.target}>
+						{panel.config.btnLabel ?? 'Learn More'}
+					</VisLink>
 				{/if}
 			</VisPanel>
 		{/if}
@@ -236,27 +235,17 @@
 			</Scroller>
 		{:else if group.layout === 'overlay'}
 			<div class="page-layout-overlay">
-				{#if !isMobile}
-					<div class="map-background">
-						<VisContainer>
-							{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
-								{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
-							{/each}
-						</VisContainer>
-					</div>
-				{:else if isMobile}
-					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
-						<VisContainer>
-							{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
-								{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
-							{/each}
-						</VisContainer>
-					</div>
-				{/if}
+				<div class="map-background">
+					<VisContainer>
+						{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
+							{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+						{/each}
+					</VisContainer>
+				</div>
 				<div class="content-foreground">
 					{#each group.sections as section}
 						<div class="scrolly-section overlay" id="section-{section.si}">
-							{#each section.blocks as block}
+							{#each section.blocks as block, bIndex}
 								<section
 									class="scroll-section"
 									data-step={block.globalStepIndex}
@@ -271,6 +260,7 @@
 										{@html block.body}
 									</div>
 								</section>
+								<div class="spacer"></div>
 							{/each}
 						</div>
 					{/each}
@@ -290,7 +280,7 @@
 
 								{#if block.cta}
 									<div class="inline-cta">
-										<VisLink href={block.cta.href} label={block.cta.label} />
+										<VisLink href={block.cta.href}>{block.cta.label}</VisLink>
 									</div>
 								{/if}
 
@@ -443,11 +433,12 @@
 		flex: 1 1;
 		display: flex;
 		flex-direction: column;
-		max-width: 1200px;
+		/* width: 100%; */
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */
-	.inline-vis-container :global(.vis-panel) {
+	.inline-vis-container :global(.vis-panel),
+	.scroll-section :global(.vis-panel) {
 		position: relative;
 		opacity: 1 !important;
 		visibility: visible !important;
@@ -456,6 +447,16 @@
 		width: 100%;
 		height: 100%;
 		min-height: 400px;
+	}
+
+	.spacer {
+		height: 0;
+	}
+
+	@media (max-width: 1024px) {
+		.spacer {
+			height: 100vh;
+		}
 	}
 
 	@media (max-width: 768px) {

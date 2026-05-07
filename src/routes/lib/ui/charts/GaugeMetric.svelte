@@ -17,6 +17,8 @@
 	export let duration = 1000;
 	export let segmentColors = ['#58e965', '#eab308', '#f13737']; // reversed order
 	export let pointerColor = '#002940';
+	export let showValue = true;
+	export let title = '';
 
 	let displayed = 0;
 	let gaugeId = `gauge-${Math.random().toString(36).substr(2, 9)}`;
@@ -24,7 +26,7 @@
 	const startAngle = Math.PI / 2; // left
 	const endAngle = -Math.PI / 2; // right
 
-	const radius = size / 2 - thickness / 2;
+	const radius = size / 2 - thickness / 2 - 10;
 	const needleWidth = 10; // base width of needle
 
 	let svg: d3.Selection<SVGGElement, unknown, null, undefined>;
@@ -88,24 +90,28 @@
 	}
 </script>
 
-<div class="gauge-metric" style="position: relative; width:{size}px; height:{size / 2 + 30}px;">
+<div class="gauge-metric" style="position: relative; width:{size}px; height:auto;">
+	{#if title}
+		<h6 class="chart-title">{title}</h6>
+	{/if}
 	<svg id={gaugeId}></svg>
 	<div
 		class="center-contents"
-		style="position: absolute; top:0; left:0; width:100%; height:{size /
-			2}px; display:flex; flex-direction: column; align-items:center; justify-content:center; pointer-events:none;"
+		style="position: absolute; top:0; left:0; width:100%; height:{size / 2 +
+			30}px; display:flex; flex-direction: column; align-items:center; justify-content:center; pointer-events:none;"
 	>
 		{#if icon}
 			<div class="icon"><Icon {icon} color={iconcolor} /></div>
 		{/if}
-		<div class="number">{prefix}{displayed}{suffix}</div>
+		{#if showValue}
+			<div class="number">{prefix}{displayed}{suffix}</div>
+		{/if}
 	</div>
 	<div class="label">{label}</div>
 </div>
 
 <style>
 	.gauge-metric {
-		margin: 0.15em 0;
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
@@ -126,5 +132,14 @@
 	.label {
 		font-size: 0.85rem;
 		text-align: center;
+	}
+
+	.chart-title {
+		font-size: 1em;
+		margin-bottom: 10px;
+		color: var(--color-blue-900);
+		font-weight: 700;
+		text-align: center;
+		width: 100%;
 	}
 </style>

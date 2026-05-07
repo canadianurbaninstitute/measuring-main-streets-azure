@@ -69,14 +69,14 @@
 	.benefits-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1.25rem;
+		gap: 0.25rem;
 		margin-bottom: 2rem;
 	}
 
 	.benefit-item {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
+		gap: 0.5rem;
 		padding: 1rem;
 		background: white;
 		border: 1px solid var(--color-green-100);

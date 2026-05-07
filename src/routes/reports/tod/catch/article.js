@@ -97,8 +97,8 @@ export const sections = [
 			{
 				panelId: 'etoah-components',
 				heading: 'Advancing ETOAH: Three key components',
-				body: `While every city is unique, many face a consistent set of challenges when it comes to sustaining and financing affordable housing along transit corridors. 
-                CATCH’s new model for advancing ETOAH has three interconnected components that target these challenges:`
+				body: `<p>While every city is unique, many face a consistent set of challenges when it comes to sustaining and financing affordable housing along transit corridors. 
+                CATCH’s new model for advancing ETOAH has three interconnected components that target these challenges:</p>`
 			},
 			{
 				panelId: 'etoah-components1',

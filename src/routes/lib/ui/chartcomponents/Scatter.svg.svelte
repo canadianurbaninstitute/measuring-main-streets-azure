@@ -15,7 +15,7 @@
 	if (context.rGet) context.rGet.subscribe((v) => (rGet_fn = v));
 
 	let {
-		r = 5,
+		r = 1,
 		fill = '#0cf',
 		stroke = '#000',
 		strokeWidth = 0,
@@ -125,8 +125,8 @@
 				cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}
 				cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}
 				r={(highlighted ? 1.5 : 1) *
-					(typeof r === 'number' ? r : $rKey && typeof rGet_fn === 'function' ? rGet_fn(d) : 5) *
-					reveal.current || 5}
+					(typeof r === 'number' ? r : $rKey && typeof rGet_fn === 'function' ? rGet_fn(d) : 3) *
+					reveal.current}
 				fill={dim ? '#555' : $z && typeof zGet_fn === 'function' ? zGet_fn(d) : fill}
 				stroke={highlighted ? '#fff' : dim ? '#cbd5e1' : stroke}
 				stroke-width={highlighted ? 2 : strokeWidth}

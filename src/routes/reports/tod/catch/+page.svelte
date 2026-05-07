@@ -1,6 +1,6 @@
 <script>
-	import '../../../styles.css';
 	import { onMount } from 'svelte';
+	import '../../../styles.css';
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
@@ -12,20 +12,20 @@
 	import VisPanel from '../../components/VisPanel.svelte';
 	import { sections } from './article.js';
 
-	import HeaderImage from './assets/HeaderImage.png';
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import ETOAHComponents from './ETOAHComponents.svelte';
-	import intro from './assets/intro.png';
-	import intro2 from './assets/elevated-train.png';
-	import intro3 from './assets/train-passing.png';
-	import intro4 from './assets/ttc-subway.png';
-	import intro5 from './assets/gobus.png';
+	import HeaderImage from './assets/HeaderImage.png';
 	import boarding from './assets/boarding.png';
 	import buildings from './assets/buildings.png';
 	import interior from './assets/bus-interior.png';
+	import conclusion from './assets/conclusion.png';
+	import intro2 from './assets/elevated-train.png';
+	import intro5 from './assets/gobus.png';
+	import intro from './assets/intro.png';
 	import octranspo from './assets/octranspo.png';
 	import skytrain from './assets/skytrain.png';
-	import conclusion from './assets/conclusion.png';
+	import intro3 from './assets/train-passing.png';
+	import intro4 from './assets/ttc-subway.png';
 
 	const visConfig = {
 		'etoah-components': {
@@ -196,6 +196,9 @@
 			}
 		});
 
+		nav.push({ type: 'anchor', id: 'contact', label: 'Contact' });
+		nav.push({ type: 'anchor', id: 'references', label: 'References' });
+
 		return nav;
 	});
 </script>
@@ -210,7 +213,6 @@
 	<ReportHeader
 		id="report-header"
 		logo={'catch'}
-		reporttype="Partner Report"
 		subEyebrow="How Communities Can Ensure Transit-Oriented Development Works for Everyone"
 		title="TRANSIT WITHOUT DISPLACEMENT"
 		subtitle="Inclusive, equitable transit-oriented development is possible with the right approach. As Canada invests billions in transit infrastructure, 
@@ -348,7 +350,7 @@
 		{/if}
 	{/each}
 
-	<div class="inline-article text-center uppercase font-light text-lg" id="contact">
+	<div class="inline-article" id="contact">
 		Learn more about CATCH and access the ETOAH toolkit:
 		<div class="inline-cta">
 			<VisLink href="https://catch-rehac.ca/" label="Learn More" />
@@ -459,7 +461,6 @@
 		border-top: 1px solid #eee;
 		border-bottom: 1px solid #eee;
 		position: relative;
-		min-height: 50vh;
 	}
 
 	.inline-vis-container.multi-vis {
@@ -490,13 +491,11 @@
 		pointer-events: auto !important;
 		width: 100%;
 		height: 100%;
-		min-height: 400px;
 	}
 
 	@media (max-width: 768px) {
 		.inline-vis-container {
 			padding: 2rem 0;
-			min-height: auto;
 		}
 
 		.inline-vis-container.multi-vis {
@@ -514,7 +513,6 @@
 		:global(.text-column .vis-panel) {
 			padding: 1rem;
 			height: auto;
-			min-height: 400px;
 		}
 	}
 	.center {

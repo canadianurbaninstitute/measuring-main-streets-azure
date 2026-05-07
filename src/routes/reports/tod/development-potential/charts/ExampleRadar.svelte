@@ -54,10 +54,16 @@
 			];
 
 			growthRadar = [
-				{ label: 'Pop Change 2020-25', value: (parseFloat(target.PopChange2020to2025) || 0) * 100 },
-				{ label: 'Pop Change 2025-30', value: (parseFloat(target.PopChange2025to2030) || 0) * 100 },
 				{
-					label: 'Municipal Pop Change 20-25',
+					label: 'Pop Change 2020-2025',
+					value: (parseFloat(target.PopChange2020to2025) || 0) * 100
+				},
+				{
+					label: 'Pop Change 2025-2030',
+					value: (parseFloat(target.PopChange2025to2030) || 0) * 100
+				},
+				{
+					label: 'Municipal Pop Change 2020-2025',
 					value: (parseFloat(target.MunicipalPopChange2020to2025) || 0) * 100
 				},
 				{
@@ -75,7 +81,7 @@
 </script>
 
 <div
-	class="flex flex-col h-full w-full justify-center items-center gap-8 py-8 transition-opacity duration-1000 {visible
+	class="flex flex-col h-full w-full justify-center items-center gap-4 py-4 transition-opacity duration-1000 {visible
 		? 'opacity-100'
 		: 'opacity-0'}"
 >
@@ -83,27 +89,31 @@
 		<!-- <h3>
 			{stationName}
 		</h3> -->
-		<div class="flex flex-col gap-4 w-full max-w-4xl justify-center items-center">
+		<div class="flex flex-col md:flex-row gap-4 w-full justify-center items-center">
 			<div
-				class="flex flex-col items-center w-full max-w-sm flex-1 bg-white p-4 rounded-xl shadow-sm border border-zinc-100"
+				class="flex-1 flex flex-col items-center w-full bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
 			>
-				<h4 class="text-xl font-bold text-center text-[#ff007f] uppercase tracking-wide">
+				<h4 class="text-lg font-bold text-center text-[#ff007f] uppercase tracking-wide">
 					Land Availability
 				</h4>
-				<span class="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-4">Low</span>
-				<div class="w-full aspect-square">
+				<span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2"
+					>Low</span
+				>
+				<div class="w-full aspect-square p-12">
 					<RadarChart data={landRadar} max={100} color="#ff007f" />
 				</div>
 			</div>
 
 			<div
-				class="flex flex-col items-center w-full max-w-sm flex-1 bg-white p-4 rounded-xl shadow-sm border border-zinc-100"
+				class="flex-1 flex flex-col items-center w-full bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
 			>
-				<h4 class="text-xl font-bold text-center text-[#00adf2] uppercase tracking-wide">
+				<h4 class="text-lg font-bold text-center text-[#00adf2] uppercase tracking-wide">
 					Growth Pressure
 				</h4>
-				<span class="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-4">High</span>
-				<div class="w-full aspect-square">
+				<span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2"
+					>High</span
+				>
+				<div class="w-full aspect-square p-12">
 					<RadarChart data={growthRadar} max={100} color="#00adf2" />
 				</div>
 			</div>

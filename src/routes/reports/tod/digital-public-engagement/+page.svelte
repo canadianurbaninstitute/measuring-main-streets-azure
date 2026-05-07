@@ -16,13 +16,13 @@
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import cooksville from '../../assets/dps-cooksville.png';
-	import northfield from '../../assets/dps-northfield.png';
-	import kitsilano from '../../assets/dps-kitsilano.png';
-	import welcome from '../../assets/dps-welcome.png';
 	import header from '../../assets/dps-header.png';
+	import kitsilano from '../../assets/dps-kitsilano.png';
+	import northfield from '../../assets/dps-northfield.png';
+	import welcome from '../../assets/dps-welcome.png';
+	import Design from './Design.svelte';
 	import PersonaResearch from './PersonaResearch.svelte';
 	import SocialMedia from './SocialMedia.svelte';
-	import Design from './Design.svelte';
 
 	const visConfig = {
 		welcome: {
@@ -177,7 +177,7 @@
 
 	<ReportFindings
 		id="report-findings"
-		title="About Digital Public Square"
+		title="KEY TAKEAWAYS"
 		finding1="Digital Engagement is a new frontier"
 		description1="of understanding and educating residents about community development."
 		link1="https://digitalpublicsquare.org/"

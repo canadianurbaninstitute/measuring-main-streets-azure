@@ -161,7 +161,8 @@
 			attributionControl: false
 		});
 
-		// map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+		const nav = new mapboxgl.NavigationControl();
+		map.addControl(nav, 'bottom-left');
 
 		map.keyboard.disable();
 		map.touchZoomRotate.disable();
@@ -246,12 +247,12 @@
 
 <style>
 	.map-wrapper {
-		width: 100vw;
-		height: 100vh;
-		position: relative;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		inset: 0;
 		overflow: hidden;
 		background: #f1f5f9;
-		min-height: 600px;
 	}
 
 	.map-container {

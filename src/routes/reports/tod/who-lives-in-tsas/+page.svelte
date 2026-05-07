@@ -152,10 +152,6 @@
 	const maxValue = $derived(Math.max(...popDotData.flatMap((d) => [d.tsa, d.cma])));
 	const domain = $derived([minValue * 0.5, maxValue * 1.2]);
 
-	$effect(() => {
-		console.log(areaData);
-	});
-
 	const tsaColour = '#db3069';
 	const cmaColour = '#00adf2';
 </script>
@@ -228,32 +224,32 @@
 
 	<div class="infographic-section pb-20">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center gap-2 justify-center flex-wrap">
-				<Icon icon="mdi:map" style="color: var(--brandLightBlue)" />
-				At a Glance
-			</span>
+			<h2>
+				<span class="flex items-center gap-2 justify-center flex-wrap">
+					<Icon icon="mdi:map" style="color: var(--brandLightBlue)" />
+					At a Glance
+				</span>
+			</h2>
 		</div>
-		<div class="section-description pb-8">
+		<p class="pb-8">
 			Transit station areas make up a very small portion of the land area in their regions. However,
 			they are extremely efficient when it comes to population and dwelling density.
-		</div>
+		</p>
 		<div style="display: flex; justify-content: center;">
 			<DotPlotLegend data={selectedRow} />
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-8">
-			<div>
-				<div class="md:pl-40 w-auto h-25">
-					<DotPlot
-						data={popData}
-						yKey="label"
-						xDomain={[
-							Math.min(...popData.flatMap((d) => [d.tsa, d.cma])) * 0.8,
-							Math.max(...popData.flatMap((d) => [d.tsa, d.cma])) * 1.2
-						]}
-						zDomain={['cma', 'tsa']}
-						zRange={[cmaColour, tsaColour]}
-					/>
-				</div>
+			<div class="md:pl-40 h-25">
+				<DotPlot
+					data={popData}
+					yKey="label"
+					xDomain={[
+						Math.min(...popData.flatMap((d) => [d.tsa, d.cma])) * 0.8,
+						Math.max(...popData.flatMap((d) => [d.tsa, d.cma])) * 1.2
+					]}
+					zDomain={['cma', 'tsa']}
+					zRange={[cmaColour, tsaColour]}
+				/>
 			</div>
 			<div class="section-stats pl-10 pb-10 w-auto">
 				<h4 class="pb-2">Population</h4>
@@ -324,21 +320,23 @@
 
 	<div class="infographic-section pb-20 md:pb-20 pt-16 md:pt-0">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center gap-2 justify-center flex-wrap">
-				<Icon icon="mdi:train" style="color: var(--brandPurple); display: inline;" />
-				Transit-Oriented Development For Who?
-			</span>
+			<h2>
+				<span class="flex items-center gap-2 justify-center flex-wrap">
+					<Icon icon="mdi:train" style="color: var(--brandPurple); display: inline;" />
+					Transit-Oriented Development For Who?
+				</span>
+			</h2>
 		</div>
-		<div class="section-description pb-8">
+		<p class="pb-8">
 			Communities around transit station areas are usually oriented towards young, single-household
 			renters. TSA communities are also generally highly-educated, with higher percentages of
 			residents holding university degrees inside TSAs than outside.
-		</div>
+		</p>
 		<div style="display: flex; justify-content: center;">
 			<DotPlotLegend data={selectedRow} />
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			<div class="md:pl-40 w-auto h-100 md:h-auto">
+			<div class="md:pl-40 h-100 md:h-auto">
 				<DotPlot
 					data={demoData}
 					yKey="label"
@@ -346,6 +344,7 @@
 					seriesColors={[tsaColour, cmaColour]}
 					zDomain={['cma', 'tsa']}
 					zRange={[cmaColour, tsaColour]}
+					padding={{ top: 10, right: 20, bottom: 40, left: 20 }}
 				/>
 				<div class="pl-12 text-xs text-gray-500 center uppercase font-semibold">Percentage (%)</div>
 			</div>
@@ -401,18 +400,20 @@
 
 	<div class="infographic-section pb-20 mt-16 md:mt-0">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center gap-2 justify-center flex-wrap">
-				<Icon icon="mdi:domain" style="color: var(--brandOrange)" />
-				Building Up, Not Out
-			</span>
+			<h2>
+				<span class="flex items-center gap-2 justify-center flex-wrap">
+					<Icon icon="mdi:domain" style="color: var(--brandOrange)" />
+					Building Up, Not Out
+				</span>
+			</h2>
 		</div>
-		<div class="section-description pb-8">
+		<p class="pb-8">
 			In order to be so efficient in such a small area, the urban form in transit station areas must
 			go vertical rather than spreading horizontally. Transit station areas have a higher percentage
 			of residential apartment buildings than their surrounding areas. Additionally, a higher
 			percentage of residents in transit station areas spend over 30% of their income on shelter
 			costs.
-		</div>
+		</p>
 		<div style="display: flex; justify-content: center;">
 			<DotPlotLegend data={selectedRow} />
 		</div>
@@ -482,16 +483,18 @@
 
 	<div class="infographic-section pb-20 mt-16 md:mt-0">
 		<div class="section-title pb-6 text-center">
-			<span class="flex items-center gap-2 justify-center flex-wrap">
-				<Icon icon="mdi:map-marker-path" style="color: var(--brandPink)" />
-				On the Move
-			</span>
+			<h2>
+				<span class="flex items-center gap-2 justify-center flex-wrap">
+					<Icon icon="mdi:map-marker-path" style="color: var(--brandPink)" />
+					On the Move
+				</span>
+			</h2>
 		</div>
-		<div class="section-description pb-8">
+		<p class="pb-8">
 			On average, have a higher percentage of residents who use active and public transportation.
 			Residents of transit station areas also spend less on transportation on average compared to
 			their region.
-		</div>
+		</p>
 		<div style="display: flex; justify-content: center;">
 			<DotPlotLegend data={selectedRow} />
 		</div>
@@ -564,7 +567,7 @@
 				</div>
 			</div>
 			<div class="section-stats md:pl-10 w-auto">
-				<div class="pb-8">
+				<div class="pt-24">
 					<h4 class="pb-2">Average Transportation Cost</h4>
 
 					<span class="stat" style="color: {tsaColour};"
@@ -638,6 +641,12 @@
 	@media (max-width: 1024px) {
 		.sticky {
 			position: static;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.section-stats {
+			padding-left: 0;
 		}
 	}
 </style>

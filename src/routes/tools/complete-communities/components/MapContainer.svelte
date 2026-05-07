@@ -251,10 +251,6 @@
 				map.setPaintProperty('employment-size', 'circle-stroke-opacity', visibilityExpression);
 			}
 
-			map.on('click', 'employment-size', (e) => {
-				console.log('Feature properties:', e.features[0].properties);
-			});
-
 			// click function for transit layers
 			map.on('click', 'transit-stations', (e) => {
 				if (e.features.length > 0) {

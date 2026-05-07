@@ -12,8 +12,6 @@
 	} = $props();
 
 	let isOpen = $state(true);
-
-	console.log(computedAmenities);
 </script>
 
 <div

@@ -48,47 +48,50 @@ export const sections = [
 		panels: [
 			{
 				id: 'access-scatter',
-				label: 'Figure 2 — Core Amenity Access vs Population Density',
-      },
-      {id: 'amenity-map'}
+				label: 'Figure 2 — Core Amenity Access vs Population Density'
+			},
+			{ id: 'amenity-map' }
 		],
 		blocks: [
 			{
 				body: `<p>This chart provides a picture of access to core amenities compared to the current population within a TSA adjusted to the regional median. Stations that exist in the bottom-left quadrant have low levels of access in addition to low population while stations in the upper right exhibit the opposite, high access along with high population.</p>`
 			},
 			{
-        body: `<p>When compared across all transit regions, clear patterns begin to emerge. One is the relationship between access and density itself. While the overall slope of this patterns varies, generally as the total population increases so to does the access to core amenities. This illustrates the an overall benefit of complete communities and transit being a driving force for residential density. While a “chicken and egg” pattern exists between completeness and density they are mutually reinforcing constructs. Added density can make economic development from a business perspective more attractive or conversely, a community with access to amenities is attractive for residential development.</p>`,
-        props: { region: 'All' }
+				body: `<p>When compared across all transit regions, clear patterns begin to emerge. One is the relationship between access and density itself. While the overall slope of this patterns varies, generally as the total population increases so to does the access to core amenities. This illustrates the an overall benefit of complete communities and transit being a driving force for residential density. While a “chicken and egg” pattern exists between completeness and density they are mutually reinforcing constructs. Added density can make economic development from a business perspective more attractive or conversely, a community with access to amenities is attractive for residential development.</p>`,
+				props: { region: 'All' }
 			},
 			{
 				body: `<p>Where these stations exist within their urban region is also telling. In regions such as Montreal, Vancouver, Ottawa and the Greater Golden Horseshoe, stations in the top-right exist within the regions most urbanized areas, the downtown core or just outside, and stations such as <strong>Union, Mont-Royal, Rideau and Vancouver City Centre</strong> reflect this. Stations in the bottom left exist in suburban or urban fringes of these regions (<strong>Letrim, Limebank, Templeton</strong>) with stations in the GGH and Montreal being regional commuter rail stations (<strong>Malton, Old Elm, Mascouche</strong>).</p>`,
-				props: { highlightIds: ['381', '476', '598', '714', '602', '584','713', '544','271', '311' ], region: 'All' }
+				props: {
+					highlightIds: ['381', '476', '598', '714', '602', '584', '713', '544', '271', '311'],
+					region: 'All'
+				}
 			},
 			{
-        body: `<p>In Calgary and Edmonton the urban form of these regions is different, where large amount of available land has given way to urban expansion rather than residential intensification. As a result suburban stations exist at both extremes of this chart with most stations in the urban core around the regional median.</p>`,
-        props: { region: ['Calgary', 'Edmonton'] }
+				body: `<p>In Calgary and Edmonton the urban form of these regions is different, where large amount of available land has given way to urban expansion rather than residential intensification. As a result suburban stations exist at both extremes of this chart with most stations in the urban core around the regional median.</p>`,
+				props: { region: ['Calgary', 'Edmonton'] }
 			},
 			{
-        body: `<p>This chart can also be used to identify stations where residential or core amenity investment can occur. Stations in the top-left quadrant have relatively high access to core amenities but are below average in residential population. Places like <strong>Port Coquitlam, Guelph, Rundle, and Saint Lambert</strong> could support housing development without having access fall below the regional median. On the other hand, stations in the bottom-right quadrant, are relatively denser areas where additional investment into core amenities would provide the most value, such as <strong>Duncanwoods Station</strong> on the new Finch West LRT.</p>`,
-        props: {region: 'All', highlightIds:['191','227','699','56','531']},
-
+				body: `<p>This chart can also be used to identify stations where residential or core amenity investment can occur. Stations in the top-left quadrant have relatively high access to core amenities but are below average in residential population. Places like <strong>Port Coquitlam, Guelph, Rundle, and Saint Lambert</strong> could support housing development without having access fall below the regional median. On the other hand, stations in the bottom-right quadrant, are relatively denser areas where additional investment into core amenities would provide the most value, such as <strong>Duncanwoods Station</strong> on the new Finch West LRT.</p>`,
+				props: { region: 'All', highlightIds: ['191', '227', '699', '56', '531'] }
 			}
 		]
-  },
-  {
-    layout: 'inline',
-    panels: [
-      {
+	},
+	{
+		layout: 'inline',
+		panels: [
+			{
 				id: 'amenity-map',
 				label: 'Figure 3 — Amenity Access vs Population Density by Transit Region'
-      }
-    ],
-    blocks: [
-      {
-        panelId: 'amenity-map', body: `<p>Explore the map below to see the distribution of amenities vs population in different transit regions.</p>`
-      }
-    ]
-  },
+			}
+		],
+		blocks: [
+			{
+				panelId: 'amenity-map',
+				body: `<p>Explore the map below to see the distribution of amenities vs population in different transit regions.</p>`
+			}
+		]
+	},
 	{
 		panels: [
 			{
@@ -131,8 +134,8 @@ export const sections = [
 			}
 		]
 	},
-  {
-    layout: 'inline',
+	{
+		layout: 'inline',
 		panels: [
 			{
 				id: 'library-map',
@@ -143,7 +146,7 @@ export const sections = [
 			{
 				body: `<p>The map below shows the location and amenity status of each TSA similar as the location of libraries and community centers. In downtowns and more dense areas of these regions we can see a clustering of these amenities with even a single amenity being able to serve multiple Transit Station Areas at a time. Contrast that to suburban areas where the coverage of these amenities is much more spread out with many stations having no access to these places on foot and needing to take another mode of transportation.</p><p>This separating of uses is due to planning policies formed around post world war two ‘suburbanization’ in many north american cities. As cities began to expand outward, planning decisions were made to separate commercial land uses from residential, as residents were looking for an alternative to the crowded city centre (Centre for Urban Growth and Renewal, 2012). The result, has been an over reliance on cars and transport related inequality as people without a car are experiencing longer travel times or the inability to access services altogether acting as the inverse to the complete community concept all together.</p>`,
 				panelId: 'library-map'
-			},
+			}
 		]
 	},
 	{
@@ -151,7 +154,7 @@ export const sections = [
 		panels: [
 			{
 				id: 'future-stations',
-				label:  'Figure 8 — Future Development Potential by Transit Station Area'
+				label: 'Figure 8 — Future Development Potential by Transit Station Area'
 			}
 		],
 		blocks: [
@@ -170,7 +173,7 @@ export const sections = [
 		panels: [
 			{
 				id: 'development-potential',
-label: 'Figure 9 — Future Development Potential Case Studies'
+				label: 'Figure 9 — Future Development Potential Case Studies'
 			},
 			{
 				id: 'amenity-needs-summary',
@@ -186,9 +189,9 @@ label: 'Figure 9 — Future Development Potential Case Studies'
 <li>Chinook (Calgary)</li>
 <li>Tunneys Pasture (Ottawa)</li>
 <li>Willowbrook (Greater Vancounver / Lower Mainland)</li>
-<li>NAIT Blatchford Market (Edmonton)</li></ul><br/>
-<p>Using the <a href="/tools/complete-communities">Complete Community Tool</a>, we took the current outlook of access and added an additional 10,000 residents to each TSA to gauge a hypothetical scenario of residential intensification. While the count of core employees needed varied investment was needed across all station areas. Tunney’s Pasture and Chinook were the best performing as Tunney’s Pastures had all core amenities except for a Community Centre, while for Chinook investments in Childcare and Grocery Stores, as well as a new Library would create the greatest impact. Willowbrook had 6 of 9 core amenities, missing a Physicians Office, Community Centre and Library, with needed investment in Childcare, and Schools. Mount Pleasant GO and NAIT Blatchford Market were the worst performing needing between 338 - 795 and 631 - 1256 core amenity employees respectfully. For Mount Pleasant 8 of 9 amenities (except for a Library) would be significantly below the regional median, and 9 of 9 would be below for NAIT Blatchford Market with the biggest needs in Libraries, Schools, Banking, Physicians Offices and Grocery Stores.</p>
-`},  
+<li>NAIT Blatchford Market (Edmonton)</li></ul><br/>`,
+				body: `<p>Using the <a href="/tools/complete-communities">Complete Community Tool</a>, we took the current outlook of access and added an additional 10,000 residents to each TSA to gauge a hypothetical scenario of residential intensification. While the count of core employees needed varied investment was needed across all station areas. Tunney’s Pasture and Chinook were the best performing as Tunney’s Pastures had all core amenities except for a Community Centre, while for Chinook investments in Childcare and Grocery Stores, as well as a new Library would create the greatest impact. Willowbrook had 6 of 9 core amenities, missing a Physicians Office, Community Centre and Library, with needed investment in Childcare, and Schools. Mount Pleasant GO and NAIT Blatchford Market were the worst performing needing between 338 - 795 and 631 - 1256 core amenity employees respectfully. For Mount Pleasant 8 of 9 amenities (except for a Library) would be significantly below the regional median, and 9 of 9 would be below for NAIT Blatchford Market with the biggest needs in Libraries, Schools, Banking, Physicians Offices and Grocery Stores.</p>`
+			},
 			{
 				panelId: 'amenity-needs-summary',
 				body: `<p>On an amenity basis the three core amenities where the most investment would be needed across all stations would be Libraries, Primary and Secondary Schools, and Grocery Stores.</p>`

@@ -50,6 +50,9 @@
 			attributionControl: false
 		});
 
+		const nav = new mapboxgl.NavigationControl();
+		map.addControl(nav, 'top-right');
+
 		map.on('load', () => {
 			map.setPaintProperty('map-stations-with-amenity-sta-4hoz3b', 'fill-opacity', 0);
 			map.setPaintProperty('map-libraries-7supfh', 'icon-opacity', 0);

@@ -40,10 +40,6 @@
 		}))
 	);
 
-	// $effect(() => {
-	// 	console.log('Tech scatter:', processedData);
-	// });
-
 	const colors = ['#000000', '#2a5cac', '#f1c500', '#43b171'];
 
 	const regions = $derived(['All', ...new Set(initialData.map((d) => d.technology))]);
@@ -98,35 +94,40 @@
 			</select>
 		</div>
 	</div>
-	<div class="chart-box">
-		<ScatterChart
-			data={processedData}
-			{seriesConfig}
-			xKey="x"
-			yKey="y"
-			zKey="group"
-			xLabel="Land Availability"
-			yLabel="Growth Pressure"
-			showQuadrants={true}
-			showTooltip={true}
-			{quadrantConfig}
-			{visible}
-			{highlightIds}
-			idKey="id"
-			titleKey="label"
-			filterRegion={selectedRegion}
-			regionKey="technology"
-			tooltipRows={[
-				{ key: 'LAQuadrant', label: 'Land Availability' },
-				{ key: 'GPQuadrant', label: 'Growth Pressure' },
-				{ key: 'potential', label: 'Overall Potential' }
-			]}
-			xDomain={xDomainFixed}
-			yDomain={yDomainFixed}
-			formatX={(d) => d}
-			formatY={(d) => d}
-		/>
-	</div>
+	<ScatterChart
+		data={processedData}
+		{seriesConfig}
+		xKey="x"
+		yKey="y"
+		zKey="group"
+		padding={{
+			top: 20,
+			right: 20,
+			bottom: 60,
+			left: 60
+		}}
+		xLabel="Land Availability"
+		yLabel="Growth Pressure"
+		showQuadrants={true}
+		showTooltip={true}
+		{quadrantConfig}
+		{visible}
+		{highlightIds}
+		idKey="id"
+		titleKey="label"
+		filterRegion={selectedRegion}
+		regionKey="technology"
+		tooltipRows={[
+			{ key: 'LAQuadrant', label: 'Land Availability' },
+			{ key: 'GPQuadrant', label: 'Growth Pressure' },
+			{ key: 'potential', label: 'Overall Potential' }
+		]}
+		xDomain={xDomainFixed}
+		yDomain={yDomainFixed}
+		formatX={(d) => d}
+		formatY={(d) => d}
+		pointRadius={3}
+	/>
 </div>
 
 <style>
@@ -135,20 +136,18 @@
 		flex-direction: column;
 		height: 100%;
 		width: 100%;
-		background: white;
-		border-radius: 12px;
-		border: 1px solid #e2e8f0;
-		padding: 1.5rem;
 	}
 
 	.controls {
-		margin-bottom: 1.5rem;
+		padding: 0.5rem;
 		display: flex;
-		justify-content: flex-start;
+		align-items: center;
 	}
 
 	.filter-wrap {
 		display: flex;
+		width: 100%;
+		justify-content: flex-start;
 		align-items: center;
 		gap: 0.5rem;
 		background: #f8fafc;
@@ -184,16 +183,5 @@
 
 	select:hover {
 		background: rgba(0, 0, 0, 0.05);
-	}
-
-	.chart-box {
-		flex: 1;
-		min-height: 500px;
-	}
-
-	@media (max-width: 640px) {
-		.chart-box {
-			min-height: 400px;
-		}
 	}
 </style>

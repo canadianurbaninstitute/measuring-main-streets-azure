@@ -96,7 +96,7 @@
 		padding: 2rem 3rem 2rem 1rem;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		.scroller-layout {
 			display: block;
 		}

@@ -33,6 +33,6 @@
 	.chart-container {
 		margin: 0 auto;
 		aspect-ratio: 1;
-		padding: 4rem;
+		padding: 1.5rem;
 	}
 </style>

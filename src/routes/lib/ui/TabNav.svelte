@@ -147,10 +147,19 @@
 	}
 
 	:global(.tab-trigger:hover) {
-		background-color: var(--color-blue-400);
+		background-color: vaffr(--color-blue-400);
 	}
 
 	.tabs-container :global(.tab-content) {
 		padding: 2.5rem 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.tabs-container {
+			padding: 0.5rem 0.5rem;
+		}
+		.tabs-container :global(.tab-content) {
+			padding: 0.5rem 0.5rem;
+		}
 	}
 </style>
