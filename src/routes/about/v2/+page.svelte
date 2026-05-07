@@ -728,8 +728,12 @@
 					<div class="contact-item">
 						<span class="label">CONNECT</span>
 						<div class="social-icons">
-							<Icon icon="fa6-brands:linkedin" />
-							<Icon icon="fa6-brands:instagram" />
+							<a href="https://ca.linkedin.com/company/canadianurbaninstitute" target="_blank"
+								><Icon icon="fa6-brands:linkedin" /></a
+							>
+							<a href="https://www.instagram.com/canadianurbaninstitute/" target="_blank"
+								><Icon icon="fa6-brands:instagram" /></a
+							>
 						</div>
 					</div>
 				</div>
@@ -1104,6 +1108,9 @@
 		font-size: 1.25rem;
 		color: var(--brandLightBlue);
 		margin-top: 0.5rem;
+	}
+	.social-icons a {
+		all: unset;
 	}
 
 	.social-icons :global(svg) {

@@ -371,6 +371,78 @@
 							</div>
 						</div>
 					</Accordion>
+					<Accordion bind:open={faqs['tod-brt']} id="tod-brt">
+						<div slot="header" class="accordion-header">
+							<h3>Why isn't bus rapid transit included?</h3>
+							<Icon icon={faqs['tod-brt'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<p>
+									For the purposes of our research, we found that new bus rapid transit does not
+									spur the same increase in housing construction that higher-order transit does.
+									While the fixed infrastructure of subway, commuter, and LRT lines is conducive to
+									potential for new housing development, bus stops and routes are flexible in their
+									locations, and so do not generate the same potential for new housing.
+								</p>
+							</div>
+						</div>
+					</Accordion>
+					<Accordion bind:open={faqs['housing-est']} id="housing-est">
+						<div slot="header" class="accordion-header">
+							<h3>
+								How did you calculate the number of homes that could be built in transit station
+								areas?
+							</h3>
+							<Icon icon={faqs['housing-est'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<p>
+									The estimate for new housing construction in transit station areas is based on
+									each transit station area meeting double the average population of existing
+									transit station areas in their region. To calculate the estimate of 4.4 million
+									new homes, the following steps were used:
+								</p>
+								<h6>1. Setting Target Population</h6>
+								<p>
+									Calculate average population of existing stations for each region. For Quebec
+									City, the average population of the planned line is used.
+								</p>
+								<p>
+									For each station, the target population is set as the double the average
+									population of existing stations in that region.
+								</p>
+								<p>
+									For stations on multiple transit lines, the target population is multiplied by the
+									Intersection Multiplier (more information in <a href="/about/data-methodology/v2"
+										>Data and Methodology</a
+									>).
+								</p>
+
+								<h6>2. Calculating Additional Population</h6>
+								<p>
+									For each station, the additional population is calculated as the difference
+									between the current and target population. If the station’s current population is
+									greater than or equal to the target population, the additional population is set
+									to 0.
+								</p>
+
+								<h6>3. Calculating Additional Households</h6>
+								<p>
+									A station's additional population is divided by the station’s average household
+									size to get additional number of households. The additional number of households
+									is summed for all stations to get the housing estimate. This gives us the high-end
+									housing estimate (4.4 million).
+								</p>
+								<p>
+									For more information, visit <a href="/about/data-methodology"
+										>Data and Methodology</a
+									>.
+								</p>
+							</div>
+						</div>
+					</Accordion>
 				</div>
 			</section>
 		</div>
@@ -396,8 +468,12 @@
 					<div class="contact-item">
 						<span class="label">CONNECT</span>
 						<div class="social-icons">
-							<Icon icon="fa6-brands:linkedin" />
-							<Icon icon="fa6-brands:instagram" />
+							<a href="https://ca.linkedin.com/company/canadianurbaninstitute" target="_blank"
+								><Icon icon="fa6-brands:linkedin" /></a
+							>
+							<a href="https://www.instagram.com/canadianurbaninstitute/" target="_blank"
+								><Icon icon="fa6-brands:instagram" /></a
+							>
 						</div>
 					</div>
 				</div>
@@ -674,6 +750,15 @@
 		display: flex;
 		gap: 1rem;
 		margin-top: 0.5rem;
+	}
+	.social-icons :global(svg) {
+		cursor: pointer;
+		transition: transform 0.2s;
+	}
+
+	.social-icons :global(svg:hover) {
+		transform: scale(1.2);
+		color: var(--brandDarkBlue);
 	}
 
 	.mt-20 {
