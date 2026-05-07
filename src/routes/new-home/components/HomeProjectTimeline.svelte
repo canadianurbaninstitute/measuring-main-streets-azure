@@ -209,12 +209,12 @@
 						{/each}
 					</div>
 				</div>
-				<div class="project-stat-container">
+				<!-- <div class="project-stat-container">
 					<div class="big-stat">
 						<span class="stat-number-smaller">{projects[0].stat}</span>
 						<span class="stat-subtext">{projects[0].subtext}</span>
 					</div>
-				</div>
+				</div> -->
 				<div class="project-cards-container">
 					<div class="cards-scroll">
 						{#each projects[0].cards as card}
@@ -271,12 +271,12 @@
 						{/each}
 					</div>
 				</div>
-				<div class="project-stat-container">
+				<!-- <div class="project-stat-container">
 					<div class="big-stat">
 						<span class="stat-number">{projects[1].stat}</span>
 						<span class="stat-subtext">{projects[1].subtext}</span>
 					</div>
-				</div>
+				</div> -->
 				<div class="project-cards-container">
 					<div class="cards-scroll">
 						{#each projects[1].cards as card}

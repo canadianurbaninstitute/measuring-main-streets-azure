@@ -10,7 +10,7 @@
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
 	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
-	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
+	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 	let {
 		selectedStation,

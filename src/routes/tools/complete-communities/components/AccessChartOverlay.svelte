@@ -65,7 +65,7 @@
 										class={`px-2 py-0.5 rounded-full text-xs text-right font-medium ${
 											row.Amenity_Status === 'Absent'
 												? 'text-red-600 bg-red-100'
-												: row.Access_Gap > 0
+												: row.Access_Gap >= 0
 													? 'text-green-600 bg-green-100'
 													: row.Access_Gap < 0
 														? 'text-orange-600 bg-orange-100'
@@ -75,7 +75,11 @@
 										{#if row.Amenity_Status === 'Absent'}
 											{'Critical Gap'}
 										{:else}
-											{row.Access_Gap > 0 ? 'Above Average' : 'Below Average'}
+											{row.Access_Gap > 0
+												? 'Above Average'
+												: row.Access_Gap === 0
+													? 'Average'
+													: 'Below Average'}
 										{/if}
 									</span>
 								</td>
@@ -84,7 +88,7 @@
 					</tbody>
 				</table>
 			</div>
-			<p class="text-xs text-zinc-400 mt-2 italic">
+			<p class="text-zinc-400 mt-2 italic footnote">
 				* The access metric represents the relative access to employees for each amenity type per
 				1000 daily visits. The higher the number, the more accessible the resource is.
 			</p>
@@ -164,4 +168,11 @@
 </div>
 
 <style>
+	.footnote {
+		font-size: 0.75rem;
+	}
+
+	th {
+		white-space: wrap;
+	}
 </style>

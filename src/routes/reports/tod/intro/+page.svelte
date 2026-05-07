@@ -228,9 +228,11 @@
 					{@const Component = panel.config.component}
 					<Component visible={isVisible} />
 				{:else if panel.config?.type === 'link'}
-					<VisLink href={panel.config.href} target={panel.config.target}
-						>{panel.config.btnLabel ?? 'Learn More'}</VisLink
-					>
+					<VisLink
+						href={panel.config.href}
+						target={panel.config.target}
+						label={panel.config.btnLabel ?? 'Learn More'}
+					/>
 				{/if}
 			</VisPanel>
 		{/if}
@@ -291,7 +293,7 @@
 
 						{#if block.cta}
 							<div class="inline-cta">
-								<VisLink href={block.cta.href} target={block.cta.target}>{block.cta.label}</VisLink>
+								<VisLink href={block.cta.href} target={block.cta.target} label={block.cta.label} />
 							</div>
 						{/if}
 

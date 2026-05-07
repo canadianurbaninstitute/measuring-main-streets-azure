@@ -2,7 +2,7 @@
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import { EmployeeCount } from '../../lib/data/transitdata/config.json';
 
-	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
+	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
 	let {

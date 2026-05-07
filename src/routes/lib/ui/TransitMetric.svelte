@@ -61,7 +61,6 @@
 		padding: 0.35em;
 		border: 1px solid #ddd;
 		border-radius: 0.5em;
-		margin: 0.15em 0 0.15em 0;
 		display: flex;
 		flex-direction: row;
 		align-items: center;

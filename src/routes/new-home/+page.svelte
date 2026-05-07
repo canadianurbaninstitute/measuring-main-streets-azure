@@ -15,6 +15,7 @@
 
 <main class="new-homepage">
 	<HomeHero />
+	<!-- <HomeHeaderStats /> -->
 	<!-- <HomeTabs /> -->
 	<HomeProjectTimeline />
 	<HomeAbout />

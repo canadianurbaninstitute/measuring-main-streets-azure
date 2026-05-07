@@ -219,6 +219,11 @@
 				outside of transit station areas in
 				<b style="color: var(--brandDarkBlue);">{selectedRow.CMANAME}</b>.
 			</p>
+			<p style="font-size: 0.75em">
+				<b style="color: var(--brandDarkBlue);">All Regions</b> refers to Calgary CMA, Edmonton CMA,
+				Kitchener - Cambridge - Waterloo CMA, Montreal CMA, Ottawa-Gatineau CMA, Toronto CMA, and Vancouver
+				CMA.
+			</p>
 		</div>
 	</div>
 
@@ -239,7 +244,7 @@
 			<DotPlotLegend data={selectedRow} />
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-8">
-			<div class="md:pl-40 h-25">
+			<div class="sm:pl-40 md:pl-0 h-25">
 				<DotPlot
 					data={popData}
 					yKey="label"
@@ -265,7 +270,7 @@
 				people in {selectedRow.CMANAME}
 				<b style="color: var(--brandDarkBlue);">live outside TSAs</b>
 			</div>
-			<div class="md:pl-40 w-auto h-25">
+			<div class="sm:pl-40 md:pl-0 w-auto h-25">
 				<DotPlot
 					data={dwellingsData}
 					yKey="label"
@@ -290,7 +295,7 @@
 				dwellings in
 				{selectedRow.CMANAME} are <b style="color: var(--brandDarkBlue);">outside TSAs</b>
 			</div>
-			<div class="md:pl-40 w-auto h-25">
+			<div class="sm:pl-40 md:pl-0 w-auto h-25">
 				<DotPlot
 					data={employmentData}
 					yKey="label"
@@ -336,7 +341,7 @@
 			<DotPlotLegend data={selectedRow} />
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			<div class="md:pl-40 h-100 md:h-auto">
+			<div class="sm:pl-40 md:pl-0 h-100 md:h-auto">
 				<DotPlot
 					data={demoData}
 					yKey="label"
@@ -419,7 +424,7 @@
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			<div class="md:pl-40 w-auto h-100 md:h-auto">
+			<div class="sm:pl-40 md:pl-0 w-auto h-100 md:h-auto">
 				<DotPlot
 					data={housingData}
 					yKey="label"
@@ -499,7 +504,7 @@
 			<DotPlotLegend data={selectedRow} />
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-20">
-			<div class="md:pl-40 w-auto h-100">
+			<div class="sm:pl-40 md:pl-0 w-auto h-100">
 				<DotPlot
 					data={transportData}
 					yKey="label"
@@ -549,7 +554,7 @@
 			</div>
 		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			<div class="md:pl-40 w-auto h-25">
+			<div class="sm:pl-40 md:pl-0 w-auto h-25">
 				<DotPlot
 					data={transportCostData}
 					yKey="label"

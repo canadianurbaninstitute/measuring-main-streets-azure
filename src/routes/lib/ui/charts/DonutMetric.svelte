@@ -136,7 +136,6 @@
 <style>
 	.donut-metric {
 		display: flex;
-		margin: 0.15em 0 0.15em 0;
 		flex-direction: column;
 		gap: 0.5rem;
 		align-items: center;

@@ -4,6 +4,8 @@
 	import housing from '../../lib/assets/graphics/housing.svg';
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
 	import opennorth from '../../lib/assets/graphics/opennorth.svg';
+	import dps from '../../lib/assets/logos/DPS-logo-black.png';
+	import osslogo from '../../lib/assets/logos/oss.png';
 	import cc from '../../lib/assets/screenshots/cc.png';
 	import development from '../../lib/assets/screenshots/development.png';
 	import dpscooksville from '../../lib/assets/screenshots/dps-cooksville.png';
@@ -24,8 +26,8 @@
 		'Mapping',
 		'Graphing',
 		'Qualitative',
-		'Main Street Resilience',
-		'Transit-Oriented Development',
+		'Resilience on Main',
+		'TOD on Main',
 		'Partner Tools'
 	];
 
@@ -36,14 +38,14 @@
 				'A map of all existing, under construction and planned higher-order transit lines in Canada with key data points.',
 			image: transitmap,
 			link: '/transit-maps',
-			tags: ['Mapping', 'Transit-oriented development']
+			tags: ['Mapping', 'TOD on Main']
 		},
 		{
 			title: 'Transit Charts',
 			description: 'Key data for each stop along a selected transit line.',
 			image: chart,
 			link: '/tools/transit-charts',
-			tags: ['Graphing', 'Transit-oriented development']
+			tags: ['Graphing', 'TOD on Main']
 		},
 		{
 			title: 'Complete Communities',
@@ -51,7 +53,7 @@
 				'This tool examines the presence and access of key community amenities to assess current completeness and future needs.',
 			image: cc,
 			link: '/tools/complete-communities',
-			tags: ['Mapping', 'Transit-oriented development']
+			tags: ['Mapping', 'TOD on Main']
 		},
 		{
 			title: 'Development Potential Index',
@@ -59,59 +61,63 @@
 				'This tool breaks down the housing development potential of areas within 800m of a transit station',
 			image: development,
 			link: '/tools/development-potential',
-			tags: ['Graphing', 'Transit-oriented development']
+			tags: ['Graphing', 'TOD on Main']
 		},
 		{
 			title: 'Urban Form Comparison',
 			description: 'This tool highlights the urban form of areas within 800m of a transit station.',
 			image: urbanform,
 			link: '/tools/urban-form-comparison',
-			tags: ['Mapping', 'Transit-oriented development']
+			tags: ['Mapping', 'TOD on Main']
 		},
 		{
 			title: 'Love Your Neighbourhood Cooksville',
+			logo: dps,
 			description:
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpscooksville,
 			link: 'https://lovecooksville.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
+			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Open Space Sandbox Cooksville',
+			logo: osslogo,
 			description: 'A community-design interface to help residents design their own open spaces.',
 			image: oss,
 			link: 'https://app.openspacesandbox.com/survey/70240673-ab25-4bae-b766-03ecd923098f',
-			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
+			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Love Your Neighbourhood Northfield',
+			logo: dps,
 			description:
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpsnorthfield,
 			link: 'https://lovenorthfield.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
+			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Love Your Neighbourhood Kitsilano',
+			logo: dps,
 			description:
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpskitsilano,
 			link: 'https://lovekitsilano.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'Transit-oriented development']
+			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Main Street Demographics',
 			description: 'Demographic variables mapped to all arterial streets.',
 			image: demographic,
 			link: '/tools/mainstreet-demographic-map',
-			tags: ['Mapping', 'Main Street Resilience']
+			tags: ['Mapping', 'Resilience on Main']
 		},
 		{
 			title: 'Civic Infrastructure Provision',
 			description: 'Relative provision of civic infrastructure by neighbourhood.',
 			image: civic,
 			link: '/tools/civic-infrastructure-provision-map',
-			tags: ['Mapping', 'Main Street Resilience']
+			tags: ['Mapping', 'Resilience on Main']
 		},
 		{
 			title: 'Housing Dot Density',
@@ -119,21 +125,21 @@
 				'This choropleth dot mapping tool highlights housing built in Canada over the course of the past 60 years.',
 			image: housing,
 			link: '/tools/housing-density-map',
-			tags: ['Mapping', 'Main Street Resilience']
+			tags: ['Mapping', 'Resilience on Main']
 		},
 		{
 			title: 'Main Street Visitor Recovery',
 			description: 'This graphing tool highlights the visitor recovery patterns from 2020 to 2022.',
 			image: mainstreets,
 			link: '/tools/mainstreet-visitor-recovery',
-			tags: ['Graphing', 'Main Street Resilience']
+			tags: ['Graphing', 'Resilience on Main']
 		},
 		{
 			title: 'Main Street Data and Technology Project Readiness',
 			description: 'A downloadable readiness checklist by Open North.',
 			image: opennorth,
 			link: 'https://canurb.org/wp-content/uploads/Main-Street-Data-Readiness-Tool.pdf',
-			tags: ['Qualitative', 'Main Street Resilience', 'Partner Tools']
+			tags: ['Qualitative', 'Resilience on Main', 'Partner Tools']
 		}
 	];
 </script>

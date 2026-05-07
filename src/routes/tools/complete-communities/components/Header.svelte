@@ -4,15 +4,22 @@
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 
-	let { isOpen } = $props();
+	let { isOpen = $bindable() } = $props();
 	let accordionValue: string | null = $state('intro');
+
+	$effect(() => {
+		accordionValue = isOpen ? 'intro' : null;
+	});
 </script>
 
 <div class="p-4">
 	<Accordion.Root
-		bind:value={accordionValue}
+		value={accordionValue}
 		type="single"
-		onValueChange={(val) => (isOpen = val === 'intro')}
+		onValueChange={(val) => {
+			accordionValue = val;
+			isOpen = val === 'intro';
+		}}
 	>
 		<Accordion.Item value="intro">
 			<Accordion.Content forceMount={true} class="overflow-hidden text-sm tracking-[-0.01em]">
@@ -30,8 +37,10 @@
 							This tool examines the presence and access of key community amenities to assess
 							current completeness and future needs.
 						</p>
-						<p class="text-sm mt-4">
-							<em>This tool is in beta.</em>
+						<p>
+							For more information on methdology, see <a href="/about/data-methodology/v2/#tod-cc"
+								>Data & Methodology</a
+							>.
 						</p>
 					</div>
 				{/if}
@@ -42,7 +51,7 @@
       [&[data-state=closed]_.open]:hidden
       [&[data-state=open]>span>svg]:rotate-180"
 			>
-				<p>Page Description</p>
+				<p style="margin: 0;">Page Description</p>
 
 				<span
 					class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"

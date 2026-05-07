@@ -1,13 +1,13 @@
 <script lang="ts">
-	import {
-		transit_lines_source,
-		transit_stations_source,
-		transit_charts_style
-	} from '../../lib/data/transitdata/config-mapbox.json';
 	import * as turf from '@turf/turf';
 	import type { FeatureCollection, Geometry } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount, tick } from 'svelte';
+	import {
+		transit_charts_style,
+		transit_lines_source,
+		transit_stations_source
+	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
 	import '../../styles.css';
 	// --- Data Imports ---
@@ -486,5 +486,11 @@
 		min-height: 200px;
 		height: 100%;
 		border-radius: 8px;
+	}
+
+	:global(.mapboxgl-popup-content) {
+		background: var(--color-slate-900) !important;
+		padding: 6px !important;
+		border-radius: 6px !important;
 	}
 </style>

@@ -131,7 +131,7 @@ export const sections = [
 				There are 4 LRT lines under construction with an additional 4 in the planning stages.
 				There is one subway line under construction as well as a range of additions and upgrades to commuter rail.</p>
 				<p>In total there are 465 higher order transit stations with an additional 298 under construction or in the planning stages.
-				5.87 million people currently live with 800m of a higher order transit station.</p>`
+				5.59 million people currently live with 800m of a higher order transit station.</p>`
 			}
 		]
 	},
@@ -139,7 +139,8 @@ export const sections = [
 		panels: [
 			{
 				id: 'development',
-				label: 'Figure 7 – Transit-Oriented Development by Select Municipalities (Existing stations)',
+				label:
+					'Figure 7 – Transit-Oriented Development by Select Municipalities (Existing stations)',
 				source:
 					'Statistics Canada. Table 98-10-0002-01  Population and dwelling counts: Canada and census subdivisions (municipalities)'
 			},
@@ -252,7 +253,8 @@ export const sections = [
 		panels: [
 			{
 				id: 'benefits',
-				label: 'Figure 13 — Rendering of Arbutus Station case study produced by Infrastructure Institute and School of Cities.',
+				label:
+					'Figure 13 — Rendering of Arbutus Station case study produced by Infrastructure Institute and School of Cities.',
 				source:
 					'<a href="https://measuringmainstreets.ca/casestudies/tod/arbutus" target="_blank">https://measuringmainstreets.ca/casestudies/tod/arbutus</a>'
 			}
@@ -270,7 +272,14 @@ export const sections = [
 		]
 	},
 	{
-		panels: [{ id: 'displacement', label: 'Figure 14' }],
+		panels: [
+			{
+				id: 'displacement',
+				label: 'Figure 14 — Screenshot from the "Who Lives in Transit Station Areas? report',
+				source:
+					'<a href="/reports/tod/who-lives-in-tsas" target="_blank">Who Lives in Transit Station Areas?</a>'
+			}
+		],
 		blocks: [
 			{
 				panelId: 'displacement',
@@ -278,13 +287,18 @@ export const sections = [
 				body: `<p>Not all impacts of new higher order transit infrastructure projects are positive. New LRT, subway, and commuter rail lines bring significant change to existing communities. Property values typically rise, land is often used for different purposes, and new buildings are constructed in the pace of older ones. When these things happen, residents and businesses can be displaced. Those that experience displacement are most frequently the most vulnerable. It is not just a matter of subtracting individuals from a neighbourhood, but crucially it can strain and sever relationships between people and their connection to a place. Relationships are the foundation of community, and community is the foundation of local resiliency. Transit-oriented development needs to be inclusive. Policies and models of development should limit and mitigate displace impacts as well as provide affordable opportunities for residents from all income levels.  </p>`,
 				cta: {
 					href: '/reports/tod/who-lives-in-tsas',
-					label: 'Read the report — Who lives in transit station areas?'
+					label: 'Read the report — Who Lives in Transit Station Areas?'
 				}
 			}
 		]
 	},
 	{
-		panels: [{ id: 'dps', label: 'Figure 15 — Schreenshot of Digital Public Square community engagement tool.' }],
+		panels: [
+			{
+				id: 'dps',
+				label: 'Figure 15 — Schreenshot of Digital Public Square community engagement tool.'
+			}
+		],
 		blocks: [
 			{
 				panelId: 'dps',
