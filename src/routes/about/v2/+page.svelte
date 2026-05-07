@@ -8,6 +8,7 @@
 	import catch_logo from '../../lib/assets/logos/catch_color.png';
 	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
 	import environics_logo from '../../lib/assets/logos/environics_color.png';
+	import gnowise_logo from '../../lib/assets/logos/gnowise.webp';
 	import ii_logo from '../../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../../lib/assets/logos/uotsoc_color.png';
@@ -687,6 +688,9 @@
 								<a href="https://catch-rehac.ca/" target="_blank">
 									<img src={catch_logo} alt="CATCH" />
 								</a>
+								<a href="https://gnowise.com/" target="_blank"
+									><img src={gnowise_logo} alt="Gnowise Logo" /></a
+								>
 							</div>
 						</div>
 					</Accordion>
