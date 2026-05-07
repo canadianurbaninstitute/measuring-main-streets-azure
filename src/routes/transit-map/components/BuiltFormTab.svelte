@@ -124,20 +124,20 @@
 	</div>
 
 	<CustomButton
-		href="/tools/built-form"
+		href="/reports/tod/development-potential"
 		label="Read the Development Potential Report"
 		color="green"
 		className="mt-2 w-full"
 	/>
 	<CustomButton
-		href="/tools/built-form"
+		href="/tools/development-potential"
 		label="Try the Development Potential Tool"
 		color="green"
 		variant="secondary"
 		className="mt-2 w-full"
 	/>
 	<CustomButton
-		href="/tools/built-form"
+		href="/tools/urban-form-comparison"
 		label="Try the Built Form Tool"
 		variant="secondary"
 		className="mt-2 w-full"

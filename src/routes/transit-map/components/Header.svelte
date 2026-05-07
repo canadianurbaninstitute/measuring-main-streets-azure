@@ -40,8 +40,8 @@
 							left.
 						</p>
 						<p>
-							Data on this page is from Environics Analytics, last updated in 2026. For more detaied
-							information, see <a href="about/data-methodology/v2">data & methodology.</a>
+							Data on this page is from Environics Analytics, last updated in 2026. For more
+							detailed information, see <a href="/about/data-methodology/v2">Data & Methodology.</a>
 						</p>
 					</div>
 				{/if}
