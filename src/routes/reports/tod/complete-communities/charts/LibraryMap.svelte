@@ -51,6 +51,9 @@
 			attributionControl: false
 		});
 
+		const nav = new mapboxgl.NavigationControl();
+		map.addControl(nav, 'top-right');
+
 		map.on('load', () => {
 			map.setPaintProperty('core-access-by-pop-map-5dguw5', 'circle-opacity', 0);
 			map.setPaintProperty('core-access-by-pop-map-5dguw5', 'circle-stroke-opacity', 0);

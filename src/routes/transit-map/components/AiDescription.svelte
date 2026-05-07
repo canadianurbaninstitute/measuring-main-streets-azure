@@ -3,18 +3,23 @@
 	import CaretDown from 'phosphor-svelte/lib/CaretDown';
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
-	let { selectedStation, aiDescriptions } = $props();
+	let { selectedStation, aiDescriptions, activeTab } = $props();
 	const description = $derived(
 		aiDescriptions?.find((desc) => desc?.id === selectedStation?.id)?.description ?? ''
 	);
 
 	let isOpen = $state(true);
+	$effect(() => {
+		if (activeTab !== 'demographics') {
+			isOpen = false;
+		}
+	});
 </script>
 
 {#if selectedStation && description}
 	<div class="ai-description-container rounded-md mx-4 my-2 bg-gray-50 border border-gray-200">
 		<Accordion.Root
-			value="desc"
+			value={isOpen ? 'desc' : null}
 			type="single"
 			collapsible
 			onValueChange={(val) => (isOpen = val === 'desc')}
@@ -23,7 +28,9 @@
 				<Accordion.Trigger
 					class="rounded-lg flex px-4 w-full flex-1 select-none items-center justify-between text-[15px] font-medium transition-all [&[data-state=open]>span>svg]:rotate-180"
 				>
-					<p><em class="text-xs text-zinc-700">✨ AI-generated summary</em></p>
+					<p style="margin-bottom: 4px;">
+						<em class="text-xs text-zinc-700">✨ AI-generated summary</em>
+					</p>
 					<span
 						class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"
 					>
@@ -48,4 +55,7 @@
 {/if}
 
 <style>
+	.ai-description-text {
+		font-size: 1em;
+	}
 </style>

@@ -4,15 +4,22 @@
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 
-	let { isOpen } = $props();
-	let accordionValue: string | null = $state('intro');
+	let { isOpen = $bindable() } = $props();
+	let accordionValue: string | null = $state(isOpen ? 'intro' : null);
+
+	$effect(() => {
+		accordionValue = isOpen ? 'intro' : null;
+	});
 </script>
 
 <div class="p-4">
 	<Accordion.Root
-		bind:value={accordionValue}
+		value={accordionValue}
 		type="single"
-		onValueChange={(val) => (isOpen = val === 'intro')}
+		onValueChange={(val) => {
+			accordionValue = val;
+			isOpen = val === 'intro';
+		}}
 	>
 		<Accordion.Item value="intro">
 			<Accordion.Content forceMount={true} class="overflow-hidden text-sm tracking-[-0.01em]">
@@ -28,12 +35,13 @@
 						</Accordion.Header>
 						<p>
 							This is a map of all existing, under construction and planned higher-order transit
-							lines in Canada. Search for a place or navigate the map using the controls; and then
+							lines in Canada. Search for a station or navigate the map using the controls and then
 							click on a transit station to see information associated with it in the panel on the
 							left.
 						</p>
-						<p class="text-sm mt-4">
-							<em>This tool is in beta.</em>
+						<p>
+							Data on this page is from Environics Analytics, last updated in 2026. For more
+							detailed information, see <a href="/about/data-methodology/v2">Data & Methodology.</a>
 						</p>
 					</div>
 				{/if}
@@ -44,7 +52,7 @@
       [&[data-state=closed]_.open]:hidden
       [&[data-state=open]>span>svg]:rotate-180"
 			>
-				<p>Page Description</p>
+				<p style="margin-bottom: 0;">Page Description</p>
 
 				<span
 					class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"

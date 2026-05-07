@@ -313,5 +313,8 @@
 		.landing-header h1 {
 			font-size: 2.5rem;
 		}
+		.landing-container {
+			padding: 2rem 0.5rem;
+		}
 	}
 </style>

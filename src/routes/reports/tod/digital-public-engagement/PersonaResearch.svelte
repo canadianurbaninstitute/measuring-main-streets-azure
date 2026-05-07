@@ -58,4 +58,25 @@
 		right: 40%;
 		z-index: 3;
 	}
+
+	@media (max-width: 768px) {
+		.img1 {
+			width: 50%;
+			top: 1rem;
+			left: 0;
+			z-index: 1;
+		}
+		.img2 {
+			width: 40%;
+			top: 12rem;
+			right: 0;
+			z-index: 2;
+		}
+		.img3 {
+			width: 35%;
+			top: 35rem;
+			right: 35%;
+			z-index: 3;
+		}
+	}
 </style>

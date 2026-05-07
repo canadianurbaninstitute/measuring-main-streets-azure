@@ -7,12 +7,15 @@
 		PopulationDensity,
 		water_pct
 	} from '../../lib/data/transitdata/config.json';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
+	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
 	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
 	import './tabs.css';
 	let {
 		selectedStation,
 		stationBuiltForm,
+		stationDpiData,
 		greenspaceVisible = $bindable(),
 		waterVisible = $bindable(),
 		buildingVisible = $bindable(),
@@ -21,6 +24,24 @@
 		toggleLayer,
 		onSelectVariable
 	} = $props();
+
+	const potentialMap: Record<string, number> = {
+		'Very High': 10,
+		High: 7.5,
+		Moderate: 5,
+		Low: 2.5,
+		'Very Low': 0.25
+	};
+
+	const dpiData = $derived(
+		stationDpiData?.find((d: any) => String(d.id) === String(selectedStation.id))
+	);
+
+	const dpiMetrics = [
+		{ label: 'Land Availability', key: 'LALevel', icon: 'mdi:land-plots' },
+		{ label: 'Growth Pressure', key: 'GPLevel', icon: 'mdi:trending-up' },
+		{ label: 'Displacement Risk', key: 'DRLevel', icon: 'mdi:alert-circle' }
+	];
 </script>
 
 <div class="tab-content">
@@ -36,6 +57,27 @@
 				/>
 			{/if}
 		{/each}
+	</div>
+	<div class="metric-container">
+		{#each dpiMetrics as metric}
+			<TransitMetric
+				disabled
+				label={metric.label}
+				value={dpiData ? dpiData[metric.key] : 'N/A'}
+				icon={metric.icon}
+			/>
+		{/each}
+	</div>
+	<div class="flex flex-row gap-[0.3em] w-full flex-wrap">
+		<GaugeMetric
+			title="Overall Development Potential"
+			value={potentialMap[dpiData.potential]}
+			maxValue={10}
+			size={200}
+			segmentColors={['#f13737', '#f1c500', '#58e965']}
+			label={dpiData.potential}
+			showValue={false}
+		/>
 	</div>
 	<div class="grid grid-cols-2 gap-[0.3em]">
 		<DonutMetric
@@ -80,4 +122,24 @@
 			toggle={true}
 		/>
 	</div>
+
+	<CustomButton
+		href="/reports/tod/development-potential"
+		label="Read the Development Potential Report"
+		color="green"
+		className="mt-2 w-full"
+	/>
+	<CustomButton
+		href="/tools/development-potential"
+		label="Try the Development Potential Tool"
+		color="green"
+		variant="secondary"
+		className="mt-2 w-full"
+	/>
+	<CustomButton
+		href="/tools/urban-form-comparison"
+		label="Try the Built Form Tool"
+		variant="secondary"
+		className="mt-2 w-full"
+	/>
 </div>

@@ -7,19 +7,20 @@
 	export let zRange = null;
 	export let seriesColors = ['#00adf2', '#db3069', '#43b171', '#f1c500', '#8a4285', '#f45d01'];
 	export let height = '100%';
-	export let padding = { top: 10, right: 10, bottom: 40, left: 100 };
+	export let padding = { top: 10, right: 10, bottom: 40, left: 130 };
 	export let showLegend = false;
 	export let legendLabels = null; // optional friendly labels array matching xKey
 	export let xAxisLabel = '';
 	export let showTooltip = true;
+	export let wrapLabels = false;
 	export let tooltipFormatter = undefined; // function that takes `found` and returns HTML string
 
-	import { LayerCake, Svg, Html } from 'layercake';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
+	import { Html, LayerCake, Svg } from 'layercake';
 
-	import DotPlotInner from '../chartcomponents/DotPlotInner.svg.svelte';
 	import AxisX from '../chartcomponents/AxisX.svelte';
 	import AxisY from '../chartcomponents/AxisY.svelte';
+	import DotPlotInner from '../chartcomponents/DotPlotInner.svg.svelte';
 	import QuadTree from '../chartcomponents/QuadTree.html.svelte';
 
 	$: resolvedZDomain = zDomain ?? xKey;
@@ -43,7 +44,10 @@
 		</div>
 	{/if}
 
-	<div class="chart-container flex-1 min-h-0 relative" style={showLegend ? '' : `height: ${height}`}>
+	<div
+		class="chart-container flex-1 min-h-0 relative"
+		style={showLegend ? '' : `height: ${height}`}
+	>
 		<LayerCake
 			{padding}
 			x={xKey}
@@ -59,7 +63,7 @@
 		>
 			<Svg>
 				<AxisX ticks={4} label={xAxisLabel} />
-				<AxisY gridlines={false} />
+				<AxisY gridlines={false} wrap={wrapLabels} />
 				<DotPlotInner />
 			</Svg>
 
@@ -74,7 +78,9 @@
 								{#if tooltipFormatter}
 									{@html tooltipFormatter(found)}
 								{:else}
-									<div class="font-bold border-b border-zinc-200 pb-1.5 mb-1.5 text-zinc-900">{found[yKey]}</div>
+									<div class="font-bold border-b border-zinc-200 pb-1.5 mb-1.5 text-zinc-900">
+										{found[yKey]}
+									</div>
 									<div class="flex flex-col gap-1">
 										{#each xKey as key, i}
 											<div class="flex justify-between items-center gap-4">
@@ -83,7 +89,9 @@
 														class="w-2.5 h-2.5 rounded-full"
 														style="background-color: {resolvedZRange[i % resolvedZRange.length]}"
 													></span>
-													<span class="text-zinc-500 text-xs">{legendLabels ? legendLabels[i] : key}</span>
+													<span class="text-zinc-500 text-xs"
+														>{legendLabels ? legendLabels[i] : key}</span
+													>
 												</div>
 												<span class="font-medium text-zinc-800">{found[key]}</span>
 											</div>

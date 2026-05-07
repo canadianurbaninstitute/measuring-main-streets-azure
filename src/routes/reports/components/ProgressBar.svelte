@@ -269,7 +269,7 @@
 		top: 10px;
 		left: 0;
 		right: 0;
-		z-index: 10;
+		z-index: 15;
 		height: 48px;
 		box-shadow: 0 1px 0 #e8e8e8;
 		display: flex;
@@ -399,6 +399,7 @@
 		padding: 0.35em 0.7em;
 		border-radius: 3px;
 		pointer-events: none;
+		z-index: 100;
 	}
 
 	.tooltip-index {

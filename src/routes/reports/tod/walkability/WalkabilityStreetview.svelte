@@ -5,7 +5,7 @@
 	import Icon from '@iconify/svelte';
 	import chroma from 'chroma-js';
 
-	let { coords, properties, onClose, id } = $props();
+	let { coords, properties, onClose, id, inline = false } = $props();
 
 	let panoContainer;
 	let panorama;
@@ -69,6 +69,7 @@
 	});
 
 	const metrics = $derived([
+		{ label: 'Overall', key: 'overall_score', icon: 'mdi:star-outline', overall: true },
 		{ label: 'Sidewalk', key: 'sidewalk_analysis_score', icon: 'mdi:walk' },
 		{
 			label: 'Accessibility',
@@ -81,17 +82,25 @@
 	]);
 </script>
 
-<div class="streetview-container bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col">
+<div
+	class="streetview-container bg-white rounded-xl overflow-hidden flex flex-col"
+	class:shadow-2xl={!inline}
+	class:border={inline}
+	class:border-zinc-200={inline}
+	class:inline-card={inline}
+>
 	<div class="relative w-full h-40 sm:h-48 overflow-hidden">
-		<button
-			class="absolute top-3 left-3 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white rounded-full w-8 h-8 flex items-center justify-center font-bold z-50 transition-all border border-white/20"
-			onclick={onClose}
-			aria-label="Close"
-		>
-			<Icon icon="mdi:close" />
-		</button>
+		{#if !inline}
+			<button
+				class="absolute top-3 left-3 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white rounded-full w-8 h-8 flex items-center justify-center font-bold z-50 transition-all border border-white/20"
+				onclick={onClose}
+				aria-label="Close"
+			>
+				<Icon icon="mdi:close" />
+			</button>
+		{/if}
 
-		<div bind:this={panoContainer} class="w-full h-full">
+		<div bind:this={panoContainer} class="flex-grow w-full h-full">
 			<div class="w-full h-full flex flex-col items-center justify-center text-xs text-zinc-400">
 				<Icon icon="mdi:google-maps" class="text-3xl mb-2 opacity-50" />
 				Loading Streetview...
@@ -99,10 +108,14 @@
 		</div>
 	</div>
 
-	<div class="flex-grow p-3 overflow-y-auto custom-scrollbar">
-		<div class="grid grid-cols-2 gap-2">
+	<div class="flex-grow p-4 overflow-y-auto custom-scrollbar">
+		<div class="grid grid-cols-2 gap-3">
 			{#each metrics as metric}
-				<div class="flex items-center gap-2 p-1.5 bg-zinc-50 rounded-lg border border-zinc-100">
+				<div
+					class="flex items-center gap-2 p-1.5 rounded-lg border border-zinc-100"
+					class:bg-blue-50={metric.overall}
+					class:bg-zinc-50={!metric.overall}
+				>
 					<div
 						class="w-7 h-7 rounded-full flex items-center justify-center bg-white shadow-sm border border-zinc-200 shrink-0"
 						style="color: {getScoreColor(properties?.[metric.key])}"
@@ -115,6 +128,7 @@
 						</div>
 						<div class="text-xs font-black text-zinc-800">
 							{properties?.[metric.key]?.toFixed(1) || '—'}
+							<span class="text-zinc-500 font-normal">/ 5</span>
 						</div>
 					</div>
 				</div>
@@ -123,34 +137,11 @@
 
 		{#if properties?.best_explanation}
 			<div
-				class="mt-3 p-3 bg-zinc-50 rounded-lg border border-zinc-100 text-[11px] text-zinc-600 leading-relaxed italic"
+				class="mt-4 p-3 bg-zinc-50 rounded-lg border border-zinc-100 text-[11px] text-zinc-600 leading-relaxed italic"
 			>
 				"{properties?.best_explanation}"
 			</div>
 		{/if}
-		{#if id}
-			<div
-				class="mt-3 p-3 bg-zinc-50 rounded-lg border border-zinc-100 text-[11px] text-zinc-600 leading-relaxed italic"
-			>
-				ID: {id}
-			</div>
-		{/if}
-
-		<div class="pt-2 pb-2 flex items-center justify-between">
-			<div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
-				Overall Walkability
-			</div>
-			<div
-				class="w-12 h-12 rounded-full flex items-center justify-center text-lg font-black tabular-nums shadow-inner border border-white/20"
-				style="background-color: {getScoreColor(
-					properties?.overall_score
-				)}; color: {chroma.contrast(getScoreColor(properties?.overall_score), 'white') > 2
-					? 'white'
-					: '#18181b'}"
-			>
-				{properties?.overall_score?.toFixed(1) || 'N/A'}
-			</div>
-		</div>
 	</div>
 </div>
 
@@ -158,26 +149,32 @@
 	.streetview-container {
 		width: 300px;
 		max-width: 85vw;
-		max-height: 75vh; /* Reduced from 85vh to prevent overflow */
+		/* max-height: 75vh; */
+	}
+
+	.inline-card {
+		width: 100% !important;
+		max-width: none !important;
+		max-height: none !important;
 	}
 
 	/* Force Streetview container to be more compact on very short screens */
-	@media (max-height: 700px) {
+	/* @media (max-height: 700px) {
 		:global(.streetview-container div.h-40),
 		:global(.streetview-container div.sm\:h-48) {
-			height: 4rem !important; /* ~64px */
+			height: 4rem !important;
 		}
 		.streetview-container {
 			width: 280px;
 		}
-	}
+	} */
 
-	@media (max-height: 500px) {
+	/* @media (max-height: 500px) {
 		:global(.streetview-container div.h-40),
 		:global(.streetview-container div.sm\:h-48) {
-			display: none !important; /* Hide panorama entirely on critically short screens */
+			display: none !important; 
 		}
-	}
+	} */
 
 	.custom-scrollbar::-webkit-scrollbar {
 		width: 4px;

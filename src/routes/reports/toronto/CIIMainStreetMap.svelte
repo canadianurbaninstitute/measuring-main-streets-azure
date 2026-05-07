@@ -57,7 +57,6 @@
 				parseFloat(coordsObject.lng.toFixed(4)),
 				parseFloat(coordsObject.lat.toFixed(4))
 			];
-			// console.log(coordsArray, 'pitch:', pitch, 'bearing:', bearing)
 		});
 	});
 

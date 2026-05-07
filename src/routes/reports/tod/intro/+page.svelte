@@ -8,7 +8,6 @@
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
-	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
 	import { sections } from './article.js';
 	// Assets
@@ -27,6 +26,7 @@
 	import dpscooksville from '../../../lib/assets/screenshots/dps-cooksville.png';
 	import panama from '../../../lib/assets/screenshots/panama.png';
 	import wholivesintsas from '../../../lib/assets/screenshots/who-lives-in-tsas.png';
+	import VisLink from '../../components/VisLink.svelte';
 	import CommuteTime from './charts/CommuteTime.svelte';
 	import GatewayCities from './charts/GatewayCities.svelte';
 	import HousingNeed from './charts/HousingNeed.svelte';
@@ -228,11 +228,9 @@
 					{@const Component = panel.config.component}
 					<Component visible={isVisible} />
 				{:else if panel.config?.type === 'link'}
-					<VisLink
-						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
-						target={panel.config.target}
-					/>
+					<VisLink href={panel.config.href} target={panel.config.target}
+						>{panel.config.btnLabel ?? 'Learn More'}</VisLink
+					>
 				{/if}
 			</VisPanel>
 		{/if}
@@ -293,7 +291,7 @@
 
 						{#if block.cta}
 							<div class="inline-cta">
-								<VisLink href={block.cta.href} label={block.cta.label} />
+								<VisLink href={block.cta.href} target={block.cta.target}>{block.cta.label}</VisLink>
 							</div>
 						{/if}
 
@@ -345,80 +343,74 @@
 	.vis-grid-item {
 		width: 100%;
 		height: 100%;
-		min-height: 400px;
 		position: relative;
 	}
 
 	.inline-article {
 		max-width: 65ch;
-		margin: 4em auto;
-		padding: 0 1rem;
 		display: flex;
 		flex-direction: column;
-		gap: 3rem;
+		gap: 0rem;
+		margin: auto;
 	}
 
 	.inline-section {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+		margin: auto;
+		width: 100%;
 	}
 
 	.inline-heading {
+		margin-top: 3rem;
 		margin-bottom: 0.5rem;
+		padding: 0 1.5rem;
 	}
 
 	.inline-body {
 		margin-bottom: 2rem;
+		padding: 0 1.5rem;
 	}
 
 	.inline-cta {
 		margin-bottom: 2rem;
-	}
-
-	.inline-visual-wrapper {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: fit-content;
-		min-height: 450px;
-		margin: 2rem 0;
-		background: #ffffff;
-		border: 1px solid #eee;
-		border-radius: 8px;
-		overflow: hidden;
-		position: relative;
+		padding: 0 1.5rem;
 	}
 
 	.inline-vis-container {
 		width: 100vw;
-		margin-left: calc(-50vw + 50%);
+		position: relative;
+		left: 50%;
+		right: 50%;
+		margin-left: -50vw;
+		margin-right: -50vw;
 		display: flex;
 		justify-content: center;
-		padding: 2rem 1rem;
+		padding: 4rem 3rem;
 		background-color: var(--color-zinc-50);
 		border-top: 1px solid #eee;
 		border-bottom: 1px solid #eee;
-		position: relative;
-		min-height: 50vh;
 	}
 
 	.inline-vis-container.multi-vis {
 		flex-direction: row;
 		justify-content: center;
 		flex-wrap: wrap;
-		align-items: stretch;
+		gap: 0rem;
 	}
 
 	.inline-vis-item {
-		flex: 1 1;
+		flex: 1 1 400px;
+		max-width: 1000px;
+		padding: 2rem;
 		display: flex;
 		flex-direction: column;
-		max-width: 1200px;
 	}
 
 	.inline-vis-container:not(.multi-vis) .inline-vis-item {
 		width: 100%;
+		max-width: 1200px;
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */
@@ -431,17 +423,16 @@
 		pointer-events: auto !important;
 		width: 100%;
 		height: 100%;
-		min-height: 400px;
 	}
 
 	@media (max-width: 768px) {
 		.inline-vis-container {
-			padding: 2rem 0;
-			min-height: auto;
+			padding: 0 0;
 		}
 
 		.inline-vis-container.multi-vis {
 			flex-direction: column;
+			gap: 0;
 		}
 
 		.inline-vis-item {
@@ -453,9 +444,6 @@
 
 		.inline-vis-container :global(.vis-panel),
 		:global(.text-column .vis-panel) {
-			padding: 1rem;
-			height: auto;
-			min-height: 400px;
 		}
 	}
 </style>

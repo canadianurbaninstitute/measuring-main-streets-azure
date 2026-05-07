@@ -58,7 +58,7 @@
 
 <div class="chart-container">
 	{#if title}
-		<h4 style:font-size={titleFontSize}>{title}</h4>
+		<h4 style:font-size={titleFontSize || 'inherit'}>{title}</h4>
 	{/if}
 
 	{#if computedShowLegend && groupConfig && groupConfig.length > 0}
@@ -203,13 +203,14 @@
 	}
 
 	h4 {
-		margin: 0;
-		font-weight: 600;
-		color: #333;
-		line-height: 1.2;
-		word-wrap: break-word;
-		overflow-wrap: break-word;
-		width: 100%;
+		font-family: 'Inter', sans-serif;
+		font-size: 1.5rem;
+		color: var(--brandDarkBlue);
+		letter-spacing: -0.01em;
+		line-height: 120%;
+		font-weight: 300;
+		text-transform: uppercase;
+		max-width: 80ch;
 	}
 
 	@media only screen and (min-width: 768px) {

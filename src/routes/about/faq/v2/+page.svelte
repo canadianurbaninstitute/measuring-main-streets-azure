@@ -345,7 +345,7 @@
 									walk.” <a
 										href="https://www.hamilton.ca/build-invest-grow/planning-development/official-plan/official-plan-review/major-transit-station"
 										>(Source: City of Hamilton)</a
-									> MTSAs often have unique zoning and polices, which are defined on a city-BY-city basis.
+									> MTSAs often have unique zoning and polices, which are defined on a city-by-city basis.
 								</p>
 								<p>
 									For the purposes of our research, we have used the term “transit station area”

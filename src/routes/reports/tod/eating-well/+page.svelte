@@ -217,6 +217,14 @@
 								<VisLink href={block.cta.href} label={block.cta.label} />
 							</div>
 						{/if}
+
+						{#if panelIds.length > 0}
+							<div class="inline-visuals flex flex-col gap-8 mt-8 mb-12">
+								{#each panelIds as pid}
+									{@render renderPanel(`${si + scrollySections.length}:${pid}`, true)}
+								{/each}
+							</div>
+						{/if}
 					</div>
 				{/each}
 			</div>
@@ -263,9 +271,22 @@
 			transform 0.3s ease;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		.inline-article {
 			margin: 2em auto;
+			padding: 0 1.5rem;
 		}
+	}
+
+	/* Force VisPanel to behave appropriately in inline contexts */
+	.inline-visuals :global(.vis-panel) {
+		position: relative;
+		opacity: 1 !important;
+		visibility: visible !important;
+		transform: none !important;
+		pointer-events: auto !important;
+		width: 100%;
+		height: auto;
+		min-height: 400px;
 	}
 </style>

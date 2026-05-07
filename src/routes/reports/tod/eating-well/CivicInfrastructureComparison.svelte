@@ -59,7 +59,7 @@
 
 	.infra-section {
 		width: 100%;
-		padding: 1.5rem;
+		padding: 1rem;
 		border-radius: 1rem;
 		display: flex;
 		flex-direction: column;
@@ -144,7 +144,7 @@
 
 	.infra-center {
 		width: 100%;
-		padding: 2rem;
+		padding: 1.5rem;
 		background: var(--color-yellow-50);
 		border: 2px dashed var(--color-yellow-200);
 		border-radius: 1rem;

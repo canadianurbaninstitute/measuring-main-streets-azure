@@ -1,8 +1,8 @@
 <script>
-	import Reddit from '../../assets/logo-reddit.png';
-	import Instagram from '../../assets/logo-instagram.png';
 	import Bluesky from '../../assets/logo-bsky.png';
 	import Facebook from '../../assets/logo-facebook.png';
+	import Instagram from '../../assets/logo-instagram.png';
+	import Reddit from '../../assets/logo-reddit.png';
 
 	let scroll = 0;
 </script>
@@ -38,6 +38,7 @@
 
 <style>
 	.collage {
+		overflow: hidden;
 		position: relative;
 		width: 100%;
 		height: 80vh;
@@ -69,5 +70,32 @@
 		top: 46rem;
 		left: 15%;
 		z-index: 4;
+	}
+
+	@media (max-width: 768px) {
+		.img1 {
+			width: 50%;
+			top: -20rem;
+			left: 0;
+			z-index: 1;
+		}
+		.img2 {
+			width: 40%;
+			top: 10rem;
+			right: 0;
+			z-index: 2;
+		}
+		.img3 {
+			width: 35%;
+			top: 22rem;
+			right: 35%;
+			z-index: 3;
+		}
+		.img4 {
+			width: 40%;
+			top: 30rem;
+			left: 5%;
+			z-index: 4;
+		}
 	}
 </style>

@@ -9,7 +9,9 @@
 	import Icon from '@iconify/svelte';
 	import mapboxgl from 'mapbox-gl';
 	import { mount, onMount, unmount } from 'svelte';
+	import trainIcon from '../../../lib/assets/graphics/train-long.svg';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
+	import ProgressBar from '../../components/ProgressBar.svelte';
 
 	import { stations as initialStations } from './stations.js';
 	import { steps } from './steps.js';
@@ -65,8 +67,81 @@
 		}
 	};
 
+	let activeStepIndex = $state(0);
+	let featuredData = $state({});
+
+	function handleMapLoaded(m, currentStationId) {
+		// When a map for a station loads, scan all steps for that station for featured points
+		steps.forEach((step, i) => {
+			if (step.stationId === currentStationId && step.triggerPopupId) {
+				const id = parseInt(step.triggerPopupId);
+				const checkFeatures = () => {
+					if (!m) return;
+					const features = m.queryRenderedFeatures({
+						layers: ['station-analysis-points-expla-c0bvk5'],
+						filter: ['==', ['id'], id]
+					});
+
+					if (features.length > 0) {
+						featuredData[i] = {
+							properties: features[0].properties,
+							coords: {
+								lng: features[0].geometry.coordinates[0],
+								lat: features[0].geometry.coordinates[1]
+							}
+						};
+					} else {
+						// Retry a few times as tiles might still be loading
+						setTimeout(checkFeatures, 1000);
+					}
+				};
+				setTimeout(checkFeatures, 1000);
+			}
+		});
+	}
+
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						if (entry.target.dataset.stepIndex) {
+							activeStepIndex = Number(entry.target.dataset.stepIndex);
+						}
+					}
+				});
+			},
+			{
+				rootMargin: '-40% 0px -40% 0px',
+				threshold: 0
+			}
+		);
+
+		document.querySelectorAll('[data-step-index]').forEach((step) => observer.observe(step));
+		return () => observer.disconnect();
+	});
+
+	const progressBarItems = $derived.by(() => {
+		const nav = [{ type: 'anchor', id: 'header-section', label: 'Introduction' }];
+
+		steps.forEach((step, i) => {
+			if (step.title) {
+				nav.push({
+					type: 'anchor',
+					id: `step-${i}`,
+					label: step.title.replace(' Station Area', ''),
+					stepIndex: i
+				});
+			}
+		});
+
+		nav.push({ type: 'anchor', id: 'methodology-section', label: 'Methodology' });
+
+		return nav;
+	});
+
 	let innerWidth = $state(0);
-	let isMobile = $derived(innerWidth > 0 && innerWidth < 1024);
+	let isMobile = $derived(innerWidth < 1024);
 
 	let activeStation = $derived(stations.find((s) => s.id === activeStationId));
 	let activeCoords = $derived(
@@ -83,7 +158,7 @@
 		// Always update active station to trigger flyTo if changed
 		activeStationId = stationId;
 
-		if (popupId) {
+		if (popupId && !isMobile) {
 			openPopupById(popupId);
 		} else {
 			closePopup();
@@ -255,7 +330,13 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="header-section">
+<ProgressBar iconType="custom" {activeStepIndex} totalSteps={steps.length} items={progressBarItems}>
+	{#snippet icon()}
+		<img src={trainIcon} width="100%" height="100%" alt="Progress icon" />
+	{/snippet}
+</ProgressBar>
+
+<div class="header-section" id="header-section" data-step-index="0">
 	<div class="header-wrapper">
 		<div class="header-content">
 			<h1 class="mb-4 uppercase text-slate-800">
@@ -325,6 +406,8 @@
 				class="scroll-section"
 				data-station-id={step.stationId}
 				data-popup-id={step.triggerPopupId}
+				data-step-index={i}
+				id={step.title ? `step-${i}` : null}
 				use:intersect={handleSectionIntersect}
 			>
 				{#if step.title}
@@ -340,11 +423,28 @@
 				</div>
 
 				{#if isMobile && station?.lng && station?.lat && (i === steps.length - 1 || steps[i + 1]?.stationId !== step.stationId)}
-					<div class="mt-8 w-full h-[400px] rounded-xl overflow-hidden shadow-md">
+					<div
+						class="mt-8 w-full min-h-[500px] h-auto rounded-xl overflow-hidden shadow-lg border border-zinc-700 bg-white"
+					>
 						<WalkabilityMap
 							center={[station.lng, station.lat]}
 							zoom={14}
 							onStationClick={handlePointClick}
+							onMapLoaded={(m) => handleMapLoaded(m, step.stationId)}
+						/>
+					</div>
+				{/if}
+
+				{#if isMobile && step.triggerPopupId && featuredData[i]}
+					<div class="mt-6 w-full">
+						<div class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-2">
+							Featured Assessment
+						</div>
+						<WalkabilityStreetview
+							coords={featuredData[i].coords}
+							properties={featuredData[i].properties}
+							id={step.triggerPopupId}
+							inline={true}
 						/>
 					</div>
 				{/if}
@@ -354,7 +454,7 @@
 
 	<!-- Right Side: Sticky Map (Hidden on mobile) -->
 </div>
-<section class="container p-20">
+<section class="container p-10 sm:p-20" id="methodology-section">
 	<Accordion bind:open={methodologyOpen}>
 		<div slot="header" class="flex flex-col font-medium w-full outline-none">
 			<div class="flex justify-between items-center gap-4">
@@ -395,7 +495,7 @@
 		</div>
 	</Accordion>
 </section>
-<section class="container px-20 pb-10">
+<section class="container px-6 sm:px-20 pb-10">
 	<Accordion bind:open={citationsOpen}>
 		<div slot="header" class="flex flex-col font-medium w-full outline-none">
 			<div class="flex justify-between items-center gap-4">
@@ -673,12 +773,8 @@
 
 		.header-wrapper {
 			grid-template-columns: 1fr;
-			padding: 10% 5%;
+			padding: 20% 5%;
 			gap: 2rem;
-		}
-
-		.header-nav {
-			padding-top: 0;
 		}
 
 		.nav-group li {

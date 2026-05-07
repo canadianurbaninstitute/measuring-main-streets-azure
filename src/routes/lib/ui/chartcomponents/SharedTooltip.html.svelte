@@ -27,6 +27,7 @@
 
 	/** @type {Array} [dataset] - The dataset to work off of defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */
 	export let dataset = undefined;
+	export let showTotal = true;
 
 	const w = 150;
 	const w2 = w / 2;
@@ -76,11 +77,11 @@
 			{#each foundSorted as row}
 				<div class="row">
 					<span class="key">{formatKey(row.key)}:</span>
-					{formatValue(row.value)}
+					{formatValue(row.value, row.key)}
 				</div>
 			{/each}
 
-			{#if typeof found._total !== 'undefined'}
+			{#if showTotal && typeof found._total !== 'undefined'}
 				<div class="row total-row">
 					<span class="key">Net Total:</span>
 					{formatValue(found._total)}

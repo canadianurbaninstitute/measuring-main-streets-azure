@@ -116,6 +116,10 @@
 		padding-bottom: 40vh;
 	}
 
+	:global(.text-block h3) {
+		padding-top: 1.5rem;
+	}
+
 	/* ── Meta labels ─────────────────────────────────────────── */
 	.eyebrow {
 		font-size: clamp(0.8rem, 2.5vw, 1rem);
@@ -133,32 +137,32 @@
 	}
 
 	/* ── Prose container ─────────────────────────────────────── */
-	.prose {
+	/* .prose {
 		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
 		color: var(--color-slate-900);
 		line-height: 1.75;
 		max-width: 46ch;
-	}
+	} */
 
 	/* Paragraphs */
-	.prose :global(p) {
+	/* .prose :global(p) {
 		margin: 0 0 1em;
-	}
-	.prose :global(p:last-child) {
+	} */
+	/* .prose :global(p:last-child) {
 		margin-bottom: 0;
-	}
+	} */
 
 	/* Inline emphasis */
-	.prose :global(strong) {
+	/* .prose :global(strong) {
 		font-weight: 700;
 		color: #111;
 	}
 	.prose :global(em) {
 		font-style: italic;
-	}
+	} */
 
 	/* Lists */
-	.prose :global(ul),
+	/* .prose :global(ul),
 	.prose :global(ol) {
 		margin: 0 0 1em 1.4em;
 		padding: 0;
@@ -168,7 +172,7 @@
 	}
 	.prose :global(li:last-child) {
 		margin-bottom: 0;
-	}
+	} */
 
 	/* Blockquote */
 	.prose :global(blockquote) {
@@ -203,19 +207,28 @@
 		display: none;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		.inline-visual-wrapper {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
 			height: fit-content;
-			/* min-height: 450px; */
-			margin: 2rem 0;
+			margin-bottom: 2rem;
 			background: #ffffff;
-			border: 1px solid #eee;
+			/* border: 1px solid #eee; */
 			border-radius: 8px;
 			overflow: hidden;
 			position: relative;
+		}
+
+		.inline-visual-wrapper :global(.vis-panel) {
+			position: relative;
+			opacity: 1 !important;
+			visibility: visible !important;
+			transform: none !important;
+			pointer-events: auto !important;
+			width: 100%;
+			height: auto;
 		}
 
 		.text-block {
@@ -226,7 +239,7 @@
 		}
 
 		.text-block:first-child {
-			padding-top: 2rem;
+			padding-top: 0rem;
 		}
 
 		.heading {
@@ -234,7 +247,7 @@
 		}
 
 		.text-block:last-child {
-			padding-bottom: 2rem;
+			padding-bottom: 0rem;
 		}
 	}
 </style>
