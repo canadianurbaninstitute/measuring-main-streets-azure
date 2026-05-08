@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
+	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import RadarChart from '../../tools/development-potential/RadarChart.svelte';
 	import ScoreBar from '../../tools/development-potential/ScoreBar.svelte';
 	import './tabs.css';

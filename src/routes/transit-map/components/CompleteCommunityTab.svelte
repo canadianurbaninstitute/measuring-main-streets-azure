@@ -11,7 +11,7 @@
 	} from '../../lib/data/transitdata/config.json';
 	import Accordion from '../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
-	import TransitMetric from '../../lib/ui/charts/TransitMetric.svelte';
+	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import './tabs.css';
 

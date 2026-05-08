@@ -40,8 +40,15 @@
 							left.
 						</p>
 						<p>
-							Data on this page is from Environics Analytics, last updated in 2026. For more
-							detailed information, see <a href="/about/data-methodology/v2">Data & Methodology.</a>
+							Data sources: Environics Analytics (2025) and Statistics Canada Census (2021). For
+							more detailed information, see <a href="/about/data-methodology/v2/#tod-meth"
+								>Data & Methodology.</a
+							>
+						</p>
+						<p>
+							Want to compare stations across a transit line? <a href="/tools/transit-charts"
+								>Try the Transit Charts tool</a
+							>
 						</p>
 					</div>
 				{/if}

@@ -10,7 +10,7 @@
 	 *   target {string}  — link target (default: '_blank')
 	 */
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
-	let { href = '', label = 'Learn More', target = '_blank' } = $props();
+	let { href = '', label = 'Learn more', target = '_blank' } = $props();
 </script>
 
 <CustomButton {href} {label} {target} className="vis-link" />

@@ -13,7 +13,7 @@
 	} from '../../../lib/data/transitdata/config.json';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../../lib/ui/charts/GaugeMetric.svelte';
-	import TransitMetric from '../../../lib/ui/charts/TransitMetric.svelte';
+	import TransitMetric from '../../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
 	let {
@@ -47,6 +47,7 @@
 				label={metric.label}
 				value={Math.round(stationCCpresence[metric.key])}
 				icon={metric.icon}
+				size={160}
 				suffix={metric.unit}
 				fillColor="var(--color-zinc-400)"
 			/>
