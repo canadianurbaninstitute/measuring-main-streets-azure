@@ -527,6 +527,21 @@
 									title="Elizabeth Wakileh"
 									description="Intern"
 								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/lianne-harrison122/"
+									title="Lianne Harrison"
+									description="Intern"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/jaehyeong-jang-a2097521b/"
+									title="Jaehyeong Jang"
+									description="Intern"
+								/>
+								<ContactCard
+									link="https://www.linkedin.com/in/raghad-gamea-38227022a/"
+									title="Raghad Gamea"
+									description="Intern"
+								/>
 							</div>
 
 							<h4 class="mt-12 mb-6">School of Cities</h4>

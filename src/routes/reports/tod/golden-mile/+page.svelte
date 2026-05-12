@@ -200,7 +200,10 @@
 		<h2>Project Team</h2>
 	</div>
 
-	<div class="team" id="team">
+	<div
+		class="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 max-w-2xl mx-auto justify-items-center"
+		id="team"
+	>
 		<ContactCard
 			title="Fouad Agha"
 			link="https://www.linkedin.com/in/fouad-agha-60478b1a8"
@@ -222,7 +225,7 @@
 			description="Student | University of Toronto"
 		/>
 		<ContactCard
-			title="Avila Zhang"
+			title="Youjia Zhang"
 			link="https://www.linkedin.com/in/youjia-zhang-3aa989263"
 			description="Student | University of Toronto"
 		/>
@@ -339,13 +342,6 @@
 			height: auto;
 			min-height: 100%;
 		}
-	}
-	.team {
-		display: flex;
-		margin: 0 auto 2rem;
-		gap: 0.5rem;
-		width: fit-content;
-		flex-direction: column;
 	}
 	.team-header {
 		display: flex;
