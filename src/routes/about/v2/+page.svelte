@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import Icon from '@iconify/svelte';
 	import { tick } from 'svelte';
 	import Accordion from '../../lib/ui/Accordion.svelte';
@@ -8,7 +9,6 @@
 	import catch_logo from '../../lib/assets/logos/catch_color.png';
 	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
 	import environics_logo from '../../lib/assets/logos/environics_color.png';
-	import gnowise_logo from '../../lib/assets/logos/gnowise.webp';
 	import ii_logo from '../../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../../lib/assets/logos/uotsoc_color.png';
@@ -33,6 +33,30 @@
 			element.scrollIntoView({ behavior: 'smooth' });
 		}
 	}
+
+	$effect(() => {
+		const hash = $page.url.hash.replace('#', '');
+		if (hash) {
+			if (hash === 'about-resilience') {
+				aboutResilienceOpen = true;
+				activeSection = 'about';
+				activeSubSection = 'resilience';
+			} else if (hash === 'about-tod') {
+				aboutTodOpen = true;
+				activeSection = 'about';
+				activeSubSection = 'tod';
+			} else if (hash === 'team-resilience') {
+				teamResilienceOpen = true;
+				activeSection = 'team';
+				activeSubSection = 'resilience';
+			} else if (hash === 'team-tod' || hash === 'tod-partners') {
+				teamTodOpen = true;
+				activeSection = 'team';
+				activeSubSection = 'tod';
+			}
+			scrollTo(hash);
+		}
+	});
 </script>
 
 <main>
@@ -44,7 +68,7 @@
 	</div>
 
 	<div class="container main-content">
-		<div class="sidebar md:sticky md:top-10 h-full">
+		<div class="sidebar lg:sticky lg:top-28 h-full">
 			<nav>
 				<div class="nav-group">
 					<h3>ABOUT</h3>
@@ -129,7 +153,7 @@
 		</div>
 
 		<div class="content-area">
-			<section id="about-section">
+			<section id="about">
 				<div class="section-header">
 					<h2>ABOUT</h2>
 				</div>
@@ -435,6 +459,7 @@
 					</Accordion>
 
 					<Accordion bind:open={teamTodOpen} id="team-tod">
+						<span id="tod-partners" class="absolute -top-20"></span>
 						<div slot="header" class="accordion-header">
 							<h3>Transit-Oriented Development on Main</h3>
 							<Icon icon={teamTodOpen ? 'mdi:minus' : 'mdi:plus'} />
@@ -688,9 +713,6 @@
 								<a href="https://catch-rehac.ca/" target="_blank">
 									<img src={catch_logo} alt="CATCH" />
 								</a>
-								<a href="https://gnowise.com/" target="_blank"
-									><img src={gnowise_logo} alt="Gnowise Logo" /></a
-								>
 							</div>
 						</div>
 					</Accordion>
@@ -732,12 +754,8 @@
 					<div class="contact-item">
 						<span class="label">CONNECT</span>
 						<div class="social-icons">
-							<a href="https://ca.linkedin.com/company/canadianurbaninstitute" target="_blank"
-								><Icon icon="fa6-brands:linkedin" /></a
-							>
-							<a href="https://www.instagram.com/canadianurbaninstitute/" target="_blank"
-								><Icon icon="fa6-brands:instagram" /></a
-							>
+							<Icon icon="fa6-brands:linkedin" />
+							<Icon icon="fa6-brands:instagram" />
 						</div>
 					</div>
 				</div>
@@ -1112,9 +1130,6 @@
 		font-size: 1.25rem;
 		color: var(--brandLightBlue);
 		margin-top: 0.5rem;
-	}
-	.social-icons a {
-		all: unset;
 	}
 
 	.social-icons :global(svg) {
