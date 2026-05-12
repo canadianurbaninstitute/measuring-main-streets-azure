@@ -1,7 +1,7 @@
 <script>
+	import { page } from '$app/stores';
 	import Icon from '@iconify/svelte';
 	import { tick } from 'svelte';
-	import { page } from '$app/stores';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import '../../../styles.css';
 	// Logos
@@ -36,30 +36,50 @@
 		}
 	}
 
-	
 	$effect(() => {
 		const hash = $page.url.hash.replace('#', '');
 		if (hash) {
-			if (hash === 'about-resilience') {
-				aboutResilienceOpen = true;
-				activeSection = 'about';
-				activeSubSection = 'resilience';
-			} else if (hash === 'about-tod') {
-				aboutTodOpen = true;
-				activeSection = 'about';
-				activeSubSection = 'tod';
-			} else if (hash === 'team-resilience') {
-				teamResilienceOpen = true;
-				activeSection = 'team';
-				activeSubSection = 'resilience';
-			} else if (hash === 'team-tod' || hash === 'tod-partners') {
-				teamTodOpen = true;
-				activeSection = 'team';
-				activeSubSection = 'tod';
+			if (hash === 'what-is-mms') {
+				faqs['what-is-mms'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'what-is-main-street') {
+				faqs['what-is-main-street'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'why-important') {
+				faqs['why-important'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'data-source') {
+				faqs['data-source'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'who-created') {
+				faqs['who-created'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'missing-street') {
+				faqs['missing-street'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'create-case-study') {
+				faqs['create-case-study'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'choose-regions') {
+				faqs['choose-regions'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'my-main-street') {
+				faqs['my-main-street'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'what-is-tod') {
+				faqs['what-is-tod'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'what-are-mtsas') {
+				faqs['what-are-mtsas'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'tod-partners') {
+				faqs['tod-partners'] = true;
+				activeSection = 'tod';
 			}
 			scrollTo(hash);
 		}
 	});
+</script>
 
 <main>
 	<!-- Hero Section -->
@@ -70,7 +90,7 @@
 	</div>
 
 	<div class="container main-content">
-		<div class="sidebar md:sticky md:top-10 h-full">
+		<div class="sidebar lg:sticky lg:top-10 h-full">
 			<nav>
 				<div class="nav-group">
 					<h3>PROJECT PHASES</h3>

@@ -16,6 +16,7 @@
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
 	import montreal_bg from '../../lib/assets/graphics/montreal-bg.png';
 	import vancouver_bg from '../../lib/assets/graphics/vancouver-bg.png';
+	import gnowise from '../../lib/assets/logos/gnowise.webp';
 	import ContactCard from '../../lib/ui/ContactCard.svelte';
 
 	let activeSection = $state('about');
@@ -343,11 +344,17 @@
 									<a href="https://schoolofcities.utoronto.ca/" target="_blank">
 										<img src={soc_logo} alt="School of Cities" />
 									</a>
+									<a href="https://infrastructureinstitute.ca/" target="_blank">
+										<img src={ii_logo} alt="Infrastructure Institute" />
+									</a>
 									<a href="https://digitalpublicsquare.org/" target="_blank">
 										<img src={dps_logo} alt="Digital Public Square" />
 									</a>
 									<a href="https://catch-rehac.ca/" target="_blank">
 										<img src={catch_logo} alt="CATCH" />
+									</a>
+									<a href="https://gnowise.com/" target="_blank">
+										<img src={gnowise} alt="Gnowise" />
 									</a>
 								</div>
 							</div>
@@ -727,6 +734,9 @@
 								</a>
 								<a href="https://catch-rehac.ca/" target="_blank">
 									<img src={catch_logo} alt="CATCH" />
+								</a>
+								<a href="https://gnowise.com/" target="_blank">
+									<img src={gnowise} alt="Gnowise" />
 								</a>
 							</div>
 						</div>

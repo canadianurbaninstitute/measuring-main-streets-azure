@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import Icon from '@iconify/svelte';
 	import { tick } from 'svelte';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
@@ -8,7 +9,6 @@
 	// Assets
 	import mainstreets from '../../../lib/assets/graphics/mainstreets.svg';
 	import vancouver_bg from '../../../lib/assets/graphics/vancouver-bg.png';
-	import MissingAmenities from '../../../reports/tod/complete-communities/charts/MissingAmenities.svelte';
 
 	let activeSection = $state('resilience');
 
@@ -43,6 +43,50 @@
 		faqs[id] = true;
 		scrollTo(id);
 	}
+
+	$effect(() => {
+		const hash = $page.url.hash.replace('#', '');
+		if (hash) {
+			if (hash === 'res-data') {
+				faqs['res-data'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'res-meth') {
+				faqs['res-meth'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'res-ind') {
+				faqs['res-ind'] = true;
+				activeSection = 'resilience';
+			} else if (hash === 'tod-meth') {
+				faqs['tod-meth'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'tod-dpi') {
+				faqs['tod-dpi'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'tod-cc') {
+				faqs['tod-cc'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'dpi-data') {
+				faqs['dpi-data'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'dpi-meth') {
+				faqs['dpi-meth'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'cc-core') {
+				faqs['cc-core'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'cc-add') {
+				faqs['cc-add'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'cc-data') {
+				faqs['cc-data'] = true;
+				activeSection = 'tod';
+			} else if (hash === 'cc-meth') {
+				faqs['cc-meth'] = true;
+				activeSection = 'tod';
+			}
+			scrollTo(hash);
+		}
+	});
 </script>
 
 <main>
