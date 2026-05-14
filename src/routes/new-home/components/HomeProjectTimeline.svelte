@@ -14,6 +14,7 @@
 	import transitmap from '../../lib/assets/screenshots/transit-map.png';
 	import urbanform from '../../lib/assets/screenshots/urban-form.png';
 	import reportstsa from '../../lib/assets/screenshots/who-tsas.png';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import '../../styles.css';
 
 	let timelineElement = null;
@@ -94,9 +95,13 @@
 			phase: 'PHASE TWO | 2025-2026 ',
 			title: 'TOD on Main ',
 			description:
-				'Leveraging transit-oriented development (TOD) to advance housing and community outcomes  ',
+				'Leveraging transit-oriented development (TOD) to advance housing and community outcomes.',
 			details:
-				"Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD. <a href='/about/v2/#about-tod'> About Phase Two →</a>",
+				"Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD. <br /><br /><a href='/about/v2/#about-tod'> About Phase Two →</a>",
+			cta: {
+				link: '/about/v2/#about-tod',
+				label: 'About Phase Two'
+			},
 			stat: '4.4 million homes',
 			subtext: "could be built in Canada's transit station areas",
 			cards: [
@@ -197,6 +202,7 @@
 					<p class="project-details">{@html projects[0].details}</p>
 					<div class="links-group">
 						{#each projects[0].links as link}
+							<CustomButton text={link.text} href={link.href} />
 							<a
 								href={link.href}
 								class="project-link"
@@ -381,13 +387,13 @@
 		width: 100%;
 		padding: 1rem 0 0 0;
 		position: relative;
-		border-radius: 40px / 50%;
+		/* border-radius: 40px / 50%; */
 		overflow: hidden;
 		/* background-color: var(--color-zinc-100); */
 	}
 
 	/* Tunnel Effect Overlays */
-	.project-cards-container::before,
+	/* .project-cards-container::before,
 	.project-cards-container::after {
 		content: '';
 		position: absolute;
@@ -411,7 +417,7 @@
 		width: 60px;
 		border-radius: 50%;
 		background: radial-gradient(ellipse at -10% 50%, transparent 70%, var(--color-zinc-300) 100%);
-	}
+	} */
 
 	.cards-scroll {
 		display: flex;

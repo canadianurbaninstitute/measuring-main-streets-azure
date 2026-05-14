@@ -54,7 +54,7 @@
 			],
 			items: [
 				{
-					title: 'Introductory Report',
+					title: 'The Case for Transit Oriented Development',
 					description:
 						'Why is transit-oriented development worth investing in, and what is needed to make it successful?',
 					image: intro,

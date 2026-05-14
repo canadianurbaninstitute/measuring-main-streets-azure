@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import Icon from '@iconify/svelte';
 	import { tick } from 'svelte';
 	import Accordion from '../../lib/ui/Accordion.svelte';
@@ -8,7 +9,6 @@
 	import catch_logo from '../../lib/assets/logos/catch_color.png';
 	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
 	import environics_logo from '../../lib/assets/logos/environics_color.png';
-	import gnowise_logo from '../../lib/assets/logos/gnowise.webp';
 	import ii_logo from '../../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../../lib/assets/logos/uotsoc_color.png';
@@ -16,6 +16,7 @@
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
 	import montreal_bg from '../../lib/assets/graphics/montreal-bg.png';
 	import vancouver_bg from '../../lib/assets/graphics/vancouver-bg.png';
+	import gnowise from '../../lib/assets/logos/gnowise.webp';
 	import ContactCard from '../../lib/ui/ContactCard.svelte';
 
 	let activeSection = $state('about');
@@ -33,6 +34,30 @@
 			element.scrollIntoView({ behavior: 'smooth' });
 		}
 	}
+
+	$effect(() => {
+		const hash = $page.url.hash.replace('#', '');
+		if (hash) {
+			if (hash === 'about-resilience') {
+				aboutResilienceOpen = true;
+				activeSection = 'about';
+				activeSubSection = 'resilience';
+			} else if (hash === 'about-tod') {
+				aboutTodOpen = true;
+				activeSection = 'about';
+				activeSubSection = 'tod';
+			} else if (hash === 'team-resilience') {
+				teamResilienceOpen = true;
+				activeSection = 'team';
+				activeSubSection = 'resilience';
+			} else if (hash === 'team-tod' || hash === 'tod-partners') {
+				teamTodOpen = true;
+				activeSection = 'team';
+				activeSubSection = 'tod';
+			}
+			scrollTo(hash);
+		}
+	});
 </script>
 
 <main>
@@ -44,7 +69,7 @@
 	</div>
 
 	<div class="container main-content">
-		<div class="sidebar md:sticky md:top-10 h-full">
+		<div class="sidebar lg:sticky lg:top-28 h-full">
 			<nav>
 				<div class="nav-group">
 					<h3>ABOUT</h3>
@@ -129,7 +154,7 @@
 		</div>
 
 		<div class="content-area">
-			<section id="about-section">
+			<section id="about">
 				<div class="section-header">
 					<h2>ABOUT</h2>
 				</div>
@@ -244,13 +269,29 @@
 									Equipping communities to make smarter investments in main streets and downtowns.
 								</h6>
 								<p>
-									Coming out of the pandemic, many main streets and downtowns faced a convergence of
-									economic, social, and operational challenges and were poorly positioned for
-									recovery. Resilience on Main responded by delivering first-of-its-kind tools, case
-									studies, and research that re‑scaled critical data to the main street
-									level—equipping leaders and practitioners across Canada with the insights needed
-									to restore activity, support recovery, champion equity, and strengthen long‑term
-									resilience.
+									Following the pandemic, many main streets and downtowns faced a combination of
+									challenges, including reduced economic activity, social pressures, and uncertainty
+									about how to recover.
+								</p>
+								<p>
+									One of the biggest barriers to recovery was a lack of reliable, local-level data.
+									Most available data focused on cities or regions, making it difficult for
+									communities to understand what was happening on individual main streets or to plan
+									targeted solutions.
+								</p>
+								<p>
+									Phase One addressed this gap by creating the Measuring Main Streets platform — the
+									first research tool that uses main streets as the primary unit of analysis. The
+									project began in June of 2022 and formally launched in June 2024. It identified
+									and mapped every main street in Canada and supplied data on the businesses and
+									civic infrastructure present as well as a demographic profile of the neighbourhood
+									each main street serves.
+								</p>
+								<p>
+									The result of this analysis was a better understanding of what makes main streets
+									resilent, how they support vibrant communities, and how they can become more
+									equitable. The findings and research tools remain publically available on
+									Measuring Main Streets.
 								</p>
 								<div class="flex mb-4">
 									<a href="/reports/executive-summary" class="button-primary"
@@ -294,16 +335,32 @@
 									outcomes.
 								</h6>
 								<p>
-									Canada has seven rapid transit systems, and the expansion of these networks
-									continues to shape how communities, cities, and regions grow and change. Built on
-									the foundation of the Measuring Main Streets Platform TOD on Main provides tools,
-									case studies, and research to help decision‑makers leverage transit‑driven growth
-									to advance housing goals, support vibrant and complete communities, and challenge
-									the displacement trends often driven by TOD.
+									As communities began to recover, a new set of challenges became more urgent —
+									especially the need for more housing and better ways to manage growth. At the same
+									time, major investments in transit across Canada have been creating new
+									opportunities for development along transit corridors.
+								</p>
+								<p>However, these changes also raise important questions:</p>
+								<ul class="mb-4 list-[circle]">
+									<li>Where can new housing realistically be built?</li>
+									<li>
+										How can transit-oriented development benefit communities rather than displace
+										them?
+									</li>
+									<li>
+										How can decisions balance affordability, density, and quality of life to create
+										vibrant, complete communities?
+									</li>
+								</ul>
+								<p>
+									Phase Two focuses on answering these questions by building on the data and tools
+									created in Phase One. It explores demographics, development potential, and
+									community amenities in transit station areas (TSAs) to make the case, not just for
+									transit-oriented development, but for transit-oriented complete communities.
 								</p>
 								<div class="flex mb-4">
 									<a href="/reports/tod/intro" class="button-primary"
-										>Read the introductory report</a
+										>Read The Case for Transit Oriented Development</a
 									>
 								</div>
 								<p>
@@ -319,11 +376,17 @@
 									<a href="https://schoolofcities.utoronto.ca/" target="_blank">
 										<img src={soc_logo} alt="School of Cities" />
 									</a>
+									<a href="https://infrastructureinstitute.ca/" target="_blank">
+										<img src={ii_logo} alt="Infrastructure Institute" />
+									</a>
 									<a href="https://digitalpublicsquare.org/" target="_blank">
 										<img src={dps_logo} alt="Digital Public Square" />
 									</a>
 									<a href="https://catch-rehac.ca/" target="_blank">
 										<img src={catch_logo} alt="CATCH" />
+									</a>
+									<a href="https://gnowise.com/" target="_blank">
+										<img src={gnowise} alt="Gnowise" />
 									</a>
 								</div>
 							</div>
@@ -435,6 +498,7 @@
 					</Accordion>
 
 					<Accordion bind:open={teamTodOpen} id="team-tod">
+						<span id="tod-partners" class="absolute -top-20"></span>
 						<div slot="header" class="accordion-header">
 							<h3>Transit-Oriented Development on Main</h3>
 							<Icon icon={teamTodOpen ? 'mdi:minus' : 'mdi:plus'} />
@@ -703,9 +767,9 @@
 								<a href="https://catch-rehac.ca/" target="_blank">
 									<img src={catch_logo} alt="CATCH" />
 								</a>
-								<a href="https://gnowise.com/" target="_blank"
-									><img src={gnowise_logo} alt="Gnowise Logo" /></a
-								>
+								<a href="https://gnowise.com/" target="_blank">
+									<img src={gnowise} alt="Gnowise" />
+								</a>
 							</div>
 						</div>
 					</Accordion>
@@ -747,12 +811,8 @@
 					<div class="contact-item">
 						<span class="label">CONNECT</span>
 						<div class="social-icons">
-							<a href="https://ca.linkedin.com/company/canadianurbaninstitute" target="_blank"
-								><Icon icon="fa6-brands:linkedin" /></a
-							>
-							<a href="https://www.instagram.com/canadianurbaninstitute/" target="_blank"
-								><Icon icon="fa6-brands:instagram" /></a
-							>
+							<Icon icon="fa6-brands:linkedin" />
+							<Icon icon="fa6-brands:instagram" />
 						</div>
 					</div>
 				</div>
@@ -1127,9 +1187,6 @@
 		font-size: 1.25rem;
 		color: var(--brandLightBlue);
 		margin-top: 0.5rem;
-	}
-	.social-icons a {
-		all: unset;
 	}
 
 	.social-icons :global(svg) {
