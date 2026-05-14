@@ -373,8 +373,8 @@
 								</p>
 								<p>
 									You can read more about the benefits and nuances of transit-oriented development
-									in the project’s
-									<a href="/reports/tod/intro">introductory report.</a>
+									in the report
+									<a href="/reports/tod/intro">The Case for Transit Oriented Development.</a>
 								</p>
 							</div>
 						</div>

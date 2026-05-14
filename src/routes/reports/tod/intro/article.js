@@ -51,7 +51,7 @@ export const sections = [
 			},
 			{
 				panelId: 'urban-pop-growth',
-				body: `<p><b>These regions are also growing at a faster rate with xx households on average added each year between 2001 and 2025.</b></p>
+				body: `<p><b>These regions are also growing at a faster rate with 300,000 residents on average added each year between 2001 and 2025.</b></p>
 				<p>This is due primarily to job growth and immigration. The housing crisis in Canada by many measures is most acute in the largest cities.
 				Polices at the federal, provincial, and municipal levels need to be sensitive to the structural differences between localities when crafting 
 				policies and making infrastructure investments. Building higher order public transit is one of the most impactful measures governments are making 

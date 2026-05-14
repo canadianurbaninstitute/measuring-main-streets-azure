@@ -269,13 +269,29 @@
 									Equipping communities to make smarter investments in main streets and downtowns.
 								</h6>
 								<p>
-									Coming out of the pandemic, many main streets and downtowns faced a convergence of
-									economic, social, and operational challenges and were poorly positioned for
-									recovery. Resilience on Main responded by delivering first-of-its-kind tools, case
-									studies, and research that re‑scaled critical data to the main street
-									level—equipping leaders and practitioners across Canada with the insights needed
-									to restore activity, support recovery, champion equity, and strengthen long‑term
-									resilience.
+									Following the pandemic, many main streets and downtowns faced a combination of
+									challenges, including reduced economic activity, social pressures, and uncertainty
+									about how to recover.
+								</p>
+								<p>
+									One of the biggest barriers to recovery was a lack of reliable, local-level data.
+									Most available data focused on cities or regions, making it difficult for
+									communities to understand what was happening on individual main streets or to plan
+									targeted solutions.
+								</p>
+								<p>
+									Phase One addressed this gap by creating the Measuring Main Streets platform — the
+									first research tool that uses main streets as the primary unit of analysis. The
+									project began in June of 2022 and formally launched in June 2024. It identified
+									and mapped every main street in Canada and supplied data on the businesses and
+									civic infrastructure present as well as a demographic profile of the neighbourhood
+									each main street serves.
+								</p>
+								<p>
+									The result of this analysis was a better understanding of what makes main streets
+									resilent, how they support vibrant communities, and how they can become more
+									equitable. The findings and research tools remain publically available on
+									Measuring Main Streets.
 								</p>
 								<div class="flex mb-4">
 									<a href="/reports/executive-summary" class="button-primary"
@@ -319,16 +335,32 @@
 									outcomes.
 								</h6>
 								<p>
-									Canada has seven rapid transit systems, and the expansion of these networks
-									continues to shape how communities, cities, and regions grow and change. Built on
-									the foundation of the Measuring Main Streets Platform TOD on Main provides tools,
-									case studies, and research to help decision‑makers leverage transit‑driven growth
-									to advance housing goals, support vibrant and complete communities, and challenge
-									the displacement trends often driven by TOD.
+									As communities began to recover, a new set of challenges became more urgent —
+									especially the need for more housing and better ways to manage growth. At the same
+									time, major investments in transit across Canada have been creating new
+									opportunities for development along transit corridors.
+								</p>
+								<p>However, these changes also raise important questions:</p>
+								<ul class="mb-4 list-[circle]">
+									<li>Where can new housing realistically be built?</li>
+									<li>
+										How can transit-oriented development benefit communities rather than displace
+										them?
+									</li>
+									<li>
+										How can decisions balance affordability, density, and quality of life to create
+										vibrant, complete communities?
+									</li>
+								</ul>
+								<p>
+									Phase Two focuses on answering these questions by building on the data and tools
+									created in Phase One. It explores demographics, development potential, and
+									community amenities in transit station areas (TSAs) to make the case, not just for
+									transit-oriented development, but for transit-oriented complete communities.
 								</p>
 								<div class="flex mb-4">
 									<a href="/reports/tod/intro" class="button-primary"
-										>Read the introductory report</a
+										>Read The Case for Transit Oriented Development</a
 									>
 								</div>
 								<p>
