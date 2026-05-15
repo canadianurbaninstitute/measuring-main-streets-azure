@@ -387,7 +387,8 @@
 			'msn-highdensity',
 			'complete-community-amenities',
 			'employment-size',
-			'all-nar'
+			'all-nar',
+			'building-permits'
 		];
 
 		thematicLayers.forEach((layerId) => {
@@ -433,7 +434,8 @@
 			'msn-highdensity',
 			'complete-community-amenities',
 			'employment-size',
-			'all-nar'
+			'all-nar',
+			'building-permits'
 		];
 		thematicLayersToReset.forEach((layerId) => {
 			if (map && map.getLayer(layerId)) {
@@ -668,6 +670,8 @@
 		map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 		map.setPaintProperty('all-nar', 'circle-opacity', 0);
 		map.setPaintProperty('all-nar', 'circle-stroke-opacity', 0);
+		map.setPaintProperty('building-permits', 'circle-opacity', 0);
+		map.setPaintProperty('building-permits', 'circle-stroke-opacity', 0);
 		updateLayerVariable(null);
 
 		switch (selectedTab) {
@@ -683,7 +687,8 @@
 				map.setPaintProperty('all-buildings', 'fill-opacity', 0.8);
 				map.setPaintProperty('water-built-form', 'fill-opacity', 0.8);
 				map.setPaintProperty('waterway-built-form', 'line-opacity', 0.8);
-
+				map.setPaintProperty('building-permits', 'circle-opacity', 0.9);
+				map.setPaintProperty('building-permits', 'circle-stroke-opacity', 1);
 				break;
 			case 'complete-communities':
 				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);

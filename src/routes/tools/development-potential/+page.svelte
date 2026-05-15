@@ -32,6 +32,7 @@
 	let station1Data: any = $state();
 	let stationDpiData: any[] = $state([]);
 	let stationDpiRawData: any[] = $state([]);
+	let buildingPermitYearData: any[] = $state([]);
 
 	// Error messages
 	let station1Error = $state('');
@@ -103,7 +104,15 @@
 		stationDpiRawData.find((d) => d.id === selectedStation1)?.UnitsCreated || 0
 	);
 
+	const buildingPermitYear = $derived(
+		buildingPermitYearData.find((d) => d.id === selectedStation1)?.year || 0
+	);
+
 	// ─── Effects ──────────────────────────────────────────────────────────────
+
+	$effect(() => {
+		console.log(buildingPermitYear);
+	});
 
 	// Validate initial stations once data loads
 	$effect(() => {
@@ -428,7 +437,21 @@
 						return row;
 					});
 				})
-				.catch((e) => console.error('DPI CSV fetch error:', e))
+				.catch((e) => console.error('DPI CSV fetch error:', e)),
+			fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/BuildingPermitYear.csv'
+			)
+				.then((r) => r.text())
+				.then((csvText) => {
+					buildingPermitYearData = d3.csvParse(csvText, (d: any) => {
+						const row: any = {};
+						for (const key in d) {
+							row[key] = d[key];
+						}
+						return row;
+					});
+				})
+				.catch((e) => console.error('Building permit CSV fetch error:', e))
 		];
 
 		await Promise.all(fetches);
@@ -595,7 +618,7 @@
 					<div class="mt-8 flex flex-col items-center">
 						<span
 							class="text-xs font-bold text-center text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Active building permits (2025) <br /> Number of units</span
+							>Active building permits ({buildingPermitYear}) <br /> Number of housing units</span
 						>
 						<div class="flex items-baseline gap-1">
 							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
