@@ -20,7 +20,7 @@
 	}
 </script>
 
-{#if map && (selectedVariable || activeTab === 'housing' || activeTab === 'employment' || activeTab === 'complete-communities')}
+{#if map && (selectedVariable || activeTab === 'housing' || activeTab === 'employment' || activeTab === 'complete-communities' || activeTab === 'built-form')}
 	<LegendAbsolute>
 		{#if selectedVariable && min !== max}
 			<h6 class="font-semibold mb-1">{config[selectedVariable]?.label}</h6>
@@ -126,6 +126,28 @@
 					<div class="mx-1">
 						<img src="/employmentsizelegend.svg" alt="Employment size legend" />
 					</div>
+				</div>
+			</Accordion>
+		{/if}
+		{#if activeTab === 'built-form'}
+			<Accordion>
+				<div class="inline-header" slot="header">
+					<div class="text-sm inline-header">
+						Building Permits<Icon icon="iconoir:nav-arrow-down" />
+					</div>
+				</div>
+				<div class="accordion-body" slot="body">
+					<LegendItem
+						{map}
+						bind:toggledValues
+						id="building-permits"
+						variant="circle"
+						label="Active Building Permits"
+						bgcolor="#db3069"
+						bordercolor="#fff"
+						button={true}
+					/>
+					<div class="text-xs italic">Size = Number of Housing Units</div>
 				</div>
 			</Accordion>
 		{/if}

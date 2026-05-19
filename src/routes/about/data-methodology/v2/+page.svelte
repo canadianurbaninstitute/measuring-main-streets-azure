@@ -649,7 +649,7 @@
 													>Measure of business independence in TSA, from 0 (less independent) to 1
 													(more independent)</td
 												>
-												<td>Environics Analytics (2025)</td>
+												<td>Calculated from business data, Environics Analytics (2025)</td>
 											</tr>
 										</tbody>
 									</table>
@@ -1186,8 +1186,9 @@
 																<td>Building permits</td>
 																<td>Number of approved units.</td>
 																<td
-																	>Local open data, various (2025). <br />
-																	Only available for some stations</td
+																	>Local open data, various (2025-2026). <br />
+																	Only available for stations in Calgary, Edmonton, Kitchener, Mississauga,
+																	Montreal, Ottawa, Toronto, Vancouver, and Waterloo.</td
 																>
 															</tr>
 														</tbody>

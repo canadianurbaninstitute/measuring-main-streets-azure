@@ -16,6 +16,8 @@
 		selectedStation,
 		stationBuiltForm,
 		stationDpiData,
+		stationDpiRawData,
+		buildingPermitYearData,
 		greenspaceVisible = $bindable(),
 		waterVisible = $bindable(),
 		buildingVisible = $bindable(),
@@ -42,6 +44,14 @@
 		{ label: 'Growth Pressure', key: 'GPLevel', icon: 'mdi:trending-up' },
 		{ label: 'Displacement Risk', key: 'DRLevel', icon: 'mdi:alert-circle' }
 	];
+
+	const unitsCreated = $derived(
+		stationDpiRawData?.find((d: any) => d.id === selectedStation.id)?.UnitsCreated || 0
+	);
+
+	const buildingPermitYear = $derived(
+		buildingPermitYearData.find((d: any) => d.id === selectedStation.id)?.year || 0
+	);
 </script>
 
 <div class="tab-content">
@@ -67,6 +77,14 @@
 				icon={metric.icon}
 			/>
 		{/each}
+
+		{#if unitsCreated > 0}
+			<TransitMetric
+				disabled
+				label="Active building permits ({buildingPermitYear})"
+				value={unitsCreated.toLocaleString()}
+				icon={'mdi:home'}
+			/>{/if}
 	</div>
 	<div class="flex flex-row gap-[0.3em] w-full flex-wrap">
 		<GaugeMetric
