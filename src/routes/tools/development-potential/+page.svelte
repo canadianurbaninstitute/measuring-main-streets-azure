@@ -110,10 +110,6 @@
 
 	// ─── Effects ──────────────────────────────────────────────────────────────
 
-	$effect(() => {
-		console.log(buildingPermitYear);
-	});
-
 	// Validate initial stations once data loads
 	$effect(() => {
 		if (initialStationsValidated || stationsProcessed.length === 0) return;
@@ -451,7 +447,7 @@
 						return row;
 					});
 				})
-				.catch((e) => console.error('Building permit CSV fetch error:', e))
+				.catch((e) => console.error('Building permit year CSV fetch error:', e))
 		];
 
 		await Promise.all(fetches);

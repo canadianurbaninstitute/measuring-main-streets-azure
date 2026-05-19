@@ -75,7 +75,8 @@
 	let ageData = $state([]);
 	let employmentData = $state([]);
 	let stationDpiData = $state([]);
-	let stationDpiRawData = $state([]);
+	let stationDpiRawData: any[] = $state([]);
+	let buildingPermitYearData: any[] = $state([]);
 
 	let regionsFuse = $state();
 	let linesFuse = $state();
@@ -624,6 +625,22 @@
 
 		try {
 			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/BuildingPermitYear.csv'
+			);
+			const csvText = await response.text();
+			buildingPermitYearData = d3.csvParse(csvText, (d: any) => {
+				const row: any = {};
+				for (const key in d) {
+					row[key] = d[key];
+				}
+				return row;
+			});
+		} catch (error) {
+			console.error('Error fetching building permit year data:', error);
+		}
+
+		try {
+			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/ai_descriptions.json'
 			);
 			aiDescriptions = await response.json();
@@ -779,6 +796,8 @@
 									{selectedStation}
 									{stationBuiltForm}
 									{stationDpiData}
+									{stationDpiRawData}
+									{buildingPermitYearData}
 									{selectedVariable}
 									bind:greenspaceVisible
 									bind:waterVisible

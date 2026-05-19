@@ -1187,8 +1187,8 @@
 																<td>Number of approved units.</td>
 																<td
 																	>Local open data, various (2025-2026). <br />
-																	Only available for stations in the following areas: Calgary, Edmonton,
-																	Kitchener, Mississauga, Montreal, Ottawa, Toronto, Vancouver, Waterloo</td
+																	Only available for stations in Calgary, Edmonton, Kitchener, Mississauga,
+																	Montreal, Ottawa, Toronto, Vancouver, and Waterloo.</td
 																>
 															</tr>
 														</tbody>
