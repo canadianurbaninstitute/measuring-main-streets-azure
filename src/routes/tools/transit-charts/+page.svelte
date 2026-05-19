@@ -13,13 +13,14 @@
 	// Available metrics that can be displayed for each station add more as needed
 	const variablesArray = {
 		Demographics: [
-			{ value: 'TotalPopulation', label: 'Population' },
-			{ value: 'PopGrowth2020to2025', label: 'Population Growth 2020 to 2025' },
-			{ value: 'PopGrowth2025to2030', label: 'Projected Population Growth 2025 to 2030' },
-			{ value: 'TotalHouseholds', label: 'Households' },
+			{ value: 'TotalPopulation', label: 'Population', format: ',.0f' },
+			{ value: 'PopGrowth2020to2025', label: 'Population Growth 2020 to 2025 (%)' },
+			{ value: 'PopGrowth2025to2030', label: 'Projected Population Growth 2025 to 2030 (%)' },
+			{ value: 'TotalHouseholds', label: 'Households', format: ',.0f' },
 			{
 				value: 'AverageEmploymentIncome',
-				label: 'Average Employment Income ($) (2021)'
+				label: 'Average Employment Income ($) (2021)',
+				format: ',.0f'
 			},
 			{ value: 'TotalImmigrant', label: 'Total Immigrants (%)' },
 			{ value: 'VisibleMinorityTotal', label: 'Visible Minorities (%)' },
@@ -28,27 +29,30 @@
 			{ value: 'Youth', label: 'Population that are Youth (%)' }
 		],
 		Housing: [
-			{ value: 'HousingTotal', label: 'Total Dwellings' },
-			{ value: 'HouseValue', label: 'Average House Value ($) (2021)' },
-			{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)' },
+			{ value: 'HousingTotal', label: 'Total Dwellings', format: ',.0f' },
+			{ value: 'HouseValue', label: 'Average House Value ($) (2021)', format: ',.0f' },
+			{ value: 'MonthlyRent', label: 'Average Monthly Rent ($) (2021)', format: ',.0f' },
 			{
 				value: 'MoreThan30OnShelter',
 				label: 'Population spending ≥30% of income on shelter (%) (2021)'
 			}
 		],
 		Employment: [
-			{ value: 'EmployeeCount', label: 'Number of Employees' },
+			{ value: 'EmployeeCount', label: 'Number of Employees', format: ',.0f' },
 			{
 				value: 'EmploymentDensity',
-				label: 'Employment Density (per sq. km)'
+				label: 'Employment Density (per sq. km)',
+				format: ',.0f'
 			}
 		],
-		'Built Form': [{ value: 'PopulationDensity', label: 'Population Density (per sq. km)' }],
+		'Built Form': [
+			{ value: 'PopulationDensity', label: 'Population Density (per sq. km)', format: ',.0f' }
+		],
 		'Complete Communities': [
-			{ value: 'BusinessCount', label: 'Main Street Businesses' },
+			{ value: 'BusinessCount', label: 'Main Street Businesses', format: ',.0f' },
 			{ value: 'bii', label: 'Independent Business Index (out of 1)' },
-			{ value: 'CivicCount', label: 'Civic Infrastructure Locations' },
-			{ value: 'Daily_Visits', label: 'Average Daily Visitors' },
+			{ value: 'CivicCount', label: 'Civic Infrastructure Locations', format: ',.0f' },
+			{ value: 'Daily_Visits', label: 'Average Daily Visitors', format: ',.0f' },
 			// { value: 'Unique_Visitors', label: 'Average Unique Daily Visitors' },
 			{ value: 'Tier_1_presence', label: 'Core Complete Community Score' },
 			{ value: 'Tier_2_presence', label: 'Additional Complete Community Score' },

@@ -218,7 +218,7 @@
 					.html(
 						`<div style="font-weight:600;margin-bottom:4px;">${d.stop_label}</div>` +
 							`<div style="font-weight:400;margin-bottom:4px;">${d.status || 'N/A'} Station</div>` +
-							`<div>${currentVarMeta.label}: ${d3.format(',.2f')(d[selectedVariable])}</div>`
+							`<div>${currentVarMeta.label}: ${d3.format(currentVarMeta.format ?? ',.2f')(d[selectedVariable])}</div>`
 					)
 					.style('left', event.pageX + 10 + 'px')
 					.style('top', event.pageY - 28 + 'px');

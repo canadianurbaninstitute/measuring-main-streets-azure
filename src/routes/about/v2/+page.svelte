@@ -800,7 +800,10 @@
 
 					<div class="contact-item">
 						<span class="label">NEWSLETTER</span>
-						<p>Subscribe to the Canadian Urban Institute newsletter.</p>
+						<p>
+							<a href="https://canurb.org/subscribe/" target="_blank">Subscribe</a> to the Canadian Urban
+							Institute newsletter.
+						</p>
 					</div>
 
 					<div class="contact-item">
