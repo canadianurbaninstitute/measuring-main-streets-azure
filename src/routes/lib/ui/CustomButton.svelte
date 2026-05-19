@@ -3,7 +3,10 @@
 	 * CustomButton.svelte
 	 *
 	 * A versatile button/link component based on VisLink.
+	 *
+	 * Iconify support: pass iconBeforeName or iconAfterName (e.g. 'mdi:arrow-left')
 	 */
+	import Icon from '@iconify/svelte';
 	let {
 		href = '',
 		label = 'Learn More',
@@ -12,9 +15,14 @@
 		color = 'blue', // blue, darkblue, green, pink, orange, purple, red, yellow
 		size = 'md', // sm, md, lg
 		onclick = null,
-		icon = true,
+		icon = true, // legacy: trailing arrow
+		iconBefore = null, // custom leading icon (component or SVG)
+		iconAfter = null, // custom trailing icon (component or SVG)
+		iconBeforeName = '', // Iconify icon name (e.g. 'mdi:arrow-left')
+		iconAfterName = '', // Iconify icon name (e.g. 'mdi:arrow-right')
 		disabled = false,
-		className = ''
+		className = '',
+		fullWidth = false
 	} = $props();
 
 	// Map color props to Tailwind CSS variables
@@ -47,12 +55,23 @@
 {#if href}
 	<a {href} {target} aria-label={label} class="custom-button-link {className}">
 		<button
-			class="custom-button {variant} size-{size} {disabled ? 'disabled' : ''}"
+			class="custom-button {variant} size-{size} {disabled ? 'disabled' : ''} {fullWidth
+				? 'full-width'
+				: ''}"
 			style="--btn-color: {bgColor}; --btn-hover-color: {hoverColor};"
 			{disabled}
 		>
+			{#if iconBeforeName}
+				<Icon icon={iconBeforeName} width={18} height={18} class="icon-before" />
+			{:else if iconBefore}
+				{@html iconBefore}
+			{/if}
 			<span class="label">{label}</span>
-			{#if icon}
+			{#if iconAfterName}
+				<Icon icon={iconAfterName} width={18} height={18} class="icon-after" />
+			{:else if iconAfter}
+				{@html iconAfter}
+			{:else if icon}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="18"
@@ -72,13 +91,28 @@
 	</a>
 {:else}
 	<button
-		class="custom-button {variant} size-{size} {className} {disabled ? 'disabled' : ''}"
+		class="custom-button {variant} size-{size} {className} {disabled ? 'disabled' : ''} {fullWidth
+			? 'full-width'
+			: ''}"
 		style="--btn-color: {bgColor}; --btn-hover-color: {hoverColor};"
 		{onclick}
 		{disabled}
 	>
+		{#if iconBeforeName}
+			<div class="icon-before">
+				<Icon icon={iconBeforeName} width={18} height={18} class="icon-before" />
+			</div>
+		{:else if iconBefore}
+			{@html iconBefore}
+		{/if}
 		<span class="label">{label}</span>
-		{#if icon}
+		{#if iconAfterName}
+			<div class="icon-after">
+				<Icon icon={iconAfterName} width={18} height={18} class="icon-after" />
+			</div>
+		{:else if iconAfter}
+			{@html iconAfter}
+		{:else if icon}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="18"
@@ -113,6 +147,10 @@
 		outline: none;
 	}
 
+	.custom-button.full-width {
+		width: 100%;
+	}
+
 	/* Sizes */
 	.size-sm {
 		padding: 0.4rem 1rem;
@@ -134,8 +172,8 @@
 	}
 	.custom-button.primary:hover:not(.disabled) {
 		background-color: var(--btn-hover-color);
-		transform: translateY(-3px) scale(1.02);
-		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+		transform: translateY(-1px) scale(1.01);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 	}
 
 	/* Secondary Variant */
@@ -148,7 +186,7 @@
 		background-color: var(--btn-color);
 		border-color: var(--btn-color);
 		color: white;
-		transform: translateY(-2px);
+		/* transform: translateY(-2px); */
 	}
 	.custom-button.secondary:active:not(.disabled) {
 		background-color: var(--btn-hover-color);
@@ -162,7 +200,7 @@
 	}
 	.custom-button.ghost:hover:not(.disabled) {
 		background-color: rgba(0, 0, 0, 0.05);
-		transform: translateY(-1px);
+		/* transform: translateY(-1px); */
 	}
 
 	.disabled {
@@ -171,12 +209,28 @@
 		pointer-events: none;
 	}
 
+	.icon-before {
+		transition: transform 0.3s ease;
+	}
+
+	.icon-after {
+		transition: transform 0.3s ease;
+	}
+
 	svg {
 		transition: transform 0.3s ease;
 	}
 
 	.custom-button:hover:not(.disabled) svg {
 		transform: translateX(4px);
+	}
+
+	.custom-button:hover:not(.disabled) .icon-after {
+		transform: translateX(4px);
+	}
+
+	.custom-button:hover:not(.disabled) .icon-before {
+		transform: translateX(-4px);
 	}
 
 	.custom-button-link {

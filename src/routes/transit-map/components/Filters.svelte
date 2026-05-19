@@ -48,4 +48,10 @@
 			gap: 1em;
 		}
 	}
+
+	@media only screen and (max-width: 768px) {
+		#filter-container {
+			display: none;
+		}
+	}
 </style>

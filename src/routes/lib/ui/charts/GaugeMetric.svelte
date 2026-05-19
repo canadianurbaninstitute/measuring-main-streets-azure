@@ -16,7 +16,6 @@
 	export let fillColor = '#002940';
 	export let duration = 1000;
 	export let segmentColors = ['#58e965', '#eab308', '#f13737']; // reversed order
-	export let pointerColor = '#002940';
 	export let showValue = true;
 	export let title = '';
 
@@ -116,7 +115,7 @@
 		flex-direction: column;
 		gap: 0.5rem;
 		align-items: center;
-		padding: 0.35em;
+		padding: 0.3em;
 		border: 1px solid #ddd;
 		border-radius: 0.5em;
 		box-sizing: border-box;

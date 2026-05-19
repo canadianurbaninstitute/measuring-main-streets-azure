@@ -1,8 +1,8 @@
 <script>
-	import Icon from '@iconify/svelte';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	const buttons = [
-		{ text: 'About the Platform', href: '/about' },
-		{ text: 'About the Project Phases', href: '/about' },
+		{ text: 'About the Platform', href: '/about/v2' },
+		{ text: 'About the Project Phases', href: '/about/v2/#about-tod' },
 		{ text: 'Canadian Urban Institute', href: 'https://canurb.org/', target: '_blank' }
 	];
 </script>
@@ -37,7 +37,7 @@
 
 		<div class="about-buttons">
 			{#each buttons as btn}
-				<a href={btn.href} class="about-button">{btn.text} <Icon icon="ph:arrow-right-bold" /></a>
+				<CustomButton label={btn.text} href={btn.href} />
 			{/each}
 		</div>
 	</div>
@@ -88,31 +88,8 @@
 	}
 
 	.about-buttons {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		margin-top: 3rem;
-		max-width: 600px;
-	}
-
-	.about-button {
-		background-color: var(--brandDarkBlue);
-		color: white;
-		padding: 1rem;
-		border-radius: 2rem;
-		text-decoration: none;
-		font-family: 'Inter', sans-serif;
-		font-weight: 600;
-		font-size: 0.85rem;
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		text-align: center;
-		transition: background-color 0.2s;
-	}
-
-	.about-button:hover {
-		background-color: var(--brandLightBlue);
+		gap: 1.5rem;
+		flex-wrap: wrap;
 	}
 </style>

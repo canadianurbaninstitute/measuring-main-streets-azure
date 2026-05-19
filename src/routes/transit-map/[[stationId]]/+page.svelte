@@ -17,6 +17,7 @@
 	import { age, bed, dwelling, housing, owner } from '../../lib/data/transitdata/config.json';
 	import type { Station } from '../../lib/data/transitdata/stations';
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import '../../styles.css';
 	import AiDescription from '../components/AiDescription.svelte';
 	import BuiltFormTab from '../components/BuiltFormTab.svelte';
@@ -749,7 +750,16 @@
 				bind:stopsFuse
 			/>
 			{#if stationSelected || activeLine || activeRegion}
-				<button onclick={handleSidebarBack} class="back-button bg-zinc-50">← Back</button>
+				<div class="p-5">
+					<CustomButton
+						onclick={handleSidebarBack}
+						label="Back"
+						variant="secondary"
+						fullWidth
+						icon={false}
+						iconBeforeName="mdi:arrow-left"
+					/>
+				</div>
 			{/if}
 			{#if stationSelected && !searchTerm}
 				<div class="station-details-scroll-container">

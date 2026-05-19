@@ -9,14 +9,12 @@
 	<title>Measuring Main Streets | Canadian Urban Institute</title>
 	<meta
 		name="description"
-		content="Exploring Canada’s main streets through a data-driven approach to empower city builders."
+		content="Making Data More Accessible for Main Street & Downtown Vibrancy"
 	/>
 </svelte:head>
 
 <main class="new-homepage">
 	<HomeHero />
-	<!-- <HomeHeaderStats /> -->
-	<!-- <HomeTabs /> -->
 	<HomeProjectTimeline />
 	<HomeAbout />
 </main>

@@ -7,9 +7,9 @@
 		PopulationDensity,
 		water_pct
 	} from '../../lib/data/transitdata/config.json';
-	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
 	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 	let {
@@ -67,6 +67,13 @@
 				/>
 			{/if}
 		{/each}
+		{#if unitsCreated > 0}
+			<TransitMetric
+				disabled
+				label="Active building permits ({buildingPermitYear})"
+				value={unitsCreated.toLocaleString()}
+				icon={'mdi:home'}
+			/>{/if}
 	</div>
 	<div class="metric-container">
 		{#each dpiMetrics as metric}
@@ -77,16 +84,8 @@
 				icon={metric.icon}
 			/>
 		{/each}
-
-		{#if unitsCreated > 0}
-			<TransitMetric
-				disabled
-				label="Active building permits ({buildingPermitYear})"
-				value={unitsCreated.toLocaleString()}
-				icon={'mdi:home'}
-			/>{/if}
 	</div>
-	<div class="flex flex-row gap-[0.3em] w-full flex-wrap">
+	<div class="metric-container">
 		<GaugeMetric
 			title="Overall Development Potential"
 			value={potentialMap[dpiData.potential]}
@@ -97,7 +96,7 @@
 			showValue={false}
 		/>
 	</div>
-	<div class="grid grid-cols-2 gap-[0.3em]">
+	<div class="metric-container">
 		<DonutMetric
 			active={waterVisible}
 			on:click={() =>

@@ -21,7 +21,7 @@
 	} = $props();
 </script>
 
-<div class="tab-content gap-1">
+<div class="tab-content">
 	<div class="metric-container">
 		{#each [HousingTotal, HouseValue, MonthlyRent] as metric}
 			<TransitMetric
@@ -36,14 +36,16 @@
 			/>
 		{/each}
 	</div>
-	<DonutMetric
-		label={MoreThan30OnShelter.label}
-		value={Math.round(selectedStation[MoreThan30OnShelter.key])}
-		icon={MoreThan30OnShelter.icon}
-		suffix={MoreThan30OnShelter.unit}
-		fillColor={'#002940'}
-		disabled
-	/>
+	<div class="metric-container">
+		<DonutMetric
+			label={MoreThan30OnShelter.label}
+			value={Math.round(selectedStation[MoreThan30OnShelter.key])}
+			icon={MoreThan30OnShelter.icon}
+			suffix={MoreThan30OnShelter.unit}
+			fillColor={'#002940'}
+			disabled
+		/>
+	</div>
 	<div class="tab-chart-container">
 		<div class="tab-chart">
 			<BarChart

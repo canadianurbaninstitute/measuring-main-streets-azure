@@ -48,7 +48,7 @@
 			</div>
 		{/if}
 		{#if activeTab === 'housing'}
-			<Accordion>
+			<Accordion open={true}>
 				<div class="inline-header" slot="header">
 					<div class="text-sm inline-header">
 						Housing Type<Icon icon="iconoir:nav-arrow-down" />
@@ -87,7 +87,7 @@
 			</Accordion>
 		{/if}
 		{#if activeTab === 'employment'}
-			<Accordion>
+			<Accordion open={true}>
 				<div class="inline-header" slot="header">
 					<div class="text-sm inline-header">
 						Employer Type<Icon icon="iconoir:nav-arrow-down" />
@@ -130,7 +130,7 @@
 			</Accordion>
 		{/if}
 		{#if activeTab === 'built-form'}
-			<Accordion>
+			<Accordion open={true}>
 				<div class="inline-header" slot="header">
 					<div class="text-sm inline-header">
 						Building Permits<Icon icon="iconoir:nav-arrow-down" />
@@ -146,6 +146,8 @@
 						bgcolor="#db3069"
 						bordercolor="#fff"
 						button={true}
+						filterProperty="PermitType"
+						filterValue="Active"
 					/>
 					<div class="text-xs italic">Size = Number of Housing Units</div>
 				</div>
