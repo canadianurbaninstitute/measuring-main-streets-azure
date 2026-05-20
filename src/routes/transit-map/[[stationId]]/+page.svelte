@@ -9,6 +9,8 @@
 
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import { driver } from 'driver.js';
+	import 'driver.js/dist/driver.css';
 	import { onMount, untrack } from 'svelte';
 	import {
 		TIER_1_AMENITIES,
@@ -60,6 +62,7 @@
 	let min = $state(0);
 	let max = $state(0);
 	let isOpen = $state(true);
+	let isAIOpen = $state(true);
 	let activeTab = $state('demographics');
 
 	// data
@@ -82,6 +85,154 @@
 	let regionsFuse = $state();
 	let linesFuse = $state();
 	let stopsFuse = $state();
+
+	// --- Tutorial State ---
+	let driverObj = $state({});
+
+	function initiateTutorial() {
+		driverObj.drive();
+	}
+	// --- Guided Tutorial Setup ---
+	onMount(() => {
+		driverObj = driver({
+			showProgress: true,
+			steps: [
+				{
+					element: '.transit-map-title',
+					popover: {
+						title: 'Transit map tutorial',
+						description: 'Welcome to the transit map tutorial.',
+						side: 'left',
+						align: 'start'
+					},
+					onHighlightStarted: () => {
+						isOpen = true;
+						resetStationSelection();
+					}
+				},
+				{
+					element: '#collapse',
+					popover: {
+						title: 'Collapse description',
+						description: 'Click here to expand or collapse the page description.',
+						side: 'left',
+						align: 'start'
+					},
+					onHighlightStarted: () => {
+						isOpen = false;
+					}
+				},
+				{
+					element: '#map-container',
+					popover: {
+						title: 'Transit map',
+						description:
+							'This is an interactive map of all major transit stations. Navigate the map by scrolling or zooming and click on a region to drill down into a transit station area.',
+						side: 'right',
+						align: 'start'
+					}
+				},
+				{
+					element: '.navigation-scroll-container',
+					popover: {
+						title: 'Select region',
+						description:
+							'You can click on a region to drill down by transit line and transit station.',
+						side: 'left',
+						align: 'start'
+					}
+				},
+				{
+					element: '#search',
+					popover: {
+						title: 'Search',
+						description: 'Alternatively, you can search for the station you want.',
+						side: 'left',
+						align: 'start'
+					}
+				},
+				{
+					element: '#sidebar',
+					popover: {
+						title: 'Sidebar',
+						description:
+							'After you click on a station, you can see information associated with it in this panel.',
+						side: 'left',
+						align: 'start'
+					},
+					onHighlightStarted: () => {
+						if (processedStationData && processedStationData.length > 0) {
+							const station = processedStationData[89];
+							selectStop(station);
+						}
+						handleTabChange('demographics');
+					}
+				},
+				{
+					element: '#ai',
+					popover: {
+						title: 'AI Summary',
+						description:
+							'This experimental feature provides an AI-generated summary of the data for this station. Explore the data to verify the accuracy of the summary.',
+						side: 'left',
+						align: 'start'
+					}
+				},
+				{
+					element: '#TotalPopulation',
+					popover: {
+						title: 'Data overlays',
+						description:
+							'Most metrics are clickable. Select one to toggle the data as a choropleth layer on the map for a more detailed geographic breakdown.',
+						side: 'left',
+						align: 'start'
+					},
+					onHighlightStarted: () => {
+						isAIOpen = false;
+						updateLayerVariable('TotalPopulation');
+					},
+					onDeselected: () => {
+						updateLayerVariable(null);
+					}
+				},
+				{
+					element: '#tabs',
+					popover: {
+						title: 'Map views',
+						description: 'Use these tabs to explore different facets of the station data.',
+						side: 'left',
+						align: 'start'
+					},
+					onHighlighted: () => {
+						handleTabChange('complete-communities');
+						isOpen = true;
+					}
+				},
+				{
+					element: '#transit-tutorial',
+					popover: {
+						title: 'Tutorial',
+						description:
+							"Congratulations, you've completed the tutorial! You can revisit it at any time by clicking this button.",
+						side: 'left',
+						align: 'start'
+					},
+					onDeselected: () => {
+						resetStationSelection();
+					}
+				}
+			]
+		});
+
+		// --- First-Time Visitor Tutorial ---
+		if (typeof sessionStorage !== 'undefined') {
+			const hasVisitedTransitTutorial = sessionStorage.getItem('hasVisitedTransitTutorial');
+			if (!hasVisitedTransitTutorial) {
+				initiateTutorial();
+				sessionStorage.setItem('hasVisitedTransitTutorial', 'true');
+			}
+		}
+	});
 
 	// Side Effects
 	$effect(() => {
@@ -740,7 +891,7 @@
 <Tabs.Root bind:value={activeTab} onValueChange={(value) => handleTabChange(value)}>
 	<div id="content-container">
 		<div id="sidebar">
-			<Header {isOpen} />
+			<Header {isOpen} {initiateTutorial} />
 			<Search
 				bind:searchTerm
 				{regionsData}
@@ -750,7 +901,7 @@
 				bind:stopsFuse
 			/>
 			{#if stationSelected || activeLine || activeRegion}
-				<div class="p-5">
+				<div class="flex p-5">
 					<CustomButton
 						onclick={handleSidebarBack}
 						label="Back"
@@ -765,7 +916,7 @@
 				<div class="station-details-scroll-container">
 					{#if selectedStation && selectedStation.id}
 						<StationStatus {selectedStation} />
-						<AiDescription {selectedStation} {aiDescriptions} {activeTab} />
+						<AiDescription isOpen={isAIOpen} {selectedStation} {aiDescriptions} {activeTab} />
 						<Tabs.Content value="demographics" class="tab-button">
 							<!-- needed to silence LayerCake warnings -->
 							{#if activeTab === 'demographics'}
@@ -858,7 +1009,7 @@
 			<div class="flex flex-row w-full flex-wrap lg:flex-nowrap">
 				<div id="controls" class="flex flex-col w-full">
 					<Filters bind:statusFilters bind:technologyFilters />
-					<Tabs.List class="w-full grid grid-cols-3 xl:grid-cols-6 gap-1">
+					<Tabs.List id="tabs" class="w-full grid grid-cols-3 xl:grid-cols-6 gap-1">
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
 							value="demographics">Demographics</Tabs.Trigger
@@ -931,20 +1082,6 @@
 		flex-grow: 1;
 		overflow-y: auto;
 	}
-
-	.back-button {
-		padding: 8px 12px;
-		border-radius: 4px;
-		border: 1px solid #ccc;
-		cursor: pointer;
-		font-size: 0.9em;
-		margin: 0 1em;
-	}
-
-	.back-button:hover {
-		background-color: var(--color-zinc-100);
-	}
-
 	@media only screen and (min-width: 768px) {
 		#content-container {
 			flex-direction: row;

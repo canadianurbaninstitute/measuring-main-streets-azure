@@ -39,6 +39,7 @@
 	<div class="metric-container">
 		{#each [TotalPopulation, TotalHouseholds, AverageEmploymentIncome] as metric}
 			<TransitMetric
+				id={metric.key}
 				label={metric.label}
 				active={selectedVariable === metric.key}
 				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}

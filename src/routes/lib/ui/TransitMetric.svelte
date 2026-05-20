@@ -11,6 +11,7 @@
 	export let accordion = false;
 	export let active = false;
 	export let disabled = false;
+	export let id = '';
 
 	let container;
 	let visible = true; // set to false and uncomment below if you want to enable the fade in
@@ -31,7 +32,7 @@
 	// });
 </script>
 
-<div class="metric-wrapper" bind:this={container}>
+<div {id} lass="metric-wrapper" bind:this={container}>
 	{#if visible}
 		<button
 			{disabled}

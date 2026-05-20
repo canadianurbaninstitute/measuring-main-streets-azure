@@ -3,12 +3,11 @@
 	import CaretDown from 'phosphor-svelte/lib/CaretDown';
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
-	let { selectedStation, aiDescriptions, activeTab } = $props();
+	let { selectedStation, aiDescriptions, activeTab, isOpen = $bindable() } = $props();
 	const description = $derived(
 		aiDescriptions?.find((desc) => desc?.id === selectedStation?.id)?.description ?? ''
 	);
 
-	let isOpen = $state(true);
 	$effect(() => {
 		if (activeTab !== 'demographics') {
 			isOpen = false;
@@ -17,7 +16,10 @@
 </script>
 
 {#if selectedStation && description}
-	<div class="ai-description-container rounded-md mx-4 my-2 bg-gray-50 border border-gray-200">
+	<div
+		id="ai"
+		class="ai-description-container rounded-md mx-4 my-2 bg-gray-50 border border-gray-200"
+	>
 		<Accordion.Root
 			value={isOpen ? 'desc' : null}
 			type="single"
