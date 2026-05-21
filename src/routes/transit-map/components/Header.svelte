@@ -13,7 +13,7 @@
 	});
 </script>
 
-<div class="p-4">
+<div class="px-4">
 	<Accordion.Root
 		value={accordionValue}
 		type="single"
@@ -30,7 +30,7 @@
 				{#if isOpen}
 					<div
 						transition:slide={{ duration: 300, easing: cubicOut }}
-						class="overflow-hidden text-sm tracking-[-0.01em]"
+						class="pt-8 overflow-hidden text-sm tracking-[-0.01em]"
 					>
 						<Accordion.Header>
 							<div id="title" class="flex align-baseline">
@@ -60,12 +60,16 @@
 			</Accordion.Content>
 			<Accordion.Trigger
 				id="collapse"
-				class="rounded-lg flex w-full flex-1 select-none items-center py-2 justify-between text-[15px] font-medium transition-all
+				class="rounded-[2rem] border-2  my-2 border-blue-500 text-blue-500 flex w-full flex-1 select-none items-center py-2 px-5 justify-between text-[15px] font-medium text-sm transition-all
       [&[data-state=open]_.closed]:hidden
       [&[data-state=closed]_.open]:hidden
       [&[data-state=open]>span>svg]:rotate-180"
 			>
-				<p style="margin-bottom: 0;">Page Description</p>
+				<p
+					style="margin-bottom: 0; color: var(--color-blue-500); font-size: 0.9rem; font-weight: 600;"
+				>
+					Page Description
+				</p>
 
 				<span
 					class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"

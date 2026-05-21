@@ -218,7 +218,8 @@
 						align: 'start'
 					},
 					onDeselected: () => {
-						resetStationSelection();
+						resetStationSelection(true);
+						zoomToActiveContext();
 					}
 				}
 			]
@@ -901,7 +902,7 @@
 				bind:stopsFuse
 			/>
 			{#if stationSelected || activeLine || activeRegion}
-				<div class="flex p-5">
+				<div class="flex px-4 mt-2">
 					<CustomButton
 						onclick={handleSidebarBack}
 						label="Back"
@@ -980,11 +981,6 @@
 								/>
 							{/if}
 						</Tabs.Content>
-						<!-- <Tabs.Content value="development-potential" class="tab-button">
-							{#if activeTab === 'development-potential'}
-								<DevelopmentPotentialTab {selectedStation} {stationDpiData} />
-							{/if}
-						</Tabs.Content> -->
 					{:else if stationSelected}
 						<p>Loading station details...</p>
 					{/if}
@@ -1009,25 +1005,35 @@
 			<div class="flex flex-row w-full flex-wrap lg:flex-nowrap">
 				<div id="controls" class="flex flex-col w-full">
 					<Filters bind:statusFilters bind:technologyFilters />
-					<Tabs.List id="tabs" class="w-full grid grid-cols-3 xl:grid-cols-6 gap-1">
+					<Tabs.List id="tabs" class="w-full flex flex-wrap gap-1">
 						<Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-orange-600/10 data-[state=inactive]:text-orange-600 data-[state=inactive]:border-1 data-[state=inactive]:border-orange-600/30 
+							data-[state=inactive]:hover:bg-orange-600/50
+							data-[state=active]:bg-orange-600 data-[state=active]:border-none data-[state=active]:text-white"
 							value="demographics">Demographics</Tabs.Trigger
 						>
 						<Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-yellow-200/10 data-[state=inactive]:text-yellow-700 data-[state=inactive]:border-1 data-[state=inactive]:border-yellow-200/30 
+							data-[state=inactive]:hover:bg-yellow-200/50
+							data-[state=active]:bg-yellow-200 data-[state=active]:border-none"
 							value="housing">Housing</Tabs.Trigger
 						>
 						<Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-pink-500/10 data-[state=inactive]:text-pink-500 data-[state=inactive]:border-1 data-[state=inactive]:border-pink-500/30 
+							data-[state=inactive]:hover:bg-pink-500/50
+							data-[state=active]:bg-pink-500 data-[state=active]:border-none data-[state=active]:text-white"
 							value="employment">Employment</Tabs.Trigger
 						>
 						<Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-blue-600/10 data-[state=inactive]:text-blue-600 data-[state=inactive]:border-1 data-[state=inactive]:border-blue-600/30 
+							data-[state=inactive]:hover:bg-blue-600/50
+							data-[state=active]:bg-blue-600 data-[state=active]:border-none data-[state=active]:text-white"
 							value="built-form">Built Form & Development Potential</Tabs.Trigger
 						>
 						<Tabs.Trigger
-							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
+							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-green-400/10 data-[state=inactive]:text-green-600 data-[state=inactive]:border-1 data-[state=inactive]:border-green-400/30 
+							data-[state=inactive]:hover:bg-green-400/50
+							data-[state=active]:bg-green-400 data-[state=active]:border-none"
 							value="complete-communities">Complete Communities</Tabs.Trigger
 						>
 						<!-- <Tabs.Trigger

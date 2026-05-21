@@ -47,42 +47,35 @@
 	$effect(() => {
 		const hash = $page.url.hash.replace('#', '');
 		if (hash) {
+			// Helper: open parent and child accordions for deep links
+			const open = (ids, section) => {
+				ids.forEach((id) => (faqs[id] = true));
+				activeSection = section;
+			};
 			if (hash === 'res-data') {
-				faqs['res-data'] = true;
-				activeSection = 'resilience';
+				open(['res-data'], 'resilience');
 			} else if (hash === 'res-meth') {
-				faqs['res-meth'] = true;
-				activeSection = 'resilience';
+				open(['res-meth'], 'resilience');
 			} else if (hash === 'res-ind') {
-				faqs['res-ind'] = true;
-				activeSection = 'resilience';
+				open(['res-ind'], 'resilience');
 			} else if (hash === 'tod-meth') {
-				faqs['tod-meth'] = true;
-				activeSection = 'tod';
+				open(['tod-meth'], 'tod');
 			} else if (hash === 'tod-dpi') {
-				faqs['tod-dpi'] = true;
-				activeSection = 'tod';
+				open(['tod-dpi'], 'tod');
 			} else if (hash === 'tod-cc') {
-				faqs['tod-cc'] = true;
-				activeSection = 'tod';
+				open(['tod-cc'], 'tod');
 			} else if (hash === 'dpi-data') {
-				faqs['dpi-data'] = true;
-				activeSection = 'tod';
+				open(['tod-dpi', 'dpi-data'], 'tod');
 			} else if (hash === 'dpi-meth') {
-				faqs['dpi-meth'] = true;
-				activeSection = 'tod';
+				open(['tod-dpi', 'dpi-meth'], 'tod');
 			} else if (hash === 'cc-core') {
-				faqs['cc-core'] = true;
-				activeSection = 'tod';
+				open(['tod-cc', 'cc-data', 'cc-core'], 'tod');
 			} else if (hash === 'cc-add') {
-				faqs['cc-add'] = true;
-				activeSection = 'tod';
+				open(['tod-cc', 'cc-data', 'cc-add'], 'tod');
 			} else if (hash === 'cc-data') {
-				faqs['cc-data'] = true;
-				activeSection = 'tod';
+				open(['tod-cc', 'cc-data'], 'tod');
 			} else if (hash === 'cc-meth') {
-				faqs['cc-meth'] = true;
-				activeSection = 'tod';
+				open(['tod-cc', 'cc-meth'], 'tod');
 			}
 			scrollTo(hash);
 		}

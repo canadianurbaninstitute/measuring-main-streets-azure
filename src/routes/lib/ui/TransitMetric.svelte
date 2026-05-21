@@ -32,7 +32,7 @@
 	// });
 </script>
 
-<div {id} lass="metric-wrapper" bind:this={container}>
+<div {id} class="metric-wrapper" bind:this={container}>
 	{#if visible}
 		<button
 			{disabled}
@@ -55,7 +55,8 @@
 <style>
 	.metric-wrapper {
 		width: 100%;
-		min-height: 50px;
+		/* min-height: 50px; */
+		flex-grow: 1;
 	}
 	.metric {
 		height: 100%;

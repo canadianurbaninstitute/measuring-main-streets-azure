@@ -33,11 +33,11 @@
 
 	const items = [
 		{
-			title: 'Transit Maps',
+			title: 'Transit Map',
 			description:
 				'A map of all existing, under construction and planned higher-order transit lines in Canada with key data points.',
 			image: transitmap,
-			link: '/transit-maps',
+			link: '/transit-map',
 			tags: ['Mapping', 'TOD on Main']
 		},
 		{

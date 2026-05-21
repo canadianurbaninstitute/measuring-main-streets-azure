@@ -92,7 +92,7 @@
 					tags: ['Complete Communities']
 				},
 				{
-					title: 'Development Potential',
+					title: 'Hight Potential',
 					description: 'Exploring housing development potential in transit station areas.',
 					image: devreport,
 					link: '/reports/tod/development-potential',

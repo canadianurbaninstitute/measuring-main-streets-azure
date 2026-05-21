@@ -251,8 +251,24 @@
 							{/each}
 						</div>
 					</Accordion>
-				</div></Accordion
-			>
+				</div>
+			</Accordion>
+			<hr class="mt-1 mb-2 border-slate-100" />
+			<Accordion open={true}>
+				<div class="inline-header" slot="header">
+					<div class="text-sm inline-header">
+						Main Streets <Icon icon="iconoir:nav-arrow-down" />
+					</div>
+				</div>
+				<div slot="body">
+					<LegendItem
+						variant={'line'}
+						label={'High Density Main Streets'}
+						bordercolor={'#002940'}
+					/>
+					<LegendItem variant={'line'} label={'Low Density Main Streets'} bordercolor={'#00adf2'} />
+				</div>
+			</Accordion>
 		{/if}
 	</LegendAbsolute>
 {/if}
