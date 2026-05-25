@@ -4,7 +4,7 @@
 	import { tick } from 'svelte';
 	import Accordion from '../../lib/ui/Accordion.svelte';
 	import '../../styles.css';
-	// Logos
+// Logos
 	import canada_logo from '../../lib/assets/logos/canada_color.png';
 	import catch_logo from '../../lib/assets/logos/catch_color.png';
 	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
@@ -12,7 +12,7 @@
 	import ii_logo from '../../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../../lib/assets/logos/uotsoc_color.png';
-	// Assets
+// Assets
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
 	import montreal_bg from '../../lib/assets/graphics/montreal-bg.png';
 	import vancouver_bg from '../../lib/assets/graphics/vancouver-bg.png';
@@ -28,6 +28,7 @@
 	let teamTodOpen = $state(false);
 
 	import { goto } from '$app/navigation';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 
 	async function scrollTo(id) {
 		await tick();
@@ -90,7 +91,7 @@
 								}}
 							>
 								Resilience on Main
-							</button>
+							</button
 						</li>
 						<li>
 							<button
@@ -1150,20 +1151,7 @@
 		padding: 4rem;
 		border-radius: 2rem;
 	}
-
-	.cui-about h3,
-	.cui-contact h3 {
-		margin-bottom: 2rem;
-		color: var(--brandDarkBlue);
-		font-family: 'Gelasio', serif;
-	}
-
-	.cui-about p {
-		font-size: 1.2rem;
-		line-height: 1.6;
-		max-width: 500px;
-	}
-
+	
 	.contact-grid {
 		display: grid;
 		grid-template-columns: 1fr;
