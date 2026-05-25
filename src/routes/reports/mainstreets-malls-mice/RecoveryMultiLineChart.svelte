@@ -6,23 +6,23 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeFormat, timeParse } from 'd3-time-format';
 
+	import MultiSelect from 'svelte-multiselect';
 	import AxisX from '../../lib/ui/chartcomponents/AxisX.svelte';
 	import AxisY from '../../lib/ui/chartcomponents/AxisY.svelte';
 	import MultiLine from '../../lib/ui/chartcomponents/MultiLine.svelte';
 	import SharedTooltip from '../../lib/ui/chartcomponents/SharedTooltip.html.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	// Data
-
 	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
 
-	export let dataset;
-	export let title = 'Visitor Levels (%) relative to the same month in 2019';
-	export let height = '500px';
-
-	import MultiSelect from 'svelte-multiselect';
+	// Props
+	let {
+		dataset,
+		title = 'Visitor Levels (%) relative to the same month in 2019',
+		height = '500px'
+	} = $props();
 
 	/* Column keys */
-
 	const xKey = 'date';
 	const yKey = 'value';
 	const zKey = 'ms_type';
@@ -35,14 +35,12 @@
 		'small town main streets'
 	];
 
-	/* Colors */
-
-	let seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2']; // base 4
-	let newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2']; // overwritten when selecting
-	let seriesColorsFaded = ['#ddd']; // background layer
+	/* Colors & Dynamic Chart Data State */
+	let seriesColors = $state(['#58E965', '#DB3069', '#002940', '#00ADF2']);
+	let newLineSeriesColors = $state(['#58E965', '#DB3069', '#002940', '#00ADF2']);
+	const seriesColorsFaded = ['#ddd'];
 
 	/* Cast values in CSV */
-
 	const allColumns = Object.keys(data[0]).filter((d) => d !== xKey);
 	data.forEach((d) => {
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
@@ -55,62 +53,58 @@
 	const formatLabelY = (d) => format(`~s`)(d) + '%';
 	const formatValue = (d) => format('.0f')(d) + '%';
 
-	/* ------------------------------------------------
-	 * Build flat options for svelte-multiselect
-	 * dataset.casestudies() -> [{label:'City', options:[{value,text},...]},...]
-	 * MultiSelect needs a flat array of selectable items with a 'label' prop.
-	 * We'll retain the city name in a 'group' field for optional display.
-	 */
-
+	/* Build flat options for svelte-multiselect */
 	const rawGroups = dataset.casestudies();
-
-	// helper: pick the key that exists in the CSV (value vs text)
-	function matchCsvKey(o) {
-		const row = data[0];
-		if (o.value in row) return o.value;
-		if (o.text in row) return o.text;
-		// fallback: try a normalized variant (strip spaces) if needed
-		const norm = o.text.replace(/\s+/g, '');
-		if (norm in row) return norm;
-		return null; // no match; user will see it but selecting won't add a line
-	}
 
 	const casestudyOptions = rawGroups.flatMap((g) =>
 		g.options.map((o) => {
 			const col = matchCsvKey(o);
 			return {
-				label: `${o.text} (${g.label})`, // what user sees/searches (includes group)
-				value: col ?? o.value, // chart lookup key (best effort)
-				group: g.label, // keep group metadata if needed elsewhere
-				shortLabel: o.text // clean label for legend
+				label: `${o.text} (${g.label})`,
+				value: col ?? o.value,
+				group: g.label,
+				shortLabel: o.text
 			};
 		})
 	);
 
+	function matchCsvKey(o) {
+		const row = data[0];
+		if (o.value in row) return o.value;
+		if (o.text in row) return o.text;
+		const norm = o.text.replace(/\s+/g, '');
+		if (norm in row) return norm;
+		return null;
+	}
+
 	/* Two-way binding target for MultiSelect */
-	let selectedOptions = [];
+	let selectedOptions = $state([]);
 
 	/* Derive the *data column* names to plot */
-	$: selectedValues = selectedOptions.map((o) => o.value).filter((v) => v && v in data[0]); // ignore unmatched
+	let selectedValues = $derived(
+		selectedOptions.map((o) => o.value).filter((v) => v && v in data[0])
+	);
 
 	/* Labels for legend (display only) */
-	$: selectedLabels = selectedOptions.map((o) => o.shortLabel ?? o.label);
+	let selectedLabels = $derived(selectedOptions.map((o) => o.shortLabel ?? o.label));
 
-	/* Data used by charts */
-	let groupedDataCategories = groupLonger(data, intialSeriesNames, {
+	/* Static background data */
+	const groupedDataCategories = groupLonger(data, intialSeriesNames, {
 		groupTo: zKey,
 		valueTo: yKey
-	}); // static grey background lines
+	});
 
-	let groupedData = groupedDataCategories; // foreground lines (changes w/ selection)
-	let filteredData = buildFilteredData(intialSeriesNames); // drives tooltip
+	/* Foreground data states */
+	let groupedData = $state(groupedDataCategories);
+	let filteredData = $state(buildFilteredData(intialSeriesNames));
 
-	/* React to selection changes */
-	$: updateFromSelection(selectedValues);
+	/* Svelte 5 Effect to replace legacy reactive statement ($:) */
+	$effect(() => {
+		updateFromSelection(selectedValues);
+	});
 
 	function updateFromSelection(values) {
 		if (!values || values.length === 0) {
-			// Reset to initial 4 base categories
 			seriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
 			newLineSeriesColors = ['#58E965', '#DB3069', '#002940', '#00ADF2'];
 
@@ -122,8 +116,6 @@
 			filteredData = buildFilteredData(intialSeriesNames);
 			return;
 		}
-
-		// Show base series in grey; highlight selected in blue
 
 		seriesColors = ['#ddd', '#ddd', '#ddd', '#ddd'];
 		newLineSeriesColors = ['#00ADF2'];
@@ -156,7 +148,6 @@
 			options={casestudyOptions}
 			placeholder="Add a street"
 			removeAllTitle="Clear"
-			onchange={handleMultiSelectChange}
 		/>
 
 		<div class="legend-container">
@@ -172,7 +163,6 @@
 	</div>
 
 	<div class="chart" style="min-height: {height}">
-		<!-- Background: always show 4 base categories in faded grey -->
 		<LayerCake
 			position="absolute"
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
@@ -190,7 +180,6 @@
 			</Svg>
 		</LayerCake>
 
-		<!-- Foreground: selected case studies (or 4 base categories when none selected) -->
 		<LayerCake
 			position="absolute"
 			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
