@@ -4,7 +4,7 @@
 	import { tick } from 'svelte';
 	import Accordion from '../../lib/ui/Accordion.svelte';
 	import '../../styles.css';
-// Logos
+	// Logos
 	import canada_logo from '../../lib/assets/logos/canada_color.png';
 	import catch_logo from '../../lib/assets/logos/catch_color.png';
 	import dps_logo from '../../lib/assets/logos/DPS-logo-black.png';
@@ -12,7 +12,7 @@
 	import ii_logo from '../../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../../lib/assets/logos/uotsoc_color.png';
-// Assets
+	// Assets
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
 	import montreal_bg from '../../lib/assets/graphics/montreal-bg.png';
 	import vancouver_bg from '../../lib/assets/graphics/vancouver-bg.png';
@@ -91,7 +91,7 @@
 								}}
 							>
 								Resilience on Main
-							</button
+							</button>
 						</li>
 						<li>
 							<button
@@ -365,9 +365,10 @@
 									transit-oriented development, but for transit-oriented complete communities.
 								</p>
 								<div class="flex mb-4">
-									<a href="/reports/tod/intro" class="button-primary"
-										>Read The Case for Transit-Oriented Development</a
-									>
+									<CustomButton
+										href="/reports/tod/intro"
+										label="Read The Case for Transit-Oriented Development"
+									/>
 								</div>
 								<p>
 									In round two of funding, CUI's partners included Environics Analytics, the School
@@ -1151,7 +1152,7 @@
 		padding: 4rem;
 		border-radius: 2rem;
 	}
-	
+
 	.contact-grid {
 		display: grid;
 		grid-template-columns: 1fr;
