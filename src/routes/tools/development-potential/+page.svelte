@@ -496,7 +496,7 @@
 </script>
 
 <div class="hero">
-	<h1>Development Potential Index</h1>
+	<h1>Housing Development Potential Tool</h1>
 	<p id="description">
 		This tool breaks down the housing development potential of areas within 800m of a transit
 		station. Use the dropdown to select a transit station. <a

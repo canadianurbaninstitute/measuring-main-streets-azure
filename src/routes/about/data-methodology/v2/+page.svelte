@@ -1018,8 +1018,8 @@
 								<div class="text-content">
 									<div>
 										<p>
-											The Development Potential Index provides an indication of the potential for
-											new housing construction in a transit station area.
+											The Housing Development Potential Tool provides an indication of the potential
+											for new housing construction in a transit station area.
 										</p>
 										<Accordion bind:open={faqs['dpi-data']} id="dpi-data">
 											<div slot="header" class="accordion-header">
@@ -1029,10 +1029,11 @@
 											</div>
 											<div slot="body" class="accordion-body">
 												<p>
-													The Development Potential Index splits indicators into three categories:
-													Land Availability to measure capacity for new housing, Growth Pressure to
-													measure demand for new housing, and Displacement Risk to measure the risk
-													of displacing existing residents when building new housing.
+													The Housing Development Potential tool splits indicators into three
+													categories: Land Availability to measure capacity for new housing, Growth
+													Pressure to measure demand for new housing, and Displacement Risk to
+													measure the risk of displacing existing residents when building new
+													housing.
 												</p>
 												<p>
 													Number of approved building permits is provided as supplementary
