@@ -8,6 +8,7 @@ const getTagColor = (tag) => {
 	if (text.includes('case study')) return 'var(--color-green-500)';
 	if (text.includes('qualitative')) return 'var(--brandPurple)';
 	if (text.includes('school of cities')) return 'var(--color-pink-500)';
+	if (text.includes('infrastructure institute')) return 'var(--color-pink-600)';
 	if (text.includes('tool')) return 'var(--color-yellow-200)';
 	if (text.includes('regional')) return 'var(--color-blue-800)';
 	if (text.includes('complete communities')) return 'var(--color-green-400)';
@@ -15,6 +16,8 @@ const getTagColor = (tag) => {
 	if (text.includes('executive summary')) return 'var(--brandLightBlue)';
 	if (text.includes('research brief')) return 'var(--color-green-500)';
 	if (text.includes('ghg emissions')) return 'var(--color-green-500)';
+	if (text.includes('catch')) return 'var(--color-green-600)';
+	if (text.includes('digital public square')) return 'var(--color-blue-500)';
 	if (text.includes('equity')) return 'var(--color-orange-500)';
 	if (text.includes('mobility')) return 'var(--color-yellow-300)';
 	if (text.includes('infographic')) return 'var(--color-purple-500)';

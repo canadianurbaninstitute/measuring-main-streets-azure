@@ -27,7 +27,16 @@
 			<img src={image} alt={title} />
 			{#if logo}
 				<div class="card-logo-overlay">
-					<img src={logo} alt="Partner logo" />
+					{#if Array.isArray(logo)}
+						{#each logo as singleLogo, i}
+							{#if i > 0}
+								<span class="logo-divider"></span>
+							{/if}
+							<img src={singleLogo} alt="Partner logo" />
+						{/each}
+					{:else}
+						<img src={logo} alt="Partner logo" />
+					{/if}
 				</div>
 			{/if}
 		</div>
@@ -129,6 +138,14 @@
 		display: flex;
 		align-items: center;
 		backdrop-filter: blur(4px);
+		gap: 0.5rem;
+	}
+
+	.logo-divider {
+		width: 1px;
+		height: 20px;
+		background-color: #ccc;
+		margin: 0 0.25rem;
 	}
 
 	.card-logo-overlay img {

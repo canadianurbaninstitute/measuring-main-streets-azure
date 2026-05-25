@@ -265,7 +265,7 @@ export const sections = [
 				heading: 'Realizing the benefits of Transit-Oriented Complete Communities ',
 				body: `<p>When people have ample amenities in their communities, and the amenities are accessible using active modes of transportation, people are going to experience better outcomes. Dense, walkable, amenity-rich environments can improve residents’ physical and mental health, increase social connection and community, and provide critical mass that support independent main street businesses. Transit-oriented communities improve access to employment opportunities, improve air quality, reduce overall carbon intensity, and can be more fiscally sustainable for local governments. When all these benefits are added together, the case for transit-oriented complete communities is undeniably strong. In addition to transportation gains, careful and thoughtful due diligence on the housing, economic, health, and fiscal improvements resulting from new higher order transit investments should lead to more business cases receiving passing grades.</p>`,
 				cta: {
-					href: '/casestudies/tod/',
+					href: '/casestudies/v2/?tab=tod&tag=School+of+Cities',
 					label: 'Read the case studies'
 				}
 			}

@@ -28,11 +28,16 @@
 		'tod-partners': false
 	});
 
+	import { goto } from '$app/navigation';
+
 	async function scrollTo(id) {
 		await tick();
 		const element = document.getElementById(id);
 		if (element) {
 			element.scrollIntoView({ behavior: 'smooth' });
+			if (typeof window !== 'undefined' && window.location.hash !== `#${id}`) {
+				goto(`#${id}`, { replaceState: false, noScroll: true, keepFocus: true });
+			}
 		}
 	}
 
@@ -374,7 +379,7 @@
 								<p>
 									You can read more about the benefits and nuances of transit-oriented development
 									in the report
-									<a href="/reports/tod/intro">The Case for Transit Oriented Development.</a>
+									<a href="/reports/tod/intro">The Case for Transit-Oriented Development.</a>
 								</p>
 							</div>
 						</div>

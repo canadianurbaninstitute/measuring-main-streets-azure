@@ -6,6 +6,7 @@
 	import { NavigationMenu } from 'bits-ui';
 	import { onMount } from 'svelte';
 	import cui_logo from '../assets/logos/cui_logo.svg';
+	import mms_logo_fr from '../assets/logos/MMS_FR_blue.png';
 	import mms_logo from '../assets/logos/mms_logo.svg';
 
 	let menuOpen = $state(false);
@@ -21,6 +22,8 @@
 			page.url?.pathname.includes('/v2') ||
 			page.url?.pathname.includes('/tod')
 	);
+
+	let isFrench = $derived(page.url?.pathname.includes('/fr'));
 
 	function toggleMenu() {
 		menuOpen = !menuOpen;
@@ -85,7 +88,7 @@
 			<a href={isLandingNav ? '/new-home' : '/'} aria-label="Home">
 				<div class="flex gap-4 items-center">
 					<img
-						src={mms_logo}
+						src={isFrench ? mms_logo_fr : mms_logo}
 						alt="Measuring Main Streets"
 						onmouseover={onMouseOver}
 						onmouseout={onMouseOut}

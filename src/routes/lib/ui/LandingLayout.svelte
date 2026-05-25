@@ -3,7 +3,6 @@
 	import { page } from '$app/state';
 	import Icon from '@iconify/svelte';
 	import getTagColor from '../helpers/getTagColor';
-	import Collapsible from './Collapsible.svelte';
 	import LandingCard from './LandingCard.svelte';
 	import TabNav from './TabNav.svelte';
 
@@ -99,7 +98,7 @@
 		<TabNav {tabs} bind:activeTab {syncUrl} bg="slate-50">
 			{#snippet children()}
 				<div class="w-full">
-					<Collapsible paragraphs={activeTabData.description} defaultOpen={false} />
+					{@html activeTabData.description}
 				</div>
 				<div class="flex-1">
 					<div class="controls">
@@ -155,7 +154,7 @@
 		</TabNav>
 	{:else}
 		<!-- No tabs: flat layout using legacy props -->
-		<p class="tab-description">{description}</p>
+		<div class="tab-description">{@html description}</div>
 
 		<div class="controls">
 			<div class="search-box">

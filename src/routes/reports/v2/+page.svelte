@@ -39,22 +39,24 @@
 			label: 'TOD on Main',
 			value: 'tod',
 			description: [
-				'Canada’s housing system is failing to meet the needs of Canadians, and we need solutions to increase production and expand available options to make housing accessible and affordable everyone from communities of all sizes. How can Transit-Oriented Development (TOD) be catalyzed to meet Canada’s ambitious housing goals, while contributing to the creation of equitable, vibrant, complete communities? '
+				'<p>Canada’s housing system is failing to meet the needs of Canadians, and we need solutions to increase production and expand available options to make housing accessible and affordable everyone from communities of all sizes. How can Transit-Oriented Development (TOD) be catalyzed to meet Canada’s ambitious housing goals, while contributing to the creation of equitable, vibrant, complete communities?</p>'
 			],
 			categories: [
 				'Mobility',
 				'Equity',
 				'GHG Emissions',
 				'Infographic',
-				'Regional Report',
-				'Partner Report',
-				'School of Cities',
 				'Complete Communities',
-				'Development Potential'
+				'Development Potential',
+				'Regional Report',
+				'School of Cities',
+				'Infrastructure Institute',
+				'Digital Public Square',
+				'CATCH'
 			],
 			items: [
 				{
-					title: 'The Case for Transit Oriented Development',
+					title: 'The Case for Transit-Oriented Development',
 					description:
 						'Why is transit-oriented development worth investing in, and what is needed to make it successful?',
 					image: intro,
@@ -169,7 +171,7 @@
 						'The Northfield Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
 					image: northfield,
 					link: '/reports/tod/love-northfield',
-					tags: ['Partner Report']
+					tags: ['Digital Public Square']
 				},
 				{
 					title: 'Love Kitsilano',
@@ -178,7 +180,7 @@
 						'The Kitsilano Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
 					image: northfield,
 					link: '/reports/tod/love-kitsilano',
-					tags: ['Partner Report']
+					tags: ['Digital Public Square']
 				},
 				{
 					title: 'Love Cooksville',
@@ -187,7 +189,7 @@
 						'The Cooksville Love Your Neighbourhood platform invited residents to share their perspectives on community priorities and neighbourhood change.',
 					image: cooksville,
 					link: '/reports/tod/love-cooksville',
-					tags: ['Partner Report']
+					tags: ['Digital Public Square']
 				},
 				{
 					title: 'Digital Public Engagement',
@@ -195,7 +197,7 @@
 					description: 'Exploring the potential of digital initiatives for public engagement',
 					image: dpsmethod,
 					link: '/reports/tod/digital-public-engagement',
-					tags: ['Partner Report']
+					tags: ['Digital Public Square']
 				},
 				{
 					title: 'Transit Without Displacement',
@@ -204,7 +206,7 @@
 						'How communities can ensure transit-oriented development works for everyone.',
 					image: catchreport,
 					link: '/reports/tod/catch',
-					tags: ['Partner Report']
+					tags: ['CATCH']
 				}
 			]
 		},
@@ -212,7 +214,7 @@
 			label: 'Resilience on Main',
 			value: 'msr',
 			description: [
-				'Decision-makers across Canadian communities are working to identify and deploy solutions to support resiliency, equity, and vibrancy on main streets and downtowns across the country. But very little data is traditionally available at the hyper-local scale – where impact is felt most – to make stronger decisions, and measure outcomes. What insights can we glean when the most useful data sets – from civic infrastructure assets to business mix to demographics - are re-mapped to the scale of the main street, and centralized in one place?'
+				'<p>Decision-makers across Canadian communities are working to identify and deploy solutions to support resiliency, equity, and vibrancy on main streets and downtowns across the country. But very little data is traditionally available at the hyper-local scale – where impact is felt most – to make stronger decisions, and measure outcomes. What insights can we glean when the most useful data sets – from civic infrastructure assets to business mix to demographics - are re-mapped to the scale of the main street, and centralized in one place?</p>'
 			],
 			categories: ['Research Brief', 'Regional Report', 'Executive Summary', 'Partner Report'],
 			items: [
