@@ -20,7 +20,7 @@
 
 	const title = 'Research Tools';
 	const description =
-		'Measuring Main Streets research tools are designed for practitioners to support better decision making through a more thorough understanding of any main street. We regularly update this selection with new tools, so check back often to discover new ways of measuring your main street!';
+		'<p>Measuring Main Streets research tools are designed for practitioners to support better decision making through a more thorough understanding of any main street. We regularly update this selection with new tools, so check back often to discover new ways of measuring your main street!</p>';
 
 	const categories = [
 		'Mapping',
@@ -28,6 +28,8 @@
 		'Qualitative',
 		'Resilience on Main',
 		'TOD on Main',
+		'Digital Public Square',
+		'Open Space Sandbox',
 		'Partner Tools'
 	];
 
@@ -77,7 +79,7 @@
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpscooksville,
 			link: 'https://lovecooksville.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
+			tags: ['Digital Public Square', 'Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Open Space Sandbox Cooksville',
@@ -85,7 +87,7 @@
 			description: 'A community-design interface to help residents design their own open spaces.',
 			image: oss,
 			link: 'https://app.openspacesandbox.com/survey/70240673-ab25-4bae-b766-03ecd923098f',
-			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
+			tags: ['Open Space Sandbox', 'Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Love Your Neighbourhood Northfield',
@@ -94,7 +96,7 @@
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpsnorthfield,
 			link: 'https://lovenorthfield.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
+			tags: ['Digital Public Square', 'Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Love Your Neighbourhood Kitsilano',
@@ -103,7 +105,7 @@
 				'An interactive online experience where people can learn about how the future of their neighbourhood is being shaped.',
 			image: dpskitsilano,
 			link: 'https://lovekitsilano.ca/',
-			tags: ['Partner Tools', 'Qualitative', 'TOD on Main']
+			tags: ['Digital Public Square', 'Partner Tools', 'Qualitative', 'TOD on Main']
 		},
 		{
 			title: 'Main Street Demographics',

@@ -27,11 +27,16 @@
 	let teamResilienceOpen = $state(false);
 	let teamTodOpen = $state(false);
 
+	import { goto } from '$app/navigation';
+
 	async function scrollTo(id) {
 		await tick();
 		const element = document.getElementById(id);
 		if (element) {
 			element.scrollIntoView({ behavior: 'smooth' });
+			if (typeof window !== 'undefined' && window.location.hash !== `#${id}`) {
+				goto(`#${id}`, { replaceState: false, noScroll: true, keepFocus: true });
+			}
 		}
 	}
 
@@ -360,7 +365,7 @@
 								</p>
 								<div class="flex mb-4">
 									<a href="/reports/tod/intro" class="button-primary"
-										>Read The Case for Transit Oriented Development</a
+										>Read The Case for Transit-Oriented Development</a
 									>
 								</div>
 								<p>

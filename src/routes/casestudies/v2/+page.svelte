@@ -5,6 +5,7 @@
 	import Montreal from '../../lib/assets/boundaries/Montreal.svg';
 	import Toronto from '../../lib/assets/boundaries/Toronto.svg';
 	// Assets
+	import ii from '../../lib/assets/logos/ii-logo.png';
 	import soc from '../../lib/assets/logos/uotsoc_color.png';
 	import arbutus from '../../lib/assets/screenshots/case-study-arbutus.png';
 	import cooksville from '../../lib/assets/screenshots/case-study-cooksville.png';
@@ -23,58 +24,65 @@
 
 			value: 'tod',
 			description: [
-				'Transit-oriented development (TOD) can be a catalyst for growth — but not all growth is created equal. Through five detailed case studies based on real TOD in Canada’s largest urban regions, discover how policy levers, pre-existing infrastructure, and other factors can determine the kind of communities and neighbourhoods that can be created by TOD. These case studies were created by the Infrastructure Institute at the School of Cities based out of the University of Toronto.'
+				'<p>Transit-oriented development (TOD) can be a catalyst for growth – but not all growth is created equal. Through five detailed case studies based on real TOD in Canada’s largest urban regions, discover how policy levers, pre-existing infrastructure, and other factors can determine the kind of communities and neighbourhoods that can be created by TOD.</p><p> These case studies were created by the <a href="https://infrastructureinstitute.ca/" target="_blank">Infrastructure Institute</a> at the <a href="https://www.schoolofcities.utoronto.ca/" target="_blank">School of Cities</a> based out of the University of Toronto.</p>'
 			],
-			categories: ['Ontario', 'Quebec', 'Alberta', 'British Columbia', 'School of Cities'],
+			categories: [
+				'Ontario',
+				'Quebec',
+				'Alberta',
+				'British Columbia',
+				'School of Cities',
+				'Infrastructure Institute'
+			],
 			items: [
 				{
 					title: 'Overview',
-					logo: soc,
+					logo: [soc, ii],
 					description:
 						'Background and context on the case studies by the Infrastructure Institute and the School of Cities.',
 					image: vancouver,
 					link: '/casestudies/tod/overview',
-					tags: ['School of Cities']
+					tags: ['School of Cities', 'Infrastructure Institute']
 				},
 				{
 					title: 'Cooksville Station',
-					logo: soc,
+					logo: [soc, ii],
 					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: cooksville,
 					link: '/casestudies/tod/cooksville',
-					tags: ['Ontario', 'School of Cities']
+					tags: ['Ontario', 'School of Cities', 'Infrastructure Institute']
 				},
 				{
 					title: 'Panama Station',
-					logo: soc,
+					logo: [soc, ii],
 					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: panama,
 					link: '/casestudies/tod/panama',
-					tags: ['Quebec', 'School of Cities']
+					tags: ['Quebec', 'School of Cities', 'Infrastructure Institute']
 				},
 				{
 					title: 'McKernan-Belgravia Station',
-					logo: soc,
+					logo: [soc, ii],
 					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: mckernan,
 					link: '/casestudies/tod/mckernan-belgravia',
-					tags: ['Alberta', 'School of Cities']
+					tags: ['Alberta', 'School of Cities', 'Infrastructure Institute']
 				},
 				{
 					title: 'Northfield Station',
-					logo: soc,
+					logo: [soc, ii],
 					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: northfield,
 					link: '/casestudies/tod/northfield',
-					tags: ['Ontario', 'School of Cities']
+					tags: ['Ontario', 'School of Cities', 'Infrastructure Institute']
 				},
 				{
 					title: 'Arbutus Station',
-					logo: soc,
+					logo: [soc, ii],
 					description: 'Case study by the Infrastructure Institute and the School of Cities.',
 					image: arbutus,
 					link: '/casestudies/tod/arbutus',
-					tags: ['British Columbia', 'School of Cities']
+					tags: ['British Columbia', 'School of Cities', 'Infrastructure Institute']
 				}
 			]
 		},
@@ -82,7 +90,7 @@
 			label: 'Resilience on Main',
 			value: 'msr',
 			description: [
-				"How much can data alone tell us about a community and its future? Through sixty main street case studies across three Canadian cities, see first-hand how data from the National Main Street Map can come together to generate a snapshot of a neighborhood's defining characteristics, vulnerabilities, and key advantages. And for 1/3 of data case studies, see how the story changed through on-the-ground analysis in each community."
+				"<p>How much can data alone tell us about a community and its future? Through sixty main street case studies across three Canadian cities, see first-hand how data from the National Main Street Map can come together to generate a snapshot of a neighborhood's defining characteristics, vulnerabilities, and key advantages. And for 1/3 of data case studies, see how the story changed through on-the-ground analysis in each community.</p>"
 			],
 			categories: ['Ontario', 'Quebec', 'Alberta'],
 			items: [

@@ -30,11 +30,16 @@
 		'cc-meth': true
 	});
 
+	import { goto } from '$app/navigation';
+
 	async function scrollTo(id) {
 		await tick();
 		const element = document.getElementById(id);
 		if (element) {
 			element.scrollIntoView({ behavior: 'smooth' });
+			if (typeof window !== 'undefined' && window.location.hash !== `#${id}`) {
+				goto(`#${id}`, { replaceState: false, noScroll: true, keepFocus: true });
+			}
 		}
 	}
 

@@ -92,10 +92,35 @@
 	function initiateTutorial() {
 		driverObj.drive();
 	}
+
+	function scrollElementIntoView(element) {
+		if (!element) return;
+		const el = typeof element === 'string' ? document.querySelector(element) : element;
+		if (el) {
+			const scrollContainer =
+				el.closest('.station-details-scroll-container') || el.closest('#sidebar');
+			if (scrollContainer) {
+				const containerRect = scrollContainer.getBoundingClientRect();
+				const elRect = el.getBoundingClientRect();
+				const relativeTop = elRect.top - containerRect.top + scrollContainer.scrollTop;
+				scrollContainer.scrollTo({
+					top: relativeTop - 20,
+					behavior: 'smooth'
+				});
+			} else {
+				el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			}
+		}
+	}
+
 	// --- Guided Tutorial Setup ---
 	onMount(() => {
 		driverObj = driver({
 			showProgress: true,
+			smoothScroll: true,
+			onHighlightStarted: (element) => {
+				scrollElementIntoView(element);
+			},
 			steps: [
 				{
 					element: '.transit-map-title',
@@ -108,6 +133,7 @@
 					onHighlightStarted: () => {
 						isOpen = true;
 						resetStationSelection();
+						handleTabChange('demographics');
 					}
 				},
 				{
@@ -160,12 +186,13 @@
 						side: 'left',
 						align: 'start'
 					},
-					onHighlightStarted: () => {
+					onHighlighted: (element) => {
 						if (processedStationData && processedStationData.length > 0) {
 							const station = processedStationData[89];
 							selectStop(station);
 						}
 						handleTabChange('demographics');
+						scrollElementIntoView(element);
 					}
 				},
 				{
@@ -187,9 +214,13 @@
 						side: 'left',
 						align: 'start'
 					},
-					onHighlightStarted: () => {
+					onHighlightStarted: (element) => {
 						isAIOpen = false;
 						updateLayerVariable('TotalPopulation');
+						setTimeout(() => {
+							scrollElementIntoView(element);
+							driverObj.refresh();
+						}, 350); // Wait for the AI collapse transition (300ms) to complete
 					},
 					onDeselected: () => {
 						updateLayerVariable(null);
@@ -203,8 +234,11 @@
 						side: 'left',
 						align: 'start'
 					},
-					onHighlighted: () => {
+					onHighlightStarted: (element) => {
 						handleTabChange('complete-communities');
+						scrollElementIntoView(element);
+					},
+					onHighlighted: () => {
 						isOpen = true;
 					}
 				},
@@ -218,7 +252,7 @@
 						align: 'start'
 					},
 					onDeselected: () => {
-						resetStationSelection(true);
+						resetStationSelection();
 						zoomToActiveContext();
 					}
 				}

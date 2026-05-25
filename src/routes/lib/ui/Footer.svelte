@@ -4,7 +4,7 @@
 	import cui from '../assets/logos/cui_logo_white.svg';
 	import dps from '../assets/logos/DPS-logo-white.png';
 	import environics from '../assets/logos/environics_logo.svg';
-	import mms from '../assets/logos/mms_logo_white.svg';
+	import mms from '../assets/logos/MMS_EN_FR_combined.png';
 	import opennorth from '../assets/logos/opennorth_logo.svg';
 	import soc from '../assets/logos/uotsoc.png';
 	import SocialLinks from './SocialLinks.svelte';
