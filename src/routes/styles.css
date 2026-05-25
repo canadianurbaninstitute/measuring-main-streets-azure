@@ -136,9 +136,11 @@ li::marker {
 a {
 	color: var(--color-zinc-900);
 	text-decoration: underline;
+	-webkit-text-decoration-color: var(--brandLightBlue);
 	text-decoration-color: var(--brandLightBlue);
 	text-decoration-thickness: 3px;
 	text-underline-offset: 0.25em;
+	-webkit-text-decoration-style: solid;
 	text-decoration-style: solid;
 	word-break: break-word;
 	transition: all 0.3s ease;
@@ -277,7 +279,7 @@ button:hover {
 	box-shadow:
 		0px 1px 0px 0px rgba(27, 31, 35, 0.04),
 		inset 0px 1px 0px 0px hsla(0, 0%, 100%, 0.25);
-	background-color: #f3f4f6;
+	/* background-color: #f3f4f6; */
 	transition: 0.3s;
 }
 
@@ -349,9 +351,9 @@ input[type='checkbox'] {
 	-o-border-radius: 0.5em;
 }
 
-[data-tabs-trigger]:hover {
-	background-color: var(--color-blue-300);
-}
+/* [data-tabs-trigger]:hover {
+	background-color: inherit;
+} */
 
 [data-tabs-trigger] {
 	padding: 0.5em;

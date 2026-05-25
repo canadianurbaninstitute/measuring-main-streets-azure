@@ -13,6 +13,7 @@
 	// Components
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import '../../styles.css';
 	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
 	import RadarChart from './RadarChart.svelte';
@@ -495,19 +496,24 @@
 </script>
 
 <div class="hero">
-	<h1>Development Potential Index</h1>
-	<h2>Mapping Tool</h2>
+	<h1>Housing Development Potential Tool</h1>
 	<p id="description">
 		This tool breaks down the housing development potential of areas within 800m of a transit
-		station. Use the dropdown to select a transit station.
+		station. Use the dropdown to select a transit station. <a
+			href="/about/data-methodology/v2/#dpi-meth">Learn more about the methodology.</a
+		>
 	</p>
-	<p class="text-sm text-gray-500"><em>This tool is in beta.</em></p>
+	<CustomButton
+		variant="secondary"
+		label="Read High Potential: Exploring Housing Development Potential in Transit Station Areas"
+		href="/reports/tod/development-potential"
+	/>
 </div>
 
 <div id="content-container">
 	<!-- LEFT SIDEBAR -->
 	<div id="sidebar">
-		<h3 class="mb-4">Select a station:</h3>
+		<h4>Select a station:</h4>
 
 		<!-- Station 1 -->
 		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
@@ -523,17 +529,17 @@
 			{/if}
 			{#if station1Data}
 				<div class="mt-4 text-center text-sm text-gray-700">
-					<div class="font-bold uppercase text-[#1B6CA8] text-xl tracking-wider mb-1">
+					<div class="font-bold uppercase text-blue-600 text-xl tracking-wider mb-1">
 						{station1Data.stop_label}
 					</div>
 					<div class="text-xs text-gray-500 mb-2">
 						{station1Data.line_display_name}<br />{station1Data.region}<br />{station1Data.status}
 					</div>
-					<div class="mt-2 text-[#006A8E] text-lg font-medium">
+					<div class="mt-6 w-full text-center text-blue-600 text-lg font-medium">
 						Development Potential:
 						{allDevData?.potential ?? 'N/A'}
 					</div>
-					<div class="flex flex-col items-start w-fit mx-auto mt-4 gap-1 text-left">
+					<div class="flex flex-col w-full items-start w-fit mx-auto mt-4 gap-1 text-left text-sm">
 						<div>
 							Land Availability: <span class="font-semibold">{allDevData?.LALevel ?? 'N/A'}</span>
 						</div>
@@ -597,72 +603,60 @@
 	</div>
 
 	<!-- RIGHT CONTENT -->
-	<div class="flex-grow flex flex-col gap-12 pt-4">
-		<div class="hidden lg:grid grid-cols-3 gap-6 text-center">
-			<h4>Built Form</h4>
-			<h4>Station Ranking</h4>
-			<h4>Displacement Risk</h4>
-		</div>
+	<!-- Row 1 -->
+	<div class="flex flex-row justify-between w-full align-center gap-10 h-full flex-wrap">
+		<div class="flex grow-1 flex-col items-center justify-start relative">
+			<h4 class="text-center mb-4">Built Form</h4>
+			<div id="map1" class="map-circle drop-shadow-lg w-[90%]"></div>
 
-		<!-- Row 1 -->
-		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-			<div class="flex flex-col items-center justify-center relative">
-				<h4 class="lg:hidden text-center mb-4">Built Form</h4>
-				<div id="map1" class="map-circle drop-shadow-lg w-[90%]"></div>
-
-				{#if unitsCreated1 > 0}
-					<div class="mt-8 flex flex-col items-center">
-						<span
-							class="text-xs font-bold text-center text-gray-500 uppercase tracking-[0.2em] mb-2"
-							>Active building permits ({buildingPermitYear}) <br /> Number of housing units</span
+			{#if unitsCreated1 > 0}
+				<div class="mt-8 flex flex-col items-center">
+					<span class="text-xs font-bold text-center text-gray-500 uppercase tracking-[0.2em] mb-2"
+						>Active building permits ({buildingPermitYear}) <br /> Number of housing units</span
+					>
+					<div class="flex items-baseline gap-1">
+						<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
+							>{unitsCreated1.toLocaleString()}</span
 						>
-						<div class="flex items-baseline gap-1">
-							<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
-								>{unitsCreated1.toLocaleString()}</span
-							>
-						</div>
+					</div>
+				</div>
+			{/if}
+		</div>
+		<div class="flex grow-1 flex-col items-center gap-4 relative station-col">
+			<h4 class="text-center mb-4">Station Ranking</h4>
+			<Tabs.Root bind:value={activeRadarCategory} class="flex justify-center mb-4 px-4 sm:px-0">
+				<Tabs.List
+					class="flex justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
+				>
+					{#each radarCategories as cat}
+						<Tabs.Trigger
+							value={cat.value}
+							class="px-4 w-1/3 py-1.5 text-xs transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+						>
+							{cat.label}
+						</Tabs.Trigger>
+					{/each}
+				</Tabs.List>
+			</Tabs.Root>
+			<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#00adf2', '#db3069']} />
+			{#if activeRadarCategory == 'land' || activeRadarCategory == 'growth'}
+				<div class="chart-wrapper">
+					<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
+				</div>
+				{#if activeRadarCategory == 'land'}
+					<div class="text-sm italic text-gray-500 text-center">
+						Low Population Density is highly ranked<br />
+						Low Employment Density is highly ranked
 					</div>
 				{/if}
-			</div>
-			<div class="flex flex-col w-full items-center gap-4 relative">
-				<h4 class="lg:hidden text-center mb-4">Station Ranking</h4>
-				<Tabs.Root
-					bind:value={activeRadarCategory}
-					class="w-full flex justify-center mb-4 px-4 sm:px-0"
-				>
-					<Tabs.List
-						class="flex w-full justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
-					>
-						{#each radarCategories as cat}
-							<Tabs.Trigger
-								value={cat.value}
-								class="px-4 w-1/3 py-1.5 transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
-							>
-								{cat.label}
-							</Tabs.Trigger>
-						{/each}
-					</Tabs.List>
-				</Tabs.Root>
-				<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#00adf2', '#db3069']} />
-				{#if activeRadarCategory == 'land' || activeRadarCategory == 'growth'}
-					<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
-					{#if activeRadarCategory == 'land'}
-						<div class="text-sm italic text-gray-500 text-center">
-							Low Population Density is highly ranked<br />
-							Low Employment Density is highly ranked
-						</div>
-					{/if}
-				{:else if activeRadarCategory == 'potential'}
-					<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
-				{/if}
-			</div>
-			<div class="flex flex-col items-center justify-center relative">
-				<h4 class="lg:hidden text-center mb-4">Displacement Risk</h4>
-				<ScoreBar
-					score={devData1.displacementScore}
-					maxScore={10}
-					colors={['#00adf2', '#f45d01']}
-				/>
+			{:else if activeRadarCategory == 'potential'}
+				<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
+			{/if}
+		</div>
+		<div class="flex grow-1 flex-col items-center justify-start relative station-col">
+			<h4 class="text-center mb-4">Displacement Risk</h4>
+			<ScoreBar score={devData1.displacementScore} maxScore={10} colors={['#00adf2', '#f45d01']} />
+			<div class="chart-wrapper">
 				<RadarChart data={devData1.displacementRadar} max={100} color="#f45d01" />
 			</div>
 		</div>
@@ -673,14 +667,20 @@
 	#map1 {
 		min-width: 200px;
 		min-height: 200px;
-		max-width: 450px;
-		max-height: 450px;
+		max-width: 80%;
+		max-height: 80%;
 		aspect-ratio: 1;
-		flex-grow: 1;
 		border-radius: 50%; /* Circular frame */
 		overflow: hidden; /* Clip map to circle */
 		border: 2px solid #d3d3d3;
 		padding: 20px;
+	}
+
+	.chart-wrapper {
+		padding: 2em;
+		width: 80%;
+		min-width: 300px;
+		max-width: 450px;
 	}
 
 	.error-message {
@@ -698,17 +698,11 @@
 
 	#sidebar {
 		width: 100%;
-		max-width: 400px;
 		display: flex;
 		flex-direction: column;
 		border-top: 1px solid #eee;
 		scrollbar-width: none;
-		padding: 2rem;
-	}
-	.inline-icon {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.25rem;
+		padding: 0 2rem 2rem 2rem;
 	}
 
 	@media only screen and (min-width: 1024px) {

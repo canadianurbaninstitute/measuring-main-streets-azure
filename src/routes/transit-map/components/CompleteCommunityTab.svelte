@@ -11,8 +11,8 @@
 	} from '../../lib/data/transitdata/config.json';
 	import Accordion from '../../lib/ui/Accordion.svelte';
 	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
-	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
+	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
 
 	let {
@@ -37,6 +37,7 @@
 	<div class="metric-container">
 		{#each [Tier_1_presence, Tier_2_presence] as metric}
 			<GaugeMetric
+				size={140}
 				label={metric.label}
 				value={Math.round(stationCCpresence[metric.key])}
 				suffix={metric.unit}

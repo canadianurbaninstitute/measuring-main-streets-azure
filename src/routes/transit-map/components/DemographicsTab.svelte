@@ -16,8 +16,6 @@
 
 	let { selectedStation, ageData, selectedVariable = $bindable(), onSelectVariable } = $props();
 
-	console.log({ selectedStation });
-
 	const popGrowthData = $derived([
 		{
 			date: new Date(2025, 0, 1),
@@ -41,6 +39,7 @@
 	<div class="metric-container">
 		{#each [TotalPopulation, TotalHouseholds, AverageEmploymentIncome] as metric}
 			<TransitMetric
+				id={metric.key}
 				label={metric.label}
 				active={selectedVariable === metric.key}
 				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
@@ -63,7 +62,7 @@
 				suffix="%"
 			/>{/each}
 	</div>
-	<div class="tab-chart-container">
+	<div class="metric-container">
 		<div class="tab-chart">
 			<h6 class="chart-title">Projected Population Growth</h6>
 			<MultiLineChart
@@ -71,19 +70,18 @@
 				minHeight="150px"
 				xKey="date"
 				seriesConfig={[{ key: 'growth', label: 'Growth Rate', color: 'var(--color-green-400)' }]}
-				formatLabelX={(d: Date) => d.getFullYear()}
+				formatLabelX={(d: Date) => d.getFullYear().toString()}
 				formatLabelY={(d: number) => d.toFixed(0) + '%'}
-				formatValue={(d: any, key: string) =>
-					key === 'growth' ? d.toFixed(2) + '%' : key === 'period' ? d : d}
+				formatValue={({ d, key }: { d: number; key: string }) =>
+					(key === 'growth' ? d.toFixed(2) + '%' : key === 'period' ? d : d) as string}
 				yDomain={[0, 40]}
 				ticks={popGrowthData.map((d) => new Date(d.date))}
 				showLegend={false}
-				showTooltip={true}
 				showTooltipTotal={false}
 			/>
 		</div>
 	</div>
-	<div class="tab-chart-container">
+	<div class="metric-container">
 		<div class="tab-chart">
 			<BarChart
 				colors={['#002a41', '#0098D6', '#db3069']}

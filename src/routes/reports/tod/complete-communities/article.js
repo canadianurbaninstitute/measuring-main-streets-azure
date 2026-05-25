@@ -183,7 +183,7 @@ export const sections = [
 		blocks: [
 			{
 				panelId: 'development-potential',
-				body: `<p>Of course the demands of growth will not be same everywhere, but stations, existing and planned, that fill a unique set of characteristics where intensification around stations can make the most impact should be focused on. Using the <a href="/tools/development-potential">Canadian Urban Institute development potential index</a>, we look at five stations that have been identified as excellent candidates for future development based on their local growth pressures and land availability:</p>
+				body: `<p>Of course the demands of growth will not be same everywhere, but stations, existing and planned, that fill a unique set of characteristics where intensification around stations can make the most impact should be focused on. Using the <a href="/tools/development-potential">Canadian Urban Institute housing development potential tool</a>, we look at five stations that have been identified as excellent candidates for future development based on their local growth pressures and land availability:</p>
 				<ul>
 				<li>Mount Pleast GO (Greater Golden Horseshoe)</li>
 <li>Chinook (Calgary)</li>

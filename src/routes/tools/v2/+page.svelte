@@ -33,11 +33,11 @@
 
 	const items = [
 		{
-			title: 'Transit Maps',
+			title: 'Transit Map',
 			description:
 				'A map of all existing, under construction and planned higher-order transit lines in Canada with key data points.',
 			image: transitmap,
-			link: '/transit-maps',
+			link: '/transit-map',
 			tags: ['Mapping', 'TOD on Main']
 		},
 		{
@@ -56,7 +56,7 @@
 			tags: ['Mapping', 'TOD on Main']
 		},
 		{
-			title: 'Development Potential Index',
+			title: 'Housing Development Potential',
 			description:
 				'This tool breaks down the housing development potential of areas within 800m of a transit station',
 			image: development,

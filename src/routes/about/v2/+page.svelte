@@ -72,7 +72,7 @@
 		<div class="sidebar lg:sticky lg:top-28 h-full">
 			<nav>
 				<div class="nav-group">
-					<h3>ABOUT</h3>
+					<h3>THE PROJECT</h3>
 					<ul>
 						<li>
 							<button
@@ -156,14 +156,14 @@
 		<div class="content-area">
 			<section id="about">
 				<div class="section-header">
-					<h2>ABOUT</h2>
+					<h2>THE PROJECT</h2>
 				</div>
-				<div class="highlight-box">
+				<!-- <div class="highlight-box">
 					<h4>
 						The Measuring Main Streets platform is a part of the Research Knowledge Initiative
 						program from Housing, Infrastructure and Communities Canada.
 					</h4>
-				</div>
+				</div> -->
 
 				<div class="stats-grid">
 					<div class="stats-text">

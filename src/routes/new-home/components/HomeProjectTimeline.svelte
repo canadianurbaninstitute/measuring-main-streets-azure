@@ -1,5 +1,4 @@
 <script>
-	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { Spring } from 'svelte/motion';
 	import car from '../../lib/assets/graphics/car.png';
@@ -97,7 +96,7 @@
 			description:
 				'Leveraging transit-oriented development (TOD) to advance housing and community outcomes.',
 			details:
-				"Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD. <br /><br /><a href='/about/v2/#about-tod'> About Phase Two →</a>",
+				'Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD.',
 			cta: {
 				link: '/about/v2/#about-tod',
 				label: 'About Phase Two'
@@ -143,9 +142,13 @@
 			description:
 				'Equipping communities to make smarter investments in main streets and downtowns.',
 			details:
-				'Coming out of the pandemic, many main streets and downtowns faced a convergence of economic, social, and operational challenges and were poorly positioned for recovery. Resilience on Main responded by delivering first-of-its-kind tools, case studies, and research that re‑scaled critical data to the main street level—equipping leaders and practitioners across Canada with the insights needed to restore activity, support recovery, champion equity, and strengthen long‑term resilience.<a href="/about/v2/#about-resilience"> About Phase One →</a>',
+				'Coming out of the pandemic, many main streets and downtowns faced a convergence of economic, social, and operational challenges and were poorly positioned for recovery. Resilience on Main responded by delivering first-of-its-kind tools, case studies, and research that re‑scaled critical data to the main street level—equipping leaders and practitioners across Canada with the insights needed to restore activity, support recovery, champion equity, and strengthen long‑term resilience.',
 			stat: '85%',
 			subtext: 'of Canadians live within 1 kilometre from a main street',
+			cta: {
+				link: '/about/v2/#about-msr',
+				label: 'About Phase One'
+			},
 			cards: [
 				{
 					title: 'Main Street Map',
@@ -201,18 +204,7 @@
 					<p class="project-desc">{projects[0].description}</p>
 					<p class="project-details">{@html projects[0].details}</p>
 					<div class="links-group">
-						{#each projects[0].links as link}
-							<CustomButton text={link.text} href={link.href} />
-							<a
-								href={link.href}
-								class="project-link"
-								class:primary={link.primary}
-								style={link.color ? `background-color: ${link.color}` : ''}
-							>
-								{link.text}
-								{#if link.primary}<Icon icon="ph:arrow-right-bold" />{/if}
-							</a>
-						{/each}
+						<CustomButton label={projects[0].cta.label} href={projects[0].cta.href} />
 					</div>
 				</div>
 				<!-- <div class="project-stat-container">
@@ -264,25 +256,9 @@
 					<p class="project-desc">{projects[1].description}</p>
 					<p class="project-details">{@html projects[1].details}</p>
 					<div class="links-group">
-						{#each projects[1].links as link}
-							<a
-								href={link.href}
-								class="project-link"
-								class:primary={link.primary}
-								style={link.color ? `background-color: ${link.color}` : ''}
-							>
-								{link.text}
-								{#if link.primary}<Icon icon="ph:arrow-right-bold" />{/if}
-							</a>
-						{/each}
+						<CustomButton label={projects[1].cta.label} href={projects[1].cta.href} />
 					</div>
 				</div>
-				<!-- <div class="project-stat-container">
-					<div class="big-stat">
-						<span class="stat-number">{projects[1].stat}</span>
-						<span class="stat-subtext">{projects[1].subtext}</span>
-					</div>
-				</div> -->
 				<div class="project-cards-container">
 					<div class="cards-scroll">
 						{#each projects[1].cards as card}
@@ -598,58 +574,10 @@
 		background-color: var(--brandLightBlue);
 	}
 
-	.project-stat-container {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		height: 100%;
-	}
-
-	.big-stat {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		text-align: right;
-	}
-
-	.stat-number {
-		font-family: 'Inter', sans-serif;
-		font-weight: 800;
-		font-size: 7rem;
-		line-height: 1;
-		color: var(--brandDarkBlue);
-	}
-
-	.stat-number-smaller {
-		font-family: 'Inter', sans-serif;
-		font-weight: 800;
-		font-size: 5rem;
-		line-height: 1;
-		color: var(--brandDarkBlue);
-	}
-
-	.stat-subtext {
-		font-family: 'Inter', sans-serif;
-		font-weight: 600;
-		font-size: 1.2rem;
-		color: #888;
-		max-width: 300px;
-	}
-
 	@media (max-width: 1024px) {
 		.project-entry {
 			grid-template-columns: 1fr;
 			gap: 2rem;
-		}
-
-		.big-stat {
-			width: 100%;
-			align-items: flex-start;
-			text-align: left;
-		}
-
-		.stat-number {
-			font-size: 5rem;
 		}
 	}
 

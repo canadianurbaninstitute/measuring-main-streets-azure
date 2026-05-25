@@ -1,6 +1,5 @@
 <script>
 	import Fuse from 'fuse.js';
-	import { onMount } from 'svelte';
 
 	let {
 		searchTerm = $bindable(),
@@ -64,10 +63,10 @@
 
 <style>
 	.search-input {
-		margin: 0 1em 0.5em 1em;
+		margin: 0 1em 0 1em;
 		padding: 1em;
 		border: 1px solid #ccc;
-		border-radius: 4px;
+		border-radius: 2rem;
 		font-size: 0.9em;
 	}
 </style>
