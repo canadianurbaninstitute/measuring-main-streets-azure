@@ -217,10 +217,10 @@
 					onHighlightStarted: (element) => {
 						isAIOpen = false;
 						updateLayerVariable('TotalPopulation');
+						scrollElementIntoView(element);
 						setTimeout(() => {
-							scrollElementIntoView(element);
 							driverObj.refresh();
-						}, 350); // Wait for the AI collapse transition (300ms) to complete
+						}, 500); // Wait for the AI collapse transition (300ms) to complete
 					},
 					onDeselected: () => {
 						updateLayerVariable(null);
