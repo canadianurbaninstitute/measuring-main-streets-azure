@@ -54,6 +54,9 @@
 	{#each $data as d, i}
 		{#each $zDomain as key}
 			<rect
+				role="button"
+				tabindex={0}
+				aria-label={d[key]}
 				class="group-rect"
 				data-id={i}
 				x={Math.min($xScale(0), $xScale(d[key]))}
@@ -64,6 +67,12 @@
 				onmousemove={(ev) => {
 					found = { ...d, _key: key, _value: d[key] };
 					e = ev;
+				}}
+				onkeydown={(ev) => {
+					if (ev.key === 'Enter' || ev.key === ' ') {
+						ev.preventDefault();
+						onSliceClick?.(d.data);
+					}
 				}}
 				onmouseleave={() => {
 					found = null;

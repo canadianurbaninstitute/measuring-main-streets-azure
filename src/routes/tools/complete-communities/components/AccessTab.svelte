@@ -3,16 +3,35 @@
 	import { onMount, untrack } from 'svelte';
 	import { AMENITY_PATHS } from '../../../lib/data/transitdata/complete-communities-config';
 
+	interface AmenityData {
+		Amenity: string;
+		amenitiesNeeded_med: number;
+		amenitiesNeeded_p75: number;
+	}
+
+	interface LegendItemData {
+		label: string;
+		color: string;
+		y: number;
+		isNote?: boolean;
+	}
+
 	let {
 		stationCCcounts,
 		computedAmenities,
 		projectedVisits,
 		tier = $bindable('tier1'),
 		sliderValues = $bindable([0])
-	} = $props();
+	} = $props<{
+		stationCCcounts: Record<string, number>;
+		computedAmenities: AmenityData[];
+		projectedVisits: number;
+		tier?: string;
+		sliderValues?: number[];
+	}>();
 
 	let isOpen = $state(true);
-	let chart = $state();
+	let chart = $state<HTMLDivElement>();
 	let tooltip = $state();
 	let width = $state(0);
 
@@ -34,8 +53,8 @@
 			const data = computedAmenities;
 
 			// --- 1. DYNAMIC WIDTH CALCULATION ---
-			const maxLabelCharCount = d3.max(data, (d) => d.Amenity.length) || 0;
-			const calculatedLeftMargin = Math.min(width * 0.5, maxLabelCharCount * 5.25);
+			const maxLabelCharCount = d3.max(data, (d: AmenityData) => d.Amenity.length) || 0;
+			const calculatedLeftMargin = Math.min(width * 0.5, (maxLabelCharCount as number) * 5.25);
 			const margin = { top: 100, right: -10, bottom: 40, left: calculatedLeftMargin };
 			const chartWidth = width - margin.left - margin.right;
 
@@ -46,7 +65,7 @@
 			// --- 2. GLOBAL MULTIPLIER ---
 			// Find the row with the absolute highest number of resources
 			const absoluteMaxVal =
-				d3.max(data, (d) => {
+				d3.max(data, (d: AmenityData) => {
 					const current = stationCCcounts[d.Amenity];
 					const needed = d.amenitiesNeeded_p75;
 					return current + needed;
@@ -54,7 +73,9 @@
 
 			// Calculate a single multiplier for the whole chart
 			const globalUnitsPerIcon =
-				absoluteMaxVal > MAX_ICONS_LIMIT ? Math.ceil(absoluteMaxVal / MAX_ICONS_LIMIT) : 1;
+				(absoluteMaxVal as number) > MAX_ICONS_LIMIT
+					? Math.ceil((absoluteMaxVal as number) / MAX_ICONS_LIMIT)
+					: 1;
 
 			// --- 3. SCALING & SVG SETUP ---
 			const barHeight = 35;
@@ -64,18 +85,22 @@
 			const spacing = 0;
 			const dynamicIconSize = Math.min(24, chartWidth / MAX_ICONS_LIMIT - spacing);
 
-			let svg = d3.select(chart).select('svg');
-			if (svg.empty()) svg = d3.select(chart).append('svg');
+			let svg = d3.select<HTMLDivElement, unknown>(chart).select<SVGSVGElement>('svg');
+			if (svg.empty()) {
+				svg = d3.select<HTMLDivElement, unknown>(chart).append<SVGSVGElement>('svg');
+			}
 			svg.attr('width', width).attr('height', height);
 
 			const y = d3
 				.scaleBand()
 				.range([margin.top, height - margin.bottom])
-				.domain(data.map((d) => d.Amenity))
+				.domain(data.map((d: AmenityData) => d.Amenity))
 				.padding(0.2);
 
 			// --- 4. DRAW ROWS ---
-			const rows = svg.selectAll('.amenity-row').data(data, (d: any) => d.Amenity);
+			const rows = svg
+				.selectAll<SVGGElement, AmenityData>('.amenity-row')
+				.data(data, (d: AmenityData) => d.Amenity);
 			const rowsEnter = rows.enter().append('g').attr('class', 'amenity-row');
 
 			rowsEnter
@@ -120,13 +145,13 @@
 				const totalDisplayCount = Math.ceil(iconsP75Threshold);
 
 				// 2. Setup Defs for unique clipping
-				let defs = g.select('defs');
+				let defs = g.select<SVGDefsElement>('defs');
 				if (defs.empty()) defs = g.append('defs');
 
 				// 3. Create a Slot Array [0, 1, 2...]
 				const slots = Array.from({ length: totalDisplayCount }, (_, i) => i);
 
-				const iconSlots = g.selectAll('.icon-slot').data(slots, (i) => i);
+				const iconSlots = g.selectAll<SVGGElement, number>('.icon-slot').data(slots, (i) => i);
 				iconSlots.exit().remove();
 
 				const enterSlots = iconSlots.enter().append('g').attr('class', 'icon-slot');
@@ -146,40 +171,37 @@
 						const clipP75Id = `clip-p75-${rowIndex}-${i}`;
 
 						// A. CLIP FOR P75 (Light Pink) - The full range up to Above Average
-						let clipP75 = defs.select(`#${clipP75Id}`);
-						if (clipP75.empty())
-							clipP75 = defs
-								.append('clipPath')
-								.attr('id', clipP75Id)
-								.append('rect')
-								.attr('height', 24);
+						let clipP75 = defs.select<SVGClipPathElement>(`#${clipP75Id}`);
+						let rectP75 = clipP75.select<SVGRectElement>('rect');
+						if (clipP75.empty()) {
+							clipP75 = defs.append('clipPath').attr('id', clipP75Id);
+							rectP75 = clipP75.append('rect').attr('height', 24);
+						}
 						const p75Fill = Math.max(0, Math.min(1, iconsP75Threshold - i));
-						clipP75.attr('width', 24 * p75Fill);
+						rectP75.attr('width', 24 * p75Fill);
 
 						// B. CLIP FOR MED (Darker Pink) - Part of the range up to Typical
-						let clipMed = defs.select(`#${clipMedId}`);
-						if (clipMed.empty())
-							clipMed = defs
-								.append('clipPath')
-								.attr('id', clipMedId)
-								.append('rect')
-								.attr('height', 24);
+						let clipMed = defs.select<SVGClipPathElement>(`#${clipMedId}`);
+						let rectMed = clipMed.select<SVGRectElement>('rect');
+						if (clipMed.empty()) {
+							clipMed = defs.append('clipPath').attr('id', clipMedId);
+							rectMed = clipMed.append('rect').attr('height', 24);
+						}
 						const medFill = Math.max(0, Math.min(1, iconsMedThreshold - i));
-						clipMed.attr('width', 24 * medFill);
+						rectMed.attr('width', 24 * medFill);
 
 						// C. CLIP FOR EXISTING (Blue) - How much of this icon is "Current"?
-						let clipExist = defs.select(`#${clipExistId}`);
-						if (clipExist.empty())
-							clipExist = defs
-								.append('clipPath')
-								.attr('id', clipExistId)
-								.append('rect')
-								.attr('height', 24);
+						let clipExist = defs.select<SVGClipPathElement>(`#${clipExistId}`);
+						let rectExist = clipExist.select<SVGRectElement>('rect');
+						if (clipExist.empty()) {
+							clipExist = defs.append('clipPath').attr('id', clipExistId);
+							rectExist = clipExist.append('rect').attr('height', 24);
+						}
 						const existFill = Math.max(0, Math.min(1, iconsCurrent - i));
-						clipExist.attr('width', 24 * existFill);
+						rectExist.attr('width', 24 * existFill);
 
 						// Render P75 Path (Light Pink) - The background of the "need" range
-						let p75Path = slotGroup.select('.path-p75');
+						let p75Path = slotGroup.select<SVGPathElement>('.path-p75');
 						if (p75Path.empty()) p75Path = slotGroup.append('path').attr('class', 'path-p75');
 						p75Path
 							.attr('d', iconPath)
@@ -187,7 +209,7 @@
 							.attr('clip-path', `url(#${clipP75Id})`);
 
 						// Render Med Path (Pink) - Typical Need
-						let medPath = slotGroup.select('.path-med');
+						let medPath = slotGroup.select<SVGPathElement>('.path-med');
 						if (medPath.empty()) medPath = slotGroup.append('path').attr('class', 'path-med');
 						medPath
 							.attr('d', iconPath)
@@ -195,7 +217,7 @@
 							.attr('clip-path', `url(#${clipMedId})`);
 
 						// Render Blue Path (Existing) - This sits on top of pink
-						let bluePath = slotGroup.select('.path-exist');
+						let bluePath = slotGroup.select<SVGPathElement>('.path-exist');
 						if (bluePath.empty()) bluePath = slotGroup.append('path').attr('class', 'path-exist');
 						bluePath
 							.attr('d', iconPath)
@@ -226,7 +248,7 @@
 					});
 			});
 			// --- 5. LEGEND & MULTIPLIER (CENTERED) ---
-			let legend = svg.select('.legend');
+			let legend = svg.select<SVGGElement>('.legend');
 			if (legend.empty()) {
 				legend = svg.append('g').attr('class', 'legend');
 			}
@@ -299,7 +321,10 @@
 
 			if (isHardRedraw || width) {
 				// Wipe the SVG defs and reset internal states if needed
-				d3.select(chart).select('svg').selectAll('*').remove();
+				d3.select(chart as HTMLDivElement)
+					.select('svg')
+					.selectAll('*')
+					.remove();
 				lastTier = currentTier;
 			}
 			updateChart();
@@ -317,9 +342,9 @@
 		<div class="bg-zinc-50 p-4 rounded-lg border border-zinc-100">
 			<div class="mb-6 flex items-end justify-between">
 				<div>
-					<label class="block text-xs font-bold uppercase tracking-wider text-zinc-500">
+					<div class="block text-xs font-bold uppercase tracking-wider text-zinc-500">
 						Additional Residents
-					</label>
+					</div>
 					<div class="text-2xl font-mono font-black text-blue-600">
 						{Math.round(sliderValues[0]).toLocaleString()}
 					</div>

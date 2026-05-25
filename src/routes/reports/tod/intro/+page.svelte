@@ -443,9 +443,5 @@
 			max-width: none;
 			display: flex;
 		}
-
-		.inline-vis-container :global(.vis-panel),
-		:global(.text-column .vis-panel) {
-		}
 	}
 </style>

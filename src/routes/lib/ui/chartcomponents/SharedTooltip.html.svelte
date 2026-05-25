@@ -1,7 +1,3 @@
-<!--
-  @component
-  Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. It finds the nearest data point using the [QuadTree.html.svelte](https://layercake.graphics/components/QuadTree.html.svelte) component.
- -->
 <script>
 	import { format } from 'd3-format';
 	import { getContext } from 'svelte';
@@ -13,21 +9,14 @@
 	const commas = format(',');
 	const titleCase = (d) => d.replace(/\b\w/g, (w) => w.toUpperCase());
 
-	/** @type {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `$config.x`. */
-	export let formatTitle = (d) => d;
-
-	/** @type {Function} [formatValue=d => isNaN(+d) ? d : commas(d)] - A function to format the value. */
-	export let formatValue = (d) => (isNaN(+d) ? d : commas(d));
-
-	/** @type {Function} [formatKey=d => titleCase(d)] - A function to format the series name. */
-	export let formatKey = (d) => titleCase(d);
-
-	/** @type {Number} [offset=-20] - A y-offset from the hover point, in pixels. */
-	export let offset = -20;
-
-	/** @type {Array} [dataset] - The dataset to work off of defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */
-	export let dataset = undefined;
-	export let showTotal = true;
+	// Props using Svelte 5 Runes
+	let {
+		formatTitle = (d) => d,
+		formatValue = (d) => (isNaN(+d) ? d : commas(d)),
+		formatKey = (d) => titleCase(d),
+		dataset = undefined,
+		showTotal = false
+	} = $props();
 
 	const w = 150;
 	const w2 = w / 2;
@@ -60,35 +49,37 @@
 	}
 </script>
 
-<QuadTree dataset={dataset || $data} y="x" let:x let:y let:visible let:found let:e>
-	{#if visible === true && found}
-		{@const foundSorted = sortResult(found)}
-		<div style="left:{x}px;" class="line"></div>
-		<div
-			class="tooltip"
-			style="
-        width:{w}px;
-        display: {visible ? 'block' : 'none'};
-        /* Use the mouse Y position if available, centered vertically */
-        top:{e ? Math.min(Math.max(50, e.layerY), $height - 50) : 0}px;
-        left:{Math.min(Math.max(w2, x), $width - w2)}px;"
-		>
-			<div class="title">{formatTitle(found[$config.x])}</div>
-			{#each foundSorted as row}
-				<div class="row">
-					<span class="key">{formatKey(row.key)}:</span>
-					{formatValue(row.value, row.key)}
-				</div>
-			{/each}
+<QuadTree dataset={dataset || $data} y="x">
+	{#snippet children({ x, y, visible, found, e })}
+		{#if visible === true && found}
+			{@const foundSorted = sortResult(found)}
+			<div style="left:{x}px;" class="line"></div>
+			<div
+				class="tooltip"
+				style="
+          width:{w}px;
+          display: {visible ? 'block' : 'none'};
+          /* Use the mouse Y position if available, centered vertically */
+          top:{e ? Math.min(Math.max(50, e.layerY), $height - 50) : 0}px;
+          left:{Math.min(Math.max(w2, x), $width - w2)}px;"
+			>
+				<div class="title">{formatTitle(found[$config.x])}</div>
+				{#each foundSorted as row}
+					<div class="row">
+						<span class="key">{formatKey(row.key)}:</span>
+						{formatValue(row.value, row.key)}
+					</div>
+				{/each}
 
-			{#if showTotal && typeof found._total !== 'undefined'}
-				<div class="row total-row">
-					<span class="key">Net Total:</span>
-					{formatValue(found._total)}
-				</div>
-			{/if}
-		</div>
-	{/if}
+				{#if showTotal && typeof found._total !== 'undefined'}
+					<div class="row total-row">
+						<span class="key">Net Total:</span>
+						{formatValue(found._total)}
+					</div>
+				{/if}
+			</div>
+		{/if}
+	{/snippet}
 </QuadTree>
 
 <style>

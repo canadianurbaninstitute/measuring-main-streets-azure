@@ -8,61 +8,70 @@
 	import AxisY from '../chartcomponents/AxisY.svelte';
 	import MultiArea from '../chartcomponents/MultiArea.svelte';
 	import MultiLine from '../chartcomponents/MultiLine.svelte';
-	import TotalLine from '../chartcomponents/TotalLine.svelte';
 	import SharedTooltip from '../chartcomponents/SharedTooltip.html.svelte';
+	import TotalLine from '../chartcomponents/TotalLine.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
 	// ── Props ──────────────────────────────────────────────────────────────────
-	export let data = [];
-	export let seriesConfig = [];
-	export let title = '';
-	export let xKey = 'date';
-	export let minHeight = '100%';
-	export let xParseFn = timeParse('%Y-%m-%d');
-	export let formatLabelX = timeFormat('%b %Y');
-	export let formatLabelY = (d) => format('~s')(d) + '%';
-	export let formatValue = (d) => d.toFixed(0) + '%';
-	export let yDomain = [0, null];
-	export let xTickInterval = 10;
-	export let ticks = undefined;
-	export let height = '500px';
-	export let visible = undefined;
-	export let showLegend = true;
-	export let xLabel = '';
-	export let yLabel = '';
-	export let cumulative = false;
-	export let stacked = false;
-	export let showArea = false;
-	export let showLines = true;
-	export let showTotalLine = false;
-	export let totalLineColor = '#000000';
-	export let totalLineLabel = 'Net Total';
-	export let showTooltipTotal = true;
+	let {
+		data = [],
+		seriesConfig = [],
+		title = '',
+		xKey = 'date',
+		minHeight = '100%',
+		xParseFn = timeParse('%Y-%m-%d'),
+		formatLabelX = timeFormat('%b %Y'),
+		formatLabelY = (d) => format('~s')(d) + '%',
+		formatValue = (d) => d.toFixed(0) + '%',
+		yDomain = [0, null],
+		xTickInterval = 10,
+		ticks = undefined,
+		height = '500px',
+		visible = undefined,
+		showLegend = true,
+		xLabel = '',
+		yLabel = '',
+		cumulative = false,
+		stacked = false,
+		showArea = false,
+		showLines = true,
+		showTotalLine = false,
+		totalLineColor = '#000000',
+		totalLineLabel = 'Net Total',
+		showTooltipTotal = true
+	} = $props();
 
 	// ── Internal constants ───────────────────────────────────────────────────────
 	const yKey = 'value'; // LayerCake's yKey after groupLonger
 	const zKey = 'key'; // LayerCake's zKey for line colors
 
-	$: seriesNames = seriesConfig.map((s) => s.key);
-	$: seriesColors = seriesConfig.map((s) => s.color);
+	// ── Window State Bindings ──────────────────────────────────────────────────
+	let innerWidth = $state(1000);
+	let innerHeight = $state(800);
+
+	// ── Derived State ──────────────────────────────────────────────────────────
+	let seriesNames = $derived(seriesConfig.map((s) => s.key));
+	let seriesColors = $derived(seriesConfig.map((s) => s.color));
 
 	// 1. Process data: parse dates and ensure all series values are numbers
-	$: processedData = data
-		.map((d) => {
-			const newD = { ...d };
-			if (xParseFn && typeof newD[xKey] === 'string') {
-				newD[xKey] = xParseFn(newD[xKey]);
-			}
-			seriesNames.forEach((name) => {
-				const val = parseFloat(newD[name]);
-				newD[name] = isNaN(val) ? 0 : val;
-			});
-			return newD;
-		})
-		.sort((a, b) => a[xKey] - b[xKey]);
+	let processedData = $derived(
+		data
+			.map((d) => {
+				const newD = { ...d };
+				if (xParseFn && typeof newD[xKey] === 'string') {
+					newD[xKey] = xParseFn(newD[xKey]);
+				}
+				seriesNames.forEach((name) => {
+					const val = parseFloat(newD[name]);
+					newD[name] = isNaN(val) ? 0 : val;
+				});
+				return newD;
+			})
+			.sort((a, b) => a[xKey] - b[xKey])
+	);
 
 	// 2. Apply Stacking and Cumulative logic
-	$: finalData = (() => {
+	let finalData = $derived.by(() => {
 		// Create a fresh copy to avoid mutating processedData
 		let result = processedData.map((d) => ({ ...d }));
 
@@ -121,15 +130,13 @@
 		}
 
 		return result;
-	})();
+	});
 
-	$: groupedData = groupLonger(finalData, seriesNames, { groupTo: zKey, valueTo: yKey });
-	$: xTicks = finalData.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]);
+	let groupedData = $derived(groupLonger(finalData, seriesNames, { groupTo: zKey, valueTo: yKey }));
+	let xTicks = $derived(finalData.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]));
 
-	let innerWidth = 1000;
-	let innerHeight = 800;
-	$: computedHeight = innerWidth < 768 ? '100%' : height;
-	$: computedShowLegend = innerHeight < 900 ? false : showLegend;
+	let computedHeight = $derived(innerWidth < 768 ? '100%' : height);
+	let computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -197,7 +204,6 @@
 		<div class="controls">
 			<div class="legend-container">
 				{#each seriesConfig as { label, color }}
-					<!-- Use 'polygon' for areas and 'line' for lines -->
 					<LegendItem variant={showArea ? 'polygon' : 'line'} {label} bgcolor={color} />
 				{/each}
 				{#if showTotalLine}

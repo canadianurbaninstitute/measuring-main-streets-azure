@@ -185,6 +185,7 @@
 	{data}
 	{visible}
 	title="Urban Population Growth, 2001-2025"
+	showTooltipTotal={false}
 	yDomain={[-5, 60]}
 	minHeight="400px"
 	seriesConfig={[

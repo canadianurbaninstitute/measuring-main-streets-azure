@@ -20,6 +20,7 @@
 	import Header from './components/Header.svelte';
 	import MapContainer from './components/MapContainer.svelte';
 	// Custom Tabs
+	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import AccessTab from './components/AccessTab.svelte';
 	import CompleteCommunityPresenceTab from './components/PresenceTab.svelte';
 	// --- Data/Map Update Functions ---
@@ -27,39 +28,71 @@
 	// NEW: Access/Chart Logic State & Calculations lifted from AccessTab
 	import { Daily_Visits } from '../../lib/data/transitdata/config.json';
 	import type { Station } from '../../lib/data/transitdata/stations';
+	import type { Region, TransitLine } from '../../lib/data/transitdata/transit-regions';
+
+	// --- Type Definitions ---
+	interface AmenityRecord {
+		Amenity: string;
+		Tier: number;
+		Access_Gap?: number;
+		Access_per_1000: number;
+		MTSA_med: number;
+		mtsa_emp_med: number;
+		avg_emp: number;
+		id: string;
+	}
+
+	interface P75Record {
+		Amenity: string;
+		MTSA_p75: number;
+		mtsa_emp_p75: number;
+		id: string;
+	}
+
+	interface FutureDemandRecord {
+		id: string;
+		Daily_Visits: number;
+		adj_Daily_Visits: number;
+	}
+
+	interface BaseStationData extends Station {
+		line_ids_array?: number[];
+	}
+
+	interface RegionData {
+		name: string;
+		bbox: [number, number, number, number];
+	}
 
 	// --- Reactive/Exported Variables ---
-	let aiDescriptions = $state({});
-	let map: mapboxgl.Map = $state();
+	let map = $state<mapboxgl.Map | undefined>();
 	let mapCenter: [number, number] = $state([-92, 52]);
 	const defaultZoom: number = 3.7;
 
 	// --- UI State Variables ---
-	let statusFilters = $state(['Existing', 'Construction', 'Planned']);
-	let technologyFilters = $state(['Subway', 'LRT', 'Commuter']);
-	let selectedStation: Station = $state({ id: null });
+	let statusFilters = $state<string[]>(['Existing', 'Construction', 'Planned']);
+	let technologyFilters = $state<string[]>(['Subway', 'LRT', 'Commuter']);
+	let selectedStation = $state<BaseStationData>({ id: null });
 	let stationSelected = $state(false);
-	let regionsData = $state([]);
-	let processedStationData = $state([]);
+	let regionsData = $state<RegionData[]>([]);
+	let processedStationData = $state<BaseStationData[]>([]);
 	let searchTerm = $state('');
-	let activeRegion = $state(null);
-	let activeLine = $state(null);
-	let tier = $state('tier1');
-	let sliderValues = $state([0]);
+	let activeRegion = $state<RegionData | null>(null);
+	let activeLine = $state<TransitLine | null>(null);
+	let tier = $state<string>('tier1');
+	let sliderValues = $state<number[]>([0]);
 	let futureVisits = $derived(sliderValues[0]);
 
 	// CC Specific Data
-	let stationCCcounts = $state({});
-	let stationCCpresence = $state({});
-	let stationVisitorData = $state({});
-	let p50map = $state(new Map());
-	let p75map = $state(new Map());
-	let p90map = $state(new Map());
-	let futureDemandMap = $state(new Map());
+	let stationCCcounts = $state<Record<string, number>>({});
+	let stationCCpresence = $state<Record<string, number>>({});
+	let stationVisitorData = $state<Record<string, number>>({});
+	let p50map = $state<Map<string, AmenityRecord[]>>(new Map());
+	let p75map = $state<Map<string, P75Record[]>>(new Map());
+	let futureDemandMap = $state<Map<string, FutureDemandRecord>>(new Map());
 
 	let p50current = $derived(selectedStation?.id ? p50map.get(selectedStation.id) : undefined);
 	let p75current = $derived(selectedStation?.id ? p75map.get(selectedStation.id) : undefined);
-	let p90current = $derived(selectedStation?.id ? p90map.get(selectedStation.id) : undefined);
 
 	let sortedAmenities = $derived.by(() => {
 		return [...(p50current ?? [])].sort((a, b) => {
@@ -88,7 +121,7 @@
 			const newVisitsAdj = Math.log1p(newVisits);
 
 			const adjustedAccess =
-				amenity.Access_per_1000 * (adjDailyVisits / (adjDailyVisits + newVisitsAdj));
+				amenity.Access_per_1000 * (adjDailyVisits ?? 0 / (adjDailyVisits ?? 0 + newVisitsAdj));
 
 			// 1. Median (p50) Calculation
 			const threshold_med = amenity.MTSA_med;
@@ -129,7 +162,7 @@
 		})
 	);
 
-	let selectedVariable = $state(null);
+	let selectedVariable = $state<string | null>(null);
 	let min = $state(0);
 	let max = $state(0);
 	let isOpen = $state(true);
@@ -176,8 +209,8 @@
 		return 'N/A';
 	}
 
-	function updateStationData(id) {
-		const station = processedStationData.find((s) => s.id === id);
+	function updateStationData(id: string) {
+		const station = processedStationData.find((s: Station) => s.id === id);
 
 		if (!station) {
 			console.error('Station not found for ID:', id);
@@ -188,22 +221,23 @@
 		selectedStation = station;
 		// Update CC Data
 		stationCCcounts =
-			completeCommunityCounts.find((station) => station.id === selectedStation.id) || {};
+			completeCommunityCounts.find((station: Station) => station.id === selectedStation.id) || {};
 		stationCCpresence =
-			completeCommunityPresence.find((station) => station.id === selectedStation.id) || {};
-		stationVisitorData = visitorData.find((station) => station.id === selectedStation.id) || {};
+			completeCommunityPresence.find((station: Station) => station.id === selectedStation.id) || {};
+		stationVisitorData =
+			visitorData.find((station: Station) => station.id === selectedStation.id) || {};
 	}
 
-	function updateLayerVariable(variable) {
+	function updateLayerVariable(variable: string | null) {
 		if (variable === null) {
 			selectedVariable = null;
-			if (map.getLayer('da')) map.removeLayer('da');
+			if (map?.getLayer('da')) map.removeLayer('da');
 			return;
 		}
 		selectedVariable = variable;
 
 		// If layer exists, just update it
-		if (map.getLayer('da')) {
+		if (map?.getLayer('da')) {
 			const features = map.querySourceFeatures('da_map', {
 				sourceLayer: da_map_source.source_layer
 			});
@@ -217,7 +251,7 @@
 				expression.expression as mapboxgl.PropertyValueSpecification<string>
 			);
 		} else {
-			if (!map.getSource('da_map')) return;
+			if (!map?.getSource('da_map')) return;
 			// Add the layer if not present
 			map.addLayer(
 				{
@@ -233,24 +267,24 @@
 				'greenspace-built-form' // Place under specific layers if needed, or remove 2nd arg to place on top
 			);
 			map.once('idle', () => {
-				const features = map.querySourceFeatures('da_map', {
+				const features = map?.querySourceFeatures('da_map', {
 					sourceLayer: da_map_source.source_layer
 				});
 				const expression = getD3InterpolateExpression(features, variable);
 				if (expression === null) return;
 				min = expression.min;
 				max = expression.max;
-				map.setPaintProperty(
+				map?.setPaintProperty(
 					'da',
 					'fill-color',
 					expression.expression as mapboxgl.PropertyValueSpecification<string>
 				);
-				map.setPaintProperty('da', 'fill-opacity', 0.8);
+				map?.setPaintProperty('da', 'fill-opacity', 0.8);
 			});
 		}
 	}
 	// --- Map/Sidebar Navigation Functions ---
-	function handleStationSelection(stationId, stationCoordinates) {
+	function handleStationSelection(stationId: string, stationCoordinates: [number, number]) {
 		if (!map) return;
 		updateStationData(stationId);
 		stationSelected = true;
@@ -304,7 +338,7 @@
 			'all-nar'
 		];
 		thematicLayers.forEach((layerId) => {
-			if (map.getLayer(layerId)) {
+			if (map?.getLayer(layerId)) {
 				map.setFilter(layerId, ['within', circlePolygon]);
 			}
 		});
@@ -340,7 +374,7 @@
 		});
 	}
 
-	function selectRegion(region) {
+	function selectRegion(region: Region) {
 		if (!map) return;
 		resetStationSelection();
 		activeRegion = region;
@@ -348,11 +382,17 @@
 		map.fitBounds(region.bbox, { padding: 50, duration: 1000 });
 	}
 
-	function selectLine(line) {
+	function selectLine(line: TransitLine) {
 		if (!map || !map.getLayer('transit-lines')) return;
 		resetStationSelection();
 		activeLine = line;
-		const selectedLine = map.queryRenderedFeatures(undefined, {
+
+		const bounds = map.getBounds();
+		const bbox: [mapboxgl.PointLike, mapboxgl.PointLike] = [
+			map.project(bounds?.getSouthWest() ?? [-92, 52]),
+			map.project(bounds?.getNorthEast() ?? [-92, 52])
+		];
+		const selectedLine = map.queryRenderedFeatures(bbox, {
 			layers: ['transit-lines'],
 			filter: ['==', 'line_id', activeLine.id]
 		});
@@ -369,8 +409,11 @@
 		}
 	}
 
-	function selectStop(station) {
-		handleStationSelection(station.id, [station.longitude, station.latitude]);
+	function selectStop(station: Station) {
+		handleStationSelection(station.id as string, [
+			station.longitude as number,
+			station.latitude as number
+		]);
 	}
 
 	function navigateBack() {
@@ -424,7 +467,6 @@
 				ccCountsRes,
 				ccPresenceRes,
 				visitorRes,
-				aiRes,
 				futureDemandRes,
 				p50Res,
 				p75Res
@@ -463,28 +505,29 @@
 			completeCommunityCounts = await ccCountsRes.json();
 			completeCommunityPresence = await ccPresenceRes.json();
 			visitorData = await visitorRes.json();
-			aiDescriptions = await aiRes.json();
 			const futureDemand = await futureDemandRes.json();
 			const p50 = await p50Res.json();
 			const p75 = await p75Res.json();
 
 			// Index for faster lookup
-			p50map = p50.reduce((map, item) => {
+			p50map = p50.reduce((map: Map<string, AmenityRecord[]>, item: AmenityRecord) => {
 				if (!map.has(item.id)) map.set(item.id, []);
 				map.get(item.id)!.push(item);
 				return map;
-			}, new Map<string, any[]>());
-			p75map = p75.reduce((map, item) => {
+			}, new Map<string, AmenityRecord[]>());
+			p75map = p75.reduce((map: Map<string, P75Record[]>, item: P75Record) => {
 				if (!map.has(item.id)) map.set(item.id, []);
 				map.get(item.id)!.push(item);
 				return map;
-			}, new Map<string, any[]>());
+			}, new Map<string, P75Record[]>());
 
-			futureDemandMap = new Map(futureDemand.map((d) => [d.id, d]));
+			futureDemandMap = new Map(futureDemand.map((d: FutureDemandRecord) => [d.id, d]));
 
-			regionsData = transitRegionsRawData.sort((a, b) => a.name.localeCompare(b.name));
+			regionsData = transitRegionsRawData.sort((a: RegionData, b: RegionData) =>
+				a.name.localeCompare(b.name)
+			);
 
-			processedStationData = stationRawData.map((station) => ({
+			processedStationData = stationRawData.map((station: BaseStationData) => ({
 				...station,
 				line_ids_array: station.line_id
 					? station.line_id
@@ -498,21 +541,21 @@
 		}
 	});
 
-	function handleTabChange(selectedTab) {
+	function handleTabChange(selectedTab: string) {
 		updateLayerVariable(null);
 
 		switch (selectedTab) {
 			case 'overall-presence':
-				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
-				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
-				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
-				map.setPaintProperty('employment-size', 'circle-opacity', 0);
-				map.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
+				map?.setPaintProperty('complete-community-amenities', 'icon-opacity', 1);
+				map?.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
+				map?.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+				map?.setPaintProperty('employment-size', 'circle-opacity', 0);
+				map?.setPaintProperty('employment-size', 'circle-stroke-opacity', 0);
 				break;
 			case 'access':
-				map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
-				map.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
-				map.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+				map?.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
+				map?.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
+				map?.setPaintProperty('msn-highdensity', 'line-opacity', 1);
 			default:
 				break;
 		}
@@ -538,7 +581,16 @@
 				bind:stopsFuse
 			/>
 			{#if stationSelected || activeLine || activeRegion}
-				<button onclick={handleSidebarBack} class="back-button bg-zinc-50">← Back</button>
+				<div class="flex px-4 mt-2">
+					<CustomButton
+						onclick={handleSidebarBack}
+						label="Back"
+						variant="secondary"
+						fullWidth
+						icon={false}
+						iconBeforeName="mdi:arrow-left"
+					/>
+				</div>
 			{/if}
 			{#if stationSelected && !searchTerm}
 				<div class="station-details-scroll-container">
@@ -554,7 +606,7 @@
 									{stationVisitorData}
 									futureDemand={futureDemandCurrent}
 									{selectedVariable}
-									onSelectVariable={(v) => updateLayerVariable(v)}
+									onSelectVariable={(v: string | null) => updateLayerVariable(v)}
 								/>
 							{/if}
 						</Tabs.Content>
@@ -658,19 +710,6 @@
 		overflow-y: auto;
 	}
 
-	.back-button {
-		padding: 8px 12px;
-		border-radius: 4px;
-		border: 1px solid #ccc;
-		cursor: pointer;
-		font-size: 0.9em;
-		margin: 0 1em;
-	}
-
-	.back-button:hover {
-		background-color: var(--color-zinc-100);
-	}
-
 	@media only screen and (min-width: 768px) {
 		#content-container {
 			flex-direction: row;
@@ -683,10 +722,6 @@
 			height: 100%;
 			border-top: none;
 			border-right: 1px solid #eee;
-		}
-
-		#sidebar.large {
-			width: 100%;
 		}
 	}
 </style>

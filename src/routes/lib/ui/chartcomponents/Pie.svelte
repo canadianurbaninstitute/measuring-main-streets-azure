@@ -90,6 +90,14 @@
 		const dy = -Math.cos(midAngle) * explodeDistance;
 		return `translate(${dx}, ${dy})`;
 	});
+
+	/* Keyboard interaction handler for accessibility */
+	function handleKeyDown(event, sliceData) {
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			onSliceClick?.(sliceData);
+		}
+	}
 </script>
 
 <g
@@ -104,12 +112,16 @@
 			endAngle: d.endAngle * $reveal
 		}}
 		<path
+			role="button"
+			tabindex={0}
+			aria-label={$x(d.data)}
 			d={arcGenerator(animatedD)}
 			fill={d.data.color || $zScale($x(d.data))}
 			transform={explodeTransform(d)}
 			{stroke}
 			stroke-width="1"
 			onclick={() => onSliceClick?.(d.data)}
+			onkeydown={(ev) => handleKeyDown(ev, d.data)}
 			style="cursor: {drillableKeys.includes($x(d.data)) ? 'pointer' : 'default'}"
 			opacity={$reveal}
 			onmousemove={(ev) => {

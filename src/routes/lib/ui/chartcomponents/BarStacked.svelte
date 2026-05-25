@@ -56,6 +56,8 @@
 		{#each series as d, i}
 			<rect
 				class="group-rect"
+				role="button"
+				tabindex={0}
 				data-id={i}
 				x={$xGet(d)[0]}
 				y={$yGet(d)}

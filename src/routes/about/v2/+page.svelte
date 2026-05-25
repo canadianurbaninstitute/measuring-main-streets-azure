@@ -300,9 +300,10 @@
 									Measuring Main Streets.
 								</p>
 								<div class="flex mb-4">
-									<a href="/reports/executive-summary" class="button-primary"
-										>Read the executive summary</a
-									>
+									<CustomButton
+										href="/reports/executive-summary"
+										label="Read the executive summary"
+									/>
 								</div>
 								<p>
 									In round one of funding, CUI's partners included Environics Analytics and Open
