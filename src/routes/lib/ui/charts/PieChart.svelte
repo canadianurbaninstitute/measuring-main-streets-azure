@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { format as d3Format } from 'd3-format';
 	import { scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
@@ -6,6 +6,28 @@
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
 	import Pie from '../chartcomponents/Pie.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
+
+	interface SeriesItem {
+		key: string;
+		color: string;
+	}
+
+	interface Props {
+		data?: Record<string, any>[];
+		drilldownData?: Record<string, Record<string, any>[]>;
+		xKey?: string;
+		yKey?: string;
+		title?: string;
+		seriesConfig?: SeriesItem[];
+		height?: string;
+		innerRadius?: number;
+		showTooltip?: boolean;
+		formatTooltipValue?: (d: any) => any;
+		explode?: string[];
+		explodeDistance?: number;
+		showLegend?: boolean;
+		visible?: boolean | undefined;
+	}
 
 	let {
 		data = [],
@@ -17,21 +39,17 @@
 		height = '450px',
 		innerRadius = 0,
 		showTooltip = false,
-		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%'),
-		explode = [], // array of xKey values to offset e.g. ['Calgary', 'Montreal']
+		formatTooltipValue = (d: any) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%'),
+		explode = [],
 		explodeDistance = 20,
 		showLegend = true,
-		visible = undefined
-	} = $props();
+		visible = $bindable(undefined)
+	}: Props = $props();
 
-	/* ───────────────────────────────────
-	 * Reactive / Derived State
-	 * ─────────────────────────────────── */
-
-	let drillKey = $state(null);
+	let drillKey = $state<string | null>(null);
 	const activeData = $derived(drillKey ? (drilldownData[drillKey] ?? data) : data);
 
-	function handleClick(slice) {
+	function handleClick(slice: Record<string, any>) {
 		const key = slice[xKey];
 		if (drilldownData[key]) {
 			drillKey = key;
@@ -51,12 +69,10 @@
 	}
 
 	const isDrilled = $derived(drillKey !== null);
-	const seriesNames = $derived(seriesConfig.map((s) => s.key));
 	const seriesColors = $derived(seriesConfig.map((s) => s.color));
 
 	const defaultColors = ['#58e965', '#00adf2', '#DB3069', '#002940', '#ff007f', '#f59e0b'];
 
-	// Format data for the chart (ensure numeric values)
 	const chartData = $derived(
 		activeData.map((d) => ({
 			...d,
@@ -64,8 +80,8 @@
 		}))
 	);
 
-	let found = $state(null);
-	let e = $state(null);
+	let found = $state<Record<string, any> | null>(null);
+	let e = $state<MouseEvent | null>(null);
 	let innerWidth = $state(1000);
 	let innerHeight = $state(800);
 	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
@@ -94,11 +110,9 @@
 			zDomain={chartData.map((d) => d[xKey])}
 			zRange={seriesColors.length > 0 ? seriesColors : defaultColors}
 		>
-			<Svg overflow="visible">
+			<Svg>
 				<Pie
 					{innerRadius}
-					{xKey}
-					{yKey}
 					bind:found
 					bind:e
 					{explode}

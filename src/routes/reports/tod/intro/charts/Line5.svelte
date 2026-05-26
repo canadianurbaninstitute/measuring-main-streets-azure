@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import BarChart from '../../../../lib/ui/charts/BarChart.svelte';
 
 	let { visible } = $props();

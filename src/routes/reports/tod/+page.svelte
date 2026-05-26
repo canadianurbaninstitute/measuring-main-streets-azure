@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import civic from '../../lib/assets/graphics/civic.svg';
 	import Edmonton from '../../lib/assets/graphics/edmonton.jpg';
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';

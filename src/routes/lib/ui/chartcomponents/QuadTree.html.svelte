@@ -1,63 +1,83 @@
-<!--
-  @component
-  Creates an interaction layer (in HTML) using [d3-quadtree](https://github.com/d3/d3-quadtree) to find the nearest datapoint to the mouse. This component creates a slot that exposes variables `x`, `y`, `found` (the found datapoint), `visible` (a Boolean whether any data was found) and `e` (the event object).
-
-  The quadtree searches across both the x and y dimensions at the same time. But if you want to only search across one, set the `x` and `y` props to the same value. For example, the [shared tooltip component](https://layercake.graphics/components/SharedTooltip.html.svelte) sets `y='x'` since it's nicer behavior to only pick up on the nearest x-value.
- -->
-<script>
+<script lang="ts">
 	import { quadtree } from 'd3-quadtree';
+	import type { Snippet } from 'svelte';
 	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const { data, xGet, yGet, width, height } = getContext<{
+		data: Readable<any[]>;
+		xGet: Readable<(d: any) => number>;
+		yGet: Readable<(d: any) => number>;
+		width: Readable<number>;
+		height: Readable<number>;
+	}>('LayerCake');
 
-	let visible = false;
-	let found = {};
-	let e = {};
-
-	/** @type {String} [x='x']  The dimension to search across when moving the mouse left and right. */
-	export let x = 'x';
-
-	/** @type {String} [y='y']  The dimension to search across when moving the mouse up and down. */
-	export let y = 'y';
-
-	/** @type {String} [searchRadius]  The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range. */
-	export let searchRadius = undefined;
-
-	/** @type {Array} [dataset]  The dataset to work off ofdefaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format. */
-	export let dataset = undefined;
-
-	$: xGetter = x === 'x' ? $xGet : $yGet;
-	$: yGetter = y === 'y' ? $yGet : $xGet;
-
-	function findItem(evt) {
-		e = evt;
-
-		const xLayerKey = `layer${x.toUpperCase()}`;
-		const yLayerKey = `layer${y.toUpperCase()}`;
-
-		found = finder.find(evt[xLayerKey], evt[yLayerKey], searchRadius) || {};
-		visible = Object.keys(found).length > 0;
+	interface Props {
+		x?: string;
+		y?: string;
+		searchRadius?: number | undefined;
+		dataset?: any[] | undefined;
+		children?: Snippet<
+			[{ x: number; y: number; found: any; visible: boolean; e: MouseEvent | null }]
+		>;
 	}
 
-	$: finder = quadtree()
-		.extent([
-			[-1, -1],
-			[$width + 1, $height + 1]
-		])
-		.x(xGetter)
-		.y(yGetter)
-		.addAll(dataset || $data);
+	let {
+		x = 'x',
+		y = 'y',
+		searchRadius = undefined,
+		dataset = undefined,
+		children
+	}: Props = $props();
+
+	let visible = $state(false);
+	let found = $state<any>({});
+	let e = $state<MouseEvent | null>(null);
+
+	const xGetter = $derived(x === 'x' ? $xGet : $yGet);
+	const yGetter = $derived(y === 'y' ? $yGet : $xGet);
+
+	const finder = $derived(
+		quadtree<any>()
+			.extent([
+				[-1, -1],
+				[$width + 1, $height + 1]
+			])
+			.x(xGetter)
+			.y(yGetter)
+			.addAll(dataset || $data)
+	);
+
+	function findItem(evt: MouseEvent) {
+		e = evt;
+
+		const xLayerKey = `layer${x.toUpperCase()}` as keyof MouseEvent;
+		const yLayerKey = `layer${y.toUpperCase()}` as keyof MouseEvent;
+
+		const mouseX = evt[xLayerKey] as number;
+		const mouseY = evt[yLayerKey] as number;
+
+		found = finder.find(mouseX, mouseY, searchRadius) || {};
+		visible = Object.keys(found).length > 0;
+	}
 </script>
 
 <div
 	role="button"
 	tabindex="0"
 	class="bg"
-	on:mousemove={findItem}
-	on:mouseout={() => (visible = false)}
-	on:blur={() => (visible = false)}
+	onmousemove={findItem}
+	onmouseout={() => (visible = false)}
+	onblur={() => (visible = false)}
 ></div>
-<slot x={xGetter(found) || 0} y={yGetter(found) || 0} {found} {visible} {e}></slot>
+
+{@render children?.({
+	x: found && Object.keys(found).length > 0 ? xGetter(found) : 0,
+	y: found && Object.keys(found).length > 0 ? yGetter(found) : 0,
+	found,
+	visible,
+	e
+})}
 
 <style>
 	.bg {

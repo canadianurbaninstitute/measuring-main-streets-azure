@@ -1,11 +1,28 @@
-<script>
-	// let layerActive = $state(true);
-
-	// MMS case study relevant props and imports
-
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { onDestroy } from 'svelte';
+	import type { Unsubscriber } from 'svelte/store';
 	import { mapStoreList } from '../../stores/mapStore';
+
+	interface Props {
+		label: string;
+		variant: 'circle' | 'polygon' | 'line';
+		bgcolor: string;
+		bordercolor?: string;
+		button?: boolean;
+		disabled?: boolean;
+		id?: string;
+		icon?: string | null;
+		targetopacity?: number;
+		featuretype?: 'circle' | 'fill' | 'line';
+		filterProperty?: string;
+		filterValue?: any;
+		baseFilter?: any[] | null;
+		useFilter?: boolean;
+		toggledValues?: Record<string, any[]>;
+		section?: string | undefined;
+		map?: any;
+	}
 
 	let {
 		label,
@@ -19,75 +36,59 @@
 		targetopacity = 0.9,
 		featuretype = 'circle',
 		filterProperty,
-		filterValue, // target opacity if the layer is switched back on
-		baseFilter = null, //used if there are default layers that need to be hidden
+		filterValue,
+		baseFilter = null,
 		useFilter = false,
-		toggledValues = $bindable(), // needed to keep track of toggled values in the parent when using paint property toggling; necessary if a 'within' filter is already being used
+		toggledValues = $bindable({}),
 		section = undefined,
-		map
-	} = $props();
-	// NEW: Derived state. A button is "Active" if its value(s) are NOT in the hidden list.
+		map = $bindable()
+	}: Props = $props();
+
 	let layerActive = $derived.by(() => {
 		if (!toggledValues || !filterProperty) return true;
 		if (!toggledValues[filterProperty]) return true;
 
 		if (Array.isArray(filterValue)) {
-			// Bulk toggle: Active if at least one of its values is NOT hidden
-			// (Or use .every if you want it to only highlight when ALL are visible)
 			return !filterValue.every((val) => toggledValues[filterProperty].includes(val));
 		}
 
-		// Individual toggle: Active if its specific value is NOT in the hidden list
 		return !toggledValues[filterProperty].includes(filterValue);
 	});
 
-	/* MMS CASE STUDIES */
-
-	// Subscribe to the map store only if section is provided
-	let unsubscribe;
+	let unsubscribe: Unsubscriber | undefined;
 	if (section) {
-		unsubscribe = mapStoreList.subscribe((maps) => {
+		unsubscribe = mapStoreList.subscribe((maps: Record<string, any>) => {
 			if (maps[section]) {
 				map = maps[section];
 			}
 		});
 	}
 
-	// Unsubscribe when the component is destroyed to prevent memory leaks
 	onDestroy(() => {
 		if (unsubscribe) {
 			unsubscribe();
 		}
 	});
 
-	/* Function to toggle layer visibility using filters */
 	function toggleLayerWithFilter() {
 		if (map && filterProperty && filterValue !== undefined) {
-			// Get the current filter
 			let currentFilter = map.getFilter(id);
-			// Check if there's a 'within' filter - we need special handling
 			const hasWithinFilter =
 				currentFilter && Array.isArray(currentFilter) && currentFilter[0] === 'within';
 
 			if (hasWithinFilter) {
-				// Use paint property to hide specific features instead of filters
 				toggleWithPaintProperty();
 				return;
 			}
 
-			// Check if this value is currently filtered out
 			const isFiltered = isValueFiltered(currentFilter, filterProperty, filterValue);
 
 			if (isFiltered) {
-				// Remove the filter for this value
 				const newFilter = removeValueFromFilter(currentFilter, filterProperty, filterValue);
 				map.setFilter(id, newFilter);
-				layerActive = true;
 			} else {
-				// Add a filter to hide this value
 				const newFilter = addValueToFilter(currentFilter, filterProperty, filterValue);
 				map.setFilter(id, newFilter);
-				layerActive = false;
 			}
 		}
 	}
@@ -95,18 +96,15 @@
 	function toggleWithPaintProperty() {
 		if (!filterProperty) return;
 
-		// Initialize the hidden values list for this property (e.g., 'Group Name')
 		if (!toggledValues[filterProperty]) toggledValues[filterProperty] = [];
 
 		const valuesToToggle = Array.isArray(filterValue) ? filterValue : [filterValue];
 
 		if (layerActive) {
-			// It's currently visible -> We want to HIDE it (Add values to the hidden list)
 			const currentHidden = new Set(toggledValues[filterProperty]);
 			valuesToToggle.forEach((val) => currentHidden.add(val));
 			toggledValues[filterProperty] = Array.from(currentHidden);
 		} else {
-			// It's currently hidden -> We want to SHOW it (Remove values from hidden list)
 			toggledValues[filterProperty] = toggledValues[filterProperty].filter(
 				(v) => !valuesToToggle.includes(v)
 			);
@@ -116,16 +114,16 @@
 	}
 
 	function updateOpacity() {
-		const conditions = [];
+		const conditions: any[] = [];
 		if (baseFilter) conditions.push(baseFilter);
 
 		for (const [prop, values] of Object.entries(toggledValues)) {
-			if (values.length > 0) {
+			if (Array.isArray(values) && values.length > 0) {
 				conditions.push(['in', ['get', prop], ['literal', values]]);
 			}
 		}
 
-		let opacityExpr;
+		let opacityExpr: any;
 
 		if (conditions.length === 0) {
 			opacityExpr = targetopacity;
@@ -140,8 +138,7 @@
 		}
 	}
 
-	/* Helper function to check if a value is currently filtered out */
-	function isValueFiltered(filter, property, value) {
+	function isValueFiltered(filter: any, property: string, value: any): boolean {
 		if (!filter) return false;
 
 		if (Array.isArray(filter)) {
@@ -150,7 +147,6 @@
 				if (Array.isArray(item) && item[0] === '!=' && item[1] === property && item[2] === value) {
 					return true;
 				}
-				// Recursively check nested filters
 				if (Array.isArray(item) && isValueFiltered(item, property, value)) {
 					return true;
 				}
@@ -159,86 +155,62 @@
 		return false;
 	}
 
-	/* Helper function to remove a value filter */
-	function removeValueFromFilter(filter, property, value) {
+	function removeValueFromFilter(filter: any, property: string, value: any): any {
 		if (!filter) return null;
 		if (!Array.isArray(filter)) return filter;
 
-		// If this is not an 'all' filter, we can't remove from it
 		if (filter[0] !== 'all') {
 			return filter;
 		}
 
-		// Filter out the ['!=', property, value] expression
 		const filtered = filter.filter((item, index) => {
-			// Keep the 'all' operator (index 0)
 			if (index === 0) return true;
 
-			// Remove our specific inequality condition
 			if (Array.isArray(item) && item[0] === '!=' && item[1] === property && item[2] === value) {
 				return false;
 			}
 			return true;
 		});
 
-		// Clean up the result
 		if (filtered.length === 1) {
-			// Only 'all' remains, return null to clear filter
 			return null;
 		}
 
 		if (filtered.length === 2) {
-			// 'all' with one condition - unwrap it and return that condition directly
-			// This handles cases like ['all', ['within', polygon]] -> ['within', polygon]
 			return filtered[1];
-		}
-
-		if (filtered.length === 3) {
-			// If we have ['all', condition1, condition2], keep the 'all' structure
-			return filtered;
 		}
 
 		return filtered;
 	}
 
-	/* Helper function to add a value filter */
-	function addValueToFilter(filter, property, value) {
+	function addValueToFilter(filter: any, property: string, value: any): any {
 		const newCondition = ['!=', property, value];
 
-		// If no existing filter, create a simple one
 		if (!filter) {
 			return newCondition;
 		}
 
-		// If filter is not an array, wrap it
 		if (!Array.isArray(filter)) {
 			return ['all', filter, newCondition];
 		}
 
-		// If it's already an 'all' filter, append to it
 		if (filter[0] === 'all') {
 			return [...filter, newCondition];
 		}
 
-		// For any other filter type, wrap it with 'all'
 		return ['all', filter, newCondition];
 	}
 
-	/* Function to toggle layer visibility on and off by setting opacity */
 	function toggleLayerVisibility() {
 		if (map) {
-			// get opacity of the type of feature the legend item is
 			let opacity = map.getPaintProperty(id, `${featuretype}-opacity`);
-			// if it is visible, undefined or has an expression as the value, set opacity to 0
-			if (opacity > 0.4 || opacity === undefined || opacity.constructor === Array) {
+			if (opacity > 0.4 || opacity === undefined || Array.isArray(opacity)) {
 				map.setPaintProperty(id, `${featuretype}-opacity`, 0);
 				if (featuretype === 'circle') {
 					map.setPaintProperty(id, `${featuretype}-stroke-opacity`, 0);
 				} else if (id === 'case-study-BIAs') {
 					map.setLayoutProperty(id, 'visibility', 'none');
 				}
-				layerActive = false;
-				// set opacity to provided targetopacity, default is 0.9
 			} else {
 				map.setPaintProperty(id, `${featuretype}-opacity`, targetopacity);
 				if (featuretype === 'circle') {
@@ -246,12 +218,10 @@
 				} else if (id === 'case-study-BIAs') {
 					map.setLayoutProperty(id, 'visibility', 'visible');
 				}
-				layerActive = true;
 			}
 		}
 	}
 
-	/* Main toggle function that routes to the appropriate method */
 	function handleToggle() {
 		if (useFilter) {
 			toggleLayerWithFilter();
@@ -260,8 +230,6 @@
 		}
 	}
 </script>
-
-<!-- Legend Item HTML -->
 
 {#if button}
 	<button {disabled} class={layerActive ? 'layerOn' : 'layerOff'} onclick={handleToggle}>

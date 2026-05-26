@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { format as d3Format } from 'd3-format';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
@@ -9,15 +9,50 @@
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
+	interface SeriesConfigItem {
+		label: string;
+		color: string;
+		key: string;
+	}
+
+	interface PaddingConfig {
+		top?: number;
+		right?: number;
+		bottom?: number;
+		left: number;
+	}
+
+	interface Props {
+		data?: Record<string, any>[];
+		yKey?: string;
+		title?: string;
+		titleFontSize?: string;
+		height?: string;
+		minHeight?: string;
+		padding?: PaddingConfig;
+		seriesConfig?: SeriesConfigItem[];
+		formatLabelX?: (d: any) => any;
+		visible?: boolean | undefined;
+		showTooltip?: boolean;
+		wrapLabels?: boolean;
+		xLabel?: string;
+		yLabel?: string;
+		xTicks?: any[] | number | undefined;
+		yTicks?: any[] | number | undefined;
+		showLegend?: boolean;
+		formatTooltipValue?: (d: any) => any;
+	}
+
 	let {
 		data = [],
 		yKey = 'category',
 		title = '',
+		titleFontSize = '1.1rem',
 		height = '400px',
 		minHeight = '100%',
 		padding = { top: 10, right: 10, bottom: 20, left: 160 },
-		seriesConfig = [], // Array of { label, color, key }
-		formatLabelX = (d) => d,
+		seriesConfig = [],
+		formatLabelX = (d: any) => d,
 		visible = undefined,
 		showTooltip = true,
 		wrapLabels = false,
@@ -26,13 +61,14 @@
 		xTicks = undefined,
 		yTicks = undefined,
 		showLegend = true,
-		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',')(d))
-	} = $props();
+		formatTooltipValue = (d: any) => (isNaN(+d) || d === null ? d : d3Format(',')(d))
+	}: Props = $props();
 
-	let found = $state(null);
-	let e = $state(null);
+	let found = $state<any>(null);
+	let e = $state<MouseEvent | null>(null);
 	let innerWidth = $state(1000);
 	let innerHeight = $state(800);
+
 	const computedPadding = $derived(
 		innerWidth < 768 ? { ...padding, left: Math.min(padding.left, 100) } : padding
 	);
@@ -43,12 +79,15 @@
 	const seriesNames = $derived(seriesConfig.map((d) => d.key));
 	const seriesColors = $derived(seriesConfig.map((d) => d.color));
 
-	// Calculate overall min/max to ensure X scale covers negative values if any
+	// Dynamically extract all unique category values for LayerCake's Y axis layout domain
+	const computedYDomain = $derived(data.map((d) => d[yKey]));
+
 	const xDomain = $derived.by(() => {
+		if (data.length === 0 || seriesNames.length === 0) return [0, 0];
 		const values = data.flatMap((d) => seriesNames.map((key) => d[key]));
 		const min = Math.min(0, ...values);
 		const max = Math.max(0, ...values);
-		return [min, max * 1.1]; // Add 10% buffer
+		return [min, max * 1.1];
 	});
 </script>
 
@@ -56,49 +95,59 @@
 
 <div class="chart-container">
 	{#if title}
-		<h4>{title}</h4>
+		<h4 style:font-size={titleFontSize || 'inherit'}>{title}</h4>
 	{/if}
 
-	<div class="chart" style:min-height={minHeight}>
-		<LayerCake
-			position="absolute"
-			padding={computedPadding}
-			x={seriesNames}
-			y={yKey}
-			zScale={scaleOrdinal()}
-			zDomain={seriesNames}
-			zRange={seriesColors}
-			{xDomain}
-			yScale={scaleBand().paddingInner(0.2).paddingOuter(0.1)}
-			yDomainSort={false}
-			{data}
-		>
-			<Svg>
-				<AxisX tickMarks baseline snapLabels format={formatLabelX} label={xLabel} ticks={xTicks} />
-				<AxisY
-					tickMarks
-					gridlines={false}
-					wrap={computedWrapLabels}
-					label={yLabel}
-					ticks={yTicks}
-				/>
-				<BarGrouped bind:found bind:e {visible} />
-			</Svg>
+	<div class="chart" style:min-height={minHeight} style:height={computedHeight}>
+		{#if data.length > 0 && seriesNames.length > 0}
+			<LayerCake
+				position="absolute"
+				padding={computedPadding}
+				x={seriesNames}
+				y={yKey}
+				zScale={scaleOrdinal()}
+				zDomain={seriesNames}
+				zRange={seriesColors}
+				{xDomain}
+				yDomain={computedYDomain}
+				yScale={scaleBand().paddingInner(0.2).paddingOuter(0.1)}
+				yDomainSort={false}
+				{data}
+			>
+				<Svg>
+					<AxisX
+						tickMarks
+						baseline
+						snapLabels
+						format={formatLabelX}
+						label={xLabel}
+						ticks={xTicks}
+					/>
+					<AxisY
+						tickMarks
+						gridlines={false}
+						wrap={computedWrapLabels}
+						label={yLabel}
+						ticks={yTicks}
+					/>
+					<BarGrouped bind:found bind:e {visible} />
+				</Svg>
 
-			{#if showTooltip}
-				<Html pointerEvents={false}>
-					{#if found && e}
-						<ChartTooltip
-							{found}
-							{e}
-							titleKey={yKey}
-							valueKey={found._key}
-							formatValue={formatTooltipValue}
-						/>
-					{/if}
-				</Html>
-			{/if}
-		</LayerCake>
+				{#if showTooltip}
+					<Html pointerEvents={false}>
+						{#if found && e}
+							<ChartTooltip
+								{found}
+								{e}
+								titleKey={yKey}
+								valueKey={found._key}
+								formatValue={formatTooltipValue}
+							/>
+						{/if}
+					</Html>
+				{/if}
+			</LayerCake>
+		{/if}
 	</div>
 
 	{#if computedShowLegend && seriesConfig.length > 0}
@@ -113,6 +162,7 @@
 </div>
 
 <style>
+	/* Styles remain unchanged */
 	.chart {
 		width: 100%;
 		position: relative;
@@ -120,7 +170,6 @@
 		flex: 1;
 		min-height: 250px;
 	}
-
 	.chart-container {
 		display: flex;
 		flex-direction: column;
@@ -132,18 +181,15 @@
 		height: 100%;
 		box-sizing: border-box;
 	}
-
 	@media only screen and (min-width: 768px) {
 		.chart-container {
 			gap: 2em;
 		}
 	}
-
 	.controls {
 		display: flex;
 		flex-direction: column;
 	}
-
 	.legend-container {
 		display: flex;
 		flex-direction: row;

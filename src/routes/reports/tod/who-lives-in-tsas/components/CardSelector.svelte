@@ -1,8 +1,18 @@
-<script>
-	export let options = []; // [{ value, name, image? }]
-	export let selected = null;
+<script lang="ts">
+	interface OptionItem {
+		value: string;
+		name: string;
+		image?: string;
+	}
 
-	function select(value) {
+	interface Props {
+		options?: OptionItem[];
+		selected?: string | null;
+	}
+
+	let { options = [], selected = $bindable(null) }: Props = $props();
+
+	function select(value: string) {
 		selected = value;
 	}
 </script>
@@ -12,7 +22,7 @@
 		<button
 			class="card"
 			class:selected={selected === option.value}
-			on:click={() => select(option.value)}
+			onclick={() => select(option.value)}
 			aria-pressed={selected === option.value}
 		>
 			<div class="card-image">
@@ -89,7 +99,6 @@
 		align-items: center;
 		justify-content: center;
 		background: #fff;
-
 		flex-shrink: 0;
 	}
 

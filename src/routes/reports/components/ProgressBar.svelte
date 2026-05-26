@@ -1,81 +1,43 @@
-<script>
-	/**
-	 * ProgressBar.svelte
-	 *
-	 * A unified sticky progress bar that tracks both pre-scroller page sections
-	 * (e.g. <ReportHeader>, <ReportFindings>) and scrollytelling steps.
-	 *
-	 * ── Props ────────────────────────────────────────────────────────────────
-	 *
-	 *   items  {Item[]}  — ordered list of ALL navigable sections on the page.
-	 *
-	 *     Each item is one of two types:
-	 *
-	 *     Anchor item  — a standalone page section (header, findings, etc.)
-	 *       {
-	 *         type:      'anchor'
-	 *         id:        string   — must match the `id` attribute on the DOM element
-	 *         label:     string   — tooltip text
-	 *       }
-	 *
-	 *     Step item  — one step inside the Scroller
-	 *       {
-	 *         type:          'step'
-	 *         stepIndex:     number   — index used on [data-step] attributes
-	 *         label:         string   — tooltip text
-	 *         isFirstInSection: boolean — true for the first step of each section
-	 *                                     (renders a larger circle)
-	 *       }
-	 *
-	 *   activeStepIndex  {number}  — bind from Scroller; drives fill & active state
-	 *   totalSteps       {number}  — total TextBlock steps
-	 *   icon             {'flame'|'arrow'|'dot'|'custom'}
-	 *
-	 * ── How progress works ───────────────────────────────────────────────────
-	 *
-	 *   Items are spread evenly across the 0–100% track by their index.
-	 *   Progress fills to the position of the currently active item.
-	 *   Anchor items become active when their element enters the viewport
-	 *   (tracked via IntersectionObserver). Step items become active via
-	 *   activeStepIndex.
-	 *
-	 * ── Usage in +page.svelte ────────────────────────────────────────────────
-	 *
-	 *   <ReportHeader id="report-header" />
-	 *   <ReportFindings id="report-findings" />
-	 *   <Scroller bind:activeIndex> ... </Scroller>
-	 *
-	 *   <ProgressBar
-	 *     activeStepIndex={activeIndex}
-	 *     totalSteps={steps.length}
-	 *     items={[
-	 *       { type: 'anchor', id: 'report-header',   label: 'Introduction' },
-	 *       { type: 'anchor', id: 'report-findings', label: 'Key Findings' },
-	 *       ...navSections.map((s, i) => ({
-	 *         type: 'step',
-	 *         stepIndex: s.firstStepIndex,
-	 *         label: s.label,
-	 *         isFirstInSection: true,
-	 *       })),
-	 *     ]}
-	 *   />
-	 */
-
+<script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
 
-	let { items = [], activeStepIndex = 0, totalSteps = 1, iconType = 'flame', icon } = $props();
+	// 1. Define Discriminated Union Types for your unique navbar items
+	interface AnchorItem {
+		type: 'anchor';
+		id: string;
+		label: string;
+	}
 
-	// scrollY updated on every scroll/resize event
+	interface StepItem {
+		type: 'step';
+		stepIndex: number;
+		label: string;
+		isFirstInSection?: boolean;
+	}
+
+	type ProgressItem = AnchorItem | StepItem;
+
+	// 2. Define standard Component Props layout interface
+	interface Props {
+		items?: ProgressItem[];
+		activeStepIndex?: number;
+		totalSteps?: number;
+		iconType?: 'flame' | 'arrow' | 'dot' | 'custom';
+		icon?: Snippet;
+	}
+
+	let { items = [], activeStepIndex = 0, iconType = 'flame', icon }: Props = $props();
+
+	// ScrollY updated on every scroll/resize event
 	let scrollY = $state(0);
-	// pageHeight = scrollable distance (document height - viewport height)
-	let pageHeight = $state(1);
-	// Map from item index → element top offset (px from document top)
-	let itemTops = $state([]);
+
+	// 3. Typify numeric coordinates array to prevent 'never[]' mismatch evaluation
+	let itemTops = $state<(number | null)[]>([]);
 
 	function measureItems() {
-		pageHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
 		itemTops = items.map((item) => {
-			let el = null;
+			let el: Element | null = null;
 			if (item.type === 'anchor') {
 				el = document.getElementById(item.id);
 			} else {
@@ -112,7 +74,7 @@
 		const n = items.length;
 		const circlePcts = items.map((_, i) => (i / (n - 1)) * 100);
 
-		// Dependency
+		// Dependency tracker invocation
 		activeStepIndex;
 
 		const scroll = scrollY;
@@ -145,11 +107,11 @@
 		return idx;
 	});
 
-	function pctOf(itemIndex) {
+	function pctOf(itemIndex: number) {
 		return items.length > 1 ? (itemIndex / (items.length - 1)) * 100 : 0;
 	}
 
-	function navigateTo(item) {
+	function navigateTo(item: ProgressItem) {
 		if (item.type === 'anchor') {
 			document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		} else {
@@ -159,37 +121,31 @@
 		}
 	}
 
-	let hoveredIndex = $state(null);
+	let hoveredIndex = $state<number | null>(null);
 
 	/**
 	 * Svelte action: clamps the tooltip horizontally within the usable viewport.
-	 *
-	 * Rather than measuring the tooltip's own (transform-adjusted) rect, we derive
-	 * the circle center from the stable parent button rect and compute where the
-	 * centered tooltip WOULD land — then shift only if needed. The tooltip is hidden
-	 * for one frame so there's no visible flicker before the correction is applied.
 	 */
-	function clampTooltip(node) {
+	function clampTooltip(node: HTMLElement) {
 		node.style.visibility = 'hidden';
 		requestAnimationFrame(() => {
-			const vw = document.documentElement.clientWidth; // excludes scrollbar
+			const vw = document.documentElement.clientWidth;
 			const pad = 4;
 			const tW = node.offsetWidth;
 
 			// The circle button is the direct parent
 			const btn = node.parentElement;
+			if (!btn) return;
 			const btnRect = btn.getBoundingClientRect();
-			const cx = btnRect.left + btnRect.width / 2; // circle center in screen px
+			const cx = btnRect.left + btnRect.width / 2;
 
 			// Where the tooltip's left/right edges would naturally land (centred on cx)
 			const naturalLeft = cx - tW / 2;
 			const naturalRight = cx + tW / 2;
 
 			if (naturalLeft < pad) {
-				// Too far left — push right
 				node.style.transform = `translateX(calc(-50% + ${pad - naturalLeft}px))`;
 			} else if (naturalRight > vw - pad) {
-				// Too far right — push left
 				node.style.transform = `translateX(calc(-50% - ${naturalRight - cx}px))`;
 			}
 
@@ -200,7 +156,6 @@
 
 <nav class="progress-bar" aria-label="Article progress">
 	<div class="track" role="presentation">
-		<!-- Fill + icon -->
 		<div class="fill" style="width: {progress}%" aria-hidden="true">
 			<div class="icon-wrap">
 				{#if iconType === 'flame'}
@@ -233,10 +188,9 @@
 			</div>
 		</div>
 
-		<!-- Markers -->
 		{#each items as item, i}
 			{@const isActive = i <= activeItemIndex}
-			{@const isLarge = item.type === 'anchor' || item.isFirstInSection}
+			{@const isLarge = item.type === 'anchor' || (item.type === 'step' && item.isFirstInSection)}
 			{@const isHovered = hoveredIndex === i}
 
 			<button
@@ -263,7 +217,6 @@
 </nav>
 
 <style>
-	/* ── Bar shell ───────────────────────────────────────────── */
 	.progress-bar {
 		position: fixed;
 		top: 10px;
@@ -273,18 +226,14 @@
 		height: 48px;
 		box-shadow: 0 1px 0 #e8e8e8;
 		display: flex;
-		align-items: flex-end; /* pin track to bottom of bar */
+		align-items: flex-end;
 	}
-
-	/* ── Track (the thin line at the bottom of the bar) ─────── */
 	.track {
 		position: relative;
 		width: 100%;
 		height: 2px;
 		background: #e8e8e8;
 	}
-
-	/* ── Blue fill ───────────────────────────────────────────── */
 	.fill {
 		position: absolute;
 		top: 0;
@@ -293,15 +242,13 @@
 		background: var(--brandLightBlue);
 		transition: width 0.3s ease;
 		border-radius: 0 1px 1px 0;
-		/* overflow visible so the icon can poke above the 2px track */
 		overflow: visible;
 	}
-
 	.icon-wrap {
 		position: absolute;
 		right: 100px;
 		top: 50%;
-		transform: translate(50%, -50%) translateY(-10px); /* float above the track */
+		transform: translate(50%, -50%) translateY(-10px);
 		height: 22px;
 		width: 213px;
 		display: flex;
@@ -310,14 +257,12 @@
 		pointer-events: none;
 		filter: drop-shadow(0 1px 3px rgba(37, 99, 235, 0.35));
 	}
-
 	.icon-wrap :global(svg),
 	.icon-wrap :global(img) {
 		width: auto;
 		height: 100%;
 		display: block;
 	}
-
 	@keyframes pulse {
 		0%,
 		100% {
@@ -329,18 +274,10 @@
 			transform: scale(1.4);
 		}
 	}
-
-	/* .icon-wrap :global(.pulse) {
-		transform-origin: center;
-		animation: pulse 1.8s ease-in-out infinite;
-	} */
-
-	/* ── Section circles ─────────────────────────────────────── */
 	.circle {
 		position: absolute;
 		top: 50%;
 		transform: translate(-50%, -50%);
-
 		width: 10px;
 		height: 10px;
 		border-radius: 50%;
@@ -348,49 +285,37 @@
 		background: #ffffff;
 		cursor: pointer;
 		padding: 0;
-
-		/* Remove default button styles */
 		appearance: none;
 		-webkit-appearance: none;
-
 		transition:
 			background 0.25s ease,
 			border-color 0.25s ease,
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
 	}
-
-	.circle:hover,
-	.circle.hovered {
+	.circle:hover {
 		transform: translate(-50%, -50%) scale(1.5);
 		box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 		border-color: var(--brandLightBlue);
 		outline: none;
 	}
-
 	.circle:focus-visible {
 		outline: 2px solid var(--brandLightBlue);
 		outline-offset: 3px;
 	}
-
-	/* Visited / active sections: filled blue */
 	.circle.active {
 		background: var(--brandLightBlue);
 		border-color: var(--brandLightBlue);
 	}
-
-	/* ── Tooltip ─────────────────────────────────────────────── */
 	.tooltip {
 		position: absolute;
 		bottom: calc(100% + 8px);
 		left: 50%;
 		transform: translateX(-50%);
 		white-space: nowrap;
-
 		display: flex;
 		align-items: center;
 		gap: 0.5em;
-
 		background: var(--color-slate-50);
 		color: var(--color-blue-900);
 		text-transform: uppercase;
@@ -401,13 +326,11 @@
 		pointer-events: none;
 		z-index: 100;
 	}
-
 	.tooltip-index {
 		color: var(--brandLightBlue);
 		font-weight: 700;
 		flex-shrink: 0;
 	}
-
 	.tooltip-label {
 		font-size: inherit;
 		font-weight: 400;

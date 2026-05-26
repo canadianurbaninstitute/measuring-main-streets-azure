@@ -1,18 +1,44 @@
-<script>
+<script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { backOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
+	import type { Readable } from 'svelte/store';
 
-	const context = getContext('LayerCake');
+	const context = getContext<{
+		data: Readable<any[]>;
+		xGet: Readable<(d: any) => number>;
+		yGet: Readable<(d: any) => number>;
+		xScale: Readable<any>;
+		yScale: Readable<any>;
+		z?: Readable<any>;
+		r?: Readable<any>;
+		zGet?: Readable<(d: any) => string>;
+		rGet?: Readable<(d: any) => number>;
+	}>('LayerCake');
+
 	const { data, xGet, yGet, xScale, yScale, z, r: rKey } = context;
 
-	// Use runes to hold the values of optional stores.
-	// We avoid the '$' syntax here because subscribing to an undefined store crashes.
-	let zGet_fn = $state(null);
-	let rGet_fn = $state(null);
+	let zGet_fn = $state<((d: any) => string) | null>(null);
+	let rGet_fn = $state<((d: any) => number) | null>(null);
 
 	if (context.zGet) context.zGet.subscribe((v) => (zGet_fn = v));
 	if (context.rGet) context.rGet.subscribe((v) => (rGet_fn = v));
+
+	interface Props {
+		r?: number | string;
+		fill?: string;
+		stroke?: string;
+		strokeWidth?: number;
+		visible?: boolean | undefined;
+		found?: any;
+		e?: MouseEvent | null;
+		showLabels?: boolean;
+		labelKey?: string | null;
+		highlightIds?: any[] | any;
+		idKey?: string;
+		filterRegion?: string | string[];
+		regionKey?: string;
+	}
 
 	let {
 		r = 1,
@@ -28,10 +54,9 @@
 		idKey = 'id',
 		filterRegion = 'All',
 		regionKey = 'region'
-	} = $props();
+	}: Props = $props();
 
-	const isHighlighted = (d) => {
-		// If a region is filtered, we shouldn't show highlights for points outside that region
+	const isHighlighted = (d: any) => {
 		if (filterRegion && filterRegion !== 'All') {
 			const activeRegions = Array.isArray(filterRegion) ? filterRegion : [filterRegion];
 			if (!activeRegions.includes(d[regionKey])) return false;
@@ -45,12 +70,10 @@
 		return hIds.some((h) => String(h).trim() === currentId);
 	};
 
-	const isDimmed = (d) => {
-		// Dim if a specific highlight is active and this isn't it
+	const isDimmed = (d: any) => {
 		const highlightActive = Array.isArray(highlightIds) ? highlightIds.length > 0 : !!highlightIds;
 		if (highlightActive && !isHighlighted(d)) return true;
 
-		// Dim if a region filter is active and this isn't it
 		if (filterRegion && filterRegion !== 'All') {
 			const activeRegions = Array.isArray(filterRegion) ? filterRegion : [filterRegion];
 			if (!activeRegions.includes(d[regionKey])) return true;
@@ -64,7 +87,7 @@
 		easing: backOut
 	});
 
-	let group = $state();
+	let group = $state<SVGGElement | undefined>();
 
 	onMount(() => {
 		if (typeof visible !== 'undefined') return;
@@ -72,7 +95,7 @@
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						reveal.set(1);
+						reveal.target = 1;
 					}
 				});
 			},
@@ -87,15 +110,13 @@
 	$effect(() => {
 		if (typeof visible !== 'undefined') {
 			if (visible) {
-				reveal.set(1);
+				reveal.target = 1;
 			} else {
 				reveal.set(0, { duration: 0 });
 			}
 		}
 	});
 
-	// We want to render highlighted dots last so they are on top.
-	// We should also render the "active" region dots after dimmed ones.
 	const sortedData = $derived(
 		[...$data].sort((a, b) => {
 			const aH = isHighlighted(a);
@@ -108,7 +129,6 @@
 			if (!aD && bD) return 1;
 			if (aD && !bD) return -1;
 
-			// Fallback to ID for stable order otherwise
 			return String(a[idKey]).localeCompare(String(b[idKey]));
 		})
 	);
@@ -121,7 +141,7 @@
 			{@const dim = isDimmed(d)}
 			<circle
 				role="img"
-				aria-label={d[labelKey] || 'Data point'}
+				aria-label={labelKey && d[labelKey] ? d[labelKey] : 'Data point'}
 				cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}
 				cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}
 				r={(highlighted ? 1.5 : 1) *
@@ -135,7 +155,7 @@
 				class:is-highlighted={highlighted}
 				class:is-dimmed={dim}
 				style="transition: r 0.3s, fill 0.3s, stroke 0.3s, opacity 0.3s;"
-				onmousemove={(ev) => {
+				onmousemove={(ev: MouseEvent) => {
 					found = d;
 					e = ev;
 				}}

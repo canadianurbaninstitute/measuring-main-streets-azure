@@ -1,21 +1,26 @@
-<!--
-  @component
-  Generates an SVG Cleveland dot plot, also known as a lollipop-chart.
- -->
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
-	const { data, xGet, yGet, yScale, zScale, config } = getContext('LayerCake');
+	// 1. Explicitly type LayerCake context elements
+	const { data, xGet, yGet, yScale, zScale, config } = getContext<{
+		data: Readable<Record<string, any>[]>;
+		xGet: Readable<(d: Record<string, any>) => number[]>;
+		yGet: Readable<(d: Record<string, any>) => number>;
+		yScale: Readable<any>;
+		zScale: Readable<(key: string) => string>;
+		config: Readable<{ x: string[]; [key: string]: any }>;
+	}>('LayerCake');
 
-	/**
-	 * @typedef {Object} Props
-	 * @property {number} [r=5] - The circle radius.
-	 */
+	// 2. Define standard interface for component properties
+	interface Props {
+		r?: number;
+	}
 
-	/** @type {Props} */
-	let { r = 6 } = $props();
+	let { r = 6 }: Props = $props();
 
-	let midHeight = $derived($yScale.bandwidth() / 2);
+	// 3. Use safe navigation in case bandwidth isn't available on linear/log scales
+	let midHeight = $derived(typeof $yScale.bandwidth === 'function' ? $yScale.bandwidth() / 2 : 0);
 </script>
 
 <g class="dot-plot">

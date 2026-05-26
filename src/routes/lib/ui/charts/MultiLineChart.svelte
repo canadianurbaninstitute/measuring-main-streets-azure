@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { format } from 'd3-format';
 	import { scaleOrdinal, scaleTime } from 'd3-scale';
 	import { timeFormat, timeParse } from 'd3-time-format';
@@ -12,7 +12,40 @@
 	import TotalLine from '../chartcomponents/TotalLine.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
-	// ── Props ──────────────────────────────────────────────────────────────────
+	interface SeriesConfigItem {
+		key: string;
+		color: string;
+		label: string;
+	}
+
+	interface Props {
+		data?: Record<string, any>[] | undefined;
+		seriesConfig?: SeriesConfigItem[];
+		title?: string;
+		xKey?: string;
+		minHeight?: string;
+		xParseFn?: ((dateString: string) => Date | null) | null;
+		formatLabelX?: (date: Date) => string;
+		formatLabelY?: (value: number) => string;
+		formatValue?: (value: number) => string;
+		yDomain?: [number | null, number | null];
+		xTickInterval?: number;
+		ticks?: any[] | undefined;
+		height?: string;
+		visible?: boolean | undefined;
+		showLegend?: boolean;
+		xLabel?: string;
+		yLabel?: string;
+		cumulative?: boolean;
+		stacked?: boolean;
+		showArea?: boolean;
+		showLines?: boolean;
+		showTotalLine?: boolean;
+		totalLineColor?: string;
+		totalLineLabel?: string;
+		showTooltipTotal?: boolean;
+	}
+
 	let {
 		data = [],
 		seriesConfig = [],
@@ -21,8 +54,8 @@
 		minHeight = '100%',
 		xParseFn = timeParse('%Y-%m-%d'),
 		formatLabelX = timeFormat('%b %Y'),
-		formatLabelY = (d) => format('~s')(d) + '%',
-		formatValue = (d) => d.toFixed(0) + '%',
+		formatLabelY = (d: number) => format('~s')(d) + '%',
+		formatValue = (d: number) => d.toFixed(0) + '%',
 		yDomain = [0, null],
 		xTickInterval = 10,
 		ticks = undefined,
@@ -39,22 +72,18 @@
 		totalLineColor = '#000000',
 		totalLineLabel = 'Net Total',
 		showTooltipTotal = true
-	} = $props();
+	}: Props = $props();
 
-	// ── Internal constants ───────────────────────────────────────────────────────
-	const yKey = 'value'; // LayerCake's yKey after groupLonger
-	const zKey = 'key'; // LayerCake's zKey for line colors
+	const yKey = 'value';
+	const zKey = 'key';
 
-	// ── Window State Bindings ──────────────────────────────────────────────────
 	let innerWidth = $state(1000);
 	let innerHeight = $state(800);
 
-	// ── Derived State ──────────────────────────────────────────────────────────
-	let seriesNames = $derived(seriesConfig.map((s) => s.key));
-	let seriesColors = $derived(seriesConfig.map((s) => s.color));
+	const seriesNames = $derived(seriesConfig.map((s) => s.key));
+	const seriesColors = $derived(seriesConfig.map((s) => s.color));
 
-	// 1. Process data: parse dates and ensure all series values are numbers
-	let processedData = $derived(
+	const processedData = $derived(
 		data
 			.map((d) => {
 				const newD = { ...d };
@@ -67,20 +96,17 @@
 				});
 				return newD;
 			})
-			.sort((a, b) => a[xKey] - b[xKey])
+			.sort((a, b) => (a[xKey] as any) - (b[xKey] as any))
 	);
 
-	// 2. Apply Stacking and Cumulative logic
-	let finalData = $derived.by(() => {
-		// Create a fresh copy to avoid mutating processedData
+	const finalData = $derived.by(() => {
 		let result = processedData.map((d) => ({ ...d }));
 
-		// Apply stacking
 		if (stacked) {
 			let posSums = new Array(result.length).fill(0);
 			let negSums = new Array(result.length).fill(0);
 
-			result.forEach((row, i) => {
+			result.forEach((row: Record<string, any>, i) => {
 				row._stack = {};
 				row._original = {};
 				seriesNames.forEach((name) => {
@@ -94,14 +120,12 @@
 						row._stack[name] = { y0: negSums[i], y1: negSums[i] + val };
 						negSums[i] += val;
 					}
-					// Use y1 as the point value for line drawing and scaling
 					row[name] = row._stack[name].y1;
 				});
 				row._total = posSums[i] + negSums[i];
 			});
 		} else {
-			// If not stacked, still calculate total for the line if needed
-			result.forEach((row) => {
+			result.forEach((row: Record<string, any>) => {
 				let sum = 0;
 				seriesNames.forEach((name) => {
 					sum += row[name] || 0;
@@ -110,17 +134,15 @@
 			});
 		}
 
-		// Apply cumulative
 		if (cumulative) {
-			let runningSums = {};
+			let runningSums: Record<string, number> = {};
 			seriesNames.forEach((name) => (runningSums[name] = 0));
 
-			result.forEach((row) => {
+			result.forEach((row: Record<string, any>) => {
 				seriesNames.forEach((name) => {
 					runningSums[name] += row[name] || 0;
 					row[name] = runningSums[name];
 				});
-				// Update total for cumulative view as well
 				let sum = 0;
 				seriesNames.forEach((name) => {
 					sum += row[name] || 0;
@@ -132,11 +154,16 @@
 		return result;
 	});
 
-	let groupedData = $derived(groupLonger(finalData, seriesNames, { groupTo: zKey, valueTo: yKey }));
-	let xTicks = $derived(finalData.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]));
+	const groupedData = $derived(
+		finalData.length > 0
+			? groupLonger(finalData, seriesNames, { groupTo: zKey, valueTo: yKey })
+			: []
+	);
 
-	let computedHeight = $derived(innerWidth < 768 ? '100%' : height);
-	let computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
+	const xTicks = $derived(finalData.filter((_, i) => i % xTickInterval === 0).map((d) => d[xKey]));
+
+	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
+	const computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -146,71 +173,78 @@
 		<h4>{title}</h4>
 	{/if}
 
-	<div class="chart" style="min-height: {minHeight}">
-		<LayerCake
-			position="absolute"
-			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-			x={xKey}
-			y={yKey}
-			z={zKey}
-			{yDomain}
-			zDomain={seriesNames}
-			zScale={scaleOrdinal()}
-			xScale={scaleTime()}
-			zRange={seriesColors}
-			flatData={flatten(groupedData, 'values')}
-			data={groupedData}
-		>
-			<Svg>
-				<AxisX
-					gridlines={false}
-					ticks={ticks || xTicks}
-					format={formatLabelX}
-					tickMarks
-					label={xLabel}
-				/>
-				<AxisY ticks={4} format={formatLabelY} label={yLabel} />
-				{#if showArea}
-					<MultiArea {visible} opacity={0.3} />
-				{/if}
-				{#if showLines}
-					<MultiLine {visible} />
-				{/if}
-
-				{#if showTotalLine}
-					<TotalLine
-						dataset={finalData}
-						yKey="_total"
-						stroke={totalLineColor}
-						strokeWidth={4}
-						dashed={true}
-						{visible}
+	{#if data.length > 0}
+		<div class="chart" style="min-height: {minHeight}; height: {computedHeight};">
+			<LayerCake
+				position="absolute"
+				padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+				x={xKey}
+				y={yKey}
+				z={zKey}
+				{yDomain}
+				zDomain={seriesNames}
+				zScale={scaleOrdinal()}
+				xScale={scaleTime()}
+				zRange={seriesColors}
+				flatData={flatten(groupedData, 'values')}
+				data={groupedData}
+			>
+				<Svg>
+					<AxisX
+						gridlines={false}
+						ticks={ticks || xTicks}
+						format={formatLabelX}
+						tickMarks
+						label={xLabel}
 					/>
-				{/if}
-			</Svg>
+					<AxisY ticks={4} format={formatLabelY} label={yLabel} />
+					{#if showArea}
+						<MultiArea {visible} opacity={0.3} />
+					{/if}
+					{#if showLines}
+						<MultiLine {visible} />
+					{/if}
 
-			<Html>
-				<SharedTooltip
-					formatTitle={formatLabelX}
-					dataset={finalData}
-					{formatValue}
-					showTotal={showTooltipTotal}
-				/>
-			</Html>
-		</LayerCake>
-	</div>
+					{#if showTotalLine}
+						<TotalLine
+							dataset={finalData}
+							yKey="_total"
+							stroke={totalLineColor}
+							strokeWidth={4}
+							dashed={true}
+							{visible}
+						/>
+					{/if}
+				</Svg>
 
-	{#if computedShowLegend && (seriesConfig.length > 0 || showTotalLine)}
-		<div class="controls">
-			<div class="legend-container">
-				{#each seriesConfig as { label, color }}
-					<LegendItem variant={showArea ? 'polygon' : 'line'} {label} bgcolor={color} />
-				{/each}
-				{#if showTotalLine}
-					<LegendItem variant="line" label={totalLineLabel} bordercolor={totalLineColor} dotted />
-				{/if}
-			</div>
+				<Html>
+					<SharedTooltip
+						formatTitle={formatLabelX}
+						dataset={finalData}
+						{formatValue}
+						showTotal={showTooltipTotal}
+					/>
+				</Html>
+			</LayerCake>
 		</div>
+
+		{#if computedShowLegend && (seriesConfig.length > 0 || showTotalLine)}
+			<div class="controls">
+				<div class="legend-container">
+					{#each seriesConfig as { label, color }}
+						<LegendItem variant={showArea ? 'polygon' : 'line'} {label} bgcolor={color} />
+					{/each}
+					{#if showTotalLine}
+						<LegendItem
+							bgcolor={totalLineColor ?? '#000000'}
+							variant="line"
+							label={totalLineLabel}
+							bordercolor={totalLineColor}
+						/>
+					{/if}
+				</div>
+			</div>
+		{/if}
 	{/if}
 </div>
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import ContactCard from '../../../lib/ui/ContactCard.svelte';
 	import '../../../styles.css';
@@ -15,13 +15,55 @@
 	import reimaginingGoldenMile from './assets/ReimaginingGoldenMile.png';
 	import goldenMileBuildings from './assets/test.png';
 
-	import { sections } from './article.js';
+	import { sections } from './article';
 
-	const inlineSections = sections.slice(0);
+	interface VisConfigItem {
+		type: string;
+		src?: string;
+		alt?: string;
+		caption?: string;
+		fit?: string;
+		aspect?: string;
+		component?: any;
+		href?: string;
+		btnLabel?: string;
+		target?: string;
+	}
 
+	interface NavItem {
+		type: 'anchor';
+		id: string;
+		label: string;
+		stepIndex?: number;
+		isFirstInSection?: boolean;
+	}
+
+	interface Panel {
+		uid?: string;
+		id?: string;
+		label?: string;
+		source?: string;
+		config?: VisConfigItem | null;
+	}
+
+	interface Section {
+		blocks: {
+			heading?: string;
+			body: string;
+			panelId?: string;
+			panelIds?: string[];
+			cta?: {
+				href: string;
+				label: string;
+			};
+		}[];
+		panels: Panel[];
+	}
+
+	const inlineSections: Section[] = sections.slice(0);
 	const scrollySections = [];
 
-	const visConfig = {
+	const visConfig: Record<string, VisConfigItem> = {
 		gmstudyarea: { type: 'image', src: goldenMileStudyArea, alt: 'Map of Golden Mile boundary' },
 		gmbuildings: {
 			type: 'image',
@@ -40,7 +82,7 @@
 		}
 	};
 
-	const allPanels = sections.flatMap((section, si) =>
+	const allPanels: Panel[] = sections.flatMap((section, si) =>
 		section.panels.map((panel) => ({
 			...panel,
 			uid: `${si}:${panel.id}`,
@@ -63,7 +105,7 @@
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						activeIndex = Number(entry.target.dataset.step);
+						activeIndex = Number((entry.target as HTMLElement).dataset.step);
 					}
 				});
 			},
@@ -77,8 +119,8 @@
 		return () => observer.disconnect();
 	});
 
-	const items = $derived.by(() => {
-		const nav = [{ type: 'anchor', id: 'report-header', label: 'Introduction' }];
+	const items = $derived.by<NavItem[]>(() => {
+		const nav: NavItem[] = [{ type: 'anchor', id: 'report-header', label: 'Introduction' }];
 
 		sections.forEach((section, si) => {
 			const firstStepIndex = steps.findIndex((s) => s.sectionIndex === si);
@@ -112,7 +154,8 @@
 	backgroundImage={introImage}
 	scrollTargetId="main"
 />
-{#snippet renderPanel(uid, isVisible)}
+
+{#snippet renderPanel(uid: string, isVisible: boolean)}
 	{@const panel = allPanels.find((p) => p.uid === uid)}
 	{#if panel}
 		<VisPanel visible={isVisible} label={panel.label ?? ''} source={panel.source ?? ''}>
@@ -121,7 +164,7 @@
 					src={panel.config.src}
 					alt={panel.config.alt}
 					caption={panel.config.caption ?? ''}
-					fit={panel.config.fit}
+					fit={panel.config.fit as 'none' | 'fill' | 'cover' | 'contain' | 'scale-down' | undefined}
 					aspect={panel.config.aspect}
 				/>
 			{:else if panel.config?.type === 'component'}
@@ -137,6 +180,7 @@
 		</VisPanel>
 	{/if}
 {/snippet}
+
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
@@ -178,7 +222,6 @@
 							</div>
 						{/if}
 
-						<!-- Render panels if they changed from previous block -->
 						{#if changed && panelIds.length > 0}
 							<div class="inline-vis-container" class:multi-vis={panelIds.length > 1}>
 								{#each panelIds as pid}
@@ -327,7 +370,6 @@
 
 		.inline-vis-container.multi-vis {
 			flex-direction: column;
-			/* gap: 4rem; */
 		}
 
 		.inline-vis-item {
@@ -348,10 +390,5 @@
 		margin: 0 auto 2rem;
 		width: fit-content;
 		flex-direction: column;
-	}
-	@media (min-width: 640px) {
-		.team {
-			flex-direction: row;
-		}
 	}
 </style>

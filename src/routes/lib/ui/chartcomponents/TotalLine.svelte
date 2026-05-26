@@ -1,29 +1,47 @@
-<script>
+<script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
-	import { tweened } from 'svelte/motion';
+	import { Tween } from 'svelte/motion';
+	import type { Readable } from 'svelte/store';
 
-	const { data, xGet, yScale, xScale } = getContext('LayerCake');
+	const { data, xGet, yScale } = getContext<{
+		data: Readable<any[]>;
+		xGet: Readable<(d: any) => number>;
+		yScale: Readable<(d: any) => number>;
+	}>('LayerCake');
 
-	export let stroke = '#000000';
-	export let yKey = '_total';
-	export let strokeWidth = 3;
-	export let dashed = true;
-	export let visible = true;
+	interface Props {
+		stroke?: string;
+		yKey?: string;
+		strokeWidth?: number;
+		dashed?: boolean;
+		visible?: boolean;
+		dataset?: any[] | undefined;
+	}
 
-	const reveal = tweened(0, {
+	let {
+		stroke = '#000000',
+		yKey = '_total',
+		strokeWidth = 3,
+		dashed = true,
+		visible = true,
+		dataset = undefined
+	}: Props = $props();
+
+	const reveal = new Tween(0, {
 		duration: 1500,
 		easing: cubicOut
 	});
 
-	let pathElement;
+	let pathElement = $state<SVGPathElement | undefined>();
 
 	onMount(() => {
+		if (typeof visible !== 'undefined' && pathElement === undefined) return;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						reveal.set(1);
+						reveal.target = 1;
 					} else {
 						reveal.set(0, { duration: 0 });
 					}
@@ -37,17 +55,21 @@
 		return () => observer.disconnect();
 	});
 
-	// If data is grouped (multi-series), we need to get a flat version for the total line
-	// But in MultiLineChart, finalData is already flat (one row per date).
-	// However, LayerCake's $data might be the grouped version.
-	// So we should use the raw dataset if possible.
-	export let dataset = undefined;
-
-	$: points = (dataset || $data).map((d) => {
-		return $xGet(d) + ',' + $yScale(d[yKey]);
+	$effect(() => {
+		if (visible) {
+			reveal.target = 1;
+		} else {
+			reveal.set(0, { duration: 0 });
+		}
 	});
 
-	$: path = 'M' + points.join('L');
+	const points = $derived(
+		(dataset || $data).map((d) => {
+			return $xGet(d) + ',' + $yScale(d[yKey]);
+		})
+	);
+
+	const path = $derived('M' + points.join('L'));
 
 	const dashArray = 10000;
 </script>
@@ -59,8 +81,8 @@
 	{stroke}
 	stroke-width={strokeWidth}
 	stroke-dasharray={dashed ? '5,5' : dashArray}
-	stroke-dashoffset={dashed ? 0 : dashArray * (1 - $reveal)}
-	opacity={visible ? $reveal : 0}
+	stroke-dashoffset={dashed ? 0 : dashArray * (1 - reveal.current)}
+	opacity={visible ? reveal.current : 0}
 	style="transition: opacity 0.5s ease;"
 ></path>
 

@@ -1,18 +1,28 @@
-<script>
+<script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
-	import { tweened } from 'svelte/motion';
+	import { Tween } from 'svelte/motion';
+	import type { Readable } from 'svelte/store';
 
-	const { data, xGet, yGet, zGet } = getContext('LayerCake');
+	const { data, xGet, yGet, zGet } = getContext<{
+		data: Readable<any[]>;
+		xGet: Readable<(d: any) => number>;
+		yGet: Readable<(d: any) => number>;
+		zGet: Readable<(series: any) => string>;
+	}>('LayerCake');
 
-	let { visible = undefined } = $props();
+	interface Props {
+		visible?: boolean | undefined;
+	}
 
-	const reveal = tweened(0, {
+	let { visible = undefined }: Props = $props();
+
+	const reveal = new Tween(0, {
 		duration: 1500,
 		easing: cubicOut
 	});
 
-	let group;
+	let group = $state<SVGGElement | undefined>();
 
 	onMount(() => {
 		if (typeof visible !== 'undefined') return;
@@ -20,7 +30,7 @@
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						reveal.set(1);
+						reveal.target = 1;
 					} else if (entry.intersectionRatio === 0) {
 						reveal.set(0, { duration: 0 });
 					}
@@ -34,22 +44,21 @@
 		return () => observer.disconnect();
 	});
 
-	// Re-trigger animation when 'visible' becomes true (scrollytelling)
 	$effect(() => {
 		if (typeof visible !== 'undefined') {
 			if (visible) {
-				reveal.set(1);
+				reveal.target = 1;
 			} else {
 				reveal.set(0, { duration: 0 });
 			}
 		}
 	});
 
-	const path = $derived((values) => {
+	const path = $derived((values: any[]) => {
 		return (
 			'M' +
 			values
-				.map((d) => {
+				.map((d: any) => {
 					return $xGet(d) + ',' + $yGet(d);
 				})
 				.join('L')
@@ -66,8 +75,8 @@
 			d={path(series.values)}
 			stroke={$zGet(series)}
 			stroke-dasharray={dashArray}
-			stroke-dashoffset={dashArray * (1 - $reveal)}
-			opacity={$reveal > 1e-4 ? 1 : 0}
+			stroke-dashoffset={dashArray * (1 - reveal.current)}
+			opacity={reveal.current > 1e-4 ? 1 : 0}
 		></path>
 	{/each}
 </g>

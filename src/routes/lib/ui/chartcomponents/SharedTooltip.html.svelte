@@ -1,39 +1,48 @@
-<script>
+<script lang="ts">
 	import { format } from 'd3-format';
 	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
 	import QuadTree from './QuadTree.html.svelte';
 
-	const { data, width, height, yScale, config } = getContext('LayerCake');
+	const { data, width, height, config } = getContext<{
+		data: Readable<any[]>;
+		width: Readable<number>;
+		height: Readable<number>;
+		yScale: Readable<any>;
+		config: Readable<{ x: string; [key: string]: any }>;
+	}>('LayerCake');
 
 	const commas = format(',');
-	const titleCase = (d) => d.replace(/\b\w/g, (w) => w.toUpperCase());
+	const titleCase = (d: string) => d.replace(/\b\w/g, (w) => w.toUpperCase());
 
-	// Props using Svelte 5 Runes
+	interface Props {
+		formatTitle?: (d: any) => any;
+		formatValue?: (value: any, key?: string) => any;
+		formatKey?: (d: string) => string;
+		dataset?: any[] | undefined;
+		showTotal?: boolean;
+	}
+
 	let {
-		formatTitle = (d) => d,
-		formatValue = (d) => (isNaN(+d) ? d : commas(d)),
-		formatKey = (d) => titleCase(d),
+		formatTitle = (d: any) => d,
+		formatValue = (d: any) => (isNaN(+d) ? d : commas(d)),
+		formatKey = (d: string) => titleCase(d),
 		dataset = undefined,
 		showTotal = false
-	} = $props();
+	}: Props = $props();
 
 	const w = 150;
 	const w2 = w / 2;
 
-	/* --------------------------------------------
-	 * Sort the keys by the highest value
-	 */
-	function sortResult(result) {
+	function sortResult(result: Record<string, any>) {
 		if (!result || Object.keys(result).length === 0) return [];
 
-		// Filter out internal and coordinate keys
 		const internalKeys = [$config.x, '_stack', '_original', '_total'];
 
 		const rows = Object.keys(result)
 			.filter((d) => !internalKeys.includes(d))
 			.map((key) => {
-				// Use original value if available (from MultiLineChart's diverging stack)
 				const val =
 					result._original && typeof result._original[key] !== 'undefined'
 						? result._original[key]
@@ -50,7 +59,19 @@
 </script>
 
 <QuadTree dataset={dataset || $data} y="x">
-	{#snippet children({ x, y, visible, found, e })}
+	{#snippet children({
+		x,
+		y,
+		visible,
+		found,
+		e
+	}: {
+		x: number;
+		y: number;
+		visible: boolean;
+		found: any;
+		e: MouseEvent | null;
+	})}
 		{#if visible === true && found}
 			{@const foundSorted = sortResult(found)}
 			<div style="left:{x}px;" class="line"></div>
@@ -59,7 +80,6 @@
 				style="
           width:{w}px;
           display: {visible ? 'block' : 'none'};
-          /* Use the mouse Y position if available, centered vertically */
           top:{e ? Math.min(Math.max(50, e.layerY), $height - 50) : 0}px;
           left:{Math.min(Math.max(w2, x), $width - w2)}px;"
 			>
@@ -89,7 +109,7 @@
 		pointer-events: none;
 		border: 1px solid #ccc;
 		background: rgba(255, 255, 255, 0.95);
-		transform: translate(-50%, -50%); /* Center it vertically on the cursor */
+		transform: translate(-50%, -50%);
 		padding: 8px;
 		z-index: 15;
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

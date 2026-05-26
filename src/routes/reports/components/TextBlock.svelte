@@ -1,33 +1,25 @@
-<script>
-	/**
-	 * TextBlock.svelte
-	 *
-	 * A single "step" in the scrollytelling narrative.
-	 * Renders a text card and exposes a `data-step` attribute so
-	 * Scroller's IntersectionObserver can track it.
-	 *
-	 * Props:
-	 *   index       {number}  — position in the steps array (required)
-	 *   active      {boolean} — whether this block is currently in view
-	 *   eyebrow     {string}  — small label above the heading (optional)
-	 *   heading     {string}  — section heading (optional)
-	 *   body        {string}  — HTML string for the body content (optional)
-	 *
-	 * The `body` prop accepts arbitrary HTML so you can use:
-	 *   <p>, <strong>, <em>, <a>, <ul>/<ol>/<li>, <blockquote>, <small>, etc.
-	 *
-	 * Alternatively, leave `body` empty and use the default slot for full
-	 * Svelte component flexibility:
-	 *   <TextBlock index={2} active={...}>
-	 *     <p>Some text with a <strong>bold word</strong>.</p>
-	 *     <ul><li>Item one</li></ul>
-	 *   </TextBlock>
-	 *
-	 * ⚠️  Only pass trusted/sanitised content to `body` — {@html} is not
-	 *     XSS-safe for arbitrary user input.
-	 */
-
+<script lang="ts">
+	import type { Snippet } from 'svelte';
 	import '../../styles.css';
+
+	interface CtaConfig {
+		href: string;
+		label?: string;
+		target?: string;
+	}
+
+	interface Props {
+		id?: string;
+		index?: number;
+		active?: boolean;
+		eyebrow?: string;
+		heading?: string;
+		body?: string;
+		inlineVisual?: Snippet;
+		showInlineVisual?: boolean;
+		cta?: CtaConfig;
+		children?: Snippet;
+	}
 
 	let {
 		id = '',
@@ -38,9 +30,9 @@
 		body = '',
 		inlineVisual,
 		showInlineVisual = true,
-		cta, // { href, label, target }
+		cta,
 		children
-	} = $props();
+	}: Props = $props();
 </script>
 
 <div {id} class="text-block" class:active data-step={index}>
@@ -58,7 +50,6 @@
 		</div>
 	{/if}
 
-	<!-- Slot takes priority; fall back to the `body` HTML string -->
 	<div class="prose">
 		{#if children}
 			{@render children()}
@@ -120,7 +111,6 @@
 		padding-top: 1.5rem;
 	}
 
-	/* ── Meta labels ─────────────────────────────────────────── */
 	.eyebrow {
 		font-size: clamp(0.8rem, 2.5vw, 1rem);
 		letter-spacing: 0.18em;
@@ -136,45 +126,6 @@
 		line-height: 1.25;
 	}
 
-	/* ── Prose container ─────────────────────────────────────── */
-	/* .prose {
-		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-		color: var(--color-slate-900);
-		line-height: 1.75;
-		max-width: 46ch;
-	} */
-
-	/* Paragraphs */
-	/* .prose :global(p) {
-		margin: 0 0 1em;
-	} */
-	/* .prose :global(p:last-child) {
-		margin-bottom: 0;
-	} */
-
-	/* Inline emphasis */
-	/* .prose :global(strong) {
-		font-weight: 700;
-		color: #111;
-	}
-	.prose :global(em) {
-		font-style: italic;
-	} */
-
-	/* Lists */
-	/* .prose :global(ul),
-	.prose :global(ol) {
-		margin: 0 0 1em 1.4em;
-		padding: 0;
-	}
-	.prose :global(li) {
-		margin-bottom: 0.35em;
-	}
-	.prose :global(li:last-child) {
-		margin-bottom: 0;
-	} */
-
-	/* Blockquote */
 	.prose :global(blockquote) {
 		margin: 1.25em 0;
 		padding: 0.1em 0 0.1em 1.1em;
@@ -183,21 +134,18 @@
 		font-style: italic;
 	}
 
-	/* Small / captions */
 	.prose :global(small) {
 		font-size: 0.82em;
 		color: #888;
 		letter-spacing: 0.03em;
 	}
 
-	/* Horizontal rule */
 	.prose :global(hr) {
 		border: none;
 		border-top: 1px solid #e8e8e8;
 		margin: 1.5em 0;
 	}
 
-	/* ── CTA Button ──────────────────────────────────────────── */
 	.cta-wrap {
 		margin-top: 2rem;
 		display: flex;
@@ -215,7 +163,6 @@
 			height: fit-content;
 			margin-bottom: 2rem;
 			background: #ffffff;
-			/* border: 1px solid #eee; */
 			border-radius: 8px;
 			overflow: hidden;
 			position: relative;
@@ -232,7 +179,7 @@
 		}
 
 		.text-block {
-			opacity: 1 !important; /* On mobile with inline visuals, don't fade out text as much */
+			opacity: 1 !important;
 			transform: none !important;
 			min-height: auto;
 			padding: 0rem 0;

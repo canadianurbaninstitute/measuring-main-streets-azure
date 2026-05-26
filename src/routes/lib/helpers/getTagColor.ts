@@ -1,4 +1,4 @@
-const getTagColor = (tag) => {
+const getTagColor = (tag: string) => {
 	const text = tag.toLowerCase();
 	if (text.includes('mapping')) return 'var(--brandPink)';
 	if (text.includes('resilience')) return 'var(--brandBlue)';

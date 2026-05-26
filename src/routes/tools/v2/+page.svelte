@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import civic from '../../lib/assets/graphics/civic.svg';
 	import demographic from '../../lib/assets/graphics/demographic.svg';
 	import housing from '../../lib/assets/graphics/housing.svg';

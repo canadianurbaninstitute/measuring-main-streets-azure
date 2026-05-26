@@ -1,39 +1,37 @@
-<script>
-	/**
-	 * Scroller.svelte
-	 *
-	 * Core scrollytelling engine. Tracks which text block is in the viewport
-	 * and exposes `activeIndex` so the parent can switch visualizations.
-	 *
-	 * Usage:
-	 *   <Scroller bind:activeIndex sections={sections}>
-	 *     <div slot="text">   <!-- scrolling text column -->
-	 *     <div slot="visual">  <!-- sticky visual column -->
-	 *   </Scroller>
-	 */
-
+<script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
 
-	let { activeIndex = $bindable(0), threshold = 0.5, text, visual } = $props();
+	interface Props {
+		activeIndex?: number;
+		threshold?: number;
+		text?: Snippet;
+		visual?: Snippet;
+	}
 
-	let steps = $state([]);
-	let container = $state();
+	let { activeIndex = $bindable(0), threshold = 0.5, text, visual }: Props = $props();
+
+	let steps = $state<Element[]>([]);
+	let container = $state<HTMLDivElement>();
 
 	onMount(() => {
+		if (!container) return;
+
 		steps = Array.from(container.querySelectorAll('[data-step]'));
 
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
+					if (entry.isIntersecting && entry.target instanceof HTMLElement) {
 						const idx = Number(entry.target.dataset.step);
-						activeIndex = idx;
+						if (!isNaN(idx)) {
+							activeIndex = idx;
+						}
 					}
 				});
 			},
 			{
 				root: null,
-				// Trigger when the element crosses the middle of the viewport
 				rootMargin: `-${Math.round((1 - threshold) * 100)}% 0px -${Math.round(threshold * 100)}% 0px`,
 				threshold: 0
 			}
@@ -45,18 +43,11 @@
 	});
 </script>
 
-<!--
-  Layout: two-column grid.
-  Left  → scrolling text (slot "text")
-  Right → sticky visual panel (slot "visual")
--->
 <div class="scroller-layout">
-	<!-- ── Scrolling text column ── -->
 	<div class="text-column" bind:this={container}>
 		{@render text?.()}
 	</div>
 
-	<!-- ── Sticky visual column ── -->
 	<div class="visual-column">
 		<div class="visual-sticky">
 			{@render visual?.()}
@@ -75,14 +66,11 @@
 		align-items: start;
 	}
 
-	/* ── Text: normal flow so the page scrolls ── */
 	.text-column {
 		padding: 0 2rem 0 3rem;
 	}
 
-	/* ── Visual: sticks while text scrolls past ── */
 	.visual-column {
-		/* Must have a defined height for sticky to work */
 		align-self: stretch;
 	}
 

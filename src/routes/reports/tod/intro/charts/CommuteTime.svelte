@@ -1,7 +1,11 @@
-<script>
+<script lang="ts">
 	import StackedBar from '../../../../lib/ui/charts/StackedBar.svelte';
 
-	let { visible } = $props();
+	interface Props {
+		visible?: boolean;
+	}
+
+	let { visible }: Props = $props();
 	const commuteData = [
 		{
 			city: 'Toronto',

@@ -3,8 +3,7 @@
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"module": "esnext",
-		"moduleResolution": "node"
+		"module": "esnext"
 	},
 	"extends": "./.svelte-kit/tsconfig.json"
 }

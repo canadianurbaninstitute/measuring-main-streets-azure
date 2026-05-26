@@ -1,93 +1,96 @@
-<!--
-  @component
-  Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the tickMarks in the middle of the bandwidth.
- -->
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
-	const { xRange, yScale, width } = getContext('LayerCake');
+	// 1. Fetch LayerCake context stores with precise structural types
+	const { xRange, yScale, width } = getContext<{
+		xRange: Readable<[number, number]>;
+		yScale: Readable<any>; // Can be linear, band, or ordinal D3 scales
+		width: Readable<number>;
+	}>('LayerCake');
 
-	/** @type {Boolean} [tickMarks=false] - Show marks next to the tick label. */
-	export let tickMarks = false;
+	// 2. Define the exact Props interface for type-safety
+	interface Props {
+		tickMarks?: boolean;
+		labelPosition?: 'even' | 'above';
+		snapBaselineLabel?: boolean;
+		gridlines?: boolean;
+		tickMarkLength?: number | undefined;
+		format?: (d: any) => string | number;
+		ticks?: number | any[] | ((defaultTicks: any[]) => any[]);
+		tickGutter?: number;
+		dx?: number;
+		dy?: number;
+		charPixelWidth?: number;
+		wrap?: boolean;
+		label?: string;
+	}
 
-	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
-	export let labelPosition = 'even';
+	// 3. Receive parameters using the Svelte 5 $props() rune
+	let {
+		tickMarks = false,
+		labelPosition = 'even',
+		snapBaselineLabel = false,
+		gridlines = true,
+		tickMarkLength = undefined,
+		format = (d: any) => d,
+		ticks = 4,
+		tickGutter = 0,
+		dx = 0,
+		dy = 0,
+		charPixelWidth = 7.25,
+		wrap = false,
+		label = ''
+	}: Props = $props();
 
-	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
-	export let snapBaselineLabel = false;
-
-	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
-	export let gridlines = true;
-
-	/** @type {Number} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */
-	export let tickMarkLength = undefined;
-
-	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let format = (d) => d;
-
-	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
-	export let ticks = 4;
-
-	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
-	export let tickGutter = 0;
-
-	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
-	export let dx = 0;
-
-	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 0;
-
-	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
-	export let charPixelWidth = 7.25;
-
-	/** @type {Boolean} [wrap=false] - Whether to wrap the labels based on spaces. */
-	export let wrap = false;
-
-	/** @type {String} [label=''] - An optional label for the axis. */
-	export let label = '';
-
-	$: isBandwidth = typeof $yScale.bandwidth === 'function';
-
-	$: tickVals = Array.isArray(ticks)
-		? ticks
-		: isBandwidth
-			? $yScale.domain()
-			: typeof ticks === 'function'
-				? ticks($yScale.ticks())
-				: $yScale.ticks(ticks);
-
-	function calcStringLength(sum, val) {
+	// 4. Calculate string weights defensively
+	function calcStringLength(sum: number, val: string): number {
 		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;
 		return sum + charPixelWidth;
 	}
 
-	$: tickLen =
+	// 5. Build computed behaviors using Svelte 5 $derived statements
+	let isBandwidth = $derived(typeof $yScale.bandwidth === 'function');
+
+	let tickVals = $derived(
+		Array.isArray(ticks)
+			? ticks
+			: isBandwidth
+				? $yScale.domain()
+				: typeof ticks === 'function'
+					? ticks($yScale.ticks())
+					: $yScale.ticks(ticks)
+	);
+
+	let widestTickLen = $derived(
+		Math.max(
+			10,
+			Math.max(
+				...tickVals.map((d: any) => {
+					const formatted = format(d).toString();
+					if (wrap) {
+						return Math.max(
+							...formatted.split(' ').map((word) => word.split('').reduce(calcStringLength, 0))
+						);
+					}
+					return formatted.split('').reduce(calcStringLength, 0);
+				})
+			)
+		)
+	);
+
+	let tickLen = $derived(
 		tickMarks === true
 			? labelPosition === 'above'
 				? (tickMarkLength ?? widestTickLen)
 				: (tickMarkLength ?? 6)
-			: 0;
-
-	$: widestTickLen = Math.max(
-		10,
-		Math.max(
-			...tickVals.map((d) => {
-				const formatted = format(d).toString();
-				if (wrap) {
-					// If wrapping, the widest length is the widest individual word
-					return Math.max(
-						...formatted.split(' ').map((word) => word.split('').reduce(calcStringLength, 0))
-					);
-				}
-				return formatted.split('').reduce(calcStringLength, 0);
-			})
-		)
+			: 0
 	);
 
-	$: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
-	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
+	let x1 = $derived(-tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen));
+	let y = $derived(isBandwidth ? $yScale.bandwidth() / 2 : 0);
 
-	$: maxTickValPx = Math.max(...tickVals.map($yScale));
+	let maxTickValPx = $derived(Math.max(...tickVals.map($yScale)));
 </script>
 
 <g class="axis y-axis">

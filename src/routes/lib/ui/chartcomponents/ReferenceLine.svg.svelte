@@ -1,7 +1,21 @@
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
-	const { xScale, yScale } = getContext('LayerCake');
+	const { xScale, yScale } = getContext<{
+		xScale: Readable<(d: any) => number>;
+		yScale: Readable<(d: any) => number>;
+	}>('LayerCake');
+
+	interface Props {
+		x1?: number;
+		y1?: number;
+		x2?: number;
+		y2?: number;
+		stroke?: string;
+		strokeWidth?: number;
+		strokeDasharray?: string;
+	}
 
 	let {
 		x1 = 0,
@@ -11,9 +25,8 @@
 		stroke = '#999',
 		strokeWidth = 1,
 		strokeDasharray = '4 4'
-	} = $props();
+	}: Props = $props();
 
-	// Calculate pixel coordinates based on scales
 	const coords = $derived({
 		px1: $xScale(x1),
 		py1: $yScale(y1),
@@ -27,7 +40,7 @@
 	y1={coords.py1}
 	x2={coords.px2}
 	y2={coords.py2}
-	stroke={stroke}
+	{stroke}
 	stroke-width={strokeWidth}
 	stroke-dasharray={strokeDasharray}
 	class="reference-line"

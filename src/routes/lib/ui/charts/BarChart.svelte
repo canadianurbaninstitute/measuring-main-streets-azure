@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { format as d3Format } from 'd3-format';
 	import { scaleBand } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
@@ -10,48 +10,88 @@
 	import QuadTree from '../chartcomponents/QuadTree.html.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
-	// ── Props ────────────────────────────────────────────────────────────────────
-	export let data = [];
-	export let xKey;
-	export let yKey = 'name';
-	export let groupKey = 'ms_type';
-	export let title = '';
-	export let titleFontSize = '1.1rem';
-	export let xDomain = [0, null];
-	export let minHeight = '150px';
-	export let height = '250px';
-	export let paddingLeft = 160;
-	export let paddingRight = 20;
-	export let paddingTop = 10;
-	export let paddingBottom = 25;
-	export let barColor = '#00adf2';
-	export let wrapLabels = false;
-	export let showTooltip = false;
-	export let formatTooltipValue = (d) => d3Format(',')(d);
-	export let visible = undefined;
-	export let xLabel = '';
-	export let yLabel = '';
-	export let xTicks = undefined;
-	export let yTicks = undefined;
-	export let formatLabelX = (d) => d;
-	export let formatLabelY = (d) => d;
-	export let showLegend = true;
-	export let highlightValue = '';
-	export let highlightColor = '#f45d01';
-	export let barPadding = undefined;
+	interface GroupConfigItem {
+		value: string;
+		label: string;
+		color: string;
+	}
 
-	/**
-	 * Configuration for groups, including their data value, legend label, and bar color.
-	 */
-	export let groupConfig = [];
+	interface Props {
+		data?: Record<string, any>[];
+		xKey: string;
+		yKey?: string;
+		groupKey?: string;
+		title?: string;
+		titleFontSize?: string;
+		xDomain?: [number | null, number | null];
+		minHeight?: string;
+		height?: string;
+		paddingLeft?: number;
+		paddingRight?: number;
+		paddingTop?: number;
+		paddingBottom?: number;
+		barColor?: string;
+		wrapLabels?: boolean;
+		showTooltip?: boolean;
+		formatTooltipValue?: (d: any) => any;
+		visible?: boolean | undefined;
+		xLabel?: string;
+		yLabel?: string;
+		xTicks?: any[] | number | undefined;
+		yTicks?: any[] | number | undefined;
+		formatLabelX?: (d: any) => any;
+		formatLabelY?: (d: any) => any;
+		showLegend?: boolean;
+		highlightValue?: string;
+		highlightColor?: string;
+		barPadding?: number | undefined;
+		groupConfig?: GroupConfigItem[];
+	}
 
-	let innerWidth = 1000;
-	let innerHeight = 800;
-	$: computedPaddingLeft = innerWidth < 768 ? Math.max(60, Math.min(paddingLeft, 80)) : paddingLeft;
-	$: computedHeight = innerWidth < 768 ? '100%' : height;
-	$: computedWrapLabels = innerWidth < 768 ? true : wrapLabels;
-	$: computedShowLegend = innerHeight < 900 ? false : showLegend;
-	$: computedBarPadding = barPadding !== undefined ? barPadding : data.length > 3 ? 0.1 : 0.3;
+	let {
+		data = [],
+		xKey,
+		yKey = 'name',
+		groupKey = 'ms_type',
+		title = '',
+		titleFontSize = '1.1rem',
+		xDomain = [0, null],
+		minHeight = '150px',
+		height = '250px',
+		paddingLeft = 160,
+		paddingRight = 20,
+		paddingTop = 10,
+		paddingBottom = 25,
+		barColor = '#00adf2',
+		wrapLabels = false,
+		showTooltip = false,
+		formatTooltipValue = (d: any) => d3Format(',')(d),
+		visible = undefined,
+		xLabel = '',
+		yLabel = '',
+		xTicks = undefined,
+		yTicks = undefined,
+		formatLabelX = (d: any) => d,
+		formatLabelY = (d: any) => d,
+		showLegend = true,
+		highlightValue = '',
+		highlightColor = '#f45d01',
+		barPadding = undefined,
+		groupConfig = []
+	}: Props = $props();
+
+	let innerWidth = $state(1000);
+	let innerHeight = $state(800);
+
+	const computedPaddingLeft = $derived(
+		innerWidth < 768 ? Math.max(60, Math.min(paddingLeft, 80)) : paddingLeft
+	);
+	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
+	const computedWrapLabels = $derived(innerWidth < 768 ? true : wrapLabels);
+	const computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
+	const computedBarPadding = $derived(
+		barPadding !== undefined ? barPadding : data.length > 3 ? 0.1 : 0.3
+	);
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -71,7 +111,7 @@
 		</div>
 	{/if}
 
-	<div class="chart" style:min-height={minHeight}>
+	<div class="chart" style:min-height={minHeight} style:height={computedHeight}>
 		{#if groupConfig && groupConfig.length > 0}
 			{#each groupConfig as { value, color }, i}
 				<LayerCake
@@ -93,7 +133,7 @@
 					<Svg>
 						{#if i === 0}
 							<AxisX
-								tickMark
+								tickMarks
 								baseline
 								snapLabels
 								label={xLabel}
@@ -114,16 +154,18 @@
 
 					{#if i === groupConfig.length - 1 && showTooltip}
 						<Html>
-							<QuadTree x="y" y="y" dataset={data} let:found let:visible let:e>
-								{#if visible && found && e}
-									<ChartTooltip
-										{found}
-										{e}
-										titleKey={yKey}
-										valueKey={xKey}
-										formatValue={formatTooltipValue}
-									/>
-								{/if}
+							<QuadTree x="y" y="y" dataset={data}>
+								{#snippet children({ found, visible: qVisible, e })}
+									{#if qVisible && found && e}
+										<ChartTooltip
+											{found}
+											{e}
+											titleKey={yKey}
+											valueKey={xKey}
+											formatValue={formatTooltipValue}
+										/>
+									{/if}
+								{/snippet}
 							</QuadTree>
 						</Html>
 					{/if}
@@ -146,7 +188,14 @@
 				{data}
 			>
 				<Svg>
-					<AxisX tickMark baseline snapLabels label={xLabel} ticks={xTicks} format={formatLabelX} />
+					<AxisX
+						tickMarks
+						baseline
+						snapLabels
+						label={xLabel}
+						ticks={xTicks}
+						format={formatLabelX}
+					/>
 					<AxisY
 						tickMarks
 						gridlines={false}
@@ -160,16 +209,18 @@
 
 				{#if showTooltip}
 					<Html>
-						<QuadTree x="y" y="y" let:found let:visible let:e>
-							{#if visible && found && e}
-								<ChartTooltip
-									{found}
-									{e}
-									titleKey={yKey}
-									valueKey={xKey}
-									formatValue={formatTooltipValue}
-								/>
-							{/if}
+						<QuadTree x="y" y="y">
+							{#snippet children({ found, visible: qVisible, e })}
+								{#if qVisible && found && e}
+									<ChartTooltip
+										{found}
+										{e}
+										titleKey={yKey}
+										valueKey={xKey}
+										formatValue={formatTooltipValue}
+									/>
+								{/if}
+							{/snippet}
 						</QuadTree>
 					</Html>
 				{/if}

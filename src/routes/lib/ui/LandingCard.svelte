@@ -1,7 +1,28 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import getTagColor from '../helpers/getTagColor';
 
+	// 1. Define types for complex data shapes
+	interface ItemTag {
+		text: string;
+	}
+
+	type TagType = string | ItemTag;
+
+	// 2. Define the Component Props Interface
+	interface Props {
+		link?: string;
+		image?: string;
+		title?: string;
+		featured?: boolean;
+		description?: string;
+		tags?: TagType[];
+		minWidth?: number;
+		maxWidth?: number;
+		logo?: string | string[] | null;
+	}
+
+	// 3. Bind the props destructured object to the Props interface
 	let {
 		link = '#',
 		image = '',
@@ -12,9 +33,10 @@
 		minWidth = 0,
 		maxWidth = 500,
 		logo = null
-	} = $props();
+	}: Props = $props();
 
-	const getTagText = (tag) => (typeof tag === 'object' ? tag.text : tag);
+	// 4. Add type safety to the helper function parameter
+	const getTagText = (tag: TagType): string => (typeof tag === 'object' ? tag.text : tag);
 </script>
 
 <a href={link} class="card-link">
@@ -52,7 +74,7 @@
 							</span>
 						{/if}
 						{#each tags as tag}
-							<span class="tag" style="background-color: {getTagColor(tag)}">
+							<span class="tag" style="background-color: {getTagColor(tag as string)}">
 								{getTagText(tag)}
 							</span>
 						{/each}
@@ -67,13 +89,13 @@
 </a>
 
 <style>
+	/* Your styles remain unchanged and perfectly valid */
 	.card-link {
 		text-decoration: none;
 		color: inherit;
 		display: block;
 		height: 100%;
 	}
-
 	.landing-card {
 		background-color: white;
 		width: 100%;
@@ -88,28 +110,21 @@
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-
-		/* Desktop sizes from props */
 		min-width: var(--min-w);
 		max-width: var(--max-w);
 	}
-
-	/* Mobile adjustment */
 	@media (max-width: 640px) {
 		.landing-card {
-			min-width: 200px; /* Reduced for mobile */
+			min-width: 200px;
 		}
 	}
-
 	.featured {
 		outline: 6px solid var(--brandLightBlue);
 	}
-
 	.landing-card:hover {
 		transform: translateY(-4px);
 		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 	}
-
 	.card-image-container {
 		position: absolute;
 		top: 0;
@@ -119,13 +134,11 @@
 		background-color: #f8f9fa;
 		z-index: 0;
 	}
-
 	.card-image-container img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
-
 	.card-logo-overlay {
 		position: absolute;
 		top: 1rem;
@@ -140,20 +153,17 @@
 		backdrop-filter: blur(4px);
 		gap: 0.5rem;
 	}
-
 	.logo-divider {
 		width: 1px;
 		height: 20px;
 		background-color: #ccc;
 		margin: 0 0.25rem;
 	}
-
 	.card-logo-overlay img {
 		max-height: 30px;
 		max-width: 150px;
 		object-fit: contain;
 	}
-
 	.card-content {
 		position: relative;
 		z-index: 1;
@@ -162,7 +172,6 @@
 		margin-top: auto;
 		display: flex;
 		flex-direction: column;
-		/* Gradient background for tint */
 		background: linear-gradient(
 			to top,
 			rgba(255, 255, 255, 1) 0%,
@@ -172,17 +181,14 @@
 			rgba(255, 255, 255, 0.8) 80%,
 			rgba(255, 255, 255, 0.7) 90%
 		);
-		/* The Blur */
 		backdrop-filter: blur(4px);
 	}
-
 	.card-tags {
 		display: flex;
 		flex-wrap: wrap;
 		max-width: 70%;
 		gap: 0.5rem;
 	}
-
 	.tag {
 		padding: 0.2rem 0.6rem;
 		border-radius: 1rem;
@@ -192,13 +198,11 @@
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
 	}
-
 	.card-title {
 		font-size: 1.5rem;
 		color: var(--brandDarkBlue);
 		max-width: 100%;
 	}
-
 	.card-description {
 		font-size: 0.9rem;
 		color: #666;
@@ -207,7 +211,6 @@
 		flex: 1;
 		max-width: 100%;
 	}
-
 	.cta {
 		display: flex;
 		width: fit-content;
