@@ -38,7 +38,7 @@
 							current completeness and future needs.
 						</p>
 						<p>
-							For more information on methdology, see <a href="/about/data-methodology/v2/#tod-cc"
+							For more information on methdology, see <a href="/about/data-methodology/#tod-cc"
 								>Data & Methodology</a
 							>.
 						</p>

@@ -180,6 +180,8 @@
 		border-radius: 1em;
 		height: 100%;
 		box-sizing: border-box;
+		min-width: 1px;
+		min-height: 1px;
 	}
 	@media only screen and (min-width: 768px) {
 		.chart-container {

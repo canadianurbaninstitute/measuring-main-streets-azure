@@ -1,9 +1,8 @@
 <script>
-	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';
+	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	import "../../../../node_modules/mapbox-gl/dist/mapbox-gl.css"
-
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -31,47 +30,51 @@
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
 		map.addControl(
-				new mapboxgl.AttributionControl({
-					customAttribution: attribution
-				})
-			);
+			new mapboxgl.AttributionControl({
+				customAttribution: attribution
+			})
+		);
 
 		// Create a popup, but don't add it to the map yet.
 		const popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false
-        });
-
+			closeButton: false,
+			closeOnClick: false
+		});
 
 		map.on('mouseenter', 'case-studies-malls-points', (e) => {
-            // Change the cursor style as a UI indicator.
-            map.getCanvas().style.cursor = 'pointer';
+			// Change the cursor style as a UI indicator.
+			map.getCanvas().style.cursor = 'pointer';
 
-            // Copy coordinates array.
-            const coordinates = e.features[0].geometry.coordinates.slice();
-            const name = e.features[0].properties.Name;
-            // Populate the popup and set its coordinates
-            // based on the feature found.
-            popup.setLngLat(coordinates).setHTML(name).addTo(map);
+			// Copy coordinates array.
+			const coordinates = e.features[0].geometry.coordinates.slice();
+			const name = e.features[0].properties.Name;
+			// Populate the popup and set its coordinates
+			// based on the feature found.
+			popup.setLngLat(coordinates).setHTML(name).addTo(map);
+		});
 
-        });
-
-        map.on('mouseleave', 'case-studies-malls-points', () => {
-            map.getCanvas().style.cursor = '';
-            popup.remove();
-        });
+		map.on('mouseleave', 'case-studies-malls-points', () => {
+			map.getCanvas().style.cursor = '';
+			popup.remove();
+		});
 	});
-
 </script>
 
 <div class="chart-container">
-	
-	<div id="case-studies-map" class="map" />
+	<div id="case-studies-map" class="map"></div>
 
 	<div class="legend-container">
-		<LegendItem variant={'polygon'} label={'Rues principales de centres-villes'} bgcolor={'#58e965'} />
+		<LegendItem
+			variant={'polygon'}
+			label={'Rues principales de centres-villes'}
+			bgcolor={'#58e965'}
+		/>
 		<LegendItem variant={'polygon'} label={'Rues principales de quartiers'} bgcolor={'#002940'} />
-		<LegendItem variant={'polygon'} label={'Rues principales de petites villes'} bgcolor={'#00adf2'} />
+		<LegendItem
+			variant={'polygon'}
+			label={'Rues principales de petites villes'}
+			bgcolor={'#00adf2'}
+		/>
 		<LegendItem variant={'polygon'} label={'Centres commerciaux'} bgcolor={'#DB3069'} />
 	</div>
 </div>
@@ -92,7 +95,6 @@
 		border-radius: 1em;
 	}
 
-
 	.legend-container {
 		display: flex;
 		flex-direction: column;
@@ -103,7 +105,7 @@
 
 	@media only screen and (min-width: 768px) {
 		.legend-container {
-		flex-direction: row;
+			flex-direction: row;
 		}
 	}
 </style>

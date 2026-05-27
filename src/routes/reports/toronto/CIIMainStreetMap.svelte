@@ -85,7 +85,7 @@
 <div class="chart-container">
 	<h4>{title}</h4>
 
-	<div id={section} class="map" />
+	<div id={section} class="map"></div>
 </div>
 
 <style>

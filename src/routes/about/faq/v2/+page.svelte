@@ -196,7 +196,7 @@
 									drink, and local services. Our definition of main streets split them into two
 									types, 'high density' and 'low density' main streets, which were defined based on
 									density thresholds around main street businesses and civic infrastructure. Learn
-									more about the methodology we use on the <a href="/about/data-methodology/v2"
+									more about the methodology we use on the <a href="/about/data-methodology/"
 										>Data and Methodology</a
 									> page.
 								</p>
@@ -235,7 +235,7 @@
 							<div class="text-content">
 								<p>
 									We sourced data from a variety of sources, both open and proprietary. Learn more
-									about the specific datasets used on the <a href="/about/data-methodology/v2"
+									about the specific datasets used on the <a href="/about/data-methodology"
 										>Data and Methodology</a
 									> page.
 								</p>
@@ -275,8 +275,8 @@
 								</p>
 								<p>
 									If you have any further questions or would like to identify a missed main street,
-									<a href="/about/v2/#contact">contact us.</a> Please note that you can still see all
-									of the data associated with your main street using the mapping tool even if it is not
+									<a href="/about/#contact">contact us.</a> Please note that you can still see all of
+									the data associated with your main street using the mapping tool even if it is not
 									visually categorized as a main street by the platform.
 								</p>
 							</div>

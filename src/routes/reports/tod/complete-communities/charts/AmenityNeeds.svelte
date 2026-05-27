@@ -1,10 +1,16 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import { TIER_1_AMENITIES } from '../../../../lib/data/transitdata/complete-communities-config';
 	import DotPlot from '../../../../lib/ui/charts/DotPlot.svelte';
 
-	let { visible } = $props();
-	let data = $state([]);
+	interface RawAmenityData {
+		Amenity: string;
+		Emp_Low: number;
+		Emp_High: number;
+	}
+
+	let { visible } = $props<{ visible: boolean }>();
+	let data = $state<RawAmenityData[]>([]);
 
 	onMount(async () => {
 		let url =
@@ -14,7 +20,7 @@
 
 			data = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 	});
 

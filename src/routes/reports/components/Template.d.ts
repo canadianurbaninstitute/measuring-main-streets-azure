@@ -9,20 +9,14 @@ export interface VisConfigItem {
 	href?: string;
 	btnLabel?: string;
 	target?: string;
+	props?: Record<string, unknown>;
 }
-
-// export interface NavItem {
-// 	type: string;
-// 	id?: string;
-// 	label: string;
-// 	stepIndex?: number;
-// 	isFirstInSection?: boolean;
-// }
 
 export interface AnchorItem {
   type: 'anchor';
   id: string;
-  label: string;
+	label: string;
+	stepIndex?: number;
   isFirstInSection?: boolean;
 }
 
@@ -38,13 +32,16 @@ export type NavItem = AnchorItem | StepItem;
 export interface Block
 {
   panelUids?: string[];
-  panelUid?: string;
-  heading?: string | undefined;
-  eyebrow?: string;
+  panelUid?: string | null;
+  heading?: string;
+	eyebrow?: string;
+	sectionIndex?: number;
   body: string;
-  panelId?: string | undefined;
-  panelIds?: string[] | undefined;
-  cta?: { href: string; label: string; target?: string;  }
+  panelId?: string;
+	panelIds?: string[];
+	globalStepIndex?: number;
+	cta?: { href: string; label: string; target?: string; };
+	props?: Record<string, unknown>;
 }
 
 export interface Panel {
@@ -53,9 +50,18 @@ export interface Panel {
 	label?: string;
 	source?: string;
 	config?: VisConfigItem | null;
+	sectionIndex?: number;
 }
 
 export interface Section {
+	layout?: string;
 	blocks: Block[];
 	panels: Panel[];
+	si?: number;
+}
+
+export interface Group
+{
+	layout: string;
+	sections: Section[];
 }

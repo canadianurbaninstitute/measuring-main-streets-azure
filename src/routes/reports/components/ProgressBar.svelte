@@ -130,7 +130,7 @@
 		node.style.visibility = 'hidden';
 		requestAnimationFrame(() => {
 			const vw = document.documentElement.clientWidth;
-			const pad = 4;
+			const pad = 8;
 			const tW = node.offsetWidth;
 
 			// The circle button is the direct parent
@@ -309,7 +309,7 @@
 	}
 	.tooltip {
 		position: absolute;
-		bottom: calc(100% + 8px);
+		bottom: calc(100% - 38px);
 		left: 50%;
 		transform: translateX(-50%);
 		white-space: nowrap;

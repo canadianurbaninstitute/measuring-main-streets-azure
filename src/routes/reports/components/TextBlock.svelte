@@ -16,7 +16,7 @@
 		heading?: string;
 		body?: string;
 		inlineVisual?: Snippet;
-		showInlineVisual?: boolean;
+		showInlineVisual?: boolean | null;
 		cta?: CtaConfig;
 		children?: Snippet;
 	}

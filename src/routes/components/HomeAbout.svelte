@@ -1,5 +1,5 @@
 <script>
-	import CustomButton from '../../lib/ui/CustomButton.svelte';
+	import CustomButton from '../lib/ui/CustomButton.svelte';
 	const buttons = [
 		{ text: 'About the Platform', href: '/about' },
 		{ text: 'About the Project Phases', href: '/about/#about-tod' },

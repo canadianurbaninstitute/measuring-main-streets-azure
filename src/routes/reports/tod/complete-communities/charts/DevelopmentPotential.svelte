@@ -1,10 +1,37 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import { TIER_1_AMENITIES } from '../../../../lib/data/transitdata/complete-communities-config';
 
-	let { visible } = $props();
-	let data = $state([]);
-	let selectedStation = $state(null);
+	interface RawStationData {
+		stop_label: string;
+		Amenity: string;
+		Amenity_Status: string;
+		Access_Gap: number;
+		Emp_Low: number;
+		Emp_High: number;
+		Amenities_Low: number;
+		Amenities_High: number;
+	}
+
+	interface ProcessedStationData {
+		station: string;
+		amenity: string;
+		status: string;
+		gap: number;
+		neededLow: number;
+		neededHigh: number;
+		amenitiesNeededLow: number;
+		amenitiesNeededHigh: number;
+		color: string;
+	}
+
+	interface Props {
+		visible?: boolean;
+	}
+
+	let { visible = false }: Props = $props();
+	let data = $state<RawStationData[]>([]);
+	let selectedStation = $state<string | null>(null);
 
 	onMount(async () => {
 		let url =
@@ -14,11 +41,11 @@
 
 			data = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 	});
 
-	const processedData = $derived(
+	const processedData = $derived<ProcessedStationData[]>(
 		data.map((d) => ({
 			station: d.stop_label,
 			amenity: d.Amenity,
@@ -32,7 +59,7 @@
 		}))
 	);
 
-	const stations = $derived([...new Set(processedData.map((d) => d.station))]);
+	const stations = $derived<string[]>([...new Set(processedData.map((d) => d.station))]);
 
 	$effect(() => {
 		if (stations.length > 0 && !selectedStation) {
@@ -40,7 +67,7 @@
 		}
 	});
 
-	const filteredData = $derived(
+	const filteredData = $derived<ProcessedStationData[]>(
 		selectedStation ? processedData.filter((d) => d.station === selectedStation) : processedData
 	);
 </script>
@@ -48,11 +75,10 @@
 <div class="flex flex-wrap gap-2 mb-4">
 	{#each stations as station}
 		<button
-			class={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-				selectedStation === station
-					? 'bg-blue-300 text-black'
-					: 'bg-zinc-100 text-zinc-600 hover:bg-blue-200'
-			}`}
+			class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap {selectedStation ===
+			station
+				? 'bg-blue-300 text-black'
+				: 'bg-zinc-100 text-zinc-600 hover:bg-blue-200'}"
 			onclick={() => (selectedStation = station)}
 		>
 			{station}
@@ -77,23 +103,23 @@
 			{#each filteredData as row}
 				<tr
 					class="border-b last:border-0 hover:bg-zinc-50"
-					style="background-color: color-mix(in srgb, {row?.color}, transparent 90%); border-color: {row?.color}"
+					style="background-color: color-mix(in srgb, {row.color}, transparent 90%); border-color: {row.color}"
 				>
-					<td class="py-2 px-2 text-right">{row?.amenity}</td>
-					<td class="py-2 px-2 text-right"
-						><span
-							class={`px-2 py-0.5 rounded-full text-xs font-medium 
-						${row?.status === 'Absent' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}
-							>{row?.status}</span
-						></td
-					>
-					<td class="py-2 px-2 text-right">{row?.gap.toFixed(1).toLocaleString()}</td>
-					<td class="py-2 px-2 text-right">{row?.neededLow.toFixed().toLocaleString()}</td>
-					<td class="py-2 px-2 text-right">{row?.neededHigh.toFixed(0).toLocaleString()}</td>
-					<td class="py-2 px-2 text-right">{row?.amenitiesNeededLow.toFixed(0).toLocaleString()}</td
-					>
-					<td class="py-2 px-2 text-right"
-						>{row?.amenitiesNeededHigh.toFixed(0).toLocaleString()}</td
+					<td class="py-2 px-2 text-left">{row.amenity}</td>
+					<td class="py-2 px-2 text-left">
+						<span
+							class="px-2 py-0.5 rounded-full text-xs font-medium {row.status === 'Absent'
+								? 'bg-red-100 text-red-700'
+								: 'bg-green-100 text-green-700'}"
+						>
+							{row.status}
+						</span>
+					</td>
+					<td class="py-2 px-2 text-right">{row.gap.toFixed(1).toLocaleString()}</td>
+					<td class="py-2 px-2 text-right">{row.neededLow.toFixed(0).toLocaleString()}</td>
+					<td class="py-2 px-2 text-right">{row.neededHigh.toFixed(0).toLocaleString()}</td>
+					<td class="py-2 px-2 text-right">{row.amenitiesNeededLow.toFixed(0).toLocaleString()}</td>
+					<td class="py-2 px-2 text-right">{row.amenitiesNeededHigh.toFixed(0).toLocaleString()}</td
 					>
 				</tr>
 			{/each}

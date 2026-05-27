@@ -6,10 +6,10 @@
 	import TutorialButton from './TutorialButton.svelte';
 
 	let { isOpen = $bindable(), initiateTutorial } = $props();
-	let accordionValue: string | null = $state(isOpen ? 'intro' : null);
+	let accordionValue: string | undefined = $state(isOpen ? 'intro' : undefined);
 
 	$effect(() => {
-		accordionValue = isOpen ? 'intro' : null;
+		accordionValue = isOpen ? 'intro' : undefined;
 	});
 </script>
 
@@ -46,7 +46,7 @@
 						</p>
 						<p>
 							Data sources: Environics Analytics (2025) and Statistics Canada Census (2021). For
-							more detailed information, see <a href="/about/data-methodology/v2/#tod-meth"
+							more detailed information, see <a href="/about/data-methodology/#tod-meth"
 								>Data & Methodology.</a
 							>
 						</p>

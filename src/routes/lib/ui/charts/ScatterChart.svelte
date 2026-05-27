@@ -19,7 +19,7 @@
 	interface QuadrantConfig {
 		xMid?: number;
 		yMid?: number;
-		labels?: string[];
+		labels?: string[] | { [key: string]: string };
 		colors?: string[];
 		stroke?: string;
 		strokeDasharray?: string;
@@ -225,6 +225,8 @@
 
 	.chart-container {
 		display: flex;
+		min-width: 1px;
+		min-height: 1px;
 		flex-direction: column;
 		justify-content: center;
 		gap: 1em;

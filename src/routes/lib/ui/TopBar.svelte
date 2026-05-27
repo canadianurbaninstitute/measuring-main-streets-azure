@@ -16,13 +16,6 @@
 		page.url?.pathname.includes('/casestudies/tod/') || page.url?.pathname.includes('/reports/tod/')
 	);
 
-	//remove once new home page is switched over
-	let isLandingNav = $derived(
-		page.url?.pathname.includes('/new-home') ||
-			page.url?.pathname.includes('/v2') ||
-			page.url?.pathname.includes('/tod')
-	);
-
 	let isFrench = $derived(page.url?.pathname.includes('/fr'));
 
 	function toggleMenu() {
@@ -48,15 +41,15 @@
 	const caseStudies = [{ title: 'Measuring Main Streets', href: '/casestudies' }];
 
 	const newCaseStudies = [
-		{ title: 'Resilience on Main', href: '/casestudies/v2/?tab=msr' },
-		{ title: 'TOD on Main', href: '/casestudies/v2/?tab=tod' }
+		{ title: 'Resilience on Main', href: '/casestudies/?tab=msr' },
+		{ title: 'TOD on Main', href: '/casestudies/?tab=tod' }
 	];
 
 	const reports = [{ title: 'Measuring Main Streets', href: '/reports' }];
 
 	const newReports = [
-		{ title: 'Resilience on Main', href: '/reports/v2/?tab=msr' },
-		{ title: 'TOD on Main', href: '/reports/v2/?tab=tod' }
+		{ title: 'Resilience on Main', href: '/reports/?tab=msr' },
+		{ title: 'TOD on Main', href: '/reports/?tab=tod' }
 	];
 
 	const learnMore = [
@@ -68,9 +61,9 @@
 	];
 
 	const newLearnMore = [
-		{ title: 'About', href: '/about/v2' },
-		{ title: 'FAQ', href: '/about/faq/v2' },
-		{ title: 'Data & Methodology', href: '/about/data-methodology/v2' }
+		{ title: 'About', href: '/about' },
+		{ title: 'FAQ', href: '/about/faq' },
+		{ title: 'Data & Methodology', href: '/about/data-methodology' }
 	];
 </script>
 
@@ -78,14 +71,14 @@
 	id="bar-wrapper"
 	class:hideable={isHiddenRoute}
 	class:hovered={isHovered}
-	class:landing-nav={isLandingNav}
+	class="landing-nav"
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}
 	role="navigation"
 >
 	<div id="bar">
 		<div id="logo-group">
-			<a href={isLandingNav ? '/new-home' : '/'} aria-label="Home">
+			<a href={'/'} aria-label="Home">
 				<div class="flex gap-4 items-center">
 					<img
 						src={isFrench ? mms_logo_fr : mms_logo}
@@ -144,7 +137,7 @@
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop">
 							<ul class="nav-dropdown">
-								{#each isLandingNav ? newReports : reports as item}
+								{#each newReports as item}
 									<li>
 										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
 											>{item.title}</NavigationMenu.Link
@@ -163,7 +156,7 @@
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop">
 							<ul class="nav-dropdown">
-								{#each isLandingNav ? newCaseStudies : caseStudies as item}
+								{#each newCaseStudies as item}
 									<li>
 										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
 											>{item.title}</NavigationMenu.Link
@@ -176,9 +169,7 @@
 
 					<!-- Tools link -->
 					<NavigationMenu.Item class="nav-menu-item">
-						<NavigationMenu.Link href={isLandingNav ? '/tools/v2' : '/tools'} class="nav-link"
-							>Tools</NavigationMenu.Link
-						>
+						<NavigationMenu.Link href={'/tools'} class="nav-link">Tools</NavigationMenu.Link>
 					</NavigationMenu.Item>
 
 					<!-- Learn More Dropdown -->
@@ -189,7 +180,7 @@
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop nav-content--right">
 							<ul class="nav-dropdown">
-								{#each isLandingNav ? newLearnMore : learnMore as item}
+								{#each newLearnMore as item}
 									<li>
 										<NavigationMenu.Link href={item.href} class="nav-dropdown-link"
 											>{item.title}</NavigationMenu.Link

@@ -164,6 +164,8 @@
 	}
 
 	.chart-container {
+		min-width: 1px;
+		min-height: 1px;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;

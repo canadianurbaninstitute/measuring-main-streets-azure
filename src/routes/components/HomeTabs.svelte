@@ -1,15 +1,15 @@
 <script>
-	import LandingCard from '../../lib/ui/LandingCard.svelte';
+	import LandingCard from '../lib/ui/LandingCard.svelte';
 	// Import local assets
-	import casestudy from '../../lib/assets/screenshots/case-study-arbutus.png';
-	import casestudy2 from '../../lib/assets/screenshots/case-study.png';
-	import dot from '../../lib/assets/screenshots/dot.png';
-	import reports from '../../lib/assets/screenshots/key-findings.png';
-	import mainstreetmap from '../../lib/assets/screenshots/main-street-map.png';
-	import transitmap from '../../lib/assets/screenshots/transit-map.png';
-	import urbanform from '../../lib/assets/screenshots/urban-form.png';
-	import reportstsa from '../../lib/assets/screenshots/who-tsas.png';
-	import TabNav from '../../lib/ui/TabNav.svelte';
+	import casestudy from '../lib/assets/screenshots/case-study-arbutus.png';
+	import casestudy2 from '../lib/assets/screenshots/case-study.png';
+	import dot from '../lib/assets/screenshots/dot.png';
+	import reports from '../lib/assets/screenshots/key-findings.png';
+	import mainstreetmap from '../lib/assets/screenshots/main-street-map.png';
+	import transitmap from '../lib/assets/screenshots/transit-map.png';
+	import urbanform from '../lib/assets/screenshots/urban-form.png';
+	import reportstsa from '../lib/assets/screenshots/who-tsas.png';
+	import TabNav from '../lib/ui/TabNav.svelte';
 
 	let activeTab = $state('tod');
 	const tabs = [
@@ -77,7 +77,7 @@
 			title: 'Tools',
 			description: 'Research and analysis tools.',
 			image: dot,
-			link: '/tools',
+			link: '/tools/',
 			tags: ['Tools']
 		}
 	];

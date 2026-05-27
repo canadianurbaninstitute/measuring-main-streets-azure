@@ -1,20 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Spring } from 'svelte/motion';
-	import car from '../../lib/assets/graphics/car.png';
-	import train from '../../lib/assets/graphics/dark-train.svg';
-	import LandingCard from '../../lib/ui/LandingCard.svelte';
+	import car from '../lib/assets/graphics/car.png';
+	import train from '../lib/assets/graphics/dark-train.svg';
+	import LandingCard from '../lib/ui/LandingCard.svelte';
 	// Card assets
-	import casestudy from '../../lib/assets/screenshots/case-study-arbutus.png';
-	import casestudy2 from '../../lib/assets/screenshots/case-study.png';
-	import dot from '../../lib/assets/screenshots/dot.png';
-	import reports from '../../lib/assets/screenshots/key-findings.png';
-	import mainstreetmap from '../../lib/assets/screenshots/main-street-map.png';
-	import transitmap from '../../lib/assets/screenshots/transit-map.png';
-	import urbanform from '../../lib/assets/screenshots/urban-form.png';
-	import reportstsa from '../../lib/assets/screenshots/who-tsas.png';
-	import CustomButton from '../../lib/ui/CustomButton.svelte';
-	import '../../styles.css';
+	import casestudy from '../lib/assets/screenshots/case-study-arbutus.png';
+	import casestudy2 from '../lib/assets/screenshots/case-study.png';
+	import dot from '../lib/assets/screenshots/dot.png';
+	import reports from '../lib/assets/screenshots/key-findings.png';
+	import mainstreetmap from '../lib/assets/screenshots/main-street-map.png';
+	import transitmap from '../lib/assets/screenshots/transit-map.png';
+	import urbanform from '../lib/assets/screenshots/urban-form.png';
+	import reportstsa from '../lib/assets/screenshots/who-tsas.png';
+	import CustomButton from '../lib/ui/CustomButton.svelte';
+	import '../styles.css';
 
 	// 1. Structure explicit custom component props
 	interface Props {
@@ -197,7 +197,7 @@
 					title: 'Tools',
 					description: 'Research and analysis tools.',
 					image: dot,
-					link: '/tools',
+					link: '/tools/',
 					tags: ['Tools']
 				}
 			]
