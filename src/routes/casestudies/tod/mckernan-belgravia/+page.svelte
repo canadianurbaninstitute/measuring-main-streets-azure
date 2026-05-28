@@ -7,5 +7,5 @@
 		class="grow border-0 w-full"
 		title="Mckernan-Belgravia Case Study"
 		src="https://schoolofcities.github.io/tod-canada/case-study/mckernan-belgravia"
-	/>
+	></iframe>
 </div>

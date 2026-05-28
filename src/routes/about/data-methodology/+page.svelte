@@ -1517,15 +1517,6 @@
 		margin: 2rem 0;
 	}
 
-	/* Quote */
-	.quote {
-		margin: 3rem 0;
-		padding: 2rem;
-		background-color: #f0f9ff;
-		border-radius: 8px;
-		border-left: 6px solid var(--brandLightBlue);
-	}
-
 	/* Table Styling */
 	.table-container {
 		width: 100%;

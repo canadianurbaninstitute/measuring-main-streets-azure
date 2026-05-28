@@ -10,7 +10,17 @@
 		urban_form_comp_style
 	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
+	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
+	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
+	import StationStatus from '../../transit-map/components/StationStatus.svelte';
 	// Components
+	import {
+		building_pct,
+		greenspace_pct,
+		parking_pct,
+		water_pct
+	} from '../../lib/data/transitdata/config.json';
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import '../../styles.css';
@@ -57,6 +67,12 @@
 		{ value: 'land', label: 'Land Availability' },
 		{ value: 'growth', label: 'Growth Pressure' },
 		{ value: 'potential', label: 'Development Potential' }
+	];
+
+	const dpiMetrics = [
+		{ label: 'Land Availability', key: 'LALevel', icon: 'mdi:land-plots' },
+		{ label: 'Growth Pressure', key: 'GPLevel', icon: 'mdi:trending-up' },
+		{ label: 'Displacement Risk', key: 'DRLevel', icon: 'mdi:alert-circle' }
 	];
 
 	let activeRadarCategory = $state('potential');
@@ -224,6 +240,8 @@
 			radarPoints
 		};
 	}
+
+	console.log($inspect(allDevData));
 
 	function updateStationData(mapIndex: number, selectedStationId: string) {
 		const stationData = stationsProcessed.find((s) => s.id.toString() === selectedStationId);
@@ -527,50 +545,62 @@
 					<div class="error-message text-center mt-2">{station1Error}</div>
 				{/if}
 				{#if station1Data}
+					<StationStatus selectedStation={station1Data} />
 					<div class="mt-4 text-center text-sm text-gray-700">
-						<div class="font-bold uppercase text-blue-600 text-xl tracking-wider mb-1">
-							{station1Data.stop_label}
+						<div class="metric-container">
+							{#each dpiMetrics as metric}
+								<TransitMetric
+									disabled
+									label={metric.label}
+									value={allDevData ? allDevData[metric.key] : 'N/A'}
+									icon={metric.icon}
+								/>
+							{/each}
 						</div>
-						<div class="text-xs text-gray-500 mb-2">
-							{station1Data.line_display_name}<br />{station1Data.region}<br />{station1Data.status}
+						<div class="metric-container">
+							<GaugeMetric
+								title="Overall Housing Development Potential"
+								value={allDevData?.DevelopmentPotentialScore ?? 0}
+								maxValue={10}
+								size={200}
+								segmentColors={['#f13737', '#f1c500', '#58e965']}
+								label={allDevData?.potential ?? 'N/A'}
+								showValue={false}
+							/>
 						</div>
-						<div class="mt-6 w-full text-center text-blue-600 text-lg font-medium">
-							Development Potential:
-							{allDevData?.potential ?? 'N/A'}
-						</div>
-						<div
-							class="flex flex-col w-full items-start w-fit mx-auto mt-4 gap-1 text-left text-sm"
-						>
-							<div>
-								Land Availability: <span class="font-semibold">{allDevData?.LALevel ?? 'N/A'}</span>
-							</div>
-							<div>
-								Growth Pressure: <span class="font-semibold">{allDevData?.GPLevel ?? 'N/A'}</span>
-							</div>
-							<div>
-								Displacement Risk: <span class="font-semibold">{allDevData?.DRLevel ?? 'N/A'}</span>
-							</div>
-							<br />
-							<div>
-								Greenspace: <span class="font-semibold"
-									>{station1Metrics?.greenspace_pct?.toFixed(1) ?? 'N/A'}%</span
-								>
-							</div>
-							<div>
-								Water: <span class="font-semibold"
-									>{station1Metrics?.water_pct?.toFixed(1) ?? 'N/A'}%</span
-								>
-							</div>
-							<div>
-								Buildings: <span class="font-semibold"
-									>{station1Metrics?.building_pct?.toFixed(1) ?? 'N/A'}%</span
-								>
-							</div>
-							<div>
-								Parking: <span class="font-semibold"
-									>{station1Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
-								>
-							</div>
+						<div class="metric-container">
+							<DonutMetric
+								label={water_pct.label}
+								value={station1Metrics?.water_pct}
+								icon={water_pct.icon}
+								suffix={water_pct.unit}
+								fillColor={'#002940'}
+								toggle={false}
+							/>
+							<DonutMetric
+								label={greenspace_pct.label}
+								value={Math.round(station1Metrics?.greenspace_pct ?? 0)}
+								icon={greenspace_pct.icon}
+								suffix={greenspace_pct.unit}
+								fillColor={'#43b171'}
+								toggle={false}
+							/>
+							<DonutMetric
+								label={building_pct.label}
+								value={Math.round(station1Metrics?.building_pct ?? 0)}
+								icon={building_pct.icon}
+								suffix={building_pct.unit}
+								fillColor={'#555555'}
+								toggle={false}
+							/>
+							<DonutMetric
+								label={parking_pct.label}
+								value={Math.round(station1Metrics?.parking_pct ?? 0)}
+								icon={parking_pct.icon}
+								suffix={parking_pct.unit}
+								fillColor={'#999999'}
+								toggle={false}
+							/>
 						</div>
 					</div>
 				{/if}
@@ -700,6 +730,14 @@
 		height: auto;
 		min-height: 100%;
 		padding-bottom: 4rem;
+	}
+
+	.metric-container {
+		display: flex;
+		flex-direction: row;
+		margin: 0.3em 0 0 0;
+		gap: 0.3em;
+		width: 100%;
 	}
 
 	@media only screen and (min-width: 1024px) {

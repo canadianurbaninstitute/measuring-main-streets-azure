@@ -7,5 +7,5 @@
 		class="grow border-0 w-full"
 		title="Northfield Case Study"
 		src="https://schoolofcities.github.io/tod-canada/case-study/northfield"
-	/>
+	></iframe>
 </div>

@@ -7,5 +7,5 @@
 		class="grow border-0 w-full"
 		title="Arbutus Case Study"
 		src="https://schoolofcities.github.io/tod-canada/case-study/arbutus"
-	/>
+	></iframe>
 </div>

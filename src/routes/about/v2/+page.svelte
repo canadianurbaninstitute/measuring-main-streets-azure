@@ -1114,13 +1114,6 @@
 		margin-bottom: 1rem;
 	}
 
-	.cite {
-		display: block;
-		font-weight: 700;
-		font-size: 0.9rem;
-		color: var(--brandDarkBlue);
-	}
-
 	/* CUI Section */
 	.cui-section {
 		background-image: url('../../lib/assets/graphics/vancouver-bg.png');

@@ -7,5 +7,5 @@
 		class="grow border-0 w-full"
 		title="Cooksville Case Study"
 		src="https://schoolofcities.github.io/tod-canada/case-study/cooksville"
-	/>
+	></iframe>
 </div>

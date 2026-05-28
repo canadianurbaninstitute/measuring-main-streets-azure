@@ -4,7 +4,7 @@
 	import { tick } from 'svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
 	import '../styles.css';
-// Logos
+	// Logos
 	import canada_logo from '../lib/assets/logos/canada_color.png';
 	import catch_logo from '../lib/assets/logos/catch_color.png';
 	import dps_logo from '../lib/assets/logos/DPS-logo-black.png';
@@ -12,7 +12,7 @@
 	import ii_logo from '../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../lib/assets/logos/uotsoc_color.png';
-// Assets
+	// Assets
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
 	import montreal_bg from '../lib/assets/graphics/montreal-bg.png';
 	import vancouver_bg from '../lib/assets/graphics/vancouver-bg.png';
@@ -149,7 +149,7 @@
 
 			<div class="callout-box">
 				<div class="callout-logos">
-					<img src={mainstreets} />
+					<img src={mainstreets} alt="Main Streets" />
 					<img src={canada_logo} alt="Canada" />
 				</div>
 				<p>
@@ -798,7 +798,7 @@
 				</p>
 			</div> -->
 			<div id="contact" class="cui-contact">
-				<h3>CONTACT US</h3>
+				<h3 class="mb-8">CONTACT US</h3>
 
 				<div class="contact-grid">
 					<div class="contact-item">
@@ -1053,22 +1053,6 @@
 		transform: scale(1.05);
 	}
 
-	/* Highlight Box */
-	.highlight-box {
-		background-color: var(--brandDarkBlue);
-		color: white;
-		padding: 2rem;
-		margin-bottom: 2rem;
-	}
-
-	.highlight-box h4 {
-		color: white;
-		margin: 0;
-		/* font-size: 1.5rem; */
-		/* font-weight: 700; */
-		text-transform: none;
-	}
-
 	/* Stats Grid */
 	.stats-grid {
 		display: grid;
@@ -1112,13 +1096,6 @@
 		font-style: italic;
 		font-size: 1.1rem;
 		margin-bottom: 1rem;
-	}
-
-	.cite {
-		display: block;
-		font-weight: 700;
-		font-size: 0.9rem;
-		color: var(--brandDarkBlue);
 	}
 
 	/* CUI Section */

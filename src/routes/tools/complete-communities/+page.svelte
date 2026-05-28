@@ -9,7 +9,6 @@
 		TIER_2_AMENITIES
 	} from '../../lib/data/transitdata/complete-communities-config';
 	import { da_map_source } from '../../lib/data/transitdata/config-mapbox.json';
-	// Config imports for metrics matching
 
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
 	import '../../styles.css';
@@ -23,12 +22,10 @@
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import AccessTab from './components/AccessTab.svelte';
 	import CompleteCommunityPresenceTab from './components/PresenceTab.svelte';
-	// --- Data/Map Update Functions ---
-
 	// NEW: Access/Chart Logic State & Calculations lifted from AccessTab
 	import { Daily_Visits } from '../../lib/data/transitdata/config.json';
 	import type { Station } from '../../lib/data/transitdata/stations';
-	import type { Region, TransitLine } from '../../lib/data/transitdata/transit-regions';
+	import type { TransitLine } from '../../lib/data/transitdata/transit-regions';
 
 	// --- Type Definitions ---
 	interface AmenityRecord {
@@ -87,6 +84,7 @@
 	let stationCCcounts = $state<Record<string, number>>({});
 	let stationCCpresence = $state<Record<string, number>>({});
 	let stationVisitorData = $state<Record<string, number>>({});
+	let aiDescriptions = $state({});
 	let p50map = $state<Map<string, AmenityRecord[]>>(new Map());
 	let p75map = $state<Map<string, P75Record[]>>(new Map());
 	let futureDemandMap = $state<Map<string, FutureDemandRecord>>(new Map());
@@ -116,12 +114,12 @@
 
 	let computedAmenities = $derived(
 		filteredData.map((amenity) => {
-			const adjDailyVisits = futureDemandCurrent?.adj_Daily_Visits;
+			const adjDailyVisits = futureDemandCurrent?.adj_Daily_Visits ?? 0;
 			const newVisits = futureVisits * 2;
 			const newVisitsAdj = Math.log1p(newVisits);
 
 			const adjustedAccess =
-				amenity.Access_per_1000 * (adjDailyVisits ?? 0 / (adjDailyVisits ?? 0 + newVisitsAdj));
+				amenity.Access_per_1000 * (adjDailyVisits / (adjDailyVisits + newVisitsAdj || 1));
 
 			// 1. Median (p50) Calculation
 			const threshold_med = amenity.MTSA_med;
@@ -148,14 +146,13 @@
 
 			const output = {
 				...amenity,
-				accessGap: gap_med, // Default to med for baseline compat
+				accessGap: gap_med,
 				gap_med,
 				gap_p75,
 				empNeeded_med,
 				empNeeded_p75,
 				amenitiesNeeded_med,
 				amenitiesNeeded_p75,
-				// Fallback for current chart compatibility
 				newAmenitiesRequired: amenitiesNeeded_med
 			};
 			return output;
@@ -166,9 +163,9 @@
 	let min = $state(0);
 	let max = $state(0);
 	let isOpen = $state(true);
-	let activeTab = $state('overall-presence'); // Default tab
+	let activeTab = $state('overall-presence');
 
-	// data
+	// Data storage
 	let transitRegionsRawData = $state([]);
 	let stationRawData = $state([]);
 	let completeCommunityCounts = $state([]);
@@ -200,15 +197,6 @@
 		stationCCcounts ? TIER_2_AMENITIES.filter((key) => (stationCCcounts[key.label] || 0) === 0) : []
 	);
 
-	// Helper for classification
-	function getClassification(ratio: number, status: string) {
-		if (status === 'Absent') return 'Critical Gap';
-		if (ratio < 0.8) return 'Below Avg';
-		if (ratio >= 0.8 && ratio <= 1.2) return 'Adequate';
-		if (ratio > 1.2) return 'Excellent';
-		return 'N/A';
-	}
-
 	function updateStationData(id: string) {
 		const station = processedStationData.find((s: Station) => s.id === id);
 
@@ -219,13 +207,10 @@
 		}
 
 		selectedStation = station;
-		// Update CC Data
-		stationCCcounts =
-			completeCommunityCounts.find((station: Station) => station.id === selectedStation.id) || {};
+		stationCCcounts = completeCommunityCounts.find((s: any) => s.id === selectedStation.id) || {};
 		stationCCpresence =
-			completeCommunityPresence.find((station: Station) => station.id === selectedStation.id) || {};
-		stationVisitorData =
-			visitorData.find((station: Station) => station.id === selectedStation.id) || {};
+			completeCommunityPresence.find((s: any) => s.id === selectedStation.id) || {};
+		stationVisitorData = visitorData.find((s: any) => s.id === selectedStation.id) || {};
 	}
 
 	function updateLayerVariable(variable: string | null) {
@@ -236,7 +221,6 @@
 		}
 		selectedVariable = variable;
 
-		// If layer exists, just update it
 		if (map?.getLayer('da')) {
 			const features = map.querySourceFeatures('da_map', {
 				sourceLayer: da_map_source.source_layer
@@ -252,7 +236,6 @@
 			);
 		} else {
 			if (!map?.getSource('da_map')) return;
-			// Add the layer if not present
 			map.addLayer(
 				{
 					id: 'da',
@@ -260,11 +243,11 @@
 					source: 'da_map',
 					'source-layer': da_map_source.source_layer,
 					paint: {
-						'fill-color': 'rgba(0,0,0,0)', // fully transparent
+						'fill-color': 'rgba(0,0,0,0)',
 						'fill-opacity': 0
 					}
 				},
-				'greenspace-built-form' // Place under specific layers if needed, or remove 2nd arg to place on top
+				'greenspace-built-form'
 			);
 			map.once('idle', () => {
 				const features = map?.querySourceFeatures('da_map', {
@@ -283,13 +266,12 @@
 			});
 		}
 	}
-	// --- Map/Sidebar Navigation Functions ---
+
 	function handleStationSelection(stationId: string, stationCoordinates: [number, number]) {
 		if (!map) return;
 		updateStationData(stationId);
 		stationSelected = true;
 
-		// draw the MTSA circle
 		const radiusInKilometers = 0.8;
 		const circleFeature = turf.circle(stationCoordinates, radiusInKilometers, {
 			steps: 128,
@@ -328,7 +310,6 @@
 			duration: 1000
 		});
 
-		// Filter thematic layers to circle
 		const circlePolygon = circleFeature.geometry;
 		const thematicLayers = [
 			'msn-lowdensity',
@@ -374,7 +355,7 @@
 		});
 	}
 
-	function selectRegion(region: Region) {
+	function selectRegion(region: any) {
 		if (!map) return;
 		resetStationSelection();
 		activeRegion = region;
@@ -382,7 +363,7 @@
 		map.fitBounds(region.bbox, { padding: 50, duration: 1000 });
 	}
 
-	function selectLine(line: TransitLine) {
+	function selectLine(line: any) {
 		if (!map || !map.getLayer('transit-lines')) return;
 		resetStationSelection();
 		activeLine = line;
@@ -394,7 +375,7 @@
 		];
 		const selectedLine = map.queryRenderedFeatures(bbox, {
 			layers: ['transit-lines'],
-			filter: ['==', 'line_id', activeLine.id]
+			filter: ['==', 'line_id', activeLine?.id]
 		});
 		if (selectedLine.length > 0) {
 			const featureCollection = { type: 'FeatureCollection', features: selectedLine } as any;
@@ -409,7 +390,7 @@
 		}
 	}
 
-	function selectStop(station: Station) {
+	function selectStop(station: any) {
 		handleStationSelection(station.id as string, [
 			station.longitude as number,
 			station.latitude as number
@@ -417,41 +398,26 @@
 	}
 
 	function navigateBack() {
-		// navigate back to reset
 		if (!map) return;
 		resetStationSelection();
-
-		// line case: zoom to region line is in
 
 		if (activeLine) {
 			activeLine = null;
 			if (activeRegion) {
 				map.fitBounds(activeRegion.bbox, { padding: 50, duration: 1000 });
 			}
-			// region case: reset map
 		} else if (activeRegion) {
 			activeRegion = null;
 			map.flyTo({ center: mapCenter, zoom: defaultZoom, duration: 1000 });
-			// TODO: should resetStationSelection run here too
 		} else {
-			// Global reset if nothing active
 			map.flyTo({ center: mapCenter, zoom: defaultZoom, duration: 1000 });
 		}
 	}
 
 	function handleSidebarBack() {
 		if (stationSelected) {
-			const previouslyActiveLine = activeLine;
-			const previouslyActiveRegion = activeRegion;
 			resetStationSelection();
 			stationSelected = false;
-
-			// Re-zoom logic mirroring original file
-			if (map && previouslyActiveLine) {
-				// Try to fit bounds to line again if possible or just navigate back logic
-				// For brevity reusing logic:
-			}
-			// Simplified for now:
 			navigateBack();
 		} else {
 			navigateBack();
@@ -467,6 +433,7 @@
 				ccCountsRes,
 				ccPresenceRes,
 				visitorRes,
+				aiRes,
 				futureDemandRes,
 				p50Res,
 				p75Res
@@ -505,23 +472,30 @@
 			completeCommunityCounts = await ccCountsRes.json();
 			completeCommunityPresence = await ccPresenceRes.json();
 			visitorData = await visitorRes.json();
+			aiDescriptions = await aiRes.json();
 			const futureDemand = await futureDemandRes.json();
 			const p50 = await p50Res.json();
 			const p75 = await p75Res.json();
 
-			// Index for faster lookup
-			p50map = p50.reduce((map: Map<string, AmenityRecord[]>, item: AmenityRecord) => {
-				if (!map.has(item.id)) map.set(item.id, []);
-				map.get(item.id)!.push(item);
-				return map;
-			}, new Map<string, AmenityRecord[]>());
-			p75map = p75.reduce((map: Map<string, P75Record[]>, item: P75Record) => {
-				if (!map.has(item.id)) map.set(item.id, []);
-				map.get(item.id)!.push(item);
-				return map;
-			}, new Map<string, P75Record[]>());
+			// Build local working variables first
+			const localP50Map = new Map<string, AmenityRecord[]>();
+			p50.forEach((item: AmenityRecord) => {
+				if (!localP50Map.has(item.id)) localP50Map.set(item.id, []);
+				localP50Map.get(item.id)!.push(item);
+			});
 
-			futureDemandMap = new Map(futureDemand.map((d: FutureDemandRecord) => [d.id, d]));
+			const localP75Map = new Map<string, P75Record[]>();
+			p75.forEach((item: P75Record) => {
+				if (!localP75Map.has(item.id)) localP75Map.set(item.id, []);
+				localP75Map.get(item.id)!.push(item);
+			});
+
+			const localFutureDemandMap = new Map(futureDemand.map((d: FutureDemandRecord) => [d.id, d]));
+
+			// Pure Stage Assignment updates layout streaming downstream
+			p50map = localP50Map;
+			p75map = localP75Map;
+			futureDemandMap = localFutureDemandMap as Map<string, FutureDemandRecord>;
 
 			regionsData = transitRegionsRawData.sort((a: RegionData, b: RegionData) =>
 				a.name.localeCompare(b.name)
@@ -556,12 +530,11 @@
 				map?.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 				map?.setPaintProperty('msn-lowdensity', 'line-opacity', 1);
 				map?.setPaintProperty('msn-highdensity', 'line-opacity', 1);
+				break;
 			default:
 				break;
 		}
 	}
-
-	// Auto-select tab logic could go here if we want to sync with URL or state
 </script>
 
 <svelte:head>
@@ -613,7 +586,6 @@
 
 						<Tabs.Content value="access" class="tab-button">
 							{#if activeTab === 'access'}
-								<!-- Simplified Sidebar for Access: just presence stats -->
 								<AccessTab
 									bind:sliderValues
 									bind:tier
@@ -646,7 +618,6 @@
 		<div class="w-full relative">
 			<div class="flex flex-row w-full flex-wrap lg:flex-nowrap">
 				<div id="controls" class="flex flex-col w-full">
-					<!-- <Filters bind:statusFilters bind:technologyFilters /> -->
 					<Tabs.List class="w-full grid grid-cols-2 gap-1">
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"

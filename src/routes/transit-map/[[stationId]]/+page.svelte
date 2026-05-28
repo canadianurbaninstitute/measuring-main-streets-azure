@@ -12,11 +12,10 @@
 	import { driver } from 'driver.js';
 	import 'driver.js/dist/driver.css';
 	import { onMount, untrack } from 'svelte';
-	import
-		{
-			TIER_1_AMENITIES,
-			TIER_2_AMENITIES
-		} from '../../lib/data/transitdata/complete-communities-config';
+	import {
+		TIER_1_AMENITIES,
+		TIER_2_AMENITIES
+	} from '../../lib/data/transitdata/complete-communities-config';
 	import { age, bed, dwelling, housing, owner } from '../../lib/data/transitdata/config.json';
 	import type { Station } from '../../lib/data/transitdata/stations';
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';

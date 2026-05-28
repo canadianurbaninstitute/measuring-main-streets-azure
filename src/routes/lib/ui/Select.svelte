@@ -1,25 +1,31 @@
-<!-- UI component used for creating select dropdowns. Data can be grouped or ungrouped.-->
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { Select } from 'bits-ui';
 
-	let {
-		data,
-		icon,
-		placeholder,
-		handleSelect = null, // optional, for legacy usage
-		selected = $bindable()
-	} = $props();
+	interface OptionItem {
+		value: string;
+		label: string;
+	}
 
-	// Helper function to get label from grouped variable names
-	function getLabel(value) {
-		// Check if data is grouped (object with groups) or ungrouped (array)
+	interface GroupedData {
+		[groupName: string]: OptionItem[];
+	}
+
+	interface Props {
+		data: OptionItem[] | GroupedData;
+		icon: string;
+		placeholder: string;
+		handleSelect?: ((value: string | undefined) => void) | null;
+		selected: string;
+	}
+
+	let { data, icon, placeholder, handleSelect = null, selected = $bindable() }: Props = $props();
+
+	function getLabel(value: string): string | null {
 		if (Array.isArray(data)) {
-			// Ungrouped data - direct array of options
 			const found = data.find((v) => v.value === value);
 			return found ? found.label : null;
-		} else {
-			// Grouped data - object with groups
+		} else if (data && typeof data === 'object') {
 			for (const group of Object.values(data)) {
 				const found = group.find((v) => v.value === value);
 				if (found) return found.label;
@@ -28,14 +34,14 @@
 		return null;
 	}
 
-	// Helper function to check if data is grouped
-	function isGroupedData(data) {
-		return !Array.isArray(data) && typeof data === 'object';
+	function isGroupedData(targetData: OptionItem[] | GroupedData): targetData is GroupedData {
+		return !Array.isArray(targetData) && typeof targetData === 'object' && targetData !== null;
 	}
 
-	// unify onValueChange behavior: update selected + call optional callback
-	function onSelectChange(value) {
-		if (handleSelect) handleSelect(value); // call legacy handler if provided
+	const isGrouped = $derived(isGroupedData(data));
+
+	function onSelectChange(value: string | undefined) {
+		if (handleSelect) handleSelect(value);
 	}
 </script>
 
@@ -52,8 +58,7 @@
 	<Select.Portal>
 		<Select.Content class="select-content" sideOffset={10}>
 			<Select.Viewport class="select-viewport">
-				{#if isGroupedData(data)}
-					<!-- Grouped data structure -->
+				{#if isGrouped}
 					{#each Object.entries(data) as [group, options]}
 						<Select.Group>
 							<Select.GroupHeading class="group-heading">{group}</Select.GroupHeading>
@@ -69,9 +74,10 @@
 							{/each}
 						</Select.Group>
 					{/each}
-				{:else}
-					<!-- Ungrouped data structure -->
-					{#each data as { value, label }}
+				{/if}
+
+				{#if !isGrouped}
+					{#each data as OptionItem[] as { value, label }}
 						<Select.Item class="select-item" {value} {label}>
 							{label}
 							{#if selected === value}
