@@ -241,8 +241,6 @@
 		};
 	}
 
-	console.log($inspect(allDevData));
-
 	function updateStationData(mapIndex: number, selectedStationId: string) {
 		const stationData = stationsProcessed.find((s) => s.id.toString() === selectedStationId);
 		if (!stationData) {
