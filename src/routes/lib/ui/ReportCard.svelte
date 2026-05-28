@@ -51,11 +51,6 @@
 		font-weight: 400;
 		font-size: calc(1rem + 1vw);
 	}
-
-	h5 {
-		font-weight: 400;
-	}
-
 	a {
 		text-decoration: none;
 	}

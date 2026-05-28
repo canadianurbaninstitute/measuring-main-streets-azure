@@ -1,7 +1,7 @@
 export interface ChartStations {
 	line_display_name: string;
 	status: string;
-	id: string;
+	id: string | null;
 	region: string;
 	technology: string;
 	line_label: string;

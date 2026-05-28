@@ -42,14 +42,3 @@
 <main>
 	<LandingLayout {title} {description} {items} {categories} />
 </main>
-
-<style>
-	.collage-section {
-		width: 100%;
-		margin-top: 4rem;
-	}
-	.collage-img {
-		width: 100%;
-		display: block;
-	}
-</style>

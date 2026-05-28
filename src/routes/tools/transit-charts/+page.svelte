@@ -1,8 +1,6 @@
 <script lang="ts">
-	// TODO: Number of employees McCowan/Sheppard seems high
+	import { csvParse } from 'd3-dsv';
 	import { onMount } from 'svelte';
-	// import stationData from '../../lib/data/transitdata/chart-stations.json';
-	// import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
 	import lineColors from '../../lib/data/transitdata/line-colors.json';
 	import Select from '../../lib/ui/Select.svelte';
 	import '../../styles.css';
@@ -46,17 +44,30 @@
 			}
 		],
 		'Built Form': [
-			{ value: 'PopulationDensity', label: 'Population Density (per sq. km)', format: ',.0f' }
+			{ value: 'PopulationDensity', label: 'Population Density (per sq. km)', format: ',.0f' },
+			{ value: 'building_pct', label: 'Percentage of Land that is Buildings (%)', format: ',.0f' },
+			{
+				value: 'greenspace_pct',
+				label: 'Percentage of Land that is Greenspace (%)',
+				format: ',.0f'
+			},
+			{ value: 'water_pct', label: 'Percentage of Land that is Water (%)', format: ',.0f' },
+			{ value: 'parking_pct', label: 'Percentage of Land that is Parking (%)', format: ',.0f' }
 		],
 		'Complete Communities': [
 			{ value: 'BusinessCount', label: 'Main Street Businesses', format: ',.0f' },
 			{ value: 'bii', label: 'Independent Business Index (out of 1)' },
 			{ value: 'CivicCount', label: 'Civic Infrastructure Locations', format: ',.0f' },
 			{ value: 'Daily_Visits', label: 'Average Daily Visitors', format: ',.0f' },
-			// { value: 'Unique_Visitors', label: 'Average Unique Daily Visitors' },
 			{ value: 'Tier_1_presence', label: 'Core Complete Community Score' },
 			{ value: 'Tier_2_presence', label: 'Additional Complete Community Score' },
 			{ value: 'Overall_score', label: 'Overall Complete Community Score' }
+		],
+		'Housing Development Potential': [
+			{ value: 'DevelopmentPotentialScore', label: 'Development Potential Score', format: ',.0f' },
+			{ value: 'LandAvailability', label: 'Land Availability Score', format: ',.1f' },
+			{ value: 'DisplacementRisk', label: 'Displacement Risk Score', format: ',.1f' },
+			{ value: 'GrowthPressure', label: 'Growth Pressure Score', format: ',.1f' }
 		]
 	};
 
@@ -64,44 +75,55 @@
 	let flatVariables = $derived(Object.values(variables).flat());
 
 	let selectedVariable = $state('TotalPopulation'); // Currently selected metric to display
-	let dataSources = $state({
+	let dataSources = $state<{
+		data: any[];
+		visitorData: any[];
+		completeCommunityData: any[];
+		builtForm: any[];
+		developmentData: any[];
+	}>({
 		data: [],
 		visitorData: [],
 		completeCommunityData: [],
-		builtForm: []
+		builtForm: [],
+		developmentData: []
 	});
-	let transitLines = $state();
-	let selectedLine = $state(0);
-	let selectedStation = $state(0);
+	let transitLines = $state<any>();
+	let selectedLine = $state<string | number>(0);
+	let selectedStation = $state<string | number>(0);
 
 	// Auto-select first available line when component initializes
 	$effect(() => {
 		if (selectedLine === 0 && transitLines) {
 			const firstRegion = Object.values(transitLines)[0];
-			if (firstRegion?.length) {
+			if (Array.isArray(firstRegion) && firstRegion.length) {
 				selectedLine = firstRegion[0].value;
 			}
 		}
 	});
 
-	let lineColor = $derived(lineColors[selectedLine]);
+	let lineColor = $derived(lineColors[selectedLine as keyof typeof lineColors]);
+
 	let mergedData = $derived.by(() => {
-		const { data, visitorData, completeCommunityData, builtForm } = dataSources;
+		const { data, visitorData, completeCommunityData, builtForm, developmentData } = dataSources;
 
 		// If either dataset is empty, return empty array
 		if (!data.length || !visitorData.length) return [];
 
-		// Create a map of visitor data by station name for quick lookup
+		// Create maps of supplementary data by station name/id for quick lookup
 		const visitorMap = new Map(visitorData.map((station) => [station.id, station]));
 		const ccMap = new Map(completeCommunityData.map((station) => [station.id, station]));
 		const builtFormMap = new Map(builtForm.map((station) => [station.id, station]));
+		const devMap = new Map(developmentData.map((station) => [station.id, station]));
 
 		// Merge the datasets
 		return data.map((station) => {
 			const visitorInfo = visitorMap.get(station.id);
 			const ccInfo = ccMap.get(station.id);
 			const builtFormInfo = builtFormMap.get(station.id);
-			const result = {
+			const devInfo = devMap.get(station.id);
+
+			return {
 				...station,
 				water_pct: builtFormInfo?.water_pct || 0,
 				greenspace_pct: builtFormInfo?.greenspace_pct || 0,
@@ -111,9 +133,12 @@
 				Unique_Visitors: visitorInfo?.Unique_Visitors || 0,
 				Tier_1_presence: ccInfo?.Tier_1_presence || 0,
 				Tier_2_presence: ccInfo?.Tier_2_presence || 0,
-				Overall_score: ccInfo?.Overall_score || 0
+				Overall_score: ccInfo?.Overall_score || 0,
+				DevelopmentPotentialScore: devInfo?.DevelopmentPotentialScore || 0,
+				LandAvailability: devInfo?.LandAvailability || 0,
+				DisplacementRisk: devInfo?.DisplacementRisk || 0,
+				GrowthPressure: devInfo?.GrowthPressure || 0
 			};
-			return result;
 		});
 	});
 
@@ -128,7 +153,7 @@
 			);
 			dataSources.data = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 
 		try {
@@ -137,7 +162,7 @@
 			);
 			dataSources.builtForm = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 
 		try {
@@ -146,7 +171,7 @@
 			);
 			transitLines = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 
 		try {
@@ -155,7 +180,7 @@
 			);
 			dataSources.visitorData = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 
 		try {
@@ -164,7 +189,32 @@
 			);
 			dataSources.completeCommunityData = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
+		}
+
+		try {
+			const response = await fetch(
+				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/DevelopmentPotential_Subindex.csv'
+			);
+			const csvText = await response.text();
+			dataSources.developmentData = csvParse(csvText, (d: any) => {
+				const row: any = {};
+				for (const key in d) {
+					if (key === 'id') {
+						row[key] = d[key].toString();
+					} else if (['potential', 'LALevel', 'DRLevel', 'GPLevel'].includes(key)) {
+						row[key] = d[key];
+					} else {
+						row[key] = d[key] === 'NA' ? 0 : +d[key];
+					}
+				}
+				return row;
+			});
+		} catch (error) {
+			console.error(
+				'Error fetching development potential data:',
+				error instanceof Error ? error.message : error
+			);
 		}
 	});
 </script>
@@ -176,14 +226,12 @@
 		line and a metric—such as population, households, or average income—and the chart will update to
 		display how that metric varies across the stations. Each bar represents a stop, with taller bars
 		indicating higher values. This helps you quickly compare areas along the route and understand
-		patterns in the station areas of the transit system. Data is from 2024 unless otherwise
+		patterns in the station areas of the transit system. Data is from 2025 unless otherwise
 		specified. Inspired by <a
 			href="https://schoolofcities.github.io/tod-toronto-1996-to-2021/"
 			target="_blank">School of Cities</a
-		>.
-	</p>
-	<p class="text-sm mt-4">
-		<em>This tool is in beta.</em>
+		>. See <a href="/about/data-methodology/#tod-meth" target="_blank">Data & Methodology</a> for more
+		details on the data sources and calculations behind these charts.
 	</p>
 </div>
 <div class="chart-container grid grid-cols-1 md:grid-cols-3 gap-4">

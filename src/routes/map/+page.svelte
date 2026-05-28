@@ -594,9 +594,9 @@
 <div class="hero">
 	<div id="title">
 		<h1>Main Street Map</h1>
-		<a on:click={initiateTutorial} id="tutorial">
+		<button on:click={initiateTutorial} id="tutorial">
 			<Icon icon="fluent:question-circle-12-filled" width="1.5em" height="1.5em" color="#002940" />
-		</a>
+		</button>
 	</div>
 	<p>
 		This is a map of all of the main streets in Canada. Search for a place or navigate the map using

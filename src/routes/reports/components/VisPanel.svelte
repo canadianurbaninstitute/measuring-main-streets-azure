@@ -1,5 +1,15 @@
-<script>
-	let { id = '', visible = false, label = '', source = '', children } = $props();
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		id?: string;
+		visible?: boolean;
+		label?: string;
+		source?: string;
+		children?: Snippet;
+	}
+
+	let { id = '', visible = false, label = '', source = '', children }: Props = $props();
 </script>
 
 <figure {id} class="vis-panel" class:visible role="img" aria-label={label}>

@@ -1,4 +1,30 @@
-<script>
+<script lang="ts">
+	interface Props {
+		id?: string;
+		title?: string;
+		finding1?: string;
+		description1?: string;
+		flip1?: boolean;
+		back1?: string;
+		finding2?: string;
+		description2?: string;
+		flip2?: boolean;
+		back2?: string;
+		finding3?: string;
+		description3?: string;
+		flip3?: boolean;
+		back3?: string;
+		link1?: string;
+		link2?: string;
+		link3?: string;
+		newTab1?: boolean;
+		newTab2?: boolean;
+		newTab3?: boolean;
+		image1?: string;
+		image2?: string;
+		image3?: string;
+	}
+
 	let {
 		id = '',
 		title = 'Key Findings',
@@ -23,22 +49,37 @@
 		image1 = '',
 		image2 = '',
 		image3 = ''
-	} = $props();
+	}: Props = $props();
 </script>
 
-{#snippet Card(finding, description, flip, backText, link, newTab, image)}
+{#snippet Card(
+	finding: string,
+	description: string,
+	flip: boolean,
+	backText: string,
+	link: string,
+	newTab: boolean,
+	image: string
+)}
 	{#if link}
 		<a href={link} target={newTab ? '_blank' : '_self'} class="card-wrapper">
 			{@render CardInner(finding, description, flip, backText, link, image)}
 		</a>
 	{:else}
 		<div class="card-wrapper">
-			{@render CardInner(finding, description, flip, backText, image)}
+			{@render CardInner(finding, description, flip, backText, undefined, image)}
 		</div>
 	{/if}
 {/snippet}
 
-{#snippet CardInner(finding, description, flip, backText, link, image)}
+{#snippet CardInner(
+	finding: string,
+	description: string,
+	flip: boolean,
+	backText: string,
+	link: string | undefined,
+	image: string
+)}
 	<div class={flip ? 'flip-card' : 'card'}>
 		{#if flip}
 			<div class="flip-card-inner">
@@ -82,7 +123,6 @@
 		overflow: hidden;
 		background-color: #e6f6fd;
 	}
-
 	.inner {
 		display: flex;
 		flex-direction: column;
@@ -98,13 +138,11 @@
 		width: 100%;
 		align-items: stretch;
 	}
-
 	.card-wrapper {
 		text-decoration: none;
 		display: block;
 		height: 100%;
 	}
-
 	.card {
 		background-color: #0a1f44;
 		color: #fff;
@@ -131,7 +169,6 @@
 		font-size: 1.3rem;
 		font-weight: 400;
 	}
-
 	.card h2,
 	.flip-card-front h2 {
 		line-height: 1;
@@ -143,7 +180,6 @@
 		border-radius: 0.5rem;
 		perspective: 1000px;
 	}
-
 	.flip-card-inner {
 		position: relative;
 		width: 100%;
@@ -152,42 +188,32 @@
 		transition: transform 0.6s;
 		transform-style: preserve-3d;
 	}
-
-	/* flip interaction */
 	.flip-card:hover .flip-card-inner {
 		transform: rotateY(180deg);
 	}
-
-	/* front + back share card styling */
 	.flip-card-front,
 	.flip-card-back {
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		backface-visibility: hidden;
-
 		background-color: #0a1f44;
 		color: #fff;
 		border-radius: 0.5rem;
 		padding: 2rem 1.5rem;
 		box-sizing: border-box;
-
 		transition:
 			transform 0.2s ease,
 			box-shadow 0.2s ease;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 	}
-
-	/* lift like other cards */
 	.flip-card:hover .flip-card-front,
 	.flip-card:hover .flip-card-back {
 		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 	}
-
 	.flip-card-front {
 		transform: rotateY(0deg);
 	}
-
 	.flip-card-back {
 		transform: rotateY(180deg);
 	}
@@ -195,12 +221,10 @@
 		transform: translateY(-12px);
 		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 	}
-
 	.card h2 {
 		margin: 0 0 0.75rem;
 		color: #fff;
 	}
-
 	.flip-card-back p {
 		margin: 0;
 		color: #fff;
@@ -210,10 +234,8 @@
 			grid-template-columns: 1fr;
 		}
 	}
-
 	.learn-more {
 		margin-top: 1rem;
-		/* text-decoration: underline; */
 		text-underline-offset: 4px;
 		font-size: clamp(0.8rem, 2.5vw, 1rem);
 		letter-spacing: 0.18em;

@@ -102,7 +102,7 @@
 
 <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth} />
 
-<div id={section} class="map" style="height: {mapHeight}px" />
+<div id={section} class="map" style="height: {mapHeight}px"></div>
 
 <style>
 	.map {

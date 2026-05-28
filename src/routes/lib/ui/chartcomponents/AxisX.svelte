@@ -1,46 +1,47 @@
-<!--
-  @component
-  Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
- -->
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
-	const { width, height, xScale, yRange } = getContext('LayerCake');
+	// 1. Fetch LayerCake contexts and map store structures for Type Safety
+	const { width, height, xScale, yRange } = getContext<{
+		width: Readable<number>;
+		height: Readable<number>;
+		xScale: Readable<any>; // Can be an ordinal, band, or linear D3 scale
+		yRange: Readable<number[]>;
+	}>('LayerCake');
 
-	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
-	export let tickMarks = false;
+	// 2. Define strict component prop typings
+	interface Props {
+		tickMarks?: boolean;
+		gridlines?: boolean;
+		tickMarkLength?: number;
+		baseline?: boolean;
+		snapLabels?: boolean;
+		format?: (d: any) => string | number;
+		ticks?: number | any[] | ((defaultTicks: any[]) => any[]);
+		tickGutter?: number;
+		dx?: number | string;
+		dy?: number | string;
+		label?: string;
+	}
 
-	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
-	export let gridlines = true;
+	// 3. Receive props using the Svelte 5 $props() rune
+	let {
+		tickMarks = false,
+		gridlines = true,
+		tickMarkLength = 6,
+		baseline = false,
+		snapLabels = false,
+		format = (d: any) => d,
+		ticks = undefined,
+		tickGutter = 0,
+		dx = 0,
+		dy = 12,
+		label = ''
+	}: Props = $props();
 
-	/** @type {Number} [tickMarkLength=6] - The length of the tick mark. */
-	export let tickMarkLength = 6;
-
-	/** @type {Boolean} [baseline=false]  Show a solid line at the bottom. */
-	export let baseline = false;
-
-	/** @type {Boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart. */
-	export let snapLabels = false;
-
-	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let format = (d) => d;
-
-	/** @type {Number|Array|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
-	export let ticks = undefined;
-
-	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the yRange min). */
-	export let tickGutter = 0;
-
-	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
-	export let dx = 0;
-
-	/** @type {Number} [dy=12] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 12;
-
-	/** @type {String} [label=''] - An optional label for the axis. */
-	export let label = '';
-
-	function textAnchor(i, sl) {
+	// 4. Implement clear edge-case alignment calculation helper
+	function textAnchor(i: number, sl: boolean): 'start' | 'end' | 'middle' {
 		if (sl === true) {
 			if (i === 0) {
 				return 'start';
@@ -52,19 +53,22 @@
 		return 'middle';
 	}
 
-	$: tickLen = tickMarks === true ? (tickMarkLength ?? 6) : 0;
+	// 5. Convert legacy "$:" reactive labels to $derived states
+	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	$: isBandwidth = typeof $xScale.bandwidth === 'function';
+	let isBandwidth = $derived(typeof $xScale.bandwidth === 'function');
 
-	$: tickVals = Array.isArray(ticks)
-		? ticks
-		: isBandwidth
-			? $xScale.domain()
-			: typeof ticks === 'function'
-				? ticks($xScale.ticks())
-				: $xScale.ticks(ticks);
+	let tickVals = $derived(
+		Array.isArray(ticks)
+			? ticks
+			: isBandwidth
+				? $xScale.domain()
+				: typeof ticks === 'function'
+					? ticks($xScale.ticks())
+					: $xScale.ticks(ticks)
+	);
 
-	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
+	let halfBand = $derived(isBandwidth ? $xScale.bandwidth() / 2 : 0);
 </script>
 
 <g class="axis x-axis" class:snapLabels>
@@ -86,9 +90,9 @@
 					y2={tickGutter + tickLen}
 				/>
 			{/if}
-			<text x={halfBand} y={tickGutter + tickLen} {dx} {dy} text-anchor={textAnchor(i, snapLabels)}
-				>{format(tick)}</text
-			>
+			<text x={halfBand} y={tickGutter + tickLen} {dx} {dy} text-anchor={textAnchor(i, snapLabels)}>
+				{format(tick)}
+			</text>
 		</g>
 	{/each}
 
@@ -96,7 +100,7 @@
 		<text
 			class="axis-label"
 			x={$width / 2}
-			y={$height + (tickGutter + tickLen + dy + 20)}
+			y={$height + (tickGutter + tickLen + Number(dy) + 20)}
 			text-anchor="middle"
 		>
 			{label}
@@ -123,14 +127,13 @@
 		fill: #444;
 		font-size: 13px;
 		font-weight: 500;
-		/* transform: translateY(10px); */
 	}
 
 	.tick .tick-mark,
 	.baseline {
 		stroke-dasharray: 0;
 	}
-	/* This looks slightly better */
+
 	.axis.snapLabels .tick:last-child text {
 		transform: translateX(3px);
 	}

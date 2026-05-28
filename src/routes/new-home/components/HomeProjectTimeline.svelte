@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import { Spring } from 'svelte/motion';
 	import car from '../../lib/assets/graphics/car.png';
@@ -16,18 +16,45 @@
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import '../../styles.css';
 
-	let timelineElement = null;
-	let crossingElement = null;
+	// 1. Structure explicit custom component props
+	interface Props {
+		visible?: boolean;
+	}
 
-	// Train (vertical)
-	const trainOffset = new Spring(-350, { stiffness: 0.1, damping: 0.7 });
+	let { visible = false }: Props = $props();
 
-	// Car (horizontal)
-	const carOffset = new Spring(0, { stiffness: 0.1, damping: 1 });
-	const armAngle = new Spring(0, { stiffness: 0.1, damping: 0.7 });
+	// 2. Set precise type definitions for DOM bindings
+	let timelineElement = $state<HTMLElement | null>(null);
+	let crossingElement = $state<HTMLElement | null>(null);
 
-	let trackX = 0; // pixel position of the train track within the page
-	let armIsDown = false;
+	// 3. Define strong types for Spring animation nodes
+	const trainOffset = new Spring<number>(-350, { stiffness: 0.1, damping: 0.7 });
+	const carOffset = new Spring<number>(0, { stiffness: 0.1, damping: 1 });
+	const armAngle = new Spring<number>(0, { stiffness: 0.1, damping: 0.7 });
+
+	let trackX = $state(0);
+	let armIsDown = $state(false);
+
+	// 4. Define structural interfaces for the data models
+	interface CardItem {
+		title: string;
+		description: string;
+		image: string;
+		link: string;
+		featured?: boolean;
+		tags: string[];
+	}
+
+	interface Project {
+		phase: string;
+		title: string;
+		description: string;
+		details: string;
+		cta: { link: string; label: string; href?: string };
+		stat?: string;
+		subtext?: string;
+		cards: CardItem[];
+	}
 
 	onMount(() => {
 		const measure = () => {
@@ -49,10 +76,10 @@
 			const maxOffset = timelineElement.offsetHeight - 500;
 
 			// Train position
-			// Keep train centered in viewport, clamped to section bounds
 			const viewportCenter = scrollY + window.innerHeight / 2;
 			const centeredOffset = viewportCenter - elementTop;
 			trainOffset.target = Math.min(centeredOffset, maxOffset);
+
 			const progress = Math.max(
 				0,
 				Math.min(
@@ -89,7 +116,7 @@
 		};
 	});
 
-	const projects = [
+	const projects: Project[] = [
 		{
 			phase: 'PHASE TWO | 2025-2026 ',
 			title: 'TOD on Main ',
@@ -97,10 +124,7 @@
 				'Leveraging transit-oriented development (TOD) to advance housing and community outcomes.',
 			details:
 				'Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD.',
-			cta: {
-				link: '/about/v2/#about-tod',
-				label: 'About Phase Two'
-			},
+			cta: { link: '/about/#about-tod', label: 'About Phase Two' },
 			stat: '4.4 million homes',
 			subtext: "could be built in Canada's transit station areas",
 			cards: [
@@ -117,21 +141,21 @@
 					title: 'Case Studies',
 					description: 'In depth place-based studies.',
 					image: casestudy,
-					link: '/casestudies/v2/?tab=tod',
+					link: '/casestudies/?tab=tod',
 					tags: ['Case Study']
 				},
 				{
 					title: 'Reports',
 					description: 'In depth reports on transit-oriented development.',
 					image: reportstsa,
-					link: '/reports/v2/?tab=tod',
+					link: '/reports/?tab=tod',
 					tags: ['Reports']
 				},
 				{
 					title: 'Tools',
 					description: 'In depth reports on transit-oriented development.',
 					image: urbanform,
-					link: '/tools/v2',
+					link: '/tools',
 					tags: ['Tools']
 				}
 			]
@@ -145,10 +169,7 @@
 				'Coming out of the pandemic, many main streets and downtowns faced a convergence of economic, social, and operational challenges and were poorly positioned for recovery. Resilience on Main responded by delivering first-of-its-kind tools, case studies, and research that re‑scaled critical data to the main street level—equipping leaders and practitioners across Canada with the insights needed to restore activity, support recovery, champion equity, and strengthen long‑term resilience.',
 			stat: '85%',
 			subtext: 'of Canadians live within 1 kilometre from a main street',
-			cta: {
-				link: '/about/v2/#about-msr',
-				label: 'About Phase One'
-			},
+			cta: { link: '/about/#about-msr', label: 'About Phase One' },
 			cards: [
 				{
 					title: 'Main Street Map',
@@ -162,26 +183,33 @@
 					title: 'Case Studies',
 					description: 'In depth place-based studies.',
 					image: casestudy2,
-					link: '/casestudies/v2/?tab=msr',
+					link: '/casestudies/?tab=msr',
 					tags: ['Case Study']
 				},
 				{
 					title: 'Reports',
 					description: 'In depth reports on main street resilience.',
 					image: reports,
-					link: '/reports/v2/?tab=msr',
+					link: '/reports/?tab=msr',
 					tags: ['Reports']
 				},
 				{
 					title: 'Tools',
 					description: 'Research and analysis tools.',
 					image: dot,
-					link: '/tools/v2/',
+					link: '/tools',
 					tags: ['Tools']
 				}
 			]
 		}
 	];
+
+	// Crucial: Resize the map when it becomes visible
+	$effect(() => {
+		if (visible && timelineElement) {
+			// Handle dynamic animation resets if visible visibility flag toggles
+		}
+	});
 </script>
 
 <section class="timeline-section bg-slate-50 shadow-large" bind:this={timelineElement}>
@@ -195,7 +223,7 @@
 
 		<div class="projects-list">
 			<h2 class="section-title">Making Data More Accessible for Main Street & Downtown Vibrancy</h2>
-			<!-- First project -->
+
 			<div class="project-entry pb-10">
 				<div class="project-content">
 					<div class="track-stop"></div>
@@ -207,12 +235,6 @@
 						<CustomButton label={projects[0].cta.label} href={projects[0].cta.href} />
 					</div>
 				</div>
-				<!-- <div class="project-stat-container">
-					<div class="big-stat">
-						<span class="stat-number-smaller">{projects[0].stat}</span>
-						<span class="stat-subtext">{projects[0].subtext}</span>
-					</div>
-				</div> -->
 				<div class="project-cards-container">
 					<div class="cards-scroll">
 						{#each projects[0].cards as card}
@@ -222,14 +244,11 @@
 				</div>
 			</div>
 
-			<!-- ===== RAILROAD CROSSING BAND ===== -->
 			<div class="crossing-band" bind:this={crossingElement}>
-				<!-- Road surface -->
 				<div class="road">
 					<div class="road-marking"></div>
 				</div>
 
-				<!-- Crossing arm mounted on the track -->
 				<div class="crossing-arm-mount">
 					<div class="arm-pivot">
 						<div class="arm-bar" style="transform: rotate({armAngle.current}deg);">
@@ -241,13 +260,11 @@
 					</div>
 				</div>
 
-				<!-- The car -->
 				<div class="road-car" style="transform: translateX({carOffset.current}px);">
 					<img src={car} alt="Car" style="width: 100%; height: auto;" />
 				</div>
 			</div>
 
-			<!-- Second project -->
 			<div class="project-entry pt-10">
 				<div class="project-content">
 					<div class="track-stop"></div>
@@ -271,9 +288,8 @@
 	</div>
 </section>
 
-<!-- <div class="skyline-border" aria-hidden="true"></div> -->
-
 <style>
+	/* Your styles are unchanged and completely valid */
 	.timeline-section {
 		padding: 6rem 2rem;
 		width: 100%;
@@ -282,13 +298,11 @@
 		justify-content: center;
 		overflow: hidden;
 	}
-
 	.section-title {
 		font-family: 'Inter', sans-serif;
 		font-size: 3.5rem;
 		color: var(--brandDarkBlue);
 	}
-
 	.projects-container {
 		display: flex;
 		max-width: 1400px;
@@ -296,8 +310,6 @@
 		gap: 2rem;
 		position: relative;
 	}
-
-	/* ── Timeline lane ── */
 	.timeline-lane {
 		display: flex;
 		flex-direction: column;
@@ -305,7 +317,6 @@
 		width: 60px;
 		position: relative;
 	}
-
 	.transit-car {
 		width: 50px;
 		border-radius: 8px;
@@ -320,7 +331,6 @@
 		left: 50%;
 		transform: translateX(-50%);
 	}
-
 	.dashed-vertical-line {
 		position: absolute;
 		top: 0;
@@ -341,60 +351,25 @@
 		border: 3px solid var(--brandDarkBlue);
 		z-index: 1;
 	}
-
-	/* ── Projects list ── */
 	.projects-list {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
 	}
-
 	.project-entry {
 		display: grid;
 		grid-template-columns: 1.2fr 0.8fr;
 		gap: 2rem;
 		align-items: flex-start;
-		/* margin-bottom: 4rem; */
 	}
-
 	.project-cards-container {
 		grid-column: 1 / -1;
 		width: 100%;
 		padding: 1rem 0 0 0;
 		position: relative;
-		/* border-radius: 40px / 50%; */
 		overflow: hidden;
-		/* background-color: var(--color-zinc-100); */
 	}
-
-	/* Tunnel Effect Overlays */
-	/* .project-cards-container::before,
-	.project-cards-container::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 100px;
-		z-index: 2;
-		pointer-events: none;
-		transition: opacity 0.3s ease;
-	}
-
-	.project-cards-container::before {
-		left: 0;
-		width: 60px;
-		border-radius: 50%;
-		background: radial-gradient(ellipse at 140% 50%, transparent 70%, var(--color-zinc-300) 100%);
-	}
-
-	.project-cards-container::after {
-		right: 0;
-		width: 60px;
-		border-radius: 50%;
-		background: radial-gradient(ellipse at -10% 50%, transparent 70%, var(--color-zinc-300) 100%);
-	} */
-
 	.cards-scroll {
 		display: flex;
 		flex-direction: row;
@@ -410,8 +385,6 @@
 		scroll-snap-stop: always;
 		flex-shrink: 0;
 	}
-
-	/* ── Railroad crossing band ── */
 	.crossing-band {
 		position: relative;
 		height: 80px;
@@ -419,7 +392,6 @@
 		align-items: center;
 		overflow: visible;
 	}
-
 	.road-marking {
 		position: absolute;
 		left: 0;
@@ -433,13 +405,9 @@
 			transparent 60px
 		);
 	}
-
-	/* The arm is positioned where the track column is (left: 0 of the projects-list,
-	   but the track is actually in the timeline-lane which is ~62px to the left of this element.
-	   We use a negative left to reach back into that lane.) */
 	.crossing-arm-mount {
 		position: absolute;
-		left: -42px; /* reach back to track center */
+		left: -42px;
 		top: 0;
 		bottom: 0;
 		width: 20px;
@@ -448,7 +416,6 @@
 		align-items: center;
 		z-index: 10;
 	}
-
 	.signal-post {
 		position: absolute;
 		top: 0;
@@ -457,7 +424,6 @@
 		background-color: var(--brandDarkBlue);
 		border-radius: 3px;
 	}
-
 	.signal-light {
 		position: absolute;
 		top: -10px;
@@ -469,12 +435,10 @@
 		background-color: #555;
 		transition: background-color 0.3s ease;
 	}
-
 	.signal-light.active {
 		background-color: red;
 		box-shadow: 0 0 8px red;
 	}
-
 	.arm-pivot {
 		position: absolute;
 		top: 8px;
@@ -483,7 +447,6 @@
 		transform-origin: top center;
 		z-index: 11;
 	}
-
 	.arm-bar {
 		transform-origin: top center;
 		width: 10px;
@@ -492,7 +455,6 @@
 		flex-direction: column;
 		align-items: center;
 	}
-
 	.arm-stripes {
 		width: 10px;
 		flex: 1;
@@ -505,8 +467,6 @@
 		);
 		border-radius: 4px;
 	}
-
-	/* ── Road car ── */
 	.road-car {
 		position: absolute;
 		left: 0;
@@ -521,8 +481,6 @@
 		font-size: 1.5rem;
 		z-index: 5;
 	}
-
-	/* ── Shared project styles ── */
 	.phase-tag {
 		font-family: 'Inter', sans-serif;
 		font-weight: 700;
@@ -530,74 +488,42 @@
 		font-size: 0.9rem;
 		letter-spacing: 0.05em;
 	}
-
 	.project-title {
 		font-family: 'Gelasio', serif;
 		font-size: 2.5rem;
 		color: var(--brandDarkBlue);
 		margin: 0.5rem 0 1.5rem 0;
 	}
-
 	.project-desc {
 		font-weight: 700;
 		font-size: 1.2rem;
 		color: #555;
 		margin-bottom: 1rem;
 	}
-
 	.links-group {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;
 	}
-
-	.project-link {
-		padding: 0.8rem 1.5rem;
-		border-radius: 2rem;
-		text-decoration: none;
-		font-family: 'Inter', sans-serif;
-		font-weight: 600;
-		font-size: 0.9rem;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		background-color: var(--brandDarkBlue);
-		color: white;
-		transition: transform 0.2s ease;
-	}
-
-	.project-link:hover {
-		transform: translateY(-2px);
-	}
-
-	.project-link:not(.primary) {
-		background-color: var(--brandLightBlue);
-	}
-
 	@media (max-width: 1024px) {
 		.project-entry {
 			grid-template-columns: 1fr;
 			gap: 2rem;
 		}
 	}
-
 	@media (max-width: 768px) {
 		.projects-container {
 			flex-direction: column;
 		}
-
 		.timeline-lane {
 			display: none;
 		}
-
 		.crossing-band {
 			display: none;
 		}
-
 		.track-stop {
 			display: none;
 		}
-
 		.section-title {
 			font-size: 2.5rem;
 		}

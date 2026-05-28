@@ -1,8 +1,7 @@
 <script>
-	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import "../../../../node_modules/mapbox-gl/dist/mapbox-gl.css";
-
+	import { onMount } from 'svelte';
+	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
@@ -11,13 +10,12 @@
 	export let section;
 	let center = [-79.5365, 43.9245];
 	export let zoom = 8;
-    export let maxZoom = 16;
-    export let minZoom = 6;
+	export let maxZoom = 16;
+	export let minZoom = 6;
 	export let bearing = -17.1;
 	export let pitch = 0;
 	export let style = 'mapbox://styles/canadianurbaninstitute/clua3x3qv002801qp39gdfc4x?fresh=true';
-	export let attribution = 'Canadian Urban Institute'
-
+	export let attribution = 'Canadian Urban Institute';
 
 	let map;
 
@@ -27,7 +25,6 @@
 	];
 
 	onMount(() => {
-
 		map = new mapboxgl.Map({
 			container: section,
 			style: style,
@@ -46,43 +43,41 @@
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
 		map.addControl(
-				new mapboxgl.AttributionControl({
-					customAttribution: attribution
-				})
-			);
-		
-			map.on('click', (e) => {
-				const coords = JSON.stringify(map.getCenter());
-				const pitch = map.getPitch().toFixed(0);
-				const bearing = map.getBearing().toFixed(0);
-				const coordsObject = JSON.parse(coords);
-				const coordsArray = [
-						parseFloat(coordsObject.lng.toFixed(4)),
-						parseFloat(coordsObject.lat.toFixed(4))
-						];
-				});
+			new mapboxgl.AttributionControl({
+				customAttribution: attribution
+			})
+		);
 
+		map.on('click', (e) => {
+			const coords = JSON.stringify(map.getCenter());
+			const pitch = map.getPitch().toFixed(0);
+			const bearing = map.getBearing().toFixed(0);
+			const coordsObject = JSON.parse(coords);
+			const coordsArray = [
+				parseFloat(coordsObject.lng.toFixed(4)),
+				parseFloat(coordsObject.lat.toFixed(4))
+			];
+		});
 	});
 
-
 	function navigateMap(event) {
-			const selectedRegion = event.target.value;
-			if (selectedRegion === 'Toronto') {
-				map.jumpTo({
-					center: [-79.5365, 43.9245],
-				});
-			} else if (selectedRegion === 'Montreal') {
-				map.jumpTo({
-					center: [-73.617, 45.578],
-					zoom: 8
-				});
-			} else if (selectedRegion === 'Edmonton') {
-				map.jumpTo({
-					center: [-113.7768, 53.4757],
-					zoom: 7.5
-				});
-			}
+		const selectedRegion = event.target.value;
+		if (selectedRegion === 'Toronto') {
+			map.jumpTo({
+				center: [-79.5365, 43.9245]
+			});
+		} else if (selectedRegion === 'Montreal') {
+			map.jumpTo({
+				center: [-73.617, 45.578],
+				zoom: 8
+			});
+		} else if (selectedRegion === 'Edmonton') {
+			map.jumpTo({
+				center: [-113.7768, 53.4757],
+				zoom: 7.5
+			});
 		}
+	}
 </script>
 
 <!-- Need to fix labels not working at some point -->
@@ -99,22 +94,21 @@
 				checked
 				on:change={navigateMap}
 			/>
-			<label>Toronto</label>
+			<label for="toronto">Toronto</label>
 		</div>
 
 		<div class="radio">
 			<input type="radio" id="montreal" name="place" value="Montreal" on:change={navigateMap} />
-			<label>Montreal</label>
+			<label for="montreal">Montreal</label>
 		</div>
 
 		<div class="radio">
 			<input type="radio" id="edmonton" name="place" value="Edmonton" on:change={navigateMap} />
-			<label>Edmonton</label>
+			<label for="edmonton">Edmonton</label>
 		</div>
 	</div>
 
-<div id={section} class="map"/>
-
+	<div id={section} class="map"></div>
 </div>
 
 <style>

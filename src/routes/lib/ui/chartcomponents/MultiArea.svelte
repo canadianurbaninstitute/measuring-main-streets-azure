@@ -1,21 +1,29 @@
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
-	const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');
+	const { data, xGet, yGet, zGet, yScale } = getContext<{
+		data: Readable<any[]>;
+		xGet: Readable<(d: any) => number>;
+		yGet: Readable<(d: any) => number>;
+		zGet: Readable<(series: any) => string>;
+		yScale: Readable<(d: any) => number>;
+	}>('LayerCake');
 
-	let { opacity = 0.5, visible = true } = $props();
+	interface Props {
+		opacity?: number;
+		visible?: boolean;
+	}
 
-	const areaPath = $derived((series) => {
+	let { opacity = 0.5, visible = true }: Props = $props();
+
+	const areaPath = $derived((series: any) => {
 		const values = series.values;
 		const seriesKey = series.key;
 
-		// Top edge of the area (the current series values, which are the stacked y1)
-		const topPoints = values.map((d) => $xGet(d) + ',' + $yGet(d));
+		const topPoints = values.map((d: any) => $xGet(d) + ',' + $yGet(d));
 
-		// Bottom edge of the area
-		// We use the stored _stack[key].y0 to find the baseline for this series at each point.
-		// If not stacked, we fall back to the 0 baseline.
-		const bottomPoints = [...values].reverse().map((d) => {
+		const bottomPoints = [...values].reverse().map((d: any) => {
 			const y0 = d._stack && d._stack[seriesKey] ? d._stack[seriesKey].y0 : 0;
 			return $xGet(d) + ',' + $yScale(y0);
 		});

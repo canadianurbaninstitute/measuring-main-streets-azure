@@ -1,18 +1,31 @@
-<script>
+<script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
-	import { tweened } from 'svelte/motion';
+	import { Tween } from 'svelte/motion';
+	import type { Readable } from 'svelte/store';
 
-	const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');
+	const { data, xGet, yGet, zGet, yScale } = getContext<{
+		data: Readable<any[][]>;
+		xGet: Readable<(d: any) => [number, number]>;
+		yGet: Readable<(d: any) => number>;
+		zGet: Readable<(series: any[]) => string>;
+		yScale: Readable<any>;
+	}>('LayerCake');
 
-	const reveal = tweened(0, {
+	const reveal = new Tween(0, {
 		duration: 1200,
 		easing: cubicOut
 	});
 
-	let { visible = undefined, found = $bindable(null), e = $bindable(null) } = $props();
+	interface Props {
+		visible?: boolean | undefined;
+		found?: any;
+		e?: MouseEvent | null;
+	}
 
-	let group = $state();
+	let { visible = undefined, found = $bindable(null), e = $bindable(null) }: Props = $props();
+
+	let group = $state<SVGGElement | undefined>();
 
 	onMount(() => {
 		if (typeof visible !== 'undefined') return;
@@ -20,7 +33,7 @@
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						reveal.set(1);
+						reveal.target = 1;
 					} else {
 						reveal.set(0, { duration: 0 });
 					}
@@ -34,20 +47,19 @@
 		return () => observer.disconnect();
 	});
 
-	// Re-trigger animation when 'visible' becomes true (scrollytelling)
 	$effect(() => {
 		if (typeof visible !== 'undefined') {
 			if (visible) {
-				reveal.set(1);
+				reveal.target = 1;
 			} else {
 				reveal.set(0, { duration: 0 });
 			}
 		}
 	});
 
-	const columnWidth = $derived((d) => {
+	const columnWidth = $derived((d: any) => {
 		const xVals = $xGet(d);
-		return (xVals[1] - xVals[0]) * $reveal;
+		return (xVals[1] - xVals[0]) * reveal.current;
 	});
 </script>
 
@@ -56,6 +68,8 @@
 		{#each series as d, i}
 			<rect
 				class="group-rect"
+				role="button"
+				tabindex={0}
 				data-id={i}
 				x={$xGet(d)[0]}
 				y={$yGet(d)}
@@ -63,7 +77,7 @@
 				width={columnWidth(d)}
 				fill={$zGet(series)}
 				opacity={1}
-				onmousemove={(ev) => {
+				onmousemove={(ev: MouseEvent) => {
 					found = d.data;
 					e = ev;
 				}}

@@ -10,10 +10,19 @@
 		urban_form_comp_style
 	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
+	import GaugeMetric from '../../lib/ui/charts/GaugeMetric.svelte';
+	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
+	import StationStatus from '../../transit-map/components/StationStatus.svelte';
 	// Components
+	import {
+		building_pct,
+		greenspace_pct,
+		parking_pct,
+		water_pct
+	} from '../../lib/data/transitdata/config.json';
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
-	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import '../../styles.css';
 	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
 	import RadarChart from './RadarChart.svelte';
@@ -58,6 +67,12 @@
 		{ value: 'land', label: 'Land Availability' },
 		{ value: 'growth', label: 'Growth Pressure' },
 		{ value: 'potential', label: 'Development Potential' }
+	];
+
+	const dpiMetrics = [
+		{ label: 'Land Availability', key: 'LALevel', icon: 'mdi:land-plots' },
+		{ label: 'Growth Pressure', key: 'GPLevel', icon: 'mdi:trending-up' },
+		{ label: 'Displacement Risk', key: 'DRLevel', icon: 'mdi:alert-circle' }
 	];
 
 	let activeRadarCategory = $state('potential');
@@ -500,111 +515,95 @@
 	<p id="description">
 		This tool breaks down the housing development potential of areas within 800m of a transit
 		station. Use the dropdown to select a transit station. <a
-			href="/about/data-methodology/v2/#dpi-meth">Learn more about the methodology.</a
+			href="/about/data-methodology/#dpi-meth">Learn more about the methodology</a
 		>
+		or <a href="/reports/tod/development-potential">read the full report.</a>
 	</p>
-	<CustomButton
-		variant="secondary"
-		label="Read High Potential: Exploring Housing Development Potential in Transit Station Areas"
-		href="/reports/tod/development-potential"
-	/>
 </div>
 
 <div id="content-container">
 	<!-- LEFT SIDEBAR -->
-	<div id="sidebar">
-		<h4>Select a station:</h4>
-
-		<!-- Station 1 -->
-		<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
-			<Combobox
-				handleSelect={handleStation1Select}
-				data={transitStationsDropdown}
-				icon="mdi:train"
-				placeholder="Search for a station"
-				selected={selectedStation1}
-			/>
-			{#if station1Error}
-				<div class="error-message text-center mt-2">{station1Error}</div>
-			{/if}
-			{#if station1Data}
-				<div class="mt-4 text-center text-sm text-gray-700">
-					<div class="font-bold uppercase text-blue-600 text-xl tracking-wider mb-1">
-						{station1Data.stop_label}
-					</div>
-					<div class="text-xs text-gray-500 mb-2">
-						{station1Data.line_display_name}<br />{station1Data.region}<br />{station1Data.status}
-					</div>
-					<div class="mt-6 w-full text-center text-blue-600 text-lg font-medium">
-						Development Potential:
-						{allDevData?.potential ?? 'N/A'}
-					</div>
-					<div class="flex flex-col w-full items-start w-fit mx-auto mt-4 gap-1 text-left text-sm">
-						<div>
-							Land Availability: <span class="font-semibold">{allDevData?.LALevel ?? 'N/A'}</span>
-						</div>
-						<div>
-							Growth Pressure: <span class="font-semibold">{allDevData?.GPLevel ?? 'N/A'}</span>
-						</div>
-						<div>
-							Displacement Risk: <span class="font-semibold">{allDevData?.DRLevel ?? 'N/A'}</span>
-						</div>
-						<br />
-						<div>
-							Greenspace: <span class="font-semibold"
-								>{station1Metrics?.greenspace_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-						<div>
-							Water: <span class="font-semibold"
-								>{station1Metrics?.water_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-						<div>
-							Buildings: <span class="font-semibold"
-								>{station1Metrics?.building_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-						<div>
-							Parking: <span class="font-semibold"
-								>{station1Metrics?.parking_pct?.toFixed(1) ?? 'N/A'}%</span
-							>
-						</div>
-					</div>
-				</div>
-			{/if}
-		</div>
-
-		<!-- Layer Toggles -->
-		<div class="mt-6">
-			<h6>Legend</h6>
-			<p>Click to toggle layers</p>
-			<div class="mt-4 grid grid-cols-2 gap-x-2 gap-y-4 text-xs">
-				<div class="flex flex-col gap-2">
-					<div class="font-bold text-gray-500 mb-1">Transit & Roads</div>
-					<Checkbox
-						bind:checked={transitCheck}
-						label="Transit Lines"
-						icon="mdi:transit-connection-variant"
-					/>
-					<Checkbox bind:checked={stationCheck} label="Transit Stations" icon="mdi:train" />
-					<Checkbox bind:checked={roadsCheck} label="Road Network" icon="mdi:road" />
-				</div>
-				<div class="flex flex-col gap-2 pl-2">
-					<div class="font-bold text-gray-500 mb-1">Built Form</div>
-					<Checkbox bind:checked={greenspaceCheck} label="Greenspace" color="#475249" />
-					<Checkbox bind:checked={waterCheck} label="Water" color="#253841" />
-					<Checkbox bind:checked={buildingsCheck} label="Buildings" color="#6A6A6A" />
-					<Checkbox bind:checked={parkingCheck} label="Parking" color="#B2B2B2" />
-					<Checkbox bind:checked={buildingpermitsCheck} label="Building Permits" color="#DA3068" />
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- <div id="sidebar"></div> -->
 
 	<!-- RIGHT CONTENT -->
 	<!-- Row 1 -->
 	<div class="flex flex-row justify-between w-full align-center gap-10 h-full flex-wrap">
+		<div class="flex grow-1 flex-col items-center justify-start relative">
+			<!-- Station 1 -->
+			<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
+				<h4 class="mb-2">Select a station:</h4>
+				<Combobox
+					handleSelect={handleStation1Select}
+					data={transitStationsDropdown}
+					icon="mdi:train"
+					placeholder="Search for a station"
+					selected={selectedStation1}
+				/>
+				{#if station1Error}
+					<div class="error-message text-center mt-2">{station1Error}</div>
+				{/if}
+				{#if station1Data}
+					<StationStatus selectedStation={station1Data} />
+					<div class="mt-4 text-center text-sm text-gray-700">
+						<div class="metric-container">
+							{#each dpiMetrics as metric}
+								<TransitMetric
+									disabled
+									label={metric.label}
+									value={allDevData ? allDevData[metric.key] : 'N/A'}
+									icon={metric.icon}
+								/>
+							{/each}
+						</div>
+						<div class="metric-container">
+							<GaugeMetric
+								title="Overall Housing Development Potential"
+								value={allDevData?.DevelopmentPotentialScore ?? 0}
+								maxValue={10}
+								size={200}
+								segmentColors={['#f13737', '#f1c500', '#58e965']}
+								label={allDevData?.potential ?? 'N/A'}
+								showValue={false}
+							/>
+						</div>
+						<div class="metric-container">
+							<DonutMetric
+								label={water_pct.label}
+								value={station1Metrics?.water_pct}
+								icon={water_pct.icon}
+								suffix={water_pct.unit}
+								fillColor={'#002940'}
+								toggle={false}
+							/>
+							<DonutMetric
+								label={greenspace_pct.label}
+								value={Math.round(station1Metrics?.greenspace_pct ?? 0)}
+								icon={greenspace_pct.icon}
+								suffix={greenspace_pct.unit}
+								fillColor={'#43b171'}
+								toggle={false}
+							/>
+							<DonutMetric
+								label={building_pct.label}
+								value={Math.round(station1Metrics?.building_pct ?? 0)}
+								icon={building_pct.icon}
+								suffix={building_pct.unit}
+								fillColor={'#555555'}
+								toggle={false}
+							/>
+							<DonutMetric
+								label={parking_pct.label}
+								value={Math.round(station1Metrics?.parking_pct ?? 0)}
+								icon={parking_pct.icon}
+								suffix={parking_pct.unit}
+								fillColor={'#999999'}
+								toggle={false}
+							/>
+						</div>
+					</div>
+				{/if}
+			</div>
+		</div>
 		<div class="flex grow-1 flex-col items-center justify-start relative">
 			<h4 class="text-center mb-4">Built Form</h4>
 			<div id="map1" class="map-circle drop-shadow-lg w-[90%]"></div>
@@ -621,43 +620,78 @@
 					</div>
 				</div>
 			{/if}
-		</div>
-		<div class="flex grow-1 flex-col items-center gap-4 relative station-col">
-			<h4 class="text-center mb-4">Station Ranking</h4>
-			<Tabs.Root bind:value={activeRadarCategory} class="flex justify-center mb-4 px-4 sm:px-0">
-				<Tabs.List
-					class="flex justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
-				>
-					{#each radarCategories as cat}
-						<Tabs.Trigger
-							value={cat.value}
-							class="px-4 w-1/3 py-1.5 text-xs transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
-						>
-							{cat.label}
-						</Tabs.Trigger>
-					{/each}
-				</Tabs.List>
-			</Tabs.Root>
-			<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#00adf2', '#db3069']} />
-			{#if activeRadarCategory == 'land' || activeRadarCategory == 'growth'}
-				<div class="chart-wrapper">
-					<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
-				</div>
-				{#if activeRadarCategory == 'land'}
-					<div class="text-sm italic text-gray-500 text-center">
-						Low Population Density is highly ranked<br />
-						Low Employment Density is highly ranked
+			<!-- Layer Toggles -->
+			<div class="border border-gray-200 rounded-lg p-4 mt-8">
+				<h6>Legend</h6>
+				<p>Click to toggle layers</p>
+				<div class="mt-4 grid grid-cols-2 gap-x-2 gap-y-4 text-xs">
+					<div class="flex flex-col gap-2">
+						<div class="font-bold text-gray-500 mb-1">Transit & Roads</div>
+						<Checkbox
+							bind:checked={transitCheck}
+							label="Transit Lines"
+							icon="mdi:transit-connection-variant"
+						/>
+						<Checkbox bind:checked={stationCheck} label="Transit Stations" icon="mdi:train" />
+						<Checkbox bind:checked={roadsCheck} label="Road Network" icon="mdi:road" />
 					</div>
-				{/if}
-			{:else if activeRadarCategory == 'potential'}
-				<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
-			{/if}
+					<div class="flex flex-col gap-2 pl-2">
+						<div class="font-bold text-gray-500 mb-1">Built Form</div>
+						<Checkbox bind:checked={greenspaceCheck} label="Greenspace" color="#475249" />
+						<Checkbox bind:checked={waterCheck} label="Water" color="#253841" />
+						<Checkbox bind:checked={buildingsCheck} label="Buildings" color="#6A6A6A" />
+						<Checkbox bind:checked={parkingCheck} label="Parking" color="#B2B2B2" />
+						<Checkbox
+							bind:checked={buildingpermitsCheck}
+							label="Building Permits"
+							color="#DA3068"
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="flex grow-1 flex-col items-center justify-start relative station-col">
-			<h4 class="text-center mb-4">Displacement Risk</h4>
-			<ScoreBar score={devData1.displacementScore} maxScore={10} colors={['#00adf2', '#f45d01']} />
-			<div class="chart-wrapper">
-				<RadarChart data={devData1.displacementRadar} max={100} color="#f45d01" />
+		<div class="flex flex-col grow-2 gap-4 xl:flex-row">
+			<div class="flex grow-1 flex-col items-center gap-4 relative station-col">
+				<h4 class="text-center mb-4">Station Ranking</h4>
+				<Tabs.Root bind:value={activeRadarCategory} class="flex justify-center mb-4 px-4 sm:px-0">
+					<Tabs.List
+						class="flex justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
+					>
+						{#each radarCategories as cat}
+							<Tabs.Trigger
+								value={cat.value}
+								class="px-4 w-1/3 py-1.5 text-xs transition-colors duration-200 data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-[#ff007f]"
+							>
+								{cat.label}
+							</Tabs.Trigger>
+						{/each}
+					</Tabs.List>
+				</Tabs.Root>
+				<ScoreBar score={devData1.subcategoryScore} maxScore={10} colors={['#00adf2', '#db3069']} />
+				{#if activeRadarCategory == 'land' || activeRadarCategory == 'growth'}
+					<div class="chart-wrapper">
+						<RadarChart data={devData1.radarPoints} max={100} color="#ff007f" />
+					</div>
+					{#if activeRadarCategory == 'land'}
+						<div class="text-sm italic text-gray-500 text-center">
+							Low Population Density is highly ranked<br />
+							Low Employment Density is highly ranked
+						</div>
+					{/if}
+				{:else if activeRadarCategory == 'potential'}
+					<DevelopmentPotentialGraphic score={baseDevData1.potentialScore} maxScore={10} />
+				{/if}
+			</div>
+			<div class="flex grow-1 flex-col items-center justify-start relative station-col">
+				<h4 class="text-center mb-4">Displacement Risk</h4>
+				<ScoreBar
+					score={devData1.displacementScore}
+					maxScore={10}
+					colors={['#00adf2', '#f45d01']}
+				/>
+				<div class="chart-wrapper">
+					<RadarChart data={devData1.displacementRadar} max={100} color="#f45d01" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -696,13 +730,12 @@
 		padding-bottom: 4rem;
 	}
 
-	#sidebar {
-		width: 100%;
+	.metric-container {
 		display: flex;
-		flex-direction: column;
-		border-top: 1px solid #eee;
-		scrollbar-width: none;
-		padding: 0 2rem 2rem 2rem;
+		flex-direction: row;
+		margin: 0.3em 0 0 0;
+		gap: 0.3em;
+		width: 100%;
 	}
 
 	@media only screen and (min-width: 1024px) {
@@ -710,14 +743,6 @@
 			flex-direction: row;
 			min-height: calc(100vh - 120px);
 			padding-right: 2rem;
-		}
-
-		#sidebar {
-			width: 25%;
-			min-width: 400px;
-			height: 100%;
-			border-top: none;
-			border-right: 1px solid #eee;
 		}
 	}
 </style>

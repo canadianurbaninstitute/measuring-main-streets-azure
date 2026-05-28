@@ -87,7 +87,7 @@
 	</div>
 	<div class="metric-container">
 		<GaugeMetric
-			title="Overall Development Potential"
+			title="Overall Housing Development Potential"
 			value={potentialMap[dpiData.potential]}
 			maxValue={10}
 			size={200}
@@ -142,13 +142,13 @@
 
 	<CustomButton
 		href="/reports/tod/development-potential"
-		label="Read the Development Potential Report"
+		label="Read the Housing Development Potential Report"
 		color="green"
 		className="mt-2 w-full"
 	/>
 	<CustomButton
 		href="/tools/development-potential"
-		label="Try the Development Potential Tool"
+		label="Try the Housing Development Potential Tool"
 		color="green"
 		variant="secondary"
 		className="mt-2 w-full"

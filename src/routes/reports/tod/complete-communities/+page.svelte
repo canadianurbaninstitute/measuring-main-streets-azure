@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import '../../../styles.css';
 	import AmenityMap from './charts/AmenityMap.svelte';
@@ -7,6 +7,14 @@
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
 	import Scroller from '../../components/Scroller.svelte';
+	import type {
+		Block,
+		Group,
+		NavItem,
+		Panel,
+		Section,
+		VisConfigItem
+	} from '../../components/Template.d.ts';
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
@@ -18,7 +26,7 @@
 	import LibraryMap from './charts/LibraryMap.svelte';
 	import MissingAmenities from './charts/MissingAmenities.svelte';
 
-	import { sections } from './article.js';
+	import { sections } from './article';
 
 	// Charts
 	import AccessScatter from './charts/AccessScatter.svelte';
@@ -30,12 +38,11 @@
 
 	let activeIndex = $state(0);
 
-	onMount(async () => {
-		// Scrolly observer
+	onMount(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
+					if (entry.isIntersecting && entry.target instanceof HTMLElement) {
 						activeIndex = Number(entry.target.dataset.step);
 					}
 				});
@@ -50,7 +57,7 @@
 		return () => observer.disconnect();
 	});
 
-	const visConfig = $derived({
+	const visConfig: Record<string, VisConfigItem> = $derived({
 		'amenity-tiers': {
 			type: 'component',
 			component: AmenityTiers
@@ -97,7 +104,7 @@
 	/**
 	 * Flatten all panels, tagging each with a globally-unique uid
 	 */
-	const allPanels = sections.flatMap((section, si) =>
+	const allPanels: Panel[] = sections.flatMap((section, si) =>
 		section.panels.map((panel) => ({
 			...panel,
 			uid: `${si}:${panel.id}`,
@@ -109,9 +116,9 @@
 	/**
 	 * Flatten sections → steps for Scroller
 	 */
-	const steps = sections.flatMap((section, si) => {
+	const steps: Block[] = sections.flatMap((section, si) => {
 		const defaultId = section.panels?.[0]?.id;
-		return section.blocks.map((block) => {
+		return section.blocks.map((block: Block) => {
 			const pid = block.panelId ?? defaultId;
 			const valid = section.panels?.some((p) => p.id === pid);
 			return {
@@ -126,10 +133,10 @@
 	 * Group adjacent sections by layout and tag blocks with their global step index
 	 */
 	const layoutGroups = $derived.by(() => {
-		const groups = [];
-		let currentGroup = null;
+		const groups: Group[] = [];
+		let currentGroup: Group = { layout: '', sections: [] };
 
-		sections.forEach((section, si) => {
+		sections.forEach((section: Section, si) => {
 			const layout = section.layout || (section.panels?.length > 0 ? 'scrolly' : 'inline');
 
 			const blockOffset = steps.findIndex((s) => s.sectionIndex === si);
@@ -155,20 +162,20 @@
 
 	// Navigation items for ProgressBar
 	const items = $derived.by(() => {
-		const nav = [
+		const nav: NavItem[] = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
 			{ type: 'anchor', id: 'report-findings', label: 'Key Findings' }
 		];
 
 		sections.forEach((section, si) => {
 			const firstStepIndex = steps.findIndex((s) => s.sectionIndex === si);
-			const heading = section.blocks.find((b) => b.heading)?.heading;
+			const heading = (section.blocks.find((b: Block) => b.heading) as Block)?.heading;
 
 			if (heading) {
 				nav.push({
 					type: 'anchor',
 					id: `section-${si}`,
-					label: heading,
+					label: heading as string,
 					stepIndex: firstStepIndex,
 					isFirstInSection: true
 				});
@@ -205,8 +212,8 @@
 		description3="Future and existing stations face significant amenity debt around Transit Station Areas that need to be addressed in order to meet sustainable development goals."
 	/>
 
-	{#snippet renderPanel(uid, isVisible)}
-		{@const panel = allPanels.find((p) => p.uid === uid)}
+	{#snippet renderPanel(uid: string, isVisible: boolean)}
+		{@const panel: Panel = allPanels.find((p) => p.uid === uid)?? {}}
 		{@const activeStep = steps[activeIndex]}
 		<!-- Merge default panel props with any props defined on the specific active text step -->
 		{@const stepProps = activePanelUid === uid ? activeStep?.props || {} : {}}
@@ -224,7 +231,7 @@
 					{@const Component = panel.config.component}
 					<Component visible={isVisible} {...mergedProps} />
 				{:else if panel.config?.type === 'link'}
-					<VisLink href={panel.config.href}>{panel.config.btnLabel}</VisLink>
+					<VisLink href={panel.config.href} label={panel.config.btnLabel} />
 				{/if}
 			</VisPanel>
 		{/if}
@@ -245,12 +252,14 @@
 									body={block.body}
 									cta={block.cta}
 									showInlineVisual={block.panelUid &&
-										(block.globalStepIndex === 0 ||
-											steps[block.globalStepIndex].panelUid !==
-												steps[block.globalStepIndex - 1].panelUid)}
+									(block.globalStepIndex === 0 ||
+										steps[block.globalStepIndex ?? -1].panelUid !==
+											steps[(block.globalStepIndex ?? -1) - 1].panelUid)
+										? true
+										: false}
 								>
 									{#snippet inlineVisual()}
-										{@render renderPanel(block.panelUid, true)}
+										{@render renderPanel(block.panelUid as string, true)}
 									{/snippet}
 								</TextBlock>
 							{/each}
@@ -261,7 +270,7 @@
 				{#snippet visual()}
 					<VisContainer>
 						{#each allPanels.filter( (p) => group.sections.some((s) => s.si === p.sectionIndex) ) as panel (panel.uid)}
-							{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+							{@render renderPanel(panel.uid as string, activePanelUid === panel.uid)}
 						{/each}
 					</VisContainer>
 				{/snippet}
@@ -280,7 +289,7 @@
 
 								{#if block.cta}
 									<div class="inline-cta">
-										<VisLink href={block.cta.href}>{block.cta.label}</VisLink>
+										<VisLink href={block.cta.href} label={block.cta.label} />
 									</div>
 								{/if}
 
@@ -342,8 +351,9 @@
 	}
 
 	.inline-vis-container {
-		width: 100vw;
-		margin-left: calc(-50vw + 50%);
+		width: calc(100cqi);
+		margin-left: calc(-50cqi + 50%);
+		margin-bottom: 2rem;
 		display: flex;
 		justify-content: center;
 		padding: 3rem 1rem;
@@ -377,30 +387,6 @@
 		width: 100%;
 		height: 100%;
 		min-height: 400px;
-	}
-
-	.loading-overlay {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(255, 255, 255, 0.9);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		z-index: 1000;
-	}
-
-	.spinner {
-		width: 40px;
-		height: 40px;
-		border: 4px solid #f3f3f3;
-		border-top: 4px solid #3b82f6;
-		border-radius: 50%;
-		animation: spin 1s linear infinite;
-		margin-bottom: 1rem;
 	}
 
 	@keyframes spin {

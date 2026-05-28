@@ -7,5 +7,5 @@
 		class="grow border-0 w-full"
 		title="Overview"
 		src="https://schoolofcities.github.io/tod-canada/case-study/overview"
-	/>
+	></iframe>
 </div>

@@ -1,5 +1,5 @@
-<script>
-	// Components
+<script lang="ts">
+	import { onMount } from 'svelte';
 	import '../../../styles.css';
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import ReportFindings from '../../components/ReportFindings.svelte';
@@ -8,13 +8,12 @@
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
+	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article.js';
+	import { sections } from './article';
 	// Assets
-	import introImage from '../../../lib/assets/screenshots/IntroHeader.png';
-	// Charts
-	import { onMount } from 'svelte';
 	import train from '../../../lib/assets/graphics/train-long.svg';
+	import introImage from '../../../lib/assets/screenshots/IntroHeader.png';
 	import mississauga from '../../assets/mississauga.png';
 	import montreal from '../../assets/montreal.png';
 	import renfrew from '../../assets/renfrew.png';
@@ -26,7 +25,16 @@
 	import dpscooksville from '../../../lib/assets/screenshots/dps-cooksville.png';
 	import panama from '../../../lib/assets/screenshots/panama.png';
 	import wholivesintsas from '../../../lib/assets/screenshots/who-lives-in-tsas.png';
-	import VisLink from '../../components/VisLink.svelte';
+	// Charts
+	import type {
+		AnchorItem,
+		Block,
+		NavItem,
+		Panel,
+		Section,
+		StepItem,
+		VisConfigItem
+	} from '../../components/Template.d.ts';
 	import CommuteTime from './charts/CommuteTime.svelte';
 	import GatewayCities from './charts/GatewayCities.svelte';
 	import HousingNeed from './charts/HousingNeed.svelte';
@@ -38,9 +46,9 @@
 	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
 
 	// Data
-	let JobGrowthSectorData = $state(null);
+	let jobGrowthSectorData = $state<any[] | null>(null);
 
-	const visConfig = {
+	const visConfig: Record<string, VisConfigItem> = {
 		'urban-pop': { type: 'component', component: UrbanPop },
 		'urban-pop-growth': { type: 'component', component: UrbanPopLineChart },
 		'urban-economy': { type: 'component', component: JobGrowthSector },
@@ -109,29 +117,19 @@
 			alt: 'Screenshot of community poll for Cooksville by Digital Public Square'
 		}
 	};
-	/**
-	 * Flatten all panels, tagging each with a globally-unique uid
-	 * of the form `sectionIndex:panelId`.
-	 */
-	const allPanels = sections.flatMap((section, si) =>
+
+	const allPanels: Panel[] = sections.flatMap((section, si) =>
 		section.panels.map((panel) => ({
 			...panel,
 			uid: `${si}:${panel.id}`,
 			config: visConfig[panel.id] ?? null
 		}))
 	);
-	/**
-	 * Flatten sections → steps. Each step carries the uid of the panel it
-	 * should display. panelId defaults to the section's first panel if unset,
-	 * and falls back gracefully if the id doesn't exist in the section.
-	 */
-	const scrollySections = sections.slice(0, 6);
-	const inlineSections = sections.slice(6);
 
-	/**
-	 * Flatten stations up to section 6 into steps for Scroller
-	 */
-	const steps = scrollySections.flatMap((section, si) => {
+	const scrollySections: Section[] = sections.slice(0, 6);
+	const inlineSections: Section[] = sections.slice(6);
+
+	const steps: Block[] = scrollySections.flatMap((section, si) => {
 		const defaultId = section.panels?.[0]?.id;
 		return section.blocks.map((block) => {
 			const pids = block.panelIds ?? (block.panelId ? [block.panelId] : [defaultId]);
@@ -145,11 +143,11 @@
 
 	// ── Reactive state ───────────────────────────────────────────────────────
 	let activeIndex = $state(0);
-	let activePanelUid = $derived(steps[activeIndex]?.panelUid ?? allPanels[0]?.uid);
+	const activePanelUid = $derived(steps[activeIndex]?.panelUid ?? allPanels[0]?.uid);
 
-	// ── Progress bar ──────────────────────────────────────────────────────────
+	// ── Progress bar items mapping ───────────────────────────────────────────
 	const navSections = scrollySections.map((section, si) => ({
-		firstStepIndex: steps.findIndex((s) => s.panelUid.startsWith(`${si}:`)),
+		firstStepIndex: steps.findIndex((s) => s.panelUid?.startsWith(`${si}:`)),
 		label: section.blocks.find((b) => b.heading)?.heading ?? `Section ${si + 1}`
 	}));
 
@@ -159,34 +157,71 @@
 			section.blocks.find((b) => b.heading)?.heading ?? `Section ${si + 1 + scrollySections.length}`
 	}));
 
-	const items = [
-		{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-		{ type: 'anchor', id: 'report-findings', label: 'Key Findings' },
-		...navSections.map((s) => ({
-			type: 'step',
-			stepIndex: s.firstStepIndex,
-			label: s.label,
-			isFirstInSection: true
-		})),
-		...inlineNavSections.map((s) => ({
-			type: 'anchor',
-			id: s.id,
-			label: s.label,
-			isFirstInSection: true
-		}))
-	];
+	const items = $derived.by<NavItem[]>(() => {
+		return [
+			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
+			{ type: 'anchor', id: 'report-findings', label: 'Key Findings' },
+			...navSections.map(
+				(s) =>
+					({
+						type: 'step',
+						stepIndex: s.firstStepIndex,
+						label: s.label,
+						isFirstInSection: true
+					}) as StepItem
+			),
+			...inlineNavSections.map(
+				(s) =>
+					({
+						type: 'anchor',
+						id: s.id,
+						label: s.label,
+						isFirstInSection: true
+					}) as AnchorItem
+			)
+		];
+	});
 
 	onMount(async () => {
 		try {
 			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/reports/intro/03_jobsectorgrowth.json'
 			);
-			JobGrowthSectorData = await response.json();
+			jobGrowthSectorData = await response.json();
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
 	});
 </script>
+
+{#snippet renderPanel(uid: string, isVisible: boolean)}
+	{@const panel = allPanels.find((p) => p.uid === uid)}
+	{#if panel}
+		<VisPanel visible={isVisible} label={panel.label ?? ''} source={panel.source ?? ''}>
+			{#if panel.config?.type === 'image'}
+				<VisImage
+					src={panel.config.src}
+					alt={panel.config.alt}
+					caption={panel.config.caption ?? ''}
+					fit={panel.config.fit as 'none' | 'fill' | 'cover' | 'contain' | 'scale-down' | undefined}
+					aspect={panel.config.aspect}
+				/>
+			{:else if panel.config?.type === 'component'}
+				{@const Component = panel.config.component}
+				<Component
+					visible={isVisible}
+					data={panel.id === 'urban-economy' ? jobGrowthSectorData : undefined}
+				/>
+			{:else if panel.config?.type === 'link'}
+				<VisLink
+					href={panel.config.href}
+					target={panel.config.target}
+					label={panel.config.btnLabel ?? 'Learn More'}
+				/>
+			{/if}
+		</VisPanel>
+	{/if}
+{/snippet}
 
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
@@ -202,41 +237,17 @@
 		subtitle="With rapidly-growing populations, Canada’s largest metropolitan regions face an acute need for housing. How can transit-oriented development create complete communities that fulfill this need?"
 		backgroundImage={introImage}
 	/>
+
 	<ReportFindings
 		id="report-findings"
 		title="KEY FINDINGS"
 		finding1="Investments in public transit"
-		description1="are vital to maintaining growth in Canada’s largest urban regions."
-		finding2="Communities are only complete"
-		description2="if they are walkable."
+		description1="are vital to maintaining growth in Canada’s largest urban regions."
+		finding2="Communities are only complete"
+		description2="if they are walkable."
 		finding3="Not all transit projects"
 		description3="deliver the same return."
 	/>
-	{#snippet renderPanel(uid, isVisible)}
-		{@const panel = allPanels.find((p) => p.uid === uid)}
-		{#if panel}
-			<VisPanel visible={isVisible} label={panel.label ?? ''} source={panel.source ?? ''}>
-				{#if panel.config?.type === 'image'}
-					<VisImage
-						src={panel.config.src}
-						alt={panel.config.alt}
-						caption={panel.config.caption ?? ''}
-						fit={panel.config.fit}
-						aspect={panel.config.aspect}
-					/>
-				{:else if panel.config?.type === 'component'}
-					{@const Component = panel.config.component}
-					<Component visible={isVisible} />
-				{:else if panel.config?.type === 'link'}
-					<VisLink
-						href={panel.config.href}
-						target={panel.config.target}
-						label={panel.config.btnLabel ?? 'Learn More'}
-					/>
-				{/if}
-			</VisPanel>
-		{/if}
-	{/snippet}
 
 	<Scroller bind:activeIndex threshold={0.5}>
 		{#snippet text()}
@@ -249,10 +260,15 @@
 					body={step.body}
 					cta={step.cta}
 					showInlineVisual={step.panelUid &&
-						(i === 0 || steps[i].panelUid !== steps[i - 1].panelUid)}
+					(i === 0 || steps[i].panelUid !== steps[i - 1].panelUid)
+						? true
+						: false}
 				>
 					{#snippet inlineVisual()}
-						<div class="scrolly-inline-vis-grid" class:multi={step.panelUids.length > 1}>
+						<div
+							class="scrolly-inline-vis-grid"
+							class:multi={step.panelUids?.length && step.panelUids.length > 1}
+						>
 							{#each step.panelUids as uid}
 								<div class="vis-grid-item">
 									{@render renderPanel(uid, true)}
@@ -267,7 +283,7 @@
 		{#snippet visual()}
 			<VisContainer>
 				{#each allPanels.filter( (p) => scrollySections.some( (s) => s.panels.some((sp) => sp.id === p.id) ) ) as panel (panel.uid)}
-					{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+					{@render renderPanel(panel.uid ?? '', activePanelUid === panel.uid)}
 				{/each}
 			</VisContainer>
 		{/snippet}
@@ -297,7 +313,6 @@
 							</div>
 						{/if}
 
-						<!-- Render panels if they changed from previous block -->
 						{#if changed && panelIds.length > 0}
 							<div class="inline-vis-container" class:multi-vis={panelIds.length > 1}>
 								{#each panelIds as pid}
@@ -318,16 +333,6 @@
 </main>
 
 <style>
-	.chart {
-		border: 1px solid #eee;
-		padding: 1em;
-		border-radius: 0.5em;
-		min-width: 1px;
-		min-height: 1px;
-		height: 100%;
-		gap: 0.3em;
-	}
-
 	.scrolly-inline-vis-grid {
 		width: 100%;
 		height: 100%;
@@ -442,10 +447,6 @@
 			width: 100%;
 			max-width: none;
 			display: flex;
-		}
-
-		.inline-vis-container :global(.vis-panel),
-		:global(.text-column .vis-panel) {
 		}
 	}
 </style>

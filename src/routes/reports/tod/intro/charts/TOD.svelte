@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { scaleLog } from 'd3-scale';
 	import ScatterChart from '../../../../lib/ui/charts/ScatterChart.svelte';
 
@@ -121,7 +121,6 @@
 	zKey="city"
 	idKey="city"
 	showLabels={true}
-	height={800}
 	labelKey="city"
 	showLegend={true}
 	padding={{ left: 70, bottom: 40 }}

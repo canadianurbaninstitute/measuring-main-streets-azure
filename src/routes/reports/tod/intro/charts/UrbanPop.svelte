@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import PieChart from '../../../../lib/ui/charts/PieChart.svelte';
 
 	let { visible = $bindable() } = $props();
@@ -67,6 +67,4 @@
 		'Edmonton',
 		'Ottawa-Gatineau'
 	]}
-	seriesConfig={urbanPop}
-	height={900}
 />

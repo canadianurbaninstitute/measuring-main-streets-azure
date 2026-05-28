@@ -31,7 +31,7 @@
 			title: 'Case Studies',
 			description: 'In depth place-based studies.',
 			image: casestudy,
-			link: '/casestudies/v2/?tab=tod',
+			link: '/casestudies/?tab=tod',
 			tags: ['Case Study']
 		},
 		{
@@ -63,21 +63,21 @@
 			title: 'Case Studies',
 			description: 'In depth place-based studies.',
 			image: casestudy2,
-			link: '/casestudies/v2/?tab=msr',
+			link: '/casestudies/?tab=msr',
 			tags: ['Case Study']
 		},
 		{
 			title: 'Reports',
 			description: 'In depth reports on main street resilience.',
 			image: reports,
-			link: '/reports/v2/?tab=msr',
+			link: '/reports/?tab=msr',
 			tags: ['Reports']
 		},
 		{
 			title: 'Tools',
 			description: 'Research and analysis tools.',
 			image: dot,
-			link: '/tools/v2/',
+			link: '/tools',
 			tags: ['Tools']
 		}
 	];

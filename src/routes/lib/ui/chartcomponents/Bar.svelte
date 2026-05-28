@@ -1,15 +1,24 @@
-<!--
-  @component
-  Generates an SVG bar chart.
- -->
-<script>
+<script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
-	import { tweened } from 'svelte/motion';
+	import { Tween } from 'svelte/motion';
+	import type { Readable } from 'svelte/store';
 
-	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
+	const { data, xGet, yGet, xScale, yScale } = getContext<{
+		data: Readable<any[]>;
+		xGet: Readable<(d: any) => number>;
+		yGet: Readable<(d: any) => number>;
+		xScale: Readable<(d: any) => number>;
+		yScale: Readable<any>;
+	}>('LayerCake');
 
-	/** @type {String} [fill='#00bbff'] - The shape's fill color. */
+	interface Props {
+		fill?: string;
+		visible?: boolean | undefined;
+		highlightValue?: string;
+		highlightKey?: string;
+		highlightColor?: string;
+	}
 
 	let {
 		fill = '#00bbff',
@@ -17,14 +26,14 @@
 		highlightValue = '',
 		highlightKey = 'name',
 		highlightColor = '#f45d01'
-	} = $props();
+	}: Props = $props();
 
-	const reveal = tweened(0, {
+	const reveal = new Tween(0, {
 		duration: 1500,
 		easing: cubicOut
 	});
 
-	let group;
+	let group = $state<SVGGElement | undefined>();
 
 	onMount(() => {
 		if (typeof visible !== 'undefined') return;
@@ -32,7 +41,7 @@
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						reveal.set(1);
+						reveal.target = 1;
 					} else {
 						reveal.set(0, { duration: 0 });
 					}
@@ -49,15 +58,19 @@
 	$effect(() => {
 		if (typeof visible !== 'undefined') {
 			if (visible) {
-				reveal.set(1);
+				reveal.target = 1;
 			} else {
 				reveal.set(0, { duration: 0 });
 			}
 		}
 	});
 
-	function getFill(d) {
-		if (highlightValue && d[highlightKey] && d[highlightKey].toLowerCase() === highlightValue.toLowerCase()) {
+	function getFill(d: any) {
+		if (
+			highlightValue &&
+			d[highlightKey] &&
+			String(d[highlightKey]).toLowerCase() === highlightValue.toLowerCase()
+		) {
 			return highlightColor;
 		}
 		return d.color || fill;
@@ -72,7 +85,7 @@
 			x={Math.min($xScale(0), $xGet(d))}
 			y={$yGet(d)}
 			height={$yScale.bandwidth()}
-			width={Math.abs($xGet(d) - $xScale(0)) * $reveal}
+			width={Math.abs($xGet(d) - $xScale(0)) * reveal.current}
 			fill={getFill(d)}
 			opacity={1}
 		/>

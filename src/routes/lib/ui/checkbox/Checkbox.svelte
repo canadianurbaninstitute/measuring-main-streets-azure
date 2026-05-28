@@ -1,10 +1,14 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 
-	export let checked = false;
-	export let label = '';
-	export let icon = '';
-	export let color = '';
+	interface Props {
+		checked?: boolean;
+		label?: string;
+		icon?: string;
+		color?: string;
+	}
+
+	let { checked = $bindable(false), label = '', icon = '', color = '' }: Props = $props();
 </script>
 
 <label class="cursor-pointer group">

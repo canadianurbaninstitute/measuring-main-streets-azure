@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import Icon from '@iconify/svelte';
@@ -6,17 +6,45 @@
 	import LandingCard from './LandingCard.svelte';
 	import TabNav from './TabNav.svelte';
 
+	// Define types for item structure
+	interface ItemTag {
+		text: string;
+	}
+
+	interface GridItem {
+		title: string;
+		description: string;
+		tags?: (string | ItemTag)[];
+		[key: string]: any; // Allows passing down rest properties via {...item} safely
+	}
+
+	interface TabData {
+		value: string;
+		description: string;
+		items: GridItem[];
+		categories: string[];
+	}
+
+	// Explicitly define Component Props
+	interface Props {
+		title?: string;
+		description?: string | string[];
+		items?: GridItem[];
+		categories?: string[];
+		tabs?: TabData[];
+		activeTab?: string;
+		syncUrl?: boolean;
+	}
+
 	let {
 		title = '',
-		// Legacy flat props (used when no tabs)
 		description = [''],
 		items = [],
 		categories = [],
-		// Tab mode: each tab carries its own description, items, categories
 		tabs = [],
 		activeTab = $bindable(''),
 		syncUrl = false
-	} = $props();
+	}: Props = $props();
 
 	let searchTerm = $state('');
 	let activeCategory = $state('All');
@@ -29,7 +57,6 @@
 
 	// In tab mode, derive content from the active tab object
 	let activeTabData = $derived(tabs.find((t) => t.value === activeTab) ?? null);
-	let activeDescription = $derived(activeTabData?.description ?? description);
 	let activeItems = $derived(activeTabData?.items ?? items);
 	let activeCategories = $derived(activeTabData?.categories ?? categories);
 
@@ -51,10 +78,6 @@
 		})
 	);
 
-	/**
-	 * Map tag text to predefined colors (sync with LandingCard.svelte)
-	 */
-
 	// Sync activeCategory → URL
 	$effect(() => {
 		if (!syncUrl || !goto || !page) return;
@@ -71,7 +94,6 @@
 	});
 
 	// Reset search and category filter when tab changes
-	// We use a flag and check if the tab changed to avoid resetting on mount
 	let lastTab = $state(activeTab);
 	let isFirstRun = true;
 	$effect(() => {
@@ -98,7 +120,7 @@
 		<TabNav {tabs} bind:activeTab {syncUrl} bg="slate-50">
 			{#snippet children()}
 				<div class="w-full">
-					{@html activeTabData.description}
+					{@html activeTabData?.description ?? ''}
 				</div>
 				<div class="flex-1">
 					<div class="controls">
@@ -124,17 +146,17 @@
 										class="pill"
 										class:active={activeCategory === category}
 										style="
-                                            --tag-color: {getTagColor(category)};
-                                            background-color: {activeCategory === category
+                      --tag-color: {getTagColor(category)};
+                      background-color: {activeCategory === category
 											? 'var(--tag-color)'
 											: 'color-mix(in srgb, var(--tag-color), white 90%)'};
-                                            border-color: {activeCategory === category
+                      border-color: {activeCategory === category
 											? 'var(--tag-color)'
 											: 'color-mix(in srgb, var(--tag-color), white 70%)'};
-                                            color: {activeCategory === category
+                      color: {activeCategory === category
 											? 'white'
 											: 'color-mix(in srgb, var(--tag-color), black 20%)'};
-                                        "
+                    "
 										onclick={() => (activeCategory = category)}
 									>
 										{category}
@@ -153,7 +175,6 @@
 			{/snippet}
 		</TabNav>
 	{:else}
-		<!-- No tabs: flat layout using legacy props -->
 		<div class="tab-description">{@html description}</div>
 
 		<div class="controls">
@@ -179,17 +200,17 @@
 							class="pill"
 							class:active={activeCategory === category}
 							style="
-                                --tag-color: {getTagColor(category)};
-                                background-color: {activeCategory === category
+                --tag-color: {getTagColor(category)};
+                background-color: {activeCategory === category
 								? 'var(--tag-color)'
 								: 'color-mix(in srgb, var(--tag-color), white 90%)'};
-                                border-color: {activeCategory === category
+                border-color: {activeCategory === category
 								? 'var(--tag-color)'
 								: 'color-mix(in srgb, var(--tag-color), white 70%)'};
-                                color: {activeCategory === category
+                color: {activeCategory === category
 								? 'white'
 								: 'color-mix(in srgb, var(--tag-color), black 20%)'};
-                            "
+              "
 							onclick={() => (activeCategory = category)}
 						>
 							{category}
@@ -211,32 +232,27 @@
 	.landing-container {
 		padding: 4rem 2rem;
 	}
-
 	.landing-header {
 		margin-bottom: 3rem;
 	}
-
 	.tab-description {
 		margin-bottom: 2rem;
 		color: #444;
 		max-width: 70ch;
 		line-height: 1.6;
 	}
-
 	.controls {
-		margin-bottom: 3rem;
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+		margin-bottom: 3rem;
 	}
-
 	.search-box {
 		display: flex;
 		align-items: center;
 		position: relative;
 		max-width: 400px;
 	}
-
 	.search-box input {
 		width: 100%;
 		padding: 0.75rem 1rem 0.75rem 2.5rem;
@@ -245,14 +261,12 @@
 		font-family: 'Inter', sans-serif;
 		font-size: 0.9rem;
 	}
-
 	.filter-pills {
 		display: flex;
 		flex-wrap: wrap;
 		margin-top: 0.5rem;
 		gap: 0.5rem;
 	}
-
 	.pill {
 		padding: 0.5rem 1.25rem;
 		border-radius: 2rem;
@@ -265,23 +279,18 @@
 		transition: all 0.2s ease;
 		color: #555;
 	}
-
 	.pill:hover {
 		border-color: var(--brandLightBlue);
 		color: var(--brandLightBlue);
 	}
-
 	.pill.active {
-		/* Base active styles are now handled by inline styles for dynamic colors */
 		color: white;
 	}
-
 	.card-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		gap: 2rem;
 	}
-
 	@media (max-width: 768px) {
 		.landing-header h1 {
 			font-size: 2.5rem;

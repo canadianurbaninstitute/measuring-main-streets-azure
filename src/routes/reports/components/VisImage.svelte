@@ -1,23 +1,17 @@
-<script>
-	/**
-	 * VisImage.svelte
-	 *
-	 * Renders an image inside a visualization panel.
-	 * Designed to be used exactly like a chart component — drop it into
-	 * the visComponents map via the image helper in +page.svelte.
-	 *
-	 * Props:
-	 *   src     {string}  — image URL or imported asset path (required)
-	 *   alt     {string}  — alt text for accessibility (required)
-	 *   caption {string}  — optional caption shown below the image
-	 *   fit     {string}  — CSS object-fit value: 'contain' | 'cover' (default: 'contain')
-	 */
+<script lang="ts">
+	interface Props {
+		src?: string;
+		alt?: string;
+		caption?: string;
+		fit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+		aspect?: string | null;
+	}
 
-	let { src = '', alt = '', caption = '', fit = 'contain', aspect = null } = $props();
+	let { src = '', alt = '', caption = '', fit = 'contain', aspect = null }: Props = $props();
 </script>
 
 <figure class="vis-image">
-	<div class="img-wrap" style="">
+	<div class="img-wrap">
 		<img
 			{src}
 			{alt}

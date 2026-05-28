@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import {
 		AMENITY_ICONS,
@@ -97,20 +97,6 @@
 	.icon-wrap.additional {
 		background: #fef3c7;
 		color: #f59e0b;
-	}
-
-	.tier-header h3 {
-		margin: 0;
-		font-size: 1.25rem;
-		font-weight: 800;
-		color: #1e293b;
-	}
-
-	.tier-header p {
-		margin: 0.25rem 0 0 0;
-		font-size: 0.9rem;
-		color: #64748b;
-		font-weight: 500;
 	}
 
 	.pill-cloud {

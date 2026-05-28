@@ -1,5 +1,5 @@
 export interface TransitLine {
-	id: number;
+	id: number | null;
 	name: string;
 }
 

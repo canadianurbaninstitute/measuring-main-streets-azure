@@ -1,827 +1,1677 @@
 <script>
+	import { page } from '$app/stores';
+	import Icon from '@iconify/svelte';
+	import { tick } from 'svelte';
+	import Accordion from '../../lib/ui/Accordion.svelte';
 	import '../../styles.css';
+	// Logos
+	import canada_logo from '../../lib/assets/logos/canada_color.png';
+	// Assets
+	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
+	import vancouver_bg from '../../lib/assets/graphics/vancouver-bg.png';
 
-	let mainStreetCollapsed = true;
-	let civicInfrastructureCollapsed = true;
+	let activeSection = $state('resilience');
 
-	function toggleMainStreet() {
-		mainStreetCollapsed = !mainStreetCollapsed;
+	// Accordion states
+	let faqs = $state({
+		// Resilience
+		'res-data': true,
+		'res-meth': false,
+		'res-ind': false,
+		// TOD
+		'tod-meth': false,
+		'tod-dpi': false,
+		'tod-cc': false,
+		'dpi-data': true,
+		'dpi-meth': true,
+		'cc-core': false,
+		'cc-add': false,
+		'cc-data': true,
+		'cc-meth': true
+	});
+
+	import { goto } from '$app/navigation';
+
+	async function scrollTo(id) {
+		await tick();
+		const element = document.getElementById(id);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth' });
+			if (typeof window !== 'undefined' && window.location.hash !== `#${id}`) {
+				goto(`#${id}`, { replaceState: false, noScroll: true, keepFocus: true });
+			}
+		}
 	}
 
-	function toggleCivicInfrastructure() {
-		civicInfrastructureCollapsed = !civicInfrastructureCollapsed;
+	function openAndScroll(id, section) {
+		activeSection = section;
+		faqs[id] = true;
+		scrollTo(id);
 	}
+
+	$effect(() => {
+		const hash = $page.url.hash.replace('#', '');
+		if (hash) {
+			// Helper: open parent and child accordions for deep links
+			const open = (ids, section) => {
+				ids.forEach((id) => (faqs[id] = true));
+				activeSection = section;
+			};
+			if (hash === 'res-data') {
+				open(['res-data'], 'resilience');
+			} else if (hash === 'res-meth') {
+				open(['res-meth'], 'resilience');
+			} else if (hash === 'res-ind') {
+				open(['res-ind'], 'resilience');
+			} else if (hash === 'tod-meth') {
+				open(['tod-meth'], 'tod');
+			} else if (hash === 'tod-dpi') {
+				open(['tod-dpi'], 'tod');
+			} else if (hash === 'tod-cc') {
+				open(['tod-cc'], 'tod');
+			} else if (hash === 'dpi-data') {
+				open(['tod-dpi', 'dpi-data'], 'tod');
+			} else if (hash === 'dpi-meth') {
+				open(['tod-dpi', 'dpi-meth'], 'tod');
+			} else if (hash === 'cc-core') {
+				open(['tod-cc', 'cc-data', 'cc-core'], 'tod');
+			} else if (hash === 'cc-add') {
+				open(['tod-cc', 'cc-data', 'cc-add'], 'tod');
+			} else if (hash === 'cc-data') {
+				open(['tod-cc', 'cc-data'], 'tod');
+			} else if (hash === 'cc-meth') {
+				open(['tod-cc', 'cc-meth'], 'tod');
+			}
+			scrollTo(hash);
+		}
+	});
 </script>
 
-<div class="hero">
-	<div class="subtitle">
-		<h1>Data</h1>
+<main>
+	<!-- Hero Section -->
+	<div class="hero-section" style="background-image: url({vancouver_bg})">
+		<div class="hero-content">
+			<h1>DATA &<br /><span class="text-blue">METHODOLOGY</span></h1>
+		</div>
 	</div>
 
-	<h2>1. Business and Civic Infrastructure Location Data (Environics Analytics, 2023)</h2>
-	<p>
-		Business and Civic Infrastructure location data sourced from Environics Analytics provides the
-		spatial location of all businesses and civic infrastructure tracked by InfoCanada. The data
-		includes the name, address, NAICS Code and a unique identifier for over 1.1 million businesses.
-		The business data is used to derive the presence and composition of two the categories, each of
-		which are further split up into subcategories, by using their respective four and six-digit
-		NAICS codes:
-	</p>
-	<ul>
-		<li>Main Street businesses (four-digit NAICS Codes)</li>
-		<ul>
-			<li>Retail</li>
-			<li>Food & Drink</li>
-			<li>Local Services</li>
-		</ul>
-		<br />
-		<li>Civic Infrastructure (six-digit NAICS Codes)</li>
-		<ul>
-			<li>Arts and Culture</li>
-			<li>Education</li>
-			<li>Government and Community Services</li>
-			<li>Healthcare</li>
-			<li>Recreation Facilities</li>
-		</ul>
-	</ul>
-	<p>
-		For more information on the definition of these categories, click here to read a detailed
-		methodology.
-	</p>
+	<div class="container main-content">
+		<div class="sidebar md:sticky md:top-10 h-full">
+			<nav>
+				<div class="nav-group">
+					<h3>RESILIENCE ON MAIN</h3>
+					<ul>
+						<li>
+							<button
+								class:active={activeSection === 'resilience' && faqs['res-data']}
+								onclick={() => openAndScroll('res-data', 'resilience')}
+							>
+								Data
+							</button>
+						</li>
+						<li>
+							<button
+								class:active={activeSection === 'resilience' && faqs['res-meth']}
+								onclick={() => openAndScroll('res-meth', 'resilience')}
+							>
+								Methodology
+							</button>
+						</li>
+						<li>
+							<button
+								class:active={activeSection === 'resilience' && faqs['res-ind']}
+								onclick={() => openAndScroll('res-ind', 'resilience')}
+							>
+								Indices
+							</button>
+						</li>
+					</ul>
+				</div>
 
-	<h2>2. Demographic Data (Environics Analytics DemoStats, 2023; Statistics Canada, 2021)</h2>
-	<p>
-		The demographic data combines proprietary data from Environics Analytics DemoStats, updated
-		yearly, with open-source data from the 2021 census, where the equivalent Environics DemoStats is
-		unavailable. The demographic data includes population counts, housing data, basic demographic
-		information, and commuting data.
-	</p>
+				<div class="nav-group">
+					<h3>TOD ON MAIN</h3>
+					<ul>
+						<li>
+							<button
+								class:active={activeSection === 'tod' && faqs['tod-meth']}
+								onclick={() => openAndScroll('tod-meth', 'tod')}
+							>
+								Transit Data
+							</button>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<button
+								class:active={activeSection === 'tod' && faqs['tod-cc']}
+								onclick={() => openAndScroll('tod-cc', 'tod')}
+							>
+								Complete Community Index
+							</button>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<button
+								class:active={activeSection === 'tod' && faqs['tod-dpi']}
+								onclick={() => openAndScroll('tod-dpi', 'tod')}
+							>
+								Housing Development Potential
+							</button>
+						</li>
+					</ul>
+				</div>
+			</nav>
 
-	<h2>3. Mobile Visitor Count Data (Environics Analytics MobileScapes, 2019 – 2022)</h2>
-	<p>
-		Visitor Count data is derived using Environics Analytics MobileScapes data, a mobile movement
-		database developed from permission-based data collected using location-enabled mobile
-		applications. The MobileScapes data is only collected for the buildings within the case study
-		area, providing accurate visitor numbers for the time of day, week, and month. In addition, the
-		mobile data also provides visitors' common daytime (work) and evening (home) locations to
-		analyze visitor types, distances, and changes in spatial patterns over time. The MobileScapes
-		data for the purpose of our analysis is defined in two ways:
-	</p>
-	<ul>
-		<li>
-			Visits – Anytime an individual enters a building within the study area, they can be counted
-			more than once.
-		</li>
-		<li>
-			Visitor – A unique individual entering any building within the study area. It can only be
-			counted once.
-		</li>
-	</ul>
-	<h2>4. National Road Network (Statistics Canada, 2023)</h2>
-	<p>
-		The NRN was adopted by members of the Inter-Agency Committee on Geomatics (IACG) and the
-		Canadian Council on Geomatics (CCOG) to provide quality, homogeneous, and normalized geospatial
-		and attributive data (current, accurate, consistent) for the entire Canadian road network. The
-		NRN is part of the GeoBase initiative, which aims to provide a common geospatial infrastructure
-		maintained regularly by closest-to-source organizations. (Statistics Canada, 2023)
-	</p>
-	<p>
-		The NRN is distributed as thirteen provincial/territorial datasets consisting of two linear
-		entities (road segments and ferry segments), three punctual entities (junctions, blocked
-		passages, and toll points), and three tabular entities (address ranges, street and place names,
-		and alternative name linkages). Currently, the NRN is publicly available on the <a
-			href="https://open.canada.ca/en">Open Government data portal</a
-		>.
-	</p>
-	<div>
-		<h2>5. Dataset Summary Table</h2>
-		<br />
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<strong>Data Set</strong>
-					</td>
-					<td>
-						<strong>Scale</strong>
-					</td>
-					<td>
-						<strong>Usage</strong>
-					</td>
-				</tr>
-				<tr>
-					<td>Business and Civic Location Data</td>
-					<td>National (point data)</td>
-					<td>Platform, Case Studies, Reports, Tools</td>
-				</tr>
-				<tr>
-					<td>Demographic Data</td>
-					<td>National (Dissemination Area)</td>
-					<td>Platform, Case Studies, Reports, Tools</td>
-				</tr>
-				<tr>
-					<td>Mobile Visitor Count Data</td>
-					<td>Case Study (Building Footprint)</td>
-					<td>Case Studies, Reports, Tools</td>
-				</tr>
-				<tr>
-					<td>National Road Network</td>
-					<td>National (Line Data)</td>
-					<td>Platform, Case Studies, Tools</td>
-				</tr>
-			</tbody>
-		</table>
+			<div class="callout-box">
+				<div class="callout-logos">
+					<img src={mainstreets} alt="Main Streets" />
+					<img src={canada_logo} alt="Canada" />
+				</div>
+				<p>
+					The Measuring Main Streets platform is a part of the Research Knowledge Initiative program
+					from Housing, Infrastructure and Communities Canada.
+				</p>
+			</div>
+		</div>
+
+		<div class="content-area">
+			<!-- Resilience on Main Section -->
+			<section id="resilience-section">
+				<div class="section-header">
+					<h2>RESILIENCE ON MAIN</h2>
+				</div>
+
+				<div class="accordion-group">
+					<!-- Data Accordion -->
+					<Accordion bind:open={faqs['res-data']} id="res-data">
+						<div slot="header" class="accordion-header">
+							<h3>DATA</h3>
+							<Icon icon={faqs['res-data'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<div class="mb-12">
+									<h4>1. Business and Civic Infrastructure Location Data</h4>
+									<span class="eyebrow">Environics Analytics, 2023</span>
+									<p>
+										Business and Civic Infrastructure location data sourced from Environics
+										Analytics provides the spatial location of all businesses and civic
+										infrastructure tracked by InfoCanada.
+									</p>
+									<div class="highlight-box">
+										<div class="stats-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
+											<div>
+												<h4 style="color: white; margin-bottom: 1rem;">Main Street Businesses</h4>
+												<ul
+													style="color: rgba(255,255,255,0.8); list-style: disc; padding-left: 1.5rem;"
+												>
+													<li>Retail</li>
+													<li>Food & Drink</li>
+													<li>Local Services</li>
+												</ul>
+											</div>
+											<div>
+												<h4 style="color: white; margin-bottom: 1rem; margin-top: 1rem;">
+													Civic Infrastructure
+												</h4>
+												<ul
+													style="color: rgba(255,255,255,0.8); list-style: disc; padding-left: 1.5rem;"
+												>
+													<li>Arts and Culture</li>
+													<li>Education</li>
+													<li>Healthcare</li>
+													<li>Recreation Facilities</li>
+													<li>Government and Community</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="mb-12">
+									<h4>2. Demographic Data</h4>
+									<span class="eyebrow"
+										>Environics Analytics DemoStats, 2023; Statistics Canada, 2021</span
+									>
+									<p>
+										The demographic data combines proprietary data from Environics Analytics
+										DemoStats, updated yearly, with open-source data from the 2021 census.
+									</p>
+								</div>
+
+								<div>
+									<h4>3. Mobile Visitor Count Data</h4>
+									<span class="eyebrow">Environics Analytics MobileScapes, 2019 – 2022</span>
+									<p>
+										Visitor Count data is derived using Environics Analytics MobileScapes data, a
+										mobile movement database developed from permission-based data collected using
+										location-enabled mobile applications.
+									</p>
+								</div>
+
+								<div>
+									<h4>4. National Road Network</h4>
+									<span class="eyebrow">Statistics Canada, 2023</span>
+									<p>
+										The NRN was adopted by members of the Inter-Agency Committee on Geomatics (IACG)
+										and the Canadian Council on Geomatics (CCOG) to provide quality, homogeneous,
+										and normalized geospatial and attributive data (current, accurate, consistent)
+										for the entire Canadian road network.
+									</p>
+									<p>
+										The NRN is publicly available on the <a
+											href="https://open.canada.ca/en"
+											target="_blank">Open Government data portal.</a
+										>
+									</p>
+								</div>
+								<div>
+									<h4>5. Dataset Summary Table</h4>
+									<div class="table-container mt-8">
+										<table style="font-size: 0.9rem;">
+											<thead>
+												<tr>
+													<th>Data Set</th>
+													<th>Scale</th>
+													<th>Usage</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Business and Civic Location Data</td>
+													<td>National (point data)</td>
+													<td>Platform, Case Studies, Reports, Tools</td>
+												</tr>
+												<tr>
+													<td>Demographic Data</td>
+													<td>National (Dissemination Area)</td>
+													<td>Platform, Case Studies, Reports, Tools</td>
+												</tr>
+												<tr>
+													<td>Mobile Visitor Count Data</td>
+													<td>Case Study (Building Footprint)</td>
+													<td>Case Studies, Reports, Tools</td>
+												</tr>
+												<tr>
+													<td>National Road Network</td>
+													<td>National (Line Data)</td>
+													<td>Platform, Case Studies, Tools</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</Accordion>
+
+					<!-- Methodology Accordion -->
+					<Accordion bind:open={faqs['res-meth']} id="res-meth">
+						<div slot="header" class="accordion-header">
+							<h3>METHODOLOGY</h3>
+							<Icon icon={faqs['res-meth'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<div class="mb-12">
+									<h4>Creating Canada's Main Street Network</h4>
+									<p>
+										Creating a comprehensive main street network for Canada began with identifying
+										segments of roads where clusters of Main Street Businesses and Civic
+										Infrastructure are co-located and concentrated across the country.
+									</p>
+
+									<div class="table-container mt-8">
+										<table style="font-size: 0.9rem;">
+											<thead>
+												<tr>
+													<th>Group</th>
+													<th>NAICS Code Selection</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><strong>Food and Drink</strong></td>
+													<td>7224 (Drinking places), 7225 (Restaurants)</td>
+												</tr>
+												<tr>
+													<td><strong>Retail</strong></td>
+													<td
+														>4451 (Grocery), 4481 (Clothing), 4511 (Sporting Goods), 4531 (Florists)</td
+													>
+												</tr>
+												<tr>
+													<td><strong>Local Services</strong></td>
+													<td
+														>8121 (Personal Care), 5221 (Banking), 5411 (Legal), 8111 (Auto Repair)</td
+													>
+												</tr>
+												<tr>
+													<td><strong>Arts & Culture</strong></td>
+													<td>519120 (Libraries), 711110 (Theatre), 712110 (Museums)</td>
+												</tr>
+												<tr>
+													<td><strong>Education</strong></td>
+													<td>611110 (Elementary), 611310 (Universities), 624410 (Childcare)</td>
+												</tr>
+												<tr>
+													<td><strong>Healthcare</strong></td>
+													<td>621111 (Physicians), 621210 (Dentists), 622110 (Hospitals)</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								<div class="mb-12">
+									<h4>Attaching Data</h4>
+									<p>
+										After cleaning the Infrastructure and Road Networks, a spatial intersection was
+										performed, attaching all main street businesses and civic infrastructure to all
+										roads within 50 metres.
+									</p>
+								</div>
+
+								<div>
+									<h4>Identifying Main Streets</h4>
+									<p>
+										Main streets are identified as segments of road where a clustering of main
+										street businesses and civic infrastructure exists, using Kernel Density
+										Estimation (KDE).
+									</p>
+								</div>
+							</div>
+						</div>
+					</Accordion>
+
+					<!-- Indices Accordion -->
+					<Accordion bind:open={faqs['res-ind']} id="res-ind">
+						<div slot="header" class="accordion-header">
+							<h3>INDICES</h3>
+							<Icon icon={faqs['res-ind'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<div class="mb-12">
+									<h4>Independent Business Index</h4>
+									<p>
+										The Independent Business Index creates a scaled index of business independence
+										using text analysis to apply a scale between 0 and 1 based on how many times a
+										business name appears in the data.
+									</p>
+								</div>
+
+								<div>
+									<h4>Civic Infrastructure Index</h4>
+									<p>
+										The Civic Infrastructure Index (CII) assesses relative access to civic
+										infrastructure within a defined catchment area by combining services' capacity
+										with the local population's demand.
+									</p>
+								</div>
+							</div>
+						</div>
+					</Accordion>
+				</div>
+			</section>
+
+			<!-- TOD on Main Section -->
+			<section id="tod-section" class="mt-32">
+				<div class="section-header">
+					<h2>TOD ON MAIN</h2>
+				</div>
+
+				<div class="accordion-group">
+					<Accordion bind:open={faqs['tod-meth']} id="tod-meth">
+						<div slot="header" class="accordion-header">
+							<h3 class="uppercase">Transit Data</h3>
+							<Icon icon={faqs['tod-meth'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<h4 class="uppercase">Expanding to Transit-Oriented Development</h4>
+								<p>
+									TOD on Main leverages the foundation of the Measuring Main Streets Platform to
+									provide tools, case studies, and research focused on transit-driven growth.
+								</p>
+
+								<p>
+									The methodology involves identifying transit station areas (TSAs) and evaluating
+									their potential for housing and complete community development.
+								</p>
+								<h4 class="uppercase">Transit Station Area Data</h4>
+								<p>
+									The data for transit station areas (TSAs) found on the <a
+										href="/transit-map"
+										target="_blank">Transit Map</a
+									> comes from the following sources:
+								</p>
+								<div class="table-container mt-8">
+									<table style="font-size: 0.9rem;">
+										<thead>
+											<tr>
+												<th>Data</th>
+												<th>Definition</th>
+												<th>Source</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Transit data</td>
+												<td
+													>Higher order transit stations and transit lines (subway, LRT, and
+													commuter).</td
+												>
+												<td>Local open data, various. Collected in 2025.</td>
+											</tr>
+											<tr>
+												<td>Population</td>
+												<td
+													>TSA-level population; derived from dissemination area-level data using
+													areal weighting with National Address Register points.</td
+												>
+												<td
+													>Environics Analytics (2025), Statistics Canada (National Address
+													Register, December 2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Households</td>
+												<td>Number of households in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Average Employment Income</td>
+												<td>Average Employment Income in TSA</td>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Visible Minorities</td>
+												<td>Proportion of TSA population who are visible minorities</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Immigrants</td>
+												<td>Proportion of TSA population who are immigrants</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Indigenous</td>
+												<td>Proportion of TSA population who are indigenous</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>University Degree</td>
+												<td>Proportion of TSA population who hold a university degree</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Age</td>
+												<td
+													>Proportion of TSA population who are youth (under 19), working age
+													(20-64), and elderly (65 and over)</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Total Dwellings</td>
+												<td>Number of dwellings in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Average Dwelling Value</td>
+												<td>Average dwelling value in TSA</td>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Average Monthly Rent</td>
+												<td>Average monthly rent in TSA</td>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Spending more than 30% of income on shelter</td>
+												<td
+													>Proportion of TSA population spending more than 30% of their income on
+													shelter</td
+												>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Owners/Renters</td>
+												<td>Proportion of TSA population who own vs. rent</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Dwelling Type</td>
+												<td
+													>Proportion of dwellings in TSA that are detached, semi-detached, row,
+													duplex, apartments less than 5 stories, or apartments with five or more
+													stories.</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Dwelling Type</td>
+												<td
+													>Proportion of dwellings in TSA that were constructed before 1960, between
+													1961 to 1980, between 1981 to 2000, or between 2000-2020</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Number of Bedrooms</td>
+												<td
+													>Proportion of dwellings in TSA that are studios or have 1, 2, 3, or 4 or
+													more bedrooms.</td
+												>
+												<td>Statistics Canada (Census, 2021)</td>
+											</tr>
+											<tr>
+												<td>Total Employment</td>
+												<td>Total number of jobs in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Employment Mix</td>
+												<td
+													>Proportion of jobs that are at core amenities, additional amenities, or
+													other employers.</td
+												>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Population Density</td>
+												<td>Number of people per square kilometre in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Employment Density</td>
+												<td>Number of employees per square kilometre in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Water</td>
+												<td>Proportion of TSA area that is water</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Greenspace</td>
+												<td>Proportion of TSA area that is greenspace</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Buildings</td>
+												<td>Proportion of TSA area that is building footprint</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Parking</td>
+												<td>Proportion of TSA area that is surface parking</td>
+												<td>OpenStreetMap (2025)</td>
+											</tr>
+											<tr>
+												<td>Overall Score</td>
+												<td>Overall score of complete community amenity presence in TSA</td>
+												<td
+													>Complete Community Index (2025); based on Environics Analytics (2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Core Amenities Presence</td>
+												<td>Proportion of core amenities present in TSA</td>
+												<td
+													>Complete Community Index (2025); based on Environics Analytics (2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Additional Amenities Presence</td>
+												<td>Proportion of additional amenities present in TSA</td>
+												<td
+													>Complete Community Index (2025); based on Environics Analytics (2025)</td
+												>
+											</tr>
+											<tr>
+												<td>Daily Visits</td>
+												<td>Average daily visits to TSA in 2025</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Main Street Businesses</td>
+												<td>Number of main street businesses in TSA</td>
+												<td>Environics Analytics (2025)</td>
+											</tr>
+											<tr>
+												<td>Business Independence Index</td>
+												<td
+													>Measure of business independence in TSA, from 0 (less independent) to 1
+													(more independent)</td
+												>
+												<td>Calculated from business data, Environics Analytics (2025)</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</Accordion>
+
+					<Accordion bind:open={faqs['tod-cc']} id="tod-cc">
+						<div slot="header" class="accordion-header">
+							<h3 class="uppercase">Complete Community Index</h3>
+							<Icon icon={faqs['tod-cc'] ? 'mdi:minus' : 'mdi:plus'} />
+						</div>
+						<div slot="body" class="accordion-body">
+							<div class="text-content">
+								<div>
+									<p>
+										The Complete Community Index methodology evaluates the overall presence of Core
+										and Additional Amenities that make up a complete transit-oriented community,
+										evaluates the relative access of each transit station area compared to a
+										regional benchmark, and enables scenario planning, allowing future demand
+										increases to be evaluated against existing amenity capacity.
+									</p>
+									<Accordion bind:open={faqs['cc-data']} id="cc-data">
+										<div slot="header" class="accordion-header">
+											<h4>Data</h4>
+											<Icon icon={faqs['cc-data'] ? 'mdi:minus' : 'mdi:plus'} />
+										</div>
+										<div slot="body" class="accordion-body">
+											<div class="table-container mt-8">
+												<table style="font-size: 0.9rem;">
+													<thead>
+														<tr>
+															<th>Data</th>
+															<th>Definition</th>
+															<th>Source</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Business data</td>
+															<td>Location, NAICS classification, Employment Size.</td>
+															<td>Environics Analytics (2025)</td>
+														</tr>
+														<tr>
+															<td>Visit data</td>
+															<td>Aggregated Total Visits of a transit station area for 2025.</td>
+															<td>Environics Analytics (2025)</td>
+														</tr>
+														<tr>
+															<td>Complete Community Amenities</td>
+															<td
+																>Location and classification of complete community amenities within
+																transit station areas.</td
+															>
+															<td>Environics Analytics (2025)</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<h4 class="my-12">Complete Community Amenities</h4>
+											<p>
+												Amenities are split into two distinct categories: core amenities, which are
+												crucial to the development of a complete community, and additional
+												amenities, which improve quality of life, but not are necessary for a
+												complete community.
+											</p>
+											<Accordion bind:open={faqs['cc-core']} id="cc-core">
+												<div slot="header" class="accordion-header">
+													<h6>Core Amenities</h6>
+
+													<Icon icon={faqs['cc-core'] ? 'mdi:minus' : 'mdi:plus'} />
+												</div>
+												<div slot="body" class="accordion-body">
+													<div class="table-container">
+														<table style="font-size: 0.9rem;">
+															<thead>
+																<tr>
+																	<th>Amenity</th>
+																	<th>NAICS Code</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>Childcare</td>
+																	<td>624410</td>
+																</tr>
+																<tr>
+																	<td>Community Centres</td>
+																	<td>711310</td>
+																</tr>
+																<tr>
+																	<td>Convenience Store</td>
+																	<td>445131</td>
+																</tr>
+																<tr>
+																	<td>Libraries</td>
+																	<td>519210</td>
+																</tr>
+																<tr>
+																	<td>Personal and Commercial Banking</td>
+																	<td>522110</td>
+																</tr>
+																<tr>
+																	<td>Pharmacy</td>
+																	<td>456110</td>
+																</tr>
+																<tr>
+																	<td>Physicians Office</td>
+																	<td>621111</td>
+																</tr>
+																<tr>
+																	<td>Primary and Secondary Schools</td>
+																	<td>611110</td>
+																</tr>
+																<tr>
+																	<td>Supermarket</td>
+																	<td>445110</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div></Accordion
+											><Accordion bind:open={faqs['cc-add']} id="cc-add">
+												<div slot="header" class="accordion-header">
+													<h6>Additional Amenities</h6>
+
+													<Icon icon={faqs['cc-add'] ? 'mdi:minus' : 'mdi:plus'} />
+												</div>
+												<div slot="body" class="accordion-body">
+													<div class="table-container">
+														<table style="font-size: 0.9rem;">
+															<thead>
+																<tr>
+																	<th>Amenities</th>
+																	<th>NAICS Code</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>Appliance TV and Electronics Retailers</td>
+																	<td>449210 </td>
+																</tr>
+																<tr>
+																	<td>Baked Goods</td>
+																	<td>311811 </td>
+																</tr>
+																<tr>
+																	<td>Barber Shop</td>
+																	<td>812111 </td>
+																</tr>
+																<tr>
+																	<td>Beauty Salon</td>
+																	<td>812112 </td>
+																</tr>
+																<tr>
+																	<td>Book Stores</td>
+																	<td>459210 </td>
+																</tr>
+																<tr>
+																	<td>Building Material and Lawn Garden Stores</td>
+																	<td>444180 </td>
+																</tr>
+																<tr>
+																	<td>Clothing and Shoe Retailers</td>
+																	<td>458110, 458210</td>
+																</tr>
+																<tr>
+																	<td>Coin Laundry </td>
+																	<td>812310 </td>
+																</tr>
+																<tr>
+																	<td>Community Health and Elderly Care Facilities</td>
+																	<td>623312, 624120</td>
+																</tr>
+																<tr>
+																	<td>Cosmetics and Beauty Supply Retailers</td>
+																	<td>456120 </td>
+																</tr>
+																<tr>
+																	<td>Dentist Office</td>
+																	<td>621210 </td>
+																</tr>
+																<tr>
+																	<td>Dry Cleaners</td>
+																	<td>812320 </td>
+																</tr>
+																<tr>
+																	<td>Fish and Seafood Market</td>
+																	<td>445250 </td>
+																</tr>
+																<tr>
+																	<td>Fitness and recreational sports centres</td>
+																	<td>713940 </td>
+																</tr>
+																<tr>
+																	<td>Florists</td>
+																	<td>459310 </td>
+																</tr>
+																<tr>
+																	<td>Fruit and Vegetable Market</td>
+																	<td>445230 </td>
+																</tr>
+																<tr>
+																	<td>Liquor Stores</td>
+																	<td>445320 </td>
+																</tr>
+																<tr>
+																	<td>Meat Market</td>
+																	<td>445240 </td>
+																</tr>
+																<tr>
+																	<td>Museums and Art Galleries</td>
+																	<td>712110 </td>
+																</tr>
+																<tr>
+																	<td>Nursing Care Facilities</td>
+																	<td>623110 </td>
+																</tr>
+																<tr>
+																	<td>Office supplies</td>
+																	<td>459410 </td>
+																</tr>
+																<tr>
+																	<td>Other Personal Care</td>
+																	<td>812199 </td>
+																</tr>
+																<tr>
+																	<td>Post Office</td>
+																	<td>491110 </td>
+																</tr>
+																<tr>
+																	<td>Religious Organizations</td>
+																	<td>813110 </td>
+																</tr>
+																<tr>
+																	<td>Restaurants</td>
+																	<td>722511 </td>
+																</tr>
+																<tr>
+																	<td>Sporting Goods and Hobby Retailers</td>
+																	<td>459120, 459140, 459130, 459110 </td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div></Accordion
+											>
+										</div></Accordion
+									>
+								</div>
+								<Accordion bind:open={faqs['cc-meth']} id="cc-meth">
+									<div slot="header" class="accordion-header">
+										<h4>Methodology</h4>
+										<Icon icon={faqs['cc-meth'] ? 'mdi:minus' : 'mdi:plus'} />
+									</div>
+									<div slot="body" class="accordion-body">
+										<h6>1. Cleaning and Transforming Employment Data</h6>
+										<p>
+											The EA Business Data is filtered to include only Core or Additional Amenities.
+											Employment size is log-transformated to reduce the effect of extreme outliers.
+										</p>
+
+										<h6>2. Gathering and Transforming Station-Level Daily Visit Data</h6>
+										<p>
+											Daily visits are weighted based on home location to categorize residents vs.
+											non-residents, while also being log transformed, reducing the effect of
+											over-penalizing high-volume downtown and transfer stations.
+										</p>
+
+										<h6>3. Calculating Access using Two-Stage Floating Catchment Areas</h6>
+										<p>
+											Two-Stage Floating Catchment Area (2SFCA) is a spatial accessibility method
+											that measures how easily people can reach services while accounting for both
+											supply and demand within a travel threshold. Services are our core and
+											additional amenities. Supply is the transformed counts of employees per
+											amenity. Demand is the effective demand for daily resident and non-resident
+											visits. For the travel threshold, we use an 800-metre buffer around each
+											station, equivalent to a 10-minute walk.
+										</p>
+
+										<h6>4. Calculating a Regional Benchmark and Access Surplus</h6>
+										<p>
+											In order to compare the Access of an amenity type for a particular transit
+											station area, regional benchmarks were created to compare the different levels
+											of access conditions across the transit region, with Typical (median) and
+											Above Average (75th percentile) Access benchmarks.
+										</p>
+										<p>
+											From there, Access Surplus for each Amenity Type and transit station area was
+											calculated as the difference between Access and Regional Access to identify
+											where more capacity should exist or additional visits can be handled.
+										</p>
+
+										<h6>5. Translating Access into Planning Action</h6>
+										<p>
+											In order to compare the Access of an amenity type for a particular transit
+											station area, regional benchmarks were created to compare the different levels
+											of access conditions across the transit region, with Typical (median) and
+											Above Average (75th percentile) Access benchmarks.
+										</p>
+										<p>
+											With Access to every Amenity Type within a transit station area calculated and
+											compared to the Regional Access, this can be translated into interpretable
+											numbers for accomplishing the following objectives:
+										</p>
+										<p>
+											i. Identify Amenities within a transit station area where additional Capacity
+											is needed to meet typical Access levels
+										</p>
+										<p>
+											ii. Identify how Access changes with a future increase in Residents to a
+											particular transit station area
+										</p>
+										<p>
+											<strong>Calculating Typical Employment</strong><br />
+											For each amenity group within a transit region, the median employment size is calculated.
+											This represents the employment of a typical amenity type within a transit station
+											area.
+										</p>
+
+										<p>
+											<strong>Calculating Additional Employees Needed</strong><br />
+											For MTSAs where an Amenity has an Access Surplus less than 0, Additional Employees
+											Needed is calculated as a ratio of Access Surplus and Regional Access, multiplied
+											by Typical Employment.
+											<math display="block">
+												<mi>Employees Needed</mi>
+												<mo>=</mo>
+												<mrow>
+													<mo>|</mo>
+													<mfrac><mi>Access Surplus</mi> <mi>Regional Access</mi></mfrac>
+													<mo>|</mo>
+												</mrow>
+												<mi>&times; Typical Employment</mi>
+											</math>
+										</p>
+
+										<h6>6. Calculating Future Demand Scenarios</h6>
+										<p>
+											Using Population and Visit Data, we can convert the number of additional
+											residents into the additional number of daily trips by calculating the average
+											number of daily visits made to a transit station area by residents.
+										</p>
+										<p>
+											Future demand scenarios are calculated as a ratio of daily visits and a sum of
+											daily and additional daily visits, multiplied by access.
+										</p>
+										<math display="block">
+											<mi>Future Access</mi>
+											<mo>=</mo>
+											<mi>Access</mi>
+											<mo>&times;</mo>
+											<mfrac
+												><mrow><mi>Daily Visits</mi></mrow><mrow
+													><mi>Daily Visits + Additional Daily Visits</mi></mrow
+												></mfrac
+											>
+										</math>
+									</div></Accordion
+								>
+							</div>
+						</div></Accordion
+					>
+
+					<div id="housing-dev">
+						<Accordion bind:open={faqs['tod-dpi']} id="tod-dpi">
+							<div slot="header" class="accordion-header">
+								<h3 class="uppercase">Housing Development Potential</h3>
+								<Icon icon={faqs['tod-dpi'] ? 'mdi:minus' : 'mdi:plus'} />
+							</div>
+							<div slot="body" class="accordion-body">
+								<div class="text-content">
+									<div>
+										<p>
+											The Housing Development Potential Tool provides an indication of the potential
+											for new housing construction in a transit station area.
+										</p>
+										<Accordion bind:open={faqs['dpi-data']} id="dpi-data">
+											<div slot="header" class="accordion-header">
+												<h4>Data</h4>
+
+												<Icon icon={faqs['dpi-data'] ? 'mdi:minus' : 'mdi:plus'} />
+											</div>
+											<div slot="body" class="accordion-body">
+												<p>
+													The Housing Development Potential tool splits indicators into three
+													categories: Land Availability to measure capacity for new housing, Growth
+													Pressure to measure demand for new housing, and Displacement Risk to
+													measure the risk of displacing existing residents when building new
+													housing.
+												</p>
+												<p>
+													Number of approved building permits is provided as supplementary
+													information where available.
+												</p>
+												<h6 style="margin-top: 2rem;">Land Availability</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Total developable area</td>
+																<td>Total station area, excluding water and greenspace</td>
+																<td>OpenStreetMap (2025)</td>
+															</tr>
+															<tr>
+																<td>High opportunity sites</td>
+																<td>Surface parking area</td>
+																<td>OpenStreetMap (2025)</td>
+															</tr>
+															<tr>
+																<td>Single unit dwellings</td>
+																<td>Count of single unit addresses</td>
+																<td>Statistics Canada (National Address Register, December 2025)</td
+																>
+															</tr>
+															<tr>
+																<td>Population density</td>
+																<td>Population / (total station area, excluding water)</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Employment density</td>
+																<td>Number of employees / (total station area, excluding water)</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Growth Pressure</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Municipal population change</td>
+																<td>CMA-level population change, 2020-2025</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Population change</td>
+																<td>Transit station area population change, 2020-2025</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Projected population change</td>
+																<td>Projected transit station area population change, 2025-2030</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Amenity presence</td>
+																<td
+																	>Overall complete community score, measuring availability of
+																	amenities within station area.</td
+																>
+																<td>Complete Community Index; Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Daily visits</td>
+																<td>Average number of visitors within station area.</td>
+																<td>Complete Community Index; Environics Analytics (2026)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Displacement Risk</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Low income</td>
+																<td
+																	>Population who are low-income (Low-income measure, after tax)</td
+																>
+																<td>Statistics Canada (Census, 2021)</td>
+															</tr>
+															<tr>
+																<td>More than 30% of income spent on shelter</td>
+																<td>Population spending more than 30% of income on shelter.</td>
+																<td>Statistics Canada (Census, 2021)</td>
+															</tr>
+															<tr>
+																<td>Immigrants</td>
+																<td>Population who are immigrants.</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Visible minorities</td>
+																<td>Population who are visible minorities.</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Youth and elderly</td>
+																<td>Population who are under 19 or over 65.</td>
+																<td>Environics Analytics (2026)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Additional Data</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicator</th>
+																<th>Definition</th>
+																<th>Data Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Building permits</td>
+																<td>Number of approved units.</td>
+																<td
+																	>Local open data, various (2025-2026). <br />
+																	Only available for stations in Calgary, Edmonton, Kitchener, Mississauga,
+																	Montreal, Ottawa, Toronto, Vancouver, and Waterloo.</td
+																>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div></Accordion
+										>
+									</div>
+									<div class="mb-12">
+										<Accordion bind:open={faqs['dpi-meth']} id="dpi-meth">
+											<div slot="header" class="accordion-header">
+												<h4>Methodology</h4>
+
+												<Icon icon={faqs['dpi-meth'] ? 'mdi:minus' : 'mdi:plus'} />
+											</div>
+											<div slot="body" class="accordion-body">
+												<div class="my-8">
+													<h4 class="my-8">Subscore Calculation</h4>
+													<p>
+														A station's percentile rank relative to other stations is calculated for
+														each Land Availability, Growth Pressure, and Displacement Risk
+														indicator. The direction of population and employment density rankings
+														are inverted; a higher population density leads to a lower population
+														density percentile rank.
+													</p>
+
+													<p>
+														A station's Land Availability and Growth Pressure subscores are
+														calculated as the mean of the indicator percentile ranks.
+													</p>
+
+													<p>
+														Land Availability, Growth Pressure, and Displacement Risk levels (Very
+														Low, Low, Moderate, etc.) are determined using their subscore quantiles.
+													</p>
+													<h4 class="my-8">Development Potential Score</h4>
+													<p>
+														The Development Potential Score is calculated as a sum of the Land
+														Availability and Growth Pressure subscores.
+													</p>
+
+													<p>
+														For stations on multiple transit lines, the Growth Pressure subscore is
+														multiplied by an Intersection Multiplier. The Intersection Multiplier is
+														calculated as the average population of transit stations on multiple
+														lines divided by the average population of transit stations on a single
+														line.
+													</p>
+
+													<p>
+														The Development Potential Level is based on the quantiles of Development
+														Potential Score (lowest fifth of Development Potential Score &rarr; Very
+														Low, second-lowest fifth of Development Potential Score &rarr; Low,
+														etc.).
+													</p>
+												</div>
+
+												<div id="housing-est">
+													<h4>Calculating Housing Estimate</h4>
+
+													<p class="mb-8">
+														The estimate for new housing construction in transit station areas is
+														based on the current population of existing transit station areas.
+													</p>
+
+													<h6>1. Setting Target Population</h6>
+													<p>
+														Calculate average population of existing stations for each region. For
+														Quebec City, the average population of the planned line is used.
+													</p>
+													<p>
+														For each station, the target population is set as the average population
+														of existing stations in that region.
+													</p>
+													<p>
+														For stations on multiple transit lines, the target population is
+														multiplied by the Intersection Multiplier.
+													</p>
+
+													<h6>2. Calculating Additional Population</h6>
+													<p>
+														For each station, the additional population is calculated as the
+														difference between the current and target population. If the station’s
+														current population is greater than or equal to the target population,
+														the additional population is set to 0.
+													</p>
+
+													<h6>3. Calculating Additional Households</h6>
+													<p>
+														A station's additional population is divided by the station’s average
+														household size to get additional number of households. The additional
+														number of households is summed for all stations to get the housing
+														estimate. This gives us the low-end housing estimate (1.2 million).
+													</p>
+													<p>
+														To obtain the mid-range housing estimate (2.7 million), the target
+														population is set to 1.5 times the regional average. To obtain the
+														high-end housing estimate (4.4 million), the target population is set as
+														double the regional average.
+													</p>
+												</div>
+											</div></Accordion
+										>
+									</div>
+								</div>
+							</div></Accordion
+						>
+					</div>
+				</div>
+			</section>
+		</div>
 	</div>
-</div>
 
-<div class="hero">
-	<div class="subtitle">
-		<h1>Methodology</h1>
+	<!-- CUI Section -->
+	<div class="cui-section" style="background-image: url({vancouver_bg})">
+		<div class="container cui-flex">
+			<div class="cui-contact">
+				<h3>HAVE MORE QUESTIONS?</h3>
+				<div class="contact-grid">
+					<div class="contact-item">
+						<span class="label">ENQUIRIES</span>
+						<p>Contact us at <a href="mailto:cui@canurb.org">cui@canurb.org</a></p>
+					</div>
+					<div class="contact-item">
+						<span class="label">LEARN MORE</span>
+						<p>See more of our work at <a href="https://www.canurb.org">www.canurb.org</a></p>
+					</div>
+					<div class="contact-item">
+						<span class="label">CONNECT</span>
+						<div class="social-icons">
+							<a href="https://ca.linkedin.com/company/canadianurbaninstitute" target="_blank"
+								><Icon icon="fa6-brands:linkedin" /></a
+							>
+							<a href="https://www.instagram.com/canadianurbaninstitute/" target="_blank">
+								<Icon icon="fa6-brands:instagram" />
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<h2>Creating Canada's Main Street Network</h2>
-	<p>
-		Creating a comprehensive main street network for Canada began with a clear goal: identifying
-		segments of roads where clusters of Main Street Businesses and Civic Infrastructure are
-		co-located and concentrated across the country. In order to arrive at this final dataset, we
-		underwent an iterative process, gathering feedback along every step of the way from project
-		stakeholders, users and policy experts.
-	</p>
-	<p>
-		After identifying the main street network, we also attached demographic information (from the
-		2021 Census and other proprietary data sets), in order to provide insights about the surrounding
-		area and its residents. The methodology will be broken down into four main sections.
-	</p>
-	<ul>
-		<li>1. Business and Civic Infrastructure Data Setup</li>
-		<li>2. Road Network Setup</li>
-		<li>3. Attaching Data</li>
-		<li>4. Identifying High and Low Density Main Streets</li>
-	</ul>
-
-	<hr />
-
-	<h3>1. Business and Civic Infrastructure Data Setup</h3>
-	<p>
-		The first task in creating Canada’s main street network was identifying the types of businesses
-		and civic infrastructure associated with main streets. Based on the four and 6-digit North
-		American Industry Classification System (NAICS) codes, points within the Business and Civic
-		Location Data were classified into one of three Main Street Business Groups (Retail, Food and
-		Drink or Local Services) or one of five Civic Infrastructure Groups (Arts and Culture,
-		Education, Government and Community Services, Healthcare, and Recreation) as seen in the table
-		below.
-	</p>
-	<p>
-		In addition, within the Local Services Business Sub Group, businesses under NAICS code
-		categories such as Depository Credit, Accounting, Legal Services, Telecom stores, and Real
-		Estate Offices, had to have less than 50 employees to confirm that they were local instances.
-		For example, to ensure we identified local bank branches and filtered out corporate office
-		locations that may have both been classified under the same NAICS code.
-	</p>
-	<h4 on:click={toggleMainStreet}>Main Street Business Table (Click to expand)</h4>
-	<div class="collapsible-content {mainStreetCollapsed ? '' : 'expanded'}">
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<strong>4-Digit NAICS Code</strong>
-					</td>
-					<td>
-						<strong>NAICS Code Description</strong>
-					</td>
-					<td>
-						<strong>Main Street Business Group</strong>
-					</td>
-				</tr>
-				<tr>
-					<td>7224</td>
-					<td>Drinking places</td>
-					<td rowspan="2">Food and Drink</td>
-				</tr>
-				<tr>
-					<td>7225</td>
-					<td>Restaurants</td>
-				</tr>
-				<tr>
-					<td>4451</td>
-					<td>Grocery stores</td>
-					<td rowspan="30">Retail</td>
-				</tr>
-				<tr>
-					<td>4452</td>
-					<td>Specialty food stores</td>
-				</tr>
-				<tr>
-					<td>4453</td>
-					<td>Liquor stores</td>
-				</tr>
-				<tr>
-					<td>7223</td>
-					<td>Special food services</td>
-				</tr>
-				<tr>
-					<td>4411</td>
-					<td>Auto dealers</td>
-				</tr>
-				<tr>
-					<td>4412</td>
-					<td>Other motor vehicle dealers</td>
-				</tr>
-				<tr>
-					<td>4413</td>
-					<td>Auto Parts Retailers</td>
-				</tr>
-				<tr>
-					<td>4421</td>
-					<td>Furniture Stores</td>
-				</tr>
-				<tr>
-					<td>4422</td>
-					<td>Home furnishings stores</td>
-				</tr>
-				<tr>
-					<td>4431</td>
-					<td>Electronic and Appliance Stores</td>
-				</tr>
-				<tr>
-					<td>4441</td>
-					<td>Building material stores</td>
-				</tr>
-				<tr>
-					<td>4442</td>
-					<td>Lawn and garden stores</td>
-				</tr>
-				<tr>
-					<td>4461</td>
-					<td>Pharmacies and Drug Stores</td>
-				</tr>
-				<tr>
-					<td>4471</td>
-					<td>Gasoline stores</td>
-				</tr>
-				<tr>
-					<td>4481</td>
-					<td>Clothing stores</td>
-				</tr>
-				<tr>
-					<td>4482</td>
-					<td>Shoe stores</td>
-				</tr>
-				<tr>
-					<td>4483</td>
-					<td>Jewellery, and leather goods</td>
-				</tr>
-				<tr>
-					<td>4511</td>
-					<td>Sporting goods, hobby, and music stores</td>
-				</tr>
-				<tr>
-					<td>4513</td>
-					<td>Book stores</td>
-				</tr>
-				<tr>
-					<td>4521</td>
-					<td>Department stores</td>
-				</tr>
-				<tr>
-					<td>4529</td>
-					<td>Other general stores</td>
-				</tr>
-				<tr>
-					<td>4531</td>
-					<td>Florists</td>
-				</tr>
-				<tr>
-					<td>4532</td>
-					<td>Office supplies</td>
-				</tr>
-				<tr>
-					<td>4533</td>
-					<td>Used merchandise stores</td>
-				</tr>
-				<tr>
-					<td>4539</td>
-					<td>Other retailers</td>
-				</tr>
-				<tr>
-					<td>4541</td>
-					<td>Electronic shopping</td>
-				</tr>
-				<tr>
-					<td>4542</td>
-					<td>Vending machine operators</td>
-				</tr>
-				<tr>
-					<td>4543</td>
-					<td>Direct selling</td>
-				</tr>
-				<tr>
-					<td>5173</td>
-					<td>Telecom stores</td>
-				</tr>
-				<tr>
-					<td>5312</td>
-					<td>Real estate offices</td>
-				</tr>
-				<tr>
-					<td>4911</td>
-					<td>Postal Service</td>
-					<td rowspan="12">Local Services</td>
-				</tr>
-				<tr>
-					<td>5221</td>
-					<td>Depository Credit</td>
-				</tr>
-				<tr>
-					<td>5411</td>
-					<td>Legal Services</td>
-				</tr>
-				<tr>
-					<td>5412</td>
-					<td>Accounting</td>
-				</tr>
-				<tr>
-					<td>8111</td>
-					<td>Auto repair</td>
-				</tr>
-				<tr>
-					<td>8112</td>
-					<td>Electronic repair</td>
-				</tr>
-				<tr>
-					<td>8113</td>
-					<td>Commercial equipment repair</td>
-				</tr>
-				<tr>
-					<td>8114</td>
-					<td>Household goods repair</td>
-				</tr>
-				<tr>
-					<td>8121</td>
-					<td>Personal care</td>
-				</tr>
-				<tr>
-					<td>8122</td>
-					<td>Funeral services</td>
-				</tr>
-				<tr>
-					<td>8123</td>
-					<td>Dry Cleaning</td>
-				</tr>
-				<tr>
-					<td>8129</td>
-					<td>Other personal services</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<h4 on:click={toggleCivicInfrastructure}>Civic Infrastructure Table (Click to expand)</h4>
-	<div class="collapsible-content {civicInfrastructureCollapsed ? '' : 'expanded'}">
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<strong>6-Digit NAICS Code</strong>
-					</td>
-					<td>
-						<strong>Description</strong>
-					</td>
-					<td>
-						<strong>Group</strong>
-					</td>
-				</tr>
-				<tr>
-					<td>519120</td>
-					<td>Libraries</td>
-					<td rowspan="8">Arts and Culture</td>
-				</tr>
-				<tr>
-					<td>711110</td>
-					<td>Theatre companies</td>
-				</tr>
-				<tr>
-					<td>711120</td>
-					<td>Dance Companies</td>
-				</tr>
-				<tr>
-					<td>711130</td>
-					<td>Musical Groups and Artists</td>
-				</tr>
-				<tr>
-					<td>711190</td>
-					<td>Other Performing Arts Companies</td>
-				</tr>
-				<tr>
-					<td>711510</td>
-					<td>Independent Artists, Writers and Performers</td>
-				</tr>
-				<tr>
-					<td>712110</td>
-					<td>Museums</td>
-				</tr>
-				<tr>
-					<td>712120</td>
-					<td>Historical Sites</td>
-				</tr>
-				<tr>
-					<td>611110</td>
-					<td>Elementary and secondary schools</td>
-					<td rowspan="10">Education</td>
-				</tr>
-				<tr>
-					<td>611210</td>
-					<td>Community Colleges</td>
-				</tr>
-				<tr>
-					<td>611310</td>
-					<td>Universities</td>
-				</tr>
-				<tr>
-					<td>611410</td>
-					<td>Business and Secretarial schools</td>
-				</tr>
-				<tr>
-					<td>611519</td>
-					<td>Technical and trade schools</td>
-				</tr>
-				<tr>
-					<td>611610</td>
-					<td>Fine arts schools</td>
-				</tr>
-				<tr>
-					<td>611630</td>
-					<td>Language schools</td>
-				</tr>
-				<tr>
-					<td>611699</td>
-					<td>All other schools and instruction</td>
-				</tr>
-				<tr>
-					<td>611710</td>
-					<td>Educational support services</td>
-				</tr>
-				<tr>
-					<td>624410</td>
-					<td>Child day-care services</td>
-				</tr>
-				<tr>
-					<td>624110</td>
-					<td>Child and youth services</td>
-					<td rowspan="17">Government and Community Services</td>
-				</tr>
-				<tr>
-					<td>624120</td>
-					<td>Services for the elderly and persons with disabilities</td>
-				</tr>
-				<tr>
-					<td>624190</td>
-					<td>Other individual and family services</td>
-				</tr>
-				<tr>
-					<td>624210</td>
-					<td>Community Food Services</td>
-				</tr>
-				<tr>
-					<td>624221</td>
-					<td>Temporary Shelters</td>
-				</tr>
-				<tr>
-					<td>624229</td>
-					<td>Other Community Housing Services</td>
-				</tr>
-				<tr>
-					<td>624310</td>
-					<td>Vocational rehabilitation services</td>
-				</tr>
-				<tr>
-					<td>813110</td>
-					<td>Religious organizations</td>
-				</tr>
-				<tr>
-					<td>813210</td>
-					<td>Grant-making and giving services</td>
-				</tr>
-				<tr>
-					<td>813310</td>
-					<td>Social advocacy organization</td>
-				</tr>
-				<tr>
-					<td>813410</td>
-					<td>Civic and Social Organizations</td>
-				</tr>
-				<tr>
-					<td>921110</td>
-					<td>Executive Offices</td>
-				</tr>
-				<tr>
-					<td>921120</td>
-					<td>Legislative Bodies</td>
-				</tr>
-				<tr>
-					<td>921190</td>
-					<td>Other General Government Support</td>
-				</tr>
-				<tr>
-					<td>922110</td>
-					<td>Courts</td>
-				</tr>
-				<tr>
-					<td>922120</td>
-					<td>Police Protection</td>
-				</tr>
-				<tr>
-					<td>922160</td>
-					<td>Fire Protection</td>
-				</tr>
-				<tr>
-					<td>621111</td>
-					<td>Office of physicians</td>
-					<td rowspan="19">Healthcare</td>
-				</tr>
-				<tr>
-					<td>621210</td>
-					<td>Office of dentists</td>
-				</tr>
-				<tr>
-					<td>621310</td>
-					<td>Office of chiropractors</td>
-				</tr>
-				<tr>
-					<td>621320</td>
-					<td>Office of optometrists</td>
-				</tr>
-				<tr>
-					<td>621330</td>
-					<td>Office of mental health practitioners</td>
-				</tr>
-				<tr>
-					<td>621340</td>
-					<td>Office of physical, occupational and speech therapists</td>
-				</tr>
-				<tr>
-					<td>621391</td>
-					<td>Office of Podiatrists</td>
-				</tr>
-				<tr>
-					<td>621399</td>
-					<td>Office of all other health practitioners</td>
-				</tr>
-				<tr>
-					<td>621410</td>
-					<td>Family planning centres</td>
-				</tr>
-				<tr>
-					<td>621420</td>
-					<td>Out-patient mental health and substance abuse centres</td>
-				</tr>
-				<tr>
-					<td>621494</td>
-					<td>Community health centres</td>
-				</tr>
-				<tr>
-					<td>621498</td>
-					<td>All other out-patient care centres</td>
-				</tr>
-				<tr>
-					<td>622110</td>
-					<td>General Hospitals</td>
-				</tr>
-				<tr>
-					<td>622210</td>
-					<td>Psychiatric and substance abuse hospitals</td>
-				</tr>
-				<tr>
-					<td>622310</td>
-					<td>Specialty hospitals</td>
-				</tr>
-				<tr>
-					<td>623110</td>
-					<td>Nursing care facilities</td>
-				</tr>
-				<tr>
-					<td>623311</td>
-					<td>Continuing Care Retirement Communities</td>
-				</tr>
-				<tr>
-					<td>623312</td>
-					<td>Assisted Living Facilities for the Elderly</td>
-				</tr>
-				<tr>
-					<td>623990</td>
-					<td>Other Residential Care Facilities</td>
-				</tr>
-				<tr>
-					<td>712130</td>
-					<td>Zoos and botanical gardens</td>
-					<td rowspan="5">Recreation</td>
-				</tr>
-				<tr>
-					<td>712190</td>
-					<td>Nature parks and other similar institutions</td>
-				</tr>
-				<tr>
-					<td>713940</td>
-					<td>Fitness and recreational sports centres</td>
-				</tr>
-				<tr>
-					<td>713950</td>
-					<td>Bowling centres</td>
-				</tr>
-				<tr>
-					<td>713990</td>
-					<td>All other amusement and recreation industries</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<h4>Attaching Additional Data</h4>
-	<p>
-		The final step was summarising the estimated employment size and retail sales, as well as our
-		Business Independence Index, which uses text-based analysis to assess the uniqueness of each
-		business between 0 and 1 (defined below).
-	</p>
-	<h3>2. Road Network Setup</h3>
-	<p>
-		In order to identify main streets, we had to use a road network dataset to use in our analysis.
-		Setting up the road network is a crucial step in the methodology as it is also the median
-		through which all infrastructure and demographic data will be attached and visualized. Before
-		this can happen, several cleaning steps are performed on the Statistics Canada national road
-		network.
-	</p>
-	<h4>Defining large and small city networks</h4>
-	<p>
-		The first step in setting up the road network is determining what types of roads should be
-		included in the network. The table below outlines our methodology in creating the road network;
-		which differs in large and small cities. A city is defined as large or small based on its
-		population count and population density, and the types of roads included are different in each.
-		This was done to remove mainly residential areas in large cities while maintaining small local
-		roads in small towns.
-	</p>
-	<div>
-		<table>
-			<tbody>
-				<tr>
-					<td>City Type</td>
-					<td>Condition</td>
-					<td>Roads Used</td>
-				</tr>
-				<tr>
-					<td>Large City</td>
-					<td>Population Count Above 100,000 and Population Density Above 1,000 / sq.km</td>
-					<td>Arterial, Collector, Local Highways</td>
-				</tr>
-				<tr>
-					<td>Small City</td>
-					<td>Population Count Below 100,000 or Population Density Below 1,000 / sq.km</td>
-					<td>Arterial, Collector, Local Highways, Local Streets</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<p>
-		Using the ‘sfnetworks’ package in R, lines in the road network are cleaned to simplify edges and
-		reduce redundancy after the initial filtering of the roads. First, the road network is
-		simplified to remove multiple edges and loops. Next, pseudo nodes are removed to have nodes
-		where the endpoints of roads meet. Finally, intersections between the roads are simplified,
-		adjoining all converging roads to a single node.
-	</p>
-	<h3>3. Attaching Data</h3>
-	<h4>Attaching Business and Civic Infrastructure Data</h4>
-	<p>
-		After cleaning the Infrastructure and Road Networks, a spatial intersection was performed,
-		attaching all main street businesses and civic infrastructure to all roads within 50 metres of
-		the desired road segment. The counts of each main street business and civic infrastructure type
-		were summarised, producing a total for each road segment. In addition, the densities of main
-		street businesses and civic infrastructure were calculated by dividing the total by the road
-		length.
-	</p>
-	<p>
-		For summary statistics using Main Street business data, such as the Business Independence Index
-		and Retail Sales, the average for all businesses along the road was used. The employment size of
-		the businesses was also considered for the Business Independence Index.
-	</p>
-	<h4>Attaching Demographic Data</h4>
-	<p>
-		Demographic variables were intersected between the road network and all Dissemination Areas
-		within one kilometre of the adjoining road segment. For each road segment, variables were
-		summarised by taking the average of all Dissemination Areas weighted by the Population count of
-		each DA.
-	</p>
-	<h3>4. Identifying Main Streets</h3>
-	<p>
-		With the creation of our base road network, we can now identify main streets as a segment of
-		road where a clustering of main street businesses and civic infrastructure exists. This process
-		is done over two primary steps. Identifying businesses and civic infrastructure clusters and
-		extracting segments based on density thresholds.
-	</p>
-	<h4>Identifying Main Street Business and Civic Infrastructure Clusters</h4>
-	<p>
-		Using the cleaned Business and Civic Location Data, Kernel Density Estimation in QGIS created a
-		heatmap of main street businesses and civic data. The heatmap layer was then filtered based on
-		the set density thresholds of high-density and low-density main streets.
-	</p>
-	<div>
-		<table>
-			<tbody>
-				<tr>
-					<td>Main Street Type</td>
-					<td>Parameters</td>
-					<td>Density Thresholds</td>
-				</tr>
-				<tr>
-					<td>Low-Density Main Streets</td>
-					<td>Radius: 100 metres <br /> Kernel Shape: Quartic</td>
-					<td>Above 2 Main Street Business and Civic Infrastructure within the defined radius</td>
-				</tr>
-				<tr>
-					<td>High-Density Main Streets</td>
-					<td>Radius: 100 metres <br /> Kernel Shape: Quartic</td>
-					<td>Above 10 Main Street Business and Civic Infrastructure within the defined radius</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<h4>Extracting Segments Based on Density Thresholds</h4>
-	<p>
-		The final main street layer for high and low-density main streets was then clipped from the
-		respective heatmap layers, and a difference between the two road layers was performed to prevent
-		overlaps.
-	</p>
-</div>
-
-<div class="hero">
-	<h2>Independent Business Index</h2>
-	<p>
-		The Independent Business Index creates a scaled index of business independence using text
-		analysis within the Main Street Business Dataset to apply a scale between 0 and 1 based on how
-		many times a business name appears in the data. The closer the value is to 1, the more
-		‘independent’ the business is deemed.
-	</p>
-	<p>
-		From the Main Street Business Location Dataset, businesses are grouped based on their name and
-		primary industry using the 2-digit NAICS code associated with the business. Once grouped, the
-		businesses are min-max scaled, giving a value between 0 and 1, with 0 being the most prevalent
-		name in the business data and one being the least prevalent.
-	</p>
-	<p>
-		This methodology allows us to account for differences in chain businesses, so a small local
-		chain with 5 locations is deemed more ‘independent’ than a large national chain with 200+
-		locations, for example.
-	</p>
-</div>
-
-<div class="hero">
-	<h2>Civic Infrastructure Index</h2>
-	<p>
-		The Civic Infrastructure Index (CII) assesses relative access to civic infrastructure within a
-		defined catchment area by combining services' capacity with the local population's demand.
-	</p>
-	<p>Based on two-step floating catchment areas</p>
-	<ul>
-		<li>
-			Assessing civic infrastructure supply as a ratio of civic employment to their surrounding
-			population within 1 kilometre.
-		</li>
-		<li>
-			Sum the ratios, and the civic infrastructure supply from step 1 is within the same distance
-			threshold for each population centre, the dissemination area.
-		</li>
-	</ul>
-</div>
-
-<div class="hero">
-	<h1>Have more questions?</h1>
-	<p>
-		Contact us at <a href="mailto:cui@canurb.org?subject=Measuring Main Streets Enquiry"
-			>cui@canurb.org</a
-		>.
-	</p>
-</div>
+</main>
 
 <style>
-	table,
-	td {
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	/* Hero Section */
+	.hero-section {
+		height: 450px;
+		background-size: cover;
+		background-position: center;
+		display: flex;
+		align-items: center;
+		padding: 0;
+		position: relative;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.hero-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		max-width: 1200px;
+		margin: 0 auto;
+		width: 100%;
+		padding: 0 2rem;
+	}
+
+	.hero-content h1 {
+		font-size: 5rem;
+		margin: 0;
+		color: var(--brandDarkBlue);
+	}
+
+	.text-blue {
+		color: var(--brandLightBlue);
+	}
+
+	/* Main Content Layout */
+	.main-content {
+		display: flex;
+		gap: 5rem;
+		padding-top: 4rem;
+		padding-bottom: 6rem;
+	}
+
+	.sidebar {
+		width: 280px;
+		flex-shrink: 0;
+	}
+
+	.content-area {
+		flex-grow: 1;
+	}
+
+	/* Sidebar Nav */
+	.nav-group {
+		margin-bottom: 3.5rem;
+	}
+
+	.nav-group h3 {
+		font-size: 1.2rem;
+		border-bottom: 4px solid var(--brandLightBlue);
+		padding-bottom: 0.75rem;
+		margin-bottom: 1.5rem;
+		color: var(--brandDarkBlue);
+		letter-spacing: 0.05em;
+	}
+
+	.nav-group ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.nav-group li {
+		margin-bottom: 1rem;
+	}
+
+	.nav-group button {
+		background: none;
+		border: none;
+		padding: 0;
+		font-family: inherit;
+		font-size: 1.1rem;
+		color: var(--brandDarkBlue);
+		cursor: pointer;
+		text-align: left;
+		transition: all 0.2s;
+		width: 100%;
+	}
+
+	.nav-group button:hover {
+		color: var(--brandLightBlue);
+		padding-left: 5px;
+	}
+
+	.nav-group button.active {
+		color: var(--brandLightBlue);
+		font-weight: 700;
+	}
+
+	/* Callout Box */
+	.callout-box {
+		background-color: #d8f1fb;
+		padding: 2.5rem 1.5rem;
+		border-radius: 4px;
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.callout-logos {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.callout-logos img {
+		height: 30px;
+	}
+
+	.callout-box p {
+		font-size: 0.9rem;
+		line-height: 1.5;
+		color: var(--brandDarkBlue);
+		margin: 0;
+		font-weight: 600;
+	}
+
+	/* Content Area */
+	.section-header h2 {
+		font-size: 2.2rem;
+		border-bottom: 4px solid var(--brandLightBlue);
+		padding-bottom: 0.5rem;
+		margin-bottom: 2rem;
+		color: var(--brandDarkBlue);
+		font-family: 'Gelasio', serif;
+	}
+
+	.eyebrow {
+		font-size: 0.75rem;
+		color: var(--brandLightBlue);
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+		text-transform: uppercase;
+		display: block;
+	}
+
+	.text-content h4 {
+		font-size: 1.5rem;
+		color: var(--brandDarkBlue);
+		margin-bottom: 0.5rem;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+	}
+
+	.text-content p {
+		font-size: 1.1rem;
+		line-height: 1.6;
+		margin-bottom: 1.5rem;
+	}
+
+	/* Highlight Box */
+	.highlight-box {
+		background-color: var(--brandDarkBlue);
+		color: white;
+		padding: 2.5rem;
+		border-radius: 8px;
+		margin: 2rem 0;
+	}
+
+	/* Table Styling */
+	.table-container {
+		width: 100%;
+		overflow-x: auto;
 		border: 1px solid #ddd;
+		border-radius: 8px;
+	}
+
+	table {
+		width: 100%;
 		border-collapse: collapse;
-		padding: 1em;
+		background: white;
 	}
 
-	.collapsible-content {
-		overflow: hidden;
-		transition: max-height 0.3s ease;
-		max-height: 0;
+	th {
+		background-color: #f9f9f9;
+		text-align: left;
+		padding: 1rem;
+		font-weight: 700;
+		color: var(--brandDarkBlue);
+		border-bottom: 2px solid #eee;
+		text-transform: uppercase;
+		font-size: 0.8rem;
+		letter-spacing: 0.05em;
 	}
 
-	.collapsible-content.expanded {
-		max-height: 1000px;
+	td {
+		padding: 1rem;
+		border-bottom: 1px solid #eee;
+		font-size: 0.95rem;
 	}
 
-	h4 {
+	/* Accordion Header Override */
+	.accordion-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1.5rem 0;
+		border-top: 1px solid #ddd;
 		cursor: pointer;
 	}
 
-	@media only screen and (min-width: 768px) {
-		p {
-			max-width: 80%;
+	.accordion-header h3 {
+		margin: 0;
+		font-size: 1.6rem;
+		font-weight: 800;
+		color: var(--brandDarkBlue);
+		letter-spacing: 0.02em;
+	}
+
+	.accordion-body {
+		padding-bottom: 2rem;
+	}
+
+	/* CUI Section */
+	.cui-section {
+		padding: 8rem 0;
+		background-size: cover;
+		background-position: center;
+		position: relative;
+		border-top: 1px solid #ddd;
+	}
+
+	.cui-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+	}
+
+	.cui-flex {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		justify-content: center;
+	}
+
+	.cui-contact {
+		background-color: white;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+		padding: 4rem;
+		border-radius: 2rem;
+		width: 100%;
+		max-width: 800px;
+	}
+
+	.cui-contact h3 {
+		margin-bottom: 2rem;
+		color: var(--brandDarkBlue);
+		font-family: 'Gelasio', serif;
+		font-size: 2rem;
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 3rem;
+	}
+
+	.contact-item .label {
+		display: block;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--brandLightBlue);
+		text-transform: uppercase;
+		margin-bottom: 0.5rem;
+		letter-spacing: 0.1em;
+	}
+
+	.contact-item p {
+		margin: 0;
+		font-size: 1.1rem;
+		color: var(--brandDarkBlue);
+		font-weight: 500;
+	}
+
+	.contact-item a {
+		color: var(--brandLightBlue);
+		text-decoration: none;
+	}
+
+	.social-icons {
+		display: flex;
+		gap: 1rem;
+		margin-top: 0.5rem;
+	}
+	.social-icons :global(svg) {
+		cursor: pointer;
+		transition: transform 0.2s;
+	}
+
+	.social-icons :global(svg:hover) {
+		transform: scale(1.2);
+		color: var(--brandDarkBlue);
+	}
+	.mb-12 {
+		margin-bottom: 3rem;
+	}
+	.mt-32 {
+		margin-top: 8rem;
+	}
+
+	@media (max-width: 992px) {
+		.main-content {
+			flex-direction: column;
+		}
+		.sidebar {
+			width: 100%;
+			margin-bottom: 3rem;
+		}
+		.hero-content h1 {
+			font-size: 3.5rem;
 		}
 	}
 </style>

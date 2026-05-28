@@ -1,8 +1,8 @@
 <script>
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	const buttons = [
-		{ text: 'About the Platform', href: '/about/v2' },
-		{ text: 'About the Project Phases', href: '/about/v2/#about-tod' },
+		{ text: 'About the Platform', href: '/about' },
+		{ text: 'About the Project Phases', href: '/about/#about-tod' },
 		{ text: 'Canadian Urban Institute', href: 'https://canurb.org/', target: '_blank' }
 	];
 </script>

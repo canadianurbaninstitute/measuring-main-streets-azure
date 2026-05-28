@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { scaleLinear, scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg } from 'layercake';
 
@@ -10,10 +10,70 @@
 	import Scatter from '../chartcomponents/Scatter.svg.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
-	let props = $props();
+	interface SeriesConfigItem {
+		key: string;
+		color: string;
+		label: string;
+	}
 
-	let found = $state(null);
-	let e = $state(null);
+	interface QuadrantConfig {
+		xMid?: number;
+		yMid?: number;
+		labels?: string[] | { [key: string]: string };
+		colors?: string[];
+		stroke?: string;
+		strokeDasharray?: string;
+	}
+
+	interface PaddingConfig {
+		top?: number;
+		right?: number;
+		bottom?: number;
+		left: number;
+	}
+
+	interface Props {
+		data?: Record<string, any>[];
+		xKey?: string;
+		yKey?: string;
+		zKey?: string;
+		title?: string;
+		height?: string;
+		showLegend?: boolean;
+		padding?: PaddingConfig;
+		seriesConfig?: SeriesConfigItem[];
+		xDomain?: [number | null, number | null];
+		yDomain?: [number | null, number | null];
+		xScale?: any;
+		yScale?: any;
+		formatLabelX?: (d: any) => any;
+		formatLabelY?: (d: any) => any;
+		xLabel?: string;
+		yLabel?: string;
+		xTicks?: any[] | number;
+		yTicks?: any[] | number;
+		showQuadrants?: boolean;
+		quadrantConfig?: QuadrantConfig;
+		referenceLine?: Record<string, any>;
+		visible?: boolean;
+		pointColor?: string;
+		pointRadius?: number;
+		showLabels?: boolean;
+		labelKey?: string;
+		highlightIds?: any[];
+		idKey?: string;
+		filterRegion?: string;
+		regionKey?: string;
+		showTooltip?: boolean;
+		titleKey?: string;
+		formatTooltipValue?: (d: any) => any;
+		tooltipRows?: any[];
+	}
+
+	let props: Props = $props();
+
+	let found = $state<any>(null);
+	let e = $state<MouseEvent | null>(null);
 	let innerWidth = $state(1000);
 	let innerHeight = $state(800);
 
@@ -165,6 +225,8 @@
 
 	.chart-container {
 		display: flex;
+		min-width: 1px;
+		min-height: 1px;
 		flex-direction: column;
 		justify-content: center;
 		gap: 1em;

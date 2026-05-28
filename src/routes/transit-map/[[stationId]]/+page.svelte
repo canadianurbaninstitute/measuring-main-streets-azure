@@ -1062,7 +1062,7 @@
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-blue-600/10 data-[state=inactive]:text-blue-600 data-[state=inactive]:border-1 data-[state=inactive]:border-blue-600/30 
 							data-[state=inactive]:hover:bg-blue-600/50
 							data-[state=active]:bg-blue-600 data-[state=active]:border-none data-[state=active]:text-white"
-							value="built-form">Built Form & Development Potential</Tabs.Trigger
+							value="built-form">Built Form & Housing Development Potential</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-green-400/10 data-[state=inactive]:text-green-600 data-[state=inactive]:border-1 data-[state=inactive]:border-green-400/30 

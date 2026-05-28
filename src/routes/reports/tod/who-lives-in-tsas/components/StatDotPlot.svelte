@@ -1,14 +1,4 @@
-<script>
-	export let data = [];
-	export let yKey = '';
-	export let xDomain = [0, null];
-	export let seriesColors = ['#00adf2', '#db3069', '#43b171', '#f1c500', '#8a4285', '#f45d01'];
-	export let height = '100%';
-	export let zDomain = null;
-	export let zRange = null;
-	export let padding = { top: 10, right: 10, bottom: 20, left: 100 };
-	export let wrapLabels = false;
-
+<script lang="ts">
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { LayerCake, Svg } from 'layercake';
 
@@ -16,10 +6,33 @@
 	import AxisY from '../../../../lib/ui/chartcomponents/AxisY.svelte';
 	import ClevelandDotPlot from './DotPlotInner.svg.svelte';
 
-	const xKey = Object.keys(data[0]).filter((d) => d !== yKey);
+	// 1. Define strict TypeScript Props
+	interface Props {
+		data?: Record<string, any>[];
+		yKey?: string;
+		xDomain?: [number, number | null];
+		seriesColors?: string[];
+		height?: string;
+		zDomain?: string[] | null;
+		zRange?: string[] | null;
+	}
 
-	$: resolvedZDomain = zDomain ?? xKey;
-	$: resolvedZRange = zRange ?? seriesColors;
+	// 2. Destructure props with Svelte 5 $props() rune
+	let {
+		data = [],
+		yKey = '',
+		xDomain = [0, null],
+		seriesColors = ['#00adf2', '#db3069', '#43b171', '#f1c500', '#8a4285', '#f45d01'],
+		height = '100%',
+		zDomain = null,
+		zRange = null
+	}: Props = $props();
+
+	// 3. Turn into $derived states to safely compute keys reactively when data arrives
+	let xKey = $derived(data.length > 0 ? Object.keys(data[0]).filter((d) => d !== yKey) : []);
+
+	let resolvedZDomain = $derived(zDomain ?? xKey);
+	let resolvedZRange = $derived(zRange ?? seriesColors);
 </script>
 
 <div class="chart-container" style="height: {height}">

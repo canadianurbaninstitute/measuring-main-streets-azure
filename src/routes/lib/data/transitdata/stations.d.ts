@@ -1,5 +1,5 @@
 export interface Station {
-	id: string;
+	id: string | null;
 	status?: string;
 	line_id?: string;
 	line_label?: string;

@@ -1,58 +1,81 @@
-<script>
-	import { getContext } from 'svelte';
+<script lang="ts">
 	import { format as d3Format } from 'd3-format';
+	import { getContext } from 'svelte';
+	import type { Readable } from 'svelte/store';
 
-	const { config } = getContext('LayerCake');
+	const { config } = getContext<{
+		config: Readable<{ x: string | string[]; y: string; [key: string]: any }>;
+	}>('LayerCake');
 
-	export let found = {};
-	export let e = {};
-	export let titleKey = $config.y;
-	export let valueKey = $config.x;
-	export let xKey = null; // Optional: specify x and y keys for scatter plots
-	export let yKey = null;
-	export let xLabel = 'X';
-	export let yLabel = 'Y';
-	export let formatValue = (d) => (isNaN(+d) ? d : d3Format(',.1f')(d) + '%');
-	export let offset = -15;
-
-	/**
-	 * Optional: pass the seriesConfig array ({ key, label, color }) from StackedBar
-	 * to render a multi-row stacked tooltip instead of a single key/value pair.
-	 */
-	export let seriesConfig = null;
-	export let tooltipRows = null; // Array of { key, label, format }
-
-	let tooltipEl;
-	let adjustedStyle = '';
-
-	// Re-calculate position whenever the mouse event or found data changes
-	$: if (tooltipEl && e) {
-		// Use rAF so the element has been painted and has a measurable size
-		requestAnimationFrame(() => {
-			if (!tooltipEl) return;
-			const container = tooltipEl.offsetParent;
-			if (!container) return;
-
-			const cW = container.clientWidth;
-			const cH = container.clientHeight;
-			const tW = tooltipEl.offsetWidth;
-			const tH = tooltipEl.offsetHeight;
-			const gap = Math.abs(offset);
-
-			// Default: centred above cursor
-			let x = e.layerX - tW / 2;
-			let y = e.layerY - tH - gap;
-
-			// Flip below cursor if it would go off the top
-			if (y < 0) y = e.layerY + gap;
-
-			// Clamp left/right edges
-			if (x < 0) x = 0;
-			if (x + tW > cW) x = cW - tW;
-
-			adjustedStyle = `top:${y}px; left:${x}px;`;
-		});
+	interface TooltipRow {
+		key: string;
+		label?: string;
+		format?: (d: any) => string | number;
 	}
+
+	interface SeriesItem {
+		key: string;
+		label: string;
+		color: string;
+	}
+
+	interface Props {
+		found?: Record<string, any> | null;
+		e?: MouseEvent | null;
+		titleKey?: string;
+		valueKey?: string | string[];
+		xKey?: string | null;
+		yKey?: string | null;
+		xLabel?: string;
+		yLabel?: string;
+		formatValue?: (d: any) => any;
+		offset?: number;
+		seriesConfig?: SeriesItem[] | null;
+		tooltipRows?: TooltipRow[] | null;
+	}
+
+	let {
+		found = {},
+		e = null,
+		titleKey = $config.y,
+		valueKey = $config.x,
+		xKey = null,
+		yKey = null,
+		xLabel = 'X',
+		yLabel = 'Y',
+		formatValue = (d: any) => (isNaN(+d) ? d : d3Format(',.1f')(d) + '%'),
+		offset = -15,
+		seriesConfig = null,
+		tooltipRows = null
+	}: Props = $props();
+
+	let tooltipEl = $state<HTMLDivElement | null>(null);
+	let adjustedStyle = $state('');
+
+	$effect(() => {
+		if (tooltipEl && e) {
+			requestAnimationFrame(() => {
+				if (!tooltipEl || !e) return;
+				const container = tooltipEl.offsetParent as HTMLElement | null;
+				if (!container) return;
+
+				const cW = container.clientWidth;
+				const tW = tooltipEl.offsetWidth;
+				const tH = tooltipEl.offsetHeight;
+				const gap = Math.abs(offset);
+
+				let x = e.layerX - tW / 2;
+				let y = e.layerY - tH - gap;
+
+				if (y < 0) y = e.layerY + gap;
+
+				if (x < 0) x = 0;
+				if (x + tW > cW) x = cW - tW;
+
+				adjustedStyle = `top:${y}px; left:${x}px;`;
+			});
+		}
+	});
 </script>
 
 {#if found && e}
@@ -83,7 +106,7 @@
 				<span class="tooltip-key">{yLabel}:</span>
 				<span>{formatValue(found[yKey])}</span>
 			</div>
-		{:else}
+		{:else if typeof valueKey === 'string'}
 			<div class="tooltip-row">
 				<span class="tooltip-key">{valueKey}:</span>
 				<span>{formatValue(found[valueKey])}</span>

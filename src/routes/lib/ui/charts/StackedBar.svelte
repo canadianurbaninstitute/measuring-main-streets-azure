@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { Html, LayerCake, Svg, flatten, stack } from 'layercake';
 
@@ -9,6 +9,41 @@
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
 	import LegendItem from '../legends/LegendItem.svelte';
 
+	interface SeriesItem {
+		label: string;
+		color: string;
+		key: string;
+	}
+
+	interface PaddingConfig {
+		top?: number;
+		right?: number;
+		bottom?: number;
+		left: number;
+	}
+
+	interface Props {
+		data?: Record<string, any>[];
+		yKey?: string;
+		zKey?: string;
+		title?: string;
+		titleFontSize?: string;
+		minHeight?: string;
+		height?: string;
+		padding?: PaddingConfig;
+		seriesConfig?: SeriesItem[];
+		formatLabelX?: (d: any) => any;
+		visible?: boolean | undefined;
+		showTooltip?: boolean;
+		wrapLabels?: boolean;
+		xLabel?: string;
+		yLabel?: string;
+		xTicks?: number | any[] | ((defaultTicks: any[]) => any[]) | undefined;
+		yTicks?: number | any[] | ((defaultTicks: any[]) => any[]) | undefined;
+		showLegend?: boolean;
+		formatTooltipValue?: (d: any) => any;
+	}
+
 	let {
 		data = [],
 		yKey = 'name',
@@ -18,8 +53,8 @@
 		minHeight = '100%',
 		height = '400px',
 		padding = { bottom: 20, left: 35 },
-		seriesConfig = [], // Array of { label, color, key }
-		formatLabelX = (d) => d,
+		seriesConfig = [],
+		formatLabelX = (d: any) => d,
 		visible = undefined,
 		showTooltip = false,
 		wrapLabels = false,
@@ -28,16 +63,17 @@
 		xTicks = undefined,
 		yTicks = undefined,
 		showLegend = true,
-		formatTooltipValue = (d) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%')
-	} = $props();
-	let found = $state(null);
-	let e = $state(null);
+		formatTooltipValue = (d: any) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%')
+	}: Props = $props();
+
+	let found = $state<any>(null);
+	let e = $state<MouseEvent | null>(null);
 	let innerWidth = $state(1000);
 	let innerHeight = $state(800);
+
 	const computedPadding = $derived(
 		innerWidth < 768 ? { ...padding, left: Math.min(padding.left, 100) } : padding
 	);
-	const computedHeight = $derived(innerWidth < 768 ? '100%' : height);
 	const computedWrapLabels = $derived(innerWidth < 768 ? true : wrapLabels);
 	const computedShowLegend = $derived(innerHeight < 900 ? false : showLegend);
 
@@ -48,7 +84,7 @@
 
 	const processedData = $derived(
 		data.map((d) => {
-			const obj = { ...d };
+			const obj: Record<string, any> = { ...d };
 			seriesNames.forEach((name) => {
 				obj[name] = +d[name];
 			});
@@ -63,15 +99,15 @@
 
 <div class="chart-container">
 	{#if title}
-		<h4>{title}</h4>
+		<h4 style="font-size: {titleFontSize}">{title}</h4>
 	{/if}
 
-	<div class="chart" style="min-height: {minHeight}">
+	<div class="chart" style="min-height: {minHeight}; height: {height};">
 		<LayerCake
 			position="absolute"
 			padding={computedPadding}
 			x={xKey}
-			y={(d) => d.data[yKey]}
+			y={(d: any) => d.data[yKey]}
 			z={zKey}
 			yScale={scaleBand().paddingInner(0.05)}
 			zScale={scaleOrdinal()}
@@ -128,6 +164,8 @@
 	}
 
 	.chart-container {
+		min-width: 1px;
+		min-height: 1px;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
@@ -145,13 +183,13 @@
 
 	h4 {
 		font-family: 'Inter', sans-serif;
-		font-size: 1.5rem;
 		color: var(--brandDarkBlue);
 		letter-spacing: -0.01em;
 		line-height: 120%;
 		font-weight: 300;
 		text-transform: uppercase;
 		max-width: 80ch;
+		margin: 0;
 	}
 
 	@media only screen and (min-width: 768px) {

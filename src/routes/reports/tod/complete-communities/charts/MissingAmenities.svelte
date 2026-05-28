@@ -1,9 +1,26 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import StackedBar from '../../../../lib/ui/charts/StackedBar.svelte';
 
-	let { visible } = $props();
-	let data = $state([]);
+	interface RawAmenityStatus {
+		Amenity: string;
+		Amenity_Status: 'Absent' | 'Present';
+		Percentage: number;
+		[key: string]: any;
+	}
+
+	interface ProcessedAmenityData {
+		Amenity: string;
+		Absent: number;
+		Present: number;
+	}
+
+	interface Props {
+		visible?: boolean;
+	}
+
+	let { visible = false }: Props = $props();
+	let data = $state<RawAmenityStatus[]>([]);
 
 	onMount(async () => {
 		let url =
@@ -13,12 +30,11 @@
 
 			data = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 	});
 
-	const processedData = $derived.by(() => {
-		// Pivot the data from long format to wide format for the StackedBar
+	const processedData = $derived.by<ProcessedAmenityData[]>(() => {
 		const amenities = [...new Set(data.map((d) => d.Amenity))];
 		return amenities
 			.map((amenity) => {

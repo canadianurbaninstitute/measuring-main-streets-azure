@@ -1,20 +1,50 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { median } from 'd3-array';
 	import { onMount } from 'svelte';
 	import ScatterChart from '../../../../lib/ui/charts/ScatterChart.svelte';
 
-	let { visible, tier = 'Core', highlightIds = $bindable([]), region = undefined } = $props();
+	interface RawDataItem {
+		w_population: number;
+		w_access: number;
+		stop_label: string;
+		region: string;
+		id: string | number;
+		w_access_tag?: string | number;
+		w_population_tag?: string | number;
+		[key: string]: any;
+	}
+
+	interface ProcessedDataItem extends RawDataItem {
+		x: number;
+		y: number;
+		label: string;
+		group: string;
+	}
+
+	interface Props {
+		visible?: boolean;
+		tier?: 'Core' | 'Additional';
+		highlightIds?: (string | number)[];
+		region?: string | undefined;
+	}
+
+	let {
+		visible = false,
+		tier = 'Core',
+		highlightIds = $bindable([]),
+		region = undefined
+	}: Props = $props();
+
 	let selectedRegion = $state('All');
 
-	// Allow the region to be controlled externally by props (e.g. from scrollytelling)
 	$effect(() => {
 		if (region) {
 			selectedRegion = region;
 		}
 	});
 
-	let initialData = $state([]);
+	let initialData = $state<RawDataItem[]>([]);
 	onMount(async () => {
 		let url = '';
 		if (tier === 'Core') {
@@ -29,11 +59,11 @@
 
 			initialData = await response.json();
 		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error instanceof Error ? error.message : error);
 		}
 	});
 
-	const processedData = $derived(
+	const processedData = $derived<ProcessedDataItem[]>(
 		initialData.map((d) => ({
 			...d,
 			x: d.w_population,
@@ -45,28 +75,27 @@
 
 	const colors = ['#000000', '#002940', '#2a5cac', '#43b171', '#f13737', '#f45d01', '#8a4285'];
 
-	const regions = $derived(['All', ...new Set(initialData.map((d) => d.region))]);
+	const regions = $derived<string[]>(['All', ...new Set(initialData.map((d) => d.region))]);
 
-	// Calculate fixed domains based on ALL data so the axes don't jump when filtering
-	const xDomainFixed = $derived.by(() => {
+	const xDomainFixed = $derived.by<[number, number]>(() => {
 		if (initialData.length === 0) return [0, 500];
 		return [0, Math.max(...initialData.map((d) => d.w_population)) * 1.05];
 	});
-	const yDomainFixed = $derived.by(() => {
+	const yDomainFixed = $derived.by<[number, number]>(() => {
 		if (initialData.length === 0) return [0, 500];
 		return [0, Math.max(...initialData.map((d) => d.w_access)) * 1.05];
 	});
 
 	const seriesConfig = $derived(
-		regions.map((region, i) => ({
-			key: region,
-			label: region,
+		regions.map((reg, i) => ({
+			key: reg,
+			label: reg,
 			color: colors[i % colors.length]
 		}))
 	);
 
-	const xMedian = $derived(median(processedData, (d) => d.x));
-	const yMedian = $derived(median(processedData, (d) => d.y));
+	const xMedian = $derived(median(processedData, (d) => d.x) ?? 0);
+	const yMedian = $derived(median(processedData, (d) => d.y) ?? 0);
 
 	const quadrantConfig = $derived({
 		xMid: xMedian,
@@ -92,8 +121,8 @@
 					highlightIds = [];
 				}}
 			>
-				{#each regions as region}
-					<option value={region}>{region}</option>
+				{#each regions as regionItem}
+					<option value={regionItem}>{regionItem}</option>
 				{/each}
 			</select>
 		</div>
@@ -105,7 +134,6 @@
 			bottom: 60,
 			left: 60
 		}}
-		minHeight={500}
 		data={processedData}
 		{seriesConfig}
 		xKey="x"
@@ -124,13 +152,10 @@
 		regionKey="region"
 		tooltipRows={[
 			{ key: 'w_access_tag', label: 'Access Score' },
-			{ key: 'w_population_tag', label: 'Population Score' },
-			{ key: 'id', label: 'ID' }
+			{ key: 'w_population_tag', label: 'Population Score' }
 		]}
 		xDomain={xDomainFixed}
 		yDomain={yDomainFixed}
-		formatX={(d) => d}
-		formatY={(d) => d}
 		pointRadius={3}
 	/>
 </div>

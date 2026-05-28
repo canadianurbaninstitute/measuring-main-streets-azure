@@ -1,6 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
+	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 	mapboxgl.accessToken =
@@ -60,7 +60,7 @@
 <div class="chart-container">
 	<h4>{title}</h4>
 
-	<div id={section} class="map" />
+	<div id={section} class="map"></div>
 </div>
 
 <style>
