@@ -8,7 +8,6 @@
 		transit_lines_source,
 		urban_form_comp_style
 	} from '../../lib/data/transitdata/config-mapbox.json';
-	// import stationMetrics from '../../lib/data/transitdata/station-metrics.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
 	import Combobox from '../../lib/ui/Combobox.svelte';
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
@@ -19,34 +18,46 @@
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
+	interface StationRaw {
+		id: string | number;
+		longitude: number;
+		latitude: number;
+		stop_label?: string;
+		[key: string]: any;
+	}
+
+	interface MapStationState {
+		data: StationRaw | null;
+		coords: number[];
+		circle: any;
+		bbox: any;
+	}
+
 	// Initialize maps
-	let map1;
-	let map2;
+	let map1 = $state<mapboxgl.Map>();
+	let map2 = $state<mapboxgl.Map>();
 
 	// Initial stations
-	let selectedStation1 = '573';
-	let selectedStation2 = '194';
+	let selectedStation1 = $state('573');
+	let selectedStation2 = $state('194');
 
-	let station1Metrics = [];
-	let station2Metrics = [];
+	let station1Metrics = $state<any>([]);
+	let station2Metrics = $state<any>([]);
 
-	let station1Data = [];
-	let station2Data = [];
+	let station1Data = $state<any>([]);
+	let station2Data = $state<any>([]);
 
 	// Convert line colours to Mapbox expression
 	const lineColorExpression = [
 		'match',
 		['get', 'line_id'],
-		...Object.entries(line_colors).flatMap(([id, color]) => [
-			[Number(id)], // Wrap the number in an array
-			color
-		]),
-		'#000000' // Fallback color
+		...Object.entries(line_colors).flatMap(([id, color]) => [[Number(id)], color]),
+		'#000000'
 	];
 
 	// Error messages for user display
-	let station1Error = '';
-	let station2Error = '';
+	let station1Error = $state('');
+	let station2Error = $state('');
 
 	// Station area radius in km
 	const radiusInKilometers = 0.8;
@@ -63,85 +74,80 @@
 		projection: 'mercator'
 	};
 
-	// Map data storage
-	const mapData = {
-		1: { data: {}, coords: [], circle: null, bbox: null },
-		2: { data: {}, coords: [], circle: null, bbox: null }
-	};
-
 	// For layer toggle
-	let greenspaceCheck: boolean;
-	let roadsCheck: boolean;
-	let transitCheck: boolean;
-	let stationCheck: boolean;
-	let parkingCheck: boolean;
-	let buildingsCheck: boolean;
-	let waterCheck: boolean;
+	let greenspaceCheck = $state(true);
+	let roadsCheck = $state(true);
+	let transitCheck = $state(true);
+	let stationCheck = $state(true);
+	let parkingCheck = $state(true);
+	let buildingsCheck = $state(true);
+	let waterCheck = $state(true);
 
-	// Data variables. Initialize as empty arrays.
-	let transitStationsDropdown = [];
-	let stationRawData = [];
-	let stationMetrics = [];
+	// Data variables
+	let transitStationsDropdown = $state<any[]>([]);
+	let stationRawData = $state<StationRaw[]>([]);
+	let stationMetrics = $state<any[]>([]);
 
-	// Create reactive station data from stationRawData.
-	$: stationsProcessed = stationRawData || [];
+	// Create reactive station data from stationRawData
+	const stationsProcessed = $derived(stationRawData || []);
 
-	// Create circle and bounding box for station
-	function updateStationData(mapIndex, selectedStationId) {
-		const stationData = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStationId
-		);
-		if (!stationData) {
-			console.warn(
-				`Station with ID "${selectedStationId}" not found in station data for map ${mapIndex}`
-			);
-			// Set a default empty fallback so that the page does not break
-			mapData[mapIndex] = { data: null, coords: [], circle: null, bbox: null };
-			return false;
-		}
-		const coords = [stationData.longitude, stationData.latitude];
-		const circle = turf.circle(coords, radiusInKilometers, {
-			steps: 128,
-			units: 'kilometers'
-		});
-		const bbox = turf.bbox(circle);
-		mapData[mapIndex] = { data: stationData, coords, circle, bbox };
-		return true;
-	}
+	// Compute station data reactively using $derived.by instead of mutating states inside effects
+	const mapData = $derived.by<Record<number, MapStationState>>(() => {
+		const getStationGeoState = (selectedId: string, mapIndex: number) => {
+			const stationData = stationsProcessed.find((station) => station.id.toString() === selectedId);
+			if (!stationData) {
+				return { data: null, coords: [], circle: null, bbox: null };
+			}
+			const coords = [stationData.longitude, stationData.latitude];
+			const circle = turf.circle(coords, radiusInKilometers, {
+				steps: 128,
+				units: 'kilometers'
+			});
+			const bbox = turf.bbox(circle);
+			return { data: stationData, coords, circle, bbox };
+		};
+
+		return {
+			1: getStationGeoState(selectedStation1, 1),
+			2: getStationGeoState(selectedStation2, 2)
+		};
+	});
 
 	// Handle station selection from combobox
-	function handleStation1Select(value) {
+	function handleStation1Select(value: any) {
 		const newStationId = value.toString();
-
-		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
+		const stationExists = stationsProcessed.find(
+			(station) => station.id.toString() === newStationId
+		);
 
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 1: Station not found in data`);
 			station1Error = 'Station data not available';
-			return; // Keep previous valid state
+			return;
 		}
 
-		station1Error = ''; // Clear error on successful selection
+		station1Error = '';
 		selectedStation1 = newStationId;
 	}
 
-	function handleStation2Select(value) {
+	function handleStation2Select(value: any) {
 		const newStationId = value.toString();
-		const stationExists = stationsProcessed.find((station) => station.id === newStationId);
+		const stationExists = stationsProcessed.find(
+			(station) => station.id.toString() === newStationId
+		);
 
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 2: Station not found in data`);
 			station2Error = 'Station data not available';
-			return; // Keep previous valid state
+			return;
 		}
 
-		station2Error = ''; // Clear error on successful selection
+		station2Error = '';
 		selectedStation2 = newStationId;
 	}
 
 	// Create map instances
-	function createMap(containerId) {
-		// Ensure the projection value matches the Mapbox typings by casting it to the expected type.
+	function createMap(containerId: string) {
 		const cfg = {
 			...mapConfig,
 			projection: mapConfig.projection as unknown as mapboxgl.Projection
@@ -154,8 +160,7 @@
 	}
 
 	// Add layers to map (transit, etc.)
-	function addMapLayers(map, allStationData, selectedStationData) {
-		// Add transit data sources
+	function addMapLayers(map: mapboxgl.Map, allStationData: any) {
 		map.addSource('transit-line-data', {
 			type: 'vector',
 			url: transit_lines_source.url
@@ -165,7 +170,6 @@
 			data: allStationData
 		});
 
-		// Add transit data layers
 		map.addLayer({
 			id: 'transit-lines',
 			type: 'line',
@@ -193,28 +197,10 @@
 				'circle-stroke-width': 2
 			}
 		});
-
-		// Add station radius source
-		// map.addSource('station-radius', {
-		// 	type: 'geojson',
-		// 	data: selectedStationData.circle
-		// });
-
-		// // Add station radius layer
-		// map.addLayer({
-		// 	id: 'station-radius',
-		// 	type: 'fill',
-		// 	source: 'station-radius',
-		// 	paint: {
-		// 		'fill-color': 'transparent',
-		// 		'fill-opacity': 1.0,
-		// 		'fill-outline-color': 'red'
-		// 	}
-		// });
 	}
 
 	// Update station styling for selected station
-	function updateStationStyling(map, selectedStationFilter) {
+	function updateStationStyling(map: mapboxgl.Map, selectedStationFilter: any) {
 		const styleUpdates = [
 			['circle-color', ['case', selectedStationFilter, '#FFFFFF', '#B8B8B8']],
 			['circle-stroke-color', ['case', selectedStationFilter, '#000000', '#949292']],
@@ -222,14 +208,18 @@
 		];
 
 		styleUpdates.forEach(([property, value]) => {
-			map.setPaintProperty('transit-station-points', property, value);
+			map.setPaintProperty(
+				'transit-station-points',
+				property as 'circle-color' | 'circle-stroke-color' | 'circle-stroke-width',
+				value as mapboxgl.ExpressionSpecification
+			);
 		});
 	}
 
 	// Update map for selected station
 	function updateMapWithStationData(
 		map: mapboxgl.Map | undefined,
-		stationData: any,
+		stationData: MapStationState,
 		options: {
 			radiusSourceId?: string;
 			stationLayerId?: string;
@@ -242,43 +232,34 @@
 			updateStylingCallback = null
 		} = options;
 
-		// Validate inputs
 		if (!map || !stationData) {
 			return;
 		}
 
 		const { data, circle, bbox, coords } = stationData;
 
-		// Check if map is loaded and has required data
 		if (!map.isStyleLoaded() || !data || !circle || !map.getLayer(stationLayerId)) {
 			return;
 		}
 
-		// Create filter for selected station
 		const selectedStationFilter = ['==', ['get', 'station_id'], data.id];
 
-		// Update the radius circle data if source exists
 		const source = map.getSource(radiusSourceId) as mapboxgl.GeoJSONSource | undefined;
 		if (source) {
-			// GeoJSONSource doesn't have perfect typings here, so cast to any for setData
 			(source as any).setData(circle);
 		}
 
-		// Update map bounds and center
 		if (bbox && coords) {
-			// set bounds AFTER setting center, otherwise the bounds may be off
-			map.setCenter(coords);
+			map.setCenter(coords as [number, number]);
 			map.fitBounds(bbox, { padding: 0 });
 		}
-		// Update station styling if callback is provided
 		if (updateStylingCallback && typeof updateStylingCallback === 'function') {
 			updateStylingCallback(map, selectedStationFilter);
 		}
 	}
 
 	// Handle layer toggles
-	function mapLayerToggle(map, layerVisibilityConfig) {
-		// Check if map is ready and all required layers exist
+	function mapLayerToggle(map: mapboxgl.Map | undefined, layerVisibilityConfig: any) {
 		const requiredLayers = [
 			'greenspace',
 			'transit-lines',
@@ -290,16 +271,14 @@
 		];
 
 		if (!map || !map.isStyleLoaded()) {
-			return false; // Map not ready
+			return false;
 		}
 
-		// Check if all required layers exist
 		const allLayersExist = requiredLayers.every((layerId) => map.getLayer(layerId));
 		if (!allLayersExist) {
-			return false; // Not all layers are loaded yet
+			return false;
 		}
 
-		// Update individual layer visibility
 		map.setLayoutProperty(
 			'greenspace',
 			'visibility',
@@ -326,8 +305,7 @@
 			layerVisibilityConfig.buildings ? 'visible' : 'none'
 		);
 
-		// Handle road layers (multiple layers with source-layer = 'road')
-		const roadLayers = map.getStyle().layers.filter((layer) => layer['source-layer'] === 'road'); // Get all layers with source-layer = road
+		const roadLayers = map.getStyle().layers.filter((layer) => layer['source-layer'] === 'road');
 		roadLayers.forEach((layer) => {
 			map.setLayoutProperty(
 				layer.id,
@@ -336,110 +314,89 @@
 			);
 		});
 
-		// Handle water layers
 		const waterLayers = ['water', 'waterway'];
 		waterLayers.forEach((layer) => {
-			map.setLayoutProperty(layer, 'visibility', layerVisibilityConfig.water ? 'visible' : 'none');
+			if (map.getLayer(layer)) {
+				map.setLayoutProperty(
+					layer,
+					'visibility',
+					layerVisibilityConfig.water ? 'visible' : 'none'
+				);
+			}
 		});
 
-		return true; // Successfully updated
+		return true;
 	}
 
-	// Station data will be that already loaded
-	// const stationsProcessed = stationRawData; // Now handled reactively
-
-	// Map 1
-	$: if (selectedStation1 && mapData[1] && stationsProcessed.length > 0) {
-		const updateSuccess = updateStationData(1, selectedStation1);
-		if (updateSuccess) {
-			station1Error = '';
-			updateMapWithStationData(map1, mapData[1], {
-				updateStylingCallback: updateStationStyling
-			});
-			station1Metrics = stationMetrics.find(
-				(station) => station.id.toString() === selectedStation1
-			);
-			station1Data = stationsProcessed.find(
-				(station) => station.id.toString() === selectedStation1
-			);
-			if (!station1Metrics) {
-				console.warn(`Metrics not found for station "${selectedStation1}" (Map 1)`);
+	// Safe isolated effect mapping down to Mapbox views
+	$effect(() => {
+		if (stationsProcessed.length > 0) {
+			// Map 1 side effects execution
+			if (mapData[1].data) {
+				station1Error = '';
+				updateMapWithStationData(map1, mapData[1], {
+					updateStylingCallback: updateStationStyling
+				});
+				station1Metrics = stationMetrics.find(
+					(station) => station.id.toString() === selectedStation1
+				);
+				station1Data = mapData[1].data;
+			} else {
+				station1Error = 'Station data not available';
 			}
-		} else {
-			station1Error = 'Station data not available';
-		}
-	}
 
-	// Map 2
-	$: if (selectedStation2 && mapData[2] && stationsProcessed.length > 0) {
-		const updateSuccess = updateStationData(2, selectedStation2);
-		if (updateSuccess) {
-			station2Error = '';
-			updateMapWithStationData(map2, mapData[2], {
-				updateStylingCallback: updateStationStyling
-			});
-			station2Metrics = stationMetrics.find(
-				(station) => station.id.toString() === selectedStation2
-			);
-			station2Data = stationsProcessed.find(
-				(station) => station.id.toString() === selectedStation2
-			);
-			if (!station2Metrics) {
-				console.warn(`Metrics not found for station "${selectedStation2}" (Map 2)`);
+			// Map 2 side effects execution
+			if (mapData[2].data) {
+				station2Error = '';
+				updateMapWithStationData(map2, mapData[2], {
+					updateStylingCallback: updateStationStyling
+				});
+				station2Metrics = stationMetrics.find(
+					(station) => station.id.toString() === selectedStation2
+				);
+				station2Data = mapData[2].data;
+			} else {
+				station2Error = 'Station data not available';
 			}
-		} else {
-			station2Error = 'Station data not available';
 		}
-	}
-	// Add layer toggles
-	// Map 1
-	$: mapLayerToggle(map1, {
-		greenspace: greenspaceCheck,
-		transit: transitCheck,
-		parking: parkingCheck,
-		stations: stationCheck,
-		roads: roadsCheck,
-		buildings: buildingsCheck,
-		water: waterCheck
-	});
-	// Map 2
-	$: mapLayerToggle(map2, {
-		greenspace: greenspaceCheck,
-		transit: transitCheck,
-		parking: parkingCheck,
-		stations: stationCheck,
-		roads: roadsCheck,
-		buildings: buildingsCheck,
-		water: waterCheck
 	});
 
-	// Validate initial stations
-	let initialStationsValidated = false;
+	// Isolated Layer visibility rendering effect
+	$effect(() => {
+		const activeVisibility = {
+			greenspace: greenspaceCheck,
+			transit: transitCheck,
+			parking: parkingCheck,
+			stations: stationCheck,
+			roads: roadsCheck,
+			buildings: buildingsCheck,
+			water: waterCheck
+		};
 
-	$: if (!initialStationsValidated && stationsProcessed.length > 0) {
-		const station1Exists = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStation1
-		);
-		const station2Exists = stationsProcessed.find(
-			(station) => station.id.toString() === selectedStation2
-		);
+		mapLayerToggle(map1, activeVisibility);
+		mapLayerToggle(map2, activeVisibility);
+	});
 
-		if (!station1Exists) {
-			console.error(
-				`Initial station "${selectedStation1}" for Map 1 not found in data. Using first available station.`
+	// State verification fallbacks
+	let initialStationsValidated = $state(false);
+	$effect(() => {
+		if (!initialStationsValidated && stationsProcessed.length > 0) {
+			const station1Exists = stationsProcessed.find(
+				(station) => station.id.toString() === selectedStation1
 			);
-			selectedStation1 = stationsProcessed[0]?.id.toString() || '1';
-		}
-
-		if (!station2Exists) {
-			console.error(
-				`Initial station "${selectedStation2}" for Map 2 not found in data. Using second available station.`
+			const station2Exists = stationsProcessed.find(
+				(station) => station.id.toString() === selectedStation2
 			);
-			selectedStation2 = stationsProcessed[1]?.id.toString() || '2';
-		}
 
-		initialStationsValidated = true;
-	}
+			if (!station1Exists && stationsProcessed[0]) {
+				selectedStation1 = stationsProcessed[0].id.toString();
+			}
+			if (!station2Exists && stationsProcessed[1]) {
+				selectedStation2 = stationsProcessed[1].id.toString();
+			}
+			initialStationsValidated = true;
+		}
+	});
 
 	onMount(async () => {
 		try {
@@ -448,7 +405,10 @@
 			);
 			transitStationsDropdown = await response.json();
 		} catch (error) {
-			console.error('Error fetching station dropdown data:', error);
+			console.error(
+				'Error fetching station dropdown data:',
+				error instanceof Error ? error.message : error
+			);
 		}
 
 		try {
@@ -457,7 +417,10 @@
 			);
 			stationRawData = await response.json();
 		} catch (error) {
-			console.error('Error fetching map station data:', error);
+			console.error(
+				'Error fetching map station data:',
+				error instanceof Error ? error.message : error
+			);
 		}
 
 		try {
@@ -466,22 +429,12 @@
 			);
 			stationMetrics = await response.json();
 		} catch (error) {
-			console.error('Error fetching built form metric data:', error);
+			console.error(
+				'Error fetching built form metric data:',
+				error instanceof Error ? error.message : error
+			);
 		}
 
-		// Initialize data
-		updateStationData(1, selectedStation1);
-		updateStationData(2, selectedStation2);
-
-		greenspaceCheck = true;
-		roadsCheck = true;
-		transitCheck = true;
-		stationCheck = true;
-		parkingCheck = true;
-		buildingsCheck = true;
-		waterCheck = true;
-
-		// Convert station data to geojson
 		const stationGeojson = {
 			type: 'FeatureCollection',
 			features: stationRawData.map((point) => ({
@@ -497,27 +450,22 @@
 			}))
 		};
 
-		// Create maps
 		map1 = createMap('map1');
 		map2 = createMap('map2');
 
-		// Load first map
 		map1.on('load', () => {
-			// Add layers
-			addMapLayers(map1, stationGeojson, mapData[1]);
+			addMapLayers(map1!, stationGeojson);
 			if (mapData[1].coords && mapData[1].bbox) {
-				map1.setCenter(mapData[1].coords);
-				map1.fitBounds(mapData[1].bbox, { padding: 0 });
+				map1!.setCenter(mapData[1].coords as [number, number]);
+				map1!.fitBounds(mapData[1].bbox, { padding: 0 });
 			}
 		});
 
-		// Load second map
 		map2.on('load', () => {
-			// Add layers
-			addMapLayers(map2, stationGeojson, mapData[2]);
+			addMapLayers(map2!, stationGeojson);
 			if (mapData[2].coords && mapData[2].bbox) {
-				map2.setCenter(mapData[2].coords);
-				map2.fitBounds(mapData[2].bbox, { padding: 0 });
+				map2!.setCenter(mapData[2].coords as [number, number]);
+				map2!.fitBounds(mapData[2].bbox, { padding: 0 });
 			}
 		});
 	});
@@ -533,16 +481,11 @@
 			>School of Cities</a
 		>.
 	</p>
-	<p class="text-sm mt-4">
-		<em>This tool is in beta.</em>
-	</p>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-fit mx-auto">
-	<!-- Display first map -->
 	<div class="flex flex-col items-center">
 		<div class="w-80 py-2 mx-auto my-auto">
-			<!-- Station dropdown selection -->
 			<Combobox
 				handleSelect={handleStation1Select}
 				data={transitStationsDropdown}
@@ -559,10 +502,8 @@
 		<div id="map1"></div>
 	</div>
 
-	<!-- Display second map -->
 	<div class="flex flex-col items-center">
 		<div class="w-80 py-2 mx-auto my-auto">
-			<!-- Station dropdown selection -->
 			<Combobox
 				handleSelect={handleStation2Select}
 				data={transitStationsDropdown}
@@ -604,8 +545,8 @@
 		width: 450px;
 		height: 100%;
 		min-height: 450px;
-		border-radius: 50%; /* Circular frame */
-		overflow: hidden; /* Clip map to circle */
+		border-radius: 50%;
+		overflow: hidden;
 		border: 2px solid #d3d3d3;
 		padding: 20px;
 	}

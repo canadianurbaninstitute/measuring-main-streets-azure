@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
+	import '../../styles.css';
 
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';

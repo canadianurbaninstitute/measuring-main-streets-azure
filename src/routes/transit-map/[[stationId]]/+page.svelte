@@ -12,10 +12,11 @@
 	import { driver } from 'driver.js';
 	import 'driver.js/dist/driver.css';
 	import { onMount, untrack } from 'svelte';
-	import {
-		TIER_1_AMENITIES,
-		TIER_2_AMENITIES
-	} from '../../lib/data/transitdata/complete-communities-config';
+	import
+		{
+			TIER_1_AMENITIES,
+			TIER_2_AMENITIES
+		} from '../../lib/data/transitdata/complete-communities-config';
 	import { age, bed, dwelling, housing, owner } from '../../lib/data/transitdata/config.json';
 	import type { Station } from '../../lib/data/transitdata/stations';
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
@@ -1062,7 +1063,7 @@
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-blue-600/10 data-[state=inactive]:text-blue-600 data-[state=inactive]:border-1 data-[state=inactive]:border-blue-600/30 
 							data-[state=inactive]:hover:bg-blue-600/50
 							data-[state=active]:bg-blue-600 data-[state=active]:border-none data-[state=active]:text-white"
-							value="built-form">Built Form & Development Potential</Tabs.Trigger
+							value="built-form">Built Form & Housing Development Potential</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-green-400/10 data-[state=inactive]:text-green-600 data-[state=inactive]:border-1 data-[state=inactive]:border-green-400/30 

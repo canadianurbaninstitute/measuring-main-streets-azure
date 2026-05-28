@@ -109,7 +109,7 @@
 		</div>
 	</div>
 
-	<div id={section} class="map" />
+	<div id={section} class="map"></div>
 
 	<Legend
 		minlabel={'Low'}

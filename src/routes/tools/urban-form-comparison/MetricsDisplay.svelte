@@ -1,8 +1,26 @@
 <script lang="ts">
-	export let station1Data;
-	export let station2Data;
-	export let station1Metrics;
-	export let station2Metrics;
+	interface StationData {
+		stop_label: string;
+		line_display_name: string;
+		region: string;
+		status: string;
+	}
+
+	interface StationMetrics {
+		greenspace_pct?: number;
+		water_pct?: number;
+		building_pct?: number;
+		parking_pct?: number;
+	}
+
+	interface Props {
+		station1Data: StationData | null | undefined;
+		station2Data: StationData | null | undefined;
+		station1Metrics: StationMetrics | null | undefined;
+		station2Metrics: StationMetrics | null | undefined;
+	}
+
+	let { station1Data, station2Data, station1Metrics, station2Metrics }: Props = $props();
 </script>
 
 {#if station1Data && station2Data && station1Metrics && station2Metrics}

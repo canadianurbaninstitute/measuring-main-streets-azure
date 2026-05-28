@@ -4,7 +4,7 @@
 	import { tick } from 'svelte';
 	import Accordion from '../lib/ui/Accordion.svelte';
 	import '../styles.css';
-	// Logos
+// Logos
 	import canada_logo from '../lib/assets/logos/canada_color.png';
 	import catch_logo from '../lib/assets/logos/catch_color.png';
 	import dps_logo from '../lib/assets/logos/DPS-logo-black.png';
@@ -12,7 +12,7 @@
 	import ii_logo from '../lib/assets/logos/ii-logo.png';
 	import opennorth_logo from '../lib/assets/logos/opennorth_color.png';
 	import soc_logo from '../lib/assets/logos/uotsoc_color.png';
-	// Assets
+// Assets
 	import mainstreets from '../lib/assets/graphics/mainstreets.svg';
 	import montreal_bg from '../lib/assets/graphics/montreal-bg.png';
 	import vancouver_bg from '../lib/assets/graphics/vancouver-bg.png';
@@ -361,7 +361,7 @@
 								</ul>
 								<p>
 									Phase Two focuses on answering these questions by building on the data and tools
-									created in Phase One. It explores demographics, development potential, and
+									created in Phase One. It explores demographics, housing development potential, and
 									community amenities in transit station areas (TSAs) to make the case, not just for
 									transit-oriented development, but for transit-oriented complete communities.
 								</p>

@@ -63,7 +63,7 @@
 			{ value: 'Tier_2_presence', label: 'Additional Complete Community Score' },
 			{ value: 'Overall_score', label: 'Overall Complete Community Score' }
 		],
-		'Development Potential': [
+		'Housing Development Potential': [
 			{ value: 'DevelopmentPotentialScore', label: 'Development Potential Score', format: ',.0f' },
 			{ value: 'LandAvailability', label: 'Land Availability Score', format: ',.1f' },
 			{ value: 'DisplacementRisk', label: 'Displacement Risk Score', format: ',.1f' },
@@ -210,7 +210,6 @@
 				}
 				return row;
 			});
-			console.log('Development potential data loaded:', dataSources.developmentData);
 		} catch (error) {
 			console.error(
 				'Error fetching development potential data:',
