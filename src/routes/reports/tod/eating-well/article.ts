@@ -8,7 +8,8 @@ export const sections = [
 			{
 				id: 'market-concentration',
 				label: 'Figure 1 – Stores owned or affiliated with Loblaws, Sobeys, or Metro ',
-				source: '<a href="https://competition-bureau.canada.ca/sites/default/files/img/2023/20230623-grocery-report-figure-1.jpg" target="_blank">Competition Bureau of Canada (2023)</a>'
+				source:
+					'<a href="https://competition-bureau.canada.ca/sites/default/files/img/2023/20230623-grocery-report-figure-1.jpg" target="_blank">Competition Bureau of Canada (2023)</a>'
 			}
 		],
 		blocks: [
@@ -31,6 +32,7 @@ export const sections = [
 		]
 	},
 	{
+		layout: 'inline',
 		panels: [
 			{
 				id: 'transit-food-access',
@@ -133,7 +135,8 @@ export const sections = [
 			},
 			{
 				eyebrow: 'Municipalities',
-				heading: 'Enable the development of affordable grocers in priority neighbourhoods and transit station areas ',
+				heading:
+					'Enable the development of affordable grocers in priority neighbourhoods and transit station areas ',
 				body: `<h6>For public grocers, prioritize their initial placement in neighbourhoods that need them the most.</h6>
 				<p>While the introduction of affordable grocery alternatives over time will benefit all communities, as municipalities begin to pilot public grocery stores they must be prioritized in areas with the lowest food access. These neighbourhoods will have lower-than-average household incomes and likely higher rates of racialized populations. These are also the same groups likely to be transit-dependent, and who would benefit the most from transit investment.</p>
 				<h6>Reduce financial barriers for public grocers and food co-ops.</h6>
@@ -142,7 +145,8 @@ export const sections = [
 				<p>Community Improvement Plans are a planning tool used by municipalities to provide direct-to-business financial supports, such as pre-development and development grants. These grants can be used for feasibility and market studies, construction, and renovation. The delineation of Community Improvement Plan areas can be drawn to include the overlap between transit station areas and underserved neighbourhoods.</p>`
 			},
 			{
-				heading: 'Facilitating the creation of public grocers and food co-ops isn’t about replacing corporate grocers.',
+				heading:
+					'Facilitating the creation of public grocers and food co-ops isn’t about replacing corporate grocers.',
 				body: '<p>It’s about introducing more choice to the benefit of Canadians, addressing market failures, reducing grocery prices, and getting our communities closer to securing their right to food. </p>'
 			}
 		]
