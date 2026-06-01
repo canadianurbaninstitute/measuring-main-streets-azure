@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-ignore-next-line
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import {
 		AverageEmploymentIncome,
@@ -42,7 +43,7 @@
 				id={metric.key}
 				label={metric.label}
 				active={selectedVariable === metric.key}
-				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+				onclick={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
 				value={metric.unit === '$'
 					? metric.unit + Math.round(selectedStation[metric.key]).toLocaleString()
 					: Math.round(selectedStation[metric.key]).toLocaleString()}
@@ -72,8 +73,13 @@
 				seriesConfig={[{ key: 'growth', label: 'Growth Rate', color: 'var(--color-green-400)' }]}
 				formatLabelX={(d: Date) => d.getFullYear().toString()}
 				formatLabelY={(d: number) => d.toFixed(0) + '%'}
-				formatValue={({ d, key }: { d: number; key: string }) =>
-					(key === 'growth' ? d.toFixed(2) + '%' : key === 'period' ? d : d) as string}
+				formatValue={(value: any) => {
+					if (value && typeof value === 'object') {
+						const { d, key } = value as { d: number; key: string };
+						return key === 'growth' ? d.toFixed(2) + '%' : String(d);
+					}
+					return String(value);
+				}}
 				yDomain={[0, 40]}
 				ticks={popGrowthData.map((d) => new Date(d.date))}
 				showLegend={false}

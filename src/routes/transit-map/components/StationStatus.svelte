@@ -1,13 +1,20 @@
 <script lang="ts">
-	let { selectedStation } = $props();
+	import type { ProcessedStation } from '../../lib/data/transitdata/stations';
+
+	interface Props {
+		selectedStation: ProcessedStation;
+	}
+
+	let { selectedStation }: Props = $props();
+
+	const splitTrim = (value: unknown) =>
+		typeof value === 'string' ? value.split(',').map((s) => s.trim()) : [];
 </script>
 
 <div id="station-container">
 	<div>
 		<div id="transit-logos">
-			{#each selectedStation.line_id ? selectedStation.line_id
-						.split(',')
-						.map((s) => s.trim()) : [] as lineId}
+			{#each splitTrim(selectedStation.line_id) as lineId}
 				<img src={`/transit-logos/${lineId}.svg`} alt="transit-logo" class="transit-logo" />
 			{/each}
 		</div>

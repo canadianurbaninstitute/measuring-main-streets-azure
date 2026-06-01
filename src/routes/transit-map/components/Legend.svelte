@@ -5,16 +5,41 @@
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
 	} from '../../lib/data/transitdata/complete-communities-config';
-	import config from '../../lib/data/transitdata/config.json';
+	import type { MetricDefinition, SingleMetric } from '../../lib/data/transitdata/config';
+	import configData from '../../lib/data/transitdata/config.json';
 	import Accordion from '../../lib/ui/Accordion.svelte';
 	import LegendAbsolute from '../../lib/ui/legends/LegendAbsolute.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
-	let { activeTab, map, selectedVariable, min, max, missingTier1, missingTier2 } = $props();
-	let toggledValues = $state({});
-	// Use an explicit string to track which tier is expanded
-	let expandedTier = $state('tier1');
 
-	// Helper to handle accordion logic explicitly
+	interface AmenityItem {
+		label: string;
+		color?: string;
+		[key: string]: any;
+	}
+
+	interface ConfigEntry {
+		label: string;
+		unit?: string;
+		[key: string]: any;
+	}
+
+	interface Props {
+		activeTab: string;
+		map: any;
+		selectedVariable: string | null | undefined;
+		min: number | undefined;
+		max: number | undefined;
+		missingTier1: AmenityItem[];
+		missingTier2: AmenityItem[];
+	}
+
+	let { activeTab, map, selectedVariable, min, max, missingTier1, missingTier2 }: Props = $props();
+
+	const config = configData as MetricDefinition;
+
+	let toggledValues = $state<Record<string, any>>({});
+	let expandedTier = $state<'tier1' | 'tier2'>('tier1');
+
 	function setExpandedTier(tier: 'tier1' | 'tier2') {
 		expandedTier = tier;
 	}
@@ -22,8 +47,8 @@
 
 {#if map && (selectedVariable || activeTab === 'housing' || activeTab === 'employment' || activeTab === 'complete-communities' || activeTab === 'built-form')}
 	<LegendAbsolute>
-		{#if selectedVariable && min !== max}
-			<h6 class="font-semibold mb-1">{config[selectedVariable]?.label}</h6>
+		{#if selectedVariable && min !== max && config[selectedVariable]}
+			<h6 class="font-semibold mb-1">{(config[selectedVariable] as SingleMetric).label}</h6>
 			<div class="flex flex-col gap-2 mb-2">
 				<div
 					class="w-full h-4 rounded"
@@ -32,21 +57,22 @@
 				<div>
 					<div class="flex justify-between w-full text-xs">
 						{#each [{ label: min ?? 0 }, { label: max ?? 0 }] as item}
-							<span
-								>{config[selectedVariable]?.unit === '$'
+							<span>
+								{(config[selectedVariable] as SingleMetric).unit === '$'
 									? Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(
 											item.label
 										)
-									: item.label}</span
-							>
+									: item.label}
+							</span>
 						{/each}
 					</div>
-					{#if config[selectedVariable]?.unit && config[selectedVariable]?.unit !== '$'}
-						<span class="italic text-xs">({config[selectedVariable]?.unit})</span>
+					{#if (config[selectedVariable] as SingleMetric).unit && (config[selectedVariable] as SingleMetric).unit !== '$'}
+						<span class="italic text-xs">({(config[selectedVariable] as SingleMetric).unit})</span>
 					{/if}
 				</div>
 			</div>
 		{/if}
+
 		{#if activeTab === 'housing'}
 			<Accordion open={true}>
 				<div class="inline-header" slot="header">
@@ -69,23 +95,11 @@
 						filterProperty="BU_USE"
 						filterValue="Residential"
 					/>
-					<!-- <LegendItem
-						{map}
-						bind:toggledValues
-						id="all-nar"
-						variant="circle"
-						label="Non-Residential"
-						bgcolor="#00adf2"
-						bordercolor="#fff"
-						button={true}
-						useFilter={true}
-						filterProperty="BU_USE"
-						filterValue="Non-Residential"
-					/> -->
 					<div class="text-xs italic">Size = Number of Units</div>
 				</div>
 			</Accordion>
 		{/if}
+
 		{#if activeTab === 'employment'}
 			<Accordion open={true}>
 				<div class="inline-header" slot="header">
@@ -129,6 +143,7 @@
 				</div>
 			</Accordion>
 		{/if}
+
 		{#if activeTab === 'built-form'}
 			<Accordion open={true}>
 				<div class="inline-header" slot="header">
@@ -153,6 +168,7 @@
 				</div>
 			</Accordion>
 		{/if}
+
 		{#if activeTab === 'complete-communities'}
 			<Accordion open={true}>
 				<div class="inline-header" slot="header">
@@ -163,8 +179,7 @@
 				<div class="accordion-body" slot="body">
 					<div class="text-xs mb-2"><i>Click on a layer to turn it on or off</i></div>
 
-					<!-- Tier 1 Section -->
-					<Accordion open={expandedTier === 'tier1'} onToggle={() => setExpandedTier('tier1')}>
+					<Accordion open={expandedTier === 'tier1'} on:toggle={() => setExpandedTier('tier1')}>
 						<div
 							slot="header"
 							class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
@@ -177,7 +192,6 @@
 								bind:toggledValues
 								id="complete-community-amenities"
 								variant="circle"
-								featuretype="icon"
 								label="Toggle All Core Amenities"
 								bgcolor="#003f5e"
 								bordercolor="#fff"
@@ -191,7 +205,6 @@
 									{map}
 									bind:toggledValues
 									variant="circle"
-									featuretype="icon"
 									label={amenity.label}
 									bgcolor={amenity.color}
 									icon={AMENITY_ICONS[amenity.label]}
@@ -207,8 +220,7 @@
 						</div>
 					</Accordion>
 
-					<!-- Tier 2 Section -->
-					<Accordion open={expandedTier === 'tier2'} onToggle={() => setExpandedTier('tier2')}>
+					<Accordion open={expandedTier === 'tier2'} on:toggle={() => setExpandedTier('tier2')}>
 						<div
 							slot="header"
 							class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
@@ -216,13 +228,11 @@
 							Additional Amenities<Icon icon="iconoir:nav-arrow-down" />
 						</div>
 						<div slot="body" class="p-1">
-							<!-- Bulk Toggle for all Tier 2 -->
 							<LegendItem
 								{map}
 								bind:toggledValues
 								id="complete-community-amenities"
 								variant="circle"
-								featuretype="icon"
 								label="Toggle All Additional Amenities"
 								bgcolor="#2a5cac"
 								bordercolor="#fff"
@@ -237,7 +247,6 @@
 									bind:toggledValues
 									id="complete-community-amenities"
 									variant="circle"
-									featuretype="icon"
 									label={amenity.label}
 									bgcolor="#2a5cac"
 									icon={AMENITY_ICONS[amenity.label]}

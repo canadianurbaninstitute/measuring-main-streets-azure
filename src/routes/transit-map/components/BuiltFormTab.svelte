@@ -61,7 +61,7 @@
 				<TransitMetric
 					label={metric.label + (metric.unit ? ' (' + metric.unit + ')' : '')}
 					active={selectedVariable === metric.key}
-					on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+					onclick={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
 					value={Math.round(selectedStation[metric.key]).toLocaleString()}
 					icon={metric.icon}
 				/>

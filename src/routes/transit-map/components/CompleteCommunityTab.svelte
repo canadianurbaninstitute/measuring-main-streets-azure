@@ -51,7 +51,7 @@
 				disabled
 				label={metric.label}
 				active={selectedVariable === metric.key}
-				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+				onclick={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
 				value={stationVisitorData && stationVisitorData[metric.key]
 					? Math.round(stationVisitorData[metric.key]).toLocaleString()
 					: selectedStation && selectedStation[metric.key]
@@ -65,7 +65,7 @@
 		<TransitMetric
 			label={BusinessCount.label}
 			active={selectedVariable === BusinessCount.key}
-			on:click={() =>
+			onclick={() =>
 				onSelectVariable(selectedVariable !== BusinessCount.key ? BusinessCount.key : null)}
 			value={Math.round(selectedStation[BusinessCount.key]).toLocaleString()}
 			icon={BusinessCount.icon}

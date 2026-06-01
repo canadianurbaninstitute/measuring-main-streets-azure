@@ -1,4 +1,5 @@
 <script lang="ts">
+	//@ts-ignore-next-line
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import {
 		HouseValue,
@@ -27,7 +28,7 @@
 			<TransitMetric
 				label={metric.label}
 				active={selectedVariable === metric.key}
-				on:click={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
+				onclick={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
 				value={metric.unit === '$'
 					? metric.unit + Math.round(selectedStation[metric.key]).toLocaleString()
 					: Math.round(selectedStation[metric.key]).toLocaleString()}

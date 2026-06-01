@@ -7,7 +7,7 @@
 	interface Props {
 		label: string;
 		variant: 'circle' | 'polygon' | 'line';
-		bgcolor: string;
+		bgcolor?: string;
 		bordercolor?: string;
 		button?: boolean;
 		disabled?: boolean;

@@ -10,6 +10,26 @@
 	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
 	import Legend from './Legend.svelte';
+
+	interface Props {
+		selectedVariable: string | null | undefined;
+		min: number | undefined;
+		max: number | undefined;
+		activeTab: string;
+		updateLayerVariable: (variable: string | null | undefined) => void;
+		statusFilters: string[];
+		technologyFilters: string[];
+		map: mapboxgl.Map | undefined;
+		mapCenter: [number, number];
+		defaultZoom: number;
+		processedStationData: any[];
+		selectStop: (stop: any) => void;
+		selectRegion: (region: any) => void;
+		regionsData: any[];
+		missingTier1: any[];
+		missingTier2: any[];
+	}
+
 	let {
 		selectedVariable,
 		min,
@@ -27,9 +47,8 @@
 		regionsData,
 		missingTier1,
 		missingTier2
-	} = $props();
+	}: Props = $props();
 
-	// --- Mapbox Access Token ---
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
@@ -39,7 +58,6 @@
 	});
 
 	onMount(async () => {
-		// add map
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: transit_map_style.url,
@@ -58,9 +76,10 @@
 				customAttribution: 'Canadian Urban Institute'
 			})
 		);
-		// add map sources and layers
+
 		map.on('load', () => {
-			// Add transit sources
+			if (!map) return;
+
 			map.addSource('transit-station-data', {
 				type: 'vector',
 				url: transit_stations_source.url
@@ -73,7 +92,6 @@
 				type: 'vector',
 				url: transit_regions_source.url
 			});
-			// Add mask source
 			map.addSource('circle-mask', {
 				type: 'geojson',
 				data: {
@@ -81,7 +99,6 @@
 					features: []
 				}
 			});
-			// Add circle source
 			map.addSource('circle', {
 				type: 'geojson',
 				data: {
@@ -94,7 +111,6 @@
 				url: da_map_source.url
 			});
 
-			// Add layers
 			map.addLayer({
 				id: 'transit-lines',
 				type: 'line',
@@ -123,35 +139,9 @@
 				'source-layer': transit_stations_source.source_layer,
 				paint: {
 					'circle-color': '#fff',
-					'circle-radius': [
-						'interpolate',
-						['linear'],
-						['zoom'],
-						6,
-						0, // Zoom level, radius
-						7,
-						2,
-						10,
-						3,
-						12,
-						6,
-						14,
-						10
-					],
+					'circle-radius': ['interpolate', ['linear'], ['zoom'], 6, 0, 7, 2, 10, 3, 12, 6, 14, 10],
 					'circle-stroke-color': '#000',
-					'circle-stroke-width': [
-						'interpolate',
-						['linear'],
-						['zoom'],
-						6,
-						0, // Zoom level, width
-						7,
-						0.8,
-						10,
-						1.5,
-						13,
-						2
-					]
+					'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 6, 0, 7, 0.8, 10, 1.5, 13, 2]
 				},
 				minzoom: 6
 			});
@@ -160,7 +150,7 @@
 				type: 'fill',
 				source: 'circle-mask',
 				paint: {
-					'fill-color': '#ffffff', // match your background color
+					'fill-color': '#ffffff',
 					'fill-opacity': 0.8
 				}
 			});
@@ -192,12 +182,10 @@
 				maxzoom: 5
 			});
 
-			//hide complete community amenities layer initially
 			map.setPaintProperty('complete-community-amenities', 'icon-opacity', 0);
 
-			// click function for transit layers
-			map.on('click', 'transit-stations', (e) => {
-				if (e.features.length > 0) {
+			map.on('click', 'transit-stations', (e: any) => {
+				if (e.features && e.features.length > 0) {
 					const stationId = e.features[0].properties.id;
 					const stationDataForClick = processedStationData.find((s) => s.id === stationId);
 					if (stationDataForClick) {
@@ -205,21 +193,23 @@
 					}
 				}
 			});
-			// click function for transit region points
-			map.on('click', 'transit-region-points', (e) => {
-				const regionId = e.features[0].properties.id;
-				const regionClicked = regionsData.find((r) => r.id === regionId);
-				selectRegion(regionClicked);
+
+			map.on('click', 'transit-region-points', (e: any) => {
+				if (e.features && e.features.length > 0) {
+					const regionId = e.features[0].properties.id;
+					const regionClicked = regionsData.find((r) => r.id === regionId);
+					selectRegion(regionClicked);
+				}
 			});
 
 			map.on('zoom', () => {
+				if (!map) return;
 				if (map.getLayer('da')) {
 					updateLayerVariable(selectedVariable);
 				}
 			});
 		});
 
-		// show popups on hover
 		const popup = new mapboxgl.Popup({
 			closeButton: false,
 			closeOnClick: false
@@ -232,7 +222,7 @@
 			closeOnClick: false
 		});
 
-		popup.addClassName('line-popup');
+		popup2.addClassName('line-popup');
 
 		const popup3 = new mapboxgl.Popup({
 			closeButton: false,
@@ -242,39 +232,27 @@
 		popup3.addClassName('region-popup');
 
 		map.on('mouseenter', ['transit-stations', 'transit-lines', 'transit-region-points'], () => {
-			map.getCanvas().style.cursor = 'pointer';
+			if (map) map.getCanvas().style.cursor = 'pointer';
 		});
 
-		map.on('mousemove', 'transit-stations', (e) => {
-			if (e.features.length > 0) {
+		map.on('mousemove', 'transit-stations', (e: any) => {
+			if (map && e.features && e.features.length > 0) {
 				const coordinates = e.lngLat;
 				const name = e.features[0].properties.stop_label;
 
-				popup
-					.setLngLat(coordinates)
-					.setHTML(
-						`
-                <span class="label-name">${name}</span>
-            			`
-					)
-					.addTo(map);
+				popup.setLngLat(coordinates).setHTML(`<span class="label-name">${name}</span>`).addTo(map);
 			}
 		});
 
-		map.on('mousemove', 'transit-region-points', (e) => {
-			if (e.features.length > 0) {
+		map.on('mousemove', 'transit-region-points', (e: any) => {
+			if (map && e.features && e.features.length > 0) {
 				const coordinates = e.lngLat;
 				const name = e.features[0].properties.region;
 
 				if (map.getZoom() <= 5) {
-					// only show pop-up if map is zoomed out
 					popup3
 						.setLngLat(coordinates)
-						.setHTML(
-							`
-					<span class="label-name">${name}</span>
-							`
-						)
+						.setHTML(`<span class="label-name">${name}</span>`)
 						.addTo(map);
 				}
 			}
@@ -293,14 +271,13 @@
 		});
 
 		map.on('mouseleave', ['transit-stations', 'transit-lines', 'transit-region-points'], () => {
-			map.getCanvas().style.cursor = '';
+			if (map) map.getCanvas().style.cursor = '';
 		});
 	});
 
-	// --- Filter/Tab UI Handlers ---
 	function applyFilters() {
-		if (!map) return; // <-- Prevents the crash
-		const filterConditions = [];
+		if (!map) return;
+		const filterConditions: any[] = [];
 
 		if (statusFilters.length) {
 			filterConditions.push([
@@ -329,23 +306,20 @@
 		const combinedFilter = filterConditions.length ? ['all', ...filterConditions] : null;
 
 		const layers = ['transit-stations', 'transit-lines'];
-		if (!layers || layers.length === 0) return;
+		if (layers.length === 0) return;
 
 		layers.forEach((layer) => {
-			if (map.getLayer(layer)) {
+			if (map?.getLayer(layer)) {
 				map.setFilter(layer, combinedFilter);
 			}
 		});
 	}
-	// Convert line colours to Mapbox expression
+
 	const lineColorExpression = [
 		'match',
 		['get', 'line_id'],
-		...Object.entries(line_colors).flatMap(([id, color]) => [
-			[Number(id)], // Wrap the number in an array
-			color
-		]),
-		'#000000' // Fallback color
+		...Object.entries(line_colors).flatMap(([id, color]) => [Number(id), color]),
+		'#000000'
 	];
 </script>
 

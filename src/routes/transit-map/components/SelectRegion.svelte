@@ -1,6 +1,33 @@
 <script lang="ts">
+	import type Fuse from 'fuse.js';
+	import type { ProcessedStation } from '../../lib/data/transitdata/stations';
+	import type {
+		Region,
+		TransitLine,
+		TransitLineWithContext
+	} from '../../lib/data/transitdata/transit-regions';
+
+	interface Props {
+		searchTerm: string;
+		selectRegion: (region: Region) => void;
+		selectLine: (line: any) => void;
+		selectStop: (stop: ProcessedStation) => void;
+		regionsFuse: Fuse<Region> | undefined;
+		linesFuse: Fuse<TransitLineWithContext> | undefined;
+		stopsFuse: Fuse<ProcessedStation> | undefined;
+		regionsData: Region[];
+		activeLine: TransitLine | null | undefined;
+		activeRegion: Region | null | undefined;
+		processedStationData: ProcessedStation[];
+	}
+
+	type SidebarItem =
+		| (Region & { type: 'region' })
+		| (TransitLine & { type: 'line' })
+		| (ProcessedStation & { type: 'stop' });
+
 	let {
-		searchTerm = $bindable(),
+		searchTerm = $bindable(''),
 		selectRegion,
 		selectLine,
 		selectStop,
@@ -11,15 +38,14 @@
 		activeLine = $bindable(),
 		activeRegion = $bindable(),
 		processedStationData
-	} = $props();
+	}: Props = $props();
 
-	// --- Search/Sidebar Selection Functions ---
-	function selectRegionFromSearch(region) {
+	function selectRegionFromSearch(region: Region) {
 		searchTerm = '';
 		selectRegion(region);
 	}
 
-	function selectLineFromSearch(line) {
+	function selectLineFromSearch(line: TransitLineWithContext) {
 		searchTerm = '';
 		const parentRegion = regionsData.find((r) => r.id === line.regionId);
 		if (parentRegion) {
@@ -28,33 +54,33 @@
 		selectLine(line);
 	}
 
-	function selectStopFromSearch(stop) {
+	function selectStopFromSearch(stop: ProcessedStation) {
 		searchTerm = '';
 		selectStop(stop);
 	}
 
-	function performSearch(query) {
+	function performSearch(query: string) {
 		if (!query.trim()) {
 			return {
-				regions: [],
-				lines: [],
-				stops: []
+				regions: [] as (Region & { type: 'region' })[],
+				lines: [] as (TransitLineWithContext & { type: 'line' })[],
+				stops: [] as (ProcessedStation & { type: 'stop' })[]
 			};
 		}
 
-		const regions = regionsFuse.search(query).map((result) => ({
+		const regions = regionsFuse?.search(query).map((result) => ({
 			...result.item,
-			type: 'region'
+			type: 'region' as const
 		}));
 
-		const lines = linesFuse.search(query).map((result) => ({
+		const lines = linesFuse?.search(query).map((result) => ({
 			...result.item,
-			type: 'line'
+			type: 'line' as const
 		}));
 
-		const stops = stopsFuse.search(query).map((result) => ({
+		const stops = stopsFuse?.search(query).map((result) => ({
 			...result.item,
-			type: 'stop'
+			type: 'stop' as const
 		}));
 
 		return { regions, lines, stops };
@@ -64,23 +90,21 @@
 		searchTerm ? performSearch(searchTerm) : { regions: [], lines: [], stops: [] }
 	);
 
-	// --- Reactive Logic with Fuse.js search library ---
-
-	let sidebarDisplayItems = $derived.by(() => {
+	let sidebarDisplayItems = $derived.by<SidebarItem[]>(() => {
 		if (searchTerm) {
 			return [];
 		} else if (activeLine) {
 			return processedStationData
-				.filter((s) => s.line_ids_array && s.line_ids_array.includes(activeLine.id))
-				.map((s) => ({ ...s, type: 'stop' }))
+				.filter((s) => s.line_ids_array && s.line_ids_array.includes(activeLine.id as number))
+				.map((s) => ({ ...s, type: 'stop' as const }))
 				.sort((a, b) => (a.stop_label || '').localeCompare(b.stop_label || ''));
 		} else if (activeRegion) {
 			return activeRegion.lines
-				.map((l) => ({ ...l, type: 'line' }))
+				.map((l) => ({ ...l, type: 'line' as const }))
 				.sort((a, b) => a.name.localeCompare(b.name));
 		} else {
 			return regionsData
-				.map((r) => ({ ...r, type: 'region' }))
+				.map((r) => ({ ...r, type: 'region' as const }))
 				.sort((a, b) => a.name.localeCompare(b.name));
 		}
 	});
@@ -88,7 +112,7 @@
 
 <div class="navigation-scroll-container">
 	{#if searchTerm}
-		{#if searchResults.regions.length > 0}
+		{#if searchResults?.regions?.length ?? 0 > 0}
 			<div class="nav-section-header">Regions</div>
 			<ul class="nav-list">
 				{#each searchResults.regions as item (item.id)}
@@ -98,7 +122,7 @@
 				{/each}
 			</ul>
 		{/if}
-		{#if searchResults.lines.length > 0}
+		{#if searchResults?.lines?.length ?? 0 > 0}
 			<div class="nav-section-header">Lines</div>
 			<ul class="nav-list">
 				{#each searchResults.lines as item (item.id)}
@@ -108,7 +132,7 @@
 				{/each}
 			</ul>
 		{/if}
-		{#if searchResults.stops.length > 0}
+		{#if searchResults?.stops?.length ?? 0 > 0}
 			<div class="nav-section-header">Stops</div>
 			<ul class="nav-list">
 				{#each searchResults.stops as item (item.id)}
@@ -119,18 +143,20 @@
 				{/each}
 			</ul>
 		{/if}
-		{#if searchResults.regions.length === 0 && searchResults.lines.length === 0 && searchResults.stops.length === 0}
+		{#if searchResults?.regions?.length === 0 && searchResults?.lines?.length === 0 && searchResults?.stops?.length === 0}
 			<p class="no-results">No results found.</p>
 		{/if}
 	{:else}
 		<ul class="nav-list">
-			{#each sidebarDisplayItems as item (item.id || item.stop_label)}
+			{#each sidebarDisplayItems as item (item.id)}
 				{#if item.type === 'region'}
 					<button onclick={() => selectRegion(item)} class="nav-item region-item">
 						{item.name}
 					</button>
 				{:else if item.type === 'line'}
-					<button onclick={() => selectLine(item)} class="nav-item line-item">{item.name}</button>
+					<button onclick={() => selectLine(item)} class="nav-item line-item">
+						{item.name}
+					</button>
 				{:else if item.type === 'stop'}
 					<button onclick={() => selectStop(item)} class="nav-item stop-item">
 						{item.stop_label}

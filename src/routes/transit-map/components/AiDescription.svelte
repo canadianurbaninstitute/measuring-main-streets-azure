@@ -1,9 +1,24 @@
-<script>
+<script lang="ts">
 	import { Accordion } from 'bits-ui';
 	import CaretDown from 'phosphor-svelte/lib/CaretDown';
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
-	let { selectedStation, aiDescriptions, activeTab, isOpen = $bindable() } = $props();
+	import type { Station } from '../../lib/data/transitdata/stations';
+
+	interface AIDescription {
+		id: string;
+		description: string;
+	}
+
+	interface Props {
+		selectedStation: Station;
+		aiDescriptions: AIDescription[];
+		activeTab: string;
+		isOpen?: boolean;
+	}
+
+	let { selectedStation, aiDescriptions, activeTab, isOpen = $bindable(false) }: Props = $props();
+
 	const description = $derived(
 		aiDescriptions?.find((desc) => desc?.id === selectedStation?.id)?.description ?? ''
 	);
@@ -21,9 +36,8 @@
 		class="ai-description-container rounded-md mx-4 my-2 bg-gray-50 border border-gray-200"
 	>
 		<Accordion.Root
-			value={isOpen ? 'desc' : null}
+			value={isOpen ? 'desc' : undefined}
 			type="single"
-			collapsible
 			onValueChange={(val) => (isOpen = val === 'desc')}
 		>
 			<Accordion.Item value="desc" class="group">
