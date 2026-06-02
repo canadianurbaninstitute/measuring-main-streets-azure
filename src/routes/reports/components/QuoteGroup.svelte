@@ -24,10 +24,10 @@
 		gap: 0.5rem;
 		width: 100%;
 		max-width: 1000px;
-		height: 100%;
+		height: 90%;
 		margin: 0 auto;
-		padding: 1rem;
-		overflow-y: auto;
+		padding: 0.5rem;
+		overflow-y: hidden;
 	}
 
 	.quote-group :global(.quote-container) {

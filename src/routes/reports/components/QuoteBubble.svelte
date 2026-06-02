@@ -33,7 +33,7 @@
 
 	<div class="bubble">
 		<div class="quote-mark open">“</div>
-		<p class="quote-text">{text}</p>
+		<p class="quote-text">“{text}”</p>
 		<div class="quote-mark close">”</div>
 	</div>
 

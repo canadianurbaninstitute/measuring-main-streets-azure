@@ -63,11 +63,8 @@ export const sections = [
 			{
 				panelId: 'design',
 				heading: 'Creating the Design',
-				body: `<p>The <em>Love Your Neighbourhood</em> tool meets residents where they are through tailoring content by awareness level to build understanding, surface genuine
-                community priorities, and equip people with the knowledge and strategies to advocate for the neighbourhoods they want.</p>
-				<p>The tool adapts to each resident's familiarity with complete communities, using factoid and narrative content to build awareness progressively.
-                As understanding grows, norming content helps surface what residents truly value in their neighbourhoods, feeding directly into the program's goal of 
-                collecting genuine community priorities. From there, residents are equipped with targeted advocacy strategies so they can champion the changes they want to see.</p>`
+				body: `<p>The <em>Love Your Neighbourhood</em> provides an online experience where people can learn how their neighbourhoods are changing and share their perspectives on what they value in those changes. It uses interactive prompts to surface how residents think about tradeoffs and priorities and offers opportunities to explore topics in more or less depth depending on interest.</p>
+				<p>The experience introduces themes related to transit-oriented development, complete communities, and neighbourhood change—such as housing, mobility, and public space—and allows users to reflect on and compare different possible futures. It supports the expression of preferences, tradeoffs, and ideas for what they would like to see in their communities.</p>`
 			}
 		]
 	}
