@@ -7,6 +7,7 @@
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
 	import Scroller from '../../components/Scroller.svelte';
+	import type { Block, VisConfigItem } from '../../components/Template';
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
@@ -23,7 +24,7 @@
 	// Reactive state
 	let selectedRegion = $state('greater_golden_horseshoe');
 
-	const getVisConfig = (currentSelectedRegion) => ({
+	const getVisConfig = (currentSelectedRegion: string): Record<string, VisConfigItem> => ({
 		'market-concentration': {
 			type: 'image',
 			src: marketConcentrationImg,
@@ -67,7 +68,7 @@
 
 	const steps = sections.flatMap((section, si) => {
 		const defaultId = section.panels[0]?.id;
-		return section.blocks.map((block) => {
+		return section.blocks.map((block: Block) => {
 			const pid = block.panelId ?? defaultId;
 			const valid = section.panels.some((p) => p.id === pid);
 			return {
@@ -160,7 +161,7 @@
 		description3="and must be integrated into transit station area planning and development."
 	/>
 
-	{#snippet renderPanel(uid, isVisible)}
+	{#snippet renderPanel(uid: string, isVisible: boolean)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{#if panel}
 			<VisPanel visible={isVisible} label={panel.label ?? ''} source={panel.source ?? ''}>
@@ -169,7 +170,13 @@
 						src={panel.config.src}
 						alt={panel.config.alt}
 						caption={panel.config.caption ?? ''}
-						fit={panel.config.fit}
+						fit={panel.config.fit as
+							| 'fill'
+							| 'none'
+							| 'contain'
+							| 'cover'
+							| 'scale-down'
+							| undefined}
 						aspect={panel.config.aspect}
 					/>
 				{:else if panel.config?.type === 'component'}
@@ -201,8 +208,11 @@
 									body={block.body}
 									cta={block.cta}
 									showInlineVisual={block.panelUid &&
-										(block.globalStepIndex === 0 ||
-											steps[block.globalStepIndex - 1].panelUid !== block.panelUid)}
+									(block.globalStepIndex === 0 ||
+										steps[block.globalStepIndex ?? -1].panelUid !==
+											steps[(block.globalStepIndex ?? -1) - 1].panelUid)
+										? true
+										: false}
 								>
 									{#snippet inlineVisual()}
 										{@render renderPanel(block.panelUid, true)}
@@ -263,47 +273,60 @@
 <style>
 	.inline-article {
 		max-width: 65ch;
-		margin: 4em auto;
 		padding: 0 1rem;
 		display: flex;
 		flex-direction: column;
-		gap: 3rem;
+		margin: auto;
 	}
 
 	.inline-section {
 		display: flex;
 		flex-direction: column;
-		gap: 2rem;
 	}
 
 	.inline-heading {
+		margin-top: 3rem;
 		margin-bottom: 1.5rem;
+		font-size: 2.2rem;
+		color: #1e293b;
 	}
 
 	.inline-body {
 		margin-bottom: 2rem;
-	}
-
-	:global(.inline-body > h6) {
-		margin-bottom: 0.5rem;
+		font-size: 1.15rem;
+		line-height: 1.7;
+		color: #334155;
 	}
 
 	.inline-cta {
 		margin-bottom: 2rem;
 	}
 
-	/* Force VisPanel to behave appropriately in inline contexts if needed */
-	:global(.vis-panel) {
-		transition:
-			opacity 0.3s ease,
-			transform 0.3s ease;
+	.inline-vis-container {
+		width: calc(100cqi);
+		margin-left: calc(-50cqi + 50%);
+		margin-bottom: 2rem;
+		display: flex;
+		justify-content: center;
+		padding: 3rem 1rem;
+		background-color: #f8fafc;
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		min-height: 40vh;
 	}
 
-	@media (max-width: 1024px) {
-		.inline-article {
-			margin: 2em auto;
-			padding: 0 1.5rem;
-		}
+	.inline-vis-container.multi-vis {
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
+		align-items: stretch;
+	}
+
+	.inline-vis-item {
+		flex: 1 1;
+		display: flex;
+		flex-direction: column;
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */
@@ -314,7 +337,40 @@
 		transform: none !important;
 		pointer-events: auto !important;
 		width: 100%;
-		height: auto;
+		height: 100%;
 		min-height: 400px;
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.inline-vis-container {
+			padding: 2rem 0;
+			min-height: auto;
+		}
+
+		.inline-vis-container.multi-vis {
+			flex-direction: column;
+		}
+
+		.inline-vis-item {
+			flex: 0 0 auto;
+			width: 100%;
+			max-width: none;
+			display: flex;
+		}
+
+		.inline-vis-container :global(.vis-panel) {
+			padding: 1rem;
+			height: auto;
+			min-height: 400px;
+		}
 	}
 </style>
