@@ -372,9 +372,8 @@
 									/>
 								</div>
 								<p>
-									In round two of funding, CUI's partners included Environics Analytics, the School
-									of Cities at the University of Toronto, Digital Public Square, and the Canadian
-									Alliance for Transit-Connected Housing.
+									In round two of funding, CUI's partners were Environics Analytics, the School of
+									Cities at the University of Toronto, and Digital Public Square.
 								</p>
 								<div class="partner-logos-grid">
 									<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
@@ -390,6 +389,9 @@
 									<a href="https://digitalpublicsquare.org/" target="_blank">
 										<img src={dps_logo} alt="Digital Public Square" />
 									</a>
+								</div>
+								<p class="contributions-label">With contributions by</p>
+								<div class="partner-logos-grid">
 									<a href="https://catch-rehac.ca/" target="_blank">
 										<img src={catch_logo} alt="CATCH" />
 									</a>
@@ -415,7 +417,17 @@
 							<Icon icon={teamResilienceOpen ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
-							<h4 class="mb-6">Team Members</h4>
+							<p class="contributions-label">Partners</p>
+							<div class="partner-logos-grid">
+								<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
+								<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
+									<img src={environics_logo} alt="Environics Analytics" />
+								</a>
+								<a href="https://opennorth.ca/" target="_blank">
+									<img src={opennorth_logo} alt="Open North" />
+								</a>
+							</div>
+							<h4 class="mt-8 mb-6">Team Members</h4>
 							<div class="card-grid">
 								<ContactCard
 									link="https://canurb.org/team/gregory-spencer/"
@@ -493,15 +505,6 @@
 									description="Universe Design Studio"
 								/>
 							</div>
-							<div class="partner-logos-grid">
-								<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
-								<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
-									<img src={environics_logo} alt="Environics Analytics" />
-								</a>
-								<a href="https://opennorth.ca/" target="_blank">
-									<img src={opennorth_logo} alt="Open North" />
-								</a>
-							</div>
 						</div>
 					</Accordion>
 
@@ -512,7 +515,32 @@
 							<Icon icon={teamTodOpen ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
-							<h4 class="mb-6">Team Members</h4>
+							<p class="contributions-label">Partners</p>
+							<div class="partner-logos-grid">
+								<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
+								<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
+									<img src={environics_logo} alt="Environics Analytics" />
+								</a>
+								<a href="https://schoolofcities.utoronto.ca/" target="_blank">
+									<img src={soc_logo} alt="School of Cities" />
+								</a>
+								<a href="https://infrastructureinstitute.ca/" target="_blank">
+									<img src={ii_logo} alt="Infrastructure Institute" />
+								</a>
+								<a href="https://digitalpublicsquare.org/" target="_blank">
+									<img src={dps_logo} alt="Digital Public Square" />
+								</a>
+							</div>
+							<p class="contributions-label mt-8">With contributions by</p>
+							<div class="partner-logos-grid">
+								<a href="https://catch-rehac.ca/" target="_blank">
+									<img src={catch_logo} alt="CATCH" />
+								</a>
+								<a href="https://gnowise.com/" target="_blank">
+									<img src={gnowise} alt="Gnowise" />
+								</a>
+							</div>
+							<h4 class="mt-8 my-6">Team Members</h4>
 							<div class="card-grid">
 								<ContactCard
 									link="https://canurb.org/team/gregory-spencer/"
@@ -756,28 +784,6 @@
 									title="Santiago Zuluaga Mayorga"
 									description="Postdoctoral Fellow"
 								/>
-							</div>
-
-							<div class="partner-logos-grid">
-								<img src={canada_logo} alt="Housing, Infrastructure and Communities Canada" />
-								<a href="https://environicsanalytics.com/en-ca/home" target="_blank">
-									<img src={environics_logo} alt="Environics Analytics" />
-								</a>
-								<a href="https://schoolofcities.utoronto.ca/" target="_blank">
-									<img src={soc_logo} alt="School of Cities" />
-								</a>
-								<a href="https://infrastructureinstitute.ca/" target="_blank">
-									<img src={ii_logo} alt="Infrastructure Institute" />
-								</a>
-								<a href="https://digitalpublicsquare.org/" target="_blank">
-									<img src={dps_logo} alt="Digital Public Square" />
-								</a>
-								<a href="https://catch-rehac.ca/" target="_blank">
-									<img src={catch_logo} alt="CATCH" />
-								</a>
-								<a href="https://gnowise.com/" target="_blank">
-									<img src={gnowise} alt="Gnowise" />
-								</a>
 							</div>
 						</div>
 					</Accordion>
@@ -1041,6 +1047,15 @@
 		background: #f9f9f9;
 		padding: 2rem;
 		border-radius: 8px;
+	}
+
+	.contributions-label {
+		text-align: center;
+		font-size: 0.8rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #999;
 	}
 
 	.partner-logos-grid img {
