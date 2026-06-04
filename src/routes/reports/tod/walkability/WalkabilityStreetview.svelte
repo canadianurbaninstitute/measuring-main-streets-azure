@@ -1,31 +1,39 @@
-<script>
-	import { onMount } from 'svelte';
-	// Get key gracefully if set, or warn missing.
+<script lang="ts">
 	import { env } from '$env/dynamic/public';
 	import Icon from '@iconify/svelte';
 	import chroma from 'chroma-js';
+	import { onMount } from 'svelte';
 
-	let { coords, properties, onClose, id, inline = false } = $props();
+	interface Props {
+		coords: { lng: number; lat: number };
+		properties: Record<string, any>;
+		id: string | number;
+		onClose?: () => void;
+		inline?: boolean;
+	}
 
-	let panoContainer;
-	let panorama;
+	let { coords, properties, onClose = () => {}, id, inline = false }: Props = $props();
+
+	let panoContainer: HTMLDivElement;
+	let panorama: any;
 	let showDetails = $state(false);
 
-	// Scale from user requirement: 0 (green) -> 50 (yellow) -> 100 (red)
-	// Mapbox scores seem to be 0-5 scale based on the data, let's normalize or use fixed domains
 	const colorScale = chroma
 		.scale(['#8b1b1d', '#ff9c2c', '#eeee00', '#74c800', '#13612c'])
 		.domain([0.5, 1.375, 2.25, 3.125, 4]);
 
-	const getScoreColor = (score) => colorScale(score || 0).hex();
+	const getScoreColor = (score: number): string => (colorScale(score || 0) as any).hex();
+
+	const w = typeof window !== 'undefined' ? (window as any) : null;
 
 	onMount(() => {
-		// Define the initMap callback on the global window object before loading script
-		window.initStreetView = () => {
-			if (panoContainer && coords) {
+		if (!w) return;
+
+		w.initStreetView = () => {
+			if (panoContainer && coords && w.google?.maps?.StreetViewPanorama) {
 				const position = { lat: coords.lat, lng: coords.lng };
 
-				panorama = new google.maps.StreetViewPanorama(panoContainer, {
+				panorama = new w.google.maps.StreetViewPanorama(panoContainer, {
 					position: position,
 					pov: {
 						heading: properties?.heading || 165,
@@ -39,8 +47,7 @@
 			}
 		};
 
-		// Only load the script if the Google Maps API isn't already present
-		if (!window.google || !window.google.maps) {
+		if (!w.google || !w.google.maps) {
 			const apiKey = env.PUBLIC_GOOGLE_MAPS_API_KEY;
 
 			if (!apiKey) {
@@ -56,14 +63,12 @@
 			script.defer = true;
 			document.head.appendChild(script);
 		} else {
-			// If already loaded by another component, just fire the initialization
-			window.initStreetView();
+			w.initStreetView();
 		}
 
 		return () => {
-			// Cleanup global callback
-			if (window.initStreetView) {
-				delete window.initStreetView;
+			if (w && w.initStreetView) {
+				delete w.initStreetView;
 			}
 		};
 	});
@@ -149,7 +154,6 @@
 	.streetview-container {
 		width: 300px;
 		max-width: 85vw;
-		/* max-height: 75vh; */
 	}
 
 	.inline-card {
@@ -157,24 +161,6 @@
 		max-width: none !important;
 		max-height: none !important;
 	}
-
-	/* Force Streetview container to be more compact on very short screens */
-	/* @media (max-height: 700px) {
-		:global(.streetview-container div.h-40),
-		:global(.streetview-container div.sm\:h-48) {
-			height: 4rem !important;
-		}
-		.streetview-container {
-			width: 280px;
-		}
-	} */
-
-	/* @media (max-height: 500px) {
-		:global(.streetview-container div.h-40),
-		:global(.streetview-container div.sm\:h-48) {
-			display: none !important; 
-		}
-	} */
 
 	.custom-scrollbar::-webkit-scrollbar {
 		width: 4px;

@@ -1,35 +1,38 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { backOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
-	export let label = '';
-	export let value;
-	export let icon = '';
-	export let iconcolor = '#002a41';
-	export let prefix = '';
-	export let suffix = '';
-	export let accordion = false;
-	export let active = false;
-	export let disabled = false;
-	export let id = '';
 
-	let container;
-	let visible = true; // set to false and uncomment below if you want to enable the fade in
+	interface Props {
+		label?: string;
+		value: string | number;
+		icon?: string;
+		iconcolor?: string;
+		prefix?: string;
+		suffix?: string;
+		accordion?: boolean;
+		active?: boolean;
+		disabled?: boolean;
+		id?: string;
+		onclick?: (event: MouseEvent) => void;
+	}
 
-	// onMount(() => {
-	// 	const observer = new IntersectionObserver(
-	// 		(entries) => {
-	// 			entries.forEach((entry) => {
-	// 				visible = entry.isIntersecting;
-	// 			});
-	// 		},
-	// 		{ threshold: 0.1 }
-	// 	);
+	let {
+		label = '',
+		value,
+		icon = '',
+		iconcolor = '#002a41',
+		prefix = '',
+		suffix = '',
+		accordion = false,
+		active = false,
+		disabled = false,
+		id = '',
+		onclick
+	}: Props = $props();
 
-	// 	if (container) observer.observe(container);
-
-	// 	return () => observer.disconnect();
-	// });
+	let container: HTMLDivElement | undefined = $state();
+	let visible = $state(true);
 </script>
 
 <div {id} class="metric-wrapper" bind:this={container}>
@@ -38,7 +41,7 @@
 			{disabled}
 			class="metric"
 			class:active
-			on:click
+			{onclick}
 			in:fly={{ y: 20, duration: 800, easing: backOut }}
 		>
 			<div class="text">
@@ -55,7 +58,6 @@
 <style>
 	.metric-wrapper {
 		width: 100%;
-		/* min-height: 50px; */
 		flex-grow: 1;
 	}
 	.metric {

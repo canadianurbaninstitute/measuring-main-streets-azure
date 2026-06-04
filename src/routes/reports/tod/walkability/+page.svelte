@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import methodologyImg from '../../../lib/assets/graphics/methodology.svg';
 	import dataImg from '../../../lib/assets/graphics/walkability-data.svg';
 	import '../../../styles.css';
@@ -10,11 +10,11 @@
 	import mapboxgl from 'mapbox-gl';
 	import { mount, onMount, unmount } from 'svelte';
 	import trainIcon from '../../../lib/assets/graphics/train-long.svg';
+	import type { Station } from '../../../lib/data/transitdata/stations';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import ProgressBar from '../../components/ProgressBar.svelte';
-
-	import { stations as initialStations } from './stations.js';
-	import { steps } from './steps.js';
+	import { stations as initialStations } from './stations';
+	import { steps } from './steps';
 
 	// Hardcoded station target list from requirements
 	let stations = $state([...initialStations]);
@@ -29,7 +29,7 @@
 
 			// Update only coordinates so we preserve the placeholder names before fetch resolves
 			stations = stations.map((s) => {
-				const match = allStations.find((station) => station.id === s.id);
+				const match = allStations.find((station: Station) => station.id === s.id);
 				if (match) {
 					return {
 						id: s.id,
@@ -45,10 +45,10 @@
 		}
 	});
 
-	let map = $state(null);
-	let activeStationId = $state(null);
-	let activePopupId = $state(null);
-	let activePopup = null;
+	let map = $state<mapboxgl.Map | null>(null);
+	let activeStationId = $state<string | null>(null);
+	let activePopupId = $state<string | number | null>(null);
+	let activePopup: mapboxgl.Popup | null = null;
 
 	let methodologyOpen = $state(true);
 	let citationsOpen = $state(false);
@@ -57,10 +57,10 @@
 		.filter((step) => step.title)
 		.map((step) => ({
 			id: step.stationId,
-			title: step.title.replace(' Station Area', '')
+			title: step.title?.replace(' Station Area', '')
 		}));
 
-	const scrollToStation = (id) => {
+	const scrollToStation = (id: string) => {
 		const section = document.querySelector(`section[data-station-id="${id}"]`);
 		if (section) {
 			section.scrollIntoView({ behavior: 'smooth' });
@@ -68,9 +68,11 @@
 	};
 
 	let activeStepIndex = $state(0);
-	let featuredData = $state({});
+	let featuredData = $state<
+		Record<number, { properties: Record<string, any>; coords: { lng: number; lat: number } }>
+	>({});
 
-	function handleMapLoaded(m, currentStationId) {
+	function handleMapLoaded(m: mapboxgl.Map, currentStationId: string) {
 		// When a map for a station loads, scan all steps for that station for featured points
 		steps.forEach((step, i) => {
 			if (step.stationId === currentStationId && step.triggerPopupId) {
@@ -83,11 +85,12 @@
 					});
 
 					if (features.length > 0) {
+						const geom = features[0].geometry as GeoJSON.Point;
 						featuredData[i] = {
-							properties: features[0].properties,
+							properties: features[0].properties ?? {},
 							coords: {
-								lng: features[0].geometry.coordinates[0],
-								lat: features[0].geometry.coordinates[1]
+								lng: geom.coordinates[0],
+								lat: geom.coordinates[1]
 							}
 						};
 					} else {
@@ -105,8 +108,9 @@
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						if (entry.target.dataset.stepIndex) {
-							activeStepIndex = Number(entry.target.dataset.stepIndex);
+						const el = entry.target as HTMLElement;
+						if (el.dataset.stepIndex) {
+							activeStepIndex = Number(el.dataset.stepIndex);
 						}
 					}
 				});
@@ -122,15 +126,16 @@
 	});
 
 	const progressBarItems = $derived.by(() => {
-		const nav = [{ type: 'anchor', id: 'header-section', label: 'Introduction' }];
+		const nav: { type: 'anchor'; id: string; label: string }[] = [
+			{ type: 'anchor', id: 'header-section', label: 'Introduction' }
+		];
 
 		steps.forEach((step, i) => {
 			if (step.title) {
 				nav.push({
 					type: 'anchor',
 					id: `step-${i}`,
-					label: step.title.replace(' Station Area', ''),
-					stepIndex: i
+					label: step.title.replace(' Station Area', '')
 				});
 			}
 		});
@@ -144,19 +149,19 @@
 	let isMobile = $derived(innerWidth < 1024);
 
 	let activeStation = $derived(stations.find((s) => s.id === activeStationId));
-	let activeCoords = $derived(
+	let activeCoords = $derived<[number, number] | null>(
 		activeStation && activeStation.lng && activeStation.lat
 			? [activeStation.lng, activeStation.lat]
 			: null
 	);
 
 	// Handle intersection events to move map and trigger popups
-	function handleSectionIntersect(node) {
+	function handleSectionIntersect(node: HTMLElement) {
 		const stationId = node.dataset.stationId;
 		const popupId = node.dataset.popupId;
 
 		// Always update active station to trigger flyTo if changed
-		activeStationId = stationId;
+		activeStationId = stationId ?? null;
 
 		if (popupId && !isMobile) {
 			openPopupById(popupId);
@@ -170,7 +175,7 @@
 		if (map && activeStationId) {
 			const station = stations.find((s) => s.id === activeStationId);
 			if (station && station.lng && station.lat) {
-				map.flyTo({
+				map?.flyTo({
 					center: [station.lng, station.lat],
 					zoom: 14,
 					padding: {
@@ -187,15 +192,32 @@
 	});
 
 	// Handle Map Point Clicks
-	function handlePointClick({ lng, lat, properties, mapInstance, point, id }) {
+	function handlePointClick({
+		lng,
+		lat,
+		properties,
+		mapInstance,
+		point,
+		id
+	}: {
+		lng: number;
+		lat: number;
+		properties: Record<string, any>;
+		mapInstance: mapboxgl.Map;
+		point: mapboxgl.Point;
+		id: string | number | undefined;
+	}) {
 		if (activePopup) {
 			activePopup.remove();
 		}
 
 		// Highlight the point
 		const targetMap = mapInstance || map;
-		if (targetMap && targetMap.getSource('selected-station')) {
-			targetMap.getSource('selected-station').setData({
+		const selectedSource = targetMap?.getSource('selected-station') as
+			| mapboxgl.GeoJSONSource
+			| undefined;
+		if (selectedSource) {
+			selectedSource.setData({
 				type: 'FeatureCollection',
 				features: [
 					{
@@ -232,7 +254,7 @@
 			props: {
 				coords: { lng, lat },
 				properties: properties,
-				id: id,
+				id: id ?? '',
 				onClose: () => {
 					if (activePopup) activePopup.remove();
 				}
@@ -264,11 +286,9 @@
 			activePopup = null;
 			activePopupId = null;
 			const targetMap = mapInstance || map;
-			if (targetMap && targetMap.getSource('selected-station')) {
-				targetMap.getSource('selected-station').setData({
-					type: 'FeatureCollection',
-					features: []
-				});
+			const src = targetMap?.getSource('selected-station') as mapboxgl.GeoJSONSource | undefined;
+			if (src) {
+				src.setData({ type: 'FeatureCollection', features: [] });
 			}
 		});
 	}
@@ -279,8 +299,8 @@
 		}
 	}
 
-	let lastRequestedPopupId = null;
-	function openPopupById(id) {
+	let lastRequestedPopupId: number | null = null;
+	function openPopupById(id: string) {
 		if (!map || !id) return;
 		const parsedId = parseInt(id);
 		lastRequestedPopupId = parsedId;
@@ -293,26 +313,26 @@
 			if (lastRequestedPopupId !== parsedId) return;
 
 			// Search for the feature by ID in the specific layer
-			const features = map.queryRenderedFeatures({
+			const features = map?.queryRenderedFeatures({
 				layers: ['station-analysis-points-expla-c0bvk5'],
 				filter: ['==', ['id'], parsedId]
 			});
 
-			if (features.length > 0) {
+			if (features?.length && features.length > 0) {
 				const feature = features[0];
-				const coordinates = feature.geometry.coordinates.slice();
-				const point = map.project(coordinates);
+				const [lng, lat] = (feature.geometry as GeoJSON.Point).coordinates as [number, number];
+				const point = map!.project([lng, lat]);
 
 				handlePointClick({
-					lng: coordinates[0],
-					lat: coordinates[1],
-					properties: feature.properties,
-					mapInstance: map,
+					lng,
+					lat,
+					properties: feature.properties ?? {},
+					mapInstance: map!,
 					id: feature.id,
-					point: point
+					point
 				});
 
-				activePopupId = feature.id;
+				activePopupId = feature.id ?? null;
 			}
 		};
 

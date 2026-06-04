@@ -3,21 +3,33 @@
 	import * as turf from '@turf/turf';
 	import { Tabs } from 'bits-ui';
 	import * as d3 from 'd3';
+	import Fuse from 'fuse.js';
 	import { da_map_source } from '../../lib/data/transitdata/config-mapbox.json';
 
 	import type { Feature, Polygon } from 'geojson';
 
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { driver } from 'driver.js';
+	import { driver, type Driver } from 'driver.js';
 	import 'driver.js/dist/driver.css';
 	import { onMount, untrack } from 'svelte';
 	import {
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
 	} from '../../lib/data/transitdata/complete-communities-config';
+	import type {
+		ArrayMetric,
+		DPIMetric,
+		Metric,
+		StationCCMetric
+	} from '../../lib/data/transitdata/config';
 	import { age, bed, dwelling, housing, owner } from '../../lib/data/transitdata/config.json';
-	import type { Station } from '../../lib/data/transitdata/stations';
+	import type { ProcessedStation, Station } from '../../lib/data/transitdata/stations';
+	import type {
+		Region,
+		TransitLine,
+		TransitLineWithContext
+	} from '../../lib/data/transitdata/transit-regions';
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import '../../styles.css';
@@ -35,26 +47,28 @@
 	import StationStatus from '../components/StationStatus.svelte';
 
 	// --- Reactive/Exported Variables ---
-	let aiDescriptions = $state({});
-	let map: mapboxgl.Map = $state();
+	let aiDescriptions = $state([]);
+	let map: mapboxgl.Map | undefined = $state();
 	let mapCenter: [number, number] = $state([-92, 52]);
 	const defaultZoom: number = 3.7;
 
 	// --- UI State Variables ---
 	let statusFilters = $state(['Existing', 'Construction', 'Planned']);
 	let technologyFilters = $state(['Subway', 'LRT', 'Commuter']);
-	let selectedStation: Station = $state({ id: null });
-	let stationSelected = $state(false);
-	let regionsData = $state([]);
-	let processedStationData = $state([]);
+	let selectedStation: ProcessedStation = $state({ id: null });
+	let stationSelected: boolean = $state(false);
+	let regionsData: Region[] = $state([]);
+	let processedStationData: ProcessedStation[] = $state([]);
 	let searchTerm = $state('');
-	let activeRegion = $state(null);
-	let activeLine = $state(null);
+	let activeRegion: Region | null = $state(null);
+	let activeLine: TransitLine | null = $state(null);
 	let stationBuiltForm = $state({});
-	let stationCCcounts = $state({});
+	let stationCCcounts: StationCCMetric = $state({
+		id: null
+	});
 	let stationCCpresence = $state({});
 	let stationVisitorData = $state({});
-	let selectedVariable = $state(null);
+	let selectedVariable: string | null = $state(null);
 	let greenspaceVisible = $state(true);
 	let waterVisible = $state(true);
 	let buildingVisible = $state(true);
@@ -66,34 +80,34 @@
 	let activeTab = $state('demographics');
 
 	// data
-	let transitRegionsRawData = $state([]);
-	let stationRawData = $state([]);
+	let transitRegionsRawData: Region[] = $state([]);
+	let stationRawData: Station[] = $state([]);
 	let builtFormMetrics = $state([]);
 	let completeCommunityCounts = $state([]);
 	let visitorData = $state([]);
 	let completeCommunityPresence = $state([]);
-	let ownerData = $state([]);
-	let housingData = $state([]);
-	let dwellingData = $state([]);
-	let bedData = $state([]);
-	let ageData = $state([]);
-	let employmentData = $state([]);
-	let stationDpiData = $state([]);
-	let stationDpiRawData: any[] = $state([]);
+	let ownerData: Metric[] = $state([]);
+	let housingData: Metric[] = $state([]);
+	let dwellingData: Metric[] = $state([]);
+	let bedData: Metric[] = $state([]);
+	let ageData: Metric[] = $state([]);
+	let employmentData: Metric[] = $state([]);
+	let stationDpiData: DPIMetric[] = $state([]);
+	let stationDpiRawData: DPIMetric[] = $state([]);
 	let buildingPermitYearData: any[] = $state([]);
 
-	let regionsFuse = $state();
-	let linesFuse = $state();
-	let stopsFuse = $state();
+	let regionsFuse: Fuse<Region> | undefined = $state();
+	let linesFuse: Fuse<TransitLineWithContext> | undefined = $state();
+	let stopsFuse: Fuse<ProcessedStation> | undefined = $state();
 
 	// --- Tutorial State ---
-	let driverObj = $state({});
+	let driverObj: Driver | null = $state(null);
 
 	function initiateTutorial() {
-		driverObj.drive();
+		driverObj?.drive();
 	}
 
-	function scrollElementIntoView(element) {
+	function scrollElementIntoView(element: string | HTMLElement | null | undefined) {
 		if (!element) return;
 		const el = typeof element === 'string' ? document.querySelector(element) : element;
 		if (el) {
@@ -119,7 +133,7 @@
 			showProgress: true,
 			smoothScroll: true,
 			onHighlightStarted: (element) => {
-				scrollElementIntoView(element);
+				scrollElementIntoView(element as HTMLElement);
 			},
 			steps: [
 				{
@@ -192,7 +206,7 @@
 							selectStop(station);
 						}
 						handleTabChange('demographics');
-						scrollElementIntoView(element);
+						scrollElementIntoView(element as HTMLElement);
 					}
 				},
 				{
@@ -217,9 +231,9 @@
 					onHighlightStarted: (element) => {
 						isAIOpen = false;
 						updateLayerVariable('TotalPopulation');
-						scrollElementIntoView(element);
+						scrollElementIntoView(element as HTMLElement);
 						setTimeout(() => {
-							driverObj.refresh();
+							driverObj?.refresh();
 						}, 500); // Wait for the AI collapse transition (300ms) to complete
 					},
 					onDeselected: () => {
@@ -236,7 +250,7 @@
 					},
 					onHighlightStarted: (element) => {
 						handleTabChange('complete-communities');
-						scrollElementIntoView(element);
+						scrollElementIntoView(element as HTMLElement);
 					},
 					onHighlighted: () => {
 						isOpen = true;
@@ -285,14 +299,16 @@
 			untrack(() => {
 				// Only select if we haven't already selected it (to avoid loops)
 				if (stationIdParam && String(selectedStation.id) !== stationIdParam) {
-					const station = processedStationData.find((s) => String(s.id) === stationIdParam);
+					const station = processedStationData.find(
+						(s: Station) => String(s.id) === stationIdParam
+					);
 					if (station) {
 						// Ensure map is style-loaded before setting features
-						if (map.isStyleLoaded()) {
-							handleStationSelection(station.id, [station.longitude, station.latitude]);
+						if (map?.isStyleLoaded()) {
+							handleStationSelection(station.id, [station.longitude ?? 0, station.latitude ?? 0]);
 						} else {
-							map.once('idle', () => {
-								handleStationSelection(station.id, [station.longitude, station.latitude]);
+							map?.once('idle', () => {
+								handleStationSelection(station.id, [station.longitude ?? 0, station.latitude ?? 0]);
 							});
 						}
 					}
@@ -308,7 +324,8 @@
 		if (map) {
 			if (activeLine) {
 				const lineStations = processedStationData.filter(
-					(s) => s.line_ids_array && s.line_ids_array.includes(activeLine.id)
+					(s: ProcessedStation) =>
+						s.line_ids_array && s.line_ids_array.includes(activeLine?.id as number)
 				);
 				if (
 					lineStations.length > 0 &&
@@ -318,7 +335,7 @@
 					turf.bbox
 				) {
 					const stationPoints = turf.featureCollection(
-						lineStations.map((s) => turf.point([s.longitude, s.latitude]))
+						lineStations.map((s) => turf.point([s.longitude ?? 0, s.latitude ?? 0]))
 					);
 					const [minX, minY, maxX, maxY] = turf.bbox(stationPoints);
 					map.fitBounds(
@@ -366,14 +383,17 @@
 
 	// --- Data/Map Update Functions ---
 
-	function buildData(config, selectedStation, total = false) {
+	function buildData(config: ArrayMetric[], selectedStation: ProcessedStation, total = false) {
 		// Compute the total once
 		if (total) {
-			const sum = config.reduce((sum, item) => sum + (selectedStation[item.key] ?? 0), 0);
+			const sum = config.reduce(
+				(sum, item) => sum + ((selectedStation[item.key] as number) ?? 0),
+				0
+			);
 
 			return config.map((item) => ({
 				label: item.label,
-				value: ((selectedStation[item.key] ?? 0) / sum) * 100,
+				value: (((selectedStation[item.key] as number) ?? 0) / sum) * 100,
 				y: ' '
 			}));
 		}
@@ -385,7 +405,7 @@
 		}));
 	}
 
-	function updateStationData(id) {
+	function updateStationData(id: string) {
 		const station = processedStationData.find((s) => s.id === id);
 
 		if (!station) {
@@ -395,19 +415,24 @@
 		}
 
 		selectedStation = station;
-		stationBuiltForm = builtFormMetrics.find((station) => station.id === selectedStation.id) || {};
-		stationCCcounts =
-			completeCommunityCounts.find((station) => station.id === selectedStation.id) || {};
-		stationCCpresence =
-			completeCommunityPresence.find((station) => station.id === selectedStation.id) || {};
+		stationBuiltForm =
+			builtFormMetrics.find((station: ProcessedStation) => station.id === selectedStation.id) || {};
+		stationCCcounts = completeCommunityCounts.find(
+			(station: ProcessedStation) => station.id === selectedStation.id
+		) ?? { id: null };
 
-		stationVisitorData = visitorData.find((station) => station.id === selectedStation.id) || {};
+		stationCCpresence = completeCommunityPresence.find(
+			(station: ProcessedStation) => station.id === selectedStation.id
+		) ?? { id: null };
 
-		ageData = buildData(age, selectedStation);
-		housingData = buildData(housing, selectedStation);
-		ownerData = buildData(owner, selectedStation);
-		dwellingData = buildData(dwelling, selectedStation);
-		bedData = buildData(bed, selectedStation, true);
+		stationVisitorData =
+			visitorData.find((station: ProcessedStation) => station.id === selectedStation.id) || {};
+
+		ageData = buildData(age as ArrayMetric[], selectedStation);
+		housingData = buildData(housing as ArrayMetric[], selectedStation);
+		ownerData = buildData(owner as ArrayMetric[], selectedStation);
+		dwellingData = buildData(dwelling as ArrayMetric[], selectedStation);
+		bedData = buildData(bed as ArrayMetric[], selectedStation, true);
 
 		//special case for employment data — TODO: include "Other" in preprocessed data
 		const totalEmploymentData = selectedStation.EmployeeCount ?? 0;
@@ -416,14 +441,14 @@
 			{
 				label: 'Core Amenities',
 				value: totalEmploymentData
-					? (stationCCcounts['Tier 1 Employment'] / totalEmploymentData) * 100
+					? ((stationCCcounts['Tier 1 Employment'] ?? 0) / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
 				label: 'Additional Amenities',
 				value: totalEmploymentData
-					? (stationCCcounts['Tier 2 Employment'] / totalEmploymentData) * 100
+					? ((stationCCcounts['Tier 2 Employment'] ?? 0) / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
@@ -431,8 +456,8 @@
 				label: 'Other',
 				value: totalEmploymentData
 					? ((totalEmploymentData -
-							stationCCcounts['Tier 1 Employment'] -
-							stationCCcounts['Tier 2 Employment']) /
+							(stationCCcounts['Tier 1 Employment'] ?? 0) -
+							(stationCCcounts['Tier 2 Employment'] ?? 0)) /
 							totalEmploymentData) *
 						100
 					: 0,
@@ -441,16 +466,16 @@
 		];
 	}
 
-	function updateLayerVariable(variable) {
-		if (variable === null) {
+	function updateLayerVariable(variable: string | null | undefined) {
+		if (variable === null || variable === undefined) {
 			selectedVariable = null;
-			if (map.getLayer('da')) map.removeLayer('da');
+			if (map?.getLayer('da')) map.removeLayer('da');
 			return;
 		}
 		selectedVariable = variable;
 
 		// If layer exists, just update it
-		if (map.getLayer('da')) {
+		if (map?.getLayer('da')) {
 			const features = map.querySourceFeatures('da_map', {
 				sourceLayer: da_map_source.source_layer
 			});
@@ -464,7 +489,7 @@
 				expression.expression as mapboxgl.DataDrivenPropertyValueSpecification<string>
 			);
 		} else {
-			if (!map.getSource('da_map')) return;
+			if (!map?.getSource('da_map')) return;
 			// Add the layer if not present
 			map.addLayer(
 				{
@@ -480,30 +505,30 @@
 				'greenspace-built-form'
 			);
 			map.once('idle', () => {
-				const features = map.querySourceFeatures('da_map', {
+				const features = map?.querySourceFeatures('da_map', {
 					sourceLayer: da_map_source.source_layer
 				});
 				const expression = getD3InterpolateExpression(features, variable);
 				if (expression === null) return;
 				min = expression.min;
 				max = expression.max;
-				map.setPaintProperty(
+				map?.setPaintProperty(
 					'da',
 					'fill-color',
 					expression.expression as mapboxgl.DataDrivenPropertyValueSpecification<string>
 				);
-				map.setPaintProperty('da', 'fill-opacity', 0.8);
+				map?.setPaintProperty('da', 'fill-opacity', 0.8);
 			});
 		}
 	}
 
-	function toggleLayer(layerIds, currentState) {
+	function toggleLayer(layerIds: string[], currentState: boolean) {
 		// Handle both single layer (string) and multiple layers (array)
 		const layers = Array.isArray(layerIds) ? layerIds : [layerIds];
 
 		layers.forEach((layerId) => {
-			if (map.getLayer(layerId)) {
-				map.setLayoutProperty(layerId, 'visibility', currentState ? 'none' : 'visible');
+			if (map?.getLayer(layerId)) {
+				map?.setLayoutProperty(layerId, 'visibility', currentState ? 'none' : 'visible');
 			} else {
 				console.warn(`Layer ${layerId} does not exist`);
 			}
@@ -512,9 +537,15 @@
 	}
 
 	// --- Map/Sidebar Navigation Functions ---
-	function handleStationSelection(stationId, stationCoordinates) {
+	function handleStationSelection(stationId: string | null, stationCoordinates?: [number, number]) {
 		// run update function to fetch relevant station data
 
+		if (stationId === null) {
+			return;
+		}
+		if (!stationCoordinates) {
+			return;
+		}
 		if (!map) return;
 		updateStationData(stationId);
 
@@ -580,7 +611,7 @@
 		];
 
 		thematicLayers.forEach((layerId) => {
-			if (map.getLayer(layerId)) {
+			if (map?.getLayer(layerId)) {
 				map.setFilter(layerId, ['within', circlePolygon]);
 			}
 		});
@@ -632,7 +663,7 @@
 		});
 	}
 
-	function selectRegion(region) {
+	function selectRegion(region: Region) {
 		if (!map) return;
 		resetStationSelection();
 
@@ -643,7 +674,7 @@
 		map.fitBounds(region.bbox, { padding: 50, duration: 1000 });
 	}
 
-	function selectLine(line) {
+	function selectLine(line: TransitLine) {
 		if (!map || !map.getLayer('transit-lines')) return;
 		resetStationSelection();
 
@@ -676,7 +707,7 @@
 		}
 	}
 
-	function selectStop(station) {
+	function selectStop(station: Station) {
 		goto(`/transit-map/${station.id}/?tab=${activeTab}`, {
 			replaceState: false,
 			keepFocus: true,
@@ -789,7 +820,6 @@
 		} catch (error) {
 			console.error('Error fetching DPI data:', error);
 		}
-
 		try {
 			const response = await fetch(
 				'https://measuringmainstreets.blob.core.windows.net/public/transit-data/development/AllIndicators_Raw.csv'
@@ -846,14 +876,13 @@
 						.filter((n) => !isNaN(n))
 				: []
 		}));
-
 		// Initialize search indexes after data is loaded
 	});
 
 	// set active tab from url
 	activeTab = page.url.searchParams.get('tab') || 'demographics';
 
-	function handleTabChange(selectedTab) {
+	function handleTabChange(selectedTab: string) {
 		const newUrl = new URL(page.url);
 		if (newUrl.searchParams.get('tab') !== selectedTab) {
 			newUrl.searchParams.set('tab', selectedTab);
@@ -959,7 +988,7 @@
 									{selectedStation}
 									{ageData}
 									{selectedVariable}
-									onSelectVariable={(v) => updateLayerVariable(v)}
+									onSelectVariable={(v: string) => updateLayerVariable(v)}
 								/>
 							{/if}
 						</Tabs.Content>
@@ -972,7 +1001,7 @@
 									{housingData}
 									{bedData}
 									{selectedVariable}
-									onSelectVariable={(v) => updateLayerVariable(v)}
+									onSelectVariable={(v: string) => updateLayerVariable(v)}
 								/>
 							{/if}
 						</Tabs.Content>
@@ -982,7 +1011,7 @@
 									{selectedStation}
 									{employmentData}
 									{selectedVariable}
-									onSelectVariable={(v) => updateLayerVariable(v)}
+									onSelectVariable={(v: string) => updateLayerVariable(v)}
 								/>
 							{/if}
 						</Tabs.Content>
@@ -999,8 +1028,9 @@
 									bind:waterVisible
 									bind:buildingVisible
 									bind:parkingVisible
-									toggleLayer={(layerId, currentState) => toggleLayer(layerId, currentState)}
-									onSelectVariable={(v) => updateLayerVariable(v)}
+									toggleLayer={(layerId: string[], currentState: boolean) =>
+										toggleLayer(layerId, currentState)}
+									onSelectVariable={(v: string) => updateLayerVariable(v)}
 								/>
 							{/if}
 						</Tabs.Content>
@@ -1011,7 +1041,7 @@
 									{stationCCpresence}
 									{stationVisitorData}
 									{selectedVariable}
-									onSelectVariable={(v) => updateLayerVariable(v)}
+									onSelectVariable={(v: string) => updateLayerVariable(v)}
 								/>
 							{/if}
 						</Tabs.Content>

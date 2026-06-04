@@ -244,7 +244,7 @@
 					data={transitLines}
 					icon="mdi:train"
 					placeholder={'Select a Transit Line'}
-					bind:selected={selectedLine}
+					bind:selected={selectedLine as string}
 				></Select>
 			</div>
 			<div class="select-wrapper">

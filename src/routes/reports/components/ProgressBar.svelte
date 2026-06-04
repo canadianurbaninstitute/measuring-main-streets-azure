@@ -228,6 +228,11 @@
 		display: flex;
 		align-items: flex-end;
 	}
+	@media (max-height: 500px) {
+		.progress-bar {
+			display: none;
+		}
+	}
 	.track {
 		position: relative;
 		width: 100%;

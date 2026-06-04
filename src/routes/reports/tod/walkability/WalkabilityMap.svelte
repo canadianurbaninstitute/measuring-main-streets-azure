@@ -2,27 +2,48 @@
 	import circle from '@turf/circle';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
-	import {
-		transit_lines_source,
-		transit_stations_source
-	} from '../../../lib/data/transitdata/config-mapbox.json';
+	import configMapbox from '../../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../../lib/data/transitdata/line-colors.json';
 	import Legend from '../../../transit-map/components/Legend.svelte';
 
+	const { transit_lines_source, transit_stations_source } = configMapbox;
+
+	interface Props {
+		map?: mapboxgl.Map | null | undefined;
+		center?: [number, number];
+		zoom?: number;
+		onStationClick?: (stationData: {
+			lng: number;
+			lat: number;
+			id: string | number | undefined;
+			properties: any;
+			mapInstance: mapboxgl.Map;
+			point: mapboxgl.Point;
+		}) => void;
+		onMapLoaded?: (mapInstance: mapboxgl.Map) => void;
+		activeCoords?: [number, number] | null;
+		fullScreen?: boolean;
+	}
+
 	let {
 		map = $bindable(),
-		center,
-		zoom,
+		center = undefined,
+		zoom = undefined,
 		onStationClick,
-		onMapLoaded,
-		activeCoords,
+		onMapLoaded = undefined,
+		activeCoords = undefined,
 		fullScreen = false
-	} = $props();
+	}: Props = $props();
 
-	let mapContainer;
+	let mapContainer: HTMLDivElement;
 
-	function updateMask(coords) {
-		if (!map || !map.getSource('circle') || !map.getSource('circle-mask') || !coords) return;
+	function updateMask(coords: [number, number]) {
+		if (!map || !coords) return;
+
+		const circleSource = map.getSource('circle') as mapboxgl.GeoJSONSource;
+		const maskSource = map.getSource('circle-mask') as mapboxgl.GeoJSONSource;
+
+		if (!circleSource || !maskSource) return;
 
 		const radiusInKm = 0.8;
 		const circleFeature = circle(coords, radiusInKm, {
@@ -30,12 +51,14 @@
 			units: 'kilometers'
 		});
 
+		if (!circleFeature.geometry || !circleFeature.geometry.coordinates) return;
+
 		const maskFeature = {
-			type: 'Feature',
+			type: 'Feature' as const,
+			properties: {},
 			geometry: {
-				type: 'Polygon',
+				type: 'Polygon' as const,
 				coordinates: [
-					// Outer ring (world bounds)
 					[
 						[-180, -90],
 						[180, -90],
@@ -43,18 +66,17 @@
 						[-180, 90],
 						[-180, -90]
 					],
-					// Inner ring (circle - reversed coordinates)
 					[...circleFeature.geometry.coordinates[0]].reverse()
 				]
 			}
 		};
 
-		map.getSource('circle').setData({
+		circleSource.setData({
 			type: 'FeatureCollection',
-			features: [circleFeature]
+			features: [circleFeature as any]
 		});
 
-		map.getSource('circle-mask').setData({
+		maskSource.setData({
 			type: 'FeatureCollection',
 			features: [maskFeature]
 		});
@@ -66,37 +88,34 @@
 			updateMask(targetCoords);
 		}
 	});
-	// Convert line colours to Mapbox expression
-	const lineColorExpression = [
+
+	const lineColorExpression: any[] = [
 		'match',
 		['get', 'line_id'],
-		...Object.entries(line_colors).flatMap(([id, color]) => [[Number(id)], color]),
-		'#000000' // Fallback color
+		...Object.entries(line_colors).flatMap(([id, color]) => [Number(id), color]),
+		'#000000'
 	];
 
 	$effect(() => {
 		if (map && fullScreen) {
-			// No longer setting permanent padding here.
 		}
 	});
 
 	onMount(() => {
-		// Ensure token is set before map initialization
 		mapboxgl.accessToken =
 			'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
 
 		map = new mapboxgl.Map({
 			container: mapContainer,
 			style: 'mapbox://styles/canadianurbaninstitute/cmmtb64tg00c901s149605jdv?optimize=true',
-			center: center || [-123.1522, 49.2638], // Defaulting to Arbutus
+			center: center || [-123.1522, 49.2638],
 			zoom: zoom || 11,
-			scrollZoom: false, // Recommended false for scroll-telling to prevent trapping the scroll wheel
+			scrollZoom: false,
 			attributionControl: false
 		});
 
-		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+		map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-		// Change cursor to pointer over stations
 		map.on('mouseenter', 'station-analysis-points-expla-c0bvk5', () => {
 			if (map && map.getCanvas()) {
 				map.getCanvas().style.cursor = 'pointer';
@@ -112,7 +131,6 @@
 		map.on('load', () => {
 			if (!map) return;
 
-			// Add mask sources
 			map.addSource('circle-mask', {
 				type: 'geojson',
 				data: { type: 'FeatureCollection', features: [] }
@@ -123,7 +141,6 @@
 				data: { type: 'FeatureCollection', features: [] }
 			});
 
-			// Add transit sources
 			map.addSource('transit-station-data', {
 				type: 'vector',
 				url: transit_stations_source.url
@@ -133,7 +150,6 @@
 				url: transit_lines_source.url
 			});
 
-			// Add mask layers
 			map.addLayer(
 				{
 					id: 'circle-mask',
@@ -147,7 +163,6 @@
 				'station-analysis-points-expla-c0bvk5'
 			);
 
-			// Add transit layers
 			map.addLayer(
 				{
 					id: 'transit-lines',
@@ -155,7 +170,8 @@
 					source: 'transit-line-data',
 					'source-layer': transit_lines_source.source_layer,
 					paint: {
-						'line-color': lineColorExpression as any,
+						'line-color':
+							lineColorExpression as mapboxgl.DataDrivenPropertyValueSpecification<string>,
 						'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.5, 7, 2, 12, 4],
 						'line-opacity': 1,
 						'line-emissive-strength': 1
@@ -191,12 +207,11 @@
 					'circle-radius': 5,
 					'circle-stroke-width': 3,
 					'circle-stroke-color': '#ffffff',
-					'circle-emissive-strength': 1,
-					'circle-color': 'transparent'
+					'circle-color': 'transparent',
+					'circle-emissive-strength': 1
 				}
 			});
 
-			// Initial mask update
 			const targetCoords = activeCoords || center;
 			if (targetCoords) {
 				updateMask(targetCoords);
@@ -207,23 +222,25 @@
 			}
 		});
 
-		// Handle clicks on the specified station layer
 		map.on('click', 'station-analysis-points-expla-c0bvk5', (e) => {
 			if (!map) return;
-			if (e.features.length > 0) {
-				const coordinates = e.features[0].geometry.coordinates.slice();
-				const properties = e.features[0].properties;
-				const id = e.features[0].id;
+			if (e.features && e.features.length > 0) {
+				const feature = e.features[0];
+				if (feature.geometry.type !== 'Point') return;
 
-				// Ensure appropriate zoom levels when handling clusters vs single points
+				const coordinates = (feature.geometry.coordinates as number[]).slice();
+				const properties = feature.properties;
+				const id = feature.id;
+
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
 				}
 
-				if (map.getSource('selected-station')) {
-					map.getSource('selected-station').setData({
+				const selectedStationSource = map.getSource('selected-station') as mapboxgl.GeoJSONSource;
+				if (selectedStationSource) {
+					selectedStationSource.setData({
 						type: 'FeatureCollection',
-						features: [e.features[0]]
+						features: [feature]
 					});
 				}
 

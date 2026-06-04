@@ -1,31 +1,39 @@
 <script lang="ts">
 	import Fuse from 'fuse.js';
+	import type { ProcessedStation, Station } from '../../lib/data/transitdata/stations';
+	import type { Region, TransitLineWithContext } from '../../lib/data/transitdata/transit-regions';
+
+	interface Props {
+		searchTerm: string;
+		regionsFuse: Fuse<Region> | undefined;
+		linesFuse: Fuse<TransitLineWithContext> | undefined;
+		stopsFuse: Fuse<Station> | undefined;
+		regionsData: Region[];
+		processedStationData: ProcessedStation[];
+	}
 
 	let {
-		searchTerm = $bindable(),
+		searchTerm = $bindable(''),
 		regionsFuse = $bindable(),
 		linesFuse = $bindable(),
 		stopsFuse = $bindable(),
 		regionsData,
 		processedStationData
-	} = $props();
+	}: Props = $props();
 
-	// --- Search Functions ---
 	function initializeSearchIndexes() {
-		// Configure Fuse.js options for better search
 		const fuseOptions = {
 			threshold: 0.3,
 			includeScore: true,
 			keys: ['name', 'stop_label', 'line_display_name']
 		};
 
-		// Create search indexes
-		regionsFuse = new Fuse(regionsData, {
+		regionsFuse = new Fuse<Region>(regionsData, {
 			...fuseOptions,
 			keys: ['name']
 		});
-		// Create lines search data with region context
-		const linesWithContext = [];
+
+		const linesWithContext: TransitLineWithContext[] = [];
 		regionsData.forEach((region) => {
 			region.lines.forEach((line) => {
 				linesWithContext.push({
@@ -35,13 +43,13 @@
 				});
 			});
 		});
-		linesFuse = new Fuse(linesWithContext, {
+
+		linesFuse = new Fuse<TransitLineWithContext>(linesWithContext, {
 			...fuseOptions,
 			keys: ['name', 'regionName']
 		});
 
-		// Create stops search index
-		stopsFuse = new Fuse(processedStationData, {
+		stopsFuse = new Fuse<ProcessedStation>(processedStationData, {
 			...fuseOptions,
 			keys: ['stop_label', 'line_display_name']
 		});

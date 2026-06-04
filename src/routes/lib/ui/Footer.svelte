@@ -1,6 +1,5 @@
 <script>
 	import canada from '../assets/logos/canada_logo.svg';
-	import CATCH from '../assets/logos/CATCH_logo_white.webp';
 	import cui from '../assets/logos/cui_logo_white.svg';
 	import dps from '../assets/logos/DPS-logo-white.png';
 	import environics from '../assets/logos/environics_logo.svg';
@@ -38,9 +37,6 @@
 		<div class="partner-logos">
 			<a href="https://digitalpublicsquare.org/" target="_blank">
 				<img src={dps} alt="Digital Public Square" />
-			</a>
-			<a href="https://catch-rehac.ca/" target="_blank">
-				<img src={CATCH} alt="Canadian Alliance for Transit-Connected Housing (CATCH)" />
 			</a>
 			<a href="https://opennorth.ca/" target="_blank">
 				<img src={opennorth} alt="Open North" />

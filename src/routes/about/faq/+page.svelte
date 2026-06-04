@@ -24,7 +24,7 @@
 		'choose-regions': false,
 		'my-main-street': false,
 		'what-is-tod': false,
-		'what-are-mtsas': false,
+		'what-are-tsas': false,
 		'tod-partners': false
 	});
 
@@ -74,8 +74,8 @@
 			} else if (hash === 'what-is-tod') {
 				faqs['what-is-tod'] = true;
 				activeSection = 'tod';
-			} else if (hash === 'what-are-mtsas') {
-				faqs['what-are-mtsas'] = true;
+			} else if (hash === 'what-are-tsas') {
+				faqs['what-are-tsas'] = true;
 				activeSection = 'tod';
 			} else if (hash === 'tod-partners') {
 				faqs['tod-partners'] = true;
@@ -385,20 +385,20 @@
 						</div>
 					</Accordion>
 
-					<Accordion bind:open={faqs['what-are-mtsas']} id="what-are-mtsas">
+					<Accordion bind:open={faqs['what-are-tsas']} id="what-are-tsas">
 						<div slot="header" class="accordion-header">
-							<h3>What is a “Major Transit Station Area (MTSA)”?</h3>
-							<Icon icon={faqs['what-are-mtsas'] ? 'mdi:minus' : 'mdi:plus'} />
+							<h3>What is a Transit Station Area (TSA)”?</h3>
+							<Icon icon={faqs['what-are-tsas'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
 							<div class="text-content">
 								<p>
-									Major Transit Station Areas are often defined as “the area within a 500 to 800
+									Transit Station Areas are often defined as “the area within a 500 to 800
 									metre radius of a higher order transit station representing about a 10-minute
 									walk.” <a
 										href="https://www.hamilton.ca/build-invest-grow/planning-development/official-plan/official-plan-review/major-transit-station"
 										>(Source: City of Hamilton)</a
-									> MTSAs often have unique zoning and polices, which are defined on a city-by-city basis.
+									>
 								</p>
 								<p>
 									For the purposes of our research, we have used the term “transit station area”

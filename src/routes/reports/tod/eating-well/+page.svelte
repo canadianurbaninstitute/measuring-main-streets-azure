@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// Components
 	import marketConcentrationImg from '../../../lib/assets/graphics/grocery.jpg';
 	import '../../../styles.css';
@@ -7,12 +7,13 @@
 	import ReportFindings from '../../components/ReportFindings.svelte';
 	import ReportHeader from '../../components/ReportHeader.svelte';
 	import Scroller from '../../components/Scroller.svelte';
+	import type { Block, VisConfigItem } from '../../components/Template';
 	import TextBlock from '../../components/TextBlock.svelte';
 	import VisContainer from '../../components/VisContainer.svelte';
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article.js';
+	import { sections } from './article';
 	import CivicInfrastructureComparison from './CivicInfrastructureComparison.svelte';
 	import FoodCoopBenefits from './FoodCoopBenefits.svelte';
 	import GroceryMap from './GroceryMap.svelte';
@@ -20,7 +21,10 @@
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 
-	const visConfig = {
+	// Reactive state
+	let selectedRegion = $state('greater_golden_horseshoe');
+
+	const getVisConfig = (currentSelectedRegion: string): Record<string, VisConfigItem> => ({
 		'market-concentration': {
 			type: 'image',
 			src: marketConcentrationImg,
@@ -29,7 +33,7 @@
 		'transit-food-access': {
 			type: 'component',
 			component: GroceryMap,
-			props: {}
+			props: { selectedRegion: currentSelectedRegion }
 		},
 		'public-option': {
 			type: 'component',
@@ -46,7 +50,9 @@
 			component: CivicInfrastructureComparison,
 			props: {}
 		}
-	};
+	});
+
+	let visConfig = $derived(getVisConfig(selectedRegion));
 
 	/**
 	 * Flatten all panels, tagging each with a globally-unique uid
@@ -55,56 +61,71 @@
 		section.panels.map((panel) => ({
 			...panel,
 			uid: `${si}:${panel.id}`,
+			sectionIndex: si,
 			config: visConfig[panel.id] ?? null
 		}))
 	);
 
-	/**
-	 * Flatten sections into steps for Scroller
-	 */
-	const scrollySections = sections.slice(0, 5);
-	const inlineSections = sections.slice(5);
-
-	const steps = scrollySections.flatMap((section, si) => {
+	const steps = sections.flatMap((section, si) => {
 		const defaultId = section.panels[0]?.id;
-		return section.blocks.map((block) => {
+		return section.blocks.map((block: Block) => {
 			const pid = block.panelId ?? defaultId;
 			const valid = section.panels.some((p) => p.id === pid);
-			return { ...block, panelUid: pid ? `${si}:${valid ? pid : defaultId}` : null };
+			return {
+				...block,
+				sectionIndex: si,
+				panelUid: pid ? `${si}:${valid ? pid : defaultId}` : null
+			};
 		});
 	});
+
+	const layoutGroups = (() => {
+		const groups = [] as any[];
+		let currentGroup: any = { layout: '', sections: [] };
+
+		sections.forEach((section, si) => {
+			const layout = section.layout || (section.panels?.length > 0 ? 'scrolly' : 'inline');
+
+			const blockOffset = steps.findIndex((s) => s.sectionIndex === si);
+			const sectionWithIndices = {
+				...section,
+				si,
+				blocks: steps
+					.filter((s) => s.sectionIndex === si)
+					.map((b, bi) => ({ ...b, globalStepIndex: blockOffset + bi }))
+			};
+
+			if (currentGroup.layout === layout) {
+				currentGroup.sections.push(sectionWithIndices);
+			} else {
+				currentGroup = { layout, sections: [sectionWithIndices] };
+				groups.push(currentGroup);
+			}
+		});
+
+		return groups;
+	})();
 
 	// Reactive state
 	let activeIndex = $state(0);
 	let activePanelUid = $derived(steps[activeIndex]?.panelUid ?? allPanels[0]?.uid);
 
-	// Progress bar items
-	const navSections = scrollySections.map((section, si) => ({
-		firstStepIndex: steps.findIndex((s) => s.panelUid?.startsWith(`${si}:`)),
-		label: section.blocks.find((b) => b.heading)?.heading ?? `Section ${si + 1}`
-	}));
-
-	const inlineNavSections = inlineSections.map((section, si) => ({
-		id: `inline-section-${si}`,
-		label:
-			section.blocks.find((b) => b.heading)?.heading ?? `Section ${si + 1 + scrollySections.length}`
-	}));
-
 	const items = [
 		{ type: 'anchor', id: 'report-header', label: 'Introduction' },
 		{ type: 'anchor', id: 'report-findings', label: 'Key Takeaways' },
-		...navSections.map((s) => ({
-			type: 'step',
-			stepIndex: s.firstStepIndex,
-			label: s.label,
-			isFirstInSection: true
-		})),
-		...inlineNavSections.map((s) => ({
-			type: 'anchor',
-			id: s.id,
-			label: s.label,
-			isFirstInSection: true
-		}))
+		...(sections
+			.map((section, si) => {
+				const heading = section.blocks.find((b) => b.heading)?.heading;
+				if (!heading) return null;
+				const stepIndex = steps.findIndex((s) => s.sectionIndex === si);
+				return {
+					type: 'anchor',
+					id: `section-${si}`,
+					label: heading,
+					...(stepIndex >= 0 ? { stepIndex, isFirstInSection: true } : {})
+				};
+			})
+			.filter(Boolean) as any[])
 	];
 </script>
 
@@ -140,7 +161,7 @@
 		description3="and must be integrated into transit station area planning and development."
 	/>
 
-	{#snippet renderPanel(uid, isVisible)}
+	{#snippet renderPanel(uid: string, isVisible: boolean)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
 		{#if panel}
 			<VisPanel visible={isVisible} label={panel.label ?? ''} source={panel.source ?? ''}>
@@ -149,7 +170,13 @@
 						src={panel.config.src}
 						alt={panel.config.alt}
 						caption={panel.config.caption ?? ''}
-						fit={panel.config.fit}
+						fit={panel.config.fit as
+							| 'fill'
+							| 'none'
+							| 'contain'
+							| 'cover'
+							| 'scale-down'
+							| undefined}
 						aspect={panel.config.aspect}
 					/>
 				{:else if panel.config?.type === 'component'}
@@ -166,127 +193,184 @@
 		{/if}
 	{/snippet}
 
-	<Scroller bind:activeIndex threshold={0.5}>
-		{#snippet text()}
-			{#each steps as step, i}
-				<TextBlock
-					index={i}
-					active={activeIndex === i}
-					eyebrow={step.eyebrow}
-					heading={step.heading}
-					body={step.body}
-					cta={step.cta}
-					showInlineVisual={!!step.panelUid &&
-						(i === 0 || steps[i].panelUid !== steps[i - 1].panelUid)}
-				>
-					{#snippet inlineVisual()}
-						{@render renderPanel(step.panelUid, true)}
-					{/snippet}
-				</TextBlock>
-			{/each}
-		{/snippet}
+	{#each layoutGroups as group}
+		{#if group.layout === 'scrolly'}
+			<Scroller bind:activeIndex threshold={0.5}>
+				{#snippet text()}
+					{#each group.sections as section}
+						<div class="scrolly-section" id="section-{section.si}">
+							{#each section.blocks as block}
+								<TextBlock
+									index={block.globalStepIndex}
+									active={activeIndex === block.globalStepIndex}
+									eyebrow={block.eyebrow}
+									heading={block.heading}
+									body={block.body}
+									cta={block.cta}
+									showInlineVisual={block.panelUid &&
+									(block.globalStepIndex === 0 ||
+										steps[block.globalStepIndex ?? -1].panelUid !==
+											steps[(block.globalStepIndex ?? -1) - 1].panelUid)
+										? true
+										: false}
+								>
+									{#snippet inlineVisual()}
+										{@render renderPanel(block.panelUid, true)}
+									{/snippet}
+								</TextBlock>
+							{/each}
+						</div>
+					{/each}
+				{/snippet}
 
-		{#snippet visual()}
-			<VisContainer>
-				{#each allPanels.filter( (p) => scrollySections.some( (s, si) => s.panels.some((sp) => `${si}:${sp.id}` === p.uid) ) ) as panel (panel.uid)}
-					{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
-				{/each}
-			</VisContainer>
-		{/snippet}
-	</Scroller>
+				{#snippet visual()}
+					<VisContainer>
+						{#each allPanels.filter( (p) => group.sections.some((s: any) => s.si === p.sectionIndex) ) as panel (panel.uid)}
+							{@render renderPanel(panel.uid, activePanelUid === panel.uid)}
+						{/each}
+					</VisContainer>
+				{/snippet}
+			</Scroller>
+		{:else}
+			<div class="inline-article">
+				{#each group.sections as section}
+					<div class="inline-section" id="section-{section.si}">
+						{#each section.blocks as block}
+							{@const pids =
+								block.panelIds ??
+								(block.panelId ? [block.panelId] : section.panels[0] ? [section.panels[0].id] : [])}
 
-	<div class="inline-article">
-		{#each inlineSections as section, si}
-			<div class="inline-section" id="inline-section-{si}">
-				{#each section.blocks as block, i}
-					{@const panelIds = block.panelIds ?? (block.panelId ? [block.panelId] : [])}
+							<div class="inline-block" data-step={block.globalStepIndex}>
+								{#if block.heading}
+									<h3 class="inline-heading">{block.heading}</h3>
+								{/if}
+								<div class="inline-body">{@html block.body}</div>
 
-					<div class="inline-block">
-						{#if block.eyebrow}
-							<div class="uppercase tracking-widest text-blue-400 mb-1 text-large">
-								{block.eyebrow}
+								{#if block.cta}
+									<div class="inline-cta">
+										<VisLink href={block.cta.href} label={block.cta.label} />
+									</div>
+								{/if}
+
+								{#if pids.length > 0}
+									<div class="inline-vis-container" class:multi-vis={pids.length > 1}>
+										{#each pids as pid}
+											<div class="inline-vis-item">
+												{@render renderPanel(`${section.si}:${pid}`, true)}
+											</div>
+										{/each}
+									</div>
+								{/if}
 							</div>
-						{/if}
-						{#if block.heading}
-							<h3 class="inline-heading">{block.heading}</h3>
-						{/if}
-						<div class="inline-body">{@html block.body}</div>
-
-						{#if block.cta}
-							<div class="inline-cta">
-								<VisLink href={block.cta.href} label={block.cta.label} />
-							</div>
-						{/if}
-
-						{#if panelIds.length > 0}
-							<div class="inline-visuals flex flex-col gap-8 mt-8 mb-12">
-								{#each panelIds as pid}
-									{@render renderPanel(`${si + scrollySections.length}:${pid}`, true)}
-								{/each}
-							</div>
-						{/if}
+						{/each}
 					</div>
 				{/each}
 			</div>
-		{/each}
-	</div>
+		{/if}
+	{/each}
 </main>
 
 <style>
 	.inline-article {
 		max-width: 65ch;
-		margin: 4em auto;
 		padding: 0 1rem;
 		display: flex;
 		flex-direction: column;
-		gap: 3rem;
+		margin: auto;
 	}
 
 	.inline-section {
 		display: flex;
 		flex-direction: column;
-		gap: 2rem;
 	}
 
 	.inline-heading {
+		margin-top: 3rem;
 		margin-bottom: 1.5rem;
+		font-size: 2.2rem;
+		color: #1e293b;
 	}
 
 	.inline-body {
 		margin-bottom: 2rem;
-	}
-
-	:global(.inline-body > h6) {
-		margin-bottom: 0.5rem;
+		font-size: 1.15rem;
+		line-height: 1.7;
+		color: #334155;
 	}
 
 	.inline-cta {
 		margin-bottom: 2rem;
 	}
 
-	/* Force VisPanel to behave appropriately in inline contexts if needed */
-	:global(.vis-panel) {
-		transition:
-			opacity 0.3s ease,
-			transform 0.3s ease;
+	.inline-vis-container {
+		width: calc(100cqi);
+		margin-left: calc(-50cqi + 50%);
+		margin-bottom: 2rem;
+		display: flex;
+		justify-content: center;
+		padding: 3rem 1rem;
+		background-color: #f8fafc;
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		min-height: 40vh;
 	}
 
-	@media (max-width: 1024px) {
-		.inline-article {
-			margin: 2em auto;
-			padding: 0 1.5rem;
-		}
+	.inline-vis-container.multi-vis {
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
+		align-items: stretch;
+	}
+
+	.inline-vis-item {
+		flex: 1 1;
+		display: flex;
+		flex-direction: column;
 	}
 
 	/* Force VisPanel to behave appropriately in inline contexts */
-	.inline-visuals :global(.vis-panel) {
+	.inline-vis-container :global(.vis-panel) {
 		position: relative;
 		opacity: 1 !important;
 		visibility: visible !important;
 		transform: none !important;
 		pointer-events: auto !important;
 		width: 100%;
-		height: auto;
+		height: 100%;
 		min-height: 400px;
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.inline-vis-container {
+			padding: 2rem 0;
+			min-height: auto;
+		}
+
+		.inline-vis-container.multi-vis {
+			flex-direction: column;
+		}
+
+		.inline-vis-item {
+			flex: 0 0 auto;
+			width: 100%;
+			max-width: none;
+			display: flex;
+		}
+
+		.inline-vis-container :global(.vis-panel) {
+			padding: 1rem;
+			height: auto;
+			min-height: 400px;
+		}
 	}
 </style>

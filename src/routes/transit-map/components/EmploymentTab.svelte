@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-ignore-next-line
 	import { BarChart } from '@onsvisual/svelte-charts';
 	import { EmployeeCount } from '../../lib/data/transitdata/config.json';
 
@@ -17,7 +18,7 @@
 	<TransitMetric
 		label={EmployeeCount.label}
 		active={selectedVariable === EmployeeCount.key}
-		on:click={() =>
+		onclick={() =>
 			onSelectVariable(selectedVariable !== EmployeeCount.key ? EmployeeCount.key : null)}
 		value={Math.round(selectedStation[EmployeeCount.key]).toLocaleString()}
 		icon={EmployeeCount.icon}

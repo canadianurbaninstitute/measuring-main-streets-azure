@@ -167,7 +167,7 @@
 		id="report-header"
 		subEyebrow="A Love Your Neighbourhood Report"
 		title="DIGITAL PUBLIC ENGAGEMENT"
-		subtitle="Exploring the potential of digital initiatives for public engagement"
+		subtitle="Exploring the potential of digital initiatives for public engagement."
 		backgroundImage={header}
 		customLogos={[
 			{ src: dps, alt: 'DPS Logo', width: '120' },

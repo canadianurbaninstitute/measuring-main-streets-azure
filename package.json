@@ -19,6 +19,7 @@
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^6.1.0",
     "@tsconfig/svelte": "^5.0.4",
+    "@types/chroma-js": "^3.1.2",
     "@types/d3": "^7.4.3",
     "@types/d3-time-format": "^4.0.2",
     "@types/mapbox-gl": "^2.7.15",

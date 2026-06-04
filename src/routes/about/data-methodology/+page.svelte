@@ -971,7 +971,7 @@
 
 										<p>
 											<strong>Calculating Additional Employees Needed</strong><br />
-											For MTSAs where an Amenity has an Access Surplus less than 0, Additional Employees
+											For TSAs where an Amenity has an Access Surplus less than 0, Additional Employees
 											Needed is calculated as a ratio of Access Surplus and Regional Access, multiplied
 											by Typical Employment.
 											<math display="block">
