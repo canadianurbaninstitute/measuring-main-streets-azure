@@ -45,6 +45,7 @@
 		justify-content: center;
 		/* padding: 2rem; */
 		overflow-x: auto;
+		overflow-y: hidden;
 		opacity: 0;
 		transform: scale(0.97) translateY(6px);
 		pointer-events: none;

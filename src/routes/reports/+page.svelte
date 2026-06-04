@@ -194,7 +194,7 @@
 				{
 					title: 'Digital Public Engagement',
 					logo: dps_logo,
-					description: 'Exploring the potential of digital initiatives for public engagement',
+					description: 'Exploring the potential of digital initiatives for public engagement.',
 					image: dpsmethod,
 					link: '/reports/tod/digital-public-engagement',
 					tags: ['Digital Public Square']
