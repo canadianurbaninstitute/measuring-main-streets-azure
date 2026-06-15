@@ -197,13 +197,6 @@
 						are forced to rely on partial or fragmented information—limiting their ability to make
 						informed decisions and assess long-term impacts on community livability.
 					</p>
-					<p>
-						In response, The Canadian Urban Institute (CUI) has developed a groundbreaking toolkit
-						on the newly released Measuring Main Streets platform. These resources, backed by two
-						years of research funded by Housing, Infrastructure and Communities Canada, offer city
-						builders the means to make informed investments at the main street scale to enhance
-						community, resilience, and equity outcomes.
-					</p>
 
 					<blockquote class="quote">
 						<p>

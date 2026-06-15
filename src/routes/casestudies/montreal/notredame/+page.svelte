@@ -17,7 +17,6 @@
 	import visitortimeofday from '../../../lib/data/casestudydata/montreal/notredame/visitortimeofday';
 	import visitortraffic from '../../../lib/data/casestudydata/montreal/notredame/visitortraffic';
 	import visitortypes from '../../../lib/data/casestudydata/montreal/notredame/visitortypes';
-	import Footer from '../../../lib/ui/Footer.svelte';
 
 	import { timeFormat } from 'd3-time-format';
 	import CaseStudyMap from '../../../lib/ui/CaseStudyMap.svelte';
@@ -255,7 +254,7 @@
 						Civic Infrastructure present in the case study area is represented through 5 categories:
 						Education, Government & Community Services, Arts & Culture, Recreation, and Healthcare.
 						For more information about how we classified these categories, read our <a
-							href="about/data-methodology">Data and Methodology</a
+							href="/about/data-methodology">Data and Methodology</a
 						>. The graph displays the proportional mix of Civic Infrastucture in the case study
 						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
 						located in.
@@ -356,7 +355,7 @@
 					<p>
 						Main Street Businesses present in the case study area are represented through 3
 						categories: Retail, Food & Drink and Local Services. For more information about how we
-						classified these categories, read our <a href="about/data-methodology"
+						classified these categories, read our <a href="/about/data-methodology"
 							>Data and Methodology</a
 						>. The graph displays the proportional mix of Main Street Businesses in the case study
 						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
@@ -408,7 +407,7 @@
 					<p>
 						The estimated employment size of all entities, including main street businesses, civic
 						infrastructure and others, are displayed on this map. For more information about how we
-						calculated these, read our <a href="about/data-methodology">Data and Methodology</a>.
+						calculated these, read our <a href="/about/data-methodology">Data and Methodology</a>.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -596,7 +595,8 @@
 					<p>
 						The heatmap displayed represents the pattern of daily visits from the visitor's home
 						location from 2019 to 2022, which is sourced from Environics Analytics MobileScapes
-						data. To learn more, read our <a href="about/data-methodology">Data and Methodology</a>.
+						data. To learn more, read our <a href="/about/data-methodology">Data and Methodology</a
+						>.
 					</p>
 					<p>
 						The charts display the pattern of visits (relative to 2019) as a line chart, the visit
