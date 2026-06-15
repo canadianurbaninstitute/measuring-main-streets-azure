@@ -257,7 +257,7 @@
 						représentée par 5 catégories : Éducation, Services gouvernementaux et communautaires,
 						Arts et culture, Loisirs et Soins de santé. Pour plus d’informations sur la façon dont
 						nous avons classé ces catégories, veuillez consulter la section <a
-							href="about/data-methodology"
+							href="/about/data-methodology"
 						>
 							Données et méthodologie
 						</a>. Le graphique montre la proportion d’infrastructures municipales dans la zone visée
@@ -363,7 +363,7 @@
 						sont représentées par trois catégories : Commerce de détail, Services de restauration et
 						débits de boissons et Services locaux. Pour plus d’informations sur la manière dont nous
 						avons classé ces catégories, veuillez consulter la section <a
-							href="about/data-methodology"
+							href="/about/data-methodology"
 						>
 							Données et méthodologie
 						</a>. Le graphique présente la répartition proportionnelle des entreprises de la rue
@@ -418,7 +418,7 @@
 						Le niveau d’emploi estimé de toutes les entités, y compris les entreprises de la rue
 						principale, les infrastructures municipales et autres, est affiché sur cette carte. Pour
 						plus d’informations sur la manière dont nous avons calculé ces chiffres, veuillez
-						consulter la section <a href="about/data-methodology"> Données et méthodologie </a>.
+						consulter la section <a href="/about/data-methodology"> Données et méthodologie </a>.
 					</p>
 					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
 				</div>
@@ -609,7 +609,7 @@
 						La carte de densité affichée représente le schéma des visites quotidiennes à partir du
 						domicile du visiteur de 2019 à 2022, qui provient des données MobileScapes d’Environics
 						Analytics. Pour en savoir plus, veuillez consulter la section <a
-							href="about/data-methodology"
+							href="/about/data-methodology"
 						>
 							Données et méthodologie
 						</a>.
