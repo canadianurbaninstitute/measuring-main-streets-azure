@@ -169,7 +169,11 @@
 				'Coming out of the pandemic, many main streets and downtowns faced a convergence of economic, social, and operational challenges and were poorly positioned for recovery. Resilience on Main responded by delivering first-of-its-kind tools, case studies, and research that re‑scaled critical data to the main street level—equipping leaders and practitioners across Canada with the insights needed to restore activity, support recovery, champion equity, and strengthen long‑term resilience.',
 			stat: '85%',
 			subtext: 'of Canadians live within 1 kilometre from a main street',
-			cta: { link: '/about/#about-msr', label: 'About Phase One', href: '/about/#about-msr' },
+			cta: {
+				link: '/about/#about-resilience',
+				label: 'About Phase One',
+				href: '/about/#about-resilience'
+			},
 			cards: [
 				{
 					title: 'Main Street Map',
