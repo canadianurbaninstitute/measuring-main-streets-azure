@@ -337,7 +337,7 @@
 								<p>
 									As communities began to recover, a new set of challenges became more urgent —
 									especially the need for more housing and better ways to manage growth. At the same
-									time, major investments in transit across Canada have been creeeating new
+									time, major investments in transit across Canada have been creating new
 									opportunities for development along transit corridors.
 								</p>
 								<p>However, these changes also raise important questions:</p>
