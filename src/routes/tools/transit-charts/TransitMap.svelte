@@ -3,6 +3,7 @@
 	import type { FeatureCollection, Geometry } from 'geojson';
 	import mapboxgl from 'mapbox-gl';
 	import { onMount, tick } from 'svelte';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import {
 		transit_charts_style,
 		transit_lines_source,
@@ -20,8 +21,7 @@
 		currentData,
 		selectedVariable
 	} = $props();
-	let accessToken =
-		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+	let accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 	let mapStyle = transit_charts_style.url;
 
 	let containerClass = 'map-container';

@@ -1,6 +1,7 @@
 <script>
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import '../../styles.css';
@@ -16,8 +17,7 @@
 	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
-	mapboxgl.accessToken =
-		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	// creating a geojson for points of CMAs (when zoomed out)
 

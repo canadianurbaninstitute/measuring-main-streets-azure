@@ -37,6 +37,7 @@ jobs:
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET}}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ secrets.PUBLIC_MAPBOX_ACCESS_TOKEN }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

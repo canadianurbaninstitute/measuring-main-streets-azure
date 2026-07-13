@@ -44,8 +44,10 @@
 		map = $bindable()
 	}: Props = $props();
 
+	let manualLayerOn = $state(true);
+
 	let layerActive = $derived.by(() => {
-		if (!toggledValues || !filterProperty) return true;
+		if (!toggledValues || !filterProperty) return manualLayerOn;
 		if (!toggledValues[filterProperty]) return true;
 
 		if (Array.isArray(filterValue)) {
@@ -203,8 +205,9 @@
 
 	function toggleLayerVisibility() {
 		if (map) {
-			let opacity = map.getPaintProperty(id, `${featuretype}-opacity`);
-			if (opacity > 0.4 || opacity === undefined || Array.isArray(opacity)) {
+			manualLayerOn = !manualLayerOn;
+
+			if (!manualLayerOn) {
 				map.setPaintProperty(id, `${featuretype}-opacity`, 0);
 				if (featuretype === 'circle') {
 					map.setPaintProperty(id, `${featuretype}-stroke-opacity`, 0);
