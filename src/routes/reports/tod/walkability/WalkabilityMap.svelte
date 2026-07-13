@@ -5,6 +5,7 @@
 	import configMapbox from '../../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../../lib/data/transitdata/line-colors.json';
 	import Legend from '../../../transit-map/components/Legend.svelte';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 
 	const { transit_lines_source, transit_stations_source } = configMapbox;
 
@@ -102,8 +103,7 @@
 	});
 
 	onMount(() => {
-		mapboxgl.accessToken =
-			'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+		mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 		map = new mapboxgl.Map({
 			container: mapContainer,

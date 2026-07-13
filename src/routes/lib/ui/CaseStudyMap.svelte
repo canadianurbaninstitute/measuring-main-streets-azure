@@ -2,9 +2,9 @@
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
 	import { mapStoreList, visitorMapStore } from '../stores/mapStore';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 
-	mapboxgl.accessToken =
-		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	export let section;
 	export let center = [-79.37, 43.715];

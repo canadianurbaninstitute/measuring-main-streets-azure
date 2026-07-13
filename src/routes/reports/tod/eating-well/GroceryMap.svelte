@@ -6,13 +6,13 @@
 	import line_colors from '../../../lib/data/transitdata/line-colors.json';
 	import type { Regions } from '../../../lib/data/transitdata/transit-regions';
 	import transitRegionsData from '../../../lib/data/transitdata/transit-regions.json';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 
 	const transit_lines_source = configMapbox.transit_lines_source;
 
 	const transitRegions = transitRegionsData as Regions;
 
-	mapboxgl.accessToken =
-		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	interface Props {
 		map?: mapboxgl.Map | undefined;
@@ -250,7 +250,7 @@
 			0 10px 15px -3px rgba(0, 0, 0, 0.1),
 			0 4px 6px -2px rgba(0, 0, 0, 0.05);
 		position: relative;
-	} 
+	}
 
 	.map-wrapper.full-screen {
 		border-radius: 0;

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import {
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
@@ -40,8 +41,7 @@
 	} = $props();
 
 	// --- Mapbox Access Token ---
-	mapboxgl.accessToken =
-		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	const DEFAULT_T1_COLOR = '#003f5e';
 	const DEFAULT_T2_COLOR = '#2a5cac';

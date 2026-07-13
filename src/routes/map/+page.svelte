@@ -6,6 +6,7 @@
 
 	// Import Mapbox GL JS for interactive maps
 	import mapboxgl from 'mapbox-gl';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 
 	// Import Turf.js for geospatial operations
 	import Icon from '@iconify/svelte';
@@ -20,8 +21,7 @@
 	import Metric from '../lib/ui/Metric.svelte';
 
 	// Set Mapbox access token
-	mapboxgl.accessToken =
-		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	// Exported map variable (for child components)
 	export let map;

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import mapboxgl from 'mapbox-gl';
 	import { onMount } from 'svelte';
+	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import {
 		da_map_source,
 		transit_lines_source,
@@ -49,8 +50,7 @@
 		missingTier2
 	}: Props = $props();
 
-	mapboxgl.accessToken =
-		'pk.eyJ1IjoiY2FuYWRpYW51cmJhbmluc3RpdHV0ZSIsImEiOiJjbG95bzJiMG4wNW5mMmlzMjkxOW5lM241In0.o8ZurilZ00tGHXFV-gLSag';
+	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	$effect(() => {
 		if (!map) return;
