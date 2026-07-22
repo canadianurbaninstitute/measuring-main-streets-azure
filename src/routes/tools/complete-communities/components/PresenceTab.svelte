@@ -146,7 +146,7 @@
 					</div>
 					<div class="text-xs ml-5" slot="body">
 						{#each TIER_1_AMENITIES as item}
-							<li>{item}</li>
+							<li>{item.label}</li>
 						{/each}
 					</div>
 				</Accordion>
