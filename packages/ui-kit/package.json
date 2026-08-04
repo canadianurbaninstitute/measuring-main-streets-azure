@@ -1,0 +1,65 @@
+{
+	"name": "@canadianurbaninstitute/mms-ui-kit",
+	"version": "0.1.0",
+	"description": "Reusable Svelte 5 UI and data-visualization components extracted from Measuring Main Streets, with a usage/style guide.",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/canadianurbaninstitute/measuring-main-streets-azure.git",
+		"directory": "packages/ui-kit"
+	},
+	"type": "module",
+	"scripts": {
+		"package": "svelte-package && publint",
+		"prepublishOnly": "npm run package",
+		"check": "svelte-check --tsconfig ./tsconfig.json"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./tokens.css": "./dist/tokens.css",
+		"./chartcomponents/*.svelte": {
+			"types": "./dist/chartcomponents/*.svelte.d.ts",
+			"svelte": "./dist/chartcomponents/*.svelte"
+		},
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"sideEffects": [
+		"**/*.css"
+	],
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"dependencies": {
+		"@iconify/svelte": "^5.0.0",
+		"@onsvisual/svelte-charts": "^0.4.11",
+		"bits-ui": "^2.8.11",
+		"d3": "^7.9.0",
+		"d3-array": "^3.2.4",
+		"d3-format": "^3.1.0",
+		"d3-interpolate": "^3.0.1",
+		"d3-quadtree": "^3.0.1",
+		"d3-scale": "^4.0.2",
+		"d3-shape": "^3.2.0",
+		"d3-time-format": "^4.1.0",
+		"layercake": "^8.1.1",
+		"svelte-collapse": "^0.1.2"
+	},
+	"devDependencies": {
+		"@sveltejs/package": "^2.3.7",
+		"publint": "^0.2.12"
+	},
+	"engines": {
+		"node": ">=18.13"
+	}
+}

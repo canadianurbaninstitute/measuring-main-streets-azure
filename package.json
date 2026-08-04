@@ -2,7 +2,11 @@
   "name": "measuring-main-streets",
   "version": "0.0.1",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
+    "ui-kit:build": "npm run package -w @canadianurbaninstitute/mms-ui-kit",
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
