@@ -12,6 +12,9 @@
 		['--brandOrange', '#f45d01'],
 		['--brandPurple', '#8a4285']
 	];
+
+	const scaleNames = ['green', 'blue', 'pink', 'yellow', 'zinc', 'slate'];
+	const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 </script>
 
 <section class="section" id="foundations">
@@ -31,6 +34,35 @@
 				</div>
 			</div>
 		{/each}
+	</div>
+
+	<div class="demo-card">
+		<div class="demo-card-header">
+			<h3>Colour scales</h3>
+			<p>
+				Override Tailwind v4's own <code>--color-{'{name}'}-{'{shade}'}</code> variables, so
+				<code>bg-slate-800</code>, <code>text-green-500</code>, etc. render these shades instead of
+				stock Tailwind wherever the kit is used alongside Tailwind
+			</p>
+		</div>
+		<div class="demo-card-preview stack">
+			{#each scaleNames as scale}
+				<div class="scale-row">
+					<code class="scale-label">{scale}</code>
+					<div class="scale-swatches">
+						{#each shades as shade}
+							<div
+								class="scale-swatch"
+								style:background={`var(--color-${scale}-${shade})`}
+								title={`--color-${scale}-${shade}`}
+							>
+								{shade}
+							</div>
+						{/each}
+					</div>
+				</div>
+			{/each}
+		</div>
 	</div>
 
 	<div class="demo-card">

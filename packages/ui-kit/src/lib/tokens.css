@@ -5,6 +5,14 @@
  *
  * Components read these CSS custom properties for colour and a couple of
  * shared UI classes; overriding the values here re-themes the whole kit.
+ *
+ * The --color-{name}-{shade} variables below aren't arbitrary — that's
+ * Tailwind v4's own internal naming convention for its palette. Defining
+ * them here overrides Tailwind's built-in colours directly, so `bg-green-500`,
+ * `text-slate-800`, etc. render these custom shades instead of stock Tailwind
+ * in any project that has Tailwind v4 configured. That's the actual
+ * customization mechanism — this site never used the legacy JS
+ * `theme.extend.colors` config.
  */
 :root {
 	/* Brand palette */
@@ -30,7 +38,8 @@
 	--border-input: rgba(0, 0, 0, 0.15);
 	--shadow-popover: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-	/* Extended colour scales, used by chart components and getTagColor-style helpers */
+	/* Extended colour scales — these override Tailwind v4's built-in palette (see note above) */
+	--color-green: #58e965;
 	--color-green-50: #d2f9d5;
 	--color-green-100: #a4f3ab;
 	--color-green-200: #58e965;
@@ -41,6 +50,7 @@
 	--color-green-700: #164328;
 	--color-green-800: #0a1f13;
 	--color-green-900: #06130c;
+	--color-blue: #00adf2;
 	--color-blue-50: #d5f3ff;
 	--color-blue-100: #b4eaff;
 	--color-blue-200: #8fdfff;
@@ -51,6 +61,7 @@
 	--color-blue-700: #003f5e;
 	--color-blue-800: #002940;
 	--color-blue-900: #00131e;
+	--color-pink: #db3069;
 	--color-pink-50: #fcebf1;
 	--color-pink-100: #f9dae4;
 	--color-pink-200: #f5c8d7;
@@ -61,6 +72,7 @@
 	--color-pink-700: #721433;
 	--color-pink-800: #370919;
 	--color-pink-900: #250610;
+	--color-yellow: #f1c500;
 	--color-yellow-50: #ffefa9;
 	--color-yellow-100: #ffe053;
 	--color-yellow-200: #f1c500;
@@ -81,6 +93,17 @@
 	--color-zinc-700: #3b3b3b;
 	--color-zinc-800: #222222;
 	--color-zinc-900: #111111;
+	--color-slate: #002940;
+	--color-slate-50: #eceff1;
+	--color-slate-100: #cdd5d9;
+	--color-slate-200: #cdd5d9;
+	--color-slate-300: #aebbc3;
+	--color-slate-400: #8ea1ab;
+	--color-slate-500: #617a89;
+	--color-slate-600: #446273;
+	--color-slate-700: #1a3e53;
+	--color-slate-800: #002940;
+	--color-slate-900: #00131e;
 
 	/* svelte-range-slider-pips theme, used indirectly by components styled to match */
 	--range-slider: #dadcdc;
