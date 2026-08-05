@@ -5,6 +5,7 @@ node_modules
 **/.svelte-kit
 /package
 packages/*/dist
+packages/*/demo-dist
 .env
 .env.*
 !.env.example

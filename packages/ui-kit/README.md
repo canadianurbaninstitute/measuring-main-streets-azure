@@ -44,6 +44,21 @@ npm install @canadianurbaninstitute/mms-ui-kit
 2. **Load the Inter font** (used throughout) however your project prefers —
    Google Fonts, self-hosted, etc. Components don't bundle a font file.
 
+## Component showcase
+
+A live, browsable page rendering every component with real example props —
+more convenient than reading prop tables here. Run it from `packages/ui-kit`:
+
+```bash
+npm run docs         # dev server with hot reload, at localhost:5173
+npm run docs:build   # static site → packages/ui-kit/demo-dist, deployable anywhere
+npm run docs:preview # serve the built static site locally
+```
+
+(Or from the repo root: `npm run ui-kit:docs`.) The showcase source lives in
+`demo/` and isn't part of the published package — it imports straight from
+`src/lib` so it always reflects the current component code.
+
 ## Usage
 
 Import components by name from the package root:

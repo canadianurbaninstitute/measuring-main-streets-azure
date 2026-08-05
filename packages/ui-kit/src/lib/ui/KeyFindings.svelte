@@ -1,6 +1,5 @@
 <!-- UI component that displays a key finding and 3 related messages used on Measuring Main Streets Reports.-->
 <script>
-	import '../../styles.css';
 	export let number;
 	export let finding;
 	export let message1;

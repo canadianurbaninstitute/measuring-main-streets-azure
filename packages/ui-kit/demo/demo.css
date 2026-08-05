@@ -1,0 +1,206 @@
+@import '../src/lib/tokens.css';
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background: #fafbfc;
+	color: var(--foreground);
+}
+
+.layout {
+	display: flex;
+	min-height: 100vh;
+}
+
+.sidebar {
+	position: sticky;
+	top: 0;
+	align-self: flex-start;
+	width: 220px;
+	flex-shrink: 0;
+	height: 100vh;
+	overflow-y: auto;
+	background: var(--brandDarkBlue);
+	color: white;
+	padding: 1.5em 1em;
+}
+
+.sidebar h1 {
+	color: white;
+	font-size: 1.1rem;
+	margin: 0 0 0.25em;
+	letter-spacing: -0.01em;
+}
+
+.sidebar .subtitle {
+	font-size: 0.75rem;
+	color: rgba(255, 255, 255, 0.6);
+	margin-bottom: 1.5em;
+}
+
+.sidebar nav {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1em;
+}
+
+.sidebar nav a {
+	color: rgba(255, 255, 255, 0.8);
+	text-decoration: none;
+	padding: 0.4em 0.6em;
+	border-radius: 0.4em;
+	font-size: 0.9rem;
+	text-decoration-color: transparent;
+}
+
+.sidebar nav a:hover {
+	background: rgba(255, 255, 255, 0.08);
+	color: white;
+}
+
+.sidebar nav .group-label {
+	margin: 1.2em 0 0.3em;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: rgba(255, 255, 255, 0.45);
+	padding: 0 0.6em;
+}
+
+.content {
+	flex: 1;
+	padding: 2.5em 3em 6em;
+	max-width: 1100px;
+}
+
+.content > header {
+	margin-bottom: 2.5em;
+}
+
+section.section {
+	margin-bottom: 3.5em;
+	padding-top: 0.5em;
+	border-top: 1px solid #e5e7eb;
+}
+
+section.section:first-of-type {
+	border-top: none;
+}
+
+section.section h2 {
+	margin-top: 0;
+	font-size: 1.6rem;
+}
+
+.section-intro {
+	color: var(--foreground-alt);
+	max-width: 60ch;
+	margin-bottom: 1.5em;
+}
+
+.demo-card {
+	border: 1px solid #e5e7eb;
+	border-radius: 0.75em;
+	margin-bottom: 1.75em;
+	overflow: hidden;
+	background: white;
+}
+
+.demo-card .demo-card-header {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1em;
+	padding: 0.9em 1.2em;
+	border-bottom: 1px solid #f1f2f4;
+}
+
+.demo-card .demo-card-header h3 {
+	margin: 0;
+	font-size: 1rem;
+	font-family: 'Inter', sans-serif;
+	color: var(--foreground);
+	font-weight: 600;
+	max-width: none;
+}
+
+.demo-card .demo-card-header p {
+	margin: 0;
+	font-size: 0.8rem;
+	color: var(--foreground-alt);
+	max-width: none;
+}
+
+.demo-card .demo-card-preview {
+	padding: 1.5em;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1.2em;
+	background: repeating-linear-gradient(45deg, #fbfbfc, #fbfbfc 10px, #f5f6f7 10px, #f5f6f7 20px);
+}
+
+.demo-card .demo-card-preview.stack {
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.demo-card pre {
+	margin: 0;
+	padding: 1em 1.2em;
+	background: #0e1116;
+	color: #d4d8dd;
+	font-size: 0.8rem;
+	overflow-x: auto;
+	line-height: 1.6;
+}
+
+.demo-card pre code {
+	font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.swatch-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+	gap: 0.75em;
+	margin-bottom: 2em;
+}
+
+.swatch {
+	border-radius: 0.6em;
+	overflow: hidden;
+	border: 1px solid #e5e7eb;
+}
+
+.swatch .swatch-color {
+	height: 56px;
+}
+
+.swatch .swatch-label {
+	padding: 0.5em 0.7em;
+	font-size: 0.75rem;
+	background: white;
+}
+
+.swatch .swatch-label code {
+	display: block;
+	color: var(--foreground-alt);
+	font-size: 0.7rem;
+}
+
+.type-sample {
+	margin-bottom: 0.6em;
+}
+
+.type-sample .type-tag {
+	display: inline-block;
+	font-size: 0.7rem;
+	color: var(--foreground-alt);
+	font-family: monospace;
+	width: 3em;
+}

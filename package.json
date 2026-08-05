@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "ui-kit:build": "npm run package -w @canadianurbaninstitute/mms-ui-kit",
+    "ui-kit:docs": "npm run docs -w @canadianurbaninstitute/mms-ui-kit",
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
