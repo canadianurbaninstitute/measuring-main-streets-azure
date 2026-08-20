@@ -30,7 +30,15 @@ function computeSizeOf(cities) {
 	return map;
 }
 
-export const SIZE_OF = computeSizeOf(CITIES);
+// Manual corrections to the population-derived tiers above. Edmonton's core
+// population is known-bad upstream (city-wide, not downtown-only) and reads
+// as "large" as a result; Winnipeg is moved down to sit alongside it.
+const SIZE_OVERRIDES = {
+	edmonton: 'medium',
+	winnipeg: 'medium'
+};
+
+export const SIZE_OF = { ...computeSizeOf(CITIES), ...SIZE_OVERRIDES };
 
 export const SIZE_LEGEND = SIZE_ORDER.map((key) => ({
 	key,
