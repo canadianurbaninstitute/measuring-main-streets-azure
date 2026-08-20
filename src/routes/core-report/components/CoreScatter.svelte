@@ -1,11 +1,11 @@
 <!-- Plots the fifteen downtown cores against any two measures, sized by
-     population and coloured by region, with a plain-language read on how
+     population and coloured by downtown size, with a plain-language read on how
      tightly the pairing actually holds. -->
 
 <script>
 	import {
-		REGION_COLOR,
-		REGION_OF,
+		SIZE_COLOR,
+		SIZE_OF,
 		correlation,
 		correlationLabel,
 		format
@@ -33,8 +33,8 @@
 			return {
 				key: city.key,
 				name: city.name,
-				region: REGION_OF[city.key],
-				color: REGION_COLOR[REGION_OF[city.key]],
+				sizeGroup: SIZE_OF[city.key],
+				color: SIZE_COLOR[SIZE_OF[city.key]],
 				x: xMetric.get(profile),
 				y: yMetric.get(profile),
 				population: profile.population

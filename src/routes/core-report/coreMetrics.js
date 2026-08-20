@@ -1,47 +1,41 @@
-// Shared vocabulary for the Core Report trends explorer: region colouring, the
-// measures that can be plotted, value formatting, and the beeswarm packer that
-// both swarm modules share.
+// Shared vocabulary for the Core Report trends explorer: downtown-size
+// colouring, the measures that can be plotted, value formatting, and the
+// beeswarm packer that both swarm modules share.
 
-// Regions are coloured with the site brand tokens so the explorer stays in step
-// with the rest of Measuring Main Streets.
-export const REGION_OF = {
-	stjohns: 'atl',
-	halifax: 'atl',
-	moncton: 'atl',
-	montreal: 'qc',
-	gatineau: 'qc',
-	ottawa: 'on',
-	toronto: 'on',
-	hamilton: 'on',
-	london: 'on',
-	winnipeg: 'pr',
-	saskatoon: 'pr',
-	lethbridge: 'pr',
-	calgary: 'pr',
-	edmonton: 'pr',
-	vancouver: 'bc'
+import { CITIES } from '../lib/data/coredata/coreData.js';
+
+export const SIZE_ORDER = ['small', 'medium', 'large'];
+
+export const SIZE_COLOR = {
+	small: 'var(--brandLightBlue)',
+	medium: 'var(--brandOrange)',
+	large: 'var(--brandPink)'
 };
 
-export const REGION_COLOR = {
-	atl: 'var(--brandBlue)',
-	qc: 'var(--brandPurple)',
-	on: 'var(--brandLightBlue)',
-	pr: 'var(--brandOrange)',
-	bc: 'var(--brandDarkGreen)'
+export const SIZE_LABEL = {
+	small: 'Small downtown',
+	medium: 'Medium downtown',
+	large: 'Large downtown'
 };
 
-export const REGION_LABEL = {
-	atl: 'Atlantic',
-	qc: 'Québec',
-	on: 'Ontario',
-	pr: 'Prairies',
-	bc: 'British Columbia'
-};
+// Downtowns are split into three equal-sized tiers by their core population,
+// so the grouping stays meaningful as more downtowns are added over time.
+function computeSizeOf(cities) {
+	const sorted = [...cities].sort((a, b) => a.downtown.population - b.downtown.population);
+	const map = {};
+	sorted.forEach((city, i) => {
+		const tier = Math.min(2, Math.floor((i / sorted.length) * 3));
+		map[city.key] = SIZE_ORDER[tier];
+	});
+	return map;
+}
 
-export const REGION_LEGEND = Object.keys(REGION_LABEL).map((key) => ({
+export const SIZE_OF = computeSizeOf(CITIES);
+
+export const SIZE_LEGEND = SIZE_ORDER.map((key) => ({
 	key,
-	label: REGION_LABEL[key],
-	color: REGION_COLOR[key]
+	label: SIZE_LABEL[key],
+	color: SIZE_COLOR[key]
 }));
 
 /** Formats a value for display. `null`/`NaN` render as an em dash. */
@@ -151,7 +145,7 @@ export const OCCUPATIONS = [
 ];
 
 /**
- * Packs one dot per core and per region along a horizontal value axis, nudging
+ * Packs one dot per core and per wider region along a horizontal value axis, nudging
  * collisions up and down so nothing overlaps. Positions are laid out in the
  * measured pixel width of the container so the swarm stays legible on any
  * screen — values are encoded by position, never by rank.
@@ -171,13 +165,13 @@ export function packSwarm({ cities, value, width, height, scale = 'lin', zeroFlo
 
 	const items = [];
 	for (const city of cities) {
-		const region = REGION_OF[city.key];
-		const color = REGION_COLOR[region];
+		const sizeGroup = SIZE_OF[city.key];
+		const color = SIZE_COLOR[sizeGroup];
 		items.push({
 			key: city.key + '-core',
 			cityKey: city.key,
 			name: city.name,
-			region,
+			sizeGroup,
 			color,
 			kind: 'core',
 			value: value(city.downtown) || 0
@@ -186,7 +180,7 @@ export function packSwarm({ cities, value, width, height, scale = 'lin', zeroFlo
 			key: city.key + '-region',
 			cityKey: city.key,
 			name: city.name,
-			region,
+			sizeGroup,
 			color,
 			kind: 'region',
 			value: value(city.cma) || 0

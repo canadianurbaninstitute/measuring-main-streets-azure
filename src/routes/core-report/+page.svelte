@@ -8,7 +8,7 @@
 	import Beeswarm from './components/Beeswarm.svelte';
 	import ChipGroup from './components/ChipGroup.svelte';
 	import CoreScatter from './components/CoreScatter.svelte';
-	import { INDUSTRIES, METRICS, OCCUPATIONS, REGION_LEGEND } from './coreMetrics.js';
+	import { INDUSTRIES, METRICS, OCCUPATIONS, SIZE_LEGEND } from './coreMetrics.js';
 
 	// One selection is shared by all three modules, so isolating a city in the
 	// spread also isolates it in the scatter and the workforce swarm.
@@ -64,18 +64,18 @@
 				Canada's Core Report · a visual field guide
 			</div>
 			<h2 class="headline">Fifteen downtowns, one national picture</h2>
-			<p class="standfirst">
+			<!-- <p class="standfirst">
 				Every measure below plots all fifteen cores at once — no leaderboards, just the shape of the
 				data. Each city appears twice: a <b>filled dot for the downtown core</b> and a
 				<b>hollow dot for its wider region</b>. Click any city to follow it through all three views.
-			</p>
+			</p> -->
 		</header>
 
 		<div class="legend">
-			<span class="legend-title">Coloured by region</span>
-			{#each REGION_LEGEND as region (region.key)}
+			<span class="legend-title">Coloured by downtown size</span>
+			{#each SIZE_LEGEND as size (size.key)}
 				<span class="legend-item">
-					<span class="legend-swatch" style:background={region.color}></span>{region.label}
+					<span class="legend-swatch" style:background={size.color}></span>{size.label}
 				</span>
 			{/each}
 			{#if selectedName}
@@ -84,6 +84,18 @@
 				</button>
 			{/if}
 		</div>
+
+		<!-- 00 · The map -->
+		<!-- <section class="module">
+			<div class="module-number is-purple">00 · The map</div>
+			<h3 class="module-title">Fifteen downtown-core boundaries</h3>
+			<p class="module-blurb">
+				Every filled shape is a downtown's actual boundary, coloured by size group. Click a
+				downtown to follow it through every module below.
+			</p>
+
+			<CoreMap bind:selectedCity />
+		</section> -->
 
 		<!-- 01 · The spread -->
 		<section class="module">
@@ -341,6 +353,10 @@
 
 	.module-number.is-yellow {
 		color: var(--brandYellow);
+	}
+
+	.module-number.is-purple {
+		color: var(--brandPurple);
 	}
 
 	.module-title {
