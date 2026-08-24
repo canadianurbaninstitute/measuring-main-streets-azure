@@ -1,74 +1,51 @@
 <script>
 	import { onMount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
-	import * as turf from '@turf/turf';
-	import * as h3 from 'h3-js';
 	import 'mapbox-gl/dist/mapbox-gl.css';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
+	import '../../styles.css';
 
 	let mapContainer;
 	let map;
 	let popup;
+	let is3D = true;
+	let showPts = true;
 
-	// Performance improvement
-	// How to deal with different data densities:
-	// upload different POINT_LAYERS for each province
-	// have a if statement to check which layer to use based on
-	// the centre coordinates of the viewport
-	// then use conditional logic to adjust to zoom hex sizes.
-
+	const ZOOM1_LAYER_ID = 'nova-scotia-nar-res5';
+	const ZOOM2_LAYER_ID = 'nova-scotia-nar-res7';
+	const ZOOM3_LAYER_ID = 'nova-scotia-nar-res9';
 	const POINT_LAYER_ID = 'nova-scotia-housing-points';
-	let lastResolution;
 
-	function zoomToH3Resolution(zoom) {
-		if (zoom >= 10) return 9;
-		if (zoom >= 8.5) return 7;
-		if (zoom >= 7) return 6;
-
-		return 5;
+	function toggleProjection() {
+		is3D = !is3D;
+		map.easeTo({ pitch: is3D ? 60 : 0 });
 	}
 
-	function updateHexbins() {
-		const features = map
-			.queryRenderedFeatures({ layers: [POINT_LAYER_ID] })
-			.filter((f) => f.properties && f.properties.reppoint_latitude !== undefined);
+	function togglePts() {
+		showPts = !showPts;
+		map.setLayoutProperty(POINT_LAYER_ID, 'visibility', showPts ? 'visible' : 'none');
+	}
 
-		if (!features.length) {
-			map.getSource('hexbins').setData(turf.featureCollection([]));
-			return;
+	function updateZoomLayerVisibility() {
+		const zoom = map.getZoom();
+		console.log(zoom);
+
+		let activeLayerId;
+		if (zoom >= 9.5) {
+			activeLayerId = ZOOM3_LAYER_ID;
+		} else if (zoom >= 7.5) {
+			activeLayerId = ZOOM2_LAYER_ID;
+		} else {
+			activeLayerId = ZOOM1_LAYER_ID;
 		}
 
-		const resolution = zoomToH3Resolution(map.getZoom());
-
-		// Don't recalculate if resolution hasn't changed
-		if (resolution === lastResolution) {
-			console.log('Not recalculating');
-			return;
+		for (const layerId of [ZOOM1_LAYER_ID, ZOOM2_LAYER_ID, ZOOM3_LAYER_ID]) {
+			if (!map.getLayer(layerId)) {
+				console.warn(`Layer "${layerId}" not found in style`);
+				continue;
+			}
+			map.setLayoutProperty(layerId, 'visibility', layerId === activeLayerId ? 'visible' : 'none');
 		}
-
-		lastResolution = resolution;
-
-		document.getElementById('zoom').textContent =
-			`Zoom: ${map.getZoom().toFixed(2)} | H3 Resolution: ${resolution}`;
-
-		const bins = new Map();
-
-		for (const f of features) {
-			const { reppoint_latitude: lat, reppoint_longitude: lng, unit_count } = f.properties;
-			const cellId = h3.latLngToCell(lat, lng, resolution);
-
-			const bin = bins.get(cellId) ?? { unit_count: 0, point_count: 0 };
-			bin.unit_count += unit_count;
-			bin.point_count += 1;
-			bins.set(cellId, bin);
-		}
-
-		const hexbins = Array.from(bins.entries()).map(([cellId, props]) => {
-			const boundary = h3.cellToBoundary(cellId, true);
-			return turf.polygon([[...boundary, boundary[0]]], props);
-		});
-
-		map.getSource('hexbins').setData(turf.featureCollection(hexbins));
 	}
 
 	onMount(() => {
@@ -76,52 +53,47 @@
 
 		map = new mapboxgl.Map({
 			container: mapContainer,
-			style: 'mapbox://styles/canadianurbaninstitute/cmebusgda001n01qw1y042h3q',
+			style: 'mapbox://styles/canadianurbaninstitute/cms90dbtc00d601s2avai9gvj',
 			center: [-63.5859, 44.682],
-			zoom: 8
+			zoom: 10.5,
+			pitch: 60,
+			customAttribution: 'Canadian Urban Institute'
 		});
 
-		map.on('load', () => {
-			map.addSource('hexbins', {
-				type: 'geojson',
-				data: turf.featureCollection([])
-			});
+		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
-			map.addLayer({
-				id: 'hexbins-extrusion',
-				type: 'fill-extrusion',
-				source: 'hexbins',
-				paint: {
-					'fill-extrusion-color': '#ff4444',
-					'fill-extrusion-height': ['*', ['get', 'unit_count'], 25],
-					'fill-extrusion-base': 0,
-					'fill-extrusion-opacity': 0.8
-				}
-			});
+		map.on('load', () => {
+			console.log(
+				'Style layers:',
+				map.getStyle().layers.map((l) => l.id)
+			);
 
 			popup = new mapboxgl.Popup({
 				closeButton: false,
 				closeOnClick: false
 			});
 
-			map.on('mousemove', 'hexbins-extrusion', (e) => {
-				const props = e.features[0].properties;
+			const layerIds = [ZOOM1_LAYER_ID, ZOOM2_LAYER_ID, ZOOM3_LAYER_ID];
+
+			map.on('mousemove', layerIds, (e) => {
+				map.getCanvas().style.cursor = 'pointer';
+				const { n_points } = e.features[0].properties;
 				popup
 					.setLngLat(e.lngLat)
-					.setHTML(`<strong>${props.unit_count}</strong> units<br>${props.point_count} Locations`)
+					.setHTML(`<strong>${n_points.toLocaleString()}</strong> units`)
 					.addTo(map);
 			});
 
-			map.on('mouseleave', 'hexbins-extrusion', () => {
+			map.on('mouseleave', layerIds, () => {
+				map.getCanvas().style.cursor = '';
 				popup.remove();
 			});
 
 			// First load
-			updateHexbins();
+			updateZoomLayerVisibility();
 
-			// Recalculate whenever viewport changes OR zoom changes
-			map.on('moveend', updateHexbins);
-			map.on('zoomend', updateHexbins);
+			// Recalculate whenever zoom changes
+			map.on('zoomend', updateZoomLayerVisibility);
 		});
 
 		return () => {
@@ -130,22 +102,73 @@
 	});
 </script>
 
-<h1>NAR Unit Density Map - Hexbins</h1>
+<div class="hero">
+	<h1>Housing Density</h1>
+	<h2>Mapping Tool</h2>
+	<p>
+		This map shows the number of residential units across Canada. Zoom in and out to change the
+		resolution of the map. Data from Statistics Canada's
+		<a href="https://www150.statcan.gc.ca/n1/en/catalogue/46260002" target="_blank"
+			>National Address Register</a
+		>.
+	</p>
+	<p><a href="#map-container">Explore the map ↓</a></p>
+</div>
+
 <div id="map-container">
 	<div bind:this={mapContainer} id="map"></div>
-	<p id="zoom"></p>
+	<button id="projection-toggle" on:click={toggleProjection}>
+		{is3D ? '2D' : '3D'}
+	</button>
+	<button id="pts-toggle" on:click={togglePts}>
+		{showPts ? 'Hide NAR points' : 'Show NAR points'}
+	</button>
 </div>
 
 <style>
+	:global(html) {
+		scroll-behavior: smooth;
+	}
+
 	#map {
-		width: 80%;
-		height: 90vh;
+		width: 100%;
+		height: 100%;
 	}
 
 	#map-container {
+		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		height: 100vh;
+		scroll-margin-top: -80px;
+	}
+
+	#projection-toggle {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		z-index: 1;
+		padding: 8px 14px;
+		background: #ffffff;
+		border: none;
+		border-radius: 4px;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		cursor: pointer;
+		font-weight: 600;
+	}
+
+	#pts-toggle {
+		position: absolute;
+		top: 60px;
+		right: 10px;
+		z-index: 1;
+		padding: 8px 14px;
+		background: #ffffff;
+		border: none;
+		border-radius: 4px;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		cursor: pointer;
+		font-weight: 600;
 	}
 </style>
