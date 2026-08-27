@@ -11,9 +11,9 @@
 	let is3D = true;
 	let showPts = true;
 
-	const ZOOM1_LAYER_ID = 'nova-scotia-nar-res5';
-	const ZOOM2_LAYER_ID = 'nova-scotia-nar-res7';
-	const ZOOM3_LAYER_ID = 'nova-scotia-nar-res9';
+	const ZOOM1_LAYER_IDS = ['nova-scotia-nar-res5', 'pe-nar-res5', 'nb-nar-res5'];
+	const ZOOM2_LAYER_IDS = ['nova-scotia-nar-res7', 'pe-nar-res7', 'nb-nar-res7'];
+	const ZOOM3_LAYER_IDS = ['nova-scotia-nar-res9', 'pe-nar-res9', 'nb-nar-res9'];
 	const POINT_LAYER_ID = 'nova-scotia-housing-points';
 
 	function toggleProjection() {
@@ -30,21 +30,25 @@
 		const zoom = map.getZoom();
 		console.log(zoom);
 
-		let activeLayerId;
+		let activeLayerIds;
 		if (zoom >= 9.5) {
-			activeLayerId = ZOOM3_LAYER_ID;
+			activeLayerIds = ZOOM3_LAYER_IDS;
 		} else if (zoom >= 7.5) {
-			activeLayerId = ZOOM2_LAYER_ID;
+			activeLayerIds = ZOOM2_LAYER_IDS;
 		} else {
-			activeLayerId = ZOOM1_LAYER_ID;
+			activeLayerIds = ZOOM1_LAYER_IDS;
 		}
 
-		for (const layerId of [ZOOM1_LAYER_ID, ZOOM2_LAYER_ID, ZOOM3_LAYER_ID]) {
+		for (const layerId of [...ZOOM1_LAYER_IDS, ...ZOOM2_LAYER_IDS, ...ZOOM3_LAYER_IDS]) {
 			if (!map.getLayer(layerId)) {
 				console.warn(`Layer "${layerId}" not found in style`);
 				continue;
 			}
-			map.setLayoutProperty(layerId, 'visibility', layerId === activeLayerId ? 'visible' : 'none');
+			map.setLayoutProperty(
+				layerId,
+				'visibility',
+				activeLayerIds.includes(layerId) ? 'visible' : 'none'
+			);
 		}
 	}
 
@@ -73,7 +77,7 @@
 				closeOnClick: false
 			});
 
-			const layerIds = [ZOOM1_LAYER_ID, ZOOM2_LAYER_ID, ZOOM3_LAYER_ID];
+			const layerIds = [...ZOOM1_LAYER_IDS, ...ZOOM2_LAYER_IDS, ...ZOOM3_LAYER_IDS];
 
 			map.on('mousemove', layerIds, (e) => {
 				map.getCanvas().style.cursor = 'pointer';
