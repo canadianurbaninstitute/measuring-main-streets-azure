@@ -225,6 +225,7 @@ export function packSwarm({
 			const itemValue = value(profile);
 			if (!isValue(itemValue)) continue;
 			items.push({
+				order: items.length,
 				key: `${city.key}-${kind}`,
 				cityKey: city.key,
 				name: city.name,
@@ -287,7 +288,10 @@ export function packSwarm({
 	const ticks = tickValues.map((tickValue) => ({ x: toX(tickValue), value: tickValue }));
 
 	return {
-		dots: placed,
+		// Back in input order, so the dots render in the same DOM order every time.
+		// Reordering keyed elements re-inserts them, and a re-inserted element
+		// drops its CSS transition: dots would jump between years, not glide.
+		dots: placed.sort((a, b) => a.order - b.order),
 		ticks,
 		average,
 		averageX: average == null ? null : toX(average),

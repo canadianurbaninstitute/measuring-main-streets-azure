@@ -46,10 +46,8 @@
 
 	function play() {
 		if (playing) return stop();
-		if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-			year = to;
-			return;
-		}
+		// With reduced motion the swarm's transitions are off, so the same steps
+		// play as jumps between years rather than glides.
 		playing = true;
 		// Snap back to the first year without gliding, hold so the reader can
 		// take in the starting picture, then let the dots travel.
