@@ -152,8 +152,8 @@ export const OCCUPATIONS = [
 	{ key: 'manufacturing', label: 'Manufacturing', get: (m) => m.occupations.manufacturing }
 ];
 
-/** Colour for downtowns in the time series that the 2021 profiles don't cover yet. */
-export const UNPROFILED_COLOR = '#e4ecf0';
+// Fallback for a city without a size group, so its dot still draws.
+const FALLBACK_COLOR = '#e4ecf0';
 
 const SCALES = {
 	lin: { to: (v) => v, from: (t) => t },
@@ -198,7 +198,7 @@ export function packSwarm({
 	const items = [];
 	for (const city of cities) {
 		const sizeGroup = SIZE_OF[city.key];
-		const color = SIZE_COLOR[sizeGroup] ?? UNPROFILED_COLOR;
+		const color = SIZE_COLOR[sizeGroup] ?? FALLBACK_COLOR;
 		for (const [kind, profile] of [
 			['core', city.downtown],
 			['region', city.cma]

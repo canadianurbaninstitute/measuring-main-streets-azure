@@ -1,13 +1,16 @@
-<!-- Play button and year pills for animating a beeswarm through census years.
-     Play rewinds to the first year, holds, then steps forward one census at a
-     time; the pills jump straight to any year. -->
+<!-- Date range, play button and year pills for animating a beeswarm through
+     census years. The range picks the first and last census to compare; Play
+     rewinds to the first, holds, then steps forward one census at a time; the
+     pills jump straight to any year in the range. -->
 
 <script>
 	import { onDestroy } from 'svelte';
 
 	/**
 	 * Props:
-	 *   years    - census years in order, e.g. [2001, 2021]
+	 *   years    - every census year available, in order
+	 *   from     - bindable first year of the range
+	 *   to       - bindable last year of the range
 	 *   year     - bindable year on show
 	 *   instant  - bindable; true while rewinding, so the swarm can jump rather than glide
 	 *   step     - milliseconds between frames while playing (should exceed the glide)
@@ -15,6 +18,8 @@
 	 */
 	let {
 		years = [],
+		from = $bindable(null),
+		to = $bindable(null),
 		year = $bindable(null),
 		instant = $bindable(false),
 		step = 1800,
@@ -24,6 +29,8 @@
 	let playing = $state(false);
 	let timer = null;
 
+	const frames = $derived(years.filter((yr) => yr >= from && yr <= to));
+
 	function stop() {
 		clearTimeout(timer);
 		timer = null;
@@ -32,22 +39,22 @@
 	}
 
 	function advance(index) {
-		if (index >= years.length) return stop();
-		year = years[index];
+		if (index >= frames.length) return stop();
+		year = frames[index];
 		timer = setTimeout(() => advance(index + 1), step);
 	}
 
 	function play() {
 		if (playing) return stop();
 		if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-			year = years.at(-1);
+			year = to;
 			return;
 		}
 		playing = true;
 		// Snap back to the first year without gliding, hold so the reader can
 		// take in the starting picture, then let the dots travel.
 		instant = true;
-		year = years[0];
+		year = from;
 		timer = setTimeout(() => {
 			instant = false;
 			advance(1);
@@ -59,6 +66,14 @@
 		year = target;
 	}
 
+	// A new range lands on its end year, the picture the range leads to.
+	function setRange(nextFrom, nextTo) {
+		stop();
+		from = nextFrom;
+		to = nextTo;
+		year = nextTo;
+	}
+
 	onDestroy(stop);
 </script>
 
@@ -67,7 +82,8 @@
 		type="button"
 		class="play"
 		aria-pressed={playing}
-		aria-label={playing ? 'Stop' : `Play ${years[0]} to ${years.at(-1)}`}
+		aria-label={playing ? 'Stop' : `Play ${from} to ${to}`}
+		disabled={frames.length < 2}
 		onclick={play}
 	>
 		{#if playing}
@@ -81,8 +97,27 @@
 		{/if}
 	</button>
 
-	<div class="years" role="group" aria-label="Census year">
-		{#each years as option, i (option)}
+	<div class="range" role="group" aria-label="Date range">
+		<label>
+			<span class="range-label">From</span>
+			<select value={from} onchange={(e) => setRange(Number(e.currentTarget.value), to)}>
+				{#each years as option (option)}
+					<option value={option} disabled={option >= to}>{option}</option>
+				{/each}
+			</select>
+		</label>
+		<label>
+			<span class="range-label">to</span>
+			<select value={to} onchange={(e) => setRange(from, Number(e.currentTarget.value))}>
+				{#each years as option (option)}
+					<option value={option} disabled={option <= from}>{option}</option>
+				{/each}
+			</select>
+		</label>
+	</div>
+
+	<div class="years" role="group" aria-label="Census year on show">
+		{#each frames as option, i (option)}
 			{#if i > 0}<span class="arrow" aria-hidden="true">→</span>{/if}
 			<button
 				type="button"
@@ -126,10 +161,53 @@
 		filter: brightness(1.15);
 	}
 
+	.play:disabled {
+		opacity: 0.4;
+		cursor: default;
+		filter: none;
+	}
+
 	.play svg {
 		width: 0.9rem;
 		height: 0.9rem;
 		fill: currentColor;
+	}
+
+	.range {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.range label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.range-label {
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--core-text-muted);
+	}
+
+	.range select {
+		font-family: Inter, sans-serif;
+		font-weight: 600;
+		font-size: 0.78rem;
+		color: var(--core-text-soft);
+		background: #022a3f;
+		border: 1px solid var(--core-line);
+		border-radius: 999px;
+		padding: 0.4rem 0.75rem;
+		cursor: pointer;
+	}
+
+	.range select:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 1px;
 	}
 
 	.years {
