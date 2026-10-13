@@ -14,8 +14,8 @@
 	// spread also isolates it in the scatter and the other swarms.
 	let selectedCity = $state(null);
 
-	let spreadMetric = $state('rented');
-	let xMetric = $state('population');
+	let spreadMetric = $state('density');
+	let xMetric = $state('density');
 	let yMetric = $state('carfree');
 	let occupation = $state('business');
 

@@ -7,7 +7,7 @@
 
 	/**
 	 * Props:
-	 *   cities        - rows from coreData
+	 *   cities        - rows carrying `downtown` and `cma`, which `value` reads
 	 *   value         - (profile) => number, reads the measure being plotted
 	 *   valueFormat   - format key passed to format()
 	 *   unit          - suffix appended in the tooltip

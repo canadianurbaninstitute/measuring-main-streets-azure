@@ -76,6 +76,16 @@ export function format(value, kind) {
  */
 export const METRICS = [
 	{
+		key: 'density',
+		label: 'Density',
+		note: 'People per km². Downtown area is measured from the downtown boundary; region area is Statistics Canada’s 2021 land area, so regions have no 2001 density, and the boundary file does not yet include Ottawa–Gatineau.',
+		get: count('Density', 'Population density'),
+		format: 'int',
+		scale: 'sqrt',
+		unit: '/km²',
+		zeroFloor: false
+	},
+	{
 		key: 'population',
 		label: 'Population',
 		get: population,
