@@ -8,7 +8,15 @@
 	import Beeswarm from './components/Beeswarm.svelte';
 	import ChipGroup from './components/ChipGroup.svelte';
 	import CoreScatter from './components/CoreScatter.svelte';
-	import { INDUSTRIES, METRICS, OCCUPATIONS, SIZE_LEGEND } from './coreMetrics.js';
+	import PlayControl from './components/PlayControl.svelte';
+	import {
+		INDUSTRIES,
+		METRICS,
+		OCCUPATIONS,
+		SIZE_LEGEND,
+		UNPROFILED_COLOR
+	} from './coreMetrics.js';
+	import { SERIES_AVAILABLE, SERIES_YEARS, loadSeries } from './coreTimeSeries.js';
 
 	// One selection is shared by all three modules, so isolating a city in the
 	// spread also isolates it in the scatter and the workforce swarm.
@@ -44,7 +52,54 @@
 		}
 	});
 
-	const selectedName = $derived(CITIES.find((c) => c.key === selectedCity)?.name ?? null);
+	// 04 · The change — 2001 and 2021 Census snapshots, loaded on demand and only
+	// when the sdsc-data comparison CSV is part of the build.
+	let seriesThemes = $state([]);
+	let seriesTheme = $state('');
+	let seriesVariable = $state('');
+	let seriesYear = $state(SERIES_YEARS.at(-1));
+	let seriesInstant = $state(false);
+
+	$effect(() => {
+		if (!SERIES_AVAILABLE) return;
+		loadSeries().then((themes) => {
+			seriesThemes = themes;
+			seriesTheme = themes[0]?.key ?? '';
+		});
+	});
+
+	const changeTheme = $derived(seriesThemes.find((t) => t.key === seriesTheme) ?? null);
+	const change = $derived(
+		changeTheme?.variables.find((v) => v.key === seriesVariable) ??
+			changeTheme?.variables[0] ??
+			null
+	);
+
+	$effect(() => {
+		const variables = changeTheme?.variables ?? [];
+		if (variables.length && !variables.some((v) => v.key === seriesVariable)) {
+			seriesVariable = variables[0].key;
+		}
+	});
+
+	// One axis across both census years, so a dot moving means the value changed
+	// rather than the axis rescaling under it.
+	const changeDomain = $derived.by(() => {
+		if (!change) return null;
+		const values = change.cities
+			.flatMap((c) => SERIES_YEARS.flatMap((yr) => [c.downtown[yr], c.cma[yr]]))
+			.filter((v) => v != null);
+		return values.length ? [Math.min(...values), Math.max(...values)] : null;
+	});
+
+	const previousYear = $derived(SERIES_YEARS[SERIES_YEARS.indexOf(seriesYear) - 1] ?? null);
+	const changeHasUnprofiled = $derived(change?.cities.some((c) => !c.profiled) ?? false);
+
+	const selectedName = $derived(
+		CITIES.find((c) => c.key === selectedCity)?.name ??
+			change?.cities.find((c) => c.key === selectedCity)?.name ??
+			null
+	);
 </script>
 
 <svelte:head>
@@ -194,10 +249,76 @@
 			</div>
 		</section>
 
+		<!-- 04 · The change -->
+		{#if change}
+			<section class="module">
+				<div class="module-head">
+					<div>
+						<div class="module-number is-purple">
+							04 · The change, {SERIES_YEARS[0]} to {SERIES_YEARS.at(-1)}
+						</div>
+						<h3 class="module-title">{change.label}: then and now</h3>
+					</div>
+					<div class="kind-legend">
+						<span class="kind"><span class="kind-swatch is-core"></span>Core</span>
+						<span class="kind"><span class="kind-swatch"></span>Region</span>
+						{#if changeHasUnprofiled}
+							<span class="kind">
+								<span class="legend-swatch" style:background={UNPROFILED_COLOR}></span>
+								Not yet profiled
+							</span>
+						{/if}
+					</div>
+				</div>
+				<p class="module-blurb">
+					Press play to watch every core and region move from the {SERIES_YEARS[0]} Census to the
+					{SERIES_YEARS.at(-1)} Census. The axis stays fixed across both years, so a dot that moves has
+					changed. Hover a dot, or follow a city, to trace it back to where it started.
+					{#if change.format === 'pct'}Values are shares of {change.indicator.toLowerCase()}.{/if}
+				</p>
+
+				<div class="controls is-stacked">
+					<ChipGroup
+						options={seriesThemes.map((t) => ({ key: t.key, label: t.label }))}
+						bind:selected={seriesTheme}
+						accent="var(--brandPurple)"
+					/>
+					<ChipGroup
+						options={changeTheme.variables.map((v) => ({ key: v.key, label: v.label }))}
+						bind:selected={seriesVariable}
+					/>
+					<PlayControl years={SERIES_YEARS} bind:year={seriesYear} bind:instant={seriesInstant} />
+				</div>
+
+				<Beeswarm
+					cities={change.cities}
+					value={(profile) => profile[seriesYear]}
+					compare={previousYear ? (profile) => profile[previousYear] : null}
+					compareLabel={String(previousYear ?? '')}
+					domain={changeDomain}
+					valueFormat={change.format}
+					scale={change.scale}
+					zeroFloor={change.zeroFloor}
+					stamp={String(seriesYear)}
+					duration={seriesInstant ? 0 : 1400}
+					bind:selectedCity
+				/>
+
+				<p class="module-note">
+					Two census snapshots, not a trend line: the animation shows the jump between them, not the
+					path in between. Regions use census metropolitan area boundaries as drawn in each year, so
+					some regional change is territory added since {SERIES_YEARS[0]}; regions that did not
+					exist in
+					{SERIES_YEARS[0]} appear only in {SERIES_YEARS.at(-1)}.
+					{#if change.nominalDollars}Dollar values are not adjusted for inflation.{/if}
+				</p>
+			</section>
+		{/if}
+
 		<p class="source">
-			Source: Statistics Canada, 2021 Census (via CUI <span class="mono">sdsc-data</span>). Fifteen
-			of the twenty planned cores are shown. Positions encode values, not rank — the report never
-			scores cities against each other.
+			Source: Statistics Canada, {change ? `${SERIES_YEARS[0]} and ` : ''}2021 Census (via CUI
+			<span class="mono">sdsc-data</span>). Fifteen of the twenty planned cores are shown. Positions
+			encode values, not rank — the report never scores cities against each other.
 		</p>
 	</div>
 </div>
@@ -428,6 +549,14 @@
 	.kind-swatch.is-core {
 		background: #7d97a5;
 		border-color: rgba(255, 255, 255, 0.55);
+	}
+
+	.module-note {
+		font-size: 0.75rem;
+		line-height: 1.55;
+		color: var(--core-text-muted);
+		max-width: 80ch;
+		margin: 1rem 0 0;
 	}
 
 	.source {

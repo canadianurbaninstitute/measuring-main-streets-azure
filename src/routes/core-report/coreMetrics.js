@@ -152,21 +152,45 @@ export const OCCUPATIONS = [
 	{ key: 'manufacturing', label: 'Manufacturing', get: (m) => m.occupations.manufacturing }
 ];
 
+/** Colour for downtowns in the time series that the 2021 profiles don't cover yet. */
+export const UNPROFILED_COLOR = '#e4ecf0';
+
+const SCALES = {
+	lin: { to: (v) => v, from: (t) => t },
+	sqrt: { to: (v) => Math.sqrt(Math.max(v, 0)), from: (t) => t * t },
+	log: { to: (v) => Math.log10(Math.max(v, 1)), from: (t) => Math.pow(10, t) }
+};
+
+const isValue = (v) => v != null && Number.isFinite(v);
+
 /**
  * Packs one dot per core and per wider region along a horizontal value axis, nudging
  * collisions up and down so nothing overlaps. Positions are laid out in the
  * measured pixel width of the container so the swarm stays legible on any
- * screen — values are encoded by position, never by rank.
+ * screen — values are encoded by position, never by rank. Missing values are
+ * left off the swarm rather than drawn at zero.
  *
  * @param {object} options
- * @param {any[]} options.cities        rows from coreData
+ * @param {any[]} options.cities        rows from coreData (or coreTimeSeries)
  * @param {(m: any) => number} options.value  reads the measure off a core/region profile
  * @param {number} options.width        measured pixel width of the plot area
  * @param {number} options.height       pixel height of the plot area
- * @param {'lin'|'sqrt'} [options.scale] axis transform
+ * @param {'lin'|'sqrt'|'log'} [options.scale] axis transform
  * @param {boolean} [options.zeroFloor] anchor the axis at zero (used for % shares)
+ * @param {[number, number]} [options.domain] fixed axis range, so animated frames share one axis
+ * @param {(m: any) => number} [options.compare] reads a comparison value (e.g. an earlier
+ *        census year); each dot then carries `compareX`
  */
-export function packSwarm({ cities, value, width, height, scale = 'lin', zeroFloor = false }) {
+export function packSwarm({
+	cities,
+	value,
+	width,
+	height,
+	scale = 'lin',
+	zeroFloor = false,
+	domain = null,
+	compare = null
+}) {
 	const padLeft = 48;
 	const padRight = 48;
 	const inner = Math.max(width - padLeft - padRight, 1);
@@ -174,34 +198,33 @@ export function packSwarm({ cities, value, width, height, scale = 'lin', zeroFlo
 	const items = [];
 	for (const city of cities) {
 		const sizeGroup = SIZE_OF[city.key];
-		const color = SIZE_COLOR[sizeGroup];
-		items.push({
-			key: city.key + '-core',
-			cityKey: city.key,
-			name: city.name,
-			sizeGroup,
-			color,
-			kind: 'core',
-			value: value(city.downtown) || 0
-		});
-		items.push({
-			key: city.key + '-region',
-			cityKey: city.key,
-			name: city.name,
-			sizeGroup,
-			color,
-			kind: 'region',
-			value: value(city.cma) || 0
-		});
+		const color = SIZE_COLOR[sizeGroup] ?? UNPROFILED_COLOR;
+		for (const [kind, profile] of [
+			['core', city.downtown],
+			['region', city.cma]
+		]) {
+			const itemValue = value(profile);
+			if (!isValue(itemValue)) continue;
+			items.push({
+				key: `${city.key}-${kind}`,
+				cityKey: city.key,
+				name: city.name,
+				sizeGroup,
+				color,
+				kind,
+				value: itemValue,
+				compareValue: compare ? compare(profile) : null
+			});
+		}
 	}
 
-	const values = items.map((d) => d.value);
-	const lo = zeroFloor ? 0 : Math.min(...values);
-	const hi = zeroFloor ? Math.max(...values) * 1.02 || 1 : Math.max(...values);
-	const transform = scale === 'sqrt' ? (v) => Math.sqrt(Math.max(v, 0)) : (v) => v;
-	const tLo = transform(lo);
-	const span = transform(hi) - tLo || 1;
-	const toX = (v) => padLeft + ((transform(v) - tLo) / span) * inner;
+	const values = domain ?? items.map((d) => d.value);
+	const lo = zeroFloor ? 0 : values.length ? Math.min(...values) : 0;
+	const hi = values.length ? Math.max(...values) * (zeroFloor ? 1.02 : 1) || 1 : 1;
+	const { to, from } = SCALES[scale] ?? SCALES.lin;
+	const tLo = to(lo);
+	const span = to(hi) - tLo || 1;
+	const toX = (v) => padLeft + ((to(v) - tLo) / span) * inner;
 
 	// Collision packing: walk left to right, offsetting each dot alternately above
 	// and below the centre line until it clears everything already placed.
@@ -221,21 +244,37 @@ export function packSwarm({ cities, value, width, height, scale = 'lin', zeroFlo
 			step++;
 			y = centre + (step % 2 ? -1 : 1) * Math.ceil(step / 2) * gap;
 		}
-		placed.push({ ...item, x, y, left, right, radius });
+		const compareX = isValue(item.compareValue) ? toX(item.compareValue) : null;
+		placed.push({ ...item, x, y, left, right, radius, compareX });
 	}
 
-	const coreValues = cities.map((c) => value(c.downtown) || 0);
-	const average = coreValues.reduce((a, b) => a + b, 0) / coreValues.length;
+	const mean = (list) => (list.length ? list.reduce((a, b) => a + b, 0) / list.length : null);
+	const average = mean(cities.map((c) => value(c.downtown)).filter(isValue));
+	const compareAverage = compare
+		? mean(cities.map((c) => compare(c.downtown)).filter(isValue))
+		: null;
 
-	const ticks = [];
-	for (let i = 0; i <= 4; i++) {
-		const fraction = i / 4;
-		const tickValue =
-			scale === 'sqrt' ? Math.pow(tLo + fraction * span, 2) : lo + fraction * (hi - lo);
-		ticks.push({ x: padLeft + fraction * inner, value: tickValue });
+	// Ticks are rounded to as few significant figures as keep them distinct
+	// (9,253 → 9,300), then placed at their rounded value so they stay truthful.
+	const rawTicks = [0, 1, 2, 3, 4].map((i) => from(tLo + (i / 4) * span));
+	let tickValues = rawTicks;
+	for (let digits = 2; digits <= 6; digits++) {
+		const rounded = rawTicks.map((v) => Number(v.toPrecision(digits)));
+		if (new Set(rounded).size === rounded.length) {
+			tickValues = rounded;
+			break;
+		}
 	}
+	const ticks = tickValues.map((tickValue) => ({ x: toX(tickValue), value: tickValue }));
 
-	return { dots: placed, ticks, average, averageX: toX(average) };
+	return {
+		dots: placed,
+		ticks,
+		average,
+		averageX: average == null ? null : toX(average),
+		compareAverage,
+		compareAverageX: compareAverage == null ? null : toX(compareAverage)
+	};
 }
 
 /**
