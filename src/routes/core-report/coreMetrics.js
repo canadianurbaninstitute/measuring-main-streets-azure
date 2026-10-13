@@ -1,8 +1,27 @@
 // Shared vocabulary for the Core Report trends explorer: downtown-size
 // colouring, the measures that can be plotted, value formatting, and the
-// beeswarm packer that both swarm modules share.
+// beeswarm packer the swarm modules share.
 
-import { CITIES } from '../lib/data/coredata/coreData.js';
+import { CITIES, LATEST_YEAR, variableKey } from './coreCensus.js';
+
+const isValue = (v) => v != null && Number.isFinite(v);
+
+/** Reads a census count (or average, for income) off a profile. */
+const count = (indicator, variable) => (profile) =>
+	profile?.[variableKey(indicator, variable)]?.value ?? null;
+
+/**
+ * Reads a census share (0-100) off a profile, adding several variables of the
+ * same indicator together (they share a denominator). Missing if any part is.
+ */
+const share =
+	(indicator, ...variables) =>
+	(profile) => {
+		const parts = variables.map((v) => profile?.[variableKey(indicator, v)]?.percent);
+		return parts.every(isValue) ? parts.reduce((a, b) => a + b, 0) : null;
+	};
+
+export const population = count('Population', 'Population');
 
 export const SIZE_ORDER = ['small', 'medium', 'large'];
 
@@ -18,10 +37,12 @@ export const SIZE_LABEL = {
 	large: 'Large downtown'
 };
 
-// Downtowns are split into three equal-sized tiers by their core population,
-// so the grouping stays meaningful as more downtowns are added over time.
+// Downtowns are split into three equal-sized tiers by their core population in
+// the latest census, so the grouping stays meaningful as downtowns are added.
 function computeSizeOf(cities) {
-	const sorted = [...cities].sort((a, b) => a.downtown.population - b.downtown.population);
+	const sorted = [...cities].sort(
+		(a, b) => population(a.downtown[LATEST_YEAR]) - population(b.downtown[LATEST_YEAR])
+	);
 	const map = {};
 	sorted.forEach((city, i) => {
 		const tier = Math.min(2, Math.floor((i / sorted.length) * 3));
@@ -30,15 +51,7 @@ function computeSizeOf(cities) {
 	return map;
 }
 
-// Manual corrections to the population-derived tiers above. Edmonton's core
-// population is known-bad upstream (city-wide, not downtown-only) and reads
-// as "large" as a result; Winnipeg is moved down to sit alongside it.
-const SIZE_OVERRIDES = {
-	edmonton: 'medium',
-	winnipeg: 'medium'
-};
-
-export const SIZE_OF = { ...computeSizeOf(CITIES), ...SIZE_OVERRIDES };
+export const SIZE_OF = computeSizeOf(CITIES);
 
 export const SIZE_LEGEND = SIZE_ORDER.map((key) => ({
 	key,
@@ -56,101 +69,99 @@ export function format(value, kind) {
 	return String(value);
 }
 
-/** The measures offered in module 01 (spread) and module 02 (relationship). */
+/**
+ * The measures offered in module 01 (spread) and module 02 (relationship),
+ * each read off one census-year profile. Shares are of the indicator's total
+ * (households, dwellings, commuters, people).
+ */
 export const METRICS = [
 	{
-		key: 'density',
-		label: 'Density',
-		get: (m) => m.density,
+		key: 'population',
+		label: 'Population',
+		get: population,
 		format: 'int',
-		scale: 'sqrt',
-		unit: '/km²'
+		scale: 'log',
+		zeroFloor: false
 	},
 	{
-		key: 'avgIncome',
-		label: 'Average income',
-		get: (m) => m.avgIncome,
+		key: 'income',
+		label: 'Employment income',
+		note: 'Average employment income of full-time, full-year earners.',
+		get: count('Employment Income', 'Average Employment Income FTFY'),
 		format: 'money',
-		scale: 'lin'
+		scale: 'lin',
+		zeroFloor: false,
+		nominalDollars: true
 	},
-	{ key: 'rented', label: 'Renters', get: (m) => m.rented, format: 'pct', scale: 'lin' },
-	{
-		key: 'university',
-		label: 'University degree',
-		get: (m) => m.universityDegree,
-		format: 'pct',
-		scale: 'lin'
-	},
+	{ key: 'rented', label: 'Renters', get: share('Dwelling Tenure', 'Renter') },
 	{
 		key: 'carfree',
 		label: 'Car-free commuting',
-		get: (m) => m.commute.transit + m.commute.walk + m.commute.bike,
-		format: 'pct',
-		scale: 'lin'
+		note: 'The 2021 Census was taken in May 2021, during the COVID-19 pandemic, when transit use was unusually low.',
+		get: share('Commute Mode', 'Public Transit', 'Walk', 'Bike')
 	},
 	{
 		key: 'diversity',
 		label: 'Visible minority',
-		get: (m) => m.visibleMinority,
-		format: 'pct',
-		scale: 'lin'
+		get: share('Visible Minority', 'Visible Minorities')
 	},
 	{
-		key: 'newbuild',
-		label: 'Built since 2016',
-		get: (m) => m.builtAfter2016,
-		format: 'pct',
-		scale: 'lin'
+		key: 'recentImmigrants',
+		label: 'Recent immigrants',
+		note: 'Immigrated in the five years before the census.',
+		get: share('Recent Immigration and NPR', 'Recent Immigrant last 5 years')
 	},
-	{ key: 'age', label: 'Average age', get: (m) => m.avgAge, format: 'dec', scale: 'lin' },
+	{
+		key: 'movers',
+		label: 'Moved in last 5 years',
+		get: share('Mobility', 'Non migrants', 'Internal migrants', 'External migrants')
+	},
+	{
+		key: 'youngAdults',
+		label: 'Aged 25 to 34',
+		get: share('Age', 'Age 25 to 29', 'Age 30 to 34')
+	},
 	{
 		key: 'onePerson',
 		label: 'One-person households',
-		get: (m) => m.onePerson,
-		format: 'pct',
-		scale: 'lin'
+		get: share('Household Size', 'Household Size: 1 person')
 	},
 	{
 		key: 'apartments',
 		label: 'Apartments',
-		get: (m) => m.apartmentHigh + m.apartmentLow,
-		format: 'pct',
-		scale: 'lin'
-	}
-];
-
-/** The workforce categories offered in module 03, split by industry and occupation. */
-export const INDUSTRIES = [
-	{ key: 'professional', label: 'Professional & tech', get: (m) => m.industries.professional },
-	{ key: 'finance', label: 'Finance & insurance', get: (m) => m.industries.finance },
-	{ key: 'information', label: 'Information & culture', get: (m) => m.industries.information },
-	{ key: 'publicAdmin', label: 'Public admin', get: (m) => m.industries.publicAdmin },
-	{ key: 'health', label: 'Health & social', get: (m) => m.industries.health },
-	{ key: 'education', label: 'Education', get: (m) => m.industries.education },
-	{ key: 'retail', label: 'Retail', get: (m) => m.industries.retail },
-	{ key: 'accommodation', label: 'Accommodation & food', get: (m) => m.industries.accommodation },
-	{ key: 'realEstate', label: 'Real estate', get: (m) => m.industries.realEstate },
-	{ key: 'construction', label: 'Construction', get: (m) => m.industries.construction },
-	{ key: 'manufacturing', label: 'Manufacturing', get: (m) => m.industries.manufacturing },
-	{
-		key: 'transportation',
-		label: 'Transport & warehouse',
-		get: (m) => m.industries.transportation
+		get: share(
+			'Dwelling Type',
+			'Apartment in a building that has fewer than five storeys',
+			'Apartment in a building that has five or more storeys'
+		)
 	},
-	{ key: 'arts', label: 'Arts & recreation', get: (m) => m.industries.arts }
-];
+	{
+		key: 'newbuild',
+		label: 'Built in last 10 years',
+		get: share('Dwelling Construction', 'Built in previous 10 years')
+	}
+].map((metric) => ({ format: 'pct', scale: 'lin', zeroFloor: true, ...metric }));
 
+/** The occupation groups offered in module 03, as shares of all occupations. */
 export const OCCUPATIONS = [
-	{ key: 'management', label: 'Management', get: (m) => m.occupations.management },
-	{ key: 'business', label: 'Business & admin', get: (m) => m.occupations.business },
-	{ key: 'sciences', label: 'Sciences', get: (m) => m.occupations.sciences },
-	{ key: 'health', label: 'Health', get: (m) => m.occupations.health },
-	{ key: 'social', label: 'Social & education', get: (m) => m.occupations.social },
-	{ key: 'arts', label: 'Art & culture', get: (m) => m.occupations.arts },
-	{ key: 'sales', label: 'Sales & service', get: (m) => m.occupations.sales },
-	{ key: 'trades', label: 'Trades & transport', get: (m) => m.occupations.trades },
-	{ key: 'manufacturing', label: 'Manufacturing', get: (m) => m.occupations.manufacturing }
-];
+	['management', 'Management', 'Legislation and Senior Management'],
+	['business', 'Business & admin', 'Business Finance and Administration'],
+	['sciences', 'Sciences', 'Natural and Applied Science'],
+	['health', 'Health', 'Health Occupations'],
+	['social', 'Education, law & government', 'Education Law, Community, and Government'],
+	['arts', 'Art & culture', 'Arts Culture and Sport'],
+	['sales', 'Sales & service', 'Sales and Services'],
+	['trades', 'Trades & transport', 'Trades and Transport'],
+	['primary', 'Natural resources', 'Natural resources and Agriculture'],
+	['manufacturing', 'Manufacturing', 'Manufacturing and Utilities']
+].map(([key, label, variable]) => ({
+	key,
+	label,
+	get: share('Occupation', variable),
+	format: 'pct',
+	scale: 'lin',
+	zeroFloor: true
+}));
 
 // Fallback for a city without a size group, so its dot still draws.
 const FALLBACK_COLOR = '#e4ecf0';
@@ -161,8 +172,6 @@ const SCALES = {
 	log: { to: (v) => Math.log10(Math.max(v, 1)), from: (t) => Math.pow(10, t) }
 };
 
-const isValue = (v) => v != null && Number.isFinite(v);
-
 /**
  * Packs one dot per core and per wider region along a horizontal value axis, nudging
  * collisions up and down so nothing overlaps. Positions are laid out in the
@@ -171,7 +180,7 @@ const isValue = (v) => v != null && Number.isFinite(v);
  * left off the swarm rather than drawn at zero.
  *
  * @param {object} options
- * @param {any[]} options.cities        rows from coreData (or coreTimeSeries)
+ * @param {any[]} options.cities        rows carrying `downtown` and `cma`, which `value` reads
  * @param {(m: any) => number} options.value  reads the measure off a core/region profile
  * @param {number} options.width        measured pixel width of the plot area
  * @param {number} options.height       pixel height of the plot area

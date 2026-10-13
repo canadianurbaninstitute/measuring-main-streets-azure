@@ -8,12 +8,13 @@
 		SIZE_OF,
 		correlation,
 		correlationLabel,
-		format
+		format,
+		population
 	} from '../coreMetrics.js';
 
 	/**
 	 * Props:
-	 *   cities       - rows from coreData
+	 *   cities       - rows from coreCensus, each core a single census-year profile
 	 *   xMetric      - metric definition for the horizontal axis
 	 *   yMetric      - metric definition for the vertical axis
 	 *   selectedCity - bindable city key; clicking a bubble isolates that city
@@ -26,21 +27,31 @@
 	const height = $derived(width < 640 ? 340 : 440);
 
 	// Percentage measures start at zero so shares stay comparable; other measures
-	// get a little breathing room below the smallest value.
+	// get a little breathing room below the smallest value. Cores missing either
+	// value are left off rather than drawn at zero.
 	const rows = $derived(
-		cities.map((city) => {
-			const profile = city.downtown;
-			return {
-				key: city.key,
-				name: city.name,
-				sizeGroup: SIZE_OF[city.key],
-				color: SIZE_COLOR[SIZE_OF[city.key]],
-				x: xMetric.get(profile),
-				y: yMetric.get(profile),
-				population: profile.population
-			};
-		})
+		cities
+			.map((city) => {
+				const profile = city.downtown;
+				return {
+					key: city.key,
+					name: city.name,
+					sizeGroup: SIZE_OF[city.key],
+					color: SIZE_COLOR[SIZE_OF[city.key]],
+					x: xMetric.get(profile),
+					y: yMetric.get(profile),
+					population: population(profile) ?? 0
+				};
+			})
+			.filter((row) => row.x != null && row.y != null)
 	);
+
+	// [transform, inverse] for an axis: counts like population need a log scale.
+	function axisTransform(scale) {
+		if (scale === 'log') return [(v) => Math.log10(Math.max(v, 1)), (t) => Math.pow(10, t)];
+		if (scale === 'sqrt') return [(v) => Math.sqrt(Math.max(v, 0)), (t) => t * t];
+		return [(v) => v, (t) => t];
+	}
 
 	const layout = $derived.by(() => {
 		const padLeft = 56;
@@ -50,13 +61,14 @@
 		const plotWidth = Math.max(width - padLeft - padRight, 1);
 		const plotHeight = Math.max(height - padTop - padBottom, 1);
 
-		const tx = xMetric.scale === 'sqrt' ? (v) => Math.sqrt(Math.max(v, 0)) : (v) => v;
+		const [tx, untx] = axisTransform(xMetric.scale);
+		const [ty, unty] = axisTransform(yMetric.scale);
 		const xValues = rows.map((r) => tx(r.x));
 		const xLo = Math.min(...xValues);
 		const xHi = Math.max(...xValues) * 1.03;
 		const xSpan = xHi - xLo || 1;
 
-		const yValues = rows.map((r) => r.y);
+		const yValues = rows.map((r) => ty(r.y));
 		const yLo = yMetric.format === 'pct' ? 0 : Math.min(...yValues) * 0.92;
 		const yHi = Math.max(...yValues) * 1.08;
 		const ySpan = yHi - yLo || 1;
@@ -65,7 +77,7 @@
 		const sizeCap = width < 640 ? 18 : 26;
 
 		const toX = (v) => padLeft + ((tx(v) - xLo) / xSpan) * plotWidth;
-		const toY = (v) => padTop + plotHeight - ((v - yLo) / ySpan) * plotHeight;
+		const toY = (v) => padTop + plotHeight - ((ty(v) - yLo) / ySpan) * plotHeight;
 
 		const dots = rows.map((row) => ({
 			...row,
@@ -76,15 +88,14 @@
 
 		const gridLines = [];
 		for (let i = 0; i <= 5; i++) {
-			const value = yLo + (i / 5) * ySpan;
+			const value = unty(yLo + (i / 5) * ySpan);
 			gridLines.push({ y: toY(value), label: format(value, yMetric.format) });
 		}
 
 		const xTicks = [];
 		for (let i = 0; i <= 4; i++) {
 			const fraction = i / 4;
-			const value =
-				xMetric.scale === 'sqrt' ? Math.pow(xLo + fraction * xSpan, 2) : xLo + fraction * xSpan;
+			const value = untx(xLo + fraction * xSpan);
 			xTicks.push({ x: padLeft + fraction * plotWidth, label: format(value, xMetric.format) });
 		}
 

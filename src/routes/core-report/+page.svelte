@@ -3,121 +3,65 @@
      the site navigation; reachable at /core-report/ only. -->
 
 <script>
-	import { CITIES } from '../lib/data/coredata/coreData.js';
 	import '../styles.css';
-	import Beeswarm from './components/Beeswarm.svelte';
 	import ChipGroup from './components/ChipGroup.svelte';
 	import CoreScatter from './components/CoreScatter.svelte';
-	import PlayControl from './components/PlayControl.svelte';
-	import { INDUSTRIES, METRICS, OCCUPATIONS, SIZE_LEGEND } from './coreMetrics.js';
-	import { SERIES_AVAILABLE, loadSeries } from './coreTimeSeries.js';
+	import TimeSwarm from './components/TimeSwarm.svelte';
+	import { CENSUS_YEARS, CITIES, LATEST_YEAR, THEMES, yearsWithData } from './coreCensus.js';
+	import { METRICS, OCCUPATIONS, SIZE_LEGEND } from './coreMetrics.js';
 
-	// One selection is shared by all three modules, so isolating a city in the
-	// spread also isolates it in the scatter and the workforce swarm.
+	// One selection is shared by every module, so isolating a city in the
+	// spread also isolates it in the scatter and the other swarms.
 	let selectedCity = $state(null);
 
-	let spreadMetric = $state('density');
-	let xMetric = $state('density');
+	let spreadMetric = $state('rented');
+	let xMetric = $state('population');
 	let yMetric = $state('carfree');
-	let workforceMode = $state('industries');
-	let workforceCategory = $state('professional');
+	let occupation = $state('business');
 
 	const metricOptions = METRICS.map((m) => ({ key: m.key, label: m.label }));
-	const modeOptions = [
-		{ key: 'industries', label: 'Industries' },
-		{ key: 'occupations', label: 'Occupations' }
-	];
 
 	const spread = $derived(METRICS.find((m) => m.key === spreadMetric) ?? METRICS[0]);
 	const x = $derived(METRICS.find((m) => m.key === xMetric) ?? METRICS[0]);
-	const y = $derived(METRICS.find((m) => m.key === yMetric) ?? METRICS[4]);
+	const y = $derived(METRICS.find((m) => m.key === yMetric) ?? METRICS[1]);
+	const workforce = $derived(OCCUPATIONS.find((o) => o.key === occupation) ?? OCCUPATIONS[0]);
 
-	const workforceCategories = $derived(workforceMode === 'occupations' ? OCCUPATIONS : INDUSTRIES);
-	const workforce = $derived(
-		workforceCategories.find((c) => c.key === workforceCategory) ?? workforceCategories[0]
-	);
+	// The scatter compares cores in the latest census only.
+	const latestCities = CITIES.map((city) => ({
+		...city,
+		downtown: city.downtown[LATEST_YEAR],
+		cma: city.cma[LATEST_YEAR]
+	}));
 
-	// Switching between industries and occupations lands on a category that
-	// exists in the new list rather than falling back silently.
-	$effect(() => {
-		const categories = workforceMode === 'occupations' ? OCCUPATIONS : INDUSTRIES;
-		if (!categories.some((c) => c.key === workforceCategory)) {
-			workforceCategory = categories[0].key;
-		}
-	});
-
-	// 04 · The change — census snapshots, loaded on demand and only when
-	// coreSeries.csv is part of the build.
-	let series = $state({ years: [], themes: [] });
-	let seriesIndicator = $state('');
-	let seriesVariable = $state('');
-	let rangeFrom = $state(null);
-	let rangeTo = $state(null);
-	let seriesYear = $state(null);
-	let seriesInstant = $state(false);
-
-	$effect(() => {
-		if (!SERIES_AVAILABLE) return;
-		loadSeries().then((loaded) => {
-			series = loaded;
-			rangeFrom = loaded.years[0] ?? null;
-			rangeTo = loaded.years.at(-1) ?? null;
-			seriesYear = rangeTo;
-		});
-	});
-
-	// Only measures with downtown values at both ends of the range can animate,
-	// so the pickers offer just those (commute times, for one, start in 2021).
-	const changeThemes = $derived(
-		series.themes
-			.map((theme) => ({
-				...theme,
-				indicators: theme.indicators
-					.map((indicator) => ({
-						...indicator,
-						variables: indicator.variables.filter(
-							(v) => v.years.includes(rangeFrom) && v.years.includes(rangeTo)
-						)
-					}))
-					.filter((indicator) => indicator.variables.length)
+	// 04 · The change offers every census variable that has downtown values in
+	// at least two census years (commute times, for one, start in 2021).
+	const changeThemes = THEMES.map((theme) => ({
+		...theme,
+		indicators: theme.indicators
+			.map((indicator) => ({
+				...indicator,
+				variables: indicator.variables.filter((v) => yearsWithData(v.get).length > 1)
 			}))
-			.filter((theme) => theme.indicators.length)
-	);
+			.filter((indicator) => indicator.variables.length)
+	})).filter((theme) => theme.indicators.length);
+
+	let changeIndicatorKey = $state(changeThemes[0]?.indicators[0]?.key ?? '');
+	let changeVariableKey = $state('');
+
 	const changeIndicator = $derived.by(() => {
 		const indicators = changeThemes.flatMap((t) => t.indicators);
-		return indicators.find((i) => i.key === seriesIndicator) ?? indicators[0] ?? null;
+		return indicators.find((i) => i.key === changeIndicatorKey) ?? indicators[0] ?? null;
 	});
 	const change = $derived(
-		changeIndicator?.variables.find((v) => v.key === seriesVariable) ??
+		changeIndicator?.variables.find((v) => v.key === changeVariableKey) ??
 			changeIndicator?.variables[0] ??
 			null
 	);
 
-	// Keep the pickers' highlighted pills in step when a range or indicator
-	// change lands on a different measure.
+	// Keep the variable pills in step when a new indicator lands on its first variable.
 	$effect(() => {
-		if (changeIndicator && changeIndicator.key !== seriesIndicator) {
-			seriesIndicator = changeIndicator.key;
-		}
-		if (change && change.key !== seriesVariable) seriesVariable = change.key;
+		if (change && change.key !== changeVariableKey) changeVariableKey = change.key;
 	});
-
-	// One axis across every year in the range, so a dot moving means the value
-	// changed rather than the axis rescaling under it.
-	const changeDomain = $derived.by(() => {
-		if (!change) return null;
-		const values = change.cities
-			.flatMap((c) =>
-				change.years
-					.filter((yr) => yr >= rangeFrom && yr <= rangeTo)
-					.flatMap((yr) => [c.downtown[yr], c.cma[yr]])
-			)
-			.filter((v) => v != null);
-		return values.length ? [Math.min(...values), Math.max(...values)] : null;
-	});
-
-	// Dots are traced back to the start of the range.
-	const compareYear = $derived(seriesYear !== rangeFrom ? rangeFrom : null);
 
 	const selectedName = $derived(CITIES.find((c) => c.key === selectedCity)?.name ?? null);
 </script>
@@ -187,21 +131,15 @@
 			<p class="module-blurb">
 				Every downtown core and every region is placed independently along the axis. Where dots
 				bunch, cities cluster; where they spread, they diverge. The dashed gold line marks the core
-				average.
+				average. Press play to watch them move between censuses.
+				{#if spread.note}{spread.note}{/if}
 			</p>
 
 			<div class="controls">
 				<ChipGroup options={metricOptions} bind:selected={spreadMetric} />
 			</div>
 
-			<Beeswarm
-				cities={CITIES}
-				value={spread.get}
-				valueFormat={spread.format}
-				unit={spread.unit ?? ''}
-				scale={spread.scale}
-				bind:selectedCity
-			/>
+			<TimeSwarm measure={spread} accent="var(--brandBlue)" bind:selectedCity />
 		</section>
 
 		<!-- 02 · The relationship -->
@@ -209,8 +147,9 @@
 			<div class="module-number is-green">02 · The relationship</div>
 			<h3 class="module-title">{y.label} against {x.label.toLowerCase()}</h3>
 			<p class="module-blurb">
-				Each bubble is a downtown core, sized by population and coloured by region. Choose any two
-				measures for the axes to hunt for relationships across the fifteen cores.
+				Each bubble is a downtown core in the {LATEST_YEAR} Census, sized by population and coloured
+				by downtown size. Choose any two measures for the axes to hunt for relationships across the fifteen
+				cores.
 			</p>
 
 			<div class="controls is-stacked">
@@ -228,45 +167,35 @@
 				/>
 			</div>
 
-			<CoreScatter cities={CITIES} xMetric={x} yMetric={y} bind:selectedCity />
+			<CoreScatter cities={latestCities} xMetric={x} yMetric={y} bind:selectedCity />
 		</section>
 
 		<!-- 03 · The workforce -->
 		<section class="module">
-			<div class="module-number is-yellow">03 · The workforce</div>
-			<h3 class="module-title">{workforce.label}: share of the workforce</h3>
+			<div class="module-head">
+				<div>
+					<div class="module-number is-yellow">03 · The workforce</div>
+					<h3 class="module-title">{workforce.label}: share of employed residents</h3>
+				</div>
+				<div class="kind-legend">
+					<span class="kind"><span class="kind-swatch is-core"></span>Core</span>
+					<span class="kind"><span class="kind-swatch"></span>Region</span>
+				</div>
+			</div>
 			<p class="module-blurb">
-				Each downtown core and its region placed by {workforce.label.toLowerCase()}'s share of
-				workers. Toggle any {workforceMode === 'occupations' ? 'occupation' : 'industry'} to see which
-				cores concentrate it. The dashed line marks the core average.
+				Each downtown core and its region placed by the share of residents working in
+				{workforce.label.toLowerCase()} occupations. The census counts people where they live, not where
+				they work, so this describes who lives downtown rather than downtown jobs.
 			</p>
 
-			<div class="controls is-stacked">
-				<div class="mode-toggle">
-					<ChipGroup
-						options={modeOptions}
-						bind:selected={workforceMode}
-						accent="var(--brandYellow)"
-					/>
-				</div>
+			<div class="controls">
 				<ChipGroup
-					options={workforceCategories.map((c) => ({ key: c.key, label: c.label }))}
-					bind:selected={workforceCategory}
+					options={OCCUPATIONS.map((o) => ({ key: o.key, label: o.label }))}
+					bind:selected={occupation}
 				/>
 			</div>
 
-			<Beeswarm
-				cities={CITIES}
-				value={workforce.get}
-				valueFormat="pct"
-				zeroFloor
-				bind:selectedCity
-			/>
-
-			<div class="kind-legend is-below">
-				<span class="kind"><span class="kind-swatch is-core"></span>Core</span>
-				<span class="kind"><span class="kind-swatch"></span>Region</span>
-			</div>
+			<TimeSwarm measure={workforce} accent="#8a6d00" bind:selectedCity />
 		</section>
 
 		<!-- 04 · The change -->
@@ -274,7 +203,7 @@
 			<section class="module">
 				<div class="module-head">
 					<div>
-						<div class="module-number is-purple">04 · The change, {rangeFrom} to {rangeTo}</div>
+						<div class="module-number is-purple">04 · Every census measure</div>
 						<h3 class="module-title">{change.title}: then and now</h3>
 					</div>
 					<div class="kind-legend">
@@ -283,9 +212,7 @@
 					</div>
 				</div>
 				<p class="module-blurb">
-					Press play to watch every core and region move from the {rangeFrom} Census to the {rangeTo}
-					Census. The axis stays fixed across the range, so a dot that moves has changed. Hover a dot,
-					or follow a city, to trace it back to where it started.
+					Every census variable sdsc-data carries for both years, beyond the curated measures above.
 					{#if change.format === 'pct'}Values are shares of {change.indicator.toLowerCase()}.{/if}
 				</p>
 
@@ -295,56 +222,27 @@
 							<ChipGroup
 								label={theme.label}
 								options={theme.indicators.map((i) => ({ key: i.key, label: i.label }))}
-								bind:selected={seriesIndicator}
+								bind:selected={changeIndicatorKey}
 							/>
 						{/each}
 					</div>
 					{#if changeIndicator.variables.length > 1}
 						<ChipGroup
 							options={changeIndicator.variables.map((v) => ({ key: v.key, label: v.label }))}
-							bind:selected={seriesVariable}
+							bind:selected={changeVariableKey}
 							accent="#d7a9d2"
 						/>
 					{/if}
-					<PlayControl
-						years={series.years}
-						bind:from={rangeFrom}
-						bind:to={rangeTo}
-						bind:year={seriesYear}
-						bind:instant={seriesInstant}
-					/>
 				</div>
 
-				<Beeswarm
-					cities={change.cities}
-					value={(profile) => profile[seriesYear]}
-					compare={compareYear ? (profile) => profile[compareYear] : null}
-					compareLabel={String(compareYear ?? '')}
-					domain={changeDomain}
-					valueFormat={change.format}
-					scale={change.scale}
-					zeroFloor={change.zeroFloor}
-					stamp={String(seriesYear)}
-					duration={seriesInstant ? 0 : 1400}
-					bind:selectedCity
-				/>
-
-				<p class="module-note">
-					Census snapshots, not a trend line: the animation shows the jump between census years, not
-					the path in between. Regions use census metropolitan area boundaries as drawn in each
-					year, so some regional change is territory added over time; a region that did not exist in
-					{rangeFrom} appears only later. Downtowns here follow sdsc-data's census boundaries, so their
-					2021 values can differ from the modules above.
-					{#if change.nominalDollars}Dollar values are not adjusted for inflation.{/if}
-				</p>
+				<TimeSwarm measure={change} bind:selectedCity />
 			</section>
 		{/if}
 
 		<p class="source">
-			Source: Statistics Canada, 2021 Census{change
-				? ` (module 04: ${series.years.join(', ')} Censuses)`
-				: ''} (via CUI <span class="mono">sdsc-data</span>). Fifteen of the twenty planned cores are
-			shown. Positions encode values, not rank — the report never scores cities against each other.
+			Source: Statistics Canada, {CENSUS_YEARS.join(' and ')} Censuses (via CUI
+			<span class="mono">sdsc-data</span>). Fifteen of the twenty planned cores are shown. Positions
+			encode values, not rank — the report never scores cities against each other.
 		</p>
 	</div>
 </div>
@@ -535,24 +433,11 @@
 		gap: 0.75rem;
 	}
 
-	.mode-toggle {
-		display: inline-flex;
-		align-self: flex-start;
-		background: #022a3f;
-		border: 1px solid var(--core-line);
-		border-radius: 999px;
-		padding: 0.25rem;
-	}
-
 	.kind-legend {
 		display: flex;
 		gap: 1rem;
 		align-items: center;
 		flex-wrap: wrap;
-	}
-
-	.kind-legend.is-below {
-		margin-top: 0.75rem;
 	}
 
 	.kind {
@@ -581,14 +466,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.375rem;
-	}
-
-	.module-note {
-		font-size: 0.75rem;
-		line-height: 1.55;
-		color: var(--core-text-muted);
-		max-width: 80ch;
-		margin: 1rem 0 0;
 	}
 
 	.source {

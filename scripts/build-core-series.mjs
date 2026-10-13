@@ -11,7 +11,7 @@
 
 import { readFile, writeFile } from 'node:fs/promises';
 import { csvFormat, csvParse } from 'd3';
-import { CITIES } from '../src/routes/lib/data/coredata/coreData.js';
+import { CORE_CITIES as CITIES } from '../src/routes/lib/data/coredata/coreCities.js';
 
 const DEFAULT_SOURCE =
 	'https://measuringmainstreets.blob.core.windows.net/downtowns/downtown_vs_cma_comparison.csv';
