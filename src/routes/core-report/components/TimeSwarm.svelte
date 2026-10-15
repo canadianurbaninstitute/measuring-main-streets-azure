@@ -4,7 +4,7 @@
      show that year alone. Shared by every swarm module in the Core Report. -->
 
 <script>
-	import { CITIES, yearsWithData } from '../coreCensus.js';
+	import { CITIES, missingDowntowns, yearsWithData } from '../coreCensus.js';
 	import Beeswarm from './Beeswarm.svelte';
 	import PlayControl from './PlayControl.svelte';
 
@@ -48,6 +48,9 @@
 
 	// Dots are traced back to the start of the range.
 	const compareYear = $derived(year !== from ? from : null);
+
+	// Downtowns whose figures for the range's start were left out upstream.
+	const missingAtStart = $derived(years.length > 1 ? missingDowntowns(from).length : 0);
 </script>
 
 <div class="time-controls">
@@ -80,6 +83,10 @@
 			path in between. Regions use census metropolitan area boundaries as drawn in each year, so
 			some regional change is territory added over time; a region that did not exist in
 			{from} appears only later.
+			{#if missingAtStart}
+				{missingAtStart} of {CITIES.length} downtowns appear only from a later census: their
+				{from} figures cover far more than the downtown, because that census's areas spill past the boundary.
+			{/if}
 		{/if}
 		{#if measure.nominalDollars}Dollar values are not adjusted for inflation.{/if}
 	</p>

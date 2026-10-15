@@ -1,4 +1,4 @@
-<!-- Plots the fifteen downtown cores against any two measures, sized by
+<!-- Plots every downtown core against any two measures, sized by
      population and coloured by downtown size, with a plain-language read on how
      tightly the pairing actually holds. -->
 
@@ -74,7 +74,10 @@
 		const ySpan = yHi - yLo || 1;
 
 		const maxPopulation = Math.max(...rows.map((r) => r.population));
-		const sizeCap = width < 640 ? 18 : 26;
+		// A crowded plot needs smaller bubbles to keep its clusters readable.
+		const crowded = rows.length > 40;
+		const sizeBase = crowded ? 5 : 8;
+		const sizeCap = (width < 640 ? 18 : 26) * (crowded ? 0.6 : 1);
 
 		const toX = (v) => padLeft + ((tx(v) - xLo) / xSpan) * plotWidth;
 		const toY = (v) => padTop + plotHeight - ((ty(v) - yLo) / ySpan) * plotHeight;
@@ -83,7 +86,7 @@
 			...row,
 			cx: toX(row.x),
 			cy: toY(row.y),
-			radius: 8 + Math.sqrt(row.population / maxPopulation) * sizeCap
+			radius: sizeBase + Math.sqrt(row.population / maxPopulation) * sizeCap
 		}));
 
 		const gridLines = [];
@@ -103,6 +106,18 @@
 	});
 
 	const hoveredDot = $derived(layout.dots.find((d) => d.key === hovered) ?? null);
+
+	// With many cores, only the most populous are labelled (plus whichever one
+	// is followed or hovered); labelling all of them would bury the plot.
+	const LABEL_LIMIT = 12;
+	const labelled = $derived(
+		new Set(
+			[...rows]
+				.sort((a, b) => b.population - a.population)
+				.slice(0, LABEL_LIMIT)
+				.map((row) => row.key)
+		)
+	);
 
 	const r = $derived(
 		correlation(
@@ -124,9 +139,9 @@
 	<span class="reading-strength">{correlationLabel(r)}</span>
 	<span class="reading-detail">
 		{#if r == null}
-			across the fifteen cores
+			across the {rows.length} cores
 		{:else}
-			r = {r.toFixed(2)} across the fifteen cores
+			r = {r.toFixed(2)} across the {rows.length} cores
 		{/if}
 	</span>
 </div>
@@ -176,14 +191,16 @@
 					onfocus={() => (hovered = dot.key)}
 					onblur={() => (hovered = null)}
 				></button>
-				<div
-					class="bubble-label"
-					style:left="{dot.cx}px"
-					style:top="{dot.cy + dot.radius / 2 + 8}px"
-					style:opacity={dimmed ? 0.16 : 1}
-				>
-					{shorten(dot.name)}
-				</div>
+				{#if labelled.has(dot.key) || dot.key === selectedCity}
+					<div
+						class="bubble-label"
+						style:left="{dot.cx}px"
+						style:top="{dot.cy + dot.radius / 2 + 8}px"
+						style:opacity={dimmed ? 0.16 : 1}
+					>
+						{shorten(dot.name)}
+					</div>
+				{/if}
 			{/each}
 
 			{#if hoveredDot}

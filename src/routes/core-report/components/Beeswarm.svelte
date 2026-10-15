@@ -1,6 +1,7 @@
 <!-- Plots every downtown core (filled) and every region (hollow) independently
-     along one value axis, so clusters and outliers read at a glance. Shared by
-     the "spread" and "workforce" modules of the Core Report explorer. -->
+     along one value axis, so clusters and outliers read at a glance. The plot
+     grows taller when a crowded swarm needs the room. Used by every swarm
+     module of the Core Report explorer. -->
 
 <script>
 	import { format, packSwarm } from '../coreMetrics.js';
@@ -19,7 +20,8 @@
 	 *   compareLabel  - names the comparison (e.g. "2001")
 	 *   stamp         - large label behind the swarm (e.g. the census year on show)
 	 *   duration      - milliseconds for dots to glide to new positions
-	 *   selectedCity  - bindable city key; clicking a dot isolates that city
+	 *   selectedCity  - bindable city key; clicking a dot isolates that city (a
+	 *                   shared region selects the first downtown listed in it)
 	 */
 	let {
 		cities = [],
@@ -39,12 +41,12 @@
 	let width = $state(1080);
 	let hovered = $state(null);
 
-	const height = $derived(width < 640 ? 300 : 340);
 	const swarm = $derived(
-		width > 0
-			? packSwarm({ cities, value, width, height, scale, zeroFloor, domain, compare })
-			: null
+		width > 0 ? packSwarm({ cities, value, width, scale, zeroFloor, domain, compare }) : null
 	);
+	// Room above the axis and its labels (38px) for the swarm's full reach.
+	const height = $derived(Math.max(width < 640 ? 300 : 340, 2 * (swarm?.extent ?? 0) + 72));
+	const centre = $derived((height - 38) / 2);
 	const hoveredDot = $derived(swarm?.dots.find((d) => d.key === hovered) ?? null);
 
 	// Dots traced back to the comparison year: the hovered one plus both dots of
@@ -52,13 +54,13 @@
 	const trails = $derived(
 		compare && swarm
 			? swarm.dots.filter(
-					(d) => d.compareX != null && (d.key === hovered || d.cityKey === selectedCity)
+					(d) => d.compareX != null && (d.key === hovered || d.cityKeys.includes(selectedCity))
 				)
 			: []
 	);
 
-	function toggleCity(cityKey) {
-		selectedCity = selectedCity === cityKey ? null : cityKey;
+	function toggleCity(cityKeys) {
+		selectedCity = cityKeys.includes(selectedCity) ? null : cityKeys[0];
 	}
 </script>
 
@@ -94,14 +96,14 @@
 			<div
 				class="trail"
 				style:left="{Math.min(trail.compareX, trail.x)}px"
-				style:top="{trail.y}px"
+				style:top="{centre + trail.y}px"
 				style:width="{Math.abs(trail.x - trail.compareX)}px"
 				style:border-color={trail.color}
 			></div>
 			<div
 				class="ghost"
 				style:left="{trail.compareX}px"
-				style:top="{trail.y}px"
+				style:top="{centre + trail.y}px"
 				style:border-color={trail.color}
 			></div>
 		{/each}
@@ -116,13 +118,13 @@
 				class:is-core={core}
 				aria-label="{dot.name} {core ? 'core' : 'region'}: {format(dot.value, valueFormat)}{unit}"
 				style:left="{dot.x}px"
-				style:top="{dot.y}px"
+				style:top="{centre + dot.y}px"
 				style:width="{size}px"
 				style:height="{size}px"
 				style:background={core ? dot.color : 'var(--core-surface)'}
 				style:border-color={core ? 'rgba(255, 255, 255, 0.55)' : dot.color}
-				style:opacity={selectedCity && dot.cityKey !== selectedCity ? 0.16 : 1}
-				onclick={() => toggleCity(dot.cityKey)}
+				style:opacity={selectedCity && !dot.cityKeys.includes(selectedCity) ? 0.16 : 1}
+				onclick={() => toggleCity(dot.cityKeys)}
 				onmouseenter={() => (hovered = dot.key)}
 				onmouseleave={() => (hovered = null)}
 				onfocus={() => (hovered = dot.key)}
@@ -131,7 +133,7 @@
 		{/each}
 
 		{#if hoveredDot}
-			<div class="tooltip" style:left="{hoveredDot.x}px" style:top="{hoveredDot.y - 20}px">
+			<div class="tooltip" style:left="{hoveredDot.x}px" style:top="{centre + hoveredDot.y - 20}px">
 				<div class="tooltip-name">{hoveredDot.name}</div>
 				<div class="tooltip-value">
 					{hoveredDot.kind === 'core' ? 'Core' : 'Region'} · {format(
@@ -139,6 +141,9 @@
 						valueFormat
 					)}{unit}
 				</div>
+				{#if hoveredDot.cityKeys.length > 1}
+					<div class="tooltip-compare">Region of {hoveredDot.cityKeys.length} downtowns</div>
+				{/if}
 				{#if compare && hoveredDot.compareValue != null}
 					<div class="tooltip-compare">
 						{compareLabel} · {format(hoveredDot.compareValue, valueFormat)}{unit}
@@ -153,6 +158,7 @@
 	.swarm {
 		position: relative;
 		width: 100%;
+		transition: height var(--move, 0.6s) ease;
 	}
 
 	.stamp {

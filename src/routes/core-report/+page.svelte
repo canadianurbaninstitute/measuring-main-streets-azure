@@ -1,5 +1,5 @@
 <!-- Canada's Core Report — an unlisted explorer for spotting national trends
-     across the fifteen downtown cores and their wider regions. Not linked from
+     across Canada's downtown cores and their wider regions. Not linked from
      the site navigation; reachable at /core-report/ only. -->
 
 <script>
@@ -14,8 +14,10 @@
 	// spread also isolates it in the scatter and the other swarms.
 	let selectedCity = $state(null);
 
-	let spreadMetric = $state('density');
-	let xMetric = $state('density');
+	// Defaults use measures every downtown has (density covers only those with
+	// a mapped boundary so far).
+	let spreadMetric = $state('rented');
+	let xMetric = $state('population');
 	let yMetric = $state('carfree');
 	let occupation = $state('business');
 
@@ -64,13 +66,16 @@
 	});
 
 	const selectedName = $derived(CITIES.find((c) => c.key === selectedCity)?.name ?? null);
+
+	// With this many dots, picking a downtown from a list beats hunting for it.
+	const followOptions = [...CITIES].sort((a, b) => a.name.localeCompare(b.name, 'en-CA'));
 </script>
 
 <svelte:head>
 	<title>Canada's Core Report | Measuring Main Streets</title>
 	<meta
 		name="description"
-		content="A visual field guide to fifteen Canadian downtown cores and the regions around them."
+		content="A visual field guide to {CITIES.length} Canadian downtown cores and the regions around them."
 	/>
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
@@ -82,9 +87,9 @@
 				<span class="eyebrow-dot"></span>
 				Canada's Core Report · a visual field guide
 			</div>
-			<h2 class="headline">Fifteen downtowns, one national picture</h2>
+			<h2 class="headline">{CITIES.length} downtowns, one national picture</h2>
 			<!-- <p class="standfirst">
-				Every measure below plots all fifteen cores at once — no leaderboards, just the shape of the
+				Every measure below plots every core at once — no leaderboards, just the shape of the
 				data. Each city appears twice: a <b>filled dot for the downtown core</b> and a
 				<b>hollow dot for its wider region</b>. Click any city to follow it through all three views.
 			</p> -->
@@ -97,6 +102,15 @@
 					<span class="legend-swatch" style:background={size.color}></span>{size.label}
 				</span>
 			{/each}
+			<label class="follow">
+				<span class="legend-title">Follow</span>
+				<select bind:value={selectedCity}>
+					<option value={null}>A downtown…</option>
+					{#each followOptions as city (city.key)}
+						<option value={city.key}>{city.name}, {city.province}</option>
+					{/each}
+				</select>
+			</label>
 			{#if selectedName}
 				<button type="button" class="clear-selection" onclick={() => (selectedCity = null)}>
 					Following {selectedName} · clear
@@ -148,8 +162,8 @@
 			<h3 class="module-title">{y.label} against {x.label.toLowerCase()}</h3>
 			<p class="module-blurb">
 				Each bubble is a downtown core in the {LATEST_YEAR} Census, sized by population and coloured
-				by downtown size. Choose any two measures for the axes to hunt for relationships across the fifteen
-				cores.
+				by downtown size. Choose any two measures for the axes to hunt for relationships across the
+				{CITIES.length} cores.
 			</p>
 
 			<div class="controls is-stacked">
@@ -241,8 +255,8 @@
 
 		<p class="source">
 			Source: Statistics Canada, {CENSUS_YEARS.join(' and ')} Censuses (via CUI
-			<span class="mono">sdsc-data</span>). Fifteen of the twenty planned cores are shown. Positions
-			encode values, not rank — the report never scores cities against each other.
+			<span class="mono">sdsc-data</span>). {CITIES.length} downtowns are shown. Positions encode values,
+			not rank — the report never scores cities against each other.
 		</p>
 	</div>
 </div>
@@ -347,6 +361,25 @@
 		width: 13px;
 		height: 13px;
 		border-radius: 50%;
+	}
+
+	.follow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.follow select {
+		font-family: Inter, sans-serif;
+		font-weight: 600;
+		font-size: 0.78rem;
+		color: var(--core-text-soft);
+		background: #022a3f;
+		border: 1px solid var(--core-line);
+		border-radius: 999px;
+		padding: 0.35rem 0.75rem;
+		max-width: 14rem;
+		cursor: pointer;
 	}
 
 	.clear-selection {

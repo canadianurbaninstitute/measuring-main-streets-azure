@@ -183,17 +183,21 @@ const SCALES = {
 };
 
 /**
- * Packs one dot per core and per wider region along a horizontal value axis, nudging
- * collisions up and down so nothing overlaps. Positions are laid out in the
+ * Packs one dot per downtown core and one per region along a horizontal value
+ * axis, nudging collisions up and down so nothing overlaps. Downtowns sharing a
+ * region (Toronto, Mississauga, Brampton…) share its one dot, so identical
+ * region values never stack up as false clusters. Positions are laid out in the
  * measured pixel width of the container so the swarm stays legible on any
  * screen — values are encoded by position, never by rank. Missing values are
  * left off the swarm rather than drawn at zero.
+ *
+ * Dot `y` is relative to the swarm's centre line; `extent` is how far the
+ * swarm reaches above or below it, so the caller can size the plot to fit.
  *
  * @param {object} options
  * @param {any[]} options.cities        rows carrying `downtown` and `cma`, which `value` reads
  * @param {(m: any) => number} options.value  reads the measure off a core/region profile
  * @param {number} options.width        measured pixel width of the plot area
- * @param {number} options.height       pixel height of the plot area
  * @param {'lin'|'sqrt'|'log'} [options.scale] axis transform
  * @param {boolean} [options.zeroFloor] anchor the axis at zero (used for % shares)
  * @param {[number, number]} [options.domain] fixed axis range, so animated frames share one axis
@@ -204,7 +208,6 @@ export function packSwarm({
 	cities,
 	value,
 	width,
-	height,
 	scale = 'lin',
 	zeroFloor = false,
 	domain = null,
@@ -215,27 +218,44 @@ export function packSwarm({
 	const inner = Math.max(width - padLeft - padRight, 1);
 
 	const items = [];
+	const regions = new Map();
 	for (const city of cities) {
 		const sizeGroup = SIZE_OF[city.key];
 		const color = SIZE_COLOR[sizeGroup] ?? FALLBACK_COLOR;
-		for (const [kind, profile] of [
-			['core', city.downtown],
-			['region', city.cma]
-		]) {
-			const itemValue = value(profile);
-			if (!isValue(itemValue)) continue;
+		const coreValue = value(city.downtown);
+		if (isValue(coreValue)) {
 			items.push({
 				order: items.length,
-				key: `${city.key}-${kind}`,
-				cityKey: city.key,
+				key: `core-${city.key}`,
+				cityKeys: [city.key],
 				name: city.name,
-				sizeGroup,
 				color,
-				kind,
-				value: itemValue,
-				compareValue: compare ? compare(profile) : null
+				kind: 'core',
+				value: coreValue,
+				compareValue: compare ? compare(city.downtown) : null
 			});
 		}
+
+		// A shared region takes the colour of the first downtown listed in it.
+		const shared = regions.get(city.cmaKey);
+		if (shared) {
+			shared.cityKeys.push(city.key);
+			continue;
+		}
+		const regionValue = city.cmaKey ? value(city.cma) : null;
+		if (!isValue(regionValue)) continue;
+		const region = {
+			order: items.length,
+			key: `region-${city.cmaKey}`,
+			cityKeys: [city.key],
+			name: city.cmaName ?? city.name,
+			color,
+			kind: 'region',
+			value: regionValue,
+			compareValue: compare ? compare(city.cma) : null
+		};
+		regions.set(city.cmaKey, region);
+		items.push(region);
 	}
 
 	const values = domain ?? items.map((d) => d.value);
@@ -248,22 +268,25 @@ export function packSwarm({
 
 	// Collision packing: walk left to right, offsetting each dot alternately above
 	// and below the centre line until it clears everything already placed.
-	const radius = width < 640 ? 7 : 10;
+	// Hundreds of dots need smaller marks to stay a swarm rather than a wall.
+	const crowded = items.length > 80;
+	const radius = width < 640 ? (crowded ? 3 : 7) : crowded ? 4.5 : 10;
 	const gap = 2 * radius + 1;
-	const centre = height / 2 - 12;
 	const placed = [];
+	let extent = radius;
 	for (const item of [...items].sort((a, b) => a.value - b.value)) {
 		const x = toX(item.value);
 		const left = x - radius;
 		const right = x + radius;
-		let y = centre;
+		// Placed dots run left to right, so only those reaching past `left` can touch.
+		const near = placed.filter((p) => p.right >= left);
+		let y = 0;
 		let step = 0;
-		const collides = (candidate) =>
-			placed.some((p) => Math.abs(p.y - candidate) < gap && !(right < p.left || left > p.right));
-		while (collides(y)) {
+		while (near.some((p) => Math.abs(p.y - y) < gap)) {
 			step++;
-			y = centre + (step % 2 ? -1 : 1) * Math.ceil(step / 2) * gap;
+			y = (step % 2 ? -1 : 1) * Math.ceil(step / 2) * gap;
 		}
+		extent = Math.max(extent, Math.abs(y) + radius);
 		const compareX = isValue(item.compareValue) ? toX(item.compareValue) : null;
 		placed.push({ ...item, x, y, left, right, radius, compareX });
 	}
@@ -292,6 +315,7 @@ export function packSwarm({
 		// Reordering keyed elements re-inserts them, and a re-inserted element
 		// drops its CSS transition: dots would jump between years, not glide.
 		dots: placed.sort((a, b) => a.order - b.order),
+		extent,
 		ticks,
 		average,
 		averageX: average == null ? null : toX(average),

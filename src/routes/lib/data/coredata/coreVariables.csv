@@ -1,0 +1,59 @@
+id,theme,indicator,variable_name,field
+1,overall_growth,Population,Population,value
+2,overall_growth,Dwellings,Dwellings,value
+3,overall_growth,Household Size,Household Size: 1 person,percent
+4,overall_growth,Household Size,Household Size: 2 person,percent
+5,overall_growth,Household Size,Household Size: 3 person,percent
+6,migration_and_imm,Mobility,Non movers,percent
+7,migration_and_imm,Mobility,Non migrants,percent
+8,migration_and_imm,Mobility,Internal migrants,percent
+9,migration_and_imm,Mobility,External migrants,percent
+10,migration_and_imm,Recent Immigration and NPR,Non-permanent residents,percent
+11,migration_and_imm,Recent Immigration and NPR,Recent Immigrant last 5 years,percent
+12,migration_and_imm,Generational Status,First generation,percent
+13,housing_supply,Dwelling Type,Single-detached house,percent
+14,housing_supply,Dwelling Type,Semi-detached house,percent
+15,housing_supply,Dwelling Type,Row house,percent
+16,housing_supply,Dwelling Type,Apartment or flat in a duplex,percent
+17,housing_supply,Dwelling Type,Apartment in a building that has fewer than five storeys,percent
+18,housing_supply,Dwelling Type,Apartment in a building that has five or more storeys,percent
+19,housing_supply,Dwelling Tenure,Renter,percent
+20,housing_supply,Dwelling Construction,Built in previous 10 years,percent
+21,housing_supply,Dwelling Construction,2016 to 2021,percent
+22,housing_supply,Dwelling Construction,2011 to 2015,percent
+23,housing_supply,Dwelling Construction,2006 to 2010,percent
+24,housing_supply,Dwelling Construction,2001 to 2005,percent
+25,housing_supply,Dwelling Construction,1996 to 2001,percent
+26,housing_supply,Dwelling Construction,1991 to 1995,percent
+27,housing_supply,Dwelling Construction,1981 to 1990,percent
+28,Demographics,Age,Age 20 to 24,percent
+29,Demographics,Age,Age 25 to 29,percent
+30,Demographics,Age,Age 30 to 34,percent
+31,Demographics,Age,Age 35 to 39,percent
+32,Demographics,Age,Age 40 to 44,percent
+33,Demographics,Age,Age 45 to 49,percent
+34,Demographics,Age,Age 50 to 54,percent
+35,Demographics,Age,Age 55 to 59,percent
+36,Demographics,Age,Age 60 to 64,percent
+37,Demographics,Visible Minority,Visible Minorities,percent
+38,Demographics,Employment Income,FTFY employment income recipients,value
+39,Demographics,Employment Income,Average Employment Income FTFY,value
+40,Demographics,Occupation,Legislation and Senior Management,percent
+41,Demographics,Occupation,Business Finance and Administration,percent
+42,Demographics,Occupation,Natural and Applied Science,percent
+43,Demographics,Occupation,Health Occupations,percent
+44,Demographics,Occupation,"Education Law, Community, and Government",percent
+45,Demographics,Occupation,Arts Culture and Sport,percent
+46,Demographics,Occupation,Sales and Services,percent
+47,Demographics,Occupation,Trades and Transport,percent
+48,Demographics,Occupation,Natural resources and Agriculture,percent
+49,Demographics,Occupation,Manufacturing and Utilities,percent
+50,Demographics,Commute Mode,Car,percent
+51,Demographics,Commute Mode,Public Transit,percent
+52,Demographics,Commute Mode,Bike,percent
+53,Demographics,Commute Mode,Walk,percent
+54,Demographics,Commute Duration,Less than 15 minutes,percent
+55,Demographics,Commute Duration,15 to 29 minutes,percent
+56,Demographics,Commute Duration,30 to 44 minutes,percent
+57,Demographics,Commute Duration,45 to 59 minutes,percent
+58,Demographics,Commute Duration,Over 60 minutes,percent
