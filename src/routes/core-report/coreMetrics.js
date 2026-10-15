@@ -2,24 +2,31 @@
 // colouring, the measures that can be plotted, value formatting, and the
 // beeswarm packer the swarm modules share.
 
-import { CITIES, LATEST_YEAR, variableKey } from './coreCensus.js';
+import { CITIES, LATEST_YEAR, defineMeasure, variableKey } from './coreCensus.js';
 
 const isValue = (v) => v != null && Number.isFinite(v);
 
-/** Reads a census count (or average, for income) off a profile. */
-const count = (indicator, variable) => (profile) =>
-	profile?.[variableKey(indicator, variable)]?.value ?? null;
+/**
+ * Reads a census count (or average, for income) off a profile. The reader
+ * carries its census definition, for the "what this measures" panels.
+ */
+const count = (indicator, variable) =>
+	Object.assign((profile) => profile?.[variableKey(indicator, variable)]?.value ?? null, {
+		definition: defineMeasure(indicator, [variable])
+	});
 
 /**
  * Reads a census share (0-100) off a profile, adding several variables of the
  * same indicator together (they share a denominator). Missing if any part is.
  */
-const share =
-	(indicator, ...variables) =>
-	(profile) => {
-		const parts = variables.map((v) => profile?.[variableKey(indicator, v)]?.percent);
-		return parts.every(isValue) ? parts.reduce((a, b) => a + b, 0) : null;
-	};
+const share = (indicator, ...variables) =>
+	Object.assign(
+		(profile) => {
+			const parts = variables.map((v) => profile?.[variableKey(indicator, v)]?.percent);
+			return parts.every(isValue) ? parts.reduce((a, b) => a + b, 0) : null;
+		},
+		{ definition: defineMeasure(indicator, variables) }
+	);
 
 export const population = count('Population', 'Population');
 
@@ -87,8 +94,9 @@ export const METRICS = [
 	{
 		key: 'density',
 		label: 'Density',
-		note: 'People per km². Downtown area is measured from the downtown boundary; region area is Statistics Canada’s 2021 land area, so regions have no 2001 density, and the boundary file does not yet include Ottawa–Gatineau.',
+		note: 'People per km²: census population divided by area. Downtown area is measured from the downtown boundary, so only downtowns with a mapped boundary have a density; region area is Statistics Canada’s 2021 land area, so regions have no 2001 density, and the boundary file does not yet include Ottawa–Gatineau.',
 		get: count('Density', 'Population density'),
+		definition: defineMeasure('Population', ['Population']),
 		format: 'int',
 		scale: 'sqrt',
 		unit: '/km²',
@@ -105,7 +113,6 @@ export const METRICS = [
 	{
 		key: 'income',
 		label: 'Employment income',
-		note: 'Average employment income of full-time, full-year earners.',
 		get: count('Employment Income', 'Average Employment Income FTFY'),
 		format: 'money',
 		scale: 'lin',
@@ -116,7 +123,6 @@ export const METRICS = [
 	{
 		key: 'carfree',
 		label: 'Car-free commuting',
-		note: 'The 2021 Census was taken in May 2021, during the COVID-19 pandemic, when transit use was unusually low.',
 		get: share('Commute Mode', 'Public Transit', 'Walk', 'Bike')
 	},
 	{
@@ -159,7 +165,13 @@ export const METRICS = [
 		label: 'Built in last 10 years',
 		get: share('Dwelling Construction', 'Built in previous 10 years')
 	}
-].map((metric) => ({ format: 'pct', scale: 'lin', zeroFloor: true, ...metric }));
+].map((metric) => ({
+	format: 'pct',
+	scale: 'lin',
+	zeroFloor: true,
+	definition: metric.get.definition,
+	...metric
+}));
 
 /** The occupation groups offered in module 03, as shares of all occupations. */
 export const OCCUPATIONS = [
@@ -173,14 +185,18 @@ export const OCCUPATIONS = [
 	['trades', 'Trades & transport', 'Trades and Transport'],
 	['primary', 'Natural resources', 'Natural resources and Agriculture'],
 	['manufacturing', 'Manufacturing', 'Manufacturing and Utilities']
-].map(([key, label, variable]) => ({
-	key,
-	label,
-	get: share('Occupation', variable),
-	format: 'pct',
-	scale: 'lin',
-	zeroFloor: true
-}));
+].map(([key, label, variable]) => {
+	const get = share('Occupation', variable);
+	return {
+		key,
+		label,
+		get,
+		definition: get.definition,
+		format: 'pct',
+		scale: 'lin',
+		zeroFloor: true
+	};
+});
 
 // Fallback for a city without a size group, so its dot still draws.
 const FALLBACK_COLOR = '#7d97a5';
@@ -228,6 +244,7 @@ export function logTicks(lo, hi) {
  * @param {[number, number]} [options.domain] fixed axis range, so animated frames share one axis
  * @param {(m: any) => number} [options.compare] reads a comparison value (e.g. an earlier
  *        census year); each dot then carries `compareX`
+ * @param {{ core: boolean, region: boolean }} [options.kinds] which kinds of dot to draw
  */
 export function packSwarm({
 	cities,
@@ -236,7 +253,8 @@ export function packSwarm({
 	scale = 'lin',
 	zeroFloor = false,
 	domain = null,
-	compare = null
+	compare = null,
+	kinds = { core: true, region: true }
 }) {
 	const padLeft = 48;
 	const padRight = 48;
@@ -247,7 +265,7 @@ export function packSwarm({
 	for (const city of cities) {
 		const sizeGroup = SIZE_OF[city.key];
 		const color = SIZE_COLOR[sizeGroup] ?? FALLBACK_COLOR;
-		const coreValue = value(city.downtown);
+		const coreValue = kinds.core ? value(city.downtown) : null;
 		if (isValue(coreValue)) {
 			items.push({
 				order: items.length,
@@ -267,7 +285,7 @@ export function packSwarm({
 			shared.cityKeys.push(city.key);
 			continue;
 		}
-		const regionValue = city.cmaKey ? value(city.cma) : null;
+		const regionValue = kinds.region && city.cmaKey ? value(city.cma) : null;
 		if (!isValue(regionValue)) continue;
 		const region = {
 			order: items.length,

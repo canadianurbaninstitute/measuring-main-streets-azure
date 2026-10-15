@@ -4,8 +4,11 @@
 //   coreCities.csv    one row per downtown: key, display name, province, its
 //                     CMA/CA, areas for density, and the census years whose
 //                     downtown figures are usable
-//   coreVariables.csv one row per census variable: theme, indicator, name, and
-//                     whether it is read as a share of its indicator or a value
+//   coreVariables.csv one row per census variable: theme, indicator, name,
+//                     whether it is read as a share of its indicator or a value,
+//                     and what it is in each census: Statistics Canada's labels
+//                     for the vectors summed into it (from census_vars_worksheet
+//                     and the long DA file), and for its indicator's total
 //   coreSeries.csv    one row per downtown and variable: the downtown (dt) and
 //                     region (cma) figure in each census year
 //
@@ -13,17 +16,22 @@
 // census years flow through to the explorer on re-run.
 //
 // Usage:
-//   npm run core-series                                     # published sources
-//   npm run core-series -- ./comparison.csv ./cma.geojson   # or local copies
+//   npm run core-series        # published sources
+//   npm run core-series -- ./comparison.csv ./cma.geojson ./worksheet.csv ./da_long.parquet
 
 import { readFile, writeFile } from 'node:fs/promises';
 import { area } from '@turf/turf';
 import { csvFormat, csvParse } from 'd3';
+import { parquetReadObjects } from 'hyparquet';
 
 const DEFAULT_SOURCE =
 	'https://measuringmainstreets.blob.core.windows.net/downtowns/downtown_vs_cma_comparison.csv';
 const DEFAULT_CMA_SOURCE =
 	'https://raw.githubusercontent.com/canadianurbaninstitute/sdsc-data/main/outputs/spatialfiles/cma_boundaries.geojson';
+const DEFAULT_WORKSHEET_SOURCE =
+	'https://measuringmainstreets.blob.core.windows.net/downtowns/census_vars_worksheet_v2.csv';
+const DEFAULT_LABELS_SOURCE =
+	'https://measuringmainstreets.blob.core.windows.net/downtowns/census_da_long.parquet';
 const DATA_DIR = new URL('../src/routes/lib/data/coredata/', import.meta.url);
 
 // Downtown dwellings almost never fall by a fifth in twenty years, so an
@@ -80,11 +88,16 @@ function round(raw, digits) {
 	return Number.isFinite(value) ? String(Number(value.toFixed(digits))) : '';
 }
 
-async function readSource(source) {
-	if (!/^https?:/.test(source)) return readFile(source, 'utf8');
+async function readSource(source, { binary = false } = {}) {
+	if (!/^https?:/.test(source)) {
+		const buffer = await readFile(source);
+		return binary
+			? buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.length)
+			: buffer.toString('utf8');
+	}
 	const res = await fetch(source);
 	if (!res.ok) throw new Error(`${source}: HTTP ${res.status}`);
-	return res.text();
+	return binary ? res.arrayBuffer() : res.text();
 }
 
 const rows = csvParse((await readSource(process.argv[2] ?? DEFAULT_SOURCE)).replace(/^﻿/, ''));
@@ -145,6 +158,48 @@ for (const row of rows) {
 		['dt', 'cma'].some((geo) => round(row[`percent_${y}_${geo}`], 2) !== '')
 	);
 	if (hasShare) variables.get(id).field = 'percent';
+}
+
+// Definitions. The worksheet says which census vectors make up each variable
+// in each year; the long DA file carries Statistics Canada's label for every
+// vector it pulled. Labels lose trailing footnote markers ("2016 to 2021 (51)")
+// and repeats (2001 tables split by sex share labels).
+const worksheet = csvParse(
+	(await readSource(process.argv[4] ?? DEFAULT_WORKSHEET_SOURCE)).replace(/^\uFEFF/, '')
+);
+const labelRows = await parquetReadObjects({
+	file: await readSource(process.argv[5] ?? DEFAULT_LABELS_SOURCE, { binary: true }),
+	columns: ['year', 'code', 'label']
+});
+const labelOf = new Map(labelRows.map((r) => [`${r.year}|${r.code}`, r.label]));
+
+function describe(indicator, name, year) {
+	const codes = [
+		...new Set(
+			worksheet
+				.filter((w) => w.indicator === indicator && w.variable_name === name)
+				.map((w) => w[`code_${year}`])
+				.filter(Boolean)
+		)
+	];
+	const labels = [
+		...new Set(
+			codes.map((code) => String(labelOf.get(`${year}|${code}`) ?? code).replace(/\s*\(\d+\)$/, ''))
+		)
+	];
+	return { codes: codes.join(' '), label: labels.join(' + ') };
+}
+
+for (const variable of variables.values()) {
+	const total = worksheet.find(
+		(w) => w.indicator === variable.indicator && /^total\b/i.test(w.variable_name)
+	)?.variable_name;
+	for (const year of years) {
+		const own = describe(variable.indicator, variable.variable_name, year);
+		variable[`label_${year}`] = own.label;
+		variable[`codes_${year}`] = own.codes;
+		variable[`universe_${year}`] = total ? describe(variable.indicator, total, year).label : '';
+	}
 }
 
 const series = [];

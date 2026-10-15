@@ -118,6 +118,43 @@ for (const row of cityRows) {
 	}
 }
 
+// Comparability caveats by indicator, from setting the two censuses'
+// definitions side by side (coreVariables.csv).
+const INDICATOR_NOTES = {
+	'Commute Mode':
+		'Counts each person’s main mode only, among people who travel to work: it leaves out people working from home and a small “other method” group. The 2021 Census was taken in May 2021, during the COVID-19 pandemic.',
+	'Commute Duration':
+		'Among people who travel to work. The 2021 Census was taken in May 2021, during the COVID-19 pandemic.',
+	Occupation:
+		'Occupation groups changed between censuses: 2021 uses NOC 2021, which moved middle managers out of “management” into the fields they manage, so management in particular does not compare with 2001.',
+	'Generational Status':
+		'2001 counts people aged 15 and over; 2021 counts everyone in private households, so the two years are not strictly comparable.',
+	'Employment Income': 'The 2021 Census asked about income in 2020, the first year of the pandemic.'
+};
+
+const definitionRows = new Map(
+	variableRows.map((row) => [variableKey(row.indicator, row.variable_name), row])
+);
+
+/**
+ * What a measure is in each census, for one or more variables of one
+ * indicator (several are added together): Statistics Canada's labels for what
+ * is counted, the indicator's total it is a share of (if any), the census
+ * vectors behind it, and any caveat on comparing years.
+ */
+export function defineMeasure(indicator, variables) {
+	const rows = variables.map((v) => definitionRows.get(variableKey(indicator, v))).filter(Boolean);
+	return {
+		years: CENSUS_YEARS.map((year) => ({
+			year,
+			counts: rows.map((row) => row[`label_${year}`]).filter(Boolean),
+			universe: rows[0]?.[`universe_${year}`] || null,
+			codes: rows.flatMap((row) => row[`codes_${year}`].split(' ')).filter(Boolean)
+		})).filter((entry) => entry.counts.length),
+		note: INDICATOR_NOTES[indicator] ?? null
+	};
+}
+
 /**
  * Every census variable, grouped theme → indicator → variable, for the
  * "every census measure" module's pickers. Shares are plotted wherever the
@@ -164,6 +201,7 @@ function describeVariable({ indicator, variable_name: name, field }) {
 		title: name,
 		indicator,
 		get: (profile) => profile?.[key]?.[field] ?? null,
+		definition: defineMeasure(indicator, [name]),
 		format: hasShare ? 'pct' : isIncome ? 'money' : 'int',
 		// Raw counts run from a few hundred downtown residents to millions in a
 		// region, so they need a log axis; shares and incomes don't.

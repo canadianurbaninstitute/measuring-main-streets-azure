@@ -13,9 +13,15 @@
 	 *   measure       - { get, format, scale, zeroFloor, unit?, nominalDollars? };
 	 *                   `get` reads one census-year profile
 	 *   accent        - CSS colour for the play button and active year
+	 *   kinds         - { core, region }: which kinds of dot to draw
 	 *   selectedCity  - bindable city key, shared with the other modules
 	 */
-	let { measure, accent = 'var(--brandPurple)', selectedCity = $bindable(null) } = $props();
+	let {
+		measure,
+		accent = 'var(--brandPurple)',
+		kinds = { core: true, region: true },
+		selectedCity = $bindable(null)
+	} = $props();
 
 	const years = $derived(yearsWithData(measure.get));
 
@@ -41,7 +47,10 @@
 	const domain = $derived.by(() => {
 		const inRange = years.filter((yr) => yr >= from && yr <= to);
 		const values = CITIES.flatMap((city) =>
-			inRange.flatMap((yr) => [measure.get(city.downtown[yr]), measure.get(city.cma[yr])])
+			inRange.flatMap((yr) => [
+				kinds.core ? measure.get(city.downtown[yr]) : null,
+				kinds.region ? measure.get(city.cma[yr]) : null
+			])
 		).filter((v) => v != null && Number.isFinite(v));
 		return values.length ? [Math.min(...values), Math.max(...values)] : null;
 	});
@@ -73,6 +82,7 @@
 	zeroFloor={measure.zeroFloor}
 	stamp={year ? String(year) : ''}
 	duration={instant ? 0 : 1400}
+	{kinds}
 	bind:selectedCity
 />
 

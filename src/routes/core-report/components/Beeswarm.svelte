@@ -20,6 +20,7 @@
 	 *   compareLabel  - names the comparison (e.g. "2001")
 	 *   stamp         - large label behind the swarm (e.g. the census year on show)
 	 *   duration      - milliseconds for dots to glide to new positions
+	 *   kinds         - { core, region }: which kinds of dot to draw
 	 *   selectedCity  - bindable city key; clicking a dot isolates that city (a
 	 *                   shared region selects the first downtown listed in it)
 	 */
@@ -35,6 +36,7 @@
 		compareLabel = '',
 		stamp = '',
 		duration = 600,
+		kinds = { core: true, region: true },
 		selectedCity = $bindable(null)
 	} = $props();
 
@@ -42,7 +44,7 @@
 	let hovered = $state(null);
 
 	const swarm = $derived(
-		width > 0 ? packSwarm({ cities, value, width, scale, zeroFloor, domain, compare }) : null
+		width > 0 ? packSwarm({ cities, value, width, scale, zeroFloor, domain, compare, kinds }) : null
 	);
 	// Room above the axis and its labels (38px) for the swarm's full reach.
 	const height = $derived(Math.max(width < 640 ? 300 : 340, 2 * (swarm?.extent ?? 0) + 72));

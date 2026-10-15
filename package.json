@@ -29,6 +29,7 @@
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-svelte": "^3.11.0",
+    "hyparquet": "1.31.2",
     "knip": "^5.61.3",
     "prettier": "^3.6.2",
     "prettier-plugin-svelte": "^3.4.0",

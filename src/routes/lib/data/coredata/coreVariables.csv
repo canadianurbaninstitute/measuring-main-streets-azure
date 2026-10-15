@@ -1,59 +1,59 @@
-id,theme,indicator,variable_name,field
-1,overall_growth,Population,Population,value
-2,overall_growth,Dwellings,Dwellings,value
-3,overall_growth,Household Size,Household Size: 1 person,percent
-4,overall_growth,Household Size,Household Size: 2 person,percent
-5,overall_growth,Household Size,Household Size: 3 person,percent
-6,migration_and_imm,Mobility,Non movers,percent
-7,migration_and_imm,Mobility,Non migrants,percent
-8,migration_and_imm,Mobility,Internal migrants,percent
-9,migration_and_imm,Mobility,External migrants,percent
-10,migration_and_imm,Recent Immigration and NPR,Non-permanent residents,percent
-11,migration_and_imm,Recent Immigration and NPR,Recent Immigrant last 5 years,percent
-12,migration_and_imm,Generational Status,First generation,percent
-13,housing_supply,Dwelling Type,Single-detached house,percent
-14,housing_supply,Dwelling Type,Semi-detached house,percent
-15,housing_supply,Dwelling Type,Row house,percent
-16,housing_supply,Dwelling Type,Apartment or flat in a duplex,percent
-17,housing_supply,Dwelling Type,Apartment in a building that has fewer than five storeys,percent
-18,housing_supply,Dwelling Type,Apartment in a building that has five or more storeys,percent
-19,housing_supply,Dwelling Tenure,Renter,percent
-20,housing_supply,Dwelling Construction,Built in previous 10 years,percent
-21,housing_supply,Dwelling Construction,2016 to 2021,percent
-22,housing_supply,Dwelling Construction,2011 to 2015,percent
-23,housing_supply,Dwelling Construction,2006 to 2010,percent
-24,housing_supply,Dwelling Construction,2001 to 2005,percent
-25,housing_supply,Dwelling Construction,1996 to 2001,percent
-26,housing_supply,Dwelling Construction,1991 to 1995,percent
-27,housing_supply,Dwelling Construction,1981 to 1990,percent
-28,Demographics,Age,Age 20 to 24,percent
-29,Demographics,Age,Age 25 to 29,percent
-30,Demographics,Age,Age 30 to 34,percent
-31,Demographics,Age,Age 35 to 39,percent
-32,Demographics,Age,Age 40 to 44,percent
-33,Demographics,Age,Age 45 to 49,percent
-34,Demographics,Age,Age 50 to 54,percent
-35,Demographics,Age,Age 55 to 59,percent
-36,Demographics,Age,Age 60 to 64,percent
-37,Demographics,Visible Minority,Visible Minorities,percent
-38,Demographics,Employment Income,FTFY employment income recipients,value
-39,Demographics,Employment Income,Average Employment Income FTFY,value
-40,Demographics,Occupation,Legislation and Senior Management,percent
-41,Demographics,Occupation,Business Finance and Administration,percent
-42,Demographics,Occupation,Natural and Applied Science,percent
-43,Demographics,Occupation,Health Occupations,percent
-44,Demographics,Occupation,"Education Law, Community, and Government",percent
-45,Demographics,Occupation,Arts Culture and Sport,percent
-46,Demographics,Occupation,Sales and Services,percent
-47,Demographics,Occupation,Trades and Transport,percent
-48,Demographics,Occupation,Natural resources and Agriculture,percent
-49,Demographics,Occupation,Manufacturing and Utilities,percent
-50,Demographics,Commute Mode,Car,percent
-51,Demographics,Commute Mode,Public Transit,percent
-52,Demographics,Commute Mode,Bike,percent
-53,Demographics,Commute Mode,Walk,percent
-54,Demographics,Commute Duration,Less than 15 minutes,percent
-55,Demographics,Commute Duration,15 to 29 minutes,percent
-56,Demographics,Commute Duration,30 to 44 minutes,percent
-57,Demographics,Commute Duration,45 to 59 minutes,percent
-58,Demographics,Commute Duration,Over 60 minutes,percent
+id,theme,indicator,variable_name,field,label_2001,codes_2001,universe_2001,label_2021,codes_2021,universe_2021
+1,overall_growth,Population,Population,value,Population,Population,,Population,Population,
+2,overall_growth,Dwellings,Dwellings,value,Dwellings,Dwellings,,Dwellings,Dwellings,
+3,overall_growth,Household Size,Household Size: 1 person,percent,1 person,v_CA01_122,Total number of occupied private dwellings by structural type of dwelling,1 person,v_CA21_444,Occupied private dwellings by structural type of dwelling data
+4,overall_growth,Household Size,Household Size: 2 person,percent,2 persons,v_CA01_123,Total number of occupied private dwellings by structural type of dwelling,2 persons,v_CA21_445,Occupied private dwellings by structural type of dwelling data
+5,overall_growth,Household Size,Household Size: 3 person,percent,3 persons,v_CA01_124,Total number of occupied private dwellings by structural type of dwelling,3 persons,v_CA21_446,Occupied private dwellings by structural type of dwelling data
+6,migration_and_imm,Mobility,Non movers,percent,Non-movers,v_CA01_391,Total population 5 years and over by mobility status 5 years ago,Non-movers,v_CA21_5775,Total - Mobility status 5 years ago
+7,migration_and_imm,Mobility,Non migrants,percent,Non-migrants,v_CA01_393,Total population 5 years and over by mobility status 5 years ago,Non-migrants,v_CA21_5781,Total - Mobility status 5 years ago
+8,migration_and_imm,Mobility,Internal migrants,percent,Internal migrants,v_CA01_395,Total population 5 years and over by mobility status 5 years ago,Internal migrants,v_CA21_5787,Total - Mobility status 5 years ago
+9,migration_and_imm,Mobility,External migrants,percent,External migrants,v_CA01_398,Total population 5 years and over by mobility status 5 years ago,External migrants,v_CA21_5796,Total - Mobility status 5 years ago
+10,migration_and_imm,Recent Immigration and NPR,Non-permanent residents,percent,Non-permanent residents,v_CA01_458,Total population by immigrant status and place of birth,Non-permanent residents,v_CA21_4434,Total - Immigrant status and period of immigration for the population in private households
+11,migration_and_imm,Recent Immigration and NPR,Recent Immigrant last 5 years,percent,1996-2001,v_CA01_507,Total population by immigrant status and place of birth,2016 to 2021,v_CA21_4431,Total - Immigrant status and period of immigration for the population in private households
+12,migration_and_imm,Generational Status,First generation,percent,1st generation,v_CA01_513,Total population 15 years and over by generation status,First generation,v_CA21_4821,Total - Generation status for the population in private households
+13,housing_supply,Dwelling Type,Single-detached house,percent,Single-detached house,v_CA01_113,Total number of occupied private dwellings by structural type of dwelling,Single-detached house,v_CA21_435,Occupied private dwellings by structural type of dwelling data
+14,housing_supply,Dwelling Type,Semi-detached house,percent,Semi-detached house,v_CA01_114,Total number of occupied private dwellings by structural type of dwelling,Semi-detached house,v_CA21_436,Occupied private dwellings by structural type of dwelling data
+15,housing_supply,Dwelling Type,Row house,percent,Row house,v_CA01_115,Total number of occupied private dwellings by structural type of dwelling,Row house,v_CA21_437,Occupied private dwellings by structural type of dwelling data
+16,housing_supply,Dwelling Type,Apartment or flat in a duplex,percent,"Apartment, detached duplex",v_CA01_116,Total number of occupied private dwellings by structural type of dwelling,Apartment or flat in a duplex,v_CA21_438,Occupied private dwellings by structural type of dwelling data
+17,housing_supply,Dwelling Type,Apartment in a building that has fewer than five storeys,percent,"Apartment, building that has fewer than five storeys",v_CA01_118,Total number of occupied private dwellings by structural type of dwelling,Apartment in a building that has fewer than five storeys,v_CA21_439,Occupied private dwellings by structural type of dwelling data
+18,housing_supply,Dwelling Type,Apartment in a building that has five or more storeys,percent,"Apartment, building that has five or more storeys",v_CA01_117,Total number of occupied private dwellings by structural type of dwelling,Apartment in a building that has five or more storeys,v_CA21_440,Occupied private dwellings by structural type of dwelling data
+19,housing_supply,Dwelling Tenure,Renter,percent,Rented,v_CA01_100,Total number of occupied private dwellings by period of construction,Renter,v_CA21_4239,Total - Private households by tenure
+20,housing_supply,Dwelling Construction,Built in previous 10 years,percent,"Period of construction, 1991-1995 + Period of construction, 1996-2001",v_CA01_110 v_CA01_111,Total number of occupied private dwellings by period of construction,2011 to 2015 + 2016 to 2021,v_CA21_4270 v_CA21_4271,Total - Occupied private dwellings by period of construction
+21,housing_supply,Dwelling Construction,2016 to 2021,percent,,,Total number of occupied private dwellings by period of construction,2016 to 2021,v_CA21_4271,Total - Occupied private dwellings by period of construction
+22,housing_supply,Dwelling Construction,2011 to 2015,percent,,,Total number of occupied private dwellings by period of construction,2011 to 2015,v_CA21_4270,Total - Occupied private dwellings by period of construction
+23,housing_supply,Dwelling Construction,2006 to 2010,percent,,,Total number of occupied private dwellings by period of construction,2006 to 2010,v_CA21_4269,Total - Occupied private dwellings by period of construction
+24,housing_supply,Dwelling Construction,2001 to 2005,percent,,,Total number of occupied private dwellings by period of construction,2001 to 2005,v_CA21_4268,Total - Occupied private dwellings by period of construction
+25,housing_supply,Dwelling Construction,1996 to 2001,percent,"Period of construction, 1996-2001",v_CA01_111,Total number of occupied private dwellings by period of construction,,,Total - Occupied private dwellings by period of construction
+26,housing_supply,Dwelling Construction,1991 to 1995,percent,"Period of construction, 1991-1995",v_CA01_110,Total number of occupied private dwellings by period of construction,,,Total - Occupied private dwellings by period of construction
+27,housing_supply,Dwelling Construction,1981 to 1990,percent,"Period of construction, 1981-1990",v_CA01_109,Total number of occupied private dwellings by period of construction,,,Total - Occupied private dwellings by period of construction
+28,Demographics,Age,Age 20 to 24,percent,20-24,v_CA01_11 v_CA01_30,Total population by sex and age groups,20 to 24 years,v_CA21_89,Total - Age
+29,Demographics,Age,Age 25 to 29,percent,25-29,v_CA01_12 v_CA01_31,Total population by sex and age groups,25 to 29 years,v_CA21_107,Total - Age
+30,Demographics,Age,Age 30 to 34,percent,30-34,v_CA01_13 v_CA01_32,Total population by sex and age groups,30 to 34 years,v_CA21_125,Total - Age
+31,Demographics,Age,Age 35 to 39,percent,35-39,v_CA01_14 v_CA01_33,Total population by sex and age groups,35 to 39 years,v_CA21_143,Total - Age
+32,Demographics,Age,Age 40 to 44,percent,40-44,v_CA01_15 v_CA01_34,Total population by sex and age groups,40 to 44 years,v_CA21_161,Total - Age
+33,Demographics,Age,Age 45 to 49,percent,45-49,v_CA01_16 v_CA01_35,Total population by sex and age groups,45 to 49 years,v_CA21_179,Total - Age
+34,Demographics,Age,Age 50 to 54,percent,50-54,v_CA01_17 v_CA01_36,Total population by sex and age groups,50 to 54 years,v_CA21_197,Total - Age
+35,Demographics,Age,Age 55 to 59,percent,55-59,v_CA01_18 v_CA01_37,Total population by sex and age groups,55 to 59 years,v_CA21_215,Total - Age
+36,Demographics,Age,Age 60 to 64,percent,60-64,v_CA01_19 v_CA01_38,Total population by sex and age groups,60 to 64 years,v_CA21_233,Total - Age
+37,Demographics,Visible Minority,Visible Minorities,percent,Total visible minority population,v_CA01_703,Total population by visible minority groups,Total visible minority population,v_CA21_4875,Total - Visible minority for the population in private households
+38,Demographics,Employment Income,FTFY employment income recipients,value,"Worked full year, full time",v_CA01_1401,,Number of employment income recipients in 2020 who worked full-year full-time in 2020,v_CA21_7698,
+39,Demographics,Employment Income,Average Employment Income FTFY,value,Average employment income $,v_CA01_1402,,Average employment income in 2020 for full-year full-time workers in 2020 ($),v_CA21_7704,
+40,Demographics,Occupation,Legislation and Senior Management,percent,A Management occupations,v_CA01_990,All occupations,0 Legislative and senior management occupations,v_CA21_6570,All occupations
+41,Demographics,Occupation,Business Finance and Administration,percent,"B Business, finance and administration occupations",v_CA01_995,All occupations,"1 Business, finance and administration occupations",v_CA21_6573,All occupations
+42,Demographics,Occupation,Natural and Applied Science,percent,C Natural and applied sciences and related occupations,v_CA01_1002,All occupations,2 Natural and applied sciences and related occupations,v_CA21_6576,All occupations
+43,Demographics,Occupation,Health Occupations,percent,D Health occupations,v_CA01_1005,All occupations,3 Health occupations,v_CA21_6579,All occupations
+44,Demographics,Occupation,"Education Law, Community, and Government",percent,"E Occupations in social science, education, government service and religion",v_CA01_1010,All occupations,"4 Occupations in education, law and social, community and government services",v_CA21_6582,All occupations
+45,Demographics,Occupation,Arts Culture and Sport,percent,"F Occupations in art, culture, recreation and sport",v_CA01_1014,All occupations,"5 Occupations in art, culture, recreation and sport",v_CA21_6585,All occupations
+46,Demographics,Occupation,Sales and Services,percent,G Sales and service occupations,v_CA01_1017,All occupations,6 Sales and service occupations,v_CA21_6588,All occupations
+47,Demographics,Occupation,Trades and Transport,percent,"H Trades, transport and equipment operators and related occupations",v_CA01_1028,All occupations,"7 Trades, transport and equipment operators and related occupations",v_CA21_6591,All occupations
+48,Demographics,Occupation,Natural resources and Agriculture,percent,I Occupations unique to primary industry,v_CA01_1038,All occupations,"8 Natural resources, agriculture and related production occupations",v_CA21_6594,All occupations
+49,Demographics,Occupation,Manufacturing and Utilities,percent,"J Occupations unique to processing, manufacturing and utilities",v_CA01_1042,All occupations,9 Occupations in manufacturing and utilities,v_CA21_6597,All occupations
+50,Demographics,Commute Mode,Car,percent,"Car, truck, van, as driver + Car, truck, van, as passenger",v_CA01_1255 v_CA01_1256 v_CA01_1264 v_CA01_1265,Males with usual place of work or no fixed workplace address + Females with usual place of work or no fixed workplace address,"Car, truck or van",v_CA21_7635,Total - Main mode of commuting for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+51,Demographics,Commute Mode,Public Transit,percent,Public transit,v_CA01_1257 v_CA01_1266,Males with usual place of work or no fixed workplace address + Females with usual place of work or no fixed workplace address,Public transit,v_CA21_7644,Total - Main mode of commuting for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+52,Demographics,Commute Mode,Bike,percent,Bicycle,v_CA01_1259 v_CA01_1268,Males with usual place of work or no fixed workplace address + Females with usual place of work or no fixed workplace address,Bicycle,v_CA21_7650,Total - Main mode of commuting for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+53,Demographics,Commute Mode,Walk,percent,Walked,v_CA01_1258 v_CA01_1267,Males with usual place of work or no fixed workplace address + Females with usual place of work or no fixed workplace address,Walked,v_CA21_7647,Total - Main mode of commuting for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+54,Demographics,Commute Duration,Less than 15 minutes,percent,,,,Less than 15 minutes,v_CA21_7659,Total - Commuting duration for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+55,Demographics,Commute Duration,15 to 29 minutes,percent,,,,15 to 29 minutes,v_CA21_7662,Total - Commuting duration for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+56,Demographics,Commute Duration,30 to 44 minutes,percent,,,,30 to 44 minutes,v_CA21_7665,Total - Commuting duration for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+57,Demographics,Commute Duration,45 to 59 minutes,percent,,,,45 to 59 minutes,v_CA21_7668,Total - Commuting duration for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address
+58,Demographics,Commute Duration,Over 60 minutes,percent,,,,60 minutes and over,v_CA21_7671,Total - Commuting duration for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address

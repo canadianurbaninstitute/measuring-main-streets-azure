@@ -6,6 +6,8 @@
 	import '../styles.css';
 	import ChipGroup from './components/ChipGroup.svelte';
 	import CoreScatter from './components/CoreScatter.svelte';
+	import KindToggle from './components/KindToggle.svelte';
+	import MeasureInfo from './components/MeasureInfo.svelte';
 	import TimeSwarm from './components/TimeSwarm.svelte';
 	import { CENSUS_YEARS, CITIES, LATEST_YEAR, THEMES, yearsWithData } from './coreCensus.js';
 	import { METRICS, OCCUPATIONS, SIZE_LEGEND } from './coreMetrics.js';
@@ -13,6 +15,10 @@
 	// One selection is shared by every module, so isolating a city in the
 	// spread also isolates it in the scatter and the other swarms.
 	let selectedCity = $state(null);
+
+	// Core and region dots can be switched off to thin out busy swarms; the
+	// choice applies to every swarm, like the followed downtown.
+	let kinds = $state({ core: true, region: true });
 
 	// Defaults use measures every downtown has (density covers only those with
 	// a mapped boundary so far).
@@ -138,23 +144,21 @@
 					<div class="module-number">01 · The spread</div>
 					<h3 class="module-title">{spread.label}: cores and regions</h3>
 				</div>
-				<div class="kind-legend">
-					<span class="kind"><span class="kind-swatch is-core"></span>Core</span>
-					<span class="kind"><span class="kind-swatch"></span>Region</span>
-				</div>
+				<KindToggle bind:kinds />
 			</div>
 			<p class="module-blurb">
 				Every downtown core and every region is placed independently along the axis. Where dots
 				bunch, cities cluster; where they spread, they diverge. The dashed gold line marks the core
 				average. Press play to watch them move between censuses.
-				{#if spread.note}{spread.note}{/if}
 			</p>
 
 			<div class="controls">
 				<ChipGroup options={metricOptions} bind:selected={spreadMetric} />
 			</div>
 
-			<TimeSwarm measure={spread} accent="var(--brandBlue)" bind:selectedCity />
+			<MeasureInfo measure={spread} />
+
+			<TimeSwarm measure={spread} accent="var(--brandBlue)" {kinds} bind:selectedCity />
 		</section>
 
 		<!-- 02 · The relationship -->
@@ -182,6 +186,11 @@
 				/>
 			</div>
 
+			<div class="measure-pair">
+				<MeasureInfo measure={x} prefix="Horizontal" />
+				<MeasureInfo measure={y} prefix="Vertical" />
+			</div>
+
 			<CoreScatter cities={latestCities} xMetric={x} yMetric={y} bind:selectedCity />
 		</section>
 
@@ -192,10 +201,7 @@
 					<div class="module-number is-yellow">03 · The workforce</div>
 					<h3 class="module-title">{workforce.label}: share of employed residents</h3>
 				</div>
-				<div class="kind-legend">
-					<span class="kind"><span class="kind-swatch is-core"></span>Core</span>
-					<span class="kind"><span class="kind-swatch"></span>Region</span>
-				</div>
+				<KindToggle bind:kinds />
 			</div>
 			<p class="module-blurb">
 				Each downtown core and its region placed by the share of residents working in
@@ -210,7 +216,9 @@
 				/>
 			</div>
 
-			<TimeSwarm measure={workforce} accent="#8a6d00" bind:selectedCity />
+			<MeasureInfo measure={workforce} />
+
+			<TimeSwarm measure={workforce} accent="#8a6d00" {kinds} bind:selectedCity />
 		</section>
 
 		<!-- 04 · The change -->
@@ -221,10 +229,7 @@
 						<div class="module-number is-purple">04 · Every census measure</div>
 						<h3 class="module-title">{change.title}: then and now</h3>
 					</div>
-					<div class="kind-legend">
-						<span class="kind"><span class="kind-swatch is-core"></span>Core</span>
-						<span class="kind"><span class="kind-swatch"></span>Region</span>
-					</div>
+					<KindToggle bind:kinds />
 				</div>
 				<p class="module-blurb">
 					Every census variable sdsc-data carries for both years, beyond the curated measures above.
@@ -250,7 +255,9 @@
 					{/if}
 				</div>
 
-				<TimeSwarm measure={change} bind:selectedCity />
+				<MeasureInfo measure={change} />
+
+				<TimeSwarm measure={change} {kinds} bind:selectedCity />
 			</section>
 		{/if}
 
@@ -414,6 +421,12 @@
 		padding: 1.875rem 2.125rem 2.25rem;
 	}
 
+	.measure-pair {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+		gap: 0 1rem;
+	}
+
 	.module-head {
 		display: flex;
 		align-items: flex-end;
@@ -470,35 +483,6 @@
 	.controls.is-stacked {
 		flex-direction: column;
 		gap: 0.75rem;
-	}
-
-	.kind-legend {
-		display: flex;
-		gap: 1rem;
-		align-items: center;
-		flex-wrap: wrap;
-	}
-
-	.kind {
-		display: flex;
-		align-items: center;
-		gap: 0.4375rem;
-		font-size: 0.78rem;
-		font-weight: 600;
-		color: var(--core-text-soft);
-	}
-
-	.kind-swatch {
-		width: 15px;
-		height: 15px;
-		border-radius: 50%;
-		background: transparent;
-		border: 2px solid #7d97a5;
-	}
-
-	.kind-swatch.is-core {
-		background: #7d97a5;
-		border-color: rgba(255, 255, 255, 0.55);
 	}
 
 	.theme-groups {
