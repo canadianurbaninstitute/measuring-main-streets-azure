@@ -9,6 +9,7 @@
 		correlation,
 		correlationLabel,
 		format,
+		logTicks,
 		population
 	} from '../coreMetrics.js';
 
@@ -89,18 +90,16 @@
 			radius: sizeBase + Math.sqrt(row.population / maxPopulation) * sizeCap
 		}));
 
-		const gridLines = [];
-		for (let i = 0; i <= 5; i++) {
-			const value = unty(yLo + (i / 5) * ySpan);
-			gridLines.push({ y: toY(value), label: format(value, yMetric.format) });
-		}
+		// Log axes tick at 1, 3, 10, 30…; others at even steps.
+		const yLog = yMetric.scale === 'log' && logTicks(unty(yLo), unty(yHi));
+		const gridLines = (yLog || [0, 1, 2, 3, 4, 5].map((i) => unty(yLo + (i / 5) * ySpan))).map(
+			(value) => ({ y: toY(value), label: format(value, yMetric.format) })
+		);
 
-		const xTicks = [];
-		for (let i = 0; i <= 4; i++) {
-			const fraction = i / 4;
-			const value = untx(xLo + fraction * xSpan);
-			xTicks.push({ x: padLeft + fraction * plotWidth, label: format(value, xMetric.format) });
-		}
+		const xLog = xMetric.scale === 'log' && logTicks(untx(xLo), untx(xHi));
+		const xTicks = (xLog || [0, 1, 2, 3, 4].map((i) => untx(xLo + (i / 4) * xSpan))).map(
+			(value) => ({ x: toX(value), label: format(value, xMetric.format) })
+		);
 
 		return { dots, gridLines, xTicks, padLeft, padTop, padBottom, plotHeight };
 	});

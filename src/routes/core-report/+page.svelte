@@ -96,10 +96,11 @@
 		</header>
 
 		<div class="legend">
-			<span class="legend-title">Coloured by downtown size</span>
+			<span class="legend-title">Coloured by downtown residents</span>
 			{#each SIZE_LEGEND as size (size.key)}
 				<span class="legend-item">
 					<span class="legend-swatch" style:background={size.color}></span>{size.label}
+					<span class="legend-range">{size.range}</span>
 				</span>
 			{/each}
 			<label class="follow">
@@ -355,6 +356,11 @@
 		font-size: 0.8rem;
 		font-weight: 600;
 		color: var(--core-text-soft);
+	}
+
+	.legend-range {
+		font-weight: 500;
+		color: var(--core-text-muted);
 	}
 
 	.legend-swatch {

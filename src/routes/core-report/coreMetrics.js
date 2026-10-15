@@ -23,39 +23,48 @@ const share =
 
 export const population = count('Population', 'Population');
 
-export const SIZE_ORDER = ['small', 'medium', 'large'];
+export const SIZE_ORDER = ['small', 'medium', 'large', 'veryLarge'];
 
 export const SIZE_COLOR = {
 	small: 'var(--brandLightBlue)',
 	medium: 'var(--brandOrange)',
-	large: 'var(--brandPink)'
+	large: 'var(--brandPink)',
+	veryLarge: 'var(--brandGreen)'
 };
 
 export const SIZE_LABEL = {
 	small: 'Small downtown',
 	medium: 'Medium downtown',
-	large: 'Large downtown'
+	large: 'Large downtown',
+	veryLarge: 'Very large downtown'
 };
 
-// Downtowns are split into three equal-sized tiers by their core population in
-// the latest census, so the grouping stays meaningful as downtowns are added.
-function computeSizeOf(cities) {
-	const sorted = [...cities].sort(
-		(a, b) => population(a.downtown[LATEST_YEAR]) - population(b.downtown[LATEST_YEAR])
-	);
-	const map = {};
-	sorted.forEach((city, i) => {
-		const tier = Math.min(2, Math.floor((i / sorted.length) * 3));
-		map[city.key] = SIZE_ORDER[tier];
-	});
-	return map;
+// Downtown residents (latest census) at which each larger group starts. The
+// breaks are half-decades (10^3.5, 10^4, 10^4.5, rounded), evenly spaced on a
+// log scale: downtowns run from under a thousand residents to 300,000, and a
+// linear split would lump nearly all of them into "small". Fixed breaks keep a
+// downtown's group stable as more downtowns are added.
+const SIZE_BREAKS = [3000, 10000, 30000];
+
+const SIZE_RANGE = {
+	small: `under ${SIZE_BREAKS[0].toLocaleString('en-CA')}`,
+	medium: `${SIZE_BREAKS[0].toLocaleString('en-CA')}–${SIZE_BREAKS[1].toLocaleString('en-CA')}`,
+	large: `${SIZE_BREAKS[1].toLocaleString('en-CA')}–${SIZE_BREAKS[2].toLocaleString('en-CA')}`,
+	veryLarge: `${SIZE_BREAKS[2].toLocaleString('en-CA')}+`
+};
+
+function sizeOf(city) {
+	const residents = population(city.downtown[LATEST_YEAR]);
+	if (residents == null) return null;
+	return SIZE_ORDER[SIZE_BREAKS.filter((b) => residents >= b).length];
 }
 
-export const SIZE_OF = computeSizeOf(CITIES);
+export const SIZE_OF = Object.fromEntries(CITIES.map((city) => [city.key, sizeOf(city)]));
 
 export const SIZE_LEGEND = SIZE_ORDER.map((key) => ({
 	key,
 	label: SIZE_LABEL[key],
+	range: SIZE_RANGE[key],
 	color: SIZE_COLOR[key]
 }));
 
@@ -174,13 +183,29 @@ export const OCCUPATIONS = [
 }));
 
 // Fallback for a city without a size group, so its dot still draws.
-const FALLBACK_COLOR = '#e4ecf0';
+const FALLBACK_COLOR = '#7d97a5';
 
 const SCALES = {
 	lin: { to: (v) => v, from: (t) => t },
 	sqrt: { to: (v) => Math.sqrt(Math.max(v, 0)), from: (t) => t * t },
 	log: { to: (v) => Math.log10(Math.max(v, 1)), from: (t) => Math.pow(10, t) }
 };
+
+/**
+ * Ticks for a log axis at 1, 3, 10, 30, 100… within [lo, hi] — the steps a
+ * reader can place at a glance, and the same steps as the size groups.
+ * Returns null when fewer than two fall inside, so the caller can fall back.
+ */
+export function logTicks(lo, hi) {
+	const ticks = [];
+	for (let exp = Math.floor(Math.log10(Math.max(lo, 1))); 10 ** exp <= hi; exp++) {
+		for (const step of [1, 3]) {
+			const tick = step * 10 ** exp;
+			if (tick >= lo && tick <= hi) ticks.push(tick);
+		}
+	}
+	return ticks.length >= 2 ? ticks : null;
+}
 
 /**
  * Packs one dot per downtown core and one per region along a horizontal value
@@ -297,15 +322,19 @@ export function packSwarm({
 		? mean(cities.map((c) => compare(c.downtown)).filter(isValue))
 		: null;
 
-	// Ticks are rounded to as few significant figures as keep them distinct
-	// (9,253 → 9,300), then placed at their rounded value so they stay truthful.
-	const rawTicks = [0, 1, 2, 3, 4].map((i) => from(tLo + (i / 4) * span));
-	let tickValues = rawTicks;
-	for (let digits = 2; digits <= 6; digits++) {
-		const rounded = rawTicks.map((v) => Number(v.toPrecision(digits)));
-		if (new Set(rounded).size === rounded.length) {
-			tickValues = rounded;
-			break;
+	// Linear ticks are rounded to as few significant figures as keep them
+	// distinct (9,253 → 9,300), then placed at their rounded value so they stay
+	// truthful; log axes step 1, 3, 10, 30…
+	let tickValues = scale === 'log' ? logTicks(lo, hi) : null;
+	if (!tickValues) {
+		const rawTicks = [0, 1, 2, 3, 4].map((i) => from(tLo + (i / 4) * span));
+		tickValues = rawTicks;
+		for (let digits = 2; digits <= 6; digits++) {
+			const rounded = rawTicks.map((v) => Number(v.toPrecision(digits)));
+			if (new Set(rounded).size === rounded.length) {
+				tickValues = rounded;
+				break;
+			}
 		}
 	}
 	const ticks = tickValues.map((tickValue) => ({ x: toX(tickValue), value: tickValue }));
