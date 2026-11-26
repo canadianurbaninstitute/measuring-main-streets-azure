@@ -222,19 +222,38 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						118 Avenue is a commercial street in the Alberta neighbourhood of Edmonton. The street
-						runs east-west and is located north of Edmonton's main downtown. This segment of 118
-						Avenue began as a main street for a smaller community, Norwood, before amalgamation.
-					</p>
-					<p>
-						The history of 118 Avenue follows a non-linear trajectory of disrepair and
-						revitalization. Today, the area has a strong local music, arts, and culture scene and an
-						eclectic mix of residents, businesses, and visitors. The Avenue is home to permanent
-						arts locales such as the Nina Haggerty Centre for the Arts and the Carrot Community Arts
-						Coffeehouse, both established neighbourhood community hubs. The Avenue serves as the
-						temporary home for arts festivals throughout the year.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue est une rue commerciale du quartier Alberta, à Edmonton. La
+							rue suit un axe est-ouest et se trouve au nord du centre-ville d’Edmonton.
+							Ce tronçon de la 118 Avenue était à l’origine la rue principale d’une plus
+							petite collectivité, Norwood, avant la fusion.
+						</p>
+						<p>
+							L’histoire de la 118 Avenue suit une trajectoire non linéaire, faite de
+							périodes de délabrement et de revitalisation. Aujourd’hui, le secteur
+							bénéficie d’une scène locale dynamique en musique, en arts et en culture, et
+							d’un mélange éclectique de résidents, d’entreprises et de visiteurs.
+							L’avenue accueille des lieux artistiques permanents comme le Nina Haggerty
+							Centre for the Arts et le Carrot Community Arts Coffeehouse, deux pôles
+							communautaires bien établis dans le quartier. L’avenue accueille aussi
+							temporairement des festivals artistiques tout au long de l’année.
+						</p>
+					{:else}
+						<p>
+							118 Avenue is a commercial street in the Alberta neighbourhood of Edmonton. The street
+							runs east-west and is located north of Edmonton's main downtown. This segment of 118
+							Avenue began as a main street for a smaller community, Norwood, before amalgamation.
+						</p>
+						<p>
+							The history of 118 Avenue follows a non-linear trajectory of disrepair and
+							revitalization. Today, the area has a strong local music, arts, and culture scene and an
+							eclectic mix of residents, businesses, and visitors. The Avenue is home to permanent
+							arts locales such as the Nina Haggerty Centre for the Arts and the Carrot Community Arts
+							Coffeehouse, both established neighbourhood community hubs. The Avenue serves as the
+							temporary home for arts festivals throughout the year.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -267,23 +286,48 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						118 Avenue itself has a consistent design throughout the study area from 95 St NW to 82
-						St NW. The streetscape consists of relatively wide, tree-lined sidewalks. There are four
-						lanes for vehicles with street parking.
-					</p>
-					<p>
-						The streets that connect with 118 form an alternating pattern of T intersections. At
-						many, there are bump-outs and curb extensions with decorative benches and plants. Most
-						side streets feature angled parking stalls along the sides of buildings, transitioning
-						into residential areas where available parking becomes parallel.
-					</p>
-					<p>
-						The scale of buildings are generally one to two-storeys in height and are consistent
-						through the study area, save for residential apartments. There is little to no new
-						infill development and many buildings have noticeable wear and tear. There are quite a
-						few strip mall style lots with parking between the storefronts and sidewalks.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue présente un aménagement uniforme dans l’ensemble de la zone à
+							l’étude, de la 95 St NW à la 82 St NW. Le paysage de rue se compose de
+							trottoirs relativement larges et bordés d’arbres. La chaussée compte quatre
+							voies de circulation et du stationnement sur rue.
+						</p>
+						<p>
+							Les rues qui croisent la 118 forment une alternance d’intersections en T. À
+							plusieurs d’entre elles, on trouve des avancées et des saillies de trottoir
+							agrémentées de bancs décoratifs et de végétaux. La plupart des rues
+							transversales comportent des places de stationnement en épi le long des
+							bâtiments, qui deviennent des places en parallèle à l’approche des secteurs
+							résidentiels.
+						</p>
+						<p>
+							Les bâtiments ont généralement un ou deux étages et leur gabarit est
+							uniforme dans l’ensemble de la zone à l’étude, à l’exception des immeubles
+							d’appartements. On observe peu ou pas de nouveaux projets intercalaires, et
+							de nombreux bâtiments présentent une usure visible. On compte plusieurs
+							terrains de type centre commercial linéaire, avec du stationnement entre les
+							vitrines et les trottoirs.
+						</p>
+					{:else}
+						<p>
+							118 Avenue itself has a consistent design throughout the study area from 95 St NW to 82
+							St NW. The streetscape consists of relatively wide, tree-lined sidewalks. There are four
+							lanes for vehicles with street parking.
+						</p>
+						<p>
+							The streets that connect with 118 form an alternating pattern of T intersections. At
+							many, there are bump-outs and curb extensions with decorative benches and plants. Most
+							side streets feature angled parking stalls along the sides of buildings, transitioning
+							into residential areas where available parking becomes parallel.
+						</p>
+						<p>
+							The scale of buildings are generally one to two-storeys in height and are consistent
+							through the study area, save for residential apartments. There is little to no new
+							infill development and many buildings have noticeable wear and tear. There are quite a
+							few strip mall style lots with parking between the storefronts and sidewalks.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -411,23 +455,47 @@
 							/>
 						</div>
 					</div>
-					<p>
-						118 Avenue lies within the Alberta Avenue BIA and was part of the Avenue Initiative
-						Revitalization that began in 2006, a neighbourhood revitalization program aiming to
-						attract people by improving the streetscape and vibrancy of the corridor.
-					</p>
-					<p>
-						During the field visit, the 118 was lined with stone decorative benches, themed street
-						signs, artistic cutouts attached to specialty street lanterns, and flower planters in
-						bloom. Murals adorn the sides of many buildings. Investment, from both City and
-						community initiatives, are evident in the look and feel of the Avenue.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, this segment of 118 ranks 7th out of 20
-						Edmonton Main Streets and 3rd of 36 Neighbourhood Main Streets. Led by Arts on the Ave,
-						the area is being developed into a community arts hub. The organization runs the Kaleido
-						Family Arts Festival in the fall and Deep Freeze Festival in the winter.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue fait partie de la zone d’amélioration commerciale (BIA)
+							Alberta Avenue et a été visée par l’Avenue Initiative Revitalization, lancée
+							en 2006, un programme de revitalisation de quartier visant à attirer les
+							gens en améliorant le paysage de rue et le dynamisme du corridor.
+						</p>
+						<p>
+							Lors de la visite sur le terrain, la 118 était bordée de bancs décoratifs en
+							pierre, de panneaux de rue thématiques, de découpes artistiques fixées à des
+							lanternes de rue distinctives et de jardinières fleuries. Des murales ornent
+							les murs latéraux de nombreux bâtiments. Les investissements, issus à la
+							fois d’initiatives de la Ville et de la communauté, se reflètent dans
+							l’allure et l’ambiance de l’avenue.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, ce tronçon de la 118 se classe 7e
+							sur 20 rues principales d’Edmonton et 3e sur 36 rues principales de
+							quartier. Sous l’impulsion d’Arts on the Ave, le secteur est en voie de
+							devenir un pôle artistique communautaire. L’organisme organise le Kaleido
+							Family Arts Festival à l’automne et le Deep Freeze Festival en hiver.
+						</p>
+					{:else}
+						<p>
+							118 Avenue lies within the Alberta Avenue BIA and was part of the Avenue Initiative
+							Revitalization that began in 2006, a neighbourhood revitalization program aiming to
+							attract people by improving the streetscape and vibrancy of the corridor.
+						</p>
+						<p>
+							During the field visit, the 118 was lined with stone decorative benches, themed street
+							signs, artistic cutouts attached to specialty street lanterns, and flower planters in
+							bloom. Murals adorn the sides of many buildings. Investment, from both City and
+							community initiatives, are evident in the look and feel of the Avenue.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, this segment of 118 ranks 7th out of 20
+							Edmonton Main Streets and 3rd of 36 Neighbourhood Main Streets. Led by Arts on the Ave,
+							the area is being developed into a community arts hub. The organization runs the Kaleido
+							Family Arts Festival in the fall and Deep Freeze Festival in the winter.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -521,22 +589,45 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Business along 118 Avenue features a wide range of offerings, from specialty food stores
-						to barber shops and hair salons. Many businesses are independent or family-run. Despite
-						the many restaurants, there is a noticeable lack of patios and outdoor dining. There are
-						also several auto body service and repair shops.
-					</p>
-					<p>
-						According to the Independent Business Index, 118 Avenue in Alberta ranks 7th of 20
-						Edmonton Main Streets and 15th of Neighbourhood Main Streets. For business density, 118
-						Avenue ranks 10th of 20 and 18th of 36.
-					</p>
-					<p>
-						While there are well-established community-oriented businesses, there are also many
-						storefront that are vacant or up for lease or sale. These factors contribute to an
-						overall sense of quietness on the street.
-					</p>
+					{#if fr}
+						<p>
+							Les commerces de la 118 Avenue offrent un large éventail de produits et
+							services, des épiceries spécialisées aux salons de barbier et de coiffure.
+							De nombreuses entreprises sont indépendantes ou familiales. Malgré les
+							nombreux restaurants, on remarque un manque de terrasses et de places pour
+							manger à l’extérieur. On trouve également plusieurs ateliers de carrosserie
+							et de réparation automobile.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 118 Avenue dans Alberta se
+							classe 7e sur 20 rues principales d’Edmonton et 15e parmi les rues
+							principales de quartier. Pour la densité commerciale, la 118 Avenue se
+							classe 10e sur 20 et 18e sur 36.
+						</p>
+						<p>
+							Bien qu’on y trouve des commerces bien établis et tournés vers la
+							communauté, de nombreux locaux commerciaux sont aussi vacants, à louer ou à
+							vendre. Ces facteurs contribuent à une impression générale de calme dans la
+							rue.
+						</p>
+					{:else}
+						<p>
+							Business along 118 Avenue features a wide range of offerings, from specialty food stores
+							to barber shops and hair salons. Many businesses are independent or family-run. Despite
+							the many restaurants, there is a noticeable lack of patios and outdoor dining. There are
+							also several auto body service and repair shops.
+						</p>
+						<p>
+							According to the Independent Business Index, 118 Avenue in Alberta ranks 7th of 20
+							Edmonton Main Streets and 15th of Neighbourhood Main Streets. For business density, 118
+							Avenue ranks 10th of 20 and 18th of 36.
+						</p>
+						<p>
+							While there are well-established community-oriented businesses, there are also many
+							storefront that are vacant or up for lease or sale. These factors contribute to an
+							overall sense of quietness on the street.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -575,17 +666,33 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						Employment in along this segment of 118 Avenue is primarily concentrated on along the
-						commercial street itself. Small establishments with zero to five employees line 118
-						Avenue, with slightly larger employers concentrated at the eastern end. 118 itself seems
-						to play a local role as the primary commercial corridor as the surrounding
-						neighbourhoods are almost solely residential with scattered establishments throughout.
-					</p>
-					<p>
-						For employment density, 118 Avenue in Alberta ranks in the middle at 10th of 20 Edmonton
-						Main Streets and 18th of 36 Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							L’emploi le long de ce tronçon de la 118 Avenue est principalement concentré
+							sur la rue commerciale elle-même. De petits établissements comptant de zéro
+							à cinq employés bordent la 118 Avenue, tandis que des employeurs un peu plus
+							importants se concentrent à l’extrémité est. La 118 semble jouer un rôle
+							local de principal corridor commercial, puisque les quartiers environnants
+							sont presque exclusivement résidentiels, avec quelques établissements épars.
+						</p>
+						<p>
+							Pour la densité d’emploi, la 118 Avenue dans Alberta se classe au milieu, au
+							10e rang sur 20 rues principales d’Edmonton et au 18e rang sur 36 rues
+							principales de quartier.
+						</p>
+					{:else}
+						<p>
+							Employment in along this segment of 118 Avenue is primarily concentrated on along the
+							commercial street itself. Small establishments with zero to five employees line 118
+							Avenue, with slightly larger employers concentrated at the eastern end. 118 itself seems
+							to play a local role as the primary commercial corridor as the surrounding
+							neighbourhoods are almost solely residential with scattered establishments throughout.
+						</p>
+						<p>
+							For employment density, 118 Avenue in Alberta ranks in the middle at 10th of 20 Edmonton
+							Main Streets and 18th of 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
@@ -646,20 +753,40 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The housing within the study area are located predominantly away from 118 Avenue itself.
-						The streets and avenues in this area intersect in a grid pattern where streets are
-						closer together than the avenues. This results in the north-south streets containing
-						most of the housing stock, with the houses and apartments mostly facing east-west. There
-						is one infill mixed-use building along the Avenue, but otherwise the housing is
-						noticeably tucked behind the main street.
-					</p>
-					<p>
-						The housing stock features mostly low-rise apartments (over 40%) followed by
-						single-detached dwellings (almost 40%). Most of the housing was built in the pre-1960 to
-						1980 period. The area features less infill than other neighbourhoods of the same age in
-						Edmonton.
-					</p>
+					{#if fr}
+						<p>
+							Dans la zone à l’étude, les logements se trouvent principalement à l’écart
+							de la 118 Avenue elle-même. Les rues et les avenues du secteur se croisent
+							selon un quadrillage où les rues sont plus rapprochées que les avenues.
+							Ainsi, les rues orientées nord-sud regroupent la majeure partie du parc de
+							logements, les maisons et les appartements étant pour la plupart orientés
+							est-ouest. On trouve un immeuble intercalaire à usage mixte le long de
+							l’avenue, mais autrement, les logements sont nettement en retrait derrière
+							la rue principale.
+						</p>
+						<p>
+							Le parc de logements se compose surtout d’appartements de faible hauteur
+							(plus de 40 %), suivis de maisons individuelles non attenantes (près de
+							40 %). La plupart des logements ont été construits durant la période allant
+							d’avant 1960 jusqu’à 1980. Le secteur compte moins de projets intercalaires
+							que d’autres quartiers du même âge à Edmonton.
+						</p>
+					{:else}
+						<p>
+							The housing within the study area are located predominantly away from 118 Avenue itself.
+							The streets and avenues in this area intersect in a grid pattern where streets are
+							closer together than the avenues. This results in the north-south streets containing
+							most of the housing stock, with the houses and apartments mostly facing east-west. There
+							is one infill mixed-use building along the Avenue, but otherwise the housing is
+							noticeably tucked behind the main street.
+						</p>
+						<p>
+							The housing stock features mostly low-rise apartments (over 40%) followed by
+							single-detached dwellings (almost 40%). Most of the housing was built in the pre-1960 to
+							1980 period. The area features less infill than other neighbourhoods of the same age in
+							Edmonton.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -726,10 +853,17 @@
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 31% are recent immigrants and 37% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidentes de la zone à l’étude, 31 % sont des personnes
+							immigrantes récentes et 37 % appartiennent à une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 31% are recent immigrants and 37% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -772,22 +906,44 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						118 Avenue in Alberta's Resiliency Score ranks low at 15th of 20 Edmonton Main Streets
-						and 24th of 36 Neighbourhood Main Streets.
-					</p>
-					<p>
-						Since 2019 before the pandemic shutdowns, overall visit counts have decreased by more
-						than 50% by 2022. But the level of visits relative to 2019 have been slowly recovering
-						since the beginning of 2022. While this segment of 118 Avenue has relied primarily on
-						infrequent visitors from across the region, despite visits across the board decreasing
-						since 2019, resident and recurring visits have remained stable between 2021 and 2022 but
-						have not recovered fully.
-					</p>
-					<p>
-						It is busiest during the 12pm to 6pm period, with Friday being the busiest day but by
-						only slightly over Saturday.
-					</p>
+					{#if fr}
+						<p>
+							Le score de résilience de la 118 Avenue dans Alberta est faible : elle se
+							classe 15e sur 20 rues principales d’Edmonton et 24e sur 36 rues principales
+							de quartier.
+						</p>
+						<p>
+							Par rapport à 2019, avant les fermetures liées à la pandémie, le nombre
+							total de visites avait diminué de plus de 50 % en 2022. Toutefois, le niveau
+							des visites par rapport à 2019 se redresse lentement depuis le début de
+							2022. Bien que ce tronçon de la 118 Avenue ait surtout reposé sur des
+							visiteurs occasionnels provenant de toute la région, et malgré la baisse
+							généralisée des visites depuis 2019, les visites des résidents et des
+							visiteurs récurrents sont restées stables entre 2021 et 2022, sans toutefois
+							revenir pleinement à leur niveau antérieur.
+						</p>
+						<p>
+							Le secteur est le plus achalandé entre midi et 18 h, le vendredi étant le
+							jour le plus achalandé, mais de peu devant le samedi.
+						</p>
+					{:else}
+						<p>
+							118 Avenue in Alberta's Resiliency Score ranks low at 15th of 20 Edmonton Main Streets
+							and 24th of 36 Neighbourhood Main Streets.
+						</p>
+						<p>
+							Since 2019 before the pandemic shutdowns, overall visit counts have decreased by more
+							than 50% by 2022. But the level of visits relative to 2019 have been slowly recovering
+							since the beginning of 2022. While this segment of 118 Avenue has relied primarily on
+							infrequent visitors from across the region, despite visits across the board decreasing
+							since 2019, resident and recurring visits have remained stable between 2021 and 2022 but
+							have not recovered fully.
+						</p>
+						<p>
+							It is busiest during the 12pm to 6pm period, with Friday being the busiest day but by
+							only slightly over Saturday.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

@@ -222,17 +222,32 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						118 Avenue in Olde Town Beverly is a commercial street in the Beverly neighbourhood of
-						Edmonton. The street runs east-west and is situated northeast of the Edmonton's main
-						downtown. This street served as the historical main street of the Town of Beverly until
-						amalgamation in 1961.
-					</p>
-					<p>
-						The street contains a mixed of residential and commercial buildings, some greenspace,
-						and vacant lots. It has a quaint feel and is catered to automobiles, with the east end
-						leading to the Yellowhead, a major expressway.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue, dans Olde Town Beverly, est une rue commerciale du quartier
+							Beverly, à Edmonton. La rue suit un axe est-ouest et se situe au nord-est du
+							centre-ville d’Edmonton. Elle a été la rue principale historique de la Ville
+							de Beverly jusqu’à la fusion en 1961.
+						</p>
+						<p>
+							La rue comporte un mélange de bâtiments résidentiels et commerciaux,
+							quelques espaces verts et des terrains vacants. Elle dégage un certain
+							charme et est axée sur l’automobile, son extrémité est menant à la
+							Yellowhead, une importante voie rapide.
+						</p>
+					{:else}
+						<p>
+							118 Avenue in Olde Town Beverly is a commercial street in the Beverly neighbourhood of
+							Edmonton. The street runs east-west and is situated northeast of the Edmonton's main
+							downtown. This street served as the historical main street of the Town of Beverly until
+							amalgamation in 1961.
+						</p>
+						<p>
+							The street contains a mixed of residential and commercial buildings, some greenspace,
+							and vacant lots. It has a quaint feel and is catered to automobiles, with the east end
+							leading to the Yellowhead, a major expressway.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -265,22 +280,45 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						Beverly's 118 Avenue has a varying cross-section throughout the study area from 50 St to
-						34 St. The streetscape features tree-lined sidewalks. The trees are smaller than in
-						other neighbourhoods of the same age in Edmonton.
-					</p>
-					<p>
-						There are four lanes for vehicles with parking in the outside lanes. The buildings along
-						this section of 118 Avenue have varying setbacks, either up against the sidewalk or
-						allowing space for parking.
-					</p>
-					<p>
-						There is a mix of businesses, healthcare and other services, and residential along the
-						avenue. Most of the residential areas are also set back from the road to allow for some
-						privacy, often with fence enclosures. Some new commercial infill has been built mixed in
-						with businesses varying in age and aesthetic.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue de Beverly présente un profil en travers variable dans
+							l’ensemble de la zone à l’étude, de la 50 St à la 34 St. Le paysage de rue
+							comprend des trottoirs bordés d’arbres. Ces arbres sont plus petits que dans
+							d’autres quartiers du même âge à Edmonton.
+						</p>
+						<p>
+							La chaussée compte quatre voies de circulation, avec du stationnement dans
+							les voies extérieures. Les bâtiments le long de ce tronçon de la 118 Avenue
+							présentent des marges de recul variables : ils sont soit en bordure du
+							trottoir, soit en retrait pour laisser place à du stationnement.
+						</p>
+						<p>
+							On trouve le long de l’avenue un mélange de commerces, de services de santé
+							et d’autres services, ainsi que de logements. La plupart des secteurs
+							résidentiels sont également en retrait de la rue pour préserver une certaine
+							intimité, souvent derrière des clôtures. Quelques nouveaux bâtiments
+							commerciaux intercalaires ont été construits parmi des commerces d’âges et
+							de styles variés.
+						</p>
+					{:else}
+						<p>
+							Beverly's 118 Avenue has a varying cross-section throughout the study area from 50 St to
+							34 St. The streetscape features tree-lined sidewalks. The trees are smaller than in
+							other neighbourhoods of the same age in Edmonton.
+						</p>
+						<p>
+							There are four lanes for vehicles with parking in the outside lanes. The buildings along
+							this section of 118 Avenue have varying setbacks, either up against the sidewalk or
+							allowing space for parking.
+						</p>
+						<p>
+							There is a mix of businesses, healthcare and other services, and residential along the
+							avenue. Most of the residential areas are also set back from the road to allow for some
+							privacy, often with fence enclosures. Some new commercial infill has been built mixed in
+							with businesses varying in age and aesthetic.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -408,17 +446,33 @@
 							/>
 						</div>
 					</div>
-					<p>
-						118 Avenue is part of the Beverly Business Improvement Area. The civic infrastructure
-						visible on 118 included, at the time of the field visit, stone decorative benches and
-						hanging and standing flower planters in bloom. There are some murals on buildings
-						throughout the case study area. Overhead entrance signs welcome people to Olde Towne
-						Beverly Street.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, this segment of 118 ranks low at 17th of 20
-						Edmonton Main Streets and 22nd of 36 Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue fait partie de la zone d’amélioration commerciale (BIA) de
+							Beverly. Au moment de la visite sur le terrain, l’infrastructure civique
+							visible sur la 118 comprenait des bancs décoratifs en pierre ainsi que des
+							jardinières suspendues et sur pied, en fleurs. On trouve quelques murales
+							sur des bâtiments dans l’ensemble de la zone à l’étude. Des enseignes
+							d’entrée suspendues souhaitent la bienvenue dans Olde Towne Beverly Street.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, ce tronçon de la 118 se classe
+							parmi les derniers, au 17e rang sur 20 rues principales d’Edmonton et au 22e
+							rang sur 36 rues principales de quartier.
+						</p>
+					{:else}
+						<p>
+							118 Avenue is part of the Beverly Business Improvement Area. The civic infrastructure
+							visible on 118 included, at the time of the field visit, stone decorative benches and
+							hanging and standing flower planters in bloom. There are some murals on buildings
+							throughout the case study area. Overhead entrance signs welcome people to Olde Towne
+							Beverly Street.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, this segment of 118 ranks low at 17th of 20
+							Edmonton Main Streets and 22nd of 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -512,27 +566,55 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The businesses on 118 Avenue are quite varied, featuring appliance stores, dental
-						clinics, and sausage houses. There are quite a few car lots and strip malls with
-						convenience stores.
-					</p>
-					<p>
-						According to the Independent Business Index, 118 Avenue in Beverly ranks in the bottom
-						half at 12th of 20 Edmonton Main Streets and 26th of 36 Neighbourhood Main Streets. For
-						business density, 118 Avenue ranks 14th of 20 and 26th of 36.
-					</p>
-					<p>
-						Many businesses were closed early on the Sunday field visit, leaving the street quiet
-						from a pedestrian perspective. The Old Beverly Cafe, the only business with a parklet
-						patio in the study area, was one of them. The Italian bakery on the corner of 43 St was
-						moderately trafficked.
-					</p>
-					<p>
-						There were more chain stores along this study area than many others in Edmonton. The
-						Riverview Crossing regional mall lies at the east end, opening up the streetscape to
-						suburban-style mall development and parking lots.
-					</p>
+					{#if fr}
+						<p>
+							Les commerces de la 118 Avenue sont très variés : magasins
+							d’électroménagers, cliniques dentaires et charcuteries spécialisées en
+							saucisses. On y trouve aussi plusieurs terrains de vente d’automobiles et
+							centres commerciaux linéaires avec dépanneurs.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 118 Avenue dans Beverly se
+							classe dans la moitié inférieure, au 12e rang sur 20 rues principales
+							d’Edmonton et au 26e rang sur 36 rues principales de quartier. Pour la
+							densité commerciale, la 118 Avenue se classe 14e sur 20 et 26e sur 36.
+						</p>
+						<p>
+							Lors de la visite sur le terrain, un dimanche, de nombreux commerces avaient
+							fermé tôt, ce qui rendait la rue tranquille du point de vue des piétons.
+							L’Old Beverly Cafe, le seul commerce doté d’un placottoir dans la zone à
+							l’étude, en faisait partie. La boulangerie italienne au coin de la 43 St
+							connaissait un achalandage modéré.
+						</p>
+						<p>
+							On trouve davantage de magasins de chaîne dans cette zone à l’étude que dans
+							bien d’autres à Edmonton. Le centre commercial régional Riverview Crossing
+							se trouve à l’extrémité est, ouvrant le paysage de rue sur un aménagement de
+							type banlieue, fait de centres commerciaux et de stationnements.
+						</p>
+					{:else}
+						<p>
+							The businesses on 118 Avenue are quite varied, featuring appliance stores, dental
+							clinics, and sausage houses. There are quite a few car lots and strip malls with
+							convenience stores.
+						</p>
+						<p>
+							According to the Independent Business Index, 118 Avenue in Beverly ranks in the bottom
+							half at 12th of 20 Edmonton Main Streets and 26th of 36 Neighbourhood Main Streets. For
+							business density, 118 Avenue ranks 14th of 20 and 26th of 36.
+						</p>
+						<p>
+							Many businesses were closed early on the Sunday field visit, leaving the street quiet
+							from a pedestrian perspective. The Old Beverly Cafe, the only business with a parklet
+							patio in the study area, was one of them. The Italian bakery on the corner of 43 St was
+							moderately trafficked.
+						</p>
+						<p>
+							There were more chain stores along this study area than many others in Edmonton. The
+							Riverview Crossing regional mall lies at the east end, opening up the streetscape to
+							suburban-style mall development and parking lots.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -571,17 +653,33 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						Considering the exclusive residential nature of the surrounding neighbourhood,
-						employment is primarily concentrated on 118 Avenue itself. There are many small
-						establishments with zero to five employees, mixed in with larger establishments with
-						five to ten employees. The largest employer can be found in the mall to the east end
-						with ten to 50 employees.
-					</p>
-					<p>
-						For employment density, the Beverly segment of 118 Avenue ranks last out of 20 Edmonton
-						Main Streets and 36 Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Étant donné le caractère exclusivement résidentiel du quartier environnant,
+							l’emploi est principalement concentré sur la 118 Avenue elle-même. On y
+							trouve de nombreux petits établissements de zéro à cinq employés, entremêlés
+							d’établissements plus grands de cinq à dix employés. Le plus important
+							employeur se trouve dans le centre commercial à l’extrémité est et compte de
+							dix à 50 employés.
+						</p>
+						<p>
+							Pour la densité d’emploi, le tronçon de la 118 Avenue situé dans Beverly se
+							classe au dernier rang sur 20 rues principales d’Edmonton et sur 36 rues
+							principales de quartier.
+						</p>
+					{:else}
+						<p>
+							Considering the exclusive residential nature of the surrounding neighbourhood,
+							employment is primarily concentrated on 118 Avenue itself. There are many small
+							establishments with zero to five employees, mixed in with larger establishments with
+							five to ten employees. The largest employer can be found in the mall to the east end
+							with ten to 50 employees.
+						</p>
+						<p>
+							For employment density, the Beverly segment of 118 Avenue ranks last out of 20 Edmonton
+							Main Streets and 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
@@ -642,17 +740,33 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The housing on this segment of 118 Avenue is mixed in with commercial lots. The study
-						area features nearly double the rate of low-rise apartments (over 35%) compared to the
-						Edmonton CMA. Mixed-use buildings can also be found with ground floor commercial and one
-						or two storeys of residential above, with balconies revealing their presence.
-					</p>
-					<p>
-						The surrounding neighbourhood of Beverly is low density residential, with
-						single-detached homes of varying aesthetics, making up nearly 40% of the local housing
-						mix.
-					</p>
+					{#if fr}
+						<p>
+							Sur ce tronçon de la 118 Avenue, les logements sont entremêlés de terrains
+							commerciaux. La zone à l’étude compte une proportion d’appartements de
+							faible hauteur (plus de 35 %) près de deux fois plus élevée que celle de la
+							RMR d’Edmonton. On trouve aussi des immeubles à usage mixte comportant des
+							commerces au rez-de-chaussée et un ou deux étages de logements au-dessus,
+							dont les balcons trahissent la présence.
+						</p>
+						<p>
+							Le quartier environnant de Beverly est résidentiel et de faible densité,
+							avec des maisons individuelles non attenantes de styles variés, qui
+							représentent près de 40 % du parc de logements local.
+						</p>
+					{:else}
+						<p>
+							The housing on this segment of 118 Avenue is mixed in with commercial lots. The study
+							area features nearly double the rate of low-rise apartments (over 35%) compared to the
+							Edmonton CMA. Mixed-use buildings can also be found with ground floor commercial and one
+							or two storeys of residential above, with balconies revealing their presence.
+						</p>
+						<p>
+							The surrounding neighbourhood of Beverly is low density residential, with
+							single-detached homes of varying aesthetics, making up nearly 40% of the local housing
+							mix.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -719,10 +833,17 @@
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 22% are recent immigrants and 27% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidentes de la zone à l’étude, 22 % sont des personnes
+							immigrantes récentes et 27 % appartiennent à une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 22% are recent immigrants and 27% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -765,17 +886,33 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						118 Avenue in Beverly's Resiliency Score ranks well at 4th of 20 Edmonton Main Streets
-						and 8th of 36 Neighbourhood Main Streets.
-					</p>
-					<p>
-						While 2020 saw foot traffic at 79% relative to 2019 levels, this has decreased to 60.3%
-						in 2022. While visits by residents, recurring, and infrequent visitors have decreased,
-						the relative proportion hasn't changed significantly, signalling a main street that
-						still retains its appeal for a range of patrons without heavily relying on one or the
-						other.
-					</p>
+					{#if fr}
+						<p>
+							Le score de résilience de la 118 Avenue dans Beverly est bon : elle se
+							classe 4e sur 20 rues principales d’Edmonton et 8e sur 36 rues principales
+							de quartier.
+						</p>
+						<p>
+							Alors que l’achalandage en 2020 s’établissait à 79 % des niveaux de 2019, il
+							est descendu à 60,3 % en 2022. Bien que les visites des résidents, des
+							visiteurs récurrents et des visiteurs occasionnels aient diminué, leurs
+							proportions relatives n’ont pas changé de façon importante, signe d’une rue
+							principale qui conserve son attrait auprès d’une clientèle variée sans
+							dépendre fortement d’un groupe plutôt que d’un autre.
+						</p>
+					{:else}
+						<p>
+							118 Avenue in Beverly's Resiliency Score ranks well at 4th of 20 Edmonton Main Streets
+							and 8th of 36 Neighbourhood Main Streets.
+						</p>
+						<p>
+							While 2020 saw foot traffic at 79% relative to 2019 levels, this has decreased to 60.3%
+							in 2022. While visits by residents, recurring, and infrequent visitors have decreased,
+							the relative proportion hasn't changed significantly, signalling a main street that
+							still retains its appeal for a range of patrons without heavily relying on one or the
+							other.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

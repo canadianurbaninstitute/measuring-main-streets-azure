@@ -222,17 +222,32 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						124 Street NW is an arterial commercial street known for its private art galleries,
-						historical homes, shopping, and, to some, the Duchess Bake Shop. It is situated in the
-						historical Westmount neighbourhood of Edmonton. This segment is currently undergoing a
-						larger renewal initaitive.
-					</p>
-					<p>
-						124 Street has made a name for itself in the Edmonton arts community and this reputation
-						has attracted artists, resulting in a mix of public and private visual art integrated
-						into the streetscape.
-					</p>
+					{#if fr}
+						<p>
+							La 124 Street NW est une artère commerciale connue pour ses galeries d’art
+							privées, ses maisons historiques, ses commerces et, pour certains, la
+							Duchess Bake Shop. Elle est située dans le quartier historique de Westmount,
+							à Edmonton. Ce tronçon fait actuellement l’objet d’une initiative de
+							renouvellement de plus grande envergure.
+						</p>
+						<p>
+							La 124 Street s’est fait un nom dans le milieu artistique d’Edmonton, et
+							cette réputation a attiré des artistes, ce qui a donné lieu à un mélange
+							d’œuvres d’art visuel publiques et privées intégrées au paysage de rue.
+						</p>
+					{:else}
+						<p>
+							124 Street NW is an arterial commercial street known for its private art galleries,
+							historical homes, shopping, and, to some, the Duchess Bake Shop. It is situated in the
+							historical Westmount neighbourhood of Edmonton. This segment is currently undergoing a
+							larger renewal initaitive.
+						</p>
+						<p>
+							124 Street has made a name for itself in the Edmonton arts community and this reputation
+							has attracted artists, resulting in a mix of public and private visual art integrated
+							into the streetscape.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -265,23 +280,47 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						124 Street is a four lane arterial road with a decent flow of traffic, of both personal
-						automobiles and bus transit. The two outer lanes are used for parking with signs
-						restricting weekday hours. There are two blocks at the north end with a tree-lined
-						median. An inlaid brick pattern makes a chevron pattern around the bases of the street
-						lanterns.
-					</p>
-					<p>
-						Some street interecting east-west feature widened cross sections for accommodating angle
-						parking. Most intersections have pedestrian crossings with button activivated lights.
-						Others have signage and ramps.
-					</p>
-					<p>
-						As 107 Ave and 111 Ave are larger arterial roads, their intersections with 124 Street
-						are relatively louder and more heavily trafficked by vehicles. There are some shared-use
-						road signs and pavement markings present to facilitate cyclists.
-					</p>
+					{#if fr}
+						<p>
+							La 124 Street est une artère à quatre voies où la circulation est assez
+							soutenue, tant pour les automobiles que pour les autobus de transport
+							collectif. Les deux voies extérieures servent au stationnement, avec des
+							panneaux qui le restreignent à certaines heures en semaine. Sur deux pâtés
+							de maisons, à l’extrémité nord, la rue comporte un terre-plein central bordé
+							d’arbres. Des briques incrustées forment un motif en chevrons autour de la
+							base des lanternes de rue.
+						</p>
+						<p>
+							Certaines rues transversales orientées est-ouest présentent un profil élargi
+							permettant le stationnement en épi. La plupart des intersections comportent
+							des passages pour piétons munis de feux à bouton d’appel. D’autres sont
+							dotées de signalisation et de rampes.
+						</p>
+						<p>
+							Comme la 107 Ave et la 111 Ave sont des artères plus importantes, leurs
+							intersections avec la 124 Street sont relativement plus bruyantes et plus
+							achalandées par les véhicules. Quelques panneaux et marquages au sol de
+							chaussée partagée facilitent les déplacements des cyclistes.
+						</p>
+					{:else}
+						<p>
+							124 Street is a four lane arterial road with a decent flow of traffic, of both personal
+							automobiles and bus transit. The two outer lanes are used for parking with signs
+							restricting weekday hours. There are two blocks at the north end with a tree-lined
+							median. An inlaid brick pattern makes a chevron pattern around the bases of the street
+							lanterns.
+						</p>
+						<p>
+							Some street interecting east-west feature widened cross sections for accommodating angle
+							parking. Most intersections have pedestrian crossings with button activivated lights.
+							Others have signage and ramps.
+						</p>
+						<p>
+							As 107 Ave and 111 Ave are larger arterial roads, their intersections with 124 Street
+							are relatively louder and more heavily trafficked by vehicles. There are some shared-use
+							road signs and pavement markings present to facilitate cyclists.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -409,26 +448,54 @@
 							/>
 						</div>
 					</div>
-					<p>
-						124 Street is a part of the 124 Street Business Association. There are many murals, both
-						on the street itself and tucked away behind buildings. Art styles range from older
-						historic to modern abstract. Between 107 Ave and 108 Ave, a mural by Kris Freisen
-						depicts a scene in Athens, Greece, sharing a wall with the Greek restaurant Koutouki.
-						Utility boxes feature new murals by Cheyenne Rain LeGrant, a Nehiyaw Isko artist from
-						Bigstone Cree Nation. BIA branded lanterns and signs line the street.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, 124 Street ranks 8th of 20 Edmonton Main
-						Streets and 4th of Neighbourhood Main Streets.
-					</p>
-					<p>
-						Helen Nolan Park, on the southeast corner of 124 Street and 108 Ave, features a small
-						outdoor amphitheatre, seating, and lighting strung on tree branches.
-					</p>
-					<p>
-						Some other civic infrastructure observed includes a Greek Orthodox church, a pharmacy,
-						and a daycare. There was a wedding party leaving the church during the field visit.
-					</p>
+					{#if fr}
+						<p>
+							La 124 Street fait partie de la 124 Street Business Association. On y trouve
+							de nombreuses murales, à la fois sur la rue elle-même et à l’abri des
+							regards derrière les bâtiments. Les styles vont de l’art historique à l’art
+							abstrait moderne. Entre la 107 Ave et la 108 Ave, une murale de Kris Freisen
+							représente une scène d’Athènes, en Grèce, et partage un mur avec le
+							restaurant grec Koutouki. Des boîtiers de services publics arborent de
+							nouvelles murales de Cheyenne Rain LeGrant, une artiste Nehiyaw Isko de la
+							Nation crie de Bigstone. Des lanternes et des enseignes aux couleurs de la
+							BIA bordent la rue.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, la 124 Street se classe 8e sur 20
+							rues principales d’Edmonton et 4e parmi les rues principales de quartier.
+						</p>
+						<p>
+							Helen Nolan Park, à l’angle sud-est de la 124 Street et de la 108 Ave,
+							comprend un petit amphithéâtre extérieur, des places assises et un éclairage
+							suspendu aux branches des arbres.
+						</p>
+						<p>
+							Parmi les autres éléments d’infrastructure civique observés, on compte une
+							église orthodoxe grecque, une pharmacie et une garderie. Une noce sortait de
+							l’église lors de la visite sur le terrain.
+						</p>
+					{:else}
+						<p>
+							124 Street is a part of the 124 Street Business Association. There are many murals, both
+							on the street itself and tucked away behind buildings. Art styles range from older
+							historic to modern abstract. Between 107 Ave and 108 Ave, a mural by Kris Freisen
+							depicts a scene in Athens, Greece, sharing a wall with the Greek restaurant Koutouki.
+							Utility boxes feature new murals by Cheyenne Rain LeGrant, a Nehiyaw Isko artist from
+							Bigstone Cree Nation. BIA branded lanterns and signs line the street.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, 124 Street ranks 8th of 20 Edmonton Main
+							Streets and 4th of Neighbourhood Main Streets.
+						</p>
+						<p>
+							Helen Nolan Park, on the southeast corner of 124 Street and 108 Ave, features a small
+							outdoor amphitheatre, seating, and lighting strung on tree branches.
+						</p>
+						<p>
+							Some other civic infrastructure observed includes a Greek Orthodox church, a pharmacy,
+							and a daycare. There was a wedding party leaving the church during the field visit.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -522,27 +589,56 @@
 							/>
 						</div>
 					</div>
-					<p>
-						According to the Independent Business Index, 124 Street NW ranks at the top of the list
-						for both Edmonton Main Streets and Neighbourhood Main Streets.
-					</p>
-					<p>
-						The south end hosts local legends such as the Duchess Bake Shop and the Roxy Theatre.
-						The Roxy burned down in 2015 but was rebuilt and reopened in 2022. Unfortunately,
-						Zwick's Pretzel, a local favourite, closed permanently.
-					</p>
-					<p>
-						The southwest corner on 108 Ave across from Helen Nolan Park features a cluster of
-						businesses including Tiramisu Bistro, Hideout Distro, the Grand Cafe, and Maker's Keep
-						which sells baked goods, coffee, and local vendors' art. Maker's Keep and The Grant Cafe
-						are housed in a reproduction of an early 1900s-style brick building completed in 2019.
-						Further north hosts several more restaurants and other services including the CUPE union
-						office and Nurse Next Door care services.
-					</p>
-					<p>
-						Westmount Substation, the home of Irrational Brewing Company, was nominated for heritage
-						design at the 2023 Edmonton Urban Design Awards.
-					</p>
+					{#if fr}
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 124 Street NW se classe en
+							tête de liste, tant parmi les rues principales d’Edmonton que parmi les rues
+							principales de quartier.
+						</p>
+						<p>
+							L’extrémité sud accueille des institutions locales comme la Duchess Bake
+							Shop et le Roxy Theatre. Le Roxy, détruit par un incendie en 2015, a été
+							reconstruit et a rouvert ses portes en 2022. Malheureusement, Zwick’s
+							Pretzel, un établissement très apprécié des gens du coin, a fermé
+							définitivement.
+						</p>
+						<p>
+							L’angle sud-ouest de la 108 Ave, en face de Helen Nolan Park, regroupe
+							plusieurs commerces, dont Tiramisu Bistro, Hideout Distro, le Grand Cafe et
+							Maker’s Keep, qui vend des produits de boulangerie, du café et des œuvres
+							d’artisans locaux. Maker’s Keep et le Grand Cafe occupent une reproduction
+							d’un bâtiment en brique de style début 1900, achevée en 2019. Plus au nord,
+							on trouve plusieurs autres restaurants et services, dont le bureau syndical
+							du SCFP et les services de soins Nurse Next Door.
+						</p>
+						<p>
+							Westmount Substation, qui abrite l’Irrational Brewing Company, a été retenue
+							comme finaliste dans la catégorie du design patrimonial aux Edmonton Urban
+							Design Awards de 2023.
+						</p>
+					{:else}
+						<p>
+							According to the Independent Business Index, 124 Street NW ranks at the top of the list
+							for both Edmonton Main Streets and Neighbourhood Main Streets.
+						</p>
+						<p>
+							The south end hosts local legends such as the Duchess Bake Shop and the Roxy Theatre.
+							The Roxy burned down in 2015 but was rebuilt and reopened in 2022. Unfortunately,
+							Zwick's Pretzel, a local favourite, closed permanently.
+						</p>
+						<p>
+							The southwest corner on 108 Ave across from Helen Nolan Park features a cluster of
+							businesses including Tiramisu Bistro, Hideout Distro, the Grand Cafe, and Maker's Keep
+							which sells baked goods, coffee, and local vendors' art. Maker's Keep and The Grant Cafe
+							are housed in a reproduction of an early 1900s-style brick building completed in 2019.
+							Further north hosts several more restaurants and other services including the CUPE union
+							office and Nurse Next Door care services.
+						</p>
+						<p>
+							Westmount Substation, the home of Irrational Brewing Company, was nominated for heritage
+							design at the 2023 Edmonton Urban Design Awards.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -581,15 +677,28 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						124 Street NW is home to many small, independent businesses ranging from zero to ten
-						employees. The segment itself is the northern extension of a commercial corridor that
-						extends down toward the North Saskatchewan River then east towards the downtown core.
-					</p>
-					<p>
-						For employment density, 124 Street NW ranks 7th of 20 Edmonton Main Streets and 9th of
-						Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							La 124 Street NW accueille de nombreuses petites entreprises indépendantes
+							comptant de zéro à dix employés. Le tronçon lui-même constitue le
+							prolongement nord d’un corridor commercial qui descend vers la rivière
+							Saskatchewan Nord, puis s’étend vers l’est en direction du centre-ville.
+						</p>
+						<p>
+							Pour la densité d’emploi, la 124 Street NW se classe 7e sur 20 rues
+							principales d’Edmonton et 9e parmi les rues principales de quartier.
+						</p>
+					{:else}
+						<p>
+							124 Street NW is home to many small, independent businesses ranging from zero to ten
+							employees. The segment itself is the northern extension of a commercial corridor that
+							extends down toward the North Saskatchewan River then east towards the downtown core.
+						</p>
+						<p>
+							For employment density, 124 Street NW ranks 7th of 20 Edmonton Main Streets and 9th of
+							Neighbourhood Main Streets.
+						</p>
+					{/if}
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
@@ -650,26 +759,52 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The housing within the 124 Street NW study area is found predominantly north of 109 Ave
-						and on the perpendicular streets. The segment features a rate of low-rise apartments
-						triple that of the entire Edmonton CMA, built in the 1960s and 70s and clustered in the
-						northern portion.
-					</p>
-					<p>
-						124 Street sits in the middle of the historic Westmount neighbourhood. The area saw a
-						massive influx of housing construction in 1912, in the craftsman architectural style.
-						Plaques adorn many homes displaying the date of construction and name of the original
-						owner.
-					</p>
-					<p>
-						The adjacent neighbourhood, Glenora, is affected by what's known as the Carruthers
-						Caveat, a restrictive covenant. The Caveat set rules on any new construction limiting
-						new builds to single-detached homes with significant front setbacks. This resulted in
-						creating homes attractive to wealthy home buyers. This legacy persists to this day with
-						Glenora and Westmount being two of the most sought-after places to live in Edmonton with
-						price tags to match.
-					</p>
+					{#if fr}
+						<p>
+							Dans la zone à l’étude de la 124 Street NW, les logements se trouvent
+							principalement au nord de la 109 Ave et dans les rues perpendiculaires. Le
+							tronçon présente une proportion d’appartements de faible hauteur trois fois
+							plus élevée que celle de l’ensemble de la RMR d’Edmonton; ces immeubles,
+							construits dans les années 1960 et 1970, sont regroupés dans la partie nord.
+						</p>
+						<p>
+							La 124 Street se trouve au cœur du quartier historique de Westmount. Le
+							secteur a connu un afflux massif de constructions résidentielles en 1912,
+							dans le style architectural Craftsman. Des plaques ornent de nombreuses
+							maisons et indiquent la date de construction et le nom du premier
+							propriétaire.
+						</p>
+						<p>
+							Le quartier adjacent, Glenora, est touché par ce qu’on appelle le Carruthers
+							Caveat, une clause restrictive. Ce Caveat imposait des règles à toute
+							nouvelle construction, la limitant à des maisons individuelles non
+							attenantes avec d’importantes marges de recul avant. Il en a résulté des
+							maisons attrayantes pour les acheteurs fortunés. Cet héritage perdure
+							aujourd’hui : Glenora et Westmount comptent parmi les quartiers les plus
+							recherchés d’Edmonton, avec des prix à l’avenant.
+						</p>
+					{:else}
+						<p>
+							The housing within the 124 Street NW study area is found predominantly north of 109 Ave
+							and on the perpendicular streets. The segment features a rate of low-rise apartments
+							triple that of the entire Edmonton CMA, built in the 1960s and 70s and clustered in the
+							northern portion.
+						</p>
+						<p>
+							124 Street sits in the middle of the historic Westmount neighbourhood. The area saw a
+							massive influx of housing construction in 1912, in the craftsman architectural style.
+							Plaques adorn many homes displaying the date of construction and name of the original
+							owner.
+						</p>
+						<p>
+							The adjacent neighbourhood, Glenora, is affected by what's known as the Carruthers
+							Caveat, a restrictive covenant. The Caveat set rules on any new construction limiting
+							new builds to single-detached homes with significant front setbacks. This resulted in
+							creating homes attractive to wealthy home buyers. This legacy persists to this day with
+							Glenora and Westmount being two of the most sought-after places to live in Edmonton with
+							price tags to match.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -736,10 +871,17 @@
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 32% are recent immigrants and 34% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidentes de la zone à l’étude, 32 % sont des personnes
+							immigrantes récentes et 34 % appartiennent à une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 32% are recent immigrants and 34% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -782,19 +924,38 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						124 Street NW's Resiliency score ranks 8th of 20 Edmonton Main Streets and 11th of
-						Neighbourhood Main Streets.
-					</p>
-					<p>
-						Prior to pandemic shutdowns, of over 1 million visits, more than 60% were by infrequent
-						visitors from across the region. While infrequent visitors made up more than half of
-						visits in 2022, they've decreased by over 300,000 compared to 2019.
-					</p>
-					<p>
-						On a daily basis, the 12pm to 3pm range is the busiest for visits, with Sunday to
-						Saturday being the busiest days of the week from least to most.
-					</p>
+					{#if fr}
+						<p>
+							Selon son score de résilience, la 124 Street NW se classe 8e sur 20 rues
+							principales d’Edmonton et 11e parmi les rues principales de quartier.
+						</p>
+						<p>
+							Avant les fermetures liées à la pandémie, sur plus de 1 million de visites,
+							plus de 60 % étaient le fait de visiteurs occasionnels provenant de toute la
+							région. Si les visiteurs occasionnels représentaient encore plus de la
+							moitié des visites en 2022, leurs visites ont diminué de plus de 300 000 par
+							rapport à 2019.
+						</p>
+						<p>
+							Au quotidien, la plage de midi à 15 h est la plus achalandée pour les
+							visites, et l’achalandage augmente au fil de la semaine, du dimanche (le
+							jour le moins achalandé) au samedi (le plus achalandé).
+						</p>
+					{:else}
+						<p>
+							124 Street NW's Resiliency score ranks 8th of 20 Edmonton Main Streets and 11th of
+							Neighbourhood Main Streets.
+						</p>
+						<p>
+							Prior to pandemic shutdowns, of over 1 million visits, more than 60% were by infrequent
+							visitors from across the region. While infrequent visitors made up more than half of
+							visits in 2022, they've decreased by over 300,000 compared to 2019.
+						</p>
+						<p>
+							On a daily basis, the 12pm to 3pm range is the busiest for visits, with Sunday to
+							Saturday being the busiest days of the week from least to most.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
