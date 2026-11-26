@@ -1,6 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	// 1. Define Discriminated Union Types for your unique navbar items
 	interface AnchorItem {
@@ -154,7 +157,7 @@
 	}
 </script>
 
-<nav class="progress-bar" aria-label="Article progress">
+<nav class="progress-bar" aria-label={fr ? 'Progression de l’article' : 'Article progress'}>
 	<div class="track" role="presentation">
 		<div class="fill" style="width: {progress}%" aria-hidden="true">
 			<div class="icon-wrap">
@@ -198,7 +201,7 @@
 				class:active={isActive}
 				class:large={isLarge}
 				style="left: {pctOf(i)}%"
-				aria-label="Jump to: {item.label}"
+				aria-label={fr ? `Aller à\u00a0: ${item.label}` : `Jump to: ${item.label}`}
 				onclick={() => navigateTo(item)}
 				onmouseenter={() => (hoveredIndex = i)}
 				onmouseleave={() => (hoveredIndex = null)}

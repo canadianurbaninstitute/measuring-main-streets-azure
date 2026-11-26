@@ -3,6 +3,27 @@
 	import { onMount } from 'svelte';
 	import { mapStoreList, visitorMapStore } from '../stores/mapStore';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
+
+	// Canadian French labels for the built-in Mapbox controls (tooltips and screen-reader text).
+	const MAPBOX_LOCALE_FR = {
+		'AttributionControl.ToggleAttribution': 'Afficher ou masquer l’attribution',
+		'AttributionControl.MapFeedback': 'Commentaires sur la carte',
+		'FullscreenControl.Enter': 'Passer en plein écran',
+		'FullscreenControl.Exit': 'Quitter le plein écran',
+		'GeolocateControl.FindMyLocation': 'Trouver ma position',
+		'GeolocateControl.LocationNotAvailable': 'Position non disponible',
+		'LogoControl.Title': 'Logo de Mapbox',
+		'Map.Title': 'Carte',
+		'NavigationControl.ResetBearing': 'Réorienter vers le nord',
+		'NavigationControl.ZoomIn': 'Zoom avant',
+		'NavigationControl.ZoomOut': 'Zoom arrière',
+		'ScrollZoomBlocker.CtrlMessage': 'Utilisez Ctrl + défilement pour zoomer sur la carte',
+		'ScrollZoomBlocker.CmdMessage': 'Utilisez ⌘ + défilement pour zoomer sur la carte',
+		'TouchPanBlocker.Message': 'Utilisez deux doigts pour déplacer la carte'
+	};
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -14,8 +35,17 @@
 	export let bearing = -17.1;
 	export let pitch = 0;
 	export let layers = [];
-	export let attribution = 'Canadian Urban Institute';
+	export let attribution = fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute';
 	export let style = 'mapbox://styles/mapbox/light-v11';
+
+	// Pages may pass the English attribution; translate its known parts on French pages.
+	/** @param {string} text */
+	function localizeAttribution(text) {
+		if (!fr || typeof text !== 'string') return text;
+		return text
+			.replace('Canadian Urban Institute', 'Institut urbain du Canada')
+			.replace('Data Source:', 'Source des données\u00a0:');
+	}
 
 	let pageHeight;
 	let pageWidth;
@@ -41,7 +71,8 @@
 			pitch: pitch,
 			projection: 'globe',
 			scrollZoom: false,
-			attributionControl: false
+			attributionControl: false,
+			...(fr ? { locale: MAPBOX_LOCALE_FR } : {})
 		});
 
 		visitorMapStore.set(map);
@@ -52,7 +83,7 @@
 		map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
 		map.addControl(
 			new mapboxgl.AttributionControl({
-				customAttribution: attribution
+				customAttribution: localizeAttribution(attribution)
 			})
 		);
 

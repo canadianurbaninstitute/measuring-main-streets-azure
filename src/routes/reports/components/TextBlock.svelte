@@ -1,6 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import '../../styles.css';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	interface CtaConfig {
 		href: string;
@@ -60,7 +63,7 @@
 		{#if cta}
 			<a href={cta.href} target={cta.target ?? '_blank'} class="cta-wrap">
 				<button class="button-primary flex gap-2 flex-row items-center">
-					{cta.label ?? 'Learn More'}
+					{cta.label ?? (fr ? 'En savoir plus' : 'Learn More')}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"

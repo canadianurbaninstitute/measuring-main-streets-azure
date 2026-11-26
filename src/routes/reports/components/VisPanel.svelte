@@ -1,5 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	interface Props {
 		id?: string;
@@ -20,7 +23,7 @@
 			<p class="caption">{label}</p>
 		{/if}
 		{#if source}
-			<p class="source">Source:{' '}{@html source}</p>
+			<p class="source">{fr ? 'Source\u00a0:' : 'Source:'}{' '}{@html source}</p>
 		{/if}
 	</figcaption>
 </figure>
