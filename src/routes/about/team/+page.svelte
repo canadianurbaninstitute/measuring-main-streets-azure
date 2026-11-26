@@ -11,7 +11,7 @@
 <div class="card-grid">
 	<div>
 		<h2><a href="https://canurb.org/team/gregory-spencer/">Gregory Spencer</a></h2>
-		<h3>{fr ? 'Directeur, Recherche' : 'Director, Research'}</h3>
+		<h3>{fr ? 'Direction, Recherche' : 'Director, Research'}</h3>
 	</div>
 
 	<div>
@@ -25,7 +25,7 @@
 
 	<div>
 		<h2><a href="https://www.linkedin.com/in/ananmay-sharan">Ananmay Sharan</a></h2>
-		<h3>{fr ? 'Développeur Web' : 'Web Developer'}</h3>
+		<h3>{fr ? 'Développement Web' : 'Web Developer'}</h3>
 	</div>
 
 	<div>
@@ -50,7 +50,7 @@
 
 	<div>
 		<h2><a href="https://www.linkedin.com/in/david-scrivener-toronto/">David Scrivener </a></h2>
-		<h3>{fr ? 'Chercheur de terrain' : 'Field Researcher'}</h3>
+		<h3>{fr ? 'Recherche de terrain' : 'Field Researcher'}</h3>
 	</div>
 
 	<div>
@@ -81,7 +81,7 @@
 
 	<div>
 		<h2><a href="https://www.linkedin.com/in/neufeldb/">Bronwyn Neufeld </a></h2>
-		<h3>{fr ? 'Chercheuse de terrain' : 'Field Researcher'}</h3>
+		<h3>{fr ? 'Recherche de terrain' : 'Field Researcher'}</h3>
 	</div>
 
 	<div>

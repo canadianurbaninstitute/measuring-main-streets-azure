@@ -608,17 +608,17 @@
 								<ContactCard
 									link="https://canurb.org/team/gregory-spencer/"
 									title="Gregory Spencer"
-									description={fr ? 'Directeur, Recherche' : 'Director, Research'}
+									description={fr ? 'Direction, Recherche' : 'Director, Research'}
 								/>
 								<ContactCard
 									link="https://canurb.org/team/jennifer-barrett/"
 									title="Jennifer Barrett"
-									description={fr ? 'Directrice générale, Programmes, planification et politiques' : 'Managing Director, Programs, Planning and Policy'}
+									description={fr ? 'Direction générale, Programmes, planification et politiques' : 'Managing Director, Programs, Planning and Policy'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/ananmay-sharan"
 									title="Ananmay Sharan"
-									description={fr ? 'Développeur Web' : 'Web Developer'}
+									description={fr ? 'Développement Web' : 'Web Developer'}
 								/>
 								<ContactCard
 									link="https://canurb.org/team/alex-tabascio/"
@@ -643,7 +643,7 @@
 								<ContactCard
 									link="https://www.linkedin.com/in/david-scrivener-toronto/"
 									title="David Scrivener"
-									description={fr ? 'Chercheur de terrain' : 'Field Researcher'}
+									description={fr ? 'Recherche de terrain' : 'Field Researcher'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/ever-hughes-93ga64/"
@@ -673,7 +673,7 @@
 								<ContactCard
 									link="https://www.linkedin.com/in/neufeldb/"
 									title="Bronwyn Neufeld"
-									description={fr ? 'Chercheuse de terrain' : 'Field Researcher'}
+									description={fr ? 'Recherche de terrain' : 'Field Researcher'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/elainestam/"
@@ -725,22 +725,22 @@
 								<ContactCard
 									link="https://canurb.org/team/gregory-spencer/"
 									title="Gregory Spencer"
-									description={fr ? 'Directeur, Recherche' : 'Director, Research'}
+									description={fr ? 'Direction, Recherche' : 'Director, Research'}
 								/>
 								<ContactCard
 									link="https://canurb.org/team/jennifer-barrett/"
 									title="Jennifer Barrett"
-									description={fr ? 'Directrice générale, Programmes, planification et politiques' : 'Managing Director, Programs, Planning and Policy'}
+									description={fr ? 'Direction générale, Programmes, planification et politiques' : 'Managing Director, Programs, Planning and Policy'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/genna-weber-4168a1225/"
 									title="Genna Weber"
-									description={fr ? 'Ingénieure logiciel principale' : 'Senior Software Engineer'}
+									description={fr ? 'Ingénierie logicielle, niveau principal' : 'Senior Software Engineer'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/iris-wu-6090151b7/"
 									title="Iris Wu"
-									description={fr ? 'Analyste de données SIG / Développeuse Web' : 'GIS Data Analyst / Web Developer'}
+									description={fr ? 'Analyste de données SIG / Développement Web' : 'GIS Data Analyst / Web Developer'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/lucacarnegie/"
@@ -804,7 +804,7 @@
 								<ContactCard
 									link="https://schoolofcities.utoronto.ca/people/karen-chapple/"
 									title="Karen Chapple"
-									description={fr ? 'Directrice' : 'Director'}
+									description={fr ? 'Direction' : 'Director'}
 								/>
 								<ContactCard
 									link="https://schoolofcities.utoronto.ca/people/kathryn-exon-smith/"
@@ -824,7 +824,7 @@
 								<ContactCard
 									link="https://www.linkedin.com/in/miekoyao/"
 									title="Mieko Yao"
-									description={fr ? 'Développeuse Web' : 'Web Developer'}
+									description={fr ? 'Développement Web' : 'Web Developer'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/xinyue-wang-72209a26a/"
@@ -863,7 +863,7 @@
 								<ContactCard
 									link="https://infrastructureinstitute.ca/matti-siemiatycki/"
 									title="Matti Siemiatycki"
-									description={fr ? 'Directeur' : 'Director'}
+									description={fr ? 'Direction' : 'Director'}
 								/>
 								<ContactCard
 									link="https://infrastructureinstitute.ca/sarah-chan/"
@@ -897,32 +897,32 @@
 								<ContactCard
 									link="https://www.sociology.utoronto.ca/people/directories/all-faculty/prentiss-dantzler"
 									title="Prentiss Dantzler"
-									description={fr ? 'Professeur agrégé, Département de sociologie' : 'Associate Professor, Department of Sociology'}
+									description={fr ? 'Professeur(e) agrégé(e), Département de sociologie' : 'Associate Professor, Department of Sociology'}
 								/>
 								<ContactCard
 									link="https://www.utsc.utoronto.ca/geography/steven-farber"
 									title="Steven Farber"
-									description={fr ? 'Professeur, Département de géographie' : 'Professor, Department of Geography'}
+									description={fr ? 'Professeur(e), Département de géographie' : 'Professor, Department of Geography'}
 								/>
 								<ContactCard
 									link="https://civmin.utoronto.ca/home/about-us/directory/professors/marianne-hatzopoulou/"
 									title="Marianne Hatzopoulou"
-									description={fr ? 'Professeure, Département de génie civil et minier' : 'Professor, Department of Civil & Mineral Engineering'}
+									description={fr ? 'Professeur(e), Département de génie civil et minier' : 'Professor, Department of Civil & Mineral Engineering'}
 								/>
 								<ContactCard
 									link="https://civmin.utoronto.ca/home/about-us/directory/professors/shoshanna-saxe/"
 									title="Shoshanna Saxe"
-									description={fr ? 'Professeure agrégée, Département de génie civil et minier' : 'Associate Professor, Department of Civil & Mineral Engineering'}
+									description={fr ? 'Professeur(e) agrégé(e), Département de génie civil et minier' : 'Associate Professor, Department of Civil & Mineral Engineering'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/alexanderhempel/"
 									title="Alexander Hempel"
-									description={fr ? 'Chercheur postdoctoral' : 'Postdoctoral Fellow'}
+									description={fr ? 'Recherche postdoctorale' : 'Postdoctoral Fellow'}
 								/>
 								<ContactCard
 									link="https://schoolofcities.utoronto.ca/people/amir-forouhar/"
 									title="Amir Forouhar"
-									description={fr ? 'Chercheur postdoctoral' : 'Postdoctoral Fellow'}
+									description={fr ? 'Recherche postdoctorale' : 'Postdoctoral Fellow'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/brenn-anderson-gregson/"
@@ -932,7 +932,7 @@
 								<ContactCard
 									link="https://www.linkedin.com/in/emily-farrar-gt/"
 									title="Emily Farrar"
-									description={fr ? 'Doctorante, Département de génie civil et minier' : 'Doctoral Researcher, Department of Civil & Mineral Engineering'}
+									description={fr ? 'Recherche doctorale, Département de génie civil et minier' : 'Doctoral Researcher, Department of Civil & Mineral Engineering'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/khaliljmartin/"
@@ -947,7 +947,7 @@
 								<ContactCard
 									link="https://www.linkedin.com/in/keaganrankin/"
 									title="Keagan H. Rankin"
-									description={fr ? 'Doctorant, Département de génie civil et minier' : 'Doctoral Researcher, Department of Civil & Mineral Engineering'}
+									description={fr ? 'Recherche doctorale, Département de génie civil et minier' : 'Doctoral Researcher, Department of Civil & Mineral Engineering'}
 								/>
 								<ContactCard
 									link="https://www.linkedin.com/in/letzai-ruiz-valero/"
@@ -962,7 +962,7 @@
 								<ContactCard
 									link="https://www.linkedin.com/in/santiago-zuluaga-a9b085116/"
 									title="Santiago Zuluaga Mayorga"
-									description={fr ? 'Chercheur postdoctoral' : 'Postdoctoral Fellow'}
+									description={fr ? 'Recherche postdoctorale' : 'Postdoctoral Fellow'}
 								/>
 							</div>
 						</div>
@@ -988,25 +988,37 @@
 
 				<div class="contact-grid">
 					<div class="contact-item">
-						<span class="label">INQUIRIES?</span>
-						<p>Contact us at <a href="mailto:cui@canurb.org">cui@canurb.org</a></p>
-					</div>
-
-					<div class="contact-item">
-						<span class="label">NEWSLETTER</span>
+						<span class="label">{fr ? 'DES QUESTIONS?' : 'INQUIRIES?'}</span>
 						<p>
-							<a href="https://canurb.org/subscribe/" target="_blank">Subscribe</a> to the Canadian Urban
-							Institute newsletter.
+							{fr ? 'Écrivez-nous à' : 'Contact us at'} <a href="mailto:cui@canurb.org">cui@canurb.org</a>
 						</p>
 					</div>
 
 					<div class="contact-item">
-						<span class="label">LEARN MORE</span>
-						<p>See more of our work at <a href="https://www.canurb.org">www.canurb.org</a></p>
+						<span class="label">{fr ? 'INFOLETTRE' : 'NEWSLETTER'}</span>
+						{#if fr}
+							<p>
+								<a href="https://canurb.org/subscribe/" target="_blank">Abonnez-vous</a> à l’infolettre de
+								l’Institut urbain du Canada.
+							</p>
+						{:else}
+							<p>
+								<a href="https://canurb.org/subscribe/" target="_blank">Subscribe</a> to the Canadian Urban
+								Institute newsletter.
+							</p>
+						{/if}
 					</div>
 
 					<div class="contact-item">
-						<span class="label">CONNECT</span>
+						<span class="label">{fr ? 'EN SAVOIR PLUS' : 'LEARN MORE'}</span>
+						<p>
+							{fr ? 'Découvrez nos autres travaux sur' : 'See more of our work at'}
+							<a href="https://www.canurb.org">www.canurb.org</a>
+						</p>
+					</div>
+
+					<div class="contact-item">
+						<span class="label">{fr ? 'SUIVEZ-NOUS' : 'CONNECT'}</span>
 						<div class="social-icons">
 							<Icon icon="fa6-brands:linkedin" />
 							<Icon icon="fa6-brands:instagram" />

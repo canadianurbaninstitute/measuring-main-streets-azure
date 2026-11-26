@@ -53,14 +53,14 @@
 
 	const newCaseStudies = [
 		{ title: T('Resilience on Main', 'Résilience sur la rue principale'), href: href('/casestudies/?tab=msr') },
-		{ title: T('TOD on Main', 'DAT sur la rue principale'), href: href('/casestudies/?tab=tod') }
+		{ title: T('TOD on Main', 'TOD sur la rue principale'), href: href('/casestudies/?tab=tod') }
 	];
 
 	const reports = [{ title: 'Measuring Main Streets', href: '/reports' }];
 
 	const newReports = [
 		{ title: T('Resilience on Main', 'Résilience sur la rue principale'), href: href('/reports/?tab=msr') },
-		{ title: T('TOD on Main', 'DAT sur la rue principale'), href: href('/reports/?tab=tod') }
+		{ title: T('TOD on Main', 'TOD sur la rue principale'), href: href('/reports/?tab=tod') }
 	];
 
 	const learnMore = [
