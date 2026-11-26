@@ -222,14 +222,26 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						149 Street NW is an arterial roadway in Edmonton. This road acts as a north-south
-						vehicle corridor lined with residential and commercial uses. The study area segment
-						straddles Jasper Park, and the neighbourhoods of Sherwood and Parkview. 149 Street lies
-						west of Old Strathcona and the North Saskatchewan River. The road connects directly to
-						Whitemud Drive to the south, an inner city freeway. At the north end, 149 connects to
-						Stony Plain Rd, an arterial leading to the core.
-					</p>
+					{#if fr}
+						<p>
+							La 149 Street NW est une artère d’Edmonton. Cette voie sert de corridor
+							routier nord-sud bordé d’usages résidentiels et commerciaux. Le tronçon
+							étudié chevauche Jasper Park ainsi que les quartiers de Sherwood et de
+							Parkview. La 149 Street se trouve à l’ouest d’Old Strathcona et de la
+							rivière Saskatchewan Nord. Au sud, la rue se raccorde directement à Whitemud
+							Drive, une autoroute urbaine. À son extrémité nord, la 149 Street rejoint
+							Stony Plain Rd, une artère menant au centre-ville.
+						</p>
+					{:else}
+						<p>
+							149 Street NW is an arterial roadway in Edmonton. This road acts as a north-south
+							vehicle corridor lined with residential and commercial uses. The study area segment
+							straddles Jasper Park, and the neighbourhoods of Sherwood and Parkview. 149 Street lies
+							west of Old Strathcona and the North Saskatchewan River. The road connects directly to
+							Whitemud Drive to the south, an inner city freeway. At the north end, 149 connects to
+							Stony Plain Rd, an arterial leading to the core.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -262,28 +274,60 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						149 Street NW's land use is segregated. There are pockets of businesses on either end of
-						the study area with residential taking up the remaining area. Buildings along 149 are
-						generally one to two-storeys in height.
-					</p>
-					<p>
-						From 87 Ave to 91 Ave there are strip malls lining the west side of 149 leading to
-						apartments in the north. A service road runs parellel to the east with no sidewalk.
-						There is even a sign prohibiting walking on the east side of 149. The service road
-						provides direct access to single family dwellings.
-					</p>
-					<p>
-						149 Street NW has six lanes for traffic with additional room for parking. The four lanes
-						in the middle are unobstructed driving lanes and act as area's north-south corridor for
-						personal automobiles and bus transit. The speed limit on this street is 60 km/hr and
-						there only four signalized intersections in the study area. The built form prioritizes
-						vehicular mobility and lacks features for a safe and comfortable pedestrian experience.
-					</p>
-					<p>
-						There are on demand transit bus stops along 149. Implemented in 2021, the service lets
-						transit users to request a bus, either by phone, website, or app.
-					</p>
+					{#if fr}
+						<p>
+							Les usages du sol le long de la 149 Street NW sont séparés. On trouve des
+							pôles commerciaux aux deux extrémités de la zone étudiée, le reste étant
+							occupé par des usages résidentiels. Les bâtiments le long de la 149 Street
+							comptent généralement un ou deux étages.
+						</p>
+						<p>
+							De la 87 Ave à la 91 Ave, des centres commerciaux linéaires bordent le côté
+							ouest de la 149 Street, jusqu’à des immeubles d’appartements au nord. Une
+							voie de desserte sans trottoir longe le côté est en parallèle. Un panneau
+							interdit même la marche du côté est de la 149 Street. La voie de desserte
+							donne directement accès à des maisons unifamiliales.
+						</p>
+						<p>
+							La 149 Street NW compte six voies de circulation, en plus de l’espace
+							réservé au stationnement. Les quatre voies centrales sont des voies de
+							circulation dégagées et servent de corridor nord-sud du secteur pour
+							l’automobile et les autobus de transport collectif. La limite de vitesse sur
+							cette rue est de 60 km/h et la zone étudiée ne compte que quatre
+							intersections munies de feux de circulation. Le cadre bâti privilégie la
+							mobilité automobile et ne comporte pas les aménagements nécessaires à une
+							expérience piétonne sécuritaire et confortable.
+						</p>
+						<p>
+							Des arrêts d’autobus de transport collectif sur demande se trouvent le long
+							de la 149 Street. Mis en place en 2021, ce service permet aux usagers du
+							transport collectif de demander un autobus par téléphone, sur le site Web ou
+							au moyen d’une application.
+						</p>
+					{:else}
+						<p>
+							149 Street NW's land use is segregated. There are pockets of businesses on either end of
+							the study area with residential taking up the remaining area. Buildings along 149 are
+							generally one to two-storeys in height.
+						</p>
+						<p>
+							From 87 Ave to 91 Ave there are strip malls lining the west side of 149 leading to
+							apartments in the north. A service road runs parellel to the east with no sidewalk.
+							There is even a sign prohibiting walking on the east side of 149. The service road
+							provides direct access to single family dwellings.
+						</p>
+						<p>
+							149 Street NW has six lanes for traffic with additional room for parking. The four lanes
+							in the middle are unobstructed driving lanes and act as area's north-south corridor for
+							personal automobiles and bus transit. The speed limit on this street is 60 km/hr and
+							there only four signalized intersections in the study area. The built form prioritizes
+							vehicular mobility and lacks features for a safe and comfortable pedestrian experience.
+						</p>
+						<p>
+							There are on demand transit bus stops along 149. Implemented in 2021, the service lets
+							transit users to request a bus, either by phone, website, or app.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -411,10 +455,18 @@
 							/>
 						</div>
 					</div>
-					<p>
-						According to the Civic Infrastructure Index, 149 Street ranks low at 16th of 20 Edmonton
-						Main Streets and 19th of 36 Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Selon l’Indice d’infrastructure civique, la 149 Street se classe à un rang
+							faible, soit 16e sur 20 rues principales d’Edmonton et 19e sur 36 rues
+							principales de quartier.
+						</p>
+					{:else}
+						<p>
+							According to the Civic Infrastructure Index, 149 Street ranks low at 16th of 20 Edmonton
+							Main Streets and 19th of 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -508,19 +560,38 @@
 							/>
 						</div>
 					</div>
-					<p>
-						According to the Independent Business Index, 149 Street ranks low at 15th of 20 Edmonton
-						Main Streets and 32nd of 36 Neighbourhood Main Streets. 149 Street also ranks low in
-						business density, at 18th of 20 and 31st of 36.
-					</p>
-					<p>
-						On the northwest corner of 149 Street and 87 Ave, in the south portion of the study
-						area, there is a cluster of businesses. This features a mix of local businesses, such as
-						the BonTon Bakery, chain establishments, such as McDonald's and Chopped Leaf, medical
-						services, and bank branches. Going north, the street transitions abruptly to suburban
-						residential and back to another cluster of businesses. All the businesses are catered to
-						vehicular access with parking lots and ample room for larger vehicles.
-					</p>
+					{#if fr}
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 149 Street se classe à un
+							rang faible, soit 15e sur 20 rues principales d’Edmonton et 32e sur 36 rues
+							principales de quartier. La 149 Street se classe aussi à un rang faible pour
+							la densité commerciale, soit 18e sur 20 et 31e sur 36.
+						</p>
+						<p>
+							À l’angle nord-ouest de la 149 Street et de la 87 Ave, dans la partie sud de
+							la zone étudiée, se trouve un pôle commercial. On y trouve un mélange
+							d’entreprises locales, comme la BonTon Bakery, d’établissements de chaîne,
+							comme McDonald’s et Chopped Leaf, de services médicaux et de succursales
+							bancaires. En allant vers le nord, la rue fait brusquement place à un
+							secteur résidentiel de banlieue, puis à un autre pôle commercial. Toutes les
+							entreprises sont aménagées en fonction de l’accès automobile, avec des
+							stationnements et beaucoup d’espace pour les gros véhicules.
+						</p>
+					{:else}
+						<p>
+							According to the Independent Business Index, 149 Street ranks low at 15th of 20 Edmonton
+							Main Streets and 32nd of 36 Neighbourhood Main Streets. 149 Street also ranks low in
+							business density, at 18th of 20 and 31st of 36.
+						</p>
+						<p>
+							On the northwest corner of 149 Street and 87 Ave, in the south portion of the study
+							area, there is a cluster of businesses. This features a mix of local businesses, such as
+							the BonTon Bakery, chain establishments, such as McDonald's and Chopped Leaf, medical
+							services, and bank branches. Going north, the street transitions abruptly to suburban
+							residential and back to another cluster of businesses. All the businesses are catered to
+							vehicular access with parking lots and ample room for larger vehicles.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -559,16 +630,32 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						Possibly due to the configuration of 149 Street NW, with suburban pattern commercial
-						lots on the west and no activation on the east, there isn't a significant concentration
-						of businesses or establishments as seen in other Edmonton Main Street case studies.
-					</p>
-					<p>
-						Reflective of its suburban built form and activation only on the western portion of the
-						segment, 149 Street ranks 18th of Edmonton Main Streets for employment density, and 35th
-						of 36 Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Peut-être en raison de la configuration de la 149 Street NW, avec des
+							terrains commerciaux de type banlieue du côté ouest et aucune animation du
+							côté est, on n’y observe pas de concentration importante d’entreprises ou
+							d’établissements comme dans les autres études de cas de rues principales
+							d’Edmonton.
+						</p>
+						<p>
+							Reflet de son cadre bâti de banlieue et d’une animation limitée à la partie
+							ouest du tronçon, la 149 Street se classe 18e des rues principales
+							d’Edmonton pour la densité d’emploi, et 35e sur 36 rues principales de
+							quartier.
+						</p>
+					{:else}
+						<p>
+							Possibly due to the configuration of 149 Street NW, with suburban pattern commercial
+							lots on the west and no activation on the east, there isn't a significant concentration
+							of businesses or establishments as seen in other Edmonton Main Street case studies.
+						</p>
+						<p>
+							Reflective of its suburban built form and activation only on the western portion of the
+							segment, 149 Street ranks 18th of Edmonton Main Streets for employment density, and 35th
+							of 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
 
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
@@ -630,20 +717,41 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The general trend of housing types along 149 Street NW tended toward low-rise apartment
-						buildings on the west and single family dwelling to the east. Similar to other mature
-						neighbourhoods in Edmonton, there were some new residential infill construction to the
-						east. There was one undeveloped plot with a for sale sign. The apartments and houses
-						alike were set back from the road. The setbacks on the lots and presence of the service
-						road gives the street a wide feel.
-					</p>
-					<p>
-						There are also many homes as one makes their way away from 149. Like the Parkview
-						neighbouhrood to the east, many of the homes were built in the mid 1950s to 60s. THe
-						apartments were generally constructed in the 70s to 80s period. The dwellings observed
-						looked to be in used condition, with some of the housing stock having seen better days.
-					</p>
+					{#if fr}
+						<p>
+							Le long de la 149 Street NW, les types de logements tendent vers des
+							immeubles d’appartements de faible hauteur du côté ouest et des maisons
+							unifamiliales du côté est. Comme dans d’autres quartiers établis d’Edmonton,
+							on observe quelques nouvelles constructions résidentielles intercalaires du
+							côté est. Un terrain non aménagé affichait une pancarte « À vendre ». Les
+							immeubles d’appartements comme les maisons sont en retrait de la rue. Les
+							marges de recul des terrains et la présence de la voie de desserte donnent à
+							la rue une impression de largeur.
+						</p>
+						<p>
+							On trouve aussi de nombreuses maisons à mesure qu’on s’éloigne de la 149
+							Street. Comme dans le quartier Parkview, à l’est, bon nombre de ces maisons
+							ont été construites entre le milieu des années 1950 et les années 1960. Les
+							immeubles d’appartements datent généralement des années 1970 et 1980. Les
+							logements observés présentaient des signes d’usure, une partie du parc
+							résidentiel ayant connu de meilleurs jours.
+						</p>
+					{:else}
+						<p>
+							The general trend of housing types along 149 Street NW tended toward low-rise apartment
+							buildings on the west and single family dwelling to the east. Similar to other mature
+							neighbourhoods in Edmonton, there were some new residential infill construction to the
+							east. There was one undeveloped plot with a for sale sign. The apartments and houses
+							alike were set back from the road. The setbacks on the lots and presence of the service
+							road gives the street a wide feel.
+						</p>
+						<p>
+							There are also many homes as one makes their way away from 149. Like the Parkview
+							neighbouhrood to the east, many of the homes were built in the mid 1950s to 60s. THe
+							apartments were generally constructed in the 70s to 80s period. The dwellings observed
+							looked to be in used condition, with some of the housing stock having seen better days.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -710,10 +818,17 @@
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 28% are recent immigrants and 31% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidant dans la zone étudiée, 28 % sont des personnes
+							immigrantes récentes et 31 % font partie d’une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 28% are recent immigrants and 31% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -756,20 +871,40 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						149 Street NW's Resiliency Score ranks high at 2nd of 20 Edmonton Main Streets and 2nd
-						of 36 Neighbourhood Main Streets, second to only 50 Street in Beaumont in both
-						categories.
-					</p>
-					<p>
-						Foot traffic levels relative to 2019 seem to have stablized between 76.4% in 2021 and
-						2022 75.2% in 2022.
-					</p>
-					<p>
-						In terms of visits by time of day, the busiest period is between 12pm and 6pm. It's
-						worth noting that a significant percentage of visits happen between 12am and 6am (around
-						14%) signifying nighttime patronage. Friday is the busiest day of the week.
-					</p>
+					{#if fr}
+						<p>
+							Selon le score de résilience, la 149 Street NW se classe à un rang élevé,
+							soit 2e sur 20 rues principales d’Edmonton et 2e sur 36 rues principales de
+							quartier, devancée seulement par la 50 Street de Beaumont dans les deux
+							catégories.
+						</p>
+						<p>
+							Par rapport à 2019, l’achalandage semble s’être stabilisé, passant de 76,4 %
+							en 2021 à 75,2 % en 2022.
+						</p>
+						<p>
+							Pour ce qui est des visites selon le moment de la journée, la période la
+							plus achalandée se situe entre midi et 18 h. Il convient de noter qu’une
+							proportion importante des visites (environ 14 %) a lieu entre minuit et 6 h,
+							ce qui témoigne d’une fréquentation nocturne. Le vendredi est la journée la
+							plus achalandée de la semaine.
+						</p>
+					{:else}
+						<p>
+							149 Street NW's Resiliency Score ranks high at 2nd of 20 Edmonton Main Streets and 2nd
+							of 36 Neighbourhood Main Streets, second to only 50 Street in Beaumont in both
+							categories.
+						</p>
+						<p>
+							Foot traffic levels relative to 2019 seem to have stablized between 76.4% in 2021 and
+							2022 75.2% in 2022.
+						</p>
+						<p>
+							In terms of visits by time of day, the busiest period is between 12pm and 6pm. It's
+							worth noting that a significant percentage of visits happen between 12am and 6am (around
+							14%) signifying nighttime patronage. Friday is the busiest day of the week.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

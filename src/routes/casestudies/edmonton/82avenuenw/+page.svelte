@@ -218,20 +218,40 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						82 Avenue NW, known as Whyte Avenue, is a popular shopping, dining, and entertainment
-						destination that plays double duty as both a morning and night destination. Visitors and
-						residents enjoy the farmers market and coffee shops during the day, and the vibrant
-						nightlife scene after dark.
-					</p>
-					<p>
-						Whyte is often used to host outdoor festivals year-round, such as the Edmonton
-						International Fringe Festival, Whyte Avenue Art Walk, and Ice on Whyte. The street runs
-						east-west and sits south of the North Saskatchewan River. Whyte used to be the main
-						street and downtown for Strathcona until amalgamation in 1912. Whyte Avenue and Old
-						Strathcona contain a concentration of historical buildings and attractions such as the
-						South Edmonton Post Office, the Princess Theatre, and many other heritage properties.
-					</p>
+					{#if fr}
+						<p>
+							La 82 Avenue NW, connue sous le nom de Whyte Avenue, est une destination
+							prisée pour le magasinage, la restauration et le divertissement, qui joue un
+							double rôle de destination de jour comme de soir. Les personnes visiteuses
+							et résidentes profitent du marché public et des cafés pendant la journée, et
+							de la vie nocturne animée une fois la nuit tombée.
+						</p>
+						<p>
+							Whyte Avenue accueille souvent des festivals extérieurs tout au long de
+							l’année, comme l’Edmonton International Fringe Festival, le Whyte Avenue Art
+							Walk et Ice on Whyte. La rue est orientée est-ouest et se trouve au sud de
+							la rivière Saskatchewan Nord. Whyte Avenue était la rue principale et le
+							centre-ville de Strathcona jusqu’à la fusion de 1912. Whyte Avenue et Old
+							Strathcona regroupent une concentration de bâtiments et d’attraits
+							historiques, comme le South Edmonton Post Office, le Princess Theatre et de
+							nombreuses autres propriétés patrimoniales.
+						</p>
+					{:else}
+						<p>
+							82 Avenue NW, known as Whyte Avenue, is a popular shopping, dining, and entertainment
+							destination that plays double duty as both a morning and night destination. Visitors and
+							residents enjoy the farmers market and coffee shops during the day, and the vibrant
+							nightlife scene after dark.
+						</p>
+						<p>
+							Whyte is often used to host outdoor festivals year-round, such as the Edmonton
+							International Fringe Festival, Whyte Avenue Art Walk, and Ice on Whyte. The street runs
+							east-west and sits south of the North Saskatchewan River. Whyte used to be the main
+							street and downtown for Strathcona until amalgamation in 1912. Whyte Avenue and Old
+							Strathcona contain a concentration of historical buildings and attractions such as the
+							South Edmonton Post Office, the Princess Theatre, and many other heritage properties.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -264,23 +284,47 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						Whyte Avenue is six lanes wide, serving as the primary east-west vehicular connection
-						just south of the North Saskatchewan River. Emergency vehicles are commonly seen on
-						Whyte due to its proximity to University Hospital. There are two scramble crosswalks at
-						the 105 St and Calgary Trail intersections. Bicycles and other active transportation
-						modes are diverted to the dedicated bike lane on 83 Ave NW, running parallel to the
-						north.
-					</p>
-					<p>
-						Large, mature deciduous trees line Whyte along the sidewalk and median. Where the median
-						is absent, the road feels wider and lacks shade.
-					</p>
-					<p>
-						The historic buildings are low in height, with only two hotels exceeding five storeys,
-						giving the area a more suburban aesthetic than that of a downtown street. Whyte feels
-						like an eclectic collection of urban turnover, restoration, and historic architecture.
-					</p>
+					{#if fr}
+						<p>
+							Whyte Avenue compte six voies et constitue le principal lien routier
+							est-ouest juste au sud de la rivière Saskatchewan Nord. On y voit couramment
+							des véhicules d’urgence en raison de la proximité de l’University Hospital.
+							Deux traverses piétonnes multidirectionnelles se trouvent aux intersections
+							de la 105 St et de Calgary Trail. Les vélos et les autres modes de transport
+							actif sont redirigés vers la piste cyclable réservée de la 83 Ave NW,
+							parallèle au nord.
+						</p>
+						<p>
+							De grands arbres feuillus matures bordent Whyte Avenue le long du trottoir
+							et du terre-plein central. Là où il n’y a pas de terre-plein, la rue paraît
+							plus large et manque d’ombre.
+						</p>
+						<p>
+							Les bâtiments historiques sont de faible hauteur, seuls deux hôtels
+							dépassant cinq étages, ce qui donne au secteur une esthétique plus proche de
+							la banlieue que d’une rue de centre-ville. Whyte Avenue donne l’impression
+							d’un ensemble éclectique de renouvellement urbain, de restauration et
+							d’architecture historique.
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is six lanes wide, serving as the primary east-west vehicular connection
+							just south of the North Saskatchewan River. Emergency vehicles are commonly seen on
+							Whyte due to its proximity to University Hospital. There are two scramble crosswalks at
+							the 105 St and Calgary Trail intersections. Bicycles and other active transportation
+							modes are diverted to the dedicated bike lane on 83 Ave NW, running parallel to the
+							north.
+						</p>
+						<p>
+							Large, mature deciduous trees line Whyte along the sidewalk and median. Where the median
+							is absent, the road feels wider and lacks shade.
+						</p>
+						<p>
+							The historic buildings are low in height, with only two hotels exceeding five storeys,
+							giving the area a more suburban aesthetic than that of a downtown street. Whyte feels
+							like an eclectic collection of urban turnover, restoration, and historic architecture.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -408,24 +452,49 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Whyte Avenue is at the centre of the Old Strathcona BIA. The district has been
-						noticeably enhanced by civic infrastructure and public investment, especially the
-						pedestrianized sidewalks featuring mini barriers, street fixtures, decorative light
-						poles, string lights, and hanging planters. The colourful mini barriers show up in the
-						summer to separate the restaurant patios from parking spaces. The area features a few
-						murals. The nearby Dr. Wilbert MicIntyre Park is often used as a festival ground
-						year-round.
-					</p>
-					<p>
-						Recently, alleyways have begun to be used for businesses and pedestrians, with several
-						businesses using alleys as their main entrances, such as WoodRack Café, Boxer Kitchen &
-						Bar, and Sugared and Spice Bakery.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, Whyte Avenue ranks 5th out of 20 Edmonton
-						Main Streets and 1st of 36 Residential Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Whyte Avenue se trouve au cœur de la zone d’amélioration commerciale (BIA)
+							d’Old Strathcona. Le secteur a été nettement mis en valeur par
+							l’infrastructure civique et les investissements publics, en particulier les
+							trottoirs aménagés pour les piétons, dotés de petites barrières, de mobilier
+							urbain, de lampadaires décoratifs, de guirlandes lumineuses et de
+							jardinières suspendues. Les petites barrières colorées font leur apparition
+							l’été pour séparer les terrasses des restaurants des places de
+							stationnement. Le secteur compte quelques murales. Le parc Dr. Wilbert
+							McIntyre, à proximité, sert souvent de site de festivals tout au long de
+							l’année.
+						</p>
+						<p>
+							Récemment, les ruelles ont commencé à être utilisées par les commerces et
+							les piétons, plusieurs commerces s’en servant comme entrée principale, comme
+							WoodRack Café, Boxer Kitchen & Bar et Sugared and Spice Bakery.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, Whyte Avenue se classe 5e sur 20
+							rues principales d’Edmonton et au 1er rang des 36 rues principales
+							résidentielles.
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is at the centre of the Old Strathcona BIA. The district has been
+							noticeably enhanced by civic infrastructure and public investment, especially the
+							pedestrianized sidewalks featuring mini barriers, street fixtures, decorative light
+							poles, string lights, and hanging planters. The colourful mini barriers show up in the
+							summer to separate the restaurant patios from parking spaces. The area features a few
+							murals. The nearby Dr. Wilbert MicIntyre Park is often used as a festival ground
+							year-round.
+						</p>
+						<p>
+							Recently, alleyways have begun to be used for businesses and pedestrians, with several
+							businesses using alleys as their main entrances, such as WoodRack Café, Boxer Kitchen &
+							Bar, and Sugared and Spice Bakery.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, Whyte Avenue ranks 5th out of 20 Edmonton
+							Main Streets and 1st of 36 Residential Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -519,27 +588,55 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Whyte Avenue is first and foremost an entertainment district. It features a mix of
-						restaurants, bars, theatres, clubs, and shopping. Clubs are generally housed on the
-						second floor above storefronts while the theatres tend to be located further into the
-						surrounding neighbourhood.
-					</p>
-					<p>
-						According to the Independent Business Index, Whyte Avenue ranks 8th out of 20 Edmonton
-						Main Streets and 19th of 36 Neighbourhood Main Streets. Whyte also ranks 4th out of 20
-						and 8th out of 36 for business density.
-					</p>
-					<p>
-						During summertime, restaurants extend out into the street, and many have garage-style
-						doors for open-air dining. A couple even have winter patios with heaters. Clothing
-						stores seems to be the most common retail offering. There has been a recent uptick of
-						vintage and consignment stores opening.
-					</p>
-					<p>
-						The street experiences a significant amount of business turnover and storefront can be
-						seen vacant and/or with "For Lease" signs.
-					</p>
+					{#if fr}
+						<p>
+							Whyte Avenue est avant tout un quartier du divertissement. On y trouve un
+							mélange de restaurants, de bars, de salles de spectacle, de boîtes de nuit
+							et de boutiques. Les boîtes de nuit occupent généralement l’étage, au-dessus
+							des devantures, tandis que les salles de spectacle se trouvent plutôt à
+							l’intérieur du quartier environnant.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, Whyte Avenue se classe 8e sur
+							20 rues principales d’Edmonton et 19e sur 36 rues principales de quartier.
+							Whyte Avenue se classe également 4e sur 20 et 8e sur 36 pour la densité
+							commerciale.
+						</p>
+						<p>
+							L’été, les restaurants débordent dans la rue, et beaucoup sont dotés de
+							portes de type garage permettant de manger à l’air libre. Quelques-uns ont
+							même des terrasses d’hiver chauffées. Les magasins de vêtements semblent
+							constituer l’offre de commerce de détail la plus courante. On observe
+							récemment une hausse des ouvertures de friperies et de boutiques de
+							consignation.
+						</p>
+						<p>
+							La rue connaît un roulement important des commerces, et on peut y voir des
+							devantures vacantes ou affichant des pancartes « À louer ».
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is first and foremost an entertainment district. It features a mix of
+							restaurants, bars, theatres, clubs, and shopping. Clubs are generally housed on the
+							second floor above storefronts while the theatres tend to be located further into the
+							surrounding neighbourhood.
+						</p>
+						<p>
+							According to the Independent Business Index, Whyte Avenue ranks 8th out of 20 Edmonton
+							Main Streets and 19th of 36 Neighbourhood Main Streets. Whyte also ranks 4th out of 20
+							and 8th out of 36 for business density.
+						</p>
+						<p>
+							During summertime, restaurants extend out into the street, and many have garage-style
+							doors for open-air dining. A couple even have winter patios with heaters. Clothing
+							stores seems to be the most common retail offering. There has been a recent uptick of
+							vintage and consignment stores opening.
+						</p>
+						<p>
+							The street experiences a significant amount of business turnover and storefront can be
+							seen vacant and/or with "For Lease" signs.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -578,17 +675,32 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						Whyte Avenue is home to a significant concentration of businesses and services, from
-						small businesses, ranging from small shops with zero to five employees and medium sized
-						enterprises ranging from 10 to 50 employees. Whle most employment is concentrated on
-						within the Whyte Avenue study area, many establishments spill out into the surrounding
-						blocks with larger businesses concentrated further south.
-					</p>
-					<p>
-						For employment density, Whyte ranks 5th out of 20 Edmonton Main Streets and 6th of 35
-						Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Whyte Avenue accueille une concentration importante d’entreprises et de
+							services, allant de petites boutiques comptant de zéro à cinq employés à des
+							entreprises de taille moyenne comptant de 10 à 50 employés. Bien que la
+							majeure partie de l’emploi soit concentrée dans la zone étudiée de Whyte
+							Avenue, de nombreux établissements débordent dans les îlots environnants,
+							les plus grandes entreprises étant concentrées plus au sud.
+						</p>
+						<p>
+							Pour la densité d’emploi, Whyte Avenue se classe 5e sur 20 rues principales
+							d’Edmonton et 6e sur 35 rues principales de quartier.
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is home to a significant concentration of businesses and services, from
+							small businesses, ranging from small shops with zero to five employees and medium sized
+							enterprises ranging from 10 to 50 employees. Whle most employment is concentrated on
+							within the Whyte Avenue study area, many establishments spill out into the surrounding
+							blocks with larger businesses concentrated further south.
+						</p>
+						<p>
+							For employment density, Whyte ranks 5th out of 20 Edmonton Main Streets and 6th of 35
+							Neighbourhood Main Streets.
+						</p>
+					{/if}
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
@@ -649,17 +761,34 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Low-rise apartments make up most of the housing options surrounding Whyte Avenue.
-						Instances of single-detached homes increase the further away one goes from Whyte Street.
-						The 60s and 70s saw the areas most significant housing construction boom.
-					</p>
-					<p>
-						Over 80% of the housing stock are low-rise apartment dwellings. Several high-rise
-						apartments can be found north of the Avenue. There are a few large infill residentail
-						buildings on the street itself, typically part of mixed-used structures five to
-						six-storeys tall.
-					</p>
+					{#if fr}
+						<p>
+							Les immeubles d’appartements de faible hauteur constituent la majeure partie
+							de l’offre de logements autour de Whyte Avenue. Les maisons individuelles
+							sont de plus en plus nombreuses à mesure qu’on s’éloigne de Whyte Avenue.
+							C’est dans les années 1960 et 1970 que le secteur a connu son plus important
+							boom de construction résidentielle.
+						</p>
+						<p>
+							Plus de 80 % du parc de logements est constitué d’appartements dans des
+							immeubles de faible hauteur. On trouve plusieurs immeubles d’appartements de
+							grande hauteur au nord de l’avenue. Quelques grands bâtiments résidentiels
+							intercalaires se trouvent sur la rue même, généralement dans des bâtiments à
+							usage mixte de cinq ou six étages.
+						</p>
+					{:else}
+						<p>
+							Low-rise apartments make up most of the housing options surrounding Whyte Avenue.
+							Instances of single-detached homes increase the further away one goes from Whyte Street.
+							The 60s and 70s saw the areas most significant housing construction boom.
+						</p>
+						<p>
+							Over 80% of the housing stock are low-rise apartment dwellings. Several high-rise
+							apartments can be found north of the Avenue. There are a few large infill residentail
+							buildings on the street itself, typically part of mixed-used structures five to
+							six-storeys tall.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -726,10 +855,17 @@
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 32% are recent immigrants and 31% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidant dans la zone étudiée, 32 % sont des personnes
+							immigrantes récentes et 31 % font partie d’une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 32% are recent immigrants and 31% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -772,20 +908,42 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Before pandemic shut downs gripped the city, the Whyte Avenue study area saw over 4
-						million visits in 2019 by infrequent visitors from outside the neighbourhood. As of
-						2022, that number decreased by over half. Despite that, visits by local residents have
-						almost recovered in the same period.
-					</p>
-					<p>
-						Whyte is busiest during the 12pm to 9pm period, with the busiest day of the week being
-						Saturday, possibly reflective of its role as an entertainment destination.
-					</p>
-					<p>
-						Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets and 27th
-						of 36 Neighbourhood Main Streets revealing an over reliance on infrequent visitors.
-					</p>
+					{#if fr}
+						<p>
+							Avant que les confinements liés à la pandémie ne frappent la ville, la zone
+							étudiée de Whyte Avenue a reçu en 2019 plus de 4 millions de visites de la
+							part de visiteurs occasionnels provenant de l’extérieur du quartier. En
+							2022, ce nombre avait diminué de plus de la moitié. Malgré cela, les visites
+							des résidents du quartier se sont presque rétablies au cours de la même
+							période.
+						</p>
+						<p>
+							Whyte Avenue est la plus achalandée entre midi et 21 h, le samedi étant la
+							journée la plus achalandée de la semaine, ce qui reflète peut-être son rôle
+							de destination de divertissement.
+						</p>
+						<p>
+							Selon le score de résilience, Whyte Avenue se classe à un rang faible, soit
+							16e sur 20 rues principales d’Edmonton et 27e sur 36 rues principales de
+							quartier, ce qui révèle une dépendance excessive envers les visiteurs
+							occasionnels.
+						</p>
+					{:else}
+						<p>
+							Before pandemic shut downs gripped the city, the Whyte Avenue study area saw over 4
+							million visits in 2019 by infrequent visitors from outside the neighbourhood. As of
+							2022, that number decreased by over half. Despite that, visits by local residents have
+							almost recovered in the same period.
+						</p>
+						<p>
+							Whyte is busiest during the 12pm to 9pm period, with the busiest day of the week being
+							Saturday, possibly reflective of its role as an entertainment destination.
+						</p>
+						<p>
+							Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets and 27th
+							of 36 Neighbourhood Main Streets revealing an over reliance on infrequent visitors.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

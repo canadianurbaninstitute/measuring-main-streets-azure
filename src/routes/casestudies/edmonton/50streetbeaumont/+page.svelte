@@ -218,22 +218,44 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						50 Street is the main street of Beaumont, one of the peripheral municipalities that make
-						up the Edmonton Metropolitan Area. As one of the few officially bilingual cities in the
-						province, signs along the street display both English and French.
-					</p>
-					<p>
-						Beaumont is known for the brick St. Vital Church at the top of the hill marking the
-						city's centre. The original church, built in 1895 and burnt to the ground in 1918, was
-						replaced by the current structure in 1919. From the church, one can enjoy a
-						quintessentially prairie view to the south without obstruction and point out the borders
-						of the small city.
-					</p>
-					<p>
-						Beaumont's 50 Street hosts many businesses and services, managing to create spaces for
-						pedestrians while maintaining the street as a major traffic artery.
-					</p>
+					{#if fr}
+						<p>
+							La 50 Street est la rue principale de Beaumont, l’une des municipalités
+							périphériques qui composent la région métropolitaine d’Edmonton. Comme
+							Beaumont est l’une des rares villes officiellement bilingues de la province,
+							les enseignes le long de la rue sont affichées en anglais et en français.
+						</p>
+						<p>
+							Beaumont est connue pour l’église Saint-Vital, en brique, qui se dresse au
+							sommet de la colline et marque le centre de la ville. L’église d’origine,
+							construite en 1895 et entièrement détruite par un incendie en 1918, a été
+							remplacée par le bâtiment actuel en 1919. Depuis l’église, on peut profiter
+							d’une vue typique des Prairies vers le sud, sans obstruction, et repérer les
+							limites de la petite ville.
+						</p>
+						<p>
+							La 50 Street de Beaumont accueille de nombreux commerces et services, et
+							réussit à créer des espaces pour les piétons tout en demeurant une
+							importante artère de circulation.
+						</p>
+					{:else}
+						<p>
+							50 Street is the main street of Beaumont, one of the peripheral municipalities that make
+							up the Edmonton Metropolitan Area. As one of the few officially bilingual cities in the
+							province, signs along the street display both English and French.
+						</p>
+						<p>
+							Beaumont is known for the brick St. Vital Church at the top of the hill marking the
+							city's centre. The original church, built in 1895 and burnt to the ground in 1918, was
+							replaced by the current structure in 1919. From the church, one can enjoy a
+							quintessentially prairie view to the south without obstruction and point out the borders
+							of the small city.
+						</p>
+						<p>
+							Beaumont's 50 Street hosts many businesses and services, managing to create spaces for
+							pedestrians while maintaining the street as a major traffic artery.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -266,24 +288,48 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						Although the placard at the gateway of 50 Street states that the community was
-						established in 1895, none of the buildings appear to be built from that time. The
-						structures along the 50 Street, save for St. Vital Church, appear to be from within the
-						last couple of decades.
-					</p>
-					<p>
-						Seeing as Beaumont is a relatively small city of appoximately 21,000 residents, it has
-						the feel of a small town. The overhead power lines, low-rises, and aesthetic contribute
-						to this character.
-					</p>
-					<p>
-						The streetscape between 50 Ave and 52 Ave features a tree-lined sidewalks, benches,
-						areas for pedestrians to linger, and calmer traffic. The rest of the study area has
-						businesses and homes set back from the road, featuring greenways on both sides and
-						faster moving traffic. There are a few strip malls set up both parallel and
-						perpendicular to 50 Street.
-					</p>
+					{#if fr}
+						<p>
+							Bien que la plaque à l’entrée de la 50 Street indique que la communauté a
+							été fondée en 1895, aucun des bâtiments ne semble dater de cette époque. Les
+							constructions le long de la 50 Street, à l’exception de l’église
+							Saint-Vital, semblent dater des deux ou trois dernières décennies.
+						</p>
+						<p>
+							Beaumont étant une ville relativement petite d’environ 21 000 habitants,
+							elle dégage une atmosphère de petite localité. Les lignes électriques
+							aériennes, les bâtiments de faible hauteur et l’esthétique générale
+							contribuent à ce caractère.
+						</p>
+						<p>
+							Entre la 50 Ave et la 52 Ave, le paysage de rue comprend des trottoirs
+							bordés d’arbres, des bancs, des espaces où les piétons peuvent s’attarder et
+							une circulation plus calme. Dans le reste de la zone étudiée, les commerces
+							et les maisons sont en retrait de la rue, qui est bordée de bandes vertes
+							des deux côtés, et la circulation y est plus rapide. Quelques centres
+							commerciaux linéaires sont implantés parallèlement et perpendiculairement à
+							la 50 Street.
+						</p>
+					{:else}
+						<p>
+							Although the placard at the gateway of 50 Street states that the community was
+							established in 1895, none of the buildings appear to be built from that time. The
+							structures along the 50 Street, save for St. Vital Church, appear to be from within the
+							last couple of decades.
+						</p>
+						<p>
+							Seeing as Beaumont is a relatively small city of appoximately 21,000 residents, it has
+							the feel of a small town. The overhead power lines, low-rises, and aesthetic contribute
+							to this character.
+						</p>
+						<p>
+							The streetscape between 50 Ave and 52 Ave features a tree-lined sidewalks, benches,
+							areas for pedestrians to linger, and calmer traffic. The rest of the study area has
+							businesses and homes set back from the road, featuring greenways on both sides and
+							faster moving traffic. There are a few strip malls set up both parallel and
+							perpendicular to 50 Street.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -411,22 +457,45 @@
 							/>
 						</div>
 					</div>
-					<p>
-						50 Street is in close proximity to several key amenities. Of note, there's a firehall,
-						public library, recreation centre, skatepark, tennis courts, and three greenspaces.
-						There are a number of heath and care facilities within a 10-minute walk. The density of
-						amenities adds to the overall walkability of the neighbourhood.
-					</p>
-					<p>
-						Between 50 Ave and 52 Ave, there's additional street furniture: bollards at
-						intersections, decorative signs lining establishments, benches, and planters. During the
-						field visit, the trees were wrapped with lights and one restaurants strung up outdoor
-						lights.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, 50 Street in Beaumont ranks last out of 20
-						Edmonton Main Streets and 10th out of 12 Small Town Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							La 50 Street se trouve à proximité de plusieurs équipements clés, notamment
+							une caserne de pompiers, une bibliothèque publique, un centre récréatif, un
+							planchodrome, des terrains de tennis et trois espaces verts. Plusieurs
+							établissements de santé et de soins se trouvent dans un rayon de 10 minutes
+							de marche. La densité des équipements contribue au potentiel piétonnier
+							global du quartier.
+						</p>
+						<p>
+							Entre la 50 Ave et la 52 Ave, on trouve du mobilier urbain supplémentaire :
+							bornes de protection aux intersections, enseignes décoratives devant les
+							établissements, bancs et jardinières. Lors de la visite sur le terrain, les
+							arbres étaient enveloppés de lumières et un restaurant avait installé des
+							guirlandes lumineuses extérieures.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, la 50 Street de Beaumont se classe
+							dernière sur 20 rues principales d’Edmonton et 10e sur 12 rues principales
+							de petites villes.
+						</p>
+					{:else}
+						<p>
+							50 Street is in close proximity to several key amenities. Of note, there's a firehall,
+							public library, recreation centre, skatepark, tennis courts, and three greenspaces.
+							There are a number of heath and care facilities within a 10-minute walk. The density of
+							amenities adds to the overall walkability of the neighbourhood.
+						</p>
+						<p>
+							Between 50 Ave and 52 Ave, there's additional street furniture: bollards at
+							intersections, decorative signs lining establishments, benches, and planters. During the
+							field visit, the trees were wrapped with lights and one restaurants strung up outdoor
+							lights.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, 50 Street in Beaumont ranks last out of 20
+							Edmonton Main Streets and 10th out of 12 Small Town Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -520,25 +589,52 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The businesses along 50 Street offer selections of retail and dining, and a mix of local
-						and chain businesses. Even on a cold, grey October day, Jet's Cafe, Sea Change, and
-						Chartier were relatively bustling, emanating warm light out onto the quiet street with
-						scenes of people through the windows.
-					</p>
-					<p>
-						50 Street in Beaumont ranks 15th out of 20 Edmonton Main Streets for business density,
-						and 11th out of 12th for Small Town Main Streets.
-					</p>
-					<p>
-						According to the Independent Business Index, 50 Street Beaumont ranks 16th out of 20
-						Edmon Main Streets and 11th out of 12th for Small Town Main Streets.
-					</p>
-					<p>
-						Chartier is a French restaurant that was set to close down permanently in September 2023
-						due to pandemic-induced financial strains. The restaurant was saved by a community
-						member's donation allowing them to continue operating.
-					</p>
+					{#if fr}
+						<p>
+							Les commerces de la 50 Street offrent un choix de boutiques et de
+							restaurants, ainsi qu’un mélange d’entreprises locales et de chaîne. Même
+							par une froide et grise journée d’octobre, Jet’s Cafe, Sea Change et
+							Chartier étaient relativement animés, laissant filtrer une lumière
+							chaleureuse sur la rue tranquille, où l’on apercevait des gens à travers les
+							vitrines.
+						</p>
+						<p>
+							La 50 Street de Beaumont se classe 15e sur 20 rues principales d’Edmonton
+							pour la densité commerciale, et 11e sur 12 rues principales de petites
+							villes.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 50 Street de Beaumont se
+							classe 16e sur 20 rues principales d’Edmonton et 11e sur 12 rues principales
+							de petites villes.
+						</p>
+						<p>
+							Chartier est un restaurant français qui devait fermer définitivement ses
+							portes en septembre 2023 en raison de difficultés financières causées par la
+							pandémie. Le restaurant a été sauvé grâce au don d’un membre de la
+							communauté, ce qui lui a permis de poursuivre ses activités.
+						</p>
+					{:else}
+						<p>
+							The businesses along 50 Street offer selections of retail and dining, and a mix of local
+							and chain businesses. Even on a cold, grey October day, Jet's Cafe, Sea Change, and
+							Chartier were relatively bustling, emanating warm light out onto the quiet street with
+							scenes of people through the windows.
+						</p>
+						<p>
+							50 Street in Beaumont ranks 15th out of 20 Edmonton Main Streets for business density,
+							and 11th out of 12th for Small Town Main Streets.
+						</p>
+						<p>
+							According to the Independent Business Index, 50 Street Beaumont ranks 16th out of 20
+							Edmon Main Streets and 11th out of 12th for Small Town Main Streets.
+						</p>
+						<p>
+							Chartier is a French restaurant that was set to close down permanently in September 2023
+							due to pandemic-induced financial strains. The restaurant was saved by a community
+							member's donation allowing them to continue operating.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -577,19 +673,38 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						The southern portion of the 50 Street study area, which is the most pedestrian friendly,
-						hosts a significant concentration of small businesses with zero to five employees.
-					</p>
-					<p>
-						Just outside the study area to the north, one can find a significant concentration of
-						slightly larger businesses in the suburban style strip malls and plaza edging the
-						western side of 50 Street.
-					</p>
-					<p>
-						Reflective of its small town character, 50 Street in Beaumont ranks 19th out of 20
-						Edmonton Main Streets for employment density, and 8th out of 12 Small Town Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							La partie sud de la zone étudiée de la 50 Street, la plus favorable aux
+							piétons, accueille une concentration importante de petites entreprises
+							comptant de zéro à cinq employés.
+						</p>
+						<p>
+							Juste au nord de la zone étudiée, on trouve une concentration importante
+							d’entreprises un peu plus grandes dans les centres commerciaux linéaires et
+							la place commerciale de style banlieue qui bordent le côté ouest de la 50
+							Street.
+						</p>
+						<p>
+							Reflet de son caractère de petite ville, la 50 Street de Beaumont se classe
+							19e sur 20 rues principales d’Edmonton pour la densité d’emploi, et 8e sur
+							12 rues principales de petites villes.
+						</p>
+					{:else}
+						<p>
+							The southern portion of the 50 Street study area, which is the most pedestrian friendly,
+							hosts a significant concentration of small businesses with zero to five employees.
+						</p>
+						<p>
+							Just outside the study area to the north, one can find a significant concentration of
+							slightly larger businesses in the suburban style strip malls and plaza edging the
+							western side of 50 Street.
+						</p>
+						<p>
+							Reflective of its small town character, 50 Street in Beaumont ranks 19th out of 20
+							Edmonton Main Streets for employment density, and 8th out of 12 Small Town Main Streets.
+						</p>
+					{/if}
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
@@ -650,21 +765,40 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Over three quarters of housing in Beaumont are single-detached dwellings and this was
-						visible from 50 Street and at a rate higher than the Edmonton CMA. There are a couple of
-						multi-use structures on 50 Street, and also a couple of multi-unit apartment buildings
-						located just off the street.
-					</p>
+					{#if fr}
+						<p>
+							Plus des trois quarts des logements de Beaumont sont des maisons
+							individuelles non attenantes, ce qui était visible depuis la 50 Street, dans
+							une proportion plus élevée que dans la RMR d’Edmonton. On trouve quelques
+							bâtiments à usages multiples sur la 50 Street, ainsi que quelques immeubles
+							d’appartements situés juste à côté de la rue.
+						</p>
+						<p>
+							Ces immeubles d’appartements semblent récents et en bon état. Les maisons
+							individuelles semblent un peu plus anciennes, mais toujours en bon état; le
+							style des maisons comme l’aménagement du quartier sont typiques d’une
+							banlieue d’Edmonton, c’est-à-dire des maisons de deux étages avec garage
+							attenant, réparties le long de rues sinueuses et de culs-de-sac. Selon la
+							Ville de Beaumont, le moteur économique de la communauté est l’industrie de
+							l’habitation.
+						</p>
+					{:else}
+						<p>
+							Over three quarters of housing in Beaumont are single-detached dwellings and this was
+							visible from 50 Street and at a rate higher than the Edmonton CMA. There are a couple of
+							multi-use structures on 50 Street, and also a couple of multi-unit apartment buildings
+							located just off the street.
+						</p>
 
-					<p>
-						These apartment buildings appear to be new and in good condition. The single-detached
-						stock seems to be a bit older but still in good condition, with the styles of both the
-						homes and neighbourhood layout being typical to that of an Edmonton suburb. This means
-						two-storey homes with attached garages sprawling out on winding streets and cul de sacs.
-						According to the City of Beaumont, the economic driver of the community is the housing
-						industry.
-					</p>
+						<p>
+							These apartment buildings appear to be new and in good condition. The single-detached
+							stock seems to be a bit older but still in good condition, with the styles of both the
+							homes and neighbourhood layout being typical to that of an Edmonton suburb. This means
+							two-storey homes with attached garages sprawling out on winding streets and cul de sacs.
+							According to the City of Beaumont, the economic driver of the community is the housing
+							industry.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -731,11 +865,20 @@
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, only 12% are recent immigrants and 15% are visible
-						minorities revealing that the Beaumont community is less diverse than the rest of the
-						region.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidant dans la zone étudiée, seulement 12 % sont des
+							personnes immigrantes récentes et 15 % font partie d’une minorité visible,
+							ce qui révèle que la communauté de Beaumont est moins diversifiée que le
+							reste de la région.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, only 12% are recent immigrants and 15% are visible
+							minorities revealing that the Beaumont community is less diverse than the rest of the
+							region.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -778,19 +921,38 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						50 Street in Beaumont's Resiliency Score ranks it at the top of 20 Edmonton Main Streets
-						and 12 Small Town Main Streets.
-					</p>
-					<p>
-						The level of visitors surpassed relative pre-pandemic 2019 levels in the first half of
-						2022. While infrequent visitors have decreased since 2019, resident visits have remained
-						steady between 2021 and 2022, surpassing local patronage in 2019.
-					</p>
-					<p>
-						While visits by day of week are relatively steady, analysis reveals an uptick on
-						Thursdays and Fridays. By time of day, 3pm to 6pm is the busiest period.
-					</p>
+					{#if fr}
+						<p>
+							Selon le score de résilience, la 50 Street de Beaumont occupe le premier
+							rang des 20 rues principales d’Edmonton et des 12 rues principales de
+							petites villes.
+						</p>
+						<p>
+							Le nombre de visiteurs a dépassé les niveaux prépandémiques de 2019 au cours
+							du premier semestre de 2022. Bien que les visiteurs occasionnels aient
+							diminué depuis 2019, les visites des résidents sont demeurées stables entre
+							2021 et 2022, surpassant la fréquentation locale de 2019.
+						</p>
+						<p>
+							Bien que les visites selon le jour de la semaine soient relativement
+							stables, l’analyse révèle une hausse les jeudis et les vendredis. Selon le
+							moment de la journée, la période de 15 h à 18 h est la plus achalandée.
+						</p>
+					{:else}
+						<p>
+							50 Street in Beaumont's Resiliency Score ranks it at the top of 20 Edmonton Main Streets
+							and 12 Small Town Main Streets.
+						</p>
+						<p>
+							The level of visitors surpassed relative pre-pandemic 2019 levels in the first half of
+							2022. While infrequent visitors have decreased since 2019, resident visits have remained
+							steady between 2021 and 2022, surpassing local patronage in 2019.
+						</p>
+						<p>
+							While visits by day of week are relatively steady, analysis reveals an uptick on
+							Thursdays and Fridays. By time of day, 3pm to 6pm is the busiest period.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

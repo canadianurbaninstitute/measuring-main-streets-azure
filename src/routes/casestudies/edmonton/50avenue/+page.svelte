@@ -82,13 +82,25 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						The case study aims to provide an overview of the case study area; through a combination
-						of interactive maps, charts and data analysis.
-					</p>
-					<p>
-						The map displays the boundaries of the case study, overlaid on the main street network.
-					</p>
+					{#if fr}
+						<p>
+							L’étude de cas vise à offrir une vue d’ensemble de la zone étudiée au moyen
+							d’une combinaison de cartes interactives, de graphiques et d’analyses de
+							données.
+						</p>
+						<p>
+							La carte présente les limites de l’étude de cas, superposées au réseau de
+							rues principales.
+						</p>
+					{:else}
+						<p>
+							The case study aims to provide an overview of the case study area; through a combination
+							of interactive maps, charts and data analysis.
+						</p>
+						<p>
+							The map displays the boundaries of the case study, overlaid on the main street network.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -121,13 +133,25 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						The built form of the case study area is represented through the 3D building layer,
-						transit stops and lines, as well as green space, including a comparative graph of the %
-						of green space present within the case study area, a 10 minute walk radius and in the
-						Census Metropolitan Area the case study is located in. Use the Satellite View toggle to
-						see the case study area overlaid with satellite imagery.
-					</p>
+					{#if fr}
+						<p>
+							Le cadre bâti de la zone étudiée est représenté par la couche des bâtiments
+							en 3D, les arrêts et lignes de transport collectif ainsi que les espaces
+							verts, accompagnés d’un graphique comparant le pourcentage d’espaces verts
+							dans la zone étudiée, dans un rayon de 10 minutes de marche et dans la
+							région métropolitaine de recensement où se trouve l’étude de cas. Utilisez
+							le bouton « Vue satellite » pour afficher la zone étudiée superposée à
+							l’imagerie satellite.
+						</p>
+					{:else}
+						<p>
+							The built form of the case study area is represented through the 3D building layer,
+							transit stops and lines, as well as green space, including a comparative graph of the %
+							of green space present within the case study area, a 10 minute walk radius and in the
+							Census Metropolitan Area the case study is located in. Use the Satellite View toggle to
+							see the case study area overlaid with satellite imagery.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -253,20 +277,39 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Civic Infrastructure present in the case study area is represented through 5 categories:
-						Education, Government & Community Services, Arts & Culture, Recreation, and Healthcare.
-						For more information about how we classified these categories, read our <a
-							href="/about/data-methodology">Data and Methodology</a
-						>. The graph displays the proportional mix of Civic Infrastucture in the case study
-						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
-						located in.
-					</p>
-					<p>
-						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
-						of the case study area, as well as the estimated employment sizes of each location of
-						Civic Infrastructure.
-					</p>
+					{#if fr}
+						<p>
+							L’infrastructure civique présente dans la zone étudiée est représentée selon
+							5 catégories : Éducation, Services gouvernementaux et communautaires, Arts
+							et culture, Loisirs et Santé. Pour en savoir plus sur la façon dont nous
+							avons classé ces catégories, consultez notre section <a
+							href="/about/data-methodology">Données et méthodologie</a >. Le graphique
+							présente la répartition proportionnelle de l’infrastructure civique dans la
+							zone étudiée, dans un rayon de 10 minutes de marche et dans la région
+							métropolitaine de recensement où se trouve l’étude de cas.
+						</p>
+						<p>
+							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Niveau
+							d’emploi » pour afficher un rayon de 10 minutes de marche autour de la zone
+							étudiée ainsi que le nombre estimé d’employés de chaque lieu
+							d’infrastructure civique.
+						</p>
+					{:else}
+						<p>
+							Civic Infrastructure present in the case study area is represented through 5 categories:
+							Education, Government & Community Services, Arts & Culture, Recreation, and Healthcare.
+							For more information about how we classified these categories, read our <a
+								href="/about/data-methodology">Data and Methodology</a
+							>. The graph displays the proportional mix of Civic Infrastucture in the case study
+							area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
+							located in.
+						</p>
+						<p>
+							Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
+							of the case study area, as well as the estimated employment sizes of each location of
+							Civic Infrastructure.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -359,20 +402,39 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Main Street Businesses present in the case study area are represented through 3
-						categories: Retail, Food & Drink and Local Services. For more information about how we
-						classified these categories, read our <a href="/about/data-methodology"
-							>Data and Methodology</a
-						>. The graph displays the proportional mix of Main Street Businesses in the case study
-						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
-						located in.
-					</p>
-					<p>
-						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
-						of the case study area, as well as the estimated employment sizes of each Main Street
-						Business.
-					</p>
+					{#if fr}
+						<p>
+							Les commerces de rue principale présents dans la zone étudiée sont
+							représentés selon 3 catégories : Commerce de détail, Restauration et
+							boissons et Services de proximité. Pour en savoir plus sur la façon dont
+							nous avons classé ces catégories, consultez notre section <a
+							href="/about/data-methodology" >Données et méthodologie</a >. Le graphique
+							présente la répartition proportionnelle des commerces de rue principale dans
+							la zone étudiée, dans un rayon de 10 minutes de marche et dans la région
+							métropolitaine de recensement où se trouve l’étude de cas.
+						</p>
+						<p>
+							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Niveau
+							d’emploi » pour afficher un rayon de 10 minutes de marche autour de la zone
+							étudiée ainsi que le nombre estimé d’employés de chaque commerce de rue
+							principale.
+						</p>
+					{:else}
+						<p>
+							Main Street Businesses present in the case study area are represented through 3
+							categories: Retail, Food & Drink and Local Services. For more information about how we
+							classified these categories, read our <a href="/about/data-methodology"
+								>Data and Methodology</a
+							>. The graph displays the proportional mix of Main Street Businesses in the case study
+							area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
+							located in.
+						</p>
+						<p>
+							Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
+							of the case study area, as well as the estimated employment sizes of each Main Street
+							Business.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -411,11 +473,21 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						The estimated employment size of all entities, including main street businesses, civic
-						infrastructure and others, are displayed on this map. For more information about how we
-						calculated these, read our <a href="/about/data-methodology">Data and Methodology</a>.
-					</p>
+					{#if fr}
+						<p>
+							Le nombre estimé d’employés de toutes les entités, y compris les commerces
+							de rue principale, l’infrastructure civique et les autres, est affiché sur
+							cette carte. Pour en savoir plus sur la façon dont nous l’avons calculé,
+							consultez notre section <a href="/about/data-methodology">Données et
+							méthodologie</a>.
+						</p>
+					{:else}
+						<p>
+							The estimated employment size of all entities, including main street businesses, civic
+							infrastructure and others, are displayed on this map. For more information about how we
+							calculated these, read our <a href="/about/data-methodology">Data and Methodology</a>.
+						</p>
+					{/if}
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
@@ -475,16 +547,31 @@
 							]}
 						/>
 					</div>
-					<p>
-						The map displays a choropleth vizualisation of key housing related Census variables at
-						the Dissemination Area level of the case study and surrounding area. Use the dropdown to
-						toggle between different variables. The data is sourced from Environics Analytics and
-						Statistics Canada.
-					</p>
-					<p>
-						The charts contrast the housing construction year and the types of housing between the
-						case study area and the Census Metropolitan Area the case study is located in.
-					</p>
+					{#if fr}
+						<p>
+							La carte présente une visualisation choroplèthe des principales variables du
+							recensement liées au logement, à l’échelle des aires de diffusion, pour la
+							zone étudiée et ses environs. Utilisez le menu déroulant pour passer d’une
+							variable à l’autre. Les données proviennent d’Environics Analytics et de
+							Statistique Canada.
+						</p>
+						<p>
+							Les graphiques comparent l’année de construction et les types de logements
+							de la zone étudiée à ceux de la région métropolitaine de recensement où se
+							trouve l’étude de cas.
+						</p>
+					{:else}
+						<p>
+							The map displays a choropleth vizualisation of key housing related Census variables at
+							the Dissemination Area level of the case study and surrounding area. Use the dropdown to
+							toggle between different variables. The data is sourced from Environics Analytics and
+							Statistics Canada.
+						</p>
+						<p>
+							The charts contrast the housing construction year and the types of housing between the
+							case study area and the Census Metropolitan Area the case study is located in.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -551,12 +638,23 @@
 							]}
 						/>
 					</div>
-					<p>
-						The map displays a choropleth vizualisation of key demograhoic and other local
-						characteristic related Census variables at the Dissemination Area level of the case
-						study and surrounding area. Use the dropdown to toggle between different variables. The
-						data is sourced from Environics Analytics and Statistics Canada.
-					</p>
+					{#if fr}
+						<p>
+							La carte présente une visualisation choroplèthe des principales variables du
+							recensement liées aux caractéristiques démographiques et à d’autres
+							caractéristiques locales, à l’échelle des aires de diffusion, pour la zone
+							étudiée et ses environs. Utilisez le menu déroulant pour passer d’une
+							variable à l’autre. Les données proviennent d’Environics Analytics et de
+							Statistique Canada.
+						</p>
+					{:else}
+						<p>
+							The map displays a choropleth vizualisation of key demograhoic and other local
+							characteristic related Census variables at the Dissemination Area level of the case
+							study and surrounding area. Use the dropdown to toggle between different variables. The
+							data is sourced from Environics Analytics and Statistics Canada.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -599,16 +697,32 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						The heatmap displayed represents the pattern of daily visits from the visitor's home
-						location from 2019 to 2022, which is sourced from Environics Analytics MobileScapes
-						data. To learn more, read our <a href="/about/data-methodology">Data and Methodology</a
-						>.
-					</p>
-					<p>
-						The charts display the pattern of visits (relative to 2019) as a line chart, the visit
-						count by type of visitor, as well as the breakdown of visits by time of day and week.
-					</p>
+					{#if fr}
+						<p>
+							La carte de chaleur illustre la répartition des visites quotidiennes selon
+							le lieu de résidence des personnes visiteuses, de 2019 à 2022, à partir des
+							données MobileScapes d’Environics Analytics. Pour en savoir plus, consultez
+							notre section <a href="/about/data-methodology">Données et méthodologie</a
+							>.
+						</p>
+						<p>
+							Les graphiques présentent l’évolution des visites (par rapport à 2019) sous
+							forme de graphique linéaire, le nombre de visites par type de visiteur ainsi
+							que la répartition des visites selon le moment de la journée et le jour de
+							la semaine.
+						</p>
+					{:else}
+						<p>
+							The heatmap displayed represents the pattern of daily visits from the visitor's home
+							location from 2019 to 2022, which is sourced from Environics Analytics MobileScapes
+							data. To learn more, read our <a href="/about/data-methodology">Data and Methodology</a
+							>.
+						</p>
+						<p>
+							The charts display the pattern of visits (relative to 2019) as a line chart, the visit
+							count by type of visitor, as well as the breakdown of visits by time of day and week.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
