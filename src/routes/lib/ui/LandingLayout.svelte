@@ -3,7 +3,9 @@
 	import { page } from '$app/state';
 	import Icon from '@iconify/svelte';
 	import getTagColor from '../helpers/getTagColor';
+	import { getLang } from '../i18n';
 	import LandingCard from './LandingCard.svelte';
+	import { tagLabel } from './tagLabels';
 	import TabNav from './TabNav.svelte';
 
 	// Define types for item structure
@@ -45,6 +47,8 @@
 		activeTab = $bindable(''),
 		syncUrl = false
 	}: Props = $props();
+
+	const fr = getLang() === 'fr';
 
 	let searchTerm = $state('');
 	let activeCategory = $state('All');
@@ -126,7 +130,7 @@
 					<div class="controls">
 						<div class="search-box">
 							<Icon icon="ph:magnifying-glass" height="2rem" color="#555" />
-							<input type="text" placeholder="Search..." bind:value={searchTerm} />
+							<input type="text" placeholder={fr ? 'Rechercher…' : 'Search...'} bind:value={searchTerm} />
 						</div>
 
 						{#if activeCategories && activeCategories.length > 0}
@@ -139,7 +143,7 @@
 										: ''}
 									onclick={() => (activeCategory = 'All')}
 								>
-									All
+									{fr ? 'Tous' : 'All'}
 								</button>
 								{#each activeCategories as category}
 									<button
@@ -159,7 +163,7 @@
                     "
 										onclick={() => (activeCategory = category)}
 									>
-										{category}
+										{tagLabel(category, fr)}
 									</button>
 								{/each}
 							</div>
@@ -180,7 +184,7 @@
 		<div class="controls">
 			<div class="search-box">
 				<Icon icon="ph:magnifying-glass" height="2rem" color="#555" />
-				<input type="text" placeholder="Search..." bind:value={searchTerm} />
+				<input type="text" placeholder={fr ? 'Rechercher…' : 'Search...'} bind:value={searchTerm} />
 			</div>
 
 			{#if categories && categories.length > 0}
@@ -193,7 +197,7 @@
 							: ''}
 						onclick={() => (activeCategory = 'All')}
 					>
-						All
+						{fr ? 'Tous' : 'All'}
 					</button>
 					{#each categories as category}
 						<button
@@ -213,7 +217,7 @@
               "
 							onclick={() => (activeCategory = category)}
 						>
-							{category}
+							{tagLabel(category, fr)}
 						</button>
 					{/each}
 				</div>

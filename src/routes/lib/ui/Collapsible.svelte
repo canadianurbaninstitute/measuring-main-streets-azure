@@ -3,6 +3,9 @@
 	import { Collapsible } from 'bits-ui';
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
 
 	let {
 		title = '',
@@ -33,7 +36,7 @@
 			</Collapsible.Content>
 
 			<Collapsible.Trigger class="collapsible-trigger">
-				<span>{open ? 'Show less' : 'Read more'}</span>
+				<span>{open ? (fr ? 'Afficher moins' : 'Show less') : fr ? 'Lire la suite' : 'Read more'}</span>
 				<span class="trigger-icon" class:rotated={open}>
 					<Icon icon="mdi:caret-down" />
 				</span>

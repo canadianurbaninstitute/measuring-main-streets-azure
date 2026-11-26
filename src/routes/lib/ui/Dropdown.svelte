@@ -4,6 +4,7 @@
 
 	// props
 	import { mapStoreList } from '../stores/mapStore';
+	import { formatNumber, getLang } from '../i18n';
 	import Legend from './legends/Legend.svelte';
 	// Import the mapStore
 
@@ -29,6 +30,43 @@
 
 	let selected;
 
+	const fr = getLang() === 'fr';
+
+	/** @type {Record<string, string>} */
+	const LEGEND_FR = {
+		'Average Age': 'Âge moyen',
+		'Household Size': 'Taille des ménages',
+		'Average Employment Income (Census 2021)': 'Revenu d’emploi moyen (Recensement de 2021)',
+		'% Visible Minority Population': '% de minorités visibles',
+		'% Immigrants and Non-Permanent Residents': '% d’immigrants et de résidents non permanents',
+		'% Indigenous Population': '% de population autochtone',
+		'% of French Speakers': '% de francophones',
+		'% of English Speakers': '% d’anglophones',
+		'% of Bachelors Degree Holders': '% de titulaires d’un baccalauréat',
+		'Population Density (people/sq.km)': 'Densité de population (personnes/km²)',
+		'# of Dwellings': 'Nombre de logements',
+		'% Duplex': '% de duplex',
+		'% Semi-Detached': '% de maisons jumelées',
+		'% Single-Detached': '% de maisons individuelles',
+		'% Apartments (more than 5 stories)': '% d’appartements (plus de 5 étages)',
+		'% Apartments (less than 5 stories)': '% d’appartements (moins de 5 étages)'
+	};
+
+	/** Legend title in the page language. @param {string} label */
+	const lab = (label) => (fr ? (LEGEND_FR[label] ?? label) : label);
+
+	/**
+	 * Legend end value in the page language ('$880,000' -> '880 000 $', '14.7%' -> '14,7 %').
+	 * @param {string} value
+	 */
+	const num = (value) => {
+		if (!fr) return value;
+		const m = value.match(/^(\$?)([\d,.]+)(%?)$/);
+		if (!m) return value;
+		const n = formatNumber(Number(m[2].replace(/,/g, '')), { maximumFractionDigits: 1 });
+		return n + (m[1] ? '\u00a0$' : '') + (m[3] ? '\u00a0%' : '');
+	};
+
 	function toggleCensusLayer() {
 		map.setPaintProperty(`${casestudy}-outline`, 'line-color', '#ffdd33');
 		options.forEach((option) => {
@@ -53,285 +91,285 @@
 
 {#if region && region === 'toronto'}
 	{#if selected && selected.id === 'average-age'}
-		<Legend minlabel={'29'} maxlabel={'89'} label={'Average Age'} />
+		<Legend minlabel={num('29')} maxlabel={num('89')} label={lab('Average Age')} />
 	{/if}
 
 	{#if selected && selected.id === 'household-size'}
-		<Legend minlabel={'1'} maxlabel={'8'} label={'Household Size'} />
+		<Legend minlabel={num('1')} maxlabel={num('8')} label={lab('Household Size')} />
 	{/if}
 
 	{#if selected && selected.id === 'average-income'}
 		<Legend
-			maxlabel={'$880,000'}
-			minlabel={'$20,000'}
-			label={'Average Employment Income (Census 2021)'}
+			maxlabel={num('$880,000')}
+			minlabel={num('$20,000')}
+			label={lab('Average Employment Income (Census 2021)')}
 		/>
 	{/if}
 
 	{#if selected && selected.id === 'visibleminority'}
-		<Legend maxlabel={'100%'} label={'% Visible Minority Population'} />
+		<Legend maxlabel={num('100%')} label={lab('% Visible Minority Population')} />
 	{/if}
 
 	{#if selected && selected.id === 'immigrants'}
-		<Legend maxlabel={'100%'} label={'% Immigrants and Non-Permanent Residents'} />
+		<Legend maxlabel={num('100%')} label={lab('% Immigrants and Non-Permanent Residents')} />
 	{/if}
 
 	{#if selected && selected.id === 'indigenous'}
-		<Legend maxlabel={'79%'} label={'% Indigenous Population'} />
+		<Legend maxlabel={num('79%')} label={lab('% Indigenous Population')} />
 	{/if}
 
 	{#if selected && selected.id === 'french-speakers'}
-		<Legend maxlabel={'14.7%'} label={'% of French Speakers'} />
+		<Legend maxlabel={num('14.7%')} label={lab('% of French Speakers')} />
 	{/if}
 
 	{#if selected && selected.id === 'english-speakers'}
-		<Legend maxlabel={'100%'} label={'% of English Speakers'} />
+		<Legend maxlabel={num('100%')} label={lab('% of English Speakers')} />
 	{/if}
 
 	{#if selected && selected.id === 'education-bachelors'}
-		<Legend maxlabel={'100%'} label={'% of Bachelors Degree Holders'} />
+		<Legend maxlabel={num('100%')} label={lab('% of Bachelors Degree Holders')} />
 	{/if}
 
 	<!-- Housing -->
 
 	{#if selected && selected.id === 'populationdensity'}
-		<Legend maxlabel={'4,070,000'} label={'Population Density (people/sq.km)'} />
+		<Legend maxlabel={num('4,070,000')} label={lab('Population Density (people/sq.km)')} />
 	{/if}
 
 	{#if selected && selected.id === 'dwellings'}
-		<Legend minlabel={'18'} maxlabel={'8149'} label={'# of Dwellings'} />
+		<Legend minlabel={num('18')} maxlabel={num('8149')} label={lab('# of Dwellings')} />
 	{/if}
 
 	{#if selected && selected.id === 'duplex'}
-		<Legend maxlabel={'70%'} label={'% Duplex'} />
+		<Legend maxlabel={num('70%')} label={lab('% Duplex')} />
 	{/if}
 
 	{#if selected && selected.id === 'semi-detached'}
-		<Legend maxlabel={'100%'} label={'% Semi-Detached'} />
+		<Legend maxlabel={num('100%')} label={lab('% Semi-Detached')} />
 	{/if}
 
 	{#if selected && selected.id === 'single-detached'}
-		<Legend maxlabel={'100%'} label={'% Single-Detached'} />
+		<Legend maxlabel={num('100%')} label={lab('% Single-Detached')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-more-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Apartments (more than 5 stories)'} />
+		<Legend maxlabel={num('100%')} label={lab('% Apartments (more than 5 stories)')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-less-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Apartments (less than 5 stories)'} />
+		<Legend maxlabel={num('100%')} label={lab('% Apartments (less than 5 stories)')} />
 	{/if}
 {/if}
 
 {#if region && region === 'montreal'}
 	{#if selected && selected.id === 'average-age'}
-		<Legend minlabel={'38'} maxlabel={'79.8'} label={'Average Age'} />
+		<Legend minlabel={num('38')} maxlabel={num('79.8')} label={lab('Average Age')} />
 	{/if}
 
 	{#if selected && selected.id === 'household-size'}
-		<Legend minlabel={'1'} maxlabel={'8'} label={'Household Size'} />
+		<Legend minlabel={num('1')} maxlabel={num('8')} label={lab('Household Size')} />
 	{/if}
 
 	{#if selected && selected.id === 'average-income'}
 		<Legend
-			maxlabel={'$171,000'}
-			minlabel={'$22,400'}
-			label={'Average Employment Income (Census 2021)'}
+			maxlabel={num('$171,000')}
+			minlabel={num('$22,400')}
+			label={lab('Average Employment Income (Census 2021)')}
 		/>
 	{/if}
 
 	{#if selected && selected.id === 'visibleminority'}
-		<Legend maxlabel={'100%'} label={'% Visible Minority Population'} />
+		<Legend maxlabel={num('100%')} label={lab('% Visible Minority Population')} />
 	{/if}
 
 	{#if selected && selected.id === 'immigrants'}
-		<Legend maxlabel={'100%'} label={'% Immigrants and Non-Permanent Residents'} />
+		<Legend maxlabel={num('100%')} label={lab('% Immigrants and Non-Permanent Residents')} />
 	{/if}
 
 	{#if selected && selected.id === 'indigenous'}
-		<Legend maxlabel={'79%'} label={'% Indigenous Population'} />
+		<Legend maxlabel={num('79%')} label={lab('% Indigenous Population')} />
 	{/if}
 
 	{#if selected && selected.id === 'french-speakers'}
-		<Legend maxlabel={'100%'} label={'% of French Speakers'} />
+		<Legend maxlabel={num('100%')} label={lab('% of French Speakers')} />
 	{/if}
 
 	{#if selected && selected.id === 'english-speakers'}
-		<Legend maxlabel={'100%'} label={'% of English Speakers'} />
+		<Legend maxlabel={num('100%')} label={lab('% of English Speakers')} />
 	{/if}
 
 	{#if selected && selected.id === 'education-bachelors'}
-		<Legend maxlabel={'100%'} label={'% of Bachelors Degree Holders'} />
+		<Legend maxlabel={num('100%')} label={lab('% of Bachelors Degree Holders')} />
 	{/if}
 
 	<!-- Housing -->
 
 	{#if selected && selected.id === 'populationdensity'}
-		<Legend maxlabel={'159,762'} label={'Population Density (people/sq.km)'} />
+		<Legend maxlabel={num('159,762')} label={lab('Population Density (people/sq.km)')} />
 	{/if}
 
 	{#if selected && selected.id === 'dwellings'}
-		<Legend minlabel={'0'} maxlabel={'4770'} label={'# of Dwellings'} />
+		<Legend minlabel={num('0')} maxlabel={num('4770')} label={lab('# of Dwellings')} />
 	{/if}
 
 	{#if selected && selected.id === 'duplex'}
-		<Legend maxlabel={'100%'} label={'% Duplex'} />
+		<Legend maxlabel={num('100%')} label={lab('% Duplex')} />
 	{/if}
 
 	{#if selected && selected.id === 'semi-detached'}
-		<Legend maxlabel={'100%'} label={'% Semi-Detached'} />
+		<Legend maxlabel={num('100%')} label={lab('% Semi-Detached')} />
 	{/if}
 
 	{#if selected && selected.id === 'single-detached'}
-		<Legend maxlabel={'100%'} label={'% Single-Detached'} />
+		<Legend maxlabel={num('100%')} label={lab('% Single-Detached')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-more-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Apartments (more than 5 stories)'} />
+		<Legend maxlabel={num('100%')} label={lab('% Apartments (more than 5 stories)')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-less-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Apartments (less than 5 stories)'} />
+		<Legend maxlabel={num('100%')} label={lab('% Apartments (less than 5 stories)')} />
 	{/if}
 {/if}
 
 {#if region && region === 'montreal-fr'}
 	{#if selected && selected.id === 'average-age'}
-		<Legend minlabel={'38'} maxlabel={'79.8'} label={'Âge moyen'} />
+		<Legend minlabel={num('38')} maxlabel={num('79.8')} label={lab('Âge moyen')} />
 	{/if}
 
 	{#if selected && selected.id === 'household-size'}
-		<Legend minlabel={'1'} maxlabel={'8'} label={'Taille des ménages'} />
+		<Legend minlabel={num('1')} maxlabel={num('8')} label={lab('Taille des ménages')} />
 	{/if}
 
 	{#if selected && selected.id === 'average-income'}
-		<Legend maxlabel={'$171,000'} minlabel={'$22,400'} label={'Revenu moyen (Census 2021)'} />
+		<Legend maxlabel={num('$171,000')} minlabel={num('$22,400')} label={lab('Revenu moyen (Recensement de 2021)')} />
 	{/if}
 
 	{#if selected && selected.id === 'visibleminority'}
-		<Legend maxlabel={'100%'} label={'% Minorités visibles'} />
+		<Legend maxlabel={num('100%')} label={lab('% Minorités visibles')} />
 	{/if}
 
 	{#if selected && selected.id === 'immigrants'}
-		<Legend maxlabel={'100%'} label={'% Immigrants récents'} />
+		<Legend maxlabel={num('100%')} label={lab('% Immigrants récents')} />
 	{/if}
 
 	{#if selected && selected.id === 'indigenous'}
-		<Legend maxlabel={'79%'} label={'% Population autochtone'} />
+		<Legend maxlabel={num('79%')} label={lab('% Population autochtone')} />
 	{/if}
 
 	{#if selected && selected.id === 'french-speakers'}
-		<Legend maxlabel={'100%'} label={'% Personne de langue française'} />
+		<Legend maxlabel={num('100%')} label={lab('% Personne de langue française')} />
 	{/if}
 
 	{#if selected && selected.id === 'english-speakers'}
-		<Legend maxlabel={'100%'} label={'% Personne de langue anglaise'} />
+		<Legend maxlabel={num('100%')} label={lab('% Personne de langue anglaise')} />
 	{/if}
 
 	{#if selected && selected.id === 'education-bachelors'}
-		<Legend maxlabel={'100%'} label={'% Titulaires d’un baccalauréat'} />
+		<Legend maxlabel={num('100%')} label={lab('% Titulaires d’un baccalauréat')} />
 	{/if}
 
 	<!-- Housing -->
 
 	{#if selected && selected.id === 'populationdensity'}
-		<Legend maxlabel={'159,762'} label={'Densité de la population (personnes/sq.km)'} />
+		<Legend maxlabel={num('159,762')} label={lab('Densité de la population (personnes/sq.km)')} />
 	{/if}
 
 	{#if selected && selected.id === 'dwellings'}
-		<Legend minlabel={'0'} maxlabel={'4770'} label={'Logements'} />
+		<Legend minlabel={num('0')} maxlabel={num('4770')} label={lab('Logements')} />
 	{/if}
 
 	{#if selected && selected.id === 'duplex'}
-		<Legend maxlabel={'100%'} label={'% Duplex'} />
+		<Legend maxlabel={num('100%')} label={lab('% Duplex')} />
 	{/if}
 
 	{#if selected && selected.id === 'semi-detached'}
-		<Legend maxlabel={'100%'} label={'% Logements jumelés'} />
+		<Legend maxlabel={num('100%')} label={lab('% Logements jumelés')} />
 	{/if}
 
 	{#if selected && selected.id === 'single-detached'}
-		<Legend maxlabel={'100%'} label={'% Logements individuels non attenants'} />
+		<Legend maxlabel={num('100%')} label={lab('% Logements individuels non attenants')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-more-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Tours d’habitation'} />
+		<Legend maxlabel={num('100%')} label={lab('% Tours d’habitation')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-less-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Immeubles à hauteur restreinte'} />
+		<Legend maxlabel={num('100%')} label={lab('% Immeubles à hauteur restreinte')} />
 	{/if}
 {/if}
 
 {#if region && region === 'edmonton'}
 	{#if selected && selected.id === 'average-age'}
-		<Legend minlabel={'36'} maxlabel={'76.1'} label={'Average Age'} />
+		<Legend minlabel={num('36')} maxlabel={num('76.1')} label={lab('Average Age')} />
 	{/if}
 
 	{#if selected && selected.id === 'household-size'}
-		<Legend minlabel={'1'} maxlabel={'8'} label={'Household Size'} />
+		<Legend minlabel={num('1')} maxlabel={num('8')} label={lab('Household Size')} />
 	{/if}
 
 	{#if selected && selected.id === 'average-income'}
 		<Legend
-			maxlabel={'$750,000'}
-			minlabel={'$36,000'}
-			label={'Average Employment Income (Census 2021)'}
+			maxlabel={num('$750,000')}
+			minlabel={num('$36,000')}
+			label={lab('Average Employment Income (Census 2021)')}
 		/>
 	{/if}
 
 	{#if selected && selected.id === 'visibleminority'}
-		<Legend maxlabel={'100%'} label={'% Visible Minority Population'} />
+		<Legend maxlabel={num('100%')} label={lab('% Visible Minority Population')} />
 	{/if}
 
 	{#if selected && selected.id === 'immigrants'}
-		<Legend maxlabel={'100%'} label={'% Immigrants and Non-Permanent Residents'} />
+		<Legend maxlabel={num('100%')} label={lab('% Immigrants and Non-Permanent Residents')} />
 	{/if}
 
 	{#if selected && selected.id === 'indigenous'}
-		<Legend maxlabel={'97.6%'} label={'% Indigenous Population'} />
+		<Legend maxlabel={num('97.6%')} label={lab('% Indigenous Population')} />
 	{/if}
 
 	{#if selected && selected.id === 'french-speakers'}
-		<Legend maxlabel={'46.9%'} label={'% of French Speakers'} />
+		<Legend maxlabel={num('46.9%')} label={lab('% of French Speakers')} />
 	{/if}
 
 	{#if selected && selected.id === 'english-speakers'}
-		<Legend maxlabel={'100%'} label={'% of English Speakers'} />
+		<Legend maxlabel={num('100%')} label={lab('% of English Speakers')} />
 	{/if}
 
 	{#if selected && selected.id === 'education-bachelors'}
-		<Legend maxlabel={'100%'} label={'% of Bachelors Degree Holders'} />
+		<Legend maxlabel={num('100%')} label={lab('% of Bachelors Degree Holders')} />
 	{/if}
 
 	<!-- Housing -->
 
 	{#if selected && selected.id === 'populationdensity'}
-		<Legend maxlabel={'50,529'} label={'Population Density (people/sq.km)'} />
+		<Legend maxlabel={num('50,529')} label={lab('Population Density (people/sq.km)')} />
 	{/if}
 
 	{#if selected && selected.id === 'dwellings'}
-		<Legend minlabel={'0'} maxlabel={'3778'} label={'# of Dwellings'} />
+		<Legend minlabel={num('0')} maxlabel={num('3778')} label={lab('# of Dwellings')} />
 	{/if}
 
 	{#if selected && selected.id === 'duplex'}
-		<Legend maxlabel={'100%'} label={'% Duplex'} />
+		<Legend maxlabel={num('100%')} label={lab('% Duplex')} />
 	{/if}
 
 	{#if selected && selected.id === 'semi-detached'}
-		<Legend maxlabel={'100%'} label={'% Semi-Detached'} />
+		<Legend maxlabel={num('100%')} label={lab('% Semi-Detached')} />
 	{/if}
 
 	{#if selected && selected.id === 'single-detached'}
-		<Legend maxlabel={'100%'} label={'% Single-Detached'} />
+		<Legend maxlabel={num('100%')} label={lab('% Single-Detached')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-more-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Apartments (more than 5 stories)'} />
+		<Legend maxlabel={num('100%')} label={lab('% Apartments (more than 5 stories)')} />
 	{/if}
 
 	{#if selected && selected.id === 'apartment-less-5-stories'}
-		<Legend maxlabel={'100%'} label={'% Apartments (less than 5 stories)'} />
+		<Legend maxlabel={num('100%')} label={lab('% Apartments (less than 5 stories)')} />
 	{/if}
 {/if}
 

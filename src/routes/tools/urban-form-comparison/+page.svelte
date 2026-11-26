@@ -14,7 +14,11 @@
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import MetricsDisplay from './MetricsDisplay.svelte';
 
+	import { getLang } from '../../lib/i18n';
 	import '../../styles.css';
+
+	const fr = getLang() === 'fr';
+	const stationNotAvailable = fr ? 'Données de la station non disponibles' : 'Station data not available';
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -122,7 +126,7 @@
 
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 1: Station not found in data`);
-			station1Error = 'Station data not available';
+			station1Error = stationNotAvailable;
 			return;
 		}
 
@@ -138,7 +142,7 @@
 
 		if (!stationExists) {
 			console.error(`Cannot select station "${newStationId}" for Map 2: Station not found in data`);
-			station2Error = 'Station data not available';
+			station2Error = stationNotAvailable;
 			return;
 		}
 
@@ -342,7 +346,7 @@
 				);
 				station1Data = mapData[1].data;
 			} else {
-				station1Error = 'Station data not available';
+				station1Error = stationNotAvailable;
 			}
 
 			// Map 2 side effects execution
@@ -356,7 +360,7 @@
 				);
 				station2Data = mapData[2].data;
 			} else {
-				station2Error = 'Station data not available';
+				station2Error = stationNotAvailable;
 			}
 		}
 	});
@@ -472,15 +476,26 @@
 </script>
 
 <div class="hero">
-	<h1>Urban Form Comparison</h1>
-	<h2>Mapping Tool</h2>
-	<p id="description">
-		This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns
-		to select transit stations to compare. Inspired by
-		<a href="https://schoolofcities.github.io/rail-transit-and-population-density/" target="_blank"
-			>School of Cities</a
-		>.
-	</p>
+	<h1>{fr ? 'Comparaison de la forme urbaine' : 'Urban Form Comparison'}</h1>
+	<h2>{fr ? 'Outil cartographique' : 'Mapping Tool'}</h2>
+	{#if fr}
+		<p id="description">
+			Cet outil met en évidence la forme urbaine des secteurs situés dans un rayon de 800 m d’une
+			station de transport collectif. Utilisez les menus déroulants pour choisir les stations à
+			comparer. Inspiré par
+			<a href="https://schoolofcities.github.io/rail-transit-and-population-density/" target="_blank"
+				>School of Cities</a
+			>.
+		</p>
+	{:else}
+		<p id="description">
+			This tool highlights the urban form of areas within 800m of a transit station. Use the dropdowns
+			to select transit stations to compare. Inspired by
+			<a href="https://schoolofcities.github.io/rail-transit-and-population-density/" target="_blank"
+				>School of Cities</a
+			>.
+		</p>
+	{/if}
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-fit mx-auto">
@@ -490,7 +505,7 @@
 				handleSelect={handleStation1Select}
 				data={transitStationsDropdown}
 				icon="mdi:train"
-				placeholder={'Search for a station'}
+				placeholder={fr ? 'Rechercher une station' : 'Search for a station'}
 				selected={selectedStation1}
 			></Combobox>
 			<div class="h-4 text-center">
@@ -508,7 +523,7 @@
 				handleSelect={handleStation2Select}
 				data={transitStationsDropdown}
 				icon="mdi:train"
-				placeholder={'Search for a station'}
+				placeholder={fr ? 'Rechercher une station' : 'Search for a station'}
 				selected={selectedStation2}
 			></Combobox>
 			<div class="h-4 text-center">
@@ -522,17 +537,17 @@
 </div>
 
 <div class="flex justify-center text-sm px-2 py-4 gap-2 flex-wrap">
-	<Checkbox bind:checked={roadsCheck} label="Road Network" icon="mdi:road" />
+	<Checkbox bind:checked={roadsCheck} label={fr ? 'Réseau routier' : 'Road Network'} icon="mdi:road" />
 	<Checkbox
 		bind:checked={transitCheck}
-		label="Transit Lines"
+		label={fr ? 'Lignes de transport collectif' : 'Transit Lines'}
 		icon="mdi:transit-connection-variant"
 	/>
-	<Checkbox bind:checked={stationCheck} label="Transit Stations" icon="mdi:train" />
-	<Checkbox bind:checked={greenspaceCheck} label="Greenspace" icon="mdi:pine-tree-variant" />
-	<Checkbox bind:checked={waterCheck} label="Water" icon="mdi:waves" />
-	<Checkbox bind:checked={buildingsCheck} label="Buildings" icon="mdi:office-building" />
-	<Checkbox bind:checked={parkingCheck} label="Parking" icon="mdi:car" />
+	<Checkbox bind:checked={stationCheck} label={fr ? 'Stations de transport collectif' : 'Transit Stations'} icon="mdi:train" />
+	<Checkbox bind:checked={greenspaceCheck} label={fr ? 'Espaces verts' : 'Greenspace'} icon="mdi:pine-tree-variant" />
+	<Checkbox bind:checked={waterCheck} label={fr ? 'Eau' : 'Water'} icon="mdi:waves" />
+	<Checkbox bind:checked={buildingsCheck} label={fr ? 'Bâtiments' : 'Buildings'} icon="mdi:office-building" />
+	<Checkbox bind:checked={parkingCheck} label={fr ? 'Stationnement' : 'Parking'} icon="mdi:car" />
 </div>
 
 <div class="container mx-auto flex justify-center px-4 sm:px-6 pb-10 max-w-4xl">

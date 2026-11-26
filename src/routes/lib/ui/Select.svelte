@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { Select } from 'bits-ui';
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
 
 	interface OptionItem {
 		value: string;
@@ -46,7 +49,7 @@
 </script>
 
 <Select.Root type="single" bind:value={selected} onValueChange={onSelectChange}>
-	<Select.Trigger class="select-trigger" aria-label="Select">
+	<Select.Trigger class="select-trigger" aria-label={fr ? 'Sélectionner' : 'Select'}>
 		<Icon {icon} class="icon-start" />
 		{#if selected}
 			{getLabel(selected)}
@@ -67,7 +70,7 @@
 									{label}
 									{#if selected === value}
 										<div class="check-icon">
-											<Icon icon="mdi:check" aria-label="selected" />
+											<Icon icon="mdi:check" aria-label={fr ? 'sélectionné' : 'selected'} />
 										</div>
 									{/if}
 								</Select.Item>
@@ -82,7 +85,7 @@
 							{label}
 							{#if selected === value}
 								<div class="check-icon">
-									<Icon icon="mdi:check" aria-label="selected" />
+									<Icon icon="mdi:check" aria-label={fr ? 'sélectionné' : 'selected'} />
 								</div>
 							{/if}
 						</Select.Item>

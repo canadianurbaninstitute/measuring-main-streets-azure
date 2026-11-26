@@ -13,13 +13,18 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article';
+	import { sections as sectionsEn } from './article';
+	import { sections as sectionsFr } from './article.fr';
+	import { getLang } from '../../../lib/i18n';
 	import CivicInfrastructureComparison from './CivicInfrastructureComparison.svelte';
 	import FoodCoopBenefits from './FoodCoopBenefits.svelte';
 	import GroceryMap from './GroceryMap.svelte';
 	import PublicGrocerStats from './PublicGrocerStats.svelte';
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	// Reactive state
 	let selectedRegion = $state('greater_golden_horseshoe');
@@ -28,7 +33,9 @@
 		'market-concentration': {
 			type: 'image',
 			src: marketConcentrationImg,
-			alt: 'Infographic showing Canadian grocery market concentration: 80% controlled by 5 giants.'
+			alt: fr
+				? 'Infographie illustrant la concentration du marché canadien de l’épicerie : 80 % contrôlé par 5 géants.'
+				: 'Infographic showing Canadian grocery market concentration: 80% controlled by 5 giants.'
 		},
 		'transit-food-access': {
 			type: 'component',
@@ -112,7 +119,7 @@
 
 	const items = [
 		{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-		{ type: 'anchor', id: 'report-findings', label: 'Key Takeaways' },
+		{ type: 'anchor', id: 'report-findings', label: fr ? 'Points à retenir' : 'Key Takeaways' },
 		...(sections
 			.map((section, si) => {
 				const heading = section.blocks.find((b) => b.heading)?.heading;
@@ -136,30 +143,53 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
-	<ReportHeader
-		id="report-header"
-		subEyebrow="Enabling affordable grocery options in and around transit stations "
-		title="EATING WELL"
-		subtitle="The development of new transit-oriented communities represents a generational opportunity to ensure reliable access to healthy and affordable food for those who rely on transit the most."
-		author="By Leandro G. Santos"
-		date="March 31, 2026"
-		backgroundImage={headerImage}
-	/>
+	{#if fr}
+		<ReportHeader
+			id="report-header"
+			subEyebrow="Favoriser l’offre d’épiceries abordables dans les stations de transport collectif et autour de celles-ci "
+			title="BIEN MANGER"
+			subtitle="L’aménagement de nouvelles collectivités axées sur le transport collectif représente une occasion unique en une génération de garantir un accès fiable à des aliments sains et abordables aux personnes qui dépendent le plus du transport collectif."
+			author="Par Leandro G. Santos"
+			date="31 mars 2026"
+			backgroundImage={headerImage}
+		/>
 
-	<ReportFindings
-		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="Canada’s grocery industry lacks healthy competition"
-		description1="and grocery prices won’t decrease without intervention."
-		finding2="Public grocery stores and food co-operatives"
-		description2="represent viable, non-profit models to make groceries more affordable."
-		finding3="Food access is a keystone of complete communities"
-		description3="and must be integrated into transit station area planning and development."
-	/>
+		<ReportFindings
+			id="report-findings"
+			title="POINTS À RETENIR"
+			finding1="Le secteur canadien de l’épicerie manque de saine concurrence"
+			description1="et les prix de l’épicerie ne baisseront pas sans intervention."
+			finding2="Les épiceries publiques et les coopératives alimentaires"
+			description2="sont des modèles viables et sans but lucratif pour rendre l’épicerie plus abordable."
+			finding3="L’accès aux aliments est la pierre angulaire de collectivités complètes"
+			description3="et doit être intégré à la planification et à l’aménagement des aires de station de transport collectif."
+		/>
+	{:else}
+		<ReportHeader
+			id="report-header"
+			subEyebrow="Enabling affordable grocery options in and around transit stations "
+			title="EATING WELL"
+			subtitle="The development of new transit-oriented communities represents a generational opportunity to ensure reliable access to healthy and affordable food for those who rely on transit the most."
+			author="By Leandro G. Santos"
+			date="March 31, 2026"
+			backgroundImage={headerImage}
+		/>
+
+		<ReportFindings
+			id="report-findings"
+			title="KEY TAKEAWAYS"
+			finding1="Canada’s grocery industry lacks healthy competition"
+			description1="and grocery prices won’t decrease without intervention."
+			finding2="Public grocery stores and food co-operatives"
+			description2="represent viable, non-profit models to make groceries more affordable."
+			finding3="Food access is a keystone of complete communities"
+			description3="and must be integrated into transit station area planning and development."
+		/>
+	{/if}
 
 	{#snippet renderPanel(uid: string, isVisible: boolean)}
 		{@const panel = allPanels.find((p) => p.uid === uid)}
@@ -185,7 +215,7 @@
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
+						label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 						target={panel.config.target}
 					/>
 				{/if}

@@ -1,6 +1,10 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import getTagColor from '../helpers/getTagColor';
+	import { getLang } from '../i18n';
+	import { tagLabel } from './tagLabels';
+
+	const fr = getLang() === 'fr';
 
 	// 1. Define types for complex data shapes
 	interface ItemTag {
@@ -36,7 +40,8 @@
 	}: Props = $props();
 
 	// 4. Add type safety to the helper function parameter
-	const getTagText = (tag: TagType): string => (typeof tag === 'object' ? tag.text : tag);
+	const getTagText = (tag: TagType): string =>
+		tagLabel(typeof tag === 'object' ? tag.text : tag, fr);
 </script>
 
 <a href={link} class="card-link">
@@ -54,10 +59,10 @@
 							{#if i > 0}
 								<span class="logo-divider"></span>
 							{/if}
-							<img src={singleLogo} alt="Partner logo" />
+							<img src={singleLogo} alt={fr ? 'Logo de partenaire' : 'Partner logo'} />
 						{/each}
 					{:else}
-						<img src={logo} alt="Partner logo" />
+						<img src={logo} alt={fr ? 'Logo de partenaire' : 'Partner logo'} />
 					{/if}
 				</div>
 			{/if}
@@ -81,7 +86,7 @@
 					</div>
 				{/if}
 				<span class="cta">
-					Go now <Icon icon="ph:arrow-right-bold" />
+					{fr ? 'Y aller' : 'Go now'} <Icon icon="ph:arrow-right-bold" />
 				</span>
 			</div>
 		</div>

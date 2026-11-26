@@ -1,5 +1,9 @@
 <!-- UI component that displays a report with a title, subtitle and associated image or icon.-->
 <script>
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
+
 	export let link;
 	export let cardImage;
 	export let title;
@@ -9,7 +13,7 @@
 <a href={link}>
 	<div class="card">
 		<div class="card-img-container">
-			<img src={cardImage} alt="card" />
+			<img src={cardImage} alt={fr ? 'vignette' : 'card'} />
 		</div>
 		<div class="card-text-container">
 			<div>

@@ -6,27 +6,38 @@
 	import mms from '../assets/logos/MMS_EN_FR_combined.png';
 	import opennorth from '../assets/logos/opennorth_logo.svg';
 	import soc from '../assets/logos/uotsoc.png';
+	import { getLang } from '../i18n';
 	import SocialLinks from './SocialLinks.svelte';
+
+	const fr = getLang() === 'fr';
 </script>
 
 <footer class="modern-footer">
 	<div class="footer-top">
 		<div class="main-logos">
-			<img src={mms} alt="Measuring Main Streets" class="mms-logo" />
-			<img src={cui} alt="Canadian Urban Institute" class="cui-logo" />
+			<img src={mms} alt={fr ? 'Mesures des rues principales' : 'Measuring Main Streets'} class="mms-logo" />
+			<img src={cui} alt={fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute'} class="cui-logo" />
 		</div>
 	</div>
 
 	<div class="footer-middle">
-		<p class="footer-text">
-			The Measuring Main Streets platform was created by the Canadian Urban Institute and is a part
-			of the Research Knowledge Initiative of Housing, Infrastructure and Communities Canada.
-		</p>
+		{#if fr}
+			<p class="footer-text">
+				La plateforme Mesures des rues principales a été créée par l’Institut urbain du Canada et fait
+				partie de l’Initiative de recherche et de connaissances de Logement, Infrastructures et
+				Collectivités Canada.
+			</p>
+		{:else}
+			<p class="footer-text">
+				The Measuring Main Streets platform was created by the Canadian Urban Institute and is a part
+				of the Research Knowledge Initiative of Housing, Infrastructure and Communities Canada.
+			</p>
+		{/if}
 	</div>
 
 	<div class="footer-bottom">
 		<div class="partner-logos">
-			<img src={canada} alt="Funded by Government of Canada" />
+			<img src={canada} alt={fr ? 'Financé par le gouvernement du Canada' : 'Funded by Government of Canada'} />
 			<a href="https://environicsanalytics.com/en-ca/home" target="blank">
 				<img src={environics} alt="Environics Analytics" />
 			</a>

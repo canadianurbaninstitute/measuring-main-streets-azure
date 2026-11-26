@@ -1,12 +1,21 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 </script>
 
 <div class="stats-aside">
 	<div class="stats-header">
-		<p class="stats-lead">
-			For <strong>$350 million</strong>, the federal government could develop:
-		</p>
+		{#if fr}
+			<p class="stats-lead">
+				Pour <strong>350 millions de dollars</strong>, le gouvernement fédéral pourrait aménager :
+			</p>
+		{:else}
+			<p class="stats-lead">
+				For <strong>$350 million</strong>, the federal government could develop:
+			</p>
+		{/if}
 	</div>
 
 	<div class="stats-grid">
@@ -16,8 +25,12 @@
 			</div>
 			<div class="stats-content">
 				<p class="stats-value">50</p>
-				<p class="stats-label">government-owned grocery stores</p>
-				<p class="stats-sub">(40 in urban areas, 10 in rural Northern communities)</p>
+				<p class="stats-label">{fr ? 'épiceries publiques' : 'government-owned grocery stores'}</p>
+				<p class="stats-sub">
+					{fr
+						? '(40 en milieu urbain, 10 dans des collectivités rurales du Nord)'
+						: '(40 in urban areas, 10 in rural Northern communities)'}
+				</p>
 			</div>
 		</div>
 
@@ -27,12 +40,45 @@
 			</div>
 			<div class="stats-content">
 				<p class="stats-value">6</p>
-				<p class="stats-label">regional distribution hubs</p>
+				<p class="stats-label">{fr ? 'centres de distribution régionaux' : 'regional distribution hubs'}</p>
 			</div>
 		</div>
 	</div>
 
 	<div class="stats-footer">
+		{#if fr}
+			<ul class="stats-list">
+				<li>
+					<span class="dot"></span>
+					<p>Exploitation annuelle : <strong>290 millions de dollars</strong></p>
+				</li>
+				<li>
+					<span class="dot"></span>
+					<p>En milieu urbain, baisse des prix à la consommation : <strong>25 à 30 %</strong></p>
+				</li>
+				<li>
+					<span class="dot"></span>
+					<p>
+						Les familles pourraient économiser de <strong>2 500 $ à 10 000 $</strong> par année selon
+						l’endroit
+					</p>
+				</li>
+				<li>
+					<span class="dot"></span>
+					<p>
+						<strong>200 000 familles urbaines</strong> et <strong>10 000 familles du Nord</strong>
+						pourraient économiser au total <strong>600 millions de dollars</strong> par année
+					</p>
+				</li>
+				<li>
+					<span class="dot"></span>
+					<p>
+						Pour chaque huard consacré à l’exploitation, les consommateurs et consommatrices
+						économiseraient <strong>deux</strong> dollars sur leur épicerie
+					</p>
+				</li>
+			</ul>
+		{:else}
 		<ul class="stats-list">
 			<li>
 				<span class="dot"></span>
@@ -60,6 +106,7 @@
 				</p>
 			</li>
 		</ul>
+		{/if}
 	</div>
 </div>
 

@@ -1,5 +1,9 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../i18n';
+	import { tagLabel } from './tagLabels';
+
+	const fr = getLang() === 'fr';
 
 	export let link = '#';
 	export let image = '';
@@ -19,12 +23,12 @@
 		return 'var(--brandLightBlue)';
 	};
 
-	const getTagText = (tag) => (typeof tag === 'object' ? tag.text : tag);
+	const getTagText = (tag) => tagLabel(typeof tag === 'object' ? tag.text : tag, fr);
 </script>
 
 <a href={link} class="card-link featured">
 	<article class="featured-card">
-		<div class="badge">Featured</div>
+		<div class="badge">{fr ? 'En vedette' : 'Featured'}</div>
 		<div class="card-image-container">
 			<img src={image} alt={title} />
 		</div>
@@ -41,7 +45,7 @@
 
 			<div class="card-footer">
 				<span class="cta">
-					Explore Project <Icon icon="ph:arrow-right-bold" />
+					{fr ? 'Explorer le projet' : 'Explore Project'} <Icon icon="ph:arrow-right-bold" />
 				</span>
 			</div>
 		</div>

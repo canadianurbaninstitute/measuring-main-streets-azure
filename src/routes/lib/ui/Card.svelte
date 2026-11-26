@@ -1,6 +1,10 @@
 <!-- UI component that displays a clickable card with an image and a street name used in the MMS Case Study pages to list case studies in a grid/lists.-->
 
 <script>
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
+
     // props
     export let link;
     export let cardImage;
@@ -10,7 +14,7 @@
 <a href={link}>
 <div class="card">
     <div class="card-img">
-        <img src={cardImage} alt="card">
+        <img src={cardImage} alt={fr ? 'vignette' : 'card'}>
     </div>
     <h4>{streetName}</h4>
 </div>

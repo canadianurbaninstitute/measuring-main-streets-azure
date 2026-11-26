@@ -7,9 +7,13 @@
 	 * Iconify support: pass iconBeforeName or iconAfterName (e.g. 'mdi:arrow-left')
 	 */
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
+
 	let {
 		href = '',
-		label = 'Learn More',
+		label = fr ? 'En savoir plus' : 'Learn More',
 		target = '_blank',
 		variant = 'primary', // primary, secondary, ghost
 		color = 'blue', // blue, darkblue, green, pink, orange, purple, red, yellow

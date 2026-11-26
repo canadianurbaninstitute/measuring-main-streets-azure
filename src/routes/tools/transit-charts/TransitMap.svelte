@@ -10,6 +10,7 @@
 		transit_stations_source
 	} from '../../lib/data/transitdata/config-mapbox.json';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	import { getLang } from '../../lib/i18n';
 	import '../../styles.css';
 	// --- Data Imports ---
 	// import stationRawData from '../../lib/data/transitdata/stations.json';
@@ -21,6 +22,7 @@
 		currentData,
 		selectedVariable
 	} = $props();
+	const fr = getLang() === 'fr';
 	let accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 	let mapStyle = transit_charts_style.url;
 
@@ -203,7 +205,7 @@
 
 		map.addControl(
 			new mapboxgl.AttributionControl({
-				customAttribution: 'Canadian Urban Institute'
+				customAttribution: fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute'
 			})
 		);
 

@@ -9,14 +9,19 @@
 	import Toronto from '../../lib/assets/graphics/toronto.jpg';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import '../../styles.css';
+	import { getLang } from '../../lib/i18n';
+	import { translateReportListing } from '../components/reportTags';
 
-	const title = 'Measuring Main Streets Reports';
-	const description =
-		'Emerging from the data that underpins the mapping tool, CUI and select partners developed a project executive summary, four research reports, and three regional reports to reveal key findings and messages, enable sensemaking, and point toward real-life applications and interventions.';
+	const fr = getLang() === 'fr';
 
-	const categories = ['Research Brief', 'Regional Report', 'Executive Summary'];
+	const title = fr ? 'Rapports – Mesures des rues principales' : 'Measuring Main Streets Reports';
+	const description = fr
+		? 'À partir des données qui sous-tendent l’outil cartographique, l’IUC et certains partenaires ont produit un sommaire du projet, quatre rapports de recherche et trois rapports régionaux afin de dégager les principaux constats et messages, de favoriser la compréhension des enjeux et de proposer des applications et des interventions concrètes.'
+		: 'Emerging from the data that underpins the mapping tool, CUI and select partners developed a project executive summary, four research reports, and three regional reports to reveal key findings and messages, enable sensemaking, and point toward real-life applications and interventions.';
 
-	const items = [
+	const categoriesEn = ['Research Brief', 'Regional Report', 'Executive Summary'];
+
+	const itemsEn = [
 		{
 			title: 'Executive Summary: Measuring Main Streets',
 			description: 'Learn about the Measuring Main Street project and platform.',
@@ -75,6 +80,11 @@
 			tags: ['Regional Report']
 		}
 	];
+
+	const { categories, items } = translateReportListing(
+		{ categories: categoriesEn, items: itemsEn },
+		fr
+	);
 </script>
 
 <main>

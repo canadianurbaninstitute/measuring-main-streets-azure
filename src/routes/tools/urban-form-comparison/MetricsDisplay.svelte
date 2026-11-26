@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { formatNumber, getLang } from '../../lib/i18n';
+
 	interface StationData {
 		stop_label: string;
 		line_display_name: string;
@@ -21,6 +23,30 @@
 	}
 
 	let { station1Data, station2Data, station1Metrics, station2Metrics }: Props = $props();
+
+	const fr = getLang() === 'fr';
+
+	const metricRows: { key: keyof StationMetrics; label: string }[] = [
+		{ key: 'greenspace_pct', label: fr ? 'Espaces verts' : 'Greenspace' },
+		{ key: 'water_pct', label: fr ? 'Eau' : 'Water' },
+		{ key: 'building_pct', label: fr ? 'Bâtiments' : 'Buildings' },
+		{ key: 'parking_pct', label: fr ? 'Stationnement' : 'Parking' }
+	];
+
+	// Station statuses are data values; translate at display time only
+	const STATUS_FR: Record<string, string> = {
+		Operational: 'En service',
+		Planned: 'Planifiée',
+		Construction: 'En construction'
+	};
+	const statusLabel = (status: string) => (fr ? (STATUS_FR[status] ?? status) : status);
+
+	function pct(value: number | undefined) {
+		if (value === undefined) return fr ? 'N/D' : 'N/A';
+		return fr
+			? formatNumber(value, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, 'fr') + '\u00a0%'
+			: `${value.toFixed(1)}%`;
+	}
 </script>
 
 {#if station1Data && station2Data && station1Metrics && station2Metrics}
@@ -50,78 +76,17 @@
 				<td class="pb-1 bg-gray-50 break-words">{station2Data.region}</td>
 			</tr>
 			<tr class="text-xs text-gray-700 text-center border-b border-gray-200">
-				<td class="pb-1 bg-gray-50 break-words">{station1Data.status}</td>
+				<td class="pb-1 bg-gray-50 break-words">{statusLabel(station1Data.status)}</td>
 				<td></td>
-				<td class="pb-1 bg-gray-50 break-words">{station2Data.status}</td>
+				<td class="pb-1 bg-gray-50 break-words">{statusLabel(station2Data.status)}</td>
 			</tr>
-			<tr class="text-xs sm:text-sm border-b border-gray-200">
-				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.greenspace_pct === undefined}
-						N/A
-					{:else}
-						{station1Metrics.greenspace_pct.toFixed(1)}%
-					{/if}
-				</td>
-				<td class="py-1 text-center px-1">Greenspace</td>
-				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.greenspace_pct === undefined}
-						N/A
-					{:else}
-						{station2Metrics.greenspace_pct.toFixed(1)}%
-					{/if}
-				</td>
-			</tr>
-			<tr class="text-xs sm:text-sm border-b border-gray-200">
-				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.water_pct === undefined}
-						N/A
-					{:else}
-						{station1Metrics.water_pct.toFixed(1)}%
-					{/if}
-				</td>
-				<td class="py-1 text-center px-1">Water</td>
-				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.water_pct === undefined}
-						N/A
-					{:else}
-						{station2Metrics.water_pct.toFixed(1)}%
-					{/if}
-				</td>
-			</tr>
-			<tr class="text-xs sm:text-sm border-b border-gray-200">
-				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.building_pct === undefined}
-						N/A
-					{:else}
-						{station1Metrics.building_pct.toFixed(1)}%
-					{/if}
-				</td>
-				<td class="py-1 text-center px-1">Buildings</td>
-				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.building_pct === undefined}
-						N/A
-					{:else}
-						{station2Metrics.building_pct.toFixed(1)}%
-					{/if}
-				</td>
-			</tr>
-			<tr class="text-xs sm:text-sm border-b border-gray-200">
-				<td class="py-1 text-center bg-gray-50">
-					{#if station1Metrics.parking_pct === undefined}
-						N/A
-					{:else}
-						{station1Metrics.parking_pct.toFixed(1)}%
-					{/if}
-				</td>
-				<td class="py-1 text-center px-1">Parking</td>
-				<td class="py-1 text-center bg-gray-50">
-					{#if station2Metrics.parking_pct === undefined}
-						N/A
-					{:else}
-						{station2Metrics.parking_pct.toFixed(1)}%
-					{/if}
-				</td>
-			</tr>
+			{#each metricRows as row}
+				<tr class="text-xs sm:text-sm border-b border-gray-200">
+					<td class="py-1 text-center bg-gray-50">{pct(station1Metrics[row.key])}</td>
+					<td class="py-1 text-center px-1">{row.label}</td>
+					<td class="py-1 text-center bg-gray-50">{pct(station2Metrics[row.key])}</td>
+				</tr>
+			{/each}
 		</tbody>
 	</table>
 {/if}

@@ -7,6 +7,17 @@
 	import type { Regions } from '../../../lib/data/transitdata/transit-regions';
 	import transitRegionsData from '../../../lib/data/transitdata/transit-regions.json';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
+	// Display names for the region buttons on French pages (ids stay unchanged).
+	const REGION_NAMES_FR: Record<string, string> = {
+		'Greater Golden Horseshoe': 'Grand Golden Horseshoe',
+		'Greater Vancouver / Lower Mainland': 'Grand Vancouver / Lower Mainland',
+		Montreal: 'Montréal'
+	};
+	const regionName = (name: string) => (fr ? (REGION_NAMES_FR[name] ?? name) : name);
 
 	const transit_lines_source = configMapbox.transit_lines_source;
 
@@ -233,7 +244,7 @@
 				class:active={activeRegion === region.id}
 				onclick={() => changeRegion(region?.id as string)}
 			>
-				{region.name}
+				{regionName(region.name)}
 			</button>
 		{/each}
 	</div>
