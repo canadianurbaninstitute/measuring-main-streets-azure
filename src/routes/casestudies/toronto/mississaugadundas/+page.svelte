@@ -42,6 +42,11 @@
 
 	import '../../../styles.css';
 
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
 	/* -------------------------------------------------------------------------- */
@@ -215,7 +220,7 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
 					<p>
 						The surveyed route that would become Dundas Street was completed in 1796 and would help
 						to promote the colonial settlement of lands taken from Indigenous Peoples. Today, Dundas
@@ -230,9 +235,9 @@
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -257,7 +262,7 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
 					<p>
 						This segment of Dundas Street E is six lanes wide with a central median used for left
 						turns. The sidewalks are narrow, typical of suburban development. The streetscape and
@@ -281,14 +286,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'mississaugadundas'} section={'builtform'} />
 					</div>
@@ -312,10 +317,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -325,12 +330,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -339,7 +348,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -348,7 +357,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -357,7 +366,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -366,7 +375,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -431,17 +440,17 @@
 							'civicinfra-toronto-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -451,12 +460,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -465,7 +478,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -474,7 +487,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -533,17 +546,17 @@
 							'business-toronto-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -553,7 +566,7 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
 					<p>
 						For employment density, Mississauga Dundas ranks 7th out of 20 Toronto Main Streets and
 						12th out of 36 Neighbourhood Main Streets.
@@ -569,7 +582,7 @@
 						of non-Main Street Businesses, such as industrial establishments.
 					</p>
 
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<img id="employmentsizelegend" src={EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -581,25 +594,25 @@
 						bearing={-48}
 						layers={['mississaugadundas', 'mississaugadundas-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -611,20 +624,20 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'mississaugadundas'}
 							section={'housing'}
 							region={'toronto'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
@@ -649,18 +662,18 @@
 						bearing={-48}
 						layers={['mississaugadundas-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -668,12 +681,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -685,22 +698,22 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'mississaugadundas'}
 							section={'demographics'}
 							region={'toronto'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
@@ -730,9 +743,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -773,13 +786,13 @@
 						bearing={-15}
 						layers={['mississaugadundas-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'98,500'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '98 500' : '98,500'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -796,7 +809,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -804,12 +817,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -817,20 +830,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
