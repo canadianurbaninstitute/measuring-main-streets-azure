@@ -2,6 +2,13 @@
 	import * as d3 from 'd3';
 	import { onMount, untrack } from 'svelte';
 	import { AMENITY_PATHS } from '../../../lib/data/transitdata/complete-communities-config';
+	import { trTransit } from '../../../lib/data/transitdata/labels.fr';
+	import { formatNumber, getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	// Amenity names are lookup keys; translate only the displayed text
+	const amenityLabel = (a: string) => trTransit(a, fr);
+	const fmtInt = (v: number) => (fr ? formatNumber(Math.round(v)) : Math.round(v).toLocaleString());
 
 	interface AmenityData {
 		Amenity: string;
@@ -53,7 +60,7 @@
 			const data = computedAmenities;
 
 			// --- 1. DYNAMIC WIDTH CALCULATION ---
-			const maxLabelCharCount = d3.max(data, (d: AmenityData) => d.Amenity.length) || 0;
+			const maxLabelCharCount = d3.max(data, (d: AmenityData) => amenityLabel(d.Amenity).length) || 0;
 			const calculatedLeftMargin = Math.min(width * 0.5, (maxLabelCharCount as number) * 5.25);
 			const margin = { top: 100, right: -10, bottom: 40, left: calculatedLeftMargin };
 			const chartWidth = width - margin.left - margin.right;
@@ -121,7 +128,7 @@
 
 			rowsMerged.select('.row-label').each(function (d) {
 				const el = d3.select(this);
-				const fullText = d.Amenity;
+				const fullText = amenityLabel(d.Amenity);
 
 				// Truncate logic
 				const displayedText =
@@ -261,11 +268,24 @@
 
 			// Legend Data - defining offsets relative to the center
 			const legendItems = [
-				{ label: 'Current', color: '#00adf2', y: 0 },
-				{ label: 'Need for Regional Typical Access', color: '#db3069', y: 20 },
-				{ label: 'Need for Above Average Access', color: '#fcc5d6', y: 40 },
+				{ label: fr ? 'Actuel' : 'Current', color: '#00adf2', y: 0 },
 				{
-					label: globalUnitsPerIcon > 0 ? `(1 icon = ${globalUnitsPerIcon} amenities)` : '',
+					label: fr ? 'Besoin pour un accès typique de la région' : 'Need for Regional Typical Access',
+					color: '#db3069',
+					y: 20
+				},
+				{
+					label: fr ? 'Besoin pour un accès supérieur à la moyenne' : 'Need for Above Average Access',
+					color: '#fcc5d6',
+					y: 40
+				},
+				{
+					label:
+						globalUnitsPerIcon > 0
+							? fr
+								? `(1 icône = ${formatNumber(globalUnitsPerIcon, undefined, 'fr')} commodités)`
+								: `(1 icon = ${globalUnitsPerIcon} amenities)`
+							: '',
 					color: '#9ca3af',
 					y: 60,
 					isNote: true
@@ -343,16 +363,16 @@
 			<div class="mb-6 flex items-end justify-between">
 				<div>
 					<div class="block text-xs font-bold uppercase tracking-wider text-zinc-500">
-						Additional Residents
+						{fr ? 'Personnes résidentes additionnelles' : 'Additional Residents'}
 					</div>
 					<div class="text-2xl font-mono font-black text-blue-600">
-						{Math.round(sliderValues[0]).toLocaleString()}
+						{fmtInt(sliderValues[0])}
 					</div>
 				</div>
 
 				{#if projectedVisits > 0}
 					<div class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold mb-1">
-						{Math.round(projectedVisits).toLocaleString()} total visitors
+						{fmtInt(projectedVisits)} {fr ? 'visiteurs au total' : 'total visitors'}
 					</div>
 				{/if}
 			</div>
@@ -380,10 +400,10 @@
 
 				<div class="flex justify-between mt-2">
 					<div class="text-[10px] font-bold text-zinc-400">
-						{min.toLocaleString()}
+						{fr ? formatNumber(min) : min.toLocaleString()}
 					</div>
 					<div class="text-[10px] font-bold text-zinc-400 text-right">
-						{max.toLocaleString()}
+						{fr ? formatNumber(max) : max.toLocaleString()}
 					</div>
 				</div>
 			</div>
@@ -400,7 +420,7 @@
 					class:text-zinc-500={tier !== 'tier1'}
 					class:hover:text-zinc-700={tier !== 'tier1'}
 				>
-					Core Amenities
+					{fr ? 'Commodités essentielles' : 'Core Amenities'}
 				</button>
 				<button
 					onclick={() => (tier = 'tier2')}
@@ -411,7 +431,7 @@
 					class:text-zinc-500={tier !== 'tier2'}
 					class:hover:text-zinc-700={tier !== 'tier2'}
 				>
-					Additional Amenities
+					{fr ? 'Commodités complémentaires' : 'Additional Amenities'}
 				</button>
 			</div>
 		</div>

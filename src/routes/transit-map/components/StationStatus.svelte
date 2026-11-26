@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { trTransit } from '../../lib/data/transitdata/labels.fr';
 	import type { ProcessedStation } from '../../lib/data/transitdata/stations';
+	import { getLang } from '../../lib/i18n';
 
 	interface Props {
 		selectedStation: ProcessedStation;
 	}
 
 	let { selectedStation }: Props = $props();
+	const fr = getLang() === 'fr';
 
 	const splitTrim = (value: unknown) =>
 		typeof value === 'string' ? value.split(',').map((s) => s.trim()) : [];
@@ -15,16 +18,16 @@
 	<div>
 		<div id="transit-logos">
 			{#each splitTrim(selectedStation.line_id) as lineId}
-				<img src={`/transit-logos/${lineId}.svg`} alt="transit-logo" class="transit-logo" />
+				<img src={`/transit-logos/${lineId}.svg`} alt={fr ? 'logo de la ligne' : 'transit-logo'} class="transit-logo" />
 			{/each}
 		</div>
 		<h3>{selectedStation.stop_label}</h3>
 	</div>
-	<h4>{selectedStation.line_display_name}</h4>
+	<h4>{trTransit(selectedStation.line_display_name, fr)}</h4>
 
 	<div id="tag-container">
 		<div class="tag-list">
-			<h6>Status:</h6>
+			<h6>{fr ? 'Statut :' : 'Status:'}</h6>
 			{#each selectedStation.status?.split(', ') || [] as status}
 				<div
 					class="tag"
@@ -32,12 +35,12 @@
 					class:bg-pink-200={status === 'Planned'}
 					class:bg-yellow-200={status === 'Construction'}
 				>
-					{status}
+					{trTransit(status, fr)}
 				</div>
 			{/each}
 		</div>
 		<div class="tag-list">
-			<h6>Technology:</h6>
+			<h6>{fr ? 'Technologie :' : 'Technology:'}</h6>
 			{#each selectedStation.technology?.split(', ') || [] as technology}
 				<div
 					class="tag"
@@ -45,7 +48,7 @@
 					class:bg-blue-300={technology === 'LRT'}
 					class:bg-blue-400={technology === 'Commuter'}
 				>
-					{technology}
+					{trTransit(technology, fr)}
 				</div>
 			{/each}
 		</div>

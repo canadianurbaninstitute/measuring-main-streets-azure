@@ -1,6 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { TIER_1_AMENITIES } from '../../../../lib/data/transitdata/complete-communities-config';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+	import { AMENITY_LABELS_FR, STATUS_LABELS_FR, trFr } from './labels.fr';
+
+	const fr = getLang() === 'fr';
+	const fmt = (d: number, digits: number) =>
+		fr
+			? formatNumber(d, { minimumFractionDigits: digits, maximumFractionDigits: digits }, 'fr')
+			: d.toFixed(digits).toLocaleString();
 
 	interface RawStationData {
 		stop_label: string;
@@ -90,13 +98,23 @@
 	<table class="w-full text-sm text-left">
 		<thead class="text-zinc-500 border-b bg-zinc-50">
 			<tr>
-				<th class="py-2 px-2">Amenity</th>
-				<th class="py-2 px-2">Status</th>
-				<th class="py-2 px-2 text-right">Access Gap</th>
-				<th class="py-2 px-2 text-right"> Employees Needed (Low)</th>
-				<th class="py-2 px-2 text-right"> Employees Needed (High)</th>
-				<th class="py-2 px-2 text-right"> Amenities Needed (Low)</th>
-				<th class="py-2 px-2 text-right"> Amenities Needed (High)</th>
+				{#if fr}
+					<th class="py-2 px-2">Commodité</th>
+					<th class="py-2 px-2">Statut</th>
+					<th class="py-2 px-2 text-right">Écart d’accès</th>
+					<th class="py-2 px-2 text-right"> Emplois nécessaires (bas)</th>
+					<th class="py-2 px-2 text-right"> Emplois nécessaires (haut)</th>
+					<th class="py-2 px-2 text-right"> Commodités nécessaires (bas)</th>
+					<th class="py-2 px-2 text-right"> Commodités nécessaires (haut)</th>
+				{:else}
+					<th class="py-2 px-2">Amenity</th>
+					<th class="py-2 px-2">Status</th>
+					<th class="py-2 px-2 text-right">Access Gap</th>
+					<th class="py-2 px-2 text-right"> Employees Needed (Low)</th>
+					<th class="py-2 px-2 text-right"> Employees Needed (High)</th>
+					<th class="py-2 px-2 text-right"> Amenities Needed (Low)</th>
+					<th class="py-2 px-2 text-right"> Amenities Needed (High)</th>
+				{/if}
 			</tr>
 		</thead>
 		<tbody>
@@ -105,21 +123,21 @@
 					class="border-b last:border-0 hover:bg-zinc-50"
 					style="background-color: color-mix(in srgb, {row.color}, transparent 90%); border-color: {row.color}"
 				>
-					<td class="py-2 px-2 text-left">{row.amenity}</td>
+					<td class="py-2 px-2 text-left">{trFr(AMENITY_LABELS_FR, row.amenity, fr)}</td>
 					<td class="py-2 px-2 text-left">
 						<span
 							class="px-2 py-0.5 rounded-full text-xs font-medium {row.status === 'Absent'
 								? 'bg-red-100 text-red-700'
 								: 'bg-green-100 text-green-700'}"
 						>
-							{row.status}
+							{trFr(STATUS_LABELS_FR, row.status, fr)}
 						</span>
 					</td>
-					<td class="py-2 px-2 text-right">{row.gap.toFixed(1).toLocaleString()}</td>
-					<td class="py-2 px-2 text-right">{row.neededLow.toFixed(0).toLocaleString()}</td>
-					<td class="py-2 px-2 text-right">{row.neededHigh.toFixed(0).toLocaleString()}</td>
-					<td class="py-2 px-2 text-right">{row.amenitiesNeededLow.toFixed(0).toLocaleString()}</td>
-					<td class="py-2 px-2 text-right">{row.amenitiesNeededHigh.toFixed(0).toLocaleString()}</td
+					<td class="py-2 px-2 text-right">{fmt(row.gap, 1)}</td>
+					<td class="py-2 px-2 text-right">{fmt(row.neededLow, 0)}</td>
+					<td class="py-2 px-2 text-right">{fmt(row.neededHigh, 0)}</td>
+					<td class="py-2 px-2 text-right">{fmt(row.amenitiesNeededLow, 0)}</td>
+					<td class="py-2 px-2 text-right">{fmt(row.amenitiesNeededHigh, 0)}</td
 					>
 				</tr>
 			{/each}

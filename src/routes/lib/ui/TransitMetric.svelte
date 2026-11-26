@@ -2,6 +2,10 @@
 	import Icon from '@iconify/svelte';
 	import { backOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
+	import { getLang } from '../i18n';
+	import { formatMetric } from './metricFormat';
+
+	const fr = getLang() === 'fr';
 
 	interface Props {
 		label?: string;
@@ -45,7 +49,7 @@
 			in:fly={{ y: 20, duration: 800, easing: backOut }}
 		>
 			<div class="text">
-				<div class="value"><Icon {icon} color={iconcolor} />{prefix}{value}{suffix}</div>
+				<div class="value"><Icon {icon} color={iconcolor} />{formatMetric(prefix, value, suffix, fr)}</div>
 				<div class="label">{label}</div>
 			</div>
 			{#if accordion}

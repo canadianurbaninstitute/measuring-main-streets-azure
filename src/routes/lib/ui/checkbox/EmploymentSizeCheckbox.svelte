@@ -1,8 +1,12 @@
 <script>
 	import Icon from '@iconify/svelte';
 	import { onDestroy, onMount } from 'svelte';
+	import EmpSizeLegendFr from '../../assets/employmentsizelegend-fr.svg';
 	import EmpSizeLegend from '../../assets/employmentsizelegend.svg';
+	import { getLang } from '../../i18n';
 	import { mapStoreList } from '../../stores/mapStore';
+
+	const fr = getLang() === 'fr';
 	// Import the mapStore
 
 	export let layers = [];
@@ -70,11 +74,11 @@
 		<Icon icon="iconoir:drag" />
 		<label>
 			<input type="checkbox" bind:checked={isChecked} on:change={toggleEmploymentSize} />
-			Employment Size
+			{fr ? 'Taille des entreprises' : 'Employment Size'}
 		</label>
 	</button>
 	<div id="legend" class={isChecked ? 'legendOn' : 'legendOff'}>
-		<img src={EmpSizeLegend} alt="legend" />
+		<img src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'légende' : 'legend'} />
 	</div>
 </div>
 

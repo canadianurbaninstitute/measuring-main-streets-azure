@@ -3,6 +3,9 @@
 	import { Accordion } from 'bits-ui';
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	let { isOpen = $bindable() } = $props();
 	let accordionValue: string | undefined = $state('intro');
@@ -30,18 +33,30 @@
 					>
 						<Accordion.Header>
 							<div id="title">
-								<h1>Complete Communities</h1>
+								<h1>{fr ? 'Collectivités complètes' : 'Complete Communities'}</h1>
 							</div>
 						</Accordion.Header>
-						<p>
-							This tool examines the presence and access of key community amenities to assess
-							current completeness and future needs.
-						</p>
-						<p>
-							For more information on methdology, see <a href="/about/data-methodology/#tod-cc"
-								>Data & Methodology</a
-							>.
-						</p>
+						{#if fr}
+							<p>
+								Cet outil examine la présence des principales commodités communautaires et l’accès à
+								celles-ci afin d’évaluer le degré actuel de complétude et les besoins futurs.
+							</p>
+							<p>
+								Pour en savoir plus sur la méthodologie, consultez la section <a
+									href="/about/data-methodology/#tod-cc">Données et méthodologie</a
+								>.
+							</p>
+						{:else}
+							<p>
+								This tool examines the presence and access of key community amenities to assess
+								current completeness and future needs.
+							</p>
+							<p>
+								For more information on methdology, see <a href="/about/data-methodology/#tod-cc"
+									>Data & Methodology</a
+								>.
+							</p>
+						{/if}
 					</div>
 				{/if}
 			</Accordion.Content>
@@ -54,7 +69,7 @@
 				<p
 					style="margin-bottom: 0; color: var(--color-blue-500); font-size: 0.9rem; font-weight: 600;"
 				>
-					Page Description
+					{fr ? 'Description de la page' : 'Page Description'}
 				</p>
 
 				<span

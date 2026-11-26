@@ -10,7 +10,11 @@
 	import MultiLine from '../chartcomponents/MultiLine.svelte';
 	import SharedTooltip from '../chartcomponents/SharedTooltip.html.svelte';
 	import TotalLine from '../chartcomponents/TotalLine.svelte';
+	import { getLang } from '../../i18n';
 	import LegendItem from '../legends/LegendItem.svelte';
+	import { NBSP, localeTimeFormat } from './chartFormat';
+
+	const fr = getLang() === 'fr';
 
 	interface SeriesConfigItem {
 		key: string;
@@ -53,9 +57,10 @@
 		xKey = 'date',
 		minHeight = '100%',
 		xParseFn = timeParse('%Y-%m-%d'),
-		formatLabelX = timeFormat('%b %Y'),
-		formatLabelY = (d: number) => format('~s')(d) + '%',
-		formatValue = (d: number) => d.toFixed(0) + '%',
+		formatLabelX = fr ? localeTimeFormat('%b %Y', fr) : timeFormat('%b %Y'),
+		formatLabelY = (d: number) =>
+			fr ? format('~s')(d).replace('.', ',') + NBSP + '%' : format('~s')(d) + '%',
+		formatValue = (d: number) => (fr ? d.toFixed(0) + NBSP + '%' : d.toFixed(0) + '%'),
 		yDomain = [0, null],
 		xTickInterval = 10,
 		ticks = undefined,
@@ -70,7 +75,7 @@
 		showLines = true,
 		showTotalLine = false,
 		totalLineColor = '#000000',
-		totalLineLabel = 'Net Total',
+		totalLineLabel = fr ? 'Total net' : 'Net Total',
 		showTooltipTotal = true
 	}: Props = $props();
 

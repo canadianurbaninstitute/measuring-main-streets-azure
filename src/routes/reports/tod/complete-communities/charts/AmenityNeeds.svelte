@@ -2,6 +2,10 @@
 	import { onMount } from 'svelte';
 	import { TIER_1_AMENITIES } from '../../../../lib/data/transitdata/complete-communities-config';
 	import DotPlot from '../../../../lib/ui/charts/DotPlot.svelte';
+	import { getLang } from '../../../../lib/i18n';
+	import { AMENITY_LABELS_FR } from './labels.fr';
+
+	const fr = getLang() === 'fr';
 
 	interface RawAmenityData {
 		Amenity: string;
@@ -27,7 +31,7 @@
 	const processedData = $derived(
 		data
 			.map((d) => ({
-				amenity: d.Amenity,
+				amenity: fr ? (AMENITY_LABELS_FR[d.Amenity] ?? d.Amenity) : d.Amenity,
 				low: d.Emp_Low,
 				high: d.Emp_High,
 				color: TIER_1_AMENITIES.find((a) => a.label === d.Amenity)?.color || '#94a3b8'
@@ -44,7 +48,9 @@
 		zRange={['#00adf2', '#db3069']}
 		padding={{ top: 10, right: 20, bottom: 20, left: 180 }}
 		showLegend={true}
-		legendLabels={['Low Employee Estimate', 'High Employee Estimate']}
+		legendLabels={fr
+			? ['Estimation basse des emplois', 'Estimation haute des emplois']
+			: ['Low Employee Estimate', 'High Employee Estimate']}
 	/>
 {/if}
 

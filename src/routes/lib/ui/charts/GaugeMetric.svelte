@@ -2,6 +2,10 @@
 	import Icon from '@iconify/svelte';
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
+	import { getLang } from '../../i18n';
+	import { formatMetric } from '../metricFormat';
+
+	const fr = getLang() === 'fr';
 
 	// Props
 	export let label = '';
@@ -103,7 +107,7 @@
 			<div class="icon"><Icon {icon} color={iconcolor} /></div>
 		{/if}
 		{#if showValue}
-			<div class="number">{prefix}{displayed}{suffix}</div>
+			<div class="number">{formatMetric(prefix, displayed, suffix, fr)}</div>
 		{/if}
 	</div>
 	<div class="label">{label}</div>

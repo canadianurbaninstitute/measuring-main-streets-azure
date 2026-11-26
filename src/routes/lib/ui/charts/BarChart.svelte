@@ -8,7 +8,11 @@
 	import Bar from '../chartcomponents/Bar.svelte';
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
 	import QuadTree from '../chartcomponents/QuadTree.html.svelte';
+	import { getLang } from '../../i18n';
 	import LegendItem from '../legends/LegendItem.svelte';
+	import { fmtComma } from './chartFormat';
+
+	const fr = getLang() === 'fr';
 
 	interface GroupConfigItem {
 		value: string;
@@ -65,7 +69,7 @@
 		barColor = '#00adf2',
 		wrapLabels = false,
 		showTooltip = false,
-		formatTooltipValue = (d: any) => d3Format(',')(d),
+		formatTooltipValue = (d: any) => (fr ? fmtComma(d, fr) : d3Format(',')(d)),
 		visible = undefined,
 		xLabel = '',
 		yLabel = '',

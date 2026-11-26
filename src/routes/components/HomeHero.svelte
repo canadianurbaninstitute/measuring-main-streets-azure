@@ -14,7 +14,7 @@
 
 	<section class="hero-container">
 		<div class="hero-content">
-			<img class="hero-image" src={currentHero} alt="Measuring Main Streets" />
+			<img class="hero-image" src={currentHero} alt={isFrench ? 'Mesures des rues principales' : 'Measuring Main Streets'} />
 		</div>
 
 		<div class="stats-wrapper">

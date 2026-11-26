@@ -1,0 +1,147 @@
+[
+  {
+    "variable": "population",
+    "name": "Population",
+    "group": "Population"
+  },
+  {
+    "variable": "population_density",
+    "name": "Densité de population",
+    "group": "Population"
+  },
+  {
+    "variable": "average_age",
+    "name": "Âge moyen",
+    "group": "Âge de la population"
+  },
+  {
+    "variable": "age_0_19",
+    "name": "0 à 19 ans",
+    "group": "Âge de la population"
+  },
+  {
+    "variable": "age_20_64",
+    "name": "20 à 64 ans",
+    "group": "Âge de la population"
+  },
+  {
+    "variable": "age_65_Over",
+    "name": "65 ans et plus",
+    "group": "Âge de la population"
+  },
+  {
+    "variable": "household_size",
+    "name": "Taille moyenne des ménages",
+    "group": "Logement"
+  },
+  {
+    "variable": "single_detached",
+    "name": "Maisons individuelles",
+    "group": "Logement"
+  },
+  {
+    "variable": "semi_detached",
+    "name": "Maisons jumelées",
+    "group": "Logement"
+  },
+  {
+    "variable": "apartment_more_5",
+    "name": "Appartements (plus de 5 étages)",
+    "group": "Logement"
+  },
+  {
+    "variable": "apartment_less_5",
+    "name": "Appartements (moins de 5 étages)",
+    "group": "Logement"
+  },
+  {
+    "variable": "duplex",
+    "name": "Duplex / maisons en rangée",
+    "group": "Logement"
+  },
+  {
+    "variable": "university_degree",
+    "name": "Baccalauréat",
+    "group": "Caractéristiques démographiques"
+  },
+  {
+    "variable": "mobility_car",
+    "name": "Automobile",
+    "group": "Principal mode de navettage"
+  },
+  {
+    "variable": "mobility_public_transit",
+    "name": "Transport collectif",
+    "group": "Principal mode de navettage"
+  },
+  {
+    "variable": "mobility_active_transit",
+    "name": "Transport actif",
+    "group": "Principal mode de navettage"
+  },
+  {
+    "variable": "visible_minorities",
+    "name": "Minorités visibles",
+    "group": "Caractéristiques démographiques"
+  },
+  {
+    "variable": "indigenous",
+    "name": "Autochtones",
+    "group": "Caractéristiques démographiques"
+  },
+  {
+    "variable": "immigrants_non_permanent_residents",
+    "name": "Personnes immigrantes et résidents non permanents",
+    "group": "Caractéristiques démographiques"
+  },
+  {
+    "variable": "language_english",
+    "name": "Anglais",
+    "group": "Langue principale"
+  },
+  {
+    "variable": "language_french",
+    "name": "Français",
+    "group": "Langue principale"
+  },
+  {
+    "variable": "language_other",
+    "name": "Autre langue",
+    "group": "Langue principale"
+  },
+  {
+    "variable": "population_change",
+    "name": "Variation de la population (depuis 2016)",
+    "group": "Population"
+  },
+  {
+    "variable": "average_employment_income",
+    "name": "Revenu d’emploi moyen",
+    "group": "Emploi"
+  },
+  {
+    "variable": "commute_15",
+    "name": "Navettes de moins de 15 minutes",
+    "group": "Durée du navettage"
+  },
+  {
+    "variable": "commute_30",
+    "name": "Navettes de 15 à 30 minutes",
+    "group": "Durée du navettage"
+  },
+  {
+    "variable": "commute_45",
+    "name": "Navettes de 30 à 45 minutes",
+    "group": "Durée du navettage"
+  },
+  {
+    "variable": "commute_60",
+    "name": "Navettes de 45 à 60 minutes",
+    "group": "Durée du navettage"
+  },
+  {
+    "variable": "commute_over_60",
+    "name": "Navettes de plus de 60 minutes",
+    "group": "Durée du navettage"
+  }
+]

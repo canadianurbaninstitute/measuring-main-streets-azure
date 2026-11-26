@@ -2,6 +2,10 @@
 	import Icon from '@iconify/svelte';
 	import { interpolateNumber } from 'd3-interpolate';
 	import { onDestroy } from 'svelte';
+	import { getLang } from '../../i18n';
+	import { formatMetric } from '../metricFormat';
+
+	const fr = getLang() === 'fr';
 
 	// Public props (keeps your original API)
 	export let label = '';
@@ -117,7 +121,7 @@
 						{/if}
 						<div class="number">
 							<!-- If displayed is 0 but value is greater than 0, show <1 -->
-							{prefix}{displayed === 0 && value > 0 ? '<1' : displayed}{suffix}
+							{formatMetric(prefix, displayed === 0 && value > 0 ? '<1' : displayed, suffix, fr)}
 						</div>
 					</div>
 				</foreignObject>

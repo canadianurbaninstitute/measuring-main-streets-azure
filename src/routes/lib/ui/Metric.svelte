@@ -1,6 +1,10 @@
 <!-- UI component that displays a key metric used on National Main Street Map sidebar.-->
 <script>
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../i18n';
+	import { formatMetric } from './metricFormat';
+
+	const fr = getLang() === 'fr';
 	export let label = '';
 	export let value;
 	export let icon = '';
@@ -12,7 +16,7 @@
 
 <div class="metric">
 	<div class="text">
-		<div class="value"><Icon {icon} color={iconcolor} />{prefix}{value}{suffix}</div>
+		<div class="value"><Icon {icon} color={iconcolor} />{formatMetric(prefix, value, suffix, fr)}</div>
 		<div class="label">{label}</div>
 	</div>
 	{#if accordion}

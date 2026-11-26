@@ -2,7 +2,10 @@
 	import Icon from '@iconify/svelte';
 	import { backOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
-	export let label = 'National Rank';
+	import { getLang } from '../../i18n';
+
+	const fr = getLang() === 'fr';
+	export let label = fr ? 'Rang national' : 'National Rank';
 	export let value; // The rank number
 	export let total = ''; // Optional: out of X
 	export let icon = 'mdi:trophy-outline';

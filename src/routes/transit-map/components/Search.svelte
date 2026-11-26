@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Fuse from 'fuse.js';
+	import { getLang } from '../../lib/i18n';
 	import type { ProcessedStation, Station } from '../../lib/data/transitdata/stations';
 	import type { Region, TransitLineWithContext } from '../../lib/data/transitdata/transit-regions';
 
@@ -20,6 +21,8 @@
 		regionsData,
 		processedStationData
 	}: Props = $props();
+
+	const fr = getLang() === 'fr';
 
 	function initializeSearchIndexes() {
 		const fuseOptions = {
@@ -65,7 +68,9 @@
 	id="search"
 	type="text"
 	bind:value={searchTerm}
-	placeholder="Search for a region, line, or station..."
+	placeholder={fr
+		? 'Rechercher une région, une ligne ou une station…'
+		: 'Search for a region, line, or station...'}
 	class="search-input"
 />
 

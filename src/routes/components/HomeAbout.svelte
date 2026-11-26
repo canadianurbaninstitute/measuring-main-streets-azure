@@ -1,39 +1,78 @@
 <script>
+	import { getLang } from '../lib/i18n';
 	import CustomButton from '../lib/ui/CustomButton.svelte';
+
+	const fr = getLang() === 'fr';
 	const buttons = [
-		{ text: 'About the Platform', href: '/about' },
-		{ text: 'About the Project Phases', href: '/about/#about-tod' },
-		{ text: 'Canadian Urban Institute', href: 'https://canurb.org/', target: '_blank' }
+		{ text: fr ? 'À propos de la plateforme' : 'About the Platform', href: '/about' },
+		{
+			text: fr ? 'À propos des phases du projet' : 'About the Project Phases',
+			href: '/about/#about-tod'
+		},
+		{
+			text: fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute',
+			href: 'https://canurb.org/',
+			target: '_blank'
+		}
 	];
 </script>
 
 <section class="about-section">
 	<!-- <div class="map-bg"></div> -->
 	<div class="about-content">
-		<h2 class="about-title">About Measuring Main Streets</h2>
-		<h3 class="about-subtitle">
-			Empowering communities with accessible data to make better decisions, stronger investments,
-			and measure local outcomes.
-		</h3>
-		<p class="about-text">
-			Canada is a country of Main Streets; they are where small businesses grow, neighbours connect,
-			and communities express who they are. But Main Streets serve a challenging dual role as the
-			places where pressing challenges—affordability, homelessness, public safety, and more—are
-			experienced and addressed, while simultaneously driving economic, social, and civic life for
-			entire communities.
-		</p>
-		<p class="about-text">
-			Building on the long-standing work of the <a href="https://canurb.org/" target="_blank"
-				>Canadian Urban Institute</a
-			> strengthening Main Streets and downtowns in Canada, Measuring Main Streets is a first-of-its-kind
-			platform that makes high‑quality data more accessible for community champions, practitioners, and
-			decision‑makers to advocate effectively for the main streets they know and serve—grounded in evidence
-			that reflects local realities.
-		</p>
-		<p class="about-text">
-			The Measuring Main Streets platform is funded by the Research Knowledge Initiative of Housing,
-			Infrastructure and Communities Canada.
-		</p>
+		{#if fr}
+			<h2 class="about-title">À propos de Mesures des rues principales</h2>
+			<h3 class="about-subtitle">
+				Donner aux collectivités des données accessibles pour prendre de meilleures décisions,
+				investir plus judicieusement et mesurer les résultats locaux.
+			</h3>
+			<p class="about-text">
+				Le Canada est un pays de rues principales : c’est là que les petites entreprises grandissent,
+				que les voisins tissent des liens et que les collectivités expriment leur identité. Mais les
+				rues principales jouent un double rôle exigeant : c’est là que des enjeux pressants
+				— abordabilité, itinérance, sécurité publique et plus encore — se font sentir et sont pris en
+				charge, alors qu’elles animent en même temps la vie économique, sociale et civique de
+				collectivités entières.
+			</p>
+			<p class="about-text">
+				S’appuyant sur le travail de longue date de l’<a href="https://canurb.org/" target="_blank"
+					>Institut urbain du Canada</a
+				> pour renforcer les rues principales et les centres-villes au Canada, Mesures des rues
+				principales est une plateforme unique en son genre qui rend des données de grande qualité plus
+				accessibles aux personnes qui défendent leur collectivité, aux praticiens et aux décideurs, afin
+				qu’ils puissent défendre efficacement les rues principales qu’ils connaissent et servent, sur
+				la base de données probantes qui reflètent les réalités locales.
+			</p>
+			<p class="about-text">
+				La plateforme Mesures des rues principales est financée par l’Initiative de recherche et de
+				connaissances de Logement, Infrastructures et Collectivités Canada.
+			</p>
+		{:else}
+			<h2 class="about-title">About Measuring Main Streets</h2>
+			<h3 class="about-subtitle">
+				Empowering communities with accessible data to make better decisions, stronger investments,
+				and measure local outcomes.
+			</h3>
+			<p class="about-text">
+				Canada is a country of Main Streets; they are where small businesses grow, neighbours connect,
+				and communities express who they are. But Main Streets serve a challenging dual role as the
+				places where pressing challenges—affordability, homelessness, public safety, and more—are
+				experienced and addressed, while simultaneously driving economic, social, and civic life for
+				entire communities.
+			</p>
+			<p class="about-text">
+				Building on the long-standing work of the <a href="https://canurb.org/" target="_blank"
+					>Canadian Urban Institute</a
+				> strengthening Main Streets and downtowns in Canada, Measuring Main Streets is a first-of-its-kind
+				platform that makes high‑quality data more accessible for community champions, practitioners, and
+				decision‑makers to advocate effectively for the main streets they know and serve—grounded in evidence
+				that reflects local realities.
+			</p>
+			<p class="about-text">
+				The Measuring Main Streets platform is funded by the Research Knowledge Initiative of Housing,
+				Infrastructure and Communities Canada.
+			</p>
+		{/if}
 
 		<div class="about-buttons">
 			{#each buttons as btn}

@@ -9,6 +9,10 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import libertyvillage from '../../lib/data/casestudydata/toronto/libertyvillage/visitortraffic';
 	import uxbridge from '../../lib/data/casestudydata/toronto/uxbridge/visitortraffic';
+	import { getLang } from '../../lib/i18n';
+	import { frTimeLocale } from './labels';
+
+	const fr = getLang() === 'fr';
 
 	export let chartDataset;
 	export let yDomain = [0, null];
@@ -32,8 +36,8 @@
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
 	});
 
-	const formatLabelX = timeFormat('%b %Y');
-	const formatLabelY = (d) => d + '%';
+	const formatLabelX = fr ? frTimeLocale.format('%b %Y') : timeFormat('%b %Y');
+	const formatLabelY = (d) => (fr ? d + '\u00a0%' : d + '%');
 </script>
 
 <div class="chart-container">

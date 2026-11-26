@@ -1,7 +1,10 @@
 <script>
 	import { ScatterChart } from '@onsvisual/svelte-charts';
 
+	import { getLang } from '../../i18n';
 	import LegendItem from '../legends/LegendItem.svelte';
+
+	const fr = getLang() === 'fr';
 
 	export let data;
 	export let showLegend = true;
@@ -21,7 +24,11 @@
 <svelte:window bind:innerHeight />
 
 <div class="chart-container">
-	<h4>Independent Business Rank (x-axis) vs. Civic Infrastructure % Rank (y-axis)</h4>
+	<h4>
+		{fr
+			? 'Rang des entreprises indépendantes (axe des x) par rapport au rang de la part d’infrastructure civique en % (axe des y)'
+			: 'Independent Business Rank (x-axis) vs. Civic Infrastructure % Rank (y-axis)'}
+	</h4>
 
 	<ScatterChart
 		{data}
@@ -45,10 +52,10 @@
 	{#if computedShowLegend}
 	<div class="controls">
 		<div class="legend-container">
-			<LegendItem variant={'circle'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-			<LegendItem variant={'circle'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-			<LegendItem variant={'circle'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-			<LegendItem variant={'circle'} label={'Malls'} bgcolor={'#DB3069'} />
+			<LegendItem variant={'circle'} label={fr ? 'Rues principales de centre-ville' : 'Downtown Main Streets'} bgcolor={'#58e965'} />
+			<LegendItem variant={'circle'} label={fr ? 'Rues principales de quartier' : 'Neighbourhood Main Streets'} bgcolor={'#002940'} />
+			<LegendItem variant={'circle'} label={fr ? 'Rues principales de petites villes' : 'Small Town Main Streets'} bgcolor={'#00adf2'} />
+			<LegendItem variant={'circle'} label={fr ? 'Centres commerciaux' : 'Malls'} bgcolor={'#DB3069'} />
 		</div>
 	</div>
 	{/if}

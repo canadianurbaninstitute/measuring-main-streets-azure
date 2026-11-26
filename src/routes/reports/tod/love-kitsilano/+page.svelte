@@ -12,7 +12,12 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article.js';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article.js';
+	import { sections as sectionsFr } from './article.fr.js';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import everyone from '../../assets/dps-heart.png';
@@ -32,7 +37,9 @@
 		kitsilano: {
 			type: 'image',
 			src: kitsilano,
-			alt: 'Graphic of 3 people behind a log that says "Welcome to Kitsilano"'
+			alt: fr
+				? 'Illustration de trois personnes derrière un tronc d’arbre portant l’inscription «\u00a0Welcome to Kitsilano\u00a0»'
+				: 'Graphic of 3 people behind a log that says "Welcome to Kitsilano"'
 		},
 		'engagement-summary': {
 			type: 'component',
@@ -147,7 +154,11 @@
 	const items = $derived.by(() => {
 		const nav = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Takeaways' }
+			{
+				type: 'anchor',
+				id: 'report-findings',
+				label: fr ? 'Points à retenir' : 'Key Takeaways'
+			}
 		];
 
 		sections.forEach((section, si) => {
@@ -176,33 +187,41 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
 	<ReportHeader
 		id="report-header"
-		subEyebrow="A Love Your Neighbourhood Report"
+		subEyebrow={fr ? 'Un rapport Love Your Neighbourhood' : 'A Love Your Neighbourhood Report'}
 		title="KITSILANO"
-		subtitle="Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas"
+		subtitle={fr
+			? 'Explorer les possibilités des plateformes de consultation numérique pour favoriser une participation plus large des personnes résidant dans les aires de station de transport collectif'
+			: 'Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas'}
 		backgroundImage={kitsilano}
 		customLogos={[
-			{ src: dps, alt: 'DPS Logo', width: '120' },
-			{ src: cui, alt: 'CUI Logo', width: '200' }
+			{ src: dps, alt: fr ? 'Logo de DPS' : 'DPS Logo', width: '120' },
+			{ src: cui, alt: fr ? 'Logo de l’IUC' : 'CUI Logo', width: '200' }
 		]}
 	/>
 
 	<ReportFindings
 		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="High Engagement"
-		description1="Kitsilano saw the highest numbers across six key engagement metrics."
+		title={fr ? 'POINTS À RETENIR' : 'KEY TAKEAWAYS'}
+		finding1={fr ? 'Forte participation' : 'High Engagement'}
+		description1={fr
+			? 'Kitsilano a enregistré les chiffres les plus élevés pour six indicateurs clés de participation.'
+			: 'Kitsilano saw the highest numbers across six key engagement metrics.'}
 		link1="#engagement"
-		finding2="High Walking Preferences"
-		description2="Kitsilano was the only neighbourhood where a preference for walking was high across the board for all activities. "
+		finding2={fr ? 'Forte préférence pour la marche' : 'High Walking Preferences'}
+		description2={fr
+			? 'Kitsilano est le seul quartier où la préférence pour la marche était élevée pour l’ensemble des activités.'
+			: 'Kitsilano was the only neighbourhood where a preference for walking was high across the board for all activities. '}
 		link2="#walking"
-		finding3="Privacy as Paramount"
-		description3="There was a strong preference towards prioritizing fewer neighbours and more privacy."
+		finding3={fr ? 'L’intimité avant tout' : 'Privacy as Paramount'}
+		description3={fr
+			? 'On observe une forte préférence pour moins de voisins et plus d’intimité.'
+			: 'There was a strong preference towards prioritizing fewer neighbours and more privacy.'}
 		link3="#privacy"
 	/>
 
@@ -229,7 +248,7 @@
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
+						label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 						target={panel.config.target}
 					/>
 				{/if}

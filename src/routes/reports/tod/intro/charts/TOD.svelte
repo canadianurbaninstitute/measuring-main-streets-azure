@@ -1,8 +1,14 @@
 <script lang="ts">
 	import { scaleLog } from 'd3-scale';
 	import ScatterChart from '../../../../lib/ui/charts/ScatterChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
 
-	const data = [
+	const fr = getLang() === 'fr';
+	const lang = fr ? 'fr' : 'en';
+	const CITY_FR: Record<string, string> = { Montreal: 'Montréal' };
+	const frNumber = (d: any) => (isNaN(+d) || d === null ? d : formatNumber(+d, undefined, lang));
+
+	const dataEn = [
 		{
 			city: 'Burnaby',
 			within_800m: 24641,
@@ -90,6 +96,8 @@
 		}
 	];
 
+	const data = fr ? dataEn.map((d) => ({ ...d, city: CITY_FR[d.city] ?? d.city })) : dataEn;
+
 	const colors = [
 		'#002940',
 		'#2a5cac',
@@ -124,16 +132,21 @@
 	labelKey="city"
 	showLegend={true}
 	padding={{ left: 70, bottom: 40 }}
-	title="Transit-Oriented Development by Select Municipalities 2001-2021"
+	title={fr
+		? 'Aménagement axé sur le transport collectif dans certaines municipalités, 2001-2021'
+		: 'Transit-Oriented Development by Select Municipalities 2001-2021'}
 	showTooltip={true}
+	formatTooltipValue={fr ? frNumber : undefined}
+	formatLabelX={fr ? frNumber : undefined}
+	formatLabelY={fr ? frNumber : undefined}
 	xTicks={[1000, 10000, 100000, 1000000]}
 	yTicks={[1000, 10000, 100000, 1000000]}
 	xDomain={[1000, 1000000]}
 	yDomain={[1000, 1000000]}
 	xScale={scaleLog}
 	yScale={scaleLog}
-	xLabel="Net new housing units >800m"
-	yLabel="Net new housing units <800m"
+	xLabel={fr ? 'Nouveaux logements nets à plus de 800 m' : 'Net new housing units >800m'}
+	yLabel={fr ? 'Nouveaux logements nets à moins de 800 m' : 'Net new housing units <800m'}
 	referenceLine={{
 		x1: 1000,
 		y1: 1000,

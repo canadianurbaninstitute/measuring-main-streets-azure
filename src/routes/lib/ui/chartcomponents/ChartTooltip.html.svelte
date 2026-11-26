@@ -2,6 +2,11 @@
 	import { format as d3Format } from 'd3-format';
 	import { getContext } from 'svelte';
 	import type { Readable } from 'svelte/store';
+	import { getLang } from '../../i18n';
+	import { translateLabel } from '../../data/dataLabels';
+	import { colon, fmtPct1 } from '../charts/chartFormat';
+
+	const fr = getLang() === 'fr';
 
 	const { config } = getContext<{
 		config: Readable<{ x: string | string[]; y: string; [key: string]: any }>;
@@ -43,7 +48,7 @@
 		yKey = null,
 		xLabel = 'X',
 		yLabel = 'Y',
-		formatValue = (d: any) => (isNaN(+d) ? d : d3Format(',.1f')(d) + '%'),
+		formatValue = (d: any) => (isNaN(+d) ? d : fr ? fmtPct1(d, fr) : d3Format(',.1f')(d) + '%'),
 		offset = -15,
 		seriesConfig = null,
 		tooltipRows = null
@@ -80,12 +85,12 @@
 
 {#if found && e}
 	<div class="tooltip" bind:this={tooltipEl} style={adjustedStyle}>
-		<div class="tooltip-title">{found[titleKey]}</div>
+		<div class="tooltip-title">{translateLabel(found[titleKey], fr)}</div>
 
 		{#if tooltipRows}
 			{#each tooltipRows as { key, label, format }}
 				<div class="tooltip-row">
-					<span class="tooltip-key">{label || key}:</span>
+					<span class="tooltip-key">{label || key}{colon(fr)}</span>
 					<span>{format ? format(found[key]) : formatValue(found[key])}</span>
 				</div>
 			{/each}
@@ -93,22 +98,22 @@
 			{#each seriesConfig as { key, label, color }}
 				<div class="tooltip-row">
 					<span class="swatch" style="background:{color}"></span>
-					<span class="tooltip-key">{label}:</span>
+					<span class="tooltip-key">{label}{colon(fr)}</span>
 					<span>{formatValue(found[key])}</span>
 				</div>
 			{/each}
 		{:else if xKey && yKey}
 			<div class="tooltip-row">
-				<span class="tooltip-key">{xLabel}:</span>
+				<span class="tooltip-key">{xLabel}{colon(fr)}</span>
 				<span>{formatValue(found[xKey])}</span>
 			</div>
 			<div class="tooltip-row">
-				<span class="tooltip-key">{yLabel}:</span>
+				<span class="tooltip-key">{yLabel}{colon(fr)}</span>
 				<span>{formatValue(found[yKey])}</span>
 			</div>
 		{:else if typeof valueKey === 'string'}
 			<div class="tooltip-row">
-				<span class="tooltip-key">{valueKey}:</span>
+				<span class="tooltip-key">{translateLabel(valueKey, fr)}{colon(fr)}</span>
 				<span>{formatValue(found[valueKey])}</span>
 			</div>
 		{/if}

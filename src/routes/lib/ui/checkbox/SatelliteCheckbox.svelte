@@ -1,6 +1,9 @@
 <script>
 	import { onDestroy, onMount } from 'svelte';
+	import { getLang } from '../../i18n';
 	import { mapStoreList } from '../../stores/mapStore';
+
+	const fr = getLang() === 'fr';
 	// Import the mapStore
 
 	import Icon from '@iconify/svelte';
@@ -55,7 +58,7 @@
 	<Icon icon="mdi:map" />
 	<label>
 		<input type="checkbox" bind:checked={isChecked} on:change={toggleLayerOpacity} />
-		Satellite View
+		{fr ? 'Vue satellite' : 'Satellite View'}
 	</label>
 </button>
 

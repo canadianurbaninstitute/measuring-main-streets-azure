@@ -12,7 +12,12 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article.js';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article.js';
+	import { sections as sectionsFr } from './article.fr.js';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import everyone from '../../assets/dps-heart.png';
@@ -32,7 +37,9 @@
 		cooksville: {
 			type: 'image',
 			src: cooksville,
-			alt: 'Graphic of 3 people in front of a sign that says "Cooksville"'
+			alt: fr
+				? 'Illustration de trois personnes devant une enseigne indiquant «\u00a0Cooksville\u00a0»'
+				: 'Graphic of 3 people in front of a sign that says "Cooksville"'
 		},
 		'engagement-summary': {
 			type: 'component',
@@ -49,19 +56,25 @@
 				columns: 1,
 				quotes: [
 					{
-						text: 'Clean up all the old small businesses in Dundas near Hurontario. Dirty riff raff and is it promoting a safe neighborhood?',
+						text: fr
+							? 'Faites le ménage dans tous les vieux petits commerces sur Dundas, près de Hurontario. C’est sale, il y a de la racaille… est-ce que ça favorise un quartier sécuritaire?'
+							: 'Clean up all the old small businesses in Dundas near Hurontario. Dirty riff raff and is it promoting a safe neighborhood?',
 						colorFam: 'blue'
 					},
 					{
-						text: 'Make it more neighbourhood friendly',
+						text: fr ? 'Rendre le quartier plus convivial' : 'Make it more neighbourhood friendly',
 						colorFam: 'green'
 					},
 					{
-						text: 'A cohesive neighborhood, everything easy to get to. More green spaces, interesting stores not so many cannabis and vape places.',
+						text: fr
+							? 'Un quartier cohérent, où tout est facile d’accès. Plus d’espaces verts, des boutiques intéressantes, pas autant de magasins de cannabis et de vapotage.'
+							: 'A cohesive neighborhood, everything easy to get to. More green spaces, interesting stores not so many cannabis and vape places.',
 						colorFam: 'pink'
 					},
 					{
-						text: 'The homeless population in cooksville is a deterrent to having people shop and walk around.',
+						text: fr
+							? 'Les personnes en situation d’itinérance à Cooksville dissuadent les gens de venir magasiner et se promener.'
+							: 'The homeless population in cooksville is a deterrent to having people shop and walk around.',
 						colorFam: 'orange'
 					}
 				]
@@ -168,7 +181,11 @@
 	const items = $derived.by(() => {
 		const nav = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Takeaways' }
+			{
+				type: 'anchor',
+				id: 'report-findings',
+				label: fr ? 'Points à retenir' : 'Key Takeaways'
+			}
 		];
 
 		sections.forEach((section, si) => {
@@ -197,35 +214,43 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
 	<ReportHeader
 		id="report-header"
-		subEyebrow="A Love Your Neighbourhood Report"
+		subEyebrow={fr ? 'Un rapport Love Your Neighbourhood' : 'A Love Your Neighbourhood Report'}
 		title="COOKSVILLE"
-		subtitle="Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas"
+		subtitle={fr
+			? 'Explorer les possibilités des plateformes de consultation numérique pour favoriser une participation plus large des personnes résidant dans les aires de station de transport collectif'
+			: 'Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas'}
 		backgroundImage={cooksville}
 		customLogos={[
-			{ src: dps, alt: 'DPS Logo', width: '120' },
-			{ src: cui, alt: 'CUI Logo', width: '200' }
+			{ src: dps, alt: fr ? 'Logo de DPS' : 'DPS Logo', width: '120' },
+			{ src: cui, alt: fr ? 'Logo de l’IUC' : 'CUI Logo', width: '200' }
 		]}
 	/>
 
 	<ReportFindings
 		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="Safety Issues"
-		description1="Respondents from Cooksville feel notably less safe and welcome than the other two neighbourhoods."
+		title={fr ? 'POINTS À RETENIR' : 'KEY TAKEAWAYS'}
+		finding1={fr ? 'Enjeux de sécurité' : 'Safety Issues'}
+		description1={fr
+			? 'Les personnes répondantes de Cooksville se sentent nettement moins en sécurité et moins bien accueillies que dans les deux autres quartiers.'
+			: 'Respondents from Cooksville feel notably less safe and welcome than the other two neighbourhoods.'}
 		link1="#safety"
-		finding2="Cleanliness is a priority"
-		description2="Safety, cleanliness, and aesthetics were all tightly linked in how
-				residents evaluated their neighbourhood and were widely agreed upon."
+		finding2={fr ? 'La propreté est une priorité' : 'Cleanliness is a priority'}
+		description2={fr
+			? 'La sécurité, la propreté et l’esthétique étaient étroitement liées dans l’évaluation que les personnes résidentes faisaient de leur quartier et faisaient largement consensus.'
+			: 'Safety, cleanliness, and aesthetics were all tightly linked in how\n\t\t\t\tresidents evaluated their neighbourhood and were widely agreed upon.'}
 		link2="#cleanliness"
-		finding3="Development, but only if it helps"
-		description3="Sentiments towards the benefits of densification were mixed both in
-				the qualitative and quantitative insights."
+		finding3={fr
+			? 'Du développement, mais seulement s’il est bénéfique'
+			: 'Development, but only if it helps'}
+		description3={fr
+			? 'Les opinions sur les avantages de la densification étaient partagées, tant dans les données qualitatives que dans les données quantitatives.'
+			: 'Sentiments towards the benefits of densification were mixed both in\n\t\t\t\tthe qualitative and quantitative insights.'}
 		link3="#privacy"
 	/>
 
@@ -252,7 +277,7 @@
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
+						label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 						target={panel.config.target}
 					/>
 				{/if}

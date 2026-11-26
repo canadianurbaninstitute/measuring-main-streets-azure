@@ -8,6 +8,12 @@
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../lib/data/reportdata/mainstreet-resiliency/resiliency.csv';
+	import { formatNumber, getLang } from '../../lib/i18n';
+	import { frName } from './labels';
+
+	const fr = getLang() === 'fr';
+	const formatName = (d) => frName(d, fr);
+	const formatTick = fr ? (d) => formatNumber(d, undefined, 'fr') : undefined;
 
 	export let xKey;
 	export let title = '';
@@ -41,10 +47,10 @@
 
 	<div class="controls">
 		<div class="legend-container">
-			<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-			<LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-			<LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-			<LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} />
+			<LegendItem variant={'polygon'} label={fr ? 'Rues principales de centre-ville' : 'Downtown Main Streets'} bgcolor={'#58e965'} />
+			<LegendItem variant={'polygon'} label={fr ? 'Rues principales de quartier' : 'Neighbourhood Main Streets'} bgcolor={'#002940'} />
+			<LegendItem variant={'polygon'} label={fr ? 'Rues principales de petite ville' : 'Small Town Main Streets'} bgcolor={'#00adf2'} />
+			<LegendItem variant={'polygon'} label={fr ? 'Centres commerciaux' : 'Malls'} bgcolor={'#DB3069'} />
 		</div>
 	</div>
 
@@ -61,8 +67,8 @@
 			flatData={data}
 		>
 			<Svg>
-				<AxisX tickMarks baseline snapLabels />
-				<AxisY tickMarks gridlines={false} wrap={computedWrapLabels} />
+				<AxisX tickMarks baseline snapLabels format={formatTick} />
+				<AxisY tickMarks gridlines={false} wrap={computedWrapLabels} format={formatName} />
 				<Bar fill={'#58e965'} />
 			</Svg>
 		</LayerCake>

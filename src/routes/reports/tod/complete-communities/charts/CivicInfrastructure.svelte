@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import GroupedBarChart from '../../../../lib/ui/charts/GroupedBarChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+	import { REGION_LABELS_FR, STATUS_LABELS_FR, trFr } from './labels.fr';
+
+	const fr = getLang() === 'fr';
+	const fmtFr = (d: number) => formatNumber(+d, { maximumFractionDigits: 0 }, 'fr');
 
 	interface RawDataItem {
 		lib_cc_status: string;
@@ -37,7 +42,7 @@
 		const statuses = ['Neither', 'One', 'Both'];
 		return statuses.map((status) => {
 			const rows = data.filter((d) => d.lib_cc_status === status);
-			const row: ProcessedDataItem = { status };
+			const row: ProcessedDataItem = { status: trFr(STATUS_LABELS_FR, status, fr) };
 			rows.forEach((r) => {
 				row[r.region] = r.TSA_pop;
 			});
@@ -51,7 +56,7 @@
 	const seriesConfig = $derived(
 		regions.map((region, i) => ({
 			key: region,
-			label: region,
+			label: trFr(REGION_LABELS_FR, region, fr),
 			color: colors[i % colors.length]
 		}))
 	);
@@ -64,9 +69,9 @@
 	minHeight="500px"
 	{visible}
 	xTicks={6}
-	xLabel="Average Population"
+	xLabel={fr ? 'Population moyenne' : 'Average Population'}
 	wrapLabels={true}
-	formatLabelX={(d) => d.toFixed(0)}
+	formatLabelX={(d) => (fr ? fmtFr(d) : d.toFixed(0))}
 	padding={{ top: 10, right: 30, bottom: 40, left: 40 }}
-	formatTooltipValue={(d) => (isNaN(+d) ? d : d.toFixed(0).toLocaleString())}
+	formatTooltipValue={(d) => (isNaN(+d) ? d : fr ? fmtFr(d) : d.toFixed(0).toLocaleString())}
 />

@@ -1,5 +1,9 @@
 <script lang="ts">
 	import BarChart from '../../../../lib/ui/charts/BarChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const lang = fr ? 'fr' : 'en';
 
 	let { visible } = $props();
 
@@ -36,13 +40,18 @@
 	{data}
 	xKey="value"
 	yKey="station"
-	title="Proposed & Under Construction Units by Line 5 Station"
+	title={fr
+		? 'Logements proposés et en construction par station de la ligne 5'
+		: 'Proposed & Under Construction Units by Line 5 Station'}
 	paddingLeft={160}
 	barColor="#f45d01"
 	showTooltip={true}
-	formatTooltipValue={(d) => Math.round(d).toLocaleString()}
+	formatTooltipValue={fr
+		? (d) => formatNumber(Math.round(d), undefined, lang)
+		: (d) => Math.round(d).toLocaleString()}
+	formatLabelX={fr ? (d) => formatNumber(d, undefined, lang) : undefined}
 	{visible}
 	xTicks={4}
-	xLabel="Units"
+	xLabel={fr ? 'Logements' : 'Units'}
 	minHeight="400px"
 />

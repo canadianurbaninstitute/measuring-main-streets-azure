@@ -7,7 +7,11 @@
 	import AxisY from '../chartcomponents/AxisY.svelte';
 	import BarStacked from '../chartcomponents/BarStacked.svelte';
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
+	import { getLang } from '../../i18n';
 	import LegendItem from '../legends/LegendItem.svelte';
+	import { fmtPct1 } from './chartFormat';
+
+	const fr = getLang() === 'fr';
 
 	interface SeriesItem {
 		label: string;
@@ -63,7 +67,8 @@
 		xTicks = undefined,
 		yTicks = undefined,
 		showLegend = true,
-		formatTooltipValue = (d: any) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%')
+		formatTooltipValue = (d: any) =>
+			isNaN(+d) || d === null ? d : fr ? fmtPct1(d, fr) : d3Format(',.1f')(d) + '%'
 	}: Props = $props();
 
 	let found = $state<any>(null);

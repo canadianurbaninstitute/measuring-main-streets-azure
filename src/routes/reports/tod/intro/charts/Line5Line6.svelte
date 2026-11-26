@@ -1,5 +1,9 @@
 <script lang="ts">
 	import GroupedBarChart from '../../../../lib/ui/charts/GroupedBarChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const lang = fr ? 'fr' : 'en';
 
 	interface Props {
 		visible?: boolean;
@@ -12,13 +16,25 @@
 		{ period: '2006-2011', line5: 8672, line6: 5570 },
 		{ period: '2011-2016', line5: 2604, line6: -642 },
 		{ period: '2016-2021', line5: 9361, line6: 608 },
-		{ period: 'Active building permits', line5: 40496, line6: 9484 },
-		{ period: 'Development applications under review', line5: 83530, line6: 6012 }
+		{
+			period: fr ? 'Permis de construction actifs' : 'Active building permits',
+			line5: 40496,
+			line6: 9484
+		},
+		{
+			period: fr ? 'Demandes d’aménagement à l’étude' : 'Development applications under review',
+			line5: 83530,
+			line6: 6012
+		}
 	];
 
 	const seriesConfig = [
-		{ key: 'line5', label: 'Eglinton Crosstown (Line 5)', color: '#f45d01' },
-		{ key: 'line6', label: 'Finch LRT (Line 6)', color: '#00adf2' }
+		{
+			key: 'line5',
+			label: fr ? 'Eglinton Crosstown (ligne 5)' : 'Eglinton Crosstown (Line 5)',
+			color: '#f45d01'
+		},
+		{ key: 'line6', label: fr ? 'TLR Finch (ligne 6)' : 'Finch LRT (Line 6)', color: '#00adf2' }
 	];
 </script>
 
@@ -26,12 +42,17 @@
 	{data}
 	{seriesConfig}
 	yKey="period"
-	title="Building & Development by Transit Line"
+	title={fr
+		? 'Construction et aménagement par ligne de transport collectif'
+		: 'Building & Development by Transit Line'}
 	minHeight="300px"
 	{visible}
 	xTicks={6}
-	xLabel="Units"
+	xLabel={fr ? 'Logements' : 'Units'}
 	wrapLabels={true}
-	formatLabelX={(d: number) => String(d)}
+	formatLabelX={fr ? (d: number) => formatNumber(d, undefined, lang) : (d: number) => String(d)}
+	formatTooltipValue={fr
+		? (d: any) => (isNaN(+d) || d === null ? d : formatNumber(+d, undefined, lang))
+		: undefined}
 	padding={{ top: 10, right: 30, bottom: 20, left: 100 }}
 />

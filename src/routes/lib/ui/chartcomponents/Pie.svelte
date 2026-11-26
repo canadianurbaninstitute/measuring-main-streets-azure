@@ -4,6 +4,10 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
 	import type { Readable } from 'svelte/store';
+	import { getLang } from '../../i18n';
+	import { colon } from '../charts/chartFormat';
+
+	const fr = getLang() === 'fr';
 
 	const { data, x, y, zScale, width, height } = getContext<{
 		data: Readable<any[]>;
@@ -151,7 +155,7 @@
 				e = null;
 			}}
 		>
-			<title>{$x(d.data)}: {$y(d.data)}</title>
+			<title>{$x(d.data)}{colon(fr)} {$y(d.data)}</title>
 		</path>
 	{/each}
 </g>

@@ -4,13 +4,16 @@
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	let center = [-79.3659, 43.9085];
 	let bearing = -17.1;
 	let pitch = 0;
-	let attribution = 'Canadian Urban Institute';
+	let attribution = fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute';
 
 	let map;
 
@@ -94,7 +97,7 @@
 
 		<div class="radio">
 			<input type="radio" id="montreal" name="region" value="montreal" on:change={navigateMap} />
-			<label for="montreal">Montreal</label>
+			<label for="montreal">{fr ? 'Montréal' : 'Montreal'}</label>
 		</div>
 
 		<div class="radio">
@@ -106,10 +109,10 @@
 	<div id="case-studies-map" class="map"></div>
 
 	<div class="legend-container">
-		<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-		<LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-		<LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-		<LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} />
+		<LegendItem variant={'polygon'} label={fr ? 'Rues principales de centre-ville' : 'Downtown Main Streets'} bgcolor={'#58e965'} />
+		<LegendItem variant={'polygon'} label={fr ? 'Rues principales de quartier' : 'Neighbourhood Main Streets'} bgcolor={'#002940'} />
+		<LegendItem variant={'polygon'} label={fr ? 'Rues principales de petite ville' : 'Small Town Main Streets'} bgcolor={'#00adf2'} />
+		<LegendItem variant={'polygon'} label={fr ? 'Centres commerciaux' : 'Malls'} bgcolor={'#DB3069'} />
 	</div>
 </div>
 

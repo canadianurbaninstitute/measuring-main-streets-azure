@@ -4,6 +4,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 	import type { Station } from '../../lib/data/transitdata/stations';
+	import { getLang } from '../../lib/i18n';
 
 	interface AIDescription {
 		id: string;
@@ -18,6 +19,7 @@
 	}
 
 	let { selectedStation, aiDescriptions, activeTab, isOpen = $bindable(false) }: Props = $props();
+	const fr = getLang() === 'fr';
 
 	const description = $derived(
 		aiDescriptions?.find((desc) => desc?.id === selectedStation?.id)?.description ?? ''
@@ -45,7 +47,9 @@
 					class="rounded-lg flex px-4 w-full flex-1 select-none items-center justify-between text-[15px] font-medium transition-all [&[data-state=open]>span>svg]:rotate-180"
 				>
 					<p style="margin-bottom: 4px;">
-						<em class="text-xs text-zinc-700">✨ AI-generated summary</em>
+						<em class="text-xs text-zinc-700"
+							>{fr ? '✨ Résumé généré par IA' : '✨ AI-generated summary'}</em
+						>
 					</p>
 					<span
 						class="hover:bg-dark-10 inline-flex size-8 items-center justify-center rounded-[7px] bg-transparent"
@@ -60,7 +64,10 @@
 							class="overflow-hidden text-sm tracking-[-0.01em]"
 						>
 							<div class="m-4">
-								<p class="ai-description-text">{description}</p>
+								{#if fr}
+									<p class="text-xs italic text-zinc-700">Résumé disponible en anglais seulement.</p>
+								{/if}
+								<p class="ai-description-text" lang={fr ? 'en' : undefined}>{description}</p>
 							</div>
 						</div>
 					{/if}

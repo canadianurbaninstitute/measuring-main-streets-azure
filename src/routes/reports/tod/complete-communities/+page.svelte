@@ -26,7 +26,12 @@
 	import LibraryMap from './charts/LibraryMap.svelte';
 	import MissingAmenities from './charts/MissingAmenities.svelte';
 
-	import { sections } from './article';
+	import { sections as sectionsEn } from './article';
+	import { sections as sectionsFr } from './article.fr';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	// Charts
 	import AccessScatter from './charts/AccessScatter.svelte';
@@ -164,7 +169,7 @@
 	const items = $derived.by(() => {
 		const nav: NavItem[] = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Findings' }
+			{ type: 'anchor', id: 'report-findings', label: fr ? 'Constats clés' : 'Key Findings' }
 		];
 
 		sections.forEach((section, si) => {
@@ -189,28 +194,49 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
-	<ReportHeader
-		id="report-header"
-		eyebrow="TOWARDS COMPLETE COMMUNITIES"
-		title="FROM TOD TO TOCC"
-		subtitle="Transit-oriented development and complete communities in a Canadian context."
-		backgroundImage={introImage}
-	/>
+	{#if fr}
+		<ReportHeader
+			id="report-header"
+			eyebrow="VERS DES COLLECTIVITÉS COMPLÈTES"
+			title="DU TOD AUX TOCC"
+			subtitle="L’aménagement axé sur le transport collectif (TOD) et les collectivités complètes dans le contexte canadien."
+			backgroundImage={introImage}
+		/>
 
-	<ReportFindings
-		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="Amenity Access and Density"
-		description1="Access to core and additional amenities was positively correlated with residential density in Transit Station Areas."
-		finding2="Large Civic Infrastructure Missing"
-		description2="Libraries and Community centres are absent in over 50 percent of existing Transit Station Areas."
-		finding3="TOD TO TOCC"
-		description3="Future and existing stations face significant amenity debt around Transit Station Areas that need to be addressed in order to meet sustainable development goals."
-	/>
+		<ReportFindings
+			id="report-findings"
+			title="CONSTATS CLÉS"
+			finding1="Accès aux commodités et densité"
+			description1="L’accès aux commodités essentielles et complémentaires est positivement corrélé à la densité résidentielle dans les aires de station de transport collectif (ASTC)."
+			finding2="De grandes infrastructures civiques manquantes"
+			description2="Les bibliothèques et les centres communautaires sont absents de plus de 50 % des aires de station de transport collectif existantes."
+			finding3="DU TOD AUX TOCC"
+			description3="Les stations futures et existantes accusent un important déficit de commodités dans leurs aires de station de transport collectif, qu’il faut combler pour atteindre les objectifs de développement durable."
+		/>
+	{:else}
+		<ReportHeader
+			id="report-header"
+			eyebrow="TOWARDS COMPLETE COMMUNITIES"
+			title="FROM TOD TO TOCC"
+			subtitle="Transit-oriented development and complete communities in a Canadian context."
+			backgroundImage={introImage}
+		/>
+
+		<ReportFindings
+			id="report-findings"
+			title="KEY TAKEAWAYS"
+			finding1="Amenity Access and Density"
+			description1="Access to core and additional amenities was positively correlated with residential density in Transit Station Areas."
+			finding2="Large Civic Infrastructure Missing"
+			description2="Libraries and Community centres are absent in over 50 percent of existing Transit Station Areas."
+			finding3="TOD TO TOCC"
+			description3="Future and existing stations face significant amenity debt around Transit Station Areas that need to be addressed in order to meet sustainable development goals."
+		/>
+	{/if}
 
 	{#snippet renderPanel(uid: string, isVisible: boolean)}
 		{@const panel: Panel = allPanels.find((p) => p.uid === uid)?? {}}
