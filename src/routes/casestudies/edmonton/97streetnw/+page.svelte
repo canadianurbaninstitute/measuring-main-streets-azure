@@ -293,8 +293,7 @@
 							métropolitaine de recensement où se trouve l’étude de cas.
 						</p>
 						<p>
-							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Niveau
-							d’emploi » pour afficher un rayon de 10 minutes de marche autour de la zone
+							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Taille des entreprises » pour afficher un rayon de 10 minutes de marche autour de la zone
 							étudiée ainsi que le nombre estimé d’employés de chaque lieu
 							d’infrastructure civique.
 						</p>
@@ -418,8 +417,7 @@
 							métropolitaine de recensement où se trouve l’étude de cas.
 						</p>
 						<p>
-							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Niveau
-							d’emploi » pour afficher un rayon de 10 minutes de marche autour de la zone
+							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Taille des entreprises » pour afficher un rayon de 10 minutes de marche autour de la zone
 							étudiée ainsi que le nombre estimé d’employés de chaque commerce de rue
 							principale.
 						</p>

@@ -285,7 +285,7 @@
 						<p>
 							L’infrastructure civique présente dans la zone étudiée est représentée selon
 							5 catégories : Éducation, Services gouvernementaux et communautaires, Arts
-							et culture, Installations récréatives et Santé. Pour en savoir plus sur la
+							et culture, Loisirs et Santé. Pour en savoir plus sur la
 							façon dont nous avons établi ces catégories, consultez notre section <a
 							href="/about/data-methodology">Données et méthodologie</a >. Le graphique
 							présente la répartition proportionnelle de l’infrastructure civique dans la

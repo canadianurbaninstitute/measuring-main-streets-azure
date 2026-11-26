@@ -240,20 +240,39 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						Overlea Boulevard, running east-west, is the Neighbourhood Main Street of the
-						Thorncliffe Park neighbourhood, located at the geographic centre of Toronto.
-					</p>
-					<p>
-						With the construction of the Ontario Line subway and its maintenance and storage
-						facility, the area is undergoing significant change.
-					</p>
-					<p>
-						The Thorncliffe Park study area extends west to east across the near entirety of Overlea
-						Boulevard, from Millwood Rd to the bridge over the Don River. It includes all the
-						estabishments north of the Boulevard up to the railway and hydro corridor, and the
-						Overlea Mews plaza and East York Town Centre mall to the south.
-					</p>
+					{#if fr}
+						<p>
+							Overlea Boulevard, orienté est-ouest, est la rue principale de quartier du
+							quartier de Thorncliffe Park, situé au centre géographique de Toronto.
+						</p>
+						<p>
+							Avec la construction de la ligne de métro Ontario et de son centre
+							d’entretien et de remisage, le secteur connaît d’importants changements.
+						</p>
+						<p>
+							Le secteur à l’étude de Thorncliffe Park s’étend d’ouest en est sur la
+							quasi-totalité d’Overlea Boulevard, de Millwood Rd jusqu’au pont qui enjambe
+							la rivière Don. Il comprend tous les établissements situés au nord du
+							boulevard jusqu’au corridor ferroviaire et de lignes à haute tension, ainsi
+							que la place commerciale Overlea Mews et le centre commercial East York Town
+							Centre au sud.
+						</p>
+					{:else}
+						<p>
+							Overlea Boulevard, running east-west, is the Neighbourhood Main Street of the
+							Thorncliffe Park neighbourhood, located at the geographic centre of Toronto.
+						</p>
+						<p>
+							With the construction of the Ontario Line subway and its maintenance and storage
+							facility, the area is undergoing significant change.
+						</p>
+						<p>
+							The Thorncliffe Park study area extends west to east across the near entirety of Overlea
+							Boulevard, from Millwood Rd to the bridge over the Don River. It includes all the
+							estabishments north of the Boulevard up to the railway and hydro corridor, and the
+							Overlea Mews plaza and East York Town Centre mall to the south.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -286,19 +305,39 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						Overlea Boulevard is a four lane road with a grassy, tree-lined central median that
-						tapers to give way for left turn lanes at major intersections. The sidewalks are narrow,
-						typical of suburban development, separated from the road by a strip of grass. As Overlea
-						Boulevard is the one road into and out of the study area, it is well served by a series
-						of school and transit buses.
-					</p>
-					<p>
-						Buildings are set far back from the roads, often with parking fronting the lots. North
-						of Overlea includes low-density, suburban-style strip malls, plazas, and parking lots.
-						East York Town Centre lies to the south surrounded in a sea of parking. Residential
-						apartment complexes lie further south.
-					</p>
+					{#if fr}
+						<p>
+							Overlea Boulevard est une route à quatre voies dotée d’un terre-plein
+							central gazonné et bordé d’arbres, qui se rétrécit pour laisser place à des
+							voies de virage à gauche aux principales intersections. Les trottoirs sont
+							étroits, comme c’est typique des aménagements de banlieue, et séparés de la
+							chaussée par une bande de gazon. Comme Overlea Boulevard est la seule voie
+							d’entrée et de sortie du secteur à l’étude, il est bien desservi par une
+							série d’autobus scolaires et de transport collectif.
+						</p>
+						<p>
+							Les bâtiments sont construits très en retrait de la rue, souvent avec des
+							stationnements en façade. Au nord d’Overlea, on trouve des centres
+							commerciaux linéaires, des places commerciales et des stationnements de
+							faible densité, de style banlieue. Au sud, l’East York Town Centre est
+							entouré d’une mer de stationnements. Des complexes d’immeubles résidentiels
+							se trouvent plus au sud.
+						</p>
+					{:else}
+						<p>
+							Overlea Boulevard is a four lane road with a grassy, tree-lined central median that
+							tapers to give way for left turn lanes at major intersections. The sidewalks are narrow,
+							typical of suburban development, separated from the road by a strip of grass. As Overlea
+							Boulevard is the one road into and out of the study area, it is well served by a series
+							of school and transit buses.
+						</p>
+						<p>
+							Buildings are set far back from the roads, often with parking fronting the lots. North
+							of Overlea includes low-density, suburban-style strip malls, plazas, and parking lots.
+							East York Town Centre lies to the south surrounded in a sea of parking. Residential
+							apartment complexes lie further south.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -426,24 +465,49 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Thorncliffe Park, when compared to the Toronto CMA, has a much higher proportion of
-						Healthcare in its civic infrastructure mix. Clinics can be found throughout the plazas,
-						strips, and malls.
-					</p>
-					<p>
-						The Neighbourhood Organization runs youth supports and newcomer employment programming
-						out of the Thorncliffe Park Youth Wellness Hub. They are expanding their footprint into
-						the second floor of the East York Town Centre, which used to house a municipal
-						vaccination clinic.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, this segment of Thorncliffe Park lags
-						behind most Toronto Main Street case studies in terms of civic opportunity, at 15th out
-						of 20, and 25th out of 36 Neighbourhood Main Streets. Despite the cultural diversity of
-						the neighbourhoods' residents, there are no Arts and Culture facilities to support
-						expressions of those identities.
-					</p>
+					{#if fr}
+						<p>
+							Comparativement à la RMR de Toronto, Thorncliffe Park présente une
+							proportion beaucoup plus élevée d’établissements de santé dans sa
+							composition d’infrastructure civique. On trouve des cliniques dans
+							l’ensemble des places commerciales, centres commerciaux linéaires et centres
+							commerciaux.
+						</p>
+						<p>
+							L’organisme The Neighbourhood Organization offre des services de soutien aux
+							jeunes et des programmes d’emploi pour les personnes nouvellement arrivées
+							au Thorncliffe Park Youth Wellness Hub. Il étend sa présence au deuxième
+							étage de l’East York Town Centre, qui abritait auparavant une clinique de
+							vaccination municipale.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, ce tronçon de Thorncliffe Park
+							accuse un retard par rapport à la plupart des études de cas de rues
+							principales de Toronto sur le plan des possibilités civiques, se classant au
+							15e rang sur 20 et au 25e rang sur 36 rues principales de quartier. Malgré
+							la diversité culturelle des résidents du quartier, on n’y trouve aucune
+							installation artistique et culturelle permettant d’exprimer ces identités.
+						</p>
+					{:else}
+						<p>
+							Thorncliffe Park, when compared to the Toronto CMA, has a much higher proportion of
+							Healthcare in its civic infrastructure mix. Clinics can be found throughout the plazas,
+							strips, and malls.
+						</p>
+						<p>
+							The Neighbourhood Organization runs youth supports and newcomer employment programming
+							out of the Thorncliffe Park Youth Wellness Hub. They are expanding their footprint into
+							the second floor of the East York Town Centre, which used to house a municipal
+							vaccination clinic.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, this segment of Thorncliffe Park lags
+							behind most Toronto Main Street case studies in terms of civic opportunity, at 15th out
+							of 20, and 25th out of 36 Neighbourhood Main Streets. Despite the cultural diversity of
+							the neighbourhoods' residents, there are no Arts and Culture facilities to support
+							expressions of those identities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -537,23 +601,46 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The concentration of immigrant-run commercial establishments north of Overlea has long
-						been considered the cultural hub of the Thorncliffe Park community. Unfortunately,
-						construction of Ontario Line infrastructure has resulted in the displacement of dozens
-						of businesses and hundreds of jobs. With many businesses unable to find a suitable
-						location within the neighbourhood, many have been forced to move out of the community or
-						shut down.
-					</p>
-					<p>
-						According to the Independent Business Index, Thorncliffe Park ranks behind most other
-						Main Street case studies in terms of level of business independence, ranking 17th out of
-						20 Toronto Main Streets, and 27th out of 36 Neighbourhood Main Streets.
-					</p>
-					<p>
-						Thorncliffe Park also ranks the same in terms of business density, reflective of its
-						suburban built form.
-					</p>
+					{#if fr}
+						<p>
+							La concentration d’établissements commerciaux tenus par des personnes
+							immigrantes au nord d’Overlea est depuis longtemps considérée comme le cœur
+							culturel de la communauté de Thorncliffe Park. Malheureusement, la
+							construction des infrastructures de la ligne Ontario a entraîné le
+							déplacement de dizaines d’entreprises et de centaines d’emplois. Bon nombre
+							d’entreprises n’ayant pu trouver d’emplacement convenable dans le quartier,
+							plusieurs ont été contraintes de quitter la communauté ou de fermer leurs
+							portes.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, Thorncliffe Park se classe
+							derrière la plupart des autres études de cas de rues principales en ce qui
+							concerne le niveau d’indépendance des entreprises, au 17e rang sur 20 rues
+							principales de Toronto et au 27e rang sur 36 rues principales de quartier.
+						</p>
+						<p>
+							Thorncliffe Park obtient le même classement en matière de densité
+							commerciale, ce qui reflète son cadre bâti de banlieue.
+						</p>
+					{:else}
+						<p>
+							The concentration of immigrant-run commercial establishments north of Overlea has long
+							been considered the cultural hub of the Thorncliffe Park community. Unfortunately,
+							construction of Ontario Line infrastructure has resulted in the displacement of dozens
+							of businesses and hundreds of jobs. With many businesses unable to find a suitable
+							location within the neighbourhood, many have been forced to move out of the community or
+							shut down.
+						</p>
+						<p>
+							According to the Independent Business Index, Thorncliffe Park ranks behind most other
+							Main Street case studies in terms of level of business independence, ranking 17th out of
+							20 Toronto Main Streets, and 27th out of 36 Neighbourhood Main Streets.
+						</p>
+						<p>
+							Thorncliffe Park also ranks the same in terms of business density, reflective of its
+							suburban built form.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -592,20 +679,40 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						Throughout the Thorncliffe Park study area, employment is generally spread throughout
-						the low-density commercial structures each with ample parking. There's a mix of
-						businesses with zero to five employees in smaller units, and larger businesses with up
-						to 50 employees in larger, but not taller, buildings. Costco is a dominant presence and
-						competes with East York Town Centre for local patronage. Just north across the tracks,
-						Leaside Business Park hosts a greater concentration of commercial and industrial
-						establishments.
-					</p>
-					<p>
-						For employment density, Thorncliffe Park ranks middle in comparison to Toronto Main
-						Streets at 9th out of 20, and relatively better at 14th out of 36 Neighbourhood Main
-						Streets.
-					</p>
+					{#if fr}
+						<p>
+							Dans l’ensemble du secteur à l’étude de Thorncliffe Park, l’emploi est
+							généralement réparti dans des bâtiments commerciaux de faible densité
+							disposant chacun d’un vaste stationnement. On y trouve à la fois des
+							entreprises de zéro à cinq employés dans de petits locaux et des entreprises
+							plus importantes comptant jusqu’à 50 employés dans des bâtiments plus
+							grands, mais pas plus hauts. Costco y occupe une place dominante et
+							concurrence l’East York Town Centre pour la clientèle locale. Juste au nord,
+							de l’autre côté de la voie ferrée, le Leaside Business Park accueille une
+							plus grande concentration d’établissements commerciaux et industriels.
+						</p>
+						<p>
+							Pour ce qui est de la densité d’emploi, Thorncliffe Park se situe dans la
+							moyenne des rues principales de Toronto, au 9e rang sur 20, et obtient un
+							résultat relativement meilleur parmi les rues principales de quartier, au
+							14e rang sur 36.
+						</p>
+					{:else}
+						<p>
+							Throughout the Thorncliffe Park study area, employment is generally spread throughout
+							the low-density commercial structures each with ample parking. There's a mix of
+							businesses with zero to five employees in smaller units, and larger businesses with up
+							to 50 employees in larger, but not taller, buildings. Costco is a dominant presence and
+							competes with East York Town Centre for local patronage. Just north across the tracks,
+							Leaside Business Park hosts a greater concentration of commercial and industrial
+							establishments.
+						</p>
+						<p>
+							For employment density, Thorncliffe Park ranks middle in comparison to Toronto Main
+							Streets at 9th out of 20, and relatively better at 14th out of 36 Neighbourhood Main
+							Streets.
+						</p>
+					{/if}
 
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
@@ -667,14 +774,27 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Since this segment of Thorncliffe Park is primarily zoned for commercial and industrial
-						uses, residents can be found outside of the study area to the south in apartment tower
-						complexes. These apartment complexes represent approximately eighty percent of the
-						housing stock. Additionally, some low-density housing is present on and around this
-						section of Thorncliffe Park. Most likely attributed to the purpose built housing boom,
-						over 30% of the total housing stock was built in the 1961-80 period.
-					</p>
+					{#if fr}
+						<p>
+							Comme ce tronçon de Thorncliffe Park est principalement zoné à des fins
+							commerciales et industrielles, les résidents se trouvent à l’extérieur du
+							secteur à l’étude, au sud, dans des complexes de tours d’habitation. Ces
+							complexes représentent environ 80 % du parc de logements. On trouve
+							également quelques logements de faible densité sur ce tronçon de Thorncliffe
+							Park et aux alentours. Vraisemblablement en raison du boom de construction
+							de logements locatifs, plus de 30 % du parc de logements total a été
+							construit entre 1961 et 1980.
+						</p>
+					{:else}
+						<p>
+							Since this segment of Thorncliffe Park is primarily zoned for commercial and industrial
+							uses, residents can be found outside of the study area to the south in apartment tower
+							complexes. These apartment complexes represent approximately eighty percent of the
+							housing stock. Additionally, some low-density housing is present on and around this
+							section of Thorncliffe Park. Most likely attributed to the purpose built housing boom,
+							over 30% of the total housing stock was built in the 1961-80 period.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -741,22 +861,45 @@
 							]}
 						/>
 					</div>
-					<p>
-						Of residents around the Thorncliffe Park study area, 60% are recent immigrants and 67%
-						are visible minorities.
-					</p>
-					<p>
-						According to the City of Toronto's 2016 Demographic Snapshot of Thorncliffe Park, it is
-						a culturally and linguistically diverse neighbourhood with Urdu as the top non-English
-						mother tongue, followed far behind by Pashto, Tagalog, Farsi, then Gujarati. In 2016,
-						89% of households rented, which was far above the City-wide rate of 47%. That same year,
-						46% of households had low-income status, versus 20% city-wide.
-					</p>
-					<p>
-						As a designated Neighbourhood Improvement Area, the community is recognized as
-						equity-deserving, warranting special place-based policies to improve the well-being of
-						residents.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les résidents des environs du secteur à l’étude de Thorncliffe Park,
+							60 % sont des immigrants récents et 67 % font partie d’une minorité visible.
+						</p>
+						<p>
+							Selon le portrait démographique de Thorncliffe Park réalisé en 2016 par la
+							Ville de Toronto (Demographic Snapshot), il s’agit d’un quartier
+							culturellement et linguistiquement diversifié, où l’ourdou est la langue
+							maternelle autre que l’anglais la plus répandue, suivi de loin par le
+							pachto, le tagalog, le farsi, puis le gujarati. En 2016, 89 % des ménages
+							étaient locataires, une proportion bien supérieure au taux de 47 % pour
+							l’ensemble de la ville. La même année, 46 % des ménages étaient à faible
+							revenu, contre 20 % à l’échelle de la ville.
+						</p>
+						<p>
+							En tant que zone d’amélioration de quartier (Neighbourhood Improvement Area)
+							désignée, la communauté est reconnue comme étant en quête d’équité, ce qui
+							justifie des politiques territorialisées particulières visant à améliorer le
+							bien-être de ses résidents.
+						</p>
+					{:else}
+						<p>
+							Of residents around the Thorncliffe Park study area, 60% are recent immigrants and 67%
+							are visible minorities.
+						</p>
+						<p>
+							According to the City of Toronto's 2016 Demographic Snapshot of Thorncliffe Park, it is
+							a culturally and linguistically diverse neighbourhood with Urdu as the top non-English
+							mother tongue, followed far behind by Pashto, Tagalog, Farsi, then Gujarati. In 2016,
+							89% of households rented, which was far above the City-wide rate of 47%. That same year,
+							46% of households had low-income status, versus 20% city-wide.
+						</p>
+						<p>
+							As a designated Neighbourhood Improvement Area, the community is recognized as
+							equity-deserving, warranting special place-based policies to improve the well-being of
+							residents.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -799,17 +942,33 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Thorncliffe Park ranks high in Resiliency Score, at 3rd out of 20 Toronto Main Streets,
-						and 4th out of 26 Neighbourhood Main Streets.
-					</p>
-					<p>
-						While Main Streets that heavily relied on non-resident visitors have been slow to
-						recover since pandemic shut downs in 2019, Thorncliffe Park businesses have been able to
-						count on local patronage from within the neighbourhood and Flemingdon Park to the
-						northeast, pushing visit numbers to momentarily hit 100% the relative 2019 level near
-						the end of 2022.
-					</p>
+					{#if fr}
+						<p>
+							Thorncliffe Park obtient un score de résilience élevé, se classant au 3e
+							rang sur 20 rues principales de Toronto et au 4e rang sur 26 rues
+							principales de quartier.
+						</p>
+						<p>
+							Alors que les rues principales qui dépendaient fortement des visiteurs non
+							résidents ont tardé à se rétablir depuis les fermetures liées à la pandémie
+							en 2019, les entreprises de Thorncliffe Park ont pu compter sur la clientèle
+							locale du quartier et de Flemingdon Park, au nord-est, ce qui a permis au
+							nombre de visites d’atteindre momentanément 100 % du niveau relatif de 2019
+							vers la fin de 2022.
+						</p>
+					{:else}
+						<p>
+							Thorncliffe Park ranks high in Resiliency Score, at 3rd out of 20 Toronto Main Streets,
+							and 4th out of 26 Neighbourhood Main Streets.
+						</p>
+						<p>
+							While Main Streets that heavily relied on non-resident visitors have been slow to
+							recover since pandemic shut downs in 2019, Thorncliffe Park businesses have been able to
+							count on local patronage from within the neighbourhood and Flemingdon Park to the
+							northeast, pushing visit numbers to momentarily hit 100% the relative 2019 level near
+							the end of 2022.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
