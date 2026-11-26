@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/toronto/schomberg/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/toronto/schomberg/civicmix';
@@ -415,7 +416,7 @@
 						infrastructure and others, are displayed on this map. For more information about how we
 						calculated these, read our <a href="/about/data-methodology">Data and Methodology</a>.
 					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

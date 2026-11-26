@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/toronto/downtownyonge/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/toronto/downtownyonge/civicmix';
@@ -217,22 +218,43 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						Yonge Street was originally surveyed as a north-south transportation route between the
-						Town of York and Lake Simcoe in 1796. Portions of Yonge Street overlap with an ancient
-						Indigenous trail system.
-					</p>
-					<p>
-						After Toronto was incorporated in 1834, Yonge emerged as a key commercial street. Known
-						as "Toronto's Main Street", Yonge continues to play a vital role in the growth and
-						development of Toronto and the Greater Toronto Area.
-					</p>
-					<p>
-						The Downtown Yonge study area extends from Richmond St W in the south to Grosvenor St in
-						the north, and is bound by Bay St to the west and Toronto Metropolitan University (TMU)
-						to the east. Downtown Younge sits just north of Toronto's Financial District and west of
-						City Hall.
-					</p>
+					{#if fr}
+						<p>
+							Yonge Street a d’abord été arpentée en 1796 comme voie de transport nord-sud
+							entre la ville de York et le lac Simcoe. Certaines portions de Yonge Street
+							chevauchent un ancien réseau de sentiers autochtones.
+						</p>
+						<p>
+							Après la constitution de Toronto en municipalité en 1834, Yonge est devenue
+							une artère commerciale importante. Surnommée « la rue principale de
+							Toronto », Yonge continue de jouer un rôle essentiel dans la croissance et
+							le développement de Toronto et de la région du Grand Toronto.
+						</p>
+						<p>
+							La zone à l’étude de Downtown Yonge s’étend de Richmond St W, au sud,
+							jusqu’à Grosvenor St, au nord, et est délimitée par Bay St à l’ouest et par
+							la Toronto Metropolitan University (TMU) à l’est. Downtown Yonge se trouve
+							juste au nord du quartier financier de Toronto et à l’ouest de l’hôtel de
+							ville.
+						</p>
+					{:else}
+						<p>
+							Yonge Street was originally surveyed as a north-south transportation route between the
+							Town of York and Lake Simcoe in 1796. Portions of Yonge Street overlap with an ancient
+							Indigenous trail system.
+						</p>
+						<p>
+							After Toronto was incorporated in 1834, Yonge emerged as a key commercial street. Known
+							as "Toronto's Main Street", Yonge continues to play a vital role in the growth and
+							development of Toronto and the Greater Toronto Area.
+						</p>
+						<p>
+							The Downtown Yonge study area extends from Richmond St W in the south to Grosvenor St in
+							the north, and is bound by Bay St to the west and Toronto Metropolitan University (TMU)
+							to the east. Downtown Younge sits just north of Toronto's Financial District and west of
+							City Hall.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -265,24 +287,48 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						Due to Yonge Street's long history as the heart of Toronto, there is a diverse and wide
-						range of architectural styles and building forms throughout Downtown Yonge. In many
-						ways, the Eaton Centre shopping mall dominates the area, especially between Dundas and
-						Queen. Smaller-scale commercial buildings exist along the street, but large retail
-						complexes and high-rise towers are more prominent.
-					</p>
-					<p>
-						The TTC's Line 1 runs under Yonge Street, connecting Downtown Yonge to Union Station in
-						the south and Vaughan Metropolitan Centre to the north. Several major streetcar lines
-						also run east-west through the study area facilitating a transit rich environment.
-					</p>
-					<p>
-						The street itself is four lanes wide with modest sidewalks that are often packed with
-						pedestrians during busy periods. In response, the local BIA's Yonge Love Action Plan
-						proposes a significant overhaul of the streetscape to pedestrianize the corridor among
-						other vibrancy initiatives.
-					</p>
+					{#if fr}
+						<p>
+							En raison de la longue histoire de Yonge Street en tant que cœur de Toronto,
+							on trouve une grande diversité de styles architecturaux et de formes bâties
+							dans Downtown Yonge. À bien des égards, le centre commercial Eaton Centre
+							domine le secteur, surtout entre Dundas et Queen. Des bâtiments commerciaux
+							de plus petite échelle bordent la rue, mais les grands complexes commerciaux
+							et les tours de grande hauteur y occupent une place plus importante.
+						</p>
+						<p>
+							La ligne 1 de la TTC passe sous Yonge Street et relie Downtown Yonge à Union
+							Station au sud et au Vaughan Metropolitan Centre au nord. Plusieurs grandes
+							lignes de tramway traversent également la zone à l’étude d’est en ouest, ce
+							qui en fait un milieu très bien desservi par le transport collectif.
+						</p>
+						<p>
+							La rue elle-même compte quatre voies et des trottoirs modestes, souvent
+							bondés de piétons pendant les périodes achalandées. Pour y remédier, le
+							Yonge Love Action Plan de la BIA locale propose une refonte importante du
+							paysage de rue afin de piétonniser le corridor, parmi d’autres initiatives
+							visant à dynamiser le secteur.
+						</p>
+					{:else}
+						<p>
+							Due to Yonge Street's long history as the heart of Toronto, there is a diverse and wide
+							range of architectural styles and building forms throughout Downtown Yonge. In many
+							ways, the Eaton Centre shopping mall dominates the area, especially between Dundas and
+							Queen. Smaller-scale commercial buildings exist along the street, but large retail
+							complexes and high-rise towers are more prominent.
+						</p>
+						<p>
+							The TTC's Line 1 runs under Yonge Street, connecting Downtown Yonge to Union Station in
+							the south and Vaughan Metropolitan Centre to the north. Several major streetcar lines
+							also run east-west through the study area facilitating a transit rich environment.
+						</p>
+						<p>
+							The street itself is four lanes wide with modest sidewalks that are often packed with
+							pedestrians during busy periods. In response, the local BIA's Yonge Love Action Plan
+							proposes a significant overhaul of the streetscape to pedestrianize the corridor among
+							other vibrancy initiatives.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -410,26 +456,55 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The Downtown Yonge study area is based on the boundaries of the Downtown Yonge BIA. The
-						BIA has spearheaded beautification initiatives including branded street poles, banners,
-						planters, holiday lights, tree plantings, and sidewalk improvements.
-					</p>
-					<p>
-						Yonge-Dundas Square serves as a focal point for the downtown Toronto community. The
-						former parking lot turned public plaza connects the Eaton Centre to TMU and provides a
-						place for rest with tables and chairs out during warmer months. The outdoor stage and
-						plaza are booked for events all year round.
-					</p>
-					<p>
-						The Sheldon & Tracy Levy Student Learning Centre at Yonge and Gould, first opened to TMU
-						students in 2015, serves as a gateway into the TMU campus.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, Downtown Yonge ranks 1st out of 20 Toronto
-						case studies in terms of its civic opportunity. Compared to other downtown main streets,
-						Downtown Yonge ranks 7th out of the 12 downtown main streets.
-					</p>
+					{#if fr}
+						<p>
+							La zone à l’étude de Downtown Yonge correspond aux limites de la zone
+							d’amélioration commerciale (BIA) de Downtown Yonge. La BIA a mené des
+							initiatives d’embellissement, notamment des poteaux de rue à l’image du
+							secteur, des bannières, des jardinières, des lumières des Fêtes, des
+							plantations d’arbres et des améliorations aux trottoirs.
+						</p>
+						<p>
+							Yonge-Dundas Square sert de point de rassemblement pour la communauté du
+							centre-ville de Toronto. Cet ancien stationnement transformé en place
+							publique relie l’Eaton Centre à la TMU et offre un lieu de repos, avec des
+							tables et des chaises installées pendant les mois plus chauds. La scène
+							extérieure et la place sont réservées pour des événements tout au long de
+							l’année.
+						</p>
+						<p>
+							Le Sheldon & Tracy Levy Student Learning Centre, à l’angle de Yonge et de
+							Gould, ouvert à la population étudiante de la TMU en 2015, sert de porte
+							d’entrée au campus de la TMU.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, Downtown Yonge se classe au 1er
+							rang sur 20 études de cas de Toronto en matière de possibilités civiques.
+							Par rapport aux autres rues principales de centres-villes, Downtown Yonge se
+							classe 7e sur 12.
+						</p>
+					{:else}
+						<p>
+							The Downtown Yonge study area is based on the boundaries of the Downtown Yonge BIA. The
+							BIA has spearheaded beautification initiatives including branded street poles, banners,
+							planters, holiday lights, tree plantings, and sidewalk improvements.
+						</p>
+						<p>
+							Yonge-Dundas Square serves as a focal point for the downtown Toronto community. The
+							former parking lot turned public plaza connects the Eaton Centre to TMU and provides a
+							place for rest with tables and chairs out during warmer months. The outdoor stage and
+							plaza are booked for events all year round.
+						</p>
+						<p>
+							The Sheldon & Tracy Levy Student Learning Centre at Yonge and Gould, first opened to TMU
+							students in 2015, serves as a gateway into the TMU campus.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, Downtown Yonge ranks 1st out of 20 Toronto
+							case studies in terms of its civic opportunity. Compared to other downtown main streets,
+							Downtown Yonge ranks 7th out of the 12 downtown main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -523,17 +598,34 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Downtown Yonge is part of the larger downtown core, an area of immense employment
-						density. Downtown Yonge ranks 1st of 20 Toronto Main Streets for business density, and
-						4th out of 12 Downtown Main Streets. There are small businesses oriented toward Yonge
-						Street itself in low-rise, historical buildings, and medium to large businesses in
-						retail complexes and high-rise office towers.
-					</p>
-					<p>
-						According to the Independent Business Index, Downtown Yonge ranks 18th out of 20 Toronto
-						Main Streets and last out of 12 Downtown Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Downtown Yonge fait partie du grand centre-ville, un secteur où la densité
+							d’emploi est considérable. Downtown Yonge se classe 1er sur 20 rues
+							principales de Toronto pour la densité commerciale, et 4e sur 12 rues
+							principales de centres-villes. On y trouve de petites entreprises orientées
+							vers Yonge Street dans des bâtiments historiques de faible hauteur, ainsi
+							que des entreprises de moyenne et de grande taille dans des complexes
+							commerciaux et des tours de bureaux de grande hauteur.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, Downtown Yonge se classe 18e
+							sur 20 rues principales de Toronto et au dernier rang des 12 rues
+							principales de centres-villes.
+						</p>
+					{:else}
+						<p>
+							Downtown Yonge is part of the larger downtown core, an area of immense employment
+							density. Downtown Yonge ranks 1st of 20 Toronto Main Streets for business density, and
+							4th out of 12 Downtown Main Streets. There are small businesses oriented toward Yonge
+							Street itself in low-rise, historical buildings, and medium to large businesses in
+							retail complexes and high-rise office towers.
+						</p>
+						<p>
+							According to the Independent Business Index, Downtown Yonge ranks 18th out of 20 Toronto
+							Main Streets and last out of 12 Downtown Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -572,17 +664,31 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						As part of a downtown core with the densest concentration of employment in Canada, there
-						is employment opportunities on and around Downtown Yonge. These employers range in size
-						- from small scale businesses employing under five employees to large scale employers
-						with over 100 employees. Additionally, there is relative mix in the type of employers,
-						as employment is located in both civic infrastructure and businesses as well as other
-						types of enterprises. As a result, Downtown Yonge ranks first in employment density for
-						all 20 Toronto Main Streets and 12 Downtown Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Faisant partie d’un centre-ville qui présente la plus forte concentration
+							d’emplois au Canada, Downtown Yonge offre des possibilités d’emploi sur la
+							rue et dans ses environs. La taille de ces employeurs varie, des petites
+							entreprises de moins de cinq employés aux grands employeurs de plus de 100
+							employés. De plus, les types d’employeurs sont relativement variés, puisque
+							les emplois se trouvent à la fois dans l’infrastructure civique, dans les
+							entreprises et dans d’autres types d’organisations. Par conséquent, Downtown
+							Yonge se classe au 1er rang pour la densité d’emploi parmi les 20 rues
+							principales de Toronto et les 12 rues principales de centres-villes.
+						</p>
+					{:else}
+						<p>
+							As part of a downtown core with the densest concentration of employment in Canada, there
+							is employment opportunities on and around Downtown Yonge. These employers range in size
+							- from small scale businesses employing under five employees to large scale employers
+							with over 100 employees. Additionally, there is relative mix in the type of employers,
+							as employment is located in both civic infrastructure and businesses as well as other
+							types of enterprises. As a result, Downtown Yonge ranks first in employment density for
+							all 20 Toronto Main Streets and 12 Downtown Main Streets.
+						</p>
+					{/if}
 
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -642,16 +748,32 @@
 						/>
 						<PhotosCheckbox section={'housing'} />
 					</div>
-					<p>
-						As part of an intensified downtown core, the residents of Downtown Yonge are all housed
-						in high-rise apartments. Taking advantage of close proximity to Line 1 subway stations,
-						residential towers, often above mixed-use podiums, have been erected along Yonge and
-						adjacent streets.
-					</p>
-					<p>
-						Reflective of the recent condo boom in downtown Toronto, more than 25% of housing in the
-						study area was constructed between 2016 and 2021.
-					</p>
+					{#if fr}
+						<p>
+							Comme le secteur fait partie d’un centre-ville densifié, toutes les
+							personnes résidentes de Downtown Yonge habitent dans des immeubles
+							d’appartements de grande hauteur. Tirant parti de la proximité des stations
+							de métro de la ligne 1, des tours résidentielles, souvent construites sur
+							des basilaires à usage mixte, ont été érigées le long de Yonge et des rues
+							adjacentes.
+						</p>
+						<p>
+							Reflet du récent boom des copropriétés au centre-ville de Toronto, plus de
+							25 % des logements de la zone à l’étude ont été construits entre 2016 et
+							2021.
+						</p>
+					{:else}
+						<p>
+							As part of an intensified downtown core, the residents of Downtown Yonge are all housed
+							in high-rise apartments. Taking advantage of close proximity to Line 1 subway stations,
+							residential towers, often above mixed-use podiums, have been erected along Yonge and
+							adjacent streets.
+						</p>
+						<p>
+							Reflective of the recent condo boom in downtown Toronto, more than 25% of housing in the
+							study area was constructed between 2016 and 2021.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -718,12 +840,23 @@
 							]}
 						/>
 					</div>
-					<p>
-						The Downtown Yonge study area has a diverse residential population, with 53% being
-						recent immigrants and 53% being visible minorities. Living in one of the most sought
-						after downtowns in Canada with high rents to match, the average individual full time
-						annual employment income of residents in the study area is $98,428.
-					</p>
+					{#if fr}
+						<p>
+							La zone à l’étude de Downtown Yonge compte une population résidente
+							diversifiée : 53 % des personnes sont issues d’une immigration récente et
+							53 % appartiennent à une minorité visible. Dans l’un des centres-villes les
+							plus prisés au Canada, où les loyers sont élevés en conséquence, le revenu
+							annuel moyen d’emploi individuel à temps plein des personnes résidant dans
+							la zone à l’étude s’élève à 98 428 $.
+						</p>
+					{:else}
+						<p>
+							The Downtown Yonge study area has a diverse residential population, with 53% being
+							recent immigrants and 53% being visible minorities. Living in one of the most sought
+							after downtowns in Canada with high rents to match, the average individual full time
+							annual employment income of residents in the study area is $98,428.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -766,20 +899,39 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						As Downtown Yonge is situated in the heart of Toronto, drawing workers, students,
-						tourists, and regional residents looking for entertainment, it's not surprised to see
-						that the study area draws more visitors than any other.
-					</p>
-					<p>
-						Despite seeing 20 million less visits than the relative 2019 count, the area still
-						attracted over 30 million visits 2022.
-					</p>
-					<p>
-						But Downtown Yonge's over reliance on infrequent visitors resulted in a low Resiliency
-						Score, ranking 18th of 20 Toronto Main Streets and in the middle at 6th of 12 Downtown
-						Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Comme Downtown Yonge se situe au cœur de Toronto et attire des travailleurs,
+							des étudiants, des touristes et des résidents de la région à la recherche de
+							divertissement, il n’est pas surprenant de constater que la zone à l’étude
+							attire plus de personnes visiteuses que toute autre.
+						</p>
+						<p>
+							Bien qu’elle ait enregistré 20 millions de visites de moins qu’en 2019, la
+							zone a tout de même attiré plus de 30 millions de visites en 2022.
+						</p>
+						<p>
+							Toutefois, la trop grande dépendance de Downtown Yonge envers les visiteurs
+							occasionnels lui vaut un faible score de résilience : la zone se classe 18e
+							sur 20 rues principales de Toronto et en milieu de peloton, au 6e rang sur
+							12 rues principales de centres-villes.
+						</p>
+					{:else}
+						<p>
+							As Downtown Yonge is situated in the heart of Toronto, drawing workers, students,
+							tourists, and regional residents looking for entertainment, it's not surprised to see
+							that the study area draws more visitors than any other.
+						</p>
+						<p>
+							Despite seeing 20 million less visits than the relative 2019 count, the area still
+							attracted over 30 million visits 2022.
+						</p>
+						<p>
+							But Downtown Yonge's over reliance on infrequent visitors resulted in a low Resiliency
+							Score, ranking 18th of 20 Toronto Main Streets and in the middle at 6th of 12 Downtown
+							Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

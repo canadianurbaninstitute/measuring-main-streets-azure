@@ -10,6 +10,7 @@ Welcome to the Measuring Main Streets Platform repo. MMSP is a SvelteKit-based w
 - [Testing](#testing)
 - [Linting & Formatting](#linting--formatting)
 - [Scripts](#scripts)
+- [Translation (English / French)](#translation-english--french)
 - [Contributing](#contributing)
 - [Contact](#contact)
 
@@ -52,6 +53,11 @@ npm run preview
 ### Azure Static Web Apps
 - The project uses [`svelte-adapter-azure-swa`](https://github.com/geoffrich/svelte-adapter-azure-swa) for deployment.
 - Each commit to main triggers a Github Action which deploys the app. You can view the Github Action under 'Actions'.
+
+## Translation (English / French)
+The site is bilingual without any third-party translation service. French pages are served under `/fr/` (e.g. `/fr/about/`) from the same route files as the English pages, and the top bar has an EN / FR toggle.
+
+When you add or change content, add the Canadian French text next to the English using `getLang()` from `src/routes/lib/i18n.js`. See [docs/translation-guide.md](docs/translation-guide.md) for the patterns, style rules and glossary.
 
 ## Contributing
 - Create a feature branch.

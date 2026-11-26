@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/50streetbeaumont/civicmix';
@@ -589,7 +590,7 @@
 						Reflective of its small town character, 50 Street in Beaumont ranks 19th out of 20
 						Edmonton Main Streets for employment density, and 8th out of 12 Small Town Main Streets.
 					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

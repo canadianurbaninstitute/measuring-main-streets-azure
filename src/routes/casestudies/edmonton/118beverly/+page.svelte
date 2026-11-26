@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/118beverly/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/118beverly/civicmix';
@@ -581,7 +582,7 @@
 						For employment density, the Beverly segment of 118 Avenue ranks last out of 20 Edmonton
 						Main Streets and 36 Neighbourhood Main Streets.
 					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
