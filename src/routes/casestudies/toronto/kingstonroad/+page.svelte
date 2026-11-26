@@ -222,18 +222,35 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						The name 'Kingston' originates from Kingston, Ontario, as Kingston Rd. was historically
-						the primary route connecting Toronto to settlements east of the city. Until 1998,
-						Kingston Rd. was part of Highway 2. Today, it serves as a major east-west arterial road
-						traversing most of Scarborough.
-					</p>
-					<p>
-						This section of Kingston Rd., located between Midland Ave. to the east and Highview Ave.
-						to the west, plays a vital role as the main street for the surrounding Cliffside
-						neighborhood in Scarborough. Notably, this stretch boasts a dense concentration of
-						businesses, making it a significant commercial hub within the area.
-					</p>
+					{#if fr}
+						<p>
+							Le nom « Kingston » provient de Kingston, en Ontario, puisque Kingston Rd.
+							était historiquement la principale route reliant Toronto aux établissements
+							situés à l’est de la ville. Jusqu’en 1998, Kingston Rd. faisait partie de la
+							route 2. Aujourd’hui, elle constitue une importante artère est-ouest qui
+							traverse la majeure partie de Scarborough.
+						</p>
+						<p>
+							Ce tronçon de Kingston Rd., situé entre Midland Ave. à l’est et Highview
+							Ave. à l’ouest, joue un rôle essentiel en tant que rue principale du
+							quartier de Cliffside, à Scarborough. Ce tronçon se distingue notamment par
+							une forte concentration d’entreprises, ce qui en fait un pôle commercial
+							important du secteur.
+						</p>
+					{:else}
+						<p>
+							The name 'Kingston' originates from Kingston, Ontario, as Kingston Rd. was historically
+							the primary route connecting Toronto to settlements east of the city. Until 1998,
+							Kingston Rd. was part of Highway 2. Today, it serves as a major east-west arterial road
+							traversing most of Scarborough.
+						</p>
+						<p>
+							This section of Kingston Rd., located between Midland Ave. to the east and Highview Ave.
+							to the west, plays a vital role as the main street for the surrounding Cliffside
+							neighborhood in Scarborough. Notably, this stretch boasts a dense concentration of
+							businesses, making it a significant commercial hub within the area.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -266,23 +283,47 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						Kingston Rd. serves as a major arterial route primarily designated for vehicular
-						traffic. The road features six lanes of circulation – three in each direction – with a
-						central median dividing the lanes. Although sidewalks are present on both sides of the
-						road, the width, number of lanes, vehicle speed, and lack of cycling infrastructure make
-						it unsupportive of active mobility. Moreover, this section of Kingston Rd. offers
-						limited public spaces or areas for leisure, with few benches and minimal tree coverage.
-					</p>
-					<p>
-						The buildings along Kingston Rd. consist of a mix of strip malls – low-rise and
-						connected commercial buildings with large parking lots in front of them – with some
-						newer and higher density mixed-use and condo developments.
-					</p>
-					<p>
-						While Kingston Rd. has very little greenspace on the street itself, significant
-						greenspace is accessible to the road within a ten-minute walk.
-					</p>
+					{#if fr}
+						<p>
+							Kingston Rd. est une grande artère principalement destinée à la circulation
+							automobile. La chaussée compte six voies de circulation – trois dans chaque
+							direction – séparées par un terre-plein central. Bien qu’il y ait des
+							trottoirs des deux côtés, la largeur de la rue, le nombre de voies, la
+							vitesse des véhicules et l’absence d’infrastructures cyclables la rendent
+							peu propice à la mobilité active. De plus, ce tronçon de Kingston Rd. offre
+							peu d’espaces publics ou de lieux de détente, avec peu de bancs et un
+							couvert arboré minimal.
+						</p>
+						<p>
+							Les bâtiments le long de Kingston Rd. se composent d’un mélange de centres
+							commerciaux linéaires – des bâtiments commerciaux attenants de faible
+							hauteur, précédés de grands stationnements – et de quelques projets plus
+							récents et plus denses à usage mixte et de copropriétés.
+						</p>
+						<p>
+							Bien que Kingston Rd. compte très peu d’espaces verts sur la rue elle-même,
+							d’importants espaces verts sont accessibles dans un rayon de 10 minutes de
+							marche.
+						</p>
+					{:else}
+						<p>
+							Kingston Rd. serves as a major arterial route primarily designated for vehicular
+							traffic. The road features six lanes of circulation – three in each direction – with a
+							central median dividing the lanes. Although sidewalks are present on both sides of the
+							road, the width, number of lanes, vehicle speed, and lack of cycling infrastructure make
+							it unsupportive of active mobility. Moreover, this section of Kingston Rd. offers
+							limited public spaces or areas for leisure, with few benches and minimal tree coverage.
+						</p>
+						<p>
+							The buildings along Kingston Rd. consist of a mix of strip malls – low-rise and
+							connected commercial buildings with large parking lots in front of them – with some
+							newer and higher density mixed-use and condo developments.
+						</p>
+						<p>
+							While Kingston Rd. has very little greenspace on the street itself, significant
+							greenspace is accessible to the road within a ten-minute walk.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -410,22 +451,45 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Despite Kingston Rd.'s role as a pivotal commercial hub in Cliffside, it lacks the same
-						concentration or density of civic infrastructure. Nonetheless, this segment of Kingston
-						Rd. does feature some health and care facilities. Although not present on Kingston Rd.
-						itself, residents do still have access to government and community services, arts and
-						culture, and educational facilities within a ten-minute walk. For instance, residents
-						within this radius can easily reach significant destination civic infrastructure like
-						Variety Village, Bluffer’s Park, and Cardinal Newman High School. Yet, due to the
-						car-centric nature of Kingston Rd., pedestrian access to these vital amenities remains
-						limited.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, Kingston Rd. ranks 12th out of 20 Toronto
-						case studies in terms of its civic opportunity. Compared to other residential streets,
-						Kingston Rd. ranks 18th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							Malgré le rôle de pôle commercial central que joue Kingston Rd. à Cliffside,
+							la rue n’offre pas la même concentration ou densité d’infrastructure
+							civique. Ce tronçon de Kingston Rd. compte néanmoins quelques établissements
+							de santé et de soins. Bien qu’ils ne se trouvent pas sur Kingston Rd. même,
+							les services gouvernementaux et communautaires, les installations d’arts et
+							de culture et les établissements d’enseignement demeurent accessibles aux
+							personnes résidentes dans un rayon de 10 minutes de marche. Par exemple, les
+							personnes qui résident dans ce rayon peuvent facilement se rendre à
+							d’importantes infrastructures civiques de destination comme Variety Village,
+							Bluffer’s Park et Cardinal Newman High School. Cependant, en raison du
+							caractère axé sur l’automobile de Kingston Rd., l’accès piéton à ces
+							services essentiels demeure limité.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, Kingston Rd. se classe 12e sur 20
+							études de cas de Toronto en matière de possibilités civiques. Par rapport
+							aux autres rues résidentielles, Kingston Rd. se classe 18e sur 36 rues
+							principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							Despite Kingston Rd.'s role as a pivotal commercial hub in Cliffside, it lacks the same
+							concentration or density of civic infrastructure. Nonetheless, this segment of Kingston
+							Rd. does feature some health and care facilities. Although not present on Kingston Rd.
+							itself, residents do still have access to government and community services, arts and
+							culture, and educational facilities within a ten-minute walk. For instance, residents
+							within this radius can easily reach significant destination civic infrastructure like
+							Variety Village, Bluffer’s Park, and Cardinal Newman High School. Yet, due to the
+							car-centric nature of Kingston Rd., pedestrian access to these vital amenities remains
+							limited.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, Kingston Rd. ranks 12th out of 20 Toronto
+							case studies in terms of its civic opportunity. Compared to other residential streets,
+							Kingston Rd. ranks 18th out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -519,26 +583,52 @@
 							/>
 						</div>
 					</div>
-					<p>
-						There is a significant clustering of business and retail on this section of Kingston Rd.
-						While service businesses are the most prevalent, the road includes a mix of services,
-						retail, and food and drink establishments. A similar business mix is present within a
-						ten-minute walk of the road. The businesses themselves are a mix of independently owned
-						stores and national chains. Indeed, according to the Independent Business Index,
-						Kingston Rd. ranks 5th out of 20 Toronto main streets and 9th out of 36 residential main
-						streets.
-					</p>
-					<p>
-						There is also a relative difference in the business landscape between the northern and
-						southern ends of this segment of Kingston Rd. Specifically, vacant storefronts are
-						present among the older retail on the northern end of the road. In contrast, the
-						southern side consists of larger strips malls with less commercial vacancy but clear
-						signs of development pressure.
-					</p>
-					<p>
-						In terms of business density, the street ranks 6th out of 20 Toronto main streets and
-						12th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							On observe une importante concentration d’entreprises et de commerces sur ce
+							tronçon de Kingston Rd. Bien que les entreprises de services soient les plus
+							répandues, la rue compte une combinaison de services, de commerces de détail
+							et d’établissements de restauration et de boissons. Une composition
+							commerciale semblable se retrouve dans un rayon de 10 minutes de marche. Les
+							entreprises elles-mêmes comprennent à la fois des commerces indépendants et
+							des chaînes nationales. D’ailleurs, selon l’Indice des entreprises
+							indépendantes, Kingston Rd. se classe 5e sur 20 rues principales de Toronto
+							et 9e sur 36 rues principales résidentielles.
+						</p>
+						<p>
+							On note également une différence relative dans le paysage commercial entre
+							les extrémités nord et sud de ce tronçon de Kingston Rd. Plus précisément,
+							on trouve des locaux commerciaux vacants parmi les commerces plus anciens de
+							l’extrémité nord. En revanche, le côté sud se compose de centres commerciaux
+							linéaires plus grands, où l’inoccupation commerciale est moindre, mais où
+							les signes de pression immobilière sont manifestes.
+						</p>
+						<p>
+							En matière de densité commerciale, la rue se classe 6e sur 20 rues
+							principales de Toronto et 12e sur 36 rues principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							There is a significant clustering of business and retail on this section of Kingston Rd.
+							While service businesses are the most prevalent, the road includes a mix of services,
+							retail, and food and drink establishments. A similar business mix is present within a
+							ten-minute walk of the road. The businesses themselves are a mix of independently owned
+							stores and national chains. Indeed, according to the Independent Business Index,
+							Kingston Rd. ranks 5th out of 20 Toronto main streets and 9th out of 36 residential main
+							streets.
+						</p>
+						<p>
+							There is also a relative difference in the business landscape between the northern and
+							southern ends of this segment of Kingston Rd. Specifically, vacant storefronts are
+							present among the older retail on the northern end of the road. In contrast, the
+							southern side consists of larger strips malls with less commercial vacancy but clear
+							signs of development pressure.
+						</p>
+						<p>
+							In terms of business density, the street ranks 6th out of 20 Toronto main streets and
+							12th out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -577,20 +667,40 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						Kingston Rd. maintains a significant businesses density, especially when compared to the
-						surrounding neighbourhoods of Scarborough. As a result, there is a relative clustering
-						of employment along this segment of Kingston Rd. as well, especially among smaller scale
-						businesses of between zero to five employees. While there is a smaller number of
-						employment opportunities among the civic infrastructure on Kingston Rd. itself, directly
-						off of the road are largescale civic infrastructure that employ up to 50 employees.
-					</p>
-					<p>
-						However, in terms of overall employment density, Kingston Rd. has a lower employment
-						density than most other main street case studies. The street ranks 15th out of 20
-						Toronto main streets in terms of employment density and 33rd out of 36 residential main
-						streets.
-					</p>
+					{#if fr}
+						<p>
+							Kingston Rd. présente une densité commerciale importante, surtout par
+							rapport aux quartiers environnants de Scarborough. Par conséquent, on
+							observe aussi une concentration relative de l’emploi le long de ce tronçon
+							de Kingston Rd., en particulier dans les petites entreprises comptant de
+							zéro à cinq employés. Bien que l’infrastructure civique située sur Kingston
+							Rd. même offre un nombre plus restreint d’emplois, on trouve tout juste à
+							côté de la rue de grandes infrastructures civiques qui emploient jusqu’à 50
+							personnes.
+						</p>
+						<p>
+							Toutefois, sur le plan de la densité d’emploi globale, Kingston Rd. affiche
+							une densité d’emploi inférieure à celle de la plupart des autres études de
+							cas de rues principales. La rue se classe 15e sur 20 rues principales de
+							Toronto en matière de densité d’emploi et 33e sur 36 rues principales
+							résidentielles.
+						</p>
+					{:else}
+						<p>
+							Kingston Rd. maintains a significant businesses density, especially when compared to the
+							surrounding neighbourhoods of Scarborough. As a result, there is a relative clustering
+							of employment along this segment of Kingston Rd. as well, especially among smaller scale
+							businesses of between zero to five employees. While there is a smaller number of
+							employment opportunities among the civic infrastructure on Kingston Rd. itself, directly
+							off of the road are largescale civic infrastructure that employ up to 50 employees.
+						</p>
+						<p>
+							However, in terms of overall employment density, Kingston Rd. has a lower employment
+							density than most other main street case studies. The street ranks 15th out of 20
+							Toronto main streets in terms of employment density and 33rd out of 36 residential main
+							streets.
+						</p>
+					{/if}
 
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
@@ -652,20 +762,38 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The population density on Kingston Rd. is slightly higher than on streets directly
-						adjacent to it, although the difference is minimal. Despite the fact that there is not a
-						significant difference in the population density, there is a notably higher number of
-						dwellings on Kingston Rd. than in the surrounding streets. This is because the housing
-						typology on Kingston Rd. consists primarily of high-rise and low-rise apartment
-						buildings compared to the higher prevalence of single-detached housing in the
-						surrounding areas.
-					</p>
-					<p>
-						The housing on and around Kingston Rd. also represents a mix of older and newer
-						construction. The majority of housing on the road was constructed either before 1960 or
-						between 2016 and 2021.
-					</p>
+					{#if fr}
+						<p>
+							La densité de population sur Kingston Rd. est légèrement plus élevée que
+							dans les rues directement adjacentes, bien que l’écart soit minime. Même si
+							la différence de densité de population n’est pas importante, le nombre de
+							logements est nettement plus élevé sur Kingston Rd. que dans les rues
+							environnantes. Cela s’explique par le fait que la typologie résidentielle de
+							Kingston Rd. se compose principalement d’immeubles d’appartements de grande
+							et de faible hauteur, alors que les maisons individuelles sont plus
+							répandues dans les secteurs environnants.
+						</p>
+						<p>
+							Les logements situés sur Kingston Rd. et à proximité comprennent également
+							un mélange de constructions anciennes et récentes. La majorité des logements
+							de la rue ont été construits avant 1960 ou entre 2016 et 2021.
+						</p>
+					{:else}
+						<p>
+							The population density on Kingston Rd. is slightly higher than on streets directly
+							adjacent to it, although the difference is minimal. Despite the fact that there is not a
+							significant difference in the population density, there is a notably higher number of
+							dwellings on Kingston Rd. than in the surrounding streets. This is because the housing
+							typology on Kingston Rd. consists primarily of high-rise and low-rise apartment
+							buildings compared to the higher prevalence of single-detached housing in the
+							surrounding areas.
+						</p>
+						<p>
+							The housing on and around Kingston Rd. also represents a mix of older and newer
+							construction. The majority of housing on the road was constructed either before 1960 or
+							between 2016 and 2021.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -732,22 +860,44 @@
 							]}
 						/>
 					</div>
-					<p>
-						There are notable key characteristics of the residents of Kingston Rd. that
-						distinguishes the road from surrounding streets and neighbourhoods. For instance, the
-						road maintains a lower average age and smaller household size compared to adjacent
-						areas. Additionally, the average income on Kingston Rd. is lower than in its
-						surroundings. This is particularly evident when comparing it to neighborhoods southeast
-						of the road. Kingston Rd. also has a lower percentage of bachelor’s degree holders
-						compared to neighboring areas.
-					</p>
-					<p>
-						Socio-demographically, Kingston Rd. demonstrates relative diversity. Specifically, there
-						is a higher proportion of visible minorities residing on and around Kingston Rd.,
-						comprising almost 50% of the population. Furthermore, approximately 20% of the residents
-						are recent immigrants. However, despite this diversity, the Indigenous population is
-						nearly nonexistent, comprising almost zero percent of the total population.
-					</p>
+					{#if fr}
+						<p>
+							Les personnes qui résident sur Kingston Rd. présentent des caractéristiques
+							notables qui distinguent la rue des rues et des quartiers environnants. Par
+							exemple, l’âge moyen y est plus bas et la taille des ménages plus petite que
+							dans les secteurs adjacents. De plus, le revenu moyen sur Kingston Rd. est
+							inférieur à celui des environs, ce qui est particulièrement évident
+							lorsqu’on le compare à celui des quartiers situés au sud-est de la rue.
+							Kingston Rd. compte également une proportion plus faible de titulaires d’un
+							baccalauréat que les secteurs voisins.
+						</p>
+						<p>
+							Sur le plan sociodémographique, Kingston Rd. présente une diversité
+							relative. Plus précisément, la proportion de personnes appartenant à une
+							minorité visible qui résident sur Kingston Rd. et aux alentours est plus
+							élevée, atteignant près de 50 % de la population. En outre, environ 20 % des
+							personnes résidentes sont des personnes immigrantes récentes. Toutefois,
+							malgré cette diversité, la population autochtone est presque inexistante,
+							représentant près de 0 % de la population totale.
+						</p>
+					{:else}
+						<p>
+							There are notable key characteristics of the residents of Kingston Rd. that
+							distinguishes the road from surrounding streets and neighbourhoods. For instance, the
+							road maintains a lower average age and smaller household size compared to adjacent
+							areas. Additionally, the average income on Kingston Rd. is lower than in its
+							surroundings. This is particularly evident when comparing it to neighborhoods southeast
+							of the road. Kingston Rd. also has a lower percentage of bachelor’s degree holders
+							compared to neighboring areas.
+						</p>
+						<p>
+							Socio-demographically, Kingston Rd. demonstrates relative diversity. Specifically, there
+							is a higher proportion of visible minorities residing on and around Kingston Rd.,
+							comprising almost 50% of the population. Furthermore, approximately 20% of the residents
+							are recent immigrants. However, despite this diversity, the Indigenous population is
+							nearly nonexistent, comprising almost zero percent of the total population.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -790,26 +940,51 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Kingston Rd. draws significant numbers of visitors from all across Scarborough and
-						Toronto, and this distribution of visitors’ home location has remained relatively stable
-						throughout the pandemic and post-pandemic. Additionally, Kingston Rd. has recovered from
-						the decrease in visitation experienced throughout the pandemic, and now sees an increase
-						to nearly 120% the level of visits relative to pre-pandemic in 2019. This recovery of
-						visitors has occurred along all three types of visitors, as the total number of
-						resident, recurring, and infrequent visitors has largely recovered to 2019 numbers. This
-						resurgence of visitors highlights the significance of Kingston Rd. as a key main street
-						in the Cliffside neighbourhood of Scarborough.
-					</p>
-					<p>
-						Importantly, visits to Kingston Rd. largely occur in the afternoon, between noon and
-						6pm, and in the latter half of the week, mainly on Wednesday, Thursday, Friday, and
-						Saturday.
-					</p>
-					<p>
-						As a result, in terms of overall street resilience and visitor recovery, Kingston Rd.
-						ranks 4th out of 20 Toronto main streets and 5th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							Kingston Rd. attire un nombre important de personnes visiteuses provenant de
+							l’ensemble de Scarborough et de Toronto, et la répartition de leur lieu de
+							résidence est demeurée relativement stable pendant et après la pandémie. De
+							plus, Kingston Rd. s’est remise de la baisse de fréquentation subie pendant
+							la pandémie et atteint maintenant près de 120 % du niveau de visites d’avant
+							la pandémie, en 2019. Cette reprise touche les trois types de visiteurs,
+							puisque le nombre total de visiteurs résidents, récurrents et occasionnels
+							est en grande partie revenu aux niveaux de 2019. Ce regain de fréquentation
+							souligne l’importance de Kingston Rd. comme rue principale clé du quartier
+							de Cliffside, à Scarborough.
+						</p>
+						<p>
+							Fait important, les visites sur Kingston Rd. ont surtout lieu l’après-midi,
+							entre midi et 18 h, et dans la seconde moitié de la semaine, principalement
+							les mercredis, jeudis, vendredis et samedis.
+						</p>
+						<p>
+							Ainsi, en matière de résilience globale de la rue et de reprise des visites,
+							Kingston Rd. se classe 4e sur 20 rues principales de Toronto et 5e sur 36
+							rues principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							Kingston Rd. draws significant numbers of visitors from all across Scarborough and
+							Toronto, and this distribution of visitors’ home location has remained relatively stable
+							throughout the pandemic and post-pandemic. Additionally, Kingston Rd. has recovered from
+							the decrease in visitation experienced throughout the pandemic, and now sees an increase
+							to nearly 120% the level of visits relative to pre-pandemic in 2019. This recovery of
+							visitors has occurred along all three types of visitors, as the total number of
+							resident, recurring, and infrequent visitors has largely recovered to 2019 numbers. This
+							resurgence of visitors highlights the significance of Kingston Rd. as a key main street
+							in the Cliffside neighbourhood of Scarborough.
+						</p>
+						<p>
+							Importantly, visits to Kingston Rd. largely occur in the afternoon, between noon and
+							6pm, and in the latter half of the week, mainly on Wednesday, Thursday, Friday, and
+							Saturday.
+						</p>
+						<p>
+							As a result, in terms of overall street resilience and visitor recovery, Kingston Rd.
+							ranks 4th out of 20 Toronto main streets and 5th out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap

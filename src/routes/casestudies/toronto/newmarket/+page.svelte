@@ -218,21 +218,42 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
-					<p>
-						Newmarket, located approximately 50 kilometers north of Toronto in the Golden Horseshoe
-						region of Southern Ontario, is a town of approximately 88,000 residents. The name of
-						Newmarket stems from its original settlement as a “New Market” in contrast to the “Old
-						Market” of York. Since the 1980s, the expansion of Ontario Highway 400 to the west and
-						the construction of Ontario Highway 404 to the east increasingly turned Newmarket into a
-						commuter town. The GO Commuter Train station in Newmarket further connects Newmarket to
-						Toronto.
-					</p>
-					<p>
-						This segment of Main Street, situated between Water St. to the south and Aggers St. to
-						the north, runs through the historical Main Street Heritage Conservation District – the
-						town’s downtown area which has served as a bustling hub of commerce and cultural
-						activity for the last 100 years.
-					</p>
+					{#if fr}
+						<p>
+							Newmarket, située à environ 50 kilomètres au nord de Toronto, dans la région
+							du Golden Horseshoe, dans le sud de l’Ontario, est une ville d’environ
+							88 000 habitants. Le nom de Newmarket découle de son établissement initial
+							en tant que « nouveau marché » (New Market), par opposition à l’« ancien
+							marché » (Old Market) de York. Depuis les années 1980, le prolongement de
+							l’autoroute 400 de l’Ontario à l’ouest et la construction de l’autoroute 404
+							de l’Ontario à l’est ont progressivement fait de Newmarket une
+							ville-dortoir. La gare du train de banlieue GO de Newmarket relie en outre
+							Newmarket à Toronto.
+						</p>
+						<p>
+							Ce tronçon de Main Street, situé entre Water St. au sud et Aggers St. au
+							nord, traverse le district de conservation du patrimoine historique de Main
+							Street (Main Street Heritage Conservation District), soit le centre-ville de
+							la municipalité, qui constitue un pôle animé d’activité commerciale et
+							culturelle depuis 100 ans.
+						</p>
+					{:else}
+						<p>
+							Newmarket, located approximately 50 kilometers north of Toronto in the Golden Horseshoe
+							region of Southern Ontario, is a town of approximately 88,000 residents. The name of
+							Newmarket stems from its original settlement as a “New Market” in contrast to the “Old
+							Market” of York. Since the 1980s, the expansion of Ontario Highway 400 to the west and
+							the construction of Ontario Highway 404 to the east increasingly turned Newmarket into a
+							commuter town. The GO Commuter Train station in Newmarket further connects Newmarket to
+							Toronto.
+						</p>
+						<p>
+							This segment of Main Street, situated between Water St. to the south and Aggers St. to
+							the north, runs through the historical Main Street Heritage Conservation District – the
+							town’s downtown area which has served as a bustling hub of commerce and cultural
+							activity for the last 100 years.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -265,24 +286,49 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
-					<p>
-						Main St. prioritizes pedestrian and active mobility through its street design and
-						layout. The street features one circulation lane and one parking lane in each direction,
-						accommodating pedestrians with wide sidewalks that include space for benches and other
-						street furniture. While there is not a separated bike lane, bike lane markings are
-						present. The street's relatively short blocks and numerous pedestrian crossings enhance
-						pedestrian safety and movement.
-					</p>
-					<p>
-						Along Main St., mid-density buildings, primarily heritage and historic two to
-						three-story brick structures, often feature ground floor retail and commercial spaces
-						with additional uses above.
-					</p>
-					<p>
-						While green space on Main St. itself is limited, residents benefit from easy access to
-						nearby parks such as the Wesley Brooks Conservation Area and the All Our Kids Playpark,
-						both within a ten-minute walk.
-					</p>
+					{#if fr}
+						<p>
+							Main St. accorde la priorité aux piétons et à la mobilité active grâce à
+							l’aménagement et à la configuration de la rue. La rue comporte une voie de
+							circulation et une voie de stationnement dans chaque direction, et accueille
+							les piétons sur de larges trottoirs qui comprennent de l’espace pour des
+							bancs et d’autres éléments de mobilier urbain. Bien qu’il n’y ait pas de
+							voie cyclable séparée, on trouve des marquages de voie cyclable. Les îlots
+							relativement courts et les nombreuses traversées piétonnes de la rue
+							améliorent la sécurité et la circulation des piétons.
+						</p>
+						<p>
+							Le long de Main St., des bâtiments de densité moyenne, principalement des
+							immeubles patrimoniaux et historiques en brique de deux à trois étages,
+							comportent souvent des locaux de commerce de détail et commerciaux au
+							rez-de-chaussée et d’autres usages aux étages supérieurs.
+						</p>
+						<p>
+							Bien que les espaces verts soient limités sur Main St. même, les personnes
+							résidentes profitent d’un accès facile à des parcs voisins comme la Wesley
+							Brooks Conservation Area et le All Our Kids Playpark, tous deux situés dans
+							un rayon de 10 minutes de marche.
+						</p>
+					{:else}
+						<p>
+							Main St. prioritizes pedestrian and active mobility through its street design and
+							layout. The street features one circulation lane and one parking lane in each direction,
+							accommodating pedestrians with wide sidewalks that include space for benches and other
+							street furniture. While there is not a separated bike lane, bike lane markings are
+							present. The street's relatively short blocks and numerous pedestrian crossings enhance
+							pedestrian safety and movement.
+						</p>
+						<p>
+							Along Main St., mid-density buildings, primarily heritage and historic two to
+							three-story brick structures, often feature ground floor retail and commercial spaces
+							with additional uses above.
+						</p>
+						<p>
+							While green space on Main St. itself is limited, residents benefit from easy access to
+							nearby parks such as the Wesley Brooks Conservation Area and the All Our Kids Playpark,
+							both within a ten-minute walk.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -410,30 +456,63 @@
 							/>
 						</div>
 					</div>
-					<p>
-						There is a relative clustering of civic infrastructure on and around Main St. in
-						Newmarket. This civic infrastructure is primarily comprised of government and community
-						services and health and care facilities. Additionally, on the southern end of Main St.
-						is the Newmarket Community Centre and Lions Hall – a popular local community centre with
-						a large outdoor multi-use square. This square features a splash pad for children and a
-						farmers market in the warm summer months and an ice skating rink in the winter.
-					</p>
-					<p>
-						Main St. also boasts a larger percentage of arts and culture facilities – like the Elman
-						Campbell Museum of local historical artifacts – and educational facilities when compared
-						to the surrounding area. This helps to signify the role of Main St. as a key main street
-						to the surrounding communities and neighbourhoods.
-					</p>
-					<p>
-						Additionally, the Main Street District Business Improvement Area (BIA) represents the
-						downtown Main Street business community and helps to support commercial and civic life
-						both in the businesses and on the street itself.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, Main St. surpasses most other main street
-						case studies. In terms of its civic opportunity, Main St. ranks 5th out of 20 Toronto
-						main streets and 8th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							On observe une concentration relative d’infrastructure civique sur Main St.
+							et aux alentours, à Newmarket. Cette infrastructure civique se compose
+							principalement de services gouvernementaux et communautaires et
+							d’établissements de santé et de soins. De plus, l’extrémité sud de Main St.
+							accueille le Newmarket Community Centre and Lions Hall, un centre
+							communautaire local populaire doté d’une grande place extérieure
+							polyvalente. Cette place comprend une aire de jeux d’eau pour les enfants et
+							accueille un marché fermier pendant les mois chauds de l’été ainsi qu’une
+							patinoire en hiver.
+						</p>
+						<p>
+							Main St. compte également une proportion plus élevée d’installations d’arts
+							et de culture – comme l’Elman Campbell Museum, consacré aux artefacts
+							historiques locaux – et d’établissements d’enseignement que le secteur
+							environnant. Cela témoigne du rôle de Main St. comme rue principale clé pour
+							les collectivités et les quartiers environnants.
+						</p>
+						<p>
+							De plus, la zone d’amélioration commerciale (BIA) Main Street District
+							représente la communauté d’affaires de Main Street, au centre-ville, et
+							contribue à soutenir la vie commerciale et civique, tant dans les
+							entreprises que dans la rue elle-même.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, Main St. surpasse la plupart des
+							autres études de cas de rues principales. En matière de possibilités
+							civiques, Main St. se classe 5e sur 20 rues principales de Toronto et 8e sur
+							36 rues principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							There is a relative clustering of civic infrastructure on and around Main St. in
+							Newmarket. This civic infrastructure is primarily comprised of government and community
+							services and health and care facilities. Additionally, on the southern end of Main St.
+							is the Newmarket Community Centre and Lions Hall – a popular local community centre with
+							a large outdoor multi-use square. This square features a splash pad for children and a
+							farmers market in the warm summer months and an ice skating rink in the winter.
+						</p>
+						<p>
+							Main St. also boasts a larger percentage of arts and culture facilities – like the Elman
+							Campbell Museum of local historical artifacts – and educational facilities when compared
+							to the surrounding area. This helps to signify the role of Main St. as a key main street
+							to the surrounding communities and neighbourhoods.
+						</p>
+						<p>
+							Additionally, the Main Street District Business Improvement Area (BIA) represents the
+							downtown Main Street business community and helps to support commercial and civic life
+							both in the businesses and on the street itself.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, Main St. surpasses most other main street
+							case studies. In terms of its civic opportunity, Main St. ranks 5th out of 20 Toronto
+							main streets and 8th out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -527,28 +606,56 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Main St. is a vibrant mixed-use commercial thoroughfare running through the historic
-						downtown of Newmarket. This central location results in a concentration of businesses
-						compared to the surrounding area. While the majority of businesses within a ten-minute
-						walk offer services, there is also a notable presence of food and drink establishments
-						as well as retail shops, both along Main St. and nearby. This solidifies Main St.'s
-						status as a primary commercial hub for Newport residents.
-					</p>
-					<p>
-						Most of the businesses are independent and locally-owned. The Main Street District BIA
-						plays a crucial role in supporting these enterprises and cultivating a culture of
-						shopping local.
-					</p>
-					<p>
-						Main St. surpasses almost all other main street case studies in terms of the level of
-						independence of the businesses, ranking 1st out of all 20 Toronto main streets and 3rd
-						out of 36 residential main streets.
-					</p>
-					<p>
-						In terms of business density, the street ranks 9th in the region and 14th out of 36
-						residential streets.
-					</p>
+					{#if fr}
+						<p>
+							Main St. est une artère commerciale dynamique à usage mixte qui traverse le
+							centre-ville historique de Newmarket. Cet emplacement central se traduit par
+							une concentration d’entreprises plus forte que dans le secteur environnant.
+							Bien que la majorité des entreprises situées dans un rayon de 10 minutes de
+							marche offrent des services, on note aussi une présence marquée
+							d’établissements de restauration et de boissons ainsi que de commerces de
+							détail, tant le long de Main St. qu’à proximité. Cela confirme le statut de
+							Main St. comme principal pôle commercial pour la population de Newmarket.
+						</p>
+						<p>
+							La plupart des entreprises sont indépendantes et détenues localement. La BIA
+							Main Street District joue un rôle crucial dans le soutien de ces entreprises
+							et dans la promotion d’une culture d’achat local.
+						</p>
+						<p>
+							Main St. surpasse presque toutes les autres études de cas de rues
+							principales sur le plan du niveau d’indépendance des entreprises, se
+							classant au 1er rang des 20 rues principales de Toronto et au 3e rang sur 36
+							rues principales résidentielles.
+						</p>
+						<p>
+							En matière de densité commerciale, la rue se classe 9e dans la région et 14e
+							sur 36 rues principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							Main St. is a vibrant mixed-use commercial thoroughfare running through the historic
+							downtown of Newmarket. This central location results in a concentration of businesses
+							compared to the surrounding area. While the majority of businesses within a ten-minute
+							walk offer services, there is also a notable presence of food and drink establishments
+							as well as retail shops, both along Main St. and nearby. This solidifies Main St.'s
+							status as a primary commercial hub for Newport residents.
+						</p>
+						<p>
+							Most of the businesses are independent and locally-owned. The Main Street District BIA
+							plays a crucial role in supporting these enterprises and cultivating a culture of
+							shopping local.
+						</p>
+						<p>
+							Main St. surpasses almost all other main street case studies in terms of the level of
+							independence of the businesses, ranking 1st out of all 20 Toronto main streets and 3rd
+							out of 36 residential main streets.
+						</p>
+						<p>
+							In terms of business density, the street ranks 9th in the region and 14th out of 36
+							residential streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -587,23 +694,46 @@
 			<div class="section-container">
 				<div class="content-container sticky-content">
 					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
-					<p>
-						Main Street's significance as a primary commercial hub in Newmarket extends to its role
-						in employment. Employment opportunities on Main St. are predominantly offered by small
-						businesses, many of which have fewer than ten employees due to their smaller scale.
-						Although present all along Main St., these smaller-scale businesses are primarily
-						clustered on the southern end of the historic district. There are also larger employers
-						present, such as those in civic infrastructure or other sectors. Notably, the immediate
-						vicinity of Main St. features a substantial number of employers, particularly in civic
-						infrastructure, including some major establishments with workforces ranging from 50 to
-						100 employees. Together, the small-scale and larger-scale employment in both the
-						businesses and civic infrastructure on and near Main St. highlights its role in the
-						local economy.
-					</p>
-					<p>
-						Overall, Main Street ranks 9th out of 20 Toronto main streets in terms of employment
-						density and 14th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							L’importance de Main Street comme principal pôle commercial de Newmarket
+							s’étend à son rôle en matière d’emploi. Les emplois sur Main St. sont
+							principalement offerts par de petites entreprises, dont bon nombre comptent
+							moins de dix employés en raison de leur petite taille. Bien qu’elles soient
+							présentes tout le long de Main St., ces petites entreprises sont surtout
+							concentrées à l’extrémité sud du district historique. On trouve aussi de
+							plus grands employeurs, notamment dans l’infrastructure civique ou d’autres
+							secteurs. Les abords immédiats de Main St. comptent d’ailleurs un nombre
+							important d’employeurs, en particulier dans l’infrastructure civique, dont
+							certains grands établissements comptant de 50 à 100 employés. Ensemble, les
+							emplois des petites et des grandes entreprises et de l’infrastructure
+							civique situées sur Main St. et à proximité soulignent son rôle dans
+							l’économie locale.
+						</p>
+						<p>
+							Dans l’ensemble, Main Street se classe 9e sur 20 rues principales de Toronto
+							en matière de densité d’emploi et 14e sur 36 rues principales
+							résidentielles.
+						</p>
+					{:else}
+						<p>
+							Main Street's significance as a primary commercial hub in Newmarket extends to its role
+							in employment. Employment opportunities on Main St. are predominantly offered by small
+							businesses, many of which have fewer than ten employees due to their smaller scale.
+							Although present all along Main St., these smaller-scale businesses are primarily
+							clustered on the southern end of the historic district. There are also larger employers
+							present, such as those in civic infrastructure or other sectors. Notably, the immediate
+							vicinity of Main St. features a substantial number of employers, particularly in civic
+							infrastructure, including some major establishments with workforces ranging from 50 to
+							100 employees. Together, the small-scale and larger-scale employment in both the
+							businesses and civic infrastructure on and near Main St. highlights its role in the
+							local economy.
+						</p>
+						<p>
+							Overall, Main Street ranks 9th out of 20 Toronto main streets in terms of employment
+							density and 14th out of 36 residential main streets.
+						</p>
+					{/if}
 
 					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
 				</div>
@@ -665,18 +795,36 @@
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Main St. and its surroundings boast a predominantly older housing stock, which helps to
-						contribute to the street's historic charm. Most of the housing dates back to before
-						1960, with minimal new construction observed since 2000. The built form is diverse,
-						featuring a mix of single-detached homes and low-rise apartments, typically under five
-						storeys. Along Main St. itself, low-rise apartments and duplexes are prevalent, many of
-						which incorporate ground floor retail spaces. However, as one moves into the primarily
-						suburban surrounding areas, single-detached houses become the predominant housing
-						typology despite the area's strong transit accessibility. Some high rise and
-						higher-density apartment buildings are observed, particularly on the southern end of the
-						street segment.
-					</p>
+					{#if fr}
+						<p>
+							Main St. et ses environs comptent un parc de logements majoritairement
+							ancien, ce qui contribue au charme historique de la rue. La plupart des
+							logements datent d’avant 1960, et on observe très peu de nouvelles
+							constructions depuis 2000. Le cadre bâti est varié et comprend un mélange de
+							maisons individuelles et d’immeubles d’appartements de faible hauteur,
+							généralement de moins de cinq étages. Sur Main St. même, les immeubles
+							d’appartements de faible hauteur et les duplex prédominent, et bon nombre
+							d’entre eux comportent des locaux commerciaux au rez-de-chaussée. Cependant,
+							à mesure que l’on s’éloigne vers les secteurs environnants, principalement
+							de banlieue, les maisons individuelles deviennent la typologie résidentielle
+							dominante, malgré la bonne accessibilité du secteur au transport collectif.
+							On observe quelques immeubles d’appartements de grande hauteur et de plus
+							forte densité, en particulier à l’extrémité sud du tronçon.
+						</p>
+					{:else}
+						<p>
+							Main St. and its surroundings boast a predominantly older housing stock, which helps to
+							contribute to the street's historic charm. Most of the housing dates back to before
+							1960, with minimal new construction observed since 2000. The built form is diverse,
+							featuring a mix of single-detached homes and low-rise apartments, typically under five
+							storeys. Along Main St. itself, low-rise apartments and duplexes are prevalent, many of
+							which incorporate ground floor retail spaces. However, as one moves into the primarily
+							suburban surrounding areas, single-detached houses become the predominant housing
+							typology despite the area's strong transit accessibility. Some high rise and
+							higher-density apartment buildings are observed, particularly on the southern end of the
+							street segment.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -743,18 +891,37 @@
 							]}
 						/>
 					</div>
-					<p>
-						Main St. and its surrounding neighborhoods offer a unique blend of local characteristics
-						and demographics. While Main St. tends to have a slightly younger average age compared
-						to neighboring areas, the overall demographic leans towards a higher age range.
-						Households in the area tend to be smaller, possibly due to the availability of
-						apartments with ground floor retail spaces on Main St. itself. Economic diversity is
-						evident, with some parts of Main St., especially in the southern end, boasting higher
-						average incomes, while others, particularly on the eastern side, maintain more modest
-						incomes. Despite this mix, there are relatively low percentages of visible minorities,
-						recent immigrants, and Indigenous populations. Moreover, less than half of the residents
-						hold bachelor's degrees, reflecting a diverse educational background.
-					</p>
+					{#if fr}
+						<p>
+							Main St. et les quartiers environnants présentent un mélange unique de
+							caractéristiques locales et démographiques. Bien que l’âge moyen sur Main
+							St. soit légèrement plus bas que dans les secteurs voisins, la population
+							dans son ensemble tend vers une tranche d’âge plus élevée. Les ménages du
+							secteur sont généralement plus petits, peut-être en raison de l’offre
+							d’appartements dans des immeubles comportant des commerces au
+							rez-de-chaussée sur Main St. même. La diversité économique est manifeste :
+							certaines parties de Main St., surtout à l’extrémité sud, affichent des
+							revenus moyens plus élevés, tandis que d’autres, en particulier du côté est,
+							présentent des revenus plus modestes. Malgré cette diversité, les
+							proportions de personnes appartenant à une minorité visible, de personnes
+							immigrantes récentes et de personnes autochtones sont relativement faibles.
+							Par ailleurs, moins de la moitié des personnes résidentes sont titulaires
+							d’un baccalauréat, ce qui reflète des parcours scolaires variés.
+						</p>
+					{:else}
+						<p>
+							Main St. and its surrounding neighborhoods offer a unique blend of local characteristics
+							and demographics. While Main St. tends to have a slightly younger average age compared
+							to neighboring areas, the overall demographic leans towards a higher age range.
+							Households in the area tend to be smaller, possibly due to the availability of
+							apartments with ground floor retail spaces on Main St. itself. Economic diversity is
+							evident, with some parts of Main St., especially in the southern end, boasting higher
+							average incomes, while others, particularly on the eastern side, maintain more modest
+							incomes. Despite this mix, there are relatively low percentages of visible minorities,
+							recent immigrants, and Indigenous populations. Moreover, less than half of the residents
+							hold bachelor's degrees, reflecting a diverse educational background.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -797,24 +964,48 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Main St. in Newmarket, like most other main streets, was impacted by the COVID-19
-						pandemic. In particular, while the level of visits relative to 2019 has recovered, the
-						total number of visits by type of visitor still remains at approximately 66% of its
-						number in 2019. Importantly, while resident visits have mostly recovered, highlighting
-						the importance of Main St. to the local Newmarket community, infrequent visit numbers
-						have decreased significantly.
-					</p>
-					<p>
-						Visitor traffic tends to peak on Fridays and Saturdays, particularly in the late
-						afternoon or evening, underscoring Main St.'s significance as a destination outside of
-						traditional business hours.
-					</p>
-					<p>
-						In terms of overall street resilience and visitor recovery, Main St. trails behind other
-						main street case studies. It ranks 13th out of 20 in visitor resiliency in the region
-						and 31st out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							Comme la plupart des autres rues principales, Main St. à Newmarket a été
+							touchée par la pandémie de COVID-19. Plus précisément, bien que le niveau de
+							visites par rapport à 2019 se soit rétabli, le nombre total de visites par
+							type de visiteur demeure à environ 66 % de celui de 2019. Fait important,
+							alors que les visites des personnes résidentes se sont en grande partie
+							rétablies, ce qui souligne l’importance de Main St. pour la collectivité
+							locale de Newmarket, le nombre de visites occasionnelles a considérablement
+							diminué.
+						</p>
+						<p>
+							L’achalandage atteint généralement un sommet les vendredis et samedis,
+							surtout en fin d’après-midi ou en soirée, ce qui souligne l’importance de
+							Main St. comme destination en dehors des heures d’affaires habituelles.
+						</p>
+						<p>
+							En matière de résilience globale de la rue et de reprise des visites, Main
+							St. accuse un retard par rapport aux autres études de cas de rues
+							principales. Elle se classe 13e sur 20 dans la région pour la résilience en
+							matière de visites et 31e sur 36 rues principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							Main St. in Newmarket, like most other main streets, was impacted by the COVID-19
+							pandemic. In particular, while the level of visits relative to 2019 has recovered, the
+							total number of visits by type of visitor still remains at approximately 66% of its
+							number in 2019. Importantly, while resident visits have mostly recovered, highlighting
+							the importance of Main St. to the local Newmarket community, infrequent visit numbers
+							have decreased significantly.
+						</p>
+						<p>
+							Visitor traffic tends to peak on Fridays and Saturdays, particularly in the late
+							afternoon or evening, underscoring Main St.'s significance as a destination outside of
+							traditional business hours.
+						</p>
+						<p>
+							In terms of overall street resilience and visitor recovery, Main St. trails behind other
+							main street case studies. It ranks 13th out of 20 in visitor resiliency in the region
+							and 31st out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
