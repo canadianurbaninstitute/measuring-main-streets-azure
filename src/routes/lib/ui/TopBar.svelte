@@ -93,7 +93,7 @@
 				<div class="flex gap-4 items-center">
 					<img
 						src={isFrench ? mms_logo_fr : mms_logo}
-						alt={T('Measuring Main Streets', 'Mesurer les rues principales')}
+						alt={T('Measuring Main Streets', 'Mesures des rues principales')}
 						onmouseover={onMouseOver}
 						onmouseout={onMouseOut}
 						onfocus={onMouseOver}

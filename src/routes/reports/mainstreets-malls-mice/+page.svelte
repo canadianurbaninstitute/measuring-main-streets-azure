@@ -7,18 +7,42 @@
 	import RecoveryMultiLineChart from './RecoveryMultiLineChart.svelte';
 
 	import { dataset } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
+	import { getLang } from '../../lib/i18n';
 	import '../../styles.css';
+
+	const fr = getLang() === 'fr';
 
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
 
 <Title
 	outline={malls}
-	name={'Main Streets, Malls & Mice'}
-	location={'Trajectories of main streets, shopping malls and online behaviour'}
+	name={fr ? 'Rues principales, centres commerciaux et souris' : 'Main Streets, Malls & Mice'}
+	location={fr
+		? 'Trajectoires des rues principales, des centres commerciaux et des comportements en ligne'
+		: 'Trajectories of main streets, shopping malls and online behaviour'}
 />
 
 <div class="full-text">
+	{#if fr}
+	<p>
+		Les rues principales faisaient déjà face à de sérieux vents contraires avant le début de la
+		pandémie de COVID-19, en raison de la concurrence des centres commerciaux et du virage des
+		consommateurs vers le commerce en ligne. Au début de la pandémie, alors que le commerce en ligne
+		montait en flèche, de nombreuses prédictions alarmistes ont été formulées au sujet des rues
+		principales. On y voyait largement l’accélération d’une tendance « inévitable » qui mènerait à la
+		fermeture de nombreux commerces physiques (indépendants).
+	</p>
+	<p>
+		Bien que les petites entreprises locales fassent face à de nombreux défis connexes, la façon dont
+		les consommateurs choisissent entre les rues principales, les centres commerciaux et les options en
+		ligne n’a été ni linéaire ni aussi catastrophique que certains l’avaient prédit. Ce document
+		examine les effets de la pandémie sur les comportements de consommation et les leçons à en tirer
+		pour la résilience des rues principales. Le message principal est le suivant : pour se positionner
+		au mieux face à l’attrait des centres commerciaux et du commerce en ligne, les rues principales
+		doivent être au cœur de communautés locales distinctes.
+	</p>
+	{:else}
 	<p>
 		Main streets were experiencing serious headwinds before the onset of the COVID-19 pandemic, in
 		the form of competition from shopping malls and shifting consumer behaviour to online retailing.
@@ -34,11 +58,61 @@
 		message is that main streets need to be central to building distinct local communities, to best
 		position themselves relative to the lure of shopping malls and online commerce.
 	</p>
+	{/if}
 </div>
 
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
+			{#if fr}
+			<h3>Achalandage</h3>
+			<p>
+				Dans le cadre du projet Mesures des rues principales, nous avons suivi l’achalandage de 60 rues
+				principales et de 15 centres commerciaux régionaux dans les régions de Toronto, de Montréal et
+				d’Edmonton. Les rues ont été choisies pour être représentatives sur le plan de l’emplacement, de la
+				forme et des caractéristiques démographiques, ainsi que de l’équité. Chacune a été classée dans
+				l’une de trois grandes catégories : centre-ville (axée sur les lieux de travail), petite ville et
+				urbaine ou suburbaine (à vocation résidentielle). Les données sur les visites remontent au début de
+				2019 et permettent de comparer l’achalandage sur une base mensuelle jusqu’à la fin de 2022, pour
+				des rues individuelles ou des groupes de rues selon leur type.
+			</p>
+			<p>
+				La pandémie a commencé à toucher lourdement la vie des Canadiennes et des Canadiens en mars 2020.
+				Des confinements stricts ont été imposés dans de nombreux endroits, tandis que la peur et
+				l’incertitude dominaient les décisions personnelles. Au cours de ces premiers mois, l’achalandage
+				des rues principales et des centres commerciaux a chuté de façon spectaculaire. En avril 2020,
+				l’achalandage de tous les types de rues principales à Toronto, à Montréal et à Edmonton avait
+				diminué d’au moins la moitié, celui des rues principales de centre-ville tombant sous 30 % des
+				niveaux prépandémiques. Les centres commerciaux régionaux ont été les plus touchés par les
+				confinements stricts, leur achalandage chutant à 15 % des niveaux prépandémiques.
+			</p>
+			<p>Les trajectoires de reprise ont aussi varié considérablement selon le contexte.</p>
+			<p>
+				Les rues principales des petites villes et les rues principales à vocation résidentielle se sont
+				rétablies plus rapidement que celles des centres-villes. Cela s’explique en grande partie par le
+				passage au télétravail, qui a fortement réduit l’occupation des tours de bureaux dans les
+				centres-villes. Comme les gens travaillaient plus souvent de la maison, ils ont probablement
+				reporté une partie de leurs habitudes de consommation vers la rue principale de leur quartier.
+			</p>
+			<p>
+				À la fin de 2022, neuf des 75 rues principales et centres commerciaux étudiés avaient retrouvé ou
+				dépassé leur achalandage de 2019. Cinq de ces rues principales se trouvaient dans de petites villes
+				et quatre étaient au cœur de quartiers résidentiels. Les centres commerciaux régionaux ont
+				généralement connu une série de chutes brutales et de rebonds en V au gré des confinements
+				stricts. Dans l’ensemble, ces fluctuations en dents de scie ne se sont pas traduites par une
+				reprise complète pour les centres commerciaux étudiés à la fin de 2022. Globalement, les centres
+				commerciaux régionaux ont tout de même fait mieux que les rues principales en 2022, malgré un
+				nouveau recul au cours des deux derniers mois de l’année.
+			</p>
+			<p>
+				Les gens semblaient plus à l’aise de retourner en plus grand nombre, et plus tôt, dans les centres
+				commerciaux que dans la plupart des rues principales. Les centres commerciaux ont tendance à
+				investir pour créer un sentiment de sûreté et de sécurité. Une partie de cet effort consiste à
+				aménager des environnements uniformes et cohérents où les gens savent à quoi s’attendre. Les rues
+				principales peuvent en tirer certaines leçons à long terme, tout en conservant leur caractère et
+				leurs expériences distinctifs.
+			</p>
+			{:else}
 			<h3>Visitor Levels</h3>
 			<p>
 				For the Measuring Main Streets project we tracked the visitor levels of 60 main streets and
@@ -82,6 +156,7 @@
 				what to expect. Main streets can draw some longer-term lessons from this, while retaining
 				their distinct character and experiences.
 			</p>
+			{/if}
 		</div>
 	</div>
 
@@ -93,6 +168,21 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
+			{#if fr}
+			<h3>Infrastructure civique</h3>
+			<p>
+				Les centres commerciaux régionaux n’offrent généralement pas la même gamme de services que les
+				rues principales. Le projet Mesures des rues principales recense les commerces (commerce de
+				détail, bars et restaurants, services de proximité) et l’infrastructure civique (arts et culture,
+				loisirs, éducation, santé, services gouvernementaux et communautaires) que l’on trouve couramment
+				sur les rues principales. Pour la rue principale moyenne, l’infrastructure civique représente un
+				peu plus de 20 % de l’ensemble des établissements, et une part nettement plus élevée pour
+				certaines. À l’inverse, dans les centres commerciaux régionaux, l’infrastructure civique ne
+				représente en moyenne que 8 % des établissements. Un seul centre commercial régional de l’étude
+				(Millwood Town Centre) offre de l’infrastructure civique dans une proportion comparable à celle
+				d’une rue principale typique.
+			</p>
+			{:else}
 			<h3>Civic Infrastructure</h3>
 			<p>
 				Regional shopping malls do not typically provide the same range of offerings as main
@@ -105,13 +195,16 @@
 				establishments, on average. Only one regional shopping centre in the study (Millwood Town
 				Centre) provides civic infrastructure at the rate of a typical main street.
 			</p>
+			{/if}
 		</div>
 	</div>
 
 	<div class="chart-container bar sticky-content">
 		<BarChart
 			xKey="civic"
-			title="Civic Infrastructure as a Share of Establishments (%)"
+			title={fr
+				? 'Infrastructure civique en proportion des établissements (%)'
+				: 'Civic Infrastructure as a Share of Establishments (%)'}
 			xDomain={[0, 60]}
 		/>
 	</div>
@@ -120,6 +213,26 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
+			{#if fr}
+			<h3>Entreprises indépendantes</h3>
+			<p>
+				Une différence clé entre les rues principales et les centres commerciaux régionaux tient à la
+				mesure dans laquelle ils soutiennent les entreprises indépendantes. Dans le cadre du projet
+				Mesures des rues principales, nous avons élaboré un indice des entreprises indépendantes afin
+				d’évaluer l’équilibre relatif entre les entreprises indépendantes uniques et les établissements
+				affiliés à une chaîne. (L’indice tient compte de la taille de la chaîne, de sorte que les petites
+				chaînes locales ne sont pas assimilées aux grandes chaînes internationales.) Un score proche de 1
+				signifie qu’un secteur compte une plus grande part d’entreprises indépendantes que de chaînes; un
+				score proche de 0 indique une plus grande part d’entreprises de chaîne.
+			</p>
+			<p>
+				Le score moyen à l’indice des entreprises indépendantes des 60 rues principales étudiées était de
+				0,74, contre 0,30 pour les 15 centres commerciaux régionaux. Les rues principales offrent
+				clairement beaucoup plus de possibilités aux entreprises indépendantes appartenant à des intérêts
+				locaux. Ces entreprises sont aussi plus susceptibles d’offrir des biens et des services adaptés
+				aux particularités des communautés locales.
+			</p>
+			{:else}
 			<h3>Independent Businesses</h3>
 			<p>
 				A key difference between main streets and regional shopping centres is the extent to which
@@ -137,17 +250,44 @@
 				also more likely to provide goods and services that are more closely aligned with the
 				nuances of local communities.
 			</p>
+			{/if}
 		</div>
 	</div>
 
 	<div class="chart-container bar sticky-content">
-		<BarChart xKey="independence" title="Independent Business Index" />
+		<BarChart
+			xKey="independence"
+			title={fr ? 'Indice des entreprises indépendantes' : 'Independent Business Index'}
+		/>
 	</div>
 </div>
 
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
+			{#if fr}
+			<h3>Distance parcourue</h3>
+			<p>
+				Les centres commerciaux régionaux desservent généralement une zone de chalandise plus vaste que
+				les rues principales de quartier. En 2022, la distance moyenne parcourue pour se rendre aux 15
+				centres commerciaux régionaux était de 10 km, contre 7,8 km pour les rues principales de quartier.
+				Le profil des distances parcourues pour se rendre aux rues principales des petites villes et des
+				centres-villes s’apparente davantage à celui des centres commerciaux régionaux qu’à celui des rues
+				principales de quartier, mais pour des raisons différentes. Les rues principales des petites
+				villes desservent généralement des collectivités rurales et peu densément peuplées, tandis que les
+				rues principales des centres-villes attirent des gens de toutes les parties de la ville. Les
+				distances moyennes parcourues pour se rendre à tous les types de rues principales ainsi qu’aux
+				centres commerciaux ont diminué considérablement pendant la pandémie (2020-2021), avant de
+				commencer à revenir à leurs niveaux historiques en 2022.
+			</p>
+			<p>
+				Comme les gens se sont moins déplacés pendant la pandémie, les émissions moyennes de gaz à effet
+				de serre des ménages ont diminué de façon importante. Elles ont baissé de 17,3 % en 2020, puis de
+				0,5 % supplémentaire en 2021 (Statistique Canada, 2022). Cela met en évidence les avantages
+				environnementaux que pourrait procurer l’offre de biens et de services essentiels sur les rues
+				principales de quartiers plus densément peuplés.
+			</p>
+			{:else}
 			<h3>Distance Travelled</h3>
 			<p>
 				Regional shopping malls tend to serve a wider catchment area than neighbourhood oriented
@@ -167,13 +307,16 @@
 				environmental benefits of providing essential goods and services on main streets in more
 				densely populated neighbourhoods.
 			</p>
+			{/if}
 		</div>
 	</div>
 
 	<div class="chart-container bar sticky-content">
 		<BarChart
 			xKey="distance"
-			title="Average Distance (km) Travelled by Visitors"
+			title={fr
+				? 'Distance moyenne (km) parcourue par les visiteurs'
+				: 'Average Distance (km) Travelled by Visitors'}
 			xDomain={[0, 18]}
 		/>
 	</div>
@@ -182,6 +325,22 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
+			{#if fr}
+			<h3>Commerce électronique</h3>
+			<p>
+				Alors que tous les types de lieux physiques enregistraient une baisse d’activité au début de la
+				pandémie, le commerce électronique a explosé. En avril 2020, la part du commerce électronique dans
+				l’ensemble du commerce de détail a dépassé 10 % pour la première fois. Avant la pandémie, le
+				commerce électronique représentait une part croissante de la valeur des transactions de détail,
+				sans toutefois avoir franchi le seuil de 4 %. Cette hausse soudaine a donné lieu à de nombreuses
+				prédictions selon lesquelles il s’agissait de l’accélération inévitable d’une tendance existante,
+				appelée à se poursuivre au-delà de la fin de la pandémie. Ces prédictions ne se sont pas
+				concrétisées : le commerce électronique est resté bien au-dessus des niveaux attendus pendant les
+				deux principales années de la pandémie, avant de revenir à sa tendance historique. Si la pandémie
+				ne semble pas avoir accéléré le virage des consommateurs vers le commerce en ligne, la tendance à
+				long terme continue de progresser régulièrement.
+			</p>
+			{:else}
 			<h3>E-Commerce</h3>
 			<p>
 				As all types of physical locations showed declines in activity in the early stages of the
@@ -195,12 +354,15 @@
 				accelerated a consumer shift to online retail, the long-term pattern continues to rise
 				steadily.
 			</p>
+			{/if}
 		</div>
 	</div>
 
 	<div class="chart-container sticky-content">
 		<MultiLineChart
-			title="E-Commerce Share (%) of All Retail Sales"
+			title={fr
+				? 'Part (%) du commerce électronique dans l’ensemble des ventes au détail'
+				: 'E-Commerce Share (%) of All Retail Sales'}
 			yDomain={[0, 12]}
 			chartDataset={'ecommerce'}
 		/>
@@ -210,6 +372,31 @@
 <div class="slide">
 	<div class="text-container sticky-content">
 		<div class="report-text">
+			{#if fr}
+			<h3>Restaurants</h3>
+			<p>
+				Les commandes en ligne de repas de restaurant ont aussi connu une hausse notable pendant la
+				pandémie. En 2021, les revenus en ligne des restaurants avaient augmenté d’environ 90 % par rapport
+				à leur niveau d’avant la pandémie (2019) (DoorDash/Restaurants Canada, 2022). Ce fut une bouée de
+				sauvetage pour de nombreuses entreprises des rues principales, dont la clientèle en salle s’était
+				évaporée au début de la pandémie. La trajectoire des revenus des restaurants a été semblable à
+				celle des centres commerciaux régionaux : des chutes très marquées pendant les confinements
+				stricts, suivies de reprises très rapides.
+			</p>
+			<p>
+				Les restaurants à service complet et les bars (« débits de boissons ») ont subi des pertes de
+				revenus plus importantes que les restaurants à service restreint (restauration rapide), puisqu’ils
+				dépendent presque entièrement de la consommation sur place. Les établissements de restauration
+				rapide étaient mieux placés pour s’adapter grâce aux commandes en ligne, à la livraison et aux
+				comptoirs de service. Ils ont ainsi réussi à dépasser leurs ventes prépandémiques dès l’été 2021.
+				L’inconvénient pour les entreprises indépendantes, c’est qu’une grande partie des commandes en
+				ligne et des livraisons passent par des intermédiaires qui accaparent la majeure partie, voire la
+				totalité, des revenus supplémentaires (McKinsey, 2021). L’inconvénient potentiel pour les rues
+				principales, c’est que lorsque plus de gens restent à la maison (plutôt que de s’y rendre en
+				personne), le dynamisme général et l’expérience de la rue principale s’en trouvent réduits, ce qui
+				peut à son tour nuire à leurs efforts de reprise.
+			</p>
+			{:else}
 			<h3>Restaurants</h3>
 			<p>
 				There was also a notable increase in online orders for restaurant meals during the pandemic.
@@ -230,18 +417,50 @@
 				more people stay home (rather than visiting in person), the overall vibrancy and experience
 				of the main street is reduced, which can in turn undermine their recovery efforts.
 			</p>
+			{/if}
 		</div>
 	</div>
 
 	<div class="chart-container sticky-content">
 		<MultiLineChart
-			title="Sales Relative to Same Month in 2019 (%)"
+			title={fr
+				? 'Ventes par rapport au même mois en 2019 (%)'
+				: 'Sales Relative to Same Month in 2019 (%)'}
 			yDomain={[0, 150]}
 			chartDataset={'restaurant'}
 		/>
 	</div>
 </div>
 
+{#if fr}
+	<div class="key-findings">
+		<h3>Constats et messages clés</h3>
+
+		<KeyFindings
+			number={'1'}
+			finding={'Les rues principales peuvent être le cœur de collectivités complètes d’une manière que les centres commerciaux régionaux et le commerce en ligne ne peuvent pas égaler.'}
+			message1={'Regrouper l’infrastructure civique sur les rues principales pour créer des synergies et en faire le cœur de collectivités complètes.'}
+			message2={'Soutenir et protéger les entreprises indépendantes.'}
+			message3={'Mobiliser les institutions civiques et les exploitants d’entreprises indépendantes pour qu’ils se concentrent sur les besoins de la communauté locale.'}
+		/>
+
+		<KeyFindings
+			number={'2'}
+			finding={'Les centres commerciaux régionaux ont connu des baisses d’achalandage plus marquées à des moments clés de la pandémie (les confinements stricts), mais les gens se sentaient en sécurité d’y retourner plus tôt.'}
+			message1={'Faire en sorte que les rues principales soient sécuritaires et accueillantes.'}
+			message2={'Créer une identité cohérente pour la rue principale et en faire la promotion.'}
+			message3={'Miser sur une expérience globale de la rue principale qui équilibre confort et découvertes fortuites.'}
+		/>
+
+		<KeyFindings
+			number={'3'}
+			finding={'Une part croissante des comportements de consommation se déplace en ligne, mais pas au rythme rapide prévu pendant la pandémie.'}
+			message1={'Offrir des outils et des conseils aux petites entreprises indépendantes pour optimiser leur propre présence en ligne.'}
+			message2={'Rechercher ou créer des solutions de rechange aux services tiers de livraison de repas en ligne.'}
+			message3={'Collaborer pour créer une présence en ligne à l’échelle de la rue principale qui renforce la communauté locale en reliant les personnes résidentes, les entreprises et l’infrastructure civique.'}
+		/>
+	</div>
+{:else}
 <div class="key-findings">
 	<h3>Key Findings and Messages</h3>
 
@@ -269,3 +488,4 @@
 		message3={'Work together to create a main street-scale online presence that strengthens local community by connecting residents, business, and civic infrastructure.'}
 	/>
 </div>
+{/if}
