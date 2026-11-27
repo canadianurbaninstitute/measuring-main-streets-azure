@@ -11,7 +11,7 @@ export const TAGS_FR = {
 	'TOD on Main': 'TOD sur la rue principale',
 	'Regional Report': 'Rapport régional',
 	'Research Brief': 'Note de recherche',
-	'Executive Summary': 'Sommaire',
+	'Executive Summary': 'Résumé',
 	'Partner Report': 'Rapport de partenaire',
 	'Partner Tools': 'Outils des partenaires',
 	Reports: 'Rapports',

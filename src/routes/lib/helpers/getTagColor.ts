@@ -14,7 +14,7 @@ const getTagColor = (tag: string) => {
 	if (text.includes('regional') || text.includes('régional')) return 'var(--color-blue-800)';
 	if (text.includes('complete communities') || text.includes('collectivités complètes')) return 'var(--color-green-400)';
 	if (text.includes('partner') || text.includes('partenaire')) return 'var(--brandPink)';
-	if (text.includes('executive summary') || text.includes('sommaire')) return 'var(--brandLightBlue)';
+	if (text.includes('executive summary') || text.includes('résumé')) return 'var(--brandLightBlue)';
 	if (text.includes('research brief') || text.includes('note de recherche')) return 'var(--color-green-500)';
 	if (text.includes('ghg emissions') || text.includes('émissions de ges')) return 'var(--color-green-500)';
 	if (text.includes('catch')) return 'var(--color-green-600)';

@@ -1,5 +1,6 @@
 <script>
 	import '../../styles.css';
+	import { getLang } from '../../lib/i18n';
 	import Card from '../../lib/ui/Card.svelte';
 	import { writable } from 'svelte/store';
 	import Icon from '@iconify/svelte';
@@ -24,6 +25,9 @@
 	import SherwoodDrive from '../../lib/assets/boundaries/edmontonboundaries/SherwoodDrive.svg';
 	import StAlbertRoad from '../../lib/assets/boundaries/edmontonboundaries/StAlbertRoad.svg';
 	import StonyPlainRoadNW from '../../lib/assets/boundaries/edmontonboundaries/StonyPlainRoadNW.svg';
+
+
+	const fr = getLang() === 'fr';
 
 	const allCards = [
 		{
@@ -194,21 +198,35 @@
 	<h1>Edmonton, Alberta</h1>
 
 	<div class="subtitle">
-		<h2>Full Case Studies</h2>
+		<h2>{fr ? 'Études de cas complètes' : 'Full Case Studies'}</h2>
 	</div>
 </div>
 
 <div class="hero">
-	<p>
-		We conducted 10 full case studies in the Edmonton region, which which combine data about the
-		main streets with qualitative observation from site visits. The selection of main streets was
-		intended to provide a representative sample of types of streets within each regional context.
-		This included downtown (workplace-oriented), small town, and neighourhood (residential-oriented)
-		main streets being chosen, with additional emphasis placed on equity-deserving communities. More
-		streets were included in the neighbourhood category as there are a greater variety of streets
-		within the group. Use the filters to filter the case studies by type, or click on a case study
-		to read it.
-	</p>
+	{#if fr}
+		<p>
+			Nous avons réalisé 10 études de cas complètes dans la région d’Edmonton, qui combinent des
+			données sur les rues principales et des observations qualitatives recueillies lors de
+			visites sur le terrain. Les rues principales ont été choisies de manière à constituer un
+			échantillon représentatif des types de rues dans chaque contexte régional. Nous avons ainsi
+			retenu des rues principales de centre-ville (axées sur les lieux de travail), de petite
+			ville et de quartier (axées sur la vie résidentielle), en accordant une attention
+			particulière aux collectivités en quête d’équité. La catégorie des quartiers compte
+			davantage de rues, car les rues de ce groupe sont plus variées. Utilisez les filtres pour
+			trier les études de cas par type, ou cliquez sur une étude de cas pour la lire.
+		</p>
+	{:else}
+		<p>
+			We conducted 10 full case studies in the Edmonton region, which which combine data about the
+			main streets with qualitative observation from site visits. The selection of main streets was
+			intended to provide a representative sample of types of streets within each regional context.
+			This included downtown (workplace-oriented), small town, and neighourhood (residential-oriented)
+			main streets being chosen, with additional emphasis placed on equity-deserving communities. More
+			streets were included in the neighbourhood category as there are a greater variety of streets
+			within the group. Use the filters to filter the case studies by type, or click on a case study
+			to read it.
+		</p>
+	{/if}
 	<div class="filter-container">
 		<!-- <h4>Filter:</h4> -->
 		<div class="checkbox-group">
@@ -218,7 +236,7 @@
 					bind:checked={isDowntownChecked}
 					on:change={() => updateFilter('downtown', isDowntownChecked)}
 				/>
-				Downtown
+				{fr ? 'Centre-ville' : 'Downtown'}
 			</label>
 			<label>
 				<input
@@ -226,7 +244,7 @@
 					bind:checked={isSuburbanChecked}
 					on:change={() => updateFilter('suburban', isSuburbanChecked)}
 				/>
-				Neighbourhood
+				{fr ? 'Quartier' : 'Neighbourhood'}
 			</label>
 			<label>
 				<input
@@ -234,10 +252,10 @@
 					bind:checked={isRuralChecked}
 					on:change={() => updateFilter('rural', isRuralChecked)}
 				/>
-				Small Town
+				{fr ? 'Petite ville' : 'Small Town'}
 			</label>
 		</div>
-		<button on:click={resetFilters}><Icon icon="mi:undo" />Reset Filters</button>
+		<button on:click={resetFilters}><Icon icon="mi:undo" />{fr ? 'Réinitialiser les filtres' : 'Reset Filters'}</button>
 	</div>
 </div>
 
@@ -249,13 +267,21 @@
 
 <div class="hero">
 	<div class="subtitle">
-		<h2>Data Case Studies</h2>
+		<h2>{fr ? 'Études de cas fondées sur les données' : 'Data Case Studies'}</h2>
 	</div>
 
-	<p>
-		These are the 10 data only case studies in the Edmonton region. Use the filters above to filter
-		the case studies by type, or click on a case study to read it.
-	</p>
+	{#if fr}
+		<p>
+			Voici les 10 études de cas fondées uniquement sur les données dans la région d’Edmonton.
+			Utilisez les filtres ci-dessus pour trier les études de cas par type, ou cliquez sur une
+			étude de cas pour la lire.
+		</p>
+	{:else}
+		<p>
+			These are the 10 data only case studies in the Edmonton region. Use the filters above to filter
+			the case studies by type, or click on a case study to read it.
+		</p>
+	{/if}
 </div>
 <div class="card-grid">
 	{#each filteredDataCaseStudies as card}
