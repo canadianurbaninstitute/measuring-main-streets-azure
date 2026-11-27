@@ -10,13 +10,17 @@
 	import { dataset } from '../../lib/data/reportdata/toronto/selectLabels.js';
 	import '../../styles.css';
 
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
 	// order of graphs: downtown, neighbourhood, small towns, malls
 </script>
 
 <Title
 	outline={blank}
 	name={'Toronto'}
-	location={'Regional Report'}
+	location={fr ? 'Rapport régional' : 'Regional Report'}
 	bg={'https://i.imgur.com/SPNVRmc.jpeg'}
 />
 
@@ -444,7 +448,9 @@
 	<div class="chart-container bar sticky-content">
 		<CIIMainStreetMap
 			section={'civic-infra-index-main-streets'}
-			title={'Civic Infrastructure Index (Lowest Quintile) in relation to High Density Main Streets'}
+			title={fr
+				? 'Indice d’infrastructure civique (quintile inférieur) par rapport aux rues principales à forte densité'
+				: 'Civic Infrastructure Index (Lowest Quintile) in relation to High Density Main Streets'}
 		/>
 	</div>
 </div>
@@ -515,7 +521,7 @@
 			<img
 				class="report-image"
 				src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/DowntownYonge/3_Civic/IMG_8921"
-				alt="downtownyonge"
+				alt={fr ? 'Downtown Yonge' : 'downtownyonge'}
 			/>
 			<h5>Downtown Yonge</h5>
 		</div>
@@ -523,7 +529,7 @@
 			<img
 				class="report-image"
 				src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/Weston/2_Built_Form/IMG_9546"
-				alt="weston"
+				alt={fr ? 'Weston' : 'weston'}
 			/>
 			<h5>Weston</h5>
 		</div>
@@ -620,7 +626,7 @@
 			<img
 				class="report-image"
 				src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/KingstonRoad/2_Built_Form/IMG_0954"
-				alt="kingstonroad"
+				alt={fr ? 'Kingston Road' : 'kingstonroad'}
 			/>
 			<h5>Kingston Road</h5>
 		</div>
@@ -628,7 +634,7 @@
 			<img
 				class="report-image"
 				src="https://res.cloudinary.com/dfseerxb3/image/upload/Toronto/MississaugaDundas/2_Built_Form/IMG_1247"
-				alt="missdundas"
+				alt={fr ? 'Dundas Street, Mississauga' : 'missdundas'}
 			/>
 			<h5>Dundas Street, Mississauga</h5>
 		</div>
