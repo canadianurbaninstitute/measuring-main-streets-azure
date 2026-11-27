@@ -82,6 +82,7 @@
 	id="bar-wrapper"
 	class:hideable={isHiddenRoute}
 	class:hovered={isHovered}
+	class:lang-fr={isFrench}
 	class="landing-nav"
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}
@@ -432,6 +433,26 @@
 
 	:global(.nav-trigger[data-state='open'] .nav-menu-icon) {
 		transform: rotate(180deg);
+	}
+
+	/* French labels are longer: let them wrap onto two lines instead of overlapping the logos */
+	@media (min-width: 768px) {
+		#bar-wrapper.lang-fr #logo-group {
+			flex-shrink: 0;
+		}
+		#bar-wrapper.lang-fr :global(.nav-link:not(.lang-switch)),
+		#bar-wrapper.lang-fr :global(.nav-trigger) {
+			width: auto;
+			max-width: 13rem;
+			height: auto;
+			min-height: 2rem;
+			white-space: normal;
+			word-break: normal;
+			overflow-wrap: normal;
+			hyphens: manual;
+			line-height: 1.2;
+			padding: 0.5rem 0.6rem;
+		}
 	}
 
 	.lang-switch {

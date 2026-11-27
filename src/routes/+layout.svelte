@@ -13,11 +13,9 @@
 	onMount(() => {
 		if (lang !== 'fr') return;
 
-		/** @param {Event} event */
-		function localize(event) {
-			const target = /** @type {Element | null} */ (event.target);
-			const anchor = target?.closest?.('a[href]');
-			if (!anchor || anchor.hasAttribute('data-lang-switch')) return;
+		/** @param {Element | null | undefined} anchor */
+		function localizeAnchor(anchor) {
+			if (!anchor || anchor.tagName !== 'A' || anchor.hasAttribute('data-lang-switch')) return;
 			const href = anchor.getAttribute('href');
 			if (href && isLocalizableHref(href)) {
 				const localized = localizeHrefFor(href, 'fr');
@@ -25,9 +23,44 @@
 			}
 		}
 
+		/** @param {ParentNode} root */
+		function localizeAll(root) {
+			root.querySelectorAll('a[href]').forEach(localizeAnchor);
+		}
+
+		// Svelte resets dynamic hrefs while hydrating, and components add links later (cards, popups),
+		// so localise everything now and keep watching for new or changed links.
+		localizeAll(document);
+		const observer = new MutationObserver((mutations) => {
+			for (const m of mutations) {
+				if (m.type === 'attributes') localizeAnchor(/** @type {Element} */ (m.target));
+				else
+					m.addedNodes.forEach((node) => {
+						if (node instanceof Element) {
+							localizeAnchor(node);
+							localizeAll(node);
+						}
+					});
+			}
+		});
+		observer.observe(document.body, {
+			subtree: true,
+			childList: true,
+			attributes: true,
+			attributeFilter: ['href']
+		});
+
+		// Safety net just before a link is followed.
+		/** @param {Event} event */
+		function onInteract(event) {
+			localizeAnchor(/** @type {Element | null} */ (event.target)?.closest?.('a[href]'));
+		}
 		const events = ['pointerdown', 'focusin', 'click', 'auxclick', 'contextmenu'];
-		events.forEach((name) => document.addEventListener(name, localize, true));
-		return () => events.forEach((name) => document.removeEventListener(name, localize, true));
+		events.forEach((name) => document.addEventListener(name, onInteract, true));
+		return () => {
+			observer.disconnect();
+			events.forEach((name) => document.removeEventListener(name, onInteract, true));
+		};
 	});
 </script>
 
