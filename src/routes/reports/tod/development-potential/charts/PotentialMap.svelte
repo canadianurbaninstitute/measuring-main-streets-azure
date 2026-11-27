@@ -8,7 +8,7 @@
 
 	const fr = getLang() === 'fr';
 	// Display-only translations of station status and potential values (map feature properties).
-	const STATUS_FR = { Existing: 'Existante', Planned: 'Prévue', Construction: 'En construction' };
+	const STATUS_FR = { Existing: 'En service', Planned: 'Planifiée', Construction: 'En construction' };
 	const POTENTIAL_FR = {
 		'Very Low': 'Très faible',
 		Low: 'Faible',

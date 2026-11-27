@@ -34,7 +34,7 @@
 			label: fr ? 'Eglinton Crosstown (ligne 5)' : 'Eglinton Crosstown (Line 5)',
 			color: '#f45d01'
 		},
-		{ key: 'line6', label: fr ? 'TLR Finch (ligne 6)' : 'Finch LRT (Line 6)', color: '#00adf2' }
+		{ key: 'line6', label: fr ? 'SLR Finch (ligne 6)' : 'Finch LRT (Line 6)', color: '#00adf2' }
 	];
 </script>
 

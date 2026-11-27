@@ -16,7 +16,7 @@
 		Montreal: 'Montréal',
 		Commuter: 'Train de banlieue',
 		Subway: 'Métro',
-		LRT: 'TLR'
+		LRT: 'SLR'
 	};
 	const LEVEL_FR = { Low: 'Faible', High: 'Élevée' };
 	const POTENTIAL_FR = {

@@ -198,10 +198,10 @@ export const sections = [
 				}
 			},
 			{
-				body: `<h3>TLR</h3>
-				<p>Bien que le scénario le plus courant pour les stations de train léger sur rail (TLR) soit une forte disponibilité des terrains et une faible pression de croissance, leur répartition entre les catégories de disponibilité des terrains
-				et de pression de croissance est relativement équilibrée par rapport aux gares de train de banlieue et aux stations de métro. De plus, le TLR est la technologie la plus courante parmi les stations à forte disponibilité des terrains
-				et à forte pression de croissance : plus de la moitié de ces stations « élevée-élevée » se trouvent sur des lignes de TLR. Bon nombre d’entre elles sont situées sur des lignes de TLR relativement récentes,
+				body: `<h3>SLR</h3>
+				<p>Bien que le scénario le plus courant pour les stations de train léger sur rail (SLR) soit une forte disponibilité des terrains et une faible pression de croissance, leur répartition entre les catégories de disponibilité des terrains
+				et de pression de croissance est relativement équilibrée par rapport aux gares de train de banlieue et aux stations de métro. De plus, le SLR est la technologie la plus courante parmi les stations à forte disponibilité des terrains
+				et à forte pression de croissance : plus de la moitié de ces stations « élevée-élevée » se trouvent sur des lignes de SLR. Bon nombre d’entre elles sont situées sur des lignes de SLR relativement récentes,
 				en banlieue, par exemple la station Ionview à Toronto, la station Borden à Kitchener et la station Kingsway/Royal Alex à Edmonton.</p>`,
 				props: {
 					region: 'LRT'
@@ -245,7 +245,7 @@ export const sections = [
 				l’aménagement axé sur le transport collectif, en créant des collectivités à usage mixte qui intègrent des espaces publics propices à la marche et bien reliés, des possibilités de logement hors marché et une croissance plus forte concentrée dans l’aire
 				de la station. <a href="https://www.cbc.ca/news/canada/calgary/major-redevelopment-near-chinook-centre-gets-preliminary-green-light-from-city-council-1.7197317" target="_blank">Les plans préliminaires pour Chinook Centre</a>
 				comprennent Midtown, un projet de 28 nouveaux bâtiments. Ce projet créerait jusqu’à 6 200 logements près de la
-				station de TLR, avec la possibilité d’aménager une nouvelle station intercalaire à proximité. La forte densité d’emploi et la disponibilité des terrains de la station Chinook offrent l’occasion de développer davantage une
+				station de SLR, avec la possibilité d’aménager une nouvelle station intercalaire à proximité. La forte densité d’emploi et la disponibilité des terrains de la station Chinook offrent l’occasion de développer davantage une
 				collectivité à usage mixte près du transport collectif, en accroissant l’aménagement résidentiel aux côtés des aménagements commerciaux existants et futurs.</p>`,
 				props: {
 					region: 'Calgary',
@@ -360,7 +360,7 @@ export const sections = [
 				body: `
 				<h4>Ottawa</h4>
 				<br>
-				<p>Tunney’s Pasture est un site d’emploi fédéral situé à l’ouest du centre-ville. La station de TLR Tunney’s Pasture, sur la ligne 1 et la future ligne 3 d’Ottawa, dessert ce campus d’immeubles gouvernementaux. Grâce à une forte croissance démographique projetée et à la présence de services de collectivité complète destinés à sa main-d’œuvre fédérale, l’aire de la station Tunney’s Pasture présente un très fort potentiel de développement résidentiel.</p>`,
+				<p>Tunney’s Pasture est un site d’emploi fédéral situé à l’ouest du centre-ville. La station de SLR Tunney’s Pasture, sur la ligne 1 et la future ligne 3 d’Ottawa, dessert ce campus d’immeubles gouvernementaux. Grâce à une forte croissance démographique projetée et à la présence de services de collectivité complète destinés à sa main-d’œuvre fédérale, l’aire de la station Tunney’s Pasture présente un très fort potentiel de développement résidentiel.</p>`,
 				props: {
 					region: 'Ottawa-Gatineau'
 				}

@@ -143,7 +143,7 @@ export const AMENITY_LABELS_FR: Record<string, string> = {
 export const STATUS_FR: Record<string, string> = {
 	Existing: 'En service',
 	Construction: 'En construction',
-	Planned: 'Planifié'
+	Planned: 'Planifiée'
 };
 
 /** Station technology values. */

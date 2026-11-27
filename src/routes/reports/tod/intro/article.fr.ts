@@ -106,8 +106,8 @@ export const sections = [
 			},
 			{
 				body: `<p>Six régions disposent d’infrastructures de transport collectif structurant, et une septième en est à l’étape de la planification (Québec).</p>
-				<p>Ces six régions comptent 12 lignes de train léger sur rail (TLR), 10 lignes de métro et 14 lignes de train de banlieue.
-				Quatre lignes de TLR sont en construction et quatre autres sont à l’étape de la planification.
+				<p>Ces six régions comptent 12 lignes de train léger sur rail (SLR), 10 lignes de métro et 14 lignes de train de banlieue.
+				Quatre lignes de SLR sont en construction et quatre autres sont à l’étape de la planification.
 				Une ligne de métro est en construction, et divers prolongements et améliorations des trains de banlieue sont en cours.</p>
 				<p>On compte au total 465 stations de transport collectif structurant, et 298 autres sont en construction ou à l’étape de la planification.
 				Actuellement, 5,59 millions de personnes vivent à moins de 800 m d’une station de transport collectif structurant.</p>`
@@ -144,7 +144,7 @@ export const sections = [
 			},
 			{
 				panelId: 'line5',
-				body: `<p>Deux lignes de TLR récemment mises en service à Toronto (lignes 5 et 6) illustrent des trajectoires divergentes de construction résidentielle dans un même contexte municipal : 140 844 nouveaux logements sont actuellement en construction ou proposés dans le corridor de la ligne 5, contre 23 430 logements projetés pour la ligne 6.</p>`
+				body: `<p>Deux lignes de SLR récemment mises en service à Toronto (lignes 5 et 6) illustrent des trajectoires divergentes de construction résidentielle dans un même contexte municipal : 140 844 nouveaux logements sont actuellement en construction ou proposés dans le corridor de la ligne 5, contre 23 430 logements projetés pour la ligne 6.</p>`
 			},
 			{
 				panelId: 'pipeline',
@@ -272,7 +272,7 @@ export const sections = [
 			{
 				panelId: 'displacement',
 				heading: 'Abordabilité et déplacement de population',
-				body: `<p>Les répercussions des nouveaux projets d’infrastructure de transport collectif structurant ne sont pas toutes positives. Les nouvelles lignes de TLR, de métro et de train de banlieue entraînent des changements importants dans les collectivités existantes. La valeur des propriétés augmente habituellement, l’utilisation des terrains change souvent, et de nouveaux bâtiments remplacent les plus anciens. Lorsque cela se produit, des résidents et des entreprises peuvent être déplacés. Les personnes qui subissent ce déplacement sont le plus souvent les plus vulnérables. Il ne s’agit pas seulement de retirer des individus d’un quartier : ce déplacement peut surtout fragiliser, voire rompre, les relations entre les gens et leur attachement à un lieu. Les relations sont le fondement de la communauté, et la communauté est le fondement de la résilience locale. L’aménagement axé sur le transport collectif doit être inclusif. Les politiques et les modèles de développement devraient limiter et atténuer les effets de déplacement, et offrir des possibilités abordables aux résidents de tous les niveaux de revenu.  </p>`,
+				body: `<p>Les répercussions des nouveaux projets d’infrastructure de transport collectif structurant ne sont pas toutes positives. Les nouvelles lignes de SLR, de métro et de train de banlieue entraînent des changements importants dans les collectivités existantes. La valeur des propriétés augmente habituellement, l’utilisation des terrains change souvent, et de nouveaux bâtiments remplacent les plus anciens. Lorsque cela se produit, des résidents et des entreprises peuvent être déplacés. Les personnes qui subissent ce déplacement sont le plus souvent les plus vulnérables. Il ne s’agit pas seulement de retirer des individus d’un quartier : ce déplacement peut surtout fragiliser, voire rompre, les relations entre les gens et leur attachement à un lieu. Les relations sont le fondement de la communauté, et la communauté est le fondement de la résilience locale. L’aménagement axé sur le transport collectif doit être inclusif. Les politiques et les modèles de développement devraient limiter et atténuer les effets de déplacement, et offrir des possibilités abordables aux résidents de tous les niveaux de revenu.  </p>`,
 				cta: {
 					href: '/reports/tod/who-lives-in-tsas',
 					label: 'Lire le rapport — Qui vit dans les aires de station de transport collectif?'
