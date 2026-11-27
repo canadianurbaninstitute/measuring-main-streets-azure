@@ -701,7 +701,7 @@
 							streets.
 						</p>
 					{/if}
-					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'Legend'} />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
