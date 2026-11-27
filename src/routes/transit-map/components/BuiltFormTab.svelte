@@ -12,6 +12,8 @@
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
+	import { trTransit } from '../../lib/data/transitdata/labels.fr';
+	import { formatNumber, getLang } from '../../lib/i18n';
 	let {
 		selectedStation,
 		stationBuiltForm,
@@ -27,6 +29,10 @@
 		onSelectVariable
 	} = $props();
 
+	const fr = getLang() === 'fr';
+	const pct = fr ? '\u00a0%' : '%';
+	const num = (n: number) => (fr ? formatNumber(n, undefined, 'fr') : n.toLocaleString());
+
 	const potentialMap: Record<string, number> = {
 		'Very High': 10,
 		High: 7.5,
@@ -40,9 +46,17 @@
 	);
 
 	const dpiMetrics = [
-		{ label: 'Land Availability', key: 'LALevel', icon: 'mdi:land-plots' },
-		{ label: 'Growth Pressure', key: 'GPLevel', icon: 'mdi:trending-up' },
-		{ label: 'Displacement Risk', key: 'DRLevel', icon: 'mdi:alert-circle' }
+		{
+			label: fr ? 'Disponibilité des terrains' : 'Land Availability',
+			key: 'LALevel',
+			icon: 'mdi:land-plots'
+		},
+		{ label: fr ? 'Pression de croissance' : 'Growth Pressure', key: 'GPLevel', icon: 'mdi:trending-up' },
+		{
+			label: fr ? 'Risque de déplacement de population' : 'Displacement Risk',
+			key: 'DRLevel',
+			icon: 'mdi:alert-circle'
+		}
 	];
 
 	const unitsCreated = $derived(
@@ -59,10 +73,11 @@
 		{#each [PopulationDensity, EmploymentDensity] as metric}
 			{#if selectedStation[metric.key] !== undefined}
 				<TransitMetric
-					label={metric.label + (metric.unit ? ' (' + metric.unit + ')' : '')}
+					label={trTransit(metric.label, fr) +
+						(metric.unit ? ' (' + trTransit(metric.unit, fr) + ')' : '')}
 					active={selectedVariable === metric.key}
 					onclick={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
-					value={Math.round(selectedStation[metric.key]).toLocaleString()}
+					value={num(Math.round(selectedStation[metric.key]))}
 					icon={metric.icon}
 				/>
 			{/if}
@@ -70,8 +85,10 @@
 		{#if unitsCreated > 0}
 			<TransitMetric
 				disabled
-				label="Active building permits ({buildingPermitYear})"
-				value={unitsCreated.toLocaleString()}
+				label={fr
+					? `Permis de construction actifs (${buildingPermitYear})`
+					: `Active building permits (${buildingPermitYear})`}
+				value={num(unitsCreated)}
 				icon={'mdi:home'}
 			/>{/if}
 	</div>
@@ -80,19 +97,21 @@
 			<TransitMetric
 				disabled
 				label={metric.label}
-				value={dpiData ? dpiData[metric.key] : 'N/A'}
+				value={dpiData ? trTransit(dpiData[metric.key], fr) : fr ? 's.o.' : 'N/A'}
 				icon={metric.icon}
 			/>
 		{/each}
 	</div>
 	<div class="metric-container">
 		<GaugeMetric
-			title="Overall Housing Development Potential"
+			title={fr
+				? 'Potentiel global de développement résidentiel'
+				: 'Overall Housing Development Potential'}
 			value={potentialMap[dpiData.potential]}
 			maxValue={10}
 			size={200}
 			segmentColors={['#f13737', '#f1c500', '#58e965']}
-			label={dpiData.potential}
+			label={trTransit(dpiData.potential, fr)}
 			showValue={false}
 		/>
 	</div>
@@ -101,40 +120,40 @@
 			active={waterVisible}
 			on:click={() =>
 				(waterVisible = toggleLayer(['waterway-built-form', 'water-built-form'], waterVisible))}
-			label={water_pct.label}
+			label={trTransit(water_pct.label, fr)}
 			value={Math.round(stationBuiltForm[water_pct.key])}
 			icon={water_pct.icon}
-			suffix={water_pct.unit}
+			suffix={fr ? pct : water_pct.unit}
 			fillColor={'#002940'}
 			toggle={true}
 		/>
 		<DonutMetric
 			active={greenspaceVisible}
 			on:click={() => (greenspaceVisible = toggleLayer('greenspace-built-form', greenspaceVisible))}
-			label={greenspace_pct.label}
+			label={trTransit(greenspace_pct.label, fr)}
 			value={Math.round(stationBuiltForm[greenspace_pct.key])}
 			icon={greenspace_pct.icon}
-			suffix={greenspace_pct.unit}
+			suffix={fr ? pct : greenspace_pct.unit}
 			fillColor={'#43b171'}
 			toggle={true}
 		/>
 		<DonutMetric
 			active={buildingVisible}
 			on:click={() => (buildingVisible = toggleLayer('all-buildings', buildingVisible))}
-			label={building_pct.label}
+			label={trTransit(building_pct.label, fr)}
 			value={Math.round(stationBuiltForm[building_pct.key])}
 			icon={building_pct.icon}
-			suffix={building_pct.unit}
+			suffix={fr ? pct : building_pct.unit}
 			fillColor={'#555555'}
 			toggle={true}
 		/>
 		<DonutMetric
 			active={parkingVisible}
 			on:click={() => (parkingVisible = toggleLayer('parking-built-form', parkingVisible))}
-			label={parking_pct.label}
+			label={trTransit(parking_pct.label, fr)}
 			value={Math.round(stationBuiltForm[parking_pct.key])}
 			icon={parking_pct.icon}
-			suffix={parking_pct.unit}
+			suffix={fr ? pct : parking_pct.unit}
 			fillColor={'#999999'}
 			toggle={true}
 		/>
@@ -142,20 +161,24 @@
 
 	<CustomButton
 		href="/reports/tod/development-potential"
-		label="Read the Housing Development Potential Report"
+		label={fr
+			? 'Lire le rapport sur le potentiel de développement résidentiel'
+			: 'Read the Housing Development Potential Report'}
 		color="green"
 		className="mt-2 w-full"
 	/>
 	<CustomButton
 		href="/tools/development-potential"
-		label="Try the Housing Development Potential Tool"
+		label={fr
+			? 'Essayer l’outil du potentiel de développement résidentiel'
+			: 'Try the Housing Development Potential Tool'}
 		color="green"
 		variant="secondary"
 		className="mt-2 w-full"
 	/>
 	<CustomButton
 		href="/tools/urban-form-comparison"
-		label="Try the Built Form Tool"
+		label={fr ? 'Essayer l’outil du cadre bâti' : 'Try the Built Form Tool'}
 		variant="secondary"
 		className="mt-2 w-full"
 	/>

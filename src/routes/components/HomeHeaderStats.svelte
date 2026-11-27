@@ -2,20 +2,67 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { backOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
+	import { getLang } from '../lib/i18n';
 
-	let stats = [
-		{ label: 'could be built in transit station areas', value: '4.4 million homes' },
-		{ value: '5.59 million', label: 'Canadians live in transit station areas' },
-		{ value: '465', label: 'higher order transit stations exist in Canada' },
-		{ label: 'of Canadians live within 1km of a main street', value: '85%' },
-		{ label: 'businesses are open on main streets', value: '280,000' },
-		{ label: 'provided on main streets', value: '1.9 million jobs' },
-		{ label: 'in annual revenue is generated on main streets', value: '$300 billion' },
-		{ label: 'civic infrastructure & community assets exist on main streets', value: '98,000' },
-		{ value: 'Over 50%', label: 'of embodied building GHG can be reduced by design choices' },
-		{ value: '298', label: 'higher order transit stations are under construction or planned' },
-		{ value: 'Over 3.6 million', label: 'jobs provided in transit station areas' }
-	];
+	const fr = getLang() === 'fr';
+
+	let stats = fr
+		? [
+				{
+					value: '4,4\u00a0millions de logements',
+					label: 'pourraient être construits dans les aires de station de transport collectif'
+				},
+				{
+					value: '5,59\u00a0millions',
+					label: 'de personnes au Canada vivent dans des aires de station de transport collectif'
+				},
+				{
+					value: '465',
+					label: 'stations de transport collectif d’ordre supérieur existent au Canada'
+				},
+				{
+					value: '85\u00a0%',
+					label: 'de la population canadienne vit à moins de 1\u00a0km d’une rue principale'
+				},
+				{ value: '280\u00a0000', label: 'commerces sont ouverts sur les rues principales' },
+				{ value: '1,9\u00a0million d’emplois', label: 'sont offerts sur les rues principales' },
+				{
+					value: '300\u00a0milliards\u00a0$',
+					label: 'de revenus annuels sont générés sur les rues principales'
+				},
+				{
+					value: '98\u00a0000',
+					label:
+						'infrastructures civiques et ressources communautaires se trouvent sur les rues principales'
+				},
+				{
+					value: 'Plus de 50\u00a0%',
+					label:
+						'des émissions de GES intrinsèques des bâtiments peuvent être réduites par des choix de conception'
+				},
+				{
+					value: '298',
+					label:
+						'stations de transport collectif d’ordre supérieur sont en construction ou prévues'
+				},
+				{
+					value: 'Plus de 3,6\u00a0millions',
+					label: 'd’emplois sont offerts dans les aires de station de transport collectif'
+				}
+			]
+		: [
+				{ label: 'could be built in transit station areas', value: '4.4 million homes' },
+				{ value: '5.59 million', label: 'Canadians live in transit station areas' },
+				{ value: '465', label: 'higher order transit stations exist in Canada' },
+				{ label: 'of Canadians live within 1km of a main street', value: '85%' },
+				{ label: 'businesses are open on main streets', value: '280,000' },
+				{ label: 'provided on main streets', value: '1.9 million jobs' },
+				{ label: 'in annual revenue is generated on main streets', value: '$300 billion' },
+				{ label: 'civic infrastructure & community assets exist on main streets', value: '98,000' },
+				{ value: 'Over 50%', label: 'of embodied building GHG can be reduced by design choices' },
+				{ value: '298', label: 'higher order transit stations are under construction or planned' },
+				{ value: 'Over 3.6 million', label: 'jobs provided in transit station areas' }
+			];
 
 	// Start with unique indices
 	let indices = [0, 1, 2, 3];

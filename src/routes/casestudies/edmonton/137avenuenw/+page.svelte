@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/137avenuenw/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/137avenuenw/civicmix';
@@ -34,6 +35,11 @@
 	import { visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -79,21 +85,33 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						The case study aims to provide an overview of the case study area; through a combination
-						of interactive maps, charts and data analysis.
-					</p>
-					<p>
-						The map displays the boundaries of the case study, overlaid on the main street network.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							L’étude de cas vise à offrir une vue d’ensemble de la zone à l’étude au
+							moyen d’une combinaison de cartes interactives, de graphiques et d’analyses
+							de données.
+						</p>
+						<p>
+							La carte présente les limites de l’étude de cas, superposées au réseau de
+							rues principales.
+						</p>
+					{:else}
+						<p>
+							The case study aims to provide an overview of the case study area; through a combination
+							of interactive maps, charts and data analysis.
+						</p>
+						<p>
+							The map displays the boundaries of the case study, overlaid on the main street network.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -118,14 +136,26 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						The built form of the case study area is represented through the 3D building layer,
-						transit stops and lines, as well as green space, including a comparative graph of the %
-						of green space present within the case study area, a 10 minute walk radius and in the
-						Census Metropolitan Area the case study is located in. Use the Satellite View toggle to
-						see the case study area overlaid with satellite imagery.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							Le cadre bâti de la zone à l’étude est représenté par la couche des
+							bâtiments en 3D, les arrêts et les lignes de transport collectif ainsi que
+							les espaces verts, y compris un graphique comparant le pourcentage d’espaces
+							verts dans la zone à l’étude, dans un rayon de 10 minutes de marche et dans
+							la région métropolitaine de recensement (RMR) où se situe l’étude de cas.
+							Utilisez le bouton « Vue satellite » pour afficher la zone à l’étude
+							superposée à l’imagerie satellite.
+						</p>
+					{:else}
+						<p>
+							The built form of the case study area is represented through the 3D building layer,
+							transit stops and lines, as well as green space, including a comparative graph of the %
+							of green space present within the case study area, a 10 minute walk radius and in the
+							Census Metropolitan Area the case study is located in. Use the Satellite View toggle to
+							see the case study area overlaid with satellite imagery.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -135,14 +165,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<SatelliteCheckbox casestudy={'137avenuenw'} section={'builtform'} />
 					</div>
 					<CaseStudyMap
@@ -165,10 +195,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -178,12 +208,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -192,7 +226,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -201,7 +235,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -210,7 +244,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -219,7 +253,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -247,20 +281,39 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Civic Infrastructure present in the case study area is represented through 5 categories:
-						Education, Government & Community Services, Arts & Culture, Recreation, and Healthcare.
-						For more information about how we classified these categories, read our <a
-							href="/about/data-methodology">Data and Methodology</a
-						>. The graph displays the proportional mix of Civic Infrastucture in the case study
-						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
-						located in.
-					</p>
-					<p>
-						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
-						of the case study area, as well as the estimated employment sizes of each location of
-						Civic Infrastructure.
-					</p>
+					{#if fr}
+						<p>
+							L’infrastructure civique présente dans la zone à l’étude est représentée
+							selon 5 catégories : Éducation, Services gouvernementaux et communautaires,
+							Arts et culture, Loisirs et Santé. Pour en savoir plus sur la façon dont
+							nous avons classé ces catégories, consultez la section <a
+							href="/about/data-methodology">Données et méthodologie</a >. Le graphique
+							présente la répartition proportionnelle de l’infrastructure civique dans la
+							zone à l’étude, dans un rayon de 10 minutes de marche et dans la RMR où se
+							situe l’étude de cas.
+						</p>
+						<p>
+							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Taille des
+							entreprises » pour afficher un rayon de 10 minutes de marche autour de la
+							zone à l’étude ainsi que la taille estimée (nombre d’employés) de chaque
+							lieu d’infrastructure civique.
+						</p>
+					{:else}
+						<p>
+							Civic Infrastructure present in the case study area is represented through 5 categories:
+							Education, Government & Community Services, Arts & Culture, Recreation, and Healthcare.
+							For more information about how we classified these categories, read our <a
+								href="/about/data-methodology">Data and Methodology</a
+							>. The graph displays the proportional mix of Civic Infrastucture in the case study
+							area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
+							located in.
+						</p>
+						<p>
+							Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
+							of the case study area, as well as the estimated employment sizes of each location of
+							Civic Infrastructure.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -280,17 +333,17 @@
 							'civicinfra-edmonton-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -300,12 +353,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -314,7 +371,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -323,7 +380,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -349,20 +406,39 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Main Street Businesses present in the case study area are represented through 3
-						categories: Retail, Food & Drink and Local Services. For more information about how we
-						classified these categories, read our <a href="/about/data-methodology"
-							>Data and Methodology</a
-						>. The graph displays the proportional mix of Main Street Businesses in the case study
-						area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
-						located in.
-					</p>
-					<p>
-						Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
-						of the case study area, as well as the estimated employment sizes of each Main Street
-						Business.
-					</p>
+					{#if fr}
+						<p>
+							Les entreprises de rue principale présentes dans la zone à l’étude sont
+							représentées selon 3 catégories : Commerce de détail, Restauration et
+							boissons et Services de proximité. Pour en savoir plus sur la façon dont
+							nous avons classé ces catégories, consultez la section <a
+							href="/about/data-methodology" >Données et méthodologie</a >. Le graphique
+							présente la répartition proportionnelle des entreprises de rue principale
+							dans la zone à l’étude, dans un rayon de 10 minutes de marche et dans la RMR
+							où se situe l’étude de cas.
+						</p>
+						<p>
+							Cliquez sur les boutons « Rayon de 10 minutes de marche » et « Taille des
+							entreprises » pour afficher un rayon de 10 minutes de marche autour de la
+							zone à l’étude ainsi que la taille estimée (nombre d’employés) de chaque
+							entreprise de rue principale.
+						</p>
+					{:else}
+						<p>
+							Main Street Businesses present in the case study area are represented through 3
+							categories: Retail, Food & Drink and Local Services. For more information about how we
+							classified these categories, read our <a href="/about/data-methodology"
+								>Data and Methodology</a
+							>. The graph displays the proportional mix of Main Street Businesses in the case study
+							area, a 10 minute walk radius and in the Census Metropolitan Area the case study is
+							located in.
+						</p>
+						<p>
+							Click on the 10 Minute Walk and Employment Size toggles to view a 10 minute walk radius
+							of the case study area, as well as the estimated employment sizes of each Main Street
+							Business.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -380,17 +456,17 @@
 							'business-edmonton-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -400,13 +476,23 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						The estimated employment size of all entities, including main street businesses, civic
-						infrastructure and others, are displayed on this map. For more information about how we
-						calculated these, read our <a href="/about/data-methodology">Data and Methodology</a>.
-					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							La taille estimée (nombre d’employés) de toutes les entités, y compris les
+							entreprises de rue principale, l’infrastructure civique et les autres, est
+							affichée sur cette carte. Pour en savoir plus sur la façon dont nous l’avons
+							calculée, consultez la section <a href="/about/data-methodology">Données et
+							méthodologie</a>.
+						</p>
+					{:else}
+						<p>
+							The estimated employment size of all entities, including main street businesses, civic
+							infrastructure and others, are displayed on this map. For more information about how we
+							calculated these, read our <a href="/about/data-methodology">Data and Methodology</a>.
+						</p>
+					{/if}
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -418,25 +504,25 @@
 						bearing={0}
 						layers={['137avenuenw', '137avenuenw-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -448,33 +534,48 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'137avenuenw'}
 							section={'housing'}
 							region={'edmonton'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 					</div>
-					<p>
-						The map displays a choropleth vizualisation of key housing related Census variables at
-						the Dissemination Area level of the case study and surrounding area. Use the dropdown to
-						toggle between different variables. The data is sourced from Environics Analytics and
-						Statistics Canada.
-					</p>
-					<p>
-						The charts contrast the housing construction year and the types of housing between the
-						case study area and the Census Metropolitan Area the case study is located in.
-					</p>
+					{#if fr}
+						<p>
+							La carte présente une visualisation choroplèthe de variables clés du
+							recensement liées au logement, à l’échelle des aires de diffusion, pour la
+							zone à l’étude et ses environs. Utilisez le menu déroulant pour passer d’une
+							variable à l’autre. Les données proviennent d’Environics Analytics et de
+							Statistique Canada.
+						</p>
+						<p>
+							Les graphiques comparent l’année de construction et les types de logements
+							de la zone à l’étude avec ceux de la région métropolitaine de recensement
+							(RMR) où se situe l’étude de cas.
+						</p>
+					{:else}
+						<p>
+							The map displays a choropleth vizualisation of key housing related Census variables at
+							the Dissemination Area level of the case study and surrounding area. Use the dropdown to
+							toggle between different variables. The data is sourced from Environics Analytics and
+							Statistics Canada.
+						</p>
+						<p>
+							The charts contrast the housing construction year and the types of housing between the
+							case study area and the Census Metropolitan Area the case study is located in.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -486,18 +587,18 @@
 						bearing={0}
 						layers={['137avenuenw-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -505,12 +606,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -522,31 +623,41 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'137avenuenw'}
 							section={'demographics'}
 							region={'edmonton'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						The map displays a choropleth vizualisation of key demograhoic and other local
-						characteristic related Census variables at the Dissemination Area level of the case
-						study and surrounding area. Use the dropdown to toggle between different variables. The
-						data is sourced from Environics Analytics and Statistics Canada.
-					</p>
+					{#if fr}
+						<p>
+							La carte présente une visualisation choroplèthe de variables clés du
+							recensement liées à la démographie et à d’autres caractéristiques locales, à
+							l’échelle des aires de diffusion, pour la zone à l’étude et ses environs.
+							Utilisez le menu déroulant pour passer d’une variable à l’autre. Les données
+							proviennent d’Environics Analytics et de Statistique Canada.
+						</p>
+					{:else}
+						<p>
+							The map displays a choropleth vizualisation of key demograhoic and other local
+							characteristic related Census variables at the Dissemination Area level of the case
+							study and surrounding area. Use the dropdown to toggle between different variables. The
+							data is sourced from Environics Analytics and Statistics Canada.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -565,9 +676,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -589,16 +700,31 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						The heatmap displayed represents the pattern of daily visits from the visitor's home
-						location from 2019 to 2022, which is sourced from Environics Analytics MobileScapes
-						data. To learn more, read our <a href="/about/data-methodology">Data and Methodology</a
-						>.
-					</p>
-					<p>
-						The charts display the pattern of visits (relative to 2019) as a line chart, the visit
-						count by type of visitor, as well as the breakdown of visits by time of day and week.
-					</p>
+					{#if fr}
+						<p>
+							La carte de densité représente la répartition des visites quotidiennes selon
+							le lieu de résidence des personnes visiteuses, de 2019 à 2022, d’après les
+							données MobileScapes d’Environics Analytics. Pour en savoir plus, consultez
+							la section <a href="/about/data-methodology">Données et méthodologie</a >.
+						</p>
+						<p>
+							Les graphiques présentent l’évolution des visites (par rapport à 2019) sous
+							forme de courbe, le nombre de visites par type de visiteur ainsi que la
+							répartition des visites selon le moment de la journée et le jour de la
+							semaine.
+						</p>
+					{:else}
+						<p>
+							The heatmap displayed represents the pattern of daily visits from the visitor's home
+							location from 2019 to 2022, which is sourced from Environics Analytics MobileScapes
+							data. To learn more, read our <a href="/about/data-methodology">Data and Methodology</a
+							>.
+						</p>
+						<p>
+							The charts display the pattern of visits (relative to 2019) as a line chart, the visit
+							count by type of visitor, as well as the breakdown of visits by time of day and week.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -609,13 +735,13 @@
 						bearing={0}
 						layers={['137avenuenw-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'45,100'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '45 100' : '45,100'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -632,7 +758,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -640,12 +766,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -653,20 +779,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

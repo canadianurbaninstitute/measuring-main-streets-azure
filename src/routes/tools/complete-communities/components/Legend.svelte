@@ -7,6 +7,8 @@
 		TIER_2_AMENITIES
 	} from '../../../lib/data/transitdata/complete-communities-config';
 	import config from '../../../lib/data/transitdata/config.json';
+	import { trTransit } from '../../../lib/data/transitdata/labels.fr';
+	import { formatNumber, getLang } from '../../../lib/i18n';
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import LegendAbsolute from '../../../lib/ui/legends/LegendAbsolute.svelte';
 	import LegendItem from '../../../lib/ui/legends/LegendItem.svelte';
@@ -23,6 +25,10 @@
 		expandedTier = $bindable('tier1')
 	} = $props();
 	let toggledValues = $state({});
+
+	const fr = getLang() === 'fr';
+	// Amenity names and metric labels are lookup keys; translate only the displayed text
+	const tr = (v: string) => trTransit(v, fr);
 	// Use an explicit string to track which tier is expanded
 
 	// Helper to handle accordion logic explicitly
@@ -89,7 +95,7 @@
 
 <LegendAbsolute>
 	{#if selectedVariable && min !== max}
-		<h6 class="font-semibold mb-1">{config[selectedVariable]?.label}</h6>
+		<h6 class="font-semibold mb-1">{tr(config[selectedVariable]?.label)}</h6>
 		<div class="flex flex-col gap-2 mb-2">
 			<div
 				class="w-full h-4 rounded"
@@ -99,10 +105,12 @@
 				{#each [{ label: min ?? 0 }, { label: max ?? 0 }] as item}
 					<span>
 						{config[selectedVariable]?.unit === '$'
-							? Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(
+							? Intl.NumberFormat(fr ? 'fr-CA' : 'en-CA', { style: 'currency', currency: 'CAD' }).format(
 									item.label
 								)
-							: item.label}
+							: fr && typeof item.label === 'number'
+								? formatNumber(item.label, undefined, 'fr')
+								: item.label}
 					</span>
 				{/each}
 			</div>
@@ -112,11 +120,17 @@
 	<Accordion open={selectedStation ? true : false}>
 		<div class="inline-header" slot="header">
 			<div class="text-sm inline-header">
-				Complete Community Amenities <Icon icon="iconoir:nav-arrow-down" />
+				{fr ? 'Commodités d’une collectivité complète' : 'Complete Community Amenities'} <Icon icon="iconoir:nav-arrow-down" />
 			</div>
 		</div>
 		<div class="accordion-body" slot="body">
-			<div class="text-xs mb-2"><i>Click on a layer to turn it on or off</i></div>
+			<div class="text-xs mb-2">
+				<i
+					>{fr
+						? 'Cliquez sur une couche pour l’afficher ou la masquer'
+						: 'Click on a layer to turn it on or off'}</i
+				>
+			</div>
 
 			{#if activeTab === 'overall-presence'}
 				<Accordion open={expandedTier === 'tier1'} onToggle={() => setExpandedTier('tier1')}>
@@ -124,7 +138,7 @@
 						slot="header"
 						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
 					>
-						Core Amenities<Icon icon="iconoir:nav-arrow-down" />
+						{fr ? 'Commodités essentielles' : 'Core Amenities'}<Icon icon="iconoir:nav-arrow-down" />
 					</div>
 					<div slot="body" class="p-1">
 						<LegendItem
@@ -133,7 +147,7 @@
 							id="complete-community-amenities"
 							variant="circle"
 							featuretype="icon"
-							label="Toggle All Core Amenities"
+							label={fr ? 'Afficher ou masquer toutes les commodités essentielles' : 'Toggle All Core Amenities'}
 							bgcolor="#003f5e"
 							bordercolor="#fff"
 							button={true}
@@ -147,7 +161,7 @@
 								bind:toggledValues
 								variant="circle"
 								featuretype="icon"
-								label={amenity.label}
+								label={tr(amenity.label)}
 								bgcolor={amenity.color}
 								icon={AMENITY_ICONS[amenity.label]}
 								bordercolor="#fff"
@@ -166,7 +180,7 @@
 						slot="header"
 						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
 					>
-						Additional Amenities<Icon icon="iconoir:nav-arrow-down" />
+						{fr ? 'Commodités complémentaires' : 'Additional Amenities'}<Icon icon="iconoir:nav-arrow-down" />
 					</div>
 					<div slot="body" class="p-1">
 						<LegendItem
@@ -175,7 +189,7 @@
 							id="complete-community-amenities"
 							variant="circle"
 							featuretype="icon"
-							label="Toggle All Additional Amenities"
+							label={fr ? 'Afficher ou masquer toutes les commodités complémentaires' : 'Toggle All Additional Amenities'}
 							bgcolor="#2a5cac"
 							bordercolor="#fff"
 							button={true}
@@ -189,7 +203,7 @@
 								bind:toggledValues
 								variant="circle"
 								featuretype="icon"
-								label={amenity.label}
+								label={tr(amenity.label)}
 								bgcolor={amenity.color}
 								icon={AMENITY_ICONS[amenity.label]}
 								bordercolor="#fff"
@@ -210,7 +224,7 @@
 						slot="header"
 						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
 					>
-						Core Amenities<Icon icon="iconoir:nav-arrow-down" />
+						{fr ? 'Commodités essentielles' : 'Core Amenities'}<Icon icon="iconoir:nav-arrow-down" />
 					</div>
 					<div slot="body" class="p-1">
 						<LegendItem
@@ -218,7 +232,7 @@
 							bind:toggledValues
 							id="employment-size"
 							variant="circle"
-							label="Toggle All Core Amenities"
+							label={fr ? 'Afficher ou masquer toutes les commodités essentielles' : 'Toggle All Core Amenities'}
 							bgcolor="#003f5e"
 							bordercolor="#fff"
 							button={true}
@@ -232,7 +246,7 @@
 								{map}
 								bind:toggledValues
 								variant="circle"
-								label={amenity.label}
+								label={tr(amenity.label)}
 								bgcolor={amenity.color}
 								bordercolor="#fff"
 								button={true}
@@ -251,7 +265,7 @@
 						slot="header"
 						class="flex font-bold text-xs mt-2 mb-1 uppercase tracking-wider text-zinc-500"
 					>
-						Additional Amenities<Icon icon="iconoir:nav-arrow-down" />
+						{fr ? 'Commodités complémentaires' : 'Additional Amenities'}<Icon icon="iconoir:nav-arrow-down" />
 					</div>
 					<div slot="body" class="p-1">
 						<LegendItem
@@ -259,7 +273,7 @@
 							bind:toggledValues
 							id="employment-size"
 							variant="circle"
-							label="Toggle All Additional Amenities"
+							label={fr ? 'Afficher ou masquer toutes les commodités complémentaires' : 'Toggle All Additional Amenities'}
 							bgcolor="#2a5cac"
 							bordercolor="#fff"
 							button={true}
@@ -273,7 +287,7 @@
 								{map}
 								bind:toggledValues
 								variant="circle"
-								label={amenity.label}
+								label={tr(amenity.label)}
 								bgcolor={amenity.color}
 								bordercolor="#fff"
 								button={true}
@@ -287,9 +301,12 @@
 						{/each}
 					</div>
 				</Accordion>
-				<div class="text-sm italic mt-3">Number of Employees</div>
+				<div class="text-sm italic mt-3">{fr ? 'Nombre d’employés' : 'Number of Employees'}</div>
 				<div class="mx-1">
-					<img src="/employmentsizelegend.svg" alt="Employment size legend" />
+					<img
+						src={fr ? '/employmentsizelegend-fr.svg' : '/employmentsizelegend.svg'}
+						alt={fr ? 'Légende de la taille des entreprises (nombre d’employés)' : 'Employment size legend'}
+					/>
 				</div>
 			{/if}
 		</div>

@@ -15,7 +15,12 @@
 	import reimaginingGoldenMile from './assets/ReimaginingGoldenMile.png';
 	import goldenMileBuildings from './assets/test.png';
 
-	import { sections } from './article';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article';
+	import { sections as sectionsFr } from './article.fr';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	interface VisConfigItem {
 		type: string;
@@ -64,21 +69,29 @@
 	const scrollySections = [];
 
 	const visConfig: Record<string, VisConfigItem> = {
-		gmstudyarea: { type: 'image', src: goldenMileStudyArea, alt: 'Map of Golden Mile boundary' },
+		gmstudyarea: { type: 'image', src: goldenMileStudyArea, alt: fr
+				? 'Carte des limites du Golden Mile'
+				: 'Map of Golden Mile boundary' },
 		gmbuildings: {
 			type: 'image',
 			src: goldenMileBuildings,
-			alt: 'Rendering of proposed, approved, and existing buildings on the Golden Mile'
+			alt: fr
+				? 'Rendu des bâtiments proposés, approuvés et existants dans le Golden Mile'
+				: 'Rendering of proposed, approved, and existing buildings on the Golden Mile'
 		},
 		reimagining: {
 			type: 'image',
 			src: reimaginingGoldenMile,
-			alt: 'Diagram highlighting key components of Golden Mile development'
+			alt: fr
+				? 'Schéma mettant en évidence les éléments clés de l’aménagement du Golden Mile'
+				: 'Diagram highlighting key components of Golden Mile development'
 		},
 		macro: {
 			type: 'image',
 			src: macroScale,
-			alt: 'Map of potential placement of resources in the Golden Mile, including community centres, green spaces, medical, restaurants, and schools'
+			alt: fr
+				? 'Carte de l’emplacement potentiel de ressources dans le Golden Mile, notamment des centres communautaires, des espaces verts, des services médicaux, des restaurants et des écoles'
+				: 'Map of potential placement of resources in the Golden Mile, including community centres, green spaces, medical, restaurants, and schools'
 		}
 	};
 
@@ -137,12 +150,24 @@
 			}
 		});
 
-		nav.push({ type: 'anchor', id: 'team', label: 'Project Team' });
+		nav.push({ type: 'anchor', id: 'team', label: fr ? 'Équipe du projet' : 'Project Team' });
 
 		return nav;
 	});
 </script>
 
+{#if fr}
+	<ReportHeader
+		id="report-header"
+		logo={'soc'}
+		reporttype="Projet étudiant"
+		subEyebrow="Une étude de cas du Golden Mile de Scarborough"
+		title="REZ-DE-CHAUSSÉE"
+		subtitle="Le Golden Mile de Scarborough est au cœur de l’une des transformations urbaines les plus importantes de Toronto. Comment concevoir cette collectivité en densification rapide pour en faire un quartier animé, inclusif et résilient?"
+		backgroundImage={introImage}
+		scrollTargetId="main"
+	/>
+{:else}
 <ReportHeader
 	id="report-header"
 	logo={'soc'}
@@ -154,6 +179,7 @@
 	backgroundImage={introImage}
 	scrollTargetId="main"
 />
+{/if}
 
 {#snippet renderPanel(uid: string, isVisible: boolean)}
 	{@const panel = allPanels.find((p) => p.uid === uid)}
@@ -173,7 +199,7 @@
 			{:else if panel.config?.type === 'link'}
 				<VisLink
 					href={panel.config.href}
-					label={panel.config.btnLabel ?? 'Learn More'}
+					label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 					target={panel.config.target}
 				/>
 			{/if}
@@ -184,15 +210,21 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
 	<div class="center" id="main">
 		<div class="card italic text-center mt-20 mx-8">
+			{#if fr}
+				Ce rapport a été préparé par des étudiantes et étudiants de quatrième année du baccalauréat de
+				l’Université de Toronto dans le cadre du Multidisciplinary Urban Capstone Project de la School
+				of Cities, en collaboration avec l’Institut urbain du Canada.
+			{:else}
 			This report was prepared by fourth-year undergraduate students at the University of Toronto as
 			part of the School of Cities' Multidisciplinary Urban Capstone Project, in collaboration with
 			the Canadian Urban Institute.
+			{/if}
 		</div>
 	</div>
 	<div class="inline-article">
@@ -240,7 +272,7 @@
 		{/each}
 	</div>
 	<div class="team-header">
-		<h2>Project Team</h2>
+		<h2>{fr ? 'Équipe du projet' : 'Project Team'}</h2>
 	</div>
 
 	<div
@@ -250,27 +282,27 @@
 		<ContactCard
 			title="Fouad Agha"
 			link="https://www.linkedin.com/in/fouad-agha-60478b1a8"
-			description="Student | University of Toronto"
+			description={fr ? 'Équipe étudiante | Université de Toronto' : 'Student | University of Toronto'}
 		/>
 		<ContactCard
 			title="Luke Lee"
 			link="https://www.linkedin.com/in/luke-lee10/"
-			description="Student | University of Toronto"
+			description={fr ? 'Équipe étudiante | Université de Toronto' : 'Student | University of Toronto'}
 		/>
 		<ContactCard
 			title="Nathan Saunders-DeGuire"
 			link="https://www.linkedin.com/in/nathan-deguire-195224198"
-			description="Student | University of Toronto"
+			description={fr ? 'Équipe étudiante | Université de Toronto' : 'Student | University of Toronto'}
 		/>
 		<ContactCard
 			title="Arjun Yanglem"
 			link="https://www.linkedin.com/in/arjun-singh-yanglem/"
-			description="Student | University of Toronto"
+			description={fr ? 'Équipe étudiante | Université de Toronto' : 'Student | University of Toronto'}
 		/>
 		<ContactCard
 			title="Youjia Zhang"
 			link="https://www.linkedin.com/in/youjia-zhang-3aa989263"
-			description="Student | University of Toronto"
+			description={fr ? 'Équipe étudiante | Université de Toronto' : 'Student | University of Toronto'}
 		/>
 	</div>
 </main>

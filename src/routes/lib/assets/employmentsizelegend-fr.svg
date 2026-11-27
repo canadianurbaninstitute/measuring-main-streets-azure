@@ -1,0 +1,17 @@
+<svg viewBox="0 0 294 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="35.142" cy="68.7657" r="6.82759" stroke="black" stroke-width="0.401623"/>
+<circle cx="35.142" cy="61.7373" r="13.856" stroke="black" stroke-width="0.401623"/>
+<circle cx="35.142" cy="54.7089" r="20.8844" stroke="black" stroke-width="0.401623"/>
+<circle cx="35.142" cy="47.6805" r="27.9128" stroke="black" stroke-width="0.401623"/>
+<circle cx="35.142" cy="40.6521" r="34.9412" stroke="black" stroke-width="0.401623"/>
+<line x1="40.2008" y1="62.7992" x2="188.799" y2="62.7992" stroke="black" stroke-width="0.401623" stroke-linecap="round" stroke-dasharray="1 1"/>
+<line x1="40.2008" y1="47.7992" x2="188.799" y2="47.7992" stroke="black" stroke-width="0.401623" stroke-linecap="round" stroke-dasharray="1 1"/>
+<line x1="40.2008" y1="32.7992" x2="188.799" y2="32.7992" stroke="black" stroke-width="0.401623" stroke-linecap="round" stroke-dasharray="1 1"/>
+<line x1="40.2008" y1="19.7992" x2="188.799" y2="19.7992" stroke="black" stroke-width="0.401623" stroke-linecap="round" stroke-dasharray="1 1"/>
+<line x1="40.2008" y1="5.79919" x2="188.799" y2="5.79919" stroke="black" stroke-width="0.401623" stroke-linecap="round" stroke-dasharray="1 1"/>
+<text x="192" y="65.9992" font-family="Inter, Arial, sans-serif" font-size="9" fill="black">0 à 5 employés</text>
+<text x="192" y="50.9992" font-family="Inter, Arial, sans-serif" font-size="9" fill="black">5 à 10 employés</text>
+<text x="192" y="35.9992" font-family="Inter, Arial, sans-serif" font-size="9" fill="black">10 à 50 employés</text>
+<text x="192" y="22.9992" font-family="Inter, Arial, sans-serif" font-size="9" fill="black">50 à 100 employés</text>
+<text x="192" y="8.9992" font-family="Inter, Arial, sans-serif" font-size="9" fill="black">100 à 1 000 employés</text>
+</svg>

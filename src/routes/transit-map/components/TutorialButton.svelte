@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { getLang } from '../../lib/i18n';
+
 	let { initiateTutorial } = $props();
+	const fr = getLang() === 'fr';
 </script>
 
 <button
 	id="transit-tutorial"
-	aria-label="Show tutorial"
+	aria-label={fr ? 'Afficher le tutoriel' : 'Show tutorial'}
 	type="button"
 	onclick={initiateTutorial}
 	style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;"

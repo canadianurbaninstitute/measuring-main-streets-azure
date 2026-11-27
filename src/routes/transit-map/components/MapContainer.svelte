@@ -9,7 +9,9 @@
 		transit_regions_source,
 		transit_stations_source
 	} from '../../lib/data/transitdata/config-mapbox.json';
+	import { trTransit } from '../../lib/data/transitdata/labels.fr';
 	import line_colors from '../../lib/data/transitdata/line-colors.json';
+	import { getLang } from '../../lib/i18n';
 	import Legend from './Legend.svelte';
 
 	interface Props {
@@ -52,6 +54,24 @@
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
+	const fr = getLang() === 'fr';
+
+	// French tooltips for the built-in Mapbox controls.
+	const MAPBOX_LOCALE_FR = {
+		'AttributionControl.ToggleAttribution': 'Afficher ou masquer les attributions',
+		'FullscreenControl.Enter': 'Passer en plein écran',
+		'FullscreenControl.Exit': 'Quitter le plein écran',
+		'GeolocateControl.FindMyLocation': 'Trouver ma position',
+		'GeolocateControl.LocationNotAvailable': 'Position non disponible',
+		'LogoControl.Title': 'Logo Mapbox',
+		'NavigationControl.ResetBearing': 'Réorienter vers le nord',
+		'NavigationControl.ZoomIn': 'Zoom avant',
+		'NavigationControl.ZoomOut': 'Zoom arrière',
+		'ScrollZoomBlocker.CtrlMessage': 'Utilisez Ctrl + défilement pour zoomer sur la carte',
+		'ScrollZoomBlocker.CmdMessage': 'Utilisez ⌘ + défilement pour zoomer sur la carte',
+		'TouchPanBlocker.Message': 'Utilisez deux doigts pour déplacer la carte'
+	};
+
 	$effect(() => {
 		if (!map) return;
 		applyFilters();
@@ -66,14 +86,15 @@
 			maxZoom: 15.5,
 			minZoom: 2,
 			scrollZoom: true,
-			attributionControl: false
+			attributionControl: false,
+			...(fr ? { locale: MAPBOX_LOCALE_FR } : {})
 		});
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
 		map.addControl(
 			new mapboxgl.AttributionControl({
-				customAttribution: 'Canadian Urban Institute'
+				customAttribution: fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute'
 			})
 		);
 
@@ -247,7 +268,7 @@
 		map.on('mousemove', 'transit-region-points', (e: any) => {
 			if (map && e.features && e.features.length > 0) {
 				const coordinates = e.lngLat;
-				const name = e.features[0].properties.region;
+				const name = trTransit(e.features[0].properties.region, fr);
 
 				if (map.getZoom() <= 5) {
 					popup3

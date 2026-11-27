@@ -1,6 +1,47 @@
 <script>
+	import { timeFormatLocale } from 'd3-time-format';
 	import MultiLineChart from '../../../../lib/ui/charts/MultiLineChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
 	let { visible } = $props();
+
+	const fr = getLang() === 'fr';
+	const frTimeLocale = timeFormatLocale({
+		dateTime: '%A %e %B %Y à %X',
+		date: '%Y-%m-%d',
+		time: '%H:%M:%S',
+		periods: ['', ''],
+		days: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+		shortDays: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+		months: [
+			'janvier',
+			'février',
+			'mars',
+			'avril',
+			'mai',
+			'juin',
+			'juillet',
+			'août',
+			'septembre',
+			'octobre',
+			'novembre',
+			'décembre'
+		],
+		shortMonths: [
+			'janv.',
+			'févr.',
+			'mars',
+			'avr.',
+			'mai',
+			'juin',
+			'juil.',
+			'août',
+			'sept.',
+			'oct.',
+			'nov.',
+			'déc.'
+		]
+	});
+	const formatDateFr = frTimeLocale.format('%b %Y');
 
 	const housingData = [
 		{
@@ -1559,12 +1600,20 @@
 <MultiLineChart
 	data={housingData}
 	{visible}
-	title="Housing affordability in the largest CMAs"
+	title={fr
+		? 'Abordabilité du logement dans les plus grandes RMR'
+		: 'Housing affordability in the largest CMAs'}
 	{seriesConfig}
 	xTickInterval={20}
 	yDomain={[-30, 15]}
 	minHeight="300px"
-	yLabel="Homeownership Affordability Index score"
-	formatLabelY={(d) => d}
-	formatValue={(d) => d.toFixed(2)}
+	yLabel={fr
+		? 'Indice d’abordabilité de l’accession à la propriété'
+		: 'Homeownership Affordability Index score'}
+	formatLabelX={fr ? formatDateFr : undefined}
+	formatLabelY={(d) => (fr ? formatNumber(d, undefined, 'fr') : d)}
+	formatValue={(d) =>
+		fr
+			? formatNumber(d, { minimumFractionDigits: 2, maximumFractionDigits: 2 }, 'fr')
+			: d.toFixed(2)}
 />

@@ -1,6 +1,9 @@
 <!-- UI component that displays a key finding and 3 related messages used on Measuring Main Streets Reports.-->
 <script>
 	import '../../styles.css';
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
 	export let number;
 	export let finding;
 	export let message1;
@@ -10,7 +13,7 @@
 
 <div class="graphic-container">
 	<div class="finding">
-		<h4>Key Finding {number}</h4>
+		<h4>{fr ? 'Constat clé' : 'Key Finding'} {number}</h4>
 		<h3>{finding}</h3>
 	</div>
 	<div class="message-container">

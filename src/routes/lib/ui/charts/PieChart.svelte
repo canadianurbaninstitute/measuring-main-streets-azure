@@ -5,7 +5,11 @@
 
 	import ChartTooltip from '../chartcomponents/ChartTooltip.html.svelte';
 	import Pie from '../chartcomponents/Pie.svelte';
+	import { getLang } from '../../i18n';
 	import LegendItem from '../legends/LegendItem.svelte';
+	import { fmtPct1 } from './chartFormat';
+
+	const fr = getLang() === 'fr';
 
 	interface SeriesItem {
 		key: string;
@@ -39,7 +43,8 @@
 		height = '450px',
 		innerRadius = 0,
 		showTooltip = false,
-		formatTooltipValue = (d: any) => (isNaN(+d) || d === null ? d : d3Format(',.1f')(d) + '%'),
+		formatTooltipValue = (d: any) =>
+			isNaN(+d) || d === null ? d : fr ? fmtPct1(d, fr) : d3Format(',.1f')(d) + '%',
 		explode = [],
 		explodeDistance = 20,
 		showLegend = true,
@@ -96,7 +101,7 @@
 	{/if}
 
 	{#if isDrilled}
-		<button class="back-btn" onclick={reset}>← Back</button>
+		<button class="back-btn" onclick={reset}>{fr ? '← Retour' : '← Back'}</button>
 	{/if}
 
 	<div class="chart" style:height={computedHeight}>

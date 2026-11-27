@@ -14,13 +14,35 @@
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	// Data
 	import data from '../../lib/data/reportdata/mainstreets-malls-mice/recovery-full.csv';
+	import { selectLabelsFr } from '../../lib/data/reportdata/mainstreets-malls-mice/selectLabels.js';
+	import { getLang } from '../../lib/i18n';
+	import {
+		CATEGORY_LABELS_FR,
+		REGION_LABELS_FR,
+		frPercentAxis,
+		frPercentValue,
+		frTimeLocale
+	} from './frFormat.js';
+
+	const fr = getLang() === 'fr';
 
 	// Props
 	let {
 		dataset,
-		title = 'Visitor Levels (%) relative to the same month in 2019',
+		title = fr
+			? 'Achalandage (%) par rapport au même mois en 2019'
+			: 'Visitor Levels (%) relative to the same month in 2019',
 		height = '500px'
 	} = $props();
+
+	/** Display name of a street, mall or category in the page language (lookup keys stay English). */
+	const displayName = (/** @type {string} */ d) =>
+		fr ? (CATEGORY_LABELS_FR[d] ?? selectLabelsFr[d] ?? d) : d;
+	const titleCase = (/** @type {string} */ d) => d.replace(/\b\w/g, (w) => w.toUpperCase());
+	// Tooltip keys are CSV column names; English keeps the tooltip's default formatting.
+	const formatKey = fr
+		? (/** @type {string} */ d) => CATEGORY_LABELS_FR[d] ?? selectLabelsFr[d] ?? titleCase(d)
+		: undefined;
 
 	/* Column keys */
 	const xKey = 'date';
@@ -49,9 +71,9 @@
 		});
 	});
 
-	const formatLabelX = timeFormat('%b %Y');
-	const formatLabelY = (d) => format(`~s`)(d) + '%';
-	const formatValue = (d) => format('.0f')(d) + '%';
+	const formatLabelX = fr ? frTimeLocale.format('%b %Y') : timeFormat('%b %Y');
+	const formatLabelY = fr ? frPercentAxis : (d) => format(`~s`)(d) + '%';
+	const formatValue = fr ? frPercentValue : (d) => format('.0f')(d) + '%';
 
 	/* Build flat options for svelte-multiselect */
 	const rawGroups = dataset.casestudies();
@@ -59,11 +81,13 @@
 	const casestudyOptions = rawGroups.flatMap((g) =>
 		g.options.map((o) => {
 			const col = matchCsvKey(o);
+			const text = displayName(o.text);
+			const group = fr ? (REGION_LABELS_FR[g.label] ?? g.label) : g.label;
 			return {
-				label: `${o.text} (${g.label})`,
+				label: `${text} (${group})`,
 				value: col ?? o.value,
-				group: g.label,
-				shortLabel: o.text
+				group,
+				shortLabel: text
 			};
 		})
 	);
@@ -146,15 +170,40 @@
 		<MultiSelect
 			bind:selected={selectedOptions}
 			options={casestudyOptions}
-			placeholder="Add a street"
-			removeAllTitle="Clear"
+			placeholder={fr ? 'Ajouter une rue' : 'Add a street'}
+			removeAllTitle={fr ? 'Effacer' : 'Clear'}
+			{...fr
+				? {
+						removeBtnTitle: 'Retirer',
+						noMatchingOptionsMsg: 'Aucune option correspondante',
+						defaultDisabledTitle: 'Cette option est désactivée',
+						disabledInputTitle: 'Ce champ est désactivé',
+						duplicateOptionMsg: 'Cette option est déjà sélectionnée'
+					}
+				: {}}
 		/>
 
 		<div class="legend-container">
-			<LegendItem variant="line" label="Downtown Main Streets" bordercolor={seriesColors[0]} />
-			<LegendItem variant="line" label="Malls" bordercolor={seriesColors[1]} />
-			<LegendItem variant="line" label="Neighbourhood Main Streets" bordercolor={seriesColors[2]} />
-			<LegendItem variant="line" label="Small Town Main Streets" bordercolor={seriesColors[3]} />
+			<LegendItem
+				variant="line"
+				label={fr ? 'Rues principales de centre-ville' : 'Downtown Main Streets'}
+				bordercolor={seriesColors[0]}
+			/>
+			<LegendItem
+				variant="line"
+				label={fr ? 'Centres commerciaux' : 'Malls'}
+				bordercolor={seriesColors[1]}
+			/>
+			<LegendItem
+				variant="line"
+				label={fr ? 'Rues principales de quartier' : 'Neighbourhood Main Streets'}
+				bordercolor={seriesColors[2]}
+			/>
+			<LegendItem
+				variant="line"
+				label={fr ? 'Rues principales de petites villes' : 'Small Town Main Streets'}
+				bordercolor={seriesColors[3]}
+			/>
 
 			{#each selectedLabels as lbl}
 				<LegendItem variant="line" label={lbl} bordercolor="#00ADF2" />
@@ -205,7 +254,7 @@
 			</Svg>
 
 			<Html>
-				<SharedTooltip formatTitle={formatLabelX} dataset={filteredData} {formatValue} />
+				<SharedTooltip formatTitle={formatLabelX} dataset={filteredData} {formatValue} {formatKey} />
 			</Html>
 		</LayerCake>
 	</div>

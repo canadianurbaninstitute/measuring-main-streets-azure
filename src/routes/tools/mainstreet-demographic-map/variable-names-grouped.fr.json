@@ -1,0 +1,134 @@
+{
+  "Population": [
+    {
+      "value": "population",
+      "label": "Population"
+    },
+    {
+      "value": "population_density",
+      "label": "Densité de population"
+    },
+    {
+      "value": "population_change",
+      "label": "Variation de la population (depuis 2016)"
+    }
+  ],
+  "Âge de la population": [
+    {
+      "value": "average_age",
+      "label": "Âge moyen"
+    },
+    {
+      "value": "age_0_19",
+      "label": "0 à 19 ans"
+    },
+    {
+      "value": "age_20_64",
+      "label": "20 à 64 ans"
+    },
+    {
+      "value": "age_65_Over",
+      "label": "65 ans et plus"
+    }
+  ],
+  "Logement": [
+    {
+      "value": "household_size",
+      "label": "Taille moyenne des ménages"
+    },
+    {
+      "value": "single_detached",
+      "label": "Maisons individuelles"
+    },
+    {
+      "value": "semi_detached",
+      "label": "Maisons jumelées"
+    },
+    {
+      "value": "apartment_more_5",
+      "label": "Appartements (plus de 5 étages)"
+    },
+    {
+      "value": "apartment_less_5",
+      "label": "Appartements (moins de 5 étages)"
+    },
+    {
+      "value": "duplex",
+      "label": "Duplex / maisons en rangée"
+    }
+  ],
+  "Caractéristiques démographiques": [
+    {
+      "value": "university_degree",
+      "label": "Baccalauréat"
+    },
+    {
+      "value": "visible_minorities",
+      "label": "Minorités visibles"
+    },
+    {
+      "value": "indigenous",
+      "label": "Autochtones"
+    },
+    {
+      "value": "immigrants_non_permanent_residents",
+      "label": "Personnes immigrantes et résidents non permanents"
+    }
+  ],
+  "Principal mode de navettage": [
+    {
+      "value": "mobility_car",
+      "label": "Automobile"
+    },
+    {
+      "value": "mobility_public_transit",
+      "label": "Transport collectif"
+    },
+    {
+      "value": "mobility_active_transit",
+      "label": "Transport actif"
+    }
+  ],
+  "Langue principale": [
+    {
+      "value": "language_english",
+      "label": "Anglais"
+    },
+    {
+      "value": "language_french",
+      "label": "Français"
+    },
+    {
+      "value": "language_other",
+      "label": "Autre langue"
+    }
+  ],
+  "Emploi": [
+    {
+      "value": "average_employment_income",
+      "label": "Revenu d’emploi moyen"
+    }
+  ],
+  "Durée du navettage": [
+    {
+      "value": "commute_15",
+      "label": "Navettes de moins de 15 minutes"
+    },
+    {
+      "value": "commute_30",
+      "label": "Navettes de 15 à 30 minutes"
+    },
+    {
+      "value": "commute_45",
+      "label": "Navettes de 30 à 45 minutes"
+    },
+    {
+      "value": "commute_60",
+      "label": "Navettes de 45 à 60 minutes"
+    },
+    {
+      "value": "commute_over_60",
+      "label": "Navettes de plus de 60 minutes"
+    }
+  ]
+}

@@ -4,8 +4,11 @@
 	import { onMount } from 'svelte';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import { getLang } from '../../lib/i18n';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	import '../../styles.css';
+
+	const fr = getLang() === 'fr';
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -42,27 +45,39 @@
 </script>
 
 <div class="hero">
-	<h1>Housing Dot Density Map</h1>
-	<h2>Mapping Tool</h2>
-	<p>
-		This choropleth dot mapping tool highlights housing built in Canada over the course of the past
-		60 years, divided into 4 periods: pre 1960, 1961 to 1980, 1981 to 2000, and 2001 to 2023. Each
-		dot represents 50 houses. It is important to note that in a dot density map, while the dots are
-		used to represent data points, they don't directly indicate the <i>exact</i> locations of the data
-		points themselves, rather, they are spread out randomly within an area, in order to give a visual
-		impression of the density or distribution of the data across a geographic region.
-	</p>
+	<h1>{fr ? 'Carte de densité de points du logement' : 'Housing Dot Density Map'}</h1>
+	<h2>{fr ? 'Outil cartographique' : 'Mapping Tool'}</h2>
+	{#if fr}
+		<p>
+			Cet outil de cartographie par points met en évidence les logements construits au Canada au
+			cours des 60 dernières années, répartis en quatre périodes : avant 1960, 1961 à 1980, 1981 à
+			2000 et 2001 à 2023. Chaque point représente 50 logements. Il est important de noter que, dans
+			une carte de densité de points, les points représentent des données sans indiquer
+			l’emplacement <i>exact</i> de celles-ci : ils sont plutôt répartis de façon aléatoire dans une
+			zone afin de donner une impression visuelle de la densité ou de la distribution des données sur
+			un territoire.
+		</p>
+	{:else}
+		<p>
+			This choropleth dot mapping tool highlights housing built in Canada over the course of the past
+			60 years, divided into 4 periods: pre 1960, 1961 to 1980, 1981 to 2000, and 2001 to 2023. Each
+			dot represents 50 houses. It is important to note that in a dot density map, while the dots are
+			used to represent data points, they don't directly indicate the <i>exact</i> locations of the data
+			points themselves, rather, they are spread out randomly within an area, in order to give a visual
+			impression of the density or distribution of the data across a geographic region.
+		</p>
+	{/if}
 </div>
 
 <div class="map-container">
 	<div class="controls">
 		<div class="legend">
-			<h4>Legend</h4>
-			<h5><i>Click to turn layers on and off</i></h5>
-			<h5>1 dot = 50 housing units</h5>
+			<h4>{fr ? 'Légende' : 'Legend'}</h4>
+			<h5><i>{fr ? 'Cliquez pour afficher ou masquer les couches' : 'Click to turn layers on and off'}</i></h5>
+			<h5>{fr ? '1 point = 50 logements' : '1 dot = 50 housing units'}</h5>
 			<LegendItem
 				variant={'circle'}
-				label={'2001 - 2023'}
+				label={fr ? '2001 – 2023' : '2001 - 2023'}
 				bgcolor={'#DB3069'}
 				button={true}
 				{map}
@@ -70,7 +85,7 @@
 			/>
 			<LegendItem
 				variant={'circle'}
-				label={'1981 - 2000'}
+				label={fr ? '1981 – 2000' : '1981 - 2000'}
 				bgcolor={'#58e965'}
 				button={true}
 				{map}
@@ -78,7 +93,7 @@
 			/>
 			<LegendItem
 				variant={'circle'}
-				label={'1961 - 1980'}
+				label={fr ? '1961 – 1980' : '1961 - 1980'}
 				bgcolor={'#00adf2'}
 				button={true}
 				{map}
@@ -86,7 +101,7 @@
 			/>
 			<LegendItem
 				variant={'circle'}
-				label={'Pre 1960'}
+				label={fr ? 'Avant 1960' : 'Pre 1960'}
 				bgcolor={'#002940'}
 				button={true}
 				{map}
@@ -94,7 +109,7 @@
 			/>
 		</div>
 		<button id="resetButton" on:click={resetMap}>
-			<Icon icon="mi:undo" /> Reset Map
+			<Icon icon="mi:undo" /> {fr ? 'Réinitialiser la carte' : 'Reset Map'}
 		</button>
 	</div>
 

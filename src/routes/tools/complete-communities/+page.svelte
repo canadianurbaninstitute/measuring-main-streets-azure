@@ -11,6 +11,7 @@
 	import { da_map_source } from '../../lib/data/transitdata/config-mapbox.json';
 
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
+	import { getLang } from '../../lib/i18n';
 	import '../../styles.css';
 	// Components
 	import Search from '../../transit-map/components/Search.svelte';
@@ -60,6 +61,8 @@
 		name: string;
 		bbox: [number, number, number, number];
 	}
+
+	const fr = getLang() === 'fr';
 
 	// --- Reactive/Exported Variables ---
 	let map = $state<mapboxgl.Map | undefined>();
@@ -557,7 +560,7 @@
 				<div class="flex px-4 mt-2">
 					<CustomButton
 						onclick={handleSidebarBack}
-						label="Back"
+						label={fr ? 'Retour' : 'Back'}
 						variant="secondary"
 						fullWidth
 						icon={false}
@@ -596,7 +599,7 @@
 							{/if}
 						</Tabs.Content>
 					{:else if stationSelected}
-						<p>Loading station details...</p>
+						<p>{fr ? 'Chargement des détails de la station…' : 'Loading station details...'}</p>
 					{/if}
 				</div>
 			{:else}
@@ -621,11 +624,11 @@
 					<Tabs.List class="w-full grid grid-cols-2 gap-1">
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="overall-presence">Overall Presence</Tabs.Trigger
+							value="overall-presence">{fr ? 'Présence globale' : 'Overall Presence'}</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300"
-							value="access">Access</Tabs.Trigger
+							value="access">{fr ? 'Accès' : 'Access'}</Tabs.Trigger
 						>
 					</Tabs.List>
 				</div>

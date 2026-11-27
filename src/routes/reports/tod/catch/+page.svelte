@@ -10,7 +10,9 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article.js';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article.js';
+	import { sections as sectionsFr } from './article.fr.js';
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import ETOAHComponents from './ETOAHComponents.svelte';
@@ -26,6 +28,9 @@
 	import skytrain from './assets/skytrain.png';
 	import intro3 from './assets/train-passing.png';
 	import intro4 from './assets/ttc-subway.png';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	const visConfig = {
 		'etoah-components': {
@@ -50,57 +55,57 @@
 		intro: {
 			type: 'image',
 			src: intro,
-			alt: 'Exterior view of apartment building balconies'
+			alt: fr ? 'Vue extérieure des balcons d’un immeuble d’appartements' : 'Exterior view of apartment building balconies'
 		},
 		intro2: {
 			type: 'image',
 			src: intro2,
-			alt: 'Elevated train passing on bridge'
+			alt: fr ? 'Train surélevé circulant sur un pont' : 'Elevated train passing on bridge'
 		},
 		intro3: {
 			type: 'image',
 			src: intro3,
-			alt: 'Train passing platform'
+			alt: fr ? 'Train passant le long d’un quai' : 'Train passing platform'
 		},
 		intro4: {
 			type: 'image',
 			src: intro4,
-			alt: 'TTC Subway car on elevated track'
+			alt: fr ? 'Voiture de métro de la TTC sur une voie surélevée' : 'TTC Subway car on elevated track'
 		},
 		intro5: {
 			type: 'image',
 			src: intro5,
-			alt: 'Train passing platform'
+			alt: fr ? 'Train passant le long d’un quai' : 'Train passing platform'
 		},
 		etoah: {
 			type: 'image',
 			src: boarding,
-			alt: 'Several people boarding a bus'
+			alt: fr ? 'Plusieurs personnes montant à bord d’un autobus' : 'Several people boarding a bus'
 		},
 		etoah2: {
 			type: 'image',
 			src: buildings,
-			alt: 'Exterior of a building'
+			alt: fr ? 'Extérieur d’un bâtiment' : 'Exterior of a building'
 		},
 		action: {
 			type: 'image',
 			src: interior,
-			alt: 'People sitting in a public bus interior'
+			alt: fr ? 'Personnes assises à l’intérieur d’un autobus de transport collectif' : 'People sitting in a public bus interior'
 		},
 		action2: {
 			type: 'image',
 			src: octranspo,
-			alt: 'An elevated OC Transpo train passing'
+			alt: fr ? 'Un train surélevé d’OC Transpo en circulation' : 'An elevated OC Transpo train passing'
 		},
 		community: {
 			type: 'image',
 			src: skytrain,
-			alt: 'An elevated Skytrain passing'
+			alt: fr ? 'Un SkyTrain surélevé en circulation' : 'An elevated Skytrain passing'
 		},
 		community2: {
 			type: 'image',
 			src: conclusion,
-			alt: 'Exterior of a subway station with a large glass facade'
+			alt: fr ? 'Extérieur d’une station de métro dotée d’une grande façade vitrée' : 'Exterior of a subway station with a large glass facade'
 		}
 	};
 
@@ -178,7 +183,7 @@
 	const items = $derived.by(() => {
 		const nav = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Takeaways' }
+			{ type: 'anchor', id: 'report-findings', label: fr ? 'Points à retenir' : 'Key Takeaways' }
 		];
 
 		sections.forEach((section, si) => {
@@ -196,8 +201,8 @@
 			}
 		});
 
-		nav.push({ type: 'anchor', id: 'contact', label: 'Contact' });
-		nav.push({ type: 'anchor', id: 'references', label: 'References' });
+		nav.push({ type: 'anchor', id: 'contact', label: fr ? 'Coordonnées' : 'Contact' });
+		nav.push({ type: 'anchor', id: 'references', label: fr ? 'Références' : 'References' });
 
 		return nav;
 	});
@@ -206,10 +211,31 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
+	{#if fr}
+		<ReportHeader
+			id="report-header"
+			logo={'catch'}
+			subEyebrow="Comment les collectivités peuvent faire en sorte que l’aménagement axé sur le transport collectif profite à tout le monde"
+			title="DU TRANSPORT COLLECTIF SANS DÉPLACEMENT DE POPULATION"
+			subtitle="Un aménagement axé sur le transport collectif inclusif et équitable est possible avec la bonne approche. Alors que le Canada investit des milliards de dollars dans les infrastructures de transport collectif, il est essentiel de savoir comment libérer ce potentiel."
+			backgroundImage={HeaderImage}
+		/>
+
+		<ReportFindings
+			id="report-findings"
+			title="POINTS À RETENIR"
+			finding1="Le transport collectif n’entraîne pas automatiquement le déplacement de population."
+			description1="Il crée plutôt des conditions qui, sans intervention, mènent souvent à l’érosion de l’abordabilité à proximité des lignes de transport collectif."
+			finding2="Le logement abordable équitable axé sur le transport collectif (ETOAH)"
+			description2="est un cadre fondé sur des données probantes qui place l’abordabilité et l’inclusion au cœur du processus d’aménagement."
+			finding3="La crise du logement au Canada"
+			description3="est une mosaïque de pénuries locales qui exige des solutions coordonnées et adaptées à chaque milieu."
+		/>
+	{:else}
 	<ReportHeader
 		id="report-header"
 		logo={'catch'}
@@ -230,12 +256,13 @@
 		finding3="Canada’s housing crisis"
 		description3="is a mosaic of local shortages that demands coordinated, place-based solutions."
 	/>
+	{/if}
 	<div class="center mt-12">
 		<iframe
 			width="840"
 			height="473"
 			src="https://www.youtube.com/embed/-TLSM14PnTQ?si=Lf4ROdgCjBfmE4j3"
-			title="YouTube video player"
+			title={fr ? 'Lecteur vidéo YouTube' : 'YouTube video player'}
 			frameborder="0"
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 			referrerpolicy="strict-origin-when-cross-origin"
@@ -265,7 +292,7 @@
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
+						label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 						target={panel.config.target}
 					/>
 				{/if}
@@ -351,6 +378,17 @@
 	{/each}
 
 	<div class="inline-article" id="contact">
+		{#if fr}
+			Pour en savoir plus sur CATCH et accéder à la boîte à outils ETOAH :
+			<div class="inline-cta">
+				<VisLink href="https://catch-rehac.ca/" label="En savoir plus" />
+			</div>
+			Les villes, investisseurs, décideurs et partenaires qui souhaitent se joindre à des collaborations
+			locales peuvent écrire à info@catch-rehac.ca :
+			<div class="inline-cta">
+				<VisLink href="mailto:info@catch-rehac.ca" label="Joindre CATCH" />
+			</div>
+		{:else}
 		Learn more about CATCH and access the ETOAH toolkit:
 		<div class="inline-cta">
 			<VisLink href="https://catch-rehac.ca/" label="Learn More" />
@@ -360,9 +398,10 @@
 		<div class="inline-cta">
 			<VisLink href="mailto:info@catch-rehac.ca" label="Contact CATCH" />
 		</div>
+		{/if}
 	</div>
 	<div class="inline-article" id="references">
-		<h2>References</h2>
+		<h2>{fr ? 'Références' : 'References'}</h2>
 		<p>
 			<sup>[1]</sup><a
 				href="https://www.cirrelt.ca/documentstravail/cirrelt-2013-06.pdf"
@@ -386,7 +425,8 @@
 			>;
 			<a
 				href="https://cutaactu.ca/wp-content/uploads/2025/08/2023-CUTA-Housing-Is-On-The-Line.pdf#:~:text=High%20land%20acquisition%20costs%20near%20transit%20stations,most%20being%20priced%20out%20of%20these%20areas."
-				target="_blank">Canadian Urban Transit Association, 2023</a
+				target="_blank"
+				>{fr ? 'Association canadienne du transport urbain' : 'Canadian Urban Transit Association'}, 2023</a
 			>
 		</p>
 		<p>
@@ -398,7 +438,9 @@
 		<p>
 			<sup>[5]</sup>
 			<a href="/reports/tod/displacement" target="_blank">Allen, Chapple & Forouhar, 2026</a>;
-			<a href="/reports/tod/intro" target="_blank">Canadian Urban Institute, 2026</a>
+			<a href="/reports/tod/intro" target="_blank"
+				>{fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute'}, 2026</a
+			>
 		</p>
 		<p>
 			<sup>[6]</sup>

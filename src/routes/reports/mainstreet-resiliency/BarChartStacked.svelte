@@ -8,13 +8,18 @@
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../lib/data/reportdata/mainstreet-resiliency/visitors.csv';
+	import { getLang } from '../../lib/i18n';
+	import { frName } from './labels';
+
+	const fr = getLang() === 'fr';
+	const formatName = (d) => frName(d, fr);
 
 	export let title = '';
 
 	const xKey = [0, 1];
 	const yKey = 'Name';
 	const zKey = 'key';
-	const formatLabelX = (d) => d + '%';
+	const formatLabelX = (d) => (fr ? d + '\u00a0%' : d + '%');
 
 	// data.forEach((d) => {
 	// 	d[xKey] = +d[xKey];
@@ -44,9 +49,9 @@
 
 	<div class="controls">
 		<div class="legend-container">
-			<LegendItem variant={'polygon'} label={'Residents'} bgcolor={'#002940'} />
-			<LegendItem variant={'polygon'} label={'Frequent Visitors'} bgcolor={'#00adf2'} />
-			<LegendItem variant={'polygon'} label={'Infrequent Visitors'} bgcolor={'#DB3069'} />
+			<LegendItem variant={'polygon'} label={fr ? 'Résidents' : 'Residents'} bgcolor={'#002940'} />
+			<LegendItem variant={'polygon'} label={fr ? 'Visiteurs fréquents' : 'Frequent Visitors'} bgcolor={'#00adf2'} />
+			<LegendItem variant={'polygon'} label={fr ? 'Visiteurs occasionnels' : 'Infrequent Visitors'} bgcolor={'#DB3069'} />
 		</div>
 	</div>
 
@@ -66,7 +71,7 @@
 		>
 			<Svg>
 				<AxisX tickMarks baseline snapLabels format={formatLabelX} />
-				<AxisY tickMarks gridlines={false} />
+				<AxisY tickMarks gridlines={false} format={formatName} />
 				<BarStacked />
 			</Svg>
 		</LayerCake>

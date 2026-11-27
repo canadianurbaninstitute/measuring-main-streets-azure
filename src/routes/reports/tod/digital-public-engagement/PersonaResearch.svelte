@@ -1,8 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
+	import { getLang } from '../../../lib/i18n';
 	import persona1 from '../../assets/dps-persona1.png';
 	import persona2 from '../../assets/dps-persona2.png';
 	import persona3 from '../../assets/dps-persona3.png';
+
+	const fr = getLang() === 'fr';
 
 	let scrollY = $state(0);
 	let el = $state(null);
@@ -39,19 +42,19 @@
 	<img
 		class="img1"
 		src={persona1}
-		alt="Drawing of an example persona"
+		alt={fr ? 'Dessin d’un exemple de persona' : 'Drawing of an example persona'}
 		style:transform={`rotate(-3deg) translate3d(0, ${p1}px, 0)`}
 	/>
 	<img
 		class="img2"
 		src={persona2}
-		alt="Drawing of an example persona"
+		alt={fr ? 'Dessin d’un exemple de persona' : 'Drawing of an example persona'}
 		style:transform={`rotate(-3deg) translate3d(0, ${p2}px, 0)`}
 	/>
 	<img
 		class="img3"
 		src={persona3}
-		alt="Drawing of an example persona"
+		alt={fr ? 'Dessin d’un exemple de persona' : 'Drawing of an example persona'}
 		style:transform={`rotate(-3deg) translate3d(0, ${p3}px, 0)`}
 	/>
 </div>

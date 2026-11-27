@@ -5,6 +5,10 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 	import { onMount } from 'svelte';
 	import '../../../../styles.css';
+	import { getLang } from '../../../../lib/i18n';
+	import { REGION_LABELS_FR, STATUS_LABELS_FR, trFr } from './labels.fr';
+
+	const fr = getLang() === 'fr';
 
 	// 1. Define explicit structures for types
 	interface Region {
@@ -105,15 +109,15 @@
 						const feature = e.features[0];
 						const props = feature.properties || {};
 
-						const name = props.stop_label || props.name || props.Station || 'Unknown Station';
-						const score = props.lib_cc_status || props.score || props.access_score || 'N/A';
+						const name = props.stop_label || props.name || props.Station || (fr ? 'Station inconnue' : 'Unknown Station');
+						const score = props.lib_cc_status || props.score || props.access_score || (fr ? 's.o.' : 'N/A');
 
 						const content = `
               <div class="popup-inner">
                 <div class="popup-title">${name}</div>
                 <div class="popup-stat">
-                  <span class="stat-label">Access/Pop Score:</span>
-                  <span class="stat-value ${String(score).toLowerCase().replace(/\s+/g, '-')}">${score}</span>
+                  <span class="stat-label">${fr ? 'Cote accès/pop. :' : 'Access/Pop Score:'}</span>
+                  <span class="stat-value ${String(score).toLowerCase().replace(/\s+/g, '-')}">${trFr(STATUS_LABELS_FR, score, fr)}</span>
                 </div>
               </div>
             `;
@@ -132,25 +136,45 @@
 	<div class="region-nav">
 		{#each regions as region}
 			<button class:active={activeRegion.name === region.name} onclick={() => zoomToRegion(region)}>
-				{region.name}
+				{trFr(REGION_LABELS_FR, region.name, fr)}
 			</button>
 		{/each}
 	</div>
 	<div bind:this={mapContainer} class="map-container"></div>
 	<div class="legend">
-		<div class="legend-item"><span class="dot both"></span>Both library and community center</div>
-		<div class="legend-item"><span class="dot one"></span>Either library or community center</div>
-		<div class="legend-item">
-			<span class="dot none"></span>Neither library nor community center
-		</div>
-		<div class="legend-item">
-			<Icon icon="mdi:library" width="12" height="12" color="#8a4285" />
-			Library
-		</div>
-		<div class="legend-item">
-			<Icon icon="mdi:account-group" width="12" height="12" color="#23c9ff" />
-			Community Center
-		</div>
+		{#if fr}
+			<div class="legend-item">
+				<span class="dot both"></span>Bibliothèque et centre communautaire
+			</div>
+			<div class="legend-item">
+				<span class="dot one"></span>Bibliothèque ou centre communautaire
+			</div>
+			<div class="legend-item">
+				<span class="dot none"></span>Ni bibliothèque ni centre communautaire
+			</div>
+			<div class="legend-item">
+				<Icon icon="mdi:library" width="12" height="12" color="#8a4285" />
+				Bibliothèque
+			</div>
+			<div class="legend-item">
+				<Icon icon="mdi:account-group" width="12" height="12" color="#23c9ff" />
+				Centre communautaire
+			</div>
+		{:else}
+			<div class="legend-item"><span class="dot both"></span>Both library and community center</div>
+			<div class="legend-item"><span class="dot one"></span>Either library or community center</div>
+			<div class="legend-item">
+				<span class="dot none"></span>Neither library nor community center
+			</div>
+			<div class="legend-item">
+				<Icon icon="mdi:library" width="12" height="12" color="#8a4285" />
+				Library
+			</div>
+			<div class="legend-item">
+				<Icon icon="mdi:account-group" width="12" height="12" color="#23c9ff" />
+				Community Center
+			</div>
+		{/if}
 	</div>
 </div>
 

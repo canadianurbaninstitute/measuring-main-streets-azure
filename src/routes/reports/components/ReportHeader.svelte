@@ -2,6 +2,9 @@
   import SoC from '../assets/SoC.svg';
   import UofT from '../assets/UofT.svg';
   import CATCH from '../assets/catch.webp';
+  import { getLang } from '../../lib/i18n';
+
+  const fr = getLang() === 'fr';
 
   interface CustomLogo {
     src: string;
@@ -33,7 +36,7 @@
     subEyebrow = '',
     author = '',
     date = '',
-    title = 'Report Title',
+    title = fr ? 'Titre du rapport' : 'Report Title',
     subtitle = '',
     backgroundImage = '',
     backgroundOpacity = 0.1,
@@ -65,11 +68,11 @@
           <div class="logo-row">
             {#if logo === 'soc'}
               <a href="https://schoolofcities.utoronto.ca/" target="_blank" rel="noopener noreferrer">
-                <img src={UofT} alt="University of Toronto logo" width="120" />
+                <img src={UofT} alt={fr ? 'Logo de l’Université de Toronto' : 'University of Toronto logo'} width="120" />
               </a>
               <span class="text-3xl font-thin" style="color: var(--brandDarkBlue)">|</span>
               <a href="https://schoolofcities.utoronto.ca/" target="_blank" rel="noopener noreferrer">
-                <img src={SoC} alt="School of Cities logo" width="120" />
+                <img src={SoC} alt={fr ? 'Logo de la School of Cities' : 'School of Cities logo'} width="120" />
               </a>
             {/if}
 
@@ -91,7 +94,7 @@
         {#if logo === 'catch'}
           <div class="logo-row">
             <a href="https://catch-rehac.ca/" target="_blank" rel="noopener noreferrer">
-              <img src={CATCH} alt="CATCH logo" width="180" />
+              <img src={CATCH} alt={fr ? 'Logo de CATCH' : 'CATCH logo'} width="180" />
             </a>
           </div>
         {/if}
@@ -109,7 +112,7 @@
         <div class="subtitle">
           {subtitle} <br /><br />
         </div>
-        <button class="scroll-hint" onclick={handleScroll}>LEARN MORE ↓</button>
+        <button class="scroll-hint" onclick={handleScroll}>{fr ? 'EN SAVOIR PLUS ↓' : 'LEARN MORE ↓'}</button>
       </div>
     </div>
   </header>

@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/toronto/westqueenwest/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/toronto/westqueenwest/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -211,28 +217,48 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						West Queen West is the segment of a prominent arterial road through the southern parts
-						of the city of Toronto, specifically the part of the street between Dufferin in the west
-						and Bathurst in the east. To its immediate west is the neighbourhood of Parkdale, to its
-						south a mix of high-density neighbourhoods such as Liberty Village and Niagara, to the
-						east the street leads into the entertainment district and downtown, and to the north a
-						patchwork of lower-rise residential neighbourhoods.
-					</p>
-					<p>
-						The street has served as a historic westbound route in and out of Toronto’s core and has
-						been urbanized since at least the 1850s. Historically a working-class district close to
-						factory jobs, as the economic profile of Toronto has shifted to services and knowledge
-						work so has West Queen West’s residential population.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							West Queen West est le tronçon d’une importante artère traversant le sud de
+							la ville de Toronto, plus précisément la portion de la rue comprise entre
+							Dufferin à l’ouest et Bathurst à l’est. Immédiatement à l’ouest se trouve le
+							quartier de Parkdale; au sud, un ensemble de quartiers à forte densité comme
+							Liberty Village et Niagara; à l’est, la rue mène au quartier des spectacles
+							(Entertainment District) et au centre-ville; et au nord, une mosaïque de
+							quartiers résidentiels de plus faible hauteur.
+						</p>
+						<p>
+							La rue sert historiquement de voie d’entrée et de sortie vers l’ouest du
+							cœur de Toronto et est urbanisée depuis au moins les années 1850.
+							Historiquement un quartier ouvrier situé près des emplois en usine, West
+							Queen West a vu sa population résidentielle évoluer au même rythme que le
+							profil économique de Toronto, qui s’est tourné vers les services et le
+							travail du savoir.
+						</p>
+					{:else}
+						<p>
+							West Queen West is the segment of a prominent arterial road through the southern parts
+							of the city of Toronto, specifically the part of the street between Dufferin in the west
+							and Bathurst in the east. To its immediate west is the neighbourhood of Parkdale, to its
+							south a mix of high-density neighbourhoods such as Liberty Village and Niagara, to the
+							east the street leads into the entertainment district and downtown, and to the north a
+							patchwork of lower-rise residential neighbourhoods.
+						</p>
+						<p>
+							The street has served as a historic westbound route in and out of Toronto’s core and has
+							been urbanized since at least the 1850s. Historically a working-class district close to
+							factory jobs, as the economic profile of Toronto has shifted to services and knowledge
+							work so has West Queen West’s residential population.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -257,29 +283,58 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						Most of the buildings along the street consists of mixed-use commercial and residential
-						structures, with small-scale retail directly fronting a sidewalk. Few properties have a
-						significant setback from their roadway and heights are limited largely to a maximum of
-						three storeys directly on the road — though taller structures do exist immediately to
-						the south of the street, especially in its western segment. Many properties along Queen
-						Street have alley access to the north and south. There is also a small strip mall in the
-						extreme western segment of the street.
-					</p>
-					<p>
-						The street is served by multiple transit routes, most prominently a TTC streetcar route.
-						While there is not bike infrastructure on the street beyond parking, there are protected
-						bike lanes on some parallel streets.
-					</p>
-					<p>
-						The most significant change in built-form along the route is the Centre for Addiction
-						and Mental Health (CAMH), which occupies a significant property between Shaw and White
-						Squirrel on the south of the street. On this stretch, the north side largely maintains
-						the prevalent form, but in recent years CAMH has built a number of eight to ten storey
-						institutional and mixed-use buildings as well as extended the street grid from the north
-						to the south.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							La plupart des bâtiments le long de la rue sont des structures mixtes
+							commerciales et résidentielles, avec de petits commerces donnant directement
+							sur le trottoir. Peu de propriétés présentent un retrait important par
+							rapport à la chaussée, et les hauteurs se limitent en grande partie à un
+							maximum de trois étages directement sur la rue — bien que des bâtiments plus
+							hauts se trouvent immédiatement au sud de la rue, surtout dans son tronçon
+							ouest. De nombreuses propriétés le long de Queen Street ont accès à une
+							ruelle au nord et au sud. On trouve aussi un petit centre commercial
+							linéaire à l’extrémité ouest de la rue.
+						</p>
+						<p>
+							La rue est desservie par plusieurs lignes de transport collectif, notamment
+							une ligne de tramway de la TTC. Bien qu’il n’y ait pas d’infrastructure
+							cyclable sur la rue, outre du stationnement pour vélos, certaines rues
+							parallèles comportent des pistes cyclables protégées.
+						</p>
+						<p>
+							Le changement le plus important du cadre bâti le long de la rue est le
+							Centre de toxicomanie et de santé mentale (CAMH), qui occupe une vaste
+							propriété entre Shaw et White Squirrel, du côté sud de la rue. Sur ce
+							tronçon, le côté nord conserve en grande partie la forme dominante, mais ces
+							dernières années, le CAMH a construit plusieurs bâtiments institutionnels et
+							à usage mixte de huit à dix étages et a prolongé la trame de rues du nord
+							vers le sud.
+						</p>
+					{:else}
+						<p>
+							Most of the buildings along the street consists of mixed-use commercial and residential
+							structures, with small-scale retail directly fronting a sidewalk. Few properties have a
+							significant setback from their roadway and heights are limited largely to a maximum of
+							three storeys directly on the road — though taller structures do exist immediately to
+							the south of the street, especially in its western segment. Many properties along Queen
+							Street have alley access to the north and south. There is also a small strip mall in the
+							extreme western segment of the street.
+						</p>
+						<p>
+							The street is served by multiple transit routes, most prominently a TTC streetcar route.
+							While there is not bike infrastructure on the street beyond parking, there are protected
+							bike lanes on some parallel streets.
+						</p>
+						<p>
+							The most significant change in built-form along the route is the Centre for Addiction
+							and Mental Health (CAMH), which occupies a significant property between Shaw and White
+							Squirrel on the south of the street. On this stretch, the north side largely maintains
+							the prevalent form, but in recent years CAMH has built a number of eight to ten storey
+							institutional and mixed-use buildings as well as extended the street grid from the north
+							to the south.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -289,14 +344,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'westqueenwest'} section={'builtform'} />
 					</div>
@@ -320,10 +375,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -333,12 +388,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -347,7 +406,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -356,7 +415,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -365,7 +424,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -374,7 +433,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -396,22 +455,44 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The most prominent example of civic infrastructure on the street is CAMH, occupying
-						multiple blocks, employing and serving thousands of workers and patients. There are also
-						a number of related medical services in the neighbourhood.
-					</p>
-					<p>
-						East of CAMH, Queen Street’s heart might be best found at Trinity Bellwoods Park, a 15.4
-						hectares green space. Within the park is a large, and popular, community centre, dog
-						off-leash space and sports fields. The park has served as a community hub and gathering
-						space in Toronto’s west end for years.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, West Queen West surpasses most other main
-						street case studies. In terms of its civic opportunity, West Queen West ranks 6th out of
-						20 Toronto main streets and 9th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							L’exemple le plus marquant d’infrastructure civique sur la rue est le CAMH,
+							qui occupe plusieurs îlots et qui emploie et sert des milliers de
+							travailleurs et de patients. On trouve également plusieurs services médicaux
+							connexes dans le quartier.
+						</p>
+						<p>
+							À l’est du CAMH, le cœur de Queen Street se trouve peut-être au parc Trinity
+							Bellwoods, un espace vert de 15,4 hectares. Le parc abrite un grand centre
+							communautaire très fréquenté, une aire d’exercice sans laisse pour chiens et
+							des terrains de sport. Le parc sert depuis des années de pôle communautaire
+							et de lieu de rassemblement dans l’ouest de Toronto.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, West Queen West surpasse la plupart
+							des autres études de cas de rues principales. Sur le plan des possibilités
+							civiques, West Queen West se classe au 6e rang sur 20 rues principales de
+							Toronto et au 9e rang sur 36 rues principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							The most prominent example of civic infrastructure on the street is CAMH, occupying
+							multiple blocks, employing and serving thousands of workers and patients. There are also
+							a number of related medical services in the neighbourhood.
+						</p>
+						<p>
+							East of CAMH, Queen Street’s heart might be best found at Trinity Bellwoods Park, a 15.4
+							hectares green space. Within the park is a large, and popular, community centre, dog
+							off-leash space and sports fields. The park has served as a community hub and gathering
+							space in Toronto’s west end for years.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, West Queen West surpasses most other main
+							street case studies. In terms of its civic opportunity, West Queen West ranks 6th out of
+							20 Toronto main streets and 9th out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -431,17 +512,17 @@
 							'civicinfra-toronto-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -451,12 +532,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -465,7 +550,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -474,7 +559,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -494,30 +579,64 @@
 							/>
 						</div>
 					</div>
-					<p>
-						West Queen West is an established retail district, with many small to medium fashion
-						stores along the street — with specific concentrations of casual wear, eye glasses, and
-						shoes in different blocks. Other retail exists along the street, covering a vast range
-						of items from bakeries to convenience stores to toy stores.
-					</p>
-					<p>
-						The services are relatively diverse, with a focus on restaurants — both formal, casual
-						and fast food. No supermarket grocery store directly fronts the street on this stretch,
-						but there are many located just off the street or on segments to the east and west.
-					</p>
-					<p>
-						There are a number of event venues, especially in the western segment of the street
-						which often draw large crowds for concerns and other events.
-					</p>
-					<p>
-						West Queen West surpasses other Main Street case studies in terms of level of
-						independence of businesses, ranking 6th out of 20 Toronto Main Streets and 10th out of
-						36 residential Main Streets.
-					</p>
-					<p>
-						In terms of business density, the street ranks 8th out of 20 main streets in the region
-						and 13th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							West Queen West est un secteur commercial établi, qui compte de nombreuses
+							boutiques de mode de petite et moyenne taille le long de la rue — avec des
+							concentrations particulières de vêtements décontractés, de lunettes et de
+							chaussures selon les îlots. D’autres commerces de détail sont présents le
+							long de la rue et offrent une vaste gamme de produits, des boulangeries aux
+							dépanneurs en passant par les magasins de jouets.
+						</p>
+						<p>
+							Les services sont relativement diversifiés, avec une prédominance de
+							restaurants — formels, décontractés et de restauration rapide. Aucun
+							supermarché ne donne directement sur la rue dans ce tronçon, mais on en
+							trouve plusieurs juste à côté de la rue ou dans les tronçons à l’est et à
+							l’ouest.
+						</p>
+						<p>
+							On trouve plusieurs salles de spectacles et lieux d’événements, surtout dans
+							le tronçon ouest de la rue, qui attirent souvent de grandes foules pour des
+							concerts et d’autres événements.
+						</p>
+						<p>
+							West Queen West surpasse d’autres études de cas de rues principales en ce
+							qui concerne le niveau d’indépendance des entreprises, se classant au 6e
+							rang sur 20 rues principales de Toronto et au 10e rang sur 36 rues
+							principales résidentielles.
+						</p>
+						<p>
+							Sur le plan de la densité commerciale, la rue se classe au 8e rang sur 20
+							rues principales dans la région et au 13e rang sur 36 rues principales
+							résidentielles.
+						</p>
+					{:else}
+						<p>
+							West Queen West is an established retail district, with many small to medium fashion
+							stores along the street — with specific concentrations of casual wear, eye glasses, and
+							shoes in different blocks. Other retail exists along the street, covering a vast range
+							of items from bakeries to convenience stores to toy stores.
+						</p>
+						<p>
+							The services are relatively diverse, with a focus on restaurants — both formal, casual
+							and fast food. No supermarket grocery store directly fronts the street on this stretch,
+							but there are many located just off the street or on segments to the east and west.
+						</p>
+						<p>
+							There are a number of event venues, especially in the western segment of the street
+							which often draw large crowds for concerns and other events.
+						</p>
+						<p>
+							West Queen West surpasses other Main Street case studies in terms of level of
+							independence of businesses, ranking 6th out of 20 Toronto Main Streets and 10th out of
+							36 residential Main Streets.
+						</p>
+						<p>
+							In terms of business density, the street ranks 8th out of 20 main streets in the region
+							and 13th out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -535,17 +654,17 @@
 							'business-toronto-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -555,19 +674,34 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						Employment along the street is largely distributed across hundreds of small businesses,
-						with some businesses employing more. CAMH is a sizeable employer along the street — but
-						most large employers are concentrated just east, in downtown, or south, in Liberty
-						Village, of the street itself.
-					</p>
-					<p>
-						Overall, West Queen West has very high employment density. It ranks 3rd out of 20
-						Toronto Main Streets in terms of employment density and 1st out of 36 residential main
-						streets.
-					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							L’emploi le long de la rue est en grande partie réparti entre des centaines
+							de petites entreprises, certaines employant davantage de personnes. Le CAMH
+							est un employeur important le long de la rue — mais la plupart des grands
+							employeurs sont concentrés juste à l’est, au centre-ville, ou au sud, dans
+							Liberty Village, plutôt que sur la rue elle-même.
+						</p>
+						<p>
+							Dans l’ensemble, West Queen West affiche une densité d’emploi très élevée.
+							La rue se classe au 3e rang sur 20 rues principales de Toronto pour la
+							densité d’emploi et au 1er rang sur 36 rues principales résidentielles.
+						</p>
+					{:else}
+						<p>
+							Employment along the street is largely distributed across hundreds of small businesses,
+							with some businesses employing more. CAMH is a sizeable employer along the street — but
+							most large employers are concentrated just east, in downtown, or south, in Liberty
+							Village, of the street itself.
+						</p>
+						<p>
+							Overall, West Queen West has very high employment density. It ranks 3rd out of 20
+							Toronto Main Streets in terms of employment density and 1st out of 36 residential main
+							streets.
+						</p>
+					{/if}
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -579,25 +713,25 @@
 						bearing={-15}
 						layers={['westqueenwest', 'westqueenwest-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -609,40 +743,63 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'westqueenwest'}
 							section={'housing'}
 							region={'toronto'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						There is a general split in the housing typology north and south of West Queen West.
-						North of the street, the predominant housing form are smaller apartment buildings with
-						less than five units and duplexes. This area also features single-family and detached
-						homes. On the southern side of the street, high-rise condominium and apartment buildings
-						dominate. There are exceptions to this and numerous examples of mid-rise apartment
-						buildings throughout the street. In general, however, the area on and surrounding West
-						Queen West is dominated by high-rise apartments.
-					</p>
-					<p>
-						Generally, the population density is high for Canada and the GTA throughout the area,
-						though south of the street is much denser with increased construction in the last 20
-						years. In contrast, the neighbourhoods north of the street have seen stable or declining
-						populations in the same period as two-to-three unit buildings are converted into
-						single-family houses.
-					</p>
+					{#if fr}
+						<p>
+							On observe une division générale de la typologie résidentielle entre le nord
+							et le sud de West Queen West. Au nord de la rue, la forme de logement
+							prédominante est constituée de petits immeubles d’appartements de moins de
+							cinq logements et de duplex. Ce secteur compte aussi des maisons
+							unifamiliales et individuelles. Du côté sud de la rue, les tours de
+							copropriétés et d’appartements dominent. Il existe des exceptions, ainsi que
+							de nombreux exemples d’immeubles d’appartements de hauteur moyenne tout le
+							long de la rue. De façon générale, toutefois, le secteur situé sur West
+							Queen West et aux alentours est dominé par les tours d’appartements.
+						</p>
+						<p>
+							De façon générale, la densité de population est élevée pour le Canada et la
+							région du Grand Toronto (RGT) dans l’ensemble du secteur, bien que le sud de
+							la rue soit beaucoup plus dense en raison de l’augmentation de la
+							construction au cours des 20 dernières années. En revanche, les quartiers au
+							nord de la rue ont vu leur population se stabiliser ou diminuer au cours de
+							la même période, à mesure que des bâtiments de deux ou trois logements
+							étaient convertis en maisons unifamiliales.
+						</p>
+					{:else}
+						<p>
+							There is a general split in the housing typology north and south of West Queen West.
+							North of the street, the predominant housing form are smaller apartment buildings with
+							less than five units and duplexes. This area also features single-family and detached
+							homes. On the southern side of the street, high-rise condominium and apartment buildings
+							dominate. There are exceptions to this and numerous examples of mid-rise apartment
+							buildings throughout the street. In general, however, the area on and surrounding West
+							Queen West is dominated by high-rise apartments.
+						</p>
+						<p>
+							Generally, the population density is high for Canada and the GTA throughout the area,
+							though south of the street is much denser with increased construction in the last 20
+							years. In contrast, the neighbourhoods north of the street have seen stable or declining
+							populations in the same period as two-to-three unit buildings are converted into
+							single-family houses.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -654,18 +811,18 @@
 						bearing={-15}
 						layers={['westqueenwest-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -673,12 +830,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -690,37 +847,53 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'westqueenwest'}
 							section={'demographics'}
 							region={'toronto'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						On average, both West Queen West and the neighbourhoods surrounding the street are
-						characterized by small households of approximately one-person. The neighbourhoods
-						surrounding West Queen West are more highly educated and less likely to be a
-						first-generation immigrant than the regional average. These areas also include a
-						relatively diverse mix of average ages, with averages in the neighbourhoods surrounding
-						West Queen West ranging from around 30 years old all the way to approximately 80 years
-						old. Additionally, residents of West Queen West and the surrounding areas are more
-						likely to be both in the upper quintile of income and more likely to be in the bottom
-						decile of income — indicating a polarized income distribution with limited
-						representation of middle income households.
-					</p>
+					{#if fr}
+						<p>
+							En moyenne, West Queen West et les quartiers qui l’entourent se
+							caractérisent par de petits ménages d’environ une personne. Les quartiers
+							entourant West Queen West sont plus scolarisés et comptent moins de
+							personnes immigrantes de première génération que la moyenne régionale. Ces
+							secteurs présentent également une combinaison d’âges moyens relativement
+							diversifiée, les moyennes des quartiers entourant West Queen West allant
+							d’environ 30 ans jusqu’à environ 80 ans. De plus, les résidents de West
+							Queen West et des secteurs environnants sont plus susceptibles de se situer
+							à la fois dans le quintile de revenu supérieur et dans le décile de revenu
+							inférieur — ce qui indique une répartition polarisée des revenus et une
+							faible représentation des ménages à revenu moyen.
+						</p>
+					{:else}
+						<p>
+							On average, both West Queen West and the neighbourhoods surrounding the street are
+							characterized by small households of approximately one-person. The neighbourhoods
+							surrounding West Queen West are more highly educated and less likely to be a
+							first-generation immigrant than the regional average. These areas also include a
+							relatively diverse mix of average ages, with averages in the neighbourhoods surrounding
+							West Queen West ranging from around 30 years old all the way to approximately 80 years
+							old. Additionally, residents of West Queen West and the surrounding areas are more
+							likely to be both in the upper quintile of income and more likely to be in the bottom
+							decile of income — indicating a polarized income distribution with limited
+							representation of middle income households.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -739,9 +912,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -763,26 +936,54 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						West Queen West does draw visitors from throughout the Greater Toronto Area, but the
-						vast majority of visits come from local residents within Toronto. Additionally, the
-						radius from where visitors originated from has decreased between 2019 and 2022,
-						indicating that the COVID-19 pandemic impacted the distance residents were willing to
-						travel to visit West Queen West. Additionally, while the level of visits relative to
-						2019 currently hovers just over 80 percent, indicating relatively strong visitor
-						recovery from the pandemic, the number of visitors has decreased significantly. This
-						decrease in visitors is seen most prominently with infrequent visitors.
-					</p>
-					<p>
-						Generally, visitor traffic is heaviest on Fridays and Saturdays and in the late
-						afternoon or evening which highlights the importance of West Queen West as a commercial
-						street – as most visits occur outside of normal business hours.
-					</p>
-					<p>
-						In terms of overall street resilience and visitor recovery, West Queen West trails
-						behind other main street case studies. It ranks 17th out of 20 in visitor resiliency in
-						the region and 35th out of 36 residential main streets.
-					</p>
+					{#if fr}
+						<p>
+							West Queen West attire des visiteurs de toute la région du Grand Toronto,
+							mais la grande majorité des visites proviennent de résidents de Toronto. De
+							plus, le rayon d’origine des visiteurs a diminué entre 2019 et 2022, ce qui
+							indique que la pandémie de COVID-19 a influé sur la distance que les
+							résidents étaient prêts à parcourir pour visiter West Queen West. Par
+							ailleurs, bien que le niveau de visites par rapport à 2019 se situe
+							actuellement juste au-dessus de 80 %, ce qui témoigne d’une reprise
+							relativement solide des visites après la pandémie, le nombre de visiteurs a
+							considérablement diminué. Cette baisse est surtout marquée chez les
+							visiteurs occasionnels.
+						</p>
+						<p>
+							De façon générale, l’achalandage est le plus élevé les vendredis et samedis
+							ainsi qu’en fin d’après-midi ou en soirée, ce qui souligne l’importance de
+							West Queen West en tant que rue commerçante — la plupart des visites ayant
+							lieu en dehors des heures normales d’ouverture.
+						</p>
+						<p>
+							Sur le plan de la résilience globale de la rue et de la reprise des visites,
+							West Queen West se classe derrière d’autres études de cas de rues
+							principales. La rue se classe au 17e rang sur 20 dans la région pour la
+							résilience en matière de visites et au 35e rang sur 36 rues principales
+							résidentielles.
+						</p>
+					{:else}
+						<p>
+							West Queen West does draw visitors from throughout the Greater Toronto Area, but the
+							vast majority of visits come from local residents within Toronto. Additionally, the
+							radius from where visitors originated from has decreased between 2019 and 2022,
+							indicating that the COVID-19 pandemic impacted the distance residents were willing to
+							travel to visit West Queen West. Additionally, while the level of visits relative to
+							2019 currently hovers just over 80 percent, indicating relatively strong visitor
+							recovery from the pandemic, the number of visitors has decreased significantly. This
+							decrease in visitors is seen most prominently with infrequent visitors.
+						</p>
+						<p>
+							Generally, visitor traffic is heaviest on Fridays and Saturdays and in the late
+							afternoon or evening which highlights the importance of West Queen West as a commercial
+							street – as most visits occur outside of normal business hours.
+						</p>
+						<p>
+							In terms of overall street resilience and visitor recovery, West Queen West trails
+							behind other main street case studies. It ranks 17th out of 20 in visitor resiliency in
+							the region and 35th out of 36 residential main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -793,13 +994,13 @@
 						bearing={-15}
 						layers={['westqueenwest-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
 							maxlabel={'58400'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -816,7 +1017,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -824,12 +1025,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -837,20 +1038,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

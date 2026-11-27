@@ -3,6 +3,23 @@
 	import { onMount } from 'svelte';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
+	// Canadian French labels for the built-in Mapbox controls (tooltips and screen-reader text).
+	const MAPBOX_LOCALE_FR = {
+		'AttributionControl.ToggleAttribution': 'Afficher ou masquer l’attribution',
+		'AttributionControl.MapFeedback': 'Commentaires sur la carte',
+		'LogoControl.Title': 'Logo de Mapbox',
+		'Map.Title': 'Carte',
+		'NavigationControl.ResetBearing': 'Réorienter vers le nord',
+		'NavigationControl.ZoomIn': 'Zoom avant',
+		'NavigationControl.ZoomOut': 'Zoom arrière',
+		'ScrollZoomBlocker.CtrlMessage': 'Utilisez Ctrl + défilement pour zoomer sur la carte',
+		'ScrollZoomBlocker.CmdMessage': 'Utilisez ⌘ + défilement pour zoomer sur la carte',
+		'TouchPanBlocker.Message': 'Utilisez deux doigts pour déplacer la carte'
+	};
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -15,7 +32,7 @@
 	export let bearing = -17.1;
 	export let pitch = 0;
 	export let style = 'mapbox://styles/canadianurbaninstitute/clua3x3qv002801qp39gdfc4x?fresh=true';
-	export let attribution = 'Canadian Urban Institute';
+	export let attribution = fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute';
 
 	let map;
 
@@ -37,7 +54,8 @@
 			projection: 'globe',
 			scrollZoom: false,
 			// maxBounds: maxBounds,
-			attributionControl: false
+			attributionControl: false,
+			...(fr ? { locale: MAPBOX_LOCALE_FR } : {})
 		});
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');

@@ -1,5 +1,8 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	let { highlight = 'none' } = $props();
 
@@ -13,15 +16,29 @@
 	<div class="infra-section public" style="opacity: {getOpacity(1)}">
 		<div class="infra-label">
 			<span class="text-lg"><Icon icon="mdi:toolbox" class="icon" /></span>
-			<span>A National Inventory of Tools and Best Practices</span>
+			<span
+				>{fr
+					? 'Un inventaire national d’outils et de pratiques exemplaires'
+					: 'A National Inventory of Tools and Best Practices'}</span
+			>
 		</div>
 		<div class="infra-meta">
 			<div class="infra-meta">
+				{#if fr}
+					<p>
+						<a href="https://catch-rehac.ca/resources/" target="_blank">Centre de ressources</a> rassemblant
+						les pratiques exemplaires
+					</p>
+					<p>
+						<a href="https://etoahtoolkit.catch-rehac.ca" target="_blank">Boîte à outils interactive</a>
+					</p>
+				{:else}
 				<p>
 					<a href="https://catch-rehac.ca/resources/" target="_blank">Resource Centre</a> compiling best
 					practices
 				</p>
 				<p><a href="https://etoahtoolkit.catch-rehac.ca" target="_blank">Interactive toolkit</a></p>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -29,21 +46,37 @@
 	<div class="infra-section local" style="opacity: {getOpacity(2)}">
 		<div class="infra-label">
 			<span class="text-lg"><Icon icon="mdi:account-group" class="icon" /></span>
-			<span>Structured Support for Local Collaboratives</span>
+			<span
+				>{fr
+					? 'Un soutien structuré aux collaborations locales'
+					: 'Structured Support for Local Collaboratives'}</span
+			>
 		</div>
 		<div class="infra-meta">
 			<p></p>
-			<p>Building capacity and alignment between stakeholders</p>
+			<p>
+				{fr
+					? 'Renforcer les capacités et la concertation entre les parties prenantes'
+					: 'Building capacity and alignment between stakeholders'}
+			</p>
 		</div>
 	</div>
 
 	<div class="infra-section coop" style="opacity: {getOpacity(3)}">
 		<div class="infra-label">
 			<span class="text-lg"><Icon icon="mdi:home" class="icon" /></span>
-			<span>Blended Capital Funds for Community Housing</span>
+			<span
+				>{fr
+					? 'Des fonds de capitaux mixtes pour le logement communautaire'
+					: 'Blended Capital Funds for Community Housing'}</span
+			>
 		</div>
 		<div class="infra-meta">
-			<p>Blending below-market-rate public investment with private capital</p>
+			<p>
+				{fr
+					? 'Combiner des investissements publics à taux inférieur à celui du marché et des capitaux privés'
+					: 'Blending below-market-rate public investment with private capital'}
+			</p>
 		</div>
 	</div>
 </div>

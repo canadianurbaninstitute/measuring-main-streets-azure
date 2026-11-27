@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { Combobox } from 'bits-ui';
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
 
 	interface OptionItem {
 		value: string;
@@ -94,7 +97,7 @@
 										{label}
 										{#if selected}
 											<div class="check-icon">
-												<Icon icon="mdi:check" aria-label="selected" />
+												<Icon icon="mdi:check" aria-label={fr ? 'sélectionné' : 'selected'} />
 											</div>
 										{/if}
 									{/snippet}
@@ -111,7 +114,7 @@
 								{label}
 								{#if selected}
 									<div class="check-icon">
-										<Icon icon="mdi:check" aria-label="selected" />
+										<Icon icon="mdi:check" aria-label={fr ? 'sélectionné' : 'selected'} />
 									</div>
 								{/if}
 							{/snippet}
@@ -120,7 +123,9 @@
 				{/if}
 
 				{#if hasNoResults}
-					<span class="no-results"> No results found, try again. </span>
+					<span class="no-results">
+						{fr ? ' Aucun résultat. Veuillez réessayer. ' : ' No results found, try again. '}
+					</span>
 				{/if}
 			</Combobox.Viewport>
 		</Combobox.Content>

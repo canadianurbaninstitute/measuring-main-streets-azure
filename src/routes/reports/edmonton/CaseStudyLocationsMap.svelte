@@ -3,6 +3,23 @@
 	import { onMount } from 'svelte';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
+	// Canadian French labels for the built-in Mapbox controls (tooltips and screen-reader text).
+	const MAPBOX_LOCALE_FR = {
+		'AttributionControl.ToggleAttribution': 'Afficher ou masquer l’attribution',
+		'AttributionControl.MapFeedback': 'Commentaires sur la carte',
+		'LogoControl.Title': 'Logo de Mapbox',
+		'Map.Title': 'Carte',
+		'NavigationControl.ResetBearing': 'Réorienter vers le nord',
+		'NavigationControl.ZoomIn': 'Zoom avant',
+		'NavigationControl.ZoomOut': 'Zoom arrière',
+		'ScrollZoomBlocker.CtrlMessage': 'Utilisez Ctrl + défilement pour zoomer sur la carte',
+		'ScrollZoomBlocker.CmdMessage': 'Utilisez ⌘ + défilement pour zoomer sur la carte',
+		'TouchPanBlocker.Message': 'Utilisez deux doigts pour déplacer la carte'
+	};
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -10,7 +27,7 @@
 	let center = [-113.376, 53.549];
 	let bearing = 0;
 	let pitch = 0;
-	let attribution = 'Canadian Urban Institute';
+	let attribution = fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute';
 
 	let map;
 
@@ -24,7 +41,8 @@
 			pitch: pitch,
 			projection: 'globe',
 			scrollZoom: false,
-			attributionControl: false
+			attributionControl: false,
+			...(fr ? { locale: MAPBOX_LOCALE_FR } : {})
 		});
 
 		map.addControl(new mapboxgl.NavigationControl(), 'top-right');
@@ -64,10 +82,26 @@
 	<div id="case-studies-map" class="map"></div>
 
 	<div class="legend-container">
-		<LegendItem variant={'polygon'} label={'Downtown Main Streets'} bgcolor={'#58e965'} />
-		<LegendItem variant={'polygon'} label={'Neighbourhood Main Streets'} bgcolor={'#002940'} />
-		<LegendItem variant={'polygon'} label={'Small Town Main Streets'} bgcolor={'#00adf2'} />
-		<LegendItem variant={'polygon'} label={'Malls'} bgcolor={'#DB3069'} />
+		<LegendItem
+			variant={'polygon'}
+			label={fr ? 'Rues principales de centre-ville' : 'Downtown Main Streets'}
+			bgcolor={'#58e965'}
+		/>
+		<LegendItem
+			variant={'polygon'}
+			label={fr ? 'Rues principales de quartier' : 'Neighbourhood Main Streets'}
+			bgcolor={'#002940'}
+		/>
+		<LegendItem
+			variant={'polygon'}
+			label={fr ? 'Rues principales de petites villes' : 'Small Town Main Streets'}
+			bgcolor={'#00adf2'}
+		/>
+		<LegendItem
+			variant={'polygon'}
+			label={fr ? 'Centres commerciaux' : 'Malls'}
+			bgcolor={'#DB3069'}
+		/>
 	</div>
 </div>
 

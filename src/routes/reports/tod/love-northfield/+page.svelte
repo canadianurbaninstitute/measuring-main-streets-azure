@@ -12,7 +12,12 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article.js';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article.js';
+	import { sections as sectionsFr } from './article.fr.js';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import everyone from '../../assets/dps-heart.png';
@@ -32,7 +37,9 @@
 		northfield: {
 			type: 'image',
 			src: northfield,
-			alt: 'Graphic of 3 people behind a train track that says "Waterloo"'
+			alt: fr
+				? 'Illustration de trois personnes derrière une voie ferrée, avec l’inscription «\u00a0Waterloo\u00a0»'
+				: 'Graphic of 3 people behind a train track that says "Waterloo"'
 		},
 		'engagement-summary': {
 			type: 'component',
@@ -53,19 +60,27 @@
 				columns: 1,
 				quotes: [
 					{
-						text: 'We need to stack amenities like in Europe. More small businesses at ground level, with residences above. More stimulating and shorter walks.',
+						text: fr
+							? 'Il faut regrouper les services et les commerces comme en Europe. Plus de petits commerces au rez-de-chaussée, avec des logements au-dessus. Des trajets à pied plus stimulants et plus courts.'
+							: 'We need to stack amenities like in Europe. More small businesses at ground level, with residences above. More stimulating and shorter walks.',
 						colorFam: 'blue'
 					},
 					{
-						text: 'Varied rental/high density housing options for people/families with varied incomes that are big/comfortable enough to live in long term.',
+						text: fr
+							? 'Des options variées de logements locatifs ou à haute densité pour des personnes et des familles aux revenus variés, assez grands et confortables pour y vivre à long terme.'
+							: 'Varied rental/high density housing options for people/families with varied incomes that are big/comfortable enough to live in long term.',
 						colorFam: 'green'
 					},
 					{
-						text: 'Would love more areas like Belmont Village, walkable commercial districts surrounded and topped by housing.',
+						text: fr
+							? 'J’aimerais qu’il y ait plus de secteurs comme Belmont Village, des quartiers commerciaux où l’on peut se déplacer à pied, entourés et surmontés de logements.'
+							: 'Would love more areas like Belmont Village, walkable commercial districts surrounded and topped by housing.',
 						colorFam: 'pink'
 					},
 					{
-						text: 'Stop turning car lanes into bicycle lanes. And stop elimiting parking in Uptown.',
+						text: fr
+							? 'Arrêtez de transformer les voies pour les autos en pistes cyclables. Et arrêtez d’éliminer le stationnement dans Uptown.'
+							: 'Stop turning car lanes into bicycle lanes. And stop elimiting parking in Uptown.',
 						isDivisive: true
 					}
 				]
@@ -168,7 +183,11 @@
 	const items = $derived.by(() => {
 		const nav = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Takeaways' }
+			{
+				type: 'anchor',
+				id: 'report-findings',
+				label: fr ? 'Points à retenir' : 'Key Takeaways'
+			}
 		];
 
 		sections.forEach((section, si) => {
@@ -197,33 +216,45 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
 	<ReportHeader
 		id="report-header"
-		subEyebrow="A Love Your Neighbourhood Report"
+		subEyebrow={fr ? 'Un rapport Love Your Neighbourhood' : 'A Love Your Neighbourhood Report'}
 		title="NORTHFIELD"
-		subtitle="Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas"
+		subtitle={fr
+			? 'Explorer les possibilités des plateformes de consultation numérique pour favoriser une participation plus large des personnes résidant dans les aires de station de transport collectif'
+			: 'Exploring the possibilities of digital engagement platforms to facilitate  broader engagement of residents around Transit Station Areas'}
 		backgroundImage={northfield}
 		customLogos={[
-			{ src: dps, alt: 'DPS Logo', width: '120' },
-			{ src: cui, alt: 'CUI Logo', width: '200' }
+			{ src: dps, alt: fr ? 'Logo de DPS' : 'DPS Logo', width: '120' },
+			{ src: cui, alt: fr ? 'Logo de l’IUC' : 'CUI Logo', width: '200' }
 		]}
 	/>
 
 	<ReportFindings
 		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="Trade‑offs Unclear"
-		description1="Future engagement may need to focus on raising awareness about the tradeoffs that come with TOD."
+		title={fr ? 'POINTS À RETENIR' : 'KEY TAKEAWAYS'}
+		finding1={fr ? 'Compromis flous' : 'Trade‑offs Unclear'}
+		description1={fr
+			? 'Les prochaines démarches de consultation devront peut-être viser à mieux faire connaître les compromis qu’implique l’aménagement axé sur le transport collectif (TOD).'
+			: 'Future engagement may need to focus on raising awareness about the tradeoffs that come with TOD.'}
 		link1="#tradeoffs"
-		finding2="Cars Still Dominate Daily Travel"
-		description2="Cars are the most used method to commute. "
+		finding2={fr
+			? 'L’automobile domine encore les déplacements quotidiens'
+			: 'Cars Still Dominate Daily Travel'}
+		description2={fr
+			? 'L’automobile est le mode le plus utilisé pour se rendre au travail ou à l’école.'
+			: 'Cars are the most used method to commute. '}
 		link2="#cars"
-		finding3="Density Without Losing Functionality"
-		description3="Strong emphasis on walkability, mixed-use environments, and transit improvements."
+		finding3={fr
+			? 'De la densité, sans perte de fonctionnalité'
+			: 'Density Without Losing Functionality'}
+		description3={fr
+			? 'Forte insistance sur le potentiel piétonnier, les milieux à usage mixte et l’amélioration du transport collectif.'
+			: 'Strong emphasis on walkability, mixed-use environments, and transit improvements.'}
 		link3="#functionality"
 	/>
 
@@ -250,7 +281,7 @@
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
+						label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 						target={panel.config.target}
 					/>
 				{/if}

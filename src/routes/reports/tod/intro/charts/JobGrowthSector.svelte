@@ -2,6 +2,13 @@
 	import { format } from 'd3-format';
 	import { onMount } from 'svelte';
 	import MultiLineChart from '../../../../lib/ui/charts/MultiLineChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const lang = fr ? 'fr' : 'en';
+	const frMonthYear = new Intl.DateTimeFormat('fr-CA', { month: 'short', year: 'numeric' });
+	// d3 "~s" gives SI suffixes ("5k"); French uses "k" too, but needs a comma decimal separator.
+	const frFormatSI = (d: number) => format('~s')(d).replace('.', ',');
 
 	interface SeriesConfigItem {
 		key: string;
@@ -30,12 +37,12 @@
 	const seriesConfig: SeriesConfigItem[] = [
 		{
 			key: 'Services-producing sectors',
-			label: 'Services-producing sectors',
+			label: fr ? 'Secteurs producteurs de services' : 'Services-producing sectors',
 			color: '#002940'
 		},
 		{
 			key: 'Goods-producing sectors',
-			label: 'Goods-producing sectors',
+			label: fr ? 'Secteurs producteurs de biens' : 'Goods-producing sectors',
 			color: '#DB3069'
 		}
 	];
@@ -47,11 +54,14 @@
 		{visible}
 		minHeight="300px"
 		xTickInterval={90}
-		title="Job Growth by Sector, 1976-2025"
+		title={fr
+			? 'Croissance de l’emploi par secteur, 1976-2025'
+			: 'Job Growth by Sector, 1976-2025'}
 		yDomain={[0, 18000]}
-		yLabel="Jobs"
+		yLabel={fr ? 'Emplois' : 'Jobs'}
 		{seriesConfig}
-		formatLabelY={(d: number) => format('~s')(d)}
-		formatValue={(d: number) => format(',')(d)}
+		formatLabelX={fr ? (d: Date) => frMonthYear.format(d) : undefined}
+		formatLabelY={fr ? frFormatSI : (d: number) => format('~s')(d)}
+		formatValue={fr ? (d: number) => formatNumber(d, undefined, lang) : (d: number) => format(',')(d)}
 	/>
 {/if}

@@ -1,5 +1,8 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	let {
 		text = 'Vibrant main streets need local retailers, not just large corporate grocery stores.',
@@ -27,13 +30,13 @@
 	{#if isDivisive}
 		<div class="divisive-flag">
 			<Icon icon="mdi:alert-decagram" class="flag-icon" />
-			<span>Most Divisive Statement</span>
+			<span>{fr ? 'Énoncé le plus clivant' : 'Most Divisive Statement'}</span>
 		</div>
 	{/if}
 
 	<div class="bubble">
 		<div class="quote-mark open">“</div>
-		<p class="quote-text">“{text}”</p>
+		<p class="quote-text">{#if fr}«&nbsp;{text}&nbsp;»{:else}“{text}”{/if}</p>
 		<div class="quote-mark close">”</div>
 	</div>
 

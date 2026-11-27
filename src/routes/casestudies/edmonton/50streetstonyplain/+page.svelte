@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/50streetstonyplain/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/50streetstonyplain/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -215,24 +221,39 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						Stony Plain is a municipality located about 25 kilometres west of Edmonton in Parkland
-						County. The Town of Stony Plain was incorporated in 1908.
-					</p>
-					<p>
-						50 Street serves as the town's historic main street. 48 Street, just to the east, is an
-						arterial road that connects directly to the Yellowhead Highway, hosting significant
-						traffic flows coming in and out of the town. This allows 50 Street to exprience less
-						traffic resulting in a calmer and quieter feel.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							Stony Plain est une municipalité située à environ 25 kilomètres à l’ouest
+							d’Edmonton, dans le comté de Parkland. La ville de Stony Plain a été
+							constituée en municipalité en 1908.
+						</p>
+						<p>
+							La 50 Street est la rue principale historique de la ville. La 48 Street,
+							juste à l’est, est une artère reliée directement à la route Yellowhead, qui
+							accueille d’importants flux de circulation entrant dans la ville et en
+							sortant. La 50 Street connaît ainsi une circulation moindre, ce qui lui
+							confère une atmosphère plus calme et plus tranquille.
+						</p>
+					{:else}
+						<p>
+							Stony Plain is a municipality located about 25 kilometres west of Edmonton in Parkland
+							County. The Town of Stony Plain was incorporated in 1908.
+						</p>
+						<p>
+							50 Street serves as the town's historic main street. 48 Street, just to the east, is an
+							arterial road that connects directly to the Yellowhead Highway, hosting significant
+							traffic flows coming in and out of the town. This allows 50 Street to exprience less
+							traffic resulting in a calmer and quieter feel.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -257,20 +278,40 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						Observation of 50 Street provides the sense of a significant of investment to create a
-						cohesive and quaint main street character. There are preserved heritage buildings mixed
-						in with newer buildings. Newer buildings were built to match the low height of historic
-						buildings. There are some taller apartment buildings on the south end of the street.
-					</p>
-					<p>
-						The street features new curb extensions and planters at all intersections within the
-						study area. There are also new roundabouts at 50 Ave and 51 Ave, with central circular
-						medians with grass plantings. There is angled parking throughout the area. The
-						combination of these streetscaping elements and traffic controls allow for a calm and
-						pleasant environment for pedestrians walking through the town centre.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							L’observation de la 50 Street donne l’impression d’investissements
+							importants visant à créer une rue principale au caractère cohérent et
+							pittoresque. Des bâtiments patrimoniaux préservés côtoient des bâtiments
+							plus récents. Ces derniers ont été construits de façon à respecter la faible
+							hauteur des bâtiments historiques. On trouve quelques immeubles
+							d’appartements plus hauts à l’extrémité sud de la rue.
+						</p>
+						<p>
+							La rue comprend de nouvelles saillies de trottoir et des jardinières à
+							toutes les intersections de la zone étudiée. On trouve également de nouveaux
+							carrefours giratoires à la 50 Ave et à la 51 Ave, avec des îlots centraux
+							circulaires gazonnés. Le stationnement en épi est présent dans tout le
+							secteur. La combinaison de ces aménagements de rue et de ces mesures de
+							contrôle de la circulation crée un environnement calme et agréable pour les
+							piétons qui traversent le centre-ville.
+						</p>
+					{:else}
+						<p>
+							Observation of 50 Street provides the sense of a significant of investment to create a
+							cohesive and quaint main street character. There are preserved heritage buildings mixed
+							in with newer buildings. Newer buildings were built to match the low height of historic
+							buildings. There are some taller apartment buildings on the south end of the street.
+						</p>
+						<p>
+							The street features new curb extensions and planters at all intersections within the
+							study area. There are also new roundabouts at 50 Ave and 51 Ave, with central circular
+							medians with grass plantings. There is angled parking throughout the area. The
+							combination of these streetscaping elements and traffic controls allow for a calm and
+							pleasant environment for pedestrians walking through the town centre.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -280,14 +321,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'50streetstonyplain'} section={'builtform'} />
 					</div>
@@ -311,10 +352,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -324,12 +365,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -338,7 +383,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -347,7 +392,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -356,7 +401,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -365,7 +410,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -394,24 +439,49 @@
 							/>
 						</div>
 					</div>
-					<p>
-						50 Street boasts over 40 murals across Stony Plain's downtown, with QR codes directing
-						passerbys to initiate self-guided tours. The First People, one of the murals, depicts a
-						winter scene with a tipi facing the rising sun and features a Cree phrase, "Tawaw Ota
-						Asiniw Paskwahk" which means "Welcome to Stony Plain". The injection of history and art
-						through murals adds to the liveliness and intrigue of the neighbourhood.
-					</p>
-					<p>
-						The streetscape is in very good condition featuring wood accents and new concrete. The
-						Stony Plain Road Business Association has put up banners and signage fostering a
-						cohesive brand for the area.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, 50 Street in Stony Plain ranks 14th out of
-						20 Edmonton Main Streets and 6th out of 12 Small Town Main Streets. There is a public
-						library, a post office, and several pharmacies. The corner of 52 Ave features a public
-						space with benches and planters encouraging people to linger.
-					</p>
+					{#if fr}
+						<p>
+							La 50 Street compte plus de 40 murales réparties dans le centre-ville de
+							Stony Plain, avec des codes QR invitant les passants à entreprendre des
+							visites autoguidées. L’une de ces murales, The First People, représente une
+							scène hivernale avec un tipi faisant face au soleil levant et comporte une
+							expression crie, « Tawaw Ota Asiniw Paskwahk », qui signifie « Bienvenue à
+							Stony Plain ». L’apport de l’histoire et de l’art au moyen des murales
+							contribue à l’animation et à l’attrait du quartier.
+						</p>
+						<p>
+							Le paysage de rue est en très bon état et comporte des accents de bois et du
+							béton neuf. La Stony Plain Road Business Association a installé des
+							bannières et de la signalisation qui contribuent à une image de marque
+							cohérente pour le secteur.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, la 50 Street de Stony Plain se
+							classe 14e sur 20 rues principales d’Edmonton et 6e sur 12 rues principales
+							de petites villes. On y trouve une bibliothèque publique, un bureau de poste
+							et plusieurs pharmacies. À l’angle de la 52 Ave, un espace public doté de
+							bancs et de jardinières invite les gens à s’attarder.
+						</p>
+					{:else}
+						<p>
+							50 Street boasts over 40 murals across Stony Plain's downtown, with QR codes directing
+							passerbys to initiate self-guided tours. The First People, one of the murals, depicts a
+							winter scene with a tipi facing the rising sun and features a Cree phrase, "Tawaw Ota
+							Asiniw Paskwahk" which means "Welcome to Stony Plain". The injection of history and art
+							through murals adds to the liveliness and intrigue of the neighbourhood.
+						</p>
+						<p>
+							The streetscape is in very good condition featuring wood accents and new concrete. The
+							Stony Plain Road Business Association has put up banners and signage fostering a
+							cohesive brand for the area.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, 50 Street in Stony Plain ranks 14th out of
+							20 Edmonton Main Streets and 6th out of 12 Small Town Main Streets. There is a public
+							library, a post office, and several pharmacies. The corner of 52 Ave features a public
+							space with benches and planters encouraging people to linger.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -431,17 +501,17 @@
 							'civicinfra-edmonton-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -451,12 +521,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -465,7 +539,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -474,7 +548,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -501,22 +575,46 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The businesses on 50 Street range from banks to drug stores to restaurants. Although
-						there were no outdoor patios during the field visit, storefronts and awnings lined the
-						sides of the street. The businesses were housed in a mix of heritage and new buildings.
-						For examples, there was an optometrist clinic in a heritage building and a couple of
-						banks in newer brick-clad buildings. In true small-town fashion, the businesses were
-						closed on Sundays and Mondays, leaving the street in a quiet air.
-					</p>
-					<p>
-						50 Street in Stony Plain ranks 3rd out of 20 Edmonton Main Streets for business density,
-						and 2nd out of 12 Small Town Main Streets.
-					</p>
-					<p>
-						According to the Independent Business Index, Stony Plain ranks 3rd out of 20 Edmonton
-						Main Streets and 2nd out of 12 Small Town Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Les commerces de la 50 Street vont des banques aux pharmacies en passant par
+							les restaurants. Bien qu’il n’y ait eu aucune terrasse extérieure lors de la
+							visite sur le terrain, des devantures et des auvents bordaient les deux
+							côtés de la rue. Les commerces occupaient à la fois des bâtiments
+							patrimoniaux et des bâtiments neufs. Par exemple, une clinique d’optométrie
+							se trouvait dans un bâtiment patrimonial et quelques banques, dans des
+							bâtiments plus récents revêtus de brique. Comme dans toute petite ville qui
+							se respecte, les commerces étaient fermés le dimanche et le lundi, ce qui
+							donnait à la rue une atmosphère tranquille.
+						</p>
+						<p>
+							La 50 Street de Stony Plain se classe 3e sur 20 rues principales d’Edmonton
+							pour la densité commerciale, et 2e sur 12 rues principales de petites
+							villes.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, Stony Plain se classe 3e sur
+							20 rues principales d’Edmonton et 2e sur 12 rues principales de petites
+							villes.
+						</p>
+					{:else}
+						<p>
+							The businesses on 50 Street range from banks to drug stores to restaurants. Although
+							there were no outdoor patios during the field visit, storefronts and awnings lined the
+							sides of the street. The businesses were housed in a mix of heritage and new buildings.
+							For examples, there was an optometrist clinic in a heritage building and a couple of
+							banks in newer brick-clad buildings. In true small-town fashion, the businesses were
+							closed on Sundays and Mondays, leaving the street in a quiet air.
+						</p>
+						<p>
+							50 Street in Stony Plain ranks 3rd out of 20 Edmonton Main Streets for business density,
+							and 2nd out of 12 Small Town Main Streets.
+						</p>
+						<p>
+							According to the Independent Business Index, Stony Plain ranks 3rd out of 20 Edmonton
+							Main Streets and 2nd out of 12 Small Town Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -534,17 +632,17 @@
 							'business-edmonton-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -554,18 +652,32 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						The historic built form of the four northern blocks of the 50 Street study area,
-						characterized by frontages right up to the sidewalks and buildings sharing structural
-						walls, is filled with a significant concentration of small businesses and services
-						catering to surrounding local residents.
-					</p>
-					<p>
-						50 Street in Stony Plain ranks 16th out of 20 Edmonton Main Street in employment density
-						and 5th out of 12 Small Town Main Streets.
-					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							Le cadre bâti historique des quatre îlots nord de la zone étudiée de la 50
+							Street, caractérisé par des façades alignées directement sur le trottoir et
+							des bâtiments partageant des murs mitoyens, accueille une concentration
+							importante de petites entreprises et de services destinés aux personnes
+							résidant dans les environs.
+						</p>
+						<p>
+							La 50 Street de Stony Plain se classe 16e sur 20 rues principales d’Edmonton
+							pour la densité d’emploi et 5e sur 12 rues principales de petites villes.
+						</p>
+					{:else}
+						<p>
+							The historic built form of the four northern blocks of the 50 Street study area,
+							characterized by frontages right up to the sidewalks and buildings sharing structural
+							walls, is filled with a significant concentration of small businesses and services
+							catering to surrounding local residents.
+						</p>
+						<p>
+							50 Street in Stony Plain ranks 16th out of 20 Edmonton Main Street in employment density
+							and 5th out of 12 Small Town Main Streets.
+						</p>
+					{/if}
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -577,25 +689,25 @@
 						bearing={0}
 						layers={['50streetstonyplain', '50streetstonyplain-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -607,34 +719,50 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'50streetstonyplain'}
 							section={'housing'}
 							region={'edmonton'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The housing stock surrounding 50 Street are predominantly single-detached dwellings
-						(over 60%) extending out into the surrounding neighbourhood. The end of the town centre
-						at 54 Ave directly leads into a wide street with single-detached housing on either side.
-						One can see the same pattern occuring on most streets perpendicular to 50 Street. These
-						homes are mixed in with a couple of businesses off the main street, as well as churches
-						and community centres. There were two multi-use buildings on the south end of the study
-						area between 53 Ave and 52 Ave. The building on the west side of 50 Street looked to be
-						of newer construction, with a public library at ground level.
-					</p>
+					{#if fr}
+						<p>
+							Le parc de logements entourant la 50 Street se compose principalement de
+							maisons individuelles non attenantes (plus de 60 %), qui s’étendent dans le
+							quartier environnant. L’extrémité du centre-ville, à la 54 Ave, débouche
+							directement sur une large rue bordée de maisons individuelles des deux
+							côtés. On observe la même configuration sur la plupart des rues
+							perpendiculaires à la 50 Street. Ces maisons côtoient quelques commerces
+							situés à l’écart de la rue principale, ainsi que des églises et des centres
+							communautaires. On trouve deux bâtiments à usages multiples à l’extrémité
+							sud de la zone étudiée, entre la 53 Ave et la 52 Ave. Le bâtiment situé du
+							côté ouest de la 50 Street semblait de construction plus récente et abrite
+							une bibliothèque publique au rez-de-chaussée.
+						</p>
+					{:else}
+						<p>
+							The housing stock surrounding 50 Street are predominantly single-detached dwellings
+							(over 60%) extending out into the surrounding neighbourhood. The end of the town centre
+							at 54 Ave directly leads into a wide street with single-detached housing on either side.
+							One can see the same pattern occuring on most streets perpendicular to 50 Street. These
+							homes are mixed in with a couple of businesses off the main street, as well as churches
+							and community centres. There were two multi-use buildings on the south end of the study
+							area between 53 Ave and 52 Ave. The building on the west side of 50 Street looked to be
+							of newer construction, with a public library at ground level.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -646,18 +774,18 @@
 						bearing={0}
 						layers={['50streetstonyplain-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -665,12 +793,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -682,30 +810,39 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'50streetstonyplain'}
 							section={'demographics'}
 							region={'edmonton'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, only 11% are recent immigrants and only 6% are visible
-						minorities revealing that the Stony Plain community is less diverse than the rest of the
-						region.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidant dans la zone étudiée, seulement 11 % sont des
+							personnes immigrantes récentes et seulement 6 % font partie d’une minorité
+							visible, ce qui révèle que la communauté de Stony Plain est moins
+							diversifiée que le reste de la région.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, only 11% are recent immigrants and only 6% are visible
+							minorities revealing that the Stony Plain community is less diverse than the rest of the
+							region.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -724,9 +861,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -748,22 +885,43 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						50 Street in Stony Plain's Resiliency Score ranks at 7th out of 20 Edmonton Main Streets
-						and 7th out of 12 Small Town Main Streets.
-					</p>
-					<p>
-						The level of visitors, relative to pre-pandemic 2019 levels, have hovered generally
-						between 40 and 75% since mid-2020 indicating a muted recovery. While infrequent visitors
-						make up the majority of visitor counts in 2019, despite seeing a drop off in 2020 and
-						slight upticks in 2021 and 2022, they remain the majority patronage in the 50 Street
-						study area. It's worth noting that resident visits to the study area haven't recovered
-						to 2019 levels.
-					</p>
-					<p>
-						The majority of visits by time of day happen between 9am and 6pm, with Friday being the
-						busiest day in general.
-					</p>
+					{#if fr}
+						<p>
+							Selon le score de résilience, la 50 Street de Stony Plain se classe 7e sur
+							20 rues principales d’Edmonton et 7e sur 12 rues principales de petites
+							villes.
+						</p>
+						<p>
+							Le nombre de visiteurs, par rapport aux niveaux prépandémiques de 2019,
+							oscille généralement entre 40 % et 75 % depuis le milieu de 2020, ce qui
+							indique une reprise modeste. Les visiteurs occasionnels représentaient la
+							majorité des visiteurs en 2019 et, malgré une baisse en 2020 et de légères
+							hausses en 2021 et en 2022, ils demeurent la principale clientèle de la zone
+							étudiée de la 50 Street. Il convient de noter que les visites des résidents
+							dans la zone étudiée n’ont pas retrouvé leurs niveaux de 2019.
+						</p>
+						<p>
+							La majorité des visites ont lieu entre 9 h et 18 h, le vendredi étant
+							généralement la journée la plus achalandée.
+						</p>
+					{:else}
+						<p>
+							50 Street in Stony Plain's Resiliency Score ranks at 7th out of 20 Edmonton Main Streets
+							and 7th out of 12 Small Town Main Streets.
+						</p>
+						<p>
+							The level of visitors, relative to pre-pandemic 2019 levels, have hovered generally
+							between 40 and 75% since mid-2020 indicating a muted recovery. While infrequent visitors
+							make up the majority of visitor counts in 2019, despite seeing a drop off in 2020 and
+							slight upticks in 2021 and 2022, they remain the majority patronage in the 50 Street
+							study area. It's worth noting that resident visits to the study area haven't recovered
+							to 2019 levels.
+						</p>
+						<p>
+							The majority of visits by time of day happen between 9am and 6pm, with Friday being the
+							busiest day in general.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -774,13 +932,13 @@
 						bearing={0}
 						layers={['50streetstonyplain-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'14,200'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '14 200' : '14,200'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -797,7 +955,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -805,12 +963,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -818,20 +976,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

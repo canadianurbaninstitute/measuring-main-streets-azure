@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
 	interface Props {
 		id?: string;
 		title?: string;
@@ -27,7 +31,7 @@
 
 	let {
 		id = '',
-		title = 'Key Findings',
+		title = fr ? 'Principaux constats' : 'Key Findings',
 		finding1 = '',
 		description1 = '',
 		flip1 = false,
@@ -96,7 +100,9 @@
 			<h2 style="margin-bottom: 20px;">{finding}</h2>
 			{#if image}<img src={image} alt="" class="card-image" />{/if}
 			<h3 style="color: white;">{description}</h3>
-			{#if link}<p style="color: var(--color-blue-50);" class="learn-more">Learn More →</p>{/if}
+			{#if link}<p style="color: var(--color-blue-50);" class="learn-more">
+					{fr ? 'En savoir plus →' : 'Learn More →'}
+				</p>{/if}
 		{/if}
 	</div>
 {/snippet}

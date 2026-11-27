@@ -1,7 +1,14 @@
 <script>
 	import BarChart from '../../../lib/ui/charts/BarChart.svelte';
+	import { formatNumber, getLang } from '../../../lib/i18n';
 
 	let { visible } = $props();
+
+	const fr = getLang() === 'fr';
+
+	// French number formatting (1 499); English output is unchanged
+	const formatCount = (d) => (fr ? formatNumber(d, undefined, 'fr') : d);
+	const formatTooltipValue = fr ? (d) => formatNumber(d, undefined, 'fr') : undefined;
 
 	const totalQuestions = [
 		{ station: 'cooksville', value: 1499 },
@@ -43,7 +50,7 @@
 
 <div class="grid grid-cols-2 grid-rows-3 w-full h-full gap-1 p-0">
 	<BarChart
-		title="Total Questions Answered"
+		title={fr ? 'Nombre total de réponses aux questions' : 'Total Questions Answered'}
 		data={totalQuestions}
 		xKey="value"
 		yKey="station"
@@ -59,11 +66,12 @@
 		titleFontSize="0.95rem"
 		showTooltip={true}
 		minHeight="100px"
-		formatLabelX={(d) => d}
+		formatLabelX={formatCount}
+		{formatTooltipValue}
 		formatLabelY={(d) => d.charAt(0).toUpperCase() + d.slice(1)}
 	/>
 	<BarChart
-		title="Total Respondents"
+		title={fr ? 'Nombre total de personnes répondantes' : 'Total Respondents'}
 		data={totalRespondents}
 		xKey="value"
 		yKey="station"
@@ -79,10 +87,12 @@
 		showTooltip={true}
 		minHeight="100px"
 		highlightValue="kitsilano"
+		formatLabelX={formatCount}
+		{formatTooltipValue}
 		formatLabelY={(d) => d.charAt(0).toUpperCase() + d.slice(1)}
 	/>
 	<BarChart
-		title="Total Unique Links"
+		title={fr ? 'Nombre total de liens uniques' : 'Total Unique Links'}
 		data={totalLinks}
 		xKey="value"
 		yKey="station"
@@ -98,11 +108,12 @@
 		titleFontSize="0.95rem"
 		showTooltip={true}
 		minHeight="100px"
-		formatLabelX={(d) => d}
+		formatLabelX={formatCount}
+		{formatTooltipValue}
 		formatLabelY={(d) => d.charAt(0).toUpperCase() + d.slice(1)}
 	/>
 	<BarChart
-		title="Total Postal Codes"
+		title={fr ? 'Nombre total de codes postaux' : 'Total Postal Codes'}
 		data={totalPostalCodes}
 		xKey="value"
 		yKey="station"
@@ -118,11 +129,12 @@
 		titleFontSize="0.95rem"
 		showTooltip={true}
 		minHeight="100px"
-		formatLabelX={(d) => d}
+		formatLabelX={formatCount}
+		{formatTooltipValue}
 		formatLabelY={(d) => d.charAt(0).toUpperCase() + d.slice(1)}
 	/>
 	<BarChart
-		title="Community Poll Statements"
+		title={fr ? 'Énoncés du sondage communautaire' : 'Community Poll Statements'}
 		data={totalCommunityPollStatements}
 		xKey="value"
 		yKey="station"
@@ -139,11 +151,12 @@
 		titleFontSize="0.95rem"
 		showTooltip={true}
 		minHeight="100px"
-		formatLabelX={(d) => d}
+		formatLabelX={formatCount}
+		{formatTooltipValue}
 		formatLabelY={(d) => d.charAt(0).toUpperCase() + d.slice(1)}
 	/>
 	<BarChart
-		title="Community Poll Votes"
+		title={fr ? 'Votes au sondage communautaire' : 'Community Poll Votes'}
 		data={totalCommunityPollVotes}
 		xKey="value"
 		yKey="station"
@@ -160,7 +173,8 @@
 		titleFontSize="0.95rem"
 		showTooltip={true}
 		minHeight="100px"
-		formatLabelX={(d) => d}
+		formatLabelX={formatCount}
+		{formatTooltipValue}
 		formatLabelY={(d) => d.charAt(0).toUpperCase() + d.slice(1)}
 	/>
 </div>

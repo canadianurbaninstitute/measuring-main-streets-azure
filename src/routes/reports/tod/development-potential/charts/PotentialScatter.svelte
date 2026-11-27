@@ -4,6 +4,45 @@
 	import { autoType, csvParse } from 'd3-dsv';
 	import { onMount } from 'svelte';
 	import ScatterChart from '../../../../lib/ui/charts/ScatterChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const lang = fr ? 'fr' : 'en';
+	// Display-only translations; data values and option values stay in English (lookup keys).
+	const GROUP_FR = {
+		All: 'Toutes',
+		'Greater Golden Horseshoe': 'Région élargie du Golden Horseshoe',
+		'Greater Vancouver/Lower Mainland': 'Grand Vancouver/Lower Mainland',
+		Montreal: 'Montréal',
+		Commuter: 'Train de banlieue',
+		Subway: 'Métro',
+		LRT: 'SLR'
+	};
+	const LEVEL_FR = { Low: 'Faible', High: 'Élevée' };
+	const POTENTIAL_FR = {
+		'Very Low': 'Très faible',
+		Low: 'Faible',
+		Moderate: 'Modéré',
+		High: 'Élevé',
+		'Very High': 'Très élevé'
+	};
+	const trGroup = (g) => (fr ? (GROUP_FR[g] ?? g) : g);
+	const frNumber = (d) => (isNaN(+d) || d === null ? d : formatNumber(+d, undefined, lang));
+	const tooltipRows = fr
+		? [
+				{
+					key: 'LAQuadrant',
+					label: 'Disponibilité des terrains',
+					format: (v) => LEVEL_FR[v] ?? v
+				},
+				{ key: 'GPQuadrant', label: 'Pression de croissance', format: (v) => LEVEL_FR[v] ?? v },
+				{ key: 'potential', label: 'Potentiel global', format: (v) => POTENTIAL_FR[v] ?? v }
+			]
+		: [
+				{ key: 'LAQuadrant', label: 'Land Availability' },
+				{ key: 'GPQuadrant', label: 'Growth Pressure' },
+				{ key: 'potential', label: 'Overall Potential' }
+			];
 
 	let { visible, highlightIds = $bindable([]), region = undefined } = $props();
 	let initialData = $state([]);
@@ -67,7 +106,7 @@
 	const seriesConfig = $derived(
 		regions.map((region, i) => ({
 			key: region,
-			label: region,
+			label: trGroup(region),
 			color: colors[i % colors.length]
 		}))
 	);
@@ -76,12 +115,19 @@
 		xMid: xMedian,
 		yMid: yMedian,
 		colors: ['#db3069', '#f1c500', '#00adf2', '#58e965'],
-		labels: {
-			topLeft: 'Low-High',
-			topRight: 'High-High',
-			bottomLeft: 'Low-Low',
-			bottomRight: 'High-Low'
-		}
+		labels: fr
+			? {
+					topLeft: 'Faible-Élevée',
+					topRight: 'Élevée-Élevée',
+					bottomLeft: 'Faible-Faible',
+					bottomRight: 'Élevée-Faible'
+				}
+			: {
+					topLeft: 'Low-High',
+					topRight: 'High-High',
+					bottomLeft: 'Low-Low',
+					bottomRight: 'High-Low'
+				}
 	});
 </script>
 
@@ -89,7 +135,7 @@
 	<div class="controls">
 		<div class="filter-wrap">
 			<Icon icon="mdi:filter-variant" />
-			<span class="label">Region:</span>
+			<span class="label">{fr ? 'Région :' : 'Region:'}</span>
 			<select
 				bind:value={selectedRegion}
 				onchange={() => {
@@ -97,7 +143,7 @@
 				}}
 			>
 				{#each regions as region}
-					<option value={region}>{region}</option>
+					<option value={region}>{trGroup(region)}</option>
 				{/each}
 			</select>
 		</div>
@@ -114,8 +160,10 @@
 		xKey="x"
 		yKey="y"
 		zKey="group"
-		xLabel="Land Availability"
-		yLabel="Growth Pressure"
+		xLabel={fr ? 'Disponibilité des terrains' : 'Land Availability'}
+		yLabel={fr ? 'Pression de croissance' : 'Growth Pressure'}
+		formatLabelX={fr ? frNumber : undefined}
+		formatLabelY={fr ? frNumber : undefined}
 		showQuadrants={true}
 		showTooltip={true}
 		{quadrantConfig}
@@ -125,11 +173,7 @@
 		titleKey="label"
 		filterRegion={selectedRegion}
 		regionKey="region"
-		tooltipRows={[
-			{ key: 'LAQuadrant', label: 'Land Availability' },
-			{ key: 'GPQuadrant', label: 'Growth Pressure' },
-			{ key: 'potential', label: 'Overall Potential' }
-		]}
+		{tooltipRows}
 		xDomain={xDomainFixed}
 		yDomain={yDomainFixed}
 		formatX={(d) => d}

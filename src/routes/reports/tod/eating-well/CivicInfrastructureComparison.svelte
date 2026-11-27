@@ -1,17 +1,20 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 </script>
 
 <div class="infra-card">
 	<div class="infra-section public">
 		<div class="infra-label">
 			<Icon icon="mdi:gavel" class="icon" />
-			<span>Public Grocers</span>
+			<span>{fr ? 'Épiceries publiques' : 'Public Grocers'}</span>
 		</div>
 		<div class="infra-meta">
-			<span class="tag">Top-down</span>
-			<p>National-scale infrastructure</p>
-			<p>Government-run, publicly owned</p>
+			<span class="tag">{fr ? 'Descendante' : 'Top-down'}</span>
+			<p>{fr ? 'Infrastructure à l’échelle nationale' : 'National-scale infrastructure'}</p>
+			<p>{fr ? 'Gérées par l’État, de propriété publique' : 'Government-run, publicly owned'}</p>
 		</div>
 	</div>
 
@@ -20,8 +23,12 @@
 	</div>
 
 	<div class="infra-center">
-		<h4>Affordable alternatives</h4>
-		<p>to corporate grocers in transit neighbourhoods across Canada’s urban areas</p>
+		<h4>{fr ? 'Des solutions de rechange abordables' : 'Affordable alternatives'}</h4>
+		<p>
+			{fr
+				? 'aux grandes chaînes d’épicerie dans les quartiers desservis par le transport collectif des milieux urbains du Canada'
+				: 'to corporate grocers in transit neighbourhoods across Canada’s urban areas'}
+		</p>
 	</div>
 
 	<div class="flow-arrow up">
@@ -31,12 +38,12 @@
 	<div class="infra-section coop">
 		<div class="infra-label">
 			<Icon icon="mdi:account-group" class="icon" />
-			<span>Food Co-ops</span>
+			<span>{fr ? 'Coopératives alimentaires' : 'Food Co-ops'}</span>
 		</div>
 		<div class="infra-meta">
-			<span class="tag">Bottom-up</span>
-			<p>Neighbourhood serving</p>
-			<p>Community-run, democratically governed</p>
+			<span class="tag">{fr ? 'Ascendante' : 'Bottom-up'}</span>
+			<p>{fr ? 'Au service du quartier' : 'Neighbourhood serving'}</p>
+			<p>{fr ? 'Gérées par la collectivité, gouvernance démocratique' : 'Community-run, democratically governed'}</p>
 		</div>
 	</div>
 </div>

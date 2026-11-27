@@ -3,7 +3,12 @@
 	import { getContext } from 'svelte';
 	import type { Readable } from 'svelte/store';
 
+	import { translateLabel } from '../../data/dataLabels';
+	import { getLang } from '../../i18n';
+	import { colon, fmtComma } from '../charts/chartFormat';
 	import QuadTree from './QuadTree.html.svelte';
+
+	const fr = getLang() === 'fr';
 
 	const { data, width, height, config } = getContext<{
 		data: Readable<any[]>;
@@ -26,8 +31,8 @@
 
 	let {
 		formatTitle = (d: any) => d,
-		formatValue = (d: any) => (isNaN(+d) ? d : commas(d)),
-		formatKey = (d: string) => titleCase(d),
+		formatValue = (d: any) => (isNaN(+d) ? d : fr ? fmtComma(d, fr) : commas(d)),
+		formatKey = (d: string) => translateLabel(titleCase(d), fr),
 		dataset = undefined,
 		showTotal = false
 	}: Props = $props();
@@ -86,14 +91,14 @@
 				<div class="title">{formatTitle(found[$config.x])}</div>
 				{#each foundSorted as row}
 					<div class="row">
-						<span class="key">{formatKey(row.key)}:</span>
+						<span class="key">{formatKey(row.key)}{colon(fr)}</span>
 						{formatValue(row.value, row.key)}
 					</div>
 				{/each}
 
 				{#if showTotal && typeof found._total !== 'undefined'}
 					<div class="row total-row">
-						<span class="key">Net Total:</span>
+						<span class="key">{fr ? 'Total net\u00a0:' : 'Net Total:'}</span>
 						{formatValue(found._total)}
 					</div>
 				{/if}

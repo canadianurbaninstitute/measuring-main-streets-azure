@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/toronto/mississaugadundas/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -215,24 +221,39 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						The surveyed route that would become Dundas Street was completed in 1796 and would help
-						to promote the colonial settlement of lands taken from Indigenous Peoples. Today, Dundas
-						runs east-west through Misssissauga and is used as a major thoroughfare.
-					</p>
-					<p>
-						The Mississauga Dundas study area includes a segment of Dundas Street E which begins at
-						the Mississauga-Toronto border at Etobicoke Creek and extends westward toward Cawthra
-						Rd. This segment is located in Misssauga's most southeastern neighbourhood, Lakeview.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							Le tracé arpenté qui allait devenir Dundas Street a été achevé en 1796 et a
+							contribué à favoriser la colonisation de terres prises aux peuples
+							autochtones. Aujourd’hui, Dundas Street traverse Mississauga d’est en ouest
+							et sert d’artère majeure.
+						</p>
+						<p>
+							La zone d’étude de Mississauga Dundas comprend un tronçon de Dundas Street E
+							qui commence à la limite entre Mississauga et Toronto, à Etobicoke Creek, et
+							s’étend vers l’ouest jusqu’à Cawthra Rd. Ce tronçon se trouve dans Lakeview,
+							le quartier situé le plus au sud-est de Mississauga.
+						</p>
+					{:else}
+						<p>
+							The surveyed route that would become Dundas Street was completed in 1796 and would help
+							to promote the colonial settlement of lands taken from Indigenous Peoples. Today, Dundas
+							runs east-west through Misssissauga and is used as a major thoroughfare.
+						</p>
+						<p>
+							The Mississauga Dundas study area includes a segment of Dundas Street E which begins at
+							the Mississauga-Toronto border at Etobicoke Creek and extends westward toward Cawthra
+							Rd. This segment is located in Misssauga's most southeastern neighbourhood, Lakeview.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -257,21 +278,42 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						This segment of Dundas Street E is six lanes wide with a central median used for left
-						turns. The sidewalks are narrow, typical of suburban development. The streetscape and
-						surrounding buildings are designed to prioritize vehicular access. The western half of
-						the segment is flanked to the south by employment lands which extends north in the
-						eastern half. To the north are predominantly low-density residential neighbourhoods.
-						Compared to the Toronto CMA, Mississauga Dundas lacks green space, but this improves
-						within a ten-minute walk.
-					</p>
-					<p>
-						The Mississauga Dundas study area may soon see significant change. In 2018, City Council
-						endorsed the Dundas Connects Master Plan, which introduce Bus Rapid Transit
-						infrastructure investment toward a mixed-use vision of urban renewal.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							Ce tronçon de Dundas Street E compte six voies et un terre-plein central
+							servant aux virages à gauche. Les trottoirs sont étroits, comme c’est
+							typique des aménagements de banlieue. Le paysage de rue et les bâtiments
+							environnants sont conçus pour donner la priorité à l’accès automobile. La
+							moitié ouest du tronçon est bordée au sud par des zones d’emploi, qui
+							s’étendent vers le nord dans la moitié est. Au nord se trouvent surtout des
+							quartiers résidentiels de faible densité. Par rapport à la RMR de Toronto,
+							Mississauga Dundas manque d’espaces verts, mais la situation s’améliore dans
+							un rayon de 10 minutes de marche.
+						</p>
+						<p>
+							La zone d’étude de Mississauga Dundas pourrait bientôt connaître des
+							changements importants. En 2018, le conseil municipal a approuvé le plan
+							directeur Dundas Connects, qui prévoit des investissements dans une
+							infrastructure de service rapide par bus (SRB) au service d’une vision de
+							renouvellement urbain axée sur la mixité des usages.
+						</p>
+					{:else}
+						<p>
+							This segment of Dundas Street E is six lanes wide with a central median used for left
+							turns. The sidewalks are narrow, typical of suburban development. The streetscape and
+							surrounding buildings are designed to prioritize vehicular access. The western half of
+							the segment is flanked to the south by employment lands which extends north in the
+							eastern half. To the north are predominantly low-density residential neighbourhoods.
+							Compared to the Toronto CMA, Mississauga Dundas lacks green space, but this improves
+							within a ten-minute walk.
+						</p>
+						<p>
+							The Mississauga Dundas study area may soon see significant change. In 2018, City Council
+							endorsed the Dundas Connects Master Plan, which introduce Bus Rapid Transit
+							infrastructure investment toward a mixed-use vision of urban renewal.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -281,14 +323,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'mississaugadundas'} section={'builtform'} />
 					</div>
@@ -312,10 +354,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -325,12 +367,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -339,7 +385,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -348,7 +394,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -357,7 +403,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -366,7 +412,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -395,23 +441,46 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Considering that this segment of Dundas is designed to accommodate vehicular traffic,
-						the area lacks much of the pedestrian infrastructure and placemaking seen in other case
-						studies. Visiting the street often requires people to spend money, either on food or
-						entertainment. Beyond visiting for a particular establishment, the area lacks the public
-						realm that encourages people to linger. The Mississauga Chinese Centre is one notable
-						exception as it is a showcase of Chinese-style architecture.
-					</p>
-					<p>
-						Civic infrastructure provision may improve as the segment transforms into a mixed-use
-						transit corridor.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, this segment of Dundas Street E ranks
-						poorly in terms of civic opportunity, at 17th out of 20 Toronto Main Streets, and 27th
-						out of 36 for Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Comme ce tronçon de Dundas est conçu pour accueillir la circulation
+							automobile, le secteur est dépourvu d’une grande partie des infrastructures
+							piétonnes et des aménagements conviviaux (placemaking) observés dans
+							d’autres études de cas. Fréquenter la rue exige souvent de dépenser de
+							l’argent, que ce soit pour se restaurer ou se divertir. Au-delà de la visite
+							d’un établissement précis, le secteur manque d’un domaine public qui incite
+							les gens à s’attarder. Le Mississauga Chinese Centre constitue une exception
+							notable, puisqu’il met en valeur l’architecture de style chinois.
+						</p>
+						<p>
+							L’offre d’infrastructure civique pourrait s’améliorer à mesure que le
+							tronçon se transforme en corridor de transport collectif à usage mixte.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, ce tronçon de Dundas Street E
+							obtient un faible classement en matière de possibilités civiques, se
+							classant 17e sur 20 rues principales de Toronto et 27e sur 36 rues
+							principales de quartier.
+						</p>
+					{:else}
+						<p>
+							Considering that this segment of Dundas is designed to accommodate vehicular traffic,
+							the area lacks much of the pedestrian infrastructure and placemaking seen in other case
+							studies. Visiting the street often requires people to spend money, either on food or
+							entertainment. Beyond visiting for a particular establishment, the area lacks the public
+							realm that encourages people to linger. The Mississauga Chinese Centre is one notable
+							exception as it is a showcase of Chinese-style architecture.
+						</p>
+						<p>
+							Civic infrastructure provision may improve as the segment transforms into a mixed-use
+							transit corridor.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, this segment of Dundas Street E ranks
+							poorly in terms of civic opportunity, at 17th out of 20 Toronto Main Streets, and 27th
+							out of 36 for Neighbourhood Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -431,17 +500,17 @@
 							'civicinfra-toronto-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -451,12 +520,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -465,7 +538,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -474,7 +547,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -501,21 +574,42 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The Mississauga Dundas corridor is home to a series of establishments providing
-						automobile services. There's also a mix of independent and chain restaurants, along with
-						big box retail. The area hosts the Mississauga Chinese Centre, acting as the suburban
-						city's unofficial Chinatown.
-					</p>
-					<p>
-						According to the Independent Business Index, Mississauga Dundas ranks 12th out of 20
-						Toronto Main Streets and 21st out of 36 Neighbourhood Main Streets.
-					</p>
-					<p>
-						For business density, Mississauga Dundas ranks at 16th out of 20 Toronto Main Streets
-						and 24th out of 36 Neighbourhood Main Streets. These rankings may be due to the
-						low-density, suburban built form pattern of the corridor.
-					</p>
+					{#if fr}
+						<p>
+							Le corridor Mississauga Dundas abrite une série d’établissements offrant des
+							services automobiles. On y trouve aussi un mélange de restaurants
+							indépendants et de chaînes, ainsi que des grandes surfaces. Le secteur
+							accueille le Mississauga Chinese Centre, qui fait office de quartier chinois
+							non officiel de cette ville de banlieue.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, Mississauga Dundas se classe
+							12e sur 20 rues principales de Toronto et 21e sur 36 rues principales de
+							quartier.
+						</p>
+						<p>
+							En matière de densité commerciale, Mississauga Dundas se classe 16e sur 20
+							rues principales de Toronto et 24e sur 36 rues principales de quartier. Ces
+							classements s’expliquent peut-être par le cadre bâti de banlieue à faible
+							densité du corridor.
+						</p>
+					{:else}
+						<p>
+							The Mississauga Dundas corridor is home to a series of establishments providing
+							automobile services. There's also a mix of independent and chain restaurants, along with
+							big box retail. The area hosts the Mississauga Chinese Centre, acting as the suburban
+							city's unofficial Chinatown.
+						</p>
+						<p>
+							According to the Independent Business Index, Mississauga Dundas ranks 12th out of 20
+							Toronto Main Streets and 21st out of 36 Neighbourhood Main Streets.
+						</p>
+						<p>
+							For business density, Mississauga Dundas ranks at 16th out of 20 Toronto Main Streets
+							and 24th out of 36 Neighbourhood Main Streets. These rankings may be due to the
+							low-density, suburban built form pattern of the corridor.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -533,17 +627,17 @@
 							'business-toronto-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -553,23 +647,41 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						For employment density, Mississauga Dundas ranks 7th out of 20 Toronto Main Streets and
-						12th out of 36 Neighbourhood Main Streets.
-					</p>
-					<p>
-						While ranking lower in terms of business density compared to other Main Streets, the
-						presence of less but larger employers makes Mississauga Dundas a significant employment
-						hub.
-					</p>
-					<p>
-						There's a significant mix of Main Street Businesses with some Civic Infrastructure
-						employment. Expanding out of the segment, the surrounding area sees large concentrations
-						of non-Main Street Businesses, such as industrial establishments.
-					</p>
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							En matière de densité d’emploi, Mississauga Dundas se classe 7e sur 20 rues
+							principales de Toronto et 12e sur 36 rues principales de quartier.
+						</p>
+						<p>
+							Bien que Mississauga Dundas se classe plus bas que d’autres rues principales
+							en matière de densité commerciale, la présence d’employeurs moins nombreux,
+							mais plus grands, en fait un pôle d’emploi important.
+						</p>
+						<p>
+							On y trouve une importante combinaison d’entreprises de rue principale et
+							quelques emplois liés à l’infrastructure civique. Au-delà du tronçon, les
+							environs comptent de grandes concentrations d’entreprises autres que des
+							entreprises de rue principale, comme des établissements industriels.
+						</p>
+					{:else}
+						<p>
+							For employment density, Mississauga Dundas ranks 7th out of 20 Toronto Main Streets and
+							12th out of 36 Neighbourhood Main Streets.
+						</p>
+						<p>
+							While ranking lower in terms of business density compared to other Main Streets, the
+							presence of less but larger employers makes Mississauga Dundas a significant employment
+							hub.
+						</p>
+						<p>
+							There's a significant mix of Main Street Businesses with some Civic Infrastructure
+							employment. Expanding out of the segment, the surrounding area sees large concentrations
+							of non-Main Street Businesses, such as industrial establishments.
+						</p>
+					{/if}
 
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -581,25 +693,25 @@
 						bearing={-48}
 						layers={['mississaugadundas', 'mississaugadundas-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -611,33 +723,47 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'mississaugadundas'}
 							section={'housing'}
 							region={'toronto'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						More than half of the housing in the Mississauga Dundas study area was built in the
-						1961-80 period. Despite the predominant low-density character of the neighbourhood's
-						residential areas, the presence of high-rise garden towers and low-rise apartments does
-						diversify the local housing mix. However, these high rise towers and low-rise apartments
-						are primarily located on the northwest side of the street. As a result, the northwestern
-						area of the study area maintains a significantly higher average population density than
-						the areas to the southeast.
-					</p>
+					{#if fr}
+						<p>
+							Plus de la moitié des logements de la zone d’étude de Mississauga Dundas ont
+							été construits durant la période 1961-1980. Malgré le caractère
+							principalement de faible densité des secteurs résidentiels du quartier, la
+							présence de tours d’habitation implantées dans des espaces verts et
+							d’immeubles d’appartements de faible hauteur diversifie l’offre locale de
+							logements. Toutefois, ces tours et ces immeubles d’appartements de faible
+							hauteur se trouvent principalement du côté nord-ouest de la rue. Par
+							conséquent, le secteur nord-ouest de la zone d’étude affiche une densité de
+							population moyenne nettement plus élevée que les secteurs situés au sud-est.
+						</p>
+					{:else}
+						<p>
+							More than half of the housing in the Mississauga Dundas study area was built in the
+							1961-80 period. Despite the predominant low-density character of the neighbourhood's
+							residential areas, the presence of high-rise garden towers and low-rise apartments does
+							diversify the local housing mix. However, these high rise towers and low-rise apartments
+							are primarily located on the northwest side of the street. As a result, the northwestern
+							area of the study area maintains a significantly higher average population density than
+							the areas to the southeast.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -649,18 +775,18 @@
 						bearing={-48}
 						layers={['mississaugadundas-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -668,12 +794,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -685,33 +811,46 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'mississaugadundas'}
 							section={'demographics'}
 							region={'toronto'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						The Mississauga Dundas study area maintains distinct socio-demographic characteristics.
-						For example, of the residents around the Mississauga Dundas study area, more than half
-						of current residents are recent immigrants. In addition, 40% of the residents in this
-						study area are visible minorities. In terms of average income, there's a notable
-						contrast between the northwest and southeast areas. The average income in the northwest
-						neighborhoods is considerably lower than that in the southeast.
-					</p>
+					{#if fr}
+						<p>
+							La zone d’étude de Mississauga Dundas présente des caractéristiques
+							sociodémographiques distinctes. Par exemple, plus de la moitié des personnes
+							qui résident actuellement autour de la zone d’étude de Mississauga Dundas
+							sont des personnes immigrantes récentes. De plus, 40 % des personnes
+							résidentes de cette zone d’étude font partie d’une minorité visible. En ce
+							qui concerne le revenu moyen, on observe un contraste marqué entre les
+							secteurs nord-ouest et sud-est. Le revenu moyen dans les quartiers du
+							nord-ouest est considérablement inférieur à celui des quartiers du sud-est.
+						</p>
+					{:else}
+						<p>
+							The Mississauga Dundas study area maintains distinct socio-demographic characteristics.
+							For example, of the residents around the Mississauga Dundas study area, more than half
+							of current residents are recent immigrants. In addition, 40% of the residents in this
+							study area are visible minorities. In terms of average income, there's a notable
+							contrast between the northwest and southeast areas. The average income in the northwest
+							neighborhoods is considerably lower than that in the southeast.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -730,9 +869,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -754,15 +893,30 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Mississauga Dundas' Resiliency Score ranks middle for Toronto Main Streets at 9th out of
-						20 and just outside of the top third for Neighbourhood Main Streets at 13th out of 36.
-					</p>
-					<p>
-						This segment of Dundas has generally relied upon infrequent visits by non-residents. The
-						12pm to 3pm period is the busiest time of the day, and Saturday sees the largest portion
-						of visits on a weekly basis.
-					</p>
+					{#if fr}
+						<p>
+							Le score de résilience de Mississauga Dundas se situe au milieu du
+							classement des rues principales de Toronto, au 9e rang sur 20, et juste à
+							l’extérieur du premier tiers des rues principales de quartier, au 13e rang
+							sur 36.
+						</p>
+						<p>
+							Ce tronçon de Dundas a généralement compté sur les visites occasionnelles de
+							personnes non résidentes. La période de midi à 15 h est la plus achalandée
+							de la journée, et le samedi concentre la plus grande part des visites de la
+							semaine.
+						</p>
+					{:else}
+						<p>
+							Mississauga Dundas' Resiliency Score ranks middle for Toronto Main Streets at 9th out of
+							20 and just outside of the top third for Neighbourhood Main Streets at 13th out of 36.
+						</p>
+						<p>
+							This segment of Dundas has generally relied upon infrequent visits by non-residents. The
+							12pm to 3pm period is the busiest time of the day, and Saturday sees the largest portion
+							of visits on a weekly basis.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -773,13 +927,13 @@
 						bearing={-15}
 						layers={['mississaugadundas-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'98,500'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '98 500' : '98,500'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -796,7 +950,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -804,12 +958,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -817,20 +971,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

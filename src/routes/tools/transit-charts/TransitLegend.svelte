@@ -1,24 +1,34 @@
 <script lang="ts">
+	import { getLang } from '../../lib/i18n';
+
 	let { lineColor = $bindable() } = $props();
 
-	const statuses = [
-		{
-			name: 'Operational',
-			description: 'Station is fully operational'
-		},
-		{
-			name: 'Planned',
-			description: 'Station is planned for future development'
-		},
-		{
-			name: 'Construction',
-			description: 'Station is currently under construction'
-		}
-	];
+	const fr = getLang() === 'fr';
+
+	const statuses = fr
+		? [
+				{ name: 'En service', description: 'La station est pleinement en service' },
+				{ name: 'Planifiée', description: 'La station est prévue dans un aménagement futur' },
+				{ name: 'En construction', description: 'La station est en cours de construction' }
+			]
+		: [
+				{
+					name: 'Operational',
+					description: 'Station is fully operational'
+				},
+				{
+					name: 'Planned',
+					description: 'Station is planned for future development'
+				},
+				{
+					name: 'Construction',
+					description: 'Station is currently under construction'
+				}
+			];
 </script>
 
 <div class="border border-gray-200 rounded-lg p-4" style="--lineColor: {lineColor}">
-	<h3 class="uppercase pb-2">Station Status Legend</h3>
+	<h3 class="uppercase pb-2">{fr ? 'Légende de l’état des stations' : 'Station Status Legend'}</h3>
 	<div class="space-y-4">
 		<!-- Operational -->
 		<div class="flex items-center gap-3">

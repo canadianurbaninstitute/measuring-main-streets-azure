@@ -5,8 +5,11 @@
 		TIER_1_AMENITIES,
 		TIER_2_AMENITIES
 	} from '../../../../lib/data/transitdata/complete-communities-config';
+	import { getLang } from '../../../../lib/i18n';
+	import { AMENITY_LABELS_FR, trFr } from './labels.fr';
 
 	let { visible } = $props();
+	const fr = getLang() === 'fr';
 </script>
 
 <div class="amenity-tiers {visible ? 'visible' : ''}">
@@ -16,7 +19,7 @@
 				<Icon icon="mdi:store" />
 			</div>
 			<div>
-				<h4>Core Amenities</h4>
+				<h4>{fr ? 'Commodités essentielles' : 'Core Amenities'}</h4>
 				<!-- <p>Essential services for daily needs within an 800m walk.</p> -->
 			</div>
 		</div>
@@ -26,7 +29,7 @@
 					{#if AMENITY_ICONS[amenity.label]}
 						<Icon icon={AMENITY_ICONS[amenity.label]} />
 					{/if}
-					<span>{amenity.label}</span>
+					<span>{trFr(AMENITY_LABELS_FR, amenity.label, fr)}</span>
 				</div>
 			{/each}
 		</div>
@@ -38,7 +41,7 @@
 				<Icon icon="mdi:storefront" />
 			</div>
 			<div>
-				<h4>Additional Amenities</h4>
+				<h4>{fr ? 'Commodités complémentaires' : 'Additional Amenities'}</h4>
 				<!-- <p>Supportive services that enhance community livability.</p> -->
 			</div>
 		</div>
@@ -48,7 +51,7 @@
 					{#if AMENITY_ICONS[amenity.label]}
 						<Icon icon={AMENITY_ICONS[amenity.label]} />
 					{/if}
-					<span>{amenity.label}</span>
+					<span>{trFr(AMENITY_LABELS_FR, amenity.label, fr)}</span>
 				</div>
 			{/each}
 		</div>

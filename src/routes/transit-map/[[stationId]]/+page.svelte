@@ -24,6 +24,7 @@
 		StationCCMetric
 	} from '../../lib/data/transitdata/config';
 	import { age, bed, dwelling, housing, owner } from '../../lib/data/transitdata/config.json';
+	import { trTransit } from '../../lib/data/transitdata/labels.fr';
 	import type { ProcessedStation, Station } from '../../lib/data/transitdata/stations';
 	import type {
 		Region,
@@ -31,6 +32,7 @@
 		TransitLineWithContext
 	} from '../../lib/data/transitdata/transit-regions';
 	import getD3InterpolateExpression from '../../lib/helpers/getD3InterpolateExpression';
+	import { getLang, localizeHref } from '../../lib/i18n';
 	import CustomButton from '../../lib/ui/CustomButton.svelte';
 	import '../../styles.css';
 	import AiDescription from '../components/AiDescription.svelte';
@@ -45,6 +47,10 @@
 	import Search from '../components/Search.svelte';
 	import SelectRegion from '../components/SelectRegion.svelte';
 	import StationStatus from '../components/StationStatus.svelte';
+
+	// --- Language ---
+	const fr = getLang() === 'fr';
+	const localHref = (href: string) => localizeHref(href, fr ? 'fr' : 'en');
 
 	// --- Reactive/Exported Variables ---
 	let aiDescriptions = $state([]);
@@ -132,6 +138,14 @@
 		driverObj = driver({
 			showProgress: true,
 			smoothScroll: true,
+			...(fr
+				? {
+						nextBtnText: 'Suivant &rarr;',
+						prevBtnText: '&larr; Précédent',
+						doneBtnText: 'Terminer',
+						progressText: '{{current}} sur {{total}}'
+					}
+				: {}),
 			onHighlightStarted: (element) => {
 				scrollElementIntoView(element as HTMLElement);
 			},
@@ -139,8 +153,10 @@
 				{
 					element: '.transit-map-title',
 					popover: {
-						title: 'Transit map tutorial',
-						description: 'Welcome to the transit map tutorial.',
+						title: fr ? 'Tutoriel de la carte du transport collectif' : 'Transit map tutorial',
+						description: fr
+							? 'Bienvenue dans le tutoriel de la carte du transport collectif.'
+							: 'Welcome to the transit map tutorial.',
 						side: 'left',
 						align: 'start'
 					},
@@ -153,8 +169,10 @@
 				{
 					element: '#collapse',
 					popover: {
-						title: 'Collapse description',
-						description: 'Click here to expand or collapse the page description.',
+						title: fr ? 'Réduire la description' : 'Collapse description',
+						description: fr
+							? 'Cliquez ici pour afficher ou masquer la description de la page.'
+							: 'Click here to expand or collapse the page description.',
 						side: 'left',
 						align: 'start'
 					},
@@ -165,9 +183,10 @@
 				{
 					element: '#map-container',
 					popover: {
-						title: 'Transit map',
-						description:
-							'This is an interactive map of all major transit stations. Navigate the map by scrolling or zooming and click on a region to drill down into a transit station area.',
+						title: fr ? 'Carte du transport collectif' : 'Transit map',
+						description: fr
+							? 'Cette carte interactive présente toutes les grandes stations de transport collectif. Parcourez la carte en faisant défiler ou en zoomant, puis cliquez sur une région pour explorer une aire de station de transport collectif.'
+							: 'This is an interactive map of all major transit stations. Navigate the map by scrolling or zooming and click on a region to drill down into a transit station area.',
 						side: 'right',
 						align: 'start'
 					}
@@ -175,9 +194,10 @@
 				{
 					element: '.navigation-scroll-container',
 					popover: {
-						title: 'Select region',
-						description:
-							'You can click on a region to drill down by transit line and transit station.',
+						title: fr ? 'Choisir une région' : 'Select region',
+						description: fr
+							? 'Cliquez sur une région pour explorer ses lignes et ses stations de transport collectif.'
+							: 'You can click on a region to drill down by transit line and transit station.',
 						side: 'left',
 						align: 'start'
 					}
@@ -185,8 +205,10 @@
 				{
 					element: '#search',
 					popover: {
-						title: 'Search',
-						description: 'Alternatively, you can search for the station you want.',
+						title: fr ? 'Recherche' : 'Search',
+						description: fr
+							? 'Vous pouvez aussi rechercher directement la station qui vous intéresse.'
+							: 'Alternatively, you can search for the station you want.',
 						side: 'left',
 						align: 'start'
 					}
@@ -194,9 +216,10 @@
 				{
 					element: '#sidebar',
 					popover: {
-						title: 'Sidebar',
-						description:
-							'After you click on a station, you can see information associated with it in this panel.',
+						title: fr ? 'Panneau latéral' : 'Sidebar',
+						description: fr
+							? 'Après avoir cliqué sur une station, vous verrez l’information qui s’y rattache dans ce panneau.'
+							: 'After you click on a station, you can see information associated with it in this panel.',
 						side: 'left',
 						align: 'start'
 					},
@@ -212,9 +235,10 @@
 				{
 					element: '#ai',
 					popover: {
-						title: 'AI Summary',
-						description:
-							'This experimental feature provides an AI-generated summary of the data for this station. Explore the data to verify the accuracy of the summary.',
+						title: fr ? 'Résumé généré par IA' : 'AI Summary',
+						description: fr
+							? 'Cette fonction expérimentale fournit un résumé des données de la station généré par intelligence artificielle (disponible en anglais seulement). Explorez les données pour vérifier l’exactitude du résumé.'
+							: 'This experimental feature provides an AI-generated summary of the data for this station. Explore the data to verify the accuracy of the summary.',
 						side: 'left',
 						align: 'start'
 					}
@@ -222,9 +246,10 @@
 				{
 					element: '#TotalPopulation',
 					popover: {
-						title: 'Data overlays',
-						description:
-							'Most metrics are clickable. Select one to toggle the data as a choropleth layer on the map for a more detailed geographic breakdown.',
+						title: fr ? 'Couches de données' : 'Data overlays',
+						description: fr
+							? 'La plupart des indicateurs sont cliquables. Sélectionnez-en un pour afficher ou masquer les données sous forme de carte choroplèthe et obtenir une répartition géographique plus détaillée.'
+							: 'Most metrics are clickable. Select one to toggle the data as a choropleth layer on the map for a more detailed geographic breakdown.',
 						side: 'left',
 						align: 'start'
 					},
@@ -243,8 +268,10 @@
 				{
 					element: '#tabs',
 					popover: {
-						title: 'Map views',
-						description: 'Use these tabs to explore different facets of the station data.',
+						title: fr ? 'Vues de la carte' : 'Map views',
+						description: fr
+							? 'Utilisez ces onglets pour explorer les différentes facettes des données de la station.'
+							: 'Use these tabs to explore different facets of the station data.',
 						side: 'left',
 						align: 'start'
 					},
@@ -259,9 +286,10 @@
 				{
 					element: '#transit-tutorial',
 					popover: {
-						title: 'Tutorial',
-						description:
-							"Congratulations, you've completed the tutorial! You can revisit it at any time by clicking this button.",
+						title: fr ? 'Tutoriel' : 'Tutorial',
+						description: fr
+							? 'Félicitations, vous avez terminé le tutoriel! Vous pouvez le revoir en tout temps en cliquant sur ce bouton.'
+							: "Congratulations, you've completed the tutorial! You can revisit it at any time by clicking this button.",
 						side: 'left',
 						align: 'start'
 					},
@@ -392,14 +420,14 @@
 			);
 
 			return config.map((item) => ({
-				label: item.label,
+				label: trTransit(item.label, fr),
 				value: (((selectedStation[item.key] as number) ?? 0) / sum) * 100,
 				y: ' '
 			}));
 		}
 		// Map each item to its value
 		return config.map((item) => ({
-			label: item.label,
+			label: trTransit(item.label, fr),
 			value: selectedStation[item.key] ?? 0,
 			y: ' '
 		}));
@@ -439,21 +467,21 @@
 
 		employmentData = [
 			{
-				label: 'Core Amenities',
+				label: fr ? 'Commodités essentielles' : 'Core Amenities',
 				value: totalEmploymentData
 					? ((stationCCcounts['Tier 1 Employment'] ?? 0) / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
-				label: 'Additional Amenities',
+				label: fr ? 'Commodités complémentaires' : 'Additional Amenities',
 				value: totalEmploymentData
 					? ((stationCCcounts['Tier 2 Employment'] ?? 0) / totalEmploymentData) * 100
 					: 0,
 				y: '⠀'
 			},
 			{
-				label: 'Other',
+				label: fr ? 'Autres' : 'Other',
 				value: totalEmploymentData
 					? ((totalEmploymentData -
 							(stationCCcounts['Tier 1 Employment'] ?? 0) -
@@ -640,7 +668,7 @@
 		selectedStation = { id: null };
 
 		if (!skipGoto) {
-			goto(`/transit-map/?tab=${activeTab}`, {
+			goto(localHref(`/transit-map/?tab=${activeTab}`), {
 				replaceState: false,
 				keepFocus: true,
 				noScroll: true
@@ -708,7 +736,7 @@
 	}
 
 	function selectStop(station: Station) {
-		goto(`/transit-map/${station.id}/?tab=${activeTab}`, {
+		goto(localHref(`/transit-map/${station.id}/?tab=${activeTab}`), {
 			replaceState: false,
 			keepFocus: true,
 			noScroll: true
@@ -968,7 +996,7 @@
 				<div class="flex px-4 mt-2">
 					<CustomButton
 						onclick={handleSidebarBack}
-						label="Back"
+						label={fr ? 'Retour' : 'Back'}
 						variant="secondary"
 						fullWidth
 						icon={false}
@@ -1046,7 +1074,7 @@
 							{/if}
 						</Tabs.Content>
 					{:else if stationSelected}
-						<p>Loading station details...</p>
+						<p>{fr ? 'Chargement des données de la station…' : 'Loading station details...'}</p>
 					{/if}
 				</div>
 			{:else}
@@ -1074,31 +1102,35 @@
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-orange-600/10 data-[state=inactive]:text-orange-600 data-[state=inactive]:border-1 data-[state=inactive]:border-orange-600/30 
 							data-[state=inactive]:hover:bg-orange-600/50
 							data-[state=active]:bg-orange-600 data-[state=active]:border-none data-[state=active]:text-white"
-							value="demographics">Demographics</Tabs.Trigger
+							value="demographics">{fr ? 'Démographie' : 'Demographics'}</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-yellow-200/10 data-[state=inactive]:text-yellow-700 data-[state=inactive]:border-1 data-[state=inactive]:border-yellow-200/30 
 							data-[state=inactive]:hover:bg-yellow-200/50
 							data-[state=active]:bg-yellow-200 data-[state=active]:border-none"
-							value="housing">Housing</Tabs.Trigger
+							value="housing">{fr ? 'Logement' : 'Housing'}</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-pink-500/10 data-[state=inactive]:text-pink-500 data-[state=inactive]:border-1 data-[state=inactive]:border-pink-500/30 
 							data-[state=inactive]:hover:bg-pink-500/50
 							data-[state=active]:bg-pink-500 data-[state=active]:border-none data-[state=active]:text-white"
-							value="employment">Employment</Tabs.Trigger
+							value="employment">{fr ? 'Emploi' : 'Employment'}</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-blue-600/10 data-[state=inactive]:text-blue-600 data-[state=inactive]:border-1 data-[state=inactive]:border-blue-600/30 
 							data-[state=inactive]:hover:bg-blue-600/50
 							data-[state=active]:bg-blue-600 data-[state=active]:border-none data-[state=active]:text-white"
-							value="built-form">Built Form & Housing Development Potential</Tabs.Trigger
+							value="built-form"
+							>{fr
+								? 'Cadre bâti et potentiel de développement résidentiel'
+								: 'Built Form & Housing Development Potential'}</Tabs.Trigger
 						>
 						<Tabs.Trigger
 							class="rounded-[2rem] grow-1 font-semibold hover:border-6 lg:rounded-none lg:rounded-t-md data-[state=inactive]:bg-green-400/10 data-[state=inactive]:text-green-600 data-[state=inactive]:border-1 data-[state=inactive]:border-green-400/30 
 							data-[state=inactive]:hover:bg-green-400/50
 							data-[state=active]:bg-green-400 data-[state=active]:border-none"
-							value="complete-communities">Complete Communities</Tabs.Trigger
+							value="complete-communities"
+							>{fr ? 'Collectivités complètes' : 'Complete Communities'}</Tabs.Trigger
 						>
 						<!-- <Tabs.Trigger
 							class="rounded-md xl:rounded-none xl:rounded-t-md data-[state=inactive]:bg-zinc-50 data-[state=active]:bg-blue-300 text-xs"

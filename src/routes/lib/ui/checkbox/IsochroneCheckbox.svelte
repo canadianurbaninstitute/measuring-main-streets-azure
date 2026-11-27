@@ -1,7 +1,10 @@
 <script>
 	import Icon from '@iconify/svelte';
 	import { onDestroy, onMount } from 'svelte';
+	import { getLang } from '../../i18n';
 	import { mapStoreList } from '../../stores/mapStore';
+
+	const fr = getLang() === 'fr';
 	// Import the mapStore
 
 	export let layer;
@@ -45,7 +48,7 @@
 	<Icon icon="mdi:walk" />
 	<label>
 		<input type="checkbox" bind:checked={isChecked} on:change={toggleLayerOpacity} />
-		10 Minute Walk Radius
+		{fr ? 'Rayon de 10 minutes de marche' : '10 Minute Walk Radius'}
 	</label>
 </button>
 

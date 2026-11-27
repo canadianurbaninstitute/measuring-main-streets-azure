@@ -1,5 +1,9 @@
 <script lang="ts">
 	import StackedBar from '../../../../lib/ui/charts/StackedBar.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const lang = fr ? 'fr' : 'en';
 
 	interface Props {
 		visible?: boolean;
@@ -70,7 +74,7 @@
 		{ key: '15 to 29 minutes', label: '15–29 min', color: '#74c800' },
 		{ key: '30 to 44 minutes', label: '30–44 min', color: '#f59e0b' },
 		{ key: '45 to 59 minutes', label: '45–59 min', color: '#DB3069' },
-		{ key: '60 minutes and over', label: '60+ min', color: '#8b1b1d' }
+		{ key: '60 minutes and over', label: fr ? '60 min et plus' : '60+ min', color: '#8b1b1d' }
 	];
 </script>
 
@@ -78,9 +82,17 @@
 	data={commuteData}
 	yKey="city"
 	{seriesConfig}
-	title="Commute times in the largest urban regions"
+	title={fr
+		? 'Durée du trajet domicile-travail dans les plus grandes régions urbaines'
+		: 'Commute times in the largest urban regions'}
 	minHeight="300px"
-	formatLabelX={(d) => d + '%'}
+	formatLabelX={fr ? (d) => formatNumber(d, undefined, lang) + ' %' : (d) => d + '%'}
+	formatTooltipValue={fr
+		? (d: any) =>
+				isNaN(+d) || d === null
+					? d
+					: formatNumber(+d, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, lang) + ' %'
+		: undefined}
 	{visible}
 	showTooltip={true}
 	padding={{ left: 85, bottom: 20 }}

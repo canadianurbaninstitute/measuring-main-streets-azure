@@ -4,6 +4,10 @@
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	export let title;
@@ -15,7 +19,7 @@
 	export let bearing = -17.1;
 	export let pitch = 0;
 	export let style = 'mapbox://styles/canadianurbaninstitute/clua1mgwc01hc01nw5ri74vit';
-	export let attribution = 'Canadian Urban Institute';
+	export let attribution = fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute';
 
 	let map;
 
@@ -100,7 +104,7 @@
 
 		<div class="radio">
 			<input type="radio" id="montreal" name="place" value="Montreal" on:change={navigateMap} />
-			<label for="montreal">Montreal</label>
+			<label for="montreal">{fr ? 'Montréal' : 'Montreal'}</label>
 		</div>
 
 		<div class="radio">
@@ -161,7 +165,7 @@
 						font-weight="normal"
 						fill="#000000"
 					>
-						<tspan x="75.9275862" y="126.837931">Top 25%</tspan>
+						<tspan x="75.9275862" y="126.837931">{fr ? '25 % sup.' : 'Top 25%'}</tspan>
 					</text>
 					<text
 						id="Bottom-50%"
@@ -170,8 +174,13 @@
 						font-weight="normal"
 						fill="#000000"
 					>
-						<tspan x="23.7896356" y="25.0793103">Bottom</tspan>
-						<tspan x="30.3141066" y="36.0793103">50%</tspan>
+						{#if fr}
+							<tspan x="27" y="25.0793103">50 %</tspan>
+							<tspan x="31" y="36.0793103">inf.</tspan>
+						{:else}
+							<tspan x="23.7896356" y="25.0793103">Bottom</tspan>
+							<tspan x="30.3141066" y="36.0793103">50%</tspan>
+						{/if}
 					</text>
 					<text
 						id="Bottom-25%"
@@ -180,8 +189,13 @@
 						font-weight="normal"
 						fill="#000000"
 					>
-						<tspan x="23.7896356" y="81.437931">Bottom</tspan>
-						<tspan x="30.4075039" y="92.437931">25%</tspan>
+						{#if fr}
+							<tspan x="27" y="81.437931">25 %</tspan>
+							<tspan x="31" y="92.437931">inf.</tspan>
+						{:else}
+							<tspan x="23.7896356" y="81.437931">Bottom</tspan>
+							<tspan x="30.4075039" y="92.437931">25%</tspan>
+						{/if}
 					</text>
 					<text
 						id="Top-50%"
@@ -190,7 +204,7 @@
 						font-weight="normal"
 						fill="#000000"
 					>
-						<tspan x="130.72069" y="126.837931">Top 50%</tspan>
+						<tspan x="130.72069" y="126.837931">{fr ? '50 % sup.' : 'Top 50%'}</tspan>
 					</text>
 					<text
 						id="Percent-New-Housing"
@@ -199,7 +213,11 @@
 						font-weight="normal"
 						fill="#000000"
 					>
-						<tspan x="76.3723354" y="150.32069">Percent New Housing</tspan>
+						{#if fr}
+							<tspan x="124.06" y="150.32069" text-anchor="middle">% de logements récents</tspan>
+						{:else}
+							<tspan x="76.3723354" y="150.32069">Percent New Housing</tspan>
+						{/if}
 					</text>
 					<text
 						id="Civic-Infrastructure"
@@ -209,7 +227,11 @@
 						font-weight="normal"
 						fill="#000000"
 					>
-						<tspan x="-50.3115792" y="59.5">Civic Infrastructure Index</tspan>
+						{#if fr}
+							<tspan x="6.5" y="59.5" text-anchor="middle">Indice d’infra. civique</tspan>
+						{:else}
+							<tspan x="-50.3115792" y="59.5">Civic Infrastructure Index</tspan>
+						{/if}
 					</text>
 				</g>
 			</g>

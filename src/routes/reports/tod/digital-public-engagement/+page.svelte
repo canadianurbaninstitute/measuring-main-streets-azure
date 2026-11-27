@@ -12,7 +12,12 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article.js';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article.js';
+	import { sections as sectionsFr } from './article.fr.js';
+
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
 
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import cooksville from '../../assets/dps-cooksville.png';
@@ -130,7 +135,11 @@
 	const items = $derived.by(() => {
 		const nav = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Takeaways' }
+			{
+				type: 'anchor',
+				id: 'report-findings',
+				label: fr ? 'Points à retenir' : 'Key Takeaways'
+			}
 		];
 
 		sections.forEach((section, si) => {
@@ -159,34 +168,46 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img src={train} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 		{/snippet}
 	</ProgressBar>
 
 	<ReportHeader
 		id="report-header"
-		subEyebrow="A Love Your Neighbourhood Report"
-		title="DIGITAL PUBLIC ENGAGEMENT"
-		subtitle="Exploring the potential of digital initiatives for public engagement."
+		subEyebrow={fr ? 'Un rapport Love Your Neighbourhood' : 'A Love Your Neighbourhood Report'}
+		title={fr ? 'CONSULTATION PUBLIQUE NUMÉRIQUE' : 'DIGITAL PUBLIC ENGAGEMENT'}
+		subtitle={fr
+			? 'Explorer le potentiel des initiatives numériques pour la consultation publique.'
+			: 'Exploring the potential of digital initiatives for public engagement.'}
 		backgroundImage={header}
 		customLogos={[
-			{ src: dps, alt: 'DPS Logo', width: '120' },
-			{ src: cui, alt: 'CUI Logo', width: '200' }
+			{ src: dps, alt: fr ? 'Logo de DPS' : 'DPS Logo', width: '120' },
+			{ src: cui, alt: fr ? 'Logo de l’IUC' : 'CUI Logo', width: '200' }
 		]}
 	/>
 
 	<ReportFindings
 		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="Digital Engagement is a new frontier"
-		description1="of understanding and educating residents about community development."
+		title={fr ? 'POINTS À RETENIR' : 'KEY TAKEAWAYS'}
+		finding1={fr
+			? 'La consultation numérique est une nouvelle frontière'
+			: 'Digital Engagement is a new frontier'}
+		description1={fr
+			? 'pour comprendre les personnes résidentes et les informer sur le développement de leur collectivité.'
+			: 'of understanding and educating residents about community development.'}
 		link1="https://digitalpublicsquare.org/"
 		newTab1={true}
-		finding2="Persona Research and Natural Language Processing"
-		description2="were used to design a tool residents could engage with to learn about transit-oriented development and complete communities"
+		finding2={fr
+			? 'La recherche sur les personas et le traitement automatique du langage naturel'
+			: 'Persona Research and Natural Language Processing'}
+		description2={fr
+			? 'ont servi à concevoir un outil permettant aux personnes résidentes de s’informer sur l’aménagement axé sur le transport collectif et les collectivités complètes'
+			: 'were used to design a tool residents could engage with to learn about transit-oriented development and complete communities'}
 		link2="#persona"
-		finding3="Tool design"
-		description3="With this tool, residents were able to be educated about the benefits and tradeoffs of transit-oriented development in their area."
+		finding3={fr ? 'Conception de l’outil' : 'Tool design'}
+		description3={fr
+			? 'Grâce à cet outil, les personnes résidentes ont pu s’informer sur les avantages et les compromis de l’aménagement axé sur le transport collectif dans leur secteur.'
+			: 'With this tool, residents were able to be educated about the benefits and tradeoffs of transit-oriented development in their area.'}
 		link3="#design"
 	/>
 
@@ -213,7 +234,7 @@
 				{:else if panel.config?.type === 'link'}
 					<VisLink
 						href={panel.config.href}
-						label={panel.config.btnLabel ?? 'Learn More'}
+						label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 						target={panel.config.target}
 					/>
 				{/if}
@@ -299,7 +320,9 @@
 	{/each}
 	<ReportFindings
 		id="report-findings"
-		title="See what communities have been talking about"
+		title={fr
+			? 'Découvrez de quoi les collectivités ont parlé'
+			: 'See what communities have been talking about'}
 		finding1="Cooksville"
 		image1={cooksville}
 		link1="/reports/tod/love-cooksville"

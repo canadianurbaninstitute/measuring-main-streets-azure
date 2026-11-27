@@ -1,40 +1,55 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 </script>
 
 <div class="benefits-card">
 	<div class="benefits-header">
-		<h3>Food co-ops are mission driven to provide additional community benefits</h3>
-		<p>
-			Grocery stores can be more than buildings that sell food. Because co-ops are democratically
-			run, they reinvest in the surrounding community.
-		</p>
+		<h3>
+			{fr
+				? 'Les coopératives alimentaires ont pour mission d’offrir des avantages supplémentaires à la collectivité'
+				: 'Food co-ops are mission driven to provide additional community benefits'}
+		</h3>
+		{#if fr}
+			<p>
+				Une épicerie peut être bien plus qu’un bâtiment où l’on vend des aliments. Parce qu’elles
+				sont gérées démocratiquement, les coopératives réinvestissent dans la collectivité qui les
+				entoure.
+			</p>
+		{:else}
+			<p>
+				Grocery stores can be more than buildings that sell food. Because co-ops are democratically
+				run, they reinvest in the surrounding community.
+			</p>
+		{/if}
 	</div>
 
 	<div class="benefits-grid">
 		<div class="benefit-item">
 			<Icon icon="mdi:account-group" class="icon" />
-			<p>Dedicated community rooms & space</p>
+			<p>{fr ? 'Salles et espaces communautaires dédiés' : 'Dedicated community rooms & space'}</p>
 		</div>
 		<div class="benefit-item">
 			<Icon icon="mdi:silverware-fork-knife" class="icon" />
-			<p>Inexpensive community meals</p>
+			<p>{fr ? 'Repas communautaires à petit prix' : 'Inexpensive community meals'}</p>
 		</div>
 		<div class="benefit-item">
 			<Icon icon="mdi:school" class="icon" />
-			<p>Educational and youth programming</p>
+			<p>{fr ? 'Programmes éducatifs et jeunesse' : 'Educational and youth programming'}</p>
 		</div>
 		<div class="benefit-item">
 			<Icon icon="mdi:chef-hat" class="icon" />
-			<p>Kitchen skills training</p>
+			<p>{fr ? 'Formation aux compétences culinaires' : 'Kitchen skills training'}</p>
 		</div>
 		<div class="benefit-item">
 			<Icon icon="mdi:handshake" class="icon" />
-			<p>Education partnerships with schools</p>
+			<p>{fr ? 'Partenariats éducatifs avec les écoles' : 'Education partnerships with schools'}</p>
 		</div>
 		<div class="benefit-item">
 			<Icon icon="mdi:heart-outline" class="icon" />
-			<p>Support for non-profits & local businesses</p>
+			<p>{fr ? 'Soutien aux organismes sans but lucratif et aux entreprises locales' : 'Support for non-profits & local businesses'}</p>
 		</div>
 	</div>
 </div>

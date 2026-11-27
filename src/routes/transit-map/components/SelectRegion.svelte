@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type Fuse from 'fuse.js';
+	import { trTransit } from '../../lib/data/transitdata/labels.fr';
+	import { getLang } from '../../lib/i18n';
 	import type { ProcessedStation } from '../../lib/data/transitdata/stations';
 	import type {
 		Region,
@@ -39,6 +41,8 @@
 		activeRegion = $bindable(),
 		processedStationData
 	}: Props = $props();
+
+	const fr = getLang() === 'fr';
 
 	function selectRegionFromSearch(region: Region) {
 		searchTerm = '';
@@ -101,11 +105,11 @@
 		} else if (activeRegion) {
 			return activeRegion.lines
 				.map((l) => ({ ...l, type: 'line' as const }))
-				.sort((a, b) => a.name.localeCompare(b.name));
+				.sort((a, b) => trTransit(a.name, fr).localeCompare(trTransit(b.name, fr)));
 		} else {
 			return regionsData
 				.map((r) => ({ ...r, type: 'region' as const }))
-				.sort((a, b) => a.name.localeCompare(b.name));
+				.sort((a, b) => trTransit(a.name, fr).localeCompare(trTransit(b.name, fr)));
 		}
 	});
 </script>
@@ -113,49 +117,49 @@
 <div class="navigation-scroll-container">
 	{#if searchTerm}
 		{#if searchResults?.regions?.length ?? 0 > 0}
-			<div class="nav-section-header">Regions</div>
+			<div class="nav-section-header">{fr ? 'Régions' : 'Regions'}</div>
 			<ul class="nav-list">
 				{#each searchResults.regions as item (item.id)}
 					<button onclick={() => selectRegionFromSearch(item)} class="nav-item region-item">
-						{item.name}
+						{trTransit(item.name, fr)}
 					</button>
 				{/each}
 			</ul>
 		{/if}
 		{#if searchResults?.lines?.length ?? 0 > 0}
-			<div class="nav-section-header">Lines</div>
+			<div class="nav-section-header">{fr ? 'Lignes' : 'Lines'}</div>
 			<ul class="nav-list">
 				{#each searchResults.lines as item (item.id)}
 					<button onclick={() => selectLineFromSearch(item)} class="nav-item line-item">
-						{item.name} <span class="context">({item.regionName})</span>
+						{trTransit(item.name, fr)} <span class="context">({trTransit(item.regionName, fr)})</span>
 					</button>
 				{/each}
 			</ul>
 		{/if}
 		{#if searchResults?.stops?.length ?? 0 > 0}
-			<div class="nav-section-header">Stops</div>
+			<div class="nav-section-header">{fr ? 'Stations' : 'Stops'}</div>
 			<ul class="nav-list">
 				{#each searchResults.stops as item (item.id)}
 					<button onclick={() => selectStopFromSearch(item)} class="nav-item stop-item">
 						{item.stop_label}
-						<span class="context">({item.line_display_name || 'N/A'})</span>
+						<span class="context">({trTransit(item.line_display_name, fr) || (fr ? 's.o.' : 'N/A')})</span>
 					</button>
 				{/each}
 			</ul>
 		{/if}
 		{#if searchResults?.regions?.length === 0 && searchResults?.lines?.length === 0 && searchResults?.stops?.length === 0}
-			<p class="no-results">No results found.</p>
+			<p class="no-results">{fr ? 'Aucun résultat.' : 'No results found.'}</p>
 		{/if}
 	{:else}
 		<ul class="nav-list">
 			{#each sidebarDisplayItems as item (item.id)}
 				{#if item.type === 'region'}
 					<button onclick={() => selectRegion(item)} class="nav-item region-item">
-						{item.name}
+						{trTransit(item.name, fr)}
 					</button>
 				{:else if item.type === 'line'}
 					<button onclick={() => selectLine(item)} class="nav-item line-item">
-						{item.name}
+						{trTransit(item.name, fr)}
 					</button>
 				{:else if item.type === 'stop'}
 					<button onclick={() => selectStop(item)} class="nav-item stop-item">

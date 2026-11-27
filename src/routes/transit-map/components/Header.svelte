@@ -3,7 +3,10 @@
 	import { Accordion } from 'bits-ui';
 	import { cubicOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
+	import { getLang } from '../../lib/i18n';
 	import TutorialButton from './TutorialButton.svelte';
+
+	const fr = getLang() === 'fr';
 
 	let { isOpen = $bindable(), initiateTutorial } = $props();
 	let accordionValue: string | undefined = $state(isOpen ? 'intro' : undefined);
@@ -34,27 +37,47 @@
 					>
 						<Accordion.Header>
 							<div id="title" class="flex align-baseline">
-								<h1>Transit Map</h1>
+								<h1>{fr ? 'Carte du transport collectif' : 'Transit Map'}</h1>
 								<TutorialButton {initiateTutorial} />
 							</div>
 						</Accordion.Header>
-						<p>
-							This is a map of all existing, under construction and planned higher-order transit
-							lines in Canada. Search for a station or navigate the map using the controls and then
-							click on a transit station to see information associated with it in the panel on the
-							left.
-						</p>
-						<p>
-							Data sources: Environics Analytics (2025) and Statistics Canada Census (2021). For
-							more detailed information, see <a href="/about/data-methodology/#tod-meth"
-								>Data & Methodology.</a
-							>
-						</p>
-						<p>
-							Want to compare stations across a transit line? <a href="/tools/transit-charts"
-								>Try the Transit Charts tool</a
-							>
-						</p>
+						{#if fr}
+							<p>
+								Cette carte présente toutes les lignes de transport collectif à haut niveau de service
+								existantes, en construction et planifiées au Canada. Recherchez une station ou
+								parcourez la carte à l’aide des commandes, puis cliquez sur une station de transport
+								collectif pour afficher l’information qui s’y rattache dans le panneau de gauche.
+							</p>
+							<p>
+								Sources des données : Environics Analytics (2025) et Recensement de Statistique Canada
+								(2021). Pour en savoir plus, consultez la section <a
+									href="/about/data-methodology/#tod-meth">Données et méthodologie.</a
+								>
+							</p>
+							<p>
+								Vous souhaitez comparer les stations d’une même ligne? <a href="/tools/transit-charts"
+									>Essayez l’outil de graphiques du transport collectif</a
+								>
+							</p>
+						{:else}
+							<p>
+								This is a map of all existing, under construction and planned higher-order transit
+								lines in Canada. Search for a station or navigate the map using the controls and then
+								click on a transit station to see information associated with it in the panel on the
+								left.
+							</p>
+							<p>
+								Data sources: Environics Analytics (2025) and Statistics Canada Census (2021). For
+								more detailed information, see <a href="/about/data-methodology/#tod-meth"
+									>Data & Methodology.</a
+								>
+							</p>
+							<p>
+								Want to compare stations across a transit line? <a href="/tools/transit-charts"
+									>Try the Transit Charts tool</a
+								>
+							</p>
+						{/if}
 					</div>
 				{/if}
 			</Accordion.Content>
@@ -68,7 +91,7 @@
 				<p
 					style="margin-bottom: 0; color: var(--color-blue-500); font-size: 0.9rem; font-weight: 600;"
 				>
-					Page Description
+					{fr ? 'Description de la page' : 'Page Description'}
 				</p>
 
 				<span

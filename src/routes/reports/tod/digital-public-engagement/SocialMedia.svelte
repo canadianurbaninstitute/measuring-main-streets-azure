@@ -1,9 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
+	import { getLang } from '../../../lib/i18n';
 	import Bluesky from '../../assets/logo-bsky.png';
 	import Facebook from '../../assets/logo-facebook.png';
 	import Instagram from '../../assets/logo-instagram.png';
 	import Reddit from '../../assets/logo-reddit.png';
+
+	const fr = getLang() === 'fr';
 
 	let scrollY = $state(0);
 	let el = $state(null);
@@ -43,25 +46,25 @@
 	<img
 		class="img1"
 		src={Reddit}
-		alt="Reddit logo"
+		alt={fr ? 'Logo de Reddit' : 'Reddit logo'}
 		style:transform={`rotate(-3deg) translate3d(0, ${p1}px, 0)`}
 	/>
 	<img
 		class="img2"
 		src={Bluesky}
-		alt="Bluesky logo"
+		alt={fr ? 'Logo de Bluesky' : 'Bluesky logo'}
 		style:transform={`rotate(5deg) translate3d(0, ${p2}px, 0)`}
 	/>
 	<img
 		class="img3"
 		src={Instagram}
-		alt="Instagram logo"
+		alt={fr ? 'Logo de Instagram' : 'Instagram logo'}
 		style:transform={`rotate(-8deg) translate3d(0, ${p3}px, 0)`}
 	/>
 	<img
 		class="img4"
 		src={Facebook}
-		alt="Facebook logo"
+		alt={fr ? 'Logo de Facebook' : 'Facebook logo'}
 		style:transform={`rotate(-3deg) translate3d(0, ${p4}px, 0)`}
 	/>
 </div>

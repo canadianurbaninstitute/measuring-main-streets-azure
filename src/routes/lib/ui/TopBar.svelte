@@ -5,6 +5,7 @@
 	import Icon from '@iconify/svelte';
 	import { NavigationMenu } from 'bits-ui';
 	import { onMount } from 'svelte';
+	import { getLang, localizeHref, toEnglishPath, toFrenchPath } from '../i18n';
 	import cui_logo from '../assets/logos/cui_logo.svg';
 	import mms_logo_fr from '../assets/logos/MMS_FR_blue.png';
 	import mms_logo from '../assets/logos/mms_logo.svg';
@@ -16,7 +17,16 @@
 		page.url?.pathname.includes('/casestudies/tod/') || page.url?.pathname.includes('/reports/tod/')
 	);
 
-	let isFrench = $derived(page.url?.pathname.includes('/fr'));
+	const isFrench = getLang() === 'fr';
+	const T = (/** @type {string} */ en, /** @type {string} */ fr) => (isFrench ? fr : en);
+	const href = (/** @type {string} */ h) => localizeHref(h, isFrench ? 'fr' : 'en');
+
+	// Same page in the other language. The query string (e.g. ?tab=tod) is added in the browser
+	// because it cannot be read while prerendering.
+	let search = $state('');
+	let switchHref = $derived(
+		(isFrench ? toEnglishPath(page.url.pathname) : toFrenchPath(page.url.pathname)) + search
+	);
 
 	function toggleMenu() {
 		menuOpen = !menuOpen;
@@ -34,6 +44,7 @@
 	}
 
 	onMount(() => {
+		search = window.location.search;
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
 	});
@@ -41,15 +52,15 @@
 	const caseStudies = [{ title: 'Measuring Main Streets', href: '/casestudies' }];
 
 	const newCaseStudies = [
-		{ title: 'Resilience on Main', href: '/casestudies/?tab=msr' },
-		{ title: 'TOD on Main', href: '/casestudies/?tab=tod' }
+		{ title: T('Resilience on Main', 'Résilience sur la rue principale'), href: href('/casestudies/?tab=msr') },
+		{ title: T('TOD on Main', 'TOD sur la rue principale'), href: href('/casestudies/?tab=tod') }
 	];
 
 	const reports = [{ title: 'Measuring Main Streets', href: '/reports' }];
 
 	const newReports = [
-		{ title: 'Resilience on Main', href: '/reports/?tab=msr' },
-		{ title: 'TOD on Main', href: '/reports/?tab=tod' }
+		{ title: T('Resilience on Main', 'Résilience sur la rue principale'), href: href('/reports/?tab=msr') },
+		{ title: T('TOD on Main', 'TOD sur la rue principale'), href: href('/reports/?tab=tod') }
 	];
 
 	const learnMore = [
@@ -61,9 +72,9 @@
 	];
 
 	const newLearnMore = [
-		{ title: 'About', href: '/about' },
-		{ title: 'FAQ', href: '/about/faq' },
-		{ title: 'Data & Methodology', href: '/about/data-methodology' }
+		{ title: T('About', 'À propos'), href: href('/about/') },
+		{ title: T('FAQ', 'FAQ'), href: href('/about/faq/') },
+		{ title: T('Data & Methodology', 'Données et méthodologie'), href: href('/about/data-methodology/') }
 	];
 </script>
 
@@ -71,6 +82,7 @@
 	id="bar-wrapper"
 	class:hideable={isHiddenRoute}
 	class:hovered={isHovered}
+	class:lang-fr={isFrench}
 	class="landing-nav"
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}
@@ -78,11 +90,11 @@
 >
 	<div id="bar">
 		<div id="logo-group">
-			<a href={'/'} aria-label="Home">
+			<a href={href('/')} aria-label={T('Home', 'Accueil')}>
 				<div class="flex gap-4 items-center">
 					<img
 						src={isFrench ? mms_logo_fr : mms_logo}
-						alt="Measuring Main Streets"
+						alt={T('Measuring Main Streets', 'Mesures des rues principales')}
 						onmouseover={onMouseOver}
 						onmouseout={onMouseOut}
 						onfocus={onMouseOver}
@@ -91,7 +103,7 @@
 					<div class="border-l border-gray-300 h-12"></div>
 					<img
 						src={cui_logo}
-						alt="Canadian Urban Institute"
+						alt={T('Canadian Urban Institute', 'Institut urbain du Canada')}
 						onmouseover={onMouseOver}
 						onmouseout={onMouseOut}
 						onfocus={onMouseOver}
@@ -109,7 +121,7 @@
 			aria-controls="primary-nav"
 			onclick={toggleMenu}
 		>
-			Menu
+			{T('Menu', 'Menu')}
 		</button>
 
 		<nav id="menu" class="w-full" aria-label="Primary">
@@ -117,22 +129,22 @@
 				<NavigationMenu.List id="primary-nav" class="nav-menu-list" data-open={menuOpen}>
 					<!-- Direct Links -->
 					<NavigationMenu.Item class="nav-menu-item">
-						<NavigationMenu.Link href="/map" class="nav-link w-full"
-							>Main Street Map</NavigationMenu.Link
+						<NavigationMenu.Link href={href('/map/')} class="nav-link w-full"
+							>{T('Main Street Map', 'Carte des rues principales')}</NavigationMenu.Link
 						>
 					</NavigationMenu.Item>
 
 					<!-- Uncomment when ready to publish -->
 					<NavigationMenu.Item class="nav-menu-item">
-						<NavigationMenu.Link href="/transit-map" class="nav-link"
-							>Transit Map</NavigationMenu.Link
+						<NavigationMenu.Link href={href('/transit-map/')} class="nav-link"
+							>{T('Transit Map', 'Carte du transport collectif')}</NavigationMenu.Link
 						>
 					</NavigationMenu.Item>
 
 					<!-- Reports Dropdown -->
 					<NavigationMenu.Item value="reports" class="nav-menu-item">
 						<NavigationMenu.Trigger class="nav-trigger">
-							Reports
+							{T('Reports', 'Rapports')}
 							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop">
@@ -151,7 +163,7 @@
 					<!-- Case Studies Dropdown -->
 					<NavigationMenu.Item value="case-studies" class="nav-menu-item">
 						<NavigationMenu.Trigger class="nav-trigger">
-							Case Studies
+							{T('Case Studies', 'Études de cas')}
 							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop">
@@ -169,13 +181,15 @@
 
 					<!-- Tools link -->
 					<NavigationMenu.Item class="nav-menu-item">
-						<NavigationMenu.Link href={'/tools'} class="nav-link">Tools</NavigationMenu.Link>
+						<NavigationMenu.Link href={href('/tools/')} class="nav-link"
+							>{T('Tools', 'Outils')}</NavigationMenu.Link
+						>
 					</NavigationMenu.Item>
 
 					<!-- Learn More Dropdown -->
 					<NavigationMenu.Item value="learn-more" class="nav-menu-item">
 						<NavigationMenu.Trigger class="nav-trigger">
-							Learn More
+							{T('Learn More', 'En savoir plus')}
 							<Icon icon="icon-park-solid:down-one" class="nav-menu-icon" />
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content class="nav-content-pop nav-content--right">
@@ -189,6 +203,20 @@
 								{/each}
 							</ul>
 						</NavigationMenu.Content>
+					</NavigationMenu.Item>
+
+					<!-- Language toggle (full page load to the same page in the other language) -->
+					<NavigationMenu.Item class="nav-menu-item">
+						<a
+							href={switchHref}
+							class="nav-link lang-switch"
+							data-lang-switch
+							data-sveltekit-reload
+							hreflang={isFrench ? 'en-CA' : 'fr-CA'}
+							lang={isFrench ? 'en' : 'fr'}
+							aria-label={isFrench ? 'View this page in English' : 'Voir cette page en français'}
+							>{isFrench ? 'EN' : 'FR'}</a
+						>
 					</NavigationMenu.Item>
 
 					<!-- Optional indicator (arrow under active trigger) -->
@@ -405,6 +433,31 @@
 
 	:global(.nav-trigger[data-state='open'] .nav-menu-icon) {
 		transform: rotate(180deg);
+	}
+
+	/* French labels are longer: let them wrap onto two lines instead of overlapping the logos */
+	@media (min-width: 768px) {
+		#bar-wrapper.lang-fr #logo-group {
+			flex-shrink: 0;
+		}
+		#bar-wrapper.lang-fr :global(.nav-link:not(.lang-switch)),
+		#bar-wrapper.lang-fr :global(.nav-trigger) {
+			width: auto;
+			max-width: 13rem;
+			height: auto;
+			min-height: 2rem;
+			white-space: normal;
+			word-break: normal;
+			overflow-wrap: normal;
+			hyphens: manual;
+			line-height: 1.2;
+			padding: 0.5rem 0.6rem;
+		}
+	}
+
+	.lang-switch {
+		border: 1px solid var(--brandLightBlue);
+		margin-left: 0.5rem;
 	}
 
 	/* Dropdown panel (popover)  */

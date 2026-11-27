@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/toronto/uxbridge/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/toronto/uxbridge/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -211,25 +217,41 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						Situated approximately 80 kilometers northeast of Toronto, Uxbridge is a township in
-						south-central Ontario, characterized by its primarily suburban setting and a population
-						of just over 20,000 residents. The segment of Brock St. between Main St. N and Railway
-						St. serves as the primary commercial main street for the Uxbridge township. This section
-						of Brock St. features a notably higher business density, particularly when compared to
-						surrounding Uxbridge neighborhoods, solidifying its status as a key commercial
-						thoroughfare in the township. While a historic train station anchors one end of this
-						downtown area, it no longer operates as a railway station but instead houses a train
-						museum. Currently, a GO bus service station stop is located outside the old station.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							Située à environ 80 kilomètres au nord-est de Toronto, Uxbridge est un
+							canton du centre-sud de l’Ontario, caractérisé par un cadre principalement
+							suburbain et une population d’un peu plus de 20 000 personnes. Le tronçon de
+							Brock St. entre Main St. N et Railway St. constitue la principale rue
+							commerçante du canton d’Uxbridge. Ce tronçon de Brock St. présente une
+							densité commerciale nettement plus élevée, surtout par rapport aux quartiers
+							environnants d’Uxbridge, ce qui confirme son statut d’artère commerciale clé
+							du canton. Bien qu’une gare historique marque l’une des extrémités de ce
+							centre-ville, elle n’est plus en service et abrite plutôt un musée
+							ferroviaire. Un arrêt d’autobus GO se trouve actuellement devant l’ancienne
+							gare.
+						</p>
+					{:else}
+						<p>
+							Situated approximately 80 kilometers northeast of Toronto, Uxbridge is a township in
+							south-central Ontario, characterized by its primarily suburban setting and a population
+							of just over 20,000 residents. The segment of Brock St. between Main St. N and Railway
+							St. serves as the primary commercial main street for the Uxbridge township. This section
+							of Brock St. features a notably higher business density, particularly when compared to
+							surrounding Uxbridge neighborhoods, solidifying its status as a key commercial
+							thoroughfare in the township. While a historic train station anchors one end of this
+							downtown area, it no longer operates as a railway station but instead houses a train
+							museum. Currently, a GO bus service station stop is located outside the old station.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -254,22 +276,43 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						Brock St. is centrally located in Uxbridge, which results in the street experiencing
-						relatively high levels of vehicular through-traffic. The street’s built form generally
-						supports this vehicular traffic and movement as it is a wide street, featuring one
-						circulation and one lane of on-street parking in each direction. While the street is
-						generally car-centric in its design and does not feature any cycling infrastructure, it
-						does boast wide sidewalks to support active mobility and pedestrian street life.
-					</p>
-					<p>
-						The building stock on Brock St. primarily consists of mid-density, two-storey brick
-						structures with ground floor retail. While Brock St. is underserved in terms of
-						availability of greenspace on the street itself, the street is accessible to greenspace
-						within a 10-minute walk, albeit at a slightly lower percentage of greenspace than the
-						Toronto CMA average.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							Brock St. occupe une position centrale à Uxbridge, si bien que la rue
+							connaît un volume relativement élevé de circulation automobile de passage.
+							Le cadre bâti de la rue favorise généralement cette circulation automobile,
+							puisqu’il s’agit d’une rue large comportant une voie de circulation et une
+							voie de stationnement sur rue dans chaque direction. Bien que la rue soit
+							généralement conçue en fonction de l’automobile et ne comporte aucune
+							infrastructure cyclable, elle offre de larges trottoirs qui favorisent la
+							mobilité active et la vie piétonne.
+						</p>
+						<p>
+							Le parc immobilier de Brock St. se compose principalement de bâtiments en
+							brique de deux étages, de densité moyenne, avec commerces au
+							rez-de-chaussée. Bien que Brock St. soit mal desservie en espaces verts sur
+							la rue elle-même, la rue donne accès à des espaces verts dans un rayon de 10
+							minutes de marche, quoique dans une proportion légèrement inférieure à la
+							moyenne de la RMR de Toronto.
+						</p>
+					{:else}
+						<p>
+							Brock St. is centrally located in Uxbridge, which results in the street experiencing
+							relatively high levels of vehicular through-traffic. The street’s built form generally
+							supports this vehicular traffic and movement as it is a wide street, featuring one
+							circulation and one lane of on-street parking in each direction. While the street is
+							generally car-centric in its design and does not feature any cycling infrastructure, it
+							does boast wide sidewalks to support active mobility and pedestrian street life.
+						</p>
+						<p>
+							The building stock on Brock St. primarily consists of mid-density, two-storey brick
+							structures with ground floor retail. While Brock St. is underserved in terms of
+							availability of greenspace on the street itself, the street is accessible to greenspace
+							within a 10-minute walk, albeit at a slightly lower percentage of greenspace than the
+							Toronto CMA average.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -279,14 +322,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'uxbridge'} section={'builtform'} />
 					</div>
@@ -310,10 +353,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -323,12 +366,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -337,7 +384,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -346,7 +393,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -355,7 +402,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -364,7 +411,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -393,23 +440,47 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Brock St. and its immediate vicinity host a relative concentration of civic
-						infrastructure, reinforcing its importance as a key main street for the surrounding
-						neighborhoods. Notably, the nearby Uxbridge Railway Station functions as both a railway
-						museum and a stop for the historic York-Durham Heritage Railway. Additionally, this
-						segment of Brock St. itself features three health facilities directly on the street and
-						six more in close proximity. The street also offers a variety of recreational facilities
-						which surpasses the Toronto CMA average. However, there is a limited presence of
-						government services, community services, and educational facilities along the street.
-						Nonetheless, residents have convenient access to these services and civic amenities
-						within a 10-minute walk
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, Brock St. lags behind most other main
-						street case studies. In terms of its civic opportunity, Brock St. ranks 14th out of 20
-						Toronto main streets and 8th out of 12 small town main streets.
-					</p>
+					{#if fr}
+						<p>
+							Brock St. et ses environs immédiats accueillent une concentration relative
+							d’infrastructures civiques, ce qui renforce son importance en tant que rue
+							principale clé pour les quartiers environnants. Notamment, la gare
+							d’Uxbridge, à proximité, sert à la fois de musée ferroviaire et d’arrêt pour
+							le train patrimonial York-Durham Heritage Railway. De plus, ce tronçon de
+							Brock St. compte trois établissements de santé directement sur la rue et six
+							autres à proximité. La rue offre également une variété d’installations
+							récréatives supérieure à la moyenne de la RMR de Toronto. Toutefois, les
+							services gouvernementaux, les services communautaires et les établissements
+							d’enseignement sont peu présents le long de la rue. Les résidents ont
+							néanmoins facilement accès à ces services et équipements civiques dans un
+							rayon de 10 minutes de marche.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, Brock St. accuse un retard par
+							rapport à la plupart des autres études de cas de rues principales. Sur le
+							plan des possibilités civiques, Brock St. se classe au 14e rang sur 20 rues
+							principales de Toronto et au 8e rang sur 12 rues principales de petites
+							villes.
+						</p>
+					{:else}
+						<p>
+							Brock St. and its immediate vicinity host a relative concentration of civic
+							infrastructure, reinforcing its importance as a key main street for the surrounding
+							neighborhoods. Notably, the nearby Uxbridge Railway Station functions as both a railway
+							museum and a stop for the historic York-Durham Heritage Railway. Additionally, this
+							segment of Brock St. itself features three health facilities directly on the street and
+							six more in close proximity. The street also offers a variety of recreational facilities
+							which surpasses the Toronto CMA average. However, there is a limited presence of
+							government services, community services, and educational facilities along the street.
+							Nonetheless, residents have convenient access to these services and civic amenities
+							within a 10-minute walk
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, Brock St. lags behind most other main
+							street case studies. In terms of its civic opportunity, Brock St. ranks 14th out of 20
+							Toronto main streets and 8th out of 12 small town main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -429,17 +500,17 @@
 							'civicinfra-toronto-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -449,12 +520,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -463,7 +538,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -472,7 +547,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -499,38 +574,82 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Brock St.’s central location in Uxbridge and its role as a commercial main street
-						results in a general clustering of businesses on and around this segment of the street.
-						While retail is the most prevalent type of business on Brock St., the street does offer
-						a relatively equal mix of retail, services, and food and drink establishments. Most of
-						these businesses are local and independent, although a few national chain stores like
-						Pizza Pizza are also present. Although there is no grocery store directly on Brock St.,
-						residents can easily access one located southwest of Main St. During the warmer months,
-						businesses extend onto the wide sidewalks, offering customers an indoor-outdoor
-						experience.
-					</p>
-					<p>
-						Brock St. lags behind other main street case studies in terms of level of independence
-						of the businesses, ranking 13th out of 20 Toronto main streets and 8th out of 12 small
-						town main streets. In terms of business density, the street ranks 5th in the region and
-						4th out of the 12 small town main streets.
-					</p>
-					<p>
-						This section of Brock St. provides a number of small-scale employment options for
-						Uxbridge and the surrounding communities. The concentration of retail and other
-						businesses in this area creates a relative clustering of employment opportunities. Many
-						of these businesses are small in size, typically employing between zero to five
-						individuals. Additionally, the presence of essential civic infrastructure along the
-						street creates additional employment opportunities, although also at a small scale with
-						similar employment figures. However, among these smaller employers, there are also some
-						larger businesses both directly on Brock St. and in the surrounding vicinity. Notably,
-						just north of Brock St. are several larger-scale employers with staff numbers exceeding
-						50, while southeast of the street, significant civic infrastructures employ between 50
-						to 100 employees. This small-scale of employment opportunities translates to the streets
-						overall employment density. Overall, Brock St. ranks 17th out of 20 Toronto main streets
-						in terms of employment density and 7th out of 12 small town main streets.
-					</p>
+					{#if fr}
+						<p>
+							L’emplacement central de Brock St. à Uxbridge et son rôle de rue principale
+							commerçante se traduisent par une concentration générale d’entreprises sur
+							ce tronçon de la rue et aux alentours. Bien que le commerce de détail soit
+							le type d’entreprise le plus répandu sur Brock St., la rue offre une
+							répartition relativement égale entre commerces de détail, services et
+							établissements de restauration et de boissons. La plupart de ces entreprises
+							sont locales et indépendantes, bien que quelques chaînes nationales comme
+							Pizza Pizza y soient aussi présentes. Même s’il n’y a pas d’épicerie
+							directement sur Brock St., les résidents peuvent facilement se rendre à
+							celle située au sud-ouest de Main St. Pendant la belle saison, les commerces
+							s’étendent sur les larges trottoirs, offrant à la clientèle une expérience à
+							la fois intérieure et extérieure.
+						</p>
+						<p>
+							Brock St. accuse un retard par rapport aux autres études de cas de rues
+							principales en ce qui concerne le niveau d’indépendance des entreprises, se
+							classant au 13e rang sur 20 rues principales de Toronto et au 8e rang sur 12
+							rues principales de petites villes. Sur le plan de la densité commerciale,
+							la rue se classe au 5e rang dans la région et au 4e rang sur les 12 rues
+							principales de petites villes.
+						</p>
+						<p>
+							Ce tronçon de Brock St. offre un certain nombre de possibilités d’emploi à
+							petite échelle pour Uxbridge et les collectivités environnantes. La
+							concentration de commerces de détail et d’autres entreprises dans ce secteur
+							crée une concentration relative de possibilités d’emploi. Bon nombre de ces
+							entreprises sont de petite taille et comptent généralement entre zéro et
+							cinq employés. De plus, la présence d’infrastructures civiques essentielles
+							le long de la rue crée des possibilités d’emploi supplémentaires, quoique
+							également à petite échelle et avec un nombre d’employés semblable.
+							Toutefois, parmi ces petits employeurs, on trouve aussi quelques entreprises
+							plus importantes, tant directement sur Brock St. que dans les environs.
+							Notamment, juste au nord de Brock St., plusieurs employeurs de plus grande
+							taille comptent plus de 50 employés, tandis qu’au sud-est de la rue,
+							d’importantes infrastructures civiques emploient entre 50 et 100 personnes.
+							Cette faible ampleur des possibilités d’emploi se reflète dans la densité
+							d’emploi globale de la rue. Dans l’ensemble, Brock St. se classe au 17e rang
+							sur 20 rues principales de Toronto pour la densité d’emploi et au 7e rang
+							sur 12 rues principales de petites villes.
+						</p>
+					{:else}
+						<p>
+							Brock St.’s central location in Uxbridge and its role as a commercial main street
+							results in a general clustering of businesses on and around this segment of the street.
+							While retail is the most prevalent type of business on Brock St., the street does offer
+							a relatively equal mix of retail, services, and food and drink establishments. Most of
+							these businesses are local and independent, although a few national chain stores like
+							Pizza Pizza are also present. Although there is no grocery store directly on Brock St.,
+							residents can easily access one located southwest of Main St. During the warmer months,
+							businesses extend onto the wide sidewalks, offering customers an indoor-outdoor
+							experience.
+						</p>
+						<p>
+							Brock St. lags behind other main street case studies in terms of level of independence
+							of the businesses, ranking 13th out of 20 Toronto main streets and 8th out of 12 small
+							town main streets. In terms of business density, the street ranks 5th in the region and
+							4th out of the 12 small town main streets.
+						</p>
+						<p>
+							This section of Brock St. provides a number of small-scale employment options for
+							Uxbridge and the surrounding communities. The concentration of retail and other
+							businesses in this area creates a relative clustering of employment opportunities. Many
+							of these businesses are small in size, typically employing between zero to five
+							individuals. Additionally, the presence of essential civic infrastructure along the
+							street creates additional employment opportunities, although also at a small scale with
+							similar employment figures. However, among these smaller employers, there are also some
+							larger businesses both directly on Brock St. and in the surrounding vicinity. Notably,
+							just north of Brock St. are several larger-scale employers with staff numbers exceeding
+							50, while southeast of the street, significant civic infrastructures employ between 50
+							to 100 employees. This small-scale of employment opportunities translates to the streets
+							overall employment density. Overall, Brock St. ranks 17th out of 20 Toronto main streets
+							in terms of employment density and 7th out of 12 small town main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -548,17 +667,17 @@
 							'business-toronto-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -568,27 +687,51 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						This section of Brock St. provides a number of small-scale employment options for
-						Uxbridge and the surrounding communities. The concentration of retail and other
-						businesses in this area creates a relative clustering of employment opportunities. Many
-						of these businesses are small in size, typically employing between zero to five
-						individuals. Additionally, the presence of essential civic infrastructure along the
-						street creates additional employment opportunities, although also at a small scale with
-						similar employment figures. However, among these smaller employers, there are also some
-						larger businesses both directly on Brock St. and in the surrounding vicinity. Notably,
-						just north of Brock St. are several larger-scale employers with staff numbers exceeding
-						50, while southeast of the street, significant civic infrastructures employ between 50
-						to 100 employees.
-					</p>
-					<p>
-						This small-scale of employment opportunities translates to the streets overall
-						employment density. Overall, Brock St. ranks 17th out of 20 Toronto main streets in
-						terms of employment density and 7th out of 12 small town main streets.
-					</p>
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							Ce tronçon de Brock St. offre un certain nombre de possibilités d’emploi à
+							petite échelle pour Uxbridge et les collectivités environnantes. La
+							concentration de commerces de détail et d’autres entreprises dans ce secteur
+							crée une concentration relative de possibilités d’emploi. Bon nombre de ces
+							entreprises sont de petite taille et comptent généralement entre zéro et
+							cinq employés. De plus, la présence d’infrastructures civiques essentielles
+							le long de la rue crée des possibilités d’emploi supplémentaires, quoique
+							également à petite échelle et avec un nombre d’employés semblable.
+							Toutefois, parmi ces petits employeurs, on trouve aussi quelques entreprises
+							plus importantes, tant directement sur Brock St. que dans les environs.
+							Notamment, juste au nord de Brock St., plusieurs employeurs de plus grande
+							taille comptent plus de 50 employés, tandis qu’au sud-est de la rue,
+							d’importantes infrastructures civiques emploient entre 50 et 100 personnes.
+						</p>
+						<p>
+							Cette faible ampleur des possibilités d’emploi se reflète dans la densité
+							d’emploi globale de la rue. Dans l’ensemble, Brock St. se classe au 17e rang
+							sur 20 rues principales de Toronto pour la densité d’emploi et au 7e rang
+							sur 12 rues principales de petites villes.
+						</p>
+					{:else}
+						<p>
+							This section of Brock St. provides a number of small-scale employment options for
+							Uxbridge and the surrounding communities. The concentration of retail and other
+							businesses in this area creates a relative clustering of employment opportunities. Many
+							of these businesses are small in size, typically employing between zero to five
+							individuals. Additionally, the presence of essential civic infrastructure along the
+							street creates additional employment opportunities, although also at a small scale with
+							similar employment figures. However, among these smaller employers, there are also some
+							larger businesses both directly on Brock St. and in the surrounding vicinity. Notably,
+							just north of Brock St. are several larger-scale employers with staff numbers exceeding
+							50, while southeast of the street, significant civic infrastructures employ between 50
+							to 100 employees.
+						</p>
+						<p>
+							This small-scale of employment opportunities translates to the streets overall
+							employment density. Overall, Brock St. ranks 17th out of 20 Toronto main streets in
+							terms of employment density and 7th out of 12 small town main streets.
+						</p>
+					{/if}
 
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -600,25 +743,25 @@
 						bearing={-18}
 						layers={['uxbridge', 'uxbridge-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -630,39 +773,61 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'uxbridge'}
 							section={'housing'}
 							region={'toronto'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Uxbridge is a small suburban town and the population density is generally low. However,
-						Brock St., and the areas directly adjacent to it, do offer a higher population density.
-						While Uxbridge is primarily dominated by single-detached houses, the area on and around
-						Brock St. does have a notable presence of low-rise apartment buildings of under
-						five-storeys. This presence of higher-density housing near the main street contributes
-						to the increased population density on and around the street compared to the surrounding
-						neighbourhoods of Uxbridge.
-					</p>
-					<p>
-						The housing stock on and around Brock St. is generally older, with over 40% of the
-						entire housing stock built before 1960. While the following years did see housing being
-						built, new housing construction stagnated by 2000. In recent years, however, Uxbridge
-						has seen a slight increase in new housing construction since 2016.
-					</p>
+					{#if fr}
+						<p>
+							Uxbridge est une petite ville de banlieue dont la densité de population est
+							généralement faible. Toutefois, Brock St. et les secteurs qui lui sont
+							directement adjacents présentent une densité de population plus élevée. Bien
+							qu’Uxbridge soit principalement dominée par les maisons individuelles non
+							attenantes, le secteur situé sur Brock St. et aux alentours compte une
+							présence notable d’immeubles d’appartements de moins de cinq étages. Cette
+							présence de logements de plus forte densité près de la rue principale
+							contribue à la densité de population accrue sur la rue et aux alentours, par
+							rapport aux quartiers environnants d’Uxbridge.
+						</p>
+						<p>
+							Le parc de logements sur Brock St. et aux alentours est généralement ancien,
+							plus de 40 % de l’ensemble des logements ayant été construits avant 1960.
+							Bien que des logements aient été construits au cours des années suivantes,
+							la construction de nouveaux logements a stagné dès 2000. Ces dernières
+							années, toutefois, Uxbridge a connu une légère hausse de la construction de
+							logements neufs depuis 2016.
+						</p>
+					{:else}
+						<p>
+							Uxbridge is a small suburban town and the population density is generally low. However,
+							Brock St., and the areas directly adjacent to it, do offer a higher population density.
+							While Uxbridge is primarily dominated by single-detached houses, the area on and around
+							Brock St. does have a notable presence of low-rise apartment buildings of under
+							five-storeys. This presence of higher-density housing near the main street contributes
+							to the increased population density on and around the street compared to the surrounding
+							neighbourhoods of Uxbridge.
+						</p>
+						<p>
+							The housing stock on and around Brock St. is generally older, with over 40% of the
+							entire housing stock built before 1960. While the following years did see housing being
+							built, new housing construction stagnated by 2000. In recent years, however, Uxbridge
+							has seen a slight increase in new housing construction since 2016.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -674,18 +839,18 @@
 						bearing={-18}
 						layers={['uxbridge-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -693,12 +858,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -710,36 +875,53 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'uxbridge'}
 							section={'demographics'}
 							region={'toronto'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						The residents of Brock St. offer distinct socio-economic characteristics, especially
-						when comparing the main street to the surrounding areas. In general, the average age and
-						income of Brock St. residents is lower on average. This is especially true in terms of
-						average income, as the areas surrounding Brock St., primarily north and south of the
-						street, boast significantly high average incomes. Additionally, the presence of higher
-						density housing, primarily in the low-rise apartment buildings, does result in a notably
-						smaller average household size among Brock St. residents compared to the rest of
-						Uxbridge. In terms of demographics, there is minimal diversity in terms of the
-						percentages of visible minorities, Indigenous peoples, and recent immigrants.
-					</p>
+					{#if fr}
+						<p>
+							Les résidents de Brock St. présentent des caractéristiques socioéconomiques
+							distinctes, surtout lorsqu’on compare la rue principale aux secteurs
+							environnants. En général, l’âge moyen et le revenu moyen des résidents de
+							Brock St. sont plus faibles. C’est particulièrement vrai pour le revenu
+							moyen, puisque les secteurs entourant Brock St., principalement au nord et
+							au sud de la rue, affichent des revenus moyens particulièrement élevés. De
+							plus, la présence de logements de plus forte densité, principalement dans
+							des immeubles d’appartements de faible hauteur, se traduit par une taille
+							moyenne des ménages nettement plus petite chez les résidents de Brock St.
+							que dans le reste d’Uxbridge. Sur le plan démographique, la diversité est
+							minime en ce qui concerne les pourcentages de minorités visibles, de peuples
+							autochtones et d’immigrants récents.
+						</p>
+					{:else}
+						<p>
+							The residents of Brock St. offer distinct socio-economic characteristics, especially
+							when comparing the main street to the surrounding areas. In general, the average age and
+							income of Brock St. residents is lower on average. This is especially true in terms of
+							average income, as the areas surrounding Brock St., primarily north and south of the
+							street, boast significantly high average incomes. Additionally, the presence of higher
+							density housing, primarily in the low-rise apartment buildings, does result in a notably
+							smaller average household size among Brock St. residents compared to the rest of
+							Uxbridge. In terms of demographics, there is minimal diversity in terms of the
+							percentages of visible minorities, Indigenous peoples, and recent immigrants.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -758,9 +940,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -782,26 +964,53 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Brock St. has seen a resurgence of visitors since the COVID-19 pandemic. While many main
-						streets across the country struggle to return to 2019 visitor numbers, Brock St. has
-						seen significant growth in the number of visitors to the street. Indeed, most recent
-						data shows that Brock St. is at almost 150 percent the level of visits relative to the
-						same time in 2019. While the numbers of infrequent visitors have not fully recovered to
-						2019 figures, the street has seen a growth in the number of recurring visitors which
-						signifies a potential new normal and reality for the street.
-					</p>
-					<p>
-						Additionally, visits to Brock St. are evenly spread across all days of the week. This
-						indicates that the street plays a significant role both during working hours and for
-						leisure activities on weekends. The only exception is a slightly lower percentage of
-						visits on Sundays.
-					</p>
-					<p>
-						As a result, Brock St. ranks well in terms of its overall street resilience and visitor
-						recovery, ranking 5th out of 20 Toronto main streets and 4th out of 12 small town main
-						streets.
-					</p>
+					{#if fr}
+						<p>
+							Brock St. connaît un regain de visites depuis la pandémie de COVID-19. Alors
+							que de nombreuses rues principales au pays peinent à retrouver le nombre de
+							visiteurs de 2019, Brock St. a connu une croissance importante de sa
+							fréquentation. En effet, les données les plus récentes montrent que le
+							niveau de visites sur Brock St. atteint près de 150 % de celui de la même
+							période en 2019. Bien que le nombre de visiteurs occasionnels ne soit pas
+							entièrement revenu aux chiffres de 2019, la rue a connu une hausse du nombre
+							de visiteurs récurrents, ce qui laisse entrevoir une nouvelle normalité
+							possible pour la rue.
+						</p>
+						<p>
+							De plus, les visites sur Brock St. sont réparties uniformément sur tous les
+							jours de la semaine. Cela indique que la rue joue un rôle important tant
+							pendant les heures de travail que pour les activités de loisirs la fin de
+							semaine. La seule exception est un pourcentage de visites légèrement
+							inférieur le dimanche.
+						</p>
+						<p>
+							Par conséquent, Brock St. se classe bien sur le plan de la résilience
+							globale de la rue et de la reprise des visites, au 5e rang sur 20 rues
+							principales de Toronto et au 4e rang sur 12 rues principales de petites
+							villes.
+						</p>
+					{:else}
+						<p>
+							Brock St. has seen a resurgence of visitors since the COVID-19 pandemic. While many main
+							streets across the country struggle to return to 2019 visitor numbers, Brock St. has
+							seen significant growth in the number of visitors to the street. Indeed, most recent
+							data shows that Brock St. is at almost 150 percent the level of visits relative to the
+							same time in 2019. While the numbers of infrequent visitors have not fully recovered to
+							2019 figures, the street has seen a growth in the number of recurring visitors which
+							signifies a potential new normal and reality for the street.
+						</p>
+						<p>
+							Additionally, visits to Brock St. are evenly spread across all days of the week. This
+							indicates that the street plays a significant role both during working hours and for
+							leisure activities on weekends. The only exception is a slightly lower percentage of
+							visits on Sundays.
+						</p>
+						<p>
+							As a result, Brock St. ranks well in terms of its overall street resilience and visitor
+							recovery, ranking 5th out of 20 Toronto main streets and 4th out of 12 small town main
+							streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -812,13 +1021,13 @@
 						bearing={-15}
 						layers={['uxbridge-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'19,700'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '19 700' : '19,700'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -835,7 +1044,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -843,12 +1052,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -856,20 +1065,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

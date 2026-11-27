@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/124streetnw/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/124streetnw/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -215,25 +221,40 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						124 Street NW is an arterial commercial street known for its private art galleries,
-						historical homes, shopping, and, to some, the Duchess Bake Shop. It is situated in the
-						historical Westmount neighbourhood of Edmonton. This segment is currently undergoing a
-						larger renewal initaitive.
-					</p>
-					<p>
-						124 Street has made a name for itself in the Edmonton arts community and this reputation
-						has attracted artists, resulting in a mix of public and private visual art integrated
-						into the streetscape.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							La 124 Street NW est une artère commerciale connue pour ses galeries d’art
+							privées, ses maisons historiques, ses commerces et, pour certains, la
+							Duchess Bake Shop. Elle est située dans le quartier historique de Westmount,
+							à Edmonton. Ce tronçon fait actuellement l’objet d’une initiative de
+							renouvellement de plus grande envergure.
+						</p>
+						<p>
+							La 124 Street s’est fait un nom dans le milieu artistique d’Edmonton, et
+							cette réputation a attiré des artistes, ce qui a donné lieu à un mélange
+							d’œuvres d’art visuel publiques et privées intégrées au paysage de rue.
+						</p>
+					{:else}
+						<p>
+							124 Street NW is an arterial commercial street known for its private art galleries,
+							historical homes, shopping, and, to some, the Duchess Bake Shop. It is situated in the
+							historical Westmount neighbourhood of Edmonton. This segment is currently undergoing a
+							larger renewal initaitive.
+						</p>
+						<p>
+							124 Street has made a name for itself in the Edmonton arts community and this reputation
+							has attracted artists, resulting in a mix of public and private visual art integrated
+							into the streetscape.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -258,24 +279,48 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						124 Street is a four lane arterial road with a decent flow of traffic, of both personal
-						automobiles and bus transit. The two outer lanes are used for parking with signs
-						restricting weekday hours. There are two blocks at the north end with a tree-lined
-						median. An inlaid brick pattern makes a chevron pattern around the bases of the street
-						lanterns.
-					</p>
-					<p>
-						Some street interecting east-west feature widened cross sections for accommodating angle
-						parking. Most intersections have pedestrian crossings with button activivated lights.
-						Others have signage and ramps.
-					</p>
-					<p>
-						As 107 Ave and 111 Ave are larger arterial roads, their intersections with 124 Street
-						are relatively louder and more heavily trafficked by vehicles. There are some shared-use
-						road signs and pavement markings present to facilitate cyclists.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							La 124 Street est une artère à quatre voies où la circulation est assez
+							soutenue, tant pour les automobiles que pour les autobus de transport
+							collectif. Les deux voies extérieures servent au stationnement, avec des
+							panneaux qui le restreignent à certaines heures en semaine. Sur deux pâtés
+							de maisons, à l’extrémité nord, la rue comporte un terre-plein central bordé
+							d’arbres. Des briques incrustées forment un motif en chevrons autour de la
+							base des lanternes de rue.
+						</p>
+						<p>
+							Certaines rues transversales orientées est-ouest présentent un profil élargi
+							permettant le stationnement en épi. La plupart des intersections comportent
+							des passages pour piétons munis de feux à bouton d’appel. D’autres sont
+							dotées de signalisation et de rampes.
+						</p>
+						<p>
+							Comme la 107 Ave et la 111 Ave sont des artères plus importantes, leurs
+							intersections avec la 124 Street sont relativement plus bruyantes et plus
+							achalandées par les véhicules. Quelques panneaux et marquages au sol de
+							chaussée partagée facilitent les déplacements des cyclistes.
+						</p>
+					{:else}
+						<p>
+							124 Street is a four lane arterial road with a decent flow of traffic, of both personal
+							automobiles and bus transit. The two outer lanes are used for parking with signs
+							restricting weekday hours. There are two blocks at the north end with a tree-lined
+							median. An inlaid brick pattern makes a chevron pattern around the bases of the street
+							lanterns.
+						</p>
+						<p>
+							Some street interecting east-west feature widened cross sections for accommodating angle
+							parking. Most intersections have pedestrian crossings with button activivated lights.
+							Others have signage and ramps.
+						</p>
+						<p>
+							As 107 Ave and 111 Ave are larger arterial roads, their intersections with 124 Street
+							are relatively louder and more heavily trafficked by vehicles. There are some shared-use
+							road signs and pavement markings present to facilitate cyclists.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -285,14 +330,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'124streetnw'} section={'builtform'} />
 					</div>
@@ -316,10 +361,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -329,12 +374,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -343,7 +392,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -352,7 +401,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -361,7 +410,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -370,7 +419,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -399,26 +448,54 @@
 							/>
 						</div>
 					</div>
-					<p>
-						124 Street is a part of the 124 Street Business Association. There are many murals, both
-						on the street itself and tucked away behind buildings. Art styles range from older
-						historic to modern abstract. Between 107 Ave and 108 Ave, a mural by Kris Freisen
-						depicts a scene in Athens, Greece, sharing a wall with the Greek restaurant Koutouki.
-						Utility boxes feature new murals by Cheyenne Rain LeGrant, a Nehiyaw Isko artist from
-						Bigstone Cree Nation. BIA branded lanterns and signs line the street.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, 124 Street ranks 8th of 20 Edmonton Main
-						Streets and 4th of Neighbourhood Main Streets.
-					</p>
-					<p>
-						Helen Nolan Park, on the southeast corner of 124 Street and 108 Ave, features a small
-						outdoor amphitheatre, seating, and lighting strung on tree branches.
-					</p>
-					<p>
-						Some other civic infrastructure observed includes a Greek Orthodox church, a pharmacy,
-						and a daycare. There was a wedding party leaving the church during the field visit.
-					</p>
+					{#if fr}
+						<p>
+							La 124 Street fait partie de la 124 Street Business Association. On y trouve
+							de nombreuses murales, à la fois sur la rue elle-même et à l’abri des
+							regards derrière les bâtiments. Les styles vont de l’art historique à l’art
+							abstrait moderne. Entre la 107 Ave et la 108 Ave, une murale de Kris Freisen
+							représente une scène d’Athènes, en Grèce, et partage un mur avec le
+							restaurant grec Koutouki. Des boîtiers de services publics arborent de
+							nouvelles murales de Cheyenne Rain LeGrant, une artiste Nehiyaw Isko de la
+							Nation crie de Bigstone. Des lanternes et des enseignes aux couleurs de la
+							BIA bordent la rue.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, la 124 Street se classe 8e sur 20
+							rues principales d’Edmonton et 4e parmi les rues principales de quartier.
+						</p>
+						<p>
+							Helen Nolan Park, à l’angle sud-est de la 124 Street et de la 108 Ave,
+							comprend un petit amphithéâtre extérieur, des places assises et un éclairage
+							suspendu aux branches des arbres.
+						</p>
+						<p>
+							Parmi les autres éléments d’infrastructure civique observés, on compte une
+							église orthodoxe grecque, une pharmacie et une garderie. Une noce sortait de
+							l’église lors de la visite sur le terrain.
+						</p>
+					{:else}
+						<p>
+							124 Street is a part of the 124 Street Business Association. There are many murals, both
+							on the street itself and tucked away behind buildings. Art styles range from older
+							historic to modern abstract. Between 107 Ave and 108 Ave, a mural by Kris Freisen
+							depicts a scene in Athens, Greece, sharing a wall with the Greek restaurant Koutouki.
+							Utility boxes feature new murals by Cheyenne Rain LeGrant, a Nehiyaw Isko artist from
+							Bigstone Cree Nation. BIA branded lanterns and signs line the street.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, 124 Street ranks 8th of 20 Edmonton Main
+							Streets and 4th of Neighbourhood Main Streets.
+						</p>
+						<p>
+							Helen Nolan Park, on the southeast corner of 124 Street and 108 Ave, features a small
+							outdoor amphitheatre, seating, and lighting strung on tree branches.
+						</p>
+						<p>
+							Some other civic infrastructure observed includes a Greek Orthodox church, a pharmacy,
+							and a daycare. There was a wedding party leaving the church during the field visit.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -438,17 +515,17 @@
 							'civicinfra-edmonton-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -458,12 +535,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -472,7 +553,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -481,7 +562,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -508,27 +589,56 @@
 							/>
 						</div>
 					</div>
-					<p>
-						According to the Independent Business Index, 124 Street NW ranks at the top of the list
-						for both Edmonton Main Streets and Neighbourhood Main Streets.
-					</p>
-					<p>
-						The south end hosts local legends such as the Duchess Bake Shop and the Roxy Theatre.
-						The Roxy burned down in 2015 but was rebuilt and reopened in 2022. Unfortunately,
-						Zwick's Pretzel, a local favourite, closed permanently.
-					</p>
-					<p>
-						The southwest corner on 108 Ave across from Helen Nolan Park features a cluster of
-						businesses including Tiramisu Bistro, Hideout Distro, the Grand Cafe, and Maker's Keep
-						which sells baked goods, coffee, and local vendors' art. Maker's Keep and The Grant Cafe
-						are housed in a reproduction of an early 1900s-style brick building completed in 2019.
-						Further north hosts several more restaurants and other services including the CUPE union
-						office and Nurse Next Door care services.
-					</p>
-					<p>
-						Westmount Substation, the home of Irrational Brewing Company, was nominated for heritage
-						design at the 2023 Edmonton Urban Design Awards.
-					</p>
+					{#if fr}
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 124 Street NW se classe en
+							tête de liste, tant parmi les rues principales d’Edmonton que parmi les rues
+							principales de quartier.
+						</p>
+						<p>
+							L’extrémité sud accueille des institutions locales comme la Duchess Bake
+							Shop et le Roxy Theatre. Le Roxy, détruit par un incendie en 2015, a été
+							reconstruit et a rouvert ses portes en 2022. Malheureusement, Zwick’s
+							Pretzel, un établissement très apprécié des gens du coin, a fermé
+							définitivement.
+						</p>
+						<p>
+							L’angle sud-ouest de la 108 Ave, en face de Helen Nolan Park, regroupe
+							plusieurs commerces, dont Tiramisu Bistro, Hideout Distro, le Grand Cafe et
+							Maker’s Keep, qui vend des produits de boulangerie, du café et des œuvres
+							d’artisans locaux. Maker’s Keep et le Grand Cafe occupent une reproduction
+							d’un bâtiment en brique de style début 1900, achevée en 2019. Plus au nord,
+							on trouve plusieurs autres restaurants et services, dont le bureau syndical
+							du SCFP et les services de soins Nurse Next Door.
+						</p>
+						<p>
+							Westmount Substation, qui abrite l’Irrational Brewing Company, a été retenue
+							comme finaliste dans la catégorie du design patrimonial aux Edmonton Urban
+							Design Awards de 2023.
+						</p>
+					{:else}
+						<p>
+							According to the Independent Business Index, 124 Street NW ranks at the top of the list
+							for both Edmonton Main Streets and Neighbourhood Main Streets.
+						</p>
+						<p>
+							The south end hosts local legends such as the Duchess Bake Shop and the Roxy Theatre.
+							The Roxy burned down in 2015 but was rebuilt and reopened in 2022. Unfortunately,
+							Zwick's Pretzel, a local favourite, closed permanently.
+						</p>
+						<p>
+							The southwest corner on 108 Ave across from Helen Nolan Park features a cluster of
+							businesses including Tiramisu Bistro, Hideout Distro, the Grand Cafe, and Maker's Keep
+							which sells baked goods, coffee, and local vendors' art. Maker's Keep and The Grant Cafe
+							are housed in a reproduction of an early 1900s-style brick building completed in 2019.
+							Further north hosts several more restaurants and other services including the CUPE union
+							office and Nurse Next Door care services.
+						</p>
+						<p>
+							Westmount Substation, the home of Irrational Brewing Company, was nominated for heritage
+							design at the 2023 Edmonton Urban Design Awards.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -546,17 +656,17 @@
 							'business-edmonton-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -566,17 +676,30 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						124 Street NW is home to many small, independent businesses ranging from zero to ten
-						employees. The segment itself is the northern extension of a commercial corridor that
-						extends down toward the North Saskatchewan River then east towards the downtown core.
-					</p>
-					<p>
-						For employment density, 124 Street NW ranks 7th of 20 Edmonton Main Streets and 9th of
-						Neighbourhood Main Streets.
-					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							La 124 Street NW accueille de nombreuses petites entreprises indépendantes
+							comptant de zéro à dix employés. Le tronçon lui-même constitue le
+							prolongement nord d’un corridor commercial qui descend vers la rivière
+							Saskatchewan Nord, puis s’étend vers l’est en direction du centre-ville.
+						</p>
+						<p>
+							Pour la densité d’emploi, la 124 Street NW se classe 7e sur 20 rues
+							principales d’Edmonton et 9e parmi les rues principales de quartier.
+						</p>
+					{:else}
+						<p>
+							124 Street NW is home to many small, independent businesses ranging from zero to ten
+							employees. The segment itself is the northern extension of a commercial corridor that
+							extends down toward the North Saskatchewan River then east towards the downtown core.
+						</p>
+						<p>
+							For employment density, 124 Street NW ranks 7th of 20 Edmonton Main Streets and 9th of
+							Neighbourhood Main Streets.
+						</p>
+					{/if}
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -588,25 +711,25 @@
 						bearing={0}
 						layers={['124streetnw', '124streetnw-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -618,44 +741,70 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'124streetnw'}
 							section={'housing'}
 							region={'edmonton'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The housing within the 124 Street NW study area is found predominantly north of 109 Ave
-						and on the perpendicular streets. The segment features a rate of low-rise apartments
-						triple that of the entire Edmonton CMA, built in the 1960s and 70s and clustered in the
-						northern portion.
-					</p>
-					<p>
-						124 Street sits in the middle of the historic Westmount neighbourhood. The area saw a
-						massive influx of housing construction in 1912, in the craftsman architectural style.
-						Plaques adorn many homes displaying the date of construction and name of the original
-						owner.
-					</p>
-					<p>
-						The adjacent neighbourhood, Glenora, is affected by what's known as the Carruthers
-						Caveat, a restrictive covenant. The Caveat set rules on any new construction limiting
-						new builds to single-detached homes with significant front setbacks. This resulted in
-						creating homes attractive to wealthy home buyers. This legacy persists to this day with
-						Glenora and Westmount being two of the most sought-after places to live in Edmonton with
-						price tags to match.
-					</p>
+					{#if fr}
+						<p>
+							Dans la zone à l’étude de la 124 Street NW, les logements se trouvent
+							principalement au nord de la 109 Ave et dans les rues perpendiculaires. Le
+							tronçon présente une proportion d’appartements de faible hauteur trois fois
+							plus élevée que celle de l’ensemble de la RMR d’Edmonton; ces immeubles,
+							construits dans les années 1960 et 1970, sont regroupés dans la partie nord.
+						</p>
+						<p>
+							La 124 Street se trouve au cœur du quartier historique de Westmount. Le
+							secteur a connu un afflux massif de constructions résidentielles en 1912,
+							dans le style architectural Craftsman. Des plaques ornent de nombreuses
+							maisons et indiquent la date de construction et le nom du premier
+							propriétaire.
+						</p>
+						<p>
+							Le quartier adjacent, Glenora, est touché par ce qu’on appelle le Carruthers
+							Caveat, une clause restrictive. Ce Caveat imposait des règles à toute
+							nouvelle construction, la limitant à des maisons individuelles non
+							attenantes avec d’importantes marges de recul avant. Il en a résulté des
+							maisons attrayantes pour les acheteurs fortunés. Cet héritage perdure
+							aujourd’hui : Glenora et Westmount comptent parmi les quartiers les plus
+							recherchés d’Edmonton, avec des prix à l’avenant.
+						</p>
+					{:else}
+						<p>
+							The housing within the 124 Street NW study area is found predominantly north of 109 Ave
+							and on the perpendicular streets. The segment features a rate of low-rise apartments
+							triple that of the entire Edmonton CMA, built in the 1960s and 70s and clustered in the
+							northern portion.
+						</p>
+						<p>
+							124 Street sits in the middle of the historic Westmount neighbourhood. The area saw a
+							massive influx of housing construction in 1912, in the craftsman architectural style.
+							Plaques adorn many homes displaying the date of construction and name of the original
+							owner.
+						</p>
+						<p>
+							The adjacent neighbourhood, Glenora, is affected by what's known as the Carruthers
+							Caveat, a restrictive covenant. The Caveat set rules on any new construction limiting
+							new builds to single-detached homes with significant front setbacks. This resulted in
+							creating homes attractive to wealthy home buyers. This legacy persists to this day with
+							Glenora and Westmount being two of the most sought-after places to live in Edmonton with
+							price tags to match.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -667,18 +816,18 @@
 						bearing={0}
 						layers={['124streetnw-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -686,12 +835,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -703,29 +852,36 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'124streetnw'}
 							section={'demographics'}
 							region={'edmonton'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 32% are recent immigrants and 34% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidentes de la zone à l’étude, 32 % sont des personnes
+							immigrantes récentes et 34 % appartiennent à une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 32% are recent immigrants and 34% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -744,9 +900,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -768,19 +924,38 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						124 Street NW's Resiliency score ranks 8th of 20 Edmonton Main Streets and 11th of
-						Neighbourhood Main Streets.
-					</p>
-					<p>
-						Prior to pandemic shutdowns, of over 1 million visits, more than 60% were by infrequent
-						visitors from across the region. While infrequent visitors made up more than half of
-						visits in 2022, they've decreased by over 300,000 compared to 2019.
-					</p>
-					<p>
-						On a daily basis, the 12pm to 3pm range is the busiest for visits, with Sunday to
-						Saturday being the busiest days of the week from least to most.
-					</p>
+					{#if fr}
+						<p>
+							Selon son score de résilience, la 124 Street NW se classe 8e sur 20 rues
+							principales d’Edmonton et 11e parmi les rues principales de quartier.
+						</p>
+						<p>
+							Avant les fermetures liées à la pandémie, sur plus de 1 million de visites,
+							plus de 60 % étaient le fait de visiteurs occasionnels provenant de toute la
+							région. Si les visiteurs occasionnels représentaient encore plus de la
+							moitié des visites en 2022, leurs visites ont diminué de plus de 300 000 par
+							rapport à 2019.
+						</p>
+						<p>
+							Au quotidien, la plage de midi à 15 h est la plus achalandée pour les
+							visites, et l’achalandage augmente au fil de la semaine, du dimanche (le
+							jour le moins achalandé) au samedi (le plus achalandé).
+						</p>
+					{:else}
+						<p>
+							124 Street NW's Resiliency score ranks 8th of 20 Edmonton Main Streets and 11th of
+							Neighbourhood Main Streets.
+						</p>
+						<p>
+							Prior to pandemic shutdowns, of over 1 million visits, more than 60% were by infrequent
+							visitors from across the region. While infrequent visitors made up more than half of
+							visits in 2022, they've decreased by over 300,000 compared to 2019.
+						</p>
+						<p>
+							On a daily basis, the 12pm to 3pm range is the busiest for visits, with Sunday to
+							Saturday being the busiest days of the week from least to most.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -791,13 +966,13 @@
 						bearing={0}
 						layers={['124streetnw-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'19,200'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '19 200' : '19,200'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -814,7 +989,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -822,12 +997,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -835,20 +1010,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

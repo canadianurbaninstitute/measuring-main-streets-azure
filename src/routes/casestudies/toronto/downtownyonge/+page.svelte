@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/toronto/downtownyonge/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/toronto/downtownyonge/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -211,30 +217,51 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						Yonge Street was originally surveyed as a north-south transportation route between the
-						Town of York and Lake Simcoe in 1796. Portions of Yonge Street overlap with an ancient
-						Indigenous trail system.
-					</p>
-					<p>
-						After Toronto was incorporated in 1834, Yonge emerged as a key commercial street. Known
-						as "Toronto's Main Street", Yonge continues to play a vital role in the growth and
-						development of Toronto and the Greater Toronto Area.
-					</p>
-					<p>
-						The Downtown Yonge study area extends from Richmond St W in the south to Grosvenor St in
-						the north, and is bound by Bay St to the west and Toronto Metropolitan University (TMU)
-						to the east. Downtown Younge sits just north of Toronto's Financial District and west of
-						City Hall.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							Yonge Street a d’abord été arpentée en 1796 comme voie de transport nord-sud
+							entre la ville de York et le lac Simcoe. Certaines portions de Yonge Street
+							chevauchent un ancien réseau de sentiers autochtones.
+						</p>
+						<p>
+							Après la constitution de Toronto en municipalité en 1834, Yonge est devenue
+							une artère commerciale importante. Surnommée « la rue principale de
+							Toronto », Yonge continue de jouer un rôle essentiel dans la croissance et
+							le développement de Toronto et de la région du Grand Toronto.
+						</p>
+						<p>
+							La zone à l’étude de Downtown Yonge s’étend de Richmond St W, au sud,
+							jusqu’à Grosvenor St, au nord, et est délimitée par Bay St à l’ouest et par
+							la Toronto Metropolitan University (TMU) à l’est. Downtown Yonge se trouve
+							juste au nord du quartier financier de Toronto et à l’ouest de l’hôtel de
+							ville.
+						</p>
+					{:else}
+						<p>
+							Yonge Street was originally surveyed as a north-south transportation route between the
+							Town of York and Lake Simcoe in 1796. Portions of Yonge Street overlap with an ancient
+							Indigenous trail system.
+						</p>
+						<p>
+							After Toronto was incorporated in 1834, Yonge emerged as a key commercial street. Known
+							as "Toronto's Main Street", Yonge continues to play a vital role in the growth and
+							development of Toronto and the Greater Toronto Area.
+						</p>
+						<p>
+							The Downtown Yonge study area extends from Richmond St W in the south to Grosvenor St in
+							the north, and is bound by Bay St to the west and Toronto Metropolitan University (TMU)
+							to the east. Downtown Younge sits just north of Toronto's Financial District and west of
+							City Hall.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -259,25 +286,49 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						Due to Yonge Street's long history as the heart of Toronto, there is a diverse and wide
-						range of architectural styles and building forms throughout Downtown Yonge. In many
-						ways, the Eaton Centre shopping mall dominates the area, especially between Dundas and
-						Queen. Smaller-scale commercial buildings exist along the street, but large retail
-						complexes and high-rise towers are more prominent.
-					</p>
-					<p>
-						The TTC's Line 1 runs under Yonge Street, connecting Downtown Yonge to Union Station in
-						the south and Vaughan Metropolitan Centre to the north. Several major streetcar lines
-						also run east-west through the study area facilitating a transit rich environment.
-					</p>
-					<p>
-						The street itself is four lanes wide with modest sidewalks that are often packed with
-						pedestrians during busy periods. In response, the local BIA's Yonge Love Action Plan
-						proposes a significant overhaul of the streetscape to pedestrianize the corridor among
-						other vibrancy initiatives.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							En raison de la longue histoire de Yonge Street en tant que cœur de Toronto,
+							on trouve une grande diversité de styles architecturaux et de formes bâties
+							dans Downtown Yonge. À bien des égards, le centre commercial Eaton Centre
+							domine le secteur, surtout entre Dundas et Queen. Des bâtiments commerciaux
+							de plus petite échelle bordent la rue, mais les grands complexes commerciaux
+							et les tours de grande hauteur y occupent une place plus importante.
+						</p>
+						<p>
+							La ligne 1 de la TTC passe sous Yonge Street et relie Downtown Yonge à Union
+							Station au sud et au Vaughan Metropolitan Centre au nord. Plusieurs grandes
+							lignes de tramway traversent également la zone à l’étude d’est en ouest, ce
+							qui en fait un milieu très bien desservi par le transport collectif.
+						</p>
+						<p>
+							La rue elle-même compte quatre voies et des trottoirs modestes, souvent
+							bondés de piétons pendant les périodes achalandées. Pour y remédier, le
+							Yonge Love Action Plan de la BIA locale propose une refonte importante du
+							paysage de rue afin de piétonniser le corridor, parmi d’autres initiatives
+							visant à dynamiser le secteur.
+						</p>
+					{:else}
+						<p>
+							Due to Yonge Street's long history as the heart of Toronto, there is a diverse and wide
+							range of architectural styles and building forms throughout Downtown Yonge. In many
+							ways, the Eaton Centre shopping mall dominates the area, especially between Dundas and
+							Queen. Smaller-scale commercial buildings exist along the street, but large retail
+							complexes and high-rise towers are more prominent.
+						</p>
+						<p>
+							The TTC's Line 1 runs under Yonge Street, connecting Downtown Yonge to Union Station in
+							the south and Vaughan Metropolitan Centre to the north. Several major streetcar lines
+							also run east-west through the study area facilitating a transit rich environment.
+						</p>
+						<p>
+							The street itself is four lanes wide with modest sidewalks that are often packed with
+							pedestrians during busy periods. In response, the local BIA's Yonge Love Action Plan
+							proposes a significant overhaul of the streetscape to pedestrianize the corridor among
+							other vibrancy initiatives.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -287,14 +338,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} />
 						<SatelliteCheckbox casestudy={'downtownyonge'} section={'builtform'} />
 					</div>
@@ -318,10 +369,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -331,12 +382,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -345,7 +400,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -354,7 +409,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -363,7 +418,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -372,7 +427,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -401,26 +456,55 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The Downtown Yonge study area is based on the boundaries of the Downtown Yonge BIA. The
-						BIA has spearheaded beautification initiatives including branded street poles, banners,
-						planters, holiday lights, tree plantings, and sidewalk improvements.
-					</p>
-					<p>
-						Yonge-Dundas Square serves as a focal point for the downtown Toronto community. The
-						former parking lot turned public plaza connects the Eaton Centre to TMU and provides a
-						place for rest with tables and chairs out during warmer months. The outdoor stage and
-						plaza are booked for events all year round.
-					</p>
-					<p>
-						The Sheldon & Tracy Levy Student Learning Centre at Yonge and Gould, first opened to TMU
-						students in 2015, serves as a gateway into the TMU campus.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, Downtown Yonge ranks 1st out of 20 Toronto
-						case studies in terms of its civic opportunity. Compared to other downtown main streets,
-						Downtown Yonge ranks 7th out of the 12 downtown main streets.
-					</p>
+					{#if fr}
+						<p>
+							La zone à l’étude de Downtown Yonge correspond aux limites de la zone
+							d’amélioration commerciale (BIA) de Downtown Yonge. La BIA a mené des
+							initiatives d’embellissement, notamment des poteaux de rue à l’image du
+							secteur, des bannières, des jardinières, des lumières des Fêtes, des
+							plantations d’arbres et des améliorations aux trottoirs.
+						</p>
+						<p>
+							Yonge-Dundas Square sert de point de rassemblement pour la communauté du
+							centre-ville de Toronto. Cet ancien stationnement transformé en place
+							publique relie l’Eaton Centre à la TMU et offre un lieu de repos, avec des
+							tables et des chaises installées pendant les mois plus chauds. La scène
+							extérieure et la place sont réservées pour des événements tout au long de
+							l’année.
+						</p>
+						<p>
+							Le Sheldon & Tracy Levy Student Learning Centre, à l’angle de Yonge et de
+							Gould, ouvert à la population étudiante de la TMU en 2015, sert de porte
+							d’entrée au campus de la TMU.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, Downtown Yonge se classe au 1er
+							rang sur 20 études de cas de Toronto en matière de possibilités civiques.
+							Par rapport aux autres rues principales de centres-villes, Downtown Yonge se
+							classe 7e sur 12.
+						</p>
+					{:else}
+						<p>
+							The Downtown Yonge study area is based on the boundaries of the Downtown Yonge BIA. The
+							BIA has spearheaded beautification initiatives including branded street poles, banners,
+							planters, holiday lights, tree plantings, and sidewalk improvements.
+						</p>
+						<p>
+							Yonge-Dundas Square serves as a focal point for the downtown Toronto community. The
+							former parking lot turned public plaza connects the Eaton Centre to TMU and provides a
+							place for rest with tables and chairs out during warmer months. The outdoor stage and
+							plaza are booked for events all year round.
+						</p>
+						<p>
+							The Sheldon & Tracy Levy Student Learning Centre at Yonge and Gould, first opened to TMU
+							students in 2015, serves as a gateway into the TMU campus.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, Downtown Yonge ranks 1st out of 20 Toronto
+							case studies in terms of its civic opportunity. Compared to other downtown main streets,
+							Downtown Yonge ranks 7th out of the 12 downtown main streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -440,17 +524,17 @@
 							'civicinfra-toronto-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -460,12 +544,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -474,7 +562,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -483,7 +571,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -510,17 +598,34 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Downtown Yonge is part of the larger downtown core, an area of immense employment
-						density. Downtown Yonge ranks 1st of 20 Toronto Main Streets for business density, and
-						4th out of 12 Downtown Main Streets. There are small businesses oriented toward Yonge
-						Street itself in low-rise, historical buildings, and medium to large businesses in
-						retail complexes and high-rise office towers.
-					</p>
-					<p>
-						According to the Independent Business Index, Downtown Yonge ranks 18th out of 20 Toronto
-						Main Streets and last out of 12 Downtown Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Downtown Yonge fait partie du grand centre-ville, un secteur où la densité
+							d’emploi est considérable. Downtown Yonge se classe 1er sur 20 rues
+							principales de Toronto pour la densité commerciale, et 4e sur 12 rues
+							principales de centres-villes. On y trouve de petites entreprises orientées
+							vers Yonge Street dans des bâtiments historiques de faible hauteur, ainsi
+							que des entreprises de moyenne et de grande taille dans des complexes
+							commerciaux et des tours de bureaux de grande hauteur.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, Downtown Yonge se classe 18e
+							sur 20 rues principales de Toronto et au dernier rang des 12 rues
+							principales de centres-villes.
+						</p>
+					{:else}
+						<p>
+							Downtown Yonge is part of the larger downtown core, an area of immense employment
+							density. Downtown Yonge ranks 1st of 20 Toronto Main Streets for business density, and
+							4th out of 12 Downtown Main Streets. There are small businesses oriented toward Yonge
+							Street itself in low-rise, historical buildings, and medium to large businesses in
+							retail complexes and high-rise office towers.
+						</p>
+						<p>
+							According to the Independent Business Index, Downtown Yonge ranks 18th out of 20 Toronto
+							Main Streets and last out of 12 Downtown Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -538,17 +643,17 @@
 							'business-toronto-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -558,18 +663,32 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						As part of a downtown core with the densest concentration of employment in Canada, there
-						is employment opportunities on and around Downtown Yonge. These employers range in size
-						- from small scale businesses employing under five employees to large scale employers
-						with over 100 employees. Additionally, there is relative mix in the type of employers,
-						as employment is located in both civic infrastructure and businesses as well as other
-						types of enterprises. As a result, Downtown Yonge ranks first in employment density for
-						all 20 Toronto Main Streets and 12 Downtown Main Streets.
-					</p>
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							Faisant partie d’un centre-ville qui présente la plus forte concentration
+							d’emplois au Canada, Downtown Yonge offre des possibilités d’emploi sur la
+							rue et dans ses environs. La taille de ces employeurs varie, des petites
+							entreprises de moins de cinq employés aux grands employeurs de plus de 100
+							employés. De plus, les types d’employeurs sont relativement variés, puisque
+							les emplois se trouvent à la fois dans l’infrastructure civique, dans les
+							entreprises et dans d’autres types d’organisations. Par conséquent, Downtown
+							Yonge se classe au 1er rang pour la densité d’emploi parmi les 20 rues
+							principales de Toronto et les 12 rues principales de centres-villes.
+						</p>
+					{:else}
+						<p>
+							As part of a downtown core with the densest concentration of employment in Canada, there
+							is employment opportunities on and around Downtown Yonge. These employers range in size
+							- from small scale businesses employing under five employees to large scale employers
+							with over 100 employees. Additionally, there is relative mix in the type of employers,
+							as employment is located in both civic infrastructure and businesses as well as other
+							types of enterprises. As a result, Downtown Yonge ranks first in employment density for
+							all 20 Toronto Main Streets and 12 Downtown Main Streets.
+						</p>
+					{/if}
 
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -581,25 +700,25 @@
 						bearing={-15}
 						layers={['downtownyonge', 'downtownyonge-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -611,34 +730,50 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'downtownyonge'}
 							section={'housing'}
 							region={'toronto'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} />
 					</div>
-					<p>
-						As part of an intensified downtown core, the residents of Downtown Yonge are all housed
-						in high-rise apartments. Taking advantage of close proximity to Line 1 subway stations,
-						residential towers, often above mixed-use podiums, have been erected along Yonge and
-						adjacent streets.
-					</p>
-					<p>
-						Reflective of the recent condo boom in downtown Toronto, more than 25% of housing in the
-						study area was constructed between 2016 and 2021.
-					</p>
+					{#if fr}
+						<p>
+							Comme le secteur fait partie d’un centre-ville densifié, toutes les
+							personnes résidentes de Downtown Yonge habitent dans des immeubles
+							d’appartements de grande hauteur. Tirant parti de la proximité des stations
+							de métro de la ligne 1, des tours résidentielles, souvent construites sur
+							des basilaires à usage mixte, ont été érigées le long de Yonge et des rues
+							adjacentes.
+						</p>
+						<p>
+							Reflet du récent boom des copropriétés au centre-ville de Toronto, plus de
+							25 % des logements de la zone à l’étude ont été construits entre 2016 et
+							2021.
+						</p>
+					{:else}
+						<p>
+							As part of an intensified downtown core, the residents of Downtown Yonge are all housed
+							in high-rise apartments. Taking advantage of close proximity to Line 1 subway stations,
+							residential towers, often above mixed-use podiums, have been erected along Yonge and
+							adjacent streets.
+						</p>
+						<p>
+							Reflective of the recent condo boom in downtown Toronto, more than 25% of housing in the
+							study area was constructed between 2016 and 2021.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,18 +785,18 @@
 						bearing={-15}
 						layers={['downtownyonge-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -669,12 +804,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -686,31 +821,42 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'downtownyonge'}
 							section={'demographics'}
 							region={'toronto'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						The Downtown Yonge study area has a diverse residential population, with 53% being
-						recent immigrants and 53% being visible minorities. Living in one of the most sought
-						after downtowns in Canada with high rents to match, the average individual full time
-						annual employment income of residents in the study area is $98,428.
-					</p>
+					{#if fr}
+						<p>
+							La zone à l’étude de Downtown Yonge compte une population résidente
+							diversifiée : 53 % des personnes sont issues d’une immigration récente et
+							53 % appartiennent à une minorité visible. Dans l’un des centres-villes les
+							plus prisés au Canada, où les loyers sont élevés en conséquence, le revenu
+							annuel moyen d’emploi individuel à temps plein des personnes résidant dans
+							la zone à l’étude s’élève à 98 428 $.
+						</p>
+					{:else}
+						<p>
+							The Downtown Yonge study area has a diverse residential population, with 53% being
+							recent immigrants and 53% being visible minorities. Living in one of the most sought
+							after downtowns in Canada with high rents to match, the average individual full time
+							annual employment income of residents in the study area is $98,428.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -729,9 +875,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -753,20 +899,39 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						As Downtown Yonge is situated in the heart of Toronto, drawing workers, students,
-						tourists, and regional residents looking for entertainment, it's not surprised to see
-						that the study area draws more visitors than any other.
-					</p>
-					<p>
-						Despite seeing 20 million less visits than the relative 2019 count, the area still
-						attracted over 30 million visits 2022.
-					</p>
-					<p>
-						But Downtown Yonge's over reliance on infrequent visitors resulted in a low Resiliency
-						Score, ranking 18th of 20 Toronto Main Streets and in the middle at 6th of 12 Downtown
-						Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Comme Downtown Yonge se situe au cœur de Toronto et attire des travailleurs,
+							des étudiants, des touristes et des résidents de la région à la recherche de
+							divertissement, il n’est pas surprenant de constater que la zone à l’étude
+							attire plus de personnes visiteuses que toute autre.
+						</p>
+						<p>
+							Bien qu’elle ait enregistré 20 millions de visites de moins qu’en 2019, la
+							zone a tout de même attiré plus de 30 millions de visites en 2022.
+						</p>
+						<p>
+							Toutefois, la trop grande dépendance de Downtown Yonge envers les visiteurs
+							occasionnels lui vaut un faible score de résilience : la zone se classe 18e
+							sur 20 rues principales de Toronto et en milieu de peloton, au 6e rang sur
+							12 rues principales de centres-villes.
+						</p>
+					{:else}
+						<p>
+							As Downtown Yonge is situated in the heart of Toronto, drawing workers, students,
+							tourists, and regional residents looking for entertainment, it's not surprised to see
+							that the study area draws more visitors than any other.
+						</p>
+						<p>
+							Despite seeing 20 million less visits than the relative 2019 count, the area still
+							attracted over 30 million visits 2022.
+						</p>
+						<p>
+							But Downtown Yonge's over reliance on infrequent visitors resulted in a low Resiliency
+							Score, ranking 18th of 20 Toronto Main Streets and in the middle at 6th of 12 Downtown
+							Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -777,13 +942,13 @@
 						bearing={-15}
 						layers={['downtownyonge-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'293,000'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '293 000' : '293,000'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -800,7 +965,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -808,12 +973,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -821,20 +986,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

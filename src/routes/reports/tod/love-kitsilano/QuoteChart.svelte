@@ -1,51 +1,82 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const T = (en, frText) => (fr ? frText : en);
 
 	const categories = [
 		{
-			title: 'Points of Disagreement',
+			title: T('Points of Disagreement', 'Points de désaccord'),
 			icon: 'mdi:thumbs-up-down',
 			color: '#db3069',
 			colorFam: 'pink',
 			items: [
-				'Housing development & density',
-				'Expansion of public transit',
-				'Homelessness & harm reduction policies',
-				'Drivers vs. cyclists & transit',
-				'Economic & cultural differences'
+				T('Housing development & density', 'Construction résidentielle et densité'),
+				T('Expansion of public transit', 'Expansion du transport collectif'),
+				T(
+					'Homelessness & harm reduction policies',
+					'Itinérance et politiques de réduction des méfaits'
+				),
+				T(
+					'Drivers vs. cyclists & transit',
+					'Automobilistes contre cyclistes et transport collectif'
+				),
+				T('Economic & cultural differences', 'Différences économiques et culturelles')
 			]
 		},
 		{
-			title: 'Barriers to Engagement',
+			title: T('Barriers to Engagement', 'Obstacles à la participation'),
 			icon: 'mdi:message-unread',
 			color: '#f45d01',
 			colorFam: 'orange',
 			items: [
-				'Failure to engage with concerns on social issues',
-				'Conversations dominated by privileged groups'
+				T(
+					'Failure to engage with concerns on social issues',
+					'Absence de réponse aux préoccupations liées aux enjeux sociaux'
+				),
+				T(
+					'Conversations dominated by privileged groups',
+					'Conversations dominées par des groupes privilégiés'
+				)
 			]
 		},
 		{
-			title: 'Points of Agreement',
+			title: T('Points of Agreement', 'Points d’entente'),
 			icon: 'mdi:super-chat-for-good',
 			color: '#43b171',
 			colorFam: 'green',
 			items: [
-				'Appreciation for TransLink',
-				'Desire for European / Asian urban models',
-				"Vancouver's culture, aesthetic, outdoors",
-				'Concern about social issues'
+				T('Appreciation for TransLink', 'Appréciation de TransLink'),
+				T(
+					'Desire for European / Asian urban models',
+					'Désir de modèles urbains européens et asiatiques'
+				),
+				T(
+					"Vancouver's culture, aesthetic, outdoors",
+					'Culture, esthétique et plein air de Vancouver'
+				),
+				T('Concern about social issues', 'Préoccupation à l’égard des enjeux sociaux')
 			]
 		},
 		{
-			title: 'Opportunities for Engagement',
+			title: T('Opportunities for Engagement', 'Occasions de participation'),
 			icon: 'mdi:stars',
 			color: '#00adf2',
 			colorFam: 'blue',
 			items: [
-				'Provide a vision for a better development future',
-				"Celebrate Vancouver's landscape and culture",
-				'Acknowledge desires for solutions to density issues'
+				T(
+					'Provide a vision for a better development future',
+					'Proposer une vision d’un meilleur avenir en matière de développement'
+				),
+				T(
+					"Celebrate Vancouver's landscape and culture",
+					'Célébrer les paysages et la culture de Vancouver'
+				),
+				T(
+					'Acknowledge desires for solutions to density issues',
+					'Reconnaître le désir de solutions aux enjeux de densité'
+				)
 			]
 		}
 	];

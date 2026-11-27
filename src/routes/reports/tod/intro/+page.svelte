@@ -10,7 +10,9 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisLink from '../../components/VisLink.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
-	import { sections } from './article';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article';
+	import { sections as sectionsFr } from './article.fr';
 	// Assets
 	import train from '../../../lib/assets/graphics/train-long.svg';
 	import introImage from '../../../lib/assets/screenshots/IntroHeader.png';
@@ -45,6 +47,9 @@
 	import UrbanPop from './charts/UrbanPop.svelte';
 	import UrbanPopLineChart from './charts/UrbanPopLineChart.svelte';
 
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
+
 	// Data
 	let jobGrowthSectorData = $state<any[] | null>(null);
 
@@ -61,12 +66,16 @@
 		forces: {
 			type: 'image',
 			src: renfrew,
-			alt: 'Catchment area map example for Renfrew Station'
+			alt: fr
+				? 'Exemple de carte de zone de desserte pour la station Renfrew'
+				: 'Catchment area map example for Renfrew Station'
 		},
 		forces2: {
 			type: 'image',
 			src: mississauga,
-			alt: 'Major Transit Station Area Map Mississauga'
+			alt: fr
+				? 'Carte des aires de station de transport collectif majeures (ASTCM) de Mississauga'
+				: 'Major Transit Station Area Map Mississauga'
 		},
 		forces3: {
 			type: 'image',
@@ -76,45 +85,59 @@
 		cc: {
 			type: 'image',
 			src: cc,
-			alt: 'Screenshot of complete communities tool showing 95% overall score for 1 Street SW in Calgary.',
+			alt: fr
+				? 'Capture d’écran de l’outil Collectivités complètes montrant un score global de 95 % pour 1 Street SW à Calgary.'
+				: 'Screenshot of complete communities tool showing 95% overall score for 1 Street SW in Calgary.',
 			fit: 'cover',
 			aspect: '16/9'
 		},
 		cc2: {
 			type: 'image',
 			src: ccmartindale,
-			alt: 'Screenshot of complete communities tool showing 26% overall score for Martindale in Calgary.',
+			alt: fr
+				? 'Capture d’écran de l’outil Collectivités complètes montrant un score global de 26 % pour Martindale à Calgary.'
+				: 'Screenshot of complete communities tool showing 26% overall score for Martindale in Calgary.',
 			fit: 'cover',
 			aspect: '16/9'
 		},
 		walkability: {
 			type: 'image',
 			src: arbutus,
-			alt: 'Walkability map of Arbutus Station area.',
+			alt: fr
+				? 'Carte du potentiel piétonnier de l’aire de la station Arbutus.'
+				: 'Walkability map of Arbutus Station area.',
 			fit: 'cover',
 			aspect: '4/3'
 		},
 		walkability2: {
 			type: 'image',
 			src: panama,
-			alt: 'Walkability map of Panama Station area.',
+			alt: fr
+				? 'Carte du potentiel piétonnier de l’aire de la station Panama.'
+				: 'Walkability map of Panama Station area.',
 			fit: 'cover',
 			aspect: '4/3'
 		},
 		benefits: {
 			type: 'image',
 			src: casestudypanama,
-			alt: 'Screenshot of case study for Arbutus Station by School of Cities'
+			alt: fr
+				? 'Capture d’écran de l’étude de cas de la station Arbutus réalisée par la School of Cities'
+				: 'Screenshot of case study for Arbutus Station by School of Cities'
 		},
 		displacement: {
 			type: 'image',
 			src: wholivesintsas,
-			alt: 'Screenshot of Who Lives in TSAs infographic report'
+			alt: fr
+				? 'Capture d’écran du rapport infographique Qui vit dans les ASTC?'
+				: 'Screenshot of Who Lives in TSAs infographic report'
 		},
 		dps: {
 			type: 'image',
 			src: dpscooksville,
-			alt: 'Screenshot of community poll for Cooksville by Digital Public Square'
+			alt: fr
+				? 'Capture d’écran du sondage communautaire pour Cooksville réalisé par Digital Public Square'
+				: 'Screenshot of community poll for Cooksville by Digital Public Square'
 		}
 	};
 
@@ -160,7 +183,7 @@
 	const items = $derived.by<NavItem[]>(() => {
 		return [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Findings' },
+			{ type: 'anchor', id: 'report-findings', label: fr ? 'Principales constatations' : 'Key Findings' },
 			...navSections.map(
 				(s) =>
 					({
@@ -216,7 +239,7 @@
 				<VisLink
 					href={panel.config.href}
 					target={panel.config.target}
-					label={panel.config.btnLabel ?? 'Learn More'}
+					label={panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 				/>
 			{/if}
 		</VisPanel>
@@ -226,27 +249,38 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img
+				src={train}
+				width="100%"
+				height="100%"
+				alt={fr ? 'Icône de progression' : 'Progress icon'}
+			/>
 		{/snippet}
 	</ProgressBar>
 
 	<ReportHeader
 		id="report-header"
-		eyebrow="THE CASE FOR"
-		title="TRANSIT-ORIENTED COMPLETE COMMUNITIES"
-		subtitle="With rapidly-growing populations, Canada’s largest metropolitan regions face an acute need for housing. How can transit-oriented development create complete communities that fulfill this need?"
+		eyebrow={fr ? 'PLAIDOYER POUR DES' : 'THE CASE FOR'}
+		title={fr
+			? 'COLLECTIVITÉS COMPLÈTES AXÉES SUR LE TRANSPORT COLLECTIF'
+			: 'TRANSIT-ORIENTED COMPLETE COMMUNITIES'}
+		subtitle={fr
+			? 'Avec une population en croissance rapide, les plus grandes régions métropolitaines du Canada ont un besoin criant de logements. Comment l’aménagement axé sur le transport collectif peut-il créer des collectivités complètes qui répondent à ce besoin?'
+			: 'With rapidly-growing populations, Canada’s largest metropolitan regions face an acute need for housing. How can transit-oriented development create complete communities that fulfill this need?'}
 		backgroundImage={introImage}
 	/>
 
 	<ReportFindings
 		id="report-findings"
-		title="KEY FINDINGS"
-		finding1="Investments in public transit"
-		description1="are vital to maintaining growth in Canada’s largest urban regions."
-		finding2="Communities are only complete"
-		description2="if they are walkable."
-		finding3="Not all transit projects"
-		description3="deliver the same return."
+		title={fr ? 'PRINCIPALES CONSTATATIONS' : 'KEY FINDINGS'}
+		finding1={fr ? 'Les investissements dans le transport collectif' : 'Investments in public transit'}
+		description1={fr
+			? 'sont essentiels pour soutenir la croissance des plus grandes régions urbaines du Canada.'
+			: 'are vital to maintaining growth in Canada’s largest urban regions.'}
+		finding2={fr ? 'Une collectivité n’est complète' : 'Communities are only complete'}
+		description2={fr ? 'que si elle est propice à la marche.' : 'if they are walkable.'}
+		finding3={fr ? 'Les projets de transport collectif' : 'Not all transit projects'}
+		description3={fr ? 'n’ont pas tous le même rendement.' : 'deliver the same return.'}
 	/>
 
 	<Scroller bind:activeIndex threshold={0.5}>

@@ -24,12 +24,37 @@
 	} from '../../lib/data/transitdata/config.json';
 	import Checkbox from '../../lib/ui/checkbox/Checkbox.svelte';
 	import Combobox from '../../lib/ui/Combobox.svelte';
+	import { formatNumber, getLang } from '../../lib/i18n';
 	import '../../styles.css';
 	import DevelopmentPotentialGraphic from './DevelopmentPotentialGraphic.svelte';
 	import RadarChart from './RadarChart.svelte';
 	import ScoreBar from './ScoreBar.svelte';
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
+
+	const fr = getLang() === 'fr';
+	const T = (en: string, frText: string) => (fr ? frText : en);
+	const stationNotAvailable = T('Station data not available', 'Données de la station non disponibles');
+
+	// Level values come from the data (e.g. 'Very High'); translate at display time only
+	const LEVEL_FR: Record<string, string> = {
+		'Very High': 'Très élevé',
+		High: 'Élevé',
+		Moderate: 'Modéré',
+		Low: 'Faible',
+		'Very Low': 'Très faible',
+		'N/A': 'N/D'
+	};
+	const levelLabel = (v: any) => (fr && typeof v === 'string' ? (LEVEL_FR[v] ?? v) : v);
+
+	// Display labels for built-form metrics (config.json is shared and English-only)
+	const BUILT_FORM_FR: Record<string, string> = {
+		Water: 'Eau',
+		'Green Space': 'Espaces verts',
+		Buildings: 'Bâtiments',
+		Parking: 'Stationnement'
+	};
+	const bfLabel = (label: string) => (fr ? (BUILT_FORM_FR[label] ?? label) : label);
 
 	// Maps
 	let map1: mapboxgl.Map | undefined = $state();
@@ -64,15 +89,23 @@
 
 	// Radar tabs
 	const radarCategories = [
-		{ value: 'land', label: 'Land Availability' },
-		{ value: 'growth', label: 'Growth Pressure' },
-		{ value: 'potential', label: 'Development Potential' }
+		{ value: 'land', label: T('Land Availability', 'Disponibilité des terrains') },
+		{ value: 'growth', label: T('Growth Pressure', 'Pression de croissance') },
+		{ value: 'potential', label: T('Development Potential', 'Potentiel de développement') }
 	];
 
 	const dpiMetrics = [
-		{ label: 'Land Availability', key: 'LALevel', icon: 'mdi:land-plots' },
-		{ label: 'Growth Pressure', key: 'GPLevel', icon: 'mdi:trending-up' },
-		{ label: 'Displacement Risk', key: 'DRLevel', icon: 'mdi:alert-circle' }
+		{
+			label: T('Land Availability', 'Disponibilité des terrains'),
+			key: 'LALevel',
+			icon: 'mdi:land-plots'
+		},
+		{ label: T('Growth Pressure', 'Pression de croissance'), key: 'GPLevel', icon: 'mdi:trending-up' },
+		{
+			label: T('Displacement Risk', 'Risque de déplacement de population'),
+			key: 'DRLevel',
+			icon: 'mdi:alert-circle'
+		}
 	];
 
 	let activeRadarCategory = $state('potential');
@@ -149,7 +182,7 @@
 			allDevData = stationDpiData.find((d) => d.id === selectedStation1);
 			if (!station1Metrics) console.warn(`Metrics not found for station "${selectedStation1}"`);
 		} else {
-			station1Error = 'Station data not available';
+			station1Error = stationNotAvailable;
 		}
 	});
 
@@ -191,16 +224,16 @@
 		const radarPoints = [];
 		const displacementRadar = [
 			{
-				label: '>30% of income spent on shelter',
+				label: T('>30% of income spent on shelter', '> 30 % du revenu consacré au logement'),
 				value: (data.MoreThan30OnShelter || 0) * 100
 			},
-			{ label: 'Total Immigrants', value: (data.TotalImmigrant || 0) * 100 },
+			{ label: T('Total Immigrants', 'Personnes immigrantes'), value: (data.TotalImmigrant || 0) * 100 },
 			{
-				label: 'Total Visible Minorities',
+				label: T('Total Visible Minorities', 'Minorités visibles'),
 				value: (data.VisibleMinorityTotal || 0) * 100
 			},
-			{ label: 'Pop Under 19 or Over 65', value: (data.YouthElderly || 0) * 100 },
-			{ label: 'Low Income Population', value: (data.LowIncome || 0) * 100 }
+			{ label: T('Pop Under 19 or Over 65', 'Pop. de moins de 19 ans ou de plus de 65 ans'), value: (data.YouthElderly || 0) * 100 },
+			{ label: T('Low Income Population', 'Population à faible revenu'), value: (data.LowIncome || 0) * 100 }
 		];
 		let subcategoryScore = 0;
 		const displacementScore = potentialMap[data.DRLevel] || 0;
@@ -209,24 +242,24 @@
 			subcategoryScore = potentialMap[data.LALevel] || 0;
 
 			radarPoints.push(
-				{ label: 'Single Unit Dwellings', value: (data.single_units || 0) * 100 },
-				{ label: 'Total Developable Land', value: (data.DevelopableArea || 0) * 100 },
-				{ label: 'High Opportunity Sites', value: (data.HighOpportunityArea || 0) * 100 },
-				{ label: 'Employment Density', value: (data.EmploymentDensity || 0) * 100 },
-				{ label: 'Population Density', value: (data.PopulationDensity || 0) * 100 }
+				{ label: T('Single Unit Dwellings', 'Logements unifamiliaux'), value: (data.single_units || 0) * 100 },
+				{ label: T('Total Developable Land', 'Terrains aménageables'), value: (data.DevelopableArea || 0) * 100 },
+				{ label: T('High Opportunity Sites', 'Sites à fort potentiel'), value: (data.HighOpportunityArea || 0) * 100 },
+				{ label: T('Employment Density', 'Densité d’emploi'), value: (data.EmploymentDensity || 0) * 100 },
+				{ label: T('Population Density', 'Densité de population'), value: (data.PopulationDensity || 0) * 100 }
 			);
 		} else if (category === 'growth') {
 			subcategoryScore = potentialMap[data.GPLevel] || 0;
 
 			radarPoints.push(
-				{ label: 'Pop Change 2020-25', value: (data.PopChange2020to2025 || 0) * 100 },
-				{ label: 'Pop Change 2025-30', value: (data.PopChange2025to2030 || 0) * 100 },
+				{ label: T('Pop Change 2020-25', 'Variation de la pop. 2020-2025'), value: (data.PopChange2020to2025 || 0) * 100 },
+				{ label: T('Pop Change 2025-30', 'Variation de la pop. 2025-2030'), value: (data.PopChange2025to2030 || 0) * 100 },
 				{
-					label: 'Municipal Pop Change 20-25',
+					label: T('Municipal Pop Change 20-25', 'Variation de la pop. municipale 2020-2025'),
 					value: (data.MunicipalPopChange2020to2025 || 0) * 100
 				},
-				{ label: 'Complete Community Score', value: (data.OverallCCScore || 0) * 100 },
-				{ label: 'Daily Visits', value: (data.DailyVisits || 0) * 100 }
+				{ label: T('Complete Community Score', 'Score de collectivité complète'), value: (data.OverallCCScore || 0) * 100 },
+				{ label: T('Daily Visits', 'Visites quotidiennes'), value: (data.DailyVisits || 0) * 100 }
 			);
 		} else if (category == 'potential') {
 			subcategoryScore = potentialMap[data.potential] || 0;
@@ -258,7 +291,7 @@
 	function handleStation1Select(value: any) {
 		const id = value.toString();
 		if (!stationsProcessed.find((s) => s.id === id)) {
-			station1Error = 'Station data not available';
+			station1Error = stationNotAvailable;
 			return;
 		}
 		station1Error = '';
@@ -511,14 +544,23 @@
 </script>
 
 <div class="hero">
-	<h1>Housing Development Potential Tool</h1>
-	<p id="description">
-		This tool breaks down the housing development potential of areas within 800m of a transit
-		station. Use the dropdown to select a transit station. <a
-			href="/about/data-methodology/#dpi-meth">Learn more about the methodology</a
-		>
-		or <a href="/reports/tod/development-potential">read the full report.</a>
-	</p>
+	<h1>{fr ? 'Outil sur le potentiel de développement résidentiel' : 'Housing Development Potential Tool'}</h1>
+	{#if fr}
+		<p id="description">
+			Cet outil détaille le potentiel de développement résidentiel des secteurs situés dans un rayon
+			de 800 m d’une station de transport collectif. Utilisez le menu déroulant pour choisir une
+			station. <a href="/about/data-methodology/#dpi-meth">En savoir plus sur la méthodologie</a>
+			ou <a href="/reports/tod/development-potential">lire le rapport complet.</a>
+		</p>
+	{:else}
+		<p id="description">
+			This tool breaks down the housing development potential of areas within 800m of a transit
+			station. Use the dropdown to select a transit station. <a
+				href="/about/data-methodology/#dpi-meth">Learn more about the methodology</a
+			>
+			or <a href="/reports/tod/development-potential">read the full report.</a>
+		</p>
+	{/if}
 </div>
 
 <div id="content-container">
@@ -531,12 +573,12 @@
 		<div class="flex grow-1 flex-col items-center justify-start relative">
 			<!-- Station 1 -->
 			<div class="bg-gray-50 border border-gray-200 p-4 rounded-md">
-				<h4 class="mb-2">Select a station:</h4>
+				<h4 class="mb-2">{fr ? 'Choisir une station :' : 'Select a station:'}</h4>
 				<Combobox
 					handleSelect={handleStation1Select}
 					data={transitStationsDropdown}
 					icon="mdi:train"
-					placeholder="Search for a station"
+					placeholder={fr ? 'Rechercher une station' : 'Search for a station'}
 					selected={selectedStation1}
 				/>
 				{#if station1Error}
@@ -550,25 +592,25 @@
 								<TransitMetric
 									disabled
 									label={metric.label}
-									value={allDevData ? allDevData[metric.key] : 'N/A'}
+									value={levelLabel(allDevData ? allDevData[metric.key] : 'N/A')}
 									icon={metric.icon}
 								/>
 							{/each}
 						</div>
 						<div class="metric-container">
 							<GaugeMetric
-								title="Overall Housing Development Potential"
+								title={fr ? 'Potentiel global de développement résidentiel' : 'Overall Housing Development Potential'}
 								value={allDevData?.DevelopmentPotentialScore ?? 0}
 								maxValue={10}
 								size={200}
 								segmentColors={['#f13737', '#f1c500', '#58e965']}
-								label={allDevData?.potential ?? 'N/A'}
+								label={levelLabel(allDevData?.potential ?? 'N/A')}
 								showValue={false}
 							/>
 						</div>
 						<div class="metric-container">
 							<DonutMetric
-								label={water_pct.label}
+								label={bfLabel(water_pct.label)}
 								value={station1Metrics?.water_pct}
 								icon={water_pct.icon}
 								suffix={water_pct.unit}
@@ -576,7 +618,7 @@
 								toggle={false}
 							/>
 							<DonutMetric
-								label={greenspace_pct.label}
+								label={bfLabel(greenspace_pct.label)}
 								value={Math.round(station1Metrics?.greenspace_pct ?? 0)}
 								icon={greenspace_pct.icon}
 								suffix={greenspace_pct.unit}
@@ -584,7 +626,7 @@
 								toggle={false}
 							/>
 							<DonutMetric
-								label={building_pct.label}
+								label={bfLabel(building_pct.label)}
 								value={Math.round(station1Metrics?.building_pct ?? 0)}
 								icon={building_pct.icon}
 								suffix={building_pct.unit}
@@ -592,7 +634,7 @@
 								toggle={false}
 							/>
 							<DonutMetric
-								label={parking_pct.label}
+								label={bfLabel(parking_pct.label)}
 								value={Math.round(station1Metrics?.parking_pct ?? 0)}
 								icon={parking_pct.icon}
 								suffix={parking_pct.unit}
@@ -605,45 +647,45 @@
 			</div>
 		</div>
 		<div class="flex grow-1 flex-col items-center justify-start relative">
-			<h4 class="text-center mb-4">Built Form</h4>
+			<h4 class="text-center mb-4">{fr ? 'Cadre bâti' : 'Built Form'}</h4>
 			<div id="map1" class="map-circle drop-shadow-lg w-[90%]"></div>
 
 			{#if unitsCreated1 > 0}
 				<div class="mt-8 flex flex-col items-center">
 					<span class="text-xs font-bold text-center text-gray-500 uppercase tracking-[0.2em] mb-2"
-						>Active building permits ({buildingPermitYear}) <br /> Number of housing units</span
+						>{#if fr}Permis de construire actifs ({buildingPermitYear}) <br /> Nombre de logements{:else}Active building permits ({buildingPermitYear}) <br /> Number of housing units{/if}</span
 					>
 					<div class="flex items-baseline gap-1">
 						<span class="text-5xl font-extrabold text-[#DA3068] leading-none"
-							>{unitsCreated1.toLocaleString()}</span
+							>{fr ? formatNumber(unitsCreated1) : unitsCreated1.toLocaleString()}</span
 						>
 					</div>
 				</div>
 			{/if}
 			<!-- Layer Toggles -->
 			<div class="border border-gray-200 rounded-lg p-4 mt-8">
-				<h6>Legend</h6>
-				<p>Click to toggle layers</p>
+				<h6>{fr ? 'Légende' : 'Legend'}</h6>
+				<p>{fr ? 'Cliquez pour afficher ou masquer les couches' : 'Click to toggle layers'}</p>
 				<div class="mt-4 grid grid-cols-2 gap-x-2 gap-y-4 text-xs">
 					<div class="flex flex-col gap-2">
-						<div class="font-bold text-gray-500 mb-1">Transit & Roads</div>
+						<div class="font-bold text-gray-500 mb-1">{fr ? 'Transport collectif et routes' : 'Transit & Roads'}</div>
 						<Checkbox
 							bind:checked={transitCheck}
-							label="Transit Lines"
+							label={fr ? 'Lignes de transport collectif' : 'Transit Lines'}
 							icon="mdi:transit-connection-variant"
 						/>
-						<Checkbox bind:checked={stationCheck} label="Transit Stations" icon="mdi:train" />
-						<Checkbox bind:checked={roadsCheck} label="Road Network" icon="mdi:road" />
+						<Checkbox bind:checked={stationCheck} label={fr ? 'Stations de transport collectif' : 'Transit Stations'} icon="mdi:train" />
+						<Checkbox bind:checked={roadsCheck} label={fr ? 'Réseau routier' : 'Road Network'} icon="mdi:road" />
 					</div>
 					<div class="flex flex-col gap-2 pl-2">
-						<div class="font-bold text-gray-500 mb-1">Built Form</div>
-						<Checkbox bind:checked={greenspaceCheck} label="Greenspace" color="#475249" />
-						<Checkbox bind:checked={waterCheck} label="Water" color="#253841" />
-						<Checkbox bind:checked={buildingsCheck} label="Buildings" color="#6A6A6A" />
-						<Checkbox bind:checked={parkingCheck} label="Parking" color="#B2B2B2" />
+						<div class="font-bold text-gray-500 mb-1">{fr ? 'Cadre bâti' : 'Built Form'}</div>
+						<Checkbox bind:checked={greenspaceCheck} label={fr ? 'Espaces verts' : 'Greenspace'} color="#475249" />
+						<Checkbox bind:checked={waterCheck} label={fr ? 'Eau' : 'Water'} color="#253841" />
+						<Checkbox bind:checked={buildingsCheck} label={fr ? 'Bâtiments' : 'Buildings'} color="#6A6A6A" />
+						<Checkbox bind:checked={parkingCheck} label={fr ? 'Stationnement' : 'Parking'} color="#B2B2B2" />
 						<Checkbox
 							bind:checked={buildingpermitsCheck}
-							label="Building Permits"
+							label={fr ? 'Permis de construire' : 'Building Permits'}
 							color="#DA3068"
 						/>
 					</div>
@@ -652,7 +694,7 @@
 		</div>
 		<div class="flex flex-col grow-2 gap-4 xl:flex-row">
 			<div class="flex grow-1 flex-col items-center gap-4 relative station-col">
-				<h4 class="text-center mb-4">Station Ranking</h4>
+				<h4 class="text-center mb-4">{fr ? 'Classement de la station' : 'Station Ranking'}</h4>
 				<Tabs.Root bind:value={activeRadarCategory} class="flex justify-center mb-4 px-4 sm:px-0">
 					<Tabs.List
 						class="flex justify-center flex-wrap bg-gray-50 rounded-md border border-gray-200 overflow-hidden"
@@ -674,8 +716,13 @@
 					</div>
 					{#if activeRadarCategory == 'land'}
 						<div class="text-sm italic text-gray-500 text-center">
-							Low Population Density is highly ranked<br />
-							Low Employment Density is highly ranked
+							{#if fr}
+								Une faible densité de population obtient un rang élevé<br />
+								Une faible densité d’emploi obtient un rang élevé
+							{:else}
+								Low Population Density is highly ranked<br />
+								Low Employment Density is highly ranked
+							{/if}
 						</div>
 					{/if}
 				{:else if activeRadarCategory == 'potential'}
@@ -683,7 +730,7 @@
 				{/if}
 			</div>
 			<div class="flex grow-1 flex-col items-center justify-start relative station-col">
-				<h4 class="text-center mb-4">Displacement Risk</h4>
+				<h4 class="text-center mb-4">{fr ? 'Risque de déplacement de population' : 'Displacement Risk'}</h4>
 				<ScoreBar
 					score={devData1.displacementScore}
 					maxScore={10}

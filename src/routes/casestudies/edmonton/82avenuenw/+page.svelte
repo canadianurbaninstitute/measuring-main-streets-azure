@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/82avenuenw/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/82avenuenw/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -211,28 +217,48 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						82 Avenue NW, known as Whyte Avenue, is a popular shopping, dining, and entertainment
-						destination that plays double duty as both a morning and night destination. Visitors and
-						residents enjoy the farmers market and coffee shops during the day, and the vibrant
-						nightlife scene after dark.
-					</p>
-					<p>
-						Whyte is often used to host outdoor festivals year-round, such as the Edmonton
-						International Fringe Festival, Whyte Avenue Art Walk, and Ice on Whyte. The street runs
-						east-west and sits south of the North Saskatchewan River. Whyte used to be the main
-						street and downtown for Strathcona until amalgamation in 1912. Whyte Avenue and Old
-						Strathcona contain a concentration of historical buildings and attractions such as the
-						South Edmonton Post Office, the Princess Theatre, and many other heritage properties.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							La 82 Avenue NW, connue sous le nom de Whyte Avenue, est une destination
+							prisée pour le magasinage, la restauration et le divertissement, qui joue un
+							double rôle de destination de jour comme de soir. Les personnes visiteuses
+							et résidentes profitent du marché public et des cafés pendant la journée, et
+							de la vie nocturne animée une fois la nuit tombée.
+						</p>
+						<p>
+							Whyte Avenue accueille souvent des festivals extérieurs tout au long de
+							l’année, comme l’Edmonton International Fringe Festival, le Whyte Avenue Art
+							Walk et Ice on Whyte. La rue est orientée est-ouest et se trouve au sud de
+							la rivière Saskatchewan Nord. Whyte Avenue était la rue principale et le
+							centre-ville de Strathcona jusqu’à la fusion de 1912. Whyte Avenue et Old
+							Strathcona regroupent une concentration de bâtiments et d’attraits
+							historiques, comme le South Edmonton Post Office, le Princess Theatre et de
+							nombreuses autres propriétés patrimoniales.
+						</p>
+					{:else}
+						<p>
+							82 Avenue NW, known as Whyte Avenue, is a popular shopping, dining, and entertainment
+							destination that plays double duty as both a morning and night destination. Visitors and
+							residents enjoy the farmers market and coffee shops during the day, and the vibrant
+							nightlife scene after dark.
+						</p>
+						<p>
+							Whyte is often used to host outdoor festivals year-round, such as the Edmonton
+							International Fringe Festival, Whyte Avenue Art Walk, and Ice on Whyte. The street runs
+							east-west and sits south of the North Saskatchewan River. Whyte used to be the main
+							street and downtown for Strathcona until amalgamation in 1912. Whyte Avenue and Old
+							Strathcona contain a concentration of historical buildings and attractions such as the
+							South Edmonton Post Office, the Princess Theatre, and many other heritage properties.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -257,24 +283,48 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						Whyte Avenue is six lanes wide, serving as the primary east-west vehicular connection
-						just south of the North Saskatchewan River. Emergency vehicles are commonly seen on
-						Whyte due to its proximity to University Hospital. There are two scramble crosswalks at
-						the 105 St and Calgary Trail intersections. Bicycles and other active transportation
-						modes are diverted to the dedicated bike lane on 83 Ave NW, running parallel to the
-						north.
-					</p>
-					<p>
-						Large, mature deciduous trees line Whyte along the sidewalk and median. Where the median
-						is absent, the road feels wider and lacks shade.
-					</p>
-					<p>
-						The historic buildings are low in height, with only two hotels exceeding five storeys,
-						giving the area a more suburban aesthetic than that of a downtown street. Whyte feels
-						like an eclectic collection of urban turnover, restoration, and historic architecture.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							Whyte Avenue compte six voies et constitue le principal lien routier
+							est-ouest juste au sud de la rivière Saskatchewan Nord. On y voit couramment
+							des véhicules d’urgence en raison de la proximité de l’University Hospital.
+							Deux traverses piétonnes multidirectionnelles se trouvent aux intersections
+							de la 105 St et de Calgary Trail. Les vélos et les autres modes de transport
+							actif sont redirigés vers la piste cyclable réservée de la 83 Ave NW,
+							parallèle au nord.
+						</p>
+						<p>
+							De grands arbres feuillus matures bordent Whyte Avenue le long du trottoir
+							et du terre-plein central. Là où il n’y a pas de terre-plein, la rue paraît
+							plus large et manque d’ombre.
+						</p>
+						<p>
+							Les bâtiments historiques sont de faible hauteur, seuls deux hôtels
+							dépassant cinq étages, ce qui donne au secteur une esthétique plus proche de
+							la banlieue que d’une rue de centre-ville. Whyte Avenue donne l’impression
+							d’un ensemble éclectique de renouvellement urbain, de restauration et
+							d’architecture historique.
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is six lanes wide, serving as the primary east-west vehicular connection
+							just south of the North Saskatchewan River. Emergency vehicles are commonly seen on
+							Whyte due to its proximity to University Hospital. There are two scramble crosswalks at
+							the 105 St and Calgary Trail intersections. Bicycles and other active transportation
+							modes are diverted to the dedicated bike lane on 83 Ave NW, running parallel to the
+							north.
+						</p>
+						<p>
+							Large, mature deciduous trees line Whyte along the sidewalk and median. Where the median
+							is absent, the road feels wider and lacks shade.
+						</p>
+						<p>
+							The historic buildings are low in height, with only two hotels exceeding five storeys,
+							giving the area a more suburban aesthetic than that of a downtown street. Whyte feels
+							like an eclectic collection of urban turnover, restoration, and historic architecture.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -284,14 +334,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'82avenuenw'} section={'builtform'} />
 					</div>
@@ -315,10 +365,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -328,12 +378,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -342,7 +396,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -351,7 +405,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -360,7 +414,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -369,7 +423,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -398,24 +452,49 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Whyte Avenue is at the centre of the Old Strathcona BIA. The district has been
-						noticeably enhanced by civic infrastructure and public investment, especially the
-						pedestrianized sidewalks featuring mini barriers, street fixtures, decorative light
-						poles, string lights, and hanging planters. The colourful mini barriers show up in the
-						summer to separate the restaurant patios from parking spaces. The area features a few
-						murals. The nearby Dr. Wilbert MicIntyre Park is often used as a festival ground
-						year-round.
-					</p>
-					<p>
-						Recently, alleyways have begun to be used for businesses and pedestrians, with several
-						businesses using alleys as their main entrances, such as WoodRack Café, Boxer Kitchen &
-						Bar, and Sugared and Spice Bakery.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, Whyte Avenue ranks 5th out of 20 Edmonton
-						Main Streets and 1st of 36 Residential Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							Whyte Avenue se trouve au cœur de la zone d’amélioration commerciale (BIA)
+							d’Old Strathcona. Le secteur a été nettement mis en valeur par
+							l’infrastructure civique et les investissements publics, en particulier les
+							trottoirs aménagés pour les piétons, dotés de petites barrières, de mobilier
+							urbain, de lampadaires décoratifs, de guirlandes lumineuses et de
+							jardinières suspendues. Les petites barrières colorées font leur apparition
+							l’été pour séparer les terrasses des restaurants des places de
+							stationnement. Le secteur compte quelques murales. Le parc Dr. Wilbert
+							McIntyre, à proximité, sert souvent de site de festivals tout au long de
+							l’année.
+						</p>
+						<p>
+							Récemment, les ruelles ont commencé à être utilisées par les commerces et
+							les piétons, plusieurs commerces s’en servant comme entrée principale, comme
+							WoodRack Café, Boxer Kitchen & Bar et Sugared and Spice Bakery.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, Whyte Avenue se classe 5e sur 20
+							rues principales d’Edmonton et au 1er rang des 36 rues principales
+							résidentielles.
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is at the centre of the Old Strathcona BIA. The district has been
+							noticeably enhanced by civic infrastructure and public investment, especially the
+							pedestrianized sidewalks featuring mini barriers, street fixtures, decorative light
+							poles, string lights, and hanging planters. The colourful mini barriers show up in the
+							summer to separate the restaurant patios from parking spaces. The area features a few
+							murals. The nearby Dr. Wilbert MicIntyre Park is often used as a festival ground
+							year-round.
+						</p>
+						<p>
+							Recently, alleyways have begun to be used for businesses and pedestrians, with several
+							businesses using alleys as their main entrances, such as WoodRack Café, Boxer Kitchen &
+							Bar, and Sugared and Spice Bakery.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, Whyte Avenue ranks 5th out of 20 Edmonton
+							Main Streets and 1st of 36 Residential Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -435,17 +514,17 @@
 							'civicinfra-edmonton-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -455,12 +534,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -469,7 +552,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -478,7 +561,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -505,27 +588,55 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Whyte Avenue is first and foremost an entertainment district. It features a mix of
-						restaurants, bars, theatres, clubs, and shopping. Clubs are generally housed on the
-						second floor above storefronts while the theatres tend to be located further into the
-						surrounding neighbourhood.
-					</p>
-					<p>
-						According to the Independent Business Index, Whyte Avenue ranks 8th out of 20 Edmonton
-						Main Streets and 19th of 36 Neighbourhood Main Streets. Whyte also ranks 4th out of 20
-						and 8th out of 36 for business density.
-					</p>
-					<p>
-						During summertime, restaurants extend out into the street, and many have garage-style
-						doors for open-air dining. A couple even have winter patios with heaters. Clothing
-						stores seems to be the most common retail offering. There has been a recent uptick of
-						vintage and consignment stores opening.
-					</p>
-					<p>
-						The street experiences a significant amount of business turnover and storefront can be
-						seen vacant and/or with "For Lease" signs.
-					</p>
+					{#if fr}
+						<p>
+							Whyte Avenue est avant tout un quartier du divertissement. On y trouve un
+							mélange de restaurants, de bars, de salles de spectacle, de boîtes de nuit
+							et de boutiques. Les boîtes de nuit occupent généralement l’étage, au-dessus
+							des devantures, tandis que les salles de spectacle se trouvent plutôt à
+							l’intérieur du quartier environnant.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, Whyte Avenue se classe 8e sur
+							20 rues principales d’Edmonton et 19e sur 36 rues principales de quartier.
+							Whyte Avenue se classe également 4e sur 20 et 8e sur 36 pour la densité
+							commerciale.
+						</p>
+						<p>
+							L’été, les restaurants débordent dans la rue, et beaucoup sont dotés de
+							portes de type garage permettant de manger à l’air libre. Quelques-uns ont
+							même des terrasses d’hiver chauffées. Les magasins de vêtements semblent
+							constituer l’offre de commerce de détail la plus courante. On observe
+							récemment une hausse des ouvertures de friperies et de boutiques de
+							consignation.
+						</p>
+						<p>
+							La rue connaît un roulement important des commerces, et on peut y voir des
+							devantures vacantes ou affichant des pancartes « À louer ».
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is first and foremost an entertainment district. It features a mix of
+							restaurants, bars, theatres, clubs, and shopping. Clubs are generally housed on the
+							second floor above storefronts while the theatres tend to be located further into the
+							surrounding neighbourhood.
+						</p>
+						<p>
+							According to the Independent Business Index, Whyte Avenue ranks 8th out of 20 Edmonton
+							Main Streets and 19th of 36 Neighbourhood Main Streets. Whyte also ranks 4th out of 20
+							and 8th out of 36 for business density.
+						</p>
+						<p>
+							During summertime, restaurants extend out into the street, and many have garage-style
+							doors for open-air dining. A couple even have winter patios with heaters. Clothing
+							stores seems to be the most common retail offering. There has been a recent uptick of
+							vintage and consignment stores opening.
+						</p>
+						<p>
+							The street experiences a significant amount of business turnover and storefront can be
+							seen vacant and/or with "For Lease" signs.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -543,17 +654,17 @@
 							'business-edmonton-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -563,19 +674,34 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						Whyte Avenue is home to a significant concentration of businesses and services, from
-						small businesses, ranging from small shops with zero to five employees and medium sized
-						enterprises ranging from 10 to 50 employees. Whle most employment is concentrated on
-						within the Whyte Avenue study area, many establishments spill out into the surrounding
-						blocks with larger businesses concentrated further south.
-					</p>
-					<p>
-						For employment density, Whyte ranks 5th out of 20 Edmonton Main Streets and 6th of 35
-						Neighbourhood Main Streets.
-					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							Whyte Avenue accueille une concentration importante d’entreprises et de
+							services, allant de petites boutiques comptant de zéro à cinq employés à des
+							entreprises de taille moyenne comptant de 10 à 50 employés. Bien que la
+							majeure partie de l’emploi soit concentrée dans la zone étudiée de Whyte
+							Avenue, de nombreux établissements débordent dans les îlots environnants,
+							les plus grandes entreprises étant concentrées plus au sud.
+						</p>
+						<p>
+							Pour la densité d’emploi, Whyte Avenue se classe 5e sur 20 rues principales
+							d’Edmonton et 6e sur 35 rues principales de quartier.
+						</p>
+					{:else}
+						<p>
+							Whyte Avenue is home to a significant concentration of businesses and services, from
+							small businesses, ranging from small shops with zero to five employees and medium sized
+							enterprises ranging from 10 to 50 employees. Whle most employment is concentrated on
+							within the Whyte Avenue study area, many establishments spill out into the surrounding
+							blocks with larger businesses concentrated further south.
+						</p>
+						<p>
+							For employment density, Whyte ranks 5th out of 20 Edmonton Main Streets and 6th of 35
+							Neighbourhood Main Streets.
+						</p>
+					{/if}
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -587,25 +713,25 @@
 						bearing={0}
 						layers={['82avenuenw', '82avenuenw-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -617,35 +743,52 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'82avenuenw'}
 							section={'housing'}
 							region={'edmonton'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						Low-rise apartments make up most of the housing options surrounding Whyte Avenue.
-						Instances of single-detached homes increase the further away one goes from Whyte Street.
-						The 60s and 70s saw the areas most significant housing construction boom.
-					</p>
-					<p>
-						Over 80% of the housing stock are low-rise apartment dwellings. Several high-rise
-						apartments can be found north of the Avenue. There are a few large infill residentail
-						buildings on the street itself, typically part of mixed-used structures five to
-						six-storeys tall.
-					</p>
+					{#if fr}
+						<p>
+							Les immeubles d’appartements de faible hauteur constituent la majeure partie
+							de l’offre de logements autour de Whyte Avenue. Les maisons individuelles
+							sont de plus en plus nombreuses à mesure qu’on s’éloigne de Whyte Avenue.
+							C’est dans les années 1960 et 1970 que le secteur a connu son plus important
+							boom de construction résidentielle.
+						</p>
+						<p>
+							Plus de 80 % du parc de logements est constitué d’appartements dans des
+							immeubles de faible hauteur. On trouve plusieurs immeubles d’appartements de
+							grande hauteur au nord de l’avenue. Quelques grands bâtiments résidentiels
+							intercalaires se trouvent sur la rue même, généralement dans des bâtiments à
+							usage mixte de cinq ou six étages.
+						</p>
+					{:else}
+						<p>
+							Low-rise apartments make up most of the housing options surrounding Whyte Avenue.
+							Instances of single-detached homes increase the further away one goes from Whyte Street.
+							The 60s and 70s saw the areas most significant housing construction boom.
+						</p>
+						<p>
+							Over 80% of the housing stock are low-rise apartment dwellings. Several high-rise
+							apartments can be found north of the Avenue. There are a few large infill residentail
+							buildings on the street itself, typically part of mixed-used structures five to
+							six-storeys tall.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -657,18 +800,18 @@
 						bearing={0}
 						layers={['82avenuenw-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -676,12 +819,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -693,29 +836,36 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'82avenuenw'}
 							section={'demographics'}
 							region={'edmonton'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 32% are recent immigrants and 31% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidant dans la zone étudiée, 32 % sont des personnes
+							immigrantes récentes et 31 % font partie d’une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 32% are recent immigrants and 31% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -734,9 +884,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -758,20 +908,42 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						Before pandemic shut downs gripped the city, the Whyte Avenue study area saw over 4
-						million visits in 2019 by infrequent visitors from outside the neighbourhood. As of
-						2022, that number decreased by over half. Despite that, visits by local residents have
-						almost recovered in the same period.
-					</p>
-					<p>
-						Whyte is busiest during the 12pm to 9pm period, with the busiest day of the week being
-						Saturday, possibly reflective of its role as an entertainment destination.
-					</p>
-					<p>
-						Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets and 27th
-						of 36 Neighbourhood Main Streets revealing an over reliance on infrequent visitors.
-					</p>
+					{#if fr}
+						<p>
+							Avant que les confinements liés à la pandémie ne frappent la ville, la zone
+							étudiée de Whyte Avenue a reçu en 2019 plus de 4 millions de visites de la
+							part de visiteurs occasionnels provenant de l’extérieur du quartier. En
+							2022, ce nombre avait diminué de plus de la moitié. Malgré cela, les visites
+							des résidents du quartier se sont presque rétablies au cours de la même
+							période.
+						</p>
+						<p>
+							Whyte Avenue est la plus achalandée entre midi et 21 h, le samedi étant la
+							journée la plus achalandée de la semaine, ce qui reflète peut-être son rôle
+							de destination de divertissement.
+						</p>
+						<p>
+							Selon le score de résilience, Whyte Avenue se classe à un rang faible, soit
+							16e sur 20 rues principales d’Edmonton et 27e sur 36 rues principales de
+							quartier, ce qui révèle une dépendance excessive envers les visiteurs
+							occasionnels.
+						</p>
+					{:else}
+						<p>
+							Before pandemic shut downs gripped the city, the Whyte Avenue study area saw over 4
+							million visits in 2019 by infrequent visitors from outside the neighbourhood. As of
+							2022, that number decreased by over half. Despite that, visits by local residents have
+							almost recovered in the same period.
+						</p>
+						<p>
+							Whyte is busiest during the 12pm to 9pm period, with the busiest day of the week being
+							Saturday, possibly reflective of its role as an entertainment destination.
+						</p>
+						<p>
+							Whyte Avenue's Resilience Score ranks low at 16th of 20 Edmonton Main Streets and 27th
+							of 36 Neighbourhood Main Streets revealing an over reliance on infrequent visitors.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -782,13 +954,13 @@
 						bearing={0}
 						layers={['82avenuenw-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'131,900'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '131 900' : '131,900'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -805,7 +977,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -813,12 +985,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -826,20 +998,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

@@ -1,9 +1,13 @@
 <script lang="ts">
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
 	let {
 		score = 0,
 		maxScore = 10,
-		lowLabel = 'Very Low',
-		highLabel = 'Very High',
+		lowLabel = fr ? 'Très faible' : 'Very Low',
+		highLabel = fr ? 'Très élevé' : 'Very High',
 		colors = ['#f59e0b', '#94a3b8', '#38bdf8']
 	}: {
 		score?: number;

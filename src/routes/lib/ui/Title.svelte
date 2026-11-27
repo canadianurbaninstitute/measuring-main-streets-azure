@@ -1,5 +1,9 @@
 <!-- UI component that displays a summary slide containing a title, subtitle and image used on Measuring Main Streets Case Studies and Reports.-->
 <script>
+	import { getLang } from '../i18n';
+
+	const fr = getLang() === 'fr';
+
 	export let name;
 	export let location;
 	export let outline;
@@ -14,7 +18,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;">
 	<div class="title">
-		<img src={outline} alt="street" />
+		<img src={outline} alt={fr ? 'rue' : 'street'} />
 		<h1>
 			{name}
 		</h1>

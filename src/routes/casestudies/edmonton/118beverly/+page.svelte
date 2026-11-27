@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/118beverly/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/118beverly/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -215,25 +221,40 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						118 Avenue in Olde Town Beverly is a commercial street in the Beverly neighbourhood of
-						Edmonton. The street runs east-west and is situated northeast of the Edmonton's main
-						downtown. This street served as the historical main street of the Town of Beverly until
-						amalgamation in 1961.
-					</p>
-					<p>
-						The street contains a mixed of residential and commercial buildings, some greenspace,
-						and vacant lots. It has a quaint feel and is catered to automobiles, with the east end
-						leading to the Yellowhead, a major expressway.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							La 118 Avenue, dans Olde Town Beverly, est une rue commerciale du quartier
+							Beverly, à Edmonton. La rue suit un axe est-ouest et se situe au nord-est du
+							centre-ville d’Edmonton. Elle a été la rue principale historique de la Ville
+							de Beverly jusqu’à la fusion en 1961.
+						</p>
+						<p>
+							La rue comporte un mélange de bâtiments résidentiels et commerciaux,
+							quelques espaces verts et des terrains vacants. Elle dégage un certain
+							charme et est axée sur l’automobile, son extrémité est menant à la
+							Yellowhead, une importante voie rapide.
+						</p>
+					{:else}
+						<p>
+							118 Avenue in Olde Town Beverly is a commercial street in the Beverly neighbourhood of
+							Edmonton. The street runs east-west and is situated northeast of the Edmonton's main
+							downtown. This street served as the historical main street of the Town of Beverly until
+							amalgamation in 1961.
+						</p>
+						<p>
+							The street contains a mixed of residential and commercial buildings, some greenspace,
+							and vacant lots. It has a quaint feel and is catered to automobiles, with the east end
+							leading to the Yellowhead, a major expressway.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -258,23 +279,46 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						Beverly's 118 Avenue has a varying cross-section throughout the study area from 50 St to
-						34 St. The streetscape features tree-lined sidewalks. The trees are smaller than in
-						other neighbourhoods of the same age in Edmonton.
-					</p>
-					<p>
-						There are four lanes for vehicles with parking in the outside lanes. The buildings along
-						this section of 118 Avenue have varying setbacks, either up against the sidewalk or
-						allowing space for parking.
-					</p>
-					<p>
-						There is a mix of businesses, healthcare and other services, and residential along the
-						avenue. Most of the residential areas are also set back from the road to allow for some
-						privacy, often with fence enclosures. Some new commercial infill has been built mixed in
-						with businesses varying in age and aesthetic.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							La 118 Avenue de Beverly présente un profil en travers variable dans
+							l’ensemble de la zone à l’étude, de la 50 St à la 34 St. Le paysage de rue
+							comprend des trottoirs bordés d’arbres. Ces arbres sont plus petits que dans
+							d’autres quartiers du même âge à Edmonton.
+						</p>
+						<p>
+							La chaussée compte quatre voies de circulation, avec du stationnement dans
+							les voies extérieures. Les bâtiments le long de ce tronçon de la 118 Avenue
+							présentent des marges de recul variables : ils sont soit en bordure du
+							trottoir, soit en retrait pour laisser place à du stationnement.
+						</p>
+						<p>
+							On trouve le long de l’avenue un mélange de commerces, de services de santé
+							et d’autres services, ainsi que de logements. La plupart des secteurs
+							résidentiels sont également en retrait de la rue pour préserver une certaine
+							intimité, souvent derrière des clôtures. Quelques nouveaux bâtiments
+							commerciaux intercalaires ont été construits parmi des commerces d’âges et
+							de styles variés.
+						</p>
+					{:else}
+						<p>
+							Beverly's 118 Avenue has a varying cross-section throughout the study area from 50 St to
+							34 St. The streetscape features tree-lined sidewalks. The trees are smaller than in
+							other neighbourhoods of the same age in Edmonton.
+						</p>
+						<p>
+							There are four lanes for vehicles with parking in the outside lanes. The buildings along
+							this section of 118 Avenue have varying setbacks, either up against the sidewalk or
+							allowing space for parking.
+						</p>
+						<p>
+							There is a mix of businesses, healthcare and other services, and residential along the
+							avenue. Most of the residential areas are also set back from the road to allow for some
+							privacy, often with fence enclosures. Some new commercial infill has been built mixed in
+							with businesses varying in age and aesthetic.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -284,14 +328,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'118beverly'} section={'builtform'} />
 					</div>
@@ -315,10 +359,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -328,12 +372,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -342,7 +390,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -351,7 +399,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -360,7 +408,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -369,7 +417,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -398,17 +446,33 @@
 							/>
 						</div>
 					</div>
-					<p>
-						118 Avenue is part of the Beverly Business Improvement Area. The civic infrastructure
-						visible on 118 included, at the time of the field visit, stone decorative benches and
-						hanging and standing flower planters in bloom. There are some murals on buildings
-						throughout the case study area. Overhead entrance signs welcome people to Olde Towne
-						Beverly Street.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, this segment of 118 ranks low at 17th of 20
-						Edmonton Main Streets and 22nd of 36 Neighbourhood Main Streets.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue fait partie de la zone d’amélioration commerciale (BIA) de
+							Beverly. Au moment de la visite sur le terrain, l’infrastructure civique
+							visible sur la 118 comprenait des bancs décoratifs en pierre ainsi que des
+							jardinières suspendues et sur pied, en fleurs. On trouve quelques murales
+							sur des bâtiments dans l’ensemble de la zone à l’étude. Des enseignes
+							d’entrée suspendues souhaitent la bienvenue dans Olde Towne Beverly Street.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, ce tronçon de la 118 se classe
+							parmi les derniers, au 17e rang sur 20 rues principales d’Edmonton et au 22e
+							rang sur 36 rues principales de quartier.
+						</p>
+					{:else}
+						<p>
+							118 Avenue is part of the Beverly Business Improvement Area. The civic infrastructure
+							visible on 118 included, at the time of the field visit, stone decorative benches and
+							hanging and standing flower planters in bloom. There are some murals on buildings
+							throughout the case study area. Overhead entrance signs welcome people to Olde Towne
+							Beverly Street.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, this segment of 118 ranks low at 17th of 20
+							Edmonton Main Streets and 22nd of 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -428,17 +492,17 @@
 							'civicinfra-edmonton-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -448,12 +512,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -462,7 +530,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -471,7 +539,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -498,27 +566,55 @@
 							/>
 						</div>
 					</div>
-					<p>
-						The businesses on 118 Avenue are quite varied, featuring appliance stores, dental
-						clinics, and sausage houses. There are quite a few car lots and strip malls with
-						convenience stores.
-					</p>
-					<p>
-						According to the Independent Business Index, 118 Avenue in Beverly ranks in the bottom
-						half at 12th of 20 Edmonton Main Streets and 26th of 36 Neighbourhood Main Streets. For
-						business density, 118 Avenue ranks 14th of 20 and 26th of 36.
-					</p>
-					<p>
-						Many businesses were closed early on the Sunday field visit, leaving the street quiet
-						from a pedestrian perspective. The Old Beverly Cafe, the only business with a parklet
-						patio in the study area, was one of them. The Italian bakery on the corner of 43 St was
-						moderately trafficked.
-					</p>
-					<p>
-						There were more chain stores along this study area than many others in Edmonton. The
-						Riverview Crossing regional mall lies at the east end, opening up the streetscape to
-						suburban-style mall development and parking lots.
-					</p>
+					{#if fr}
+						<p>
+							Les commerces de la 118 Avenue sont très variés : magasins
+							d’électroménagers, cliniques dentaires et charcuteries spécialisées en
+							saucisses. On y trouve aussi plusieurs terrains de vente d’automobiles et
+							centres commerciaux linéaires avec dépanneurs.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 118 Avenue dans Beverly se
+							classe dans la moitié inférieure, au 12e rang sur 20 rues principales
+							d’Edmonton et au 26e rang sur 36 rues principales de quartier. Pour la
+							densité commerciale, la 118 Avenue se classe 14e sur 20 et 26e sur 36.
+						</p>
+						<p>
+							Lors de la visite sur le terrain, un dimanche, de nombreux commerces avaient
+							fermé tôt, ce qui rendait la rue tranquille du point de vue des piétons.
+							L’Old Beverly Cafe, le seul commerce doté d’un placottoir dans la zone à
+							l’étude, en faisait partie. La boulangerie italienne au coin de la 43 St
+							connaissait un achalandage modéré.
+						</p>
+						<p>
+							On trouve davantage de magasins de chaîne dans cette zone à l’étude que dans
+							bien d’autres à Edmonton. Le centre commercial régional Riverview Crossing
+							se trouve à l’extrémité est, ouvrant le paysage de rue sur un aménagement de
+							type banlieue, fait de centres commerciaux et de stationnements.
+						</p>
+					{:else}
+						<p>
+							The businesses on 118 Avenue are quite varied, featuring appliance stores, dental
+							clinics, and sausage houses. There are quite a few car lots and strip malls with
+							convenience stores.
+						</p>
+						<p>
+							According to the Independent Business Index, 118 Avenue in Beverly ranks in the bottom
+							half at 12th of 20 Edmonton Main Streets and 26th of 36 Neighbourhood Main Streets. For
+							business density, 118 Avenue ranks 14th of 20 and 26th of 36.
+						</p>
+						<p>
+							Many businesses were closed early on the Sunday field visit, leaving the street quiet
+							from a pedestrian perspective. The Old Beverly Cafe, the only business with a parklet
+							patio in the study area, was one of them. The Italian bakery on the corner of 43 St was
+							moderately trafficked.
+						</p>
+						<p>
+							There were more chain stores along this study area than many others in Edmonton. The
+							Riverview Crossing regional mall lies at the east end, opening up the streetscape to
+							suburban-style mall development and parking lots.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -536,17 +632,17 @@
 							'business-edmonton-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -556,19 +652,35 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						Considering the exclusive residential nature of the surrounding neighbourhood,
-						employment is primarily concentrated on 118 Avenue itself. There are many small
-						establishments with zero to five employees, mixed in with larger establishments with
-						five to ten employees. The largest employer can be found in the mall to the east end
-						with ten to 50 employees.
-					</p>
-					<p>
-						For employment density, the Beverly segment of 118 Avenue ranks last out of 20 Edmonton
-						Main Streets and 36 Neighbourhood Main Streets.
-					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							Étant donné le caractère exclusivement résidentiel du quartier environnant,
+							l’emploi est principalement concentré sur la 118 Avenue elle-même. On y
+							trouve de nombreux petits établissements de zéro à cinq employés, entremêlés
+							d’établissements plus grands de cinq à dix employés. Le plus important
+							employeur se trouve dans le centre commercial à l’extrémité est et compte de
+							dix à 50 employés.
+						</p>
+						<p>
+							Pour la densité d’emploi, le tronçon de la 118 Avenue situé dans Beverly se
+							classe au dernier rang sur 20 rues principales d’Edmonton et sur 36 rues
+							principales de quartier.
+						</p>
+					{:else}
+						<p>
+							Considering the exclusive residential nature of the surrounding neighbourhood,
+							employment is primarily concentrated on 118 Avenue itself. There are many small
+							establishments with zero to five employees, mixed in with larger establishments with
+							five to ten employees. The largest employer can be found in the mall to the east end
+							with ten to 50 employees.
+						</p>
+						<p>
+							For employment density, the Beverly segment of 118 Avenue ranks last out of 20 Edmonton
+							Main Streets and 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -580,25 +692,25 @@
 						bearing={0}
 						layers={['118beverly', '118beverly-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -610,35 +722,51 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'118beverly'}
 							section={'housing'}
 							region={'edmonton'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The housing on this segment of 118 Avenue is mixed in with commercial lots. The study
-						area features nearly double the rate of low-rise apartments (over 35%) compared to the
-						Edmonton CMA. Mixed-use buildings can also be found with ground floor commercial and one
-						or two storeys of residential above, with balconies revealing their presence.
-					</p>
-					<p>
-						The surrounding neighbourhood of Beverly is low density residential, with
-						single-detached homes of varying aesthetics, making up nearly 40% of the local housing
-						mix.
-					</p>
+					{#if fr}
+						<p>
+							Sur ce tronçon de la 118 Avenue, les logements sont entremêlés de terrains
+							commerciaux. La zone à l’étude compte une proportion d’appartements de
+							faible hauteur (plus de 35 %) près de deux fois plus élevée que celle de la
+							RMR d’Edmonton. On trouve aussi des immeubles à usage mixte comportant des
+							commerces au rez-de-chaussée et un ou deux étages de logements au-dessus,
+							dont les balcons trahissent la présence.
+						</p>
+						<p>
+							Le quartier environnant de Beverly est résidentiel et de faible densité,
+							avec des maisons individuelles non attenantes de styles variés, qui
+							représentent près de 40 % du parc de logements local.
+						</p>
+					{:else}
+						<p>
+							The housing on this segment of 118 Avenue is mixed in with commercial lots. The study
+							area features nearly double the rate of low-rise apartments (over 35%) compared to the
+							Edmonton CMA. Mixed-use buildings can also be found with ground floor commercial and one
+							or two storeys of residential above, with balconies revealing their presence.
+						</p>
+						<p>
+							The surrounding neighbourhood of Beverly is low density residential, with
+							single-detached homes of varying aesthetics, making up nearly 40% of the local housing
+							mix.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -650,18 +778,18 @@
 						bearing={0}
 						layers={['118beverly-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -669,12 +797,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -686,29 +814,36 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'118beverly'}
 							section={'demographics'}
 							region={'edmonton'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 22% are recent immigrants and 27% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidentes de la zone à l’étude, 22 % sont des personnes
+							immigrantes récentes et 27 % appartiennent à une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 22% are recent immigrants and 27% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -727,9 +862,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -751,17 +886,33 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						118 Avenue in Beverly's Resiliency Score ranks well at 4th of 20 Edmonton Main Streets
-						and 8th of 36 Neighbourhood Main Streets.
-					</p>
-					<p>
-						While 2020 saw foot traffic at 79% relative to 2019 levels, this has decreased to 60.3%
-						in 2022. While visits by residents, recurring, and infrequent visitors have decreased,
-						the relative proportion hasn't changed significantly, signalling a main street that
-						still retains its appeal for a range of patrons without heavily relying on one or the
-						other.
-					</p>
+					{#if fr}
+						<p>
+							Le score de résilience de la 118 Avenue dans Beverly est bon : elle se
+							classe 4e sur 20 rues principales d’Edmonton et 8e sur 36 rues principales
+							de quartier.
+						</p>
+						<p>
+							Alors que l’achalandage en 2020 s’établissait à 79 % des niveaux de 2019, il
+							est descendu à 60,3 % en 2022. Bien que les visites des résidents, des
+							visiteurs récurrents et des visiteurs occasionnels aient diminué, leurs
+							proportions relatives n’ont pas changé de façon importante, signe d’une rue
+							principale qui conserve son attrait auprès d’une clientèle variée sans
+							dépendre fortement d’un groupe plutôt que d’un autre.
+						</p>
+					{:else}
+						<p>
+							118 Avenue in Beverly's Resiliency Score ranks well at 4th of 20 Edmonton Main Streets
+							and 8th of 36 Neighbourhood Main Streets.
+						</p>
+						<p>
+							While 2020 saw foot traffic at 79% relative to 2019 levels, this has decreased to 60.3%
+							in 2022. While visits by residents, recurring, and infrequent visitors have decreased,
+							the relative proportion hasn't changed significantly, signalling a main street that
+							still retains its appeal for a range of patrons without heavily relying on one or the
+							other.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -772,13 +923,13 @@
 						bearing={0}
 						layers={['118beverly-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'46,200'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '46 200' : '46,200'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -795,7 +946,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -803,12 +954,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -816,20 +967,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

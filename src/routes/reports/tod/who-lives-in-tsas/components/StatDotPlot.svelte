@@ -5,6 +5,11 @@
 	import AxisX from '../../../../lib/ui/chartcomponents/AxisX.svelte';
 	import AxisY from '../../../../lib/ui/chartcomponents/AxisY.svelte';
 	import ClevelandDotPlot from './DotPlotInner.svg.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	// French tick labels: space as thousands separator, comma as decimal separator.
+	const tickFormat = fr ? (d: number) => formatNumber(d, undefined, 'fr') : undefined;
 
 	// 1. Define strict TypeScript Props
 	interface Props {
@@ -50,7 +55,7 @@
 		{data}
 	>
 		<Svg>
-			<AxisX ticks={4} />
+			<AxisX ticks={4} format={tickFormat} />
 			<AxisY gridlines={false} wrap={true} />
 			<ClevelandDotPlot />
 		</Svg>

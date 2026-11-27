@@ -3,6 +3,9 @@
 	import { backOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
 	import type { Readable } from 'svelte/store';
+	import { getLang } from '../../i18n';
+
+	const fr = getLang() === 'fr';
 
 	const context = getContext<{
 		data: Readable<any[]>;
@@ -141,7 +144,9 @@
 			{@const dim = isDimmed(d)}
 			<circle
 				role="img"
-				aria-label={labelKey && d[labelKey] ? d[labelKey] : 'Data point'}
+				aria-label={labelKey && d[labelKey] ? d[labelKey] : fr
+						? 'Point de données'
+						: 'Data point'}
 				cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}
 				cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}
 				r={(highlighted ? 1.5 : 1) *

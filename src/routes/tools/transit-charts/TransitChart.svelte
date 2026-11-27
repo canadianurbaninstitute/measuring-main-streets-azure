@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
+	import { getLang } from '../../lib/i18n';
 	import lineColors from '../../lib/data/transitdata/line-colors.json';
 	// import transitLines from '../../lib/data/transitdata/transit-lines-dropdown.json';
 	// labels for the select dropdown
@@ -13,6 +14,23 @@
 		selectedVariable,
 		selectedStation = $bindable()
 	} = $props();
+
+	const fr = getLang() === 'fr';
+	// French number formatting (space thousands separator, comma decimal separator)
+	const numLocale = fr
+		? d3.formatLocale({ decimal: ',', thousands: '\u00a0', grouping: [3], currency: ['', '\u00a0$'] })
+		: d3.formatLocale({ decimal: '.', thousands: ',', grouping: [3], currency: ['$', ''] });
+	const fmt = (spec: string) => numLocale.format(spec);
+	// Station statuses are data values; translate at display time only
+	const STATUS_FR: Record<string, string> = {
+		Operational: 'en service',
+		Planned: 'planifiée',
+		Construction: 'en construction'
+	};
+	const statusLabel = (status: string | undefined) =>
+		fr
+			? `Station ${status ? (STATUS_FR[status] ?? status) : 'N/D'}`
+			: `${status || 'N/A'} Station`;
 
 	let chart; // Reference to the main chart container div
 	let tooltip; // D3 tooltip element for hover interactions
@@ -217,8 +235,8 @@
 				tooltip
 					.html(
 						`<div style="font-weight:600;margin-bottom:4px;">${d.stop_label}</div>` +
-							`<div style="font-weight:400;margin-bottom:4px;">${d.status || 'N/A'} Station</div>` +
-							`<div>${currentVarMeta.label}: ${d3.format(currentVarMeta.format ?? ',.2f')(d[selectedVariable])}</div>`
+							`<div style="font-weight:400;margin-bottom:4px;">${statusLabel(d.status)}</div>` +
+							`<div>${currentVarMeta.label}${fr ? '\u00a0:' : ':'} ${fmt(currentVarMeta.format ?? ',.2f')(d[selectedVariable])}</div>`
 					)
 					.style('left', event.pageX + 10 + 'px')
 					.style('top', event.pageY - 28 + 'px');
@@ -297,7 +315,7 @@
 		const xAxisG = xAxisTicksSvg.append('g').attr('transform', `translate(${margin.left}, ${0})`);
 
 		// Style the X-axis with formatted numbers
-		xAxisG.call(d3.axisBottom(x).tickFormat(d3.format(','))).call((g) => {
+		xAxisG.call(d3.axisBottom(x).tickFormat(fmt(','))).call((g) => {
 			g.selectAll('.tick line').attr('stroke', '#444');
 			g.selectAll('.tick line').attr('stroke-width', '2px');
 			g.selectAll('.tick text').attr('fill', '#444');

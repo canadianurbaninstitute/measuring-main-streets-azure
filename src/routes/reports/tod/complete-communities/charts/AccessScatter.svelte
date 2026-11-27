@@ -3,6 +3,12 @@
 	import { median } from 'd3-array';
 	import { onMount } from 'svelte';
 	import ScatterChart from '../../../../lib/ui/charts/ScatterChart.svelte';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+	import { REGION_LABELS_FR, STATUS_LABELS_FR, trFr } from './labels.fr';
+
+	const fr = getLang() === 'fr';
+	const fmtFr = (d: any) =>
+		isNaN(+d) || d === null ? d : formatNumber(+d, { maximumFractionDigits: 1 }, 'fr');
 
 	interface RawDataItem {
 		w_population: number;
@@ -69,7 +75,13 @@
 			x: d.w_population,
 			y: d.w_access,
 			label: d.stop_label,
-			group: d.region
+			group: d.region,
+			...(fr
+				? {
+						w_access_tag: trFr(STATUS_LABELS_FR, d.w_access_tag, fr),
+						w_population_tag: trFr(STATUS_LABELS_FR, d.w_population_tag, fr)
+					}
+				: {})
 		}))
 	);
 
@@ -89,7 +101,7 @@
 	const seriesConfig = $derived(
 		regions.map((reg, i) => ({
 			key: reg,
-			label: reg,
+			label: trFr(REGION_LABELS_FR, reg, fr),
 			color: colors[i % colors.length]
 		}))
 	);
@@ -101,12 +113,19 @@
 		xMid: xMedian,
 		yMid: yMedian,
 		colors: ['#db3069', '#f1c500', '#00adf2', '#58e965'],
-		labels: {
-			topLeft: 'High Access, Low Pop',
-			topRight: 'High Access, High Pop',
-			bottomLeft: 'Low Access, Low Pop',
-			bottomRight: 'Low Access, High Pop'
-		}
+		labels: fr
+			? {
+					topLeft: 'Accès élevé, pop. faible',
+					topRight: 'Accès élevé, pop. élevée',
+					bottomLeft: 'Accès faible, pop. faible',
+					bottomRight: 'Accès faible, pop. élevée'
+				}
+			: {
+					topLeft: 'High Access, Low Pop',
+					topRight: 'High Access, High Pop',
+					bottomLeft: 'Low Access, Low Pop',
+					bottomRight: 'Low Access, High Pop'
+				}
 	});
 </script>
 
@@ -114,7 +133,7 @@
 	<div class="controls">
 		<div class="filter-wrap">
 			<Icon icon="mdi:filter-variant" />
-			<span class="label">Region:</span>
+			<span class="label">{fr ? 'Région :' : 'Region:'}</span>
 			<select
 				bind:value={selectedRegion}
 				onchange={() => {
@@ -122,7 +141,7 @@
 				}}
 			>
 				{#each regions as regionItem}
-					<option value={regionItem}>{regionItem}</option>
+					<option value={regionItem}>{trFr(REGION_LABELS_FR, regionItem, fr)}</option>
 				{/each}
 			</select>
 		</div>
@@ -139,8 +158,15 @@
 		xKey="x"
 		yKey="y"
 		zKey="group"
-		xLabel="Population (relative to regional median)"
-		yLabel="Amenity Access (relative to regional median)"
+		xLabel={fr
+			? 'Population (par rapport à la médiane régionale)'
+			: 'Population (relative to regional median)'}
+		yLabel={fr
+			? 'Accès aux commodités (par rapport à la médiane régionale)'
+			: 'Amenity Access (relative to regional median)'}
+		formatLabelX={fr ? fmtFr : undefined}
+		formatLabelY={fr ? fmtFr : undefined}
+		formatTooltipValue={fr ? fmtFr : undefined}
 		showQuadrants={true}
 		showTooltip={true}
 		{quadrantConfig}
@@ -151,8 +177,8 @@
 		filterRegion={selectedRegion}
 		regionKey="region"
 		tooltipRows={[
-			{ key: 'w_access_tag', label: 'Access Score' },
-			{ key: 'w_population_tag', label: 'Population Score' }
+			{ key: 'w_access_tag', label: fr ? 'Cote d’accès' : 'Access Score' },
+			{ key: 'w_population_tag', label: fr ? 'Cote de population' : 'Population Score' }
 		]}
 		xDomain={xDomainFixed}
 		yDomain={yDomainFixed}

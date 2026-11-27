@@ -31,15 +31,21 @@
 	import dpsmethod from '../reports/assets/dps-welcome.png';
 	import catchreport from '../reports/tod/catch/assets/elevated-train.png';
 	import '../styles.css';
+	import { getLang } from '../lib/i18n';
+	import { translateReportListing } from './components/reportTags';
 
-	const title = 'Measuring Main Streets Reports';
+	const fr = getLang() === 'fr';
 
-	const tabs = [
+	const title = fr ? 'Rapports – Mesures des rues principales' : 'Measuring Main Streets Reports';
+
+	const tabsEn = [
 		{
-			label: 'TOD on Main',
+			label: fr ? 'TOD sur la rue principale' : 'TOD on Main',
 			value: 'tod',
 			description: [
-				'<p>Canada’s housing system is failing to meet the needs of Canadians, and we need solutions to increase production and expand available options to make housing accessible and affordable everyone from communities of all sizes. How can Transit-Oriented Development (TOD) be catalyzed to meet Canada’s ambitious housing goals, while contributing to the creation of equitable, vibrant, complete communities?</p>'
+				fr
+					? '<p>Le système de logement du Canada ne répond pas aux besoins de la population canadienne, et il faut des solutions pour accroître la production et élargir l’offre afin de rendre le logement accessible et abordable pour tout le monde, dans les collectivités de toutes tailles. Comment stimuler l’aménagement axé sur le transport collectif (TOD) pour atteindre les objectifs ambitieux du Canada en matière de logement, tout en contribuant à créer des collectivités complètes, équitables et dynamiques?</p>'
+					: '<p>Canada’s housing system is failing to meet the needs of Canadians, and we need solutions to increase production and expand available options to make housing accessible and affordable everyone from communities of all sizes. How can Transit-Oriented Development (TOD) be catalyzed to meet Canada’s ambitious housing goals, while contributing to the creation of equitable, vibrant, complete communities?</p>'
 			],
 			categories: [
 				'Mobility',
@@ -211,10 +217,12 @@
 			]
 		},
 		{
-			label: 'Resilience on Main',
+			label: fr ? 'Résilience sur la rue principale' : 'Resilience on Main',
 			value: 'msr',
 			description: [
-				'<p>Decision-makers across Canadian communities are working to identify and deploy solutions to support resiliency, equity, and vibrancy on main streets and downtowns across the country. But very little data is traditionally available at the hyper-local scale – where impact is felt most – to make stronger decisions, and measure outcomes. What insights can we glean when the most useful data sets – from civic infrastructure assets to business mix to demographics - are re-mapped to the scale of the main street, and centralized in one place?</p>'
+				fr
+					? '<p>Partout au Canada, les décideurs et décideuses s’efforcent de trouver et de mettre en œuvre des solutions pour soutenir la résilience, l’équité et la vitalité des rues principales et des centres-villes. Or, très peu de données sont habituellement disponibles à l’échelle hyperlocale – là où les effets se font le plus sentir – pour prendre de meilleures décisions et mesurer les résultats. Que pouvons-nous apprendre lorsque les ensembles de données les plus utiles – des actifs d’infrastructure civique à la composition commerciale en passant par la démographie – sont recartographiés à l’échelle de la rue principale et réunis en un seul endroit?</p>'
+					: '<p>Decision-makers across Canadian communities are working to identify and deploy solutions to support resiliency, equity, and vibrancy on main streets and downtowns across the country. But very little data is traditionally available at the hyper-local scale – where impact is felt most – to make stronger decisions, and measure outcomes. What insights can we glean when the most useful data sets – from civic infrastructure assets to business mix to demographics - are re-mapped to the scale of the main street, and centralized in one place?</p>'
 			],
 			categories: ['Research Brief', 'Regional Report', 'Executive Summary', 'Partner Report'],
 			items: [
@@ -278,6 +286,8 @@
 			]
 		}
 	];
+
+	const tabs = tabsEn.map((tab) => translateReportListing(tab, fr));
 
 	let activeTab = $state('tod');
 

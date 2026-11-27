@@ -11,7 +11,22 @@
 	import Legend from '../../lib/ui/legends/Legend.svelte';
 	import LegendItem from '../../lib/ui/legends/LegendItem.svelte';
 
+	import { getLang } from '../../lib/i18n';
 	import cmaSummary from './cma-summary.json';
+
+	const fr = getLang() === 'fr';
+
+	// Province names are grouping keys in the data; translate at display time only
+	const PROVINCES_FR = {
+		'Newfoundland and Labrador': 'Terre-Neuve-et-Labrador',
+		'Prince Edward Island': 'Île-du-Prince-Édouard',
+		'Nova Scotia': 'Nouvelle-Écosse',
+		'New Brunswick': 'Nouveau-Brunswick',
+		Quebec: 'Québec',
+		'British Columbia': 'Colombie-Britannique',
+		'Northwest Territories': 'Territoires du Nord-Ouest'
+	};
+	const provinceLabel = (p) => (fr ? (PROVINCES_FR[p] ?? p) : p);
 
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -197,28 +212,38 @@
 </script>
 
 <div class="hero">
-	<h1>Civic Infrastructure Provision Map</h1>
-	<h2>Mapping Tool</h2>
-	<p>
-		This tool maps the relative provision of civic infrastructure by neighbourhood. The Civic
-		Infrastructure Index calculates a weighted (by employees) count of civic infrastructure
-		establishments relative to the size of the local (within 1km) population. These patterns are
-		visualized by transposing the index onto major roadways in built-up residential areas of each
-		region.
-	</p>
+	<h1>{fr ? 'Carte de l’offre d’infrastructure civique' : 'Civic Infrastructure Provision Map'}</h1>
+	<h2>{fr ? 'Outil cartographique' : 'Mapping Tool'}</h2>
+	{#if fr}
+		<p>
+			Cet outil cartographie l’offre relative d’infrastructure civique par quartier. L’indice
+			d’infrastructure civique calcule un nombre pondéré (selon le nombre d’employés)
+			d’établissements d’infrastructure civique par rapport à la taille de la population locale
+			(dans un rayon de 1 km). Ces tendances sont représentées en reportant l’indice sur les grandes
+			artères des zones résidentielles bâties de chaque région.
+		</p>
+	{:else}
+		<p>
+			This tool maps the relative provision of civic infrastructure by neighbourhood. The Civic
+			Infrastructure Index calculates a weighted (by employees) count of civic infrastructure
+			establishments relative to the size of the local (within 1km) population. These patterns are
+			visualized by transposing the index onto major roadways in built-up residential areas of each
+			region.
+		</p>
+	{/if}
 </div>
 
 <div class="map-container">
 	<div class="controls">
 		<div class="select-wrapper">
-			<h4>Select a region:</h4>
+			<h4>{fr ? 'Choisir une région :' : 'Select a region:'}</h4>
 			<Select.Root type="single" bind:value={cmaSelected} onValueChange={handleSelect}>
-				<Select.Trigger class="select-trigger" aria-label="Select CMA">
+				<Select.Trigger class="select-trigger" aria-label={fr ? 'Choisir une RMR' : 'Select CMA'}>
 					<Icon icon="mdi:map-marker-outline" class="icon-start" />
 					{#if cmaSelected}
 						{cmaSummary.find((c) => String(c.cmauid) === cmaSelected)?.cmaname}
 					{:else}
-						<span class="placeholder">Select a CMA</span>
+						<span class="placeholder">{fr ? 'Choisir une RMR' : 'Select a CMA'}</span>
 					{/if}
 					<Icon icon="mdi:chevron-down" class="icon-end" />
 				</Select.Trigger>
@@ -228,13 +253,13 @@
 						<Select.Viewport class="select-viewport">
 							{#each Object.entries(grouped) as [province, options]}
 								<Select.Group>
-									<Select.GroupHeading class="group-heading">{province}</Select.GroupHeading>
+									<Select.GroupHeading class="group-heading">{provinceLabel(province)}</Select.GroupHeading>
 									{#each options as { value, label }}
 										<Select.Item class="select-item" {value} {label}>
 											{label}
 											{#if cmaSelected === value}
 												<div class="check-icon">
-													<Icon icon="mdi:check" aria-label="selected" />
+													<Icon icon="mdi:check" aria-label={fr ? 'sélectionné' : 'selected'} />
 												</div>
 											{/if}
 										</Select.Item>
@@ -248,21 +273,21 @@
 		</div>
 
 		<div class="legend">
-			<h4>Legend</h4>
-			<LegendItem variant={'circle'} label={'Census Metropolitan Areas'} bgcolor={'#00adf2'} />
+			<h4>{fr ? 'Légende' : 'Legend'}</h4>
+			<LegendItem variant={'circle'} label={fr ? 'Régions métropolitaines de recensement' : 'Census Metropolitan Areas'} bgcolor={'#00adf2'} />
 			<div id="legend">
 				<Legend
-					minlabel={'Low'}
-					maxlabel={'High'}
-					label={'Civic Infrastructure Provision'}
+					minlabel={fr ? 'Faible' : 'Low'}
+					maxlabel={fr ? 'Élevé' : 'High'}
+					label={fr ? 'Offre d’infrastructure civique' : 'Civic Infrastructure Provision'}
 					gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
 				/>
 			</div>
 			<div id="mainstreet-legend">
-				<h5><i>Click to turn layers on and off</i></h5>
+				<h5><i>{fr ? 'Cliquez pour afficher ou masquer les couches' : 'Click to turn layers on and off'}</i></h5>
 				<LegendItem
 					variant={'circle'}
-					label={'Arts and Culture'}
+					label={fr ? 'Arts et culture' : 'Arts and Culture'}
 					bgcolor={'#DB3069'}
 					bordercolor={'#fff'}
 					button={true}
@@ -271,7 +296,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Govt & Community Services'}
+					label={fr ? 'Services gouvernementaux et communautaires' : 'Govt & Community Services'}
 					bgcolor={'#8A4285'}
 					bordercolor={'#fff'}
 					button={true}
@@ -280,7 +305,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Recreation'}
+					label={fr ? 'Loisirs' : 'Recreation'}
 					bgcolor={'#43B171'}
 					bordercolor={'#fff'}
 					button={true}
@@ -289,7 +314,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Healthcare'}
+					label={fr ? 'Santé' : 'Healthcare'}
 					bgcolor={'#33AED7'}
 					bordercolor={'#fff'}
 					button={true}
@@ -298,19 +323,19 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Education'}
+					label={fr ? 'Éducation' : 'Education'}
 					bgcolor={'#F45D01'}
 					bordercolor={'#fff'}
 					button={true}
 					id={'canada-civicinfra-education'}
 					{map}
 				/>
-				<LegendItem variant={'polygon'} label={'High Density Main Streets'} bgcolor={'#eee'} />
-				<LegendItem variant={'polygon'} label={'Low Density Main Streets'} bgcolor={'#dddd'} />
+				<LegendItem variant={'polygon'} label={fr ? 'Rues principales à forte densité' : 'High Density Main Streets'} bgcolor={'#eee'} />
+				<LegendItem variant={'polygon'} label={fr ? 'Rues principales à faible densité' : 'Low Density Main Streets'} bgcolor={'#dddd'} />
 			</div>
 		</div>
 		<button id="resetButton" on:click={resetMap}>
-			<Icon icon="mi:undo" /> Reset Map
+			<Icon icon="mi:undo" /> {fr ? 'Réinitialiser la carte' : 'Reset Map'}
 		</button>
 	</div>
 

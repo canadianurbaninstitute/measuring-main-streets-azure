@@ -10,6 +10,8 @@
 	import DonutMetric from '../../lib/ui/charts/DonutMetric.svelte';
 	import TransitMetric from '../../lib/ui/TransitMetric.svelte';
 	import './tabs.css';
+	import { trTransit } from '../../lib/data/transitdata/labels.fr';
+	import { formatNumber, getLang } from '../../lib/i18n';
 
 	let {
 		selectedStation,
@@ -20,18 +22,24 @@
 		selectedVariable = $bindable(),
 		onSelectVariable
 	} = $props();
+
+	const fr = getLang() === 'fr';
+	const pct = fr ? '\u00a0%' : '%';
+	const num = (n: number) => (fr ? formatNumber(n, undefined, 'fr') : n.toLocaleString());
+	const money = (n: number) =>
+		fr ? formatNumber(n, undefined, 'fr') + '\u00a0$' : '$' + n.toLocaleString();
 </script>
 
 <div class="tab-content">
 	<div class="metric-container">
 		{#each [HousingTotal, HouseValue, MonthlyRent] as metric}
 			<TransitMetric
-				label={metric.label}
+				label={trTransit(metric.label, fr)}
 				active={selectedVariable === metric.key}
 				onclick={() => onSelectVariable(selectedVariable !== metric.key ? metric.key : null)}
 				value={metric.unit === '$'
-					? metric.unit + Math.round(selectedStation[metric.key]).toLocaleString()
-					: Math.round(selectedStation[metric.key]).toLocaleString()}
+					? money(Math.round(selectedStation[metric.key]))
+					: num(Math.round(selectedStation[metric.key]))}
 				icon={metric.icon}
 				disabled={metric.key === 'HousingTotal'}
 			/>
@@ -39,10 +47,10 @@
 	</div>
 	<div class="metric-container">
 		<DonutMetric
-			label={MoreThan30OnShelter.label}
+			label={trTransit(MoreThan30OnShelter.label, fr)}
 			value={Math.round(selectedStation[MoreThan30OnShelter.key])}
 			icon={MoreThan30OnShelter.icon}
-			suffix={MoreThan30OnShelter.unit}
+			suffix={fr ? pct : MoreThan30OnShelter.unit}
 			fillColor={'#002940'}
 			disabled
 		/>
@@ -55,11 +63,11 @@
 				zKey="label"
 				xKey="value"
 				yKey="y"
-				title="Owners/Renters"
+				title={fr ? 'Propriétaires/locataires' : 'Owners/Renters'}
 				xMax="100"
 				mode="stacked"
 				legend="true"
-				xSuffix="%"
+				xSuffix={pct}
 				padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 			/>
 		</div>
@@ -70,11 +78,11 @@
 				zKey="label"
 				xKey="value"
 				yKey="y"
-				title="Dwelling Type"
+				title={fr ? 'Type de logement' : 'Dwelling Type'}
 				xMax="100"
 				mode="stacked"
 				legend="true"
-				xSuffix="%"
+				xSuffix={pct}
 				padding={{ top: 0, bottom: 20, left: 0, right: 20 }}
 			/>
 		</div>
@@ -84,9 +92,9 @@
 				data={housingData}
 				xKey="value"
 				yKey="label"
-				title="Housing Construction Year"
+				title={fr ? 'Année de construction des logements' : 'Housing Construction Year'}
 				yMax="100"
-				xSuffix="%"
+				xSuffix={pct}
 				padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
 			/>
 		</div>
@@ -96,9 +104,9 @@
 				data={bedData}
 				xKey="value"
 				yKey="label"
-				title="Number of Bedrooms"
+				title={fr ? 'Nombre de chambres' : 'Number of Bedrooms'}
 				yMax="100"
-				xSuffix="%"
+				xSuffix={pct}
 				padding={{ top: 0, bottom: 20, left: 60, right: 20 }}
 			/>
 		</div>

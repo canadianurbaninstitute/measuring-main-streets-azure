@@ -3,6 +3,7 @@
 	import { writable } from 'svelte/store';
 	import Card from '../../lib/ui/Card.svelte';
 	import '../../styles.css';
+	import { getLang } from '../../lib/i18n';
 
 	import AveDorval from '../../lib/assets/boundaries/montrealboundaries/AveDorval.svg';
 	import AveVictoria from '../../lib/assets/boundaries/montrealboundaries/AveVictoria.svg';
@@ -24,6 +25,36 @@
 	import StDenis from '../../lib/assets/boundaries/montrealboundaries/StDenis.svg';
 	import StEustache from '../../lib/assets/boundaries/montrealboundaries/StEustache.svg';
 	import StHubert from '../../lib/assets/boundaries/montrealboundaries/StHubert.svg';
+
+
+	const fr = getLang() === 'fr';
+
+	// French place names, keyed by case study slug.
+	/** @type {Record<string, string>} */
+	const NAMES_FR = {
+		ruesaintecatherine: 'Rue Sainte-Catherine',
+		ruestpaul: 'Rue Saint-Paul (Vieux-Montréal)',
+		ruewellington: 'Rue Wellington (Verdun)',
+		ruefleury: 'Rue Fleury (Ahuntsic)',
+		rueontario: 'Rue Ontario (Hochelaga)',
+		montroyal: 'Mont-Royal (Plateau)',
+		boulevardstmartin: 'Boulevard Saint-Martin (Laval)',
+		ruestcharles: 'Rue Saint-Charles (Vieux-Longueuil)',
+		ruestgeorge: 'Rue Saint-Georges (Saint-Jérôme)',
+		ruestanne: 'Rue Sainte-Anne (Sainte-Anne-de-Bellevue)',
+		notredame: 'Notre-Dame (Saint-Henri)',
+		stdenis: 'Saint-Denis',
+		avenuevictoria: 'Avenue Victoria (Saint-Lambert)',
+		avedorval: 'Avenue Dorval',
+		boulevardmonk: 'Boulevard Monk (Ville-Émard)',
+		ruebeaubien: 'Rue Beaubien (Rosemont–La Petite-Patrie)',
+		jeantalon: 'Jean-Talon (Parc-Extension)',
+		sthubert: 'Rue Saint-Hubert (Plaza Saint-Hubert)',
+		ruerichelieu: 'Rue Richelieu (Saint-Jean-sur-Richelieu)',
+		steustache: 'Saint-Eustache'
+	};
+	/** @param {{ link: string, name: string }} card */
+	const cardName = (card) => (fr ? (NAMES_FR[card.link.split('/').pop() ?? ''] ?? card.name) : card.name);
 
 	const allCards = [
 		{
@@ -191,23 +222,37 @@
 </script>
 
 <div class="hero">
-	<h1>Montreal, Québec</h1>
+	<h1>{fr ? 'Montréal, Québec' : 'Montreal, Québec'}</h1>
 	<div class="subtitle">
-		<h2>Full Case Studies</h2>
+		<h2>{fr ? 'Études de cas complètes' : 'Full Case Studies'}</h2>
 	</div>
 </div>
 
 <div class="hero">
-	<p>
-		We conducted 10 full case studies in the Montreal region, which which combine data about the
-		main streets with qualitative observation from site visits. The selection of main streets was
-		intended to provide a representative sample of types of streets within each regional context.
-		This included downtown (workplace-oriented), small town, and neighourhood (residential-oriented)
-		main streets being chosen, with additional emphasis placed on equity-deserving communities. More
-		streets were included in the neighbourhood category as there are a greater variety of streets
-		within the group. Use the filters to filter the case studies by type, or click on a case study
-		to read it.
-	</p>
+	{#if fr}
+		<p>
+			Nous avons réalisé 10 études de cas complètes dans la région de Montréal, qui combinent des
+			données sur les rues principales et des observations qualitatives recueillies lors de
+			visites sur le terrain. Les rues principales ont été choisies de manière à constituer un
+			échantillon représentatif des types de rues dans chaque contexte régional. Nous avons ainsi
+			retenu des rues principales de centre-ville (axées sur les lieux de travail), de petite
+			ville et de quartier (axées sur la vie résidentielle), en accordant une attention
+			particulière aux collectivités en quête d’équité. La catégorie des quartiers compte
+			davantage de rues, car les rues de ce groupe sont plus variées. Utilisez les filtres pour
+			trier les études de cas par type, ou cliquez sur une étude de cas pour la lire.
+		</p>
+	{:else}
+		<p>
+			We conducted 10 full case studies in the Montreal region, which which combine data about the
+			main streets with qualitative observation from site visits. The selection of main streets was
+			intended to provide a representative sample of types of streets within each regional context.
+			This included downtown (workplace-oriented), small town, and neighourhood (residential-oriented)
+			main streets being chosen, with additional emphasis placed on equity-deserving communities. More
+			streets were included in the neighbourhood category as there are a greater variety of streets
+			within the group. Use the filters to filter the case studies by type, or click on a case study
+			to read it.
+		</p>
+	{/if}
 	<div class="filter-container">
 		<!-- <h4>Filter:</h4> -->
 		<div class="checkbox-group">
@@ -217,7 +262,7 @@
 					bind:checked={isDowntownChecked}
 					on:change={() => updateFilter('downtown', isDowntownChecked)}
 				/>
-				Downtown
+				{fr ? 'Centre-ville' : 'Downtown'}
 			</label>
 			<label>
 				<input
@@ -225,7 +270,7 @@
 					bind:checked={isSuburbanChecked}
 					on:change={() => updateFilter('suburban', isSuburbanChecked)}
 				/>
-				Neighbourhood
+				{fr ? 'Quartier' : 'Neighbourhood'}
 			</label>
 			<label>
 				<input
@@ -233,31 +278,39 @@
 					bind:checked={isRuralChecked}
 					on:change={() => updateFilter('rural', isRuralChecked)}
 				/>
-				Small Town
+				{fr ? 'Petite ville' : 'Small Town'}
 			</label>
 		</div>
-		<button on:click={resetFilters}><Icon icon="mi:undo" />Reset Filters</button>
+		<button on:click={resetFilters}><Icon icon="mi:undo" />{fr ? 'Réinitialiser les filtres' : 'Reset Filters'}</button>
 	</div>
 </div>
 
 <div class="card-grid">
 	{#each filteredFullCaseStudies as card}
-		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
+		<div class="card"><Card link={card.link} cardImage={card.image} streetName={cardName(card)} /></div>
 	{/each}
 </div>
 
 <div class="hero">
 	<div class="subtitle">
-		<h2>Data Case Studies</h2>
+		<h2>{fr ? 'Études de cas fondées sur les données' : 'Data Case Studies'}</h2>
 	</div>
-	<p>
-		These are the 10 data only case studies in the Montreal region. Use the filters above to filter
-		the case studies by type, or click on a case study to read it.
-	</p>
+	{#if fr}
+		<p>
+			Voici les 10 études de cas fondées uniquement sur les données dans la région de Montréal.
+			Utilisez les filtres ci-dessus pour trier les études de cas par type, ou cliquez sur une
+			étude de cas pour la lire.
+		</p>
+	{:else}
+		<p>
+			These are the 10 data only case studies in the Montreal region. Use the filters above to filter
+			the case studies by type, or click on a case study to read it.
+		</p>
+	{/if}
 </div>
 <div class="card-grid">
 	{#each filteredDataCaseStudies as card}
-		<div class="card"><Card link={card.link} cardImage={card.image} streetName={card.name} /></div>
+		<div class="card"><Card link={card.link} cardImage={card.image} streetName={cardName(card)} /></div>
 	{/each}
 </div>
 

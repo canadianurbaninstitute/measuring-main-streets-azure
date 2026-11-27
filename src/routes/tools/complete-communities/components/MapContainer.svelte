@@ -13,7 +13,9 @@
 		transit_regions_source,
 		transit_stations_source
 	} from '../../../lib/data/transitdata/config-mapbox.json';
+	import { trTransit } from '../../../lib/data/transitdata/labels.fr';
 	import line_colors from '../../../lib/data/transitdata/line-colors.json';
+	import { getLang } from '../../../lib/i18n';
 	import AccessChartOverlay from './AccessChartOverlay.svelte';
 	import Legend from './Legend.svelte';
 	let {
@@ -39,6 +41,8 @@
 		selectRegion,
 		regionsData
 	} = $props();
+
+	const fr = getLang() === 'fr';
 
 	// --- Mapbox Access Token ---
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -104,7 +108,7 @@
 
 		map.addControl(
 			new mapboxgl.AttributionControl({
-				customAttribution: 'Canadian Urban Institute'
+				customAttribution: fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute'
 			})
 		);
 		// add map sources and layers
@@ -327,7 +331,7 @@
 		map.on('mousemove', 'transit-region-points', (e) => {
 			if (e.features.length > 0) {
 				const coordinates = e.lngLat;
-				const name = e.features[0].properties.region;
+				const name = trTransit(e.features[0].properties.region, fr);
 
 				if (map.getZoom() <= 5) {
 					// only show pop-up if map is zoomed out
@@ -355,8 +359,8 @@
 						`
 						${
 							group
-								? `<span class="label-name">${group}</span><br/>
-						<span class="label-sub">${tier === 1 ? 'Core Amenity' : 'Additional Amenitiy'}</span>
+								? `<span class="label-name">${trTransit(group, fr)}</span><br/>
+						<span class="label-sub">${tier === 1 ? (fr ? 'Commodité essentielle' : 'Core Amenity') : fr ? 'Commodité complémentaire' : 'Additional Amenitiy'}</span>
 						`
 								: ''
 						}

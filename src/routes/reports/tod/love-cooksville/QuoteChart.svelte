@@ -1,50 +1,81 @@
 <script>
 	import Icon from '@iconify/svelte';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const T = (en, frText) => (fr ? frText : en);
 
 	const categories = [
 		{
-			title: 'Points of Disagreement',
+			title: T('Points of Disagreement', 'Points de désaccord'),
 			icon: 'mdi:thumbs-up-down',
 			color: '#db3069',
 			colorFam: 'pink',
 			items: [
-				'Bike lanes & urban planning',
-				"Housing affordability vs. landlords' rights",
-				"Mississauga's development vs. nostalgia for the past",
-				'Provincial and municipal policies'
+				T('Bike lanes & urban planning', 'Pistes cyclables et urbanisme'),
+				T(
+					"Housing affordability vs. landlords' rights",
+					'Abordabilité du logement et droits des propriétaires-bailleurs'
+				),
+				T(
+					"Mississauga's development vs. nostalgia for the past",
+					'Développement de Mississauga et nostalgie du passé'
+				),
+				T('Provincial and municipal policies', 'Politiques provinciales et municipales')
 			]
 		},
 		{
-			title: 'Barriers to Engagement',
+			title: T('Barriers to Engagement', 'Obstacles à la participation'),
 			icon: 'mdi:message-unread',
 			color: '#f45d01',
 			colorFam: 'orange',
 			items: [
-				'Failure to engage with major concerns including safety, affordability, and dignity',
-				'Less informed on the realities of the coming developments'
+				T(
+					'Failure to engage with major concerns including safety, affordability, and dignity',
+					'Absence de réponse aux préoccupations majeures, notamment la sécurité, l’abordabilité et la dignité'
+				),
+				T(
+					'Less informed on the realities of the coming developments',
+					'Méconnaissance de la réalité des projets de développement à venir'
+				)
 			]
 		},
 		{
-			title: 'Points of Agreement',
+			title: T('Points of Agreement', 'Points d’entente'),
 			icon: 'mdi:super-chat-for-good',
 			color: '#43b171',
 			colorFam: 'green',
 			items: [
-				'Want what is best for the community',
-				'Support the local food scene and diversity',
-				'Want safe and uncongested roads',
-				'Want reliable transportation service'
+				T(
+					'Want what is best for the community',
+					'Vouloir ce qu’il y a de mieux pour la collectivité'
+				),
+				T(
+					'Support the local food scene and diversity',
+					'Soutenir la scène culinaire locale et la diversité'
+				),
+				T(
+					'Want safe and uncongested roads',
+					'Vouloir des routes sécuritaires et sans congestion'
+				),
+				T('Want reliable transportation service', 'Vouloir un service de transport fiable')
 			]
 		},
 		{
-			title: 'Opportunities for Engagement',
+			title: T('Opportunities for Engagement', 'Occasions de participation'),
 			icon: 'mdi:stars',
 			color: '#00adf2',
 			colorFam: 'blue',
 			items: [
-				'Highlight positive outcomes: business, family, and entertainment',
-				'Acknowledge challenges: delays, poor communication, and trade-offs',
-				'Equip people with what is coming'
+				T(
+					'Highlight positive outcomes: business, family, and entertainment',
+					'Mettre en valeur les retombées positives\u00a0: commerces, famille et divertissement'
+				),
+				T(
+					'Acknowledge challenges: delays, poor communication, and trade-offs',
+					'Reconnaître les défis\u00a0: retards, communication déficiente et compromis'
+				),
+				T('Equip people with what is coming', 'Informer les gens de ce qui s’en vient')
 			]
 		}
 	];

@@ -7,6 +7,7 @@
 	import Title from '../../../lib/ui/Title.svelte';
 
 	import EmpSizeLegend from '../../../lib/assets/employmentsizelegend.svg';
+	import EmpSizeLegendFr from '../../../lib/assets/employmentsizelegend-fr.svg';
 
 	import businessmix from '../../../lib/data/casestudydata/edmonton/118albertaave/businessmix';
 	import civicmix from '../../../lib/data/casestudydata/edmonton/118albertaave/civicmix';
@@ -41,6 +42,11 @@
 	import { mapStoreList, visitorMapStore } from '../../../lib/stores/mapStore';
 
 	import '../../../styles.css';
+
+	import { localizeRows } from '../../../lib/data/dataLabels';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	/* -------------------------------------------------------------------------- */
 	/*                               Variable Setup                               */
@@ -215,27 +221,46 @@
 		<section data-id="map1">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Overview</h2>
-					<p>
-						118 Avenue is a commercial street in the Alberta neighbourhood of Edmonton. The street
-						runs east-west and is located north of Edmonton's main downtown. This segment of 118
-						Avenue began as a main street for a smaller community, Norwood, before amalgamation.
-					</p>
-					<p>
-						The history of 118 Avenue follows a non-linear trajectory of disrepair and
-						revitalization. Today, the area has a strong local music, arts, and culture scene and an
-						eclectic mix of residents, businesses, and visitors. The Avenue is home to permanent
-						arts locales such as the Nina Haggerty Centre for the Arts and the Carrot Community Arts
-						Coffeehouse, both established neighbourhood community hubs. The Avenue serves as the
-						temporary home for arts festivals throughout the year.
-					</p>
+					<h2>{fr ? 'Vue d’ensemble' : 'Overview'}</h2>
+					{#if fr}
+						<p>
+							La 118 Avenue est une rue commerciale du quartier Alberta, à Edmonton. La
+							rue suit un axe est-ouest et se trouve au nord du centre-ville d’Edmonton.
+							Ce tronçon de la 118 Avenue était à l’origine la rue principale d’une plus
+							petite collectivité, Norwood, avant la fusion.
+						</p>
+						<p>
+							L’histoire de la 118 Avenue suit une trajectoire non linéaire, faite de
+							périodes de délabrement et de revitalisation. Aujourd’hui, le secteur
+							bénéficie d’une scène locale dynamique en musique, en arts et en culture, et
+							d’un mélange éclectique de résidents, d’entreprises et de visiteurs.
+							L’avenue accueille des lieux artistiques permanents comme le Nina Haggerty
+							Centre for the Arts et le Carrot Community Arts Coffeehouse, deux pôles
+							communautaires bien établis dans le quartier. L’avenue accueille aussi
+							temporairement des festivals artistiques tout au long de l’année.
+						</p>
+					{:else}
+						<p>
+							118 Avenue is a commercial street in the Alberta neighbourhood of Edmonton. The street
+							runs east-west and is located north of Edmonton's main downtown. This segment of 118
+							Avenue began as a main street for a smaller community, Norwood, before amalgamation.
+						</p>
+						<p>
+							The history of 118 Avenue follows a non-linear trajectory of disrepair and
+							revitalization. Today, the area has a strong local music, arts, and culture scene and an
+							eclectic mix of residents, businesses, and visitors. The Avenue is home to permanent
+							arts locales such as the Nina Haggerty Centre for the Arts and the Carrot Community Arts
+							Coffeehouse, both established neighbourhood community hubs. The Avenue serves as the
+							temporary home for arts festivals throughout the year.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
 						<Legend
-							minlabel={'Low'}
-							maxlabel={'High'}
-							label={'Business Density'}
+							minlabel={fr ? 'Faible' : 'Low'}
+							maxlabel={fr ? 'Élevé' : 'High'}
+							label={fr ? 'Densité commerciale' : 'Business Density'}
 							gradient={gradients.business}
 						/>
 						<LegendItem
@@ -260,24 +285,49 @@
 		<section data-id="map2">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Built Form</h2>
-					<p>
-						118 Avenue itself has a consistent design throughout the study area from 95 St NW to 82
-						St NW. The streetscape consists of relatively wide, tree-lined sidewalks. There are four
-						lanes for vehicles with street parking.
-					</p>
-					<p>
-						The streets that connect with 118 form an alternating pattern of T intersections. At
-						many, there are bump-outs and curb extensions with decorative benches and plants. Most
-						side streets feature angled parking stalls along the sides of buildings, transitioning
-						into residential areas where available parking becomes parallel.
-					</p>
-					<p>
-						The scale of buildings are generally one to two-storeys in height and are consistent
-						through the study area, save for residential apartments. There is little to no new
-						infill development and many buildings have noticeable wear and tear. There are quite a
-						few strip mall style lots with parking between the storefronts and sidewalks.
-					</p>
+					<h2>{fr ? 'Cadre bâti' : 'Built Form'}</h2>
+					{#if fr}
+						<p>
+							La 118 Avenue présente un aménagement uniforme dans l’ensemble de la zone à
+							l’étude, de la 95 St NW à la 82 St NW. Le paysage de rue se compose de
+							trottoirs relativement larges et bordés d’arbres. La chaussée compte quatre
+							voies de circulation et du stationnement sur rue.
+						</p>
+						<p>
+							Les rues qui croisent la 118 forment une alternance d’intersections en T. À
+							plusieurs d’entre elles, on trouve des avancées et des saillies de trottoir
+							agrémentées de bancs décoratifs et de végétaux. La plupart des rues
+							transversales comportent des places de stationnement en épi le long des
+							bâtiments, qui deviennent des places en parallèle à l’approche des secteurs
+							résidentiels.
+						</p>
+						<p>
+							Les bâtiments ont généralement un ou deux étages et leur gabarit est
+							uniforme dans l’ensemble de la zone à l’étude, à l’exception des immeubles
+							d’appartements. On observe peu ou pas de nouveaux projets intercalaires, et
+							de nombreux bâtiments présentent une usure visible. On compte plusieurs
+							terrains de type centre commercial linéaire, avec du stationnement entre les
+							vitrines et les trottoirs.
+						</p>
+					{:else}
+						<p>
+							118 Avenue itself has a consistent design throughout the study area from 95 St NW to 82
+							St NW. The streetscape consists of relatively wide, tree-lined sidewalks. There are four
+							lanes for vehicles with street parking.
+						</p>
+						<p>
+							The streets that connect with 118 form an alternating pattern of T intersections. At
+							many, there are bump-outs and curb extensions with decorative benches and plants. Most
+							side streets feature angled parking stalls along the sides of buildings, transitioning
+							into residential areas where available parking becomes parallel.
+						</p>
+						<p>
+							The scale of buildings are generally one to two-storeys in height and are consistent
+							through the study area, save for residential apartments. There is little to no new
+							infill development and many buildings have noticeable wear and tear. There are quite a
+							few strip mall style lots with parking between the storefronts and sidewalks.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<div class="legend-container">
@@ -287,14 +337,14 @@
 							bgcolor={'#ffdd33'}
 							bordercolor={'#c4ad37'}
 						/>
-						<LegendItem variant={'polygon'} label={'Green Spaces'} bgcolor={'#43b171'} />
+						<LegendItem variant={'polygon'} label={fr ? 'Espaces verts' : 'Green Spaces'} bgcolor={'#43b171'} />
 						<LegendItem
 							variant={'polygon'}
-							label={'Buildings'}
+							label={fr ? 'Bâtiments' : 'Buildings'}
 							bgcolor={'#d4d4d4'}
 							bordercolor={'#999797'}
 						/>
-						<LegendItem variant={'line'} label={'Transit'} bordercolor={'#ff4242'} />
+						<LegendItem variant={'line'} label={fr ? 'Transport collectif' : 'Transit'} bordercolor={'#ff4242'} />
 						<PhotosCheckbox section={'builtform'} layer={'builtform-photos'} />
 						<SatelliteCheckbox casestudy={'118albertaave'} section={'builtform'} />
 					</div>
@@ -318,10 +368,10 @@
 					<div class="chart">
 						<BarChart
 							colors={['#43b171']}
-							data={greenspace}
+							data={localizeRows(greenspace, fr)}
 							yKey="Area"
 							xKey="Park_Percentage"
-							title="Green Space %"
+							title={fr ? 'Espaces verts (%)' : 'Green Space %'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -331,12 +381,16 @@
 		<section data-id="map3">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Civic Infrastructure</h2>
+					<h2>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Arts and Culture'}
+							label={fr ? 'Arts et culture' : 'Arts and Culture'}
 							bgcolor={'#DB3069'}
 							bordercolor={'#fff'}
 							button={true}
@@ -345,7 +399,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Government and Community Services'}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government and Community Services'}
 							bgcolor={'#8A4285'}
 							bordercolor={'#fff'}
 							button={true}
@@ -354,7 +408,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Recreation'}
+							label={fr ? 'Loisirs' : 'Recreation'}
 							bgcolor={'#43B171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -363,7 +417,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Healthcare'}
+							label={fr ? 'Santé' : 'Healthcare'}
 							bgcolor={'#33AED7'}
 							bordercolor={'#fff'}
 							button={true}
@@ -372,7 +426,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Education'}
+							label={fr ? 'Éducation' : 'Education'}
 							bgcolor={'#F45D01'}
 							bordercolor={'#fff'}
 							button={true}
@@ -401,23 +455,47 @@
 							/>
 						</div>
 					</div>
-					<p>
-						118 Avenue lies within the Alberta Avenue BIA and was part of the Avenue Initiative
-						Revitalization that began in 2006, a neighbourhood revitalization program aiming to
-						attract people by improving the streetscape and vibrancy of the corridor.
-					</p>
-					<p>
-						During the field visit, the 118 was lined with stone decorative benches, themed street
-						signs, artistic cutouts attached to specialty street lanterns, and flower planters in
-						bloom. Murals adorn the sides of many buildings. Investment, from both City and
-						community initiatives, are evident in the look and feel of the Avenue.
-					</p>
-					<p>
-						According to the Civic Infrastructure Index, this segment of 118 ranks 7th out of 20
-						Edmonton Main Streets and 3rd of 36 Neighbourhood Main Streets. Led by Arts on the Ave,
-						the area is being developed into a community arts hub. The organization runs the Kaleido
-						Family Arts Festival in the fall and Deep Freeze Festival in the winter.
-					</p>
+					{#if fr}
+						<p>
+							La 118 Avenue fait partie de la zone d’amélioration commerciale (BIA)
+							Alberta Avenue et a été visée par l’Avenue Initiative Revitalization, lancée
+							en 2006, un programme de revitalisation de quartier visant à attirer les
+							gens en améliorant le paysage de rue et le dynamisme du corridor.
+						</p>
+						<p>
+							Lors de la visite sur le terrain, la 118 était bordée de bancs décoratifs en
+							pierre, de panneaux de rue thématiques, de découpes artistiques fixées à des
+							lanternes de rue distinctives et de jardinières fleuries. Des murales ornent
+							les murs latéraux de nombreux bâtiments. Les investissements, issus à la
+							fois d’initiatives de la Ville et de la communauté, se reflètent dans
+							l’allure et l’ambiance de l’avenue.
+						</p>
+						<p>
+							Selon l’Indice d’infrastructure civique, ce tronçon de la 118 se classe 7e
+							sur 20 rues principales d’Edmonton et 3e sur 36 rues principales de
+							quartier. Sous l’impulsion d’Arts on the Ave, le secteur est en voie de
+							devenir un pôle artistique communautaire. L’organisme organise le Kaleido
+							Family Arts Festival à l’automne et le Deep Freeze Festival en hiver.
+						</p>
+					{:else}
+						<p>
+							118 Avenue lies within the Alberta Avenue BIA and was part of the Avenue Initiative
+							Revitalization that began in 2006, a neighbourhood revitalization program aiming to
+							attract people by improving the streetscape and vibrancy of the corridor.
+						</p>
+						<p>
+							During the field visit, the 118 was lined with stone decorative benches, themed street
+							signs, artistic cutouts attached to specialty street lanterns, and flower planters in
+							bloom. Murals adorn the sides of many buildings. Investment, from both City and
+							community initiatives, are evident in the look and feel of the Avenue.
+						</p>
+						<p>
+							According to the Civic Infrastructure Index, this segment of 118 ranks 7th out of 20
+							Edmonton Main Streets and 3rd of 36 Neighbourhood Main Streets. Led by Arts on the Ave,
+							the area is being developed into a community arts hub. The organization runs the Kaleido
+							Family Arts Festival in the fall and Deep Freeze Festival in the winter.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -437,17 +515,17 @@
 							'civicinfra-edmonton-recreation'
 						]}
 						section={'civicinfra'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#DB3069', '#F45D01', '#8A4285', '#33AED7', '#43B171']}
-							data={civicmix}
+							data={localizeRows(civicmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Civic Infrastructure Mix (%)"
+							title={fr ? 'Composition de l’infrastructure civique (%)' : 'Civic Infrastructure Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -457,12 +535,16 @@
 		<section data-id="map4">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Business Profile</h2>
+					<h2>{fr ? 'Profil des entreprises' : 'Business Profile'}</h2>
 					<div class="controls">
-						<i><small>Click on a layer to turn it on or off</small></i>
+						<i><small
+							>{fr
+								? 'Cliquez sur une couche pour l’activer ou la désactiver'
+								: 'Click on a layer to turn it on or off'}</small
+						></i>
 						<LegendItem
 							variant={'circle'}
-							label={'Retail'}
+							label={fr ? 'Commerce de détail' : 'Retail'}
 							bgcolor={'#F13737'}
 							bordercolor={'#fff'}
 							button={true}
@@ -471,7 +553,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Local Services'}
+							label={fr ? 'Services de proximité' : 'Local Services'}
 							bgcolor={'#2a5cac'}
 							bordercolor={'#fff'}
 							button={true}
@@ -480,7 +562,7 @@
 						/>
 						<LegendItem
 							variant={'circle'}
-							label={'Food and Drink'}
+							label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 							bgcolor={'#43b171'}
 							bordercolor={'#fff'}
 							button={true}
@@ -507,22 +589,45 @@
 							/>
 						</div>
 					</div>
-					<p>
-						Business along 118 Avenue features a wide range of offerings, from specialty food stores
-						to barber shops and hair salons. Many businesses are independent or family-run. Despite
-						the many restaurants, there is a noticeable lack of patios and outdoor dining. There are
-						also several auto body service and repair shops.
-					</p>
-					<p>
-						According to the Independent Business Index, 118 Avenue in Alberta ranks 7th of 20
-						Edmonton Main Streets and 15th of Neighbourhood Main Streets. For business density, 118
-						Avenue ranks 10th of 20 and 18th of 36.
-					</p>
-					<p>
-						While there are well-established community-oriented businesses, there are also many
-						storefront that are vacant or up for lease or sale. These factors contribute to an
-						overall sense of quietness on the street.
-					</p>
+					{#if fr}
+						<p>
+							Les commerces de la 118 Avenue offrent un large éventail de produits et
+							services, des épiceries spécialisées aux salons de barbier et de coiffure.
+							De nombreuses entreprises sont indépendantes ou familiales. Malgré les
+							nombreux restaurants, on remarque un manque de terrasses et de places pour
+							manger à l’extérieur. On trouve également plusieurs ateliers de carrosserie
+							et de réparation automobile.
+						</p>
+						<p>
+							Selon l’Indice des entreprises indépendantes, la 118 Avenue dans Alberta se
+							classe 7e sur 20 rues principales d’Edmonton et 15e parmi les rues
+							principales de quartier. Pour la densité commerciale, la 118 Avenue se
+							classe 10e sur 20 et 18e sur 36.
+						</p>
+						<p>
+							Bien qu’on y trouve des commerces bien établis et tournés vers la
+							communauté, de nombreux locaux commerciaux sont aussi vacants, à louer ou à
+							vendre. Ces facteurs contribuent à une impression générale de calme dans la
+							rue.
+						</p>
+					{:else}
+						<p>
+							Business along 118 Avenue features a wide range of offerings, from specialty food stores
+							to barber shops and hair salons. Many businesses are independent or family-run. Despite
+							the many restaurants, there is a noticeable lack of patios and outdoor dining. There are
+							also several auto body service and repair shops.
+						</p>
+						<p>
+							According to the Independent Business Index, 118 Avenue in Alberta ranks 7th of 20
+							Edmonton Main Streets and 15th of Neighbourhood Main Streets. For business density, 118
+							Avenue ranks 10th of 20 and 18th of 36.
+						</p>
+						<p>
+							While there are well-established community-oriented businesses, there are also many
+							storefront that are vacant or up for lease or sale. These factors contribute to an
+							overall sense of quietness on the street.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -540,17 +645,17 @@
 							'business-edmonton-services'
 						]}
 						section={'business'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="chart">
 						<BarChart
 							colors={['#43b171', '#F13737', '#2a5cac']}
-							data={businessmix}
+							data={localizeRows(businessmix, fr)}
 							yKey="Area"
 							xKey="Percentage"
 							zKey="Group"
 							mode="stacked"
-							title="Business Mix (%)"
+							title={fr ? 'Composition commerciale (%)' : 'Business Mix (%)'}
 							padding={{ top: 0, bottom: 20, left: 110 }}
 						/>
 					</div>
@@ -560,19 +665,35 @@
 		<section data-id="map5">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Employment Profile</h2>
-					<p>
-						Employment in along this segment of 118 Avenue is primarily concentrated on along the
-						commercial street itself. Small establishments with zero to five employees line 118
-						Avenue, with slightly larger employers concentrated at the eastern end. 118 itself seems
-						to play a local role as the primary commercial corridor as the surrounding
-						neighbourhoods are almost solely residential with scattered establishments throughout.
-					</p>
-					<p>
-						For employment density, 118 Avenue in Alberta ranks in the middle at 10th of 20 Edmonton
-						Main Streets and 18th of 36 Neighbourhood Main Streets.
-					</p>
-					<img id="employmentsizelegend" src={EmpSizeLegend} alt="legend" />
+					<h2>{fr ? 'Profil de l’emploi' : 'Employment Profile'}</h2>
+					{#if fr}
+						<p>
+							L’emploi le long de ce tronçon de la 118 Avenue est principalement concentré
+							sur la rue commerciale elle-même. De petits établissements comptant de zéro
+							à cinq employés bordent la 118 Avenue, tandis que des employeurs un peu plus
+							importants se concentrent à l’extrémité est. La 118 semble jouer un rôle
+							local de principal corridor commercial, puisque les quartiers environnants
+							sont presque exclusivement résidentiels, avec quelques établissements épars.
+						</p>
+						<p>
+							Pour la densité d’emploi, la 118 Avenue dans Alberta se classe au milieu, au
+							10e rang sur 20 rues principales d’Edmonton et au 18e rang sur 36 rues
+							principales de quartier.
+						</p>
+					{:else}
+						<p>
+							Employment in along this segment of 118 Avenue is primarily concentrated on along the
+							commercial street itself. Small establishments with zero to five employees line 118
+							Avenue, with slightly larger employers concentrated at the eastern end. 118 itself seems
+							to play a local role as the primary commercial corridor as the surrounding
+							neighbourhoods are almost solely residential with scattered establishments throughout.
+						</p>
+						<p>
+							For employment density, 118 Avenue in Alberta ranks in the middle at 10th of 20 Edmonton
+							Main Streets and 18th of 36 Neighbourhood Main Streets.
+						</p>
+					{/if}
+					<img id="employmentsizelegend" src={fr ? EmpSizeLegendFr : EmpSizeLegend} alt={fr ? 'Légende' : 'legend'} />
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -584,25 +705,25 @@
 						bearing={0}
 						layers={['118albertaave', '118albertaave-fill', 'employment-size']}
 						section={'employmentsize'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<div>
 							<LegendItem
 								variant={'circle'}
-								label={'Civic Infrastructure'}
+								label={fr ? 'Infrastructure civique' : 'Civic Infrastructure'}
 								bgcolor={'#db3069'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Businesses'}
+								label={fr ? 'Entreprises' : 'Businesses'}
 								bgcolor={'#2a5cac'}
 								bordercolor={'#fff'}
 							/>
 							<LegendItem
 								variant={'circle'}
-								label={'Other'}
+								label={fr ? 'Autres' : 'Other'}
 								bgcolor={'#b0b0b0'}
 								bordercolor={'#fff'}
 							/>
@@ -614,38 +735,58 @@
 		<section data-id="map6">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Housing</h2>
+					<h2>{fr ? 'Logement' : 'Housing'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'118albertaave'}
 							section={'housing'}
 							region={'edmonton'}
 							options={[
-								{ id: 'populationdensity', text: 'Population Density' },
-								{ id: 'dwellings', text: 'Dwellings' },
-								{ id: 'single-detached', text: 'Single Detached' },
-								{ id: 'semi-detached', text: 'Semi Detached' },
-								{ id: 'duplex', text: 'Duplex' },
-								{ id: 'apartment-more-5-stories', text: 'Apartments (more than 5 stories)' },
-								{ id: 'apartment-less-5-stories', text: 'Apartments (less than 5 stories)' }
+								{ id: 'populationdensity', text: fr ? 'Densité de population' : 'Population Density' },
+								{ id: 'dwellings', text: fr ? 'Logements' : 'Dwellings' },
+								{ id: 'single-detached', text: fr ? 'Maisons individuelles' : 'Single Detached' },
+								{ id: 'semi-detached', text: fr ? 'Maisons jumelées' : 'Semi Detached' },
+								{ id: 'duplex', text: fr ? 'Duplex' : 'Duplex' },
+								{ id: 'apartment-more-5-stories', text: fr ? 'Appartements (plus de 5 étages)' : 'Apartments (more than 5 stories)' },
+								{ id: 'apartment-less-5-stories', text: fr ? 'Appartements (moins de 5 étages)' : 'Apartments (less than 5 stories)' }
 							]}
 						/>
 						<PhotosCheckbox section={'housing'} layer={'housing-photos'} />
 					</div>
-					<p>
-						The housing within the study area are located predominantly away from 118 Avenue itself.
-						The streets and avenues in this area intersect in a grid pattern where streets are
-						closer together than the avenues. This results in the north-south streets containing
-						most of the housing stock, with the houses and apartments mostly facing east-west. There
-						is one infill mixed-use building along the Avenue, but otherwise the housing is
-						noticeably tucked behind the main street.
-					</p>
-					<p>
-						The housing stock features mostly low-rise apartments (over 40%) followed by
-						single-detached dwellings (almost 40%). Most of the housing was built in the pre-1960 to
-						1980 period. The area features less infill than other neighbourhoods of the same age in
-						Edmonton.
-					</p>
+					{#if fr}
+						<p>
+							Dans la zone à l’étude, les logements se trouvent principalement à l’écart
+							de la 118 Avenue elle-même. Les rues et les avenues du secteur se croisent
+							selon un quadrillage où les rues sont plus rapprochées que les avenues.
+							Ainsi, les rues orientées nord-sud regroupent la majeure partie du parc de
+							logements, les maisons et les appartements étant pour la plupart orientés
+							est-ouest. On trouve un immeuble intercalaire à usage mixte le long de
+							l’avenue, mais autrement, les logements sont nettement en retrait derrière
+							la rue principale.
+						</p>
+						<p>
+							Le parc de logements se compose surtout d’appartements de faible hauteur
+							(plus de 40 %), suivis de maisons individuelles non attenantes (près de
+							40 %). La plupart des logements ont été construits durant la période allant
+							d’avant 1960 jusqu’à 1980. Le secteur compte moins de projets intercalaires
+							que d’autres quartiers du même âge à Edmonton.
+						</p>
+					{:else}
+						<p>
+							The housing within the study area are located predominantly away from 118 Avenue itself.
+							The streets and avenues in this area intersect in a grid pattern where streets are
+							closer together than the avenues. This results in the north-south streets containing
+							most of the housing stock, with the houses and apartments mostly facing east-west. There
+							is one infill mixed-use building along the Avenue, but otherwise the housing is
+							noticeably tucked behind the main street.
+						</p>
+						<p>
+							The housing stock features mostly low-rise apartments (over 40%) followed by
+							single-detached dwellings (almost 40%). Most of the housing was built in the pre-1960 to
+							1980 period. The area features less infill than other neighbourhoods of the same age in
+							Edmonton.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -657,18 +798,18 @@
 						bearing={0}
 						layers={['118albertaave-outline', 'populationdensity']}
 						section={'housing'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="graphics-container">
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingconstruction}
+								data={localizeRows(housingconstruction, fr)}
 								xKey="Construction Year"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Construction Year (%)"
+								title={fr ? 'Année de construction des logements (%)' : 'Housing Construction Year (%)'}
 								padding={{ top: 0, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -676,12 +817,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6']}
-								data={housingtype}
+								data={localizeRows(housingtype, fr)}
 								xKey="Housing Type"
 								yKey="Percentage"
 								zKey="Area"
 								mode="grouped"
-								title="Housing Type (%)"
+								title={fr ? 'Type de logement (%)' : 'Housing Type (%)'}
 								padding={{ top: 10, bottom: 20, left: 10 }}
 								legend
 							/>
@@ -693,29 +834,36 @@
 		<section data-id="map7">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Local Characteristics</h2>
+					<h2>{fr ? 'Caractéristiques locales' : 'Local Characteristics'}</h2>
 					<div class="controls">
 						<Dropdown
 							casestudy={'118albertaave'}
 							section={'demographics'}
 							region={'edmonton'}
 							options={[
-								{ id: 'average-age', text: 'Average Age' },
-								{ id: 'household-size', text: 'Household Size' },
-								{ id: 'average-income', text: 'Average Income' },
-								{ id: 'visibleminority', text: 'Visible Minorities' },
-								{ id: 'immigrants', text: 'Immigrants and Non-Permanent Residents' },
-								{ id: 'indigenous', text: 'Indigenous Population' },
-								{ id: 'english-speakers', text: 'English Speakers' },
-								{ id: 'french-speakers', text: 'French Speakers' },
-								{ id: 'education-bachelors', text: "Bachelor's Degree Holders" }
+								{ id: 'average-age', text: fr ? 'Âge moyen' : 'Average Age' },
+								{ id: 'household-size', text: fr ? 'Taille des ménages' : 'Household Size' },
+								{ id: 'average-income', text: fr ? 'Revenu moyen' : 'Average Income' },
+								{ id: 'visibleminority', text: fr ? 'Minorités visibles' : 'Visible Minorities' },
+								{ id: 'immigrants', text: fr ? 'Personnes immigrantes et résidents non permanents' : 'Immigrants and Non-Permanent Residents' },
+								{ id: 'indigenous', text: fr ? 'Population autochtone' : 'Indigenous Population' },
+								{ id: 'english-speakers', text: fr ? 'Personnes de langue anglaise' : 'English Speakers' },
+								{ id: 'french-speakers', text: fr ? 'Personnes de langue française' : 'French Speakers' },
+								{ id: 'education-bachelors', text: fr ? 'Titulaires d’un baccalauréat' : 'Bachelor\'s Degree Holders' }
 							]}
 						/>
 					</div>
-					<p>
-						Of residents in the study area, 31% are recent immigrants and 37% are visible
-						minorities.
-					</p>
+					{#if fr}
+						<p>
+							Parmi les personnes résidentes de la zone à l’étude, 31 % sont des personnes
+							immigrantes récentes et 37 % appartiennent à une minorité visible.
+						</p>
+					{:else}
+						<p>
+							Of residents in the study area, 31% are recent immigrants and 37% are visible
+							minorities.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -734,9 +882,9 @@
 		<section data-id="map8">
 			<div class="section-container">
 				<div class="content-container sticky-content">
-					<h2>Visitors</h2>
+					<h2>{fr ? 'Visiteurs' : 'Visitors'}</h2>
 					<div class="controls">
-						<h5>Year</h5>
+						<h5>{fr ? 'Année' : 'Year'}</h5>
 						<RangeSlider
 							on:change={(e) => {
 								const year = e.detail.value;
@@ -758,22 +906,44 @@
 							hoverable={false}
 						/>
 					</div>
-					<p>
-						118 Avenue in Alberta's Resiliency Score ranks low at 15th of 20 Edmonton Main Streets
-						and 24th of 36 Neighbourhood Main Streets.
-					</p>
-					<p>
-						Since 2019 before the pandemic shutdowns, overall visit counts have decreased by more
-						than 50% by 2022. But the level of visits relative to 2019 have been slowly recovering
-						since the beginning of 2022. While this segment of 118 Avenue has relied primarily on
-						infrequent visitors from across the region, despite visits across the board decreasing
-						since 2019, resident and recurring visits have remained stable between 2021 and 2022 but
-						have not recovered fully.
-					</p>
-					<p>
-						It is busiest during the 12pm to 6pm period, with Friday being the busiest day but by
-						only slightly over Saturday.
-					</p>
+					{#if fr}
+						<p>
+							Le score de résilience de la 118 Avenue dans Alberta est faible : elle se
+							classe 15e sur 20 rues principales d’Edmonton et 24e sur 36 rues principales
+							de quartier.
+						</p>
+						<p>
+							Par rapport à 2019, avant les fermetures liées à la pandémie, le nombre
+							total de visites avait diminué de plus de 50 % en 2022. Toutefois, le niveau
+							des visites par rapport à 2019 se redresse lentement depuis le début de
+							2022. Bien que ce tronçon de la 118 Avenue ait surtout reposé sur des
+							visiteurs occasionnels provenant de toute la région, et malgré la baisse
+							généralisée des visites depuis 2019, les visites des résidents et des
+							visiteurs récurrents sont restées stables entre 2021 et 2022, sans toutefois
+							revenir pleinement à leur niveau antérieur.
+						</p>
+						<p>
+							Le secteur est le plus achalandé entre midi et 18 h, le vendredi étant le
+							jour le plus achalandé, mais de peu devant le samedi.
+						</p>
+					{:else}
+						<p>
+							118 Avenue in Alberta's Resiliency Score ranks low at 15th of 20 Edmonton Main Streets
+							and 24th of 36 Neighbourhood Main Streets.
+						</p>
+						<p>
+							Since 2019 before the pandemic shutdowns, overall visit counts have decreased by more
+							than 50% by 2022. But the level of visits relative to 2019 have been slowly recovering
+							since the beginning of 2022. While this segment of 118 Avenue has relied primarily on
+							infrequent visitors from across the region, despite visits across the board decreasing
+							since 2019, resident and recurring visits have remained stable between 2021 and 2022 but
+							have not recovered fully.
+						</p>
+						<p>
+							It is busiest during the 12pm to 6pm period, with Friday being the busiest day but by
+							only slightly over Saturday.
+						</p>
+					{/if}
 				</div>
 				<div class="map-container">
 					<CaseStudyMap
@@ -784,13 +954,13 @@
 						bearing={0}
 						layers={['118albertaave-outline', 'visitors-2022']}
 						section={'visitors'}
-						attribution={'Canadian Urban Institute | Data Source: Environics Analytics'}
+						attribution={fr ? 'Institut urbain du Canada | Source des données : Environics Analytics' : 'Canadian Urban Institute | Data Source: Environics Analytics'}
 					/>
 					<div class="legend-container">
 						<Legend
 							minlabel={'0'}
-							maxlabel={'33,200'}
-							label={'Number of Daily Visits from Visitor Home Location'}
+							maxlabel={fr ? '33 200' : '33,200'}
+							label={fr ? 'Nombre de visites quotidiennes selon le lieu de résidence des visiteurs' : 'Number of Daily Visits from Visitor Home Location'}
 							gradient={gradients.heatmap}
 						/>
 					</div>
@@ -807,7 +977,7 @@
 								xScale="time"
 								xFormatTick={(d) => timeFormat('%Y')(d)}
 								area={false}
-								title="Level of Visits % (Relative to 2019)"
+								title={fr ? 'Niveau des visites en % (par rapport à 2019)' : 'Level of Visits % (Relative to 2019)'}
 								snapTicks={false}
 								colors={['#0098D6']}
 							/>
@@ -815,12 +985,12 @@
 						<div class="chart">
 							<ColumnChart
 								colors={['#002a41', '#0098D6', '#db3069']}
-								data={visitortypes}
+								data={localizeRows(visitortypes, fr)}
 								xKey="Year"
 								yKey="Count"
 								zKey="Type"
 								mode="stacked"
-								title="Visit Count by Type of Visitor"
+								title={fr ? 'Nombre de visites par type de visiteur' : 'Visit Count by Type of Visitor'}
 								padding={{ top: 20, bottom: 20, left: 70 }}
 								legend
 							/>
@@ -828,20 +998,20 @@
 						<div class="chart">
 							<BarChart
 								colors={['#002a41']}
-								data={visitortimeofday}
+								data={localizeRows(visitortimeofday, fr)}
 								yKey="Time"
 								xKey="Percentage"
-								title="Visits (%) by Time of Day"
+								title={fr ? 'Visites (%) selon le moment de la journée' : 'Visits (%) by Time of Day'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>
 						<div class="chart">
 							<BarChart
 								colors={['#0098D6']}
-								data={visitordayofweek}
+								data={localizeRows(visitordayofweek, fr)}
 								yKey="Day"
 								xKey="Percentage"
-								title="Visits (%) by Day of Week"
+								title={fr ? 'Visites (%) selon le jour de la semaine' : 'Visits (%) by Day of Week'}
 								padding={{ top: 0, bottom: 20, left: 80 }}
 							/>
 						</div>

@@ -9,6 +9,9 @@
 	// Assets
 	import mainstreets from '../../lib/assets/graphics/mainstreets.svg';
 	import vancouver_bg from '../../lib/assets/graphics/vancouver-bg.png';
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	let activeSection = $state('resilience');
 
@@ -91,7 +94,11 @@
 	<!-- Hero Section -->
 	<div class="hero-section" style="background-image: url({vancouver_bg})">
 		<div class="hero-content">
-			<h1>DATA &<br /><span class="text-blue">METHODOLOGY</span></h1>
+			{#if fr}
+				<h1>DONNÉES ET<br /><span class="text-blue">MÉTHODOLOGIE</span></h1>
+			{:else}
+				<h1>DATA &<br /><span class="text-blue">METHODOLOGY</span></h1>
+			{/if}
 		</div>
 	</div>
 
@@ -99,14 +106,14 @@
 		<div class="sidebar md:sticky md:top-10 h-full">
 			<nav>
 				<div class="nav-group">
-					<h3>RESILIENCE ON MAIN</h3>
+					<h3>{fr ? 'RÉSILIENCE SUR LA RUE PRINCIPALE' : 'RESILIENCE ON MAIN'}</h3>
 					<ul>
 						<li>
 							<button
 								class:active={activeSection === 'resilience' && faqs['res-data']}
 								onclick={() => openAndScroll('res-data', 'resilience')}
 							>
-								Data
+								{fr ? 'Données' : 'Data'}
 							</button>
 						</li>
 						<li>
@@ -114,7 +121,7 @@
 								class:active={activeSection === 'resilience' && faqs['res-meth']}
 								onclick={() => openAndScroll('res-meth', 'resilience')}
 							>
-								Methodology
+								{fr ? 'Méthodologie' : 'Methodology'}
 							</button>
 						</li>
 						<li>
@@ -129,14 +136,14 @@
 				</div>
 
 				<div class="nav-group">
-					<h3>TOD ON MAIN</h3>
+					<h3>{fr ? 'TOD SUR LA RUE PRINCIPALE' : 'TOD ON MAIN'}</h3>
 					<ul>
 						<li>
 							<button
 								class:active={activeSection === 'tod' && faqs['tod-meth']}
 								onclick={() => openAndScroll('tod-meth', 'tod')}
 							>
-								Transit Data
+								{fr ? 'Données sur le transport collectif' : 'Transit Data'}
 							</button>
 						</li>
 					</ul>
@@ -146,7 +153,7 @@
 								class:active={activeSection === 'tod' && faqs['tod-cc']}
 								onclick={() => openAndScroll('tod-cc', 'tod')}
 							>
-								Complete Community Index
+								{fr ? 'Indice des collectivités complètes' : 'Complete Community Index'}
 							</button>
 						</li>
 					</ul>
@@ -156,7 +163,7 @@
 								class:active={activeSection === 'tod' && faqs['tod-dpi']}
 								onclick={() => openAndScroll('tod-dpi', 'tod')}
 							>
-								Housing Development Potential
+								{fr ? 'Potentiel d’aménagement résidentiel' : 'Housing Development Potential'}
 							</button>
 						</li>
 					</ul>
@@ -165,13 +172,20 @@
 
 			<div class="callout-box">
 				<div class="callout-logos">
-					<img src={mainstreets} alt="Main Streets" />
+					<img src={mainstreets} alt={fr ? 'Rues principales' : 'Main Streets'} />
 					<img src={canada_logo} alt="Canada" />
 				</div>
-				<p>
-					The Measuring Main Streets platform is a part of the Research Knowledge Initiative program
-					from Housing, Infrastructure and Communities Canada.
-				</p>
+				{#if fr}
+					<p>
+						La plateforme Mesures des rues principales fait partie du programme Initiative de
+						recherche et de connaissances de Logement, Infrastructures et Collectivités Canada.
+					</p>
+				{:else}
+					<p>
+						The Measuring Main Streets platform is a part of the Research Knowledge Initiative
+						program from Housing, Infrastructure and Communities Canada.
+					</p>
+				{/if}
 			</div>
 		</div>
 
@@ -179,17 +193,138 @@
 			<!-- Resilience on Main Section -->
 			<section id="resilience-section">
 				<div class="section-header">
-					<h2>RESILIENCE ON MAIN</h2>
+					<h2>{fr ? 'RÉSILIENCE SUR LA RUE PRINCIPALE' : 'RESILIENCE ON MAIN'}</h2>
 				</div>
 
 				<div class="accordion-group">
 					<!-- Data Accordion -->
 					<Accordion bind:open={faqs['res-data']} id="res-data">
 						<div slot="header" class="accordion-header">
-							<h3>DATA</h3>
+							<h3>{fr ? 'DONNÉES' : 'DATA'}</h3>
 							<Icon icon={faqs['res-data'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
+							{#if fr}
+								<div class="text-content">
+									<div class="mb-12">
+										<h4>1. Données de localisation des commerces et de l’infrastructure civique</h4>
+										<span class="eyebrow">Environics Analytics, 2023</span>
+										<p>
+											Les données de localisation des commerces et de l’infrastructure civique,
+											provenant d’Environics Analytics, fournissent l’emplacement géographique de
+											l’ensemble des entreprises et des infrastructures civiques répertoriées par
+											InfoCanada.
+										</p>
+										<div class="highlight-box">
+											<div class="stats-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
+												<div>
+													<h4 style="color: white; margin-bottom: 1rem;">
+														Commerces de rue principale
+													</h4>
+													<ul
+														style="color: rgba(255,255,255,0.8); list-style: disc; padding-left: 1.5rem;"
+													>
+														<li>Commerce de détail</li>
+														<li>Restauration et boissons</li>
+														<li>Services de proximité</li>
+													</ul>
+												</div>
+												<div>
+													<h4 style="color: white; margin-bottom: 1rem; margin-top: 1rem;">
+														Infrastructure civique
+													</h4>
+													<ul
+														style="color: rgba(255,255,255,0.8); list-style: disc; padding-left: 1.5rem;"
+													>
+														<li>Arts et culture</li>
+														<li>Éducation</li>
+														<li>Santé</li>
+														<li>Installations récréatives</li>
+														<li>Services gouvernementaux et communautaires</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="mb-12">
+										<h4>2. Données démographiques</h4>
+										<span class="eyebrow"
+											>Environics Analytics DemoStats, 2023; Statistique Canada, 2021</span
+										>
+										<p>
+											Les données démographiques combinent des données exclusives d’Environics
+											Analytics DemoStats, mises à jour chaque année, et des données ouvertes du
+											Recensement de 2021.
+										</p>
+									</div>
+
+									<div>
+										<h4>3. Données de dénombrement des visiteurs par appareils mobiles</h4>
+										<span class="eyebrow">Environics Analytics MobileScapes, 2019 – 2022</span>
+										<p>
+											Les données de dénombrement des visiteurs sont tirées des données
+											MobileScapes d’Environics Analytics, une base de données sur les déplacements
+											mobiles constituée à partir de données recueillies avec consentement au moyen
+											d’applications mobiles utilisant la géolocalisation.
+										</p>
+									</div>
+
+									<div>
+										<h4>4. Réseau routier national</h4>
+										<span class="eyebrow">Statistique Canada, 2023</span>
+										<p>
+											Le Réseau routier national (RRN) a été adopté par les membres du Comité
+											mixte des organismes intéressés à la géomatique (CMOIG) et du Conseil
+											canadien de géomatique (COCG) afin de fournir des données géospatiales et
+											attributaires de qualité, homogènes et normalisées (à jour, exactes et
+											cohérentes) pour l’ensemble du réseau routier canadien.
+										</p>
+										<p>
+											Le RRN est accessible au public sur le <a
+												href="https://ouvert.canada.ca/fr"
+												target="_blank">portail du gouvernement ouvert.</a
+											>
+										</p>
+									</div>
+									<div>
+										<h4>5. Tableau récapitulatif des jeux de données</h4>
+										<div class="table-container mt-8">
+											<table style="font-size: 0.9rem;">
+												<thead>
+													<tr>
+														<th>Jeu de données</th>
+														<th>Échelle</th>
+														<th>Utilisation</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Données de localisation des commerces et de l’infrastructure civique</td>
+														<td>Nationale (données ponctuelles)</td>
+														<td>Plateforme, études de cas, rapports, outils</td>
+													</tr>
+													<tr>
+														<td>Données démographiques</td>
+														<td>Nationale (aire de diffusion)</td>
+														<td>Plateforme, études de cas, rapports, outils</td>
+													</tr>
+													<tr>
+														<td>Données de dénombrement des visiteurs par appareils mobiles</td>
+														<td>Étude de cas (empreinte au sol des bâtiments)</td>
+														<td>Études de cas, rapports, outils</td>
+													</tr>
+													<tr>
+														<td>Réseau routier national</td>
+														<td>Nationale (données linéaires)</td>
+														<td>Plateforme, études de cas, outils</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							{:else}
 							<div class="text-content">
 								<div class="mb-12">
 									<h4>1. Business and Civic Infrastructure Location Data</h4>
@@ -303,16 +438,93 @@
 									</div>
 								</div>
 							</div>
+							{/if}
 						</div>
 					</Accordion>
 
 					<!-- Methodology Accordion -->
 					<Accordion bind:open={faqs['res-meth']} id="res-meth">
 						<div slot="header" class="accordion-header">
-							<h3>METHODOLOGY</h3>
+							<h3>{fr ? 'MÉTHODOLOGIE' : 'METHODOLOGY'}</h3>
 							<Icon icon={faqs['res-meth'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
+							{#if fr}
+								<div class="text-content">
+									<div class="mb-12">
+										<h4>Création du réseau des rues principales du Canada</h4>
+										<p>
+											La création d’un réseau complet des rues principales du Canada a commencé par
+											le repérage des tronçons de route où des grappes de commerces de rue
+											principale et d’infrastructures civiques sont regroupées et concentrées, partout
+											au pays.
+										</p>
+
+										<div class="table-container mt-8">
+											<table style="font-size: 0.9rem;">
+												<thead>
+													<tr>
+														<th>Groupe</th>
+														<th>Codes SCIAN retenus</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><strong>Restauration et boissons</strong></td>
+														<td>7224 (Débits de boissons), 7225 (Restaurants)</td>
+													</tr>
+													<tr>
+														<td><strong>Commerce de détail</strong></td>
+														<td
+															>4451 (Épiceries), 4481 (Vêtements), 4511 (Articles de sport), 4531
+															(Fleuristes)</td
+														>
+													</tr>
+													<tr>
+														<td><strong>Services de proximité</strong></td>
+														<td
+															>8121 (Soins personnels), 5221 (Services bancaires), 5411 (Services
+															juridiques), 8111 (Réparation automobile)</td
+														>
+													</tr>
+													<tr>
+														<td><strong>Arts et culture</strong></td>
+														<td>519120 (Bibliothèques), 711110 (Théâtres), 712110 (Musées)</td>
+													</tr>
+													<tr>
+														<td><strong>Éducation</strong></td>
+														<td>611110 (Écoles primaires), 611310 (Universités), 624410 (Garderies)</td>
+													</tr>
+													<tr>
+														<td><strong>Santé</strong></td>
+														<td>621111 (Médecins), 621210 (Dentistes), 622110 (Hôpitaux)</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+									<div class="mb-12">
+										<h4>Rattachement des données</h4>
+										<p>
+											Après le nettoyage des données sur les infrastructures et du réseau routier, une
+											intersection spatiale a été effectuée afin de rattacher l’ensemble des
+											commerces de rue principale et des infrastructures civiques à toutes les
+											routes situées dans un rayon de 50 mètres.
+										</p>
+									</div>
+
+									<div>
+										<h4>Repérage des rues principales</h4>
+										<p>
+											Les rues principales correspondent aux tronçons de route où se trouve une
+											concentration de commerces de rue principale et d’infrastructures civiques,
+											déterminée au moyen d’une estimation par noyau de la densité (méthode KDE,
+											<i>Kernel Density Estimation</i>).
+										</p>
+									</div>
+								</div>
+							{:else}
 							<div class="text-content">
 								<div class="mb-12">
 									<h4>Creating Canada's Main Street Network</h4>
@@ -382,6 +594,7 @@
 									</p>
 								</div>
 							</div>
+							{/if}
 						</div>
 					</Accordion>
 
@@ -392,6 +605,28 @@
 							<Icon icon={faqs['res-ind'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
+							{#if fr}
+								<div class="text-content">
+									<div class="mb-12">
+										<h4>Indice des entreprises indépendantes</h4>
+										<p>
+											L’Indice des entreprises indépendantes établit un indice gradué de
+											l’indépendance des entreprises au moyen d’une analyse textuelle, en attribuant
+											une valeur entre 0 et 1 selon le nombre de fois où le nom d’une entreprise
+											apparaît dans les données.
+										</p>
+									</div>
+
+									<div>
+										<h4>Indice d’infrastructure civique</h4>
+										<p>
+											L’Indice d’infrastructure civique (IIC) évalue l’accès relatif à
+											l’infrastructure civique dans une zone de desserte définie en combinant la
+											capacité des services et la demande de la population locale.
+										</p>
+									</div>
+								</div>
+							{:else}
 							<div class="text-content">
 								<div class="mb-12">
 									<h4>Independent Business Index</h4>
@@ -411,6 +646,7 @@
 									</p>
 								</div>
 							</div>
+							{/if}
 						</div>
 					</Accordion>
 				</div>
@@ -419,16 +655,271 @@
 			<!-- TOD on Main Section -->
 			<section id="tod-section" class="mt-32">
 				<div class="section-header">
-					<h2>TOD ON MAIN</h2>
+					<h2>{fr ? 'TOD SUR LA RUE PRINCIPALE' : 'TOD ON MAIN'}</h2>
 				</div>
 
 				<div class="accordion-group">
 					<Accordion bind:open={faqs['tod-meth']} id="tod-meth">
 						<div slot="header" class="accordion-header">
-							<h3 class="uppercase">Transit Data</h3>
+							<h3 class="uppercase">
+								{fr ? 'Données sur le transport collectif' : 'Transit Data'}
+							</h3>
 							<Icon icon={faqs['tod-meth'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
+							{#if fr}
+								<div class="text-content">
+									<h4 class="uppercase">
+										Élargissement à l’aménagement axé sur le transport collectif
+									</h4>
+									<p>
+										TOD sur la rue principale s’appuie sur les fondations de la plateforme Mesures
+										des rues principales pour offrir des outils, des études de cas et des
+										recherches axés sur la croissance liée au transport collectif.
+									</p>
+
+									<p>
+										La méthodologie consiste à délimiter les aires de station de transport
+										collectif (ASTC) et à évaluer leur potentiel en matière de logement et
+										d’aménagement de collectivités complètes.
+									</p>
+									<h4 class="uppercase">Données sur les aires de station de transport collectif</h4>
+									<p>
+										Les données sur les aires de station de transport collectif (ASTC) présentées
+										dans la <a href="/transit-map" target="_blank"
+											>Carte du transport collectif</a
+										> proviennent des sources suivantes :
+									</p>
+									<div class="table-container mt-8">
+										<table style="font-size: 0.9rem;">
+											<thead>
+												<tr>
+													<th>Données</th>
+													<th>Définition</th>
+													<th>Source</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Données sur le transport collectif</td>
+													<td
+														>Stations et lignes de transport collectif à haut niveau de service (métro,
+														SLR et trains de banlieue).</td
+													>
+													<td>Données ouvertes locales, diverses sources. Recueillies en 2025.</td>
+												</tr>
+												<tr>
+													<td>Population</td>
+													<td
+														>Population à l’échelle de l’ASTC; obtenue à partir des données à
+														l’échelle des aires de diffusion par pondération surfacique à l’aide des
+														points du Registre national des adresses.</td
+													>
+													<td
+														>Environics Analytics (2025), Statistique Canada (Registre national des
+														adresses, décembre 2025)</td
+													>
+												</tr>
+												<tr>
+													<td>Ménages</td>
+													<td>Nombre de ménages dans l’ASTC</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Revenu d’emploi moyen</td>
+													<td>Revenu d’emploi moyen dans l’ASTC</td>
+													<td>Statistique Canada (Recensement, 2021)</td>
+												</tr>
+												<tr>
+													<td>Minorités visibles</td>
+													<td>Proportion de la population de l’ASTC appartenant à une minorité visible</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Immigrants</td>
+													<td>Proportion de la population de l’ASTC composée d’immigrants</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Autochtones</td>
+													<td>Proportion de la population de l’ASTC composée d’Autochtones</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Grade universitaire</td>
+													<td
+														>Proportion de la population de l’ASTC titulaire d’un grade universitaire</td
+													>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Âge</td>
+													<td
+														>Proportion de la population de l’ASTC composée de jeunes (moins de 19 ans),
+														de personnes en âge de travailler (20 à 64 ans) et de personnes âgées
+														(65 ans et plus)</td
+													>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Nombre total de logements</td>
+													<td>Nombre de logements dans l’ASTC</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Valeur moyenne des logements</td>
+													<td>Valeur moyenne des logements dans l’ASTC</td>
+													<td>Statistique Canada (Recensement, 2021)</td>
+												</tr>
+												<tr>
+													<td>Loyer mensuel moyen</td>
+													<td>Loyer mensuel moyen dans l’ASTC</td>
+													<td>Statistique Canada (Recensement, 2021)</td>
+												</tr>
+												<tr>
+													<td>Consacrant plus de 30 % du revenu aux frais de logement</td>
+													<td
+														>Proportion de la population de l’ASTC consacrant plus de 30 % de son
+														revenu aux frais de logement</td
+													>
+													<td>Statistique Canada (Recensement, 2021)</td>
+												</tr>
+												<tr>
+													<td>Propriétaires/locataires</td>
+													<td
+														>Proportion de la population de l’ASTC propriétaire ou locataire de son
+														logement</td
+													>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Type de logement</td>
+													<td
+														>Proportion des logements de l’ASTC qui sont des maisons individuelles non
+														attenantes, des maisons jumelées, des maisons en rangée, des duplex, des
+														appartements dans un immeuble de moins de cinq étages ou des appartements
+														dans un immeuble de cinq étages ou plus.</td
+													>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Type de logement</td>
+													<td
+														>Proportion des logements de l’ASTC construits avant 1960, de 1961 à 1980,
+														de 1981 à 2000 ou de 2000 à 2020</td
+													>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Nombre de chambres à coucher</td>
+													<td
+														>Proportion des logements de l’ASTC qui sont des studios ou qui comptent 1,
+														2, 3, ou 4 chambres à coucher ou plus.</td
+													>
+													<td>Statistique Canada (Recensement, 2021)</td>
+												</tr>
+												<tr>
+													<td>Emploi total</td>
+													<td>Nombre total d’emplois dans l’ASTC</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Composition de l’emploi</td>
+													<td
+														>Proportion des emplois liés aux commodités essentielles, aux commodités
+														complémentaires ou à d’autres employeurs.</td
+													>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Densité de population</td>
+													<td>Nombre de personnes par kilomètre carré dans l’ASTC</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Densité d’emploi</td>
+													<td>Nombre d’employés par kilomètre carré dans l’ASTC</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Eau</td>
+													<td>Proportion de la superficie de l’ASTC occupée par l’eau</td>
+													<td>OpenStreetMap (2025)</td>
+												</tr>
+												<tr>
+													<td>Espaces verts</td>
+													<td>Proportion de la superficie de l’ASTC occupée par des espaces verts</td>
+													<td>OpenStreetMap (2025)</td>
+												</tr>
+												<tr>
+													<td>Bâtiments</td>
+													<td
+														>Proportion de la superficie de l’ASTC occupée par l’empreinte au sol des
+														bâtiments</td
+													>
+													<td>OpenStreetMap (2025)</td>
+												</tr>
+												<tr>
+													<td>Stationnement</td>
+													<td
+														>Proportion de la superficie de l’ASTC occupée par des stationnements de
+														surface</td
+													>
+													<td>OpenStreetMap (2025)</td>
+												</tr>
+												<tr>
+													<td>Score global</td>
+													<td
+														>Score global de présence des commodités d’une collectivité complète dans
+														l’ASTC</td
+													>
+													<td
+														>Indice des collectivités complètes (2025); fondé sur Environics Analytics
+														(2025)</td
+													>
+												</tr>
+												<tr>
+													<td>Présence des commodités essentielles</td>
+													<td>Proportion des commodités essentielles présentes dans l’ASTC</td>
+													<td
+														>Indice des collectivités complètes (2025); fondé sur Environics Analytics
+														(2025)</td
+													>
+												</tr>
+												<tr>
+													<td>Présence des commodités complémentaires</td>
+													<td>Proportion des commodités complémentaires présentes dans l’ASTC</td>
+													<td
+														>Indice des collectivités complètes (2025); fondé sur Environics Analytics
+														(2025)</td
+													>
+												</tr>
+												<tr>
+													<td>Visites quotidiennes</td>
+													<td>Nombre moyen de visites quotidiennes dans l’ASTC en 2025</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Commerces de rue principale</td>
+													<td>Nombre de commerces de rue principale dans l’ASTC</td>
+													<td>Environics Analytics (2025)</td>
+												</tr>
+												<tr>
+													<td>Indice d’indépendance des entreprises</td>
+													<td
+														>Mesure de l’indépendance des entreprises dans l’ASTC, de 0 (moins
+														indépendantes) à 1 (plus indépendantes)</td
+													>
+													<td
+														>Calculé à partir des données sur les entreprises, Environics Analytics
+														(2025)</td
+													>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							{:else}
 							<div class="text-content">
 								<h4 class="uppercase">Expanding to Transit-Oriented Development</h4>
 								<p>
@@ -653,30 +1144,88 @@
 									</table>
 								</div>
 							</div>
+							{/if}
 						</div>
 					</Accordion>
 
 					<Accordion bind:open={faqs['tod-cc']} id="tod-cc">
 						<div slot="header" class="accordion-header">
-							<h3 class="uppercase">Complete Community Index</h3>
+							<h3 class="uppercase">
+								{fr ? 'Indice des collectivités complètes' : 'Complete Community Index'}
+							</h3>
 							<Icon icon={faqs['tod-cc'] ? 'mdi:minus' : 'mdi:plus'} />
 						</div>
 						<div slot="body" class="accordion-body">
 							<div class="text-content">
 								<div>
-									<p>
-										The Complete Community Index methodology evaluates the overall presence of Core
-										and Additional Amenities that make up a complete transit-oriented community,
-										evaluates the relative access of each transit station area compared to a
-										regional benchmark, and enables scenario planning, allowing future demand
-										increases to be evaluated against existing amenity capacity.
-									</p>
+									{#if fr}
+										<p>
+											La méthodologie de l’Indice des collectivités complètes évalue la présence
+											globale des commodités essentielles et complémentaires qui composent une
+											collectivité complète axée sur le transport collectif, évalue l’accès relatif
+											de chaque aire de station de transport collectif par rapport à une référence
+											régionale et permet la planification par scénarios, de sorte que les hausses
+											futures de la demande puissent être comparées à la capacité actuelle des
+											commodités.
+										</p>
+									{:else}
+										<p>
+											The Complete Community Index methodology evaluates the overall presence of Core
+											and Additional Amenities that make up a complete transit-oriented community,
+											evaluates the relative access of each transit station area compared to a
+											regional benchmark, and enables scenario planning, allowing future demand
+											increases to be evaluated against existing amenity capacity.
+										</p>
+									{/if}
 									<Accordion bind:open={faqs['cc-data']} id="cc-data">
 										<div slot="header" class="accordion-header">
-											<h4>Data</h4>
+											<h4>{fr ? 'Données' : 'Data'}</h4>
 											<Icon icon={faqs['cc-data'] ? 'mdi:minus' : 'mdi:plus'} />
 										</div>
 										<div slot="body" class="accordion-body">
+											{#if fr}
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Données</th>
+																<th>Définition</th>
+																<th>Source</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Données sur les entreprises</td>
+																<td>Emplacement, classification SCIAN, taille (nombre d’employés).</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Données sur les visites</td>
+																<td
+																	>Nombre total agrégé de visites dans une aire de station de transport
+																	collectif pour 2025.</td
+																>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Commodités d’une collectivité complète</td>
+																<td
+																	>Emplacement et classification des commodités d’une collectivité
+																	complète dans les aires de station de transport collectif.</td
+																>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<h4 class="my-12">Commodités d’une collectivité complète</h4>
+												<p>
+													Les commodités sont réparties en deux catégories distinctes : les commodités
+													essentielles, qui sont indispensables à l’aménagement d’une collectivité
+													complète, et les commodités complémentaires, qui améliorent la qualité de
+													vie sans être nécessaires à une collectivité complète.
+												</p>
+											{:else}
 											<div class="table-container mt-8">
 												<table style="font-size: 0.9rem;">
 													<thead>
@@ -715,9 +1264,10 @@
 												amenities, which improve quality of life, but not are necessary for a
 												complete community.
 											</p>
+											{/if}
 											<Accordion bind:open={faqs['cc-core']} id="cc-core">
 												<div slot="header" class="accordion-header">
-													<h6>Core Amenities</h6>
+													<h6>{fr ? 'Commodités essentielles' : 'Core Amenities'}</h6>
 
 													<Icon icon={faqs['cc-core'] ? 'mdi:minus' : 'mdi:plus'} />
 												</div>
@@ -726,45 +1276,51 @@
 														<table style="font-size: 0.9rem;">
 															<thead>
 																<tr>
-																	<th>Amenity</th>
-																	<th>NAICS Code</th>
+																	<th>{fr ? 'Commodité' : 'Amenity'}</th>
+																	<th>{fr ? 'Code SCIAN' : 'NAICS Code'}</th>
 																</tr>
 															</thead>
 															<tbody>
 																<tr>
-																	<td>Childcare</td>
+																	<td>{fr ? 'Services de garde d’enfants' : 'Childcare'}</td>
 																	<td>624410</td>
 																</tr>
 																<tr>
-																	<td>Community Centres</td>
+																	<td>{fr ? 'Centres communautaires' : 'Community Centres'}</td>
 																	<td>711310</td>
 																</tr>
 																<tr>
-																	<td>Convenience Store</td>
+																	<td>{fr ? 'Dépanneur' : 'Convenience Store'}</td>
 																	<td>445131</td>
 																</tr>
 																<tr>
-																	<td>Libraries</td>
+																	<td>{fr ? 'Bibliothèques' : 'Libraries'}</td>
 																	<td>519210</td>
 																</tr>
 																<tr>
-																	<td>Personal and Commercial Banking</td>
+																	<td>
+																		{fr
+																			? 'Services bancaires aux particuliers et aux entreprises'
+																			: 'Personal and Commercial Banking'}
+																	</td>
 																	<td>522110</td>
 																</tr>
 																<tr>
-																	<td>Pharmacy</td>
+																	<td>{fr ? 'Pharmacie' : 'Pharmacy'}</td>
 																	<td>456110</td>
 																</tr>
 																<tr>
-																	<td>Physicians Office</td>
+																	<td>{fr ? 'Cabinet de médecin' : 'Physicians Office'}</td>
 																	<td>621111</td>
 																</tr>
 																<tr>
-																	<td>Primary and Secondary Schools</td>
+																	<td>
+																		{fr ? 'Écoles primaires et secondaires' : 'Primary and Secondary Schools'}
+																	</td>
 																	<td>611110</td>
 																</tr>
 																<tr>
-																	<td>Supermarket</td>
+																	<td>{fr ? 'Supermarché' : 'Supermarket'}</td>
 																	<td>445110</td>
 																</tr>
 															</tbody>
@@ -773,7 +1329,7 @@
 												</div></Accordion
 											><Accordion bind:open={faqs['cc-add']} id="cc-add">
 												<div slot="header" class="accordion-header">
-													<h6>Additional Amenities</h6>
+													<h6>{fr ? 'Commodités complémentaires' : 'Additional Amenities'}</h6>
 
 													<Icon icon={faqs['cc-add'] ? 'mdi:minus' : 'mdi:plus'} />
 												</div>
@@ -782,105 +1338,133 @@
 														<table style="font-size: 0.9rem;">
 															<thead>
 																<tr>
-																	<th>Amenities</th>
-																	<th>NAICS Code</th>
+																	<th>{fr ? 'Commodités' : 'Amenities'}</th>
+																	<th>{fr ? 'Code SCIAN' : 'NAICS Code'}</th>
 																</tr>
 															</thead>
 															<tbody>
 																<tr>
-																	<td>Appliance TV and Electronics Retailers</td>
+																	<td>
+																		{fr
+																			? 'Détaillants d’appareils ménagers, de téléviseurs et d’appareils électroniques'
+																			: 'Appliance TV and Electronics Retailers'}
+																	</td>
 																	<td>449210 </td>
 																</tr>
 																<tr>
-																	<td>Baked Goods</td>
+																	<td>{fr ? 'Produits de boulangerie' : 'Baked Goods'}</td>
 																	<td>311811 </td>
 																</tr>
 																<tr>
-																	<td>Barber Shop</td>
+																	<td>{fr ? 'Salon de coiffure pour hommes' : 'Barber Shop'}</td>
 																	<td>812111 </td>
 																</tr>
 																<tr>
-																	<td>Beauty Salon</td>
+																	<td>{fr ? 'Salon de beauté' : 'Beauty Salon'}</td>
 																	<td>812112 </td>
 																</tr>
 																<tr>
-																	<td>Book Stores</td>
+																	<td>{fr ? 'Librairies' : 'Book Stores'}</td>
 																	<td>459210 </td>
 																</tr>
 																<tr>
-																	<td>Building Material and Lawn Garden Stores</td>
+																	<td>
+																		{fr
+																			? 'Magasins de matériaux de construction et de matériel de jardinage'
+																			: 'Building Material and Lawn Garden Stores'}
+																	</td>
 																	<td>444180 </td>
 																</tr>
 																<tr>
-																	<td>Clothing and Shoe Retailers</td>
+																	<td>
+																		{fr
+																			? 'Détaillants de vêtements et de chaussures'
+																			: 'Clothing and Shoe Retailers'}
+																	</td>
 																	<td>458110, 458210</td>
 																</tr>
 																<tr>
-																	<td>Coin Laundry </td>
+																	<td>{fr ? 'Buanderie libre-service' : 'Coin Laundry '}</td>
 																	<td>812310 </td>
 																</tr>
 																<tr>
-																	<td>Community Health and Elderly Care Facilities</td>
+																	<td>
+																		{fr
+																			? 'Établissements de santé communautaire et de soins aux personnes âgées'
+																			: 'Community Health and Elderly Care Facilities'}
+																	</td>
 																	<td>623312, 624120</td>
 																</tr>
 																<tr>
-																	<td>Cosmetics and Beauty Supply Retailers</td>
+																	<td>
+																		{fr
+																			? 'Détaillants de cosmétiques et de produits de beauté'
+																			: 'Cosmetics and Beauty Supply Retailers'}
+																	</td>
 																	<td>456120 </td>
 																</tr>
 																<tr>
-																	<td>Dentist Office</td>
+																	<td>{fr ? 'Cabinet de dentiste' : 'Dentist Office'}</td>
 																	<td>621210 </td>
 																</tr>
 																<tr>
-																	<td>Dry Cleaners</td>
+																	<td>{fr ? 'Nettoyeurs à sec' : 'Dry Cleaners'}</td>
 																	<td>812320 </td>
 																</tr>
 																<tr>
-																	<td>Fish and Seafood Market</td>
+																	<td>{fr ? 'Poissonnerie' : 'Fish and Seafood Market'}</td>
 																	<td>445250 </td>
 																</tr>
 																<tr>
-																	<td>Fitness and recreational sports centres</td>
+																	<td>
+																		{fr
+																			? 'Centres de conditionnement physique et de loisirs sportifs'
+																			: 'Fitness and recreational sports centres'}
+																	</td>
 																	<td>713940 </td>
 																</tr>
 																<tr>
-																	<td>Florists</td>
+																	<td>{fr ? 'Fleuristes' : 'Florists'}</td>
 																	<td>459310 </td>
 																</tr>
 																<tr>
-																	<td>Fruit and Vegetable Market</td>
+																	<td>{fr ? 'Marché de fruits et légumes' : 'Fruit and Vegetable Market'}</td>
 																	<td>445230 </td>
 																</tr>
 																<tr>
-																	<td>Liquor Stores</td>
+																	<td>{fr ? 'Magasins d’alcool' : 'Liquor Stores'}</td>
 																	<td>445320 </td>
 																</tr>
 																<tr>
-																	<td>Meat Market</td>
+																	<td>{fr ? 'Boucherie' : 'Meat Market'}</td>
 																	<td>445240 </td>
 																</tr>
 																<tr>
-																	<td>Museums and Art Galleries</td>
+																	<td>{fr ? 'Musées et galeries d’art' : 'Museums and Art Galleries'}</td>
 																	<td>712110 </td>
 																</tr>
 																<tr>
-																	<td>Nursing Care Facilities</td>
+																	<td>
+																		{fr
+																			? 'Établissements de soins infirmiers'
+																			: 'Nursing Care Facilities'}
+																	</td>
 																	<td>623110 </td>
 																</tr>
 																<tr>
-																	<td>Office supplies</td>
+																	<td>{fr ? 'Fournitures de bureau' : 'Office supplies'}</td>
 																	<td>459410 </td>
 																</tr>
 																<tr>
-																	<td>Other Personal Care</td>
+																	<td>{fr ? 'Autres soins personnels' : 'Other Personal Care'}</td>
 																	<td>812199 </td>
 																</tr>
 																<tr>
-																	<td>Post Office</td>
+																	<td>{fr ? 'Bureau de poste' : 'Post Office'}</td>
 																	<td>491110 </td>
 																</tr>
 																<tr>
-																	<td>Religious Organizations</td>
+																	<td>{fr ? 'Organismes religieux' : 'Religious Organizations'}</td>
 																	<td>813110 </td>
 																</tr>
 																<tr>
@@ -888,7 +1472,11 @@
 																	<td>722511 </td>
 																</tr>
 																<tr>
-																	<td>Sporting Goods and Hobby Retailers</td>
+																	<td>
+																		{fr
+																			? 'Détaillants d’articles de sport et de loisirs'
+																			: 'Sporting Goods and Hobby Retailers'}
+																	</td>
 																	<td>459120, 459140, 459130, 459110 </td>
 																</tr>
 															</tbody>
@@ -901,10 +1489,140 @@
 								</div>
 								<Accordion bind:open={faqs['cc-meth']} id="cc-meth">
 									<div slot="header" class="accordion-header">
-										<h4>Methodology</h4>
+										<h4>{fr ? 'Méthodologie' : 'Methodology'}</h4>
 										<Icon icon={faqs['cc-meth'] ? 'mdi:minus' : 'mdi:plus'} />
 									</div>
 									<div slot="body" class="accordion-body">
+										{#if fr}
+										<h6>1. Nettoyage et transformation des données sur l’emploi</h6>
+										<p>
+											Les données sur les entreprises d’Environics Analytics (EA) sont filtrées
+											afin de ne conserver que les commodités essentielles ou complémentaires. La
+											taille des entreprises (nombre d’employés) fait l’objet d’une transformation
+											logarithmique afin de réduire l’effet des valeurs aberrantes extrêmes.
+										</p>
+
+										<h6>
+											2. Collecte et transformation des données sur les visites quotidiennes à
+											l’échelle des stations
+										</h6>
+										<p>
+											Les visites quotidiennes sont pondérées selon le lieu de domicile afin de
+											distinguer les personnes résidentes des personnes non résidentes, et font
+											également l’objet d’une transformation logarithmique, ce qui évite de pénaliser
+											indûment les stations de centre-ville et les stations de correspondance à fort
+											achalandage.
+										</p>
+
+										<h6>
+											3. Calcul de l’accès au moyen de la méthode des zones de desserte flottantes à
+											deux étapes
+										</h6>
+										<p>
+											La méthode des zones de desserte flottantes à deux étapes (2SFCA, <i
+												>Two-Stage Floating Catchment Area</i
+											>) est une méthode d’accessibilité spatiale qui mesure la facilité avec
+											laquelle la population peut atteindre des services, en tenant compte à la fois
+											de l’offre et de la demande à l’intérieur d’un seuil de déplacement. Les
+											services correspondent à nos commodités essentielles et complémentaires.
+											L’offre correspond au nombre transformé d’employés par commodité. La demande
+											correspond à la demande effective associée aux visites quotidiennes des
+											personnes résidentes et non résidentes. Comme seuil de déplacement, nous
+											utilisons une zone tampon de 800 mètres autour de chaque station, ce qui
+											équivaut à un rayon de 10 minutes de marche.
+										</p>
+
+										<h6>4. Calcul d’une référence régionale et de l’excédent d’accès</h6>
+										<p>
+											Afin de comparer l’accès à un type de commodité pour une aire de station de
+											transport collectif donnée, des références régionales ont été établies pour
+											comparer les différents niveaux d’accès dans l’ensemble de la région desservie
+											par le réseau de transport collectif, soit une référence d’accès typique
+											(médiane) et une référence d’accès supérieur à la moyenne (75<sup>e</sup>
+											centile).
+										</p>
+										<p>
+											L’excédent d’accès pour chaque type de commodité et chaque aire de station de
+											transport collectif a ensuite été calculé comme la différence entre l’accès et
+											l’accès régional, afin de déterminer où une capacité supplémentaire serait
+											nécessaire ou, au contraire, où des visites supplémentaires pourraient être
+											absorbées.
+										</p>
+
+										<h6>5. Traduire l’accès en mesures de planification</h6>
+										<p>
+											Afin de comparer l’accès à un type de commodité pour une aire de station de
+											transport collectif donnée, des références régionales ont été établies pour
+											comparer les différents niveaux d’accès dans l’ensemble de la région desservie
+											par le réseau de transport collectif, soit une référence d’accès typique
+											(médiane) et une référence d’accès supérieur à la moyenne (75<sup>e</sup>
+											centile).
+										</p>
+										<p>
+											Une fois l’accès à chaque type de commodité calculé pour une aire de station de
+											transport collectif et comparé à l’accès régional, il peut être traduit en
+											valeurs facilement interprétables permettant d’atteindre les objectifs
+											suivants :
+										</p>
+										<p>
+											i. Repérer les commodités d’une aire de station de transport collectif pour
+											lesquelles une capacité supplémentaire est nécessaire afin d’atteindre les
+											niveaux d’accès typiques
+										</p>
+										<p>
+											ii. Déterminer comment l’accès évolue en fonction d’une hausse future du nombre
+											de personnes résidentes dans une aire de station de transport collectif donnée
+										</p>
+										<p>
+											<strong>Calcul de l’emploi typique</strong><br />
+											Pour chaque groupe de commodités d’une région desservie par le réseau de transport
+											collectif, la taille médiane des entreprises (nombre d’employés) est calculée.
+											Elle représente l’emploi d’un type de commodité typique dans une aire de station
+											de transport collectif.
+										</p>
+
+										<p>
+											<strong>Calcul du nombre d’employés supplémentaires nécessaires</strong><br />
+											Pour les ASTC où une commodité présente un excédent d’accès inférieur à 0, le
+											nombre d’employés supplémentaires nécessaires est calculé comme le rapport entre
+											l’excédent d’accès et l’accès régional, multiplié par l’emploi typique.
+											<math display="block">
+												<mi>Employés nécessaires</mi>
+												<mo>=</mo>
+												<mrow>
+													<mo>|</mo>
+													<mfrac><mi>Excédent d’accès</mi> <mi>Accès régional</mi></mfrac>
+													<mo>|</mo>
+												</mrow>
+												<mi>&times; Emploi typique</mi>
+											</math>
+										</p>
+
+										<h6>6. Calcul des scénarios de demande future</h6>
+										<p>
+											À l’aide des données sur la population et sur les visites, nous pouvons
+											convertir le nombre de personnes résidentes supplémentaires en nombre de
+											déplacements quotidiens supplémentaires, en calculant le nombre moyen de visites
+											quotidiennes effectuées dans une aire de station de transport collectif par les
+											personnes résidentes.
+										</p>
+										<p>
+											Les scénarios de demande future sont calculés comme le rapport entre les visites
+											quotidiennes et la somme des visites quotidiennes et des visites quotidiennes
+											supplémentaires, multiplié par l’accès.
+										</p>
+										<math display="block">
+											<mi>Accès futur</mi>
+											<mo>=</mo>
+											<mi>Accès</mi>
+											<mo>&times;</mo>
+											<mfrac
+												><mrow><mi>Visites quotidiennes</mi></mrow><mrow
+													><mi>Visites quotidiennes + visites quotidiennes supplémentaires</mi></mrow
+												></mfrac
+											>
+										</math>
+										{:else}
 										<h6>1. Cleaning and Transforming Employment Data</h6>
 										<p>
 											The EA Business Data is filtered to include only Core or Additional Amenities.
@@ -1007,6 +1725,7 @@
 												></mfrac
 											>
 										</math>
+										{/if}
 									</div></Accordion
 								>
 							</div>
@@ -1016,23 +1735,207 @@
 					<div id="housing-dev">
 						<Accordion bind:open={faqs['tod-dpi']} id="tod-dpi">
 							<div slot="header" class="accordion-header">
-								<h3 class="uppercase">Housing Development Potential</h3>
+								<h3 class="uppercase">
+									{fr ? 'Potentiel d’aménagement résidentiel' : 'Housing Development Potential'}
+								</h3>
 								<Icon icon={faqs['tod-dpi'] ? 'mdi:minus' : 'mdi:plus'} />
 							</div>
 							<div slot="body" class="accordion-body">
 								<div class="text-content">
 									<div>
-										<p>
-											The Housing Development Potential Tool provides an indication of the potential
-											for new housing construction in a transit station area.
-										</p>
+										{#if fr}
+											<p>
+												L’outil Potentiel d’aménagement résidentiel donne une indication du potentiel
+												de construction de nouveaux logements dans une aire de station de transport
+												collectif.
+											</p>
+										{:else}
+											<p>
+												The Housing Development Potential Tool provides an indication of the potential
+												for new housing construction in a transit station area.
+											</p>
+										{/if}
 										<Accordion bind:open={faqs['dpi-data']} id="dpi-data">
 											<div slot="header" class="accordion-header">
-												<h4>Data</h4>
+												<h4>{fr ? 'Données' : 'Data'}</h4>
 
 												<Icon icon={faqs['dpi-data'] ? 'mdi:minus' : 'mdi:plus'} />
 											</div>
 											<div slot="body" class="accordion-body">
+												{#if fr}
+												<p>
+													L’outil Potentiel d’aménagement résidentiel répartit les indicateurs en
+													trois catégories : la disponibilité des terrains, qui mesure la capacité
+													d’accueillir de nouveaux logements; la pression de croissance, qui mesure la
+													demande de nouveaux logements; et le risque de déplacement de population,
+													qui mesure le risque de déplacer les personnes résidentes actuelles lors de
+													la construction de nouveaux logements.
+												</p>
+												<p>
+													Le nombre de permis de construction approuvés est fourni à titre
+													d’information complémentaire, lorsque ces données sont disponibles.
+												</p>
+												<h6 style="margin-top: 2rem;">Disponibilité des terrains</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicateur</th>
+																<th>Définition</th>
+																<th>Source des données</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Superficie totale aménageable</td>
+																<td>Superficie totale de l’aire de station, excluant l’eau et les espaces verts</td>
+																<td>OpenStreetMap (2025)</td>
+															</tr>
+															<tr>
+																<td>Sites à fort potentiel</td>
+																<td>Superficie des stationnements de surface</td>
+																<td>OpenStreetMap (2025)</td>
+															</tr>
+															<tr>
+																<td>Logements unifamiliaux</td>
+																<td>Nombre d’adresses à logement unique</td>
+																<td
+																	>Statistique Canada (Registre national des adresses, décembre 2025)</td
+																>
+															</tr>
+															<tr>
+																<td>Densité de population</td>
+																<td>Population / (superficie totale de l’aire de station, excluant l’eau)</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Densité d’emploi</td>
+																<td
+																	>Nombre d’employés / (superficie totale de l’aire de station, excluant
+																	l’eau)</td
+																>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Pression de croissance</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicateur</th>
+																<th>Définition</th>
+																<th>Source des données</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Variation de la population municipale</td>
+																<td>Variation de la population à l’échelle de la RMR, 2020-2025</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Variation de la population</td>
+																<td
+																	>Variation de la population de l’aire de station de transport collectif,
+																	2020-2025</td
+																>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Variation projetée de la population</td>
+																<td
+																	>Variation projetée de la population de l’aire de station de transport
+																	collectif, 2025-2030</td
+																>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Présence de commodités</td>
+																<td
+																	>Score global de collectivité complète, qui mesure la disponibilité des
+																	commodités dans l’aire de station.</td
+																>
+																<td>Indice des collectivités complètes; Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Visites quotidiennes</td>
+																<td>Nombre moyen de visiteurs dans l’aire de station.</td>
+																<td>Indice des collectivités complètes; Environics Analytics (2026)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Risque de déplacement de population</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicateur</th>
+																<th>Définition</th>
+																<th>Source des données</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Faible revenu</td>
+																<td
+																	>Population à faible revenu (mesure de faible revenu après impôt)</td
+																>
+																<td>Statistique Canada (Recensement, 2021)</td>
+															</tr>
+															<tr>
+																<td>Plus de 30 % du revenu consacré aux frais de logement</td>
+																<td>Population consacrant plus de 30 % de son revenu aux frais de logement.</td>
+																<td>Statistique Canada (Recensement, 2021)</td>
+															</tr>
+															<tr>
+																<td>Immigrants</td>
+																<td>Population composée d’immigrants.</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Minorités visibles</td>
+																<td>Population appartenant à une minorité visible.</td>
+																<td>Environics Analytics (2025)</td>
+															</tr>
+															<tr>
+																<td>Jeunes et personnes âgées</td>
+																<td>Population âgée de moins de 19 ans ou de plus de 65 ans.</td>
+																<td>Environics Analytics (2026)</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+												<h6 style="margin-top: 2rem;">Données complémentaires</h6>
+												<div class="table-container mt-8">
+													<table style="font-size: 0.9rem;">
+														<thead>
+															<tr>
+																<th>Indicateur</th>
+																<th>Définition</th>
+																<th>Source des données</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Permis de construction</td>
+																<td>Nombre de logements approuvés.</td>
+																<td
+																	>Données ouvertes locales, diverses sources (2025-2026). <br />
+																	Disponibles uniquement pour les stations de Calgary, d’Edmonton, de
+																	Kitchener, de Mississauga, de Montréal, d’Ottawa, de Toronto, de Vancouver
+																	et de Waterloo.</td
+																>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												{:else}
 												<p>
 													The Housing Development Potential tool splits indicators into three
 													categories: Land Availability to measure capacity for new housing, Growth
@@ -1193,17 +2096,110 @@
 														</tbody>
 													</table>
 												</div>
+												{/if}
 											</div></Accordion
 										>
 									</div>
 									<div class="mb-12">
 										<Accordion bind:open={faqs['dpi-meth']} id="dpi-meth">
 											<div slot="header" class="accordion-header">
-												<h4>Methodology</h4>
+												<h4>{fr ? 'Méthodologie' : 'Methodology'}</h4>
 
 												<Icon icon={faqs['dpi-meth'] ? 'mdi:minus' : 'mdi:plus'} />
 											</div>
 											<div slot="body" class="accordion-body">
+												{#if fr}
+												<div class="my-8">
+													<h4 class="my-8">Calcul des sous-scores</h4>
+													<p>
+														Le rang centile d’une station par rapport aux autres stations est calculé
+														pour chaque indicateur de disponibilité des terrains, de pression de
+														croissance et de risque de déplacement de population. Le sens du classement
+														de la densité de population et de la densité d’emploi est inversé : une
+														densité de population plus élevée donne un rang centile de densité de
+														population plus faible.
+													</p>
+
+													<p>
+														Les sous-scores de disponibilité des terrains et de pression de croissance
+														d’une station correspondent à la moyenne des rangs centiles de leurs
+														indicateurs.
+													</p>
+
+													<p>
+														Les niveaux de disponibilité des terrains, de pression de croissance et de
+														risque de déplacement de population (très faible, faible, modéré, etc.) sont
+														déterminés à partir des quantiles de leurs sous-scores.
+													</p>
+													<h4 class="my-8">Score de potentiel d’aménagement</h4>
+													<p>
+														Le score de potentiel d’aménagement correspond à la somme des sous-scores de
+														disponibilité des terrains et de pression de croissance.
+													</p>
+
+													<p>
+														Pour les stations desservies par plusieurs lignes de transport collectif, le
+														sous-score de pression de croissance est multiplié par un multiplicateur
+														d’intersection. Ce multiplicateur d’intersection correspond à la population
+														moyenne des stations desservies par plusieurs lignes divisée par la
+														population moyenne des stations desservies par une seule ligne.
+													</p>
+
+													<p>
+														Le niveau de potentiel d’aménagement est établi selon les quantiles du score
+														de potentiel d’aménagement (cinquième le plus bas du score &rarr; très
+														faible, deuxième cinquième le plus bas du score &rarr; faible, etc.).
+													</p>
+												</div>
+
+												<div id="housing-est">
+													<h4>Calcul de l’estimation du nombre de logements</h4>
+
+													<p class="mb-8">
+														L’estimation du nombre de nouveaux logements à construire dans les aires de
+														station de transport collectif est fondée sur la population actuelle des
+														aires de station de transport collectif existantes.
+													</p>
+
+													<h6>1. Établissement de la population cible</h6>
+													<p>
+														Calculer la population moyenne des stations existantes pour chaque région.
+														Pour la ville de Québec, la population moyenne de la ligne prévue est
+														utilisée.
+													</p>
+													<p>
+														Pour chaque station, la population cible correspond à la population moyenne
+														des stations existantes de la région.
+													</p>
+													<p>
+														Pour les stations desservies par plusieurs lignes de transport collectif, la
+														population cible est multipliée par le multiplicateur d’intersection.
+													</p>
+
+													<h6>2. Calcul de la population supplémentaire</h6>
+													<p>
+														Pour chaque station, la population supplémentaire correspond à la
+														différence entre la population actuelle et la population cible. Si la
+														population actuelle de la station est supérieure ou égale à la population
+														cible, la population supplémentaire est fixée à 0.
+													</p>
+
+													<h6>3. Calcul du nombre de ménages supplémentaires</h6>
+													<p>
+														La population supplémentaire d’une station est divisée par la taille moyenne
+														des ménages de la station pour obtenir le nombre de ménages supplémentaires.
+														Le nombre de ménages supplémentaires est additionné pour l’ensemble des
+														stations afin d’obtenir l’estimation du nombre de logements. On obtient
+														ainsi l’estimation basse (1,2 million de logements).
+													</p>
+													<p>
+														Pour obtenir l’estimation intermédiaire (2,7 millions de logements), la
+														population cible est fixée à 1,5 fois la moyenne régionale. Pour obtenir
+														l’estimation haute (4,4 millions de logements), la population cible est
+														fixée au double de la moyenne régionale.
+													</p>
+												</div>
+												{:else}
 												<div class="my-8">
 													<h4 class="my-8">Subscore Calculation</h4>
 													<p>
@@ -1289,6 +2285,7 @@
 														double the regional average.
 													</p>
 												</div>
+												{/if}
 											</div></Accordion
 										>
 									</div>
@@ -1305,18 +2302,28 @@
 	<div class="cui-section" style="background-image: url({vancouver_bg})">
 		<div class="container cui-flex">
 			<div class="cui-contact">
-				<h3>HAVE MORE QUESTIONS?</h3>
+				<h3>{fr ? 'D’AUTRES QUESTIONS?' : 'HAVE MORE QUESTIONS?'}</h3>
 				<div class="contact-grid">
 					<div class="contact-item">
-						<span class="label">ENQUIRIES</span>
-						<p>Contact us at <a href="mailto:cui@canurb.org">cui@canurb.org</a></p>
+						<span class="label">{fr ? 'RENSEIGNEMENTS' : 'ENQUIRIES'}</span>
+						{#if fr}
+							<p>Écrivez-nous à <a href="mailto:cui@canurb.org">cui@canurb.org</a></p>
+						{:else}
+							<p>Contact us at <a href="mailto:cui@canurb.org">cui@canurb.org</a></p>
+						{/if}
 					</div>
 					<div class="contact-item">
-						<span class="label">LEARN MORE</span>
-						<p>See more of our work at <a href="https://www.canurb.org">www.canurb.org</a></p>
+						<span class="label">{fr ? 'EN SAVOIR PLUS' : 'LEARN MORE'}</span>
+						{#if fr}
+							<p>
+								Découvrez nos autres travaux à <a href="https://www.canurb.org">www.canurb.org</a>
+							</p>
+						{:else}
+							<p>See more of our work at <a href="https://www.canurb.org">www.canurb.org</a></p>
+						{/if}
 					</div>
 					<div class="contact-item">
-						<span class="label">CONNECT</span>
+						<span class="label">{fr ? 'NOUS SUIVRE' : 'CONNECT'}</span>
 						<div class="social-icons">
 							<a href="https://ca.linkedin.com/company/canadianurbaninstitute" target="_blank"
 								><Icon icon="fa6-brands:linkedin" /></a
