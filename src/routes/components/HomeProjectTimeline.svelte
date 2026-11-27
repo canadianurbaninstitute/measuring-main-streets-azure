@@ -15,6 +15,10 @@
 	import reportstsa from '../lib/assets/screenshots/who-tsas.png';
 	import CustomButton from '../lib/ui/CustomButton.svelte';
 	import '../styles.css';
+	import { getLang } from '../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const T = (en: string, frText: string) => (fr ? frText : en);
 
 	// 1. Structure explicit custom component props
 	interface Props {
@@ -118,42 +122,42 @@
 
 	const projects: Project[] = [
 		{
-			phase: 'PHASE TWO | 2025-2026 ',
-			title: 'TOD on Main ',
+			phase: T('PHASE TWO | 2025-2026 ', 'PHASE DEUX | 2025-2026 '),
+			title: T('TOD on Main ', 'TOD sur la rue principale '),
 			description:
-				'Leveraging transit-oriented development (TOD) to advance housing and community outcomes.',
+				T('Leveraging transit-oriented development (TOD) to advance housing and community outcomes.', 'Tirer parti de l’aménagement axé sur le transport collectif (TOD) pour faire progresser le logement et le bien-être des collectivités.'),
 			details:
-				'Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD.',
-			cta: { link: '/about/#about-tod', label: 'About Phase Two', href: '/about/#about-tod' },
-			stat: '4.4 million homes',
-			subtext: "could be built in Canada's transit station areas",
+				T('Canada has seven rapid transit systems, and the expansion of these networks continues to shape how communities, cities, and regions grow and change. Built on the foundation of the Measuring Main Streets Platform TOD on Main provides tools, case studies, and research to help decision‑makers leverage transit‑driven growth to advance housing goals, support vibrant and complete communities, and challenge the displacement trends often driven by TOD.', 'Le Canada compte sept réseaux de transport collectif rapide, et leur expansion continue de façonner la croissance et la transformation des collectivités, des villes et des régions. Fondé sur la plateforme Mesures des rues principales, TOD sur la rue principale propose des outils, des études de cas et des recherches pour aider les décideurs à tirer parti de la croissance liée au transport collectif afin d’atteindre leurs objectifs en matière de logement, de soutenir des collectivités dynamiques et complètes et de contrer les tendances au déplacement de population souvent associées aux TOD.'),
+			cta: { link: '/about/#about-tod', label: T('About Phase Two', 'À propos de la phase deux'), href: '/about/#about-tod' },
+			stat: T('4.4 million homes', '4,4\u00a0millions de logements'),
+			subtext: T("could be built in Canada's transit station areas", 'pourraient être construits dans les aires de station de transport collectif du Canada'),
 			cards: [
 				{
-					title: 'Transit Map',
+					title: T('Transit Map', 'Carte du transport collectif'),
 					description:
-						'Explore the major transit station areas and their relationship to main streets.',
+						T('Explore the major transit station areas and their relationship to main streets.', 'Explorez les aires de station de transport collectif majeures et leur relation avec les rues principales.'),
 					image: transitmap,
 					link: '/transit-map',
 					featured: true,
 					tags: ['mapping', 'tool']
 				},
 				{
-					title: 'Case Studies',
-					description: 'In depth place-based studies.',
+					title: T('Case Studies', 'Études de cas'),
+					description: T('In depth place-based studies.', 'Études approfondies axées sur des lieux précis.'),
 					image: casestudy,
 					link: '/casestudies/?tab=tod',
 					tags: ['Case Study']
 				},
 				{
-					title: 'Reports',
-					description: 'In depth reports on transit-oriented development.',
+					title: T('Reports', 'Rapports'),
+					description: T('In depth reports on transit-oriented development.', 'Rapports approfondis sur l’aménagement axé sur le transport collectif.'),
 					image: reportstsa,
 					link: '/reports/?tab=tod',
 					tags: ['Reports']
 				},
 				{
-					title: 'Tools',
-					description: 'In depth reports on transit-oriented development.',
+					title: T('Tools', 'Outils'),
+					description: T('In depth reports on transit-oriented development.', 'Rapports approfondis sur l’aménagement axé sur le transport collectif.'),
 					image: urbanform,
 					link: '/tools',
 					tags: ['Tools']
@@ -161,45 +165,45 @@
 			]
 		},
 		{
-			phase: 'PHASE ONE | 2023-2024',
-			title: 'Resilience on Main ',
+			phase: T('PHASE ONE | 2023-2024', 'PHASE UN | 2023-2024'),
+			title: T('Resilience on Main ', 'Résilience sur la rue principale '),
 			description:
-				'Equipping communities to make smarter investments in main streets and downtowns.',
+				T('Equipping communities to make smarter investments in main streets and downtowns.', 'Outiller les collectivités pour investir plus judicieusement dans les rues principales et les centres-villes.'),
 			details:
-				'Coming out of the pandemic, many main streets and downtowns faced a convergence of economic, social, and operational challenges and were poorly positioned for recovery. Resilience on Main responded by delivering first-of-its-kind tools, case studies, and research that re‑scaled critical data to the main street level—equipping leaders and practitioners across Canada with the insights needed to restore activity, support recovery, champion equity, and strengthen long‑term resilience.',
-			stat: '85%',
-			subtext: 'of Canadians live within 1 kilometre from a main street',
+				T('Coming out of the pandemic, many main streets and downtowns faced a convergence of economic, social, and operational challenges and were poorly positioned for recovery. Resilience on Main responded by delivering first-of-its-kind tools, case studies, and research that re‑scaled critical data to the main street level—equipping leaders and practitioners across Canada with the insights needed to restore activity, support recovery, champion equity, and strengthen long‑term resilience.', 'Au sortir de la pandémie, de nombreuses rues principales et de nombreux centres-villes faisaient face à une convergence de défis économiques, sociaux et opérationnels et étaient mal placés pour la reprise. Résilience sur la rue principale y a répondu en offrant des outils, des études de cas et des recherches uniques en leur genre, qui ramènent des données essentielles à l’échelle de la rue principale, donnant ainsi aux leaders et aux praticiens de partout au Canada les connaissances nécessaires pour relancer l’activité, soutenir la reprise, promouvoir l’équité et renforcer la résilience à long terme.'),
+			stat: T('85%', '85\u00a0%'),
+			subtext: T('of Canadians live within 1 kilometre from a main street', 'de la population canadienne vit à moins de 1\u00a0kilomètre d’une rue principale'),
 			cta: {
 				link: '/about/#about-resilience',
-				label: 'About Phase One',
+				label: T('About Phase One', 'À propos de la phase un'),
 				href: '/about/#about-resilience'
 			},
 			cards: [
 				{
-					title: 'Main Street Map',
-					description: 'Analyzing neighbourhood-scale data for better city building.',
+					title: T('Main Street Map', 'Carte des rues principales'),
+					description: T('Analyzing neighbourhood-scale data for better city building.', 'Analyser des données à l’échelle des quartiers pour mieux bâtir nos villes.'),
 					image: mainstreetmap,
 					link: '/map',
 					featured: true,
 					tags: ['mapping', 'tool']
 				},
 				{
-					title: 'Case Studies',
-					description: 'In depth place-based studies.',
+					title: T('Case Studies', 'Études de cas'),
+					description: T('In depth place-based studies.', 'Études approfondies axées sur des lieux précis.'),
 					image: casestudy2,
 					link: '/casestudies/?tab=msr',
 					tags: ['Case Study']
 				},
 				{
-					title: 'Reports',
-					description: 'In depth reports on main street resilience.',
+					title: T('Reports', 'Rapports'),
+					description: T('In depth reports on main street resilience.', 'Rapports approfondis sur la résilience des rues principales.'),
 					image: reports,
 					link: '/reports/?tab=msr',
 					tags: ['Reports']
 				},
 				{
-					title: 'Tools',
-					description: 'Research and analysis tools.',
+					title: T('Tools', 'Outils'),
+					description: T('Research and analysis tools.', 'Outils de recherche et d’analyse.'),
 					image: dot,
 					link: '/tools/',
 					tags: ['Tools']
@@ -226,7 +230,11 @@
 		</div>
 
 		<div class="projects-list">
-			<h2 class="section-title">Making Data More Accessible for Main Street & Downtown Vibrancy</h2>
+			<h2 class="section-title">
+				{fr
+					? 'Rendre les données plus accessibles pour la vitalité des rues principales et des centres-villes'
+					: 'Making Data More Accessible for Main Street & Downtown Vibrancy'}
+			</h2>
 
 			<div class="project-entry pb-10">
 				<div class="project-content">
@@ -265,7 +273,7 @@
 				</div>
 
 				<div class="road-car" style="transform: translateX({carOffset.current}px);">
-					<img src={car} alt="Car" style="width: 100%; height: auto;" />
+					<img src={car} alt={fr ? 'Voiture' : 'Car'} style="width: 100%; height: auto;" />
 				</div>
 			</div>
 

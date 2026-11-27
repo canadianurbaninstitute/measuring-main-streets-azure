@@ -19,6 +19,50 @@
 	import Accordion from '../lib/ui/Accordion.svelte';
 	import LegendItem from '../lib/ui/legends/LegendItem.svelte';
 	import Metric from '../lib/ui/Metric.svelte';
+	import { formatNumber, getLang, localizeHref } from '../lib/i18n';
+
+	// --- Language ---
+	const fr = getLang() === 'fr';
+	const pct = fr ? '\u00a0%' : '%';
+	const defaultPlace = fr ? 'Rues principales' : 'Main Streets';
+
+	// Display a number (or an English-formatted numeric string such as '1,692,453') with French
+	// conventions on French pages. English output is returned unchanged.
+	/** @param {any} v */
+	function n(v) {
+		if (!fr) return v;
+		if (typeof v === 'number') return formatNumber(v, undefined, 'fr');
+		if (typeof v === 'string' && /^-?[\d,]+(\.\d+)?$/.test(v.trim())) {
+			return formatNumber(parseFloat(v.replace(/,/g, '')), undefined, 'fr');
+		}
+		return v;
+	}
+
+	// ' (+5.8%)' -> ' (+5,8 %)' on French pages.
+	/** @param {string} v */
+	function nPct(v) {
+		if (!fr || typeof v !== 'string') return v;
+		return v.replace(
+			/(\d+(?:\.\d+)?)%/,
+			(_, d) => formatNumber(parseFloat(d), undefined, 'fr') + '\u00a0%'
+		);
+	}
+
+	// French tooltips for the built-in Mapbox controls.
+	const MAPBOX_LOCALE_FR = {
+		'AttributionControl.ToggleAttribution': 'Afficher ou masquer les attributions',
+		'FullscreenControl.Enter': 'Passer en plein écran',
+		'FullscreenControl.Exit': 'Quitter le plein écran',
+		'GeolocateControl.FindMyLocation': 'Trouver ma position',
+		'GeolocateControl.LocationNotAvailable': 'Position non disponible',
+		'LogoControl.Title': 'Logo Mapbox',
+		'NavigationControl.ResetBearing': 'Réorienter vers le nord',
+		'NavigationControl.ZoomIn': 'Zoom avant',
+		'NavigationControl.ZoomOut': 'Zoom arrière',
+		'ScrollZoomBlocker.CtrlMessage': 'Utilisez Ctrl + défilement pour zoomer sur la carte',
+		'ScrollZoomBlocker.CmdMessage': 'Utilisez ⌘ + défilement pour zoomer sur la carte',
+		'TouchPanBlocker.Message': 'Utilisez deux doigts pour déplacer la carte'
+	};
 
 	// Set Mapbox access token
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -30,7 +74,7 @@
 	// --- Sidebar Info State ---
 	// Default values for sidebar metrics (Canada-wide)
 	let streetname = 'Canada';
-	let place = 'Main Streets';
+	let place = defaultPlace;
 
 	// Population and employment
 	let population = '29,482,761';
@@ -107,7 +151,8 @@
 			maxZoom: 14,
 			minZoom: 2,
 			scrollZoom: true,
-			attributionControl: false
+			attributionControl: false,
+			...(fr ? { locale: MAPBOX_LOCALE_FR } : {})
 		});
 
 		// Add navigation controls (zoom, rotate)
@@ -116,7 +161,7 @@
 		// Add custom attribution
 		map.addControl(
 			new mapboxgl.AttributionControl({
-				customAttribution: 'Canadian Urban Institute'
+				customAttribution: fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute'
 			})
 		);
 
@@ -128,13 +173,13 @@
 				countries: 'ca',
 				proximity: 'ip',
 				types: 'address, region, country, postcode, district, place, locality, neighborhood',
-				language: 'en, fr',
+				language: fr ? 'fr, en' : 'en, fr',
 				marker: true,
 				zoom: 12,
 				marker: {
 					color: '#0098D6'
 				},
-				placeholder: 'Search for a place',
+				placeholder: fr ? 'Rechercher un lieu' : 'Search for a place',
 				mapboxgl: mapboxgl
 			});
 
@@ -189,12 +234,22 @@
 		// --- Guided Tutorial Setup ---
 		driverObj = driver({
 			showProgress: true,
+			...(fr
+				? {
+						nextBtnText: 'Suivant &rarr;',
+						prevBtnText: '&larr; Précédent',
+						doneBtnText: 'Terminer',
+						progressText: '{{current}} sur {{total}}'
+					}
+				: {}),
 			steps: [
 				{
 					element: '.hero',
 					popover: {
-						title: 'Main Street Map',
-						description: 'Welcome to the main street map tutorial.',
+						title: fr ? 'Carte des rues principales' : 'Main Street Map',
+						description: fr
+							? 'Bienvenue dans le tutoriel de la carte des rues principales.'
+							: 'Welcome to the main street map tutorial.',
 						side: 'left',
 						align: 'start'
 					}
@@ -202,9 +257,10 @@
 				{
 					element: '#map',
 					popover: {
-						title: 'Main Street Map',
-						description:
-							'This is an interactive map of all the main streets in Canada. Search for a place or navigate the map by scrolling or zooming; and then click on a street segment.',
+						title: fr ? 'Carte des rues principales' : 'Main Street Map',
+						description: fr
+							? 'Cette carte interactive présente toutes les rues principales du Canada. Recherchez un lieu ou parcourez la carte en faisant défiler ou en zoomant, puis cliquez sur un tronçon de rue.'
+							: 'This is an interactive map of all the main streets in Canada. Search for a place or navigate the map by scrolling or zooming; and then click on a street segment.',
 						side: 'bottom',
 						align: 'start'
 					}
@@ -212,9 +268,10 @@
 				{
 					element: '#sidebar',
 					popover: {
-						title: 'Information',
-						description:
-							'After you click on a street segment, you can see information associated with the street in this panel.',
+						title: fr ? 'Information' : 'Information',
+						description: fr
+							? 'Après avoir cliqué sur un tronçon de rue, vous verrez l’information sur cette rue dans ce panneau.'
+							: 'After you click on a street segment, you can see information associated with the street in this panel.',
 						side: 'left',
 						align: 'start'
 					}
@@ -222,8 +279,10 @@
 				{
 					element: '#controls',
 					popover: {
-						title: 'Legend',
-						description: 'This is a dynamic legend that updates as layers come in and out of view.',
+						title: fr ? 'Légende' : 'Legend',
+						description: fr
+							? 'Cette légende dynamique se met à jour à mesure que les couches apparaissent ou disparaissent.'
+							: 'This is a dynamic legend that updates as layers come in and out of view.',
 						side: 'left',
 						align: 'start'
 					}
@@ -231,9 +290,10 @@
 				{
 					element: '#tutorial',
 					popover: {
-						title: 'Tutorial',
-						description:
-							"Congratulations, you've completed the tutorial! You can revisit it at anytime by clicking this button.",
+						title: fr ? 'Tutoriel' : 'Tutorial',
+						description: fr
+							? 'Félicitations, vous avez terminé le tutoriel! Vous pouvez le revoir en tout temps en cliquant sur ce bouton.'
+							: "Congratulations, you've completed the tutorial! You can revisit it at anytime by clicking this button.",
 						side: 'left',
 						align: 'start'
 					}
@@ -333,7 +393,9 @@
 				// demographic
 
 				// income + education
-				income = parseFloat(mainstreet_data[0].average_employment_income).toLocaleString();
+				income = fr
+					? formatNumber(parseFloat(mainstreet_data[0].average_employment_income), undefined, 'fr')
+					: parseFloat(mainstreet_data[0].average_employment_income).toLocaleString();
 				education = mainstreet_data[0].university_degree;
 
 				// age
@@ -440,7 +502,7 @@
 		// --- Click handler for case study BIAs ---
 		map.on('click', 'case-study-BIAs', (e) => {
 			const path = e.features[0].properties.path;
-			goto('/casestudies/' + path);
+			goto(localizeHref('/casestudies/' + path, fr ? 'fr' : 'en'));
 		});
 
 		// --- Cursor pointer for interactive layers ---
@@ -505,7 +567,7 @@
 
 		// info
 		streetname = 'Canada';
-		place = 'Main Streets';
+		place = defaultPlace;
 
 		// basic
 
@@ -593,17 +655,31 @@
 
 <div class="hero">
 	<div id="title">
-		<h1>Main Street Map</h1>
-		<button on:click={initiateTutorial} id="tutorial">
+		<h1>{fr ? 'Carte des rues principales' : 'Main Street Map'}</h1>
+		<button
+			on:click={initiateTutorial}
+			id="tutorial"
+			aria-label={fr ? 'Afficher le tutoriel' : undefined}
+		>
 			<Icon icon="fluent:question-circle-12-filled" width="1.5em" height="1.5em" color="#002940" />
 		</button>
 	</div>
-	<p>
-		This is a map of all of the main streets in Canada. Search for a place or navigate the map using
-		the controls; and then click on a street segment to see information associated with it in the
-		panel on the left. For more information on how we classified main streets and data sources, read
-		our <a href="/about/data-methodology">Data Sources & Methodology</a>.
-	</p>
+	{#if fr}
+		<p>
+			Cette carte présente toutes les rues principales du Canada. Recherchez un lieu ou parcourez la
+			carte à l’aide des commandes, puis cliquez sur un tronçon de rue pour afficher l’information qui
+			s’y rattache dans le panneau de gauche. Pour savoir comment nous avons classé les rues
+			principales et quelles sources de données nous avons utilisées, consultez la section
+			<a href="/about/data-methodology">Sources de données et méthodologie</a>.
+		</p>
+	{:else}
+		<p>
+			This is a map of all of the main streets in Canada. Search for a place or navigate the map using
+			the controls; and then click on a street segment to see information associated with it in the
+			panel on the left. For more information on how we classified main streets and data sources, read
+			our <a href="/about/data-methodology">Data Sources & Methodology</a>.
+		</p>
+	{/if}
 </div>
 
 <div id="content-container">
@@ -611,38 +687,38 @@
 		<h2>{streetname}</h2>
 		<h4 id="place-name">{place}</h4>
 		<div id="raw-number-measures">
-			<h5>Street Characteristics</h5>
+			<h5>{fr ? 'Caractéristiques de la rue' : 'Street Characteristics'}</h5>
 			<Accordion>
 				<Metric
 					accordion
 					slot="header"
-					label={'Civic Infrastructure (on street)'}
-					value={civic}
+					label={fr ? 'Infrastructure civique (sur la rue)' : 'Civic Infrastructure (on street)'}
+					value={n(civic)}
 					icon={'heroicons:building-library-20-solid'}
 				/>
 				<div slot="body">
 					<div class="metric-container">
-						<Metric label={'Education'} value={civic_education} icon={'mdi:school'} />
+						<Metric label={fr ? 'Éducation' : 'Education'} value={n(civic_education)} icon={'mdi:school'} />
 						<Metric
-							label={'Arts & Culture'}
-							value={civic_arts_culture}
+							label={fr ? 'Arts et culture' : 'Arts & Culture'}
+							value={n(civic_arts_culture)}
 							icon={'fa6-solid:masks-theater'}
 						/>
 						<Metric
-							label={'Recreation'}
-							value={civic_recreation}
+							label={fr ? 'Loisirs' : 'Recreation'}
+							value={n(civic_recreation)}
 							icon={'material-symbols:park-rounded'}
 						/>
 					</div>
 					<div class="metric-container">
 						<Metric
-							label={'Government & Community Services'}
-							value={civic_govt_community}
+							label={fr ? 'Services gouvernementaux et communautaires' : 'Government & Community Services'}
+							value={n(civic_govt_community)}
 							icon={'mingcute:government-fill'}
 						/>
 						<Metric
-							label={'Health & Care Facilities'}
-							value={civic_healthcare}
+							label={fr ? 'Établissements de santé et de soins' : 'Health & Care Facilities'}
+							value={n(civic_healthcare)}
 							icon={'mdi:hospital-box'}
 						/>
 					</div>
@@ -652,102 +728,105 @@
 				<Metric
 					accordion
 					slot="header"
-					label={'Businesses (on street)'}
-					value={business}
+					label={fr ? 'Entreprises (sur la rue)' : 'Businesses (on street)'}
+					value={n(business)}
 					icon={'mdi:building'}
 				/>
 				<div slot="body" class="metric-container">
-					<Metric label={'Retail'} value={business_retail} icon={'mdi:shopping'} />
-					<Metric label={'Food & Drink'} value={business_food_drink} icon={'dashicons:food'} />
-					<Metric label={'Services'} value={business_services} icon={'mdi:ticket'} />
+					<Metric label={fr ? 'Commerce de détail' : 'Retail'} value={n(business_retail)} icon={'mdi:shopping'} />
+					<Metric label={fr ? 'Restauration et boissons' : 'Food & Drink'} value={n(business_food_drink)} icon={'dashicons:food'} />
+					<Metric label={fr ? 'Services' : 'Services'} value={n(business_services)} icon={'mdi:ticket'} />
 				</div>
 			</Accordion>
-			<Metric label={'Independent Business Index'} value={independent_business} icon={'mdi:shop'} />
+			<Metric label={fr ? 'Indice des entreprises indépendantes' : 'Independent Business Index'} value={n(independent_business)} icon={'mdi:shop'} />
 			<Metric
-				label={'Estimated Retail Sales (2023)'}
-				value={'$' + retail_min.toLocaleString() + ' - ' + '$' + retail_max.toLocaleString()}
+				label={fr ? 'Ventes au détail estimées (2023)' : 'Estimated Retail Sales (2023)'}
+				value={fr
+					? n(retail_min) + '\u00a0$ – ' + n(retail_max) + '\u00a0$'
+					: '$' + retail_min.toLocaleString() + ' - ' + '$' + retail_max.toLocaleString()}
 				icon={'mdi:graph-line'}
 			/>
-			<h5>Neighbourhood Characteristics</h5>
-			<h6>Demographic</h6>
+			<h5>{fr ? 'Caractéristiques du quartier' : 'Neighbourhood Characteristics'}</h5>
+			<h6>{fr ? 'Démographie' : 'Demographic'}</h6>
 			<Metric
-				label={'Population (% change since 2016)'}
-				value={population + populationchange}
+				label={fr ? 'Population (variation en % depuis 2016)' : 'Population (% change since 2016)'}
+				value={fr ? n(population) + nPct(populationchange) : population + populationchange}
 				icon={'fluent:people-20-filled'}
 			/>
-			<Metric label={'Employees'} value={employees} icon={'mdi:briefcase'} />
+			<Metric label={fr ? 'Employés' : 'Employees'} value={n(employees)} icon={'mdi:briefcase'} />
 			<div class="metric-container">
 				<Metric
-					label={'Average Income'}
-					prefix={'$'}
-					value={income.toLocaleString()}
+					label={fr ? 'Revenu moyen' : 'Average Income'}
+					prefix={fr ? '' : '$'}
+					suffix={fr ? '\u00a0$' : ''}
+					value={fr ? n(income) : income.toLocaleString()}
 					icon={'mdi:wallet'}
 				/>
-				<Metric label={"Bachelor's Degree"} value={education} suffix={'%'} icon={'mdi:school'} />
+				<Metric label={fr ? 'Baccalauréat' : "Bachelor's Degree"} value={n(education)} suffix={pct} icon={'mdi:school'} />
 			</div>
 			<Accordion>
 				<Metric
 					accordion
 					slot="header"
-					label={'Average Age'}
-					value={average_age}
+					label={fr ? 'Âge moyen' : 'Average Age'}
+					value={n(average_age)}
 					icon={'mingcute:birthday-2-fill'}
 				/>
 				<div slot="body" class="metric-container">
-					<Metric label={'0 to 19'} value={age_0_19} suffix={'%'} />
-					<Metric label={'20 to 64'} value={age_20_64} suffix={'%'} />
-					<Metric label={'65 and over'} value={age_over_65} suffix={'%'} />
+					<Metric label={fr ? '0 à 19 ans' : '0 to 19'} value={n(age_0_19)} suffix={pct} />
+					<Metric label={fr ? '20 à 64 ans' : '20 to 64'} value={n(age_20_64)} suffix={pct} />
+					<Metric label={fr ? '65 ans et plus' : '65 and over'} value={n(age_over_65)} suffix={pct} />
 				</div>
 			</Accordion>
 			<div class="metric-container">
 				<Metric
-					label={'Immigrants and Non-Permanent Residents'}
-					value={immigrants}
-					suffix={'%'}
+					label={fr ? 'Immigrants et résidents non permanents' : 'Immigrants and Non-Permanent Residents'}
+					value={n(immigrants)}
+					suffix={pct}
 					icon={'mdi:globe'}
 				/>
 				<Metric
-					label={'Visible Minorities'}
-					value={visibleminority}
-					suffix={'%'}
+					label={fr ? 'Minorités visibles' : 'Visible Minorities'}
+					value={n(visibleminority)}
+					suffix={pct}
 					icon={'material-symbols:handshake'}
 				/>
 				<Metric
-					label={'Indigenous Population'}
-					value={indigenous}
-					suffix={'%'}
+					label={fr ? 'Population autochtone' : 'Indigenous Population'}
+					value={n(indigenous)}
+					suffix={pct}
 					icon={'mdi:person'}
 				/>
 			</div>
 			<div class="metric-container">
-				<Metric label={'English Speakers'} value={english} suffix={'%'} />
-				<Metric label={'French Speakers'} value={french} suffix={'%'} />
-				<Metric label={'Other Language'} value={otherlang} suffix={'%'} />
+				<Metric label={fr ? 'Anglophones' : 'English Speakers'} value={n(english)} suffix={pct} />
+				<Metric label={fr ? 'Francophones' : 'French Speakers'} value={n(french)} suffix={pct} />
+				<Metric label={fr ? 'Autres langues' : 'Other Language'} value={n(otherlang)} suffix={pct} />
 			</div>
-			<h6>Commuting</h6>
+			<h6>{fr ? 'Navettage' : 'Commuting'}</h6>
 			<div class="metric-container">
-				<Metric label={'Car'} value={car} suffix={'%'} icon={'mdi:car'} />
-				<Metric label={'Public Transit'} value={public_transit} suffix={'%'} icon={'mdi:bus'} />
-				<Metric label={'Active Transit'} value={active_transit} suffix={'%'} icon={'mdi:bike'} />
+				<Metric label={fr ? 'Automobile' : 'Car'} value={n(car)} suffix={pct} icon={'mdi:car'} />
+				<Metric label={fr ? 'Transport collectif' : 'Public Transit'} value={n(public_transit)} suffix={pct} icon={'mdi:bus'} />
+				<Metric label={fr ? 'Transport actif' : 'Active Transit'} value={n(active_transit)} suffix={pct} icon={'mdi:bike'} />
 			</div>
-			<h6>Housing</h6>
+			<h6>{fr ? 'Logement' : 'Housing'}</h6>
 			<Accordion>
 				<Metric
 					accordion
 					slot="header"
-					label={'Dwellings'}
-					value={dwellings}
+					label={fr ? 'Logements' : 'Dwellings'}
+					value={n(dwellings)}
 					icon={'material-symbols:apartment'}
 				/>
 				<div slot="body">
 					<div class="metric-container">
-						<Metric label={'Single Detached'} value={singledetached} suffix={'%'} />
-						<Metric label={'Semi-Detached'} value={semidetached} suffix={'%'} />
-						<Metric label={'Duplex'} value={duplex} suffix={'%'} />
+						<Metric label={fr ? 'Maisons individuelles' : 'Single Detached'} value={n(singledetached)} suffix={pct} />
+						<Metric label={fr ? 'Maisons jumelées' : 'Semi-Detached'} value={n(semidetached)} suffix={pct} />
+						<Metric label={fr ? 'Duplex' : 'Duplex'} value={n(duplex)} suffix={pct} />
 					</div>
 					<div class="metric-container">
-						<Metric label={'Apartment (>5 stories)'} value={apartments_more_than_5} suffix={'%'} />
-						<Metric label={'Apartment (<5 stories)'} value={apartments_less_than_5} suffix={'%'} />
+						<Metric label={fr ? 'Appartements (5 étages et plus)' : 'Apartment (>5 stories)'} value={n(apartments_more_than_5)} suffix={pct} />
+						<Metric label={fr ? 'Appartements (moins de 5 étages)' : 'Apartment (<5 stories)'} value={n(apartments_less_than_5)} suffix={pct} />
 					</div>
 				</div>
 			</Accordion>
@@ -757,23 +836,24 @@
 	<div id="controls">
 		<div>
 			<button id="resetButton" on:click={resetMap}>
-				<Icon icon="mi:undo" /> Reset Map
+				<Icon icon="mi:undo" />
+				{fr ? 'Réinitialiser la carte' : 'Reset Map'}
 			</button>
 			<div class="legend">
-				<LegendItem variant={'line'} label={'High Density Main Streets'} bordercolor={'#002940'} />
-				<LegendItem variant={'line'} label={'Low Density Main Streets'} bordercolor={'#00adf2'} />
-				<LegendItem variant={'line'} label={'Arterial Streets'} bordercolor={'#ddd'} />
+				<LegendItem variant={'line'} label={fr ? 'Rues principales à haute densité' : 'High Density Main Streets'} bordercolor={'#002940'} />
+				<LegendItem variant={'line'} label={fr ? 'Rues principales à faible densité' : 'Low Density Main Streets'} bordercolor={'#00adf2'} />
+				<LegendItem variant={'line'} label={fr ? 'Artères' : 'Arterial Streets'} bordercolor={'#ddd'} />
 				<div id="catchment">
-					<LegendItem variant={'polygon'} label={'Selected Street'} bgcolor={'#DB3069'} />
-					<LegendItem variant={'polygon'} label={'Neighborhood Catchment'} bgcolor={'#db799a'} />
+					<LegendItem variant={'polygon'} label={fr ? 'Rue sélectionnée' : 'Selected Street'} bgcolor={'#DB3069'} />
+					<LegendItem variant={'polygon'} label={fr ? 'Zone d’influence du quartier' : 'Neighborhood Catchment'} bgcolor={'#db799a'} />
 				</div>
 			</div>
 			<div class="legend" id="business-civic-legend">
-				<h5><i>Toggle layers on or off</i></h5>
+				<h5><i>{fr ? 'Afficher ou masquer les couches' : 'Toggle layers on or off'}</i></h5>
 				<div id="case-studies">
 					<LegendItem
 						variant={'polygon'}
-						label={'Case Studies'}
+						label={fr ? 'Études de cas' : 'Case Studies'}
 						bgcolor={'#58e965'}
 						bordercolor={'#189122'}
 						button={true}
@@ -783,10 +863,10 @@
 						{map}
 					/>
 				</div>
-				<h5>Civic Infrastructure</h5>
+				<h5>{fr ? 'Infrastructure civique' : 'Civic Infrastructure'}</h5>
 				<LegendItem
 					variant={'circle'}
-					label={'Arts and Culture'}
+					label={fr ? 'Arts et culture' : 'Arts and Culture'}
 					bgcolor={'#DB3069'}
 					bordercolor={'#fff'}
 					button={true}
@@ -795,7 +875,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Govt & Community Services'}
+					label={fr ? 'Services gouv. et communautaires' : 'Govt & Community Services'}
 					bgcolor={'#8A4285'}
 					bordercolor={'#fff'}
 					button={true}
@@ -804,7 +884,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Recreation'}
+					label={fr ? 'Loisirs' : 'Recreation'}
 					bgcolor={'#43B171'}
 					bordercolor={'#fff'}
 					button={true}
@@ -813,7 +893,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Healthcare'}
+					label={fr ? 'Santé' : 'Healthcare'}
 					bgcolor={'#33AED7'}
 					bordercolor={'#fff'}
 					button={true}
@@ -822,17 +902,17 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Education'}
+					label={fr ? 'Éducation' : 'Education'}
 					bgcolor={'#F45D01'}
 					bordercolor={'#fff'}
 					button={true}
 					id={'canada-civicinfra-education'}
 					{map}
 				/>
-				<h5>Business</h5>
+				<h5>{fr ? 'Entreprises' : 'Business'}</h5>
 				<LegendItem
 					variant={'circle'}
-					label={'Retail'}
+					label={fr ? 'Commerce de détail' : 'Retail'}
 					bgcolor={'#F13737'}
 					bordercolor={'#fff'}
 					button={true}
@@ -841,7 +921,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Local Services'}
+					label={fr ? 'Services de proximité' : 'Local Services'}
 					bgcolor={'#2a5cac'}
 					bordercolor={'#fff'}
 					button={true}
@@ -850,7 +930,7 @@
 				/>
 				<LegendItem
 					variant={'circle'}
-					label={'Food and Drink'}
+					label={fr ? 'Restauration et boissons' : 'Food and Drink'}
 					bgcolor={'#58420e'}
 					bordercolor={'#fff'}
 					button={true}

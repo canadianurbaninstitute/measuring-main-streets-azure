@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
 	interface Props {
 		data?: {
 			TSANAME?: string;
@@ -16,7 +20,7 @@
 			<svg height="20" width="20">
 				<circle r="7" cx="10" cy="10" fill="#db3069" />
 			</svg>
-			— {data?.TSANAME ?? 'Transit Station Area'}
+			— {data?.TSANAME ?? (fr ? 'Aire de station de transport collectif' : 'Transit Station Area')}
 		</span>
 	</div>
 
@@ -25,7 +29,8 @@
 			<svg height="20" width="20">
 				<circle r="7" cx="10" cy="10" fill="#00adf2" />
 			</svg>
-			— {data?.CMANAME ?? 'Region'} (outside TSAs)
+			— {data?.CMANAME ?? (fr ? 'Région' : 'Region')}
+			{fr ? '(hors des ASTC)' : '(outside TSAs)'}
 		</span>
 	</div>
 </div>

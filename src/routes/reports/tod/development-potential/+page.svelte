@@ -10,7 +10,9 @@
 	import VisImage from '../../components/VisImage.svelte';
 	import VisPanel from '../../components/VisPanel.svelte';
 	import { intersect } from '../walkability/intersect.js';
-	import { sections } from './article.js';
+	import { getLang } from '../../../lib/i18n';
+	import { sections as sectionsEn } from './article.js';
+	import { sections as sectionsFr } from './article.fr.js';
 	import ExampleRadar from './charts/ExampleRadar.svelte';
 	import PotentialMap from './charts/PotentialMap.svelte';
 	// Assets
@@ -22,16 +24,19 @@
 	import PotentialScatter from './charts/PotentialScatter.svelte';
 	import TechScatter from './charts/TechScatter.svelte';
 
+	const fr = getLang() === 'fr';
+	const sections = fr ? sectionsFr : sectionsEn;
+
 	const visConfig = {
 		intro: {
 			type: 'image',
 			src: buildings,
-			alt: 'Graphics of building forms'
+			alt: fr ? 'Illustrations de formes bâties' : 'Graphics of building forms'
 		},
 		intro2: {
 			type: 'image',
 			src: stncomp,
-			alt: 'Urban form maps of station areas'
+			alt: fr ? 'Cartes de la forme urbaine des aires de station' : 'Urban form maps of station areas'
 		},
 		intro3: {
 			type: 'component',
@@ -118,7 +123,11 @@
 	const items = $derived.by(() => {
 		const nav = [
 			{ type: 'anchor', id: 'report-header', label: 'Introduction' },
-			{ type: 'anchor', id: 'report-findings', label: 'Key Findings' }
+			{
+				type: 'anchor',
+				id: 'report-findings',
+				label: fr ? 'Principales constatations' : 'Key Findings'
+			}
 		];
 
 		sections.forEach((section, si) => {
@@ -143,26 +152,47 @@
 <main>
 	<ProgressBar iconType="custom" activeStepIndex={activeIndex} totalSteps={steps.length} {items}>
 		{#snippet icon()}
-			<img src={train} width="100%" height="100%" alt="Progress icon" />
+			<img
+				src={train}
+				width="100%"
+				height="100%"
+				alt={fr ? 'Icône de progression' : 'Progress icon'}
+			/>
 		{/snippet}
 	</ProgressBar>
 
 	<ReportHeader
 		id="report-header"
-		title="HIGH POTENTIAL"
-		subEyebrow="Exploring Housing Development Potential in Transit Station Areas"
-		subtitle="By considering transit investments as housing investments, and ultimately as community-building investments, city-builders are well-positioned to design the vibrant, sustainable neighbourhoods enabled by the high potential of transit station areas."
+		title={fr ? 'FORT POTENTIEL' : 'HIGH POTENTIAL'}
+		subEyebrow={fr
+			? 'Explorer le potentiel de développement résidentiel dans les aires de station de transport collectif'
+			: 'Exploring Housing Development Potential in Transit Station Areas'}
+		subtitle={fr
+			? 'En considérant les investissements en transport collectif comme des investissements en logement et, ultimement, comme des investissements dans le développement des collectivités, les bâtisseurs de villes sont bien placés pour concevoir les quartiers dynamiques et durables que permet le fort potentiel des aires de station de transport collectif.'
+			: 'By considering transit investments as housing investments, and ultimately as community-building investments, city-builders are well-positioned to design the vibrant, sustainable neighbourhoods enabled by the high potential of transit station areas.'}
 		backgroundImage={HeaderImage}
 	/>
 	<ReportFindings
 		id="report-findings"
-		title="KEY TAKEAWAYS"
-		finding1="Transit investments spark housing construction,"
-		description1="but not all the same way in all the same places."
-		finding2="Growth pressure and land availability are negatively correlated"
-		description2="Stations with high growth pressure generally have low land availability, and vice versa."
-		finding3="When planning for new transit stations,"
-		description3="areas with high land availability and high growth pressure are key areas with high potential for housing development."
+		title={fr ? 'POINTS SAILLANTS' : 'KEY TAKEAWAYS'}
+		finding1={fr
+			? 'Les investissements en transport collectif stimulent la construction de logements,'
+			: 'Transit investments spark housing construction,'}
+		description1={fr
+			? 'mais pas de la même façon partout.'
+			: 'but not all the same way in all the same places.'}
+		finding2={fr
+			? 'La pression de croissance et la disponibilité des terrains sont corrélées négativement'
+			: 'Growth pressure and land availability are negatively correlated'}
+		description2={fr
+			? 'Les stations soumises à une forte pression de croissance ont généralement une faible disponibilité des terrains, et vice versa.'
+			: 'Stations with high growth pressure generally have low land availability, and vice versa.'}
+		finding3={fr
+			? 'Dans la planification de nouvelles stations de transport collectif,'
+			: 'When planning for new transit stations,'}
+		description3={fr
+			? 'les secteurs où la disponibilité des terrains et la pression de croissance sont élevées sont des secteurs clés à fort potentiel de développement résidentiel.'
+			: 'areas with high land availability and high growth pressure are key areas with high potential for housing development.'}
 	/>
 
 	{#snippet renderPanel(uid, isVisible, overrideProps = null)}
@@ -190,7 +220,7 @@
 					<Component visible={isVisible} {...mergedProps} />
 				{:else if panel.config?.type === 'link'}
 					<VisLink href={panel.config.href} target={panel.config.target}>
-						{panel.config.btnLabel ?? 'Learn More'}
+						{panel.config.btnLabel ?? (fr ? 'En savoir plus' : 'Learn More')}
 					</VisLink>
 				{/if}
 			</VisPanel>

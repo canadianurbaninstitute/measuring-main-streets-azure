@@ -14,7 +14,15 @@
 	import Accordion from '../../../lib/ui/Accordion.svelte';
 	import ProgressBar from '../../components/ProgressBar.svelte';
 	import { stations as initialStations } from './stations';
-	import { steps } from './steps';
+	import { steps as stepsEn } from './steps';
+	import { steps as stepsFr } from './steps.fr';
+	import { getLang } from '../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const steps = fr ? stepsFr : stepsEn;
+	// Short station label for navigation (drops "Station Area" / "Aire de la station")
+	const shortTitle = (title: string) =>
+		fr ? title.replace('Aire de la station ', '') : title.replace(' Station Area', '');
 
 	// Hardcoded station target list from requirements
 	let stations = $state([...initialStations]);
@@ -57,7 +65,7 @@
 		.filter((step) => step.title)
 		.map((step) => ({
 			id: step.stationId,
-			title: step.title?.replace(' Station Area', '')
+			title: step.title ? shortTitle(step.title) : step.title
 		}));
 
 	const scrollToStation = (id: string) => {
@@ -135,12 +143,16 @@
 				nav.push({
 					type: 'anchor',
 					id: `step-${i}`,
-					label: step.title.replace(' Station Area', '')
+					label: shortTitle(step.title)
 				});
 			}
 		});
 
-		nav.push({ type: 'anchor', id: 'methodology-section', label: 'Methodology' });
+		nav.push({
+			type: 'anchor',
+			id: 'methodology-section',
+			label: fr ? 'Méthodologie' : 'Methodology'
+		});
 
 		return nav;
 	});
@@ -255,6 +267,7 @@
 				coords: { lng, lat },
 				properties: properties,
 				id: id ?? '',
+				fr,
 				onClose: () => {
 					if (activePopup) activePopup.remove();
 				}
@@ -352,13 +365,55 @@
 
 <ProgressBar iconType="custom" {activeStepIndex} totalSteps={steps.length} items={progressBarItems}>
 	{#snippet icon()}
-		<img src={trainIcon} width="100%" height="100%" alt="Progress icon" />
+		<img src={trainIcon} width="100%" height="100%" alt={fr ? 'Icône de progression' : 'Progress icon'} />
 	{/snippet}
 </ProgressBar>
 
 <div class="header-section" id="header-section" data-step-index="0">
 	<div class="header-wrapper">
 		<div class="header-content">
+			{#if fr}
+			<h1 class="mb-4 uppercase text-slate-800">
+				Collectivités complètes et <span class="text-blue-400">potentiel piétonnier</span>
+			</h1>
+			<h3 class="mb-8">
+				<span class="text-slate-500"
+					>Une facette oubliée de l’aménagement axé sur le transport collectif (TOD)</span
+				>
+			</h3>
+			<p>
+				Une collectivité complète est un milieu qui offre les biens et les services dont les gens
+				ont besoin au quotidien. Elle se définit généralement par la proximité des commodités par
+				rapport aux lieux de résidence. Regrouper les commodités autour d’un point central — comme
+				une station de transport collectif ou une rue principale — accroît la commodité et
+				l’efficacité, et favorise des densités résidentielles plus élevées. L’une des prémisses
+				centrales de ce modèle est que les gens peuvent combler leurs besoins quotidiens à pied
+				plutôt qu’en voiture. Cela procure en retour des bienfaits pour la santé des personnes et
+				renforce la vitalité et la durabilité des quartiers.
+			</p>
+			<p>
+				Pourtant, la plupart des modèles de collectivités complètes négligent un détail important :
+				le choix de marcher ne dépend pas seulement de la distance, mais aussi de la qualité du
+				trajet. Les piétons doivent se sentir à l’aise et en sécurité, et les parcours doivent être
+				stimulants. La distance psychologique d’un déplacement est influencée par l’expérience
+				visuelle en chemin.
+			</p>
+			<p>
+				Au cours des 18 derniers mois, l’Institut urbain du Canada a élaboré une méthodologie pour
+				évaluer la qualité du domaine public du point de vue des piétons. Cette approche s’appuie sur
+				des images Google Street View analysées par un grand modèle de langage (OpenAI) afin
+				d’évaluer les intersections et les tronçons de rue selon divers thèmes. Des requêtes
+				détaillées évaluent des éléments comme la qualité des trottoirs, l’aménagement des lieux
+				(placemaking), l’accessibilité et le cadre bâti. Une explication plus détaillée est
+				présentée à la fin du présent rapport.
+			</p>
+			<p>
+				Ce modèle a été appliqué à cinq aires de station étudiées. Les résultats sont présentés en
+				ordre décroissant de potentiel piétonnier. Une carte interactive des cotes de potentiel
+				piétonnier de chaque intersection et de chaque rue est présentée ci-dessous; cliquez sur un
+				point pour afficher un panorama Street View et l’évaluation correspondante.
+			</p>
+			{:else}
 			<h1 class="mb-4 uppercase text-slate-800">
 				Complete Communities and <span class="text-blue-400">Walkability</span>
 			</h1>
@@ -394,6 +449,7 @@
 				and street is included below; users can click on any point to view a Street View panorama
 				along with its corresponding assessment.
 			</p>
+			{/if}
 		</div>
 		<nav class="header-nav">
 			<div class="nav-group">
@@ -458,13 +514,14 @@
 				{#if isMobile && step.triggerPopupId && featuredData[i]}
 					<div class="mt-6 w-full">
 						<div class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-2">
-							Featured Assessment
+							{fr ? 'Évaluation en vedette' : 'Featured Assessment'}
 						</div>
 						<WalkabilityStreetview
 							coords={featuredData[i].coords}
 							properties={featuredData[i].properties}
 							id={step.triggerPopupId}
 							inline={true}
+							{fr}
 						/>
 					</div>
 				{/if}
@@ -478,7 +535,7 @@
 	<Accordion bind:open={methodologyOpen}>
 		<div slot="header" class="flex flex-col font-medium w-full outline-none">
 			<div class="flex justify-between items-center gap-4">
-				<h2 class="mb-0">Methodology</h2>
+				<h2 class="mb-0">{fr ? 'Méthodologie' : 'Methodology'}</h2>
 				<span class="transition-transform text-zinc-400" class:rotate-180={methodologyOpen}>
 					<Icon icon="mdi:chevron-down" class="text-3xl" />
 				</span>
@@ -487,6 +544,33 @@
 		</div>
 		<div slot="body" class="w-full">
 			<div class="mt-4">
+				{#if fr}
+				<img class="my-4 m-auto" src={methodologyImg} alt="Méthodologie" />
+				<p class="mb-4">
+					L’analyse du domaine public s’appuie sur les API de Google Maps et d’OpenAI pour évaluer de
+					façon quantitative le potentiel piétonnier du point de vue des piétons. Des images sont
+					échantillonnées à intervalles de 500 m sur le réseau routier entourant une aire de station
+					de transport collectif. À chaque coordonnée, des images sont prises à intervalles de
+					60 degrés afin de couvrir l’ensemble du paysage sur 360 degrés.
+				</p>
+				<p>
+					Chaque image est ensuite soumise individuellement au modèle GPT-4o de l’API d’OpenAI. Le
+					modèle de vision multimodal reçoit une requête qui l’amène à analyser les photos selon
+					22 indicateurs distincts et à produire un jeu de données consignant cette analyse. La cote
+					de chaque indicateur est accompagnée d’une courte justification, ce qui permet une analyse
+					détaillée à grande échelle. Le jeu de données est organisé comme suit :
+				</p>
+				<img class="my-4 m-auto" src={dataImg} alt="Répartition des cotes" />
+				<p>
+					Une fois chaque image cotée, les 6 jeux de données de chaque angle sont regroupés en une
+					cote par coordonnée. Cette opération est répétée pour chaque coordonnée du réseau routier
+					jusqu’à l’obtention d’un jeu de cotes couvrant tout le secteur autour d’une station de
+					transport collectif. Enfin, les données sont colorées par interpolation en dégradé afin de
+					montrer comment le potentiel piétonnier évolue probablement entre les points, ce qui donne
+					une visualisation modélisée quantitativement du potentiel piétonnier qualitatif d’un
+					secteur donné.
+				</p>
+				{:else}
 				<img class="my-4 m-auto" src={methodologyImg} alt="Methodology" />
 				<p class="mb-4">
 					The public realm analysis leverages the Google Maps and OpenAI APIs to quantitatively
@@ -511,6 +595,7 @@
 					evolves between individual points to get a quantitatively modelled visualisation of the
 					qualitative walkability in a given area.
 				</p>
+				{/if}
 			</div>
 		</div>
 	</Accordion>
@@ -519,7 +604,7 @@
 	<Accordion bind:open={citationsOpen}>
 		<div slot="header" class="flex flex-col font-medium w-full outline-none">
 			<div class="flex justify-between items-center gap-4">
-				<h2 class="mb-0">Citations</h2>
+				<h2 class="mb-0">{fr ? 'Références' : 'Citations'}</h2>
 				<span class="transition-transform text-zinc-400" class:rotate-180={citationsOpen}>
 					<Icon icon="mdi:chevron-down" class="text-3xl" />
 				</span>
@@ -635,7 +720,9 @@
 						>.
 					</li>
 					<li>
-						Walk Score. n.d. "Walk Score Methodology." Accessed May 8, 2025. <a
+						Walk Score. n.d. "Walk Score Methodology." {fr
+							? 'Consulté le 8 mai 2025.'
+							: 'Accessed May 8, 2025.'} <a
 							href="https://www.walkscore.com/methodology.html"
 							target="_blank"
 							rel="noopener noreferrer"
@@ -644,7 +731,9 @@
 					</li>
 				</ul>
 				<p class="m-auto w-full mt-10">
-					Special thanks to Bon Woo Koo for his assistance with this project.
+					{fr
+						? 'Nous remercions tout particulièrement Bon Woo Koo de son aide dans le cadre de ce projet.'
+						: 'Special thanks to Bon Woo Koo for his assistance with this project.'}
 				</p>
 			</div>
 		</div>

@@ -4,11 +4,15 @@
 	import Toronto from '../../lib/assets/boundaries/Toronto.svg';
 	import city from '../../lib/assets/graphics/montreal.jpg';
 	import Vancouver from '../../lib/assets/graphics/vancouver-bg.png';
+	import { getLang } from '../../lib/i18n';
 	import LandingLayout from '../../lib/ui/LandingLayout.svelte';
 	import '../../styles.css';
 
-	const title = 'Case Studies';
-	const description = 'Insert School of Cities blurb here.';
+	const fr = getLang() === 'fr';
+	const T = (/** @type {string} */ en, /** @type {string} */ frText) => (fr ? frText : en);
+
+	const title = T('Case Studies', 'Études de cas');
+	const description = T('Insert School of Cities blurb here.', 'Insérer ici le texte de présentation de la School of Cities.');
 
 	// const categories = ['Ontario', 'Quebec', 'Alberta'];
 

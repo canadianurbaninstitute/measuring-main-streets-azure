@@ -20,7 +20,6 @@
 
 	const fr = getLang() === 'fr';
 	const tr = (v: string) => trTransit(v, fr);
-	const unit = (u: string) => (fr && u === '%' ? '\u00a0%' : u);
 	const fmtInt = (v: number) => (fr ? formatNumber(Math.round(v)) : Math.round(v).toLocaleString());
 
 	let {
@@ -44,7 +43,7 @@
 			label={tr(Overall_score.label)}
 			value={Math.round(stationCCpresence[Overall_score.key])}
 			icon={Overall_score.icon}
-			suffix={unit(Overall_score.unit)}
+			suffix={Overall_score.unit}
 			fillColor="var(--color-zinc-400)"
 		/>
 	</div>
@@ -55,7 +54,7 @@
 				value={Math.round(stationCCpresence[metric.key])}
 				icon={metric.icon}
 				size={160}
-				suffix={unit(metric.unit)}
+				suffix={metric.unit}
 				fillColor="var(--color-zinc-400)"
 			/>
 		{/each}

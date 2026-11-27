@@ -290,3 +290,32 @@ export const dataset = {
       }
     ]
   };
+// Canadian French display names for Montreal-region streets and malls. Keys are the English names
+// used in the select options above, in the report CSV column names and in the `name` column of the
+// case study CSVs (several spellings exist). Translate at display time only: the English names stay
+// the lookup keys. Names without an entry are shown unchanged.
+export const selectLabelsFr = {
+  'Rue Saint Catherine': 'Rue Sainte-Catherine',
+  'Rue Sainte Catherine': 'Rue Sainte-Catherine',
+  'Rue St Paul': 'Rue Saint-Paul',
+  'Rue St. Paul': 'Rue Saint-Paul',
+  'Notre Dame': 'Rue Notre-Dame',
+  'Notre-Dame': 'Rue Notre-Dame',
+  'St Denis': 'Rue Saint-Denis',
+  'St. Denis': 'Rue Saint-Denis',
+  'Fairview Pointe Claire': 'Fairview Pointe-Claire',
+  'Mall Champlain': 'Mail Champlain',
+  'Mont Royal': 'Avenue du Mont-Royal',
+  'Boul St. Martin': 'Boulevard Saint-Martin',
+  'Boulevard St. Martin': 'Boulevard Saint-Martin',
+  'Rue St Charles': 'Rue Saint-Charles',
+  'Rue St. Charles': 'Rue Saint-Charles',
+  'Rue St George': 'Rue Saint-Georges',
+  'Rue St. George': 'Rue Saint-Georges',
+  'Rue St Anne': 'Rue Sainte-Anne',
+  'Rue St. Anne': 'Rue Sainte-Anne',
+  'St Eustache': 'Rue Saint-Eustache',
+  'St. Eustache': 'Rue Saint-Eustache',
+  'Rue St. Hubert': 'Rue Saint-Hubert',
+  'Jean Talon': 'Rue Jean-Talon'
+};

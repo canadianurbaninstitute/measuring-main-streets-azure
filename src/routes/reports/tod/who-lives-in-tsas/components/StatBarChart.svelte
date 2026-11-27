@@ -1,6 +1,9 @@
 <script lang="ts">
 	//@ts-ignore-next-line
 	import { BarChart } from '@onsvisual/svelte-charts';
+	import { formatNumber, getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
 
 	interface Props {
 		title?: string;
@@ -32,6 +35,12 @@
 
 	// Format value for display: prepend prefix and append suffix
 	function formatValue(value: number) {
+		if (fr) {
+			// French conventions: 1 234 $, 45 % (non-breaking space before the unit)
+			const rounded = formatNumber(Math.round(value), undefined, 'fr');
+			const unit = xPrefix || xSuffix;
+			return unit ? `${rounded}\u00a0${unit}` : rounded;
+		}
 		const rounded = Math.round(value).toLocaleString();
 		return `${xPrefix}${rounded}${xSuffix}`;
 	}

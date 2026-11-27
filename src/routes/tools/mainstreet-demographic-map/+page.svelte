@@ -6,10 +6,20 @@
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import '../../styles.css';
 
-	import cmaSummaryGrouped from './cma-summary-grouped.json';
+	import { getLang } from '../../lib/i18n';
+	import cmaSummaryGroupedEn from './cma-summary-grouped.json';
+	import cmaSummaryGroupedFr from './cma-summary-grouped.fr.json';
 	import cmaSummary from './cma-summary.json';
-	import variableNamesGrouped from './variable-names-grouped.json';
-	import variableNames from './variable-names.json';
+	import variableNamesGroupedEn from './variable-names-grouped.json';
+	import variableNamesGroupedFr from './variable-names-grouped.fr.json';
+	import variableNamesEn from './variable-names.json';
+	import variableNamesFr from './variable-names.fr.json';
+
+	const fr = getLang() === 'fr';
+	// The French files have the same structure and `variable` / `value` keys; only labels differ.
+	const cmaSummaryGrouped = fr ? cmaSummaryGroupedFr : cmaSummaryGroupedEn;
+	const variableNamesGrouped = fr ? variableNamesGroupedFr : variableNamesGroupedEn;
+	const variableNames = fr ? variableNamesFr : variableNamesEn;
 
 	import Select from '../../lib/ui/Select.svelte';
 
@@ -226,61 +236,71 @@
 </script>
 
 <div class="hero">
-	<h1>Main Street Demographic Map</h1>
-	<h2>Mapping Tool</h2>
-	<p>
-		This mapping tool highlights demographic variables mapped to all arterial streets across Census
-		Metropolitan Areas and Census Agglomerations within Canada. First, select a demographic variable
-		from the dropdown below, and then, navigate the map by clicking on a point or by using the
-		dropdown to select a region.
-	</p>
+	<h1>{fr ? 'Carte démographique des rues principales' : 'Main Street Demographic Map'}</h1>
+	<h2>{fr ? 'Outil cartographique' : 'Mapping Tool'}</h2>
+	{#if fr}
+		<p>
+			Cet outil cartographique présente des variables démographiques associées à l’ensemble des
+			artères des régions métropolitaines de recensement et des agglomérations de recensement du
+			Canada. Choisissez d’abord une variable démographique dans le menu déroulant ci-dessous, puis
+			naviguez sur la carte en cliquant sur un point ou en choisissant une région dans le menu
+			déroulant.
+		</p>
+	{:else}
+		<p>
+			This mapping tool highlights demographic variables mapped to all arterial streets across Census
+			Metropolitan Areas and Census Agglomerations within Canada. First, select a demographic variable
+			from the dropdown below, and then, navigate the map by clicking on a point or by using the
+			dropdown to select a region.
+		</p>
+	{/if}
 </div>
 
 <div class="map-container">
 	<div class="controls">
 		<div class="select-wrapper">
-			<h4>Select a variable:</h4>
+			<h4>{fr ? 'Choisir une variable :' : 'Select a variable:'}</h4>
 			<Select
 				handleSelect={handleSelectVariable}
 				data={variableNamesGrouped}
 				icon="mdi:chart-bar"
-				placeholder={'Select a variable'}
+				placeholder={fr ? 'Choisir une variable' : 'Select a variable'}
 			></Select>
 		</div>
 
 		<div class="select-wrapper">
-			<h4>Select a region:</h4>
+			<h4>{fr ? 'Choisir une région :' : 'Select a region:'}</h4>
 			<Select
 				{handleSelect}
 				data={cmaSummaryGrouped}
 				icon="mdi:map-marker-outline"
 				selected={'Population'}
-				placeholder={'Select a region'}
+				placeholder={fr ? 'Choisir une région' : 'Select a region'}
 			></Select>
 		</div>
 
 		<div class="legend">
-			<h4>Legend</h4>
+			<h4>{fr ? 'Légende' : 'Legend'}</h4>
 
-			<LegendItem variant={'circle'} label={'Census Metropolitan Areas'} bgcolor={'#00adf2'} />
+			<LegendItem variant={'circle'} label={fr ? 'Régions métropolitaines de recensement' : 'Census Metropolitan Areas'} bgcolor={'#00adf2'} />
 
 			<div id="legend">
 				<Legend
-					minlabel={'Low'}
-					maxlabel={'High'}
+					minlabel={fr ? 'Faible' : 'Low'}
+					maxlabel={fr ? 'Élevé' : 'High'}
 					label={variableSelectedLabel}
 					gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
 				/>
 			</div>
 
 			<div id="mainstreet-legend">
-				<LegendItem variant={'polygon'} label={'High Density Main Streets'} bgcolor={'#eee'} />
+				<LegendItem variant={'polygon'} label={fr ? 'Rues principales à forte densité' : 'High Density Main Streets'} bgcolor={'#eee'} />
 
-				<LegendItem variant={'polygon'} label={'Low Density Main Streets'} bgcolor={'#dddd'} />
+				<LegendItem variant={'polygon'} label={fr ? 'Rues principales à faible densité' : 'Low Density Main Streets'} bgcolor={'#dddd'} />
 			</div>
 		</div>
 		<button id="resetButton" on:click={resetMap}>
-			<Icon icon="mi:undo" /> Reset Map
+			<Icon icon="mi:undo" /> {fr ? 'Réinitialiser la carte' : 'Reset Map'}
 		</button>
 	</div>
 

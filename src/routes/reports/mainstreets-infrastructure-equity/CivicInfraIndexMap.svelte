@@ -5,6 +5,10 @@
 	import '../../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import Legend from '../../lib/ui/legends/Legend.svelte';
 
+	import { getLang } from '../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+
 	mapboxgl.accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 	export let title;
@@ -16,7 +20,7 @@
 	export let bearing = -17.1;
 	export let pitch = 0;
 	export let style = 'mapbox://styles/canadianurbaninstitute/clutw7a5f003t01qret745gsb?fresh=true';
-	export let attribution = 'Canadian Urban Institute';
+	export let attribution = fr ? 'Institut urbain du Canada' : 'Canadian Urban Institute';
 
 	let map;
 
@@ -100,7 +104,7 @@
 
 		<div class="radio">
 			<input type="radio" id="montreal" name="region" value="montreal" on:change={navigateMap} />
-			<label for="montreal">Montreal</label>
+			<label for="montreal">{fr ? 'Montréal' : 'Montreal'}</label>
 		</div>
 
 		<div class="radio">
@@ -112,9 +116,9 @@
 	<div id={section} class="map"></div>
 
 	<Legend
-		minlabel={'Low'}
-		maxlabel={'High'}
-		label={'Civic Infrastructure Index'}
+		minlabel={fr ? 'Faible' : 'Low'}
+		maxlabel={fr ? 'Élevé' : 'High'}
+		label={fr ? 'Indice d’infrastructure civique' : 'Civic Infrastructure Index'}
 		gradient={'linear-gradient(to right, #cceffe, #99dffc, #34bef9, #018bc6, #004663)'}
 	/>
 </div>

@@ -55,7 +55,6 @@
 		Parking: 'Stationnement'
 	};
 	const bfLabel = (label: string) => (fr ? (BUILT_FORM_FR[label] ?? label) : label);
-	const unitSuffix = (unit: string) => (fr && unit === '%' ? '\u00a0%' : unit);
 
 	// Maps
 	let map1: mapboxgl.Map | undefined = $state();
@@ -614,7 +613,7 @@
 								label={bfLabel(water_pct.label)}
 								value={station1Metrics?.water_pct}
 								icon={water_pct.icon}
-								suffix={unitSuffix(water_pct.unit)}
+								suffix={water_pct.unit}
 								fillColor={'#002940'}
 								toggle={false}
 							/>
@@ -622,7 +621,7 @@
 								label={bfLabel(greenspace_pct.label)}
 								value={Math.round(station1Metrics?.greenspace_pct ?? 0)}
 								icon={greenspace_pct.icon}
-								suffix={unitSuffix(greenspace_pct.unit)}
+								suffix={greenspace_pct.unit}
 								fillColor={'#43b171'}
 								toggle={false}
 							/>
@@ -630,7 +629,7 @@
 								label={bfLabel(building_pct.label)}
 								value={Math.round(station1Metrics?.building_pct ?? 0)}
 								icon={building_pct.icon}
-								suffix={unitSuffix(building_pct.unit)}
+								suffix={building_pct.unit}
 								fillColor={'#555555'}
 								toggle={false}
 							/>
@@ -638,7 +637,7 @@
 								label={bfLabel(parking_pct.label)}
 								value={Math.round(station1Metrics?.parking_pct ?? 0)}
 								icon={parking_pct.icon}
-								suffix={unitSuffix(parking_pct.unit)}
+								suffix={parking_pct.unit}
 								fillColor={'#999999'}
 								toggle={false}
 							/>

@@ -1,7 +1,10 @@
 <script>
 	import StackedBar from '../../../lib/ui/charts/StackedBar.svelte';
+	import { formatNumber, getLang } from '../../../lib/i18n';
 
 	let { visible } = $props();
+
+	const fr = getLang() === 'fr';
 
 	const data = [
 		{ region: 'Cooksville', safe: 62.6, sometimes: 27.3, unsafe: 10.1 },
@@ -16,21 +19,54 @@
 	];
 
 	const seriesConfig = [
-		{ key: 'safe', label: 'Generally feels safe', color: '#58e965' },
-		{ key: 'sometimes', label: 'Sometimes feels safe', color: '#00adf2' },
-		{ key: 'unsafe', label: 'Generally feels unsafe', color: '#db3069' }
+		{
+			key: 'safe',
+			label: fr ? 'Se sent généralement en sécurité' : 'Generally feels safe',
+			color: '#58e965'
+		},
+		{
+			key: 'sometimes',
+			label: fr ? 'Se sent parfois en sécurité' : 'Sometimes feels safe',
+			color: '#00adf2'
+		},
+		{
+			key: 'unsafe',
+			label: fr ? 'Se sent généralement en insécurité' : 'Generally feels unsafe',
+			color: '#db3069'
+		}
 	];
 
 	const seriesConfigWelcome = [
-		{ key: 'welcome', label: 'Generally feels welcome', color: '#58e965' },
-		{ key: 'sometimes', label: 'Sometimes feels welcome', color: '#00adf2' },
-		{ key: 'unwelcome', label: 'Generally feels unwelcome', color: '#db3069' }
+		{
+			key: 'welcome',
+			label: fr ? 'Sentiment d’accueil généralement présent' : 'Generally feels welcome',
+			color: '#58e965'
+		},
+		{
+			key: 'sometimes',
+			label: fr ? 'Sentiment d’accueil parfois présent' : 'Sometimes feels welcome',
+			color: '#00adf2'
+		},
+		{
+			key: 'unwelcome',
+			label: fr ? 'Sentiment d’accueil généralement absent' : 'Generally feels unwelcome',
+			color: '#db3069'
+		}
 	];
+
+	// Axis ticks and tooltip values (French: 45 %, 12,5 %)
+	const formatPercent = (d) => (fr ? `${formatNumber(d, undefined, 'fr')}\u00a0%` : `${d}%`);
+	const formatTooltipValue = fr
+		? (d) =>
+				isNaN(+d) || d === null
+					? d
+					: `${formatNumber(+d, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, 'fr')}\u00a0%`
+		: undefined;
 </script>
 
 <div class="grid grid-cols-1 grid-rows-2 w-full h-full gap-1 p-0">
 	<StackedBar
-		title="Feels safe"
+		title={fr ? 'Sentiment de sécurité' : 'Feels safe'}
 		{data}
 		{seriesConfig}
 		yKey="region"
@@ -39,14 +75,15 @@
 		xTicks={6}
 		wrapLabels={true}
 		showTooltip={true}
-		formatLabelX={(d) => `${d}%`}
+		formatLabelX={formatPercent}
+		{formatTooltipValue}
 		padding={{ top: 10, right: 30, bottom: 30, left: 70 }}
 		showLegend={false}
-		xLabel="Percent"
+		xLabel={fr ? 'Pourcentage' : 'Percent'}
 	/>
 
 	<StackedBar
-		title="Feels welcome"
+		title={fr ? 'Sentiment d’accueil' : 'Feels welcome'}
 		data={dataWelcome}
 		seriesConfig={seriesConfigWelcome}
 		yKey="region"
@@ -55,9 +92,10 @@
 		xTicks={6}
 		wrapLabels={true}
 		showTooltip={true}
-		formatLabelX={(d) => `${d}%`}
+		formatLabelX={formatPercent}
+		{formatTooltipValue}
 		padding={{ top: 10, right: 30, bottom: 30, left: 70 }}
 		showLegend={false}
-		xLabel="Percent"
+		xLabel={fr ? 'Pourcentage' : 'Percent'}
 	/>
 </div>

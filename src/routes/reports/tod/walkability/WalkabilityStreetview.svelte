@@ -3,6 +3,7 @@
 	import Icon from '@iconify/svelte';
 	import chroma from 'chroma-js';
 	import { onMount } from 'svelte';
+	import { formatNumber } from '../../../lib/i18n';
 
 	interface Props {
 		coords: { lng: number; lat: number };
@@ -10,9 +11,18 @@
 		id: string | number;
 		onClose?: () => void;
 		inline?: boolean;
+		/** Show French text. Passed by the page, because this component is also mounted into map popups. */
+		fr?: boolean;
 	}
 
-	let { coords, properties, onClose = () => {}, id, inline = false }: Props = $props();
+	let { coords, properties, onClose = () => {}, id, inline = false, fr = false }: Props = $props();
+
+	const formatScore = (v: any) =>
+		typeof v === 'number'
+			? fr
+				? formatNumber(v, { minimumFractionDigits: 1, maximumFractionDigits: 1 }, 'fr')
+				: v.toFixed(1)
+			: v?.toFixed(1);
 
 	let panoContainer: HTMLDivElement;
 	let panorama: any;
@@ -74,16 +84,33 @@
 	});
 
 	const metrics = $derived([
-		{ label: 'Overall', key: 'overall_score', icon: 'mdi:star-outline', overall: true },
-		{ label: 'Sidewalk', key: 'sidewalk_analysis_score', icon: 'mdi:walk' },
 		{
-			label: 'Accessibility',
+			label: fr ? 'Global' : 'Overall',
+			key: 'overall_score',
+			icon: 'mdi:star-outline',
+			overall: true
+		},
+		{ label: fr ? 'Trottoir' : 'Sidewalk', key: 'sidewalk_analysis_score', icon: 'mdi:walk' },
+		{
+			label: fr ? 'Accessibilité' : 'Accessibility',
 			key: 'accessibility_analysis_score',
 			icon: 'mdi:wheelchair-accessibility'
 		},
-		{ label: 'Street Quality', key: 'street_quality_score', icon: 'mdi:road-variant' },
-		{ label: 'Building', key: 'building_analysis_score', icon: 'mdi:office-building-outline' },
-		{ label: 'Placemaking', key: 'place_making_analysis_score', icon: 'mdi:bench' }
+		{
+			label: fr ? 'Qualité de la rue' : 'Street Quality',
+			key: 'street_quality_score',
+			icon: 'mdi:road-variant'
+		},
+		{
+			label: fr ? 'Bâtiments' : 'Building',
+			key: 'building_analysis_score',
+			icon: 'mdi:office-building-outline'
+		},
+		{
+			label: fr ? 'Aménagement des lieux' : 'Placemaking',
+			key: 'place_making_analysis_score',
+			icon: 'mdi:bench'
+		}
 	]);
 </script>
 
@@ -99,7 +126,7 @@
 			<button
 				class="absolute top-3 left-3 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white rounded-full w-8 h-8 flex items-center justify-center font-bold z-50 transition-all border border-white/20"
 				onclick={onClose}
-				aria-label="Close"
+				aria-label={fr ? 'Fermer' : 'Close'}
 			>
 				<Icon icon="mdi:close" />
 			</button>
@@ -108,7 +135,7 @@
 		<div bind:this={panoContainer} class="flex-grow w-full h-full">
 			<div class="w-full h-full flex flex-col items-center justify-center text-xs text-zinc-400">
 				<Icon icon="mdi:google-maps" class="text-3xl mb-2 opacity-50" />
-				Loading Streetview...
+				{fr ? 'Chargement de Street View…' : 'Loading Streetview...'}
 			</div>
 		</div>
 	</div>
@@ -132,7 +159,7 @@
 							{metric.label}
 						</div>
 						<div class="text-xs font-black text-zinc-800">
-							{properties?.[metric.key]?.toFixed(1) || '—'}
+							{formatScore(properties?.[metric.key]) || '—'}
 							<span class="text-zinc-500 font-normal">/ 5</span>
 						</div>
 					</div>
@@ -144,7 +171,7 @@
 			<div
 				class="mt-4 p-3 bg-zinc-50 rounded-lg border border-zinc-100 text-[11px] text-zinc-600 leading-relaxed italic"
 			>
-				"{properties?.best_explanation}"
+				{#if fr}« {properties?.best_explanation} »{:else}"{properties?.best_explanation}"{/if}
 			</div>
 		{/if}
 	</div>
