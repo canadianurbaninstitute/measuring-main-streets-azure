@@ -21,9 +21,9 @@ export const sections = [
                 des quartiers en favorisant le potentiel piétonnier, en accueillant des entreprises locales et en nourrissant un sentiment d’appartenance.</p>
                 <p>Dans la région du Grand Toronto (RGT), d’importants investissements en transport collectif transforment les corridors urbains à un rythme et à une échelle inédits depuis des générations.
                 Pourtant, la densité ne suffit pas à elle seule à créer une collectivité. Trop souvent, les aménagements axés sur le transport collectif (TOD) ont atteint les cibles de logement
-                sans parvenir à créer les milieux animés, inclusifs et socialement cohésifs que promettent les politiques d’aménagement. Il en résulte un scénario récurrent :
+                sans parvenir à créer les milieux animés, inclusifs et socialement cohésifs que promettent les politiques d’aménagement. Il en résulte un scénario récurrent :
                 des locaux commerciaux surdimensionnés, des façades inactives et une prédominance de locataires de chaînes qui limitent l’adaptabilité, la diversité économique locale et la vie communautaire.</p>
-                <p>Ce projet répond à cette lacune en posant une question centrale : comment concevoir
+                <p>Ce projet répond à cette lacune en posant une question centrale : comment concevoir
                 et gérer le rez-de-chaussée des collectivités nouvellement densifiées et axées sur le transport collectif pour soutenir des quartiers animés, inclusifs et résilients? Sans intervention délibérée, le Golden Mile de Scarborough risque
                 de devenir un corridor dense, dépourvu des conditions nécessaires à des collectivités complètes.</p>`
 			},
@@ -31,13 +31,13 @@ export const sections = [
 				panelIds: ['gmbuildings'],
 				body: `<p><b>Le Golden Mile de Scarborough constitue un cas type déterminant.</b> Ancien corridor
                 industriel et commercial de l’après-guerre axé sur l’automobile, le Golden Mile se transforme en un secteur à haute densité desservi par le transport collectif et ancré par le
-                SLR Eglinton Crosstown (ligne 5). Le plan secondaire du Golden Mile de la Ville prévoit environ 24 000 nouveaux logements, 43 000 personnes résidentes
-                et 19 500 emplois sur 113 hectares, ce qui revient à bâtir une nouvelle collectivité de toutes pièces.</p>`
+                SLR Eglinton Crosstown (ligne 5). Le plan secondaire du Golden Mile de la Ville prévoit environ 24 000 nouveaux logements, 43 000 personnes résidentes
+                et 19 500 emplois sur 113 hectares, ce qui revient à bâtir une nouvelle collectivité de toutes pièces.</p>`
 			},
 			{
 				body: `<p>Si le plan fixe des cibles de croissance ambitieuses, il
                 donne peu d’orientations sur la façon dont le rez-de-chaussée sera conçu, programmé et géré.</p>
-				<p><b>Cette situation présente à la fois un risque et une occasion rare :</b> celle de façonner
+				<p><b>Cette situation présente à la fois un risque et une occasion rare :</b> celle de façonner
                 la vie quotidienne d’un quartier avant même qu’il n’existe pleinement.</p>`
 			}
 		]
@@ -71,7 +71,7 @@ export const sections = [
                 et collaboration continue avec l’IUC. Nous avons étudié des précédents locaux et internationaux, des quartiers à haute densité de Toronto à des villes
                 comme New York, Londres, Amsterdam et Barcelone, afin de repérer des stratégies transposables et d’éviter des écueils bien documentés.</p>
                 <p><b>Ce guide est un outil pratique d’aide à la décision</b> pour les urbanistes, les promoteurs, les décideurs et les organismes communautaires qui participent au réaménagement
-                du Golden Mile, ainsi qu’un cadre plus large pour d’autres corridors de la RGT en densification rapide. Son argument central est simple : réussir le rez-de-chaussée est essentiel pour réussir la collectivité. Le Golden Mile représente une occasion rare
+                du Golden Mile, ainsi qu’un cadre plus large pour d’autres corridors de la RGT en densification rapide. Son argument central est simple : réussir le rez-de-chaussée est essentiel pour réussir la collectivité. Le Golden Mile représente une occasion rare
                 et urgente d’harmoniser densité et qualité de vie, et de fixer une nouvelle norme pour l’aménagement de collectivités complètes axées sur le transport collectif.</p>`,
 				cta: {
 					href: 'https://canurb.org/wp-content/uploads/MUCP-x-CUI-Guidebook.pdf',

@@ -9,7 +9,7 @@
 	<div class="stats-header">
 		{#if fr}
 			<p class="stats-lead">
-				Pour <strong>350 millions de dollars</strong>, le gouvernement fédéral pourrait aménager :
+				Pour <strong>350 millions de dollars</strong>, le gouvernement fédéral pourrait aménager :
 			</p>
 		{:else}
 			<p class="stats-lead">
@@ -50,23 +50,23 @@
 			<ul class="stats-list">
 				<li>
 					<span class="dot"></span>
-					<p>Exploitation annuelle : <strong>290 millions de dollars</strong></p>
+					<p>Exploitation annuelle : <strong>290 millions de dollars</strong></p>
 				</li>
 				<li>
 					<span class="dot"></span>
-					<p>En milieu urbain, baisse des prix à la consommation : <strong>25 à 30 %</strong></p>
+					<p>En milieu urbain, baisse des prix à la consommation : <strong>25 à 30 %</strong></p>
 				</li>
 				<li>
 					<span class="dot"></span>
 					<p>
-						Les familles pourraient économiser de <strong>2 500 $ à 10 000 $</strong> par année selon
+						Les familles pourraient économiser de <strong>2 500 $ à 10 000 $</strong> par année selon
 						l’endroit
 					</p>
 				</li>
 				<li>
 					<span class="dot"></span>
 					<p>
-						<strong>200 000 familles urbaines</strong> et <strong>10 000 familles du Nord</strong>
+						<strong>200 000 familles urbaines</strong> et <strong>10 000 familles du Nord</strong>
 						pourraient économiser au total <strong>600 millions de dollars</strong> par année
 					</p>
 				</li>

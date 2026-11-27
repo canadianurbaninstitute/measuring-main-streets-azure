@@ -14,8 +14,14 @@
 			items: [
 				T('Housing development & density', 'Construction résidentielle et densité'),
 				T('Expansion of public transit', 'Expansion du transport collectif'),
-				T('Homelessness & harm reduction policies', 'Itinérance et politiques de réduction des méfaits'),
-				T('Drivers vs. cyclists & transit', 'Automobilistes contre cyclistes et transport collectif'),
+				T(
+					'Homelessness & harm reduction policies',
+					'Itinérance et politiques de réduction des méfaits'
+				),
+				T(
+					'Drivers vs. cyclists & transit',
+					'Automobilistes contre cyclistes et transport collectif'
+				),
 				T('Economic & cultural differences', 'Différences économiques et culturelles')
 			]
 		},
@@ -25,8 +31,14 @@
 			color: '#f45d01',
 			colorFam: 'orange',
 			items: [
-				T('Failure to engage with concerns on social issues', 'Absence de réponse aux préoccupations liées aux enjeux sociaux'),
-				T('Conversations dominated by privileged groups', 'Conversations dominées par des groupes privilégiés')
+				T(
+					'Failure to engage with concerns on social issues',
+					'Absence de réponse aux préoccupations liées aux enjeux sociaux'
+				),
+				T(
+					'Conversations dominated by privileged groups',
+					'Conversations dominées par des groupes privilégiés'
+				)
 			]
 		},
 		{
@@ -36,8 +48,14 @@
 			colorFam: 'green',
 			items: [
 				T('Appreciation for TransLink', 'Appréciation de TransLink'),
-				T('Desire for European / Asian urban models', 'Désir de modèles urbains européens et asiatiques'),
-				T("Vancouver's culture, aesthetic, outdoors", 'Culture, esthétique et plein air de Vancouver'),
+				T(
+					'Desire for European / Asian urban models',
+					'Désir de modèles urbains européens et asiatiques'
+				),
+				T(
+					"Vancouver's culture, aesthetic, outdoors",
+					'Culture, esthétique et plein air de Vancouver'
+				),
 				T('Concern about social issues', 'Préoccupation à l’égard des enjeux sociaux')
 			]
 		},
@@ -47,9 +65,18 @@
 			color: '#00adf2',
 			colorFam: 'blue',
 			items: [
-				T('Provide a vision for a better development future', 'Proposer une vision d’un meilleur avenir en matière de développement'),
-				T("Celebrate Vancouver's landscape and culture", 'Célébrer les paysages et la culture de Vancouver'),
-				T('Acknowledge desires for solutions to density issues', 'Reconnaître le désir de solutions aux enjeux de densité')
+				T(
+					'Provide a vision for a better development future',
+					'Proposer une vision d’un meilleur avenir en matière de développement'
+				),
+				T(
+					"Celebrate Vancouver's landscape and culture",
+					'Célébrer les paysages et la culture de Vancouver'
+				),
+				T(
+					'Acknowledge desires for solutions to density issues',
+					'Reconnaître le désir de solutions aux enjeux de densité'
+				)
 			]
 		}
 	];

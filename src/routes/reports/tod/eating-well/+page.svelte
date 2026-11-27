@@ -34,7 +34,7 @@
 			type: 'image',
 			src: marketConcentrationImg,
 			alt: fr
-				? 'Infographie illustrant la concentration du marché canadien de l’épicerie : 80 % contrôlé par 5 géants.'
+				? 'Infographie illustrant la concentration du marché canadien de l’épicerie : 80 % contrôlé par 5 géants.'
 				: 'Infographic showing Canadian grocery market concentration: 80% controlled by 5 giants.'
 		},
 		'transit-food-access': {

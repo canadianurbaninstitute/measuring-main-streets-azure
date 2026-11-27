@@ -15,7 +15,7 @@ export const REPORT_TAGS_FR = {
 	'Infrastructure Institute': 'Infrastructure Institute',
 	'Digital Public Square': 'Digital Public Square',
 	CATCH: 'CATCH',
-	'Executive Summary': 'Sommaire',
+	'Executive Summary': 'Résumé',
 	'Research Brief': 'Note de recherche',
 	'Partner Report': 'Rapport de partenaire'
 };
@@ -142,7 +142,7 @@ export const REPORT_CARDS_FR = {
 			'Comment les collectivités peuvent faire en sorte que l’aménagement axé sur le transport collectif profite à tout le monde.'
 	},
 	'/reports/executive-summary': {
-		title: 'Sommaire\u00a0: Mesures des rues principales',
+		title: 'Résumé\u00a0: Mesures des rues principales',
 		description:
 			'Découvrez le projet et la plateforme Mesures des rues principales.'
 	},

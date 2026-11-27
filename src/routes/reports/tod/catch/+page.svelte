@@ -379,12 +379,12 @@
 
 	<div class="inline-article" id="contact">
 		{#if fr}
-			Pour en savoir plus sur CATCH et accéder à la boîte à outils ETOAH :
+			Pour en savoir plus sur CATCH et accéder à la boîte à outils ETOAH :
 			<div class="inline-cta">
 				<VisLink href="https://catch-rehac.ca/" label="En savoir plus" />
 			</div>
 			Les villes, investisseurs, décideurs et partenaires qui souhaitent se joindre à des collaborations
-			locales peuvent écrire à info@catch-rehac.ca :
+			locales peuvent écrire à info@catch-rehac.ca :
 			<div class="inline-cta">
 				<VisLink href="mailto:info@catch-rehac.ca" label="Joindre CATCH" />
 			</div>

@@ -17,17 +17,17 @@ export const sections = [
 			{
 				eyebrow: 'L’oligopole de l’épicerie au Canada',
 				heading: 'Des prix de l’épicerie qui s’emballent',
-				body: `<p>Le secteur canadien de l’épicerie manque de saine concurrence. Les prix de l’épicerie ont augmenté de plus de <a href="https://stories.td.com/ca/en/article/rising-cost-of-groceries-canada-td-economics" target="_blank">30 % depuis la fin de 2019</a>, et l’accessibilité financière des aliments devient la <a href="https://www.cbc.ca/news/canada/nova-scotia/canadians-save-groceries-food-costs-survey-9.6986295" target="_blank">principale préoccupation financière</a> de nombreux Canadiens et Canadiennes. Cette tendance témoigne d’une défaillance du marché.</p>
+				body: `<p>Le secteur canadien de l’épicerie manque de saine concurrence. Les prix de l’épicerie ont augmenté de plus de <a href="https://stories.td.com/ca/en/article/rising-cost-of-groceries-canada-td-economics" target="_blank">30 % depuis la fin de 2019</a>, et l’accessibilité financière des aliments devient la <a href="https://www.cbc.ca/news/canada/nova-scotia/canadians-save-groceries-food-costs-survey-9.6986295" target="_blank">principale préoccupation financière</a> de nombreux Canadiens et Canadiennes. Cette tendance témoigne d’une défaillance du marché.</p>
 				<p>En 2022, les géants canadiens de l’épicerie — Loblaws, Sobeys et Metro — ont déclaré plus de 100 milliards de dollars de ventes d’aliments et réalisé plus de 3,6 milliards de dollars de profits. Ces trois géants freinent activement la concurrence et ont toute latitude pour maximiser leurs profits aux dépens de la population canadienne.</p>
-				<p>Si l’on ajoute Walmart et Costco, ces cinq sociétés forment un oligopole qui <a href="https://breachmedia.ca/why-canada-needs-public-grocery-stores/" target="_blank">contrôle plus de 80 %</a> du marché de l’épicerie.</p>
+				<p>Si l’on ajoute Walmart et Costco, ces cinq sociétés forment un oligopole qui <a href="https://breachmedia.ca/why-canada-needs-public-grocery-stores/" target="_blank">contrôle plus de 80 %</a> du marché de l’épicerie.</p>
 				<p>Le <a href="https://competition-bureau.canada.ca/sites/default/files/attachments/2023/CB-Retail-Grocery-Market-Study-Report-EN-2023-06-23.pdf" target="_blank">Bureau de la concurrence du Canada</a> considère qu’une concurrence accrue est essentielle pour faire baisser les prix de l’épicerie, mais prévient que les épiciers indépendants ne prendront pas d’expansion sans le soutien des gouvernements.</p>`
 			},
 			{
-				body: `<p>Le Bureau a constaté que les épiciers indépendants se heurtent à d’importants obstacles à leur expansion :</p>
+				body: `<p>Le Bureau a constaté que les épiciers indépendants se heurtent à d’importants obstacles à leur expansion :</p>
 				<ul>
-					<li><b>Fusions et puissance financière :</b> Les géants d’aujourd’hui sont issus de nombreuses fusions et se servent de leur puissance financière combinée pour absorber de plus petits concurrents.</li>
-					<li><b>Commerce de gros et chaîne d’approvisionnement :</b> Beaucoup d’indépendants ne sont pas assez gros pour posséder leur propre entrepôt ou acheter directement auprès des fournisseurs. Les géants tirent parti de leurs activités de gros bien établies pour battre les indépendants sur les prix.</li>
-					<li><b>Contrôles fonciers :</b> Les géants utilisent des contrôles fonciers pour rendre difficile, voire impossible, l’ouverture de nouvelles épiceries concurrentes à proximité.</li>
+					<li><b>Fusions et puissance financière :</b> Les géants d’aujourd’hui sont issus de nombreuses fusions et se servent de leur puissance financière combinée pour absorber de plus petits concurrents.</li>
+					<li><b>Commerce de gros et chaîne d’approvisionnement :</b> Beaucoup d’indépendants ne sont pas assez gros pour posséder leur propre entrepôt ou acheter directement auprès des fournisseurs. Les géants tirent parti de leurs activités de gros bien établies pour battre les indépendants sur les prix.</li>
+					<li><b>Contrôles fonciers :</b> Les géants utilisent des contrôles fonciers pour rendre difficile, voire impossible, l’ouverture de nouvelles épiceries concurrentes à proximité.</li>
 				</ul>`
 			}
 		]
@@ -78,7 +78,7 @@ export const sections = [
 			{
 				heading: 'L’option coopérative',
 				body: `<p>Les épiceries coopératives, ou coopératives alimentaires, n’ont rien de nouveau au Canada. Bon nombre d’entre elles sont nées <a href="https://www.cbc.ca/news/canada/british-columbia/grocery-coops-alternative-supermarkets-1.7192944" target="_blank" /> à la fin des années 1960 et au début des années 1970</a>. Si elles prennent des formes très variées, les coopératives sont définies par Jon Steinman comme des entreprises ou des organisations fondées et détenues par les personnes qui bénéficient directement de leurs produits ou services. Les coopératives n’imposent pas de prix abusifs à leur clientèle, puisque c’est elle qui les gouverne.</p>
-				<p>Des coopératives alimentaires ont été créées pour répondre aux besoins des collectivités en matière d’accès à des aliments sains et abordables, en milieu urbain comme en milieu rural, là où cet accès est devenu difficile. Elles naissent souvent pour combler des lacunes : dans des quartiers urbains où l’offre locale est trop chère, ou dans des villages où le dernier supermarché d’une grande chaîne a fermé ses portes.</p>
+				<p>Des coopératives alimentaires ont été créées pour répondre aux besoins des collectivités en matière d’accès à des aliments sains et abordables, en milieu urbain comme en milieu rural, là où cet accès est devenu difficile. Elles naissent souvent pour combler des lacunes : dans des quartiers urbains où l’offre locale est trop chère, ou dans des villages où le dernier supermarché d’une grande chaîne a fermé ses portes.</p>
 				<p>Les coopératives alimentaires ont pour mission de faire baisser le coût de l’épicerie et de faire profiter leurs membres des économies réalisées.</p>
 				<p>Imaginez si les pôles de transport collectif comprenaient des épiceries gérées et exploitées par des membres de la collectivité qui s’entraident pour se nourrir et tissent des liens entre voisins et voisines.</p>`
 			}

@@ -4,6 +4,26 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 	import { onMount } from 'svelte';
 	import '../../../../styles.css';
+	import { getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	// Display-only translations of station status and potential values (map feature properties).
+	const STATUS_FR = { Existing: 'Existante', Planned: 'Prévue', Construction: 'En construction' };
+	const POTENTIAL_FR = {
+		'Very Low': 'Très faible',
+		Low: 'Faible',
+		Moderate: 'Modéré',
+		High: 'Élevé',
+		'Very High': 'Très élevé'
+	};
+	const trStatus = (s) =>
+		fr && typeof s === 'string'
+			? s
+					.split(',')
+					.map((p) => STATUS_FR[p.trim()] ?? p.trim())
+					.join(', ')
+			: s;
+	const trPotential = (p) => (fr ? (POTENTIAL_FR[p] ?? p) : p);
 
 	let { visible, region = undefined, highlightIds = [] } = $props();
 
@@ -196,13 +216,15 @@
 						feature.properties.label ||
 						feature.properties.name ||
 						'Station';
+					const status = trStatus(feature.properties.status);
+					const potential = trPotential(feature.properties.potential);
 					const content = `<div class="popup-inner">
 						<div class="popup-title">${name}</div>
 						<div class="line-label">${feature.properties.line_display_name}<br/>
-							${feature.properties.status}
+							${status}
 						</div>
-						Overall Development Potential: 
-						${feature.properties.potential} 
+						${fr ? 'Potentiel de développement global\u00a0:' : 'Overall Development Potential:'} 
+						${potential} 
 						</div>`;
 					popup.setLngLat(e.lngLat).setHTML(content).addTo(map);
 				}
@@ -217,16 +239,20 @@
 <div class="map-wrapper {visible ? 'visible' : ''}">
 	<div bind:this={mapContainer} class="map-container"></div>
 	<div class="map-legend">
-		<div class="legend-header text-xs">Land Availability</div>
+		<div class="legend-header text-xs">
+			{fr ? 'Disponibilité des terrains' : 'Land Availability'}
+		</div>
 		<div class="legend-grid">
 			<div class="legend-header"></div>
 			<!-- empty top-left corner -->
 			<div class="legend-header"></div>
-			<div class="legend-label">Low</div>
-			<div class="legend-label">High</div>
+			<div class="legend-label">{fr ? 'Faible' : 'Low'}</div>
+			<div class="legend-label">{fr ? 'Élevée' : 'High'}</div>
 
-			<div class="legend-side-label text-xs" style="grid-row: 2 / 4">Growth Pressure</div>
-			<div class="legend-label">Low</div>
+			<div class="legend-side-label text-xs" style="grid-row: 2 / 4">
+				{fr ? 'Pression de croissance' : 'Growth Pressure'}
+			</div>
+			<div class="legend-label">{fr ? 'Faible' : 'Low'}</div>
 			<div class="legend-cell">
 				<span class="legend-dot" style="background: #00adf2"></span>
 			</div>
@@ -234,7 +260,7 @@
 				<span class="legend-dot" style="background: #db3069"></span>
 			</div>
 
-			<div class="legend-label">High</div>
+			<div class="legend-label">{fr ? 'Élevée' : 'High'}</div>
 			<div class="legend-cell">
 				<span class="legend-dot" style="background: #58e965"></span>
 			</div>

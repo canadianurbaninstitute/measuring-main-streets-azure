@@ -12,7 +12,10 @@
 			color: '#db3069',
 			colorFam: 'pink',
 			items: [
-				T('Northfield Station impact on neighbourhood', 'Effets de la station Northfield sur le quartier'),
+				T(
+					'Northfield Station impact on neighbourhood',
+					'Effets de la station Northfield sur le quartier'
+				),
 				T('Rules of the road', 'Code de la route'),
 				T('State of crime in Sunnydale', 'Criminalité à Sunnydale'),
 				T('Marginalized community inclusion', 'Inclusion des communautés marginalisées'),
@@ -25,8 +28,14 @@
 			color: '#f45d01',
 			colorFam: 'orange',
 			items: [
-				T('Failure to engage with major concerns including acceptance, affordability, and safety', 'Absence de réponse aux préoccupations majeures, notamment l’acceptation, l’abordabilité et la sécurité'),
-				T('Expectations of neglect and prioritization of developers over community', 'Crainte d’être négligés et sentiment que les promoteurs passent avant la collectivité')
+				T(
+					'Failure to engage with major concerns including acceptance, affordability, and safety',
+					'Absence de réponse aux préoccupations majeures, notamment l’acceptation, l’abordabilité et la sécurité'
+				),
+				T(
+					'Expectations of neglect and prioritization of developers over community',
+					'Crainte d’être négligés et sentiment que les promoteurs passent avant la collectivité'
+				)
 			]
 		},
 		{
@@ -35,10 +44,16 @@
 			color: '#43b171',
 			colorFam: 'green',
 			items: [
-				T('Local artworks as beneficial to the community', 'Œuvres d’art locales jugées bénéfiques pour la collectivité'),
+				T(
+					'Local artworks as beneficial to the community',
+					'Œuvres d’art locales jugées bénéfiques pour la collectivité'
+				),
 				T('Need for increased housing supply', 'Besoin d’accroître l’offre de logements'),
 				T('Local events for awareness raising', 'Événements locaux de sensibilisation'),
-				T('Desire for safe roads for cyclists and drivers', 'Désir de routes sécuritaires pour les cyclistes et les automobilistes')
+				T(
+					'Desire for safe roads for cyclists and drivers',
+					'Désir de routes sécuritaires pour les cyclistes et les automobilistes'
+				)
 			]
 		},
 		{
@@ -47,9 +62,18 @@
 			color: '#00adf2',
 			colorFam: 'blue',
 			items: [
-				T('Highlight positive outcomes: housing, culture, and safety', 'Mettre en valeur les retombées positives\u00a0: logement, culture et sécurité'),
-				T('Acknowledge challenges: planning mis-steps, cultural clashes, and growing pains', 'Reconnaître les défis\u00a0: faux pas en planification, chocs culturels et difficultés liées à la croissance'),
-				T('Engage people on what is needed next', 'Consulter les gens sur les prochains besoins')
+				T(
+					'Highlight positive outcomes: housing, culture, and safety',
+					'Mettre en valeur les retombées positives\u00a0: logement, culture et sécurité'
+				),
+				T(
+					'Acknowledge challenges: planning mis-steps, cultural clashes, and growing pains',
+					'Reconnaître les défis\u00a0: faux pas en planification, chocs culturels et difficultés liées à la croissance'
+				),
+				T(
+					'Engage people on what is needed next',
+					'Consulter les gens sur les prochains besoins'
+				)
 			]
 		}
 	];

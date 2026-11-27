@@ -10,7 +10,7 @@ export const sections = [
 		blocks: [
 			{
 				heading: 'TOD et déplacement de population',
-				body: `<p>Depuis des décennies, l’aménagement axé sur le transport collectif (TOD) dans les villes canadiennes suit un scénario bien connu : de nouvelles lignes sont annoncées, la valeur des propriétés voisines
+				body: `<p>Depuis des décennies, l’aménagement axé sur le transport collectif (TOD) dans les villes canadiennes suit un scénario bien connu : de nouvelles lignes sont annoncées, la valeur des propriétés voisines
                 s’envole,<sup><a href="#references">[1]</a></sup>
                 et les personnes à faible revenu qui dépendent le plus du transport collectif n’ont plus les moyens de rester<sup><a href="#references">[2]</a></sup>. Si les grands investissements en transport collectif offrent l’occasion de bâtir des collectivités complètes —
                 avec des transports durables, un meilleur accès, une meilleure connectivité et une nouvelle offre de logements —,
@@ -30,7 +30,7 @@ export const sections = [
                 les personnes résidentes vulnérables — souvent racisées et membres de groupes méritant l’équité — sont repoussées, et celles
                 qui peuvent payer le prix fort pour vivre près du transport collectif s’y installent.</p>
 
-                <p>Cette inégalité met en lumière ce que les données démontrent clairement : les choix de politiques locales et le contexte comptent<sup><a href="#references">[6]</a></sup>.
+                <p>Cette inégalité met en lumière ce que les données démontrent clairement : les choix de politiques locales et le contexte comptent<sup><a href="#references">[6]</a></sup>.
                 Cette grande variabilité des approches locales est elle-même le reflet de lacunes entre les grands
                 systèmes qui façonnent le TOD. Même si l’abordabilité et l’inclusion sont des objectifs déclarés du financement du transport collectif, aucun incitatif, aucune politique
                 ni aucun programme fédéral ou provincial ne vise à harmoniser les plans de transport collectif et de logement. Les administrations municipales
@@ -40,7 +40,7 @@ export const sections = [
 			{
 				panelId: 'intro2',
 				heading: 'Vers un TOD équitable',
-				body: `<p>Loin d’être immuables, ces réalités sont des « bogues du système » qu’il est possible
+				body: `<p>Loin d’être immuables, ces réalités sont des « bogues du système » qu’il est possible
                 de corriger grâce à une meilleure harmonisation des politiques et à une mise en œuvre coordonnée. Il existe des moments précis du
                 processus de planification et d’aménagement où des efforts ciblés peuvent orienter le TOD vers des collectivités plus abordables, équitables et
                 durables — et des collectivités au Canada et ailleurs montrent comment y parvenir.</p>`
@@ -57,7 +57,7 @@ export const sections = [
 		blocks: [
 			{
 				heading:
-					'Logement abordable équitable axé sur le transport collectif (ETOAH) : un nouveau cadre',
+					'Logement abordable équitable axé sur le transport collectif (ETOAH) : un nouveau cadre',
 				body: `<p>L’<b>ETOAH</b> est un cadre fondé sur des données probantes qui place l’abordabilité et l’inclusion au cœur du processus d’aménagement, plutôt que d’en faire une réflexion après coup.
                 Il reconnaît que les infrastructures de transport collectif et le logement abordable sont des systèmes interreliés qui doivent être planifiés, financés et réalisés ensemble. </p>
 
@@ -70,7 +70,7 @@ export const sections = [
 
                 <p>Grâce au processus du Lab,
                 ces partenaires ont pu cerner de nouvelles occasions d’ajouter à la fois de la densité et de l’abordabilité près de la future ligne de SLR de Hamilton.
-                Le Lab a aussi révélé que les défis de Hamilton n’étaient pas uniques :
+                Le Lab a aussi révélé que les défis de Hamilton n’étaient pas uniques :
                 des villes partout au Canada se heurtaient à des obstacles semblables, ce qui a mené à la création d’une initiative nationale pour déployer ces solutions à plus grande échelle. </p>`
 			}
 		]
@@ -98,9 +98,9 @@ export const sections = [
 		blocks: [
 			{
 				panelId: 'etoah-components',
-				heading: 'Faire progresser l’ETOAH : trois volets clés',
+				heading: 'Faire progresser l’ETOAH : trois volets clés',
 				body: `<p>Chaque ville est unique, mais beaucoup font face à un même ensemble de défis lorsqu’il s’agit de maintenir et de financer des logements abordables le long des corridors de transport collectif.
-                Le nouveau modèle de CATCH pour faire progresser l’ETOAH comporte trois volets interreliés qui ciblent ces défis :</p>`
+                Le nouveau modèle de CATCH pour faire progresser l’ETOAH comporte trois volets interreliés qui ciblent ces défis :</p>`
 			},
 			{
 				panelId: 'etoah-components1',
@@ -151,8 +151,8 @@ export const sections = [
                 a démontré la force d’une utilisation proactive des terrains publics en convertissant un ancien site hospitalier situé près de
                 la station de SLR Bridgeland-Memorial en 24 logements abordables à revenus mixtes. En repérant et en mobilisant
                 des terrains municipaux avant que la spéculation liée au transport collectif ne fasse grimper leur valeur, la Ville a livré ces logements
-                15 % sous le budget tout en garantissant leur abordabilité à long terme grâce à une combinaison de logements subventionnés, à loyer indexé sur le revenu
-                et à loyer inférieur à celui du marché. Aujourd’hui, 70 % des personnes résidentes font un trajet de moins de 30 minutes pour se rendre au travail, et 35 % s’y rendent à pied ou à vélo —
+                15 % sous le budget tout en garantissant leur abordabilité à long terme grâce à une combinaison de logements subventionnés, à loyer indexé sur le revenu
+                et à loyer inférieur à celui du marché. Aujourd’hui, 70 % des personnes résidentes font un trajet de moins de 30 minutes pour se rendre au travail, et 35 % s’y rendent à pied ou à vélo —
                 preuve qu’une acquisition stratégique de terrains peut favoriser à la fois l’abordabilité et l’accès. </p>`
 			}
 		]
@@ -167,7 +167,7 @@ export const sections = [
 		blocks: [
 			{
 				heading: 'Bâtir des collectivités dynamiques et durables pour tout le monde',
-				body: `<p>Les nouvelles recherches de l’IUC et de la School of Cities confirment ce à quoi CATCH s’attaque au moyen du cadre ETOAH :
+				body: `<p>Les nouvelles recherches de l’IUC et de la School of Cities confirment ce à quoi CATCH s’attaque au moyen du cadre ETOAH :
                 la crise du logement au Canada est une mosaïque de pénuries locales qui exige des solutions coordonnées et adaptées à chaque milieu. Un aménagement axé sur le transport collectif
                 inclusif et équitable est possible avec la bonne approche — et alors que le Canada investit des milliards de dollars dans les infrastructures de transport collectif,
                 il est essentiel de savoir comment libérer ce potentiel.</p>

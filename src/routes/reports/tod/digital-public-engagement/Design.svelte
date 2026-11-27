@@ -1,8 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
+	import { getLang } from '../../../lib/i18n';
 	import design1 from '../../assets/dps-design.png';
 	import design2 from '../../assets/dps-design2.png';
 	import design3 from '../../assets/dps-design3.png';
+
+	const fr = getLang() === 'fr';
 
 	let scrollY = $state(0);
 	let el = $state(null);
@@ -39,19 +42,19 @@
 	<img
 		class="img1"
 		src={design1}
-		alt="Love Cooksville tool screenshots"
+		alt={fr ? 'Captures d’écran de l’outil Love Cooksville' : 'Love Cooksville tool screenshots'}
 		style:transform={`rotate(-3deg) translate3d(0, ${p1}px, 0)`}
 	/>
 	<img
 		class="img2"
 		src={design2}
-		alt="Love Cooksville tool screenshots"
+		alt={fr ? 'Captures d’écran de l’outil Love Cooksville' : 'Love Cooksville tool screenshots'}
 		style:transform={`rotate(2deg) translate3d(0, ${p2}px, 0)`}
 	/>
 	<img
 		class="img3"
 		src={design3}
-		alt="Love Cooksville tool screenshots"
+		alt={fr ? 'Captures d’écran de l’outil Love Cooksville' : 'Love Cooksville tool screenshots'}
 		style:transform={`rotate(3deg) translate3d(0, ${p3}px, 0)`}
 	/>
 </div>

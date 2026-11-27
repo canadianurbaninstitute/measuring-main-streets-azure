@@ -13,8 +13,14 @@
 			colorFam: 'pink',
 			items: [
 				T('Bike lanes & urban planning', 'Pistes cyclables et urbanisme'),
-				T("Housing affordability vs. landlords' rights", 'Abordabilité du logement et droits des propriétaires-bailleurs'),
-				T("Mississauga's development vs. nostalgia for the past", 'Développement de Mississauga et nostalgie du passé'),
+				T(
+					"Housing affordability vs. landlords' rights",
+					'Abordabilité du logement et droits des propriétaires-bailleurs'
+				),
+				T(
+					"Mississauga's development vs. nostalgia for the past",
+					'Développement de Mississauga et nostalgie du passé'
+				),
 				T('Provincial and municipal policies', 'Politiques provinciales et municipales')
 			]
 		},
@@ -24,8 +30,14 @@
 			color: '#f45d01',
 			colorFam: 'orange',
 			items: [
-				T('Failure to engage with major concerns including safety, affordability, and dignity', 'Absence de réponse aux préoccupations majeures, notamment la sécurité, l’abordabilité et la dignité'),
-				T('Less informed on the realities of the coming developments', 'Méconnaissance de la réalité des projets de développement à venir')
+				T(
+					'Failure to engage with major concerns including safety, affordability, and dignity',
+					'Absence de réponse aux préoccupations majeures, notamment la sécurité, l’abordabilité et la dignité'
+				),
+				T(
+					'Less informed on the realities of the coming developments',
+					'Méconnaissance de la réalité des projets de développement à venir'
+				)
 			]
 		},
 		{
@@ -34,9 +46,18 @@
 			color: '#43b171',
 			colorFam: 'green',
 			items: [
-				T('Want what is best for the community', 'Vouloir ce qu’il y a de mieux pour la collectivité'),
-				T('Support the local food scene and diversity', 'Soutenir la scène culinaire locale et la diversité'),
-				T('Want safe and uncongested roads', 'Vouloir des routes sécuritaires et sans congestion'),
+				T(
+					'Want what is best for the community',
+					'Vouloir ce qu’il y a de mieux pour la collectivité'
+				),
+				T(
+					'Support the local food scene and diversity',
+					'Soutenir la scène culinaire locale et la diversité'
+				),
+				T(
+					'Want safe and uncongested roads',
+					'Vouloir des routes sécuritaires et sans congestion'
+				),
 				T('Want reliable transportation service', 'Vouloir un service de transport fiable')
 			]
 		},
@@ -46,8 +67,14 @@
 			color: '#00adf2',
 			colorFam: 'blue',
 			items: [
-				T('Highlight positive outcomes: business, family, and entertainment', 'Mettre en valeur les retombées positives\u00a0: commerces, famille et divertissement'),
-				T('Acknowledge challenges: delays, poor communication, and trade-offs', 'Reconnaître les défis\u00a0: retards, communication déficiente et compromis'),
+				T(
+					'Highlight positive outcomes: business, family, and entertainment',
+					'Mettre en valeur les retombées positives\u00a0: commerces, famille et divertissement'
+				),
+				T(
+					'Acknowledge challenges: delays, poor communication, and trade-offs',
+					'Reconnaître les défis\u00a0: retards, communication déficiente et compromis'
+				),
 				T('Equip people with what is coming', 'Informer les gens de ce qui s’en vient')
 			]
 		}

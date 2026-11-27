@@ -11,7 +11,7 @@
 </div>
 
 <div class="hero">
-	<h1>{fr ? 'Sommaire' : 'Executive Summary'}</h1>
+	<h1>{fr ? 'Résumé' : 'Executive Summary'}</h1>
 
 </div>
 

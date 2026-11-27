@@ -79,7 +79,7 @@
 		Dwellings: 'Logements',
 		Employment: 'Emplois',
 		'Average Transportation Cost': 'Coût moyen du transport',
-		'Spending >30% on shelter': 'Plus de 30 % du revenu au logement',
+		'Spending >30% on shelter': 'Plus de 30 % du revenu au logement',
 		Renters: 'Locataires',
 		Apartments: 'Appartements',
 		'Public Transit': 'Transport collectif',
@@ -341,7 +341,7 @@
 			{/if}
 		</h1>
 		<div class="center font-semibold" style="color: var(--brandDarkBlue);">
-			{fr ? 'Choisissez une région :' : 'Select a Region:'}
+			{fr ? 'Choisissez une région :' : 'Select a Region:'}
 		</div>
 		<div class="center p-4 sticky">
 			<CardSelector options={regions} bind:selected={selectedRegion} />
@@ -564,7 +564,7 @@
 				<p class="pb-8">
 					Les collectivités situées autour des stations de transport collectif sont généralement
 					composées de jeunes locataires vivant seuls. Les populations des ASTC sont aussi généralement
-					très scolarisées : la proportion de personnes titulaires d’un diplôme universitaire y est plus
+					très scolarisées : la proportion de personnes titulaires d’un diplôme universitaire y est plus
 					élevée qu’à l’extérieur des ASTC.
 				</p>
 			{:else}

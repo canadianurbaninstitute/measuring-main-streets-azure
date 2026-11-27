@@ -61,7 +61,7 @@ export const METRIC_LABELS_FR: Record<string, string> = {
 	'Total Dwellings': 'Nombre total de logements',
 	'Average Monthly Rent': 'Loyer mensuel moyen',
 	'Average Dwelling Value': 'Valeur moyenne des logements',
-	'Spending ≥30% of income on shelter': 'Consacrant 30 % ou plus du revenu au logement',
+	'Spending ≥30% of income on shelter': 'Consacrant 30 % ou plus du revenu au logement',
 	'Population Density': 'Densité de population',
 	'Employment Density': 'Densité d’emploi',
 	Water: 'Eau',

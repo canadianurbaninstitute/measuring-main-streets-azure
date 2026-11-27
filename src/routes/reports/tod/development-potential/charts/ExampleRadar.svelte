@@ -2,6 +2,10 @@
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
 	import RadarChart from '../../../../tools/development-potential/RadarChart.svelte';
+	import { getLang } from '../../../../lib/i18n';
+
+	const fr = getLang() === 'fr';
+	const T = (en, frText) => (fr ? frText : en);
 
 	let { visible } = $props();
 
@@ -43,34 +47,36 @@
 			}
 
 			landRadar = [
-				{ label: 'Single Unit Dwellings', value: (parseFloat(target.single_units) || 0) * 100 },
-				{ label: 'Total Developable Land', value: (parseFloat(target.DevelopableArea) || 0) * 100 },
+				{ label: T('Single Unit Dwellings', 'Habitations unifamiliales'), value: (parseFloat(target.single_units) || 0) * 100 },
 				{
-					label: 'High Opportunity Sites',
+					label: T('Total Developable Land', 'Superficie aménageable totale'),
+					value: (parseFloat(target.DevelopableArea) || 0) * 100 },
+				{
+					label: T('High Opportunity Sites', 'Sites à fort potentiel'),
 					value: (parseFloat(target.HighOpportunityArea) || 0) * 100
 				},
-				{ label: 'Employment Density', value: (parseFloat(target.EmploymentDensity) || 0) * 100 },
-				{ label: 'Population Density', value: (parseFloat(target.PopulationDensity) || 0) * 100 }
+				{ label: T('Employment Density', 'Densité d’emploi'), value: (parseFloat(target.EmploymentDensity) || 0) * 100 },
+				{ label: T('Population Density', 'Densité de population'), value: (parseFloat(target.PopulationDensity) || 0) * 100 }
 			];
 
 			growthRadar = [
 				{
-					label: 'Pop Change 2020-2025',
+					label: T('Pop Change 2020-2025', 'Variation de la pop. 2020-2025'),
 					value: (parseFloat(target.PopChange2020to2025) || 0) * 100
 				},
 				{
-					label: 'Pop Change 2025-2030',
+					label: T('Pop Change 2025-2030', 'Variation de la pop. 2025-2030'),
 					value: (parseFloat(target.PopChange2025to2030) || 0) * 100
 				},
 				{
-					label: 'Municipal Pop Change 2020-2025',
+					label: T('Municipal Pop Change 2020-2025', 'Variation de la pop. municipale 2020-2025'),
 					value: (parseFloat(target.MunicipalPopChange2020to2025) || 0) * 100
 				},
 				{
-					label: 'Complete Community Score',
+					label: T('Complete Community Score', 'Score de collectivité complète'),
 					value: (parseFloat(target.OverallCCScore) || 0) * 100
 				},
-				{ label: 'Daily Visits', value: (parseFloat(target.DailyVisits) || 0) * 100 }
+				{ label: T('Daily Visits', 'Visites quotidiennes'), value: (parseFloat(target.DailyVisits) || 0) * 100 }
 			];
 
 			dataLoaded = true;
@@ -94,10 +100,10 @@
 				class="flex-1 flex flex-col items-center w-full bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
 			>
 				<h4 class="text-lg font-bold text-center text-[#ff007f] uppercase tracking-wide">
-					Land Availability
+					{fr ? 'Disponibilité des terrains' : 'Land Availability'}
 				</h4>
 				<span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2"
-					>Low</span
+					>{fr ? 'Faible' : 'Low'}</span
 				>
 				<div class="w-full aspect-square p-12">
 					<RadarChart data={landRadar} max={100} color="#ff007f" />
@@ -108,10 +114,10 @@
 				class="flex-1 flex flex-col items-center w-full bg-white p-3 rounded-xl shadow-sm border border-zinc-100"
 			>
 				<h4 class="text-lg font-bold text-center text-[#00adf2] uppercase tracking-wide">
-					Growth Pressure
+					{fr ? 'Pression de croissance' : 'Growth Pressure'}
 				</h4>
 				<span class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2"
-					>High</span
+					>{fr ? 'Élevée' : 'High'}</span
 				>
 				<div class="w-full aspect-square p-12">
 					<RadarChart data={growthRadar} max={100} color="#00adf2" />
